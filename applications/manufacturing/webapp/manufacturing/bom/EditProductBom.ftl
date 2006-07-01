@@ -201,7 +201,7 @@ function lookupBom() {
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingFormula}:</div></td>
         <td>&nbsp;</td>
         <td width="74%">
-            <select name="estimateCalcMethod">
+            <select name="estimateCalcMethod" class="selectBox">
             <option value="">&nbsp;</option>
             <#assign selectedFormula = "">
             <#if useValues>
