@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Party partyId="BLOG_GUEST" partyTypeId="PERSON"/>
+    <Person partyId="BLOG_GUEST" lastName="Guest" firstName="Blog"/>
+    <UserLogin userLoginId="blog_guest" partyId="BLOG_GUEST"/>
+    <PartyRole partyId="BLOG_GUEST" roleTypeId="_NA_"/>
+
+    <Party partyId="BLOG_ADMIN" partyTypeId="PERSON"/>
+    <Person partyId="BLOG_ADMIN" lastName="Admin" firstName="Blog"/>
+    <UserLogin userLoginId="blog_admin" partyId="BLOG_ADMIN"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="BLOG_ADMIN"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="BLOG_AUTHOR"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="BLOG_EDITOR"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="BLOG_PUBLISHER"/>
+    <PartyRole partyId="BLOG_ADMIN" roleTypeId="_NA_"/>
+
+    <Party partyId="BLOG_AUTHOR" partyTypeId="PERSON"/>
+    <Person partyId="BLOG_AUTHOR" lastName="Author" firstName="Blog"/>
+    <UserLogin userLoginId="blog_author" partyId="BLOG_AUTHOR"/>
+    <PartyRole partyId="BLOG_AUTHOR" roleTypeId="BLOG_AUTHOR"/>
+    <PartyRole partyId="BLOG_AUTHOR" roleTypeId="BLOG_PUBLISHER"/>
+    <PartyRole partyId="BLOG_AUTHOR" roleTypeId="_NA_"/>
+
+    <Party partyId="BLOG_EDITOR" partyTypeId="PERSON"/>
+    <Person partyId="BLOG_EDITOR" lastName="Editor" firstName="Blog"/>
+    <UserLogin userLoginId="blog_editor" partyId="BLOG_EDITOR"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="BLOG_EDITOR"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="BLOG_EDITOR"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="BLOG_PUBLISHER"/>
+    <PartyRole partyId="BLOG_EDITOR" roleTypeId="_NA_"/>
+
+    <ContactMech contactMechId="ADMIN_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
+    <PartyContactMech partyId="BLOG_ADMIN" contactMechId="ADMIN_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_ADMIN" contactMechId="ADMIN_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ContactMech contactMechId="AUTHOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
+    <PartyContactMech partyId="BLOG_AUTHOR" contactMechId="AUTHOR_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_AUTHOR" contactMechId="AUTHOR_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ContactMech contactMechId="EDITOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
+    <PartyContactMech partyId="BLOG_EDITOR" contactMechId="EDITOR_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_EDITOR" contactMechId="EDITOR_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ContactMech contactMechId="GUEST_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
+    <PartyContactMech partyId="BLOG_GUEST" contactMechId="GUEST_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
+    <PartyContactMechPurpose partyId="BLOG_GUEST" contactMechId="GUEST_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
+</entity-engine-xml>

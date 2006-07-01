@@ -1,0 +1,169 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      3.1
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.transaction.*;
+
+module = "pendingCommunications.bsh";
+
+partyId = userLogin.getString("partyId");
+
+// indicator to display messages FROM this user
+fromFlag = request.getParameter("showFromEvents");
+
+// get the sort field
+sortField = request.getParameter("sort");
+previousSort = request.getParameter("previousSort");
+
+// previous sort field
+previousSort = request.getParameter("previousSort");
+if (previousSort != null && sortField != null && previousSort.equals(sortField)) {
+    sortField = sortField.startsWith("-") ? sortField : "-" + sortField;
+}
+
+if (sortField == null) sortField = previousSort;
+if (sortField == null) sortField = "entryDate";
+context.put("previousSort", sortField);
+
+// set the page parameters
+viewIndex = 1;
+try {
+    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+} catch (Exception e) {
+    viewIndex = 1;
+}
+context.put("viewIndex", viewIndex);
+
+viewSize = 20;
+try {
+    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+} catch (Exception e) {
+    viewSize = 20;
+}
+if (viewSize > 100) {
+    viewSize = 100;
+}
+context.put("viewSize", viewSize);
+
+// get the logged in user's roles
+partyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId));
+
+// build the party role list
+pri = partyRoles.iterator();
+pRolesList = new ArrayList();
+while (pri.hasNext()) {
+    partyRole = (GenericValue) pri.next();
+    if (!partyRole.getString("roleTypeId").equals("_NA_")) {
+        pRolesList.add(new EntityExpr("roleTypeIdTo", EntityOperator.EQUALS, partyRole.getString("roleTypeId")));
+    }
+}
+
+// add in events with no role attached
+pRolesList.add(new EntityExpr("roleTypeIdTo", EntityOperator.EQUALS, null));
+
+// limit to just this user's events, or those not attached to a user
+partyList = new ArrayList();
+partyList.add(new EntityExpr("partyIdTo", EntityOperator.EQUALS, null));
+partyList.add(new EntityExpr("partyIdTo", EntityOperator.EQUALS, partyId));
+if ("Y".equalsIgnoreCase(fromFlag)) {
+    partyList.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, null));
+    partyList.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, partyId));
+}
+
+// limit to non-completed items
+statusList = new ArrayList();
+statusList.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_COMPLETE"));
+statusList.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_RESOLVED"));
+statusList.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_REFERRED"));
+
+// build the condition
+expressions = new ArrayList();
+expressions.add(new EntityConditionList(partyList, EntityOperator.OR));
+expressions.add(new EntityConditionList(pRolesList, EntityOperator.OR));
+expressions.add(new EntityConditionList(statusList, EntityOperator.AND));
+condition = new EntityConditionList(expressions, EntityOperator.AND);
+
+// specific fields to select
+fieldsToSelect = null;
+
+// sort order
+orderBy = UtilMisc.toList(sortField);
+
+// entity find options
+findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false); 
+// note distinct is false because it is not needed for a non-view-entity, and won't work with some databases when selecting a long text/clob field; also slows things down
+
+boolean beganTransaction = false;
+try {
+    beganTransaction = TransactionUtil.begin();
+
+    // obtain the ELI
+    eli = delegator.findListIteratorByCondition("CommunicationEvent", condition, null, fieldsToSelect, orderBy, findOpts);
+    
+    // get the indexes for the partial list
+    lowIndex = (((viewIndex - 1) * viewSize) + 1);
+    highIndex = viewIndex * viewSize;
+    
+    // get the partial list for this page
+    eventList = eli.getPartialList(lowIndex, viewSize);
+    if (eventList == null) {
+        eventList = new ArrayList();
+    }
+    
+    // attempt to get the full size
+    eli.last();
+    eventListSize = eli.currentIndex();
+    if (highIndex > eventListSize) {
+        highIndex = eventListSize;
+    }
+    
+    // close the list iterator
+    eli.close();
+    TransactionUtil.commit(beganTransaction);
+} catch (GenericEntityException e) {
+    String errMsg = "Failure in operation, rolling back transaction";
+    Debug.logError(e, errMsg, module);
+    try {
+        // only rollback the transaction if we started one...
+        TransactionUtil.rollback(beganTransaction, errMsg, e);
+    } catch (GenericEntityException e2) {
+        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+    }
+    // after rolling back, rethrow the exception
+    throw e;
+} finally {
+    // only commit the transaction if we started one... this will throw an exception if it fails
+    TransactionUtil.commit(beganTransaction);
+}
+
+    
+context.put("eventList", eventList);
+context.put("eventListSize", eventListSize);
+context.put("highIndex", highIndex);
+context.put("lowIndex", lowIndex);

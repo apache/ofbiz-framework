@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *  $Id: ofbiz-component.xml 7869 2006-06-27 03:10:11Z hansbak $
+-->
+
+<ofbiz-component name="content"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="dir" location="config"/>
+    <classpath type="dir" location="script"/>
+    <classpath type="dir" location="dtd"/>
+    <classpath type="jar" location="lib/*"/>
+    <classpath type="jar" location="lib/uno/*"/>
+    <classpath type="jar" location="build/lib/*"/>
+    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/MimeTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/DataCategoryData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/BlogData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/TemplateData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/UsersData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/MiscData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/WebSitePublishPointData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/CompDocData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ForumDemoData.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_contenttypes.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_email.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_survey.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_commevent.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_subscription.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+    <webapp name="content"
+        title="Content"
+        server="default-server"
+        location="webapp/content"
+		base-permission="CONTENTMGR"
+        mount-point="/content"/>
+</ofbiz-component>

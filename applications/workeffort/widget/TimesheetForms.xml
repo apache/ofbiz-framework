@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2005-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+
+    <form name="ListMyTimesheets" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        target="" title="" type="list" paginate-target="MyTimesheets" paginate="true" list-name="timesheets">
+        <actions>
+            <entity-and entity-name="Timesheet" list-name="timesheets">
+                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-and>
+        </actions>
+        <auto-fields-entity entity-name="Timesheet"/>
+        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink description="${timesheetId}" target="EditTimesheet?timesheetId=${timesheetId}" also-hidden="false"/>
+        </field>
+        <field name="partyId"><hidden/></field>
+        <field name="clientPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
+    </form>
+    <form name="ListMyRates" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        target="" title="" type="list" paginate="false" list-name="partyRates">
+        <actions>
+            <entity-and entity-name="PartyRate" list-name="partyRates">
+                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-and>
+        </actions>
+        <auto-fields-entity entity-name="PartyRate" default-field-type="display"/>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType"/></field>
+        <field name="partyId"><hidden/></field>
+    </form>
+    <form name="QuickCreateTimeEntry" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        target="createQuickTimeEntry" title="" type="single">
+        <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>
+        <field name="partyId" map-name="userLogin"><hidden/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="hours"><text size="5"/></field>
+        <field name="comments"><text size="40"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="FindTimesheet" default-map-name="timesheet" target="FindTimesheet" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="Timesheet" default-field-type="find"/>
+
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName"/></field>
+        
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListFindTimesheet" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        target="" title="" type="list" list-name="listIt" paginate-target="FindTimesheet" paginate="true">
+        <actions>
+            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Timesheet"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="Timesheet"/>
+        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink description="${timesheetId}" target="EditTimesheet?timesheetId=${timesheetId}" also-hidden="false"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
+    </form>
+    
+    <form name="EditTimesheet" default-map-name="timesheet" target="updateTimesheet" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <alt-target target="createTimesheet" use-when="timesheet==null"/>
+        <auto-fields-service service-name="updateTimesheet"/>
+        
+        <field name="timesheetId" use-when="timesheet!=null" title="${uiLabelMap.TimesheetTimesheetId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field name="timesheetId" use-when="timesheet==null&amp;&amp;timesheetId==null" title="${uiLabelMap.TimesheetTimesheetId}"><ignored/></field>
+        <field name="timesheetId" use-when="timesheet==null&amp;&amp;timesheetId!=null" title="${uiLabelMap.TimesheetTimesheetId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${timesheetId}]" widget-style="tabletext"><display also-hidden="false"/></field>
+
+        <field name="partyId" title="${uiLabelMap.PartyParty}*"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="clientPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="DisplayTimesheetEntries" type="list" list-name="timesheetEntries"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="TimeEntry">
+                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <order-by field-name="partyId"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="TimeEntry" default-field-type="display"/>
+        
+        <field name="timeEntryId"><hidden/></field>
+        <field name="timesheetId"><hidden/></field>
+        
+        <field name="partyId" title="${uiLabelMap.PartyParty}"/>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType"/></field>
+        <field name="workEffortId"><display-entity entity-name="WorkEffort" description="${workEffortName}"><sub-hyperlink target="WorkEffortSummary?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/></display-entity></field>
+        <field name="invoiceId" widget-style="buttontext"><hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" target-type="inter-app" description="${invoiceId}"/></field>
+    </form>
+    <form name="AddTimesheetToInvoice" target="addTimesheetToInvoice" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        
+        <field name="timesheetId"><hidden/></field>
+        <field name="invoiceId"><lookup target-form-name="LookupInvoice"/></field>
+        <field name="submitButton" title="${uiLabelMap.PageTitleAddWorkEffortTimeToInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddTimesheetToNewInvoice" target="addTimesheetToNewInvoice" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        
+        <field name="timesheetId"><hidden/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
+        <field name="submitButton" title="${uiLabelMap.PageTitleAddWorkEffortTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <!-- TimesheetRole -->
+    <form name="ListTimesheetRoles" type="list" list-name="timesheetRoles" target=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="TimesheetRole">
+                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <order-by field-name="roleTypeId"/>
+            </entity-condition>
+        </actions>
+        
+        <field name="timesheetId"><hidden/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRole}"><display-entity entity-name="RoleType"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
+        
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteTimesheetRole?timesheetId=${timesheetId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddTimesheetRole" type="single" target="createTimesheetRole" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createTimesheetRole"/>
+        
+        <field name="timesheetId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRole}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- TimesheetEntry -->
+    <form name="ListTimesheetEntries" type="list" list-name="timesheetEntries" target="updateTimesheetEntry"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="TimeEntry">
+                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <order-by field-name="partyId"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateTimeEntry"/>
+
+        <field name="timeEntryId"><hidden/></field>
+        <field name="timesheetId"><hidden/></field>
+        
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="workEffortId">
+            <lookup size="10" target-form-name="LookupWorkEffort">
+                <sub-hyperlink target="EditWorkEffort?workEffortId=${workEffortId}" link-style="buttontext" description="${uiLabelMap.WorkEffortWorkEffort}:${workEffortId}"/>
+            </lookup>
+        </field>
+
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        
+        <field name="comments"><text size="60"/></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteTimesheetEntry?timesheetId=${timesheetId}&amp;timeEntryId=${timeEntryId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddTimesheetEntry" type="single" target="createTimesheetEntry" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createTimeEntry"/>
+        
+        <field name="timeEntryId"><ignored/><!-- don't pass, will be sequenced --></field>
+        <field name="timesheetId"><hidden/></field>
+        
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
+
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

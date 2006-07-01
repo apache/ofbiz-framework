@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: EmailOrderScreens.xml 7790 2006-06-14 12:22:06Z jacopo $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="OrderConfirmNoticePdf">
+        <section>
+            <actions>
+                <set field="title" value="Order Confirmation Notice"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <set field="title" value="Order"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderview.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/order/orderView.fo.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderConfirmNotice">
+        <section>
+            <actions>
+                <set field="title" value="Order Confirmation Notice"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/orderstatus.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderCompleteNotice">
+        <section>
+            <actions>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleOrderCompleteNotice}"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/orderstatus.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="BackorderNotice">
+        <section>
+            <actions>
+                <set field="title" value="Order Backorder Notice"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/orderstatus.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderChangeNotice">
+        <section>
+            <actions>
+                <set field="title" value="Order Change Notice"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/orderstatus.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/OrderNoticeEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PaymentRetryNotice">
+        <section>
+            <actions>
+                <set field="title" value="Order Payment Retry Notice"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/orderstatus.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/emailpayretry.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

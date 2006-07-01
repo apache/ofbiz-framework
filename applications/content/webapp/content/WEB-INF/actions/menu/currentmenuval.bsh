@@ -1,0 +1,105 @@
+/*
+ * $Id: currentmenuval.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      3.0
+
+ * A commonly called script to find the "current" entity (either Content or DataResource
+ * usually) from either a cached key or overridden by current values in the parameter map
+ * or request attributes.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+import org.ofbiz.widget.menu.*;
+import org.ofbiz.content.ContentManagementWorker;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+
+LocalDispatcher dispatcher	= (LocalDispatcher)request.getAttribute("dispatcher");
+GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+if (request.getAttribute("servletContext") == null) Debug.logError("ServletContext null in currentmenuval");
+
+GenericValue currentValue = request.getAttribute("currentValue");
+Debug.logInfo("in currentmenuval, currentValue:" + request.getAttribute("currentValue"),"");
+Debug.logInfo("in currentmenuval, contentId:" + request.getAttribute("contentId"),"");
+if (currentValue != null) {
+    context.put("currentValue", currentValue);
+    return;
+}
+
+entityName		= page.getProperty("entityName");
+menuDefFile = page.getProperty("menuDefFile");
+menuName = page.getProperty("menuName");
+String menuItemName = page.getProperty("menuItemName");
+if (UtilValidate.isEmpty(menuItemName))
+    menuItemName = entityName;
+//Debug.logInfo("in setcurrentmenuitem, menuItemName:" + menuItemName,"");
+menuSig = menuDefFile + "__" + menuName;
+HtmlMenuWrapper currentMenuWrapper = session.getAttribute(menuSig);
+if (currentMenuWrapper == null) {
+//Debug.logInfo("in setcurrentmenuitem, menuWrapper IS NULL:","");
+    currentMenuWrapper = new HtmlMenuWrapper(menuDefFile, menuName, request, response);
+    if (((HttpServletRequest)currentMenuWrapper.getRequest()).getAttribute("servletContext") == null) Debug.logError("ServletContext null in currentmenuval(2)");
+    session.setAttribute(menuSig, currentMenuWrapper);
+}
+currentMenuWrapper.setRequest(request);
+currentMenuWrapper.setResponse(response);
+
+Map menuItemContent = currentMenuWrapper.getFromContext(menuItemName);
+if (menuItemContent != null) {
+//Debug.logInfo("in currentmenuval, menuItemContent:" + menuItemContent,"");
+    cachedValue = menuItemContent.get("currentValue");
+    if (cachedValue == null) {
+         cachedValue = menuItemContent.get(entityName);
+    }
+    GenericPK cachedPK = null;
+    if (cachedValue != null && UtilValidate.isNotEmpty(entityName)) {
+        // cachedValue might be a Map
+Debug.logInfo("in currentmenuval, cachedValue:" + cachedValue,"");
+        tempValue = delegator.makeValue(entityName, null);
+        tempValue.setPKFields((Map)cachedValue);
+        tempValue.setNonPKFields((Map)cachedValue);
+        cachedPK = tempValue.getPrimaryKey();
+    }
+    if (cachedPK != null && UtilValidate.isNotEmpty(entityName)) {
+        ContentManagementWorker.getCurrentValueWithCachedPK(request, delegator, cachedPK, entityName);
+        currentValue = request.getAttribute("currentValue");
+        context.put("currentValue", currentValue);
+        //Debug.logInfo("in currentmenuval, currentValue:" + currentValue,"");
+    }
+} else {
+    context.put("currentValue", null);
+}

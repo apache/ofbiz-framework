@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Webtools security -->
+    <SecurityPermission description="Permission to access the WebTools Menu." permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="WEBTOOLS_VIEW"/>
+
+    <!-- Server Stats security -->
+    <SecurityPermission description="View the Server Statistics pages." permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SERVER_STATS_VIEW"/>
+
+    <!-- Data File Maintenance security -->
+    <SecurityPermission description="Use the Data File Maintenance pages." permissionId="DATAFILE_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="DATAFILE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="DATAFILE_MAINT"/>
+
+    <!-- Service Maintenance security -->
+    <SecurityPermission description="Use the Service Maintenance pages." permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_MAINT"/>
+
+    <!-- Period Maintenance security -->
+    <SecurityPermission description="Use the Period Maintenance pages." permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PERIOD_MAINT"/>
+    
+    <!-- Enum & Status Maintenance security -->
+    <SecurityPermission description="Use the Enum and Status Maintenance pages." permissionId="ENUM_STATUS_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENUM_STATUS_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENUM_STATUS_MAINT"/>
+
+    <!-- Entity Maintenance security -->
+    <SecurityPermission description="Use the Entity Maintenance pages." permissionId="ENTITY_MAINT"/>
+    <SecurityPermission description="View with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_VIEW"/>
+    <SecurityPermission description="Create with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_CREATE"/>
+    <SecurityPermission description="Update with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_UPDATE"/>
+    <SecurityPermission description="Delete with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_DELETE"/>
+    <SecurityPermission description="ALL with the Entity Data Maintenance pages." permissionId="ENTITY_DATA_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENTITY_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENTITY_DATA_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ENTITY_DATA_VIEW"/>
+
+    <!-- UtilCache security -->
+    <SecurityPermission description="View a UtilCache instance." permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityPermission description="Edit a UtilCache instance." permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityPermission description="View a UtilDebug instance." permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityPermission description="Edit a UtilDebug instance." permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+</entity-engine-xml>

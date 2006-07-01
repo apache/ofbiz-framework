@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
+ * @version 1.0
+ * Created on April 2, 2002
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createProdCatalog" short-description="Create an ProdCatalog">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProdCatalog you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProdCatalog"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProdCatalog you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <field-to-field field-name="prodCatalogId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="ProdCatalog" map-name="lookupPKMap" value-name="prodCatalog"/>
+        <set-nonpk-fields map-name="parameters" value-name="prodCatalog"/>
+        <store-value value-name="prodCatalog"/>
+    </simple-method>
+    <simple-method method-name="deleteProdCatalog" short-description="Delete an ProdCatalog">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProdCatalog you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <field-to-field field-name="prodCatalogId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="ProdCatalog" map-name="lookupPKMap" value-name="prodCatalog"/>
+        <remove-value value-name="prodCatalog"/>
+    </simple-method>
+
+    <simple-method method-name="addProductCategoryToProdCatalog" short-description="Add Category To ProdCatalog">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run addProductCategoryToProdCatalog you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProdCatalogCategory"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductCategoryToProdCatalog" short-description="Remove ContactMech From ProdCatalog">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductCategoryToProdCatalog you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="ProdCatalogCategory"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="ProdCatalogCategory" map-name="lookupPKMap" value-name="prodCatalogCategory"/>
+        <set-nonpk-fields map-name="parameters" value-name="prodCatalogCategory"/>
+        <store-value value-name="prodCatalogCategory"/>
+    </simple-method>
+    <simple-method method-name="removeProductCategoryFromProdCatalog" short-description="Remove ContactMech From ProdCatalog">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductCategoryFromProdCatalog you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="ProdCatalogCategory"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="ProdCatalogCategory" map-name="lookupPKMap" value-name="prodCatalogCategory"/>
+        <remove-value value-name="prodCatalogCategory"/>
+    </simple-method>
+
+    <!-- Party and Catalog services -->
+    <simple-method method-name="addProdCatalogToParty" short-description="Add ProdCatalog To Party">
+        <check-permission permission="CATALOG" action="_CREATE">
+            <alt-permission permission="PARTYMGR" action="_CREATE"/>
+            <fail-message message="Security Error: to run addProdCatalogToParty you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProdCatalogRole"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProdCatalogToParty" short-description="Update ProdCatalog To Party">
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <alt-permission permission="PARTYMGR" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateProdCatalogToParty you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="ProdCatalogRole"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="ProdCatalogRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeProdCatalogFromParty" short-description="Remove ProdCatalog From Party">
+        <check-permission permission="CATALOG" action="_DELETE">
+            <alt-permission permission="PARTYMGR" action="_DELETE"/>
+            <fail-message message="Security Error: to run removeProdCatalogFromParty you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="ProdCatalogRole"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="ProdCatalogRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+</simple-methods>

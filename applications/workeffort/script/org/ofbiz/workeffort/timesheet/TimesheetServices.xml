@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2005-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+<!--
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @version    $Rev$
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    
+    <!-- Timesheet Services -->
+    <simple-method method-name="createTimesheet" short-description="Create Timesheet">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <make-value value-name="newEntity" entity-name="Timesheet"/>
+        <sequenced-id-to-env sequence-name="Timesheet" env-name="newEntity.timesheetId"/>
+        <field-to-result field-name="newEntity.timesheetId" result-name="timesheetId"/>
+        
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="Timesheet" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteTimesheet" short-description="Delete Timesheet">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="Timesheet" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set-service-fields service-name="createTimesheet" map-name="parameters" to-map-name="createTimesheetParams"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field-name="createTimesheetParams.fromDate">
+            <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
+        </call-class-method>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field-name="createTimesheetParams.thruDate">
+            <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
+        </call-class-method>
+        <call-service service-name="createTimesheet" in-map-name="createTimesheetParams">
+            <result-to-result result-name="timesheetId"/>
+        </call-service>
+    </simple-method>
+    
+    <simple-method method-name="addTimesheetToInvoice" short-description="Add Timesheet to Invoice">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="Timesheet" value-name="timesheet"/>
+        <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntryList"/>
+        
+        <if-empty field-name="parameters.invoiceId">
+            <set-service-fields service-name="createInvoice" map-name="parameters" to-map-name="createInvoiceMap"/>
+            <set field="createInvoiceMap.invoiceTypeId" value="SALES_INVOICE"/>
+            <set field="createInvoiceMap.statusId" value="INVOICE_IN_PROCESS"/>
+            <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
+                <result-to-field result-name="invoiceId"/>
+            </call-service>
+            <field-to-result field-name="invoiceId"/>
+        <else>
+            <set field="invoiceId" from-field="parameters.invoiceId"/>
+        </else>
+        </if-empty>
+        
+        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <if-empty field-name="invoice">
+            <add-error><fail-message message="Could not find invoice with ID [${invoiceId}], not adding Timesheet Entries to it."/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <call-simple-method method-name="createTimeEntryInvoiceItemsInline"/>
+    </simple-method>
+    <simple-method method-name="addWorkEffortTimeToInvoice" short-description="Add Work Effort Time to Invoice">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+        <get-related value-name="workEffort" relation-name="TimeEntry" list-name="timeEntryList"/>
+        
+        <if-empty field-name="parameters.invoiceId">
+            <set-service-fields service-name="createInvoice" map-name="parameters" to-map-name="createInvoiceMap"/>
+            <set field="createInvoiceMap.invoiceTypeId" value="SALES_INVOICE"/>
+            <set field="createInvoiceMap.statusId" value="INVOICE_IN_PROCESS"/>
+            <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
+                <result-to-field result-name="invoiceId"/>
+            </call-service>
+            <field-to-result field-name="invoiceId"/>
+        <else>
+            <set field="invoiceId" from-field="parameters.invoiceId"/>
+        </else>
+        </if-empty>
+        
+        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <if-empty field-name="invoice">
+            <add-error><fail-message message="Could not find invoice with ID [${invoiceId}], not adding Timesheet Entries to it."/></add-error>
+            <check-errors/>
+        </if-empty>
+        
+        <call-simple-method method-name="createTimeEntryInvoiceItemsInline"/>
+    </simple-method>
+    <simple-method method-name="createTimeEntryInvoiceItemsInline" short-description="createTimeEntryInvoiceItemsInline">
+        <iterate entry-name="timeEntry" list-name="timeEntryList">
+            <!-- only add to invoice if it is not already on an invoice; may want to make this smarter in the future to see if invoice cancelled or some such -->
+            <if-empty field-name="timeEntry.invoiceId">
+                <clear-field field-name="createInvoiceItemMap"/>
+                <clear-field field-name="getTimeEntryRate"/>
+                <clear-field field-name="rateAmount"/>
+                
+                <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
+                    <result-to-field result-name="rateAmount"/>
+                </call-service>
+                
+                <set field="createInvoiceItemMap.invoiceId" from-field="invoiceId"/>
+                <set field="createInvoiceItemMap.taxableFlag" value="N"/>
+                <set field="createInvoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
+                
+                <set field="createInvoiceItemMap.quantity" from-field="timeEntry.hours"/>
+                <set field="createInvoiceItemMap.uomId" value="TF_hr"/>
+                <set field="createInvoiceItemMap.amount" from-field="rateAmount"/>
+                
+                <set field="createInvoiceItemMap.description" from-field="timeEntry.comments"/>
+                
+                <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItemMap">
+                    <result-to-field result-name="invoiceItemSeqId" field-name="timeEntry.invoiceItemSeqId"/>
+                </call-service>
+                <set field="timeEntry.invoiceId" from-field="invoiceId"/>
+                <store-value value-name="timeEntry"/>
+            </if-empty>
+        </iterate>
+    </simple-method>
+    
+    <!-- TimesheetRole Services -->
+    <simple-method method-name="createTimesheetRole" short-description="Create TimesheetRole">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <make-value value-name="newEntity" entity-name="TimesheetRole"/>        
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteTimesheetRole" short-description="Delete TimesheetRole">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="TimesheetRole" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- TimeEntry Services -->
+    <simple-method method-name="createTimeEntry" short-description="Create TimeEntry">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        
+        <make-value value-name="newEntity" entity-name="TimeEntry"/>
+        <sequenced-id-to-env sequence-name="TimeEntry" env-name="newEntity.timeEntryId"/>
+        <field-to-result field-name="newEntity.timeEntryId" result-name="timeEntryId"/>
+        
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.fromDate">
+            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field-name="newEntity.fromDate">
+                <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
+            </call-class-method>
+        </if-empty>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateTimeEntry" short-description="Update TimeEntry">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="getTimeEntryRate" short-description="Get TimeEntry Rate">
+        <check-permission permission="WORKEFFORTMGR" action="_VIEW"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="TimeEntry" value-name="timeEntry"/>
+        
+        <!-- first try the WorkEffortAssignmentRate -->
+        <if-not-empty field-name="timeEntry.workEffortId">
+            <entity-condition entity-name="WorkEffortAssignmentRate" list-name="workEffortAssignmentRateList">
+                <condition-list combine="and">
+                    <condition-expr field-name="workEffortId" env-name="timeEntry.workEffortId"/>
+                    <condition-expr field-name="partyId" env-name="timeEntry.partyId"/>
+                    <condition-expr field-name="rateTypeId" env-name="timeEntry.rateTypeId"/>
+                </condition-list>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+            <filter-list-by-date list-name="workEffortAssignmentRateList" all-same="true"/>
+            <first-from-list entry-name="workEffortAssignmentRate" list-name="workEffortAssignmentRateList"/>
+            <if-not-empty field-name="workEffortAssignmentRate">
+                <set field="rateAmount" from-field="workEffortAssignmentRate.rate"/>
+            </if-not-empty>
+        </if-not-empty>
+        
+        <!-- no rateAmount yet, try PartyRate -->
+        <if-empty field-name="rateAmount">
+            <entity-condition entity-name="PartyRate" list-name="partyRateList">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" env-name="timeEntry.partyId"/>
+                    <condition-expr field-name="rateTypeId" env-name="timeEntry.rateTypeId"/>
+                </condition-list>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+            <filter-list-by-date list-name="partyRateList" all-same="true"/>
+            <first-from-list entry-name="partyRate" list-name="partyRateList"/>
+            <if-not-empty field-name="partyRate">
+                <set field="rateAmount" from-field="partyRate.rate"/>
+            </if-not-empty>
+        </if-empty>
+        
+        <field-to-result field-name="rateAmount"/>
+    </simple-method>
+</simple-methods>

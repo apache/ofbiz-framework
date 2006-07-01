@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <RecurrenceRule recurrenceRuleId="300" untilDateTime="" frequency="DAILY" intervalNumber="1" countNumber="-1"/>
+    <RecurrenceInfo recurrenceInfoId="300" startDateTime="2000-01-01 22:00:00.000" recurrenceRuleId="300" recurrenceCount="0"/>
+    <RecurrenceInfo recurrenceInfoId="301" startDateTime="2000-01-01 23:00:00.000" recurrenceRuleId="300" recurrenceCount="0"/>
+    <!--
+      The initLowLevelCode service is used to properly initialize the products' low level codes (Product.billOfMaterialsLevel field).
+      This information is needed by the MRP algorithm (runningMRP service) and by the standard cost algorithm (calculateAllProductsCosts service).
+    -->
+    <JobSandbox jobId="8400" jobName="Init BOM Low Level Codes" runTime="2000-01-01 00:00:00.000" serviceName="initLowLevelCode" poolId="pool" runAsUser="system" recurrenceInfoId="300"/>
+    <!--
+      The calculateAllProductsCosts service is used to run the standard cost calc routine for all the products.
+      Runtime data is set to pass the currency uom to the service (USD): chenge this to run the routine in 
+      another currency.
+      The results of this will be available in the catalog->product->cost tab.
+      NOTE: in order to function properly, this service needs that
+            all the products' low level codes (Product.billOfMaterialsLevel field)
+            are inited correctly; this is done by the initLowLevelCode service.
+    -->
+    <RuntimeData runtimeDataId="8401">
+        <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ofbiz-ser>
+  <map-HashMap>
+    <map-Entry>
+      <map-Key>
+        <std-String value="currencyUomId"/>
+      </map-Key>
+      <map-Value>
+        <std-String value="USD"/>
+      </map-Value>
+    </map-Entry>
+    <map-Entry>
+      <map-Key>
+        <std-String value="costComponentTypePrefix"/>
+      </map-Key>
+      <map-Value>
+        <std-String value="EST_STD"/>
+      </map-Value>
+    </map-Entry>
+  </map-HashMap>
+</ofbiz-ser>
+        ]]></runtimeInfo>
+    </RuntimeData>
+
+    <JobSandbox jobId="8401" jobName="Calculate product costs" runTime="2000-01-01 00:00:00.000" serviceName="calculateAllProductsCosts" runtimeDataId="8401" poolId="pool" runAsUser="system" recurrenceInfoId="301"/>
+</entity-engine-xml>

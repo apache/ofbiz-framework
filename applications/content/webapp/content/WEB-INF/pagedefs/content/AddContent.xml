@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Add Content</property>
+    <property name="formDefFile">/content/ContentForms.xml</property>    
+    <property name="singleFormName">AddContent</property>    
+    <property name="subMenu">/content/content_menu.ftl</property>    
+    <property name="headerItem">Content</property>    
+    <property name="entityName">Content</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="priKeyName">contentId</property>    
+    <property name="defaultMapName">currentValue</property>    
+    <property name="entityOperation">_CREATE</property>    
+    <property name="permissionType">simple</property>    
+    <page-action name="/includes/permprep.bsh"/>
+    <content-action name="/includes/fillindataresource.bsh"/>
+    <content-action name="/includes/formprep.bsh"/>
+</page>

@@ -1,0 +1,8 @@
+
+System.out.println("-=-=-=- TEST BSH SERVICE -=-=-=-");
+if ( context.containsKey("message") ) {
+  String message = (String) context.get("message");
+  System.out.println("----- Message is: " + message + " -----");
+}
+context.put("result","Script finished");
+

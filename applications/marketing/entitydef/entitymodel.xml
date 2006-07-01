@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.marketing.campaign -->
+  <!--  - org.ofbiz.marketing.contact -->
+  <!--  - org.ofbiz.marketing.segment -->
+  <!--  - org.ofbiz.marketing.tracking -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.marketing.campaign -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="MarketingCampaign"
+            package-name="org.ofbiz.marketing.campaign"
+            title="Marketing Campaign Entity">
+      <field name="marketingCampaignId" type="id-ne"></field>
+      <field name="parentCampaignId" type="id"></field>
+      <field name="campaignName" type="name"></field>
+      <field name="campaignSummary" type="very-long"></field>
+      <prim-key field="marketingCampaignId"/>
+      <relation type="one" fk-name="MKTGCPN_PRNT" title="Parent" rel-entity-name="MarketingCampaign">
+        <key-map field-name="parentCampaignId" rel-field-name="marketingCampaignId"/>
+      </relation>
+    </entity>
+    <entity entity-name="MarketingCampaignNote"
+            package-name="org.ofbiz.marketing.campaign"
+            title="Marketing Campaign Note Entity">
+      <field name="marketingCampaignId" type="id-ne"></field>
+      <field name="noteId" type="id-ne"></field>
+      <prim-key field="marketingCampaignId"/>
+      <prim-key field="noteId"/>
+      <relation type="one" fk-name="MKTGCPN_NOTE_CMPN" rel-entity-name="MarketingCampaign">
+        <key-map field-name="marketingCampaignId"/>
+      </relation>
+      <relation type="one" fk-name="MKTGCPN_NOTE_NOTE" rel-entity-name="NoteData">
+        <key-map field-name="noteId"/>
+      </relation>
+    </entity>
+    <entity entity-name="MarketingCampaignPrice"
+            package-name="org.ofbiz.marketing.campaign"
+            title="Marketing Campaign Price Entity">
+      <field name="marketingCampaignId" type="id-ne"></field>
+      <field name="productPriceRuleId" type="id-ne"></field>
+      <prim-key field="marketingCampaignId"/>
+      <prim-key field="productPriceRuleId"/>
+      <relation type="one" fk-name="MKTGCPN_PRICE_MC" rel-entity-name="MarketingCampaign">
+        <key-map field-name="marketingCampaignId"/>
+      </relation>
+      <relation type="one" fk-name="MKTGCPN_PRICE_PP" rel-entity-name="ProductPriceRule">
+        <key-map field-name="productPriceRuleId"/>
+      </relation>
+    </entity>
+    <entity entity-name="MarketingCampaignPromo"
+            package-name="org.ofbiz.marketing.campaign"
+            title="Marketing Campaign Promo Entity">
+      <field name="marketingCampaignId" type="id-ne"></field>
+      <field name="productPromoId" type="id-ne"></field>
+      <prim-key field="marketingCampaignId"/>
+      <prim-key field="productPromoId"/>
+      <relation type="one" fk-name="MKTGCPN_PROMO_MC" rel-entity-name="MarketingCampaign">
+        <key-map field-name="marketingCampaignId"/>
+      </relation>
+      <relation type="one" fk-name="MKTGCPN_PROMO_PP" rel-entity-name="ProductPromo">
+        <key-map field-name="productPromoId"/>
+      </relation>
+    </entity>
+    <entity entity-name="MarketingCampaignRole"
+            package-name="org.ofbiz.marketing.campaign"
+            title="Marketing Campaign Role Entity">
+      <field name="marketingCampaignId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="marketingCampaignId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="MKTGCPN_ROLE_MC" rel-entity-name="MarketingCampaign">
+        <key-map field-name="marketingCampaignId"/>
+      </relation>
+      <relation type="one" fk-name="MKTGCPN_ROLE_PR" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.marketing.contact -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="ContactList"
+            package-name="org.ofbiz.marketing.contact"
+            title="Contact List Entity">
+      <field name="contactListId" type="id-ne"></field>
+      <field name="contactListTypeId" type="id-ne"></field>
+      <field name="contactMechTypeId" type="id-ne"></field>
+      <field name="marketingCampaignId" type="id"></field>
+      <field name="contactListName" type="name"></field>
+      <field name="description" type="description"></field>
+      <field name="comments" type="comment"></field>
+      <field name="isPublic" type="indicator"></field>
+      <field name="ownerPartyId" type="id"></field>
+      <field name="verifyEmailFrom" type="long-varchar"></field>
+      <field name="verifyEmailScreen" type="long-varchar"></field>
+      <field name="verifyEmailSubject" type="long-varchar"></field>
+      <field name="verifyEmailWebSiteId" type="id"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="contactListId"/>
+      <relation type="one" fk-name="CNCT_LST_MKCMPN" rel-entity-name="MarketingCampaign">
+        <key-map field-name="marketingCampaignId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_TYP" rel-entity-name="ContactListType">
+        <key-map field-name="contactListTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_CMCHTP" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_CBUL" title="CreatedBy" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_LMUL" title="LastModifiedBy" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_OPTY" title="Owner" rel-entity-name="Party">
+        <key-map field-name="ownerPartyId" rel-field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContactListParty"
+            package-name="org.ofbiz.marketing.contact"
+            title="Contact List Party Entity">
+      <field name="contactListId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="statusId" type="id"></field>
+      <field name="preferredContactMechId" type="id"></field>
+      <prim-key field="contactListId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="CNCT_LSTPTY_CLST" rel-entity-name="ContactList">
+        <key-map field-name="contactListId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LSTPTY_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LSTPTY_STS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LSTPTY_PCM" title="Preferred" rel-entity-name="ContactMech">
+        <key-map field-name="preferredContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ContactListPartyAndStatus"
+        package-name="org.ofbiz.marketing.contact">
+        <member-entity entity-alias="CLPS" entity-name="ContactListPartyStatus"/>
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <alias-all entity-alias="CLPS"/>
+        <alias-all entity-alias="SI"/>
+        <view-link entity-alias="CLPS" rel-entity-alias="SI">
+            <key-map field-name="statusId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="ContactListPartyStatus"
+        package-name="org.ofbiz.marketing.contact"
+        title="Contact List Party Status Entity">
+        <field name="contactListId" type="id-ne"></field>
+        <field name="partyId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="statusDate" type="date-time"></field>
+        <field name="statusId" type="id"></field>
+        <field name="setByUserLoginId" type="description"></field>
+        <field name="optInVerifyCode" type="short-varchar"><!-- if statusId is CLPT_PENDING, set optInVerifyCode; else if statusId is CLPT_ACCEPTED, make sure optInVerifyCode is the same as the last CLPT_PENDING --></field>
+        <prim-key field="contactListId"/>
+        <prim-key field="partyId"/>
+        <prim-key field="fromDate"/>
+        <prim-key field="statusDate"/>
+        <relation type="one" fk-name="CTLSTPTST_CLP" rel-entity-name="ContactListParty">
+            <key-map field-name="contactListId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+    </entity>
+    <entity entity-name="ContactListType"
+            package-name="org.ofbiz.marketing.contact"
+            default-resource-name="MarketingEntityLabels"
+            title="Contact List Type Entity">
+      <field name="contactListTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contactListTypeId"/>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.marketing.segment -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="SegmentGroup"
+            package-name="org.ofbiz.marketing.segment"
+            title="Segment Group Entity">
+        <field name="segmentGroupId" type="id-ne"></field>
+        <field name="segmentGroupTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <field name="productStoreId" type="id"></field>
+        <prim-key field="segmentGroupId"/>
+        <relation type="one" fk-name="SGMTGRP_TYPE" rel-entity-name="SegmentGroupType">
+            <key-map field-name="segmentGroupTypeId"/>
+        </relation>
+        <relation type="one" fk-name="SGMTGRP_PRST" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SegmentGroupClassification"
+            package-name="org.ofbiz.marketing.segment"
+            title="Segment Group Classification Entity">
+        <field name="segmentGroupId" type="id-ne"></field>
+        <field name="partyClassificationGroupId" type="id-ne"></field>
+        <prim-key field="segmentGroupId"/>
+        <prim-key field="partyClassificationGroupId"/>
+        <relation type="one" fk-name="SGMTGRPCLS_SGGP" rel-entity-name="SegmentGroup">
+            <key-map field-name="segmentGroupId"/>
+        </relation>
+        <relation type="one" fk-name="SGMTGRPCLS_PCGP" rel-entity-name="PartyClassificationGroup">
+            <key-map field-name="partyClassificationGroupId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SegmentGroupGeo"
+            package-name="org.ofbiz.marketing.segment"
+            title="Segment Group Geo Entity">
+        <field name="segmentGroupId" type="id-ne"></field>
+        <field name="geoId" type="id-ne"></field>
+        <prim-key field="segmentGroupId"/>
+        <prim-key field="geoId"/>
+        <relation type="one" fk-name="SGMTGRPGEO_SGGP" rel-entity-name="SegmentGroup">
+            <key-map field-name="segmentGroupId"/>
+        </relation>
+        <relation type="one" fk-name="SGMTGRPGEO_GEO" rel-entity-name="Geo">
+            <key-map field-name="geoId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SegmentGroupRole"
+            package-name="org.ofbiz.marketing.segment"
+            title="Segment Group Role Entity">
+        <field name="segmentGroupId" type="id-ne"></field>
+        <field name="partyId" type="id-ne"></field>
+        <field name="roleTypeId" type="id-ne"></field>
+        <prim-key field="segmentGroupId"/>
+        <prim-key field="partyId"/>
+        <prim-key field="roleTypeId"/>
+        <relation type="one" fk-name="SGMTGRPRL_SGGP" rel-entity-name="SegmentGroup">
+            <key-map field-name="segmentGroupId"/>
+        </relation>
+        <relation type="one" fk-name="SGMTGRPRL_PRLE" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SegmentGroupType"
+            package-name="org.ofbiz.marketing.segment"
+            default-resource-name="MarketingEntityLabels"
+            title="Segment Group Type Entity">
+        <field name="segmentGroupTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="segmentGroupTypeId"/>
+    </entity>
+    <view-entity entity-name="SegmentGroupViewRelatedParties" package-name="org.ofbiz.marketing.segment">
+        <description>
+            This view entity models the following options:
+            - SegmentGroupRole(SGR) -> SegmentGroupRole(SGRTO)
+            - SegmentGroupRole(SGR) -> SegmentGroupRole(SGRTO) -> PartyRelationship(PRSGR)
+            - SegmentGroupRole(SGR) -> SegmentGroupClassification(SGC) -> PartyClassification(PC)
+            - SegmentGroupRole(SGR) -> SegmentGroupClassification(SGC) -> PartyClassification(PC) -> PartyRelationship(PRPC)
+            Typical fields to constrain:
+            - partyId of User -> sgrPartyId (SGR)
+            - partyId of Customer -> sgrToPartyId (SGRTO) AND prSgrPartyIdTo (PRSGR) AND pcPartyId (PC) AND prPcPartyIdTo (PRPC)
+              NOTE: these 4 partyIds represent the 4 options for entity relationship paths listed above
+              NOTE: because not all of these will exist, each needs to be the given partyId(s) OR null
+            - roleTypeId of User -> sgrRoleTypeId (SGR) - ex: SALES_REP, MANAGER, etc
+            - roleTypeId of Customer -> sgrToRoleTypeId (SGRTO)
+              NOTE: because not all of these will exist, each needs to be the given roleTypeId(s) OR null
+            - roleTypeId of _Employer_ in Employee/Employer relationship -> prSgrRoleTypeIdFrom (PRSGR) AND prPcRoleTypeIdFrom (PRPC) - INTERNAL_ORGANIZATIO
+              NOTE: constraining these fields is optional as the EMPLOYEE roleTypeIdTo is often sufficient
+              NOTE: because not all of these will exist, each needs to be the given partyId(s) OR null
+            - roleTypeId of _Employee_ in Employee/Employer relationship -> prSgrRoleTypeIdTo (PRSGR) AND prPcRoleTypeIdTo (PRPC) - EMPLOYEE
+              NOTE: because not all of these will exist, each needs to be the given partyId(s) OR null
+            - partyRelationshipTypeId in Employee/Employer relationship -> prSgrPartyRelationshipTypeId (PRSGR) AND prPcPartyRelationshipTypeId (PRPC)
+              NOTE: because not all of these will exist, each needs to be the given partyId(s) OR null
+        </description>
+        <member-entity entity-alias="SGR" entity-name="SegmentGroupRole"/>
+        <member-entity entity-alias="SGRTO" entity-name="SegmentGroupRole"/>
+        <member-entity entity-alias="PRSGR" entity-name="PartyRelationship"/>
+        <member-entity entity-alias="SGC" entity-name="SegmentGroupClassification"/>
+        <member-entity entity-alias="PC" entity-name="PartyClassification"/>
+        <member-entity entity-alias="PRPC" entity-name="PartyRelationship"/>
+        <alias-all entity-alias="SGR" prefix="sgr"/>
+        <alias-all entity-alias="SGRTO" prefix="sgrTo"/>
+        <alias-all entity-alias="PRSGR" prefix="prSgr"/>
+        <alias-all entity-alias="SGC" prefix="sgc"/>
+        <alias-all entity-alias="PC" prefix="pc"/>
+        <alias-all entity-alias="PRPC" prefix="prPc"/>
+        <view-link entity-alias="SGR" rel-entity-alias="SGRTO" rel-optional="true">
+            <key-map field-name="segmentGroupId"/>
+        </view-link>
+        <view-link entity-alias="SGRTO" rel-entity-alias="PRSGR" rel-optional="true">
+            <key-map field-name="partyId" rel-field-name="partyIdFrom"/>
+        </view-link>
+        <view-link entity-alias="SGR" rel-entity-alias="SGC" rel-optional="true">
+            <key-map field-name="segmentGroupId"/>
+        </view-link>
+        <view-link entity-alias="SGC" rel-entity-alias="PC">
+            <key-map field-name="partyClassificationGroupId"/>
+        </view-link>
+        <view-link entity-alias="PC" rel-entity-alias="PRPC" rel-optional="true">
+            <key-map field-name="partyId" rel-field-name="partyIdFrom"/>
+        </view-link>
+    </view-entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.marketing.tracking -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="TrackingCode"
+            package-name="org.ofbiz.marketing.tracking"
+            title="Tracking Code Entity">
+      <field name="trackingCodeId" type="id-ne"></field>
+      <field name="trackingCodeTypeId" type="id-ne"></field>
+      <field name="marketingCampaignId" type="id"></field>
+      <field name="redirectUrl" type="url"></field>
+      <field name="overrideLogo" type="url"></field>
+      <field name="overrideCss" type="url"></field>
+      <field name="prodCatalogId" type="id"></field>
+      <field name="comments" type="comment"></field>
+      <field name="description" type="description"></field>
+      <field name="trackableLifetime" type="numeric"></field>
+      <field name="billableLifetime" type="numeric"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="groupId" type="id"></field>
+      <field name="subgroupId" type="id"></field>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="trackingCodeId"/>
+      <relation type="one" fk-name="TKNG_COD_MKCMPN" rel-entity-name="MarketingCampaign">
+        <key-map field-name="marketingCampaignId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_COD_TYP" rel-entity-name="TrackingCodeType">
+        <key-map field-name="trackingCodeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TrackingCodeOrder"
+            package-name="org.ofbiz.marketing.tracking"
+            title="Tracking Code Visit Entity">
+      <field name="orderId" type="id-ne"></field>
+      <field name="trackingCodeTypeId" type="id-ne"></field>
+      <field name="trackingCodeId" type="id-ne"></field>
+      <field name="isBillable" type="indicator"></field>
+      <prim-key field="orderId"/>
+      <prim-key field="trackingCodeTypeId"/>
+      <relation type="one" fk-name="TKNG_CODODR_ODR" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_CODODR_TKCD" rel-entity-name="TrackingCode">
+        <key-map field-name="trackingCodeId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_CODODR_TYP" rel-entity-name="TrackingCodeType">
+        <key-map field-name="trackingCodeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TrackingCodeType"
+            package-name="org.ofbiz.marketing.tracking"
+            default-resource-name="MarketingEntityLabels"
+            title="Tracking Code Type Entity">
+      <field name="trackingCodeTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="trackingCodeTypeId"/>
+    </entity>
+    <entity entity-name="TrackingCodeVisit"
+            package-name="org.ofbiz.marketing.tracking"
+            title="Tracking Code Visit Entity">
+      <field name="trackingCodeId" type="id-ne"></field>
+      <field name="visitId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="sourceEnumId" type="id"></field>
+      <prim-key field="trackingCodeId"/>
+      <prim-key field="visitId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="TKNG_CODVST_TKCD" rel-entity-name="TrackingCode">
+        <key-map field-name="trackingCodeId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_CODVST_VST" rel-entity-name="Visit">
+        <key-map field-name="visitId"/>
+      </relation>
+      <relation type="one" fk-name="TKNG_CODVST_SRCEM" rel-entity-name="Enumeration">
+        <key-map field-name="sourceEnumId" rel-field-name="enumId"/>
+      </relation>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.marketing.reports -->
+    <!-- ========================================================= -->
+
+     <view-entity entity-name="TrackingCodeAndVisit" package-name="org.ofbiz.marketing.reports"
+         title="View entity for reporting number of visits for a tracking code">
+        <member-entity entity-alias="TC" entity-name="TrackingCode"/>
+        <member-entity entity-alias="TCV" entity-name="TrackingCodeVisit"/>
+        <alias entity-alias="TC" name="trackingCodeId" group-by="true"/>
+        <alias entity-alias="TCV" name="visitId" function="count"/>
+        <!-- this means we want to use TrackingCodeVisit.fromDate but not group-by it.  because of this, we cannot have fromDate as one of the fields
+            of a select on this view-entity.  this means we must explicitly specify the fields to select by, and the "view all" button in webtools won't
+            work.  but it is important to have this date here: it can be a condition of searches. -->
+        <alias entity-alias="TCV" name="fromDate" group-by="false"/>  
+        <!-- the sequence of view-links is important.  if reversed here, it means we won't see tracking codes for which there were no visits -->
+        <view-link entity-alias="TC" rel-entity-alias="TCV" rel-optional="true">
+            <key-map field-name="trackingCodeId"/>
+        </view-link>
+      </view-entity>
+      <view-entity entity-name="TrackingCodeAndOrderHeader" package-name="org.ofibz.marketing.reports"
+          title="View entity for reporting number of orders and total order amounts">
+        <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
+        <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+        <alias entity-alias="OH" name="grandTotal" function="sum"/>
+        <alias entity-alias="TCO" name="orderId" function="count"/>
+        <alias entity-alias="OH" name="orderDate" group-by="false"/>
+        <alias entity-alias="TCO" name="trackingCodeId" group-by="true"/>
+        <view-link entity-alias="TCO" rel-entity-alias="OH">
+            <key-map field-name="orderId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="MarketingCampaignAndVisit" package-name="org.ofbiz.marketing.reports"
+         title="View entity for reporting number of visits for a marketing campaign.  Note that because
+         marketingCampaignId is a field of TrackingCode, this is really very similar to TrackingCodeAndVisit, 
+         except the group-by is with marketingCampaignId instead of trackingCodeId">
+        <member-entity entity-alias="TC" entity-name="TrackingCode"/>
+        <member-entity entity-alias="TCV" entity-name="TrackingCodeVisit"/>
+        <alias entity-alias="TC" name="marketingCampaignId" group-by="true"/>
+        <alias entity-alias="TCV" name="visitId" function="count"/>
+        <alias entity-alias="TCV" name="fromDate" group-by="false"/>  
+        <view-link entity-alias="TC" rel-entity-alias="TCV" rel-optional="true">
+            <key-map field-name="trackingCodeId"/>
+        </view-link>
+      </view-entity>
+      <view-entity entity-name="MarketingCampaignAndOrderHeader" package-name="org.ofibz.marketing.reports"
+          title="View entity for reporting number of orders and total order amounts">
+        <member-entity entity-alias="TC" entity-name="TrackingCode"/>
+        <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
+        <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+        <alias entity-alias="OH" name="grandTotal" function="sum"/>
+        <alias entity-alias="TCO" name="orderId" function="count"/>
+        <alias entity-alias="OH" name="orderDate" group-by="false"/>
+        <alias entity-alias="TC" name="marketingCampaignId" group-by="true"/>
+        <view-link entity-alias="TC" rel-entity-alias="TCO">
+            <key-map field-name="trackingCodeId"/>
+        </view-link>
+        <view-link entity-alias="TCO" rel-entity-alias="OH">  <!-- the sequence of TCO and OH in this view-link is important -->
+            <key-map field-name="orderId"/>
+        </view-link>
+    </view-entity>
+</entitymodel>

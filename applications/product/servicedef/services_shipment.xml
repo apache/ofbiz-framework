@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Common Application Components Shipment Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Shipment Services -->
+    <service name="createCarrierShipmentMethod" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createCarrierShipmentMethod" auth="true">
+        <description>Creates A CarrierShipmentMethod</description>
+        <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCarrierShipmentMethod" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateCarrierShipmentMethod" auth="true">
+        <description>Updates A CarrierShipmentMethod</description>
+        <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createShipmentMethodType" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentMethodType" auth="true">
+        <description>Creates A ShipmentMethodType</description>
+        <auto-attributes entity-name="ShipmentMethodType" mode="IN" optional="false"/>
+        <override name="sequenceNum" optional="true"/>
+    </service>
+    <service name="updateShipmentMethodType" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentMethodType" auth="true">
+        <description>Updates A ShipmentMethodType</description>
+        <auto-attributes entity-name="ShipmentMethodType" mode="IN" optional="false"/>
+        <override name="sequenceNum" optional="true"/>
+    </service>
+
+    <service name="quickShipEntireOrder" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickShipEntireOrder" auth="true">
+        <description>Quick Ships An Entire Order Creating One Shipment Per Facility and Ship Group.  All approved order items are
+          automatically issued in full and put into one package.  The shipment is created in the INPUT status and then updated to
+          PACKED and SHIPPED.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
+        <!-- A List of Maps, each with a shipmentId,a facilityId, and a shipGroupSeqId for each shipment created -->
+        <attribute name="shipmentShipGroupFacilityList" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="quickShipOrderByItem" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickShipOrderByItem" auth="true">
+        <description>Quick Ships An Order By Item</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="itemShipList" type="List" mode="IN" optional="false"/>
+        <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="quickShipPurchaseOrder" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickShipPurchaseOrder" auth="true">
+        <description>The mirror of quickShipEntireOrder, this service automatically creates shipments for an entire purchase order.  
+          All order items on each ship group is created as a Shipment.  All items on a Shipment are automatically issued to a Package.
+          The shipment's status is first set to CREATED and then set as SHIPPED.  The facilityId is used to set the destinationFacilityId 
+          of the Shipment.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="createShipmentForReturn" default-entity-name="ReturnHeader" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentForReturn">
+        <description>Create a Return Shipment with information from ReturnHeader fields</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="FACILITY" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="prepareShipmentStaging" engine="java"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="fillShipmentStagingTables" auth="true">
+        <description>Prepares the shipment ODBC staging tables</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateShipmentFromStaging" engine="java" transaction-timeout="7200"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="updateShipmentsFromStaging" auth="true">
+        <description>Reads the ODBC tables and updates the shipments which have call back records.</description>
+    </service>
+    <service name="clearShipmentStaging" engine="java"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="clearShipmentStagingInfo" auth="true">
+        <description>Clears the shipment ODBC staging tables</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createShipment" default-entity-name="Shipment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
+        <description>Create Shipment</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="createdDate"/>
+            <exclude field-name="createdByUserLogin"/>
+            <exclude field-name="lastModifiedDate"/>
+            <exclude field-name="lastModifiedByUserLogin"/>
+        </auto-attributes>
+    </service>
+    <service name="updateShipment" default-entity-name="Shipment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipment" auth="true">
+        <description>Update Shipment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="shipmentTypeId"/>
+            <exclude field-name="createdDate"/>
+            <exclude field-name="createdByUserLogin"/>
+            <exclude field-name="lastModifiedDate"/>
+            <exclude field-name="lastModifiedByUserLogin"/>
+        </auto-attributes>
+        <attribute name="shipmentTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+        <attribute name="oldPrimaryOrderId" type="String" mode="OUT" optional="true"/>
+        <attribute name="oldOriginFacilityId" type="String" mode="OUT" optional="true"/>
+        <attribute name="oldDestinationFacilityId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="deleteShipment" default-entity-name="Shipment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipment" auth="true">
+        <description>Delete Shipment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="setShipmentSettingsFromPrimaryOrder" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromPrimaryOrder" auth="true">
+        <description>Set Shipment Settings From Primary Order</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="setShipmentSettingsFromFacilities" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromFacilities" auth="true">
+        <description>Set Shipment Settings From Facilities</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="sendShipmentScheduledNotification" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="sendShipmentScheduledNotification" auth="true">
+        <description>Send Shipment Scheduled Notification</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="balanceItemIssuancesForShipment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="balanceItemIssuancesForShipment" auth="true">
+        <description>
+            Release the purchase order's items assigned to the shipment but not 
+            actually received; it is invoked as a seca when the purchase shipment
+            is marked as 'received'
+        </description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ShipmentItem Services -->
+    <service name="createShipmentItem" default-entity-name="ShipmentItem" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentItem" auth="true">
+        <description>Create ShipmentItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="shipmentItemSeqId" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateShipmentItem" default-entity-name="ShipmentItem" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentItem" auth="true">
+        <description>Update ShipmentItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentItem" default-entity-name="ShipmentItem" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentItem" auth="true">
+        <description>Delete ShipmentItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ShipmentPackage Services -->
+    <service name="createShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackage" auth="true">
+        <description>Create ShipmentPackage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="dateCreated"/>
+        </auto-attributes>
+        <override name="shipmentPackageSeqId" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackage" auth="true">
+        <description>Update ShipmentPackage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackage" auth="true">
+        <description>Delete ShipmentPackage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ShipmentPackageContent Services -->
+    <service name="createShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackageContent" auth="true">
+        <description>Create ShipmentPackageContent</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="shipmentPackageSeqId" mode="INOUT" optional="false"/>
+    </service>
+    <service name="updateShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackageContent" auth="true">
+        <description>Update ShipmentPackageContent</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackageContent" auth="true">
+        <description>Delete ShipmentPackageContent</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="addShipmentContentToPackage" default-entity-name="ShipmentPackageContent" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="addShipmentContentToPackage" auth="true">
+        <description>Add Shipment Content To Package</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="quantity" mode="IN" optional="false"/>
+        <override name="shipmentPackageSeqId" mode="INOUT" optional="false"/>
+    </service>
+
+    <!-- ShipmentPackageRouteSeg Services -->
+    <service name="createShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackageRouteSeg" auth="true">
+        <description>Create ShipmentPackageRouteSeg</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackageRouteSeg" auth="true">
+        <description>Update ShipmentPackageRouteSeg</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackageRouteSeg" auth="true">
+        <description>Delete ShipmentPackageRouteSeg</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ShipmentContactMech Services -->
+    <service name="createShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentContactMech" auth="true">
+        <description>Create ShipmentContactMech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentContactMech" auth="true">
+        <description>Update ShipmentContactMech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentContactMech" auth="true">
+        <description>Delete ShipmentContactMech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ShipmentRouteSegment Services -->
+    <service name="createShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentRouteSegment" auth="true">
+        <description>Create ShipmentRouteSegment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="shipmentRouteSegmentId" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentRouteSegment" auth="true">
+        <description>Update ShipmentRouteSegment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentRouteSegment" auth="true">
+        <description>Delete ShipmentRouteSegment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="quickScheduleShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="quickScheduleShipmentRouteSegment" auth="true">
+        <description>Schedules a shipment route segment with the carrier and service level in the ShipmentRouteSegment entity.
+          Actual scheduling is done by an async service, and this does not return an error, so it can be called in a multi-form,
+          and one failed shipment scheduling does not cause other shipments to be rolled back.
+        </description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ============================================================== -->
+    <!-- ItemIssuance Services -->
+    <service name="createItemIssuance" default-entity-name="ItemIssuance" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="createItemIssuance" auth="true">
+        <description>Create ItemIssuance</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="issuedDateTime"/>
+        </auto-attributes>
+    </service>
+    <service name="updateItemIssuance" default-entity-name="ItemIssuance" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="updateItemIssuance" auth="true">
+        <description>Update ItemIssuance</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="issuedDateTime"/>
+        </auto-attributes>
+    </service>
+    <service name="deleteItemIssuance" default-entity-name="ItemIssuance" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuance" auth="true">
+        <description>Delete ItemIssuance</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ItemIssuanceRole Services -->
+    <service name="createItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="createItemIssuanceRole" auth="true">
+        <description>Create ItemIssuanceRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuanceRole" auth="true">
+        <description>Delete ItemIssuanceRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="issueOrderItemToShipment" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemToShipment" auth="true">
+        <description>Issue an OrderItem to a Shipment - only for non-sales orders</description>
+        <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="OrderItemShipGroupAssoc" include="pk" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="issueOrderItemShipGrpInvResToShipment" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemShipGrpInvResToShipment" auth="true">
+        <description>Add an OrderItemShipGrpInvRes to a Shipment - only for sales orders</description>
+        <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <!-- Pack Order Services -->
+    <service name="packSingleItem" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">
+        <description>Pack Single Item</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="packageSeq" type="Integer" mode="IN" optional="false"/>
+        <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="packBulkItems" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="packBulk" auth="true">
+        <description>Pack Multiple Items</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
+        <attribute name="prdInfo" type="Map" string-map-prefix="prd_" mode="IN" optional="true"/>
+        <attribute name="qtyInfo" type="Map" string-map-prefix="qty_" mode="IN" optional="true"/>
+        <attribute name="pkgInfo" type="Map" string-map-prefix="pkg_" mode="IN" optional="true"/>
+        <attribute name="selInfo" type="Map" string-map-prefix="sel_" mode="IN" optional="true"/>
+    </service>
+
+    <service name="setNextPackageSeq" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="incrementPackageSeq" auth="true">
+        <description>Increments the next package sequence</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="nextPackageSeq" type="Integer" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="clearPackAll" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="clearPackAll" auth="true">
+        <description>Clear the current packing session</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+    </service>
+    <service name="clearPackLine" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="clearPackLine" auth="true">
+        <description>Clear a single line from the current packing session</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="packageSeqId" type="Integer" mode="IN" optional="false"/>
+    </service>
+
+    <service name="completePack" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="completePack" auth="true">
+        <description>Complete the packging set the shipment to PACKED</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
+        <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <!-- Shipment Plan Services -->
+    <service name="addOrderShipmentToShipment" engine="simple" default-entity-name="OrderShipment"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="addOrderShipmentToShipment" auth="true">
+        <description>Add an OrderShipment and a ShipmentItem - only for sales orders</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+        <override name="shipmentItemSeqId" mode="IN" optional="true"/>
+    </service>
+    <service name="removeOrderShipmentFromShipment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="removeOrderShipmentFromShipment" auth="true">
+        <description>Delete an OrderShipment and updates the ShipmentItem</description>
+        <auto-attributes entity-name="OrderShipment" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="getQuantityForShipment" engine="simple" default-entity-name="OrderItem"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="getQuantityForShipment" auth="true">
+        <description>get the order item quantity still not put in shipments</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="remainingQuantity" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <!-- ============================================================== -->
+    <!-- Receipt Services -->
+    <service name="interfaceShipmentReceipt" engine="interface" location="" invoke="">
+        <description>ShipmentReceipt Interface</description>
+        <auto-attributes entity-name="ShipmentReceipt" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="true"/>
+        <override name="inventoryItemId" optional="false"/>
+        <override name="productId" optional="false"/>
+        <override name="quantityAccepted" optional="false"/>
+        <override name="quantityRejected" optional="false"/>
+    </service>
+    <service name="createShipmentReceipt" engine="simple"
+            location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="createShipmentReceipt" auth="true">
+        <description>Creates a ShipmentReceipt Record</description>
+        <implements service="interfaceShipmentReceipt"/>
+        <attribute name="receiptId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updatePurchaseShipmentFromReceipt" engine="java"
+      location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="updatePurchaseShipmentFromReceipt" auth="true">
+        <description>
+          Whenever a ShipmentReceipt is generated, check the Shipment associated
+          with it to see if all items were received. If so, change its status to
+          PURCH_SHIP_RECEIVED. The check is accomplished by counting the 
+          products shipped (from ShipmentAndItem) and matching them with the 
+          products received (from ShipmentReceipt).
+        </description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="prepareInventoryReceipt" engine="simple"
+            location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="prepareInventoryReceipt" auth="true">
+        <description>Prepare Receipt Form for Inventory Item</description>
+        <attribute name="quantityAccepted" type="Double" mode="IN" optional="false"/>
+        <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandDiff" type="Double" mode="OUT" optional="true"/>
+        <attribute name="availableToPromiseDiff" type="Double" mode="OUT" optional="true"/>
+    </service>
+    <service name="receiveInventoryProduct" engine="group" location="receiveInventoryProduct" invoke="" auth="true">
+        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="availableToPromiseDiff" type="Double" mode="INOUT" optional="true"/>
+        <attribute name="quantityOnHandDiff" type="Double" mode="INOUT" optional="true"/>
+        <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
+        <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="quickReceiveReturn" engine="simple"
+            location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="quickReceiveReturn" auth="true">
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="interfaceShipmentReceiptRole" engine="interface" location="" invoke="">
+        <description>Interface for ShipmentReceiptRole</description>
+        <attribute name="receiptId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="createShipmentReceiptRole" engine="simple"
+            location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="createShipmentReceiptRole" auth="true">
+        <description>Create a ShipmentReceipt Role entry</description>
+        <implements service="interfaceShipmentReceiptRole"/>
+    </service>
+    <service name="removeShipmentReceiptRole" engine="simple"
+            location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="removeShipmentReceiptRole" auth="true">
+        <description>Remove a ShipmentReceipt Role entry</description>
+        <implements service="interfaceShipmentReceiptRole"/>
+    </service>
+
+    <!-- Shipment Estimate (Rate) Services -->
+    <service name="createShipmentEstimate" engine="java"
+                location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="createShipmentEstimate" auth="true">
+        <description>Create Shipment Estimate</description>
+        <attribute name="shipMethod" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="toGeo" type="String" mode="IN" optional="true"/>
+        <attribute name="fromGeo" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="flatPercent" type="Double" mode="IN" optional="false"/>
+        <attribute name="flatPrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="flatItemPrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="productFeatureGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="featurePercent" type="Double" mode="IN" optional="true"/>
+        <attribute name="featurePrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="oversizeUnit" type="Double" mode="IN" optional="true"/>
+        <attribute name="oversizePrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="wmin" type="Double" mode="IN" optional="true"/>
+        <attribute name="wmax" type="Double" mode="IN" optional="true"/>
+        <attribute name="wprice" type="Double" mode="IN" optional="true"/>
+        <attribute name="wuom" type="String" mode="IN" optional="true"/>
+        <attribute name="qmin" type="Double" mode="IN" optional="true"/>
+        <attribute name="qmax" type="Double" mode="IN" optional="true"/>
+        <attribute name="qprice" type="Double" mode="IN" optional="true"/>
+        <attribute name="quom" type="String" mode="IN" optional="true"/>
+        <attribute name="pmin" type="Double" mode="IN" optional="true"/>
+        <attribute name="pmax" type="Double" mode="IN" optional="true"/>
+        <attribute name="pprice" type="Double" mode="IN" optional="true"/>
+        <attribute name="puom" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentCostEstimateId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="removeShipmentEstimate" engine="java"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="removeShipmentEstimate" auth="true">
+        <description>Remove Shipment Estimate</description>
+        <attribute name="shipmentCostEstimateId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="calcShipmentEstimateInterface" engine="interface" location="" invoke="">
+        <description>Interface for shipment estimate calc service</description>
+        <attribute name="serviceConfigProps" type="String" mode="IN" optional="true"/>
+        <attribute name="initialEstimateAmt" type="Double" mode="IN" optional="true"/>
+        <attribute name="shippingContactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="shippableItemInfo" type="List" mode="IN" optional="false"/>
+        <attribute name="shippableWeight" type="Double" mode="IN" optional="false"/>
+        <attribute name="shippableQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="shippableTotal" type="Double" mode="IN" optional="false"/>
+        <attribute name="shippingEstimateAmount" type="Double" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="calcShipmentCostEstimate" engine="java"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="calcShipmentCostEstimate" auth="false">
+        <description>Generic Shipment Cost Estimate Calc Service - Use ShipmentCostEstimate Entities</description>
+        <implements service="calcShipmentEstimateInterface"/>
+    </service>
+</services>

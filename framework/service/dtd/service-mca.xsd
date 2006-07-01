@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+    *
+    *  Permission is hereby granted, free of charge, to any person obtaining a
+    *  copy of this software and associated documentation files (the "Software"),
+    *  to deal in the Software without restriction, including without limitation
+    *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    *  and/or sell copies of the Software, and to permit persons to whom the
+    *  Software is furnished to do so, subject to the following conditions:
+    *
+    *  The above copyright notice and this permission notice shall be included
+    *  in all copies or substantial portions of the Software.
+    *
+    *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+    *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+    *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    *  Service Framework - Service MCA Definition DTD
+    *  $Id: service-mca.xsd 5462 2005-08-05 18:35:48Z jonesde $
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="service-mca">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="mca"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mca">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="condition-field"/>
+                    <xs:element ref="condition-header"/>
+                    <xs:element ref="condition-service"/>
+                </xs:choice>
+                <xs:element maxOccurs="unbounded" ref="action"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.mca"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.mca">
+        <xs:attribute type="xs:string" name="mail-rule-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="condition-field">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition-field"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.condition-field">
+        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="operator" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="equals"/>
+                    <xs:enumeration value="not-equals"/>
+                    <xs:enumeration value="empty"/>
+                    <xs:enumeration value="not-empty"/>
+                    <xs:enumeration value="matches"/>
+                    <xs:enumeration value="not-matches"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value"/>
+    </xs:attributeGroup>
+    <xs:element name="condition-header">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition-header"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.condition-header">
+        <xs:attribute type="xs:string" name="header-name" use="required"/>
+        <xs:attribute name="operator" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="equals"/>
+                    <xs:enumeration value="not-equals"/>
+                    <xs:enumeration value="empty"/>
+                    <xs:enumeration value="not-empty"/>
+                    <xs:enumeration value="matches"/>
+                    <xs:enumeration value="not-matches"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value"/>
+    </xs:attributeGroup>
+    <xs:element name="condition-service">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition-service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.condition-service">
+        <xs:attribute type="xs:string" name="service-name"/>
+    </xs:attributeGroup>
+    <xs:element name="action">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.action"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.action">
+        <xs:attribute type="xs:string" name="service" use="required"/>
+        <xs:attribute name="mode" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="sync"/>
+                    <xs:enumeration value="async"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="runAsUser"/>
+        <xs:attribute name="persist" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+</xs:schema>
+<!--
+    <service-mca>
+        <mca mail-rule-name="someRuleName">
+          <condition-field field-name="to" operator="equals" value="test@ofbiz.org"/>
+          <action service="testScv" mode="sync"/>
+          <action service="testScv" mode="sync"/>
+        </mca>
+    </service-mca>
+-->

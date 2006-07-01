@@ -1,0 +1,94 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Al Byers
+ *@version    $Rev$
+ *@since      2.2
+ * This is a general menu redirection script. It must be called from a page
+ * action and not a content action because it is only possible to redirect
+ * if no content has been written to the client.
+ * It exists so that easy redirection can be directed by creating a pagedef config
+ * file and a separate service event for each redirection is not needed.
+ * This script relies on the envsetup.bsh script populating the session object's
+ * menuHistory HashMap with the proper request ids when they are visited.
+ * If there is no history for a particular menu, the "defaultSubMenu" property
+ * in the pagedef config file for that menu "view" is checked.
+ */
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.widget.html.HtmlMenuWrapper;
+import org.ofbiz.widget.WidgetWorker;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import java.lang.StringBuffer;
+
+if (request.getAttribute("servletContext") == null) Debug.logError("ServletContext null in redirectmenu");
+
+
+    menuDefFile = page.getProperty("menuDefFile");
+    menuName = page.getProperty("menuName");
+    menuWrapper = HtmlMenuWrapper.getMenuWrapper( request, response, session, menuDefFile, menuName,  "HtmlMenuWrapper");
+    modelMenu = menuWrapper.getModelMenu();
+    //Debug.logInfo("in redirectmenu(0), modelMenu:" + modelMenu,"");
+    menuItemName = modelMenu.getCurrentMenuItemName();
+    Debug.logInfo("in redirectmenu(0), menuItemName:" + menuItemName,"");
+
+    String redirectPath = null;
+    if ( UtilValidate.isNotEmpty(menuItemName)) {
+        menuItem = modelMenu.getModelMenuItemByName(menuItemName);
+        if (menuItem != null) {
+            //menuTarget = menuItem.getCurrentMenuTarget();
+            menuTarget = menuWrapper.getCurrentMenuTarget(menuItem);
+            if (menuTarget != null) {
+                ctx = new HashMap();
+                Map parameterMap = UtilHttp.getParameterMap(request);
+                ctx.put("parameters", parameterMap);
+
+                //make sure the locale is in the ctx
+                ctx.put("locale", UtilHttp.getLocale(request));
+
+                requestName = menuTarget.getRequestName();
+                targetType = menuTarget.getTargetType();
+                paramList = menuTarget.getParamList();
+                //Debug.logInfo("in redirectmenu(0), paramList:" + paramList,"");
+                buf = new StringBuffer();
+                WidgetWorker.buildHyperlinkUrl(buf, requestName, targetType, request, response, ctx, paramList);
+
+                redirectPath = buf.toString();
+                //path = buf.toString();
+                //Debug.logInfo("in redirectmenu(0), path:" + path,"");
+                //renderer = menuWrapper.getMenuRenderer();
+                //Debug.logInfo("in redirectmenu(0), renderer:" + renderer,"");
+                //buf = new StringBuffer();
+                //renderer.appendOfbizUrl(buf, path);
+                //redirectPath = buf.toString();
+                Debug.logInfo("in redirectmenu(0), redirectPath:" + redirectPath,"");
+            } 
+        }
+    }
+
+    if (redirectPath != null){
+    	context.put("redirect", redirectPath);
+    } else {
+    	context.put("redirect", null);
+    }

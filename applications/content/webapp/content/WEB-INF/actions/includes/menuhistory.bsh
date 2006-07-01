@@ -1,0 +1,28 @@
+// Set the menuHistory object with the info relating to this page
+// This counts on the convention of the page name being the same as the request id base name
+// This is put in a separate file because the menuHistory should not be updated when a popup
+// window is opened, as with a lookup.
+// So this action is not included on the "lookup" template.
+HashMap menuHistory	= session.getAttribute("menuHistory");
+if(menuHistory == null){
+	menuHistory	= new HashMap();
+	session.setAttribute("menuHistory", menuHistory);
+}
+String pageName		= page.getPageName();
+
+
+servletPath = request.getServletPath();
+queryString = request.getQueryString();
+if (queryString != null) queryString = "?" + queryString;
+else queryString = "";
+String thisPath		= request.getRequestURI();
+String menuPath		= page.getProperty("headerItem");
+String pageName		= page.getPageName();
+String pagePath		= page.getPath();
+org.ofbiz.base.util.Debug.logInfo(" menuPath:" + menuPath, "");
+org.ofbiz.base.util.Debug.logInfo(" path:" + thisPath + "   :   " + queryString, "");
+org.ofbiz.base.util.Debug.logInfo(" pageName:" + pageName, "");
+org.ofbiz.base.util.Debug.logInfo(" pagePath:" + pagePath, "");
+//menuHistory.put(menuPath, thisPath + queryString);
+menuHistory.put(menuPath, "/content/control/" + pageName + queryString);
+

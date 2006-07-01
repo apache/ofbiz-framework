@@ -1,0 +1,2 @@
+
+Web applications which will be mounted by the container would go here.

@@ -1,0 +1,191 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.*;
+import java.awt.Dimension;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
+import org.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper;
+
+security = request.getAttribute("security");
+delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
+
+if(security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+    context.put("hasPermission", Boolean.TRUE);
+} else {
+    context.put("hasPermission", Boolean.FALSE);
+}
+
+// -----------------------------
+// Report's parameters
+//groupByFeatureTypeIdParameter = "COLOR";
+selectWorkEffortNameParameter = "O-PREL_A"; // sezionatura
+selectPrimaryCategoryIdParameter = "CABINETS"; // struttura
+// -----------------------------
+
+shipmentId = request.getParameter("shipmentId");
+context.put("shipmentId", shipmentId);
+shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+context.put("shipment", shipment);
+
+
+// dimensionsByFeatureMap [key=feature; value=productsByShapeMap]
+// productsByShapeMap [key=dimension; value=quantityByProductsMap]
+// quantityByProductsMap [key=product; value=quantity]
+// dimension={width*, height*, qty}
+// product={productId*,...}
+
+productIdToQuantity = new HashMap(); // key=productId, value=quantity
+productIdToProduct = new HashMap(); // key=productId, value=product
+dimensionToProducts = new HashMap(); // key=Dimension, value=list of products
+dimensionToQuantity = new HashMap(); // key=Dimension, value=tot qty (of products)
+
+shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
+
+if (shipmentPlans != null) {
+    shipmentPlansIt = shipmentPlans.iterator();
+    while (shipmentPlansIt.hasNext()) {
+        shipmentPlan = shipmentPlansIt.next();
+        // Select the production run, if available
+        weIds = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId")), UtilMisc.toList("workEffortId")); // TODO: add shipmentId
+        weId = EntityUtil.getFirst(weIds);
+        ArrayList productionRunTree = new ArrayList();
+        // TODO
+        if (weId != null) {
+            ProductionRunHelper.getLinkedProductionRuns(delegator, dispatcher, weId.getString("workEffortId"), productionRunTree);
+            for (int i = 0; i < productionRunTree.size(); i++) {
+                ProductionRun oneProductionRun = (ProductionRun)productionRunTree.get(i);
+                if (ProductionRunHelper.hasTask(delegator, selectWorkEffortNameParameter, oneProductionRun.getGenericValue().getString("workEffortId"))) {
+                    GenericValue product = oneProductionRun.getProductProduced();
+                    String primaryCategory = product.getString("primaryProductCategoryId");
+                    if (primaryCategory != null && selectPrimaryCategoryIdParameter.equals(primaryCategory)) {
+                        String productId = product.getString("productId");
+                        productIdToProduct.put(productId, product);
+                        if (!productIdToQuantity.containsKey(productId)) {
+                            productIdToQuantity.put(productId, new Double(0));
+                        }
+                        Double qty = (Double)productIdToQuantity.get(productId);
+                        productIdToQuantity.put(productId, new Double(oneProductionRun.getGenericValue().getDouble("quantityToProduce").doubleValue() + qty.doubleValue()));
+                    }
+                }
+            }
+        }
+    }
+    Iterator productsIterator = productIdToProduct.values().iterator();
+    while (productsIterator.hasNext()) {
+        GenericValue product = (GenericValue)productsIterator.next();
+        Double heightD = product.getDouble("productHeight");
+        int height = 0;
+        if (heightD != null) height = (int)(heightD.doubleValue() * 1000);
+        Double widthD = product.getDouble("productWidth");
+        int width = 0;
+        if (widthD != null) width = (int)(widthD.doubleValue() * 1000);
+        Dimension dim = new Dimension(width, height);
+        if (!dimensionToProducts.containsKey(dim)) {
+            dimensionToProducts.put(dim, new ArrayList());
+        }
+        List prodList = (List)dimensionToProducts.get(dim);
+        prodList.add(product);
+        // tot qty per dimension
+        if (!dimensionToQuantity.containsKey(dim)) {
+            dimensionToQuantity.put(dim, new Double(0));
+        }
+        Double qty = (Double)dimensionToQuantity.get(dim);
+        dimensionToQuantity.put(dim, new Double(((Double)productIdToQuantity.get(product.getString("productId"))).doubleValue() + qty.doubleValue()));
+    }
+    //
+    //
+    //
+    List list1 = new ArrayList();
+    Iterator dimIt = dimensionToProducts.keySet().iterator();
+    while (dimIt.hasNext()) {
+        Dimension dim = (Dimension)dimIt.next();
+        Map map1 = new HashMap();
+        list1.add(map1);
+        map1.put("width", new Double(dim.getWidth() / 1000));
+        map1.put("height", new Double(dim.getHeight() / 1000));
+        map1.put("quantity", dimensionToQuantity.get(dim));
+        List list2 = new ArrayList();
+        map1.put("products", list2);
+        List products = (List)dimensionToProducts.get(dim);
+        for (int i = 0; i < products.size(); i++) {
+            GenericValue product = (GenericValue)products.get(i);
+            Map map2 = new HashMap();
+            list2.add(map2);
+            map2.put("product", product);
+            map2.put("quantity", productIdToQuantity.get(product.getString("productId")));
+        }
+    }
+    context.put("cuttingList", list1);
+}
+
+/*
+// Data structure example
+Map map1, map2 = null;
+List list1, list2 = null;
+//
+GenericValue productA = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", "AR202"));
+GenericValue productB = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", "PENS45_001_BePoBi"));
+GenericValue productC = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", "ST_001_Bi"));
+GenericValue productD = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", "25-00"));
+// products
+list2 = new ArrayList();
+map2 = new HashMap();
+map2.put("product", productA);
+map2.put("quantity", new Integer(12));
+list2.add(map2);
+map2 = new HashMap();
+map2.put("product", productB);
+map2.put("quantity", new Integer(4));
+list2.add(map2);
+// dimensions
+list1 = new ArrayList();
+map1 = new HashMap();
+map1.put("width", new Double(123.5));
+map1.put("length", new Double(243.8));
+map1.put("quantity", new Integer(16));
+map1.put("products", list2);
+list1.add(map1);
+// products
+list2 = new ArrayList();
+map2 = new HashMap();
+map2.put("product", productA);
+map2.put("quantity", new Integer(3));
+list2.add(map2);
+map2 = new HashMap();
+map2.put("product", productC);
+map2.put("quantity", new Integer(20));
+list2.add(map2);
+map2 = new HashMap();
+map2.put("product", productD);
+map2.put("quantity", new Integer(7));
+list2.add(map2);
+// dimensions
+map1 = new HashMap();
+map1.put("width", new Double(150.5));
+map1.put("length", new Double(145.3));
+map1.put("quantity", new Integer(30));
+map1.put("products", list2);
+list1.add(map1);
+
+context.put("cuttingList", list1);
+*/
+

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <!-- WorkEffort Lookup forms -->
+    <form name="lookupWorkEffort" target="LookupWorkEffort" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="WorkEffort" default-field-type="find"/>
+        <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><text-find/></field>
+        <field name="workEffortParentId"><text-find/></field>
+        <field name="workEffortName"><text-find/></field>
+        <field name="workEffortTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortPurposeTypeId" >
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[General] ${description}">
+                    <entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[Task] ${description}">
+                    <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[Event] ${description}">
+                    <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="scopeEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="moneyUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down allow-empty="true">
+                <entity-options description="[${uomId}] - ${description}" entity-name="Uom" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="workflowPackageId"><ignored/></field>
+        <field name="workflowPackageVersion"><ignored/></field>
+        <field name="workflowProcessId"><ignored/></field>
+        <field name="workflowProcessVersion"><ignored/></field>
+        <field name="workflowActivityId"><ignored/></field>
+        <field name="recurrenceInfoId"><ignored/></field>
+        <field name="runtimeDataId"><ignored/></field>
+        <field name="noteId"><ignored/></field>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="listLookupWorkEffort" list-name="listIt" target="" paginate-target="LookupPerson" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="WorkEffort"/>
+                <field-map field-name="orderBy" value="workEffortId"/>
+            </service>
+        </actions>
+        <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${workEffortId}" target="javascript:set_value('${workEffortId}')"/>
+        </field>
+        <field name="workEffortName"><display/></field>
+        <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
+        <field name="marketingCampaignId"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
+    </form>
+
+    <!-- Timesheet Lookup forms -->
+    <form name="lookupTimesheet" target="LookupTimesheet" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="Timesheet" default-field-type="find"/>
+        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}"><text-find/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="clientPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="listLookupTimesheet" list-name="listIt" target="" paginate-target="LookupPerson" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Timesheet"/>
+                <field-map field-name="orderBy" value="timesheetId"/>
+            </service>
+        </actions>
+        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${timesheetId}" target="javascript:set_value('${timesheetId}')"/>
+        </field>
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
+        <field name="clientPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
+    </form>
+</forms>

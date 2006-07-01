@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+    <menu name="cms" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN"
+        default-associated-content-id="${userLogin.userLoginId}"
+        selected-menuitem-context-field-name="currentCMSMenuItemName"
+        title="" type="simple">
+
+
+        <menu-item name="contentfind" title="${uiLabelMap.ContentContent}" >
+            <link id="contentfind" target="${menuContext.contentTarget}"/>
+        </menu-item>
+        <menu-item name="subsites" title="${uiLabelMap.ContentSubSites}" >
+            <link id="dflt" target="CMSSites?forumId=${subsites.forumId}"/>
+        </menu-item>
+
+        <menu-item name="index" title="${uiLabelMap.ContentIndex}" >
+            <link id="dflt" target="AdminIndex">
+            </link>
+        </menu-item>
+
+        <menu-item name="search" title="${uiLabelMap.CommonFind}" >
+            <link id="dflt" target="AdminSearch">
+            </link>
+        </menu-item>
+
+
+    </menu>
+
+    <menu name="content" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN"
+        default-associated-content-id="${userLogin.userLoginId}"
+        selected-menuitem-context-field-name="tabButtonItem"
+        title="" type="simple">
+
+
+       <menu-item name="contentfind" title="${uiLabelMap.ContentContent}" >
+            <link id="CMSContentFind" target="CMSContentFind?listSize=${content.listSize}&amp;highIndex=${content.highIndex}&amp;lowIndex=${content.lowIndex}&amp;viewSize=${content.viewSize}&amp;viewIndex=${content.viewIndex}&amp;queryString=${content.queryString}" >
+            </link>
+        </menu-item>
+       <menu-item name="ownedcontentfind" title="${uiLabelMap.ContentContent}" >
+            <link id="CMSFindOwnedContent" target="CMSFindOwnedContent?listSize=${content.listSize}&amp;highIndex=${content.highIndex}&amp;lowIndex=${content.lowIndex}&amp;viewSize=${content.viewSize}&amp;viewIndex=${content.viewIndex}&amp;queryString=${content.queryString}" >
+            </link>
+        </menu-item>
+       <menu-item name="contentedit" title="${uiLabelMap.CommonEdit}" >
+            <link id="CMSContentEdit" target="CMSContentEdit?contentId=${content.currentValue.contentId}&amp;dataResourceId=${content.currentValue.dataResourceId}"/>
+        </menu-item>
+       <menu-item name="contentadd" title="${uiLabelMap.CommonAdd}" >
+            <link id="CMSContentAdd" target="CMSContentAdd">
+            </link>
+        </menu-item>
+
+    </menu>
+
+</menus>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <RequirementType description="ProductionRun proposed by the MRP process" hasTable="N" parentTypeId="" requirementTypeId="MRP_PRO_PROD_ORDER"/>
+    <RequirementType description="Purchase Order proposed by the MRP process" hasTable="N" parentTypeId="" requirementTypeId="MRP_PRO_PURCH_ORDER"/>
+
+    <InventoryEventPlannedType inventoryEventPlanTypeId="MRP_REQUIREMENT" description="Mrp requirement" inOut="-"/>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_RECP" description="Manufacturing Order receipt" inOut="+"/>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_REQ" description="Manufacturing Order requirement" inOut="-"/>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="PROP_MANUF_O_RECP" description="Proposed Manufacturing Order receipt" inOut="+"/>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="PUR_ORDER_RECP" description="Purchase Order receipt" inOut="+"/>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="PROP_PUR_O_RECP" description="Proposed Purchase Order receipt" inOut="+"/>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="SALE_ORDER_SHIP" description="Sales order shipment" inOut="-"/>
+    <TechDataCalendarWeek calendarWeekId="SUPPLIER" description="8hours/days, currently the Re-Order Process convert day to mms with 8h/days" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
+    <TechDataCalendar calendarId="SUPPLIER" description="Calendar used for Re-Order date calculation for bought product" calendarWeekId="SUPPLIER"/>
+    <TechDataCalendarWeek calendarWeekId="DEFAULT" description="8hours/days" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
+    <TechDataCalendar calendarId="DEFAULT" description="Default calendar used when no specific calendar is defined" calendarWeekId="DEFAULT"/>
+
+    <!-- Default routing -->
+    <!-- used when no explicit routing is associated to a product -->
+    <WorkEffort workEffortId="DEFAULT_ROUTING" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Default Routing" description="Default Routing" revisionNumber="1" quantityToProduce="0"/>
+    <WorkEffort workEffortId="DEFAULT_TASK" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Default Routing Task" description="Default Routing Task" revisionNumber="1" fixedAssetId="" estimatedMilliSeconds="0" estimatedSetupMillis="0"/>
+    <WorkEffortAssoc workEffortIdFrom="DEFAULT_ROUTING" workEffortIdTo="DEFAULT_TASK" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2004-09-24 15:09:38.736"/>
+
+    <!-- Formulae -->
+    <CustomMethodType customMethodTypeId="COST_FORMULA" description="Formula for calculating costs for tasks"/>
+    <CustomMethodType customMethodTypeId="TASK_FORMULA" description="Formula for calculating time estimates for tasks"/>
+    <CustomMethodType customMethodTypeId="BOM_FORMULA" description="Formula for calculating material estimates for boms"/>
+    <!-- Task Formulae -->
+    <CustomMethod customMethodId="6000" customMethodTypeId="TASK_FORMULA" customMethodName="exampleTaskFormula" description="Example task formula (qty * estimatedMilliSeconds * 10)"/>
+    <!-- Bom Formulae -->
+    <CustomMethod customMethodId="6001" customMethodTypeId="BOM_FORMULA" customMethodName="exampleComponentFormula" description="Example bom formula (qty * k)"/>
+    <CustomMethod customMethodId="6002" customMethodTypeId="BOM_FORMULA" customMethodName="linearComponentFormula" description="Bom formula for linear components"/>
+</entity-engine-xml>

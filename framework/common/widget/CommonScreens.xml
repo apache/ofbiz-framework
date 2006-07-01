@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: CommonScreens.xml 7808 2006-06-17 22:18:53Z jonesde $
+
+Copyright 2003-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <!-- Included Screens -->
+    <screen name="states">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/states.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="countries">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/countries.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="cctypes">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/cctypes.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ccmonths">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/ccmonths.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ccyears">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/ccyears.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Global decorator for General Screens/Pages -->
+    <screen name="GlobalDecorator">
+        <section>
+            <actions>
+                <!-- The two default (global) stylesheets are added to the list
+                     of stylesheets to the first and second position -->
+                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+1]" value="/images/tabstyles.css" global="true"/>
+            </actions>
+            <widgets>
+                <!-- render header -->
+                <platform-specific><html><html-template location="component://common/webcommon/includes/header.ftl"/></html></platform-specific>
+                <!-- render appbar -->
+                <platform-specific><html><html-template location="component://common/webcommon/includes/appbar.ftl"/></html></platform-specific>
+                
+                <container style="centerarea">
+                    <!-- render appheader: both menu widget style and ftl template style menus are supported-->
+                    <section>
+                        <condition>
+                            <if-empty field-name="applicationMenuName"/>
+                        </condition>
+                        <widgets>
+                            <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="apptitle">${applicationTitle}</label>
+                            <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/>
+                        </fail-widgets>
+                    </section>
+                    <container style="contentarea">
+                        <container id="column-container">
+                            <!-- by default will render left-bar only if leftbarScreen value not empty -->
+                            <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
+
+                            <container style="${MainColumnStyle}">
+                                <!-- render messages -->
+                                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                                <decorator-section-include name="body"/>
+                            </container>
+                            <container style="endcolumns"><label text="&amp;nbsp;"/></container>
+                        </container>
+                    </container>
+                </container>
+                
+                <!-- render footer -->
+                <platform-specific><html><html-template location="component://common/webcommon/includes/footer.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Global decorator for Lookup pop-up windows -->
+    <screen name="LookupDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template-decorator location="component://common/webcommon/includes/lookup.ftl">
+                            <html-template-decorator-section name="body">
+                                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                                <decorator-section-include name="body"/>
+                            </html-template-decorator-section>
+                        </html-template-decorator>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Global decorator for screenlet -->
+    <screen name="screenlet">
+        <section>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-header">
+                        <decorator-section-include name="screenlet-header"/>
+                    </container>
+                    <container style="screenlet-body">
+                        <decorator-section-include name="screenlet-body"/>
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+</screens>

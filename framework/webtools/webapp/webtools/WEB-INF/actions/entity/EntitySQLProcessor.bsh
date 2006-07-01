@@ -1,0 +1,89 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Jacopo Cappellato (tiz@sastau.it)
+ *@version    $Rev$
+ */
+
+import org.ofbiz.entity.jdbc.SQLProcessor;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.model.ModelGroupReader;
+
+String resultMessage = "";
+ResultSet rs = null;
+ArrayList columns = new ArrayList();
+ArrayList records = new ArrayList();
+ArrayList groups = new ArrayList();
+ModelGroupReader mgr = delegator.getModelGroupReader();
+Iterator groupMapIt = mgr.getGroupNames().iterator();
+
+while (groupMapIt.hasNext()) {
+    groups.add(groupMapIt.next());
+}
+
+if (sqlCommand != null && sqlCommand.length() > 0 && selGroup != null && selGroup.length() > 0) {
+    String helperName = delegator.getGroupHelperName(selGroup);
+    SQLProcessor du = new SQLProcessor(helperName);
+    try {
+        if (sqlCommand.toUpperCase().startsWith("SELECT")) {
+            rs = du.executeQuery(sqlCommand);
+            if (rs != null) {
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int numberOfColumns = rsmd.getColumnCount();
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    columns.add(rsmd.getColumnName(i));
+                }
+                boolean rowLimitReached = false;
+                while (rs.next()) {
+                    if (records.size() >= rowLimit) {
+                        resultMessage = "Returned top " + rowLimit + " rows.";
+                        rowLimitReached = true;
+                        break;
+                    }
+                    ArrayList record = new ArrayList();
+                    for (int i = 1; i <= numberOfColumns; i++) {
+                        record.add(rs.getObject(i));
+                    }
+                    records.add(record);
+                }
+                resultMessage = "Returned " + (rowLimitReached? "top " + rowLimit : "" + records.size()) + " rows.";
+                rs.close();
+            }
+        } else {
+            du.prepareStatement(sqlCommand);
+            int numOfaffectedRows = du.executeUpdate();
+            resultMessage = "Affected " + numOfaffectedRows + " rows.";
+        }
+    } catch(Exception exc) {
+        resultMessage = exc.getMessage();
+    }
+}
+context.put("groups", groups);
+context.put("resultMessage", resultMessage);
+context.put("columns", columns);
+context.put("records", records);
+
+

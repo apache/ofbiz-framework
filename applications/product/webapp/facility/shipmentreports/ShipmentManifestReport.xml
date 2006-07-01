@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+         name="ShipmentManifest1"
+         columnCount="1"
+         printOrder="Vertical"
+         orientation="Portrait"
+         pageWidth="612"
+         pageHeight="792"
+         columnWidth="540"
+         columnSpacing="0"
+         leftMargin="36"
+         rightMargin="36"
+         topMargin="18"
+         bottomMargin="18"
+         whenNoDataType="AllSectionsNoDetail"
+         isTitleNewPage="false"
+         isSummaryNewPage="false">
+    <parameter name="shipment" isForPrompting="false" class="java.util.Map"/>
+    <parameter name="shipmentId" isForPrompting="false" class="java.lang.String"/>
+    <field name="shipmentId" class="java.lang.String"/>
+    <field name="shipmentItemSeqId" class="java.lang.String"/>
+    <field name="productId" class="java.lang.String"/>
+    <field name="quantity" class="java.lang.Double"/>
+    <field name="shipmentContentDescription" class="java.lang.String"/>
+    <field name="itemIssuanceId" class="java.lang.String"/>
+    <field name="orderId" class="java.lang.String"/>
+    <field name="orderItemSeqId" class="java.lang.String"/>
+    <field name="inventoryItemId" class="java.lang.String"/>
+    <field name="issuedDateTime" class="java.sql.Timestamp"/>
+    <field name="issuedByUserLoginId" class="java.lang.String"/>
+    <field name="issuedQuantity" class="java.lang.Double"/>
+    <field name="packageQuantity" class="java.lang.Double"/>
+    <field name="shipmentPackageSeqId" class="java.lang.String"/>
+    <field name="packageDateCreated" class="java.sql.Timestamp"/>
+    <field name="weight" class="java.lang.Double"/>
+    <field name="weightUomAbbreviation" class="java.lang.String"/>
+    <field name="weightUomDescription" class="java.lang.String"/>
+    <field name="trackingCode" class="java.lang.String"/>
+    <field name="boxNumber" class="java.lang.String"/>
+    <field name="shipmentRouteSegmentId" class="java.lang.String"/>
+    <field name="deliveryId" class="java.lang.String"/>
+    <field name="originFacilityId" class="java.lang.String"/>
+    <field name="destFacilityId" class="java.lang.String"/>
+    <field name="originContactMechId" class="java.lang.String"/>
+    <field name="destContactMechId" class="java.lang.String"/>
+    <field name="originTelecomNumberId" class="java.lang.String"/>
+    <field name="destTelecomNumberId" class="java.lang.String"/>
+    <field name="carrierPartyId" class="java.lang.String"/>
+    <field name="shipmentMethodTypeId" class="java.lang.String"/>
+    <field name="actualCost" class="java.lang.Double"/>
+    <field name="actualStartDate" class="java.sql.Timestamp"/>
+    <field name="actualArrivalDate" class="java.sql.Timestamp"/>
+    <field name="estimatedStartDate" class="java.sql.Timestamp"/>
+    <field name="estimatedArrivalDate" class="java.sql.Timestamp"/>
+    <field name="originFacilityName" class="java.lang.String"/>
+    <field name="destFacilityName" class="java.lang.String"/>
+    <field name="originToName" class="java.lang.String"/>
+    <field name="originAttnName" class="java.lang.String"/>
+    <field name="originAddress1" class="java.lang.String"/>
+    <field name="originAddress2" class="java.lang.String"/>
+    <field name="originDirections" class="java.lang.String"/>
+    <field name="originCity" class="java.lang.String"/>
+    <field name="originPostalCode" class="java.lang.String"/>
+    <field name="originCountryGeoId" class="java.lang.String"/>
+    <field name="originStateProvinceGeoId" class="java.lang.String"/>
+    <field name="originPostalCodeGeoId" class="java.lang.String"/>
+    <field name="originCountryCode" class="java.lang.String"/>
+    <field name="originAreaCode" class="java.lang.String"/>
+    <field name="originContactNumber" class="java.lang.String"/>
+    <field name="destToName" class="java.lang.String"/>
+    <field name="destAttnName" class="java.lang.String"/>
+    <field name="destAddress1" class="java.lang.String"/>
+    <field name="destAddress2" class="java.lang.String"/>
+    <field name="destDirections" class="java.lang.String"/>
+    <field name="destCity" class="java.lang.String"/>
+    <field name="destPostalCode" class="java.lang.String"/>
+    <field name="destCountryGeoId" class="java.lang.String"/>
+    <field name="destStateProvinceGeoId" class="java.lang.String"/>
+    <field name="destPostalCodeGeoId" class="java.lang.String"/>
+    <field name="destCountryCode" class="java.lang.String"/>
+    <field name="destAreaCode" class="java.lang.String"/>
+    <field name="destContactNumber" class="java.lang.String"/>
+    <field name="carrierFirstName" class="java.lang.String"/>
+    <field name="carrierLastName" class="java.lang.String"/>
+    <field name="carrierGroupName" class="java.lang.String"/>
+    <field name="shipmentMethodDescription" class="java.lang.String"/>
+    <field name="internalName" class="java.lang.String"/>
+        <group  name="ShipmentRouteSegment" isStartNewColumn="false" isStartNewPage="false" isResetPageNumber="false" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="0" >
+            <groupExpression><![CDATA[$F{shipmentRouteSegmentId}]]></groupExpression>
+            <groupHeader>
+            <band height="120">
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="5"
+                        y="1"
+                        width="200"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="14" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Route Segment " + $F{shipmentRouteSegmentId}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="205"
+                        y="1"
+                        width="100"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Carrier: [" + $F{carrierPartyId} + "]"]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="385"
+                        y="1"
+                        width="130"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Method: " + $F{shipmentMethodDescription}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="305"
+                        y="1"
+                        width="80"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{carrierFirstName} != null || $F{carrierLastName} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{carrierFirstName} + " " + $F{carrierLastName}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="305"
+                        y="1"
+                        width="80"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{carrierGroupName} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{carrierGroupName}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="310"
+                        y="20"
+                        width="150"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destToName} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destToName}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="310"
+                        y="34"
+                        width="150"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destAttnName} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destAttnName}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="280"
+                        y="48"
+                        width="180"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destAddress1} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destAddress1}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="280"
+                        y="62"
+                        width="180"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destAddress2} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destAddress2}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="280"
+                        y="76"
+                        width="120"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destCity} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destCity}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="400"
+                        y="76"
+                        width="40"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destStateProvinceGeoId} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[", " + $F{destStateProvinceGeoId}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="440"
+                        y="76"
+                        width="60"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destPostalCode} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destPostalCode}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="280"
+                        y="90"
+                        width="180"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destCountryGeoId} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destCountryGeoId}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="280"
+                        y="20"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["To: "]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="280"
+                        y="34"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Attn: "]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="280"
+                        y="104"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destCountryCode} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destCountryCode}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="310"
+                        y="104"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destAreaCode} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destAreaCode}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="340"
+                        y="104"
+                        width="100"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{destContactNumber} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{destContactNumber}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="20"
+                        y="20"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["From: "]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="20"
+                        y="34"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Attn: "]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="50"
+                        y="20"
+                        width="150"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originToName} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originToName}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="50"
+                        y="34"
+                        width="150"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originAttnName} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originAttnName}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="20"
+                        y="48"
+                        width="180"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originAddress1} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originAddress1}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="20"
+                        y="62"
+                        width="180"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originAddress2} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originAddress2}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="20"
+                        y="76"
+                        width="120"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originCity} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originCity}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="140"
+                        y="76"
+                        width="40"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originStateProvinceGeoId} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[", " + $F{originStateProvinceGeoId}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="180"
+                        y="76"
+                        width="60"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originPostalCode} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originPostalCode}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="20"
+                        y="90"
+                        width="180"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originCountryGeoId} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originCountryGeoId}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="20"
+                        y="104"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originCountryCode} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originCountryCode}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="50"
+                        y="104"
+                        width="30"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originAreaCode} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originAreaCode}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentRouteSegment"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="80"
+                        y="104"
+                        width="100"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{originContactNumber} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{originContactNumber}]]></textFieldExpression>
+                </textField>
+            </band>
+            </groupHeader>
+            <groupFooter>
+            <band height="0">
+            </band>
+            </groupFooter>
+        </group>
+        <group  name="ShipmentPackage" isStartNewColumn="false" isStartNewPage="true" isResetPageNumber="false" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="0" >
+            <groupExpression><![CDATA[$F{shipmentPackageSeqId}]]></groupExpression>
+            <groupHeader>
+            <band height="20">
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="ShipmentPackage"  hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="10"
+                        y="1"
+                        width="200"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="14" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Package " + $F{shipmentPackageSeqId}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="215"
+                        y="1"
+                        width="160"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false">
+                            <printWhenExpression><![CDATA[new Boolean($F{weight} != null && $F{weightUomDescription} != null)]]></printWhenExpression>
+                        </reportElement>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="12" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Weight: " + $F{weight} + " " + $F{weightUomDescription}]]></textFieldExpression>
+                </textField>
+            </band>
+            </groupHeader>
+            <groupFooter>
+            <band height="0">
+            </band>
+            </groupFooter>
+        </group>
+        <group  name="ShipmentItem" isStartNewColumn="false" isStartNewPage="false" isResetPageNumber="false" isReprintHeaderOnEachPage="false" minHeightToStartNewPage="0" >
+            <groupExpression><![CDATA[$F{shipmentItemSeqId}]]></groupExpression>
+            <groupHeader>
+            <band height="16">
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="15"
+                        y="0"
+                        width="180"
+                        height="16"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{internalName} + " [" + $F{productId} + "]"]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="195"
+                        y="0"
+                        width="50"
+                        height="16"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.Double"><![CDATA[$F{quantity}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="245"
+                        y="0"
+                        width="50"
+                        height="16"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.Double"><![CDATA[$F{packageQuantity}]]></textFieldExpression>
+                </textField>
+            </band>
+            </groupHeader>
+            <groupFooter>
+            <band height="0">
+            </band>
+            </groupFooter>
+        </group>
+        <background>
+            <band height="0">
+            </band>
+        </background>
+        <title>
+            <band height="0">
+            </band>
+        </title>
+        <pageHeader>
+            <band height="20">
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="3"
+                        y="1"
+                        width="260"
+                        height="19"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="14" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Manifest for Shipment #" + $P{shipmentId}]]></textFieldExpression>
+                </textField>
+            </band>
+        </pageHeader>
+        <columnHeader>
+            <band height="20">
+                <staticText>
+                    <reportElement
+                        mode="Opaque"
+                        x="15"
+                        y="1"
+                        width="180"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <text><![CDATA[Product [ID]]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement
+                        mode="Opaque"
+                        x="195"
+                        y="1"
+                        width="50"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <text><![CDATA[Shipment]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement
+                        mode="Opaque"
+                        x="295"
+                        y="1"
+                        width="50"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <text><![CDATA[Issued]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement
+                        mode="Opaque"
+                        x="245"
+                        y="1"
+                        width="50"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <text><![CDATA[Package]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement
+                        mode="Opaque"
+                        x="345"
+                        y="1"
+                        width="70"
+                        height="18"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="true" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <text><![CDATA[OrderItem]]></text>
+                </staticText>
+            </band>
+        </columnHeader>
+        <detail>
+            <band height="14">
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="295"
+                        y="0"
+                        width="50"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.Double"><![CDATA[$F{issuedQuantity}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Opaque"
+                        x="345"
+                        y="0"
+                        width="70"
+                        height="14"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Center" verticalAlignment="Bottom" lineSpacing="Single">
+                        <font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA[$F{orderId} + ":" + $F{orderItemSeqId}]]></textFieldExpression>
+                </textField>
+            </band>
+        </detail>
+        <columnFooter>
+            <band height="0">
+            </band>
+        </columnFooter>
+        <pageFooter>
+            <band height="27">
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Transparent"
+                        x="318"
+                        y="5"
+                        width="174"
+                        height="19"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Right" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="Helvetica" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None" >                    <reportElement
+                        mode="Transparent"
+                        x="493"
+                        y="5"
+                        width="36"
+                        height="19"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="Helvetica" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+                </textField>
+                <line direction="TopDown">
+                    <reportElement
+                        mode="Opaque"
+                        x="1"
+                        y="3"
+                        width="537"
+                        height="0"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <graphicElement stretchType="NoStretch" pen="2Point" fill="Solid" />
+                </line>
+                <textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None" >                    <reportElement
+                        mode="Transparent"
+                        x="2"
+                        y="7"
+                        width="209"
+                        height="19"
+                        forecolor="#000000"
+                        backcolor="#FFFFFF"
+                        positionType="FixRelativeToTop"
+                        isPrintRepeatedValues="true"
+                        isRemoveLineWhenBlank="false"
+                        isPrintInFirstWholeBand="false"
+                        isPrintWhenDetailOverflows="false"/>
+                    <textElement textAlignment="Left" verticalAlignment="Top" lineSpacing="Single">
+                        <font fontName="Helvetica" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+                    </textElement>
+                <textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+                </textField>
+            </band>
+        </pageFooter>
+        <summary>
+            <band height="0">
+            </band>
+        </summary>
+</jasperReport>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ProductScreens.xml 4990 2005-05-14 10:00:28Z jacopo $
+-->
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+    <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="tabButtonSelected" 
+        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
+        orientation="horizontal" type="simple">
+        <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
+            <link target="viewprofile?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
+            <link target="viewroles?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="linkparty" title="${uiLabelMap.PartyLink}">
+            <link target="linkparty?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPartyRelationships" title="${uiLabelMap.PartyRelationships}">
+            <link target="EditPartyRelationships?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="PartyCommEvents" title="${uiLabelMap.PartyCommunications}" >
+            <link target="ListPartyCommEvents?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="viewvendor" title="${uiLabelMap.PartyVendor}">
+            <link target="viewvendor?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPartyTaxAuthInfos" title="${uiLabelMap.PartyTaxAuthInfos}">
+            <link target="EditPartyTaxAuthInfos?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRates}">
+            <link target="EditPartyRates?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="editShoppingList" title="${uiLabelMap.PartyShoppingLists}">
+            <link target="editShoppingList?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="ViewSegmentRoles" title="${uiLabelMap.PartySegments}">
+            <link target="ViewSegmentRoles?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPartyClassifications" title="${uiLabelMap.PartyClassifications}">
+            <link target="EditPartyClassifications?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="ContactList" title="${uiLabelMap.PartyContactList}">
+            <link target="ListPartyContactLists?partyId=${partyId}"/>
+        </menu-item>
+    </menu>
+</menus>

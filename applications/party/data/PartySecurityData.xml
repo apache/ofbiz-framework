@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Party Manager security -->
+    <SecurityPermission description="View operations in the Party Manager." permissionId="PARTYMGR_VIEW"/>
+    <SecurityPermission description="Create operations in the Party Manager." permissionId="PARTYMGR_CREATE"/>
+    <SecurityPermission description="Update operations in the Party Manager." permissionId="PARTYMGR_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Party Manager." permissionId="PARTYMGR_DELETE"/>
+    <SecurityPermission description="ALL operations in the Party Manager." permissionId="PARTYMGR_ADMIN"/>
+    <SecurityPermission description="Create notes in the Party Manager." permissionId="PARTYMGR_NOTE"/>
+    <SecurityPermission description="Update party status in the Party Manager." permissionId="PARTYMGR_STS_UPDATE"/>
+    <SecurityPermission description="Update PartyGroup or Person detail information." permissionId="PARTYMGR_GRP_UPDATE"/>
+    <SecurityPermission description="Create party relationships in the Party Manager." permissionId="PARTYMGR_REL_CREATE"/>
+    <SecurityPermission description="Update party relationships in the Party Manager." permissionId="PARTYMGR_REL_UPDATE"/>
+    <SecurityPermission description="Delete party relationships in the Party Manager." permissionId="PARTYMGR_REL_DELETE"/>
+    <SecurityPermission description="Create party roles in the Party Manager." permissionId="PARTYMGR_ROLE_CREATE"/>
+    <SecurityPermission description="Delete party roles in the Party Manager." permissionId="PARTYMGR_ROLE_DELETE"/>
+    <SecurityPermission description="Create party contact mechs in the Party Manager." permissionId="PARTYMGR_PCM_CREATE"/>
+    <SecurityPermission description="Update party contact mechs in the Party Manager." permissionId="PARTYMGR_PCM_UPDATE"/>
+    <SecurityPermission description="Delete party contact mechs in the Party Manager." permissionId="PARTYMGR_PCM_DELETE"/>
+    <SecurityPermission description="Create party to data source relations." permissionId="PARTYMGR_SRC_CREATE"/>
+    <SecurityPermission description="Create party quals in the Party Manager." permissionId="PARTYMGR_QAL_CREATE"/>
+    <SecurityPermission description="Update party quals in the Party Manager." permissionId="PARTYMGR_QAL_UPDATE"/>
+    <SecurityPermission description="Delete party quals in the Party Manager." permissionId="PARTYMGR_QAL_DELETE"/>
+    <SecurityPermission description="Create communication event." permissionId="PARTYMGR_CME_CREATE"/>
+    <SecurityPermission description="Update communication event." permissionId="PARTYMGR_CME_UPDATE"/>
+    <SecurityPermission description="Delete communication event." permissionId="PARTYMGR_CME_DELETE"/>
+
+    <SecurityGroup description="Party Admin group, has all party permissions." groupId="PARTYADMIN"/>
+    <SecurityGroupPermission groupId="PARTYADMIN" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="PARTYADMIN" permissionId="OFBTOOLS_VIEW"/>
+    
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_STS_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_GRP_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_REL_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_REL_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_PCM_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_SRC_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CME_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CME_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CME_DELETE"/>
+
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PARTYMGR_ADMIN"/>
+    
+    <!-- Security Management security -->
+    <SecurityPermission description="View operations in the Security Management Screens." permissionId="SECURITY_VIEW"/>
+    <SecurityPermission description="Create operations in the Security Management Screens." permissionId="SECURITY_CREATE"/>
+    <SecurityPermission description="Update operations in the Security Management Screens." permissionId="SECURITY_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Security Management Screens." permissionId="SECURITY_DELETE"/>
+    <SecurityPermission description="ALL operations in the Security Management Screens." permissionId="SECURITY_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SECURITY_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SECURITY_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SECURITY_VIEW"/>
+</entity-engine-xml>

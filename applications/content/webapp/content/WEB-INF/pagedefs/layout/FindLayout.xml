@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Find Layout</property>
+    <property name="formDefFile">/layout/LayoutForms.xml</property>    
+    <property name="singleFormName">findLayout</property>    
+    <property name="listFormName">listFindLayout</property>    
+    <property name="subMenu">/layout/layout_menu.ftl</property>    
+    <property name="headerItem">Layout</property>    
+    <property name="entityName">ContentDataResourceView</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">none</property>    
+    <property name="staticConditions">{"contentTypeId","DOCUMENT"}</property>    
+    <content-action name="/includes/formprep.bsh"/>
+    <content-action name="/includes/findprep.bsh"/>
+    <content-action name="/includes/pagelistprep.bsh"/>
+</page>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2005-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+    <menu name="empty" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+    </menu>
+        
+    <menu name="find" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+        <menu-item name="find" title="Find">
+            <link target="FindCompDocTemplate"/>
+        </menu-item>
+    </menu>
+        
+        
+    <menu name="tree" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+        selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+        <menu-item name="viewtree" title="View Tree">
+            <condition>
+				<or>
+                	<if-compare value="COMPDOC_TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+                	<if-compare value="TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+				</or>
+            </condition>
+            <link target="ViewCompDocTemplateTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="viewtree2" title="View Tree">
+            <condition>
+				<or>
+                	<if-compare value="COMPDOC_INSTANCE" field-name="contentTypeId" operator="equals"></if-compare>
+                	<if-compare value="DOCUMENT" field-name="contentTypeId" operator="equals"></if-compare>
+				</or>
+            </condition>
+            <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="edit" title="Edit">
+            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="approval" title="Approvals">
+            <link target="ListContentApproval?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="revision" title="Revisions">
+            <link target="ListContentRevisions?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+    </menu>
+        
+    <menu name="subtree" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+        selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+        <menu-item name="viewtree" title="View Tree">
+            <condition>
+				<or>
+                	<if-compare value="COMPDOC_TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+                	<if-compare value="TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+				</or>
+            </condition>
+            <link target="ViewCompDocTemplateTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="viewtree2" title="View Tree">
+            <condition>
+				<or>
+                	<if-compare value="COMPDOC_INSTANCE" field-name="contentTypeId" operator="equals"></if-compare>
+                	<if-compare value="DOCUMENT" field-name="contentTypeId" operator="equals"></if-compare>
+				</or>
+            </condition>
+            <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="edit" title="Edit">
+            <link target="EditChildCompDoc?contentId=${contentId}&amp;itemContentRevisionSeqId=${itemContentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp;caFromDate=${parameters.caFromDate}"/>
+        </menu-item>
+    </menu>
+     
+    <menu name="rootTemplateLine" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+        selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+        <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="head2">
+            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="edit-link" title="Edit">
+            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="child" title="+Child">
+			<condition>
+				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+			</condition>
+            <link target="AddChildCompDocTemplate?rootContentId=${contentId}&amp;sequenceNum=9999"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
+        </menu-item>
+        <menu-item name="latest" title="Current Template CompDoc">
+			<condition>
+				<if-compare-field field-name="mostRecentRevisionSeqId" operator="greater" to-field-name="rootContentRevisionSeqId"/>
+			</condition>
+            <link target="ViewCompDocTemplateTree?rootContentId=${contentId}"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
+        </menu-item>
+		<!-- on page
+        <menu-item name="viewinst" title="View Instances">
+            <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="addinst" title="Add Instance">
+            <link target="AddRootCompDocInstance?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+			-->
+    </menu>
+        
+    <menu name="childTemplateLine" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+        selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+        <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
+            <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="edit-link" title="Edit">
+            <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <!--  only one level for now, ie don't worry about an hierarchy, still not sure what that will mean or look like 
+        <menu-item name="child" title="+Child">
+            <link target="AddChildCompDocTemplate?contentIdTo=${contentId}&amp;sequenceNum=9999"/>
+        </menu-item>
+        -->
+        <menu-item name="bef" title="+Bef">
+			<condition>
+				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+			</condition>
+            <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
+        </menu-item>
+        <menu-item name="aft" title="+Aft">
+			<condition>
+				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+			</condition>
+            <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumAfter}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
+        </menu-item>
+        <menu-item name="up" title="^Up">
+			<condition>
+				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+			</condition>
+            <link target="resequenceCompDocPart?contentId=${contentId}&amp;dir=up&amp;contentAssocTypeId=COMPDOC_PART&amp;contentIdTo=${contentIdTo}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="down" title="vDn">
+			<condition>
+				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+			</condition>
+            <link target="resequenceCompDocPart?contentId=${contentId}&amp;dir=down&amp;contentAssocTypeId=COMPDOC_PART&amp;contentIdTo=${contentIdTo}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+    </menu>
+        
+    <menu name="rootInstanceLine" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="content"
+        orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton"
+        selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
+        <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="head2">
+            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="edit" title="Edit">
+            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </menu-item>
+        <menu-item name="viewtree" title="View Template Tree">
+            <link target="ViewCompDocTemplateTree?rootContentRevisionSeqId=${templateContentRevisionSeqId}&amp;rootContentId=${templateContentId}"/>
+        </menu-item>
+        <menu-item name="latest" title="Current Instance CompDoc">
+			<condition>
+				<if-compare-field field-name="mostRecentRevisionSeqId" operator="greater" to-field-name="rootContentRevisionSeqId"/>
+			</condition>
+            <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
+        </menu-item>
+    </menu>
+</menus>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ContentScreens.xml 5462 2005-08-05 18:35:48Z jonesde $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <!-- Column Included Screens -->
+    <screen name="minipoll">
+        <section>
+            <actions>
+				<property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+				<property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/minipoll.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="content_categories">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/content_categories.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="factoids">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/factoids.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="recentlyviewed">
+        <section>
+            <actions>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/mrv.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/recentlyviewed.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- =========== Top-Level and Stand-Alone Screens =========== -->
+
+    <screen name="defaultcontent">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+
+				<set field="title-property" value="PageTitleContentPage"/>
+                <set field="headerItem" value="main"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/main.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/contentprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/defaultcontent.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="showcontenttree">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+				<set field="title-property" value="PageTitleViewBlog"/>
+                <set field="headerItem" value="Blog"/>
+                <set field="formDefFile" value="/BlogForms.xml"/>
+                <set field="entityName" value="Content"/>
+                <set field="permissionType" value="none"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/showcontenttree.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="searchContent">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleShoppingCart"/>
+                <set field="headerItem" value="ContentMenu"/>
+                <set field="formDefFile" value="/content/ContentForms.xml"/>
+                <set field="entityName" value=""/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="simple"/>
+                <set field="queryFormName" value="searchQuery"/>
+                <set field="listFormName" value="searchList"/>
+                <set field="defaultSiteId" value="WebStoreCONTENT"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/advancedsearchprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/search.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/searchContent.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="viewcontent">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleViewContent"/>
+                <set field="headerItem" value="Content"/>
+                <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
+                <set field="permissionType" value="none"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/includes/mruadd.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/viewcontent.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
+ * @version 1.0
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <!-- ================================================================ -->
+    <!-- Agreement Services -->
+    <!-- ================================================================ -->
+    
+    <!-- create a new Agreement -->
+    <simple-method method-name="createAgreement" short-description="Create an Agreement">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createAgreement you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="Agreement"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <!-- create a non existing ID -->
+        <sequenced-id-to-env sequence-name="Agreement" env-name="agreementId"/>
+        <env-to-field env-name="agreementId" map-name="newEntity"/>
+        <field-to-result field-name="agreementId" result-name="agreementId"/>
+
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+
+        <!-- finally create the record (should not exist already)-->
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing Agreement -->
+    <simple-method method-name="updateAgreement" short-description="Update an existing Agreement">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateAgreement you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="agreement"/>
+        <store-value value-name="agreement"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- cancel an existing Agreement -->
+    <simple-method method-name="cancelAgreement" short-description="Cancel an existing Agreement">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run cancelAgreement you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+        <check-errors/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <env-to-field env-name="nowTimestamp" field-name="thruDate" map-name="agreement"/>
+        <store-value value-name="agreement"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- create a new AgreementItem -->
+    <simple-method method-name="createAgreementItem" short-description="Create an AgreementItem">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createAgreementItem you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="AgreementItem"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <!-- create a non existing ID -->
+        <make-next-seq-id value-name="newEntity" seq-field-name="agreementItemSeqId"/>
+        <field-to-field field-name="parameters.agreementId" to-field-name="newEntity.agreementId"/>
+        <env-to-field env-name="agreementItemSeqId" map-name="newEntity"/>
+        <field-to-result field-name="agreementId" result-name="agreementId"/>
+        <field-to-result field-name="agreementItemSeqId" result-name="agreementItemSeqId"/>
+
+        <!-- finally create the record (should not exist already)-->
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing AgreementItem -->
+    <simple-method method-name="updateAgreementItem" short-description="Update an existing AgreementItem">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateAgreementItem you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="agreementItem"/>
+        <store-value value-name="agreementItem"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an AgreementItem -->
+    <simple-method method-name="removeAgreementItem" short-description="Remove an AgreementItem">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run removeAgreementItem you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="agreementItem"/>
+    </simple-method>
+
+    <!-- create a new AgreementTerm -->
+    <simple-method method-name="createAgreementTerm" short-description="Create an AgreementTerm">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createAgreementTerm you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="AgreementTerm"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <!-- create a non existing ID -->
+        <sequenced-id-to-env sequence-name="AgreementTerm" env-name="agreementTermId"/>
+        <field-to-field field-name="parameters.agreementId" to-field-name="newEntity.agreementId"/>
+        <field-to-field field-name="parameters.agreementItemSeqId" to-field-name="newEntity.agreementItemSeqId"/>
+        <env-to-field env-name="agreementTermId" map-name="newEntity"/>
+        <field-to-result field-name="agreementTermId" result-name="agreementTermId"/>
+
+        <!-- finally create the record (should not exist already)-->
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing AgreementTerm -->
+    <simple-method method-name="updateAgreementTerm" short-description="Update an existing AgreementTerm">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateAgreementTerm you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="agreementTerm"/>
+        <store-value value-name="agreementTerm"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing AgreementTerm -->
+    <simple-method method-name="removeAgreementTerm" short-description="Remove an existing AgreementTerm">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run removeAgreementTerm you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="agreementTerm"/>
+        <check-errors/>
+    </simple-method>
+    
+    <!-- create a new AgreementPromoAppl -->
+    <simple-method method-name="createAgreementPromoAppl" short-description="Create an AgreementPromoAppl">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createAgreementPromoAppl you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="AgreementPromoAppl"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing AgreementPromoAppl -->
+    <simple-method method-name="updateAgreementPromoAppl" short-description="Update an existing AgreementPromoAppl">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateAgreementPromoAppl you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="agreementPromoAppl"/>
+        <store-value value-name="agreementPromoAppl"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing AgreementPromoAppl -->
+    <simple-method method-name="removeAgreementPromoAppl" short-description="Remove an existing AgreementPromoAppl">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run removeAgreementPromoAppl you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="agreementPromoAppl"/>
+        <check-errors/>
+    </simple-method>
+    
+    <!-- create a new AgreementProductAppl -->
+    <simple-method method-name="createAgreementProductAppl" short-description="Create an AgreementProductAppl">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createAgreementProductAppl you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="AgreementProductAppl"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing AgreementProductAppl -->
+    <simple-method method-name="updateAgreementProductAppl" short-description="Update an existing AgreementProductAppl">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateAgreementProductAppl you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementProductAppl" value-name="agreementProductAppl" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="agreementProductAppl"/>
+        <store-value value-name="agreementProductAppl"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing AgreementProductAppl -->
+    <simple-method method-name="removeAgreementProductAppl" short-description="Remove an existing AgreementProductAppl">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run removeAgreementProductAppl you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementProductAppl" value-name="agreementProductAppl" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="agreementProductAppl"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- create a new AgreementPartyApplic -->
+    <simple-method method-name="createAgreementPartyApplic" short-description="Create an AgreementPartyApplic">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createAgreementPartyApplic you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="AgreementPartyApplic"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing AgreementPartyApplic -->
+    <simple-method method-name="updateAgreementPartyApplic" short-description="Update an existing AgreementPartyApplic">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateAgreementPartyApplic you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="agreementPartyApplic"/>
+        <store-value value-name="agreementPartyApplic"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing AgreementPartyApplic -->
+    <simple-method method-name="removeAgreementPartyApplic" short-description="Remove an existing AgreementPartyApplic">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run removeAgreementPartyApplic you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="agreementPartyApplic"/>
+        <check-errors/>
+    </simple-method>
+</simple-methods>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EntitySyncStatus" type="list" list-name="entitySyncList" target="" paginate-target="EntitySyncStatus" view-size="20"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="EntitySync" list-name="entitySyncList" use-cache="false">
+                <!-- No conditions, is a find all -->
+                <order-by field-name="runStatusId"/>
+                <order-by field-name="entitySyncId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="EntitySync" default-field-type="display"/>
+        
+        <field name="runStatusId" title="Run Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
+
+        <field use-when="&quot;ESR_RUNNING&quot;.equals(runStatusId)" name="resetStatus" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="Reset Run Status" target="resetEntitySyncStatusToNotStarted?entitySyncId=${entitySyncId}"/>
+        </field>
+        <field use-when="&quot;ESR_NOT_STARTED&quot;.equals(runStatusId) || &quot;ESR_COMPLETE&quot;.equals(runStatusId)" name="runOfflineSync" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="Run Offline Sync" target="runOfflineEntitySync?entitySyncId=${entitySyncId}"/>
+        </field>
+        <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="acceptOffline" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="Accept Offline Sync" target="updateOfflineEntitySync?entitySyncId=${entitySyncId}&amp;updateType=ACCEPT"/>
+        </field>
+        <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="rejectOffline" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="Reject Offline Sync" target="updateOfflineEntitySync?entitySyncId=${entitySyncId}&amp;updateType=REJECT"/>
+        </field>
+    </form>
+
+    <form name="EntitySyncLoadOffline" type="single" target="loadOfflineEntitySyncData" title="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="loadOfflineEntitySyncData"/>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+    </form>
+</forms>

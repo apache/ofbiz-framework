@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="getProductRouting" short-description="Get the product's routing and routing tasks">
+        <set from-field="parameters.productId" field="lookupRouting.productId"/>
+        <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
+        <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+        <!-- TODO: we should consider the validity against a date passed as (optional) parameter -->
+        <filter-list-by-date list-name="routings"/>
+        <!-- TODO: we should consider the quantity to select the best routing -->
+        <first-from-list list-name="routings" entry-name="routingGS"/>
+        <if-not-empty field-name="routingGS">
+                <clear-field field-name="lookupRouting"/>
+                <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
+                <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
+            <else>
+                <!-- The default routing is used when no explicit routing is associated to the product 
+                     and the ignoreDefaultRouting is not equals to Y -->
+                <if>
+                    <condition>
+                    <or>
+                        <if-empty field-name="parameters.ignoreDefaultRouting"/>
+                        <if-compare field-name="parameters.ignoreDefaultRouting" operator="equals" value="N"/>
+                    </or>
+                    </condition>
+                    <then>
+                        <clear-field field-name="lookupRouting"/>
+                        <set value="DEFAULT_ROUTING" field="lookupRouting.workEffortId"/>
+                        <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
+                    </then>
+                </if>
+            </else>
+        </if-not-empty>
+
+        <if-not-empty field-name="routing">
+            <set from-field="routing.workEffortId" field="lookupTasks.workEffortIdFrom"/>
+            <string-to-list string="sequenceNum" list-name="tasksOrder"/>
+            <set value="ROUTING_COMPONENT" field="lookupTasks.workEffortAssocTypeId"/>
+            <find-by-and entity-name="WorkEffortAssoc" list-name="tasks" map-name="lookupTasks" order-by-list-name="tasksOrder"/>
+            <filter-list-by-date list-name="tasks"/>
+        </if-not-empty>
+
+        <field-to-result field-name="routing"/>
+        <field-to-result field-name="tasks"/>
+    </simple-method>
+</simple-methods>
+

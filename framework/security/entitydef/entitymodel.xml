@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2002 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.security.login -->
+  <!--  - org.ofbiz.security.securitygroup -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.security.login -->
+  <!-- ========================================================= -->
+    
+    <entity entity-name="UserLogin"
+            package-name="org.ofbiz.security.login"
+            title="User Login Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="currentPassword" type="short-varchar"></field>
+      <field name="passwordHint" type="description"></field>
+      <field name="isSystem" type="indicator"></field>
+      <field name="enabled" type="indicator"></field>
+      <field name="hasLoggedOut" type="indicator"></field>
+      <field name="lastCurrencyUom" type="id"></field>
+      <field name="lastLocale" type="very-short"></field>
+      <field name="disabledDateTime" type="date-time"></field>
+      <field name="successiveFailedLogins" type="numeric"></field>
+      <prim-key field="userLoginId"/>
+      <relation type="one" fk-name="USER_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Person">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyGroup">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="UserLoginHistory"
+            package-name="org.ofbiz.security.login"
+            never-cache="true"
+            title="User Login History Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="visitId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="partyId" type="id"></field>
+      <field name="passwordUsed" type="short-varchar" encrypt="true"></field>
+      <field name="successfulLogin" type="indicator"></field>
+      <prim-key field="userLoginId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="USER_LH_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="USER_LH_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="UserLoginSession"
+            package-name="org.ofbiz.security.login"
+            never-cache="true"
+            title="User Login History Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="savedDate" type="date-time"></field>
+      <field name="sessionData" type="very-long"></field>
+      <prim-key field="userLoginId"/>
+      <relation type="one" fk-name="USER_SESSION_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.security.securitygroup -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="SecurityGroup"
+            package-name="org.ofbiz.security.securitygroup"
+            title="Security Component - Security Group Entity">
+      <field name="groupId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="groupId"/>
+    </entity>
+    <entity entity-name="SecurityGroupPermission"
+            package-name="org.ofbiz.security.securitygroup"
+            title="Security Component - Security Group Permission Entity">
+      <description>Defines a permission available to a security group; there is no FK to SecurityPermission because we want to leave open the possibility of ad-hoc permissions, especially for the Entity Data Maintenance pages which have TONS of permissions</description>
+      <field name="groupId" type="id-ne"></field>
+      <field name="permissionId" type="id-long-ne"></field>
+      <prim-key field="groupId"/>
+      <prim-key field="permissionId"/>
+      <relation type="one" fk-name="SEC_GRP_PERM_GRP" rel-entity-name="SecurityGroup">
+        <key-map field-name="groupId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="SecurityPermission">
+        <key-map field-name="permissionId"/>
+      </relation>
+    </entity>
+    <entity entity-name="SecurityPermission"
+            package-name="org.ofbiz.security.securitygroup"
+            title="Security Component - Security Permission Entity">
+      <field name="permissionId" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="permissionId"/>
+    </entity>
+    <view-entity entity-name="UserLoginAndSecurityGroup"
+          package-name="org.ofbiz.security.securitygroup"
+          never-cache="true"
+          title="Order Item Inventory Reservation and Inventory Item View Entity">
+      <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
+      <member-entity entity-alias="UL" entity-name="UserLogin"/>
+      <alias-all entity-alias="ULSG"/>
+      <alias-all entity-alias="UL"/>
+      <view-link entity-alias="ULSG" rel-entity-alias="UL">
+        <key-map field-name="userLoginId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="UserLoginSecurityGroup"
+            package-name="org.ofbiz.security.securitygroup"
+            title="Security Component - User Login Security Group Entity">
+      <description>Maps a UserLogin to a security group</description>
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="groupId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="userLoginId"/>
+      <prim-key field="groupId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="USER_SECGRP_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="USER_SECGRP_GRP" rel-entity-name="SecurityGroup">
+        <key-map field-name="groupId"/>
+      </relation>
+      <relation type="many" rel-entity-name="SecurityGroupPermission">
+        <key-map field-name="groupId"/>
+      </relation>
+    </entity>    
+</entitymodel>
+

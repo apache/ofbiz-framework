@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE orion-application PUBLIC "-//Evermind//DTD J2EE Application runtime 1.2//EN" "http://www.orionserver.com/dtds/orion-application.dtd">
+
+<!-- The global application config that is the parent of all the other
+	applications in this server. -->
+<orion-application>
+    <web-module id="ofbizDefault" path="${env.get("ofbiz.home")}/website"/>
+
+    <#list webApps as webapp>
+    <web-module id="${webapp.getName()}" path="${webapp.getLocation()}" />
+    </#list>
+    <persistence path="../persistence"/>
+
+    <!-- Path to the libraries that are installed on this server.
+	     These will accesible for the servlets, EJBs etc -->
+    <library path="../lib"/>
+    <#list classpathJars as jar>
+    <library path="${jar}"/>
+    </#list>
+    <#list classpathDirs as dir>
+    <library path="${dir}"/>
+    </#list>
+
+    <principals path="./principals.xml"/>
+
+    <log>
+        <file path="../log/ofbiz-application.log"/>
+    </log>
+
+    <data-sources path="data-sources.xml"/>
+
+    <namespace-access>
+        <read-access>
+            <namespace-resource root="">
+                <security-role-mapping>
+                    <group name="administrators"/>
+                </security-role-mapping>
+            </namespace-resource>
+        </read-access>
+        <write-access>
+            <namespace-resource root="">
+                <security-role-mapping>
+                    <group name="administrators"/>
+                </security-role-mapping>
+            </namespace-resource>
+        </write-access>
+    </namespace-access>
+</orion-application>

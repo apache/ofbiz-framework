@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: OrderEntryScreens.xml 7697 2006-05-30 06:41:47Z jacopo $
+-->
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="CheckInits">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleOrderInits"/>
+                <set field="headerItem" value="orderentry"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkinits.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/checkinits.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderAgreements">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleOrderAgreements"/>
+                <set field="headerItem" value="orderentry"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/orderagreements.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/orderagreements.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="RequirementsForSupplier">
+        <section>
+            <actions>
+                <set field="title" value="Find Requirements For Supplier"/>
+                <set field="entityName" value="Requirement"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1" text="Requirements"/>
+                        </container>
+                        <container>
+                            <label style="head2" text="Find Requirements"/>
+                            <include-form name="FindRequirements" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                        </container>
+                        <container>
+                            <label style="head2" text="Requirement List"/>
+                            <include-form name="RequirementsList" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!-- list all assets in a tabular format -->
+    <screen name="FindQuoteForCart">
+        <section>
+            <actions>
+                <set field="title" value="Find Quotes"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <set field="requestParameters.statusId" to-scope="screen" default-value="QUO_APPROVED"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.bsh"/>
+                <set field="requestParameters.currencyUomId" to-scope="screen" from-field="currencyUomId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.OrderOrderQuotes}</label>
+                        </container>
+                        <include-form name="FindQuotes" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                        <include-form name="ListQuotes" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
+
+    <!-- display all shopping lists for a party -->
+    <screen name="ViewShoppingLists">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.PageTitleShoppingList}"/>
+                <set field="partyId" from-field="requestParameters.partyId"/>
+                <entity-and entity-name="ShoppingList" list-name="customershoppinglists">
+                    <field-map env-name="partyId" field-name="partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="ViewShoppingLists" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- display shopping list items in a shopping list -->
+    <screen name="AddFromShoppingList">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.PageTitleShoppingListItem}"/>
+                <set field="shoppingListId" from-field="requestParameters.shoppingListId"/>
+                <entity-and entity-name="ShoppingListItem" list-name="shoppinglistitems">
+                    <field-map env-name="shoppingListId" field-name="shoppingListId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="AddFromShoppingList" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                        <include-form name="AddFromShoppingListAll" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

@@ -1,0 +1,62 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      3.0
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+
+security = request.getAttribute("security");
+delegator = request.getAttribute("delegator");
+
+if (security.hasEntityPermission("CATALOG", "_VIEW", session)) {
+    context.put("hasPermission", Boolean.TRUE);
+} else {
+    context.put("hasPermission", Boolean.FALSE);
+}
+
+productStoreId = request.getParameter("productStoreId");
+if (productStoreId != null) {
+    productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+    context.put("productStoreId", productStoreId);
+    context.put("productStore", productStore);
+}
+
+productStoreSurveys = delegator.findByAnd("ProductStoreSurveyAppl", UtilMisc.toMap("productStoreId", productStoreId));
+productStoreSurveys = EntityUtil.filterByDate(productStoreSurveys);
+context.put("productStoreSurveys", productStoreSurveys);
+
+surveys = delegator.findAll("Survey", UtilMisc.toList("description"));
+context.put("surveys", surveys);
+
+surveyApplTypes = delegator.findAll("SurveyApplType", UtilMisc.toList("description"));
+context.put("surveyApplTypes", surveyApplTypes);
+
+productCategories = delegator.findAll("ProductCategory", UtilMisc.toList("description"));
+context.put("productCategories", productCategories);
+
+String nowTimestampString = UtilDateTime.nowTimestamp().toString();
+context.put("nowTimestampString", nowTimestampString);
+

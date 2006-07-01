@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- Party events -->
+    <simple-method method-name="deleteParty" short-description="Delete Person">
+        <call-map-processor in-map-name="parameters" out-map-name="context">
+            <simple-map-processor name="deleteParty">
+                <process field="partyId"><copy/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        <check-errors/>
+        <call-service service-name="deleteParty" in-map-name="context">
+            <default-message>Party successfully deleted.</default-message>
+        </call-service>
+    </simple-method>
+
+    <!-- Person events -->
+    <simple-method method-name="createPerson" short-description="Create Person">
+        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+                processor-name="person" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="createPerson" in-map-name="context">
+            <default-message>Person successfully created.</default-message>
+            <result-to-request result-name="partyId"/>
+        </call-service>
+    </simple-method>
+    <simple-method method-name="updatePerson" short-description="Update Person">
+        <field-to-field map-name="parameters" field-name="partyId" to-map-name="context"/>
+        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+                processor-name="person" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="updatePerson" in-map-name="context">
+            <default-message>Person successfully updated.</default-message>
+        </call-service>
+    </simple-method>
+
+    <!-- PartyGroup events -->
+    <simple-method method-name="createPartyGroup" short-description="Create Party Group">
+        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+                processor-name="partyGroup" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="createPartyGroup" in-map-name="context">
+            <default-message>Party Group successfully created.</default-message>
+            <result-to-request result-name="partyId"/>
+        </call-service>
+    </simple-method>
+    <simple-method method-name="updatePartyGroup" short-description="Update Party Group">
+        <field-to-field map-name="parameters" field-name="partyId" to-map-name="context"/>
+        <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
+                processor-name="partyGroup" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <call-service service-name="updatePartyGroup" in-map-name="context">
+            <default-message>Party Group successfully updated.</default-message>
+        </call-service>
+    </simple-method>
+</simple-methods>

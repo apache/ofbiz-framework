@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">      
+
+    <menu name="editRequest" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}"
+        selected-menuitem-context-field-name="currentRequestMenuItemName"
+        title="" type="simple">
+
+        <menu-item name="request" title="Request" >
+            <link id="requestheader" target="request?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
+        <menu-item name="requestroles" title="Request Roles" >
+            <link id="requestroles" target="requestroles?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
+        <menu-item name="requestitems" title="Request Items" >
+            <link id="requestitems" target="/requestitems?custRequestId=${custRequest.custRequestId}">
+            </link>
+        </menu-item>
+    </menu>
+
+    <menu name="editrequestitemmenu" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}"
+        title="" type="simple">
+
+        <menu-item name="requestitem">
+            <link id="requestitem" target="requestitem?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
+        </menu-item>
+        <menu-item name="requestitemnotes" title="Request Item Notes" >
+            <link id="requestitemnotes" target="requestitemnotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
+        </menu-item>
+        <menu-item name="requestitemquotes" title="Request Item Quotes" >
+            <link id="requestitemquotes" target="RequestItemQuotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
+        </menu-item>
+        <menu-item name="workeffortrequirements" title="WorkEffort Requirements" >
+            <link id="workeffortrequirements" target="requestitemrequirements?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
+        </menu-item>
+    </menu>
+</menus>
+

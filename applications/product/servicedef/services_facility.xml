@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Product Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Product Inventory Services -->
+    <service name="createInventoryItem" default-entity-name="InventoryItem" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
+        <description>Create an InventoryItem</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="availableToPromiseTotal"/>
+            <exclude field-name="quantityOnHandTotal"/>
+        </auto-attributes>
+        <override name="inventoryItemTypeId" optional="false"/>
+        <override name="productId" optional="false"/>
+        <override name="facilityId" optional="false"/>
+    </service>
+    <service name="createInventoryItemCheckSetAtpQoh" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemCheckSetAtpQoh" auth="false">
+        <description>
+        </description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItem" auth="true">
+        <description>Update an InventoryItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="availableToPromiseTotal"/>
+            <exclude field-name="quantityOnHandTotal"/>
+        </auto-attributes>
+        <attribute name="oldOwnerPartyId" mode="OUT" optional="false" type="String"/>
+    </service>
+    <service name="checkProductInventoryDiscontinuation" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductInventoryDiscontinuation" auth="false">
+        <description>Check Product Inventory Discontinuation</description>
+        <attribute name="productId" mode="IN" optional="false" type="String"/>
+    </service>
+    <service name="inventoryItemCheckSetDefaultValues" default-entity-name="InventoryItem" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="inventoryItemCheckSetDefaultValues" auth="false">
+        <description>Check and, if empty, fills with default values ownerPartyId, currencyUomId, unitCost</description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItem" type="Map" mode="IN" optional="true"/>
+    </service>
+    <service name="createInventoryItemDetail" default-entity-name="InventoryItemDetail" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemDetail" auth="true">
+        <description>Create an createInventoryItemDetail - note that the quantityOnHand and availableToPromise are relative (positive or negative) and will be added to the corresponding value on the given InventoryItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="inventoryItemDetailSeqId" mode="OUT"/>
+    </service>
+    <service name="updateInventoryItemFromDetail" default-entity-name="InventoryItemDetail" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItemFromDetail" auth="false">
+        <description>
+            Sums all availableToPromiseDiff and quantityOnHandDiff elements for the inventoryItemId and sets the availableToPromise and quantityOnHand fields on the corresponding InventoryItem.
+            Meant to be run as an Entity ECA triggered on any modify operation on the InventoryItemDetail entity.
+        </description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemVariance" auth="true">
+        <description>Create an InventoryItemVariance - note that the quantityOnHand and availableToPromise are relative and will be added to the corresponding value on the given InventoryItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createPhysicalInventory" default-entity-name="PhysicalInventory" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventory" auth="true">
+        <description>Create an PhysicalInventory</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createPhysicalInventoryAndVariance" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance" auth="true">
+        <description>Create a PhysicalInventory and an InventoryItemVariance</description>
+        <auto-attributes entity-name="InventoryItemVariance" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="PhysicalInventory" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="InventoryItemVariance" include="nonpk" mode="IN" optional="true"/>
+        <override name="physicalInventoryId" mode="OUT"/>
+    </service>
+
+    <service name="getProductInventoryAvailable" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+        <description>Get Inventory Availability for a Product</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="getInventoryAvailableByFacility" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+        <description>Get Inventory Availability for a Product constrained by a facilityId</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="getInventoryAvailableByContainer" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+        <description>Get Inventory Availability for a Product constrained by a containerId</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="containerId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="getInventoryAvailableByItem" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+        <description>Get Inventory Availability for an InventoryItem</description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="getProductInventoryAvailablefromAssocProducts" engine="java"
+                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailablefromAssocProducts" auth="false">
+        <description>
+            Get Inventory Availability for a product based on List of associated products,
+            usually marketing package components.
+        </description>
+        <attribute name="assocProducts" type="List" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="getProductInventorySummaryForItems" engine="java"
+                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false">
+        <description>Get Inventory Availability for a list of OrderItems.</description>
+        <attribute name="orderItems" type="List" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandMap" type="Map" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseMap" type="Map" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="checkInventoryAvailability" engine="java"
+            location="org.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAvailability">
+        <description>Batch service for checking and sending backorder notifications</description>
+        <!-- this service has no parameters IN or OUT -->
+    </service>
+
+    <service name="balanceInventoryItems" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceInventoryItems" auth="true">
+        <description>Balance inventory items based on the item passed</description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
+        <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="reserveProductInventory" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
+        <description>Reserve Inventory for a Product.
+            If requireInventory is Y the quantity not reserved is returned, if N then a negative
+            availableToPromise will be used to track quantity ordered beyond what is in stock.
+        </description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="reserveProductInventoryByFacility" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
+        <description>Reserve Inventory for a Product By Facility
+            If requireInventory is Y the quantity not reserved is returned, if N then a negative
+            availableToPromise will be used to track quantity ordered beyond what is in stock.
+        </description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="reserveProductInventoryByContainer" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
+        <description>Reserve Inventory for a Product By Container
+            If requireInventory is Y the quantity not reserved is returned, if N then a negative
+            availableToPromise will be used to track quantity ordered beyond what is in stock.
+        </description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="containerId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="reserveOrderItemInventory" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveOrderItemInventory" auth="true">
+        <description>Create OrderItemShipGrpInvRes or increment existing reserved quantity.</description>
+        <auto-attributes mode="IN" entity-name="OrderItemShipGrpInvRes" include="pk" optional="false"/>
+        <auto-attributes mode="IN" entity-name="OrderItemShipGrpInvRes" include="nonpk" optional="true">
+            <exclude field-name="createdDatetime"/>
+        </auto-attributes>
+        <override name="quantity" optional="false"/>
+    </service>
+    <service name="cancelOrderInventoryReservation" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderInventoryReservation" auth="true">
+        <description>
+            Iterates through each OrderItemShipGrpInvRes on each OrderItem for the order
+            with the given orderId and cancels the reservation by changing the status
+            of the OrderItemShipGrpInvRes and incrementing the corresponding non-serialized
+            inventoryItem's availableToPromise quantity, or setting the status of the
+            corresponding serialized inventoryItem to available.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="cancelOrderItemInvResQty" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemInvResQty" auth="true">
+        <description>Cancel a specific quantity for an order item</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+    </service>
+    <service name="cancelOrderItemShipGrpInvRes" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemShipGrpInvRes" auth="true">
+        <description>Cancels an inventory reservation</description>
+        <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
+        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+    </service>
+
+    <service name="interfaceInventoryTransfer" engine="interface" location="" invoke="">
+        <description>Inventory Transfer Interface</description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="containerId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="locationSeqIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="containerIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="true"/>
+        <attribute name="sendDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="receiveDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createInventoryTransfer" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryTransfer" auth="true">
+        <description>Create an inventory transfer</description>
+        <implements service="interfaceInventoryTransfer"/>
+        <attribute name="xferQty" type="Double" mode="IN" optional="false"/>
+        <attribute name="inventoryTransferId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateInventoryTransfer" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryTransfer" auth="true">
+        <description>Update an inventory transfer record</description>
+        <implements service="interfaceInventoryTransfer"/>
+        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="prepareInventoryTransfer" engine="java"
+            location="org.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
+        <description>Prepares inventory item for transfer</description>
+        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="xferQty" type="Double" mode="IN" optional="false"/>
+    </service>
+    <service name="completeInventoryTransfer" engine="java"
+            location="org.ofbiz.product.inventory.InventoryServices" invoke="completeInventoryTransfer">
+        <description>Completes the inventory transfer</description>
+        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="cancelInventoryTransfer" engine="java"
+            location="org.ofbiz.product.inventory.InventoryServices" invoke="cancelInventoryTransfer">
+        <description>Cancel the inventory transfer</description>
+        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="issueImmediatelyFulfilledOrder" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrder" auth="false">
+        <description>
+            Issues the Inventory for an Order that was Immediately Fulfilled, like in a POS environment.
+            Note that this skips the normal inventory reservation process, and the shipment process (no shipment is created).
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="issueImmediatelyFulfilledOrderItem" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
+        <description>
+            Issues the Inventory for an Order Item that was Immediately Fulfilled for more info see the issueImmediatelyFulfilledOrder service.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderHeader" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderItem" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="productStore" type="GenericValue" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createProductFacility" default-entity-name="ProductFacility" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createProductFacility" auth="true">
+        <description>Create an ProductFacility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductFacility" default-entity-name="ProductFacility" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateProductFacility" auth="true">
+        <description>Update an ProductFacility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductFacility" default-entity-name="ProductFacility" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteProductFacility" auth="true">
+        <description>Delete an ProductFacility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createProductFacilityLocation" auth="true">
+        <description>Create an ProductFacilityLocation</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateProductFacilityLocation" auth="true">
+        <description>Update an ProductFacilityLocation</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteProductFacilityLocation" auth="true">
+        <description>Delete an ProductFacilityLocation</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Product Storage Services -->
+    <service name="createFacility" default-entity-name="Facility" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="createFacility" auth="true">
+        <description>Create a Facility</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="facilityTypeId" optional="false"/>
+        <override name="facilityName" optional="false"/>
+    </service>
+    <service name="updateFacility" default-entity-name="Facility" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacility" auth="true">
+        <description>Update a Facility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFacility" default-entity-name="Facility" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacility" auth="true">
+        <description>Delete a Facility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityLocation" auth="true">
+        <description>Create a Facility Location</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="locationSeqId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityLocation" auth="true">
+        <description>Update a Facility Location</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityLocation" auth="true">
+        <description>Delete a Facility Location</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="createFacilityGroup" auth="true">
+        <description>Create a Facility Group</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="facilityGroupName" optional="false"/>
+        <override name="facilityGroupTypeId" optional="false"/>
+    </service>
+    <service name="updateFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityGroup" auth="true">
+        <description>Update a Facility Group</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFacilityGroup" default-entity-name="FacilityGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="deleteFacilityGroup" auth="true">
+        <description>Delete a Facility Group</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Facility ContactMech services -->
+    <service name="createFacilityContactMech" engine="simple" debug="true"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMech" auth="true">
+        <description>Create a FacilityContactMech</description>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateFacilityContactMech" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityContactMech" auth="true">
+        <description>Update a FacilityContactMech</description>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="infoString" type="String" mode="IN" optional="true"/>
+        <attribute name="newContactMechId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFacilityContactMech" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMech" auth="true">
+        <description>Delete a FacilityContactMech</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="createFacilityPostalAddress" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityPostalAddress" auth="true">
+        <description>Create a Postal Address</description>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <override name="address1" optional="false"/>
+        <override name="city" optional="false"/>
+        <override name="postalCode" optional="true"/>
+    </service>
+    <service name="updateFacilityPostalAddress" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityPostalAddress" auth="true">
+        <description>Update a Postal Address</description>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="directions" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createFacilityTelecomNumber" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityTelecomNumber" auth="true">
+        <description>Create a Telecommunications Number</description>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateFacilityTelecomNumber" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityTelecomNumber" auth="true">
+        <description>Update a Telecommunications Number</description>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+    </service>
+    <service name="createFacilityEmailAddress" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityEmailAddress" auth="true">
+        <description>Create an Email Address</description>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateFacilityEmailAddress" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityEmailAddress" auth="true">
+        <description>Update an Email Address</description>
+        <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createFacilityContactMechPurpose" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="createFacilityContactMechPurpose">
+        <description>Create a purpose for facility contact mech</description>
+        <auto-attributes entity-name="FacilityContactMechPurpose" include="pk" mode="IN" optional="false">
+            <exclude field-name="fromDate"/>
+        </auto-attributes>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="false"/>
+    </service>
+    <service name="deleteFacilityContactMechPurpose" engine="simple"
+            location="org/ofbiz/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMechPurpose">
+        <description>Delete a purpose for facility contact mech</description>
+        <auto-attributes entity-name="FacilityContactMechPurpose" include="pk" mode="IN" optional="false"/>
+    </service>
+
+<!-- end cm -->
+    <service name="addContactMechToFacility" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="addContactMechToFacility" auth="true">
+        <description>Add ContactMech To Facility</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeContactMechFromFacility" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="removeContactMechFromFacility" auth="true">
+        <description>Remove ContactMech From Facility</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="addFacilityToGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="addFacilityToGroup" auth="true">
+        <description>Add Facility To FacilityGroup</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    <service name="updateFacilityToGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityToGroup" auth="true">
+        <description>Update Facility -> Group Member</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    <service name="removeFacilityFromGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="removeFacilityFromGroup" auth="true">
+        <description>Remove Facility From FacilityGroup</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+
+    <service name="addFacilityGroupToGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="addFacilityGroupToGroup" auth="true">
+        <description>Add FacilityGroup To FacilityGroup</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    <service name="updateFacilityGroupToGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacilityGroupToGroup" auth="true">
+        <description>Update FacilityGroup To FacilityGroup Rollup</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    <service name="removeFacilityGroupFromGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="removeFacilityGroupFromGroup" auth="true">
+        <description>Remove FacilityGroup From FacilityGroup</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentFacilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+
+    <service name="addPartyToFacility" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacility" auth="true">
+        <description>Add Party To Facility</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="addPartyToFacilityGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacilityGroup" auth="true">
+        <description>Add Party To FacilityGroup</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="removePartyFromFacility" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true">
+        <description>Remove Party From Facility</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removePartyFromFacilityGroup" engine="simple"
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacilityGroup" auth="true">
+        <description>Remove Party From FacilityGroup</description>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Stock Move Services -->
+    <service name="findStockMovesNeeded" engine="simple"
+            location="org/ofbiz/product/inventory/StockMoveServices.xml" invoke="findStockMovesNeeded">
+        <description>
+            Find all Stock Moves that need to be done.
+            This service differs from the inventory transfer services in that it does not require
+            sufficient availableToPromise to move the stock, in fact it is generally triggered because
+            some promised inventory is in a bulk location and needs to be moved to a pick location.
+        </description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="moveByOisgirInfoList" type="List" mode="OUT" optional="true"/>
+        <attribute name="stockMoveHandled" type="Map" mode="OUT" optional="true"/>
+        <attribute name="warningMessageList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="findStockMovesRecommended" engine="simple"
+            location="org/ofbiz/product/inventory/StockMoveServices.xml" invoke="findStockMovesRecommended">
+        <description>
+            Find all Stock Moves that should be done based on minimum quantities on each Pick/Primary ProductFacilityLocation.
+        </description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="stockMoveHandled" type="Map" mode="IN" optional="true"/>
+        <attribute name="moveByPflInfoList" type="List" mode="OUT" optional="true"/>
+        <attribute name="warningMessageList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="processPhysicalStockMove" engine="simple"
+            location="org/ofbiz/product/inventory/StockMoveServices.xml" invoke="processPhysicalStockMove">
+        <description>
+            Process a Physical Stock Move from one FacilityLocation to another, in the same Facility.
+            This service will not only move quantities from one InventoryItem to another but it will
+            also reassign any existing OrderItemShipGrpInvRes records to the new InventoryItem.
+        </description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="targetLocationSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityMoved" type="Double" mode="IN" optional="false"/>
+        <attribute name="warningMessageList" type="List" mode="INOUT" optional="true"/>
+    </service>
+</services>

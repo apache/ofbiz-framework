@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.order -->
+    <!-- ========================================================= -->
+
+	
+    <entity-group group="org.ofbiz" entity="CommunicationEventOrder" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventAndOrder" />
+
+    <entity-group group="org.ofbiz" entity="OldOrderItemInventoryRes" />
+    <entity-group group="org.ofbiz" entity="OldOrderShipmentPreference" />
+    <entity-group group="org.ofbiz" entity="OrderAdjustment" />
+    <entity-group group="org.ofbiz" entity="OrderAdjustmentAttribute" />
+    <entity-group group="org.ofbiz" entity="OrderAdjustmentType" />
+    <entity-group group="org.ofbiz" entity="OrderAdjustmentTypeAttr" />
+    <entity-group group="org.ofbiz" entity="OrderAttribute" />
+    <entity-group group="org.ofbiz" entity="OrderBlacklist" />
+    <entity-group group="org.ofbiz" entity="OrderBlacklistType" />
+    <entity-group group="org.ofbiz" entity="OrderContactMech" />
+    <entity-group group="org.ofbiz" entity="OrderDeliverySchedule" />
+    <entity-group group="org.ofbiz" entity="OrderHeader" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderAndItems" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderAndPaymentPref" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderAndRoleSummary" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderAndRoles" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderAndShipGroups" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderItemAndInv" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderItemAndInvRoles" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderItemAndRoles" />    
+    <entity-group group="org.ofbiz" entity="OrderHeaderNote" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderNoteView" />
+    <entity-group group="org.ofbiz" entity="OrderHeaderWorkEffort" />
+    <entity-group group="org.ofbiz" entity="OrderItem" />
+    <entity-group group="org.ofbiz" entity="OrderItemAndProductContentInfo" />
+    <entity-group group="org.ofbiz" entity="OrderItemAndShipGroupAssoc" />
+    <entity-group group="org.ofbiz" entity="OrderItemAndShipGrpInvResAndItem" />
+    <entity-group group="org.ofbiz" entity="OrderItemAssociation" />
+    <entity-group group="org.ofbiz" entity="OrderItemAttribute" />
+    <entity-group group="org.ofbiz" entity="OrderItemBilling" />
+    <entity-group group="org.ofbiz" entity="OrderItemContactMech" />
+    <entity-group group="org.ofbiz" entity="OrderItemGroup" />
+    <entity-group group="org.ofbiz" entity="OrderItemShipGrpInvRes" />
+    <entity-group group="org.ofbiz" entity="OrderItemShipGrpInvResAndItem" />
+    <entity-group group="org.ofbiz" entity="OrderItemShipGrpInvResAndItemLocation" />
+    <entity-group group="org.ofbiz" entity="OrderItemPriceInfo" />
+    <entity-group group="org.ofbiz" entity="OrderItemRole" />
+    <entity-group group="org.ofbiz" entity="OrderItemShipGroup" />
+    <entity-group group="org.ofbiz" entity="OrderItemShipGroupAssoc" />
+    <entity-group group="org.ofbiz" entity="OrderItemType" />
+    <entity-group group="org.ofbiz" entity="OrderItemTypeAttr" />
+    <entity-group group="org.ofbiz" entity="OrderNotification" />
+    <entity-group group="org.ofbiz" entity="OrderPaymentPreference" />
+    <entity-group group="org.ofbiz" entity="OrderPurchasePaymentSummary" />
+    <entity-group group="org.ofbiz" entity="OrderPurchaseProductSummary" />
+    <entity-group group="org.ofbiz" entity="OrderReportView" />
+    <entity-group group="org.ofbiz" entity="OrderRole" />
+    <entity-group group="org.ofbiz" entity="OrderRoleAndProductContentInfo" />
+    <entity-group group="org.ofbiz" entity="OrderShipment" />
+    <entity-group group="org.ofbiz" entity="OrderStatus" />
+    <entity-group group="org.ofbiz" entity="OrderSummaryEntry" />
+    <entity-group group="org.ofbiz" entity="OrderTaskList" />
+    <entity-group group="org.ofbiz" entity="OrderTerm" />
+    <entity-group group="org.ofbiz" entity="OrderTermAttribute" />
+    <entity-group group="org.ofbiz" entity="OrderType" />
+    <entity-group group="org.ofbiz" entity="OrderTypeAttr" />
+    <entity-group group="org.ofbiz" entity="OrderContent" />
+    <entity-group group="org.ofbiz" entity="OrderContentType" />
+    <entity-group group="org.ofbiz" entity="ProductOrderItem" />
+    <entity-group group="org.ofbiz" entity="WorkOrderItemFulfillment" />
+    <entity-group group="org.ofbiz" entity="OrderReportSalesGroupByProduct" />
+    <entity-group group="org.ofbiz" entity="OrderReportPurchasesGroupByProduct" />
+    <entity-group group="org.ofbiz" entity="OrderReportGroupByProduct" />
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.quote -->
+    <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="Quote" />
+    <entity-group group="org.ofbiz" entity="QuoteAttribute" />
+    <entity-group group="org.ofbiz" entity="QuoteCoefficient" />
+    <entity-group group="org.ofbiz" entity="QuoteItem" />
+    <entity-group group="org.ofbiz" entity="QuoteRole" />
+    <entity-group group="org.ofbiz" entity="QuoteTerm" />
+    <entity-group group="org.ofbiz" entity="QuoteTermAttribute" />
+    <entity-group group="org.ofbiz" entity="QuoteType" />
+    <entity-group group="org.ofbiz" entity="QuoteTypeAttr" />
+    <entity-group group="org.ofbiz" entity="QuoteWorkEffort" />
+    <entity-group group="org.ofbiz" entity="QuoteAdjustment" />
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.request -->
+    <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="CustRequest" />
+    <entity-group group="org.ofbiz" entity="CustRequestNote" />
+    <entity-group group="org.ofbiz" entity="CustRequestNoteView" />
+    <entity-group group="org.ofbiz" entity="CustRequestAndRole" />
+    <entity-group group="org.ofbiz" entity="CustRequestAttribute" />
+    <entity-group group="org.ofbiz" entity="CustRequestCategory" />
+    <entity-group group="org.ofbiz" entity="CustRequestCommEvent" />
+    <entity-group group="org.ofbiz" entity="CustRequestItem" />
+    <entity-group group="org.ofbiz" entity="CustRequestItemNote" />
+    <entity-group group="org.ofbiz" entity="CustRequestItemNoteView" />
+    <entity-group group="org.ofbiz" entity="CustRequestItemWorkEffort" />
+    <entity-group group="org.ofbiz" entity="CustRequestResolution" />
+    <entity-group group="org.ofbiz" entity="CustRequestRole" />
+    <entity-group group="org.ofbiz" entity="CustRequestStatus" />
+    <entity-group group="org.ofbiz" entity="CustRequestType" />
+    <entity-group group="org.ofbiz" entity="CustRequestTypeAttr" />
+    <entity-group group="org.ofbiz" entity="CustRequestWorkEffort" />
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.requirement -->
+    <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="DesiredFeature" />
+    <entity-group group="org.ofbiz" entity="OrderRequirementCommitment" />
+    <entity-group group="org.ofbiz" entity="Requirement" />
+    <entity-group group="org.ofbiz" entity="RequirementAndRole" />
+    <entity-group group="org.ofbiz" entity="RequirementAttribute" />
+    <entity-group group="org.ofbiz" entity="RequirementBudgetAllocation" />
+    <entity-group group="org.ofbiz" entity="RequirementByProductFacility" />
+    <entity-group group="org.ofbiz" entity="RequirementCustRequest" />
+    <entity-group group="org.ofbiz" entity="RequirementCustRequestView" />
+    <entity-group group="org.ofbiz" entity="RequirementRole" />
+    <entity-group group="org.ofbiz" entity="RequirementStatus" />
+    <entity-group group="org.ofbiz" entity="RequirementType" />
+    <entity-group group="org.ofbiz" entity="RequirementTypeAttr" />
+    <entity-group group="org.ofbiz" entity="RespondingParty" />
+    <entity-group group="org.ofbiz" entity="WorkReqFulfType" />
+    <entity-group group="org.ofbiz" entity="WorkRequirementFulfillment" />
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.return -->
+    <!-- ========================================================= -->
+    <entity-group group="org.ofbiz" entity="ReturnAdjustment" />
+    <entity-group group="org.ofbiz" entity="ReturnAdjustmentType" />
+    <entity-group group="org.ofbiz" entity="ReturnHeader" />
+    <entity-group group="org.ofbiz" entity="ReturnHeaderType" />
+    <entity-group group="org.ofbiz" entity="ReturnItem" />
+    <entity-group group="org.ofbiz" entity="ReturnItemTypeMap" />
+    <entity-group group="org.ofbiz" entity="ReturnItemResponse" />
+    <entity-group group="org.ofbiz" entity="ReturnItemType" />
+    <entity-group group="org.ofbiz" entity="ReturnReason" />
+    <entity-group group="org.ofbiz" entity="ReturnStatus" />
+    <entity-group group="org.ofbiz" entity="ReturnType" />            
+    <entity-group group="org.ofbiz" entity="ReturnItemBilling" />
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.shoppingcart -->
+    <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="CartAbandonedLine" />
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.shoppinglist -->
+    <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ShoppingList" />
+    <entity-group group="org.ofbiz" entity="ShoppingListItem" />
+    <entity-group group="org.ofbiz" entity="ShoppingListItemSurvey" />
+    <entity-group group="org.ofbiz" entity="ShoppingListType" />
+    <entity-group group="org.ofbiz" entity="ShoppingListWorkEffort" />
+    
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.opportunity -->
+    <!-- ========================================================= -->
+    
+    <entity-group group="org.ofbiz" entity="SalesOpportunity" />
+    <entity-group group="org.ofbiz" entity="SalesOpportunityHistory" />
+    <entity-group group="org.ofbiz" entity="SalesOpportunityRole" />
+    <entity-group group="org.ofbiz" entity="SalesOpportunityStage" />
+    <entity-group group="org.ofbiz" entity="SalesOpportunityWorkEffort" />
+    <entity-group group="org.ofbiz" entity="SalesOpportunityQuote" />
+    <entity-group group="org.ofbiz" entity="SalesForecast" />
+    <entity-group group="org.ofbiz" entity="SalesForecastHistory" />
+    <entity-group group="org.ofbiz" entity="SalesForecastAndCustomTimePeriod" />
+    
+</entitygroup>

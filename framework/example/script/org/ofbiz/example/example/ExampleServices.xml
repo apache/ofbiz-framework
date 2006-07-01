@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: ExampleServices.xml 7423 2006-04-26 22:36:00Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+<!--
+ * @author     David E. Jones (jonesde@ofbiz.org)
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- Example methods -->
+    <simple-method method-name="createExample" short-description="create a Example">
+        <set value="_CREATE" field="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="Example" value-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="Example" env-name="newEntity.exampleId"/> <!-- get the next sequenced ID -->
+        <field-to-result field-name="newEntity.exampleId" result-name="exampleId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+
+        <set-service-fields service-name="createExampleStatus" map-name="newEntity" to-map-name="createExampleStatusMap"/>
+        <call-service service-name="createExampleStatus" in-map-name="createExampleStatusMap"/>
+    </simple-method>   
+    <simple-method method-name="updateExample" short-description="update a Example">
+        <set value="_UPDATE" field="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="Example" value-name="lookedUpValue"/>
+
+        <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
+        <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
+        <if-compare-field field-name="lookedUpValue.statusId" operator="not-equals" to-field-name="parameters.statusId">
+            <!-- if statusId change is not in the StatusValidChange list, complain... -->
+            <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
+                <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
+                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            </entity-one>
+            <if-empty field-name="statusValidChange">
+                <!-- no valid change record found? return an error... -->
+                <add-error><fail-property resource="ExampleUiLabels" property="ExampleErrorNoExampleStatusValidChange"/></add-error>
+                <check-errors/>
+            </if-empty>
+            
+            <!-- before we set the nonpk fields, if the statusId is different save a ExampleStatus history record -->
+            <set-service-fields service-name="createExampleStatus" map-name="parameters" to-map-name="createExampleStatusMap"/>
+            <call-service service-name="createExampleStatus" in-map-name="createExampleStatusMap"/>
+        </if-compare-field>
+
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteExample" short-description="delete a Example">
+        <set value="_DELETE" field="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="Example" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="createExampleStatus" short-description="create a ExampleItem">
+        <set value="_CREATE" field="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/>
+        <make-value entity-name="ExampleStatus" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <now-timestamp-to-env env-name="newEntity.statusDate"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>   
+    
+    <!-- ExampleItem methods -->
+    <simple-method method-name="createExampleItem" short-description="create a ExampleItem">
+        <set value="_CREATE" field="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ExampleItem" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="exampleItemSeqId"/> <!-- this finds the next sub-sequence ID -->
+        <field-to-result field-name="newEntity.exampleItemSeqId" result-name="exampleItemSeqId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>   
+    <simple-method method-name="updateExampleItem" short-description="update a ExampleItem">
+        <set value="_UPDATE" field="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteExampleItem" short-description="delete a ExampleItem">
+        <set value="_DELETE" field="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+</simple-methods>

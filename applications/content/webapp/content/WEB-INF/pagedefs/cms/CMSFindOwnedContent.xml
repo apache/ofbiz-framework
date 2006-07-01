@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <!-- changes from FindContent.xml -->
+    <property name="staticConditions">{"createdByUserLogin","${userLogin.userLoginId}"}</property>
+    <!-- <content-action name="/includes/formprep.bsh"/> -->
+
+    <template>main</template> 
+    <property name="title">Find Content</property>
+    <property name="formDefFile">/content/BlogContentForms.xml</property>    
+    <property name="singleFormName">findContent</property>    
+    <property name="listFormName">listFindContent</property>    
+    <property name="subMenu">/admin/admin_menu.ftl</property>    
+    <property name="headerItem">Admin</property>    
+    <property name="entityName">ContentAssocDataResourceViewFrom</property>    
+    <property name="orderBy">-lastModifiedDate</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">CONTENTMGR</property>    
+
+    <property name="mainMenuDefFile">/AgepsMenus.xml</property>    
+    <property name="mainMenuName">main</property>
+    <page-action name="/mainmenuinit.bsh"/>
+    <property name="menuDefFile">/admin/AdminMenus.xml</property>    
+    <property name="menuName">admin</property>
+    <property name="menuNameAux">contentFind</property>
+    <property name="menuItemName">content</property>
+    <property name="permissionType">complex</property>    
+    <property name="entityOperation">_ADMIN</property>
+    <property name="targetOperation">CONTENT_UPDATE</property>    
+    <property name="requiredRoles">BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER</property>    
+
+    <page-action name="/pubinit.bsh"/>
+    <page-action name="/includes/requiredrole.bsh"/>
+    <page-action name="/includes/setcurrentmenuitem.bsh"/>
+    <page-action name="/includes/menuinit.bsh"/>
+    <page-action name="/includes/menuauxinit.bsh"/>
+    <content-action name="/includes/findprep.bsh"/>
+    <content-action name="/includes/pagelistprep.bsh"/>
+    <content-action name="/includes/setpagelistparams.bsh"/>
+</page>

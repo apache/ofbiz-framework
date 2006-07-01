@@ -1,0 +1,106 @@
+/*
+ * $Id: ownercontentprep.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, department, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Revision$
+ * @since      3.0
+
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+import org.ofbiz.content.data.DataResourceWorker;
+import org.ofbiz.webapp.ftl.FreeMarkerViewHandler;
+import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.content.ContentManagementWorker;
+
+import java.io.StringWriter;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.template.SimpleHash;
+import freemarker.template.WrappingTemplateModel;
+
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+// load edit or create Content form
+
+dispatcher    = (LocalDispatcher)request.getAttribute("dispatcher");
+delegator = (GenericDelegator) request.getAttribute("delegator");
+security = (Security)request.getAttribute("security");
+//Debug.logInfo("in ownerprep, security:" + security, "");
+
+ServletContext servletContext = session.getServletContext();
+String rootPubPt = (String) servletContext.getAttribute("webSiteId");
+//Debug.logInfo("in ownerprep, rootPubPt:" + rootPubPt, "");
+//security = (Security)session.getAttribute("security");
+userLogin = session.getAttribute("userLogin");
+entityAction = page.getProperty("entityOperation");
+permittedOperations = page.getProperty("permittedOperations");
+
+        allDepartmentContentList = ContentManagementWorker.getAllDepartmentContent(delegator, rootPubPt);
+//Debug.logInfo("in ownercontentprep, allDepartmentContentList:" + allDepartmentContentList, "");
+        departmentPointList = ContentManagementWorker.getPermittedDepartmentPoints( delegator, allDepartmentContentList, userLogin, security, entityAction, "CONTENT_CREATE", null );
+//Debug.logInfo("in ownercontentprep, departmentPointList:" + departmentPointList, "");
+        Map departmentPointMap = new HashMap();
+        Map departmentPointMapAll = new HashMap();
+        List ownerContentList = new ArrayList();
+        Iterator it = departmentPointList.iterator();
+        while (it.hasNext()) {
+            String [] arr = (String [])it.next();
+            String contentId = (String)arr[0];
+            String description = (String)arr[1];
+            List subPointList = new ArrayList();
+            Map lineMap = new HashMap();
+            lineMap.put("contentId", contentId);
+            lineMap.put("description", description.toUpperCase());
+            ownerContentList.add(lineMap);
+            List subDepartmentContentList = ContentManagementWorker.getAllDepartmentContent( delegator, contentId );
+            Iterator it2 = subDepartmentContentList.iterator();
+            while (it2.hasNext()) {
+                GenericValue departmentPoint2 = (GenericValue)it2.next();
+                String contentId2 = (String)departmentPoint2.get("contentId");
+                String description2 = (String)departmentPoint2.get("templateTitle");
+                Map lineMap2 = new HashMap();
+                lineMap2.put("contentId", contentId2);
+                lineMap2.put("description", "&nbsp;&nbsp;&nbsp;-" + description2);
+                ownerContentList.add(lineMap2);
+            }
+        }
+//Debug.logInfo("in ownercontentprep, ownerContentList:" + ownerContentList, "");
+
+pubPt = context.get("pubPt");
+//Debug.logInfo("in ownercontentprep, pubPt:" + pubPt, "");
+singleWrapper = context.get("singleWrapper");
+singleWrapper.putInContext("ownerContentList", ownerContentList);
+singleWrapper.putInContext("pubPt", pubPt);
+

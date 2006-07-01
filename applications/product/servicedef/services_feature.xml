@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Product Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Product Feature Services -->
+    <service name="createProductFeatureCategory" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureCategory" auth="true">
+        <description>Create a ProductFeatureCategory record</description>
+        <attribute name="parentCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureCategoryId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateProductFeatureCategory" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureCategory" auth="true">
+        <description>Update a ProductFeatureCategory record</description>
+        <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductFeature" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeature" auth="true">
+        <description>Create a ProductFeature record</description>
+        <attribute name="productFeatureTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="uomId" type="String" mode="IN" optional="true"/>
+        <attribute name="numberSpecified" type="Double" mode="IN" optional="true"/>
+        <attribute name="defaultAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="productFeatureId" type="String" mode="OUT" optional="false"/>
+        <attribute name="defaultSequenceNum" type="Long" mode="IN" optional="true"/>
+        <attribute name="idCode" type="String" mode="IN" optional="true"/>
+        <attribute name="abbrev" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductFeature" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeature" auth="true">
+        <description>Update a ProductFeature record</description>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="uomId" type="String" mode="IN" optional="true"/>
+        <attribute name="numberSpecified" type="Double" mode="IN" optional="true"/>
+        <attribute name="defaultAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="defaultSequenceNum" type="Long" mode="IN" optional="true"/>
+        <attribute name="idCode" type="String" mode="IN" optional="true"/>
+        <attribute name="abbrev" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="applyFeatureToProduct" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="applyFeatureToProduct" auth="true">
+        <description>Apply a ProductFeature to a Product; a fromDate can be used
+            to specify when the feature will be applied, if no fromDate is specified,
+            it will be applied now.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureApplTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+    </service>
+    <service name="updateFeatureToProductApplication" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateFeatureToProductApplication" auth="true">
+        <description>Update a ProductFeature to Product Application</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureApplTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+    </service>
+    <service name="removeFeatureFromProduct" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeFeatureFromProduct" auth="true">
+        <description>Remove a ProductFeature from a Product; a thruDate can be used
+            to specify when the feature will be removed, if no thruDate is specified,
+            it will be removed now.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="applyFeatureToProductFromTypeAndCode" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="applyFeatureToProductFromTypeAndCode" auth="true">
+        <description>Apply a ProductFeature to a Product</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="idCode" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureApplTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+
+    <!-- ProductFeatureCategoryAppl Services -->
+    <service name="createProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureCategoryAppl" auth="true">
+        <description>Create a ProductFeatureCategory to ProductCategory Application</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureCategoryAppl" auth="true">
+        <description>Update a ProductFeatureCategory to ProductCategory Application</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureCategoryAppl" auth="true">
+        <description>Remove a ProductFeatureCategory to ProductCategory Application</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductFeatureCatGrpAppl Services -->
+    <service name="createProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureCatGrpAppl" auth="true">
+        <description>Create a ProductFeatureGroup to ProductCategory Application</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureCatGrpAppl" auth="true">
+        <description>Update a ProductFeatureGroup to ProductCategory Application</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureCatGrpAppl" auth="true">
+        <description>Remove a ProductFeatureGroup to ProductCategory Application</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductFeatureGroup Services -->
+    <service name="createProductFeatureGroup" engine="simple"
+            location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureGroup" auth="true">
+        <description>Create a ProductFeatureGroup</description>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="productFeatureGroupId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateProductFeatureGroup" engine="simple"
+            location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureGroup" auth="true">
+        <description>Create a ProductFeatureGroup</description>
+        <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createProductFeatureGroupAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureGroupAppl" auth="true">
+        <description>Create a ProductFeatureGroup to ProductFeature Application</description>
+        <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductFeatureGroupAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureGroupAppl" auth="true">
+        <description>Update a ProductFeatureGroup to ProductFeature Application</description>
+        <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductFeatureGroupAppl" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureGroupAppl" auth="true">
+        <description>Remove a ProductFeatureGroup to ProductFeature Application</description>
+        <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
+    </service>
+    
+    <!-- ProductFeatureType Services -->
+    <service name="createProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureType" auth="true">
+        <description>Create a ProductFeatureType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureType" auth="true">
+        <description>Update a ProductFeatureType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureType" auth="true">
+        <description>Remove a ProductFeatureType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <!-- ProductFeatureApplAttr  -->
+    <service name="createProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureApplAttr" auth="true">
+        <description>Create a ProductFeatureApplAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureApplAttr" auth="true">
+        <description>Update a ProductFeatureApplAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="simple"
+                location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureApplAttr" auth="true">
+        <description>Remove a ProductFeatureApplAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+</services>

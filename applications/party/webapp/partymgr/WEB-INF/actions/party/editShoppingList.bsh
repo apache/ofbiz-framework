@@ -1,0 +1,146 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.1.1
+ */
+ 
+import java.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.product.catalog.*;
+
+prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
+webSiteId = CatalogWorker.getWebSiteId(request);
+
+currencyUomId = request.getParameter("currencyUomId");
+if (currencyUomId == null) {
+    currencyUomId = UtilHttp.getCurrencyUom(request);
+}
+context.put("currencyUomId", currencyUomId);
+
+partyId = request.getParameter("partyId");
+if (partyId == null) partyId = (String) request.getAttribute("partyId");
+
+party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+context.put("party", party);
+if (party != null) {
+    context.put("lookupPerson", party.getRelatedOne("Person"));
+    context.put("lookupGroup", party.getRelatedOne("PartyGroup"));
+}
+
+shoppingListId = parameters.get("shoppingListId");
+if (shoppingListId == null || shoppingListId.equals("")) 
+    shoppingListId = request.getAttribute("shoppingListId");
+
+//get the party for listid if it exists    
+if(partyId == null && shoppingListId != null){
+    partyId = delegator.findByPrimaryKey("ShoppingList",UtilMisc.toMap("shoppingListId",shoppingListId)).getString("partyId");
+}
+context.put("partyId", partyId);
+
+// get the top level shopping lists for the party
+allShoppingLists = delegator.findByAnd("ShoppingList", UtilMisc.toMap("partyId",partyId), UtilMisc.toList("listName"));
+shoppingLists = EntityUtil.filterByAnd(allShoppingLists, UtilMisc.toMap("parentShoppingListId", null));
+context.put("allShoppingLists", allShoppingLists);
+context.put("shoppingLists", shoppingLists);
+
+// get all shoppingListTypes
+shoppingListTypes = delegator.findAllCache("ShoppingListType", UtilMisc.toList("description"));
+context.put("shoppingListTypes", shoppingListTypes);
+
+// no passed shopping list id default to first list
+if (shoppingListId == null || shoppingListId.length() == 0) {
+    firstList = EntityUtil.getFirst(shoppingLists);
+    if (firstList != null) {
+        shoppingListId = firstList.getString("shoppingListId");
+    }
+}
+
+// if we passed a shoppingListId get the shopping list info
+if (shoppingListId != null) {
+    shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
+    context.put("shoppingList", shoppingList);
+
+    if (shoppingList != null) {
+        shoppingListItemTotal = 0.0;
+        shoppingListChildTotal = 0.0;
+
+        shoppingListItems = shoppingList.getRelatedCache("ShoppingListItem");
+        if (shoppingListItems != null) {
+            shoppingListItemDatas = new ArrayList(shoppingListItems.size());
+            shoppingListItemIter = shoppingListItems.iterator();
+            while (shoppingListItemIter.hasNext()) {
+                shoppingListItem = shoppingListItemIter.next();
+                shoppingListItemData = new HashMap();
+                product = shoppingListItem.getRelatedOneCache("Product");
+
+                // DEJ20050704 not sure about calculating price here, will have some bogus data when not in a store webapp
+                calcPriceInMap = UtilMisc.toMap("product", product, "quantity", shoppingListItem.get("quantity"), "currencyUomId", currencyUomId, "userLogin", userLogin, "productStoreId", shoppingList.get("productStoreId"));
+                calcPriceOutMap = dispatcher.runSync("calculateProductPrice", calcPriceInMap);
+                price = calcPriceOutMap.get("price");
+                totalPrice = price * shoppingListItem.getDouble("quantity");
+                shoppingListItemTotal += totalPrice;
+
+                productVariantAssocs = null;
+                if ("Y".equals(product.getString("isVirtual"))) {
+                    productVariantAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum"));
+                }
+
+                shoppingListItemData.put("shoppingListItem", shoppingListItem);
+                shoppingListItemData.put("product", product);
+                shoppingListItemData.put("unitPrice", price);
+                shoppingListItemData.put("totalPrice", totalPrice);
+                shoppingListItemData.put("productVariantAssocs", productVariantAssocs);
+                shoppingListItemDatas.add(shoppingListItemData);
+            }
+            context.put("shoppingListItemDatas", shoppingListItemDatas);
+        }
+        
+        shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
+        context.put("shoppingListType", shoppingListType);
+    
+        // get the child shopping lists of the current list for the logged in user
+        childShoppingLists = delegator.findByAndCache("ShoppingList", UtilMisc.toMap("partyId", partyId, "parentShoppingListId", shoppingListId), UtilMisc.toList("listName"));
+        // now get prices for each child shopping list...
+        if (childShoppingLists != null) {
+            childShoppingListDatas = new ArrayList(childShoppingLists.size());
+            childShoppingListIter = childShoppingLists.iterator();
+            while (childShoppingListIter.hasNext()) {
+                childShoppingList = childShoppingListIter.next();
+                childShoppingListData = new HashMap();
+
+                calcListPriceInMap = UtilMisc.toMap("shoppingListId", childShoppingList.get("shoppingListId"), "prodCatalogId", prodCatalogId, "webSiteId", webSiteId, "userLogin", userLogin);
+                childShoppingListData.put("childShoppingList", childShoppingList);
+                childShoppingListDatas.add(childShoppingListData);
+            }
+            context.put("childShoppingListDatas", childShoppingListDatas);
+        }
+
+        // get the parent shopping list if there is one
+        parentShoppingList = shoppingList.getRelatedOne("ParentShoppingList");
+        context.put("parentShoppingList", parentShoppingList);
+    }
+}
+ 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="permission">CONTENTMGR</property>    
+    <property name="title">Add Html</property>
+    <property name="headerItem">Data</property>    
+    <property name="subMenu">/data/data_menu.ftl</property>    
+    <property name="formDefFile">/data/DataResourceForms.xml</property>    
+    <property name="singleFormName">AddHtmlText</property>    
+    <property name="entityName">ElectronicText</property>    
+    <property name="currentEntityName">DataResource</property>    
+    <property name="pseudoFormName">HtmlText</property>    
+    <property name="priKeyName">dataResourceId</property>    
+    <property name="defaultMapName">currentValue</property>    
+    <property name="primaryHTMLField">textData</property>    
+    <page-action name="/includes/relatedoneprep.bsh" />
+</page>

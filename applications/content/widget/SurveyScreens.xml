@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="FindSurvey">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindSurvey"/>
+                <set field="tabButtonItem" value="Survey"/>
+                <set field="labelTitleProperty" value="PageTitleFindSurvey"/>
+                
+                <set field="surveyId" from-field="parameters.surveyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSurveyDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.PageTitleFindSurvey}</label></container>
+                                <container><link  text="${uiLabelMap.SurveyCreate}" target="EditSurvey" style="buttontext"/></container>
+                                <include-form name="FindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonSurveyDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="survey"/>
+                <set field="surveyId" from-field="parameters.surveyId"/>
+                <entity-one entity-name="Survey" value-name="survey"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="surveyId"/></not></condition>
+                                    <widgets>
+                                        <include-menu name="SurveyTabBar" location="component://content/widget/SurveyMenus.xml"/>
+                                        <container><link  text="${uiLabelMap.SurveyCreate}" target="EditSurvey" style="buttontext"/></container>
+                                    </widgets>
+                                </section>
+                                
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSurvey">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSurvey"/>
+                <set field="tabButtonItem" value="Survey"/>
+                <set field="labelTitleProperty" value="PageTitleEditSurvey"/>
+
+                <set field="surveyId" from-field="parameters.surveyId"/>
+                <entity-one entity-name="Survey" value-name="survey"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSurveyDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-empty field-name="survey"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.PageTitleCreateSurvey}</label></container>
+                                <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <container><label style="head1">${uiLabelMap.PageTitleEditSurvey}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                                <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+               					<include-form name="BuildSurveyFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+							</fail-widgets>
+						</section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSurveyMultiResps">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSurveyMultiResps"/>
+                <set field="tabButtonItem" value="SurveyMultiResps"/>
+                <set field="labelTitleProperty" value="PageTitleEditSurveyMultiResps"/>
+                
+                <set field="surveyId" from-field="parameters.surveyId"/>
+                <entity-one entity-name="Survey" value-name="survey"/>
+                <entity-condition entity-name="SurveyMultiResp" list-name="surveyMultiRespList">
+                    <condition-expr field-name="surveyId" env-name="surveyId"/>
+                    <order-by field-name="surveyMultiRespId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSurveyDecorator">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyMultiResps}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <iterate-section entry-name="surveyMultiResp" list-name="surveyMultiRespList">
+                            <section>
+                                <widgets>
+                                    <container><label style="head2">${uiLabelMap.SurveyEditSurveyMultiResp}</label></container>
+                                    <include-form name="EditSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    <include-form name="ListSurveyMultiRespColumns" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    <container><label style="tableheadtext">${uiLabelMap.SurveyAddSurveyMultiRespColumn}</label></container>
+                                    <include-form name="AddSurveyMultiRespColumn" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                </widgets>
+                            </section>
+                        </iterate-section>
+                        <container><label style="head2">${uiLabelMap.SurveyAddSurveyMultiResp}</label></container>
+                        <include-form name="AddSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSurveyQuestions">
+        <section>
+            <actions>
+			
+                <set field="titleProperty" value="PageTitleEditSurveyQuestions"/>
+                <set field="tabButtonItem" value="SurveyQuestions"/>
+                <set field="labelTitleProperty" value="PageTitleEditSurveyQuestions"/>
+                
+                <set field="surveyId" from-field="parameters.surveyId"/>
+                <entity-one entity-name="Survey" value-name="survey"/>
+                
+                <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyQuestions.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSurveyDecorator">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyQuestions}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyQuestions.ftl"/></html></platform-specific>
+                        
+                        <!-- This page is a bit of a mess, so will cleanup/modernize later...
+                        <include-form name="ListSurveyQuestions" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <include-form name="CreateSurveyQuestion" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        -->
+                        
+                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyPages}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <include-form name="ListSurveyPages" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <include-form name="AddSurveyPage" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindSurveyResponse">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindSurveyResponse"/>
+                <set field="tabButtonItem" value="FindSurveyResponse"/>
+                <set field="labelTitleProperty" value="PageTitleFindSurveyResponse"/>
+
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                
+                <set field="surveyId" from-field="parameters.surveyId"/>
+                <entity-one entity-name="Survey" value-name="survey"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSurveyDecorator">
+                    <decorator-section name="body">
+                        <container><link  text="${uiLabelMap.SurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
+                        <container><label style="head1">${uiLabelMap.PageTitleFindSurveyResponse}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <include-form name="FindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                    	<include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <include-form name="ListFindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewSurveyResponses">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewSurveyResponses"/>
+                <set field="tabButtonItem" value="SurveyResponses"/>
+                <set field="labelTitleProperty" value="PageTitleViewSurveyResponses"/>
+                
+                <set field="surveyId" from-field="parameters.surveyId"/>
+                <entity-one entity-name="Survey" value-name="survey"/>
+                
+                <script location="component://content/webapp/content/WEB-INF/actions/survey/ViewSurveyResponses.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSurveyDecorator">
+                    <decorator-section name="body">
+                        <container><link  text="${uiLabelMap.SurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
+                        <section>
+                            <condition><not><if-empty field-name="parameters.rootContentId"/></not></condition>
+                            <widgets><container><link text="Go Back to CompDoc Root [${parameters.rootContentId}]" target="ViewCompDocInstanceTree?rootContentId=${parameters.rootContentId}" style="buttontext"/></container></widgets>
+                        </section>
+                        <container><label style="head1">${uiLabelMap.PageTitleViewSurveyResponses}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSurveyResponse">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSurveyResponse"/>
+                <set field="tabButtonItem" value="SurveyResponses"/>
+                <set field="labelTitleProperty" value="PageTitleEditSurveyResponse"/>
+                
+                <set field="surveyId" from-field="parameters.surveyId"/>
+                <entity-one entity-name="Survey" value-name="survey"/>
+                
+                <set field="surveyResponseId" from-field="parameters.surveyResponseId"/>
+                <entity-one entity-name="SurveyResponse" value-name="surveyResponse"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyResponse.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSurveyDecorator">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyResponse}, ${uiLabelMap.SurveyResponse}: ${parameters.surveyResponseId}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyResponse.ftl"/></html></platform-specific>
+                    	<include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="LookupSurvey">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupSurvey}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="lookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <include-form name="listLookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="LookupSurveyResponse">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupSurveyResponse}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="lookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <include-form name="listLookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

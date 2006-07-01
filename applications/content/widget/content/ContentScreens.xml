@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: ContentScreens.xml 7911 2006-06-30 22:09:23Z jacopo $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="FindContent">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="Content"/>
+                <set field="titleProperty" value="PageTitleFindContent"/>
+                <set field="entityName" value="Content"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="mainContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                        <label style="head1" text="${uiLabelMap.PageTitleFindContent}"/>
+                        <include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleListContent}"></label>
+                        <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditContent">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditContent"/>
+                <set field="tabButtonItem" value="content"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-one entity-name="Content" value-name="currentValue"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditContent" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!--screen name="AddContent">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="Content"/>
+                <set field="title" value="CMS Content Edit Page"/>
+                <set field="titleProperty" value="PageTitleAddContent"/>
+                <set field="currentContentMenuItemName" value="AddContent" to-scope="user"/>
+				<set field="tabButtonItem" value="content"/>
+                <set field="titleProperty" value="PageTitleAddContent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="AddContent" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen-->
+    <screen name="EditContentAssoc">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditContentAssoc"/>
+                <set field="currentContentMenuItemName" value="contentassoc" to-scope="user"/>                
+                <set field="extraFunctionName" value="'${uiLabelMap.CommonFrom}'"/>
+                <set field="tabButtonItem" value="association"/>
+                <set field="contentId" from-field="parameters.contentId"  />
+                <set field="contentIdTo" from-field="parameters.contentIdTo"  />
+                <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"  default-value="${defaultContentAssocTypeId}"/>
+                <set field="contentAssocTypeId" from-field="contentAssocTypeId" to-scope="user"/>
+                <set field="fromDate" from-field="parameters.fromDate"  />
+                <entity-one entity-name="Content" value-name="currentValue"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListContentAssocFrom" location="component://content/widget/content/ContentForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleListAssociations} '${uiLabelMap.CommonTo}'"></label>
+                        <include-form name="ListContentAssocTo" location="component://content/widget/content/ContentForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field-name="contentId"/></not>
+                                    <not><if-empty field-name="contentIdTo"/></not>
+                                    <not><if-empty field-name="contentAssocTypeId"/></not>
+                                    <not><if-empty field-name="fromDate"/></not>
+                                </and>  
+                            </condition>
+                            <widgets>
+                                <label style="head1" text="${uiLabelMap.PageTitleEditAssociation}"></label>
+                                <include-form name="EditContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-empty field-name="contentId"/>  
+                                    <if-empty field-name="contentIdTo"/>  
+                                    <if-empty field-name="contentAssocTypeId"/>  
+                                    <if-empty field-name="fromDate"/>  
+                                </or>  
+                            </condition>
+                            <widgets>
+                                <label style="head1" text="${uiLabelMap.PageTitleAddAssociation}"></label>
+                                <include-form name="AddContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentRole">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <set field="titleProperty" value="PageTitleEditContentRole"/>
+                <set field="tabButtonItem" value="role"/>
+                
+                <set field="contentId" from-field="parameters.contentId"  />
+                <set field="contentRoleTarget" value=""/>
+                <entity-one entity-name="Content" value-name="currentValue">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleAddRole}"></label>
+                        <include-form name="AddContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentPurpose">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <set field="titleProperty" value="PageTitleEditContentPurpose"/>
+                <set field="tabButtonItem" value="purpose"/>
+                <set field="contentId" from-field="parameters.contentId"  />
+                <entity-one entity-name="Content" value-name="currentValue">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleAddPurpose}"></label>
+                        <include-form name="AddContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentAttribute">
+        <section>
+        <condition>
+            <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+        </condition>
+        <actions>
+            <script location="component://content/widget/getMenuContext.bsh"/>            
+            <set field="titleProperty" value="PageTitleEditContentAttribute"/>
+            <set field="tabButtonItem" value="attribute"/>
+            <set field="contentId" from-field="parameters.contentId"  />
+            <entity-one entity-name="Content" value-name="currentValue">
+                <field-map field-name="contentId" env-name="parameters.contentId"/>
+            </entity-one>
+        </actions>
+        <widgets>
+            <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-section name="body">
+                    <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                    <label style="head1" text="${uiLabelMap.PageTitleAddAttribute}"></label>
+                    <include-form name="AddContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                </decorator-section>
+            </decorator-screen>
+        </widgets>
+        </section>
+    </screen>
+    
+    
+    <screen name="EditContentMetaData">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <set field="titleProperty" value="PageTitleEditContentMetadata"/>
+                <set field="tabButtonItem" value="metaData"/>
+                <set field="contentId" from-field="parameters.contentId"  />
+                <entity-one entity-name="Content" value-name="currentValue">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleAddMetaData}"></label>
+                        <include-form name="AddContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="LookupContent">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupContent}"/>
+                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="LookupContent" location="component://content/widget/content/ContentForms.xml"/>
+                        <include-form name="ListLookupContent" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

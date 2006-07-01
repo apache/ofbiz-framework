@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+    <menu name="contentsetup" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}"
+        title="" type="simple">
+
+        <menu-item name="contentPurposeOp" title="${uiLabelMap.PageTitleEditContentPurposeOperation}" >
+            <link target="EditContentPurposeOperation" target-window="_top" style="tabButton" />
+       
+        </menu-item>
+
+        <menu-item name="contentOp" title="${uiLabelMap.PageTitleEditContentOperation}" >
+            <link target="EditContentOperation" target-window="_top" style="tabButton" />
+        </menu-item>
+
+        <menu-item name="assocPred" title="${uiLabelMap.PageTitleEditContentAssocPredicate}" >
+            <link target="EditContentAssocPredicate" target-window="_top" style="tabButton" />
+        </menu-item>
+
+        <menu-item name="typeAttr" title="${uiLabelMap.PageTitleEditContentAttribute}" >
+            <link target="EditContentTypeAttr" target-window="_top" style="tabButton" />
+        </menu-item>
+
+        <menu-item name="purposeType" title="${uiLabelMap.PageTitleEditContentPurpose}" >
+            <link target="EditContentPurposeType" target-window="_top" style="tabButton" />
+        </menu-item>
+
+        <menu-item name="assocType" title="${uiLabelMap.PageTitleEditContentAssoc}" >
+            <link target="EditContentAssocType" target-window="_top" style="tabButton" />
+        </menu-item>
+
+        <menu-item name="type" title="${uiLabelMap.PageTitleEditContentType}" >
+            <link target="EditContentType" target-window="_top" style="tabButton" />
+        </menu-item>
+
+        <menu-item name="userpermissions" title="${uiLabelMap.PageTitleEditContentUserPermissions}" >
+            <link name="UserPermissions" target="UserPermissions" target-window="_top" style="tabButton" />
+        </menu-item>
+
+    </menu>
+
+</menus>

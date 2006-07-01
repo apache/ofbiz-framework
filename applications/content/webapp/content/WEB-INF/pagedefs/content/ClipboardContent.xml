@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>lookup</template> 
+    <property name="title">ClipBoard Content</property>
+    <property name="formDefFile">/content/ContentForms.xml</property>    
+    <property name="mruFormName">mruLookupContent</property>    
+    <property name="subMenu">/content/content_menu.ftl</property>    
+    <property name="headerItem">Content</property>    
+    <property name="entityName">Content</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+    <content-action name="/includes/mruprep.bsh"/>
+</page>

@@ -1,0 +1,1918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2002 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.party.agreement -->
+  <!--  - org.ofbiz.party.communication -->
+  <!--  - org.ofbiz.party.contact -->
+  <!--  - org.ofbiz.party.need -->
+  <!--  - org.ofbiz.party.party -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.agreement -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Addendum"
+            package-name="org.ofbiz.party.agreement"
+            title="Addendum Entity">
+      <field name="addendumId" type="id-ne"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="addendumCreationDate" type="date-time"></field>
+      <field name="addendumEffectiveDate" type="date-time"></field>
+      <field name="addendumText" type="long-varchar"></field>
+      <prim-key field="addendumId"/>
+      <relation type="one" fk-name="ADDNDM_AGRMNT" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="ADDNDM_AGRMNT_ITM" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="Agreement"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="productId" type="id"></field>
+      <field name="partyIdFrom" type="id"></field>
+      <field name="partyIdTo" type="id"></field>
+      <field name="roleTypeIdFrom" type="id"></field>
+      <field name="roleTypeIdTo" type="id"></field>
+      <field name="agreementTypeId" type="id"></field>
+      <field name="agreementDate" type="date-time"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="description" type="description"></field>
+      <field name="textData" type="long-varchar"></field>
+      <prim-key field="agreementId"/>
+      <relation type="one" fk-name="AGRMNT_PRODUCT" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_FPRTYRLE" title="From" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="Party">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_TPRTYRLE" title="To" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyRelationship">
+        <key-map field-name="roleTypeIdFrom"/>
+        <key-map field-name="roleTypeIdTo"/>
+        <key-map field-name="partyIdFrom"/>
+        <key-map field-name="partyIdTo"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_TYPE" rel-entity-name="AgreementType">
+        <key-map field-name="agreementTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementTypeAttr">
+        <key-map field-name="agreementTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementAttribute"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Attribute Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="AGRMNT_ATTR" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementGeographicalApplic"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Geographical Applicability Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="geoId" type="id-ne"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="agreementItemSeqId"/>
+      <prim-key field="geoId"/>
+      <relation type="one" fk-name="AGRMNT_GEOAP_AGR" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_GEOAP_GEO" rel-entity-name="Geo">
+        <key-map field-name="geoId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementItem"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Item Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="agreementItemTypeId" type="id"></field>
+      <field name="currencyUomId" type="id"></field>
+      <field name="agreementText" type="long-varchar"></field>
+      <field name="agreementImage" type="blob"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="agreementItemSeqId"/>
+      <relation type="one" fk-name="AGRMNT_ITEM_AGR" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_ITEM_TYPE" rel-entity-name="AgreementItemType">
+        <key-map field-name="agreementItemTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementItemTypeAttr">
+        <key-map field-name="agreementItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementItemAttribute"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Item Attribute Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="agreementItemSeqId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="AGRMNT_ITEM_ATTR" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementItemTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementItemType"
+            package-name="org.ofbiz.party.agreement"
+            default-resource-name="PartyEntityLabels"
+            title="Agreement Item Type Entity">
+      <field name="agreementItemTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="agreementItemTypeId"/>
+      <relation type="one" fk-name="AGRMNT_TYPEPAR" title="Parent" rel-entity-name="AgreementItemType">
+        <key-map field-name="parentTypeId" rel-field-name="agreementItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementItemTypeAttr"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Item Type Attribute Entity">
+      <field name="agreementItemTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="agreementItemTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="AGRMNT_ITEM_TYPATR" rel-entity-name="AgreementItemType">
+        <key-map field-name="agreementItemTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementItemAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementPartyApplic"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Party Application Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="agreementItemSeqId"/>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="AGRMNT_PTYA_AGR" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_PTYA_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementProductAppl"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Product Application Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="productId" type="id-ne"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="agreementItemSeqId"/>
+      <prim-key field="productId"/>
+      <relation type="one-nofk" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_PRDA_AITM" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_PRDA_PRD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementPromoAppl"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Promo Applicability Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="agreementItemSeqId" type="id-ne"></field>
+      <field name="productPromoId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="agreementItemSeqId"/>
+      <prim-key field="productPromoId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="AGRMNT_PROM_PRO" rel-entity-name="ProductPromo">
+        <key-map field-name="productPromoId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_PROM_AITM" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementRole"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Role Entity">
+      <field name="agreementId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="agreementId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="AGRMNT_ROLE_AGR" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_ROLE_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_ROLE_PRLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementTerm"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Term Entity">
+      <field name="agreementTermId" type="id-ne"></field>
+      <field name="termTypeId" type="id"></field>
+      <field name="agreementId" type="id"></field>
+      <field name="agreementItemSeqId" type="id"></field>
+      <field name="invoiceItemTypeId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="termValue" type="currency-amount"></field>
+      <field name="termDays" type="numeric"></field>
+      <prim-key field="agreementTermId"/>
+      <relation type="one" fk-name="AGRMNT_TERM_TTYP" rel-entity-name="TermType">
+        <key-map field-name="termTypeId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_TERM_AGR" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_TERM_AITM" rel-entity-name="AgreementItem">
+        <key-map field-name="agreementId"/>
+        <key-map field-name="agreementItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="AGRMNT_TERM_IIT" rel-entity-name="InvoiceItemType">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementTermAttribute"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Term Attribute Entity">
+      <field name="agreementTermId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="agreementTermId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="AGRMNT_TERM_ATTR" rel-entity-name="AgreementTerm">
+        <key-map field-name="agreementTermId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementType"
+            package-name="org.ofbiz.party.agreement"
+            default-resource-name="PartyEntityLabels"
+            title="Agreement Type Entity">
+      <field name="agreementTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="agreementTypeId"/>
+      <relation type="one" fk-name="AGRMNT_TYPE_PAR" title="Parent" rel-entity-name="AgreementType">
+        <key-map field-name="parentTypeId" rel-field-name="agreementTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementTypeAttr"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Type Attribute Entity">
+      <field name="agreementTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="agreementTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="AGRMNT_TYPE_ATTR" rel-entity-name="AgreementType">
+        <key-map field-name="agreementTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Agreement">
+        <key-map field-name="agreementTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AgreementWorkEffortAppl" package-name="org.ofbiz.party.agreement" title="Agreement Product Application Entity">
+        <field name="agreementId" type="id-ne"></field>
+        <field name="agreementItemSeqId" type="id-ne"></field>
+        <field name="workEffortId" type="id-ne"></field>
+        <prim-key field="agreementId"/>
+        <prim-key field="agreementItemSeqId"/>
+        <prim-key field="workEffortId"/>
+        <relation type="one-nofk" rel-entity-name="Agreement">
+            <key-map field-name="agreementId"/>
+        </relation>
+        <relation type="one" fk-name="AGRMNT_WEA_AITM" rel-entity-name="AgreementItem">
+            <key-map field-name="agreementId"/>
+            <key-map field-name="agreementItemSeqId"/>
+        </relation>
+        <relation type="one" fk-name="AGRMNT_WEA_WEFF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+    </entity>
+    <entity entity-name="TermType"
+            package-name="org.ofbiz.party.agreement"
+            title="Term Type Entity" default-resource-name="PartyEntityLabels">
+      <field name="termTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="termTypeId"/>
+      <relation type="one" fk-name="TERM_TYPE_PAR" title="Parent" rel-entity-name="TermType">
+        <key-map field-name="parentTypeId" rel-field-name="termTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TermTypeAttr"
+            package-name="org.ofbiz.party.agreement"
+            title="Term Type Attribute Entity">
+      <field name="termTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="termTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="TERM_TYPATR_TTYP" rel-entity-name="TermType">
+        <key-map field-name="termTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementTermAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="AgreementTerm">
+        <key-map field-name="termTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="OrderTermAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="OrderTerm">
+        <key-map field-name="termTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="QuoteTermAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="QuoteTerm">
+        <key-map field-name="termTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceTermAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceTerm">
+        <key-map field-name="termTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="AgreementItemAndProductAppl"
+        package-name="org.ofbiz.party.agreement"
+        title="Agreement Item and Agreement Product Applicability View Entity">
+        <member-entity entity-alias="AGI" entity-name="AgreementItem"/>
+        <member-entity entity-alias="AGPA" entity-name="AgreementProductAppl"/>
+        <member-entity entity-alias="AG" entity-name="Agreement"/>
+        <alias-all entity-alias="AGI"/>
+        <alias-all entity-alias="AGPA"/>
+        <alias-all entity-alias="AG">
+            <exclude field="productId"/>
+        </alias-all>
+        <view-link entity-alias="AGI" rel-entity-alias="AGPA">
+            <key-map field-name="agreementId"/>
+            <key-map field-name="agreementItemSeqId"/>
+        </view-link>
+        <view-link entity-alias="AGI" rel-entity-alias="AG">
+            <key-map field-name="agreementId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="Agreement">
+            <key-map field-name="agreementId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="AgreementItemAndPartyAppl"
+        package-name="org.ofbiz.party.agreement"
+        title="Agreement Item and Agreement Party Applicability View Entity">
+        <member-entity entity-alias="AGI" entity-name="AgreementItem"/>
+        <member-entity entity-alias="AGPA" entity-name="AgreementPartyApplic"/>
+        <member-entity entity-alias="AG" entity-name="Agreement"/>
+        <alias-all entity-alias="AGI"/>
+        <alias-all entity-alias="AGPA"/>
+        <alias-all entity-alias="AG">
+            <exclude field="productId"/>
+        </alias-all>
+        <view-link entity-alias="AGI" rel-entity-alias="AGPA">
+            <key-map field-name="agreementId"/>
+            <key-map field-name="agreementItemSeqId"/>
+        </view-link>
+        <view-link entity-alias="AGI" rel-entity-alias="AG">
+            <key-map field-name="agreementId"/>
+        </view-link>
+    </view-entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.communication -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="CommunicationEvent"
+            package-name="org.ofbiz.party.communication"
+            title="Communication Event Entity">
+      <field name="communicationEventId" type="id-ne"></field>
+      <field name="communicationEventTypeId" type="id"></field>
+      <field name="origCommEventId" type="id"></field>
+      <field name="parentCommEventId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="contactMechTypeId" type="id"></field>
+      <field name="contactMechIdFrom" type="id"/>
+      <field name="contactMechIdTo" type="id"/>
+      <field name="roleTypeIdFrom" type="id"></field>
+      <field name="roleTypeIdTo" type="id"></field>
+      <field name="partyIdFrom" type="id"></field>
+      <field name="partyIdTo" type="id"></field>
+      <field name="entryDate" type="date-time"></field>
+      <field name="datetimeStarted" type="date-time"></field>
+      <field name="datetimeEnded" type="date-time"></field>
+      <field name="subject" type="long-varchar"></field>
+      <field name="contentMimeTypeId" type="id-long"/>
+      <field name="content" type="very-long"></field>
+      <field name="note" type="comment"></field>
+      <field name="contactListId" type="id"></field>
+      <prim-key field="communicationEventId"/>
+      <relation type="one" fk-name="COM_EVNT_TYPE" rel-entity-name="CommunicationEventType">
+        <key-map field-name="communicationEventTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_TPTY" title="To" rel-entity-name="Party">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_TRTYP" title="To" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_FPTY" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_FRTYP" title="From" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_CMTP" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_FCM" title="From" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechIdFrom" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_TCM" title="To" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechIdTo" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_CLST" rel-entity-name="ContactList">
+        <key-map field-name="contactListId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_MIMETYPE" rel-entity-name="MimeType">
+          <key-map field-name="contentMimeTypeId" rel-field-name="mimeTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="CommunicationEventAndRole"
+                 package-name="org.ofbiz.party.communication"
+                 title="Communication Event And Role View Entity">
+      <member-entity entity-alias="CR" entity-name="CommunicationEventRole"/>
+      <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+      <alias-all entity-alias="CR"/>
+      <alias-all entity-alias="CE"/>
+      <view-link entity-alias="CR" rel-entity-alias="CE">
+        <key-map field-name="communicationEventId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="CommunicationEventType">
+        <key-map field-name="communicationEventTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="CommunicationEventPurpose">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="Party">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="CommunicationEventRole">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyNeed">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="many" rel-entity-name="CommunicationEventWorkEff">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="CommunicationEventPrpTyp"
+            package-name="org.ofbiz.party.communication"
+            default-resource-name="PartyEntityLabels"
+            title="Communication Event Purpose Type Entity">
+      <field name="communicationEventPrpTypId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="communicationEventPrpTypId"/>
+      <relation type="one" fk-name="COM_EVNT_PRP_TYP" title="Parent" rel-entity-name="CommunicationEventPrpTyp">
+        <key-map field-name="parentTypeId" rel-field-name="communicationEventPrpTypId"/>
+      </relation>
+    </entity>
+    <entity entity-name="CommunicationEventPurpose"
+            package-name="org.ofbiz.party.communication"
+            title="Communication Event Purpose Entity">
+      <field name="communicationEventPrpTypId" type="id-ne"></field>
+      <field name="communicationEventId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="communicationEventPrpTypId"/>
+      <prim-key field="communicationEventId"/>
+      <relation type="one" fk-name="COM_EVNT_PRP_EVNT" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVNT_PRP_TYPE" rel-entity-name="CommunicationEventPrpTyp">
+        <key-map field-name="communicationEventPrpTypId"/>
+      </relation>
+    </entity>
+    <entity entity-name="CommunicationEventRole"
+            package-name="org.ofbiz.party.communication"
+            title="Communication Event Role Entity">
+      <field name="communicationEventId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="contactMechId" type="id"><description>For additional communication event participants this represents the contactMechId of the ContactMech used.</description></field>
+      <prim-key field="communicationEventId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="COM_EVRL_CMEV" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVRL_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVRL_PRLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVRL_CMCH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <entity entity-name="CommunicationEventType"
+            package-name="org.ofbiz.party.communication"
+            title="Communication Event Type Entity" default-resource-name="PartyEntityLabels">
+      <field name="communicationEventTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="communicationEventTypeId"/>
+      <relation type="one" fk-name="COM_EVNT_TYPE_PAR" title="Parent" rel-entity-name="CommunicationEventType">
+        <key-map field-name="parentTypeId" rel-field-name="communicationEventTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.contact -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="ContactMech"
+            package-name="org.ofbiz.party.contact"
+            title="Contact Mechanism Entity">
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechTypeId" type="id"></field>
+      <field name="infoString" type="long-varchar"></field>
+      <prim-key field="contactMechId"/>
+      <relation type="one" fk-name="CONT_MECH_TYPE" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContactMechTypeAttr">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+      <index name="INFO_STRING_IDX">
+        <index-field name="infoString"/>
+      </index>
+    </entity>
+    <entity entity-name="ContactMechAttribute"
+            package-name="org.ofbiz.party.contact"
+            title="Contact Mechanism Attribute Entity">
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="contactMechId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="CONT_MECH_ATTR" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContactMechTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContactMechLink"
+            package-name="org.ofbiz.party.contact"
+            title="Contact Mechanism Link Entity">
+      <field name="contactMechIdFrom" type="id-ne"></field>
+      <field name="contactMechIdTo" type="id-ne"></field>
+      <prim-key field="contactMechIdFrom"/>
+      <prim-key field="contactMechIdTo"/>
+      <relation type="one" fk-name="CONT_MECH_FCMECH" title="From" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechIdFrom" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="CONT_MECH_TCMECH" title="To" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechIdTo" rel-field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContactMechPurposeType"
+            package-name="org.ofbiz.party.contact"
+            default-resource-name="PartyEntityLabels"
+            title="Contact Mechanism Purpose Type Entity">
+      <field name="contactMechPurposeTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contactMechPurposeTypeId"/>
+    </entity>
+    <entity entity-name="ContactMechType"
+            package-name="org.ofbiz.party.contact"
+            title="Contact Mechanism Type Entity" default-resource-name="PartyEntityLabels">
+      <field name="contactMechTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contactMechTypeId"/>
+      <relation type="one" fk-name="CONT_MECH_TYP_PAR" title="Parent" rel-entity-name="ContactMechType">
+        <key-map field-name="parentTypeId" rel-field-name="contactMechTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContactMechTypeAttr"
+            package-name="org.ofbiz.party.contact"
+            title="Contact Mechanism Type Attribute Entity">
+      <field name="contactMechTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="contactMechTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="CONT_MECH_TYP_ATR" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContactMechAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContactMechTypePurpose"
+            package-name="org.ofbiz.party.contact"
+            title="Contact Mechanism Type Purpose Entity">
+      <description>Defines which ContactMechPurposeType entites apply to which ContactMechType</description>
+      <field name="contactMechTypeId" type="id-ne"></field>
+      <field name="contactMechPurposeTypeId" type="id-ne"></field>
+      <prim-key field="contactMechTypeId"/>
+      <prim-key field="contactMechPurposeTypeId"/>
+      <relation type="one" fk-name="CONT_MECH_TP_TYPE" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CONT_MECH_TP_PRPTP" rel-entity-name="ContactMechPurposeType">
+        <key-map field-name="contactMechPurposeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyContactMech"
+            package-name="org.ofbiz.party.contact"
+            title="Party Contact Mechanism Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="allowSolicitation" type="indicator"></field>
+      <field name="extension" type="long-varchar"></field>
+      <field name="comments" type="comment"></field>
+      <field name="yearsWithContactMech" type="numeric"></field>
+      <field name="monthsWithContactMech" type="numeric"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="contactMechId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PARTY_CMECH_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Person">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyGroup">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CMECH_PROLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CMECH_ROLE" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CMECH_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="TelecomNumber">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyContactMechPurpose">
+        <key-map field-name="partyId"/>
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyContactMechPurpose"
+            package-name="org.ofbiz.party.contact"
+            title="Party Contact Mechanism Purpose Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="contactMechPurposeTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="contactMechId"/>
+      <prim-key field="contactMechPurposeTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="many" rel-entity-name="PartyContactMech">
+        <key-map field-name="partyId"/>
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CMPRP_TYPE" rel-entity-name="ContactMechPurposeType">
+        <key-map field-name="contactMechPurposeTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CMPRP_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Person">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyGroup">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CMPRP_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="TelecomNumber">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PostalAddress"
+            package-name="org.ofbiz.party.contact"
+            title="Postal Address Entity">
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="toName" type="name"></field>
+      <field name="attnName" type="name"></field>
+      <field name="address1" type="long-varchar"></field>
+      <field name="address2" type="long-varchar"></field>
+      <field name="directions" type="long-varchar"></field>
+      <field name="city" type="name"></field>
+      <field name="postalCode" type="short-varchar"></field>
+      <field name="postalCodeExt" type="short-varchar"></field>
+      <field name="countryGeoId" type="id"></field>
+      <field name="stateProvinceGeoId" type="id"></field>
+      <field name="postalCodeGeoId" type="id"></field>
+      <prim-key field="contactMechId"/>
+      <relation type="one" fk-name="POST_ADDR_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="many" rel-entity-name="SimpleSalesTaxLookup">
+        <key-map field-name="stateProvinceGeoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_CGEO" title="Country" rel-entity-name="Geo">
+        <key-map field-name="countryGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_SPGEO" title="StateProvince" rel-entity-name="Geo">
+        <key-map field-name="stateProvinceGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_PCGEO" title="PostalCode" rel-entity-name="Geo">
+        <key-map field-name="postalCodeGeoId" rel-field-name="geoId"/>
+      </relation>
+      <index name="ADDRESS1_IDX">
+        <index-field name="address1"/>
+      </index>
+      <index name="ADDRESS2_IDX">
+        <index-field name="address2"/>
+      </index>
+      <index name="CITY_IDX">
+        <index-field name="city"/>
+      </index>
+      <index name="POSTAL_CODE_IDX">
+        <index-field name="postalCode"/>
+      </index>
+    </entity>
+    <entity entity-name="PostalAddressBoundary"
+            package-name="org.ofbiz.party.contact"
+            title="Postal Address Boundary Entity">
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="geoId" type="id-ne"></field>
+      <prim-key field="contactMechId"/>
+      <prim-key field="geoId"/>
+      <relation type="one" fk-name="POST_ADDR_BNDRY" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_BNDRYGEO" rel-entity-name="Geo">
+        <key-map field-name="geoId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TelecomNumber"
+            package-name="org.ofbiz.party.contact"
+            title="Telecommunications Number Entity">
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="countryCode" type="very-short"></field>
+      <field name="areaCode" type="very-short"></field>
+      <field name="contactNumber" type="short-varchar"></field>
+      <field name="askForName" type="name"></field>  <!-- person or department to ask for at this number -->
+      <prim-key field="contactMechId"/>
+      <relation type="one" fk-name="TEL_NUM_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <index name="COUNTRY_CODE_IDX">
+        <index-field name="countryCode"/>
+      </index>
+      <index name="AREA_CODE_IDX">
+        <index-field name="areaCode"/>
+      </index>
+      <index name="CONTACT_NUMBER_IDX">
+        <index-field name="contactNumber"/>
+      </index>
+    </entity>
+    <entity entity-name="ValidContactMechRole"
+            package-name="org.ofbiz.party.contact"
+            title="Valid Contact Mechanism Role Entity">
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="contactMechTypeId" type="id-ne"></field>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="contactMechTypeId"/>
+      <relation type="one" fk-name="VAL_CMRLE_ROLE" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="VAL_CMRLE_CMTYPE" rel-entity-name="ContactMechType">
+        <key-map field-name="contactMechTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ContactMechDetail"
+        package-name="org.ofbiz.party.contact"
+        title="Contact Mech Detail View Entity">
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <alias-all entity-alias="CM"/>
+        <alias-all entity-alias="PA" prefix="pa">
+            <exclude field="contactMechId"/>
+        </alias-all>
+        <alias-all entity-alias="TN" prefix="tn">
+            <exclude field="contactMechId"/>
+        </alias-all>
+        <view-link entity-alias="CM" rel-entity-alias="PA" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="CM" rel-entity-alias="TN" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="PartyAndContactMech"
+        package-name="org.ofbiz.party.contact"
+        title="Party and Contact Mech View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <alias-all entity-alias="PTY"/>
+        <alias-all entity-alias="PCM"/>
+        <alias-all entity-alias="CM"/>
+        <alias-all entity-alias="PA" prefix="pa"/>
+        <alias-all entity-alias="TN" prefix="tn"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PCM">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="CM">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="PA" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="TN" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <relation type="many" rel-entity-name="PartyContactMech">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PostalAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="TelecomNumber">
+            <key-map field-name="contactMechId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="PartyAndPostalAddress"
+        package-name="org.ofbiz.party.contact"
+        title="Party and Contact Mech/Postal Address View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <alias entity-alias="CM" name="contactMechId"/>
+        <alias entity-alias="PTY" name="partyId"/>
+        <alias entity-alias="PTY" name="statusId"/>
+        <alias entity-alias="PCM" name="fromDate"/>
+        <alias entity-alias="PCM" name="thruDate"/>
+        <alias entity-alias="PTY" name="partyTypeId"/>
+        <alias entity-alias="CM" name="contactMechTypeId"/>
+        <alias entity-alias="CM" name="infoString"/>
+        <alias entity-alias="PCM" name="comments"/>
+        <alias entity-alias="PCM" name="extension"/>
+        <alias entity-alias="PCM" name="allowSolicitation"/>
+        <alias entity-alias="PA" name="toName"/>
+        <alias entity-alias="PA" name="attnName"/>
+        <alias entity-alias="PA" name="address1"/>
+        <alias entity-alias="PA" name="address2"/>
+        <alias entity-alias="PA" name="directions"/>
+        <alias entity-alias="PA" name="city"/>
+        <alias entity-alias="PA" name="postalCode"/>
+        <alias entity-alias="PA" name="postalCodeExt"/>
+        <alias entity-alias="PA" name="countryGeoId"/>
+        <alias entity-alias="PA" name="stateProvinceGeoId"/>
+        <alias entity-alias="PA" name="postalCodeGeoId"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PCM">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="CM">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="CM" rel-entity-alias="PA">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <relation type="many" rel-entity-name="PartyContactMech">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PostalAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="PartyAndTelecomNumber"
+        package-name="org.ofbiz.party.contact"
+        title="Party and Contact Mech/Postal Address View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <alias entity-alias="CM" name="contactMechId"/>
+        <alias entity-alias="PTY" name="partyId"/>
+        <alias entity-alias="PTY" name="statusId"/> 
+        <alias entity-alias="PCM" name="fromDate"/>
+        <alias entity-alias="PCM" name="thruDate"/>
+        <alias entity-alias="PTY" name="partyTypeId"/>
+        <alias entity-alias="CM" name="contactMechTypeId"/>
+        <alias entity-alias="CM" name="infoString"/>
+        <alias entity-alias="PCM" name="comments"/>
+        <alias entity-alias="PCM" name="extension"/>
+        <alias entity-alias="PCM" name="allowSolicitation"/>
+        <alias entity-alias="TN" name="countryCode"/>
+        <alias entity-alias="TN" name="areaCode"/>
+        <alias entity-alias="TN" name="contactNumber"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PCM">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="CM">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="CM" rel-entity-alias="TN">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <relation type="many" rel-entity-name="PartyContactMech">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="TelecomNumber">
+            <key-map field-name="contactMechId"/>
+        </relation>
+    </view-entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.need -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="NeedType"
+            package-name="org.ofbiz.party.need"
+            title="Need Type Entity">
+      <field name="needTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="needTypeId"/>
+    </entity>
+    <entity entity-name="PartyNeed"
+            package-name="org.ofbiz.party.need"
+            title="Party Need Entity">
+      <field name="partyNeedId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="partyTypeId" type="id"></field>
+      <field name="needTypeId" type="id"></field>
+      <field name="communicationEventId" type="id"></field>
+      <field name="productId" type="id"></field>
+      <field name="productCategoryId" type="id"></field>
+      <field name="visitId" type="id"></field>
+      <field name="datetimeRecorded" type="date-time"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="partyNeedId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="PARTY_NEED_NDTP" rel-entity-name="NeedType">
+        <key-map field-name="needTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NEED_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NEED_RTYP" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NEED_PTTP" rel-entity-name="PartyType">
+        <key-map field-name="partyTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NEED_CMEV" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NEED_PROD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NEED_PCAT" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NEED_VSIT" rel-entity-name="Visit">
+        <key-map field-name="visitId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.party -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="AddressMatchMap"
+            package-name="org.ofbiz.party.party"
+            title="Address Matching Map">
+      <field name="mapKey" type="id-vlong"></field>
+      <field name="mapValue" type="id-vlong"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <prim-key field="mapKey"/>
+      <prim-key field="mapValue"/>
+    </entity>
+    <entity entity-name="Affiliate"
+            package-name="org.ofbiz.party.party"
+            title="Affiliate Party Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="affiliateName" type="name"></field>
+      <field name="affiliateDescription" type="description"></field>
+      <field name="yearEstablished" type="very-short"></field>
+      <field name="siteType" type="comment"></field>
+      <field name="sitePageViews" type="comment"></field>
+      <field name="siteVisitors" type="comment"></field>
+      <field name="dateTimeCreated" type="date-time"></field>
+      <field name="dateTimeApproved" type="date-time"></field>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="AFFILIATE_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="AFFILIATE_PGRP" rel-entity-name="PartyGroup">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="Party"
+            package-name="org.ofbiz.party.party"
+            title="Party Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="partyTypeId" type="id-ne"></field>
+      <field name="externalId" type="id"></field>
+      <field name="preferredCurrencyUomId" type="id-ne"></field>
+      <field name="description" type="very-long"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="PARTY_PTY_TYP" rel-entity-name="PartyType">
+        <key-map field-name="partyTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CUL" title="CreatedBy" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_LMCUL" title="LastModifiedBy" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_PREF_CRNCY" rel-entity-name="Uom">
+        <key-map field-name="preferredCurrencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_STATUSITM" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyTypeAttr">
+        <key-map field-name="partyTypeId"/>
+      </relation>
+      <index name="PARTYEXT_ID_IDX">
+        <index-field name="externalId"/>
+      </index>
+    </entity>
+    <view-entity entity-name="PartyAndGroup"
+        package-name="org.ofbiz.party.party"
+        title="Party and Party Group View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PGRP" entity-name="PartyGroup"/>
+        <alias-all entity-alias="PTY"/>
+        <alias-all entity-alias="PGRP"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PGRP">
+            <key-map field-name="partyId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="PartyAndPerson"
+        package-name="org.ofbiz.party.party"
+        title="Party and Person View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PERS" entity-name="Person"/>
+        <alias-all entity-alias="PTY"/>
+        <alias-all entity-alias="PERS"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PERS">
+            <key-map field-name="partyId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="PartyAndUserLogin"
+            package-name="org.ofbiz.party.party"
+            title="Party and Contact Mech View Entity">
+      <member-entity entity-alias="PTY" entity-name="Party"/>
+      <member-entity entity-alias="ULN" entity-name="UserLogin"/>
+      <alias entity-alias="PTY" name="partyId"/>
+      <alias entity-alias="PTY" name="partyTypeId"/>
+      <alias entity-alias="ULN" name="userLoginId"/>
+      <alias entity-alias="ULN" name="currentPassword"/>
+      <alias entity-alias="ULN" name="passwordHint"/>
+      <alias entity-alias="ULN" name="enabled"/>
+      <alias entity-alias="ULN" name="disabledDateTime"/>
+      <alias entity-alias="ULN" name="successiveFailedLogins"/>
+      <view-link entity-alias="PTY" rel-entity-alias="ULN">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </view-entity>
+    <view-entity entity-name="PartyAndUserLoginAndPerson"
+            package-name="org.ofbiz.party.party"
+            title="Parts of Party and UserLogin and Person">
+      <member-entity entity-alias="PTY" entity-name="Party"/>
+      <member-entity entity-alias="ULN" entity-name="UserLogin"/>
+      <member-entity entity-alias="PER" entity-name="Person"/>
+      <alias entity-alias="PTY" name="partyId"/>
+      <alias entity-alias="PTY" name="partyTypeId"/>
+      <alias entity-alias="PTY" name="createdDate"/>
+      <alias entity-alias="ULN" name="userLoginId"/>
+      <alias entity-alias="ULN" name="currentPassword"/>
+      <alias entity-alias="ULN" name="passwordHint"/>
+      <alias entity-alias="ULN" name="enabled"/>
+      <alias entity-alias="ULN" name="disabledDateTime"/>
+      <alias entity-alias="ULN" name="successiveFailedLogins"/>
+      <alias entity-alias="PER" name="lastName"/>
+      <alias entity-alias="PER" name="firstName"/>
+      <view-link entity-alias="PTY" rel-entity-alias="ULN">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PTY" rel-entity-alias="PER">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="PartyAttribute"
+            package-name="org.ofbiz.party.party"
+            title="Party Attribute Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="PARTY_ATTR" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyClassification"
+            package-name="org.ofbiz.party.party"
+            title="Party Classification Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="partyClassificationGroupId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="partyClassificationGroupId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PARTY_CLASS_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CLASS_GRP" rel-entity-name="PartyClassificationGroup">
+        <key-map field-name="partyClassificationGroupId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyClassificationGroup"
+            package-name="org.ofbiz.party.party"
+            title="Party Classification Group Entity">
+      <field name="partyClassificationGroupId" type="id-ne"></field>
+      <field name="partyClassificationTypeId" type="id"></field>
+      <field name="parentGroupId" type="id"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="partyClassificationGroupId"/>
+      <relation type="one" fk-name="PARTY_CLASS_GRPPAR" title="Parent" rel-entity-name="PartyClassificationGroup">
+        <key-map field-name="parentGroupId" rel-field-name="partyClassificationGroupId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CLSGRP_TYPE" rel-entity-name="PartyClassificationType">
+        <key-map field-name="partyClassificationTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyClassificationType"
+            package-name="org.ofbiz.party.party"
+            default-resource-name="PartyEntityLabels"
+            title="Party Classification Type Entity">
+      <field name="partyClassificationTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="partyClassificationTypeId"/>
+      <relation type="one" fk-name="PARTY_CLASS_TYPPAR" title="Parent" rel-entity-name="PartyClassificationType">
+        <key-map field-name="parentTypeId" rel-field-name="partyClassificationTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="PartyContactWithPurpose"
+            package-name="org.ofbiz.party.party"
+            title="Party Contact Purpose View Entity">
+      <member-entity entity-alias="PR" entity-name="PartyContactMechPurpose"/>
+      <member-entity entity-alias="CM" entity-name="ContactMech"/>
+      <member-entity entity-alias="PC" entity-name="PartyContactMech"/>
+      <member-entity entity-alias="PT" entity-name="ContactMechPurposeType"/>
+      <alias entity-alias="CM" name="contactMechId"/>
+      <alias entity-alias="PC" name="partyId"/>
+      <alias entity-alias="PR" name="contactMechPurposeTypeId"/>
+      <alias entity-alias="PC" name="contactFromDate" field="fromDate"/>
+      <alias entity-alias="PR" name="purposeFromDate" field="fromDate"/>
+      <alias entity-alias="PR" name="purposeThruDate" field="thruDate"/>
+      <alias entity-alias="PC" name="contactThruDate" field="thruDate"/>
+      <alias entity-alias="CM" name="contactMechTypeId"/>
+      <alias entity-alias="CM" name="infoString"/>
+      <alias entity-alias="PC" name="comments"/>
+      <alias entity-alias="PC" name="extension"/>
+      <alias entity-alias="PC" name="allowSolicitation"/>
+      <alias entity-alias="PT" name="purposeDescription" field="description"/>
+      <view-link entity-alias="PR" rel-entity-alias="CM">
+        <key-map field-name="contactMechId"/>
+      </view-link>
+      <view-link entity-alias="CM" rel-entity-alias="PC">
+        <key-map field-name="contactMechId"/>
+      </view-link>
+      <view-link entity-alias="PR" rel-entity-alias="PT">
+        <key-map field-name="contactMechPurposeTypeId"/>
+      </view-link>
+      <relation type="many" rel-entity-name="PartyContactMech">
+        <key-map field-name="partyId"/>
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ContactMechPurposeType">
+        <key-map field-name="contactMechPurposeTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="TelecomNumber">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="PartyContent"
+            package-name="org.ofbiz.party.party"
+            title="Party Data Object Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="contentId" type="id-ne"></field>
+      <field name="contentPurposeEnumId" type="id-ne"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="contentId"/>
+      <relation type="one" fk-name="PARTY_CNT_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CNT_CNT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_CNT_PENUM" rel-entity-name="Enumeration">
+        <key-map field-name="contentPurposeEnumId" rel-field-name="enumId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyDataSource"
+            package-name="org.ofbiz.party.party"
+            title="Party Data Source Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="dataSourceId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="visitId" type="id"></field>
+      <field name="comments" type="comment"></field>
+      <field name="isCreate" type="indicator"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="dataSourceId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PARTY_DATSRC_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_DATSRC_DSC" rel-entity-name="DataSource">
+        <key-map field-name="dataSourceId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_DATSRC_VST" rel-entity-name="Visit">
+        <key-map field-name="visitId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyGroup"
+            package-name="org.ofbiz.party.party"
+            title="Party Group Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="groupName" type="name"></field>
+      <field name="groupNameLocal" type="name"></field>  
+      <field name="officeSiteName" type="name"></field>
+      <!-- DEJ20050628 getting rid of this, deprecated by PartyTaxAuthInfo <field name="federalTaxId" type="long-varchar" encrypt="true"></field> -->
+      <field name="comments" type="comment"></field>
+      <field name="logoImageUrl" type="url"></field>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="PARTY_GRP_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <index name="GROUP_NAME_IDX">
+        <index-field name="groupName"/>
+      </index>
+    </entity>
+    <entity entity-name="PartyIcsAvsOverride"
+            package-name="org.ofbiz.party.party"
+            title="Party ICS AVS Override Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="avsDeclineString" type="long-varchar"></field>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="PARTY_ICSAVS_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyNameHistory"
+        package-name="org.ofbiz.party.party"
+        title="Party Note Entity">
+        <field name="partyId" type="id-ne"></field>
+        <field name="changeDate" type="date-time"></field>
+        <field name="groupName" type="name"><description>For Party Groups only</description></field>
+        <field name="firstName" type="name"></field>
+        <field name="middleName" type="name"></field>
+        <field name="lastName" type="name"></field>
+        <field name="personalTitle" type="name"></field>
+        <field name="suffix" type="name"></field>
+        <prim-key field="partyId"/>
+        <prim-key field="changeDate"/>
+        <relation type="one" fk-name="PTY_NMHIS_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="PartyNameView"
+            package-name="org.ofbiz.party.party"
+            title="Party Name View Entity">
+      <member-entity entity-alias="PTY" entity-name="Party"/>
+      <member-entity entity-alias="PER" entity-name="Person"/>
+      <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+      <alias entity-alias="PTY" name="partyId"/>
+      <alias entity-alias="PTY" name="partyTypeId"/>
+      <alias entity-alias="PTY" name="description"/>
+      <alias entity-alias="PER" name="firstName"/>
+      <alias entity-alias="PER" name="middleName"/>
+      <alias entity-alias="PER" name="lastName"/>
+      <alias entity-alias="PER" name="firstNameLocal"/>
+      <alias entity-alias="PER" name="lastNameLocal"/>
+      <alias entity-alias="PER" name="personalTitle"/>
+      <alias entity-alias="PER" name="suffix"/>
+      <alias entity-alias="PTYGRP" name="groupName"/>
+      <alias entity-alias="PTYGRP" name="groupNameLocal"/>
+      <view-link entity-alias="PTY" rel-entity-alias="PER" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="PartyNote"
+            package-name="org.ofbiz.party.party"
+            title="Party Note Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="noteId" type="id-ne"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="noteId"/>
+      <relation type="one" fk-name="PARTY_NOTE_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_NOTE_NOTE" rel-entity-name="NoteData">
+        <key-map field-name="noteId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="PartyNoteView"
+            package-name="org.ofbiz.party.party"
+            title="Party Note View Entity">
+      <member-entity entity-alias="PN" entity-name="PartyNote"/>
+      <member-entity entity-alias="ND" entity-name="NoteData"/>
+      <alias entity-alias="PN" name="targetPartyId" field="partyId"/>
+      <alias entity-alias="ND" name="noteId"/>
+      <alias entity-alias="ND" name="noteName"/>
+      <alias entity-alias="ND" name="noteInfo"/>
+      <alias entity-alias="ND" name="noteDateTime"/>
+      <alias entity-alias="ND" name="noteParty"/>
+      <view-link entity-alias="PN" rel-entity-alias="ND">
+        <key-map field-name="noteId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="PartyProfileDefault"
+            package-name="org.ofbiz.party.party"
+            title="Party Profile Defaults">
+      <field name="partyId" type="id-ne"></field>
+      <field name="productStoreId" type="id-ne"></field>
+      <field name="defaultShipAddr" type="id"></field>
+      <field name="defaultPayMeth" type="id"></field>
+      <field name="defaultShipMeth" type="id"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="productStoreId"/>
+      <relation type="one" fk-name="PARTY_PROF_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_PROF_PSTORE" rel-entity-name="ProductStore">
+        <key-map field-name="productStoreId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyRelationship"
+            package-name="org.ofbiz.party.party"
+            title="Party Relationship Entity">
+      <field name="partyIdFrom" type="id-ne"></field>
+      <field name="partyIdTo" type="id-ne"></field>
+      <field name="roleTypeIdFrom" type="id-ne"></field>
+      <field name="roleTypeIdTo" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="statusId" type="id"></field>
+      <field name="relationshipName" type="name">
+          <description>Official name of relationship, such as title in a company</description>
+      </field>
+      <field name="securityGroupId" type="id-ne"></field>
+      <field name="priorityTypeId" type="id"></field>
+      <field name="partyRelationshipTypeId" type="id"></field>
+      <field name="comments" type="comment"></field>
+      <prim-key field="partyIdFrom"/>
+      <prim-key field="partyIdTo"/>
+      <prim-key field="roleTypeIdFrom"/>
+      <prim-key field="roleTypeIdTo"/>
+      <prim-key field="fromDate"/>
+      <relation type="one-nofk" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="Party">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_FPROLE" title="From" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_TPROLE" title="To" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_PRTYP" rel-entity-name="PriorityType">
+        <key-map field-name="priorityTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_TYPE" rel-entity-name="PartyRelationshipType">
+        <key-map field-name="partyRelationshipTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_REL_SECGRP" rel-entity-name="SecurityGroup">
+        <key-map field-name="securityGroupId" rel-field-name="groupId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyRelationshipType"
+            package-name="org.ofbiz.party.party"
+            default-resource-name="PartyEntityLabels"
+            title="Party Relationship Type Entity">
+      <field name="partyRelationshipTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="partyRelationshipName" type="name"></field>
+      <field name="description" type="description"></field>
+      <field name="roleTypeIdValidFrom" type="id"></field>
+      <field name="roleTypeIdValidTo" type="id"></field>
+      <prim-key field="partyRelationshipTypeId"/>
+      <relation type="one" fk-name="PARTY_RELTYP_PAR" title="Parent" rel-entity-name="PartyRelationshipType">
+        <key-map field-name="parentTypeId" rel-field-name="partyRelationshipTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_RELTYP_VFRT" title="ValidFrom" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdValidFrom" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_RELTYP_VTRT" title="ValidTo" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdValidTo" rel-field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyRole"
+            package-name="org.ofbiz.party.party"
+            title="Party Role Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="PARTY_RLE_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_RLE_ROLE" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="RoleTypeAttr">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyAttribute">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="PartyRoleAndPartyDetail"
+            package-name="org.ofbiz.party.party"
+            title="Party Role and Party Detail (Person, PartyGroup, etc) View Entity">
+      <member-entity entity-alias="PTY" entity-name="Party"/>
+      <member-entity entity-alias="PR" entity-name="PartyRole"/>
+      <member-entity entity-alias="PERSON" entity-name="Person"/>
+      <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+      <member-entity entity-alias="PS" entity-name="PartyStatus"/>
+      <alias-all entity-alias="PTY"/>
+      <alias-all entity-alias="PR"/>
+      <alias-all entity-alias="PS">
+        <exclude field="statusId"/>
+      </alias-all>
+      <alias-all entity-alias="PERSON">
+        <exclude field="comments"/>
+      </alias-all>
+      <alias-all entity-alias="PTYGRP">
+        <exclude field="comments"/>
+      </alias-all>
+      <alias entity-alias="PERSON" name="personComments" field="comments"/>
+      <alias entity-alias="PTYGRP" name="partyGroupComments" field="comments"/>
+      <alias entity-alias="PS" name="previousStatusId" field="statusId"/>
+      <view-link entity-alias="PTY" rel-entity-alias="PR">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PTY" rel-entity-alias="PERSON" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PTY" rel-entity-alias="PS" rel-optional="true">
+        <key-map field-name="partyId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="PartyStatus"
+            package-name="org.ofbiz.party.party"
+            title="Tracks a history of the status of a Party">
+      <field name="statusId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="statusDate" type="date-time"></field>
+      <prim-key field="statusId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="statusDate"/>
+      <relation type="one" fk-name="PARTY_STS_STSITM" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_STS_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>    
+    <entity entity-name="OldPartyTaxInfo" table-name="PARTY_TAX_INFO"
+            package-name="org.ofbiz.party.party"
+            title="Party Tax Information Entity">
+      <description>NOTE: this entity is deprecated by PartyTaxAuthInfo</description>
+      <field name="partyId" type="id-ne"></field>
+      <field name="geoId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="partyTaxId" type="id-long-ne"></field>
+      <field name="isExempt" type="indicator"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="geoId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PARTY_TXI_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_TXI_GEO" rel-entity-name="Geo">
+        <key-map field-name="geoId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyType"
+            package-name="org.ofbiz.party.party"
+            default-resource-name="PartyEntityLabels"
+            title="Party Type Entity">
+      <field name="partyTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="partyTypeId"/>
+      <relation type="one" fk-name="PARTY_TYPE_PAR" title="Parent" rel-entity-name="PartyType">
+        <key-map field-name="parentTypeId" rel-field-name="partyTypeId"/>
+      </relation>
+      <relation type="many" title="Sibling" rel-entity-name="PartyType">
+        <key-map field-name="parentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyTypeAttr"
+            package-name="org.ofbiz.party.party"
+            title="Party Type Attribute Entity">
+      <field name="partyTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="partyTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="PARTY_TYP_ATTR" rel-entity-name="PartyType">
+        <key-map field-name="partyTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Party">
+        <key-map field-name="partyTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="Person"
+            package-name="org.ofbiz.party.party"
+            title="Person Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="salutation" type="name"></field>  
+      <field name="firstName" type="name"></field>
+      <field name="middleName" type="name"></field>
+      <field name="lastName" type="name"></field>
+      <field name="personalTitle" type="name"></field>
+      <field name="suffix" type="name"></field>
+      <field name="nickname" type="name"></field>
+      <field name="firstNameLocal" type="name"></field>
+      <field name="lastNameLocal" type="name"></field>
+      <field name="memberId" type="id"></field>
+      <field name="gender" type="indicator"></field>
+      <field name="birthDate" type="date"></field>
+      <field name="height" type="floating-point"></field>
+      <field name="weight" type="floating-point"></field>
+      <field name="mothersMaidenName" type="long-varchar" encrypt="true"></field>
+      <field name="maritalStatus" type="indicator"></field>
+      <field name="socialSecurityNumber" type="long-varchar" encrypt="true"></field>
+      <field name="passportNumber" type="long-varchar" encrypt="true"></field>
+      <field name="passportExpireDate" type="date"></field>
+      <field name="totalYearsWorkExperience" type="floating-point"></field>
+      <field name="comments" type="comment"></field>
+      <field name="employmentStatusEnumId" type="id"></field>
+      <field name="residenceStatusEnumId" type="id"></field>
+      <field name="occupation" type="name"></field>
+      <field name="yearsWithEmployer" type="numeric"></field>
+      <field name="monthsWithEmployer" type="numeric"></field>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="PERSON_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+        <relation type="one" fk-name="PERSON_EMPS_ENUM" title="EmploymentStatus" rel-entity-name="Enumeration">
+            <key-map field-name="employmentStatusEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="PERSON_RESS_ENUM" title="ResidenceStatus" rel-entity-name="Enumeration">
+            <key-map field-name="residenceStatusEnumId" rel-field-name="enumId"/>
+        </relation>
+      <index name="FIRST_NAME_IDX">
+        <index-field name="firstName"/>
+      </index>
+      <index name="LAST_NAME_IDX">
+        <index-field name="lastName"/>
+      </index>
+    </entity>
+    <entity entity-name="PriorityType"
+            package-name="org.ofbiz.party.party"
+            title="Priority Type Entity">
+      <field name="priorityTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="priorityTypeId"/>
+    </entity>
+    <entity entity-name="RoleType"
+            package-name="org.ofbiz.party.party"
+            default-resource-name="PartyEntityLabels"
+            title="Role Type Entity">
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="ROLE_TYPE_PAR" title="Parent" rel-entity-name="RoleType">
+        <key-map field-name="parentTypeId" rel-field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="RoleTypeAndParty"
+            package-name="org.ofbiz.party.party"
+            title="Party Role View Entity">
+      <member-entity entity-alias="PR" entity-name="PartyRole"/>
+      <member-entity entity-alias="RT" entity-name="RoleType"/>
+      <alias entity-alias="PR" name="partyId"/>
+      <alias entity-alias="RT" name="roleTypeId"/>
+      <alias entity-alias="RT" name="description"/>
+      <view-link entity-alias="RT" rel-entity-alias="PR">
+        <key-map field-name="roleTypeId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="RoleTypeAttr"
+            package-name="org.ofbiz.party.party"
+            title="Role Type Attribute Entity">
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="ROLE_TYPATR_RTYP" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="PartyRole">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="many" title="ValidFrom" rel-entity-name="PartyRelationshipType">
+        <key-map field-name="roleTypeId" rel-field-name="roleTypeIdValidFrom"/>
+      </relation>
+      <relation type="many" title="ValidTo" rel-entity-name="PartyRelationshipType">
+        <key-map field-name="roleTypeId" rel-field-name="roleTypeIdValidTo"/>
+      </relation>
+    </entity>
+    <entity entity-name="Vendor"
+            package-name="org.ofbiz.party.party"
+            title="Vendor Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="manifestCompanyName" type="name"></field>
+      <field name="manifestCompanyTitle" type="name"></field>
+      <field name="manifestLogoUrl" type="url"></field>
+      <field name="manifestPolicies" type="very-long"></field>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="VENDOR_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+</entitymodel>
+

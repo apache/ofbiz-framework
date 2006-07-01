@@ -1,0 +1,38 @@
+/*
+ *@author     Si Chen
+ *@version    $Revision$
+ *@since      3.0
+ */
+
+ /*
+ * Prepares forms for editing and creating new supplier information for product features
+ */
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.html.HtmlFormWrapper;
+
+dispatcher = request.getAttribute("dispatcher");
+productFeatureId = request.getParameter("productFeatureId");
+locale = UtilHttp.getLocale(request);
+request.setAttribute("locale",locale);
+uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale);
+uiLabelMap.addBottomResourceBundle("CommonUiLabels");
+request.setAttribute("uiLabelMap", uiLabelMap);
+
+if (productFeatureId != null) {
+    result = dispatcher.runSync("getSupplierProductFeatures", UtilMisc.toMap("productFeatureId", productFeatureId));
+    if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
+        supplierProductFeatures = result.get("supplierProductFeatures");
+
+        HtmlFormWrapper editSupplierFeaturesForm = new HtmlFormWrapper("/feature/FeatureForms.xml", "EditSupplierProductFeatures", request, response);
+        editSupplierFeaturesForm.putInContext("supplierProductFeatures", supplierProductFeatures);
+        context.put("editSupplierFeaturesForm", editSupplierFeaturesForm);
+    }
+
+    HtmlFormWrapper createSupplierFeatureForm = new HtmlFormWrapper("/feature/FeatureForms.xml", "CreateSupplierProductFeature", request, response);
+    // we are fooling the form with a dummy productFeature map, which consists only of a productFeatureId
+    createSupplierFeatureForm.putInContext("productFeature", UtilMisc.toMap("productFeatureId", productFeatureId));
+    context.put("createSupplierFeatureForm", createSupplierFeatureForm);
+}

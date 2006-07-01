@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Remote Service security -->
+    <SecurityPermission description="Permission to invoke any service remotely." permissionId="SERVICE_INVOKE_ANY"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_INVOKE_ANY"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_INVOKE_ANY"/>
+</entity-engine-xml>

@@ -1,0 +1,898 @@
+
+/* ===== This file contains the eCommerce specific styles ===== */
+
+/* ===== Basic Element Styles ===== */
+BODY {
+background: #FFFFFF;
+margin-top: 10px;
+margin-right: 10px;
+margin-bottom: 10px;
+margin-left: 10px;
+}
+
+FORM {
+margin: 0px;
+}
+
+UL {
+margin-top: 0; 
+margin-bottom: 0;
+}
+
+.endcolumns {
+clear: both;
+height: 0px;
+visibility: hidden;
+}  
+
+
+/* ===== Header Styles ===== */
+#ecom-header {
+position: relative;
+background: #ffffff;
+height: 80px;
+voice-family: "\"}\"";
+voice-family: inherit;
+height: 80px;
+/* border:1px solid #000; */
+}
+#ecom-header #left {
+position: absolute;
+top: 0px;
+left: 0px;
+width: 280px;
+}
+#ecom-header #middle {
+margin-left: 290px;
+margin-right: 210px;
+padding-top: 10px;
+width: auto;
+
+text-align: center;
+}
+#ecom-header #right {
+position: absolute;
+top: 0px;
+right: 0px;
+width: 200px;
+padding: 0px;
+margin-top: 20px;
+
+text-align: right;
+}
+
+#welcome-message {
+padding-right: 10px;
+padding-left: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #000000;
+}
+#welcome-message a {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+}
+#welcome-message a:hover {
+color: black;
+text-decoration: underline;
+}
+#company-name {
+margin: 0px;
+font-size: 12pt;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: #000099;
+white-space: nowrap;
+}
+#company-subtitle {
+margin: 0px;
+font-size: 6pt;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: #330099;
+white-space: nowrap;
+}
+
+#microcart {
+font-size: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-weight: bold;
+text-decoration: none;
+color: black;
+}
+#microcart a {
+text-decoration: none;
+color: #000099;
+}
+#microcart a:hover {
+color: black;
+text-decoration: underline;
+}
+#microcart .disabled {
+color: #666666;
+}
+
+/* ===== Header-Bar Styles ===== */
+#ecom-header-bar {
+background: #B4B0AA;
+text-align: center;
+overflow: visible;
+height: 14px;
+}
+
+#ecom-header-bar ul {
+display: block;
+overflow: visible;
+list-style: none;
+background: transparent;
+vertical-align: middle;
+margin: 0px;
+padding: 0px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 12px;
+}
+
+#ecom-header-bar ul li { 
+height: 14px;
+padding: 0px 8px 0px 8px;
+}
+#ecom-header-bar ul#left-links li {
+float: left;
+border-right: 1px solid #FFFFFF;
+}
+#ecom-header-bar ul#right-links li {
+float: right;
+border-left: 1px solid #FFFFFF;
+}
+
+#ecom-header-bar ul li a {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+} 
+#ecom-header-bar ul li:hover a {
+color: black;
+text-decoration: underline;
+}
+
+
+/* ===== Layout/Formatting Styles ===== */
+/* NOTE: using a combination of a float left/right for the side bars AND 
+  wide margins for the center to get 2 desired effects: 1. be able to end
+  columns and put the footer at the bottom of the page and 2. not have the
+  center column expand to full width below the columns.
+  
+  The downside to this is that in some browsers we can't effectively use floats
+  within divs in the main column.
+*/
+
+/* ecom-mainarea wraps what is below the header including the divs for left, main, right columns as applicable */
+#ecom-mainarea {
+position: relative;
+background: #FFFFFF;
+width: 100%;
+}
+
+#ecom-mainarea .left {
+/* alt: position: absolute; left: 0px; top: 0px; */
+float: left;
+width: 150px;
+background: #ffffff;
+/* border:1px solid #000; */
+}
+#ecom-mainarea .right {
+/* alt: position: absolute; right: 0px; top: 0px; */
+float: right;
+width: 200px;
+background: #ffffff;
+}
+
+
+#ecom-mainarea .center, #ecom-mainarea .leftonly, #ecom-mainarea .rightonly, #ecom-mainarea .nocolumns {
+background:#fff;
+text-align: left;
+vertical-align: top;
+margin-top: 10px;
+}
+#ecom-mainarea .center {
+margin-left: 160px;
+margin-right: 210px;
+voice-family: "\"}\"";
+voice-family: inherit;
+margin-left: 161px;
+margin-right: 211px;
+}
+#ecom-mainarea .leftonly {
+margin-left: 160px;
+voice-family: "\"}\"";
+voice-family: inherit;
+margin-left: 161px;
+}
+#ecom-mainarea .rightonly {
+margin-right: 210px;
+voice-family: "\"}\"";
+voice-family: inherit;
+margin-right: 211px;
+}
+
+/* ====== eCommerce "Screenlet" Styles ====== */
+#ecom-mainarea .screenlet {
+background: #FFFFFF;
+border: 1px solid #999999;
+margin-bottom: 10px;
+}
+#ecom-mainarea .screenlet-header {
+background: #000099;
+padding-top: 1px;
+padding-bottom: 1px;
+padding-right: 4px;
+padding-left: 4px;
+}
+#ecom-mainarea .screenlet-body {
+background: #FFFFFF;
+padding: 4px;
+}
+
+.boxhead {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+color: #FFFFFF;
+}
+
+A.boxheadbutton {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+color: #FFFFFF;
+}
+
+A.boxheadbutton:hover {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+color: red;
+}
+
+/* Form layout styles to simulate a table-style layout */
+#ecom-mainarea .form-row {
+clear: both;
+padding-top: 2px;
+}
+#ecom-mainarea .form-label {
+float: left;
+width: 180px;
+text-align: right;
+padding-top: 5px;
+}
+#ecom-mainarea .form-field {
+float: left;
+margin-left: 10px;
+text-align: left;
+} 
+
+/* ===== Text/Label Styles ===== */
+.tabletext, div.form-label, div.form-field {
+font-size: 10px;
+text-decoration: none;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+A.tabletext:hover {
+font-size: 10px;
+text-decoration: underline;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.tablebuttontext {
+font-size: 10px;
+color: #1E3C66;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.contenttext {
+font-size: 8pt;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+DIV.tabletexthidden {
+font-size: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+visibility: hidden;
+}
+
+.head1 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px; 
+font-size: 12pt;
+font-weight: bold;
+color: #000099;
+}
+
+.head2 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 10pt;
+font-weight: bold;
+color: #000000;
+}
+
+.head3 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+color: #000000;
+}
+
+.info {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 10px;
+font-style: normal;
+color: #000000;
+}
+
+DIV.graybox {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+background: #CCCCCC;
+border: 1px solid #000000;
+text-align: center;
+margin: 2px auto;
+width: auto;
+padding: 4px;
+}
+
+
+.boxoutside {
+background: #FFFFFF;
+padding: 0px;
+border-color: #999999;
+border-style: solid;
+border-width: 1px 1px 1px 1px;
+}
+
+.boxtop {
+background: #000099;
+padding-top: 1px;
+padding-bottom: 1px;
+padding-right: 4px;
+padding-left: 4px;
+border-color: #999999;
+border-style: solid;
+border-width: 0px 0px 0px 0px;
+}
+
+.boxbottom {
+background: #FFFFFF;
+padding: 4px;
+border-color: #999999;
+border-style: solid;
+border-width: 0px 0px 0px 0px;
+}
+
+.button {
+border-style: outset; border-color: #9999CC; border-width: 2px;
+background: #dddddd;
+padding-right: 5px; padding-left: 5px;
+}
+
+
+.tableheadtext {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: black;
+}
+
+A.tableheadbutton {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: black;
+}
+
+A.tableheadbutton:hover {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: underline;
+color: red;
+}
+
+.browsecategorytext {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+text-indent: -10px;
+}
+
+A.browsecategorybutton {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+}
+
+A.browsecategorybutton:hover {
+color: #000099;
+text-decoration: underline;
+}
+
+.browsecategorybuttondisabled {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #333333;
+}
+
+A.buttontext, .buttontextdisabled {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+background: white;
+border: #999999 solid 1px;
+margin: 2px 1px 2px 1px;
+padding: 1px 4px 1px 4px;
+}
+
+A.buttontext {
+color: #000099;
+}
+
+A.buttontext:hover {
+color: red;
+text-decoration: underline;
+}
+
+A.linktext {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+}
+
+A.linktext:hover {
+color: red;
+text-decoration: underline;
+}
+
+.buttontextdisabled {
+color: #333333;
+}
+
+.submenutextinfo {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: white;
+padding-left: 6px;
+padding-right: 5px;
+border-right: 1px solid #5886C6
+}
+
+.submenutext, A.submenutext, A.submenutext:visited {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: yellow;
+padding-left: 6px;
+padding-right: 5px;
+border-right: 1px solid #5886C6
+}
+
+A.submenutext:hover {
+color: yellow;
+text-decoration: underline;
+}
+
+.submenutextdisabled, A.submenutextdisabled {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #CCCCCC;
+padding-left: 6px;
+padding-right: 5px;
+border-right: 1px solid #5886C6
+}
+
+A.submenutextdisabled:hover {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: underline;
+color: yellow;
+}
+
+.submenutextinforight {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: white;
+padding-left: 6px;
+}
+
+.submenutextright, A.submenutextright {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: yellow;
+padding-left: 6px;
+}
+
+A.submenutextright:hover {
+color: yellow;
+text-decoration: underline;
+}
+
+.submenutextrightdisabled, A.submenutextrightdisabled {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #CCCCCC;
+padding-left: 6px;
+}
+
+A.submenutextrightdisabled:hover {
+text-decoration: underline;
+color: yellow;
+}
+
+A.lightbuttontext {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: yellow;
+border: none;
+}
+
+A.lightbuttontext:hover {
+color: yellow;
+text-decoration: underline;
+}
+
+A.lightbuttontextsmall {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8px;
+font-weight: bold;
+text-decoration: none;
+color: yellow;
+border: none;
+}
+
+A.lightbuttontextsmall:hover {
+color: yellow;
+text-decoration: underline;
+}
+
+.lightbuttontextdisabled {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: #CCCCCC;
+}
+
+A.buttontextbig, .buttontextbigdisabled {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 15px;
+font-weight: bold;
+text-decoration: none;
+background: white;
+border: #999999 solid 1px;
+margin: 2px 2px 2px 2px;
+padding: 1px 4px 1px 4px;
+}
+A.buttontextbig {
+color: #000099;
+}
+.buttontextbigdisabled {
+color: #CCCCCC;
+}
+A.buttontextbig:hover {
+color: red;
+text-decoration: underline;
+}
+
+A IMG.imageborder {
+border-style: solid;
+border-width: 1px;
+border-color: #999999;
+}
+
+/* ===== Other Header Styles ===== */
+
+
+.headersmalltext {
+font-size: 8pt; 
+font-family: Verdana, Arial, Helvetica, sans-serif; 
+font-weight: bold; 
+color: black;
+}
+a.headersmalllink {
+font-size: 8pt; 
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-weight: bold; 
+color: #000099; 
+text-decoration: none;
+}
+a.headersmalllink:hover {
+color: red;
+}
+
+/* ===== Misc/General Styles ===== */
+HR.sepbar {
+font-size: xx-small;
+width: 100%;
+height: 1px;
+background: #999999;
+border-width: 0px;
+}
+
+.errorMessage {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+color: red;
+}
+
+.eventMessage {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+color: #000099;
+}
+
+.ontab {
+font-size: 8pt;
+background: black;
+padding: 2px;
+border-style: inset;
+border-width: 3px;
+}
+
+a.onlnk {
+font-size: 8pt;
+font-weight: bold;
+color: #FFFFFF;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+text-decoration: none;
+padding: 2px;
+}
+
+.offtab {
+font-size: 10px;
+background: #CCCCCC;
+padding: 2px;
+border-style: outset;
+border-width: 3px;
+}
+
+a.offlnk {
+font-size: 10px;
+font-weight: bold;
+color: #000099;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+text-decoration: none;
+padding: 2px;
+}
+
+a.offlnk:hover {
+color: red;
+}
+
+.areaheader {
+font-size: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: #FFFFFF;
+width: 100%;
+background: black;
+padding: 2px;
+}
+
+.edittable {
+border-color: #000000 #000000 #003333;
+border-style: solid;
+border-top-width: thin;
+border-right-width: thin;
+border-bottom-width: thin;
+border-left-width: thin
+}
+
+.editInputBox {
+font-size: 8pt;
+background: #FFFFFF;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.inputBox {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFFF;
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.selectBox {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFFF;
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.textAreaBox {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFFF;
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.radioButton {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFFF;
+font-size: 8pt;
+}
+
+.checkBox {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFFF;
+font-size: 8pt;
+}
+
+.smallSubmit {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.mediumSubmit,.largeSubmit,.loginButton {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10pt;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+.smallSubmit:hover,.mediumSubmit:hover,.largeSubmit:hover,.loginButton:hover {
+color: red;
+text-decoration: underline;
+}
+
+.smallAltSubmit,.mediumAltSubmit,.largeAltSubmit {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+}
+
+.basePrice {
+font-size: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: black;
+}
+
+.normalPrice {
+font-size: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: green;
+}
+
+.salePrice {
+font-size: 10px;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: red;
+}
+
+/* ===== Product Summary Styles ===== */
+.product-prevnext {
+text-align: right;
+}
+
+.productsummary-container {
+margin-top: 5px;
+margin-bottom: 5px;
+border-top: #999 solid 1px;
+}
+
+.productsummary {
+position: relative;
+padding: 5px;
+border-bottom: #999 solid 1px;
+/* using min-height as an alternative to clear: both; because that, in some browsers, will clear the top-level columns and not just in this div (Mozilla based, namely) */
+min-height: 60px;
+overflow: auto;
+}
+
+.productsummary .smallimage {
+float: left;
+/* position: absolute; top: 5px; left: 5px; */
+margin: 0px 5px 5px 0px;
+}
+.productsummary .smallimage img {
+border: #CCC solid 1px;
+height: 50px;
+}
+
+.productsummary .productbuy {
+float: right;
+width: 160px;
+margin: 5px;
+text-align: right;
+}
+
+.productsummary .productinfo {
+/* margin-left: 60px; */
+text-align: left;
+}
+
+/* ===== Product Detail Styles ===== */
+#productdetail #download-files {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+
+#productdetail #long-description {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+
+#productdetail #reviews {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+
+#productdetail #associated-products {
+margin-top: 10px;
+padding-top: 5px;
+border-top: #999 solid 1px;
+}
+

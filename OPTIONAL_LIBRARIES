@@ -1,0 +1,128 @@
+
+DESCRIPTION: This file contains information about libraries that are supported by code in OFBiz but that are left out of SVN because of licesning issues. What is below is a list of jar files and where to put them, and the file(s) to change to include them in the OFBiz build and/or run-time configuration.
+
+NOTE: While these aren't included in the main SVN repository they are available on the old Undersun SVN server in the specialized/libraries component directory.
+
+-=- Workflow
+
+-Shark (LGPL):
+  http://www.enhydra.org/workflow/shark/
+  framework/shark/lib:
+    sharkassignment-historyrelated.jar
+    sharkassignment-standard.jar
+    sharkassignment-xpdlstraightparticipantmapping.jar
+    sharkauthentication-ldap.jar
+    sharkcaching-lru.jar
+    sharkclientapi.jar
+    sharkcommonapi.jar
+    sharkcorbaclientapi.jar
+    sharkcorbaserver.jar
+    sharkeventaudit-smtp.jar
+    sharkinternalapi.jar
+    sharkinteroperability-wfxml.jar
+    sharkkernel-standard.jar
+    sharklimitagent-standard.jar
+    sharklimitagent-timer.jar
+    sharklogging-standard.jar
+    sharkprocesslocking-memory.jar
+    sharkrepositorypersistence-filesystem.jar
+    sharkscripting-standard.jar
+    sharksecurity-standard.jar
+    sharktoolagent-standard.jar
+    sharkusergroup-ldap.jar
+    sharkutilities-common.jar
+    sharkutilities-map.jar
+    sharkutilities-misc.jar
+    sharkwebservice-asap.jar
+    sharkwebservice-asapapi.jar
+    sharkwebservice-asaputils.jar
+    sharkwebservice-wfxmlapi.jar
+    sharkwebservice-wfxmlutils.jar
+    sharkxpdl-standard.jar
+    wrd.jar
+  NOTE: these jars are based on a build from source done on 03 May 2005 (see old SVN rev 4944). 
+    For an updated version some changes to the integration code in the shark component may be necessary.
+  TO BUILD: once the jars are in place you can build from the ofbiz/framework/shark directory, or
+    you can add it to the build list in the ofbiz/build.xml file in the framework-builds file list.
+  TO DEPLOY: once the build is done the Shark container must be setup in the ofbiz-containers.xml
+    file or other containers file being used. The shark-container container should be un-commented.
+
+-=- Scripting:
+
+-JavaScript/Rhino (NPL 1.1):
+  http://www.mozilla.org/js
+  TO BUILD comment out exclude: base/build.xml:org/ofbiz/base/util/OfbizJsBsfEngine.java
+
+-=- Reporting:
+
+-JasperReports (LGPL):
+  http://sourceforge.net/projects/jasperreports
+  TO BUILD comment out excludes:
+    framework/webapp/build.xml:org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java,org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java
+    applications/content/build.xml:org/ofbiz/content/report/JREntityListIteratorDataSource.java,org/ofbiz/content/report/JRMapCollectionDataSource.java
+
+-=- POS
+
+-GTK Swing (LGPL):
+  http://sourceforge.net/projects/gtkswing/
+  TO DEPLOY: base/config/pos-containers.xml:org.gtk.java.swing.plaf.gtk.GtkLookAndFeel for look and feel  
+-JavaPOS hardware drivers
+  TO DEPLOY: applications/pos/lib/
+ 
+  Epson Printer TM-T88III (Proprietay licence) needs jpos18-controls.jar (version specific)
+  https://www.epson-pos.com/cgi-bin/sdssm/main/td_login.jsp
+     epsonJposService180.jar 
+     epsonJposServiceCommon.jar
+ 
+ Star (Proprietay licence)
+ http://www.star-micronics.co.jp/service/s_print/starjavapos_win32-linux-macosx_yyyymmdd.zip.htm
+     starjavapos.jar   
+  
+
+-=- Office (Word, etc) File Handling
+
+-OpenOffice UNO (LGPL)
+  http://udk.openoffice.org/
+  applications/content/lib/uno:
+    XFlatXml.jar
+    XMergeBridge.jar
+    XSLTFilter.jar
+    XSLTValidate.jar
+    htmlsoff.jar
+    java_uno.jar
+    java_uno_accessbridge.jar
+    juh.jar
+    jurt.jar
+    jut.jar
+    officebean.jar
+    ridl.jar
+    unoil.jar
+  TO BUILD comment out exclude: applications/content/build.xml:org/ofbiz/content/openoffice/*
+
+-=- Accounting: Payment Processing
+
+-CyberSource
+  applications/accounting/lib/cybersource:
+    cybsclients.jar
+    cybssecurity.jar
+  TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/cybersource/**
+
+-WorldPay
+  applications/accounting/lib/worldpay:
+    config
+    config/currency.properties
+    config/keystore
+    config/keystore/wcc
+    config/keystore/wcc/public-1.key
+    config/keystore/wcc/revision
+    cryptix-lib
+    cryptix-lib/Cryptix.properties
+    cryptix.jar
+    ijce-lib
+    ijce-lib/IJCE.properties
+    ijce-lib/java.security.fallback
+    ijce-lib/TargetHelp.html
+    readme.txt
+    select.jar
+    select.properties
+  TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/worldpay/**

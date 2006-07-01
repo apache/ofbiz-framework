@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ReportScreens.xml 7697 2006-05-30 06:41:47Z jacopo $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="OrderPurchaseReportOptions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderPurchaseReportOptions"/>
+                <set field="headerItem" value="reports"/>
+                <!-- <set field="titleProperty" value=""/> -->
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1" text="${uiLabelMap.OrderReports}"/>
+                        </container>
+                        <container>
+                            <label style="head2" text="${uiLabelMap.OrderReportSalesByStore}"/>
+                            <include-form name="SalesByStoreReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        </container>
+                        <container>
+                            <label style="head2" text="${uiLabelMap.OrderReportPurchasesByOrganization}"/>
+                            <include-form name="PurchasesByOrganizationReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        </container>
+                        <container>
+                            <label style="head2" text="${uiLabelMap.OrderReportPurchasesByProduct}"/>
+                            <include-form name="OrderPurchaseProductOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        </container>
+                        <container>
+                            <label style="head2" text="${uiLabelMap.OrderReportPurchasesByPaymentMethod}"/>
+                            <include-form name="OrderPurchasePaymentOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderPurchaseReportPayment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderReportPurchasesByPaymentMethod"/>
+				<property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+				<property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+				<property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-condition entity-name="OrderPurchasePaymentSummary" list-name="orderPurchasePaymentSummaryList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productStoreId" operator="equals" env-name="parameters.productStoreId" ignore-if-empty="true"/>
+                        <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.originFacilityId" ignore-if-empty="true"/>
+                        <condition-expr field-name="terminalId" operator="equals" env-name="parameters.terminalId" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="equals" env-name="parameters.statusId" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                    </condition-list>
+                    <select-field field-name="productStoreId"/>
+                    <select-field field-name="originFacilityId"/>
+                    <select-field field-name="terminalId"/>
+                    <select-field field-name="statusId"/>
+                    <select-field field-name="paymentMethodTypeId"/>
+                    <select-field field-name="description"/>
+                    <select-field field-name="maxAmount"/>
+                    <order-by field-name="productStoreId"/>
+                    <order-by field-name="originFacilityId"/>
+                    <order-by field-name="terminalId"/>
+                    <order-by field-name="paymentMethodTypeId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportPayment.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderPurchaseReportProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderReportPurchasesByProduct"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-condition entity-name="OrderPurchaseProductSummary" list-name="orderPurchaseProductSummaryList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productStoreId" operator="equals" env-name="parameters.productStoreId" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderTypeId" operator="equals" env-name="parameters.orderTypeId" ignore-if-empty="true"/>
+                        <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.originFacilityId" ignore-if-empty="true"/>
+                        <condition-expr field-name="terminalId" operator="equals" env-name="parameters.terminalId" ignore-if-empty="true"/>
+                        <condition-expr field-name="statusId" operator="equals" env-name="parameters.statusId" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                    </condition-list>
+                    <select-field field-name="productStoreId"/>
+                    <select-field field-name="originFacilityId"/>
+                    <select-field field-name="terminalId"/>
+                    <select-field field-name="statusId"/>
+                    <select-field field-name="productId"/>
+                    <select-field field-name="internalName"/>
+                    <select-field field-name="quantity"/>
+                    <select-field field-name="cancelQuantity"/>
+                    <order-by field-name="productStoreId"/>
+                    <order-by field-name="originFacilityId"/>
+                    <order-by field-name="terminalId"/>
+                    <order-by field-name="productId"/>
+                </entity-condition>
+                <!-- <script location="component://order/widget/test.bsh"/> -->
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportProduct.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- generates the pdf for report of sales by store and customer, grouped by product -->
+    <screen name="SalesByStoreReport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderReportSalesByStore"/>
+                <set field="toPartyId" from-field="parameters.toPartyId"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-condition entity-name="OrderReportSalesGroupByProduct" list-name="productReportList">
+                    <condition-list combine="and">
+                        <!-- this can use the other view, so long as the filter is by SALES_ORDER and fromPartyId = ProductStore.payToPartyId if provided -->
+                        <condition-expr field-name="productStoreId" operator="equals" env-name="parameters.productStoreId" ignore-if-empty="true"/>
+                        <condition-expr field-name="partyId" operator="equals" env-name="parameters.toPartyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
+                        <condition-expr field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
+                        <!-- possible bug: using env-name="parameters.orderStatusId" did not work for the following line -->
+                        <condition-expr field-name="orderStatusId" operator="equals" value="${parameters.orderStatusId}" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                    </condition-list>
+                    <!-- note that we need to explicitly identify the fields to select, otherwise the query will include fields that can't logically be grouped -->
+                    <select-field field-name="productStoreId"/>
+                    <select-field field-name="storeName"/>
+                    <select-field field-name="productId"/>
+                    <select-field field-name="internalName"/>
+                    <select-field field-name="quantity"/>
+                    <select-field field-name="unitPrice"/>
+                    <order-by field-name="storeName"/>
+                    <order-by field-name="internalName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://order/webapp/ordermgr/reports/SalesByStoreReport.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- generates the pdf for report of purchases by organization, grouped by product -->
+    <screen name="PurchasesByOrganizationReport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderReportPurchasesByOrganization"/>
+                <set field="toPartyId" from-field="parameters.toPartyId"/>
+                <set field="fromPartyId" from-field="parameters.fromPartyId"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-condition entity-name="OrderReportPurchasesGroupByProduct" list-name="productReportList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="toPartyId" operator="equals" env-name="parameters.toPartyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="toRoleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
+                        <condition-expr field-name="fromPartyId" operator="equals" env-name="parameters.fromPartyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="fromRoleTypeId" operator="equals" value="BILL_FROM_VENDOR"/>
+                        <condition-expr field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
+                        <condition-expr field-name="orderStatusId" operator="equals" value="${parameters.orderStatusId}" ignore-if-empty="true"/>
+                        <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" env-name="parameters.thruOrderDate" ignore-if-null="true"/>
+                    </condition-list>
+                    <!-- note that we need to explicitly identify the fields to select, otherwise the query will include fields that can't logically be grouped -->
+                    <select-field field-name="productId"/>
+                    <select-field field-name="internalName"/>
+                    <select-field field-name="quantity"/>
+                    <select-field field-name="unitPrice"/>
+                    <order-by field-name="internalName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://order/webapp/ordermgr/reports/PurchasesByOrganizationReport.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+
+</screens>
+

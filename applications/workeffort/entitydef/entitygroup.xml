@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.workeffort.timesheet -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="PartyRate" />
+    <entity-group group="org.ofbiz" entity="RateType" />
+    <entity-group group="org.ofbiz" entity="TimeEntry" />
+    <entity-group group="org.ofbiz" entity="Timesheet" />
+    <entity-group group="org.ofbiz" entity="TimesheetRole" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAssignmentRate" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.workeffort.workeffort -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ApplicationSandbox" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventWorkEff" />
+    <entity-group group="org.ofbiz" entity="Deliverable" />
+    <entity-group group="org.ofbiz" entity="DeliverableType" />
+    <entity-group group="org.ofbiz" entity="WorkEffort" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAndFulfillment" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAndPartyAssign" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAndSalesOpportunity" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAssoc" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAssocView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAssocAttribute" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAssocType" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAssocTypeAttr" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAttribute" />
+    <entity-group group="org.ofbiz" entity="WorkEffortBilling" />
+    <entity-group group="org.ofbiz" entity="WorkEffortContactMech" />    
+    <entity-group group="org.ofbiz" entity="WorkEffortDeliverableProd" />
+    <entity-group group="org.ofbiz" entity="WorkEffortFixedAssetAssign" />
+    <entity-group group="org.ofbiz" entity="WorkEffortFixedAssetStd" />
+    <entity-group group="org.ofbiz" entity="WorkEffortGoodStandard" />
+    <entity-group group="org.ofbiz" entity="WorkEffortGoodStandardType" />
+    <entity-group group="org.ofbiz" entity="WorkEffortInventoryAssign" />
+    <entity-group group="org.ofbiz" entity="WorkEffortInventoryProduced" />
+    <entity-group group="org.ofbiz" entity="WorkEffortNote" />
+    <entity-group group="org.ofbiz" entity="WorkEffortNoteAndData" />
+    <entity-group group="org.ofbiz" entity="WorkEffortPartyAssignByGroup" />
+    <entity-group group="org.ofbiz" entity="WorkEffortPartyAssignByRole" />
+    <entity-group group="org.ofbiz" entity="WorkEffortPartyAssignment" />
+    <entity-group group="org.ofbiz" entity="WorkEffortPurposeType" />
+    <entity-group group="org.ofbiz" entity="WorkEffortSkillStandard" />
+    <entity-group group="org.ofbiz" entity="WorkEffortStatus" />
+    <entity-group group="org.ofbiz" entity="WorkEffortTransBox" />
+    <entity-group group="org.ofbiz" entity="WorkEffortType" />
+    <entity-group group="org.ofbiz" entity="WorkEffortTypeAttr" />
+    
+    <entity-group group="org.ofbiz" entity="WorkEffortAndGoods" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAndInventoryAssign" />
+    <entity-group group="org.ofbiz" entity="WorkEffortAndInventoryProduced" />
+    <entity-group group="org.ofbiz" entity="WorkEffortPartyAssignView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortCommunicationEventView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortShoppingListView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortQuoteView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortOrderHeaderView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortCustRequestItemView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortCustRequestView" />
+    <entity-group group="org.ofbiz" entity="WorkEffortRequirementView" />
+    
+</entitygroup>
+

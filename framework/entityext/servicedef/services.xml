@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: services.xml 7867 2006-06-27 01:30:07Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Entity Extension Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Entity Engine Extension Services -->
+    <service name="distributedClearAllEntityCaches" engine="jms" location="serviceMessenger" invoke="clearAllEntityCaches" auth="true">
+        <description>Clear All Entity Engine Caches for all Servers listening to the topic</description>
+    </service>
+    <!-- Below uses Group/HTTP engine
+    <service name="distributedClearAllEntityCaches" engine="group" location="distributedClearAllEntityCaches" invoke=""/>
+    -->
+    <service name="clearAllEntityCaches" engine="java"
+            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearAllEntityCaches" auth="true">
+        <description>Clears all values from all Entity Engine caches. By default does not distribute.</description>
+        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
+    </service>
+
+    <service name="distributedClearCacheLineByValue" engine="jms" location="serviceMessenger" invoke="clearCacheLineByValue" auth="true">
+        <description>Clear Cache Line by value for all Servers listening to the topic</description>
+        <attribute name="value" type="GenericValue" mode="IN" optional="false"/>
+    </service>
+    <!-- Below uses Group/HTTP engine
+    <service name="distributedClearCacheLineByValue" engine="group" location="distributedClearCacheLineByValue" invoke=""/>
+    -->
+    <service name="clearCacheLineByValue" engine="java"
+            location="org.ofbiz.extentity.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+        <description>Clear Cache Line with a value (GenericValue); this is the preferred method since the all, by primary key and by and caches will be cleared. By default does not distribute.</description>
+        <attribute name="value" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
+    </service>
+
+    <service name="distributedClearCacheLineByDummyPK" engine="jms" location="serviceMessenger" invoke="clearCacheLineByDummyPK" auth="true">
+        <description>Clear Cache Line by dummyPK for all Servers listening to the topic</description>
+        <attribute name="dummyPK" type="GenericEntity" mode="IN" optional="false"/>
+    </service>
+    <!-- Below uses Group/HTTP engine
+    <service name="distributedClearCacheLineByDummyPK" engine="group" location="distributedClearCacheLineByDummyPK" invoke=""/>
+    -->
+    <service name="clearCacheLineByDummyPK" engine="java"
+            location="org.ofbiz.extentity.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+        <description>Clear Cache Line with a dummyPK (GenericEntity); clears that all cache entry and depending on whether the dummyPK is a primaryKey or not this clears the by primary key cache or the specified entry in the by and cache. By default does not distribute.</description>
+        <attribute name="dummyPK" type="GenericEntity" mode="IN" optional="false"/>
+        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
+    </service>
+
+    <service name="distributedClearCacheLineByPrimaryKey" engine="jms" location="serviceMessenger" invoke="clearCacheLineByPrimaryKey" auth="true">
+        <description>Clear Cache Line by primaryKey for all Servers listening to the topic</description>
+        <attribute name="primaryKey" type="GenericPK" mode="IN" optional="false"/>
+        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
+    </service>
+    <!-- Below uses Group/HTTP engine
+    <service name="distributedClearCacheLineByPrimaryKey" engine="group" location="distributedClearCacheLineByPrimaryKey" invoke=""/>
+    -->
+    <service name="clearCacheLineByPrimaryKey" engine="java"
+            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+        <description>Clear Cache Line with a primaryKey (GenericPK); clears the all and by primary key caches. By default does not distribute.</description>
+        <attribute name="primaryKey" type="GenericPK" mode="IN" optional="false"/>
+        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
+    </service>
+
+    <!-- HTTP Engine localhost cache clearing (example: duplicate entire block for each server) -->
+    <service name="localhostClearAllEntityCaches" engine="http"
+            location="eedcc-test" invoke="clearAllEntityCaches">
+        <implements service="clearAllEntityCaches"/>
+    </service>
+    <service name="localhostClearCacheLineByValue" engine="http"
+            location="eedcc-test" invoke="clearCacheLineByValue">
+        <implements service="clearCacheLineByValue"/>
+    </service>
+    <service name="localhostClearCacheLineByDummyPK" engine="http"
+            location="eedcc-test" invoke="clearCacheLineByDummyPK">
+        <implements service="clearCacheLineByDummyPK"/>
+    </service>
+    <service name="localhostClearCacheLineByPrimaryKey" engine="http"
+            location="eedcc-test" invoke="clearCacheLineByPrimaryKey">
+        <implements service="clearCacheLineByPrimaryKey"/>
+    </service>
+
+    <!-- Index/Key Services -->
+    <service name="rebuildEntityIndexesAndKeys" engine="java" auth="true" use-transaction="false"
+            location="org.ofbiz.entityext.data.EntityDataServices" invoke="rebuildAllIndexesAndKeys">
+        <description>Rebuilds all indexes/keys</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ENTITY_MAINT"/>
+        </required-permissions>
+        <attribute name="groupName" type="String" mode="IN" optional="false"/>
+        <attribute name="fixColSizes" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="messages" type="List" mode="OUT" optional="false"/>
+    </service>
+
+    <!-- Entity Delimited File Import Services -->
+    <service name="importEntityFileDirectory" engine="java" auth="true" use-transaction="false"
+            location="org.ofbiz.entityext.data.EntityDataServices" invoke="importDelimitedFromDirectory">
+        <description>Read a directory for .txt files with entity names; read each line as a record</description>
+        <attribute name="rootDirectory" type="String" mode="IN" optional="false"/>
+        <attribute name="delimiter" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="importDelimitedEntityFile" engine="java" auth="true" transaction-timeout="14400" require-new-transaction="true"
+            location="org.ofbiz.entityext.data.EntityDataServices" invoke="importDelimitedFile">
+        <description>Import delimited file</description>
+        <attribute name="file" type="java.io.File" mode="IN" optional="false"/>
+        <attribute name="delimiter" type="String" mode="IN" optional="true"/>
+        <attribute name="records" type="Integer" mode="OUT" optional="false"/>
+    </service>
+
+    <!-- EntitySync Services -->
+    <service name="createEntitySync" default-entity-name="EntitySync" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySync" auth="true">
+        <description>Create EntitySync</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateEntitySync" default-entity-name="EntitySync" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySync" auth="true">
+        <description>Update EntitySync</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySyncInclude" auth="true">
+        <description>Create EntitySyncInclude</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="applEnumId" optional="false"/>
+    </service>
+    <service name="updateEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySyncInclude" auth="true">
+        <description>Update EntitySyncInclude</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteEntitySyncInclude" default-entity-name="EntitySyncInclude" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="deleteEntitySyncInclude" auth="true">
+        <description>Delete EntitySyncInclude</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="updateEntitySyncRunning" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySync" auth="true" require-new-transaction="true">
+        <description>Update EntitySync while Running</description>
+        <implements service="updateEntitySync"/>
+    </service>
+    <service name="createEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySyncHistory" auth="true" require-new-transaction="true">
+        <description>Create EntitySyncHistory</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="startDate" mode="OUT"/>
+    </service>
+    <service name="updateEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="updateEntitySyncHistory" auth="true" require-new-transaction="true">
+        <description>Update EntitySyncHistory</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="deleteEntitySyncHistory" auth="true" require-new-transaction="true">
+        <description>Delete EntitySyncHistory</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="cleanSyncRemoveInfo" engine="java"
+            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="cleanSyncRemoveInfo" auth="true" transaction-timeout="600">
+        <description>Clean EntitySyncRemove Info - Generally should be run asynchronously after each sync run, or periodically run on a schedule</description>
+    </service>
+    <service name="resetEntitySyncStatusToNotStarted" engine="simple"
+            location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="resetEntitySyncStatusToNotStarted" auth="true" transaction-timeout="600">
+        <description>Generally run manually to reset the status of an EntitySync when it has "crashed". Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)</description>
+        <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="runOfflineEntitySync" engine="java"
+            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runOfflineEntitySync" auth="true" use-transaction="false">
+        <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
+        <attribute name="fileName" type="String" mode="IN" optional="true"><!-- if not specified defaults to "offline_entitySync-" + entitySyncId + "-" + [current date/time in yyyyMMddHHmmss format] + ".xml" --></attribute>
+    </service>
+    <service name="loadOfflineEntitySyncData" engine="java"
+            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="loadOfflineSyncData" auth="true" use-transaction="false">
+        <attribute name="xmlFileName" type="String" mode="IN" optional="false"/>        
+    </service>
+
+    <!-- Entity Remote Synchronization services -->
+    <service name="runEntitySync" engine="java" auth="true" use-transaction="false"
+            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runEntitySync">
+        <description>Run Entity Sync</description>
+        <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="storeEntitySyncData" engine="java" location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="storeEntitySyncData"
+    	    export="true" auth="true" require-new-transaction="true" transaction-timeout="900">
+        <description>Run Entity Sync</description>
+        <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
+        <attribute name="valuesToCreate" type="List" mode="IN" optional="false"/>
+        <attribute name="valuesToStore" type="List" mode="IN" optional="false"/>
+        <attribute name="keysToRemove" type="List" mode="IN" optional="false"/>
+        <attribute name="delegatorName" type="String" mode="IN" optional="true"/>
+        <attribute name="toCreateInserted" type="Long" mode="OUT" optional="false"/>
+        <attribute name="toCreateUpdated" type="Long" mode="OUT" optional="false"/>
+        <attribute name="toCreateNotUpdated" type="Long" mode="OUT" optional="false"/>
+        <attribute name="toStoreInserted" type="Long" mode="OUT" optional="false"/>
+        <attribute name="toStoreUpdated" type="Long" mode="OUT" optional="false"/>
+        <attribute name="toStoreNotUpdated" type="Long" mode="OUT" optional="false"/>
+        <attribute name="toRemoveDeleted" type="Long" mode="OUT" optional="false"/>
+        <attribute name="toRemoveAlreadyDeleted" type="Long" mode="OUT" optional="false"/>
+    </service>
+
+    <!-- Services for Entity Sync Data Pulling -->
+    <service name="runPullEntitySync" engine="java" auth="true" use-transaction="false"
+            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runPullEntitySync">
+        <description>Run Entity Sync Pulling Data From a Remote Server</description>
+        <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
+        <attribute name="remotePullAndReportEntitySyncDataName" type="String" mode="IN" optional="false"/>
+        <attribute name="localDelegatorName" type="String" mode="IN" optional="true"/>
+        <attribute name="remoteDelegatorName" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="pullAndReportEntitySyncData" engine="java" auth="true" export="true" use-transaction="false"
+            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="pullAndReportEntitySyncData">
+        <description>Pull And Report Entity Sync Data</description>
+        <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
+        <attribute name="delegatorName" type="String" mode="IN" optional="true"/>
+        <!-- fields for returned values to store on the calling machine, note that after storing these this service MUST be called with the results to finalize it! -->
+        <attribute name="valuesToCreate" type="List" mode="OUT" optional="true"/>
+        <attribute name="valuesToStore" type="List" mode="OUT" optional="true"/>
+        <attribute name="keysToRemove" type="List" mode="OUT" optional="true"/>
+        <!-- fields for results of storage on the calling machine -->
+        <attribute name="startDate" type="Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="toCreateInserted" type="Long" mode="IN" optional="true"/>
+        <attribute name="toCreateUpdated" type="Long" mode="IN" optional="true"/>
+        <attribute name="toCreateNotUpdated" type="Long" mode="IN" optional="true"/>
+        <attribute name="toStoreInserted" type="Long" mode="IN" optional="true"/>
+        <attribute name="toStoreUpdated" type="Long" mode="IN" optional="true"/>
+        <attribute name="toStoreNotUpdated" type="Long" mode="IN" optional="true"/>
+        <attribute name="toRemoveDeleted" type="Long" mode="IN" optional="true"/>
+        <attribute name="toRemoveAlreadyDeleted" type="Long" mode="IN" optional="true"/>
+    </service>
+
+    <!-- Services to call store (Push) remotely -->
+    <service name="remoteStoreEntitySyncDataHttp" engine="http" auth="true" use-transaction="false"
+            location="entity-sync-http" invoke="storeEntitySyncData">
+        <description>Remotely Store Entity Sync Date</description>
+        <implements service="storeEntitySyncData"/>
+    </service>
+    <service name="remoteStoreEntitySyncDataRmi" engine="rmi" auth="true" use-transaction="false"
+            location="entity-sync-rmi" invoke="storeEntitySyncData">
+        <description>Remotely Store Entity Sync Data</description>
+        <implements service="storeEntitySyncData"/>
+    </service>
+
+    <!-- Services to call Pull and Report remotely -->
+    <service name="remotePullAndReportEntitySyncDataHttp" engine="http" auth="true" use-transaction="false"
+            location="entity-sync-http" invoke="pullAndReportEntitySyncData">
+        <description>Remotely Pull And Report Entity Sync Data</description>
+        <implements service="pullAndReportEntitySyncData"/>
+    </service>
+    <service name="remotePullAndReportEntitySyncDataRmi" engine="rmi" auth="true" use-transaction="false"
+            location="entity-sync-rmi" invoke="pullAndReportEntitySyncData">
+        <description>Remotely Pull And Report Entity Sync Data</description>
+        <implements service="pullAndReportEntitySyncData"/>
+    </service>
+</services>

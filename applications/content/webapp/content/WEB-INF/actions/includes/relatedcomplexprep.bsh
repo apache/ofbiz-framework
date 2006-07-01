@@ -1,0 +1,122 @@
+/*
+ * $Id: relatedcomplexprep.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+
+
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import java.sql.Timestamp;
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      2.2
+
+ */
+
+LocalDispatcher dispatcher	= (LocalDispatcher)request.getAttribute("dispatcher");
+GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+
+// Get permission from pagedef config file
+String permission		= page.getProperty("permission");
+String entityName		= page.getProperty("entityName");
+String currentEntityName	= page.getProperty("currentEntityName");
+String formDefFile	= page.getProperty("formDefFile");
+String defaultMapName		= page.getProperty("defaultMapName");
+if( defaultMapName == null) defaultMapName	= "valueObject";
+
+security			= request.getAttribute("security");
+if(security.hasEntityPermission(permission, "_VIEW", session)) {
+    	context.put("hasPermission", Boolean.TRUE);
+} else {
+    	context.put("hasPermission", Boolean.FALSE);
+}
+
+HtmlFormWrapper editWrapper	= null;
+HtmlFormWrapper addWrapper	= null;
+HtmlFormWrapper listWrapper	= null;
+GenericValue relatedOne = null;
+
+HashMap currentEntityMap = (HashMap)session.getAttribute("currentEntityMap");
+if(currentEntityMap == null){
+    currentEntityMap     = new HashMap();
+    session.setAttribute("currentEntityMap", currentEntityMap);
+}
+
+GenericPK currentPK = currentEntityMap.get(currentEntityName);
+GenericValue currentValue = delegator.findByPrimaryKey(currentPK);
+
+
+if(currentValue != null) {
+    Map paramMap	= UtilHttp.getParameterMap(request);
+    GenericValue v = delegator.makeValue(entityName, null);
+    v.setPKFields(paramMap);
+    GenericPK pk = v.getPrimaryKey();
+    relatedOne = delegator.findByPrimaryKey(pk);
+    if(relatedOne != null) {
+        editWrapper = new HtmlFormWrapper(formDefFile, 
+					"Edit" + entityName, request, response);
+        ModelForm modelForm	= editWrapper.getModelForm();
+        modelForm.setDefaultMapName(defaultMapName);
+        editWrapper.putInContext(defaultMapName, relatedOne);
+        context.put("singleTitle", "Edit");
+        context.put("editWrapper", editWrapper);
+    } 
+}
+
+if(currentValue != null) {
+
+    addWrapper = new HtmlFormWrapper(formDefFile, 
+					"Add" + entityName, request, response);
+    context.put("singleTitle", "Create New");
+    keyColl = currentValue.getPrimaryKey().getAllKeys();
+    keyIt = keyColl.iterator();
+    while(keyIt.hasNext()) {
+            String ky = (String)keyIt.next();
+            addWrapper.putInContext(ky, currentValue.get(ky));
+    }
+
+    List contentList =  currentValue.getRelated(entityName);
+    listWrapper = new HtmlFormWrapper(formDefFile, "List" + entityName, request, response);
+    listWrapper.putInContext("contentList", contentList);
+    context.put("listWrapper", listWrapper);
+} else {
+        context.put("singleTitle", "Create New");
+         addWrapper = new HtmlFormWrapper(formDefFile, 
+					"Add" + entityName, request, response);
+}
+
+context.put("addWrapper", addWrapper);
+

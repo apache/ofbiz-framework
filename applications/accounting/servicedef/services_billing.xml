@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Accounting Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Billing Account Services -->
+    <service name="createBillingAccount" engine="simple"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccount">
+        <description>Create a Billing Account</description>
+        <attribute name="accountLimit" type="Double" mode="IN" optional="true"/>
+        <attribute name="accountCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAccountId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateBillingAccount" engine="simple"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccount">
+        <description>Update a Billing Account</description>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="accountLimit" type="Double" mode="IN" optional="true"/>
+        <attribute name="accountCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="createBillingAccountRole" engine="simple"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccountRole">
+        <description>Create a Billing Account Role</description>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="updateBillingAccountRole" engine="simple"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccountRole">
+        <description>Update a Billing Account Role</description>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+    <service name="removeBillingAccountRole" engine="simple" default-entity-name="BillingAccountRole"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="removeBillingAccountRole">
+        <description>Remove a Billing Account Role</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createBillingAccountTerm" engine="simple"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="createBillingAccountTerm">
+        <description>Create a Billing Account Term</description>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="termTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="termValue" type="Long" mode="IN" optional="false"/>
+        <attribute name="uomId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAccountTermId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateBillingAccountTerm" engine="simple"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="updateBillingAccountTerm">
+        <description>Update a Billing Account Term</description>
+        <attribute name="billingAccountTermId" type="String" mode="IN" optional="false"/>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="termTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="termValue" type="Long" mode="IN" optional="true"/>
+        <attribute name="uomId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="removeBillingAccountTerm" engine="simple"
+            location="org/ofbiz/accounting/payment/BillingServices.xml" invoke="removeBillingAccountTerm">
+        <description>Remove a Billing Account Term</description>
+        <attribute name="billingAccountTermId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="calcBillingAccountBalance" engine="java"
+            location="org.ofbiz.accounting.payment.BillingAccountWorker" invoke="calcBillingAccountBalance">
+        <description>Calculate the balance of a Billing Account</description>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
+        <attribute name="accountBalance" type="Double" mode="OUT" optional="false"/>
+        <attribute name="billingAccount" type="GenericValue" mode="OUT" optional="false"/>
+    </service>
+</services>

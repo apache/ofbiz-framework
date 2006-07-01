@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: FeatureScreens.xml 7781 2006-06-13 15:59:44Z sichen $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="CommonFeatureDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+    
+                <!--<set field="productId" from-field="parameters.productId"/>-->
+                <!--<entity-one entity-name="Product" value-name="product"/>-->
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/feature/FeatureTabBar.ftl"/></html>
+                                </platform-specific>
+            
+                                <!-- add Create Product and View Product (in ecommerce) links -->
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditFeature">
+        <section>
+            <actions>
+                <set field="title" value="Edit Feature"/>
+                <set field="titleProperty" value="PageTitleEditFeature"/>
+                <set field="headerItem" value="featurecats"/>
+    
+                <entity-one entity-name="ProductFeature" value-name="productFeature" auto-field-map="true"/>
+                <!--<script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeature.bsh"/>-->
+                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditSupplierFeature.bsh"/>
+            </actions>
+            <widgets>
+                <!--<decorator-screen name="main-decorator" location="component://product/widget/catalog/CommonScreens.xml">-->
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductEditFeature} : ${productFeature.description}</label>
+                        </container>
+                        <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/feature/EditFeature.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureTypes">
+        <section>
+            <actions>
+                <set field="title" value="Edit Feature Types"/>
+                <set field="titleProperty" value="PageTitleEditFeatureTypes"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureType"/>
+    
+                <entity-condition entity-name="ProductFeatureType" list-name="featureTypes">
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="EditFeatureType" text="[${uiLabelMap.ProductNewFeatureType}]" style="buttontext"/>
+                        </container>
+                        <include-form name="ListFeatureTypes" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureType">
+        <section>
+            <actions>
+                <set field="title" value="Edit Feature Type"/>
+                <set field="titleProperty" value="PageTitleEditFeature"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureType"/>
+    
+                <set field="productFeatureTypeId" from-field="parameters.productFeatureTypeId"/>
+                <entity-one entity-name="ProductFeatureType" value-name="productFeatureType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <include-form name="EditFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureCategories">
+        <section>
+            <actions>
+                <set field="title" value="Edit Feature Categories"/>
+                <set field="titleProperty" value="PageTitleEditProductFeatureCategories"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureCategory"/>
+    
+                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategories.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/feature/CreateFeatureCategory.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureCategories.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureCategoryFeatures">
+        <section>
+            <actions>
+                <set field="title" value="Edit Feature Category Features"/>
+                <set field="titleProperty" value="PageTitleEditFeatureCategoryFeatures"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureCategory"/>
+    
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategoryFeatures.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureCategoryFeatures.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureGroups">
+        <section>
+            <actions>
+                <set field="title" value="Edit Feature Groups"/>
+                <set field="titleProperty" value="PageTitleEditProductFeatureGroups"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureGroup"/>
+    
+                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureGroups.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureGroups.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureGroupAppls">
+        <section>
+            <actions>
+                <set field="title" value="Product Feature Group Applications"/>
+                <set field="titleProperty" value="ProductEditFeatureGroupAppls"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureGroup"/>
+
+                <set field="productFeatureGroupId" from-field="parameters.productFeatureGroupId"/>
+                <set field="productFeatureCategoryId" from-field="parameters.productFeatureCategoryId"/>
+                <entity-and entity-name="ProductFeatureGroupAndAppl" list-name="productFeatureGroupAndAppls">
+                    <field-map field-name="productFeatureGroupId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-and>
+                <entity-condition entity-name="ProductFeatureCategory" list-name="productFeatureCategories">
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <entity-and entity-name="ProductFeature" list-name="productFeatures">
+                    <field-map field-name="productFeatureCategoryId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.${titleProperty}}</label>
+                        </container>
+                        <include-form name="ListFeatureGroupAppls" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductQuickApplyFeature}:</label>
+                        </container>
+                        <include-form name="QuickApplyFeatureToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductApplyFeaturesFromCategory}:</label>
+                        </container>
+                        <include-form name="ApplyFeatureCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        <include-form name="ApplyFeaturesFromCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="QuickAddProductFeatures">
+        <section>
+            <actions>
+                <set field="title" value="Bulk Feature Category Features"/>
+                <set field="titleProperty" value="ProductAddProductFeatureInBulk"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="featureNum" from-field="parameters.featureNum" type="Integer"/>
+                <set field="productFeatureCategoryId" from-field="parameters.productFeatureCategoryId"/>
+                <set field="tabButtonItem" value="FeatureCategory"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/QuickAddProductFeatures.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/feature/BulkAddFeature.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
+

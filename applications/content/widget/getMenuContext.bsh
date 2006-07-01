@@ -1,0 +1,13 @@
+import java.util.HashMap;
+import org.ofbiz.base.util.Debug;
+Debug.logInfo("In getMenuContext.", "");
+
+session = context.get("session");
+menuContext = session.getAttribute("menuContext");
+Debug.logInfo("menuContext(0):" + menuContext, "");
+if (menuContext == null) {
+    menuContext = new HashMap();
+    session.setAttribute("menuContext", menuContext);
+}
+context.put("menuContext", menuContext);
+

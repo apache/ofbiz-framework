@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of the Open For Business Manufacturing Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2003 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>Misc</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.manufacturing.bom -->
+  <!--  - org.ofbiz.manufacturing.techdata -->
+  <!--  - org.ofbiz.manufacturing.mrp -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.manufacturing.bom -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="ProductManufacturingRule"
+            package-name="org.ofbiz.manufacturing.bom"
+            title="Product To Part Rule Entity"
+            author="Jacopo Cappellato">
+      <field name="ruleId" type="id-ne"></field>
+      <field name="productId" type="id"></field>
+      <field name="productIdFor" type="id"></field>
+      <field name="productIdIn" type="id-ne"></field>
+      <field name="ruleSeqId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="productIdInSubst" type="id"></field>
+      <field name="productFeature" type="id"></field>
+      <field name="ruleOperator" type="id"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="description" type="description"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="ruleId"/>
+      <relation type="one" fk-name="PRODUCT_PARENT" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="PRODUCT_FOR" title="ProductFor" rel-entity-name="Product">
+        <key-map field-name="productIdFor" rel-field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="PRODUCT_IN" title="ProductIn" rel-entity-name="Product">
+        <key-map field-name="productIdIn" rel-field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="PRODUCT_SUBST" title="ProductSubst" rel-entity-name="Product">
+        <key-map field-name="productIdInSubst" rel-field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="PRODUCT_FEAT" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeature" rel-field-name="productFeatureId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.manufacturing.techdata -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="TechDataCalendar"
+            package-name="org.ofbiz.manufacturing.techdata"
+            default-resource-name="ManufacturingEntityLabels"
+            title="Calendar entity"
+            author="Olivier Heintz">
+      <description>Used to defined the availability of the machines, this entity define the Id and the week definition.
+      The Id is used in the exception calendar table as reference
+      </description>
+      <field name="calendarId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="calendarWeekId" type="id-ne"></field>
+      <prim-key field="calendarId"/>
+      <relation type="one" fk-name="CALENDAR_WEEK" rel-entity-name="TechDataCalendarWeek">
+        <key-map field-name="calendarWeekId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TechDataCalendarExcDay"
+            package-name="org.ofbiz.manufacturing.techdata"
+            title="Calendar Exception Day entity"
+            author="Olivier Heintz">
+      <description>Used to defined some days which differ from the normal day definition in the weekId associated in the calendar.
+      </description>
+      <field name="calendarId" type="id-ne"></field>
+      <field name="exceptionDateStartTime" type="date-time"></field>
+      <field name="exceptionCapacity" type="floating-point"></field>
+      <field name="usedCapacity" type="floating-point"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="calendarId"/>
+      <prim-key field="exceptionDateStartTime"/>
+      <relation type="one" fk-name="EXC_DAY_CALENDAR" rel-entity-name="TechDataCalendar">
+        <key-map field-name="calendarId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TechDataCalendarExcWeek"
+            package-name="org.ofbiz.manufacturing.techdata"
+            title="Calendar Exception Week entity"
+            author="Olivier Heintz">
+      <description>Used to defined some weeks which differ from the normal week defined in the calendar.</description>
+      <field name="calendarId" type="id-ne"></field>
+      <field name="exceptionDateStart" type="date"></field>
+      <field name="calendarWeekId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="calendarId"/>
+      <prim-key field="exceptionDateStart"/>
+      <relation type="one" fk-name="EXC_WEEK_CALENDAR" rel-entity-name="TechDataCalendar">
+        <key-map field-name="calendarId"/>
+      </relation>
+      <relation type="one" fk-name="EXC_WEEK_WEEK" rel-entity-name="TechDataCalendarWeek">
+        <key-map field-name="calendarWeekId"/>
+      </relation>
+    </entity>
+    <entity entity-name="TechDataCalendarWeek"
+            package-name="org.ofbiz.manufacturing.techdata"
+            default-resource-name="ManufacturingEntityLabels"
+            title="Week definition entity"
+            author="Olivier Heintz">
+      <description>Used to defined the week definition disponibility for machine</description>
+      <field name="calendarWeekId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="mondayStartTime" type="time"></field>
+      <field name="mondayCapacity" type="floating-point"></field>
+      <field name="tuesdayStartTime" type="time"></field>
+      <field name="tuesdayCapacity" type="floating-point"></field>
+      <field name="wednesdayStartTime" type="time"></field>
+      <field name="wednesdayCapacity" type="floating-point"></field>
+      <field name="thursdayStartTime" type="time"></field>
+      <field name="thursdayCapacity" type="floating-point"></field>
+      <field name="fridayStartTime" type="time"></field>
+      <field name="fridayCapacity" type="floating-point"></field>
+      <field name="saturdayStartTime" type="time"></field>
+      <field name="saturdayCapacity" type="floating-point"></field>
+      <field name="sundayStartTime" type="time"></field>
+      <field name="sundayCapacity" type="floating-point"></field>
+      <prim-key field="calendarWeekId"/>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.manufacturing.mrp -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="InventoryEventPlanned"
+            package-name="org.ofbiz.manufacturing.mrp"
+            title="Inventory event planned"
+            author="Olivier Heintz">
+      <description>
+        Contains all the planned InventoryEvent by ProductId to be able to check the product availability 
+        and if necessary generate some requirements
+      </description>
+      <field name="productId" type="id-ne"></field>
+      <field name="eventDate" type="date-time"></field>
+      <field name="inventoryEventPlanTypeId" type="id-ne"></field>
+      <field name="eventQuantity" type="floating-point"></field>
+      <prim-key field="productId"/>
+      <prim-key field="eventDate"/>
+      <prim-key field="inventoryEventPlanTypeId"/>
+      <relation type="one" fk-name="INV_EVNT_PLN_PRDT" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="INV_EVNT_PLN_TYP" rel-entity-name="InventoryEventPlannedType">
+        <key-map field-name="inventoryEventPlanTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InventoryEventPlannedType"
+            package-name="org.ofbiz.manufacturing.mrp"
+            default-resource-name="ManufacturingEntityLabels"
+            title="Inventory  event Planned type"
+            author="Olivier Heintz">
+      <description>Used to describe the InventoryEventPlanned and give the information if it's an in or out event</description>
+      <field name="inventoryEventPlanTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="inOut" type="indicator"></field>
+      <prim-key field="inventoryEventPlanTypeId"/>
+    </entity>
+    <view-entity entity-name="MrpInventoryEventPlanned" package-name="org.ofbiz.manufacturing.mrp" 
+        title="Inventory Event Planned view for MRP process" author="Olivier Heintz">
+      <description>Uses for the MRP process to be able to read the InventoryEventPlanned By billOfMaterialLevel and by eventDate</description>
+      <member-entity entity-alias="IEP" entity-name="InventoryEventPlanned"></member-entity>
+      <member-entity entity-alias="IEPT" entity-name="InventoryEventPlannedType"></member-entity>
+      <member-entity entity-alias="PR" entity-name="Product"></member-entity>
+      <alias-all entity-alias="IEP"></alias-all>
+      <alias entity-alias="PR" name="billOfMaterialLevel"></alias>
+      <alias entity-alias="IEPT" name="inOut"></alias>
+      <view-link entity-alias="IEP" rel-entity-alias="PR">
+        <key-map field-name="productId"></key-map>
+      </view-link>
+      <view-link entity-alias="IEP" rel-entity-alias="IEPT">
+        <key-map field-name="inventoryEventPlanTypeId"></key-map>
+      </view-link>
+      <relation rel-entity-name="Product" type="one-nofk">
+        <key-map field-name="productId"/>
+      </relation>
+    </view-entity>
+</entitymodel>
+

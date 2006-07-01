@@ -1,0 +1,137 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.*;
+import java.sql.Timestamp;
+import org.ofbiz.base.util.*;
+import org.ofbiz.service.*;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.manufacturing.mrp.MrpServices;
+import org.ofbiz.manufacturing.techdata.ProductHelper;
+import org.ofbiz.base.util.Debug;
+
+GenericDelegator delegator = request.getAttribute("delegator");
+LocalDispatcher dispatcher = request.getAttribute("dispatcher");
+
+//get the inventory (inventoryEventPlanned)
+productId = request.getParameter("productId");
+
+// create the eventDate for calendar
+UtilDateTime fromDate = new UtilDateTime();
+Timestamp fromTs = fromDate.nowTimestamp();
+fromTs = fromDate.getDayStart( fromTs );
+
+String fromStr = fromTs.toString();
+fromStr = fromStr.substring(0, fromStr.indexOf('.'));
+
+context.put("eventDateStr", fromStr);
+Debug.logInfo("eventDateStr =  " + fromStr, "truc");
+
+// get the lookup flag
+lookupFlag = request.getParameter("lookupFlag");
+
+// blank param list
+paramList = "";
+inventoryList = null;
+
+if (lookupFlag != null) {
+    paramList = paramList + "&lookupFlag=" + lookupFlag;
+    lookupErrorMessage = null;   
+    andExprs = new ArrayList();
+    entityName = "InventoryEventPlanned"; 
+     
+    //define main condition
+    mainCond = null;
+
+    // now do the filtering
+    
+    eventDate = request.getParameter("eventDate");
+    if (eventDate != null && eventDate.length() > 8) {            
+    eventDate = eventDate.trim();
+    if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000";
+    paramList = paramList + "&eventDate=" + eventDate;
+        andExprs.add(new EntityExpr("eventDate", EntityOperator.GREATER_THAN, eventDate));
+    }
+    
+    if (productId != null && productId.length() > 0) {
+            paramList = paramList + "&productId=" + productId;
+        if ( productId.length() > 0)
+        andExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
+    } 
+
+    mainCond = new EntityConditionList(andExprs, EntityOperator.AND); 
+    
+    if ( mainCond != null) {
+    // do the lookup
+        inventoryList = delegator.findByCondition(entityName, mainCond, null, UtilMisc.toList("productId", "eventDate"));
+    }
+    
+    context.put("inventoryList", inventoryList);
+}
+context.put("paramList", paramList);
+
+// set the page parameters
+viewIndex = 0;
+try {
+    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+} catch (Exception e) {}
+viewSize = 20;
+try {
+    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+} catch (Exception e) {}
+listSize = 0;
+if (inventoryList != null)
+    listSize = inventoryList.size();
+
+lowIndex = viewIndex * viewSize;
+highIndex = (viewIndex + 1) * viewSize;
+if (listSize < highIndex) 
+    highIndex = listSize;
+if( highIndex < 1 )
+    highIndex = 0;
+
+context.put("viewIndex", viewIndex);
+context.put("listSize", listSize);
+context.put("highIndex", highIndex);
+context.put("lowIndex", lowIndex);
+context.put("viewSize", viewSize);
+
+//Calcul variation quantity of product in stock 
+
+if (inventoryList != null && !inventoryList.isEmpty() ){
+    List numberProductList = ProductHelper.getVariationProduct(inventoryList.subList(0, highIndex), dispatcher);
+    context.put("numberProductList", numberProductList);
+
+
+    //Map productQoh
+    List qohProduct = new LinkedList();
+    String productTmp = new String("");
+    GenericValue inventoryTmp;
+    for( Iterator iter = inventoryList.iterator(); iter.hasNext(); ){
+    inventoryTmp = iter.next();
+    productId = inventoryTmp.getString("productId");
+    if( ! productId.equals( productTmp ) ){
+        qohProduct.add( MrpServices.findProductMrpQoh(inventoryTmp.getRelatedOneCache("Product"), dispatcher) );
+        productTmp = productId;
+    }
+    }
+    context.put("qohProduct", qohProduct );
+}

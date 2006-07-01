@@ -1,0 +1,94 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@version    1.0
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+
+productPromoId = request.getParameter("productPromoId");
+productPromo = delegator.findByPrimaryKey("ProductPromo", UtilMisc.toMap("productPromoId", productPromoId));
+
+promoAutoDescription = ProductPromoWorker.makeAutoDescription(productPromo, delegator, locale);
+
+List productPromoCategoryList = delegator.findByAndCache("ProductPromoCategory", UtilMisc.toMap("productPromoId", productPromoId));
+productPromoCategoryIncludeList = EntityUtil.filterByAnd(productPromoCategoryList, UtilMisc.toMap("productPromoApplEnumId", "PPPA_INCLUDE"));
+productPromoCategoryExcludeList = EntityUtil.filterByAnd(productPromoCategoryList, UtilMisc.toMap("productPromoApplEnumId", "PPPA_EXCLUDE"));
+productPromoCategoryAlwaysList = EntityUtil.filterByAnd(productPromoCategoryList, UtilMisc.toMap("productPromoApplEnumId", "PPPA_ALWAYS"));
+
+Set productIdsCond = new HashSet();
+Set productIdsAction = new HashSet();
+ProductPromoWorker.makeProductPromoCondActionIdSets(productPromoId, productIdsCond, productIdsAction, delegator, null);
+// Debug.logInfo("productIdsCond=" + productIdsCond.toString(), "showProductPromoDetails.bsh");
+// Debug.logInfo("productIdsAction=" + productIdsAction.toString(), "showProductPromoDetails.bsh");
+
+Set productIdSet = new TreeSet(productIdsCond);
+productIdSet.addAll(productIdsAction);
+List productIds = new ArrayList(productIdSet);
+
+context.put("productPromoId", productPromoId);
+context.put("productPromo", productPromo);
+context.put("promoAutoDescription", promoAutoDescription);
+
+context.put("productPromoCategoryIncludeList", productPromoCategoryIncludeList);
+context.put("productPromoCategoryExcludeList", productPromoCategoryExcludeList);
+context.put("productPromoCategoryAlwaysList", productPromoCategoryAlwaysList);
+
+context.put("productIdsCond", productIdsCond);
+context.put("productIdsAction", productIdsAction);
+context.put("productIds", productIds);
+
+int viewIndex = 0;
+int viewSize = 10;
+int highIndex = 0;
+int lowIndex = 0;
+int listSize = 0;
+
+try {
+    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+} catch (Exception e) {
+    viewIndex = 0;
+}
+
+try {
+    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+} catch (Exception e) {
+    viewSize = 10;
+}
+
+if (productIds != null) {
+    listSize = productIds.size();
+}
+
+lowIndex = viewIndex * viewSize;
+highIndex = (viewIndex + 1) * viewSize;
+if (listSize < highIndex) {
+    highIndex = listSize;
+}
+
+context.put("viewIndex", viewIndex);
+context.put("viewSize", viewSize);
+context.put("listSize", listSize);
+context.put("lowIndex", lowIndex);
+context.put("highIndex", highIndex);

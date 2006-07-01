@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.0
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createShipmentReceipt" short-description="Create a ShipmentReceipt">
+        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createShipmentReceipt you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ShipmentReceipt"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <sequenced-id-to-env sequence-name="ShipmentReceipt" env-name="receiptId"/>
+        <to-string field-name="receiptId"/>
+        <set field="newEntity.receiptId" from-field="receiptId"/>       
+        <field-to-result field-name="receiptId" result-name="receiptId"/>
+        
+        <if-empty field-name="datetimeReceived" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="newEntity.datetimeReceived" from-field="nowTimestamp"/>
+        </if-empty>
+
+        <set field="newEntity.receivedByUserLoginId" from-field="userLogin.userLoginId"/>
+        <create-value value-name="newEntity"/>
+
+        <if-not-empty field-name="inventoryItemDetailSeqId" map-name="parameters">
+            <entity-one entity-name="InventoryItemDetail" value-name="invDet">
+                <field-map field-name="inventoryItemDetailSeqId" env-name="parameters.inventoryItemDetailSeqId"/>
+                <field-map field-name="inventoryItemId" env-name="parameters.inventoryItemId"/>
+            </entity-one>
+            <set field="invDet.receiptId" from-field="receiptId"/>
+            <store-value value-name="invDet"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="createShipmentReceiptRole" short-description="Create a ShipmentReceipt Role">
+        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createShipmentReceiptRole you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ShipmentReceiptRole"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="removeShipmentReceiptRole" short-description="Remove a ShipmentReceipt Role">
+        <check-permission permission="FACILITY" action="_DELETE"><fail-message message="Security Error: to run removeShipmentReceiptRole you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="ShipmentReceiptRole"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="ShipmentReceiptRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>   
+    
+    <simple-method method-name="prepareInventoryReceipt" short-description="Prepare Inventory Receipt">
+        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run prepareInventoryReceipt you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field-name="inventoryItemTypeId" map-name="parameters">
+            <field-to-result field-name="quantityAccepted" map-name="parameters" result-name="quantityOnHandDiff"/>
+            <field-to-result field-name="quantityAccepted" map-name="parameters" result-name="availableToPromiseDiff"/>
+        </if-compare>
+    </simple-method>
+    
+    <simple-method method-name="quickReceiveReturn" short-description="Quick Receive Entire Return">
+        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run quickReceiveReturn you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ReturnHeader" value-name="returnHeader">
+            <field-map field-name="returnId" env-name="parameters.returnId"/>
+        </entity-one>
+
+        <if-compare field-name="needsInventoryReceive" map-name="returnHeader" operator="equals" value="Y">
+            <!-- before receiving inventory, check to see if there is inventory information in this database -->
+            <entity-count entity-name="InventoryItem" count-name="iiCount">
+                <condition-expr field-name="facilityId" operator="equals" env-name="returnHeader.destinationFacilityId"/>
+            </entity-count>
+
+            <if-compare field-name="iiCount" operator="greater" value="0" type="Double">
+                <!-- create a return shipment for this return -->
+                <set field="shipmentCtx.returnId" from-field="parameters.returnId"/>
+                <call-service service-name="createShipmentForReturn" in-map-name="shipmentCtx">
+                    <result-to-field result-name="shipmentId"/>
+                </call-service>
+                <log level="info" message="Created new shipment ${shipmentId}"/>
+
+                <entity-condition entity-name="ReturnItem" list-name="returnItems">
+                    <condition-expr field-name="returnId" operator="equals" env-name="returnHeader.returnId"/>
+                </entity-condition>
+
+                <!-- if no inventory item type specified, get default from facility -->
+                <if-empty field-name="inventoryItemTypeId" map-name="parameters">
+                    <get-related-one value-name="returnHeader" relation-name="Facility" to-value-name="facility"/>
+                    <set from-field="facility.defaultInventoryItemTypeId" field="parameters.inventoryItemTypeId"/>
+                </if-empty>
+
+                <now-timestamp-to-env env-name="nowTimestamp"/>
+
+                <entity-count entity-name="ReturnItem" count-name="returnItemCount">
+                    <condition-expr field-name="returnId" operator="equals" env-name="returnHeader.returnId"/>
+                </entity-count>
+                <set field="nonProductItems" type="Long" value="0"/>
+
+                <iterate entry-name="returnItem" list-name="returnItems">
+                    <!-- record this return item on the return shipment as well.  not sure if this is actually necessary... -->
+                    <clear-field field-name="shipItemCtx"/>
+                    <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
+                    <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
+                    <set from-field="returnItem.returnQuantity" field="shipItemCtx.quantity"/>
+                    <log level="info" message="calling create shipment item with ${shipItemCtx}"/>
+                    <call-service service-name="createShipmentItem" in-map-name="shipItemCtx">
+                        <result-to-field result-name="shipmentItemSeqId"/>
+                    </call-service>
+                    
+                    <if-empty field-name="expectedItemStatus" map-name="returnItem">
+                        <set value="INV_RETURNED" field="returnItem.expectedItemStatus" type="String"/>
+                    </if-empty>
+                    <get-related-one value-name="returnItem" relation-name="OrderItem" to-value-name="orderItem"/>
+                    <if-not-empty field-name="productId" map-name="orderItem">
+                        <set field="costCtx.returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
+                        <set field="costCtx.returnId" from-field="returnItem.returnId"/>
+                        <call-service service-name="getReturnItemInitialCost" in-map-name="costCtx">
+                            <result-to-field result-name="initialItemCost" field-name="receiveCtx.unitCost"/>
+                        </call-service>
+                        <!--check if the items already have SERIALIZED inventory. If so, it still puts them back as SERIALIZED with status "Accepted."-->
+                        <entity-count entity-name="InventoryItem" count-name="serializedItemCount">
+                            <condition-list combine="and">
+                                <condition-expr field-name="productId" operator="equals" env-name="returnItem.productId"/>
+                                <condition-expr field-name="facilityId" operator="equals" env-name="returnHeader.destinationFacilityId"/>
+                                <condition-expr field-name="inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/>
+                            </condition-list>
+                        </entity-count>
+                        <get-related-one value-name="returnHeader" relation-name="Facility" to-value-name="destinationFacility"/>
+                        <set field="setNonSerial" value="false"/>
+                        <if-compare field-name="destinationFacility.defaultInventoryItemTypeId" value="NON_SERIAL_INV_ITEM" operator="equals">
+                            <if-compare field-name="serializedItemCount" value="0" operator="equals">                                
+                                <set field="parameters.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+                                <set field="loops" value="1"/>
+                                <set field="setNonSerial" value="true"/>
+                            </if-compare>
+                        </if-compare>                                               
+                        <if-compare field-name="setNonSerial" value="false" operator="equals">
+                             <set field="parameters.inventoryItemTypeId" value="SERIALIZED_INV_ITEM"/>
+                            <set field="loops" from-field="returnItem.returnQuantity"/>
+                            <!-- this should be 1.0: each receive of a serialized inventory is for one unit -->
+                            <set field="returnItem.returnQuantity" value="1" type="Double"/>
+                        </if-compare>
+                                                
+                        <!-- loop through to create each serialized one at a time -->
+                        <loop count="${loops}" field="currentLoop">
+                            <log level="info" message="Looping and creating inventory info - ${currentLoop}"/>
+                            <set from-field="parameters.inventoryItemTypeId" field="receiveCtx.inventoryItemTypeId"/>
+                            <set from-field="returnItem.expectedItemStatus" field="receiveCtx.statusId"/>
+                            <set from-field="returnItem.productId" field="receiveCtx.productId"/>
+                            <set from-field="returnItem.returnItemSeqId" field="receiveCtx.returnItemSeqId"/>
+                            <set from-field="returnItem.returnId" field="receiveCtx.returnId"/>                            
+                            <set from-field="returnItem.returnQuantity" field="receiveCtx.quantityAccepted"/>
+                            <set from-field="returnHeader.destinationFacilityId" field="receiveCtx.facilityId"/>
+                            <!-- important: associate ShipmentReceipt with return shipment created -->
+                            <set from-field="shipmentId" field="receiveCtx.shipmentId"/>  
+
+                            <set value="Returned Item RA# ${returnItem.returnId}" field="receiveCtx.comments"/>
+                            <set from-field="nowTimestamp" field="receiveCtx.datetimeReceived"/>
+
+                            <calculate field-name="quantityRejected" map-name="receiveCtx" type="Double">
+                                <number value="0"/>
+                            </calculate>
+
+                            <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx"/>
+                        </loop>
+                    <else>
+                        <calculate field-name="nonProductItems" type="Long">
+                            <calcop operator="add">
+                                <number value="1"/>
+                            </calcop>
+                        </calculate>
+                    </else>
+                    </if-not-empty>
+                </iterate>
+
+                <!-- now that the receive is done; set the need flag to N -->
+                <refresh-value value-name="returnHeader"/>
+                <set field="returnHeader.needsInventoryReceive" value="N"/>
+                <store-value value-name="returnHeader"/>
+                
+                <!-- check if we need to manually update the status -->
+                <if-compare-field field-name="nonProductItems" operator="equals" to-field-name="returnItemCount" type="Long">                
+                    <set field="retStCtx.returnId" from-field="returnHeader.returnId"/>
+                    <set field="retStCtx.statusId" value="RETURN_RECEIVED"/>
+                    <call-service service-name="updateReturnHeader" in-map-name="retStCtx"/>
+                </if-compare-field>
+            <else>
+                <log level="info" message="Not receiving inventory for returnId ${returnHeader.returnId}, no inventory information available."/>
+            </else>
+            </if-compare>
+        </if-compare>
+    </simple-method>
+
+</simple-methods>

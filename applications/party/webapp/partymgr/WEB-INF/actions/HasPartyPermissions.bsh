@@ -1,0 +1,62 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski
+ *@author     David E. Jones
+ *@version    $Rev$
+ *@since      3.0
+ */
+
+import java.util.HashMap;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.accounting.payment.PaymentWorker;
+import org.ofbiz.party.contact.ContactMechWorker;
+import org.ofbiz.securityext.login.*;
+import org.ofbiz.webapp.control.*;
+
+// standard partymgr permissions
+if (security.hasEntityPermission("PARTYMGR", "_VIEW", session)) {
+    context.put("hasViewPermission", true);
+} else {
+    context.put("hasViewPermission", false);
+}
+if (security.hasEntityPermission("PARTYMGR", "_CREATE", session)) {
+    context.put("hasCreatePermission", true);
+} else {
+    context.put("hasCreatePermission", false);
+}
+if (security.hasEntityPermission("PARTYMGR", "_UPDATE", session)) {
+    context.put("hasUpdatePermission", true);
+} else {
+    context.put("hasUpdatePermission", false);
+}
+if (security.hasEntityPermission("PARTYMGR", "_DELETE", session)) {
+    context.put("hasDeletePermission", true);
+} else {
+    context.put("hasDeletePermission", false);
+}
+
+// extended pay_info permissions
+if (security.hasEntityPermission("PAY_INFO", "_VIEW", session)) {
+    context.put("hasPayInfoPermission", true);
+} else {
+    context.put("hasPayInfoPermission", false);
+}

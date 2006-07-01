@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Manufacturing Services - Routing</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Routing services -->
+    <service name="lookupRoutingTask" engine="java"
+            location="org.ofbiz.manufacturing.techdata.TechDataServices" invoke="lookupRoutingTask" auth="true">
+        <description>Only used to defined the query lookup for Routing Task</description>
+        <attribute name="workEffortName" type="String" form-display="true" form-label="${uiLabelMap.ManufacturingTaskName}" mode="IN" optional="true"/>
+        <attribute name="fixedAssetId" type="String" form-display="true" form-label="${uiLabelMap.ManufacturingMachineGroup}" mode="IN" optional="true"/>
+        <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="checkRoutingTaskAssoc" engine="java"
+            location="org.ofbiz.manufacturing.techdata.TechDataServices" invoke="checkRoutingTaskAssoc" auth="true">
+        <description>Check if a new routingTaskAssoc is ok or not (same SeqId and Date)</description>
+        <auto-attributes entity-name="WorkEffortAssoc" include="pk" mode="IN"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="create" type="String" mode="IN" optional="true"/>
+        <attribute name="sequenceNumNotOk" type="String" mode="OUT" optional="false"/> 
+    </service>
+    <service name="getProductRouting" engine="simple" auth="true"
+                location="org/ofbiz/manufacturing/routing/RoutingServices.xml" invoke="getProductRouting">
+        <description>Get the product's routing and routing tasks</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="ignoreDefaultRouting" optional="true" type="String"/><!-- If this is set to Y, the default routing is not returned -->
+        <attribute mode="OUT" name="routing" type="GenericValue" optional="true"/>
+        <attribute mode="OUT" name="tasks" type="java.util.List" optional="true"/>
+    </service>
+    <service name="getEstimatedTaskTime" engine="java" auth="true"
+                location="org.ofbiz.manufacturing.routing.RoutingServices" invoke="getEstimatedTaskTime">
+        <description>Computes the estimated time needed to perform the task</description>
+        <attribute mode="IN" name="taskId" optional="false" type="String"/>
+        <attribute mode="IN" name="productId" optional="true" type="String"/>
+        <attribute mode="IN" name="routingId" optional="true" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="OUT" name="estimatedTaskTime" type="Long" optional="false"/>
+        <attribute mode="OUT" name="setupTime" type="Double" optional="true"/>
+        <attribute mode="OUT" name="taskUnitTime" type="Double" optional="true"/>
+    </service>
+</services>

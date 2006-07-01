@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<jpublish>
+    <name>OFBiz WebTools</name>		
+    
+    <!-- Define the root paths for pages/actions/templates -->
+    <page-root>WEB-INF/pagedefs</page-root>
+    <template-root>templates</template-root>
+    <action-root>WEB-INF/actions</action-root>
+	    
+    <!-- Define the view renderer as the OFBiz GenericViewRenderer -->
+    <view-renderer classname="org.ofbiz.webapp.ftl.FreeMarkerViewRenderer"/>
+    <page-renderer name="freemarker" classname="org.ofbiz.webapp.ftl.FreeMarkerViewRenderer"/>
+    	
+    <!-- Define the default filesystem repository as the Extended repo -->			
+    <repository name="pages" classname="org.jpublish.repository.filesystem.ExtendedFileSystemRepository">        
+        <config-dir>WEB-INF/pagedefs</config-dir>
+        <root>.</root>
+    </repository>
+    <repository name="common" classname="org.jpublish.repository.filesystem.ExtendedFileSystemRepository">
+        <config-dir>WEB-INF/pagedefs</config-dir>
+        <root>../../../common/webcommon</root>
+    </repository>
+
+    <!-- Define the global ENV setup action -->
+    <global-action name="/includes/envsetup.bsh"/>
+    
+    <!-- Define the character encoding map -->
+    <character-encoding-map path="*">
+        <page-encoding>UTF-8</page-encoding>
+        <template-encoding>UTF-8</template-encoding>
+        <request-encoding>UTF-8</request-encoding>
+        <response-encoding>UTF-8</response-encoding>
+    </character-encoding-map>
+    
+    <!-- Define mime types -->
+    <mime-mapping ext="txt" mimetype="text/plain"/>
+    <mime-mapping ext="ftl" mimetype="text/html"/>
+    <mime-mapping ext="htm" mimetype="text/html"/>
+    <mime-mapping ext="html" mimetype="text/html"/>
+    <mime-mapping ext="gif" mimetype="image/gif"/>
+    <mime-mapping ext="jpg" mimetype="image/jpeg"/>
+    <mime-mapping ext="jpeg" mimetype="image/jpeg"/>    
+	
+    <!-- enable JPublish debugging -->
+    <!-- <debug>true</debug> -->
+
+</jpublish>

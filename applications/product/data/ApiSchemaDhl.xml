@@ -1,0 +1,81 @@
+<!-- FreeMarker template for DHL ShipIT Services. If the DHL ShipIt API ever changes its schema, we only need to change this file. -->
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml> 
+
+    <DataResource dataResourceId="api.schema.DHL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+
+<ElectronicText dataResourceId="api.schema.DHL">
+<textData><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ECommerce action="Request" version="1.1">
+    <Requestor> 
+        <ID>${userid}</ID>
+        <Password>${password}</Password>
+    </Requestor>
+    <Shipment action="${action}" version="1.0"> 
+        <ShippingCredentials> 
+          <ShippingKey>${shippingKey}</ShippingKey>
+          <AccountNbr>${accountNbr}</AccountNbr>
+        </ShippingCredentials>
+       <ShipmentDetail> 
+          <ShipDate>${shipDate?string("yyyy-MM-dd")}</ShipDate> 
+          <Service><Code>${dhlShipmentDetailCode}</Code></Service> 
+          <ShipmentType><Code>P</Code></ShipmentType>
+          <Weight>${weight}</Weight>
+          <ContentDesc>${contentDesc?if_exists}</ContentDesc>
+          <ShipperReference>${shipperReference?if_exists}</ShipperReference>
+          <#if (dimensions?if_exists) && (dimensions != null) && (dimensions.size() > 0) > 
+            <Dimensions>
+                <Height>${dimensions.get("height")}</Height>
+                <Width>${dimensions.get("width")}</Width>
+                <Length>${dimensions.get("length")}</Length>
+            </Dimensions>
+          </#if>
+      </ShipmentDetail>
+      <Billing> 
+           <Party><Code>S</Code></Party> 
+      </Billing> 
+      <Sender>
+        <SentBy>${sentBy?if_exists}</SentBy> <!-- CDATA (if left out, will default to information stored in our account -->
+        <PhoneNbr>${senderPhoneNbr?if_exists}</PhoneNbr>
+      </Sender>
+      <Receiver> 
+          <Address>
+            <#if (action == "GenerateLabel")>
+                <CompanyName>${companyName?if_exists}</CompanyName>  <!-- CDATA -->
+                <SuiteDepartmentName>${suiteDepartmentName?if_exists}</SuiteDepartmentName> <!-- CDATA -->
+                <Street>${street}</Street> <!-- CDATA -->
+                <StreetLine2>${streetLine2?if_exists}</StreetLine2> <!-- CDATA -->
+                <City>${city}</City> <!-- CDATA -->
+            </#if>
+            <State>${state}</State>
+            <PostalCode>${postalCode}</PostalCode>
+            <Country>US</Country>
+         </Address> 
+         <AttnTo>${attnTo?if_exists}</AttnTo> <!--CDATA -->
+         <PhoneNbr>${phoneNbr}</PhoneNbr>
+      </Receiver>
+      <ShipmentProcessingInstructions>
+        <#if labelImageType?exists>
+            <Label><ImageType>${labelImageType}</ImageType></Label>
+        </#if>
+        <#if overrideCode?exists>
+            <Overrides><Override><Code>${overrideCode}</Code></Override></Overrides>
+        </#if>
+        <#if notifyEmailMessage?exists>
+            <Notification>
+                <Notify>
+                    <!-- TODO: up to 42 of these -->
+                   <EmailAddress>${notifyEmailAddress?if_exists}</EmailAddress>
+               </Notify>
+               <Message>${notifyEmailMessage?if_exists}</Message> <!-- CDATA -->
+            </Notification>
+        </#if>
+      </ShipmentProcessingInstructions>
+  </Shipment>
+</ECommerce>
+]]></textData> 
+</ElectronicText>
+
+    <Content contentId="api.schema.DHL" contentTypeId="DOCUMENT" dataResourceId="api.schema.DHL"/>
+</entity-engine-xml>
+

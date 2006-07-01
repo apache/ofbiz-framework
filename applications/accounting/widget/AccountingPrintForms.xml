@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- These forms are for generating printed documents, such as invoices, bills, statements, etc. -->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <!-- generate a PDF for the invoice.  sharing the same BSH file as the HTML page for viewing invoice -->
+    <screen name="InvoicePDF">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="Invoice"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/editInvoice.bsh"/>                
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://accounting/webapp/accounting/invoice/viewInvoice.fo.ftl"/></html>
+                </platform-specific>                
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PrintCheckPDF">
+        <section>
+            <actions>
+                <set field="title" value="Check"/>
+                <!-- script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/editInvoice.bsh"/ -->
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://accounting/webapp/accounting/payment/printCheck.fo.ftl"/></html>
+                </platform-specific>                
+            </widgets>
+        </section>
+    </screen>    
+</screens>

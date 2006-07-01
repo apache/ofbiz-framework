@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Work Effort security -->
+    <SecurityPermission description="View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_VIEW"/>
+    <SecurityPermission description="Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_CREATE"/>
+    <SecurityPermission description="Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_DELETE"/>
+    <SecurityPermission description="ALL operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
+</entity-engine-xml>

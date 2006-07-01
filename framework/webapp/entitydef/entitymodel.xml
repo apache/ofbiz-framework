@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2002 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.webapp.visit -->
+  <!--  - org.ofbiz.webapp.website -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.webapp.visit -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="BrowserType"
+            package-name="org.ofbiz.webapp.visit"
+            title="Browser Type Entity">
+      <field name="browserTypeId" type="id-ne"></field>
+      <field name="browserName" type="name"></field>
+      <field name="browserVersion" type="very-short"></field>
+      <prim-key field="browserTypeId"/>
+    </entity>
+    <entity entity-name="PlatformType"
+            package-name="org.ofbiz.webapp.visit"
+            title="Platform Type Entity">
+      <field name="platformTypeId" type="id-ne"></field>
+      <field name="platformName" type="name"></field>
+      <field name="platformVersion" type="very-short"></field>
+      <prim-key field="platformTypeId"/>
+    </entity>
+    <entity entity-name="ProtocolType"
+            package-name="org.ofbiz.webapp.visit"
+            title="Protocol Type Entity">
+      <field name="protocolTypeId" type="id-ne"></field>
+      <field name="protocolName" type="name"></field>
+      <prim-key field="protocolTypeId"/>
+    </entity>
+    <entity entity-name="ServerHit"
+            package-name="org.ofbiz.webapp.visit"
+            never-cache="true"
+            title="Server Hit Entity">
+      <field name="visitId" type="id-ne"></field>
+      <field name="contentId" type="id-vlong-ne"></field>
+      <field name="hitStartDateTime" type="date-time"></field>
+      <field name="hitTypeId" type="id-ne"></field>
+      <field name="internalContentId" type="id"></field>
+      <field name="numOfBytes" type="numeric"></field>
+      <field name="runningTimeMillis" type="numeric"></field>
+      <field name="userLoginId" type="id-vlong"></field>
+      <field name="partyId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="requestUrl" type="url"></field>
+      <field name="referrerUrl" type="url"></field>
+      <field name="idByIpContactMechId" type="id"></field>
+      <field name="refByWebContactMechId" type="id"></field>
+      <field name="serverIpAddress" type="id"></field>
+      <field name="serverHostName" type="long-varchar"></field>
+      <prim-key field="visitId"/>
+      <prim-key field="contentId"/>
+      <prim-key field="hitStartDateTime"/>
+      <prim-key field="hitTypeId"/>
+      <relation type="one" fk-name="SERVER_HIT_SHTYP" rel-entity-name="ServerHitType">
+        <key-map field-name="hitTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HIT_VISIT" rel-entity-name="Visit">
+        <key-map field-name="visitId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HIT_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HIT_IDBYIP" title="IdByIp" rel-entity-name="ContactMech">
+        <key-map field-name="idByIpContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HIT_REFWEB" title="RefByWeb" rel-entity-name="ContactMech">
+        <key-map field-name="refByWebContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HIT_STATUS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HIT_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HIT_CNT" rel-entity-name="Content">
+        <key-map field-name="internalContentId" rel-field-name="contentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ServerHitBin"
+            package-name="org.ofbiz.webapp.visit"
+            never-cache="true"
+            title="Server Hit Bin Entity">
+      <field name="serverHitBinId" type="id-ne"></field>
+      <field name="contentId" type="id-vlong-ne"></field>
+      <field name="internalContentId" type="id"></field>
+      <field name="hitTypeId" type="id-ne"></field>
+      <field name="serverIpAddress" type="id"></field>
+      <field name="serverHostName" type="long-varchar"></field>
+      <field name="binStartDateTime" type="date-time"></field>
+      <field name="binEndDateTime" type="date-time"></field>
+      <field name="numberHits" type="numeric"></field>
+      <field name="totalTimeMillis" type="numeric"></field>
+      <field name="minTimeMillis" type="numeric"></field>
+      <field name="maxTimeMillis" type="numeric"></field>
+      <prim-key field="serverHitBinId"/>
+      <relation type="one" fk-name="SERVER_HBIN_TYPE" rel-entity-name="ServerHitType">
+        <key-map field-name="hitTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SERVER_HBIN_CNT" rel-entity-name="Content">
+        <key-map field-name="internalContentId" rel-field-name="contentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ServerHitType"
+            package-name="org.ofbiz.webapp.visit"
+            title="Server Hit Bin Entity">
+      <field name="hitTypeId" type="id"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="hitTypeId"/>
+    </entity>
+    <entity entity-name="UserAgent"
+            package-name="org.ofbiz.webapp.visit"
+            title="User Agent Entity">
+      <field name="userAgentId" type="id-ne"></field>
+      <field name="browserTypeId" type="id"></field>
+      <field name="platformTypeId" type="id"></field>
+      <field name="protocolTypeId" type="id"></field>
+      <field name="userAgentTypeId" type="id"></field>
+      <field name="userAgentMethodTypeId" type="id"></field>
+      <prim-key field="userAgentId"/>
+      <relation type="one" fk-name="UAGENT_BROWSER" rel-entity-name="BrowserType">
+        <key-map field-name="browserTypeId"/>
+      </relation>
+      <relation type="one" fk-name="UAGENT_PLATFORM" rel-entity-name="PlatformType">
+        <key-map field-name="platformTypeId"/>
+      </relation>
+      <relation type="one" fk-name="UAGENT_PROTOCOL" rel-entity-name="ProtocolType">
+        <key-map field-name="protocolTypeId"/>
+      </relation>
+      <relation type="one" fk-name="UAGENT_TYPE" rel-entity-name="UserAgentType">
+        <key-map field-name="userAgentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="UAGENT_METHOD" rel-entity-name="UserAgentMethodType">
+        <key-map field-name="userAgentMethodTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="UserAgentMethodType"
+            package-name="org.ofbiz.webapp.visit"
+            title="User Agent Method Type Entity">
+      <field name="userAgentMethodTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="userAgentMethodTypeId"/>
+    </entity>
+    <entity entity-name="UserAgentType"
+            package-name="org.ofbiz.webapp.visit"
+            title="User Agent Type Entity">
+      <field name="userAgentTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="userAgentTypeId"/>
+    </entity>
+    <entity entity-name="Visit"
+            package-name="org.ofbiz.webapp.visit"
+            never-cache="true"
+            title="Visit Entity">
+      <field name="visitId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
+      <field name="visitorId" type="id"></field>
+      <field name="userLoginId" type="id-vlong"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="userCreated" type="indicator"></field>
+      <field name="sessionId" type="id-vlong"></field>
+      <field name="serverIpAddress" type="id"></field>
+      <field name="serverHostName" type="long-varchar"></field>
+      <field name="webappName" type="short-varchar"></field>
+      <field name="initialLocale" type="short-varchar"></field>
+      <field name="initialRequest" type="url"></field>
+      <field name="initialReferrer" type="url"></field>
+      <field name="initialUserAgent" type="long-varchar"></field>
+      <field name="userAgentId" type="id"></field>
+      <field name="clientIpAddress" type="id"></field>
+      <field name="clientHostName" type="long-varchar"></field>
+      <field name="clientUser" type="short-varchar"></field>
+      <field name="cookie" type="short-varchar"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="visitId"/>       
+      <relation type="one" fk-name="VISIT_CONT_MECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="VISIT_VISITOR" rel-entity-name="Visitor">
+        <key-map field-name="visitorId"/>
+      </relation>
+      <relation type="one" fk-name="VISIT_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="VISIT_ROLE_TYPE" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="VISIT_USER_AGNT" rel-entity-name="UserAgent">
+        <key-map field-name="userAgentId"/>
+      </relation>
+      <relation type="one" fk-name="VISIT_PARTY_ROLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>      
+      <index name="VISIT_THRU_IDX" unique="false">
+        <index-field name="thruDate"/>
+      </index>
+    </entity>
+    <entity entity-name="Visitor"
+            package-name="org.ofbiz.webapp.visit"
+            title="Visitor Entity">
+      <field name="visitorId" type="id-ne"></field>
+      <field name="userLoginId" type="id-vlong"></field>
+      <field name="partyId" type="id"></field>
+      <prim-key field="visitorId"/>
+      <relation type="one" fk-name="VISITOR_USRLGN" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="VISITOR_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.webapp.website -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="WebPage"
+            package-name="org.ofbiz.webapp.website"
+            title="Web Page Entity">
+      <field name="webPageId" type="id-ne"></field>
+      <field name="pageName" type="name"></field>
+      <field name="contentId" type="id-ne"></field>
+      <field name="webSiteId" type="id"></field>
+      <prim-key field="webPageId"/>
+      <relation type="one" fk-name="WEB_PAGE_CONTENT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="WEB_PAGE_SITE" rel-entity-name="WebSite">
+        <key-map field-name="webSiteId"/>
+      </relation>
+    </entity>
+    <entity entity-name="WebSite"
+            package-name="org.ofbiz.webapp.website"
+            title="Web Site Entity">
+      <field name="webSiteId" type="id-ne"></field>
+      <field name="siteName" type="name"></field>
+      <field name="productStoreId" type="id"></field>
+      <field name="allowProductStoreChange" type="indicator"></field>
+      <field name="httpHost" type="long-varchar"></field>
+      <field name="httpPort" type="very-short"></field>
+      <field name="httpsHost" type="long-varchar"></field>
+      <field name="httpsPort" type="very-short"></field>
+      <field name="enableHttps" type="indicator"></field>
+      <field name="standardContentPrefix" type="url"></field>
+      <field name="secureContentPrefix" type="url"></field>
+      <field name="cookieDomain" type="long-varchar"></field>
+      <prim-key field="webSiteId"/>
+      <relation type="one" fk-name="WEB_SITE_PRDS" rel-entity-name="ProductStore">
+        <key-map field-name="productStoreId"/>
+      </relation>
+    </entity>
+    <entity entity-name="WebSiteRole"
+            package-name="org.ofbiz.webapp.website"
+            title="WebSite Role Association Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="webSiteId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="webSiteId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Person">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyGroup">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="WSRLE_PTYRLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="WSRLE_WSITE" rel-entity-name="WebSite">
+        <key-map field-name="webSiteId"/>
+      </relation>
+    </entity>
+    <entity entity-name="WebSitePublishPoint"
+            package-name="org.ofbiz.webapp.website"
+            title="Web Site Publish Point">
+      <field name="contentId" type="id-ne"></field>
+      <field name="templateTitle" type="long-varchar"></field>
+      <field name="styleSheetFile" type="long-varchar"></field>
+      <field name="logo" type="long-varchar"></field>
+      <field name="medallionLogo" type="long-varchar"></field>
+      <field name="lineLogo" type="long-varchar"></field>
+      <field name="leftBarId" type="id"></field>
+      <field name="rightBarId" type="id"></field>
+      <field name="contentDept" type="id"></field>
+      <field name="aboutContentId" type="id"></field>
+      <prim-key field="contentId"/>
+      <relation type="one" fk-name="WBSTPP_CONTENT" rel-entity-name="Content">
+          <key-map field-name="contentId" />
+      </relation>
+    </entity>
+</entitymodel>
+

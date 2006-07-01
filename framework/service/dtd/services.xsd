@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *  Copyright (c) 2001-2004 The Open For Business Project - www.ofbiz.org
+    *
+    *  Permission is hereby granted, free of charge, to any person obtaining a
+    *  copy of this software and associated documentation files (the "Software"),
+    *  to deal in the Software without restriction, including without limitation
+    *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    *  and/or sell copies of the Software, and to permit persons to whom the
+    *  Software is furnished to do so, subject to the following conditions:
+    *
+    *  The above copyright notice and this permission notice shall be included
+    *  in all copies or substantial portions of the Software.
+    *
+    *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+    *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+    *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    
+    *  Service Framework - Service Definition DTD
+    *  $Id: services.xsd 7866 2006-06-27 01:24:04Z jonesde $
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="services">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" ref="vendor"/>
+                <xs:element minOccurs="0" ref="version"/>
+                <xs:element minOccurs="0" ref="created"/>
+                <xs:element maxOccurs="unbounded" ref="service"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="description" type="xs:string"/>
+    <xs:element name="vendor" type="xs:string"/>
+    <xs:element name="version" type="xs:string"/>
+    <xs:element name="created" type="xs:string"/>
+    <xs:element name="namespace" type="xs:string"/>
+    <xs:element name="service">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" ref="namespace"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="required-permissions"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-attributes"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="attribute"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="override"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.service">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="engine" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+        <xs:attribute type="xs:string" name="invoke" use="required"/>
+        <xs:attribute name="auth" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="export" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="validate" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="default-entity-name"/>
+        <xs:attribute name="use-transaction" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="require-new-transaction" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="transaction-timeout"/>
+        <xs:attribute type="xs:string" name="max-retry" default="-1"/>
+        <xs:attribute name="debug" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="required-permissions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-permission"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-role-member"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.required-permissions"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.required-permissions">
+        <xs:attribute name="join-type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="AND"/>
+                    <xs:enumeration value="OR"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="check-permission">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.check-permission"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.check-permission">
+        <xs:attribute type="xs:string" name="permission" use="required"/>
+        <xs:attribute type="xs:string" name="action"/>
+    </xs:attributeGroup>
+    <xs:element name="check-role-member">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.check-role-member"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.check-role-member">
+        <xs:attribute type="xs:string" name="role-type" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="implements">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.implements"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.implements">
+        <xs:attribute type="xs:string" name="service" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="auto-attributes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.auto-attributes"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.auto-attributes">
+        <xs:attribute type="xs:string" name="entity-name"/>
+        <xs:attribute name="include" default="all">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="pk"/>
+                    <xs:enumeration value="nonpk"/>
+                    <xs:enumeration value="all"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="mode" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="IN"/>
+                    <xs:enumeration value="OUT"/>
+                    <xs:enumeration value="INOUT"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="optional" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="form-display" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="exclude">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.exclude"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.exclude">
+        <xs:attribute type="xs:string" name="field-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="attribute">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="type-validate"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.attribute"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.attribute">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="type" use="required"/>
+        <xs:attribute name="mode" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="IN"/>
+                    <xs:enumeration value="OUT"/>
+                    <xs:enumeration value="INOUT"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="optional" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="form-label"/>
+        <xs:attribute type="xs:string" name="entity-name"/>
+        <xs:attribute type="xs:string" name="field-name"/>
+        <xs:attribute type="xs:string" name="string-map-prefix"/>
+        <xs:attribute type="xs:string" name="string-list-suffix"/>
+        <xs:attribute name="form-display" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="override">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="type-validate"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.override"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.override">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="type"/>
+        <xs:attribute type="xs:string" name="entity-name"/>
+        <xs:attribute type="xs:string" name="field-name"/>
+        <xs:attribute name="mode">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="IN"/>
+                    <xs:enumeration value="OUT"/>
+                    <xs:enumeration value="INOUT"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="form-label"/>
+        <xs:attribute name="form-display">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="type-validate">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element ref="fail-message"/>
+                <xs:element ref="fail-property"/>
+            </xs:choice>
+            <xs:attributeGroup ref="attlist.type-validate"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.type-validate">
+        <xs:attribute type="xs:string" name="method"/>
+        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
+    </xs:attributeGroup>
+    <xs:element name="fail-message">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.fail-message"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.fail-message">
+        <xs:attribute type="xs:string" name="message" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="fail-property">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.fail-property"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.fail-property">
+        <xs:attribute type="xs:string" name="resource" use="required"/>
+        <xs:attribute type="xs:string" name="property" use="required"/>
+    </xs:attributeGroup>
+</xs:schema>

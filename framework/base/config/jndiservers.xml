@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: jndiservers.xml 7684 2006-05-26 19:29:09Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<jndi-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/jndi-config.xsd">
+
+    <!-- this jndi-server has no parameters so the factory will use the default
+        InitialContext constructor which gets these values from the jndi.properties file -->
+    <jndi-server name="default"/>
+
+    <jndi-server name="localjndi"
+            context-provider-url="rmi://127.0.0.1:1099"
+            initial-context-factory="com.sun.jndi.rmi.registry.RegistryContextFactory"
+            url-pkg-prefixes="java.naming.rmi.security.manager"
+            security-principal=""
+            security-credentials=""/>
+
+    <jndi-server name="OpenJMS"
+            context-provider-url="rmi://127.0.0.1:1099/JndiServer"
+            initial-context-factory="org.exolab.jms.jndi.rmi.RmiJndiInitialContextFactory"/>
+
+	<!-- Note that in most cases this is not necessary or desired for Orion, the default above is easier/better -->
+    <jndi-server name="localorion"
+            context-provider-url="ormi://localhost/default"
+            initial-context-factory="com.evermind.server.ApplicationClientInitialContextFactory"
+            security-principal="admin"
+            security-credentials="admin"/>
+
+	<!-- Note that in most cases this is not necessary or desired for Weblogic, the default above is easier/better -->
+    <jndi-server name="localweblogic" 
+            context-provider-url="t3://127.0.0.1:7001"
+            initial-context-factory="weblogic.jndi.WLInitialContextFactory"
+            url-pkg-prefixes=""
+            security-principal=""
+            security-credentials=""/>
+</jndi-config>

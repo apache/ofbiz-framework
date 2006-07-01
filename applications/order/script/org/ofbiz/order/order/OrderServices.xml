@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @version    $Rev$
+ * @since      3.2
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="getOrderedSummaryInformation" short-description="Get Summary Information About Orders for a Customer">
+        <if>
+            <condition>
+                <and>
+                    <not><if-has-permission permission="ORDERMGR" action="_VIEW"/></not>
+                    <if-compare-field field-name="parameters.partyId" operator="not-equals" to-field-name="userLogin.partyId"/>
+                </and>
+            </condition>
+            <then>
+                <string-to-list string="To get order summary information you must have the ORDERMGR_VIEW permission, or be logged in as the party to get the summary information for." list-name="error_list"/>
+            </then>
+        </if>
+        <check-errors/>
+        
+        <if-not-empty field-name="monthsToInclude">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <call-bsh><![CDATA[
+                calendar = java.util.Calendar.getInstance();
+                calendar.setTimeInMillis(nowTimestamp.getTime());
+                calendar.add(java.util.Calendar.MONTH, -monthsToInclude.intValue());
+                parameters.put("fromDate", new Timestamp(calendar.getTimeInMillis()));
+            ]]></call-bsh>
+            <set from-field="nowTimestamp" field="parameters.thruDate"/>
+        </if-not-empty>
+
+        <if-empty field-name="parameters.roleTypeId">
+            <set value="PLACING_CUSTOMER" field="parameters.roleTypeId"/>
+        </if-empty>
+        <if-empty field-name="parameters.orderTypeId">
+            <set value="SALES_ORDER" field="parameters.orderTypeId"/>
+        </if-empty>
+        <if-empty field-name="parameters.statusId">
+            <set value="ORDER_COMPLETED" field="parameters.statusId"/>
+        </if-empty>
+
+        <entity-condition entity-name="OrderHeaderAndRoleSummary" list-name="orderInfoList">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
+                <condition-expr field-name="roleTypeId" operator="equals" env-name="parameters.roleTypeId"/>
+                <condition-expr field-name="orderTypeId" operator="equals" env-name="parameters.orderTypeId"/>
+                <condition-expr field-name="statusId" operator="equals" env-name="parameters.statusId"/>
+                <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-null="true"/>
+                <condition-expr field-name="orderDate" operator="less-equals" env-name="parameters.thruDate" ignore-if-null="true"/>
+            </condition-list>
+            <select-field field-name="partyId"/>
+            <select-field field-name="roleTypeId"/>
+            <select-field field-name="totalGrandAmount"/>
+            <select-field field-name="totalSubRemainingAmount"/>
+            <select-field field-name="totalOrders"/>
+        </entity-condition>
+        
+        <!-- because we specified the partyId and the roleTypeId, should only be one item in list returned -->
+        <first-from-list list-name="orderInfoList" entry-name="orderInfo"/>
+        <if-empty field-name="orderInfo">
+            <calculate field-name="plainDoubleZero" type="Double"><number value="0.0"/></calculate>
+            <calculate field-name="plainLongZero" type="Long"><number value="0"/></calculate>
+            <field-to-result field-name="plainDoubleZero" result-name="totalGrandAmount"/>
+            <field-to-result field-name="plainDoubleZero" result-name="totalSubRemainingAmount"/>
+            <field-to-result field-name="plainLongZero" result-name="totalOrders"/>
+        <else>
+            <field-to-result field-name="orderInfo.totalGrandAmount" result-name="totalGrandAmount"/>
+            <field-to-result field-name="orderInfo.totalSubRemainingAmount" result-name="totalSubRemainingAmount"/>
+            <field-to-result field-name="orderInfo.totalOrders" result-name="totalOrders"/>
+        </else>
+        </if-empty>
+    </simple-method>
+    <simple-method method-name="createOrderShipment" short-description="Create OrderShipment">
+        <set value="Create OrderShipment" field="operationName"/>
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderShipment"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="OrderShipment"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteOrderShipment" short-description="Delete OrderShipment">
+        <set value="Delete OrderShipment" field="operationName"/>
+        <check-permission permission="ORDERMGR" action="_DELETE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderShipment"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="OrderShipment" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- order requirement methods -->
+    <simple-method method-name="createOrderRequirementCommitment" short-description="Create OrderRequirementCommitment">
+        <!-- The permission checking is commented out to make this service work also when triggered from ecommerce orders -->
+        <!--
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckCreateOrderRequirementCommitment"/>
+        </check-permission>
+        <check-errors/>
+        -->
+        <make-value value-name="newEntity" entity-name="OrderRequirementCommitment"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="createRequirementAndCommitment" short-description="create a requirement and commitment for it">
+        <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
+        <call-service service-name="createRequirement" in-map-name="inputMap">
+            <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
+        </call-service>
+
+        <!-- create the OrderRequirementCommitment to record the Requirement created for an order item -->
+        <set-service-fields to-map-name="orderReqCommitParams" service-name="createOrderRequirementCommitment" map-name="parameters"/>
+        <call-service service-name="createOrderRequirementCommitment" in-map-name="orderReqCommitParams"/>
+
+        <field-to-result field-name="parameters.requirementId" result-name="requirementId"/>
+    </simple-method>
+
+    <simple-method method-name="getProductFacilityAndQuantities" short-description="finds ProductFacility and QOH, ATP inventory for an inventoryItem">
+        <!-- Get the ProductFacility for the minimum stock level -->
+        <entity-one entity-name="ProductFacility" value-name="productFacility">
+            <field-map env-name="inventoryItem.productId" field-name="productId"/>
+            <field-map env-name="inventoryItem.facilityId" field-name="facilityId"/>
+        </entity-one>
+
+        <!-- Get the product's total quantityOnHand in the facility -->
+        <set from-field="inventoryItem.productId" field="inputMap.productId"/>
+        <set from-field="inventoryItem.facilityId" field="inputMap.facilityId"/>
+        <call-service service-name="getInventoryAvailableByFacility" in-map-name="inputMap">
+           <result-to-field field-name="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+           <result-to-field field-name="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
+        </call-service>
+        <clear-field field-name="inputMap"/>
+    </simple-method>
+
+    <simple-method method-name="getProductRequirementMethod" short-description="finds the requirement method for the product">
+        <entity-one entity-name="OrderHeader" auto-field-map="true" value-name="order"/>
+        <entity-one entity-name="Product" auto-field-map="true" value-name="product"/>
+        <set from-field="product.requirementMethodEnumId" field="requirementMethodId"/>
+        <if-empty field-name="requirementMethodId">
+            <entity-one entity-name="ProductStore" value-name="productStore">
+                <field-map env-name="order.productStoreId" field-name="productStoreId"/>
+            </entity-one>
+            <set from-field="productStore.requirementMethodEnumId" field="requirementMethodId"/>
+        </if-empty>
+    </simple-method>
+
+    <simple-method method-name="checkCreateOrderRequirement" short-description="Create OrderRequirementCommitment and Requirement">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckCreateOrderRequirement"/>
+        </check-permission>
+        <check-errors/>
+        <call-simple-method method-name="getProductRequirementMethod"/>
+        <if-compare field-name="order.orderTypeId" operator="equals" value="SALES_ORDER">
+            <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_AUTO">
+                <!-- create the requirement -->
+                <set from-field="parameters.productId" field="inputMap.productId"/>
+                <set from-field="parameters.quantity" field="inputMap.quantity"/>
+                <call-simple-method method-name="createRequirementAndCommitment"/>
+            </if-compare>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="checkCreateStockRequirement" short-description="Create a Requirement if QOH goes under the minimum stock level">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckCreateStockRequirement"/>
+        </check-permission>
+        <check-errors/>
+
+        <!-- If the service is triggered by the updateItemIssuance service, get the ItemIssuance by the passed itemIssuanceId -->
+        <if-not-empty field-name="parameters.itemIssuanceId">
+            <entity-one entity-name="ItemIssuance" auto-field-map="true" value-name="itemIssuance"/>
+            <entity-one entity-name="InventoryItem" value-name="inventoryItem">
+                <field-map env-name="itemIssuance.inventoryItemId" field-name="inventoryItemId"/>
+            </entity-one>
+        <else>
+            <entity-one entity-name="InventoryItem" auto-field-map="true" value-name="inventoryItem"/>
+        </else>
+        </if-not-empty>
+
+        <set from-field="inventoryItem.productId" field="parameters.productId"/>
+        <call-simple-method method-name="getProductRequirementMethod"/>
+
+        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK">
+            <!-- get QOH, ATP quantities and find ProductFacility which has the minimum stock -->
+            <call-simple-method method-name="getProductFacilityAndQuantities"/>
+
+            <if-not-empty field-name="productFacility.minimumStock">
+                <!-- calculate the quantity after this item is issued -->
+                <calculate field-name="newQuantityOnHand">
+                    <calcop field-name="quantityOnHandTotal" operator="subtract">
+                        <calcop operator="get" field-name="parameters.quantity"/>
+                    </calcop>
+                </calculate>
+                <!-- If this new issuance will cause the quantityOnHandTotal to go below the minimumStock, create a new requirement -->
+                <if-compare-field field-name="newQuantityOnHand" to-field-name="productFacility.minimumStock" operator="less" type="Double">
+                    <!-- have requirements already been created for this item? -->
+                    <set from-field="inventoryItem.productId" field="lookupParams.productId"/>
+                    <set from-field="inventoryItem.facilityId" field="lookupParams.facilityId"/>
+                    <set value="REQ_CREATED" field="lookupParams.statusId"/>
+                    <find-by-and entity-name="Requirement" map-name="lookupParams" list-name="existingRequirements"/>
+                    <if-not-empty field-name="existingRequirements">
+                        <!-- if existing requirements exist, the quantity is based on the total already requested: 
+                            quantity still required = minimum stock - (new QOH on hand + quantity already in existing requirements)
+                            This number can be negative so we'll have to check for it later-->
+                        <find-by-and entity-name="RequirementByProductFacility" map-name="lookupParams" list-name="existingRequirementQuantities"/>
+                        <first-from-list list-name="existingRequirementQuantities" entry-name="existingRequirementQuantity"/>
+                        <calculate field-name="quantity" map-name="inputMap">
+                            <calcop field-name="minimumStock" map-name="productFacility" operator="subtract">
+                                <calcop field-name="newQuantityOnHand" operator="add">
+                                    <calcop operator="get" field-name="quantity" map-name="existingRequirementQuantity"/>
+                                </calcop>
+                            </calcop>
+                        </calculate>
+                    <else>
+                        <!-- if not, then we may have to create a requirement with a quantity equal to the facility's minimum quanity -->
+                        <if-not-empty field-name="productFacility.reorderQuantity">
+                            <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
+                        <else>
+                            <set from-field="parameters.quantity" field="inputMap.quantity"/>
+                        </else>
+                        </if-not-empty>
+                    </else>
+                    </if-not-empty>
+
+                    <!-- if the amount required due to this item issuance is greater than zero, ie not covered by existing requirements,
+                        then create a new requirement -->
+                    <if-compare field-name="quantity" map-name="inputMap" operator="greater" type="Double" value="0">
+                        <set from-field="inventoryItem.productId" field="inputMap.productId"/>
+                        <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
+                        <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
+                        <call-service service-name="createRequirement" in-map-name="inputMap">
+                            <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
+                        </call-service>
+                        <field-to-result field-name="parameters.requirementId" result-name="requirementId"/>
+                    </if-compare>
+                </if-compare-field>
+            </if-not-empty>
+        </if-compare>
+    </simple-method>
+    
+    <simple-method method-name="createRequirementFromItemATP" short-description="Create a Requirement for an item based on ATP inventory quantity and minimum">
+        <!-- this permission check breaks the checkout process in ecommerce; to tighten security could do this if the logged in user is not associated with the order in an OrderRole, then it would behave like other things in ecommerce
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateRequirementFromItemATP"/>
+        </check-permission>
+        <check-errors/>
+        -->
+        
+        <!-- assumes that inventoryItemId is one of the parameters and get the inventory item of the reservation -->
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem" auto-field-map="true"/>
+        
+        <!-- find the requirement method for this product -->
+        <set from-field="inventoryItem.productId" field="parameters.productId"/>
+        <call-simple-method method-name="getProductRequirementMethod"/>
+
+        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK_ATP">
+            <!-- get the ATP, QOH quantities and the product facility's minimum stock -->
+            <call-simple-method method-name="getProductFacilityAndQuantities"/>
+            
+            <!-- are we below minimum stock?  this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
+            <if-compare-field field-name="availableToPromiseTotal" to-field-name="productFacility.minimumStock" operator="less" type="Double">
+                <!-- what is the right quantity?  It is the lesser of the actual quantity and the quantity required to bring us back up to minimum stock -->
+                <calculate field-name="quantityShortfall">
+                    <calcop field-name="productFacility.minimumStock" operator="subtract">
+                        <calcop operator="get" field-name="availableToPromiseTotal"/>
+                    </calcop>
+                </calculate>
+                <if-compare-field field-name="quantityShortfall" operator="less" type="Double" to-field-name="parameters.quantity">
+                    <set from-field="quantityShortfall" field="inputMap.quantity"/>
+                <else>
+                    <set from-field="parameters.quantity" field="inputMap.quantity"/>
+                </else>
+                </if-compare-field>
+
+                <!-- TODO: we're not supporting the reorderQuantity of the productFacility.  It seems that altering the requirement quantity
+                    due to reorder quantities would affect the ability to link requirements and hence PO items back to the original order.
+                    If we can support it while at the same time linking requirements back to the original sales order, that would be better. -->                
+                <set from-field="parameters.productId" field="inputMap.productId"/>
+                <set from-field="inventoryItem.facilityId" field="inputMap.facilityId"/>
+                <call-simple-method method-name="createRequirementAndCommitment"/>
+            </if-compare-field>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="getNextOrderId" short-description="Get Next orderId">
+        <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special order number sequencing -->
+        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
+        <log level="info" message="In getNextOrderId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
+        
+        <if>
+            <condition>
+                <if-compare field-name="partyAcctgPreference.orderSequenceEnumId" operator="equals" value="ODRSQ_ENF_SEQ"/>
+            </condition>
+            <then>
+                <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_ENF_SEQ"/> -->
+                <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
+                <if-not-empty field-name="partyAcctgPreference.lastOrderNumber">
+                    <calculate field-name="partyAcctgPreference.lastOrderNumber" type="Long">
+                        <calcop operator="add" field-name="partyAcctgPreference.lastOrderNumber"/>
+                        <number value="1"/>
+                    </calculate>
+                    <else>
+                        <calculate field-name="partyAcctgPreference.lastOrderNumber" type="Long"><number value="1"/></calculate>
+                    </else>
+                </if-not-empty>
+                <store-value value-name="partyAcctgPreference"/>
+                <set from-field="partyAcctgPreference.lastOrderNumber" field="orderIdTemp"/>
+            </then>
+            <else>
+                <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_STANDARD"/> -->
+                <!-- default to the default sequencing: ODRSQ_STANDARD -->
+                <set from-field="parameters.orderId" field="orderIdTemp"/>
+                <if-empty field-name="orderIdTemp">
+                    <sequenced-id-to-env sequence-name="OrderHeader" env-name="orderIdTemp"/>
+                    <else>
+                        <!-- check the provided ID --> 
+                        <check-id field-name="orderIdTemp"/>
+                        <check-errors/>
+                    </else>
+                </if-empty>
+            </else>
+        </if>
+
+        <if-not-empty field-name="parameters.productStoreId">
+            <entity-one entity-name="ProductStore" value-name="productStore"/>
+        </if-not-empty>
+        
+        <!-- use orderIdTemp along with the orderIdPrefix to create the real ID -->
+        <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${orderIdTemp}"/>
+        <field-to-result field-name="orderId" result-name="orderId"/>
+    </simple-method>
+    
+    <simple-method method-name="createOrderHeader" short-description="Create OrderHeader">
+        <set value="Create OrderHeader" field="operationName"/>
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderShipment"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="OrderHeader"/>
+        <sequenced-id-to-env sequence-name="OrderHeader" env-name="newEntity.orderId"/>
+        <field-to-result field-name="newEntity.orderId" result-name="orderId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateOrderHeader" short-description="Update OrderHeader">
+        <set value="Update OrderHeader" field="operationName"/>
+        <check-permission permission="ORDERMGR" action="_UPDATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderShipment"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+        <if-empty field-name="orderHeader">
+            <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
+        </if-empty>
+        <check-errors/>
+        <set-nonpk-fields value-name="orderHeader" map-name="parameters"/>
+        <store-value value-name="orderHeader"/>  
+    </simple-method>
+    <simple-method method-name="updateOrderPaymentPreference" short-description="Update an order payment preference record">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
+            <fail-message message="ERROR: Not enough permissions to update this record."/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="OrderPaymentPreference" value-name="opp">
+            <field-map field-name="orderPaymentPreferenceId" env-name="parameters.orderPaymentPreferenceId"/>
+        </entity-one>
+
+        <log level="always" message="Parameters - ${parameters}"/>
+        <if-not-empty field-name="checkOutPaymentId" map-name="parameters">
+            <if-regexp map-name="parameters" field-name="checkOutPaymentId" expr="\d+">
+                <log level="info" message="PaymentMethod found: ${parameters.checkOutPaymentId}"/>
+                <set field="parameters.paymentMethodId" from-field="parameters.checkOutPaymentId"/>
+                <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+                    <field-map field-name="paymentMethodId" env-name="parameters.checkOutPaymentId"/>
+                </entity-one>
+                <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+            <else>
+                <log level="info" message="PaymentMethodType found: ${parameters.checkOutPaymentId}"/>
+                <set field="parameters.paymentMethodTypeId" from-field="parameters.checkOutPaymentId"/>
+            </else>
+            </if-regexp>
+        </if-not-empty>
+
+        <if-compare field-name="parameters.cancelThis" operator="not-equals" value="true">
+            <log level="always" message="Cancel not set; updating..."/>
+            <clone-value value-name="opp" new-value-name="newOpp"/>
+            <set field="opp.statusId" value="PAYMENT_CANCELLED"/>
+            <store-value value-name="opp"/>
+
+            <sequenced-id-to-env sequence-name="OrderPaymentPreference" env-name="payPrefId"/>
+            <set field="newOpp.orderPaymentPreferenceId" from-field="payPrefId"/>
+            <set field="newOpp.paymentMethodTypeId" set-if-null="true"/>
+            <set field="newOpp.paymentMethodId" set-if-null="true"/>
+            <set field="newOpp.createdByUserLogin" from-field="userLogin.userLoginId"/>
+            <set-nonpk-fields value-name="newOpp" map-name="parameters"/>
+            <create-value value-name="newOpp"/>
+            <field-to-result field-name="orderPaymentPreferenceId" map-name="newOpp" result-name="orderPaymentPreferenceId"/>
+        <else>
+            <log level="always" message="Cancel set; not updating..."/>
+            <set field="opp.statusId" value="PAYMENT_CANCELLED"/>
+            <store-value value-name="opp"/>
+            <field-to-result field-name="orderPaymentPreferenceId" map-name="opp" result-name="orderPaymentPreferenceId"/>
+        </else>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="recreateOrderAdjustments" short-description="Auto create OrderAdjustments">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAutoCreateOrderAdjustments"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="OrderHeader" value-name="order" auto-field-map="true"/>
+        <!-- all existing promo order items are cancelled -->
+        <get-related value-name="order" relation-name="OrderItem" list-name="orderItems"/>
+        <iterate list-name="orderItems" entry-name="orderItem">
+            <if-compare field-name="orderItem.isPromo" value="Y" operator="equals">
+                <clear-field field-name="cancelOrderItemInMap"/>
+                <set-service-fields service-name="cancelOrderItem" to-map-name="cancelOrderItemInMap" map-name="parameters"/>
+                <set from-field="orderItem.orderItemSeqId" field="cancelOrderItemInMap.orderItemSeqId"/>
+                <call-service service-name="cancelOrderItem" in-map-name="cancelOrderItemInMap"/>
+            </if-compare>
+        </iterate>
+        <!-- all existing auto order adjustments are removed -->
+        <get-related value-name="order" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
+        <iterate list-name="orderAdjustments" entry-name="orderAdjustment">
+            <!-- make sure this is not a manual adjustments -->
+            <if-not-empty field-name="orderAdjustment.productPromoId">
+                <remove-value value-name="orderAdjustment"/>
+            </if-not-empty>
+        </iterate>
+        <set-service-fields service-name="loadCartFromOrder" to-map-name="loadCartFromOrderInMap" map-name="parameters"/>
+        <!--<set value="false" field="loadCartFromOrderInMap.applyOrderAdjustments"/>-->
+        <call-service service-name="loadCartFromOrder" in-map-name="loadCartFromOrderInMap">
+            <result-to-field result-name="shoppingCart" field-name="cart"/>
+        </call-service>
+        <call-object-method obj-field-name="cart" method-name="items" ret-field-name="items"/>
+        <iterate list-name="items" entry-name="item">
+            <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="orderItemSeqId"/>
+            <if-empty field-name="orderItemSeqId">
+                <!-- this is a new (promo) item -->
+                <!-- a new order item is created -->
+                <make-value value-name="newOrderItem" entity-name="OrderItem"/>
+                <set field="newOrderItem.orderId" from-field="parameters.orderId"/>
+                <call-object-method obj-field-name="item" method-name="getItemType" ret-field-name="newOrderItem.orderItemTypeId"/>
+                <call-object-method obj-field-name="item" method-name="getSelectedAmount" ret-field-name="newOrderItem.selectedAmount"/>
+                <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field-name="newOrderItem.unitPrice"/>
+                <call-object-method obj-field-name="item" method-name="getListPrice" ret-field-name="newOrderItem.unitListPrice"/>
+                <call-object-method obj-field-name="item" method-name="getName" ret-field-name="newOrderItem.itemDescription"/>
+                <call-object-method obj-field-name="item" method-name="getStatusId" ret-field-name="newOrderItem.statusId"/>
+                <call-object-method obj-field-name="item" method-name="getProductId" ret-field-name="newOrderItem.productId"/>
+                <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="newOrderItem.quantity"/>
+                <set field="newOrderItem.isModifiedPrice" value="N"/>
+                <set field="newOrderItem.isPromo" value="Y"/>
+                <if-empty field-name="newOrderItem.statusId">
+                    <set field="newOrderItem.statusId" value="ITEM_CREATED"/>
+                </if-empty>
+                <make-next-seq-id value-name="newOrderItem" seq-field-name="orderItemSeqId"/>
+                <set from-field="orderItemSeqId" field="newOrderItem.orderItemSeqId"/>
+                <create-value value-name="newOrderItem"/>
+                <!-- and the orderItemSeqId is assigned to the shopping cart item-->
+                <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
+                    <field field-name="newOrderItem.orderItemSeqId" type="String"/>
+                </call-object-method>
+                <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="newOrderItemSeqId"/>
+            </if-empty>
+        </iterate>
+        <call-object-method obj-field-name="cart" method-name="makeAllAdjustments" ret-field-name="adjustments"/>
+        <iterate list-name="adjustments" entry-name="adjustment">
+            <set from-field="parameters.orderId" field="adjustment.orderId"/>
+            <sequenced-id-to-env sequence-name="OrderAdjustment" env-name="adjustment.orderAdjustmentId"/>
+            <create-value value-name="adjustment"/>
+        </iterate>
+    </simple-method>
+</simple-methods>
+

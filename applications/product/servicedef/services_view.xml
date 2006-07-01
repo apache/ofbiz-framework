@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Product Component Maintenance Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Product View Services -->
+    <service name="getProduct" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="prodFindProduct">
+        <description>Gets a product value object.</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="product" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+    </service>
+    <service name="getProductVariant" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="prodFindSelectedVariant">
+        <description>Gets a list of variant product value objects.</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="selectedFeatures" type="java.util.Map" mode="IN"/>
+        <attribute name="products" type="java.util.List" mode="OUT"/>
+    </service>
+    <service name="getProductFeatureSet" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="prodFindFeatureTypes">
+        <description>Gets a Set of product features (distinct)</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="productFeatureApplTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="featureSet" type="java.util.Set" mode="OUT"/>
+    </service>
+    <service name="getProductVariantTree" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="prodMakeFeatureTree">
+        <description>Gets a tree of product variants based on a virtual product and a list of features.</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="featureOrder" type="java.util.Collection" mode="IN"/>
+        <attribute name="productStoreId" type="String" mode="IN"/>
+        <attribute name="variantTree" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="variantSample" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="virtualVariant" type="java.util.List" mode="OUT" optional="true"/>
+    </service>
+    <service name="getAllProductVariants" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="prodFindAllVariants">
+        <description>Gets a Collection of products from a 'virtual' parent product.</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="assocProducts" type="java.util.Collection" mode="OUT"/>
+    </service>
+    <service name="getAssociatedProducts" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="prodFindAssociatedByType">
+        <description>Finds associated products by the defined type.</description>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="productIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="checkViewAllow" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
+        <attribute name="type" type="String" mode="IN"/>
+        <attribute name="assocProducts" type="java.util.Collection" mode="OUT"/>
+    </service>
+    <service name="getProductFeatures" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="prodGetFeatures">
+        <description>Gets a Collection of product features (ProductFeatureAndAppl) for a product.</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="type" type="String" mode="IN" optional="true"/>
+        <attribute name="distinct" type="String" mode="IN" optional="true"/>
+        <attribute name="productFeatures" type="java.util.Collection" mode="OUT"/>
+    </service>
+    <service name="getSuppliersForProduct" engine="java"
+            location="org.ofbiz.product.supplier.SupplierProductServices" invoke="getSuppliersForProduct">
+        <description>Finds a list of SupplierProduct entities based on either a product or, if not provided, at least a productId.
+              If partyId and currencyUomId are given, they are used to filter the list down.  Note that productId is REQUIRED, even if you are passing in a product entity.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>  
+        <attribute name="supplierProducts" type="java.util.List" mode="OUT" optional="false"/>
+    </service>
+    <service name="convertFeaturesForSupplier" engine="java"
+        location = "org.ofbiz.product.supplier.SupplierProductServices" invoke="convertFeaturesForSupplier">
+        <description>Takes a list of product feature (either ProductFeature or ProductFeatureAndAppl) and converts
+            each one for the supplier specified by partyId, changing the description and idCode</description>
+        <attribute type="java.util.Collection" mode="IN" name="productFeatures" optional="false"/>
+        <attribute type="String" mode="IN" name="partyId" optional="false"/>
+        <attribute type="java.util.Collection" mode="OUT" name="convertedProductFeatures"/>
+    </service>
+
+    <!-- Category View Services -->
+    <service name="getProductCategoryMembers" engine="java"
+            location="org.ofbiz.product.category.CategoryServices" invoke="getCategoryMembers">
+        <description>Gets ProductCategoryMembers for the category_id</description>
+        <attribute name="categoryId" type="String" mode="IN"/>
+        <attribute name="category" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="categoryMembers" type="java.util.Collection" mode="OUT"/>
+    </service>
+    <service name="getPreviousNextProducts" engine="java"
+            location="org.ofbiz.product.category.CategoryServices" invoke="getNextPreviousCategoryMembers">
+        <description>Gets the previous and next product Ids.</description>
+        <attribute name="categoryId" type="String" mode="IN"/>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="category" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="previousProductId" type="String" mode="OUT" optional="true"/>
+        <attribute name="nextProductId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="getProductCategoryAndLimitedMembers" engine="java"
+            location="org.ofbiz.product.category.CategoryServices" invoke="getProductCategoryAndLimitedMembers">
+        <description>Gets a productCategory and a Collection of associated productCategoryMembers and calculates limiting parameters</description>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultViewSize" type="Integer" mode="IN" optional="false"/>
+        <attribute name="limitView" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="checkViewAllow" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="viewIndexString" type="String" mode="IN" optional="true"/>
+        <attribute name="viewSizeString" type="String" mode="IN" optional="true"/>
+        <attribute name="useCacheForMembers" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="activeOnly" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="productCategory" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="productCategoryMembers" type="java.util.Collection" mode="OUT" optional="true"/> <!-- this list will only contain the limited members if limitView=true -->
+        <attribute name="viewIndex" type="Integer" mode="OUT" optional="false"/> <!-- this is a 1 based index, ie the first results are in index 1 -->
+        <attribute name="viewSize" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="lowIndex" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="highIndex" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="listSize" type="Integer" mode="OUT" optional="false"/>
+    </service>
+</services>

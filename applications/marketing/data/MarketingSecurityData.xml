@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Marketing Manager security -->
+    <SecurityPermission description="View operations in the Marketing Manager." permissionId="MARKETING_VIEW"/>
+    <SecurityPermission description="Create operations in the Marketing Manager." permissionId="MARKETING_CREATE"/>
+    <SecurityPermission description="Update operations in the Marketing Manager." permissionId="MARKETING_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Marketing Manager." permissionId="MARKETING_DELETE"/>
+    <SecurityPermission description="ALL operations in the Marketing Manager." permissionId="MARKETING_ADMIN"/>
+    <SecurityPermission description="Limited view operations in the Marketing Manager." permissionId="MARKETING_ROLE_VIEW"/>
+    <SecurityPermission description="Limited update operations in the Marketing Manager." permissionId="MARKETING_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="MARKETING_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="MARKETING_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="MARKETING_ADMIN"/>
+</entity-engine-xml>

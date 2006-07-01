@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Party Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Party services -->
+    <service name="createAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="createAddressMatchMap">
+        <description>Create an AddressMatchMap record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="PARTYMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="importAddressMatchMapCsv" engine="java" auth="true"
+            location="org.ofbiz.party.party.PartyServices" invoke="importAddressMatchMapCsv">
+        <description>Import a CSV (name,value) of AddressMatchMap records</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="PARTYMGR" action="_CREATE"/>
+        </required-permissions>
+        <attribute name="uploadedFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="false"/>
+        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="deleteAddressMatchMap">
+        <description>Delete an AddressMatchMap record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="PARTYMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    <service name="clearAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="clearAddressMatchMap">
+        <description>Delete an AddressMatchMap record</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="PARTYMGR" action="_DELETE"/>
+        </required-permissions>        
+    </service>
+
+    <service name="deleteParty" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="deleteParty" auth="true">
+        <description>Delete a Party</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="setPartyStatus" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true">
+        <description>Set the party status. Requires PARTYMGR_STS_UPDATE permission. The change to statusId must be defined in StatusValidChange, otherwise
+            this service will fail. The result is the original statusId, so that ECA conditions can check if a status has actually changed.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="createPerson" engine="java" default-entity-name="Person"
+            location="org.ofbiz.party.party.PartyServices" invoke="createPerson" auth="false">
+        <description>Create a Person</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <override name="firstName" optional="false"/>
+        <override name="lastName" optional="false"/>
+    </service>
+    <service name="createPersonAndUserLogin" engine="simple" require-new-transaction="true"
+            location="org/ofbiz/party/party/PartySimpleMethods.xml" invoke="createPersonAndUserLogin" auth="false">
+        <description>Create a Person and UserLogin</description>
+        <implements service="createUserLogin"/>
+        <auto-attributes entity-name="Person" mode="IN" include="nonpk" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true" entity-name="Person"/>
+        <attribute name="newUserLogin" type="Map" mode="OUT" optional="false"/>
+    </service>
+    <service name="updatePerson" engine="java" default-entity-name="Person"
+            location="org.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
+        <description>Update a Person</description>
+        <auto-attributes mode="IN" include="pk" optional="true"><!-- if no partyId specified will use userLogin.partyId --></auto-attributes>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createPartyGroup" engine="java" default-entity-name="PartyGroup"
+            location="org.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false">
+        <description>Create a PartyGroup</description>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="partyTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <override name="groupName" optional="false"/>
+    </service>
+    <service name="updatePartyGroup" engine="java" default-entity-name="PartyGroup"
+            location="org.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
+        <description>Update a PartyGroup</description>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="partyTypeId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="savePartyNameChange" engine="simple"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="savePartyNameChange" auth="true">
+        <description>Save Party Name Change</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"><!-- if empty, will use userLogin.partyId to handle special case for updatePerson, etc --></attribute>
+        <attribute name="groupName" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="middleName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="personalTitle" type="String" mode="IN" optional="true"/>
+        <attribute name="suffix" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="getPartyNameForDate" engine="simple"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="getPartyNameForDate" auth="true">
+        <description>Get Party Name For Date</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="compareDate" type="Timestamp" mode="IN" optional="true"><!-- defaults to now --></attribute>
+        <attribute name="lastNameFirst" type="String" mode="IN" optional="true"><!-- Y or N, defaults to N --></attribute>
+        <attribute name="groupName" type="String" mode="OUT" optional="true"/>
+        <attribute name="firstName" type="String" mode="OUT" optional="true"/>
+        <attribute name="middleName" type="String" mode="OUT" optional="true"/>
+        <attribute name="lastName" type="String" mode="OUT" optional="true"/>
+        <attribute name="personalTitle" type="String" mode="OUT" optional="true"/>
+        <attribute name="suffix" type="String" mode="OUT" optional="true"/>
+        <attribute name="fullName" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="createAffiliate" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="createAffiliate" auth="false">
+        <description>Create an Affiliate</description>
+        <attribute name="partyId" type="String" mode="INOUT"/>
+        <attribute name="affiliateName" type="String" mode="IN"/>
+        <attribute name="affiliateDescription" type="String" mode="IN" optional="true"/>
+        <attribute name="yearEstablished" type="String" mode="IN" optional="true"/>
+        <attribute name="siteType" type="String" mode="IN" optional="true"/>
+        <attribute name="sitePageViews" type="String" mode="IN" optional="true"/>
+        <attribute name="siteVisitors" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createPartyNote" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="createPartyNote" auth="true">
+        <description>Create a note item and associate with a party. If a noteId is passed, creates an assoication to that note instead.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="note" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createRoleType" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="createRoleType" auth="true">
+        <description>Create a new role type</description>
+        <attribute name="roleTypeId" type="String" mode="IN"/>
+        <attribute name="description" type="String" mode="IN"/>
+        <attribute name="roleType" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+    </service>
+
+    <service name="setPartyProfileDefaults" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="setPartyProfileDefaults" auth="true">
+        <description>Sets the party (customer) profile defaults</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultShipAddr" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultPayMeth" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultShipMeth" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createPartyAttribute" engine="simple" default-entity-name="PartyAttribute"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyAttribute" auth="true">
+        <description>create a party attribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updatePartyAttribute" engine="simple" default-entity-name="PartyAttribute"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyAttribute" auth="true">
+        <description>updates a party attribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removePartyAttribute" engine="simple" default-entity-name="PartyAttribute"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="removePartyAttribute" auth="true">
+        <description>removes a party attribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="linkPartyRecord" engine="java" auth="true" use-transaction="false"
+                location="org.ofbiz.party.party.PartyServices" invoke="linkParty">
+        <description>Merges customer accounts and disabled the duplicate</description>
+        <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Party Role services -->
+    <service name="createPartyRole" engine="java"
+            location="org.ofbiz.party.party.PartyRoleServices" invoke="createPartyRole" auth="true">
+        <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_ROLE_CREATE or have 
+            permission to change the role of this partyId</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="deletePartyRole" engine="java"
+            location="org.ofbiz.party.party.PartyRoleServices" invoke="deletePartyRole" auth="true">
+        <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_ROLE_DELETE or have 
+            permission to change the role of this partyId</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="ensurePartyRole" engine="simple"
+            location="org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="false">
+        <description>Ensure that the party is in the specified role.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="ensureNaPartyRole" engine="simple"
+            location="org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="false">
+        <description>Ensure that the party is in the _NA_ role.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="ensureNaPartyRoleFrom" engine="simple"
+            location="org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
+        <description>Ensure that the party is in the _NA_ role.</description>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="ensureNaPartyRoleTo" engine="simple"
+            location="org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
+        <description>Ensure that the party is in the _NA_ role.</description>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Party Relationship services -->
+    <service name="interfacePartyRelationshipCreatePK" engine="interface" location="" invoke="">
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="interfacePartyRelationshipPK" engine="interface" location="" invoke="">
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+    <service name="interfacePartyRelationship" engine="interface" location="" invoke="">
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="priorityTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="securityGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createPartyRelationship" engine="java"
+            location="org.ofbiz.party.party.PartyRelationshipServices" invoke="createPartyRelationship" auth="true">
+        <description>Create a Relationship between two Parties; if partyIdFrom is not specified the partyId of the current userLogin will be used; if roleTypeIds are not specified they will default to "_NA_". If a partyId is passed in, it will be used if the userLogin has PARTYMGR_REL_CREATE permission.</description>
+        <implements service="interfacePartyRelationshipCreatePK"/>
+        <implements service="interfacePartyRelationship"/>
+    </service>
+    <service name="updatePartyRelationship" engine="java"
+            location="org.ofbiz.party.party.PartyRelationshipServices" invoke="updatePartyRelationship" auth="true">
+        <description>Update a Relationship between two Parties; if partyIdFrom is not specified the partyId of the current userLogin will be used; if roleTypeIds are not specified they will default to "_NA_". If a partyId is passed in, it will be used if the userLogin has PARTYMGR_REL_UPDATE permission.</description>
+        <implements service="interfacePartyRelationshipPK"/>
+        <implements service="interfacePartyRelationship"/>
+    </service>
+    <service name="deletePartyRelationship" engine="java"
+            location="org.ofbiz.party.party.PartyRelationshipServices" invoke="deletePartyRelationship" auth="true">
+        <description>Delete a Relationship between two Parties; if partyIdFrom is not specified the partyId of the current userLogin will be used; if roleTypeIds are not specified they will default to "_NA_".</description>
+        <implements service="interfacePartyRelationshipPK"/>
+    </service>
+
+    <service name="createPartyRelationshipType" engine="java" default-entity-name="PartyRelationshipType"
+            location="org.ofbiz.party.party.PartyRelationshipServices" invoke="createPartyRelationshipType" auth="true">
+        <description>Create a new Party Relationship type</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="partyRelationshipName" optional="false"/>
+    </service>
+    
+    <!-- ContactMech services -->
+    <service name="createContactMech" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="createContactMech" auth="true">
+        <description>Create a ContactMech</description>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ContactMech" include="pk" mode="INOUT" optional="true"/>
+        <override name="infoString" optional="true"/>
+    </service>
+    <service name="createPartyContactMech" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyContactMech" auth="true">
+        <description>Create a PartyContactMech</description>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateContactMech" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="updateContactMech" auth="true">
+        <description>Update a ContactMech</description>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="infoString" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updatePartyContactMech" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyContactMech" auth="true">
+        <description>Update a PartyContactMech</description>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="infoString" type="String" mode="IN" optional="true"/>
+        <attribute name="newContactMechId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePartyContactMech" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="deletePartyContactMech" auth="true">
+        <description>Delete a PartyContactMech</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="createPostalAddress" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="createPostalAddress" auth="true">
+        <description>Create a Postal Address</description>
+        <auto-attributes entity-name="PostalAddress" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <override name="address1" optional="false"/>
+        <override name="city" optional="false"/>
+        <override name="postalCode" optional="false"/>
+    </service>
+    <!-- Party ContachMech reverse find -->
+    <service name="findPartyFromEmailAddress" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="findPartyFromEmailAddress" auth="true">
+        <description>Create a Postal Address</description>
+        <attribute name="address" type="String" mode="IN" optional="false"/>
+        <attribute name="personal" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="OUT" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="createPartyPostalAddress" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyPostalAddress" auth="true">
+        <description>Create a Postal Address</description>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>        
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+        <override name="address1" optional="false"/>
+        <override name="city" optional="false"/>
+        <override name="postalCode" optional="false"/>
+    </service>
+    <service name="updatePostalAddress" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="updatePostalAddress" auth="true">
+        <description>Update a Postal Address</description>
+        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/> <!-- the out paramater is the id of the new address -->
+        <attribute name="directions" type="String" mode="IN" optional="true"/> <!-- ?? -->
+        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <override name="address1" optional="false"/>
+        <override name="city" optional="false"/>
+        <override name="postalCode" optional="false"/>
+    </service>
+    <service name="updatePartyPostalAddress" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyPostalAddress" auth="true">
+        <description>Update a Postal Address</description>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="directions" type="String" mode="IN" optional="true"/> <!-- ?? -->
+        <override name="address1" optional="false"/>
+        <override name="city" optional="false"/>
+        <override name="postalCode" optional="false"/>
+    </service>
+    <service name="createTelecomNumber" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="createTelecomNumber" auth="true">
+        <description>Create a Telecommunications Number</description>
+        <auto-attributes entity-name="TelecomNumber" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createPartyTelecomNumber" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyTelecomNumber" auth="true">
+        <description>Create a Telecommunications Number</description>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateTelecomNumber" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="updateTelecomNumber" auth="true">
+        <description>Update a Telecommunications Number</description>
+        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updatePartyTelecomNumber" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyTelecomNumber" auth="true">
+        <description>Update a Telecommunications Number</description>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+    </service>
+    <service name="createEmailAddress" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="createEmailAddress" auth="true">
+        <description>Create an Email Address</description>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ContactMech" include="pk" mode="OUT" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <override name="infoString" optional="true"/>
+    </service>
+    <service name="createPartyEmailAddress" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyEmailAddress" auth="true">
+        <description>Create an Email Address</description>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateEmailAddress" engine="simple"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="updateEmailAddress" auth="true">
+        <description>Update an Email Address</description>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updatePartyEmailAddress" engine="simple"
+            location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyEmailAddress" auth="true">
+        <description>Update an Email Address</description>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="copyPartyContactMechs" engine="java"
+        location="org.ofbiz.party.contact.ContactMechServices" invoke="copyPartyContactMechs" auth="true">
+        <description>Copies all contact mechs from the partyIdFrom to the partyIdTo. Does not delete or overwrite any contact mechs.</description>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- contact mech attribute services -->
+    <service name="createContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="createContactMechAttribute" auth="true">
+        <description>create a contact mech attribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="updateContactMechAttribute" auth="true">
+        <description>updates a contact mech attribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="removeContactMechAttribute" auth="true">
+        <description>removes a contact mech attribute record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- PartyContactMechPurpose services -->
+    <service name="createPartyContactMechPurpose" engine="java"
+            location="org.ofbiz.party.contact.ContactMechServices" invoke="createPartyContactMechPurpose" auth="true">
+        <description>Create a Party ContactMech Purpose</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+    </service>
+    <service name="deletePartyContactMechPurpose" engine="java"
+            location="org.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurpose" auth="true">
+        <description>Delete a Party ContactMech Purpose</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ContactMechList services -->
+    <service name="createContactMechLink" default-entity-name="ContactMechLink" engine="simple"
+            location="org/party/contact/ContactMechServices.xml" invoke="createContactMechLink" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteContactMechLink" default-entity-name="ContactMechLink" engine="simple"
+            location="org/party/contact/ContactMechServices.xml" invoke="deleteContactMechLink" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- PostalAddressBoundary -->
+    <service name="createPostalAddressBoundary" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="createPostalAddressBoundary">
+        <description>Create a Postal Address Boundary</description>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="geoId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="deletePostalAddressBoundary" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePostalAddressBoundary">
+        <description>Delete a Postal Address Boundary</description>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="geoId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- PartyClassification -->
+    <service name="createPartyClassification" engine="simple" default-entity-name="PartyClassification"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyClassification">
+        <description>create PartyClassification</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updatePartyClassification" engine="simple" default-entity-name="PartyClassification"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyClassification">
+        <description>update PartyClassification</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyClassification" engine="simple" default-entity-name="PartyClassification"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyClassification">
+        <description>delete PartyClassification</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    <service name="createPartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyClassificationGroup">
+        <description>create PartyClassificationGroup</description>
+        <auto-attributes mode="OUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updatePartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyClassificationGroup">
+        <description>update PartyClassificationGroup</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deletePartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyClassificationGroup">
+        <description>delete PartyClassificationGroup</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <!-- Vendor -->
+    <service name="createVendor" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="createVendor" auth="true">
+        <description>Create Vendor Information</description>
+        <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="Vendor" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateVendor" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="updateVendor" auth="true">
+        <description>Update Vendor Information</description>
+        <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="Vendor" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteVendor" engine="simple"
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="deleteVendor" auth="true">
+        <description>Remove Vendor Information</description>
+        <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- PartyDataSource services -->
+    <service name="createPartyDataSource" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="createPartyDataSource" auth="true">
+        <description>Creates a relation between a Party and a DataSource using PartyDataSource. The userLogin must have PARTYMGR_SRC_CREATE permission.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+
+    <!-- Communication Event Services -->
+    <service name="createCommunicationEvent" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEvent" auth="true">
+        <description>Create a Communication Event</description>
+        <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateCommunicationEvent" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="updateCommunicationEvent" auth="true">
+        <description>Update a Communication Event</description>
+        <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteCommunicationEvent" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">
+        <description>Delete a Communication Event</description>
+        <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createCommunicationEventPurpose" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventPurpose" auth="true">
+        <description>Create a Communication Event Purpose</description>
+        <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="CommunicationEventPurpose" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeCommunicationEventPurpose" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventPurpose" auth="true">
+        <description>Remove a Communication Event Purpose</description>
+        <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createCommunicationEventRole" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventRole" auth="true">
+        <description>Create a Communication Event Role</description>
+        <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="CommunicationEventRole" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeCommunicationEventRole" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventRole" auth="true">
+        <description>Remove a Communication Event Role</description>
+        <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createCommEventWorkEffort" engine="simple" location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="makeCommunicationEventWorkEffort" auth="true"  >
+        <description>Creates a WorkEffort entity and CommunicationEventWorkEff</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="WorkEffort"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkEffort"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="CommunicationEventWorkEff"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
+    </service>
+    <service name="markCommEventRead" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="true">
+        <description>Marks a communication event as read if in the entered/pending status</description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="markMessageRead" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="true">
+        <description>Marks a communication event as read if in the entered/pending status</description>
+        <attribute name="messageId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="sendCommEventAsEmail" engine="java"
+            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendCommEventAsEmail" auth="true"
+            transaction-timeout="7200">  <!-- set transaction time out for 2 hours, since this sometimes may run as an async service to send emails to lots of people -->
+        <description>Sends a communication event as a single-part email using sendMail.  All parameters come from CommunicationEvent, which must
+            be of type EMAIL_COMMUNICATION.  If there a contactListId, then will send it to every party on that contact list at their
+            preferredContactMechId.  Otherwise, will look for a contactMechIdTo to send the emails</description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="setCommEventComplete" engine="java"
+            location="org.ofbiz.party.communication.CommunicationEventServices" invoke="setCommEventComplete" auth="true">
+        <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service</description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createPartyContent" engine="simple"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyContent" auth="false">
+        <description>Create Party Associated Content</description>
+        <attribute name="uploadedFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="false"/>
+        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
+        <attribute name="contentTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="dataCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="getPartyEmail" engine="simple"
+        location="org/ofbiz/party/party/PartyServices.xml" invoke="getPartyEmail" auth="false">
+        <description>Get the main party Email address</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="OUT" optional="true"/>
+    </service>
+</services>

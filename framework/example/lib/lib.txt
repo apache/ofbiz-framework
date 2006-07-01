@@ -1,0 +1,2 @@
+
+External (thirdparty) libraries which are required for running and building this component.

@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Implementation-Title: "OFBiz Startup"
+Implementation-Vendor: "The Open For Business Project"
+Main-Class: org.ofbiz.base.start.Start

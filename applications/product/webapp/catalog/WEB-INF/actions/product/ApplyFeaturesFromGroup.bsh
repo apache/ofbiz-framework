@@ -1,0 +1,52 @@
+/*
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Si Chen
+ *@version    $Revision$
+ *@since      3.1
+ */
+
+/*
+ * For cases when the ApplyFeaturesFromCategory.ftl is actually supposed to get its list of ProductFeatures from a productFeatureGroupId.
+ * Puts productFeatureGroup and productFeatures which are put of this group into the context.  Currently does not break out the features by view size.
+ */
+
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntity;
+
+productFeatureGroupId = parameters.get("productFeatureGroupId");
+if ((productFeatureGroupId != null) && !(productFeatureGroupId.equals(""))) {
+    productFeatureGroup = delegator.findByPrimaryKey("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId));
+    productFeatures = new LinkedList();
+    productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", UtilMisc.toList("sequenceNum"));
+    for (pFGAi = productFeatureGroupAppls.iterator(); pFGAi.hasNext(); ) {
+    	productFeatureGroupAppl = (GenericEntity)pFGAi.next();
+    	productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature");
+    	productFeature.set("defaultSequenceNum", productFeatureGroupAppl.getLong("sequenceNum"));
+        productFeatures.add(productFeature);
+    }
+    context.put("productFeatureGroup", productFeatureGroup);
+    context.put("productFeatures", productFeatures);
+    // this will not break out the product features by view size
+    context.put("listSize", productFeatures.size());
+    context.put("highIndex", productFeatures.size());
+}

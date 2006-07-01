@@ -1,0 +1,112 @@
+/*
+ * $Id: processDetailList.bsh 7426 2006-04-26 23:35:58Z jonesde $
+ *
+ * Copyright 2004-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.shark.container.*;
+import org.ofbiz.shark.requester.*;
+import org.enhydra.shark.api.client.wfservice.*;
+import org.enhydra.shark.api.client.wfmodel.*;
+
+userLogin = session.getAttribute("userLogin");
+
+// get the admin tools
+admin = SharkContainer.getAdminInterface();
+exMgr = admin.getExecutionAdministration();
+
+if (userLogin == null) {
+    request.setAttribute("_ERROR_MESSAGE_", "UserLogin object not found.");
+    return;
+}
+
+// connect to the engine
+exMgr.connect(userLogin.getString("userLoginId"), userLogin.getString("currentPassword"), null, null);
+
+// start a process
+if (request.getParameter("start") != null) {
+    try {
+        procId = request.getParameter("start");
+        proc = exMgr.getProcess(procId);
+        proc.start();
+    } catch (Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+    }
+}
+
+// suspend a process
+if (request.getParameter("suspend") != null) {
+    try {
+        procId = request.getParameter("suspend");
+        proc = exMgr.getProcess(procId);
+        proc.suspend();
+    } catch (Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+    }
+}
+
+// resume a process
+if (request.getParameter("resume") != null) {
+    try {
+        procId = request.getParameter("resume");
+        proc = exMgr.getProcess(procId);
+        proc.resume();
+    } catch (Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+    }
+}
+
+// abort a process
+if (request.getParameter("abort") != null) {
+    try {
+        procId = request.getParameter("abort");
+        proc = exMgr.getProcess(procId);
+        proc.abort();
+    } catch (Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+    }
+}
+
+// terminate a process
+if (request.getParameter("terminate") != null) {
+    try {
+        procId = request.getParameter("terminate");
+        proc = exMgr.getProcess(procId);
+        proc.terminate();
+    } catch (Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+    }
+}
+
+// manager name
+mgrName = request.getParameter("manager");
+if (mgrName != null) {
+    context.put("manager", mgrName);
+
+    // get the process manager
+    mgr = exMgr.getProcessMgr(mgrName);
+
+    if (mgr != null) {
+        // get the processes
+        count = mgr.how_many_process();
+        procs = mgr.get_sequence_process(count);
+        context.put("processes", procs);
+    }
+}
+
+// disconnect from the engine
+exMgr.disconnect();

@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ProductScreens.xml 7856 2006-06-24 09:04:24Z jacopo $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    
+    <screen name="EditProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProduct"/>
+                <set field="tabButtonItem" value="EditProduct"/>
+                <set field="labelTitleProperty" value="ProductProduct"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        
+                        <!-- include the duplicate product form template -->
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductDupForm.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductPrices">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductPrices"/>
+                <set field="tabButtonItem" value="EditProductPrices"/>
+                <set field="labelTitleProperty" value="ProductPrices"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-and entity-name="ProductPrice" list-name="productPrices">
+                    <field-map field-name="productId"/>
+                    <order-by field-name="productStoreGroupId"/>
+                    <order-by field-name="productPricePurposeId"/>
+                    <order-by field-name="productPriceTypeId"/>
+                    <order-by field-name="currencyUomId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+                
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateProductPrice" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="AddProductPrice" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductCategories">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductCategories"/>
+                <set field="tabButtonItem" value="EditProductCategories"/>
+                <set field="labelTitleProperty" value="ProductCategoryMembers"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                
+                <entity-condition entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+                    <condition-expr field-name="productId" env-name="productId"/>
+                    <order-by field-name="sequenceNum"/>
+                    <order-by field-name="productCategoryId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateProductCategoryMemeber" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="AddProductCategoryMember" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+
+    <screen name="EditProductConfigs">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductConfigs"/>
+                <set field="tabButtonItem" value="EditProductConfigs"/>
+                <set field="labelTitleProperty" value="ProductConfigs"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-and entity-name="ProductConfig" list-name="productConfigs">
+                    <field-map field-name="productId"/>
+                    <order-by field-name="sequenceNum"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateProductConfig" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="AddProductConfig" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductAssetUsage"><!-- screen for rental parameters -->
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductAssetUsage"/>
+                <set field="tabButtonItem" value="EditProductAssetUsage"/>
+                <set field="labelTitleProperty" value="ProductAssetUsage"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-condition entity-name="FixedAssetProduct" list-name="fixedAssetProducts">
+                    <condition-expr field-name="productId" env-name="productId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditProductAssetUsage" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container>
+                            <label/>
+                            <label style="head1">${uiLabelMap.AccountingFixedAssets}</label>
+                        </container>
+                        <container>
+                            <link target="newFixedAssetProduct?productId=${productId}" text="[${uiLabelMap.AccountingFixedAssetNew}]" style="buttontext"/>
+                        </container>
+                        <include-form name="ListProductFixedAssets" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="showFixedAssetProduct"><!-- add a fixed asset -->
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductAssetUsage"/>
+                <set field="tabButtonItem" value="EditProductAssetUsage"/>
+                <set field="labelTitleProperty" value="ProductAssetUsage"/>
+
+                <set field="extraFunctionName"  value="uiLabelMap.AccountingFixedAssetProductUpd"/>
+                <entity-one entity-name="FixedAssetProduct" value-name="fixedAssetProduct"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="showFixedAssetProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="newFixedAssetProduct"><!-- add a fixed asset -->
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductAssetUsage"/>
+                <set field="tabButtonItem" value="EditProductAssetUsage"/>
+                <set field="labelTitleProperty" value="ProductAssetUsage"/>
+
+                <set field="extraFunctionName"  value="uiLabelMap.AccountingFixedAssetProductAdd"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="addFixedAssetProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewProductManufacturing">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewProductManufacturing"/>
+                <set field="tabButtonItem" value="ViewProductManufacturing"/>
+                <set field="labelTitleProperty" value="ProductManufacturing"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="productAssocTypeId" value="MANUF_COMPONENT"/>
+                <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
+                
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-and entity-name="ProductAssoc" list-name="components">
+                    <field-map field-name="productId"/>
+                    <field-map field-name="productAssocTypeId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-and>
+                <entity-and entity-name="ProductAssoc" list-name="parents">
+                    <field-map env-name="productId" field-name="productIdTo"/>
+                    <field-map field-name="productAssocTypeId"/>
+                </entity-and>
+                <entity-and entity-name="WorkEffortGoodStandard" list-name="routings">
+                    <field-map field-name="productId"/>
+                    <field-map field-name="workEffortGoodStdTypeId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <!--<include-form name="UpdateProductPrice" location="component://product/webapp/catalog/product/ProductForms.xml"/>-->
+                        <container><label style="head2">${uiLabelMap.ProductRoutings}</label></container>    
+                        <include-form name="ListProductRoutings" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductLowLevelCode}: ${product.billOfMaterialLevel}</label></container>
+                        <container><label style="head2">${uiLabelMap.ProductComponents}</label></container>    
+                        <include-form name="ListProductComponents" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductParent}</label></container>    
+                        <include-form name="ListProductParents" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductCosts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductCosts"/>
+                <set field="tabButtonItem" value="EditProductCosts"/>
+                <set field="labelTitleProperty" value="ProductCosts"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="productCostComponentId" from-field="parameters.productCostComponentId"/>
+                
+                <!-- default currency in framework/common/config/general.properties -->
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-one entity-name="CostComponent" value-name="costComponent" auto-field-map="false">
+                    <field-map field-name="costComponentId" env-name="productCostComponentId"/>
+                </entity-one>
+                <!--<entity-and entity-name="CostComponent" list-name="costs" filter-by-date="true">-->
+                <entity-and entity-name="CostComponent" list-name="costs">
+                    <field-map field-name="productId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head2">${uiLabelMap.ProductCosts}</label></container>    
+                        <include-form name="ListCostComponents" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductAddCostComponent}</label></container>
+                        <include-form name="EditCostComponent" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductAutoCreateCosts}</label></container>
+                        <include-form name="CalculateProductCosts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="QuickAddVariants">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleQuickAddProductVariants"/>
+                <set field="tabButtonItem" value="QuickAddVariants"/>
+                <set field="labelTitleProperty" value="ProductQuickAddVariants"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/QuickAddVariants.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/QuickAddVariants.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductQuickAdmin">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductQuickAdmin"/>
+                <set field="tabButtonItem" value="EditProductQuickAdmin"/>
+                <set field="labelTitleProperty" value="ProductQuickAdmin"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductQuickAdmin.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductQuickAdmin.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditProductFacilities">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductFacilities"/>
+                <set field="tabButtonItem" value="EditProductFacilities"/>
+                <set field="labelTitleProperty" value="ProductFacilities"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+
+                <entity-condition entity-name="ProductFacility" list-name="productFacilities">
+                    <condition-expr field-name="productId" env-name="productId"/>
+                    <order-by field-name="facilityId"/>
+                </entity-condition>
+                <entity-condition entity-name="Facility" list-name="facilities">
+                    <order-by field-name="facilityName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductFacilities.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductFacilityLocations">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductFacilityLocations"/>
+                <set field="tabButtonItem" value="EditProductFacilityLocations"/>
+                <set field="labelTitleProperty" value="ProductFacilityLocations"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+
+                <entity-condition entity-name="ProductFacilityLocation" list-name="productFacilityLocations">
+                    <condition-expr field-name="productId" env-name="productId"/>
+                    <order-by field-name="facilityId"/>
+                    <order-by field-name="locationSeqId"/>
+                </entity-condition>
+                <entity-condition entity-name="Facility" list-name="facilities">
+                    <order-by field-name="facilityName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductFacilityLocations.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductKeyword">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductKeywords"/>
+                <set field="tabButtonItem" value="EditProductKeyword"/>
+                <set field="labelTitleProperty" value="ProductKeywords"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductKeyword.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductInventoryItems">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductInventoryItems"/>
+                <set field="tabButtonItem" value="EditProductInventoryItems"/>
+                <set field="labelTitleProperty" value="ProductInventorySummary"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductInventoryItems.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare field-name="product.isVirtual" operator="equals" type="String" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="head2">${uiLabelMap.ProductVariantProductInventorySummary}</label></container>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/product/EditVirtualProductInventory.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/product/EditProductInventoryItems.ftl"/></html>
+                                </platform-specific>
+                                <container><label style="head1">${uiLabelMap.ProductOutstandingPurchaseOrders}</label></container>
+                                <include-form name="OutstandingPurchaseOrders" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductGoodIdentifications">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductGoodIdentifications"/>
+                <set field="tabButtonItem" value="EditProductGoodIdentifications"/>
+                <set field="labelTitleProperty" value="CommonIds"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                
+                <entity-condition entity-name="GoodIdentification" list-name="goodIdentifications">
+                    <condition-expr field-name="productId" env-name="productId"/>
+                    <order-by field-name="goodIdentificationTypeId"/>
+                    <order-by field-name="idValue"/>
+                </entity-condition>
+                <entity-condition entity-name="GoodIdentificationType" list-name="goodIdentificationTypes" use-cache="true">
+                    <order-by field-name="description"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductGoodIdentifications.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductGlAccounts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductGlAccounts"/>
+                <set field="tabButtonItem" value="EditProductGlAccounts"/>
+                <set field="labelTitleProperty" value="ProductGlAccounts"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+
+                <entity-condition entity-name="ProductGlAccount" list-name="productGlAccounts">
+                    <condition-expr field-name="productId" env-name="productId"/>
+                    <order-by field-name="glAccountTypeId"/>
+                </entity-condition>
+                <entity-condition entity-name="GlAccountType" list-name="productGlAccountTypes" use-cache="true">
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <entity-condition entity-name="GlAccount" list-name="glAccounts" use-cache="true">
+                    <order-by field-name="accountCode"/>
+                </entity-condition>
+                <entity-condition entity-name="PartyRole" list-name="organizations" use-cache="true">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductGlAccounts.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductPaymentMethodTypes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductPaymentTypes"/>
+                <set field="tabButtonItem" value="EditProductPaymentMethodTypes"/>
+                <set field="labelTitleProperty" value="ProductPaymentTypes"/>
+                
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                
+                <entity-condition entity-name="ProductPaymentMethodType" list-name="productPaymentMethodTypes">
+                    <order-by field-name="productPricePurposeId"/>
+                    <order-by field-name="paymentMethodTypeId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateProductPaymentMethodType" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="AddProductPaymentMethodType" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductFeatures">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductFeatures"/>
+                <set field="headerItem" value="product"/>
+                <set field="tabButtonItem" value="EditProductFeatures"/>
+                <set field="labelTitleProperty" value="ProductFeatures"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductFeatures.ftl"/></html>
+                        </platform-specific>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductFeatureAttributes}</label>
+                        </container>
+                        <include-form name="AddProductFeatureApplAttr" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="ListProductFeatureApplAttrs" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSupplierProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSupplierProduct"/>
+                <set field="tabButtonItem" value="EditSupplierProduct"/>
+                <set field="labelTitleProperty" value="ProductSuppliers"/>
+
+                <!-- default currency in framework/common/config/general.properties -->
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="minimumOrderQuantity" from-field="parameters.minimumOrderQuantity" type="Double"/>
+
+                <set field="orderBy" from-field="parameters.orderBy" default-value="partyId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-and entity-name="SupplierProduct" list-name="productSuppliers">
+                    <field-map field-name="productId"/>
+                    <order-by field-name="${orderBy}"/>
+                </entity-and>
+                <entity-one entity-name="SupplierProduct" value-name="supplierProduct" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListSupplierProducts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <section>
+                            <condition><not><if-empty field-name="supplierProduct"/></not></condition>
+                            <widgets><link target="EditProductSuppliers?productId=${productId}" style="buttontext" text="[New Product Supplier]"/></widgets>
+                        </section>
+                        <include-form name="AddSupplierProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductContent"/>
+                <set field="tabButtonItem" value="EditProductContent"/>
+                <set field="labelTitleProperty" value="ProductContent"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContent.bsh"/>   
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductContent.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductContentContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductContent"/>
+                <set field="tabButtonItem" value="EditProductContent"/>
+                <set field="labelTitleProperty" value="ProductContent"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContentContent.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductContentContent.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductAttributes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductAttributes"/>
+                <set field="tabButtonItem" value="EditProductAttributes"/>
+                <set field="labelTitleProperty" value="ProductProductAttributes"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-and entity-name="ProductAttribute" list-name="productAttributes">
+                    <field-map field-name="productId"/>
+                    <order-by field-name="attrType"/>
+                    <order-by field-name="attrName"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductAttributes.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductAssoc">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductAssociations"/>
+                <set field="tabButtonItem" value="EditProductAssoc"/>
+                <set field="labelTitleProperty" value="ProductAssociations"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductAssoc.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductAssoc.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!--
+    <screen name="EditProductAssoc">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductAssociations"/>
+                <set field="tabButtonItem" value="EditProductAssoc"/>
+                <set field="labelTitleProperty" value="EditProductAssoc"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-and entity-name="ProductAssoc" list-name="productAssocs">
+                    <field-map field-name="productId"/>
+                    <order-by field-name="productAssocTypeId"/>
+                </entity-and>
+                <entity-and entity-name="ProductAssoc" list-name="productAssocsTo">
+                    <field-map env-name="productId" field-name="productIdTo"/>
+                    <order-by field-name="productAssocTypeId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListProductAssocs" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="ListProductAssocsTo" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    -->
+    <screen name="createVirtualWithVariantsForm">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCreateVirtualWithVariants"/>
+                <set field="labelTitleProperty" value=""/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/createVirtualWithVariantsForm.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ApplyFeaturesFromCategory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleApplyFeaturesFromCategory"/>
+                <set field="labelTitleProperty" value="ProductAddProductFeatureFromCategory"/>
+                <set field="tabButtonItem" value="EditProductFeatures"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromCategory.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromGroup.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/ApplyFeaturesFromCategory.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CreateVirtualWithVariantsForm">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="CreateVirtualWithVariantsFormInclude"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreateVirtualWithVariantsFormInclude">
+        <section>
+            <actions>
+                <entity-condition entity-name="ProductFeature" list-name="hazmatFeatures">
+                    <condition-expr field-name="productFeatureTypeId" value="HAZMAT"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://product/webapp/catalog/product/CreateVirtualWithVariantsForm.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductMaints">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductMaintenance"/>
+                <set field="tabButtonItem" value="EditProductMaints"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListProductMaints" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="AddProductMaint" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProductMeters">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductMeter"/>
+                <set field="tabButtonItem" value="EditProductMeters"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListProductMeters" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <include-form name="AddProductMeter" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+</screens>

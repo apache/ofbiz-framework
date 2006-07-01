@@ -1,0 +1,176 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+*/
+
+import java.util.*;
+import java.sql.Timestamp;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.base.util.*;
+
+delegator = request.getAttribute("delegator");
+
+// get the invoice types
+invoiceTypes = delegator.findAll("InvoiceType", UtilMisc.toList("description"));
+context.put("invoiceTypes", invoiceTypes);
+
+// get the invoice statuses
+invoiceStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "INVOICE_STATUS"), UtilMisc.toList("sequenceId", "description"));
+context.put("invoiceStatuses", invoiceStatuses);
+
+// current selected status
+currentStatusId = request.getParameter("invoiceStatusId");
+if (currentStatusId != null && currentStatusId.length() > 0) {
+    currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", currentStatusId));
+    context.put("currentStatus", currentStatus);
+}
+
+// create the fromDate for calendar
+fromCal = Calendar.getInstance();
+fromCal.setTime(new java.util.Date());
+//fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK));
+fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY));
+fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE));
+fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND));
+fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND));
+fromTs = new Timestamp(fromCal.getTimeInMillis());
+fromStr = fromTs.toString();
+fromStr = fromStr.substring(0, fromStr.indexOf('.'));
+context.put("fromDateStr", fromStr);
+
+// create the thruDate for calendar
+toCal = Calendar.getInstance();
+toCal.setTime(new java.util.Date());
+//toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
+toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
+toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
+toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
+toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
+toTs = new Timestamp(toCal.getTimeInMillis());
+toStr = toTs.toString();
+context.put("thruDateStr", toStr);
+
+// get the lookup flag
+lookupFlag = request.getParameter("lookupFlag");
+
+// blank param list
+paramList = "";
+
+invoiceList = null;
+if (lookupFlag != null) {
+    paramList = paramList + "&lookupFlag=" + lookupFlag;
+    lookupErrorMessage = null;   
+    andExprs = new ArrayList();
+    entityName = "Invoice"; 
+           
+    // define the main condition
+    mainCond = null;
+    
+    // now do the filtering
+    if (lookupErrorMessage == null) {               
+        invoiceType = request.getParameter("invoiceTypeId");
+        invoiceStatus = request.getParameter("invoiceStatusId");       
+        billAcct = request.getParameter("billingAccountId");
+        minDate = request.getParameter("minDate");
+        maxDate = request.getParameter("maxDate");
+                
+        if (invoiceType == null) invoiceType = "ANY";
+        if (invoiceStatus == null) invoiceStatus = "ANY";
+                
+        paramList = paramList + "&invoiceTypeId=" + invoiceType;        
+        if (!"ANY".equals(invoiceType)) {            
+            andExprs.add(new EntityExpr("invoiceTypeId", EntityOperator.EQUALS, invoiceType));
+        }
+        paramList = paramList + "&invoiceStatusId=" + invoiceStatus;
+        if (!"ANY". equals(invoiceStatus)) {            
+            andExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, invoiceStatus));
+        }
+        if (billAcct != null && billAcct.length() > 0) {
+            paramList = paramList + "&billingAccountId=" + billAcct;
+            andExprs.add(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billAcct));
+        }     
+       
+        if (minDate != null && minDate.length() > 8) {            
+            minDate = minDate.trim();
+            if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
+            paramList = paramList + "&minDate=" + minDate;
+            andExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
+        }
+        if (maxDate != null && maxDate.length() > 8) {
+            maxDate = maxDate.trim();
+            if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
+            paramList = paramList + "&maxDate=" + maxDate;
+            andExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
+        }
+                
+        mainCond = new EntityConditionList(andExprs, EntityOperator.AND);        
+                                                       
+    }
+    
+    if (lookupErrorMessage == null && mainCond != null) {
+        // do the lookup
+        invoiceList = delegator.findByCondition(entityName, mainCond, null, UtilMisc.toList("-invoiceDate"));            
+    }
+    
+    context.put("invoiceList", invoiceList);
+    
+    if (lookupErrorMessage != null) {
+        context.put("lookupErrorMessage", lookupErrorMessage);
+    }
+}
+
+context.put("paramList", paramList);
+
+// set the page parameters
+viewIndex = 0;
+try {
+    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+} catch (Exception e) {
+    viewIndex = 0;
+}
+
+viewSize = 20;
+try {
+    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+} catch (Exception e) {
+    viewSize = 20;
+}
+
+listSize = 0;
+if (invoiceList != null) {
+    listSize = invoiceList.size();
+}
+
+lowIndex = viewIndex * viewSize;
+highIndex = (viewIndex + 1) * viewSize;
+
+if (listSize < highIndex) {
+    highIndex = listSize;
+}
+context.put("viewIndex", viewIndex);
+context.put("listSize", listSize);
+context.put("highIndex", highIndex);
+context.put("lowIndex", lowIndex);
+context.put("viewSize", viewSize);

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListCostComponentCalc" type="list" title="" list-name="allCostComponentCalcs"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
+        <field name="costComponentCalcId" widget-style="buttontext">
+            <hyperlink target="EditCostCalcs?costComponentCalcId=${costComponentCalcId}" description="${costComponentCalcId}" also-hidden="false"/>
+        </field>
+        <field name="costGlAccountTypeId">
+            <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId"/>
+        </field>
+        <field name="offsettingGlAccountTypeId">
+            <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId"/>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
+        </field>
+        <field name="costCustomMethodId">
+            <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
+        </field>
+        <field name="removeCostComponentCalc" title="" widget-style="buttontext">
+            <hyperlink target="removeCostComponentCalc?costComponentCalcId=${costComponentCalcId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="costComponentCalc==null" target="createCostComponentCalc"/>
+        <auto-fields-entity entity-name="CostComponentCalc" default-field-type="edit"/>
+        <field name="costComponentCalcId"><display/></field>
+        <field name="costGlAccountTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="offsettingGlAccountTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="costCustomMethodId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                    <entity-constraint name="customMethodTypeId" operator="equals" value="COST_FORMULA"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+</forms>

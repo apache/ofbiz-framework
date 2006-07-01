@@ -1,0 +1,7 @@
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+
+andCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH");
+orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toList(andCondition), UtilMisc.toList("createdDate DESC"));
+context.put("orderPaymentPreferences", orderPaymentPreferences);

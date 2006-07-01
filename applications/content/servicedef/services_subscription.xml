@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Content Component Services for subscriptions entity (subscription entity not ContentRoles)</description>
+    <vendor>OFBiz</vendor>
+    
+    <service name="createSubscriptionEnt" default-entity-name="Subscription" auth="true" engine="simple"
+        location="org/ofbiz/content/SubscriptionServices.xml" invoke="createSubscription">
+        <description>Create a Subscription Entity record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateSubscriptionEnt" default-entity-name="Subscription" auth="true" engine="simple"
+        location="org/ofbiz/content/SubscriptionServices.xml" invoke="updateSubscription">
+        <description>Update a Subscription Entity Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="isSubscribed" default-entity-name="Subscription" auth="true" engine="simple"
+        location="org/ofbiz/content/SubscriptionServices.xml" invoke="isSubscribed">
+        <description>check if a particular party has at this moment a subscription</description>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <attribute name="filterByDate" type="String" mode="IN" optional="true"/><!-- default is "Y" -->
+        <attribute name="isSubscribed" type="Boolean" mode="OUT"/>
+        <attribute name="subscriptionId" type="String" mode="OUT" optional="true"/>
+        <override name="partyId" optional="false" mode="IN"/>
+    </service>
+    
+    <service name="getSubscriptionEnt" default-entity-name="Subscription" auth="true" engine="simple"
+        location="org/ofbiz/content/SubscriptionServices.xml" invoke="getSubscription">
+        <description>Retrieve a single Subscription Entity Record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <attribute name="subscription" type="GenericValue" mode="OUT" optional="true"/>
+    </service>
+</services>        

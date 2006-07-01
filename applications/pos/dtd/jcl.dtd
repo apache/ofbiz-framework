@@ -1,0 +1,62 @@
+<?xml encoding="UTF-8"?>
+
+<!-- Revision: 1 2.0.0 http://www.nrf-arts.com/JavaPOS/JCL/jcl.dtd, docs, xml4j2, xml4j2_0_13  -->
+
+<!-- 
+     This is the DTD for all JCL (JavaPOS Config/Loader) entries.  It defines
+     the content necessary for all JCL entries in their XML file.  Please see the
+     example XML files in the release as well as the JCL documentation for details
+     on how to create your own XML files that are valid for this DTD.  You may also
+     use the JCL editor to create these files, as long as the JCL instalation is 
+     setup for XML (instead of serialized or CFG).
+     @author E. Michael Maximilien (maxim@us.ibm.com)
+     @since 1.2
+-->
+     
+<!ELEMENT JposEntries (JposEntry)*>
+
+<!ELEMENT JposEntry (creation, vendor, jpos, product, prop+)>
+<!ATTLIST JposEntry logicalName CDATA #REQUIRED>
+
+<!ELEMENT creation (#PCDATA)>
+<!ELEMENT vendor (#PCDATA)>
+<!ELEMENT jpos (#PCDATA)>
+<!ELEMENT product (#PCDATA)>
+<!ELEMENT prop (#PCDATA)>
+
+<!ATTLIST creation
+          factoryClass CDATA #REQUIRED
+          serviceClass CDATA #REQUIRED>
+          
+<!ATTLIST vendor
+          name CDATA #REQUIRED
+          url CDATA #IMPLIED>
+          
+<!ATTLIST jpos
+          version CDATA #REQUIRED
+          category ( BumpBar | CashChanger | CashDrawer | CoinDispenser | FiscalPrinter |
+                     HardTotals | Keylock | RemoteOrderDisplay | Scale | Scanner | SignatureCapture |
+                     ToneIndicator | LineDisplay | MICR | MSR | PinPad | POSKeyboard |
+                     POSPrinter ) #REQUIRED>
+                     
+<!ATTLIST product 
+          name CDATA #REQUIRED
+          description CDATA #REQUIRED
+          url CDATA #IMPLIED>
+          
+<!-- NOTE on the type attribute.  
+     This was added after the first release and therefore to maintain 
+     compatibility, it is defined as #IMPLIED so that it does not need 
+     to be specified and the default type for attributes with no type
+     is String.  for instance:
+               <prop name="propName" value="1234"/> 
+     is of type String and the "1234" value is kept as a String in the
+     JposEntry.  If you want the "1234" to be converted to an integer 
+     for instance then you must use the type attribute as follow:
+               <prop name="propName" value="1234" type="Integer"/> 
+-->
+<!ATTLIST prop
+          name CDATA #REQUIRED
+          value CDATA #REQUIRED
+          type ( String | Boolean | Byte | Character | Double | Float | 
+                 Integer | Long | Short ) #IMPLIED>

@@ -1,0 +1,113 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Jacopo Cappellato (tiz@sastau.it)
+*/
+
+import java.util.Date;
+import java.sql.Timestamp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.util.EntityUtil;
+
+quoteCoefficientsIt = quoteCoefficients.iterator();
+costMult = 0.0;
+while (quoteCoefficientsIt.hasNext()) {
+    quoteCoefficient = quoteCoefficientsIt.next();
+    value = quoteCoefficient.getDouble("coeffValue");
+    if (value != null) {
+        costMult += value;
+    }
+}
+double totalProfit = 0.0;
+double costToPriceMult = 1.0;
+if (costMult != 100) {
+    costToPriceMult = 100 / (100 - costMult);
+}
+
+Timestamp issueDate = quote.getTimestamp("issueDate");
+if (issueDate == null) {
+    issueDate = new Timestamp((new Date()).getTime());
+}
+double totalCost = 0.0;
+double totalPrice = 0.0;
+double totalCostMult = 0.0;
+currency = quote.getString("currencyUomId");
+quoteItemAndCostInfos = new java.util.ArrayList();
+quoteItemsIt = quoteItems.iterator();
+while (quoteItemsIt.hasNext()) {
+    quoteItem = quoteItemsIt.next();
+    double defaultQuoteUnitPrice = 0.0;
+    double averageCost = 0.0;
+    double unitPrice = 0.0;
+    double quantity = 1.0;
+    double profit = 0.0;
+    double percProfit = 0.0;
+    double selectedAmount = 1.0;
+    if (quoteItem.get("quantity") != null) {
+        quantity = (quoteItem.getDouble("quantity")).doubleValue();
+    }
+    if (quoteItem.get("selectedAmount") != null) {
+        selectedAmount = (quoteItem.getDouble("selectedAmount")).doubleValue();
+    }
+    if (selectedAmount == 0.0) {
+        selectedAmount = 1.0;
+    }
+    if (quoteItem.get("quoteUnitPrice") != null) {
+        unitPrice = (quoteItem.getDouble("quoteUnitPrice")).doubleValue();
+    }
+
+    try {
+        if (currency != null && quoteItem.get("productId") != null) {
+            productPrices = delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId", quoteItem.getString("productId"),
+                                                                              "currencyUomId", currency,
+                                                                              "productPriceTypeId", "AVERAGE_COST"));
+            productPrices = EntityUtil.filterByDate(productPrices, issueDate);
+            productPrice = EntityUtil.getFirst(productPrices);
+            if (productPrice != null && productPrice.get("price") != null) {
+                averageCost = (productPrice.getDouble("price")).doubleValue();
+                averageCost = averageCost * selectedAmount;
+            }
+        }
+        //defaultQuoteUnitPrice = averageCost * costToPriceMult * selectedAmount;
+        totalCost += (averageCost * quantity);
+        totalPrice += (unitPrice * quantity);
+    } catch(Exception exc) {
+        Debug.logError("Problems getting the averageCost for quoteItem: " + quoteItem);
+    }
+    profit = unitPrice - averageCost;
+    percProfit = averageCost != 0? (unitPrice / averageCost) * 100.00: 0.00;
+    quoteItemAndCostInfo = new java.util.HashMap(quoteItem);
+    quoteItemAndCostInfo.put("averageCost", averageCost);
+    quoteItemAndCostInfo.put("profit", profit);
+    quoteItemAndCostInfo.put("percProfit", percProfit);
+    quoteItemAndCostInfos.add(quoteItemAndCostInfo);
+}
+totalProfit = totalPrice - totalCost;
+
+context.put("costMult", costMult);
+context.put("costToPriceMult", costToPriceMult);
+context.put("quoteItemAndCostInfos", quoteItemAndCostInfos);
+
+context.put("totalCost", totalCost);
+context.put("totalPrice", totalPrice);
+context.put("totalProfit", totalProfit);
+context.put("totalPercProfit", totalCost != 0? (totalPrice / totalCost) * 100.00: 0.00);
+

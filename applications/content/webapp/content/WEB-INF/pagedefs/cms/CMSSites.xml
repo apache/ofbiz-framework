@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Edit Sites</property>
+    <property name="formDefFile">/cms/ContentSetupForms.xml</property>    
+    <property name="headerItem">CMSMenu</property>    
+    <property name="entityName"></property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+
+    <property name="menuDefFile">/cms/CMSMenus.xml</property>
+    <property name="menuName">cms</property>
+    <property name="menuItemName">subsites</property>
+    <property name="targetName">dflt</property>
+    <property name="defaultSiteId">WebStoreFORUM</property>
+
+    <page-action name="/includes/permprep.bsh" />
+    <page-action name="/menu/menuinit.bsh"/>
+    <page-action name="/menu/currentmenuval.bsh"/>
+    <page-action name="/menu/storecurrentmenuval.bsh"/>
+    <page-action name="/menu/setcurrentmenuitem.bsh"/>
+
+    <content-action name="/cms/mostrecentprep.bsh" />
+    <content-action name="/cms/userpermprep.bsh" />
+    <!--
+    <content-action name="/menu/userpermprep.bsh" />
+    -->
+
+</page>

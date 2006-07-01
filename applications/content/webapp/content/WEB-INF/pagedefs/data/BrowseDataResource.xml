@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="subMenu">/data/data_menu.ftl</property>    
+    <property name="title">Browse DataResource</property>
+    <property name="entityName">DataResource</property>    
+    <property name="headerItem">Data</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">none</property>    
+    <!-- Note: this property should go in dataresource_list.xml, but the scripts won't find it there -->
+    <property name="qbeExpr">new EntityExpr(&quot;dataCategoryId&quot;, EntityOperator.EQUALS, dataCategoryId)</property>
+    <page-action name="/includes/permprep.bsh"/>
+    <page-action name="/includes/currentvalprep.bsh"/>
+</page>

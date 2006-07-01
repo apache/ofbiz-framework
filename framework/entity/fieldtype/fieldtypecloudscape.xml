@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  $Id: fieldtypecloudscape.xml 5929 2005-10-08 04:27:53Z jonesde $
+ *
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<fieldtypemodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/fieldtypemodel.xsd">
+  <!-- ===================== field-type-def ==================== -->
+   <!-- General Types --> 
+    <field-type-def type="blob" sql-type="LONG VARBINARY" java-type="java.lang.Object"></field-type-def>
+    
+    <field-type-def type="date-time" sql-type="DATE" java-type="java.sql.Timestamp"></field-type-def>
+    <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"></field-type-def>
+    <field-type-def type="time" sql-type="DATE" java-type="java.sql.Time"></field-type-def>
+    
+    <field-type-def type="currency-amount" sql-type="NUMERIC(18,2)" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="currency-precise" sql-type="NUMERIC(18,3)" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="floating-point" sql-type="NUMERIC(18,6)" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="numeric" sql-type="NUMERIC(18,0)" java-type="Long"><validate method="isSignedLong" /></field-type-def>
+
+    <field-type-def type="id" sql-type="VARCHAR(20)" java-type="String"></field-type-def>
+    <field-type-def type="id-long" sql-type="VARCHAR(60)" java-type="String"></field-type-def>
+    <field-type-def type="id-vlong" sql-type="VARCHAR(255)" java-type="String"></field-type-def>
+
+    <field-type-def type="indicator" sql-type="CHAR(1)" java-type="String"></field-type-def>
+    <field-type-def type="very-short" sql-type="VARCHAR(10)" java-type="String"></field-type-def>
+    <field-type-def type="short-varchar" sql-type="VARCHAR(60)" java-type="String"></field-type-def>
+    <field-type-def type="long-varchar" sql-type="VARCHAR(255)" java-type="String"></field-type-def>
+    <field-type-def type="very-long" sql-type="VARCHAR(4000)" java-type="String"></field-type-def>
+   
+    <field-type-def type="comment" sql-type="VARCHAR(255)" java-type="String"></field-type-def>
+    <field-type-def type="description" sql-type="VARCHAR(255)" java-type="String"></field-type-def>
+    <field-type-def type="name" sql-type="VARCHAR(100)" java-type="String"></field-type-def>
+    <field-type-def type="value" sql-type="VARCHAR(255)" java-type="String"></field-type-def>
+
+   <!-- Specialized Types -->
+    <field-type-def type="credit-card-number" sql-type="VARCHAR(255)" java-type="String"><validate method="isAnyCard" /></field-type-def>
+    <field-type-def type="credit-card-date" sql-type="VARCHAR(20)" java-type="String"><validate method="isDateAfterToday" /></field-type-def>
+    <field-type-def type="email" sql-type="VARCHAR(255)" java-type="String"><validate method="isEmail" /></field-type-def>
+    <field-type-def type="url" sql-type="VARCHAR(255)" java-type="String"></field-type-def>
+    <field-type-def type="id-ne" sql-type="VARCHAR(20)" java-type="String"><validate method="isNotEmpty" /></field-type-def>
+    <field-type-def type="id-long-ne" sql-type="VARCHAR(60)" java-type="String"><validate method="isNotEmpty" /></field-type-def>
+    <field-type-def type="id-vlong-ne" sql-type="VARCHAR(255)" java-type="String"><validate method="isNotEmpty" /></field-type-def>
+    <field-type-def type="tel-number" sql-type="VARCHAR(60)" java-type="String"><validate method="isInternationalPhoneNumber" /></field-type-def>
+</fieldtypemodel>

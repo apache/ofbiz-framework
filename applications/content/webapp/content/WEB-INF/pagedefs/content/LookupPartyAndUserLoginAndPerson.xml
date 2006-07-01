@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>lookup</template> 
+    <property name="title">Lookup PartyAndUserLoginAndPerson</property>
+    <property name="formDefFile">/content/ContentForms.xml</property>    
+    <property name="singleFormName">lookupPartyAndUserLoginAndPerson</property>    
+    <property name="listFormName">listLookupPartyAndUserLoginAndPerson</property>    
+    <property name="mruFormName">mruLookupPartyAndUserLoginAndPerson</property>    
+    <property name="subMenu">/content/content_menu.ftl</property>    
+    <property name="headerItem">Content</property>    
+    <property name="entityName">PartyAndUserLoginAndPerson</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">PARTYMGR</property>    
+    <property name="permissionType">simple</property>    
+    <page-action name="/includes/findprep.bsh"/>
+    <page-action name="/includes/mruprep.bsh"/>
+    <page-action name="/includes/pagelistprep.bsh"/>
+</page>

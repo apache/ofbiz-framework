@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+	<description>OFBiz Service Engine Services</description>
+	<vendor>OFBiz</vendor>
+	<version>1.0</version>
+
+    <!-- Service Engine Services -->
+	<service name="purgeOldJobs" engine="java"
+            location="org.ofbiz.service.ServiceUtil" invoke="purgeOldJobs" auth="true" use-transaction="false">
+		<description>Cleans out old jobs which have been around longer then what is defined in serviceengine.xml</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="SERVICE_INVOKE_ANY"/>
+        </required-permissions>
+        <!-- this service has no attributes -->
+	</service>
+
+    <service name="cancelScheduledJob" engine="java"
+            location="org.ofbiz.service.ServiceUtil" invoke="cancelJob" auth="true">
+        <description>Cancels a schedule job</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="SERVICE_INVOKE_ANY"/>
+        </required-permissions>
+        <auto-attributes entity-name="JobSandbox" include="pk" mode="IN" optional="false"/>
+        <attribute name="cancelDateTime" type="Timestamp" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="cancelJobRetries" engine="java"
+            location="org.ofbiz.service.ServiceUtil" invoke="cancelJobRetries" auth="true">
+        <description>Cancels a job retry flag</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="SERVICE_INVOKE_ANY"/>
+        </required-permissions>
+        <auto-attributes entity-name="JobSandbox" include="pk" mode="IN" optional="false"/>        
+    </service>
+
+    <!-- Service Engine Interfaces -->
+    <service name="serviceEcaConditionInterface" engine="interface" location="" invoke="">
+        <description>Interface to describe services which are used as SECA conditions</description>
+        <attribute name="serviceContext" type="Map" mode="IN"/>
+        <attribute name="serviceName" type="String" mode="IN"/>
+        <attribute name="conditionReply" type="Boolean" mode="OUT"/>
+    </service>
+    <service name="serviceMcaConditionInterface" engine="interface" location="" invoke="">
+        <description>Interface to describe services which are used as SMCA conditions</description>
+        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
+        <attribute name="conditionReply" type="Boolean" mode="OUT"/>
+    </service>
+
+    <service name="mailProcessInterface" engine="interface" location="" invoke="">
+        <description>Interface to describe services used to process incoming email</description>
+        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
+    </service>
+</services>

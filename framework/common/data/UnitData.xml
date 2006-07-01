@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!--
+      NOTE: All UomConversion conversionFactors are multipliers to change from uomId to uomIdTo.
+      In other words there is 1 uomId for conversionFactor uomIdTos, for instance 1 minute for 60 seconds.
+    -->
+    
+    <!-- =============== DATA_MEASURE =============== -->
+    <Uom abbreviation="b" description="Bit of Data" uomId="DATA_b" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="Kb" description="Kilobit of Data" uomId="DATA_Kb" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="Mb" description="Megabit of Data" uomId="DATA_Mb" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="Gb" description="Gigabit of Data" uomId="DATA_Gb" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="Tb" description="Terabit of Data" uomId="DATA_Tb" uomTypeId="DATA_MEASURE"/>
+
+    <Uom abbreviation="B" description="Byte of Data" uomId="DATA_B" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="KB" description="Kilobyte of Data" uomId="DATA_KB" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="MB" description="Megabyte of Data" uomId="DATA_MB" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="GB" description="Gigabyte of Data" uomId="DATA_GB" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="TB" description="Terabyte of Data" uomId="DATA_TB" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="PB" description="Petabyte of Data" uomId="DATA_PB" uomTypeId="DATA_MEASURE"/>
+    
+    <UomConversion uomId="DATA_Kb" uomIdTo="DATA_b" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_Mb" uomIdTo="DATA_Kb" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_Gb" uomIdTo="DATA_Mb" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_Tb" uomIdTo="DATA_Gb" conversionFactor="1024"/>
+
+    <UomConversion uomId="DATA_B" uomIdTo="DATA_b" conversionFactor="8"/>
+    <UomConversion uomId="DATA_KB" uomIdTo="DATA_B" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_MB" uomIdTo="DATA_KB" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_GB" uomIdTo="DATA_MB" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_TB" uomIdTo="DATA_GB" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_PB" uomIdTo="DATA_TB" conversionFactor="1024"/>
+
+    <!-- =============== DATASPD_MEASURE =============== -->
+    <Uom abbreviation="bps" description="Bit-per-second of Data" uomId="DATASPD_bps" uomTypeId="DATASPD_MEASURE"/>
+    <Uom abbreviation="Kbps" description="Kilobit-per-second of Data" uomId="DATASPD_Kbps" uomTypeId="DATASPD_MEASURE"/>
+    <Uom abbreviation="Mbps" description="Megabit-per-second of Data" uomId="DATASPD_Mbps" uomTypeId="DATASPD_MEASURE"/>
+    <Uom abbreviation="Gbps" description="Gigabit-per-second of Data" uomId="DATASPD_Gbps" uomTypeId="DATASPD_MEASURE"/>
+    <Uom abbreviation="Tbps" description="Terabit-per-second of Data" uomId="DATASPD_Tbps" uomTypeId="DATASPD_MEASURE"/>
+
+    <UomConversion uomId="DATASPD_Kbps" uomIdTo="DATASPD_bps" conversionFactor="1024"/>
+    <UomConversion uomId="DATASPD_Mbps" uomIdTo="DATASPD_Kbps" conversionFactor="1024"/>
+    <UomConversion uomId="DATASPD_Gbps" uomIdTo="DATASPD_Mbps" conversionFactor="1024"/>
+    <UomConversion uomId="DATASPD_Tbps" uomIdTo="DATASPD_Gbps" conversionFactor="1024"/>
+    
+    <!-- =============== TIME_FREQ_MEASURE =============== -->
+    <Uom abbreviation="ms" description="Time in Milli-Seconds" uomId="TF_ms" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="s" description="Time in Seconds" uomId="TF_s" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="min" description="Time in Minutes" uomId="TF_min" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="hr" description="Time in Hours" uomId="TF_hr" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="day" description="Time in Days" uomId="TF_day" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="wk" description="Time in Weeks" uomId="TF_wk" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="mon" description="Time in Months" uomId="TF_mon" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="yr" description="Time in Years" uomId="TF_yr" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="decade" description="Time in Decades" uomId="TF_decade" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="score" description="Time in Scores" uomId="TF_score" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="century" description="Time in Centuries" uomId="TF_century" uomTypeId="TIME_FREQ_MEASURE"/>
+    <Uom abbreviation="millenium" description="Time in Millenia" uomId="TF_millenium" uomTypeId="TIME_FREQ_MEASURE"/>
+
+    <UomConversion uomId="TF_s" uomIdTo="TF_ms" conversionFactor="1000"/>
+    <UomConversion uomId="TF_min" uomIdTo="TF_s" conversionFactor="60"/>
+    <UomConversion uomId="TF_hr" uomIdTo="TF_min" conversionFactor="60"/>
+    <UomConversion uomId="TF_day" uomIdTo="TF_hr" conversionFactor="24"/>
+    <UomConversion uomId="TF_wk" uomIdTo="TF_day" conversionFactor="7"/>
+    <UomConversion uomId="TF_yr" uomIdTo="TF_day" conversionFactor="365"/>
+    <UomConversion uomId="TF_decade" uomIdTo="TF_yr" conversionFactor="10"/>
+    <UomConversion uomId="TF_score" uomIdTo="TF_yr" conversionFactor="20"/>
+    <UomConversion uomId="TF_century" uomIdTo="TF_yr" conversionFactor="100"/>
+    <UomConversion uomId="TF_millenium" uomIdTo="TF_yr" conversionFactor="1000"/>
+
+    <!-- =============== LENGTH_MEASURE =============== -->
+    <Uom abbreviation="A" description="Angstrom" uomId="LEN_A" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="cb" description="Cable" uomId="LEN_cb" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="cm" description="Centimeter" uomId="LEN_cm" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="chG" description="Chain (Gunter's/surveyor's)" uomId="LEN_chG" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="chR" description="Chain (Ramden's/engineer's)" uomId="LEN_chR" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="dm" description="Decimeter" uomId="LEN_dm" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="dam" description="Dekameter" uomId="LEN_dam" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="fm" description="Fathom" uomId="LEN_fm" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="ft" description="Foot" uomId="LEN_ft" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="fur" description="Furlong" uomId="LEN_fur" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="hand" description="Hand (horse's height)" uomId="LEN_hand" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="in" description="Inch" uomId="LEN_in" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="km" description="Kilometer" uomId="LEN_km" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="league" description="League" uomId="LEN_league" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="lnG" description="Link (Gunter's)" uomId="LEN_lnG" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="lnR" description="Link (Ramden's)" uomId="LEN_lnR" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="m" description="Meter" uomId="LEN_m" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="u" description="Micrometer (Micron)" uomId="LEN_u" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="mi" description="Mile (statute/land)" uomId="LEN_mi" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="nmi" description="Mile (nautical/sea)" uomId="LEN_nmi" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="mm" description="Millimeter" uomId="LEN_mm" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="mil" description="Mil (Milli-inch)" uomId="LEN_mil" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="point" description="Point (type size)" uomId="LEN_point" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="pica" description="Pica (type size)" uomId="LEN_pica" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="rd" description="Rod" uomId="LEN_rd" uomTypeId="LENGTH_MEASURE"/>
+    <Uom abbreviation="yd" description="Yard" uomId="LEN_yd" uomTypeId="LENGTH_MEASURE"/>
+
+    <UomConversion uomId="LEN_A" uomIdTo="LEN_m" conversionFactor="0.0000000001"/> <!-- 10 to the -10 meters -->
+    <UomConversion uomId="LEN_A" uomIdTo="LEN_in" conversionFactor="0.000000004"/>
+
+    <UomConversion uomId="LEN_cb" uomIdTo="LEN_fm" conversionFactor="120"/>
+    <UomConversion uomId="LEN_cb" uomIdTo="LEN_ft" conversionFactor="720"/>
+
+    <UomConversion uomId="LEN_cm" uomIdTo="LEN_m" conversionFactor="0.01"/>
+
+    <UomConversion uomId="LEN_chG" uomIdTo="LEN_ft" conversionFactor="66"/>
+    <UomConversion uomId="LEN_chG" uomIdTo="LEN_rd" conversionFactor="4"/>
+    <UomConversion uomId="LEN_chR" uomIdTo="LEN_ft" conversionFactor="100"/>
+
+    <UomConversion uomId="LEN_dm" uomIdTo="LEN_m" conversionFactor="0.1"/>
+    <UomConversion uomId="LEN_dam" uomIdTo="LEN_m" conversionFactor="10"/>
+
+    <UomConversion uomId="LEN_fm" uomIdTo="LEN_ft" conversionFactor="6"/>
+    <UomConversion uomId="LEN_ft" uomIdTo="LEN_in" conversionFactor="12"/>
+    <UomConversion uomId="LEN_ft" uomIdTo="LEN_m" conversionFactor="0.3048"/>
+    <UomConversion uomId="LEN_fur" uomIdTo="LEN_mi" conversionFactor="0.125"/>
+    <UomConversion uomId="LEN_mi" uomIdTo="LEN_fur" conversionFactor="8"/>
+    <UomConversion uomId="LEN_hand" uomIdTo="LEN_in" conversionFactor="4"/>
+    <UomConversion uomId="LEN_in" uomIdTo="LEN_cm" conversionFactor="2.54"/>
+
+    <UomConversion uomId="LEN_km" uomIdTo="LEN_m" conversionFactor="1000"/>
+
+    <UomConversion uomId="LEN_league" uomIdTo="LEN_mi" conversionFactor="3"/>
+    <UomConversion uomId="LEN_lnG" uomIdTo="LEN_in" conversionFactor="7.92"/>
+    <UomConversion uomId="LEN_lnR" uomIdTo="LEN_in" conversionFactor="12"/>
+
+    <UomConversion uomId="LEN_m" uomIdTo="LEN_in" conversionFactor="39.37"/>
+    <UomConversion uomId="LEN_u" uomIdTo="LEN_mm" conversionFactor="0.001"/>
+
+    <UomConversion uomId="LEN_mi" uomIdTo="LEN_km" conversionFactor="1.609"/>
+    <UomConversion uomId="LEN_mi" uomIdTo="LEN_ft" conversionFactor="5280"/>
+    <UomConversion uomId="LEN_nmi" uomIdTo="LEN_km" conversionFactor="1.85"/>
+    <UomConversion uomId="LEN_nmi" uomIdTo="LEN_ft" conversionFactor="6076.11549"/>
+
+    <UomConversion uomId="LEN_mm" uomIdTo="LEN_m" conversionFactor="0.001"/>
+    <UomConversion uomId="LEN_mil" uomIdTo="LEN_in" conversionFactor="0.001"/>
+
+    <UomConversion uomId="LEN_point" uomIdTo="LEN_mm" conversionFactor="0.351"/>
+    <UomConversion uomId="LEN_point" uomIdTo="LEN_in" conversionFactor="0.0138"/>
+    <UomConversion uomId="LEN_pica" uomIdTo="LEN_point" conversionFactor="12"/>
+
+    <UomConversion uomId="LEN_rd" uomIdTo="LEN_ft" conversionFactor="16.5"/>
+    <UomConversion uomId="LEN_yd" uomIdTo="LEN_ft" conversionFactor="3"/>
+
+    <!-- =============== AREA_MEASURE =============== -->
+    <Uom abbreviation="A" description="Acre" uomId="AREA_A" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="a" description="Are" uomId="AREA_a" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="ha" description="Hectare" uomId="AREA_ha" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="cm2" description="Square Centimeter" uomId="AREA_cm2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="ft2" description="Square Foot" uomId="AREA_ft2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="in2" description="Square Inch" uomId="AREA_in2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="km2" description="Square Kilometer" uomId="AREA_km2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="m2" description="Square Meter" uomId="AREA_m2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="mi2" description="Square Mile" uomId="AREA_mi2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="mm2" description="Square Millimeter" uomId="AREA_mm2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="rd2" description="Square Rod" uomId="AREA_rd2" uomTypeId="AREA_MEASURE"/>
+    <Uom abbreviation="yd2" description="Square Yard" uomId="AREA_yd2" uomTypeId="AREA_MEASURE"/>
+
+    <UomConversion uomId="AREA_A" uomIdTo="AREA_ft2" conversionFactor="43560"/>
+    <UomConversion uomId="AREA_a" uomIdTo="AREA_m2" conversionFactor="100"/>
+    <UomConversion uomId="AREA_ha" uomIdTo="AREA_m2" conversionFactor="10000"/>
+    <UomConversion uomId="AREA_ha" uomIdTo="AREA_A" conversionFactor="2.471"/>
+    <UomConversion uomId="AREA_cm2" uomIdTo="AREA_mm2" conversionFactor="100"/>
+    <UomConversion uomId="AREA_cm2" uomIdTo="AREA_in2" conversionFactor=".155"/>
+    <UomConversion uomId="AREA_ft2" uomIdTo="AREA_in2" conversionFactor="144"/>
+    <UomConversion uomId="AREA_km2" uomIdTo="AREA_m2" conversionFactor="1000000"/>
+    <UomConversion uomId="AREA_m2" uomIdTo="AREA_cm2" conversionFactor="10000"/>
+    <UomConversion uomId="AREA_mi2" uomIdTo="AREA_A" conversionFactor="639.8"/>
+    <UomConversion uomId="AREA_rd2" uomIdTo="AREA_ft2" conversionFactor="272.25"/>
+    <UomConversion uomId="AREA_yd2" uomIdTo="AREA_ft2" conversionFactor="9"/>
+
+    <!-- =============== VOLUME_LIQ_MEASURE =============== -->
+    <Uom abbreviation="bbl" description="Barrel (US)" uomId="VLIQ_bbl" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="cup" description="Cup" uomId="VLIQ_cup" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="dr" description="Dram (US)" uomId="VLIQ_dr" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="gi" description="Gill (1/4 UK pint)" uomId="VLIQ_gi" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="gal" description="Gallon (UK)" uomId="VLIQ_galUK" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="gal" description="Gallon (US)" uomId="VLIQ_galUS" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="L" description="Liter" uomId="VLIQ_L" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="ml" description="Milliliter" uomId="VLIQ_ml" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="fl. oz (UK)" description="Ounce, fluid (UK)" uomId="VLIQ_ozUK" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="fl. oz (US)" description="Ounce, fluid (US)" uomId="VLIQ_ozUS" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="pt (UK)" description="Pint (UK)" uomId="VLIQ_ptUK" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="pt (US)" description="Pint (US)" uomId="VLIQ_ptUS" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="qt" description="Quart" uomId="VLIQ_qt" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="Tbs" description="Tablespoon" uomId="VLIQ_Tbs" uomTypeId="VOLUME_LIQ_MEASURE"/>
+    <Uom abbreviation="tsp" description="Teaspoon" uomId="VLIQ_tsp" uomTypeId="VOLUME_LIQ_MEASURE"/>
+
+    <UomConversion uomId="VLIQ_bbl" uomIdTo="VLIQ_galUS" conversionFactor="31.5"/>
+    <UomConversion uomId="VLIQ_ozUS" uomIdTo="VLIQ_dr" conversionFactor="8"/>
+    <UomConversion uomId="VLIQ_ptUK" uomIdTo="VLIQ_gi" conversionFactor="4"/>
+    <UomConversion uomId="VLIQ_galUK" uomIdTo="VLIQ_galUS" conversionFactor="1.2009"/>
+    <UomConversion uomId="VLIQ_galUS" uomIdTo="VLIQ_qt" conversionFactor="4"/>
+    <UomConversion uomId="VLIQ_galUS" uomIdTo="VLIQ_L" conversionFactor="3.785"/>
+    <UomConversion uomId="VLIQ_L" uomIdTo="VLIQ_qt" conversionFactor="1.056"/>
+    <UomConversion uomId="VLIQ_ml" uomIdTo="VLIQ_L" conversionFactor="0.001"/>
+    <UomConversion uomId="VLIQ_L" uomIdTo="VLIQ_ml" conversionFactor="1000"/>
+    <UomConversion uomId="VLIQ_ozUK" uomIdTo="VLIQ_L" conversionFactor="0.029"/>
+    <UomConversion uomId="VLIQ_ozUK" uomIdTo="VLIQ_ozUS" conversionFactor="0.96"/>
+    <UomConversion uomId="VLIQ_ozUS" uomIdTo="VLIQ_Tbs" conversionFactor="2"/>
+    <UomConversion uomId="VLIQ_Tbs" uomIdTo="VLIQ_tsp" conversionFactor="3"/>
+    <UomConversion uomId="VLIQ_cup" uomIdTo="VLIQ_Tbs" conversionFactor="16"/>
+    <UomConversion uomId="VLIQ_ptUK" uomIdTo="VLIQ_ptUS" conversionFactor="1.2"/>
+    <UomConversion uomId="VLIQ_ptUS" uomIdTo="VLIQ_ozUS" conversionFactor="16"/>
+    <UomConversion uomId="VLIQ_qt" uomIdTo="VLIQ_ptUS" conversionFactor="2"/>
+
+    <!-- =============== VOLUME_DRY_MEASURE =============== -->
+    <Uom abbreviation="cm3" description="Cubic centimeter" uomId="VDRY_cm3" uomTypeId="VOLUME_DRY_MEASURE"/>
+    <Uom abbreviation="ft3" description="Cubic foot" uomId="VDRY_ft3" uomTypeId="VOLUME_DRY_MEASURE"/>
+    <Uom abbreviation="in3" description="Cubic inch" uomId="VDRY_in3" uomTypeId="VOLUME_DRY_MEASURE"/>
+    <Uom abbreviation="m3" description="Cubic meter" uomId="VDRY_m3" uomTypeId="VOLUME_DRY_MEASURE"/>
+    <Uom abbreviation="mm3" description="Cubic millimeter" uomId="VDRY_mm3" uomTypeId="VOLUME_DRY_MEASURE"/>
+    <Uom abbreviation="ST" description="Stere (cubic meter)" uomId="VDRY_ST" uomTypeId="VOLUME_DRY_MEASURE"/>
+    <Uom abbreviation="yd3" description="Cubic yard" uomId="VDRY_yd3" uomTypeId="VOLUME_DRY_MEASURE"/>
+
+    <UomConversion uomId="VLIQ_L" uomIdTo="VDRY_m3" conversionFactor="0.001"/>
+    <UomConversion uomId="VLIQ_galUK" uomIdTo="VDRY_m3" conversionFactor="0.4546"/>
+    <UomConversion uomId="VDRY_cm3" uomIdTo="VDRY_mm3" conversionFactor="1000"/>
+    <UomConversion uomId="VDRY_cm3" uomIdTo="VDRY_in3" conversionFactor="0.061"/>
+    <UomConversion uomId="VDRY_ft3" uomIdTo="VDRY_in3" conversionFactor="1728"/>
+    <UomConversion uomId="VDRY_ST" uomIdTo="VDRY_m3" conversionFactor="1"/>
+    <UomConversion uomId="VDRY_m3" uomIdTo="VDRY_yd3" conversionFactor="1.3"/>
+    <UomConversion uomId="VDRY_yd3" uomIdTo="VDRY_ft3" conversionFactor="27"/>
+
+    <!-- =============== WEIGHT_MEASURE =============== -->
+    <Uom abbreviation="dr avdp" description="Dram (avdp)" uomId="WT_dr_avdp" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="gr" description="Grain" uomId="WT_gr" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="g" description="Gram" uomId="WT_g" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="kg" description="Kilogram" uomId="WT_kg" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="mg" description="Milligram" uomId="WT_mg" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="oz" description="Ounce (avdp)" uomId="WT_oz" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="oz tr" description="Ounce (troy)" uomId="WT_oz_tr" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="dwt" description="Pennyweight" uomId="WT_dwt" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="lb" description="Pound (avdp)" uomId="WT_lb" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="st" description="Stone" uomId="WT_st" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="lt" description="Ton (long or British)" uomId="WT_lt" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="mt" description="Ton (metric)" uomId="WT_mt" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="sh t" description="Ton (short)" uomId="WT_sh_t" uomTypeId="WEIGHT_MEASURE"/>
+
+    <UomConversion uomId="WT_dr_avdp" uomIdTo="WT_oz" conversionFactor="0.0625"/>
+    <UomConversion uomId="WT_gr" uomIdTo="WT_oz" conversionFactor="0.00229"/>
+    <UomConversion uomId="WT_gr" uomIdTo="WT_g" conversionFactor="0.0648"/>
+    <UomConversion uomId="WT_kg" uomIdTo="WT_g" conversionFactor="1000"/>
+    <UomConversion uomId="WT_kg" uomIdTo="WT_lb" conversionFactor="2.2"/>
+    <UomConversion uomId="WT_g" uomIdTo="WT_mg" conversionFactor="1000"/>
+    <UomConversion uomId="WT_g" uomIdTo="WT_oz" conversionFactor="0.03527"/>
+    <UomConversion uomId="WT_oz" uomIdTo="WT_lb" conversionFactor="0.0625"/>
+    <UomConversion uomId="WT_oz" uomIdTo="WT_g" conversionFactor="28"/>
+    <UomConversion uomId="WT_oz_tr" uomIdTo="WT_g" conversionFactor="30"/>
+    <UomConversion uomId="WT_dwt" uomIdTo="WT_g" conversionFactor="1.555"/>
+    <UomConversion uomId="WT_lb" uomIdTo="WT_oz" conversionFactor="16"/>
+    <UomConversion uomId="WT_st" uomIdTo="WT_lb" conversionFactor="14"/>
+    <UomConversion uomId="WT_lt" uomIdTo="WT_mt" conversionFactor="1.02"/>
+    <UomConversion uomId="WT_lt" uomIdTo="WT_lb" conversionFactor="2240"/>
+    <UomConversion uomId="WT_mt" uomIdTo="WT_kg" conversionFactor="1000"/>
+    <UomConversion uomId="WT_sh_t" uomIdTo="WT_lb" conversionFactor="2000"/>
+
+    <!-- =============== ENERGY_MEASURE =============== -->
+    <Uom abbreviation="Btu" description="British Thermal Unit" uomId="EN_Btu" uomTypeId="ENERGY_MEASURE"/>
+    <Uom abbreviation="cal15" description="Calorie (@15.5c)" uomId="EN_cal15" uomTypeId="ENERGY_MEASURE"/>
+    <Uom abbreviation="HP" description="Horsepower (mechanical)" uomId="EN_HP" uomTypeId="ENERGY_MEASURE"/>
+    <Uom abbreviation="J" description="Joule (absolute)" uomId="EN_J" uomTypeId="ENERGY_MEASURE"/>
+    <Uom abbreviation="Kw" description="Kilowatt" uomId="EN_Kw" uomTypeId="ENERGY_MEASURE"/>
+    <Uom abbreviation="w" description="Watt" uomId="EN_w" uomTypeId="ENERGY_MEASURE"/>
+
+    <UomConversion uomId="EN_cal15" uomIdTo="EN_J" conversionFactor="4.1855"/>
+    <UomConversion uomId="EN_Kw" uomIdTo="EN_w" conversionFactor="1000"/>
+    <UomConversion uomId="EN_HP" uomIdTo="EN_w" conversionFactor="746"/>
+    <UomConversion uomId="EN_Kw" uomIdTo="EN_HP" conversionFactor="1.3410"/>
+
+    <!-- How to express these?
+      1 Btu = 0.0002829 Kw/hour
+      1 J = 0.7376 ft/lbs
+    -->
+
+    <!-- =============== TEMP_MEASURE =============== -->
+    <Uom abbreviation="K" description="Kelvin" uomId="TEMP_K" uomTypeId="TEMP_MEASURE"/>
+    <Uom abbreviation="C" description="Degrees Celsius" uomId="TEMP_C" uomTypeId="TEMP_MEASURE"/>
+    <Uom abbreviation="F" description="Degrees Fahrenheit" uomId="TEMP_F" uomTypeId="TEMP_MEASURE"/>
+
+    <!-- How to express these?
+      1 F = 1.8C + 32
+      1 C = (F-32)/1.8
+    -->
+
+    <!-- =============== OTHER_MEASURE =============== -->
+    <Uom abbreviation="A" description="Amphere - Electric current" uomId="OTH_A" uomTypeId="OTHER_MEASURE"/>
+    <Uom abbreviation="cd" description="Candela - Luminosity (intensity of light)" uomId="OTH_cd" uomTypeId="OTHER_MEASURE"/>
+    <Uom abbreviation="mol" description="Mole - Substance (molecule)" uomId="OTH_mol" uomTypeId="OTHER_MEASURE"/>
+
+</entity-engine-xml>

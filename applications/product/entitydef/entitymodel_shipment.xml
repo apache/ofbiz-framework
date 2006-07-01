@@ -1,0 +1,1261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.shipment.delivery -->
+  <!--  - org.ofbiz.shipment.issuance -->
+  <!--  - org.ofbiz.shipment.picklist -->
+  <!--  - org.ofbiz.shipment.receipt -->
+  <!--  - org.ofbiz.shipment.shipment -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.issuance -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="ItemIssuance"
+            package-name="org.ofbiz.shipment.issuance"
+            title="Item Issuance Entity">
+      <field name="itemIssuanceId" type="id-ne"></field>
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="shipGroupSeqId" type="id-ne"></field>
+      <field name="inventoryItemId" type="id"></field>
+      <field name="shipmentId" type="id"></field>
+      <field name="shipmentItemSeqId" type="id"></field>
+      <field name="issuedDateTime" type="date-time"></field>
+      <field name="issuedByUserLoginId" type="id-vlong"></field>
+      <field name="quantity" type="floating-point"></field>
+      <prim-key field="itemIssuanceId"/>
+      <relation type="one" fk-name="ITEM_ISS_INVITM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderItemShipGrpInvRes">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+        <key-map field-name="shipGroupSeqId"/>
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="ITEM_ISS_SHITM" rel-entity-name="ShipmentItem">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="ITEM_ISS_ORITM" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="ITEM_ISS_IBUL" title="IssuedBy" rel-entity-name="UserLogin">
+        <key-map field-name="issuedByUserLoginId" rel-field-name="userLoginId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ItemIssuanceRole"
+            package-name="org.ofbiz.shipment.issuance"
+            title="Item Issuance Role Entity">
+      <field name="itemIssuanceId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="itemIssuanceId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="ITEM_ISSRL_ITMIS" rel-entity-name="ItemIssuance">
+        <key-map field-name="itemIssuanceId"/>
+      </relation>
+      <relation type="one" fk-name="ITEM_ISSRL_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="ITEM_ISSRL_PTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.picklist -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Picklist"
+            package-name="org.ofbiz.shipment.picklist"
+            title="Picklist Entity">
+      <field name="picklistId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="facilityId" type="id-ne"></field>
+      <field name="shipmentMethodTypeId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="picklistDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="picklistId"/>
+      <relation type="one" fk-name="PICKLST_FLTY" rel-entity-name="Facility">
+        <key-map field-name="facilityId"/>
+      </relation>
+      <relation type="one" fk-name="PICKLST_SMTP" rel-entity-name="ShipmentMethodType">
+        <key-map field-name="shipmentMethodTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PICKLST_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="many" rel-entity-name="StatusValidChangeToDetail">
+        <key-map field-name="statusId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="PicklistAndBinAndItem"
+            package-name="org.ofbiz.shipment.picklist"
+            title="Picklist and PicklistBin and PicklistItem View Entity">
+      <member-entity entity-alias="PL" entity-name="Picklist"/>
+      <member-entity entity-alias="PLB" entity-name="PicklistBin"/>
+      <member-entity entity-alias="PLI" entity-name="PicklistItem"/>
+      <alias-all entity-alias="PL"/>
+      <alias-all entity-alias="PLB"/>
+      <alias-all entity-alias="PLI"/>
+      <view-link entity-alias="PL" rel-entity-alias="PLB">
+        <key-map field-name="picklistId"/>
+      </view-link>
+      <view-link entity-alias="PLB" rel-entity-alias="PLI">
+        <key-map field-name="picklistBinId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="PicklistBin"
+            package-name="org.ofbiz.shipment.picklist"
+            title="Picklist Entity">
+      <!-- The PicklistBin has its own ID to make it easy to put on the pack sheet of the picklist as a barcode, also so it can be moved to another picklist or bin location if necessary -->
+      <field name="picklistBinId" type="id-ne"></field>
+      <field name="picklistId" type="id-ne"></field>
+      <field name="binLocationNumber" type="numeric"></field>
+      <field name="primaryOrderId" type="id"></field>
+      <field name="primaryShipGroupSeqId" type="id"></field>
+      <prim-key field="picklistBinId"/>
+      <relation type="one" fk-name="PCKLST_BIN_PKLT" rel-entity-name="Picklist">
+        <key-map field-name="picklistId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_BIN_OISG" title="Primary" rel-entity-name="OrderItemShipGroup">
+        <key-map field-name="primaryOrderId" rel-field-name="orderId"/>
+        <key-map field-name="primaryShipGroupSeqId" rel-field-name="shipGroupSeqId"/>
+      </relation>
+      <relation type="one-nofk" title="Primary" rel-entity-name="OrderHeader">
+        <key-map field-name="primaryOrderId" rel-field-name="orderId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PicklistItem"
+            package-name="org.ofbiz.shipment.picklist"
+            title="Picklist Entity">
+      <field name="picklistBinId" type="id-ne"></field>
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="shipGroupSeqId" type="id-ne"></field>
+      <field name="inventoryItemId" type="id-ne"></field>
+      <field name="quantity" type="floating-point"></field>
+      <prim-key field="picklistBinId"/>
+      <prim-key field="orderId"/>
+      <prim-key field="orderItemSeqId"/>
+      <prim-key field="shipGroupSeqId"/>
+      <prim-key field="inventoryItemId"/>
+      <relation type="one" fk-name="PCKLST_ITM_BIN" rel-entity-name="PicklistBin">
+        <key-map field-name="picklistBinId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_ITM_OISG" rel-entity-name="OrderItemShipGroup">
+        <key-map field-name="orderId"/>
+        <key-map field-name="shipGroupSeqId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_ITM_ODIT" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_ITM_INV" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="InventoryItemAndLocation">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderItemShipGrpInvRes">
+        <!-- This is a nofk so that the OrderItemShipGrpInvRes can be removed -->
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+        <key-map field-name="shipGroupSeqId"/>
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ItemIssuance">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+        <key-map field-name="shipGroupSeqId"/>
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PicklistRole"
+            package-name="org.ofbiz.shipment.picklist"
+            title="Picklist Role Entity">
+      <field name="picklistId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="picklistId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PCKLST_RLE_PKLT" rel-entity-name="Picklist">
+        <key-map field-name="picklistId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_RLE_PRLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyNameView">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_RLE_CBUL" title="CreatedBy" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_RLE_LMUL" title="LastModifiedBy" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PicklistStatusHistory"
+            package-name="org.ofbiz.shipment.picklist"
+            title="Picklist Status History Entity">
+      <field name="picklistId" type="id-ne"></field>
+      <field name="changeDate" type="date-time"></field>
+      <field name="changeUserLoginId" type="id-vlong"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="statusIdTo" type="id-ne"></field>
+      <prim-key field="picklistId"/>
+      <prim-key field="changeDate"/>
+      <relation type="one" fk-name="PCKLST_STHST_PKLT" rel-entity-name="Picklist">
+        <key-map field-name="picklistId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_STHST_CUL" title="Change" rel-entity-name="UserLogin">
+        <key-map field-name="changeUserLoginId" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_STHST_FSI" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_STHST_TSI" title="To" rel-entity-name="StatusItem">
+        <key-map field-name="statusIdTo" rel-field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="PCKLST_STHST_SVC" rel-entity-name="StatusValidChange">
+        <!-- NOTE: may want to consider removing this foreign key to allow for some sort of administrative over-ride, but in the mean-time this is a good constraint to keep data in-line -->
+        <key-map field-name="statusId"/>
+        <key-map field-name="statusIdTo"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.receipt -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="RejectionReason"
+            package-name="org.ofbiz.shipment.receipt"
+            default-resource-name="ProductEntityLabels"
+            title="Rejection Reason Entity">
+      <field name="rejectionId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="rejectionId"/>
+    </entity>
+    <entity entity-name="ShipmentReceipt"
+            package-name="org.ofbiz.shipment.receipt"
+            title="Shipment Receipt Entity">
+      <field name="receiptId" type="id-ne"></field>
+      <field name="inventoryItemId" type="id"></field>
+      <field name="productId" type="id"></field>
+      <field name="shipmentId" type="id"></field>
+      <field name="shipmentPackageSeqId" type="id"></field>
+      <field name="orderId" type="id"></field>
+      <field name="orderItemSeqId" type="id"></field>
+      <field name="returnId" type="id"></field>
+      <field name="returnItemSeqId" type="id"></field>
+      <field name="rejectionId" type="id"></field>
+      <field name="receivedByUserLoginId" type="id-vlong"></field>
+      <field name="datetimeReceived" type="date-time"></field>
+      <field name="itemDescription" type="description"></field>
+      <field name="quantityAccepted" type="floating-point"></field>
+      <field name="quantityRejected" type="floating-point"></field>
+      <prim-key field="receiptId"/>
+      <relation type="one" fk-name="SHP_RCPT_INVITM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPT_PROD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPT_SHPKG" rel-entity-name="ShipmentPackage">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentPackageSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPT_ORDITM" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPT_REJRSN" rel-entity-name="RejectionReason">
+        <key-map field-name="rejectionId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPT_USERLGN" rel-entity-name="UserLogin">
+        <key-map field-name="receivedByUserLoginId" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one-nofk" fk-name="SHP_RCPT_SHIPMT" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPT_RETINVITM" rel-entity-name="ReturnItem">
+        <key-map field-name="returnId"/>
+        <key-map field-name="returnItemSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentReceiptRole"
+            package-name="org.ofbiz.shipment.receipt"
+            title="Shipment Receipt Role Entity">
+      <field name="receiptId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="receiptId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="SHP_RCPTRL_RCPT" rel-entity-name="ShipmentReceipt">
+        <key-map field-name="receiptId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPTRL_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="SHP_RCPTRL_PTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ShipmentReceiptAndItem"
+            package-name="org.ofbiz.shipment.shipment"
+            title="ShipmentReceipt And Inventory Item View Entity">
+      <member-entity entity-alias="SR" entity-name="ShipmentReceipt"/>
+      <member-entity entity-alias="II" entity-name="InventoryItem"/>
+      <alias-all entity-alias="SR"/>
+      <alias entity-alias="II" name="facilityId"/>
+      <alias entity-alias="II" name="unitCost"/>
+      <view-link entity-alias="SR" rel-entity-alias="II">
+        <key-map field-name="inventoryItemId"/>
+      </view-link>
+    </view-entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.shipment -->
+  <!-- ========================================================= -->
+
+    <view-entity entity-name="CarrierAndShipmentMethod"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Carrier And Shipment Method Type View Entity">
+      <member-entity entity-alias="CS" entity-name="CarrierShipmentMethod"/>
+      <member-entity entity-alias="SM" entity-name="ShipmentMethodType"/>
+      <alias entity-alias="CS" name="shipmentMethodTypeId"/>
+      <alias entity-alias="CS" name="partyId"/>
+      <alias entity-alias="CS" name="roleTypeId"/>
+      <alias entity-alias="CS" name="sequenceNumber"/>
+      <alias entity-alias="SM" name="description"/>
+      <view-link entity-alias="CS" rel-entity-alias="SM">
+        <key-map field-name="shipmentMethodTypeId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="CarrierShipmentMethod"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Carrier Shipment Method Entity">
+      <field name="shipmentMethodTypeId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="sequenceNumber" type="numeric"></field>
+      <field name="carrierServiceCode" type="short-varchar"></field>
+      <prim-key field="shipmentMethodTypeId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="CARR_SHMETH_TYPE" rel-entity-name="ShipmentMethodType">
+        <key-map field-name="shipmentMethodTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CARR_SHMETH_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="CARR_SHMETH_PROLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="CarrierShipmentBoxType"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Carrier Shipment Method Entity">
+      <field name="shipmentBoxTypeId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="packagingTypeCode" type="very-short"></field>
+      <field name="oversizeCode" type="very-short"></field>
+      <prim-key field="shipmentBoxTypeId"/>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="CARR_SHBX_TYPE" rel-entity-name="ShipmentBoxType">
+        <key-map field-name="shipmentBoxTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CARR_SHBX_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="Delivery"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Delivery Entity">
+      <field name="deliveryId" type="id-ne"></field>
+      <field name="originFacilityId" type="id"></field>
+      <field name="destFacilityId" type="id"></field>
+      <field name="actualStartDate" type="date-time"></field>
+      <field name="actualArrivalDate" type="date-time"></field>
+      <field name="estimatedStartDate" type="date-time"></field>
+      <field name="estimatedArrivalDate" type="date-time"></field>
+      <field name="fixedAssetId" type="id"></field>
+      <field name="startMileage" type="floating-point"></field>
+      <field name="endMileage" type="floating-point"></field>
+      <field name="fuelUsed" type="floating-point"></field>
+      <prim-key field="deliveryId"/>
+      <relation type="one" fk-name="DELIV_FXAS" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+      <relation type="one" fk-name="DELIV_OFAC" title="Origin" rel-entity-name="Facility">
+        <key-map field-name="originFacilityId" rel-field-name="facilityId"/>
+      </relation>
+      <relation type="one" fk-name="DELIV_DFAC" title="Dest" rel-entity-name="Facility">
+        <key-map field-name="destFacilityId" rel-field-name="facilityId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="OrderShipmentInfoSummary"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Order Shipment Information View Entity">
+      <description>This view is meant for getting all tracking information for all shipments associated with an order, it does not include information to determine which packages in a given shipment correspond to that order, or to determine what information applies to each line item of the order.</description>
+      <member-entity entity-alias="II" entity-name="ItemIssuance"/>
+      <member-entity entity-alias="SRS" entity-name="ShipmentRouteSegment"/>
+      <member-entity entity-alias="SPRS" entity-name="ShipmentPackageRouteSeg"/>
+      <alias entity-alias="II" name="orderId"/>
+      <alias entity-alias="II" name="orderItemSeqId"/>
+      <alias entity-alias="II" name="shipmentId"/>
+      <alias entity-alias="II" name="shipGroupSeqId"/>
+      <alias entity-alias="SRS" name="shipmentRouteSegmentId"/>
+      <alias entity-alias="SRS" name="carrierPartyId"/>
+      <alias entity-alias="SRS" name="actualStartDate"/>
+      <alias entity-alias="SRS" name="shipmentMethodTypeId"/>
+      <alias entity-alias="SPRS" name="shipmentPackageSeqId"/>
+      <alias entity-alias="SPRS" name="trackingCode"/>
+      <alias entity-alias="SPRS" name="boxNumber"/>
+      <view-link entity-alias="II" rel-entity-alias="SRS">
+        <key-map field-name="shipmentId"/>
+      </view-link>
+      <view-link entity-alias="SRS" rel-entity-alias="SPRS">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentRouteSegmentId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="Shipment"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentTypeId" type="id"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="primaryOrderId" type="id"></field>
+      <field name="primaryShipGroupSeqId" type="id"></field>
+      <field name="estimatedReadyDate" type="date-time"></field>
+      <field name="estimatedShipDate" type="date-time"></field>
+      <field name="estimatedShipWorkEffId" type="id"></field>
+      <field name="estimatedArrivalDate" type="date-time"></field>
+      <field name="estimatedArrivalWorkEffId" type="id"></field>
+      <field name="latestCancelDate" type="date-time"></field>
+      <field name="estimatedShipCost" type="currency-amount"></field>
+      <field name="currencyUomId" type="id"></field>
+      <field name="handlingInstructions" type="long-varchar"></field>
+      <field name="originFacilityId" type="id"></field>
+      <field name="destinationFacilityId" type="id"></field>
+      <field name="originContactMechId" type="id"></field>
+      <field name="originTelecomNumberId" type="id"></field>
+      <field name="destinationContactMechId" type="id"></field>
+      <field name="destinationTelecomNumberId" type="id"></field>
+      <field name="partyIdTo" type="id"></field>
+      <field name="partyIdFrom" type="id"></field>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="shipmentId"/>
+      <relation type="one" fk-name="SHPMNT_TYPE" rel-entity-name="ShipmentType">
+        <key-map field-name="shipmentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_ESHWEFF" title="EstimatedShip" rel-entity-name="WorkEffort">
+        <key-map field-name="estimatedShipWorkEffId" rel-field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_EARRWEFF" title="EstimatedArrival" rel-entity-name="WorkEffort">
+        <key-map field-name="estimatedArrivalWorkEffId" rel-field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CUOM" title="Currency" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_OFAC" title="Origin" rel-entity-name="Facility">
+        <key-map field-name="originFacilityId" rel-field-name="facilityId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_DFAC" title="Destination" rel-entity-name="Facility">
+        <key-map field-name="destinationFacilityId" rel-field-name="facilityId"/>
+      </relation>
+      <relation type="one-nofk" title="Origin" rel-entity-name="ContactMech">
+        <key-map field-name="originContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" title="Dest" rel-entity-name="ContactMech">
+        <key-map field-name="destinationContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_OPAD" title="Origin" rel-entity-name="PostalAddress">
+        <key-map field-name="originContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_OTCN" title="Origin" rel-entity-name="TelecomNumber">
+        <key-map field-name="originTelecomNumberId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_DPAD" title="Destination" rel-entity-name="PostalAddress">
+        <key-map field-name="destinationContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_DTCN" title="Destination" rel-entity-name="TelecomNumber">
+        <key-map field-name="destinationTelecomNumberId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_PODR" title="Primary" rel-entity-name="OrderHeader">
+        <key-map field-name="primaryOrderId" rel-field-name="orderId"/>
+      </relation>
+      <relation type="one-nofk" title="Primary" rel-entity-name="OrderItemShipGroup">
+        <key-map field-name="primaryOrderId" rel-field-name="orderId"/>
+        <key-map field-name="primaryShipGroupSeqId" rel-field-name="shipGroupSeqId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ShipmentTypeAttr">
+        <key-map field-name="shipmentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_PRTYTO" title="To" rel-entity-name="Party">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="Person">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="PartyGroup">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_PRTYFM" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="Person">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="From" rel-entity-name="PartyGroup">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ShipmentManifestView">
+        <key-map field-name="shipmentId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ShipmentAndItem"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment and Item View Entity">
+      <member-entity entity-alias="SH" entity-name="Shipment"/>
+      <member-entity entity-alias="SITM" entity-name="ShipmentItem"/>
+      <alias entity-alias="SH" name="shipmentId"/>
+      <alias entity-alias="SH" name="shipmentTypeId"/>
+      <alias entity-alias="SH" name="statusId"/>
+      <alias entity-alias="SH" name="primaryOrderId"/>
+      <alias entity-alias="SH" name="estimatedReadyDate"/>
+      <alias entity-alias="SH" name="estimatedShipDate"/>
+      <alias entity-alias="SH" name="estimatedArrivalDate"/>
+      <alias entity-alias="SH" name="latestCancelDate"/>
+      <alias entity-alias="SH" name="estimatedShipCost"/>
+      <alias entity-alias="SH" name="handlingInstructions"/>
+      <alias entity-alias="SH" name="originFacilityId"/>
+      <alias entity-alias="SH" name="destinationFacilityId"/>
+      <alias entity-alias="SH" name="originContactMechId"/>
+      <alias entity-alias="SH" name="destinationContactMechId"/>
+      <alias entity-alias="SH" name="partyIdTo"/>
+      <alias entity-alias="SH" name="partyIdFrom"/>
+      <alias entity-alias="SITM" name="shipmentItemSeqId"/>
+      <alias entity-alias="SITM" name="productId"/>
+      <alias entity-alias="SITM" name="quantity"/>
+      <alias entity-alias="SITM" name="shipmentContentDescription"/>
+      <view-link entity-alias="SH" rel-entity-alias="SITM">
+        <key-map field-name="shipmentId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ShipmentItem">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="ShipmentAttribute"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Attribute Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="SHPMNT_ATTR" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ShipmentTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentBoxType"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Contact Mechanism Type Entity">
+      <field name="shipmentBoxTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="dimensionUomId" type="id"></field>
+      <field name="boxLength" type="floating-point"></field>
+      <field name="boxWidth" type="floating-point"></field>
+      <field name="boxHeight" type="floating-point"></field>
+      <prim-key field="shipmentBoxTypeId"/>
+      <relation type="one" fk-name="SHMT_BXTP_DUOM" title="Dimension" rel-entity-name="Uom">
+        <key-map field-name="dimensionUomId" rel-field-name="uomId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentContactMech"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Contact Mechanism Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentContactMechTypeId" type="id-ne"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentContactMechTypeId"/>
+      <relation type="one" fk-name="SHPMT_CMECH" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_CMECH_CM" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_CMECH_TYPE" rel-entity-name="ShipmentContactMechType">
+        <key-map field-name="shipmentContactMechTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentContactMechType"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Contact Mechanism Type Entity">
+      <field name="shipmentContactMechTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="shipmentContactMechTypeId"/>
+    </entity>
+    <entity entity-name="ShipmentCostEstimate"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Cost Estimate Entity">
+      <field name="shipmentCostEstimateId" type="id-ne"></field>
+      <field name="shipmentMethodTypeId" type="id-ne"></field>
+      <field name="carrierPartyId" type="id-ne"></field>
+      <field name="carrierRoleTypeId" type="id-ne"></field>
+      <field name="productStoreId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="geoIdTo" type="id"></field>
+      <field name="geoIdFrom" type="id"></field>
+      <field name="weightBreakId" type="id"></field>
+      <field name="weightUomId" type="id"></field>
+      <field name="weightUnitPrice" type="currency-amount"></field>
+      <field name="quantityBreakId" type="id"></field>
+      <field name="quantityUomId" type="id"></field>
+      <field name="quantityUnitPrice" type="currency-amount"></field>
+      <field name="priceBreakId" type="id"></field>
+      <field name="priceUomId" type="id"></field>
+      <field name="priceUnitPrice" type="currency-amount"></field>
+      <field name="orderFlatPrice" type="currency-amount"></field>
+      <field name="orderPricePercent" type="floating-point"></field>
+      <field name="orderItemFlatPrice" type="currency-amount"></field>
+      <field name="productFeatureGroupId" type="id"></field>
+      <field name="oversizeUnit" type="floating-point"></field>
+      <field name="oversizePrice" type="currency-amount"></field>
+      <field name="featurePercent" type="floating-point"></field>
+      <field name="featurePrice" type="currency-amount"></field>
+      <prim-key field="shipmentCostEstimateId"/>
+      <relation type="one" fk-name="SHPMNT_CE_CSHMTH" rel-entity-name="CarrierShipmentMethod">
+        <key-map field-name="shipmentMethodTypeId"/>
+        <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+        <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_ROLET" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_WUOM" title="Weight" rel-entity-name="Uom">
+        <key-map field-name="weightUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_QUOM" title="Quantity" rel-entity-name="Uom">
+        <key-map field-name="quantityUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_PUOM" title="Price" rel-entity-name="Uom">
+        <key-map field-name="priceUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_TGEO" title="To" rel-entity-name="Geo">
+        <key-map field-name="geoIdTo" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_FGEO" title="From" rel-entity-name="Geo">
+        <key-map field-name="geoIdFrom" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_WHT_QB" title="Weight" rel-entity-name="QuantityBreak">
+        <key-map field-name="weightBreakId" rel-field-name="quantityBreakId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_QNT_QB" title="Quantity" rel-entity-name="QuantityBreak">
+        <key-map field-name="quantityBreakId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_CE_PRC_QB" title="Price" rel-entity-name="QuantityBreak">
+        <key-map field-name="priceBreakId" rel-field-name="quantityBreakId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentItem"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Item Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentItemSeqId" type="id-ne"></field>
+      <field name="productId" type="id"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="shipmentContentDescription" type="description"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentItemSeqId"/>
+      <relation type="one" fk-name="SHPMNT_ITM_SHPMT" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_ITM_PROD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentItemBilling"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Item Billing Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentItemSeqId" type="id-ne"></field>
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="invoiceItemSeqId" type="id-ne"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentItemSeqId"/>
+      <prim-key field="invoiceId"/>
+      <prim-key field="invoiceItemSeqId"/>
+      <relation type="one-nofk" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_ITBL_SPIM" rel-entity-name="ShipmentItem">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_ITBL_INIM" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceId"/>
+        <key-map field-name="invoiceItemSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentItemFeature"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Item Feature Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentItemSeqId" type="id-ne"></field>
+      <field name="productFeatureId" type="id-ne"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentItemSeqId"/>
+      <prim-key field="productFeatureId"/>
+      <relation type="one-nofk" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_ITFT_SPIM" rel-entity-name="ShipmentItem">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_ITFT_FEAT" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ShipmentManifestView"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Manifest View Entity">
+      <member-entity entity-alias="SITM" entity-name="ShipmentItem"/>
+      <member-entity entity-alias="PROD" entity-name="Product"/>
+      <member-entity entity-alias="ITMI" entity-name="ItemIssuance"/>
+      <member-entity entity-alias="SPCT" entity-name="ShipmentPackageContent"/>
+      <member-entity entity-alias="SPKG" entity-name="ShipmentPackage"/>
+      <member-entity entity-alias="WTUOM" entity-name="Uom"/>
+      <member-entity entity-alias="SPRS" entity-name="ShipmentPackageRouteSeg"/>
+      <member-entity entity-alias="SRTS" entity-name="ShipmentRouteSegment"/>
+      <member-entity entity-alias="OFAC" entity-name="Facility"/>
+      <member-entity entity-alias="DFAC" entity-name="Facility"/>
+      <member-entity entity-alias="OPAD" entity-name="PostalAddress"/>
+      <member-entity entity-alias="OTCN" entity-name="TelecomNumber"/>
+      <member-entity entity-alias="DPAD" entity-name="PostalAddress"/>
+      <member-entity entity-alias="DTCN" entity-name="TelecomNumber"/>
+      <member-entity entity-alias="CPER" entity-name="Person"/>
+      <member-entity entity-alias="CPGP" entity-name="PartyGroup"/>
+      <member-entity entity-alias="SHMT" entity-name="ShipmentMethodType"/>
+      <alias entity-alias="SITM" name="shipmentId"/>
+      <alias entity-alias="SITM" name="shipmentItemSeqId"/>
+      <alias entity-alias="SITM" name="productId"/>
+      <alias entity-alias="SITM" name="quantity"/>
+      <alias entity-alias="SITM" name="shipmentContentDescription"/>
+      <alias entity-alias="PROD" name="internalName"/>
+      <alias entity-alias="ITMI" name="itemIssuanceId"/>
+      <alias entity-alias="ITMI" name="orderId"/>
+      <alias entity-alias="ITMI" name="orderItemSeqId"/>
+      <alias entity-alias="ITMI" name="inventoryItemId"/>
+      <alias entity-alias="ITMI" name="issuedDateTime"/>
+      <alias entity-alias="ITMI" name="issuedByUserLoginId"/>
+      <alias entity-alias="ITMI" name="issuedQuantity" field="quantity"/>
+      <alias entity-alias="SPCT" name="packageQuantity" field="quantity"/>
+      <alias entity-alias="SPKG" name="shipmentPackageSeqId"/>
+      <alias entity-alias="SPKG" name="packageDateCreated" field="dateCreated"/>
+      <alias entity-alias="SPKG" name="weight"/>
+      <alias entity-alias="WTUOM" name="weightUomAbbreviation" field="abbreviation"/>
+      <alias entity-alias="WTUOM" name="weightUomDescription" field="description"/>
+      <alias entity-alias="SPRS" name="trackingCode"/>
+      <alias entity-alias="SPRS" name="boxNumber"/>
+      <alias entity-alias="SRTS" name="shipmentRouteSegmentId"/>
+      <alias entity-alias="SRTS" name="deliveryId"/>
+      <alias entity-alias="SRTS" name="originFacilityId"/>
+      <alias entity-alias="SRTS" name="destFacilityId"/>
+      <alias entity-alias="SRTS" name="originContactMechId"/>
+      <alias entity-alias="SRTS" name="originTelecomNumberId"/>
+      <alias entity-alias="SRTS" name="destContactMechId"/>
+      <alias entity-alias="SRTS" name="destTelecomNumberId"/>
+      <alias entity-alias="SRTS" name="carrierPartyId"/>
+      <alias entity-alias="SRTS" name="shipmentMethodTypeId"/>
+      <alias entity-alias="SRTS" name="actualCost"/>
+      <alias entity-alias="SRTS" name="actualStartDate"/>
+      <alias entity-alias="SRTS" name="actualArrivalDate"/>
+      <alias entity-alias="SRTS" name="estimatedStartDate"/>
+      <alias entity-alias="SRTS" name="estimatedArrivalDate"/>
+      <alias entity-alias="OFAC" name="originFacilityName" field="facilityName"/>
+      <alias entity-alias="DFAC" name="destFacilityName" field="facilityName"/>
+      <alias entity-alias="OPAD" name="originToName" field="toName"/>
+      <alias entity-alias="OPAD" name="originAttnName" field="attnName"/>
+      <alias entity-alias="OPAD" name="originAddress1" field="address1"/>
+      <alias entity-alias="OPAD" name="originAddress2" field="address2"/>
+      <alias entity-alias="OPAD" name="originDirections" field="directions"/>
+      <alias entity-alias="OPAD" name="originCity" field="city"/>
+      <alias entity-alias="OPAD" name="originPostalCode" field="postalCode"/>
+      <alias entity-alias="OPAD" name="originCountryGeoId" field="countryGeoId"/>
+      <alias entity-alias="OPAD" name="originStateProvinceGeoId" field="stateProvinceGeoId"/>
+      <alias entity-alias="OPAD" name="originPostalCodeGeoId" field="postalCodeGeoId"/>
+      <alias entity-alias="OTCN" name="originCountryCode" field="countryCode"/>
+      <alias entity-alias="OTCN" name="originAreaCode" field="areaCode"/>
+      <alias entity-alias="OTCN" name="originContactNumber" field="contactNumber"/>
+      <alias entity-alias="DPAD" name="destToName" field="toName"/>
+      <alias entity-alias="DPAD" name="destAttnName" field="attnName"/>
+      <alias entity-alias="DPAD" name="destAddress1" field="address1"/>
+      <alias entity-alias="DPAD" name="destAddress2" field="address2"/>
+      <alias entity-alias="DPAD" name="destDirections" field="directions"/>
+      <alias entity-alias="DPAD" name="destCity" field="city"/>
+      <alias entity-alias="DPAD" name="destPostalCode" field="postalCode"/>
+      <alias entity-alias="DPAD" name="destCountryGeoId" field="countryGeoId"/>
+      <alias entity-alias="DPAD" name="destStateProvinceGeoId" field="stateProvinceGeoId"/>
+      <alias entity-alias="DPAD" name="destPostalCodeGeoId" field="postalCodeGeoId"/>
+      <alias entity-alias="DTCN" name="destCountryCode" field="countryCode"/>
+      <alias entity-alias="DTCN" name="destAreaCode" field="areaCode"/>
+      <alias entity-alias="DTCN" name="destContactNumber" field="contactNumber"/>
+      <alias entity-alias="CPER" name="carrierFirstName" field="firstName"/>
+      <alias entity-alias="CPER" name="carrierLastName" field="lastName"/>
+      <alias entity-alias="CPGP" name="carrierGroupName" field="groupName"/>
+      <alias entity-alias="SHMT" name="shipmentMethodDescription" field="description"/>
+      <view-link entity-alias="SITM" rel-entity-alias="ITMI">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </view-link>
+      <view-link entity-alias="SITM" rel-entity-alias="PROD" rel-optional="true">
+        <key-map field-name="productId"/>
+      </view-link>
+      <view-link entity-alias="SITM" rel-entity-alias="SPCT">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </view-link>
+      <view-link entity-alias="SPCT" rel-entity-alias="SPKG">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentPackageSeqId"/>
+      </view-link>
+      <view-link entity-alias="SPKG" rel-entity-alias="WTUOM" rel-optional="true">
+        <key-map field-name="weightUomId" rel-field-name="uomId"/>
+      </view-link>
+      <view-link entity-alias="SPKG" rel-entity-alias="SPRS">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentPackageSeqId"/>
+      </view-link>
+      <view-link entity-alias="SPRS" rel-entity-alias="SRTS">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentRouteSegmentId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="OFAC" rel-optional="true">
+        <key-map field-name="originFacilityId" rel-field-name="facilityId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="DFAC" rel-optional="true">
+        <key-map field-name="destFacilityId" rel-field-name="facilityId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="OPAD" rel-optional="true">
+        <key-map field-name="originContactMechId" rel-field-name="contactMechId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="OTCN" rel-optional="true">
+        <key-map field-name="originTelecomNumberId" rel-field-name="contactMechId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="DPAD" rel-optional="true">
+        <key-map field-name="destContactMechId" rel-field-name="contactMechId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="DTCN" rel-optional="true">
+        <key-map field-name="destTelecomNumberId" rel-field-name="contactMechId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="CPER" rel-optional="true">
+        <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="CPGP" rel-optional="true">
+        <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="SRTS" rel-entity-alias="SHMT" rel-optional="true">
+        <key-map field-name="shipmentMethodTypeId" rel-field-name="shipmentMethodTypeId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="ShipmentMethodType"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Method Type Entity">
+      <field name="shipmentMethodTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <prim-key field="shipmentMethodTypeId"/>
+    </entity>
+    <entity entity-name="ShipmentPackage"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Package Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentPackageSeqId" type="id-ne"></field>
+      <field name="shipmentBoxTypeId" type="id"></field>
+      <field name="dateCreated" type="date-time"></field>
+      <field name="weight" type="floating-point"></field>
+      <field name="weightUomId" type="id"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentPackageSeqId"/>
+      <relation type="one" fk-name="SHPKG_SHPMNT" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPKG_BXTYP" rel-entity-name="ShipmentBoxType">
+        <key-map field-name="shipmentBoxTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="CarrierShipmentBoxType">
+        <key-map field-name="shipmentBoxTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SHPKG_WUOM" title="Weight" rel-entity-name="Uom">
+        <key-map field-name="weightUomId" rel-field-name="uomId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentPackageContent"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Package Content Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentPackageSeqId" type="id-ne"></field>
+      <field name="shipmentItemSeqId" type="id-ne"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="subProductId" type="id"></field>
+      <field name="subProductQuantity" type="floating-point"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentPackageSeqId"/>
+      <prim-key field="shipmentItemSeqId"/>
+      <relation type="one" fk-name="PCK_CNTNT_SHPKG" rel-entity-name="ShipmentPackage">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentPackageSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="PCK_CNTNT_SHITM" rel-entity-name="ShipmentItem">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="PCK_CNTNT_PROD" title="Sub" rel-entity-name="Product">
+        <key-map field-name="subProductId" rel-field-name="productId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentPackageRouteSeg"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Package Route Segment Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentPackageSeqId" type="id-ne"></field>
+      <field name="shipmentRouteSegmentId" type="id-ne"></field>
+      <field name="trackingCode" type="short-varchar"></field>
+      <field name="boxNumber" type="short-varchar"></field>
+      <field name="labelImage" type="blob"></field>
+      <field name="labelIntlSignImage" type="blob"></field>
+      <field name="labelHtml" type="very-long"></field>
+      <field name="labelPrinted" type="indicator"></field> <!-- tracks if a label has been printed -->
+      <field name="packageTransportCost" type="currency-amount"></field>
+      <field name="packageServiceCost" type="currency-amount"></field>
+      <field name="packageOtherCost" type="currency-amount"></field>
+      <field name="codAmount" type="currency-amount"></field>
+      <field name="insuredAmount" type="currency-amount"></field>
+      <field name="currencyUomId" type="id"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentPackageSeqId"/>
+      <prim-key field="shipmentRouteSegmentId"/>
+      <relation type="one" fk-name="SHPKRTSG_SHPKG" rel-entity-name="ShipmentPackage">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentPackageSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPKRTSG_RTSG" rel-entity-name="ShipmentRouteSegment">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentRouteSegmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPKRTSG_CUOM" title="Currency" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentRouteSegment"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Route Segment Entity">
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentRouteSegmentId" type="id-ne"></field>
+      <field name="deliveryId" type="id"></field>
+      <field name="originFacilityId" type="id"></field>
+      <field name="destFacilityId" type="id"></field>
+      <field name="originContactMechId" type="id"></field>
+      <field name="originTelecomNumberId" type="id"></field>
+      <field name="destContactMechId" type="id"></field>
+      <field name="destTelecomNumberId" type="id"></field>
+      <field name="carrierPartyId" type="id"></field>
+      <field name="shipmentMethodTypeId" type="id"></field>
+      <field name="carrierServiceStatusId" type="id"></field>
+      <field name="carrierDeliveryZone" type="short-varchar"></field>
+      <field name="carrierRestrictionCodes" type="short-varchar"></field>
+      <field name="carrierRestrictionDesc" type="very-long"></field>
+      <field name="billingWeight" type="floating-point"></field>
+      <field name="billingWeightUomId" type="id"></field>
+      <field name="actualTransportCost" type="currency-amount"></field>
+      <field name="actualServiceCost" type="currency-amount"></field>
+      <field name="actualOtherCost" type="currency-amount"></field>
+      <field name="actualCost" type="currency-amount"></field>
+      <field name="currencyUomId" type="id"></field>
+      <field name="actualStartDate" type="date-time"></field>
+      <field name="actualArrivalDate" type="date-time"></field>
+      <field name="estimatedStartDate" type="date-time"></field>
+      <field name="estimatedArrivalDate" type="date-time"></field>
+      <field name="trackingIdNumber" type="short-varchar"></field>
+      <field name="trackingDigest" type="very-long"></field>
+      <field name="updatedByUserLoginId" type="id-vlong"></field>
+      <field name="lastUpdatedDate" type="date-time"></field>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentRouteSegmentId"/>
+      <relation type="one" fk-name="SHPMT_RTSEG_SHPMT" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_DEL" rel-entity-name="Delivery">
+        <key-map field-name="deliveryId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_CPTY" title="Carrier" rel-entity-name="Party">
+        <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="Carrier" rel-entity-name="Person">
+        <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" title="Carrier" rel-entity-name="PartyGroup">
+        <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_SHMT" rel-entity-name="ShipmentMethodType">
+        <key-map field-name="shipmentMethodTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_OFAC" title="Origin" rel-entity-name="Facility">
+        <key-map field-name="originFacilityId" rel-field-name="facilityId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_DFAC" title="Dest" rel-entity-name="Facility">
+        <key-map field-name="destFacilityId" rel-field-name="facilityId"/>
+      </relation>
+      <relation type="one-nofk" title="Origin" rel-entity-name="ContactMech">
+        <key-map field-name="originContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" title="Dest" rel-entity-name="ContactMech">
+        <key-map field-name="destContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_OPAD" title="Origin" rel-entity-name="PostalAddress">
+        <key-map field-name="originContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_OTCN" title="Origin" rel-entity-name="TelecomNumber">
+        <key-map field-name="originTelecomNumberId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_DPAD" title="Dest" rel-entity-name="PostalAddress">
+        <key-map field-name="destContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_DTCN" title="Dest" rel-entity-name="TelecomNumber">
+        <key-map field-name="destTelecomNumberId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SHPKRTSG_CSSTS" title="CarrierService" rel-entity-name="StatusItem">
+        <key-map field-name="carrierServiceStatusId" rel-field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMT_RTSEG_CUOM" title="Currency" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="SHPKRTSG_BWUOM" title="BillingWeight" rel-entity-name="Uom">
+        <key-map field-name="billingWeightUomId" rel-field-name="uomId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ShipmentPackageRouteDetail"
+            package-name="org.ofbiz.shipment.picklist"
+            title="Shipment Package Route Detail View Entity">
+      <description>View to list information about individual packages with route information, for getting the carrier labels for a package.</description>
+      <member-entity entity-alias="SPRS" entity-name="ShipmentPackageRouteSeg"/>
+      <member-entity entity-alias="SRS" entity-name="ShipmentRouteSegment"/>
+      <member-entity entity-alias="S" entity-name="Shipment"/>
+      <alias entity-alias="SPRS" name="shipmentId"/>
+      <alias entity-alias="SPRS" name="shipmentPackageSeqId"/>
+      <alias entity-alias="SPRS" name="shipmentRouteSegmentId"/>
+      <alias entity-alias="SPRS" name="labelPrinted"/>
+      <alias entity-alias="SRS" name="carrierPartyId"/>
+      <alias entity-alias="SRS" name="carrierServiceStatusId"/>
+      <alias entity-alias="SRS" name="shipmentMethodTypeId"/>
+      <alias entity-alias="S" name="statusId"/>
+      <alias entity-alias="S" name="primaryOrderId"/>
+      <view-link entity-alias="SPRS" rel-entity-alias="SRS">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentRouteSegmentId"/>
+      </view-link>
+      <view-link entity-alias="SPRS" rel-entity-alias="S">
+        <key-map field-name="shipmentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="ShipmentRouteSegmentDetail"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Route Segment Detail View Entity">
+      <description>View to list a shipment route segment with extra shipment information, for scheduling shipment route segments</description>
+      <member-entity entity-alias="SRS" entity-name="ShipmentRouteSegment"/>
+      <member-entity entity-alias="S" entity-name="Shipment"/>
+      <alias entity-alias="SRS" name="shipmentId"/>
+      <alias entity-alias="SRS" name="shipmentRouteSegmentId"/>
+      <alias entity-alias="SRS" name="originFacilityId"/>
+      <alias entity-alias="SRS" name="carrierPartyId"/>
+      <alias entity-alias="SRS" name="carrierServiceStatusId"/>
+      <alias entity-alias="SRS" name="shipmentMethodTypeId"/>
+      <alias entity-alias="SRS" name="billingWeight"/>
+      <alias entity-alias="SRS" name="billingWeightUomId"/>
+      <alias entity-alias="S" name="statusId"/>
+      <alias entity-alias="S" name="primaryOrderId"/>
+      <view-link entity-alias="SRS" rel-entity-alias="S">
+        <key-map field-name="shipmentId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="ShipmentStatus"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Status Entity">
+      <field name="statusId" type="id-ne"></field>
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="statusDate" type="date-time"></field>
+      <prim-key field="statusId"/>
+      <prim-key field="shipmentId"/>
+      <relation type="one" fk-name="SHPMNT_STTS_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="SHPMNT_STTS_SHMT" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentType"
+            package-name="org.ofbiz.shipment.shipment"
+            default-resource-name="ProductEntityLabels"
+            title="Shipment Type Entity">
+      <field name="shipmentTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="shipmentTypeId"/>
+      <relation type="one" fk-name="SHPMNT_TYPPAR" title="Parent" rel-entity-name="ShipmentType">
+        <key-map field-name="parentTypeId" rel-field-name="shipmentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShipmentTypeAttr"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipment Type Attribute Entity">
+      <field name="shipmentTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="shipmentTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="SHPMNT_TYPATR" rel-entity-name="ShipmentType">
+        <key-map field-name="shipmentTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ShipmentAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Shipment">
+        <key-map field-name="shipmentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShippingDocument"
+            package-name="org.ofbiz.shipment.shipment"
+            title="Shipping Document Entity">
+      <field name="documentId" type="id-ne"></field>
+      <field name="shipmentId" type="id"></field>
+      <field name="shipmentItemSeqId" type="id"></field>
+      <field name="shipmentPackageSeqId" type="id"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="documentId"/>
+      <relation type="one" fk-name="SHPNG_DOC_DOC" rel-entity-name="Document">
+        <key-map field-name="documentId"/>
+      </relation>
+      <relation type="one" fk-name="SHPNG_DOC_SMITM" rel-entity-name="ShipmentItem">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="SHPNG_DOC_SHPKG" rel-entity-name="ShipmentPackage">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentPackageSeqId"/>
+      </relation>
+    </entity>
+</entitymodel>
+

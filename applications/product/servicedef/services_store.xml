@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Product Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Product Store Services -->
+    <service name="createProductStore" default-entity-name="ProductStore" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStore">
+        <description>Create a Product Store</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <override name="storeName" optional="false"/>
+    </service>
+    <service name="updateProductStore" default-entity-name="ProductStore" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStore">
+        <description>Update a Product Store</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="reserveStoreInventory" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="reserveStoreInventory">
+        <description>Reserve Inventory in a Product Store</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"></attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="true"></attribute>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"></attribute>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"></attribute>
+        <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"></attribute>
+    </service>
+
+    <service name="isStoreInventoryRequired" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryRequired" auth="false">
+        <description>Checks if Store Inventory is Required</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productStore" type="GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="product" type="GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="requireInventory" type="String" mode="OUT" optional="false"></attribute><!-- Y/N -->
+    </service>
+    <service name="isStoreInventoryAvailable" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailable" auth="false">
+        <description>Checks if Store Inventory is Required</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productStore" type="GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="product" type="GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"></attribute>
+        <attribute name="available" type="String" mode="OUT" optional="false"></attribute><!-- Y/N -->
+    </service>
+    <service name="isStoreInventoryAvailableOrNotRequired" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="isStoreInventoryAvailableOrNotRequired" auth="false">
+        <description>Checks if Store Inventory is Required</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productStore" type="GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="product" type="GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"></attribute>
+        <attribute name="availableOrNotRequired" type="String" mode="OUT" optional="false"></attribute><!-- Y/N -->
+    </service>
+
+    <!-- Product Store Role Services -->
+    <service name="createProductStoreRole" default-entity-name="ProductStoreRole" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreRole" auth="true">
+        <description>Create ProductStoreRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="removeProductStoreRole" default-entity-name="ProductStoreRole" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreRole" auth="true">
+        <description>Remove ProductStoreRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- Product Store Catalog Services -->
+    <service name="createProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreCatalog" auth="true">
+        <description>Create ProductStoreCatalog</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreCatalog" auth="true">
+        <description>Update ProductStoreCatalog</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreCatalog" auth="true">
+        <description>Delete ProductStoreCatalog</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Product Store Payment Services -->
+    <service name="createProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStorePaymentSetting" auth="true">
+        <description>Create ProductStorePaymentSetting</description>
+        <auto-attributes include="all" mode="IN" optional="false"/>
+        <override name="paymentPropertiesPath" optional="true"/>
+        <override name="paymentService" optional="true"/>
+    </service>
+    <service name="updateProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStorePaymentSetting" auth="true">
+        <description>Update ProductStorePaymentSetting</description>
+        <auto-attributes include="all" mode="IN" optional="false"/>
+        <override name="paymentPropertiesPath" optional="true"/>
+        <override name="paymentService" optional="true"/>
+    </service>
+    <service name="deleteProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStorePaymentSetting" auth="true">
+        <description>Delete ProductStorePaymentSetting</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Product Store Email Services -->
+    <service name="createProductStoreEmailSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreEmail" auth="true">
+        <description>Create a Product Store Email Setting</description>
+        <auto-attributes entity-name="ProductStoreEmailSetting" include="all" mode="IN" optional="false"/>
+        <override name="xslfoAttachScreenLocation" optional="true"/>
+        <override name="ccAddress" optional="true"/>
+        <override name="bccAddress" optional="true"/>
+        <override name="contentType" optional="true"/>
+    </service>
+    <service name="updateProductStoreEmailSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreEmail" auth="true">
+        <description>Update a Product Store Email Setting</description>
+        <auto-attributes entity-name="ProductStoreEmailSetting" include="all" mode="IN" optional="false"/>
+        <override name="xslfoAttachScreenLocation" optional="true"/>
+        <override name="ccAddress" optional="true"/>
+        <override name="bccAddress" optional="true"/>
+        <override name="contentType" optional="true"/>
+    </service>
+    <service name="removeProductStoreEmailSetting" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreEmail" auth="true">
+        <description>Remove a Product Store Email Setting</description>
+        <auto-attributes entity-name="ProductStoreEmailSetting" include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Product Store Shipping Method Services -->
+    <service name="createProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreShipMeth" auth="true">
+        <description>Create a Product Store Email Setting</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreShipMeth" auth="true">
+        <description>Update a Product Store Email Setting</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreShipMeth" auth="true">
+        <description>Remove a Product Store Email Setting</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Product Store Keyword Override services -->
+    <service name="createProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreKeywordOvrd" auth="true">
+        <description>Create a Product Store Keyword Override</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="target" optional="false"/>
+        <override name="fromDate" optional="true"/>
+        <override name="targetTypeEnumId" optional="false"/>
+    </service>
+    <service name="updateProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreKeywordOvrd" auth="true">
+        <description>Update a Product Store Keyword Override</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreKeywordOvrd" auth="true">
+        <description>Delete a Product Store Keyword Override</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- ProductStoreSurveyAppl Services -->
+    <service name="createProductStoreSurveyAppl" default-entity-name="ProductStoreSurveyAppl" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreSurveyAppl" auth="true">
+        <description>Create a Product Store Survey Appl</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+    </service>
+    <service name="deleteProductStoreSurveyAppl" default-entity-name="ProductStoreSurveyAppl" engine="simple"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreSurveyAppl" auth="true">
+        <description>Delete a Product Store Survey Appl</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductStorePromoAppl Services -->
+    <service name="createProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="simple"
+                location="org/ofbiz/product/promo/PromoServices.xml" invoke="createProductStorePromoAppl" auth="true">
+        <description>Create ProductStorePromoAppl</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="simple"
+                location="org/ofbiz/product/promo/PromoServices.xml" invoke="updateProductStorePromoAppl" auth="true">
+        <description>Update ProductStorePromoAppl</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductStorePromoAppl" default-entity-name="ProductStorePromoAppl" engine="simple"
+                location="org/ofbiz/product/promo/PromoServices.xml" invoke="deleteProductStorePromoAppl" auth="true">
+        <description>Delete ProductStorePromoAppl</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+</services>

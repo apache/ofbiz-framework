@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: EntitySyncServices.xml 7425 2006-04-26 23:04:59Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createEntitySync" short-description="Create a EntitySync">
+        <check-permission permission="ENTITY_SYNC" action="_CREATE"><fail-message message="Security Error: to run createEntitySync you must have the ENTITY_SYNC_CREATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="EntitySync"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <sequenced-id-to-env sequence-name="EntitySync" env-name="entitySyncId"/>
+        <set field="newEntity.entitySyncId" from-field="entitySyncId"/>
+        <field-to-result field-name="entitySyncId" result-name="entitySyncId"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateEntitySync" short-description="Update a EntitySync">
+        <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySync you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
+        <find-by-primary-key entity-name="EntitySync" map-name="lookupPKMap" value-name="valueToStore"/>
+        <set-nonpk-fields map-name="parameters" value-name="valueToStore"/>
+        <store-value value-name="valueToStore"/>
+    </simple-method>
+    <simple-method method-name="resetEntitySyncStatusToNotStarted" short-description="Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)">
+        <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run resetEntitySyncStatusToNotStarted you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <!-- TODO: add some code to make sure, as much as possible, that this really isn't running -->
+        <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>        
+        <find-by-primary-key entity-name="EntitySync" map-name="lookupPKMap" value-name="valueToStore"/>
+        <if-compare field-name="valueToStore.runStatusId" operator="equals" value="ESR_RUNNING">
+            <set field="valueToStore.runStatusId" value="ESR_NOT_STARTED"/>
+            <store-value value-name="valueToStore"/>
+        </if-compare>
+    </simple-method>
+
+    <!-- EntitySyncHistory services -->
+    <simple-method method-name="createEntitySyncHistory" short-description="Create EntitySyncHistory">
+        <check-permission permission="ENTITY_SYNC" action="_CREATE"><fail-message message="Security Error: to run createEntitySyncHistory you must have the ENTITY_SYNC_CREATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="EntitySyncHistory"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <now-timestamp-to-env env-name="newEntity.startDate"/>
+        <field-to-result field-name="newEntity.startDate" result-name="startDate"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        
+        <!-- also set the lastHistoryStartDate on the EntitySync -->
+        <entity-one entity-name="EntitySync" value-name="entitySync"/>
+        <env-to-env env-name="newEntity.startDate" to-env-name="entitySync.lastHistoryStartDate"/>
+        <store-value value-name="entitySync"/>
+    </simple-method>
+    <simple-method method-name="updateEntitySyncHistory" short-description="Update EntitySyncHistory">
+        <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySyncHistory you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="EntitySyncHistory"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteEntitySyncHistory" short-description="Delete EntitySyncHistory">
+        <check-permission permission="ENTITY_SYNC" action="_DELETE"><fail-message message="Security Error: to run deleteEntitySyncHistory you must have the ENTITY_SYNC_DELETE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="EntitySyncHistory"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- EntitySyncInclude services -->
+    <simple-method method-name="createEntitySyncInclude" short-description="Create EntitySyncInclude">
+        <check-permission permission="ENTITY_SYNC" action="_CREATE"><fail-message message="Security Error: to run createEntitySyncInclude you must have the ENTITY_SYNC_CREATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="EntitySyncInclude"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateEntitySyncInclude" short-description="Update EntitySyncInclude">
+        <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySyncInclude you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="EntitySyncInclude"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteEntitySyncInclude" short-description="Delete EntitySyncInclude">
+        <check-permission permission="ENTITY_SYNC" action="_DELETE"><fail-message message="Security Error: to run deleteEntitySyncInclude you must have the ENTITY_SYNC_DELETE or ENTITY_SYNC_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="EntitySyncInclude"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+</simple-methods>

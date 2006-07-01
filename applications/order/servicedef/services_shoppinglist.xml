@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Order Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Shopping List Services -->
+    <service name="shoppingListInterface" engine="interface" location="" invoke="">
+        <description>Shopping List Interface</description>
+        <auto-attributes mode="IN" entity-name="ShoppingList" include="nonpk" optional="true"/>
+        <attribute name="shippingMethodString" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createShoppingList" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="createShoppingList">
+        <description>Create a shopping list entity</description>
+        <implements service="createShoppingListRecurrence"/>
+        <implements service="shoppingListInterface"/>
+        <attribute name="shoppingListId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateShoppingList" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingList">
+        <description>Update a shopping list entity</description>
+        <implements service="createShoppingListRecurrence"/>
+        <implements service="shoppingListInterface"/>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeShoppingList" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingList">
+        <description>Remove a shopping list entity</description>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="calculateShoppingListDeepTotalPrice" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="calculateShoppingListDeepTotalPrice">
+        <description>Remove a shopping list entity</description>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="autoUserLogin" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="totalPrice" type="Double" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="runShoppingListAutoReorder" engine="java" auth="true" use-transaction="false"
+            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="createListReorders">
+    </service>
+    <service name="createShoppingListRecurrence" engine="java" auth="true"
+            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="setShoppingListRecurrence">
+        <description>Creates Recurrence Info For Auto-Reorder Lists</description>
+        <attribute name="startDateTime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="endDateTime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="frequency" type="Integer" mode="IN" optional="true"/>
+        <attribute name="intervalNumber" type="Integer" mode="IN" optional="true"/>
+        <attribute name="recurrenceInfoId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="splitShipmentMethodString" engine="java" auth="false"
+            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="splitShipmentMethodString">
+        <description>Splits the shipping method string</description>
+        <attribute name="shippingMethodString" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentMethodTypeId" type="String" mode="OUT" optional="true"/>
+        <attribute name="carrierPartyId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="makeShoppingListFromOrder" engine="java" auth="true"
+            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="makeListFromOrder">
+        <description>Create/Update a shopping list from an order</description>
+        <implements service="createShoppingListRecurrence"/>
+        <attribute name="shoppingListTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="shoppingListId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="shoppingListItemInterface" engine="interface" location="" invoke="">
+        <description>Interface of shopping list items</description>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="reservStart" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="reservLength" type="Double" mode="IN" optional="true"/>
+        <attribute name="reservPersons" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantityPurchased" type="Double" mode="IN" optional="true"/>
+    </service>
+    <service name="createShoppingListItem" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">
+        <description>Create a shopping list item</description>
+        <implements service="shoppingListItemInterface"/>
+        <attribute name="shoppingListId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateShoppingListItem" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingListItem">
+        <description>Update a shopping list item</description>
+        <implements service="shoppingListItemInterface"/>
+        <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeShoppingListItem" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingListItem">
+        <description>Remove a shopping list item</description>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+        <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
+    </service>
+</services>
+

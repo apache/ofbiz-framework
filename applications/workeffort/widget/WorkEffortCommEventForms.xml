@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+    *
+    *  Permission is hereby granted, free of charge, to any person obtaining a
+    *  copy of this software and associated documentation files (the "Software"),
+    *  to deal in the Software without restriction, including without limitation
+    *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    *  and/or sell copies of the Software, and to permit persons to whom the
+    *  Software is furnished to do so, subject to the following conditions:
+    *
+    *  The above copyright notice and this permission notice shall be included
+    *  in all copies or substantial portions of the Software.
+    *
+    *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+    *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+    *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListWorkEffortCommEvents" separate-columns="false" target="updateCommunicationEventWorkEff" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <entity-condition entity-name="WorkEffortCommunicationEventView">
+                <condition-list combine="and">
+                    <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                </condition-list>
+                <order-by field-name="communicationEventId"/>
+            </entity-condition>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="communicationEventId"  widget-style="buttontext">
+            <hyperlink target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app" description="${communicationEventId}"/>
+        </field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
+        <field name="description"><text size="40"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext"><hyperlink target="deleteCommunicationEventWorkEff?workEffortId=${workEffortId}&amp;communicationEventId=${communicationEventId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/></field>
+    </form>
+    <form name="AddWorkEffortCommEvent" default-map-name="communicationEvent" target="createWorkEffortCommEvent" title="" type="single"
+            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" 
+            extends="EditCommEvent" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
+        <field name="workEffortId"><hidden/></field>
+        <field name="description"><textarea/></field>
+        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <sort-order>
+            <sort-field name="workEffortId"/>
+            <banner left-text-style="tabletext" left-text="${uiLabelMap.WorkEffortBanner3}"/>
+            <sort-field name="communicationEventId"/>
+            <banner left-text-style="tabletext" left-text="${uiLabelMap.WorkEffortBanner4}"/>
+            <sort-field name="description"/>
+        </sort-order>
+    </form>
+</forms>

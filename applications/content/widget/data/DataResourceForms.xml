@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ *  Copyright (c) 2003-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <!-- DataResourceType forms -->
+    <form name="findDataResource" default-entity-name="DataResource" target="FindDataResource" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="DataResource" default-field-type="find"/>
+        <field name="dataResourceTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+            </drop-down>
+        </field>
+        <field name="mimeTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="characterSetId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${UiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listFindDataResource" list-name="entityList" paginate-target="FindDataResource" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
+        <actions>
+          <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+            <field-map field-name="inputFields" env-name="parameters"/>
+            <field-map field-name="entityName" env-name="entityName" value="DataResource"/>
+          </service>
+        </actions>
+        <auto-fields-entity entity-name="DataResource" default-field-type="display"/>
+        <field name="dataResourceId" title="" widget-style="tabletext">
+            <hyperlink also-hidden="false" description="${dataResourceId}" target="gotoDataResource?dataResourceId=${dataResourceId}"/>
+        </field>
+    </form>
+    <form name="lookupDataResource" target="LookupDataResource" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="DataResource" default-field-type="find"/>
+        <field name="submitButton" title="Lookup" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupDataResource" paginate-target="LookupDataResource" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
+        <actions>
+            <service service-name="performFind" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="DataResource" default-field-type="display"/>
+        <field name="dataResourceId" title="" widget-style="tabletext">
+            <hyperlink also-hidden="false" target-type="plain" description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')"/>
+        </field>
+    </form>
+    <form name="mruLookupDataResource" default-entity-name="DataResource" list-name="mruList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
+        <field name="contentId" title="Id" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${dataResourceId}" target="javascript:set_value('${dataResourceId}')"/>
+        </field>
+        <field name="dataResourceName" title="Name" widget-style="buttontext"><display/></field>
+        <field name="dataCategoryId" title="Category" widget-style="buttontext"><display/></field>
+    </form>
+    <form name="EditDataResource" target="UpdateDataResource" title="" type="single" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox" extends="DataResourceMaster">
+        <actions>
+            <service service-name="performFind" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" env-name="entityName" value="DataResource"/>
+            </service>
+        </actions>
+        <field name="dataResourceId" widget-style="tabletext"><display/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="createContent" title="" widget-style="buttontext" position="2">
+            <hyperlink also-hidden="false" description="Create New Content" target="AddContent?dataResourceId=${currentValue.dataResourceId}"/>
+        </field>
+        <field name="mode"><hidden value="UPDATE"/></field>
+    </form>
+    <form name="DataResourceMaster" target="createDataResource" title="" type="single" default-map-name="currentValue"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="DataResource" default-field-type="edit"/>
+        <field name="dataResourceId" widget-style="tabletext"></field>
+        <field name="dataResourceTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+            </drop-down>
+        </field>
+        <field name="dataTemplateTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="dataCategoryId">
+            <drop-down allow-empty="true">
+                <list-options list-name="dataCategoryList"  key-name="dataCategoryId"  description="${categoryName}"/>
+            </drop-down>
+        </field>
+        <field name="mimeTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
+                    <entity-order-by field-name="mimeTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="characterSetId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+            </drop-down>
+        </field>
+        <field name="createdDate"><display/></field>
+        <field name="lastModifiedDate"><display/></field>
+        <field name="createdByUserLogin"><display/></field>
+        <field name="lastModifiedByUserLogin"><display/></field>
+    </form>
+<!--
+     use-when="(dataResource != void) &amp;&amp; (dataResource.dataResourceId != void) &amp;&amp; (dataResource.dataResourceId.length()>0)" 
+-->
+    <form name="AddDataResource" target="createDataResource" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        extends="DataResourceMaster">
+        <field name="dataResourceId"><text/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="objectInfo" title="URL"/>
+        <field name="mode"><hidden value="CREATE"/></field>
+    </form>
+    <form 
+        name="AddDataResourceText" target="createDataResourceAndText" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        extends="DataResourceMaster">
+        <field name="dataResourceId"><text/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
+        <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId">
+            <display description="ELECTRONIC_TEXT" also-hidden="false"/>
+        </field>
+        <field name="textData" id-name="textData"><textarea rows="20" cols="120"/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddDataResourceUrl" target="createDataResourceUrl" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        extends="DataResourceMaster">
+        <field name="dataResourceId"><text/></field>
+        <field name="objectInfo" title="URL"><text/></field>
+        <field name="dataResourceTypeId"><hidden value="URL_RESOURCE"/></field>
+        <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId">
+            <display description="URL_RESOURCE" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${UiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddDataResourceUpload" target="createDataResourceUpload" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        extends="DataResourceMaster">
+        <field name="dataResourceId" widget-style="tabletext"><display description="${dataResource.dataResourceId}"/></field>
+        <field name="dataResourceTypeId"><hidden value="IMAGE_OBJECT"/></field>
+        <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId">
+            <display description="IMAGE_OBJECT" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${UiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="objectInfo" title="Uploaded File"><display/></field>
+    </form>
+    <form name="EditDataResourceText" target="updateDataResourceText" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        extends="DataResourceMaster">
+        <field name="dataResourceId" widget-style="tabletext"><display/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
+        <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId">
+            <display description="ELECTRONIC_TEXT" also-hidden="false"/>
+        </field>
+        <field name="textData" id-name="textData"><textarea rows="20" cols="120"/> </field>
+        <field name="submitButton" title="${UiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditDataResourceUpload" target="updateDataResourceUpload" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        extends="DataResourceMaster">
+        <field name="dataResourceId" widget-style="tabletext"><display /></field>
+        <field name="dataResourceTypeId"><hidden value="IMAGE_OBJECT"/></field>
+        <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId">
+            <display description="IMAGE_OBJECT" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${UiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="objectInfo" title="Uploaded File"><display/></field>
+    </form>
+    <form name="EditDataResourceUrl" target="updateDataResourceUrl" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        extends="AddDataResourceUrl">
+        <field name="objectInfo" title="URL"><text/></field>
+    </form>
+    <form name="ImageUpload" target="uploadImage" title="" type="upload"
+		default-map-name="dataResource"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="dataResourceId" widget-style="tabletext"><display/></field>
+        <field name="dataResourceTypeId">
+			<drop-down allow-empty="false" no-current-selected-key="IMAGE_OBJECT">
+				<option key="IMAGE_OBJECT" description="Image"/>
+				<option key="LOCAL_FILE_BIN" description="Local File"/>
+				<option key="OFBIZ_FILE_BIN" description="OFBiz File"/>
+				<option key="CONTEXT_FILE_BIN" description="Webapp File"/>
+			</drop-down>
+		</field>
+        <field name="objectInfo" title="Image File Name"><display/></field>
+        <field name="imageData" map-name="ImageDataResource"><file/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <!-- DataResourceAttribute forms -->
+    <form name="AddDataResourceAttribute" 
+        default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        target="addDataResourceAttribute" title="" type="single">
+        <auto-fields-service service-name="createDataResourceAttribute"/>
+        <field name="dataResourceId" title="" widget-style="tabletext" map-name="currentValue"><display/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListDataResourceAttribute"
+        default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        list-name="contentList" 
+        target="updateDataResourceAttribute" title="" type="list">
+        <actions>
+            <service service-name="performFind" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" env-name="entityName" value="DataResourceAttribute"/>
+            </service>
+        </actions>
+        <auto-fields-service service-name="updateDataResourceAttribute" default-field-type="display"/>
+        <field name="attrValue" widget-style="buttontext"><text/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="[${UiLabelMap.CommonDelete}]" target="removeDataResourceAttribute?dataResourceId=${dataResourceId}&amp;attrName=${attrName}"/>
+        </field>
+    </form>
+
+    <!-- DataResourceRole forms -->
+    <form name="AddDataResourceRole" 
+        default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        target="addDataResourceRole" title="" type="single">
+        <auto-fields-entity entity-name="DataResourceRole"/>
+        <field name="dataResourceId" title="" widget-style="tabletext" map-name="currentValue"><display/></field>
+        <field name="partyId" title="" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${UiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListDataResourceRole" list-name="contentList" target="updateDataResourceRole" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <actions>
+            <service service-name="performFind" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" env-name="entityName" value="DataResourceAttribute"/>
+            </service>
+        </actions>
+        <auto-fields-service service-name="updateDataResourceRole" default-field-type="display"/>
+        <field name="thruDate" widget-style="buttontext"><date-time/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="[${UiLabelMap.CommonDelete}]" target="removeDataResourceRole?dataResourceId=${dataResourceId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"/>
+        </field>
+    </form>
+
+    <!-- DataResourceProductFeature forms -->
+    <form name="AddDataResourceProductFeature" target="createDataResourceProductFeature" title="" type="single" 
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-service service-name="createProductFeatureDataResource"/>
+        <field name="dataResourceId" title="" widget-style="tabletext" map-name="currentValue"><display/></field>
+        <field name="productFeatureId" title="" widget-style="buttontext"><lookup target-form-name="LookupProductFeature"/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListDataResourceProductFeature" list-name="contentList" target="" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <actions>
+            <service service-name="performFind" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" env-name="entityName" value="ProductFeature"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>
+        <field name="dataResourceId"><hidden/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="[${UiLabelMap.CommonDelete}]" target="removeDataResourceProductFeature?dataResourceId=${dataResourceId}&amp;productFeatureId=${productFeatureId}"/>
+        </field>
+    </form>
+    <form name="lookupProductFeature" target="LookupProductFeature" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ProductFeature" default-field-type="find"/>
+        <field name="productFeatureTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ProductFeatureType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productFeatureCategoryId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ProductFeatureCategory">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupProductFeature" list-name="entityList" paginate-target="LookupProductFeature" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display">
+        <auto-fields-entity entity-name="ProductFeature" default-field-type="display"/>
+        <field name="productFeatureId" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
+        </field>
+    </form>
+    <form name="mruLookupProductFeature" default-entity-name="ProductFeature"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="display"
+        list-name="mruList" target="" title="" type="list">
+        <field name="contentId" title="Id" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
+        </field>
+        <field name="description" title="Name" widget-style="buttontext"><display/></field>
+        <field name="productFeatureTypeId" title="Type" widget-style="buttontext"><display/></field>
+    </form>
+
+    <!-- ElectronicText forms -->
+    <form name="EditElectronicText" target="updateElectronicText" title="" type="single" default-map-name="currentValue"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <actions>
+            <entity-one entity-name="ElectronicText" value-name="eText">
+                <field-map field-name="dataResourceId" env-name="parameters.dataResourceId" ></field-map>
+            </entity-one>
+        </actions>
+        <auto-fields-service service-name="updateElectronicText"/>
+        <field name="dataResourceId" title="" widget-style="tabletext"><display also-hidden="true"/></field>
+        <field name="textData" widget-style="buttontext">
+            <textarea cols="120" rows="24" default-value="${eText.textData}" />
+        </field>
+        <field name="submitButton" title="${UiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddElectronicText" target="addElectronicText" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-service service-name="createElectronicText"/>
+        <field name="dataResourceId" title="" widget-style="tabletext" map-name="currentValue"><display also-hidden="true"/></field>
+        <field name="textData" widget-style="buttontext"><textarea cols="120" rows="24"/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- Html forms -->
+    <form name="AddHtmlText" target="addHtmlText" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ElectronicText"/>
+        <field name="dataResourceId" title="" widget-style="tabletext" map-name="currentValue"><display/></field>
+        <field name="textData" id-name="textData"><textarea rows="24" cols="120"/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditHtmlText" target="updateHtmlText" title="" type="single" default-map-name="currentValue"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ElectronicText"/>
+        <field name="dataResourceId" title="" widget-style="tabletext"><display/></field>
+        <field name="textData" id-name="textData"><textarea rows="20" cols="120"/></field>
+        <field name="submitButton" title="${UiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

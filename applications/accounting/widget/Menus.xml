@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../../framework/widget/dtd/widget-menu.xsd">
+    
+    <menu name="InvoiceTabBar" default-menu-item-name="overview"> 
+        <menu-item name="find" title="${uiLabelMap.CommonFind}" >
+            <condition>
+                <if-compare field-name="tabButtonItem" operator="not-equals" value="find"/>
+            </condition>
+            <link target="findInvoices"/>
+        </menu-item>
+        <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
+            <condition>
+                <not><if-empty field-name="invoice.invoiceId"/></not>
+            </condition>
+            <link target="invoiceOverview?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+        
+        <menu-item name="editInvoice" title="${uiLabelMap.AccountingInvoiceHeader}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="editInvoice?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+        
+        <menu-item name="listInvoiceItems" title="${uiLabelMap.AccountingInvoiceItems}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="listInvoiceItems?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+        
+        <menu-item name="invoiceRoles" title="${uiLabelMap.AccountingInvoiceRoles}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="invoiceRoles?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+
+        <menu-item name="invoiceStatus" title="${uiLabelMap.AccountingInvoiceStatus}">
+            <condition>
+                <not><if-empty field-name="invoice.invoiceId"/></not>
+            </condition>
+            <link target="invoiceStatus?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+
+        <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingApplications}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="editInvoiceApplications?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+
+        <menu-item name="sendPerEmail" title="${uiLabelMap.CommonSendPerEmail}">
+            <condition>
+                <not><if-empty field-name="invoice.invoiceId"/></not>
+            </condition>
+            <link target="sendPerEmail?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+    </menu>
+    <menu name="InvoiceSubTabBar" default-title-style="buttontext"> 
+        
+        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}">
+            <condition>
+                <not><if-empty field-name="invoice.invoiceId"/></not>
+            </condition>
+            <link target="editInvoice"/>
+        </menu-item>
+        <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
+            <condition>
+                <not><if-empty field-name="invoice.invoiceId"/></not>
+            </condition>
+            <link target="copyInvoice?invoiceIdToCopyFrom=${invoiceId}"/>
+        </menu-item>
+        <menu-item name="pdf" title="${uiLabelMap.AccountingInvoicePDF}">
+            <condition>
+                <not><if-empty field-name="invoice.invoiceId"/></not>
+            </condition>
+            <link target="invoice.pdf?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
+        <menu-item name="statusToApproved" title="${uiLabelMap.AccountingInvoiceStatusToApproved}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_APPROVED"/>
+        </menu-item>
+        <menu-item name="statusToReceived" title="${uiLabelMap.AccountingInvoiceStatusToReceived}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                    <or>
+                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
+                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="CUST_RTN_INVOICE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_RECEIVED"/>
+        </menu-item>
+        <menu-item name="statusToSent" title="${uiLabelMap.AccountingInvoiceStatusToSent}">
+            <condition>
+                <or>
+                    <and>
+                        <not><if-empty field-name="invoice.invoiceId"/></not>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
+                    </and>
+                    <and>
+                        <not><if-empty field-name="invoice.invoiceId"/></not>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
+                    </and>
+                </or>
+            </condition>
+            <link target="setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_SENT"/>
+        </menu-item>
+        <menu-item name="statusToReady" title="${uiLabelMap.AccountingInvoiceStatusToReady}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_READY"/>
+        </menu-item>
+        <menu-item name="statusToPaid" title="${uiLabelMap.AccountingInvoiceStatusToPaid}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_PAID"/>
+        </menu-item>
+        <menu-item name="statusToWriteoff" title="${uiLabelMap.AccountingInvoiceStatusToWriteoff}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="javascript:confirmActionLink('You want to writeoff this invoice number ${invoice.invoiceId}?','setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_WRITEOFF')" url-mode="plain"/>
+        </menu-item>
+        <menu-item name="statusToInProcess" title="${uiLabelMap.AccountingInvoiceStatusToInProcess}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_IN_PROCESS"/>
+        </menu-item>
+        <menu-item name="statusToCancelled" title="${uiLabelMap.AccountingInvoiceStatusToCancelled}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="javascript:confirmActionLink('You want to cancel this invoice number ${invoice.invoiceId}?','setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_CANCELLED')" url-mode="plain"/>
+        </menu-item>
+        
+    </menu>
+
+    <menu name="PaymentTabBar" default-menu-item-name="overview"> 
+        <menu-item name="find" title="${uiLabelMap.CommonFind}" >
+            <condition>
+                <if-compare field-name="tabButtonItem" operator="not-equals" value="find"/>
+            </condition>
+            <link target="findPayments"/>
+        </menu-item>
+        <menu-item name="paymentOverview" title="${uiLabelMap.AccountingPaymentTabOverview}">
+            <condition>
+                <not><if-empty field-name="payment.paymentId"/></not>
+            </condition>
+            <link target="paymentOverview?paymentId=${payment.paymentId}"/>
+        </menu-item>
+        
+        <menu-item name="editPayment" title="${uiLabelMap.AccountingPaymentTabHeader}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <or>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="editPayment?paymentId=${payment.paymentId}"/>
+        </menu-item>
+        <menu-item name="editPaymentApplications" title="${uiLabelMap.AccountingPaymentTabApplications}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <or>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="editPaymentApplications?paymentId=${payment.paymentId}"/>
+        </menu-item>
+    </menu>  
+          
+    <menu name="PaymentSubTabBar" default-title-style="buttontext">
+        <actions>
+            <set field="isDisbursement" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}"/>
+        </actions> 
+        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}">
+            <condition>
+                <not><if-empty field-name="payment.paymentId"/></not>
+            </condition>
+            <link target="editPayment"/>
+        </menu-item>
+        <menu-item name="statusToSend" title="${uiLabelMap.AccountingPaymentTabStatusToSent}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <if-compare field-name="isDisbursement" operator="equals" value="true"/>
+                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                </and>
+            </condition>
+            <link target="setPaymentStatus?paymentId=${payment.paymentId}&amp;statusId=PMNT_SENT"/>
+        </menu-item>
+        <menu-item name="statusToReceived" title="${uiLabelMap.AccountingPaymentTabStatusToReceived}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <if-compare field-name="isDisbursement" operator="equals" value="false"/>
+                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                </and>
+            </condition>
+            <link target="setPaymentStatus?paymentId=${payment.paymentId}&amp;statusId=PMNT_RECEIVED"/>
+        </menu-item>
+        <menu-item name="statusToCancelled" title="${uiLabelMap.AccountingPaymentTabStatusToCancelled}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                </and>
+            </condition>
+            <link target="javascript:confirmActionLink('You want to cancel this payment number ${payment.paymentId}?','setPaymentStatus?paymentId=${payment.paymentId}&amp;statusId=PMNT_CANCELLED')" url-mode="plain"/>
+        </menu-item>
+        <menu-item name="statusToConfirmed" title="${uiLabelMap.AccountingPaymentTabStatusToConfirmed}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <or>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        <if-compare field-name="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="setPaymentStatus?paymentId=${payment.paymentId}&amp;statusId=PMNT_CONFIRMED"/>
+        </menu-item>
+        <menu-item name="printAsCheck" title="${uiLabelMap.AccountingPrintAsCheck}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="payment.paymentId"/></not>
+                    <if-compare field-name="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                </and>
+            </condition>
+            <link target="printChecks.pdf?paymentId=${payment.paymentId}"/>
+        </menu-item>
+    </menu>
+    <menu name="FixedAssetMaintTabBar" default-menu-item-name="overview"> 
+        <menu-item name="editFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
+            <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
+        </menu-item>
+        <menu-item name="editFixedAssetMeter" title="${uiLabelMap.AccountingFixedAssetMaintMeters}">
+            <link target="EditFixedAssetMaintMeters?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
+        </menu-item>
+    </menu>  
+    
+</menus>
+    

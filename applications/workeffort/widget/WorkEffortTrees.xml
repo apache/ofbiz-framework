@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-tree.xsd">
+    <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
+        default-render-style="simple" default-wrap-style="treeWrapper">
+        <node name="node-root"  entity-name="WorkEffort" render-style="expand-collapse">
+            <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            <include-screen name="WorkEffortTreeLine" location="component://workeffort/widget/WorkEffortScreens.xml"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortId"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
+            <entity-one entity-name="WorkEffort" value-name="workEffort">
+                <field-map field-name="workEffortId" env-name="workEffortAssoc.workEffortIdTo"/>
+            </entity-one>
+            <include-screen name="WorkEffortTreeLine" location="component://workeffort/widget/WorkEffortScreens.xml"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortAssoc.workEffortIdTo"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+    </tree>
+</trees>

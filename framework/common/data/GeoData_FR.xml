@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Geo abbreviation="AIN" geoCode="01" geoId="FR-01" geoName="Ain" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AIS" geoCode="02" geoId="FR-02" geoName="Aisne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ALL" geoCode="03" geoId="FR-03" geoName="Allier" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AHP" geoCode="04" geoId="FR-04" geoName="Alpes de Hautes-Provence" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HAL" geoCode="05" geoId="FR-05" geoName="Hautes-Alpes" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ALM" geoCode="06" geoId="FR-06" geoName="Alpes-Maritimes" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ARD" geoCode="07" geoId="FR-07" geoName="Ardèche" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ARE" geoCode="08" geoId="FR-08" geoName="Ardennes" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ARI" geoCode="09" geoId="FR-09" geoName="Ariège" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AUB" geoCode="10" geoId="FR-10" geoName="Aube" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AUD" geoCode="11" geoId="FR-11" geoName="Aude" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AVE" geoCode="12" geoId="FR-12" geoName="Aveyron" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BDR" geoCode="13" geoId="FR-13" geoName="Bouches-du-Rhône" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CAL" geoCode="14" geoId="FR-14" geoName="Calvados" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CAN" geoCode="15" geoId="FR-15" geoName="Cantal" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CHA" geoCode="16" geoId="FR-16" geoName="Charente" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CHM" geoCode="17" geoId="FR-17" geoName="Charente-Maritime" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CHE" geoCode="18" geoId="FR-18" geoName="Cher" geoTypeId="COUNTY"/>
+    <Geo abbreviation="COR" geoCode="19" geoId="FR-19" geoName="Corrèze" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CDS" geoCode="2A" geoId="FR-2A" geoName="Corse-du-Sud" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HCO" geoCode="2B" geoId="FR-2B" geoName="Haute-Corse" geoTypeId="COUNTY"/>
+    <Geo abbreviation="COO" geoCode="21" geoId="FR-21" geoName="Côte-d'Or" geoTypeId="COUNTY"/>
+    <Geo abbreviation="COA" geoCode="22" geoId="FR-22" geoName="Côtes d'Armor" geoTypeId="COUNTY"/>
+    <Geo abbreviation="CRE" geoCode="23" geoId="FR-23" geoName="Creuse" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DOR" geoCode="24" geoId="FR-24" geoName="Dordogne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DOU" geoCode="25" geoId="FR-25" geoName="Doubs" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DRO" geoCode="26" geoId="FR-26" geoName="Drôme" geoTypeId="COUNTY"/>
+    <Geo abbreviation="EUR" geoCode="27" geoId="FR-27" geoName="Eure" geoTypeId="COUNTY"/>
+    <Geo abbreviation="EUL" geoCode="28" geoId="FR-28" geoName="Eure-et-Loir" geoTypeId="COUNTY"/>
+    <Geo abbreviation="FIN" geoCode="29" geoId="FR-29" geoName="Finistère" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GAR" geoCode="30" geoId="FR-30" geoName="Gard" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HAG" geoCode="31" geoId="FR-31" geoName="Haute-Garonne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GER" geoCode="32" geoId="FR-32" geoName="Gers" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GIR" geoCode="33" geoId="FR-33" geoName="Gironde" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HER" geoCode="34" geoId="FR-34" geoName="Hérault" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ILL" geoCode="35" geoId="FR-35" geoName="Ille-et-Vilaine" geoTypeId="COUNTY"/>
+    <Geo abbreviation="IND" geoCode="36" geoId="FR-36" geoName="Indre" geoTypeId="COUNTY"/>
+    <Geo abbreviation="IEL" geoCode="37" geoId="FR-37" geoName="Indre-et-Loire" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ISE" geoCode="38" geoId="FR-38" geoName="Isère" geoTypeId="COUNTY"/>
+    <Geo abbreviation="JUR" geoCode="39" geoId="FR-39" geoName="Jura" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LAN" geoCode="40" geoId="FR-40" geoName="Landes" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LEC" geoCode="41" geoId="FR-41" geoName="Loir-et-Cher" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LOI" geoCode="42" geoId="FR-42" geoName="Loire" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HLO" geoCode="43" geoId="FR-43" geoName="Haute-Loire" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LOA" geoCode="44" geoId="FR-44" geoName="Loire-Atlantique" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LOR" geoCode="45" geoId="FR-45" geoName="Loiret" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LOT" geoCode="46" geoId="FR-46" geoName="Lot" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LOG" geoCode="47" geoId="FR-47" geoName="Lot-et-Garonne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="LOZ" geoCode="48" geoId="FR-48" geoName="Lozère" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MEL" geoCode="49" geoId="FR-49" geoName="Maine-et-Loire" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAN" geoCode="50" geoId="FR-50" geoName="Manche" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAR" geoCode="51" geoId="FR-51" geoName="Marne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HMA" geoCode="52" geoId="FR-52" geoName="Haute-Marne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAY" geoCode="53" geoId="FR-53" geoName="Mayenne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MEM" geoCode="54" geoId="FR-54" geoName="Meurthe-et-Moselle" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MEU" geoCode="55" geoId="FR-55" geoName="Meuse" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MOR" geoCode="56" geoId="FR-56" geoName="Morbihan" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MOS" geoCode="57" geoId="FR-57" geoName="Moselle" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NIE" geoCode="58" geoId="FR-58" geoName="Nièvre" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NOR" geoCode="59" geoId="FR-59" geoName="Nord" geoTypeId="COUNTY"/>
+    <Geo abbreviation="OIS" geoCode="60" geoId="FR-60" geoName="Oise" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ORN" geoCode="61" geoId="FR-61" geoName="Orne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PDC" geoCode="62" geoId="FR-62" geoName="Pas-de-Calais" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PUY" geoCode="63" geoId="FR-63" geoName="Puy-de-Dôme" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PYA" geoCode="64" geoId="FR-64" geoName="Pyrénées-Atlantiques" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HPY" geoCode="65" geoId="FR-65" geoName="Hautes-Pyrénées" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PYO" geoCode="66" geoId="FR-66" geoName="Pyrénées-Orientales" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BRH" geoCode="67" geoId="FR-67" geoName="Bas-Rhin" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HRH" geoCode="68" geoId="FR-68" geoName="Haut-Rhin" geoTypeId="COUNTY"/>
+    <Geo abbreviation="RHO" geoCode="69" geoId="FR-69" geoName="Rhône" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HAS" geoCode="70" geoId="FR-70" geoName="Haute-Saône" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SEL" geoCode="71" geoId="FR-71" geoName="Saône-et-Loire" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SAR" geoCode="72" geoId="FR-72" geoName="Sarthe" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SAV" geoCode="73" geoId="FR-73" geoName="Savoie" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HAS" geoCode="74" geoId="FR-74" geoName="Haute-Savoie" geoTypeId="COUNTY"/>
+    <Geo abbreviation="PAR" geoCode="75" geoId="FR-75" geoName="Paris" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SMA" geoCode="76" geoId="FR-76" geoName="Seine-Maritime" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SEM" geoCode="77" geoId="FR-77" geoName="Seine-et-Marne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="YVE" geoCode="78" geoId="FR-78" geoName="Yvelines" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DSE" geoCode="79" geoId="FR-79" geoName="Deux-Sèvres" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SOM" geoCode="80" geoId="FR-80" geoName="Somme" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TAR" geoCode="81" geoId="FR-81" geoName="Tarn" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TAG" geoCode="82" geoId="FR-82" geoName="Tarn-et-Garonne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VAR" geoCode="83" geoId="FR-83" geoName="Var" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VAU" geoCode="84" geoId="FR-84" geoName="Vaucluse" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VEN" geoCode="85" geoId="FR-85" geoName="Vendée" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VIE" geoCode="86" geoId="FR-86" geoName="Vienne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HVI" geoCode="87" geoId="FR-87" geoName="Haute-Vienne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VOS" geoCode="88" geoId="FR-88" geoName="Vosges" geoTypeId="COUNTY"/>
+    <Geo abbreviation="YON" geoCode="89" geoId="FR-89" geoName="Yonne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TDB" geoCode="90" geoId="FR-90" geoName="Territoire-de-Belfort" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ESS" geoCode="91" geoId="FR-91" geoName="Essonne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HDS" geoCode="92" geoId="FR-92" geoName="Hauts-de-Seine" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SSD" geoCode="93" geoId="FR-93" geoName="Seine-Saint-Denis" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VDM" geoCode="94" geoId="FR-94" geoName="Val-de-Marne" geoTypeId="COUNTY"/>
+    <Geo abbreviation="VDO" geoCode="95" geoId="FR-95" geoName="Val-d'Oise" geoTypeId="COUNTY"/>
+
+    <Geo abbreviation="BEB" geoCode="BEB" geoId="FR-BEB01" geoName="Bourg-en-Bresse" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LAO" geoCode="LAO" geoId="FR-LAO02" geoName="Laon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MOU" geoCode="MOU" geoId="FR-MOU03" geoName="Moulins" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="DIG" geoCode="DIG" geoId="FR-DIG04" geoName="Digne" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="GAP" geoCode="GAP" geoId="FR-GAP05" geoName="Gap" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NIC" geoCode="NIC" geoId="FR-NIC06" geoName="Nice" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="PRI" geoCode="PRI" geoId="FR-PRI07" geoName="Privas" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CHM" geoCode="CHM" geoId="FR-CHM08" geoName="Charleville-Mézières" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="FOI" geoCode="FOI" geoId="FR-FOI09" geoName="Foix" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TRO" geoCode="TRO" geoId="FR-TRO10" geoName="Troyes" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CAR" geoCode="CAR" geoId="FR-CAR11" geoName="Carcassonne" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ROD" geoCode="ROD" geoId="FR-ROD12" geoName="Rodez" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MAR" geoCode="MAR" geoId="FR-MAR13" geoName="Marseille" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CAE" geoCode="CAE" geoId="FR-CAE14" geoName="Caen" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="AUR" geoCode="AUR" geoId="FR-AUR15" geoName="Aurillac" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ANG" geoCode="ANG" geoId="FR-ANG16" geoName="Angoulême" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LRO" geoCode="LRO" geoId="FR-LRO17" geoName="La Rochelle" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BOU" geoCode="BOU" geoId="FR-BOU18" geoName="Bourges" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TUL" geoCode="TUL" geoId="FR-TUL19" geoName="Tulle" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="AJA" geoCode="AJA" geoId="FR-AJA2A" geoName="Ajaccio" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BAS" geoCode="BAS" geoId="FR-BAS2B" geoName="Bastia" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="DIJ" geoCode="DIJ" geoId="FR-DIJ21" geoName="Dijon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SBR" geoCode="SBR" geoId="FR-SBR22" geoName="Saint-Brieuc" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="GUE" geoCode="GUE" geoId="FR-GUE23" geoName="Guéret" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="PER" geoCode="PER" geoId="FR-PER24" geoName="Périgueux" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BES" geoCode="BES" geoId="FR-BES25" geoName="Besançon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="VAL" geoCode="VAL" geoId="FR-VAL26" geoName="Valence" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="EVR" geoCode="EVR" geoId="FR-EVR27" geoName="Évreux" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CHA" geoCode="CHA" geoId="FR-CHA28" geoName="Chartres" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="QUI" geoCode="QUI" geoId="FR-QUI29" geoName="Quimper" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NIM" geoCode="NIM" geoId="FR-NIM30" geoName="Nîmes" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TLS" geoCode="TLS" geoId="FR-TLS31" geoName="Toulouse" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="AUC" geoCode="AUC" geoId="FR-AUC32" geoName="Auch" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BOR" geoCode="BOR" geoId="FR-BOR33" geoName="Bordeaux" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MON" geoCode="MON" geoId="FR-MON34" geoName="Montpellier" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="REN" geoCode="REN" geoId="FR-REN35" geoName="Rennes" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CHT" geoCode="CHT" geoId="FR-CHT36" geoName="Châteauroux" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TOU" geoCode="TOU" geoId="FR-TOU37" geoName="Tours" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="GRE" geoCode="GRE" geoId="FR-GRE38" geoName="Grenoble" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LON" geoCode="LON" geoId="FR-LON39" geoName="Lons-le-Saunier" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MDM" geoCode="MDM" geoId="FR-MDM40" geoName="Mont-de-Marsan" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BLO" geoCode="BLO" geoId="FR-BLO41" geoName="Blois" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SET" geoCode="SET" geoId="FR-SET42" geoName="Saint-Étienne" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="PEV" geoCode="PEV" geoId="FR-PEV43" geoName="Le Puy-en-Velay" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NAN" geoCode="NAN" geoId="FR-NAN44" geoName="Nantes" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ORL" geoCode="ORL" geoId="FR-ORL45" geoName="Orléans" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CAH" geoCode="CAH" geoId="FR-CAH46" geoName="Cahors" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="AGE" geoCode="AGE" geoId="FR-AGE47" geoName="Agen" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MEN" geoCode="MEN" geoId="FR-MEN48" geoName="Mende" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ANG" geoCode="ANG" geoId="FR-ANG49" geoName="Angers" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SLO" geoCode="SLO" geoId="FR-SLO50" geoName="Saint-Lô" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CEC" geoCode="CEC" geoId="FR-CEC51" geoName="Châlons-en-Champagne" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CHM" geoCode="CHM" geoId="FR-CHM52" geoName="Chaumont" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LVL" geoCode="LVL" geoId="FR-LVL53" geoName="Laval" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NCY" geoCode="NCY" geoId="FR-NCY54" geoName="Nancy" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BLD" geoCode="BLD" geoId="FR-BLD55" geoName="Bar-le-Duc" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="VAN" geoCode="VAN" geoId="FR-VAN56" geoName="Vannes" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MET" geoCode="MET" geoId="FR-MET57" geoName="Metz" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NEV" geoCode="NEV" geoId="FR-NEV58" geoName="Nevers" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LIL" geoCode="LIL" geoId="FR-LIL59" geoName="Lille" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BVA" geoCode="BVA" geoId="FR-BVA60" geoName="Beauvais" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ALE" geoCode="ALE" geoId="FR-ALE61" geoName="Alençon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ARR" geoCode="ARR" geoId="FR-ARR62" geoName="Arras" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CLF" geoCode="CLF" geoId="FR-CLF63" geoName="Clermont-Ferrand" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="PAU" geoCode="PAU" geoId="FR-PAU64" geoName="Pau" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TBS" geoCode="TBS" geoId="FR-TBS65" geoName="Tarbes" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="PPG" geoCode="PPG" geoId="FR-PPG66" geoName="Perpignan" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="SBG" geoCode="SBG" geoId="FR-SBG67" geoName="Strasbourg" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CLM" geoCode="CLM" geoId="FR-CLM68" geoName="Colmar" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LYO" geoCode="LYO" geoId="FR-LYO69" geoName="Lyon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="VSL" geoCode="VSL" geoId="FR-VSL70" geoName="Vesoul" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MCN" geoCode="MCN" geoId="FR-MCN71" geoName="Mâcon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LMA" geoCode="LMA" geoId="FR-LMA72" geoName="Le Mans" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CBY" geoCode="CBY" geoId="FR-CBY73" geoName="Chambéry" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ACY" geoCode="ACY" geoId="FR-ACY74" geoName="Annecy" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="PAR" geoCode="PAR" geoId="FR-PAR75" geoName="Paris" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ROU" geoCode="ROU" geoId="FR-ROU76" geoName="Rouen" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MLN" geoCode="MLN" geoId="FR-MLN77" geoName="Melun" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="VSS" geoCode="VSS" geoId="FR-VSS78" geoName="Versailles" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NIO" geoCode="NIO" geoId="FR-NIO79" geoName="Niort" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="AMI" geoCode="AMI" geoId="FR-AMI80" geoName="Amiens" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="ALB" geoCode="ALB" geoId="FR-ALB81" geoName="Albi" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="MTB" geoCode="MTB" geoId="FR-MTB82" geoName="Montauban" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="TLN" geoCode="TLN" geoId="FR-TLN83" geoName="Toulon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="AVG" geoCode="AVG" geoId="FR-AVG84" geoName="Avignon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="RSY" geoCode="RSY" geoId="FR-RSY85" geoName="La Roche-sur-Yon" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="POI" geoCode="POI" geoId="FR-POI86" geoName="Poitiers" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="LMG" geoCode="LMG" geoId="FR-LMG87" geoName="Limoges" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="EPI" geoCode="EPI" geoId="FR-EPI88" geoName="Épinal" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="AXR" geoCode="AXR" geoId="FR-AXR89" geoName="Auxerre" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BLF" geoCode="BLF" geoId="FR-BLF90" geoName="Belfort" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="EVR" geoCode="EVR" geoId="FR-EVR91" geoName="Évry" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="NTR" geoCode="NTR" geoId="FR-NTR92" geoName="Nanterre" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="BBY" geoCode="BBY" geoId="FR-BBY93" geoName="Bobigny" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="CTL" geoCode="CTL" geoId="FR-CTL94" geoName="Créteil" geoTypeId="COUNTY_CITY"/>
+    <Geo abbreviation="PTO" geoCode="PTO" geoId="FR-PTO95" geoName="Pontoise" geoTypeId="COUNTY_CITY"/>
+
+    <Geo abbreviation="RAL" geoCode="RAL" geoId="FR-RAL" geoName="Rhône-Alpes" geoTypeId="REGION"/>
+    <Geo abbreviation="PIC" geoCode="PIC" geoId="FR-PIC" geoName="Picardie" geoTypeId="REGION"/>
+    <Geo abbreviation="AUV" geoCode="AUV" geoId="FR-AUV" geoName="Auvergne" geoTypeId="REGION"/>
+    <Geo abbreviation="PAC" geoCode="PAC" geoId="FR-PAC" geoName="Provence-Alpes-Côte d'Azur" geoTypeId="REGION"/>
+    <Geo abbreviation="CHA" geoCode="CHA" geoId="FR-CHA" geoName="Champagne-Ardenne" geoTypeId="REGION"/>
+    <Geo abbreviation="MIP" geoCode="MIP" geoId="FR-MIP" geoName="Midi-Pyrénées" geoTypeId="REGION"/>
+    <Geo abbreviation="LAR" geoCode="LAR" geoId="FR-LAR" geoName="Languedoc-Roussillon" geoTypeId="REGION"/>
+    <Geo abbreviation="BAN" geoCode="BAN" geoId="FR-BAN" geoName="Basse-Normandie" geoTypeId="REGION"/>
+    <Geo abbreviation="POC" geoCode="POC" geoId="FR-POC" geoName="Poitou-Charentes" geoTypeId="REGION"/>
+    <Geo abbreviation="CEN" geoCode="CEN" geoId="FR-CEN" geoName="Centre" geoTypeId="REGION"/>
+    <Geo abbreviation="BRE" geoCode="BRE" geoId="FR-BRE" geoName="Bretagne" geoTypeId="REGION"/>
+    <Geo abbreviation="LIM" geoCode="LIM" geoId="FR-LIM" geoName="Limousin" geoTypeId="REGION"/>
+    <Geo abbreviation="AQU" geoCode="AQU" geoId="FR-AQU" geoName="Aquitaine" geoTypeId="REGION"/>
+    <Geo abbreviation="COR" geoCode="COR" geoId="FR-COR" geoName="Corse" geoTypeId="REGION"/>
+    <Geo abbreviation="BOU" geoCode="BOU" geoId="FR-BOU" geoName="Bourgogne" geoTypeId="REGION"/>
+    <Geo abbreviation="FCO" geoCode="FCO" geoId="FR-FCO" geoName="Franche-Comté" geoTypeId="REGION"/>
+    <Geo abbreviation="HNO" geoCode="HNO" geoId="FR-HNO" geoName="Haute-Normandie" geoTypeId="REGION"/>
+    <Geo abbreviation="PDL" geoCode="PDL" geoId="FR-PDL" geoName="Pays de la Loire" geoTypeId="REGION"/>
+    <Geo abbreviation="LOR" geoCode="LOR" geoId="FR-LOR" geoName="Lorraine" geoTypeId="REGION"/>
+    <Geo abbreviation="ALS" geoCode="ALS" geoId="FR-ALS" geoName="Alsace" geoTypeId="REGION"/>
+    <Geo abbreviation="NPC" geoCode="NPC" geoId="FR-NPC" geoName="Nord-Pas-de-Calais" geoTypeId="REGION"/>
+    <Geo abbreviation="IDF" geoCode="IDF" geoId="FR-IDF" geoName="Ile-de-France" geoTypeId="REGION"/>
+
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-01" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-02" geoId="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-03" geoId="FR-AUV"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-04" geoId="FR-PAC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-05" geoId="FR-PAC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-06" geoId="FR-PAC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-07" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-08" geoId="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-09" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-10" geoId="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-11" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-12" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-13" geoId="FR-PAC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-14" geoId="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-15" geoId="FR-AUV"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-16" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-17" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-18" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-19" geoId="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-2A" geoId="FR-COR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-2B" geoId="FR-COR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-21" geoId="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-22" geoId="FR-BRE"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-23" geoId="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-24" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-25" geoId="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-26" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-27" geoId="FR-HNO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-28" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-29" geoId="FR-BRE"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-30" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-31" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-32" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-33" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-34" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-35" geoId="FR-BRE"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-36" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-37" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-38" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-39" geoId="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-40" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-41" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-42" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-43" geoId="FR-AUV"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-44" geoId="FR-PDL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-45" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-46" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-47" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-48" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-49" geoId="FR-PDL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-50" geoId="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-51" geoId="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-52" geoId="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-53" geoId="FR-PDL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-54" geoId="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-55" geoId="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-56" geoId="FR-BRE"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-57" geoId="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-58" geoId="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-59" geoId="FR-NPC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-60" geoId="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-61" geoId="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-62" geoId="FR-NPC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-63" geoId="FR-AUV"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-64" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-65" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-66" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-67" geoId="FR-ALS"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-68" geoId="FR-ALS"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-69" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-70" geoId="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-71" geoId="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-72" geoId="FR-PDL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-73" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-74" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-75" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-76" geoId="FR-HNO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-77" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-78" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-79" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-80" geoId="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-81" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-82" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-83" geoId="FR-PAC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-84" geoId="FR-PAC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-85" geoId="FR-PDL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-86" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-87" geoId="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-88" geoId="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-89" geoId="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-90" geoId="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-91" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-92" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-93" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-94" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-95" geoId="FR-IDF"/>
+
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BEB01" geoIdTo="FR-01"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LAO02" geoIdTo="FR-02"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MOU03" geoIdTo="FR-03"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-DIG04" geoIdTo="FR-04"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-GAP05" geoIdTo="FR-05"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-NIC06" geoIdTo="FR-06"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PRI07" geoIdTo="FR-07"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CHM08" geoIdTo="FR-08"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-FOI09" geoIdTo="FR-09"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-TRO10" geoIdTo="FR-10"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CAR11" geoIdTo="FR-11"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ROD12" geoIdTo="FR-12"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MAR13" geoIdTo="FR-13"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CAE14" geoIdTo="FR-14"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-AUR15" geoIdTo="FR-15"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ANG16" geoIdTo="FR-16"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LRO17" geoIdTo="FR-17"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BOU18" geoIdTo="FR-18"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-TUL19" geoIdTo="FR-19"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-AJA2A" geoIdTo="FR-2A"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BAS2B" geoIdTo="FR-2B"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-DIJ21" geoIdTo="FR-21"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-SBR22" geoIdTo="FR-22"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-GUE23" geoIdTo="FR-23"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PER24" geoIdTo="FR-24"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BES25" geoIdTo="FR-25"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-VAL26" geoIdTo="FR-26"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-EVR27" geoIdTo="FR-27"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CHA28" geoIdTo="FR-28"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-QUI29" geoIdTo="FR-29"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-NIM30" geoIdTo="FR-30"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-TLS31" geoIdTo="FR-31"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-AUC32" geoIdTo="FR-32"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BOR33" geoIdTo="FR-33"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MON34" geoIdTo="FR-34"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-REN35" geoIdTo="FR-35"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CHT36" geoIdTo="FR-36"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-TOU37" geoIdTo="FR-37"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-GRE38" geoIdTo="FR-38"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LON39" geoIdTo="FR-39"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MDM40" geoIdTo="FR-40"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BLO41" geoIdTo="FR-41"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-SET42" geoIdTo="FR-42"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PEV43" geoIdTo="FR-43"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-NAN44" geoIdTo="FR-44"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ORL45" geoIdTo="FR-45"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CAH46" geoIdTo="FR-46"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-AGE47" geoIdTo="FR-47"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MEN48" geoIdTo="FR-48"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ANG49" geoIdTo="FR-49"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-SLO50" geoIdTo="FR-50"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CEC51" geoIdTo="FR-51"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CHM52" geoIdTo="FR-52"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LVL53" geoIdTo="FR-53"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-NCY54" geoIdTo="FR-54"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BLD55" geoIdTo="FR-55"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-VAN56" geoIdTo="FR-56"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MET57" geoIdTo="FR-57"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-NEV58" geoIdTo="FR-58"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LIL59" geoIdTo="FR-59"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BVA60" geoIdTo="FR-60"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ALE61" geoIdTo="FR-61"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ARR62" geoIdTo="FR-62"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CLF63" geoIdTo="FR-63"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PAU64" geoIdTo="FR-64"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-TBS65" geoIdTo="FR-65"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PPG66" geoIdTo="FR-66"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-SBG67" geoIdTo="FR-67"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CLM68" geoIdTo="FR-68"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LYO69" geoIdTo="FR-69"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-VSL70" geoIdTo="FR-70"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MCN71" geoIdTo="FR-71"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LMA72" geoIdTo="FR-72"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CBY73" geoIdTo="FR-73"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ACY74" geoIdTo="FR-74"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PAR75" geoIdTo="FR-75"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ROU76" geoIdTo="FR-76"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MLN77" geoIdTo="FR-77"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-VSS78" geoIdTo="FR-78"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-NIO79" geoIdTo="FR-79"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-AMI80" geoIdTo="FR-80"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-ALB81" geoIdTo="FR-81"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-MTB82" geoIdTo="FR-82"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-TLN83" geoIdTo="FR-83"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-AVG84" geoIdTo="FR-84"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-RSY85" geoIdTo="FR-85"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-POI86" geoIdTo="FR-86"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LMG87" geoIdTo="FR-87"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-EPI88" geoIdTo="FR-88"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-AXR89" geoIdTo="FR-89"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BLF90" geoIdTo="FR-90"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-EVR91" geoIdTo="FR-91"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-NTR92" geoIdTo="FR-92"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BBY93" geoIdTo="FR-93"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CTL94" geoIdTo="FR-94"/>
+    <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PTO95" geoIdTo="FR-95"/>
+    
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-AUV"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-PAC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-BRE"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-COR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-HNO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-PDL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-ALS"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-NPC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-IDF"/>
+</entity-engine-xml>

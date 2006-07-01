@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *  $Id: ofbiz-component.xml 7883 2006-06-27 22:35:09Z sichen $
+-->
+
+<ofbiz-component name="accounting"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="jar" location="build/lib/*"/>
+    <classpath type="dir" location="script"/>
+    <classpath type="dir" location="config"/>
+    <classpath type="jar" location="lib/*"/>
+    <classpath type="jar" location="lib/cybersource/*"/>
+    <classpath type="jar" location="lib/worldpay/*"/>
+    <classpath type="dir" location="lib/worldpay"/>
+
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
+    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/UsTaxAccountGroups.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingSecurityData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoGeneralChartOfAccounts.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrganizationData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/PaymentsInvoices.xml"/>
+ 
+    <!-- General Payment Service Definitions -->
+    <service-resource type="model" loader="main" location="servicedef/services_agreement.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_admin.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_billing.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_finaccount.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_fixedasset.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_invoice.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_ledger.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_payment.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_paymentmethod.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_tax.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_cost.xml"/>
+    
+    <!-- Payment Processor/Gateway Service Definitions -->
+    <service-resource type="model" loader="main" location="servicedef/services_clearcommerce.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_cybersource.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_pccharge.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_rita.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_valuelink.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_verisign.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_authorizedotnet.xml"/>
+
+    <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas_payment.xml"/>
+
+    <webapp name="accounting"
+        title="Accounting"
+        server="default-server"
+        location="webapp/accounting"
+        base-permission="OFBTOOLS,ACCOUNTING"
+        mount-point="/accounting"/>
+</ofbiz-component>
+

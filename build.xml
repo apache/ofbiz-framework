@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+
+<!--
+ *  Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  This is the Open for Business Main build script.
+ *  $Id: build.xml 7900 2006-06-29 05:03:20Z jonesde $
+-->
+
+<project name="OFBiz Main Build" default="build" basedir=".">
+
+    <property name="site.dir" value="website"/>
+    <property name="memory.max.param" value="-Xmx384M"/>
+    
+    <!-- ================================================================== -->
+    <!-- Initialization of all property settings                            -->
+    <!-- ================================================================== -->
+
+    <target name="ofbiz-init">
+        <property environment="env"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Removes all created files and directories                          -->
+    <!-- ================================================================== -->
+
+    <target name="refresh">
+        <antcall target="clean-all"/>
+        <antcall target="build"/>
+    </target>
+
+    <target name="clean-all">
+        <antcall target="clean-data"/>
+        <antcall target="clean-logs"/>
+        <antcall target="clean-xtra"/>
+        <antcall target="clean-catalina"/>
+        <antcall target="clean"/>
+    </target>
+
+    <target name="clean-data">
+        <subant target="clean-data">
+            <filelist dir="." files="framework/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="clean-logs">
+        <subant target="clean-logs">
+            <filelist dir="." files="framework/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="clean-xtra" depends="">
+        <delete verbose="on">
+            <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
+        </delete>
+    </target>
+
+    <target name="clean-catalina" depends="">
+        <subant target="clean-catalina">
+            <filelist dir="." files="framework/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="tests">
+        <subant target="tests">
+            <filelist dir="." files="framework/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="clean">
+        <subant target="clean">
+            <filelist dir="." files="framework/build.xml"/>
+            <filelist dir="." files="applications/build.xml"/>
+            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+                <include name="**/build.xml"/>
+            </fileset>
+        </subant>
+        <delete file="ofbiz.jar"/>
+        <echo message="[clean] ========== Done Cleaning =========="/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Build Components                                                   -->
+    <!-- ================================================================== -->
+
+    <target name="build" depends="">
+        <echo message="[build] ========== Start Building (Compile) =========="/>
+
+        <subant inheritall="false">
+            <filelist dir="." files="framework/build.xml"/>
+            <filelist dir="." files="applications/build.xml"/>
+            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+                <include name="**/build.xml"/>
+            </fileset>
+        </subant>
+
+        <echo message="[build] ========== Done Building (Compile) =========="/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Build JavaDocs                                                     -->
+    <!-- ================================================================== -->
+
+    <target name="docs" depends="">
+        <echo message="[docs] ========== Start Building (JavaDoc) =========="/>
+
+        <subant target="docs">
+            <filelist dir="." files="framework/build.xml"/>
+            <filelist dir="." files="applications/build.xml"/>
+            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+                <include name="**/build.xml"/>
+            </fileset>
+        </subant>
+
+        <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Contrib Targets                                                    -->
+    <!-- ================================================================== -->
+
+    <target name="copy-contrib">
+        <copy todir="${basedir}" overwrite="true" verbose="true">
+            <fileset dir="${basedir}/contrib" excludes="contrib/**,**/*.class"/>
+        </copy>
+    </target>
+
+    <target name="build-contrib" depends="copy-contrib,refresh"/>
+
+    <!-- ================================================================== -->
+    <!-- WebSite Targets                                                    -->
+    <!-- ================================================================== -->
+
+    <target name="build-website">
+        <antcall target="copy-dtds"/>
+        <antcall target="docs"/>
+        <antcall target="copy-apis"/>
+    </target>
+
+    <target name="copy-apis">
+        <mkdir dir="${site.dir}/api"/>
+        <mkdir dir="${site.dir}/api/framework"/>
+        <mkdir dir="${site.dir}/api/applications"/>
+        <copy todir="${site.dir}/api/framework">
+            <fileset dir="${basedir}/framework" includes="**/build/javadocs/**"/>
+        </copy>
+        <copy todir="${site.dir}/api/applications">
+            <fileset dir="${basedir}/applications" includes="**/build/javadocs/**"/>
+        </copy>
+    </target>
+
+    <target name="copy-dtds">
+        <mkdir dir="${site.dir}/dtds"/>
+        <copy todir="${site.dir}/dtds" flatten="true" overwrite="true">
+            <fileset dir="${basedir}" includes="**/*.dtd"/>
+            <fileset dir="${basedir}" includes="**/*.xsd"/>
+        </copy>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Script Targets                                                     -->
+    <!-- ================================================================== -->
+
+    <target name="scriptfix">
+        <fixcrlf srcdir="${basedir}" eol="lf" eof="remove" includes="**/*.sh"/>
+        <fixcrlf srcdir="${basedir}" eol="crlf" includes="**/*.bat"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Start OFBiz                                                        -->
+    <!-- ================================================================== -->
+
+    <target name="run" depends="build">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.max.param}"/>
+        </java>
+    </target>
+    <target name="run-pos" depends="build">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="pos"/>
+        </java>
+    </target>
+    <target name="run-install" depends="build">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="install"/>
+        </java>
+    </target>
+    <target name="run-install-seed" depends="build">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="install"/>
+            <arg value="readers=seed"/>
+        </java>
+    </target>
+    <target name="run-debug" depends="build">
+        <java jar="ofbiz.jar"  fork="true">
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="-Xnoagent"/>
+            <jvmarg value="-Djava.compiler=NONE"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
+        </java>
+    </target>
+    <target name="run-tests" depends="build">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.max.param}"/>
+            <arg value="test"/>
+        </java>
+    </target>
+</project>

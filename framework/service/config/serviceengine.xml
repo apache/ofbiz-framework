@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<service-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-config.xsd">
+    <!-- Name of the service to use for authorization -->
+    <authorization service-name="userLogin"/>
+
+    <!-- Thread pool configuration (max/min threads, uses to live and time to live) -->
+    <thread-pool send-to-pool="pool"
+                 purge-job-days="4"
+                 failed-retry-min="3"
+                 ttl="18000000"
+                 wait-millis="750"
+                 jobs="10"
+                 min-threads="5"
+                 max-threads="15"
+                 poll-enabled="true"
+                 poll-db-millis="20000">
+        <run-from-pool name="pool"/>
+    </thread-pool>
+
+    <!-- Service Engine Configuration -->
+    <engine name="bsh" class="org.ofbiz.service.engine.BeanShellEngine"/>
+    <engine name="group" class="org.ofbiz.service.group.ServiceGroupEngine"/>    
+    <engine name="http" class="org.ofbiz.service.engine.HttpEngine"/>
+    <engine name="interface" class="org.ofbiz.service.engine.InterfaceEngine"/>
+    <engine name="jacl" class="org.ofbiz.service.engine.BSFEngine"/>
+    <engine name="java" class="org.ofbiz.service.engine.StandardJavaEngine"/>
+    <engine name="javascript" class="org.ofbiz.service.engine.BSFEngine"/>
+    <engine name="jms" class="org.ofbiz.service.jms.JmsServiceEngine"/> 
+    <engine name="jpython" class="org.ofbiz.service.engine.BSFEngine"/>
+    <engine name="route" class="org.ofbiz.service.engine.RouteEngine"/>
+    <engine name="rmi" class="org.ofbiz.service.rmi.RmiServiceEngine"/>
+    <engine name="simple" class="org.ofbiz.minilang.SimpleServiceEngine"/>
+    <engine name="soap" class="org.ofbiz.service.engine.SOAPClientEngine"/>
+    <engine name="workflow" class="org.ofbiz.shark.service.SharkServiceEngine"/>
+
+    <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
+    <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>
+
+    <service-location name="entity-sync-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
+    <service-location name="entity-sync-http" location="http://localhost:8080/webtools/control/httpService"/>
+
+    <service-location name="rita-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
+    <service-location name="eedcc-test" location="http://localhost:8080/webtools/control/httpService"/>
+
+    <!-- Start-Up Services -->
+    <!--
+       - runtime-data-id refers to the RuntimeData entity for in-parameters
+       - runtime-delay is the milliseconds after startup this service should run
+       - run-in-pool is the name of the pool to run the job in; defaults to the send-to-poll (above)
+
+    <startup-service name="testScv" runtime-data-id="9900" runtime-delay="0" run-in-pool="pool"/>
+    -->   
+
+    <!-- JMS Service Queue/Topic Configuration -->
+    <!--
+    <jms-service name="serviceMessenger" send-mode="all">
+        <server jndi-server-name="default"
+                jndi-name="jms/TopicConnectionFactory"
+                topic-queue="jms/OFBTopic"
+                type="topic"
+                username="admin"
+                password="admin"
+                listen="true"/>
+    </jms-service>
+    -->
+
+</service-config>

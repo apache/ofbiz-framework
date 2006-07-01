@@ -1,0 +1,78 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@version    1.0
+ */
+
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.ofbiz.order.shoppingcart.*;
+
+dispatcher = request.getAttribute("dispatcher");
+delegator = request.getAttribute("delegator");
+userLogin = session.getAttribute("userLogin");
+
+shoppingCart = ShoppingCartEvents.getCartObject(request);
+mode = shoppingCart.getOrderType();
+
+promoShowLimit = 3;
+
+if (mode != null && mode.equals("SALES_ORDER")) {
+    //Get Promo Text Data
+    productPromosAll = ProductPromoWorker.getStoreProductPromos(delegator, dispatcher, request);
+    //Make sure that at least one promo has non-empty promoText
+    showPromoText = false;
+    promoToShow = 0;
+    productPromosAllShowable = new ArrayList(productPromosAll.size());
+    productPromoIterator = productPromosAll.iterator();
+    while (productPromoIterator.hasNext()) {
+        productPromo = productPromoIterator.next();
+        promoText = productPromo.get("promoText");
+    
+        if (promoText != null && promoText.length() > 0 && !"N".equals(productPromo.getString("showToCustomer"))) {
+            showPromoText = true;
+            promoToShow++;
+            productPromosAllShowable.add(productPromo);
+        }
+    }
+    
+    // now slim it down to promoShowLimit
+    productPromosRandomTemp = new ArrayList(productPromosAllShowable);
+    productPromos = null;
+    if (productPromosRandomTemp.size() > promoShowLimit) {
+        productPromos = new ArrayList(promoShowLimit);
+        for (int i=0; i<promoShowLimit; i++) {
+            randomIndex = (int) Math.round(java.lang.Math.random() * (productPromosRandomTemp.size() - 1));
+            productPromos.add(productPromosRandomTemp.remove(randomIndex));
+        }
+    } else {
+        productPromos = productPromosRandomTemp;
+    }
+    
+    context.put("promoShowLimit", promoShowLimit);
+    context.put("productPromosAllShowable", productPromosAllShowable);
+    context.put("productPromos", productPromos);
+    context.put("showPromoText", showPromoText);
+    context.put("promoToShow", promoToShow);
+} else {
+    context.put("showPromoText", false);
+}

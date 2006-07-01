@@ -1,0 +1,96 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      3.3
+ */
+
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.order.order.*;
+
+facilityId = parameters.get("facilityId");
+if (UtilValidate.isNotEmpty(facilityId)) {
+    facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+    context.put("facilityId", facilityId);
+    context.put("facility", facility);
+}
+
+orderId = parameters.get("orderId");
+shipGroupSeqId = parameters.get("shipGroupSeqId");
+shipmentId = parameters.get("shipmentId");
+if (shipmentId == null) {
+    shipmentId = request.getAttribute("shipmentId");
+}
+context.put("shipmentId", shipmentId);
+
+if (UtilValidate.isNotEmpty(orderId) && UtilValidate.isEmpty(shipGroupSeqId) && orderId.indexOf("/") > -1) {
+    // split the orderID/shipGroupSeqID
+    idSplit = orderId.split("\\/");
+    orderId = idSplit[0];
+    shipGroupSeqId = idSplit[1];
+}
+
+packSession = session.getAttribute("packingSession");
+if (packSession == null) {
+    packSession = new org.ofbiz.shipment.packing.PackingSession(dispatcher, userLogin);
+    session.setAttribute("packingSession", packSession);
+    Debug.log("Created NEW packing session!!");
+} else {
+    if (packSession.getStatus() == 0) {
+        packSession.clear();
+        shipGroupSeqId = null;
+        orderId = null;
+    }
+}
+
+// make sure we always re-set the infos
+packSession.setPrimaryShipGroupSeqId(shipGroupSeqId);
+packSession.setPrimaryOrderId(orderId);
+packSession.setFacilityId(facilityId);
+
+context.put("packingSession", packSession);
+context.put("orderId", orderId);
+context.put("shipGroupSeqId", shipGroupSeqId);
+
+if (UtilValidate.isNotEmpty(orderId)) {
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    if (orderHeader != null) {
+        OrderReadHelper orh = new OrderReadHelper(orderHeader);
+        context.put("orderId", orderId);
+        context.put("orderHeader", orderHeader);
+        context.put("orderReadHelper", orh);
+        context.put("orderItemShipGroup", orh.getOrderItemShipGroup(shipGroupSeqId));
+
+        if ("ORDER_APPROVED".equals(orderHeader.getString("statusId"))) {
+            if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+                context.put("itemInfos", orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId));
+            } else {
+                request.setAttribute("errorMessageList", UtilMisc.toList("No ship group sequence ID. Cannot process."));
+            }
+        } else {
+            request.setAttribute("errorMessageList", UtilMisc.toList("Order #" + orderId + " is not approved for packing."));
+        }
+    } else {
+        request.setAttribute("errorMessageList", UtilMisc.toList("Order #" + orderId + " cannot be found."));
+    }
+}

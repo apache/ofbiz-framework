@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+ * @author     Carl Sopchak (carl.sopchak@cegis123.com)
+ * @since      3.5
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    
+    <!-- convertUomProduct 
+         calculates UoM conversions based on attributes of the product for which 
+         the conversion is being performed.  For example, to convert pieces to volume, the conversion
+         requires knowing the length, width, and height of the product being converted -->
+         
+    <!-- NOTES:
+         * This assumes that the UoM of the Product attributes used in the conversion are the correct
+           UoM's for the calculation.  TODO: Somehow map the product attribute's UoM to the UoM's expected
+           by the conversion.  Probably need a CustomMethodProduct entity to hold this info...
+         * Assumes that if the UoM Type is not one that is expected, then we're converting from/to Eaches.
+           This is the result of using "1" for the fromVal and/or toVal if the type of the from 
+           or to UoM is not one of the expected values (currently, length, area, volume, weight).
+         * Dated conversions are not taken into account.
+    -->
+         
+    <simple-method method-name="convertUomProduct" short-description="UoM conversion formula based on product values"
+                   login-required="false">
+        <set field="args" from-field="parameters.arguments"/>
+        
+        <if-empty field-name="args.conversionParameters.productId">
+            <add-error> <fail-property property="NoProductSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
+            <check-errors/>
+        </if-empty>
+        
+        <log level="verbose" message="Conversion factor from uomConversion: ${args.uomConversion.conversionFactor}"/>
+        
+        <set field="productId" from-field="args.conversionParameters.productId"/>
+        <log level="verbose" message="convertUomProduct: productId=${productId}"/>
+        <entity-one entity-name="Product" value-name="product" auto-field-map="true"/>
+        
+        <if-empty field-name="product">
+            <add-error> <fail-property property="NoProductSpecifiedForUomConversion" resource="ProductUiLabels"/> </add-error>
+            <check-errors/>
+        </if-empty>
+        
+        <set field="uomId" from-field="args.uomId"/>
+        <entity-one entity-name="Uom" value-name="fromUom" auto-field-map="true"/>
+        
+        <set field="uomId" from-field="args.uomIdTo"/>
+        <entity-one entity-name="Uom" value-name="toUom" auto-field-map="true"/>
+        
+        <!-- if the UoM types are the same, just use the uomConversion.conversionFactor (not product based) -->
+        <if-compare-field field-name="fromUom.uomTypeId" operator="equals" to-field-name="toUom.uomTypeId">
+            <set field="productFactor" from-field="args.uomConversion.conversionFactor"/>
+        <else>
+        
+            <!-- Determine a conversion value for the From UoM -->
+            <set field="fromVal" type="Double" value="1"/>
+            <if-compare field-name="fromUom.uomTypeId" operator="equals" value="LENGTH_MEASURE">
+                <set field="fromVal" type="Double" from-field="product.productDepth"/>
+            </if-compare>
+            <if-compare field-name="fromUom.uomTypeId" operator="equals" value="AREA_MEASURE">
+                <calculate field-name="fromVal" type="Double" decimal-scale="15">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field-name="product.productDepth"/>
+                        <calcop operator="get" field-name="product.productWidth"/>
+                    </calcop>
+                </calculate>
+            </if-compare>
+            <if-compare field-name="fromUom.uomTypeId" operator="equals" value="VOLUME_DRY_MEASURE">
+                <calculate field-name="fromVal" type="Double" decimal-scale="15">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field-name="product.productDepth"/>
+                        <calcop operator="multiply">
+                            <calcop operator="get" field-name="product.productWidth"/>
+                            <calcop operator="get" field-name="product.productHeight"/>
+                        </calcop>
+                    </calcop>
+                </calculate>
+            </if-compare>
+            <if-compare field-name="fromUom.uomTypeId" operator="equals" value="WEIGHT_MEASURE">
+                <set field="fromVal" from-field="product.weight"/>
+            </if-compare>
+            <log level="verbose" message="From product-based conversion factor: ${fromVal}"/>
+            
+            <!-- Determine a conversion value for the To UoM -->
+            <set field="toVal" type="Double" value="1"/>
+            <if-compare field-name="toUom.uomTypeId" operator="equals" value="LENGTH_MEASURE">
+                <set field="toVal" from-field="product.productDepth"/>
+            </if-compare>
+            <if-compare field-name="toUom.uomTypeId" operator="equals" value="AREA_MEASURE">
+                <calculate field-name="toVal" type="Double" decimal-scale="15">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field-name="product.productDepth"/>
+                        <calcop operator="get" field-name="product.productWidth"/>
+                    </calcop>
+                </calculate>
+            </if-compare>
+            <if-compare field-name="toUom.uomTypeId" operator="equals" value="VOLUME_DRY_MEASURE">
+                <calculate field-name="toVal" type="Double" decimal-scale="15">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field-name="product.productDepth"/>
+                        <calcop operator="multiply">
+                            <calcop operator="get" field-name="product.productWidth"/>
+                            <calcop operator="get" field-name="product.productHeight"/>
+                        </calcop>
+                    </calcop>
+                </calculate>
+            </if-compare>
+            <if-compare field-name="toUom.uomTypeId" operator="equals" value="WEIGHT_MEASURE">
+                <set field="toVal" from-field="product.weight"/>
+            </if-compare>
+            <log level="verbose" message="To product-based conversion factor: ${toVal}"/>
+            
+            <!-- Calcualte the product-based conversion factor = toVal / fromVal * uomConversion.conversionFactor -->
+            <calculate field-name="ratio" type="Double" decimal-scale="15">
+                <calcop operator="divide">
+                    <calcop operator="get" field-name="toVal"/>
+                    <calcop operator="get" field-name="fromVal"/>
+                </calcop>
+            </calculate>
+            <log level="verbose" message="To/From ratio is ${ratio}"/>
+            
+            <calculate field-name="productFactor" type="Double" decimal-scale="15">
+                <calcop operator="multiply">
+                    <calcop operator="get" field-name="args.uomConversion.conversionFactor"/>
+                    <calcop operator="get" field-name="ratio"/>
+                </calcop>
+            </calculate>
+            <log level="verbose" message="Resulting product-based conversion factor: ${productFactor}"/>
+        </else>
+        </if-compare-field> 
+        
+        <!-- Convert the value -->
+        <calculate field-name="totQuantity" type="Double" decimal-scale="15">
+            <calcop operator="multiply">
+                <calcop operator="get" field-name="args.originalValue"/>
+                <calcop operator="get" field-name="productFactor"/>
+            </calcop>
+        </calculate>
+        <field-to-result field-name="totQuantity" result-name="convertedValue"/>
+    </simple-method>
+</simple-methods>

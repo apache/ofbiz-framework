@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2006-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Unit of Measure Conversion Services - Formula based on Product data</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- UOM Formulas -->
+    <service name="interfaceUomFormula" engine="interface" location="" invoke="">
+        <attribute mode="IN" name="arguments" optional="false" type="java.util.Map"/>
+        <attribute mode="OUT" name="convertedValue" optional="false" type="Double"/>
+    </service>
+    <service name="convertUomProduct" engine="simple" auth="false"
+        location="org/ofbiz/product/product/ProductUomFormulas.xml" invoke="convertUomProduct">
+        <description>UoM conversion based on product attributes</description>
+        <implements service="interfaceUomFormula"/>
+    </service>
+</services>

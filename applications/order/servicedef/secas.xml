@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2002-2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-eca.xsd">
+    <!-- order item status changes -->
+    <eca service="storeOrder" event="return">
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
+    <eca service="changeOrderItemStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
+        <action service="cancelOrderInventoryReservation" mode="sync"/>
+        <action service="recalcShippingTotal" mode="sync"/>
+        <action service="recalcTaxTotal" mode="sync"/>
+        <action service="resetGrandTotal" mode="sync"/>
+        <action service="checkOrderItemStatus" mode="sync"/>
+        <action service="sendOrderChangeNotification" mode="async" persist="true"/>
+    </eca>
+    <eca service="changeOrderItemStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ITEM_COMPLETED"/>
+        <action service="checkOrderItemStatus" mode="sync"/>
+    </eca>
+    <eca service="changeOrderItemStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ITEM_APPROVED"/>
+        <action service="checkOrderItemStatus" mode="sync"/>
+    </eca>
+    <eca service="changeOrderItemStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ITEM_APPROVED"/>
+        <action service="checkDigitalItemFulfillment" mode="sync"/>
+    </eca>
+
+    <!-- order status changes -->
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="statusId" operator="equals" value="ORDER_CANCELLED"/>
+        <action service="releaseOrderPayments" mode="sync"/>
+    </eca>
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="statusId" operator="equals" value="ORDER_COMPLETED"/>
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="resetGrandTotal" mode="sync"/>
+        <action service="sendOrderCompleteNotification" mode="async" persist="true"/>
+    </eca>
+
+    <!-- DISABLED FOR NOW
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="statusId" operator="equals" value="ORDER_PROCESSING"/>
+        <action service="processOrderWf" mode="async" persist="true" />
+    </eca>
+    -->
+
+    <!-- This ECA is for content usage subscriptions
+         Andy: not all orders will be subscriptions; ITS NOT RECOMMENDED TO TRIGGER ON THIS - Use the fulfillment services for processing subscriptions
+         David: let's leave it this way for now, need to rethink somewhat how other things are done since the ECA based design has some nice features
+    -->
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
+        <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="updateSubscriptionByOrder" mode="sync"/>
+    </eca>
+
+    <!-- create adjustment change -->
+    <eca service="createOrderAdjustment" event="commit">
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
+
+    <!-- edit/add order items -->
+    <eca service="updateOrderItems" event="commit">
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
+    <eca service="updateOrderItems" event="return">
+        <action service="processOrderPayments" mode="sync"/>
+    </eca>
+    <eca service="appendOrderItem" event="commit">
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
+    <eca service="appendOrderItem" event="return">
+        <action service="processOrderPayments" mode="sync"/>
+    </eca>
+
+    <!-- order confirmation/notification email ECAs -->
+    <eca service="sendOrderConfirmation" event="commit">
+        <action service="createOrderNotificationLog" mode="sync"/>
+    </eca>
+    <eca service="sendOrderChangeNotification" event="commit">
+        <action service="createOrderNotificationLog" mode="sync"/>
+    </eca>
+    <eca service="sendOrderCompleteNotification" event="commit">
+        <action service="createOrderNotificationLog" mode="sync"/>
+    </eca>
+    <eca service="sendOrderBackorderNotification" event="commit">
+        <action service="createOrderNotificationLog" mode="sync"/>
+    </eca>
+    <eca service="sendOrderPayRetryNotification" event="commit">
+        <action service="createOrderNotificationLog" mode="sync"/>
+    </eca>
+
+    <!-- Order Delivery Schedule ECAs -->
+    <eca service="createOrderDeliverySchedule" event="commit">
+        <action service="sendOrderDeliveryScheduleNotification" mode="async" persist="true"/>
+    </eca>
+    <eca service="updateOrderDeliverySchedule" event="commit">
+        <action service="sendOrderDeliveryScheduleNotification" mode="async" persist="true"/>
+    </eca>
+
+    <!-- Return ECAs -->
+    <eca service="updateReturnHeader" event="commit">
+        <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
+        <condition field-name="currentStatusId" operator="not-equals" value="RETURN_ACCEPTED"/>
+        <action service="sendReturnAcceptNotification" mode="async" persist="true"/>
+    </eca>
+    <eca service="updateReturnHeader" event="commit">
+        <condition field-name="statusId" operator="equals" value="RETURN_RECEIVED"/>
+        <condition field-name="currentStatusId" operator="not-equals" value="RETURN_RECEIVED"/>
+        <action service="processReplacementReturn" mode="sync"/>
+        <action service="processCreditReturn" mode="sync"/>
+        <action service="processRefundReturn" mode="sync"/>
+    </eca>
+    <eca service="updateReturnHeader" event="commit">
+        <action service="checkReturnComplete" mode="sync"/>
+    </eca>
+    <eca service="updateReturnHeader" event="commit">
+        <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>
+        <condition field-name="currentStatusId" operator="not-equals" value="RETURN_CANCELLED"/>
+        <action service="sendReturnCancelNotification" mode="async" persist="true"/>
+    </eca>
+    <eca service="updateReturnHeader" event="commit">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="currentStatusId"/>
+        <action service="updateReturnItemsStatus" mode="sync"/>
+    </eca>
+
+    <eca service="updateReturnItem" event="commit">
+        <condition field-name="statusId" operator="equals" value="RETURN_RECEIVED"/>
+        <condition field-name="currentStatusId" operator="not-equals" value="RETURN_RECEIVED"/>
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
+
+    <eca service="updateReturnStatusFromReceipt" event="global-commit">
+        <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
+        <action service="processReplacementReturn" mode="sync" persist="true"/>
+        <action service="processCreditReturn" mode="sync" persist="true"/>
+        <action service="processRefundReturn" mode="sync" persist="true"/>
+    </eca>
+
+    <eca service="processReplacementReturn" event="commit">
+        <action service="checkReturnComplete" mode="sync"/>
+    </eca>
+    <eca service="processCreditReturn" event="commit">
+        <action service="checkReturnComplete" mode="sync"/>
+    </eca>
+    <eca service="processRefundReturn" event="commit">
+        <action service="checkReturnComplete" mode="sync"/>
+    </eca>
+
+    <eca service="checkReturnComplete" event="commit">
+        <condition field-name="statusId" operator="is-not-empty"/>
+        <condition field-name="statusId" operator="equals" value="RETURN_COMPLETED"/>
+        <action service="sendReturnCompleteNotification" mode="async" persist="true"/>
+    </eca>
+
+    <!-- ShoppingList ECAs -->
+    <eca service="createShoppingList" event="in-validate">
+        <condition field-name="shippingMethodString" operator="is-not-empty"/>
+        <action service="splitShipmentMethodString" mode="sync" result-to-context="true"/>
+    </eca>
+    <eca service="updateShoppingList" event="in-validate">
+        <condition field-name="shippingMethodString" operator="is-not-empty"/>
+        <action service="splitShipmentMethodString" mode="sync" result-to-context="true"/>
+    </eca>
+    <eca service="createShoppingList" event="in-validate">
+        <condition field-name="frequency" operator="is-not-empty"/>
+        <action service="createShoppingListRecurrence" mode="sync" result-to-context="true"/>
+    </eca>
+    <eca service="updateShoppingList" event="in-validate">
+        <condition field-name="frequency" operator="is-not-empty"/>
+        <action service="createShoppingListRecurrence" mode="sync" result-to-context="true"/>
+    </eca>
+
+    <eca service="createShoppingListItem" event="in-validate">
+        <condition field-name="shoppingListId" operator="is-empty"/>
+        <action service="createShoppingList" mode="sync" result-to-context="true"/>
+    </eca>
+
+    <eca service="storeOrder" event="commit">
+        <action service="updateShoppingListQuantitiesFromOrder" mode="sync"/>
+    </eca>
+
+    <!-- CustRequest ECAs -->
+    <eca service="createCustRequest" event="commit">
+        <condition field-name="communicationEventId" operator="is-not-empty"/>
+        <condition field-name="custRequestId" operator="is-not-empty"/>
+        <action service="updateCommunicationEvent" mode="sync"/>
+    </eca>
+
+    <eca service="createCustRequest" event="commit">
+        <condition field-name="communicationEventId" operator="is-not-empty"/>
+        <condition field-name="custRequestId" operator="is-not-empty"/>
+        <action service="updateCommunicationEvent" mode="sync"/>
+    </eca>
+
+    <!-- Requirement / CustRequestItem association event -->
+    <eca service="createRequirement" event="commit">
+        <condition field-name="custRequestId" operator="is-not-empty"/>
+        <condition field-name="custRequestItemSeqId" operator="is-not-empty"/>
+        <action service="associatedRequirementWithRequestItem" mode="sync"/>
+    </eca>
+
+    <!-- Requirement / stock level -->
+    <eca service="createItemIssuance" event="invoke">
+        <condition field-name="quantity" value="0" operator="greater" type="Double"/>
+        <action service="checkCreateStockRequirement" mode="sync"/>
+    </eca>
+    <eca service="updateItemIssuance" event="invoke">
+        <condition field-name="quantity" value="0" operator="greater" type="Double"/>
+        <action service="checkCreateStockRequirement" mode="sync"/>
+    </eca>
+    <eca service="reserveOrderItemInventory" event="commit">
+        <condition field-name="quantity" value="0" operator="greater" type="Double"/>
+        <action service="createRequirementFromItemATP" mode="sync"/>
+    </eca>
+    <!-- WorkEffort -->
+    <eca service="createQuoteWorkEffort" event="invoke">
+        <condition field-name="workEffotId" operator="is-empty" />
+        <action service="createWorkEffort" mode="sync"/>
+    </eca>
+</service-eca>

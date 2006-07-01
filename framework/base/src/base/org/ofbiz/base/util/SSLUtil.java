@@ -1,0 +1,131 @@
+/*
+ * $Id: SSLUtil.java 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+package org.ofbiz.base.util;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+
+import javax.net.ssl.*;
+
+/**
+ * KeyStoreUtil - Utilities for setting up SSL connections with specific client certificates
+ *
+ * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
+ * @version    $Rev$
+ * @since      3.0
+ */
+public class SSLUtil {
+
+    public static final String module = SSLUtil.class.getName();
+    private static boolean loadedProps = false;
+
+    static {
+        SSLUtil. loadJsseProperties();
+    }
+
+    public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
+        KeyManagerFactory factory = KeyManagerFactory.getInstance("SunX509");
+        factory.init(ks, password.toCharArray());
+        KeyManager[] keyManagers = factory.getKeyManagers();
+        if (alias != null) {
+            for (int i = 0; i < keyManagers.length; i++) {
+                if (keyManagers[i] instanceof X509KeyManager) {
+                    keyManagers[i] = new AliasKeyManager((X509KeyManager)keyManagers[i], alias);
+                }
+            }
+        }
+        return keyManagers;
+    }
+
+    public static TrustManager[] getTrustManagers(KeyStore ks) throws GeneralSecurityException {
+        TrustManagerFactory factory = TrustManagerFactory.getInstance("SunX509");
+        factory.init(ks);
+        return factory.getTrustManagers();
+    }
+
+    public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException {
+        KeyStore trustStore = KeyStoreUtil.getTrustStore();
+        TrustManager[] tm = getTrustManagers(trustStore);
+        KeyManager[] km = getKeyManagers(ks, password, alias);
+
+        SSLContext context = SSLContext.getInstance("SSL");
+        context.init(km, tm, null);
+        return context.getSocketFactory();
+    }
+
+    public static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException {
+        return getSSLSocketFactory(KeyStoreUtil.getKeyStore(), KeyStoreUtil.getKeyStorePassword(), alias);
+    }
+
+    public static SSLSocketFactory getSSLSocketFactory() throws IOException, GeneralSecurityException {
+        return getSSLSocketFactory(null);
+    }
+
+    public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException {
+        KeyStore trustStore = KeyStoreUtil.getTrustStore();
+        TrustManager[] tm = getTrustManagers(trustStore);
+        KeyManager[] km = getKeyManagers(ks, password, alias);
+
+        SSLContext context = SSLContext.getInstance("SSL");
+        context.init(km, tm, null);
+        return context.getServerSocketFactory();
+    }
+
+    public static void loadJsseProperties() {
+        loadJsseProperties(false);
+    }
+
+    public static synchronized void loadJsseProperties(boolean debug) {
+        if (!loadedProps) {
+            String protocol = UtilProperties.getPropertyValue("jsse.properties", "java.protocol.handler.pkgs", "NONE");
+            String proxyHost = UtilProperties.getPropertyValue("jsse.properties", "https.proxyHost", "NONE");
+            String proxyPort = UtilProperties.getPropertyValue("jsse.properties", "https.proxyPort", "NONE");
+            String cypher = UtilProperties.getPropertyValue("jsse.properties", "https.cipherSuites", "NONE");
+            if (protocol != null && !protocol.equals("NONE")) {
+                System.setProperty("java.protocol.handler.pkgs", protocol);
+            }
+            if (proxyHost != null && !proxyHost.equals("NONE")) {
+                System.setProperty("https.proxyHost", proxyHost);
+            }
+            if (proxyPort != null && !proxyPort.equals("NONE")) {
+                System.setProperty("https.proxyPort", proxyPort);
+            }
+            if (cypher != null && !cypher.equals("NONE")) {
+                System.setProperty("https.cipherSuites", cypher);
+            }
+
+            // set up the keystore properties
+            System.setProperty("javax.net.ssl.keyStore", KeyStoreUtil.getKeyStoreFileName());
+            System.setProperty("javax.net.ssl.keyStorePassword", KeyStoreUtil.getKeyStorePassword());
+            System.setProperty("javax.net.ssl.trustStore", KeyStoreUtil.getTrustStoreFileName());
+            System.setProperty("javax.net.ssl.trustStorePassword", KeyStoreUtil.getTrustStorePassword());
+            if (debug) {
+                System.setProperty("javax.net.debug","ssl:handshake");
+            }
+            loadedProps = true;
+        }
+    }
+}

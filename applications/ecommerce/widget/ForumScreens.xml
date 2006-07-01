@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: ForumScreens.xml 7916 2006-06-30 22:22:30Z jacopo $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <!-- Column Included Screens -->
+    <screen name="forums">
+        <section>
+            <actions>
+                <entity-condition entity-name="ContentAssocViewFrom" list-name="forums" use-cache="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contentIdStart" operator="equals" value="WebStoreFORUM"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="caFromDate" operator="equals" env-name="null"/>
+                            <condition-expr field-name="caFromDate" operator="less-equals" env-name="nowTimestamp"/>
+                        </condition-list>
+                        <condition-list combine="or">
+                            <condition-expr field-name="caThruDate" operator="equals" env-name="null"/>
+                            <condition-expr field-name="caThruDate" operator="greater-equals" env-name="nowTimestamp"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="contentName"/>
+                </entity-condition>
+            </actions>
+            <widgets><platform-specific><html>
+                <html-template location="component://ecommerce/webapp/ecommerce/forum/forums.ftl"/>
+            </html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- =========== Top-Level and Stand-Alone Screens =========== -->
+
+    <screen name="Showforum">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleForumSummary"/>
+                <entity-one entity-name="Content" value-name="forum">
+                    <field-map field-name="contentId" env-name="parameters.forumId"/>
+                </entity-one>
+                <!-- parameters for the performFind service -->
+                <set field="inpField.ownerContentId" from-field="parameters.forumId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                <service service-name="performFindList" result-map-name="result">
+                    <field-map field-name="viewIndex" env-name="viewIndex"/>
+                    <field-map field-name="viewSize" env-name="viewSize"/>
+                    <field-map field-name="inputFields" env-name="inpField"/>
+                    <field-map field-name="entityName" value="ContentAssocViewFrom"/>
+                    <field-map field-name="orderBy" value="createdDate"/>
+                </service>
+                <set field="forumMessages" from-field="result.list"/>
+                <set field="listSize" from-field="result.listSize"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-empty field-name="parameters.threadView"/>
+                            </condition>
+                            <widgets>
+                                <label style="head1" text="${uiLabelMap.EcommerceMessageListForForum} ${forum.description}"/>
+                                <link style="buttontext" target="addForumMessage?forumId=${parameters.forumId}&amp;forumMessageIdTo=${parameters.forumId}&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
+                                <link style="buttontext" target="showforum?threadView=yes&amp;forumId=${parameters.forumId}" text="${uiLabelMap.EcommerceThreadView}"/>
+                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/showforum.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head1" text="${uiLabelMap.EcommerceMessageListForForum} ${forum.description}"/>
+                                <link style="buttontext" target="addForumMessage?forumId=${parameters.forumId}&amp;forumMessageIdTo=${parameters.forumId}&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
+                                <link style="buttontext" target="showforum?forumId=${parameters.forumId}" text="${uiLabelMap.EcommerceListView}"/>
+                                <include-tree name="MessageTree" location="component://content/widget/forum/ForumTrees.xml" /> 
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="showforumarticle">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+                <set field="title-property" value="PageTitleForumArticle"/>
+                <entity-and entity-name="" list-name="">
+                    <field-map field-name=""/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/showforumarticle.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="createforumarticle">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="includeHtmlArea" value="Y"/>
+
+                <set field="title-property" value="PageTitleAddContent"/>
+                <set field="headerItem" value="Forum"/>
+                <set field="formDefFile" value="/forum/ForumForms.xml"/>
+                <set field="singleFormName" value="AddContent"/>
+                <set field="subMenu" value="/admin/admin_menu.ftl"/>
+                <set field="entityName" value="Content"/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="complex"/>
+                <set field="primaryHTMLField" value="textData"/>
+                <set field="secondaryHTMLField" value=""/>
+                <set field="summaryDataResourceTypeId" value=""/>
+                <set field="priKeyName" value="contentId"/>
+                <set field="permissionIdName" value="forumId"/>
+                <set field="permittedOperations" value="HAS_USER_ROLE"/>
+                <set field="entityOperation" value="_CREATE"/>
+                <set field="contentAssocTypeId" value="PUBLISH_LINK"/>
+                <set field="targetOperation" value="HAS_USER_ROLE"/>
+                <set field="requiredRoles" value="BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
+                <set field="contentTypeId" value="DOCUMENT"/>
+                <set field="contentPurposeTypeId" value="ARTICLE"/>
+                <!-- byersa 2004 <set field="statusId" value="BLOG_SUBMITTED"/> -->
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/pubinit.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentaddprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/createforumarticle.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editforumarticle">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="includeHtmlArea" value="Y"/>
+
+                <set field="title-property" value="PageTitleEditContent"/>
+                <set field="headerItem" value="Forum"/>
+                <set field="formDefFile" value="/forum/ForumForms.xml"/>
+                <set field="singleFormName" value="AddContent"/>
+                <set field="subMenu" value="/admin/admin_menu.ftl"/>
+                <set field="entityName" value="Content"/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="complex"/>
+                <set field="primaryHTMLField" value="textData"/>
+                <set field="secondaryHTMLField" value=""/>
+                <set field="summaryDataResourceTypeId" value=""/>
+                <set field="priKeyName" value="contentId"/>
+                <set field="permissionIdName" value="contentIdTo"/>
+                <set field="permittedOperations" value="CONTENT_UPDATE"/>
+                <set field="entityOperation" value="_CREATE"/>
+                <set field="contentAssocTypeId" value="PUBLISH_LINK"/>
+                <set field="targetOperation" value="CONTENT_UPDATE"/>
+                <set field="contentTypeId" value="DOCUMENT"/>
+                <set field="contentPurposeTypeId" value="ARTICLE"/>
+                <set field="statusId" value="BLOG_PUBLISHED"/>
+
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentaddprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editforumarticle.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="showforumresponse">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="includeHtmlArea" value="Y"/>
+
+                <set field="title-property" value="PageTitleForumResponse"/>
+                <set field="headerItem" value="Forum"/>
+                <set field="formDefFile" value="/forum/ForumForms.xml"/>
+                <set field="singleFormName" value="ViewComboResponse"/>
+                <set field="addFormName" value="ViewComboResponse"/>
+                <set field="editFormName" value="ViewComboResponse"/>
+                <set field="listFormName" value="listFindCombo"/>
+                <set field="subMenu" value="/blog_menu.ftl"/>
+                <set field="entityName" value="SubContentDataResourceView"/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="complex"/>
+                <set field="primaryHTMLField" value="textData"/>
+                <set field="secondaryHTMLField" value=""/>
+                <set field="summaryDataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                <set field="priKeyName" value="contentId"/>
+                <set field="permissionIdName" value="contentIdTo"/>
+                <set field="entityOperation" value="_VIEW"/>
+                <set field="targetOperation" value="CONTENT_VIEW"/>
+                <set field="contentPurposeTypeId" value="RESPONSE"/>
+                <set field="statusId" value="BLOG_PUBLISHED"/>
+
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/viewprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editforumarticle.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="createforumresponse">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="includeHtmlArea" value="Y"/>
+
+                <set field="title-property" value="PageTitleAddResponse"/>
+                <set field="headerItem" value="Forum"/>
+                <set field="formDefFile" value="/forum/ForumForms.xml"/>
+                <set field="singleFormName" value="AddResponse"/>
+                <set field="addFormName" value="EditResponse"/>
+                <set field="editFormName" value="EditResponse"/>
+                <set field="subMenu" value="/blog_menu.ftl"/>
+                <set field="entityName" value="SubContentDataResourceView"/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="complex"/>
+                <set field="primaryHTMLField" value="textData"/>
+                <set field="secondaryHTMLField" value=""/>
+                <set field="summaryDataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                <set field="priKeyName" value="contentId"/>
+                <set field="permissionIdName" value="contentIdTo"/>
+                <set field="entityOperation" value="_CREATE"/>
+                <set field="addEntityOperation" value="_CREATE"/>
+                <set field="editEntityOperation" value="_UPDATE"/>
+                <set field="targetOperation" value="HAS_USER_ROLE"/>
+                <set field="addTargetOperation" value="CONTENT_RESPOND"/>
+                <set field="requiredRoles" value="BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
+                <set field="contentPurposeTypeId" value="RESPONSE"/>
+                <set field="contentAssocTypeId" value="RESPONSE"/>
+                <set field="statusId" value="BLOG_PUBLISHED"/>
+                
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/respondpermandprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/responseprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/createforumresponse.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="editforuminfo">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleEditForumContentInfo"/>
+                <set field="headerItem" value="Forum"/>
+                <set field="formDefFile" value="/forum/ForumForms.xml"/>
+                <set field="singleFormName" value="EditContentInfo"/>
+                <set field="entityName" value="Content"/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="complex"/>
+                <set field="priKeyName" value="contentId"/>
+                <set field="permissionIdName" value="contentIdTo"/>
+                <set field="permittedOperations" value="CONTENT_UPDATE"/>
+                <set field="entityOperation" value="_UPDATE"/>
+                <set field="targetOperation" value="CONTENT_UPDATE"/>
+                <set field="requiredRoles" value="BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
+                <set field="contentPurposeTypeId" value="ARTICLE"/>
+                <set field="statusId" value="BLOG_PUBLISHED"/>
+                
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentaddprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editforuminfo.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editaddforumdata">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="includeHtmlArea" value="Y"/>
+
+                <set field="title-property" value="PageTitleEditAddContent"/>
+                <set field="headerItem" value="Forum"/>
+                <set field="formDefFile" value="/forum/ForumForms.xml"/>
+                <set field="singleFormName" value="EditAddContent"/>
+                <set field="subMenu" value="/admin/admin_menu.ftl"/>
+                <set field="entityName" value="Content"/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="complex"/>
+
+                <set field="primaryHTMLField" value="textData"/>
+                <set field="secondaryHTMLField" value=""/>
+                <set field="priKeyName" value="contentId"/>
+                <set field="permissionIdName" value="contentIdTo"/>
+                <set field="permittedOperations" value="CONTENT_CREATE_SUB"/>
+                <set field="entityOperation" value="_UPDATE"/>
+                <set field="targetOperation" value="CONTENT_UPDATE|CONTENT_CREATE|CONTENT_CREATE_SUB"/>
+                <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
+                <set field="contentPurposeTypeId" value="ARTICLE"/>
+                <set field="contentAssocTypeId" value="SUB_CONTENT"/>
+                <set field="statusId" value="BLOG_PUBLISHED"/>
+
+                <set field="mainMenuDefFile" value="/AgepsMenus.xml"/>
+                <set field="mainMenuName" value="main"/>
+                <set field="menuDefFile" value="/admin/AdminMenus.xml"/>
+                <set field="menuName" value="admin"/>
+                <set field="menuNameAux" value="backToContent"/>
+                
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/editaddprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editaddforumdata.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editaddimage">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="includeHtmlArea" value="Y"/>
+
+                <set field="title-property" value="PageTitleEditAddImage"/>
+                <set field="headerItem" value="Forum"/>
+                <set field="formDefFile" value="/forum/ForumForms.xml"/>
+                <set field="singleFormName" value="EditAddImage"/>
+                <set field="subMenu" value="/admin/admin_menu.ftl"/>
+                <set field="entityName" value="Content"/>
+                <set field="permission" value="CONTENTMGR"/>
+                <set field="permissionType" value="complex"/>
+
+                <set field="primaryHTMLField" value="textData"/>
+                <set field="secondaryHTMLField" value=""/>
+                <set field="priKeyName" value="contentId"/>
+                <set field="permissionIdName" value="contentIdTo"/>
+                <set field="permittedOperations" value="CONTENT_CREATE_SUB"/>
+                <set field="entityOperation" value="_UPDATE"/>
+                <set field="targetOperation" value="CONTENT_UPDATE|CONTENT_CREATE|CONTENT_CREATE_SUB"/>
+                <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
+                <set field="contentPurposeTypeId" value="ARTICLE"/>
+                <set field="contentAssocTypeId" value="SUB_CONTENT"/>
+                <set field="statusId" value="BLOG_PUBLISHED"/>
+
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/editaddprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/editaddimage.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

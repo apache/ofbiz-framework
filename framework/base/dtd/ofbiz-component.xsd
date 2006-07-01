@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *  Copyright (c) 2003-2004 The Open For Business Project - www.ofbiz.org
+    *
+    *  Permission is hereby granted, free of charge, to any person obtaining a
+    *  copy of this software and associated documentation files (the "Software"),
+    *  to deal in the Software without restriction, including without limitation
+    *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    *  and/or sell copies of the Software, and to permit persons to whom the
+    *  Software is furnished to do so, subject to the following conditions:
+    *
+    *  The above copyright notice and this permission notice shall be included
+    *  in all copies or substantial portions of the Software.
+    *
+    *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+    *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+    *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    *  $Id: ofbiz-component.xsd 7551 2006-05-10 00:08:10Z jonesde $
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="ofbiz-component">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="depends-on"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="resource-loader"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="classpath"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="entity-resource"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-resource"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="test-suite"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="webapp"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.ofbiz-component"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.ofbiz-component">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="enabled" use="optional" default="true"/>
+    </xs:attributeGroup>
+    <xs:element name="depends-on">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.depends-on"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.depends-on">
+        <xs:attribute type="xs:string" name="component-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="resource-loader">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.resource-loader"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.resource-loader">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute name="type" default="component">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="component"/>
+                    <xs:enumeration value="file"/>
+                    <xs:enumeration value="classpath"/>
+                    <xs:enumeration value="url"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="prepend-env"/>
+        <xs:attribute type="xs:string" name="prefix"/>
+    </xs:attributeGroup>
+    <xs:element name="classpath">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.classpath"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.classpath">
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="jar"/>
+                    <xs:enumeration value="dir"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="entity-resource">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.entity-resource"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.entity-resource">
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="model"/>
+                    <xs:enumeration value="group"/>
+                    <xs:enumeration value="eca"/>
+                    <xs:enumeration value="data"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="reader-name" use="required"/>
+        <xs:attribute type="xs:string" name="loader" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="service-resource">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.service-resource"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.service-resource">
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="model"/>
+                    <xs:enumeration value="group"/>
+                    <xs:enumeration value="eca"/>
+                    <xs:enumeration value="mca"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="loader" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="test-suite">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.test-suite"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.test-suite">
+        <xs:attribute type="xs:string" name="loader" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="webapp">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="virtual-host"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="init-param"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.webapp"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.webapp">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="server" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+        <xs:attribute type="xs:string" name="mount-point"/>
+        <xs:attribute type="xs:string" name="base-permission"/>
+        <xs:attribute name="app-bar-display" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="virtual-host">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.virtual-host"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.virtual-host">
+        <xs:attribute type="xs:string" name="host-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="init-param">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.init-param"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.init-param">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="value" use="required"/>
+    </xs:attributeGroup>
+</xs:schema>
+<!--
+    <ofbiz-component name="core">
+        <resource-loader name="maincomponent" type="component"/>
+        <resource-loader name="mainfile" type="file" prepend-env="ofbiz.home" prefix=""/>
+        <resource-loader name="maincp" type="classpath"/>
+        <resource-loader name="mainurl" type="url"/>
+
+        <classpath type="jar" location="lib/product.jar"/>
+        <classpath type="dir" location="classes"/>
+
+        <entity-resource type="model" reader-name="main" loader="maincomponent" location="entity/entitymodel.xml"/>
+        <entity-resource type="group" reader-name="main" loader="maincomponent" location="entity/entitygroup.xml"/>
+        <entity-resource type="eca" reader-name="main" loader="maincomponent" location="entity/eecas.xml"/>
+
+        <service-resource type="model" loader="maincomponent" location="service/services_test.xml"/>
+        <service-resource type="group" loader="maincomponent" location="service/groups_test.xml"/>
+        <service-resource type="eca" loader="maincomponent" location="service/secas_test.xml"/>
+
+    	<webapp name="webtools" title="WebTools" server="default" location="webtools" mount-point="/webtools"/>
+    </ofbiz-component>
+-->

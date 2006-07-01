@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2002-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.0
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+	<!-- CustomTimePeriod Services -->
+    <simple-method method-name="createCustomTimePeriod" short-description="Create a CustomTimePeriod">
+        <check-permission permission="PERIOD_MAINT"><fail-message message="Security Error: to run createCustomTimePeriod you must have the PERIOD_MAINT permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="CustomTimePeriod"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <sequenced-id-to-env sequence-name="CustomTimePeriod" env-name="customTimePeriodId"/>
+        <env-to-field env-name="customTimePeriodId" map-name="newEntity"/>
+        <field-to-result field-name="customTimePeriodId" result-name="customTimePeriodId"/>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateCustomTimePeriod" short-description="Update a CustomTimePeriod">
+        <check-permission permission="PERIOD_MAINT"><fail-message message="Security Error: to run updateCustomTimePeriod you must have the PERIOD_MAINT permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="CustomTimePeriod"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteCustomTimePeriod" short-description="Delete a CustomTimePeriod">
+        <check-permission permission="PERIOD_MAINT"><fail-message message="Security Error: to run deleteCustomTimePeriod you must have the PERIOD_MAINT permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupPKMap" entity-name="CustomTimePeriod"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="findCustomTimePeriods" short-description="Find a CustomTimePeriod">
+        <if-not-empty field-name="parameters.organizationPartyId">
+            <!-- walk up the tree and find all party groups that this is a member of, and include the periods for all of them -->
+            <env-to-env env-name="parameters.organizationPartyId" to-env-name="getParentOrganizationsCallMap.organizationPartyId"/>
+            <call-service service-name="getParentOrganizations" in-map-name="getParentOrganizationsCallMap">
+                <result-to-field result-name="parentOrganizationPartyIdList"/>
+            </call-service>
+            
+            <iterate entry-name="curOrganizationPartyId" list-name="parentOrganizationPartyIdList">
+                <clear-field field-name="orgTimePeriodList"/>
+                <entity-condition entity-name="CustomTimePeriod" list-name="orgTimePeriodList">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="organizationPartyId" operator="equals" env-name="curOrganizationPartyId"/>
+                        </condition-list>
+                        <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.findDate"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" env-name="parameters.findDate"/>
+                            <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
+                        </condition-list>
+                        <condition-expr field-name="periodTypeId" operator="in" env-name="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
+                    </condition-list>
+                </entity-condition>
+                <list-to-list list-name="orgTimePeriodList" to-list-name="listSoFar"/>
+            </iterate>
+        </if-not-empty>
+        
+        <if-compare field-name="parameters.excludeNoOrganizationPeriods" operator="not-equals" value="Y">
+            <entity-condition entity-name="CustomTimePeriod" list-name="generalCustomTimePeriodList">
+                <condition-list combine="and">
+                    <condition-list combine="or">
+                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="nullField"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" value="_NA_"/>
+                    </condition-list>
+                    <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.findDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="thruDate" operator="greater" env-name="parameters.findDate"/>
+                        <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
+                    </condition-list>
+                    <condition-expr field-name="periodTypeId" operator="in" env-name="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
+                </condition-list>
+            </entity-condition>
+            <list-to-list list-name="generalCustomTimePeriodList" to-list-name="listSoFar"/>
+        </if-compare>
+        
+        <!--
+            * We might want to implement this sometime in the future, but for now is not needed 
+            * go through the list and check each one to see if it has a child in the list, if so don't copy it
+        <if-compare field-name="parameters.excludeParentPeriods" operator="equals" value="Y"></if-compare>
+        -->
+
+        <field-to-result field-name="listSoFar" result-name="customTimePeriodList"/>
+    </simple-method>
+</simple-methods>

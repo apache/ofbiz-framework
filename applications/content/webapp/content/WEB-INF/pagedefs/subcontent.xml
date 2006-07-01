@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>plain</template> 
+    <property name="title">SubContent</property>
+    <page-action name="/subcontentprep.bsh"/>
+</page>

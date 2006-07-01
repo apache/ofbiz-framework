@@ -1,0 +1,19 @@
+
+These configuration templates are for Weblogic 8.1 SP2, which was the latest version at the time of writing.
+
+For ease of use these three files are meant to be used in the "examples" domain that comes with Weblogic.
+
+The main reason for this is that it is difficult to configure Weblogic security settings for a new domain and this way it is easy to get started fast.
+
+To use just put OFBiz somewhere on your system and once it is in place generate the Weblogic configuration files from the templates, as described in the ofbiz/framework/appservers/README file. Copy those files into the $WL_HOME/samples/domains/examples directory.
+
+Before running there are some things that come by default in OFBiz that conflict with Weblogic. These are things to do before running:
+
+1. Remove the jndi.properties file from ofbiz/base/config so that the Weblogic defaults will be used
+2. Comment out or re-configure the RMIDispatcher container in the limited-containers.xml file in ofbiz/base/config
+
+Now, just run the startOFBizServer.cmd or startOFBizServer.sh scripts that were generated above and copied into the examples domain directory.
+
+Enjoy!
+
+

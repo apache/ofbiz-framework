@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.content.content -->
+  <!--  - org.ofbiz.content.data -->
+  <!--  - org.ofbiz.content.document -->
+  <!--  - org.ofbiz.content.preference -->
+  <!--  - org.ofbiz.content.subscription -->
+  <!--  - org.ofbiz.content.survey -->
+  <!-- ========================================================= -->
+
+ <!-- ========================================================= -->
+  <!-- org.ofbiz.content.commevent -->
+  <!-- ========================================================= -->
+   <entity entity-name="CommEventContentAssoc"
+            package-name="org.ofbiz.content.commevent"
+            title="CommunicationEvent Content Association Entity">
+      <field name="contentId" type="id-ne"></field>
+      <field name="communicationEventId" type="id-ne"></field>
+      <field name="commContentAssocTypeId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <prim-key field="contentId"/>
+      <prim-key field="communicationEventId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="COMMEV_CA_FROM" title="From" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="COMMEV_CA_COMMEV"  rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one" fk-name="COMMEV_CA_TYP" rel-entity-name="CommContentAssocType">
+        <key-map field-name="commContentAssocTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="CommContentAssocType"
+            package-name="org.ofbiz.content.commevent"			
+            title="CommunicationEvent Content Association Type Entity">
+      <field name="commContentAssocTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="commContentAssocTypeId"/>
+    </entity>
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.content.content -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Content"
+            package-name="org.ofbiz.content.content"
+            title="Content Entity">
+      <field name="contentId" type="id-ne"></field>
+      <field name="contentTypeId" type="id"></field>
+      <field name="ownerContentId" type="id"></field>
+      <field name="instanceOfContentId" type="id"></field>
+      <field name="dataResourceId" type="id"></field>
+      <field name="templateDataResourceId" type="id"></field>
+      <field name="dataSourceId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="privilegeEnumId" type="id"></field>
+      <field name="serviceName" type="long-varchar"></field>
+      <field name="contentName" type="name"></field>
+      <field name="description" type="description"></field>
+      <field name="localeString" type="very-short"></field>
+      <field name="mimeTypeId" type="id-long"></field>
+      <field name="characterSetId" type="id-long"></field>
+      <field name="childLeafCount" type="numeric"/>
+      <field name="childBranchCount" type="numeric"/>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="contentId"/>
+      <relation type="one" fk-name="CONTENT_TO_TYPE" rel-entity-name="ContentType">
+        <key-map field-name="contentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_TO_DATA" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_TO_TMPDATA" title="Template" rel-entity-name="DataResource">
+        <key-map field-name="templateDataResourceId" rel-field-name="dataResourceId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_STATUS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_PRIVENM" title="Privilege" rel-entity-name="Enumeration">
+        <key-map field-name="privilegeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_MMTP" rel-entity-name="MimeType">
+        <key-map field-name="mimeTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_CHST" rel-entity-name="CharacterSet">
+        <key-map field-name="characterSetId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentTypeAttr">
+        <key-map field-name="contentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_CB_ULGN" title="CreatedBy" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_LMB_ULGN" title="LastModifiedBy" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ProductFeatureDataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_DTSRC" rel-entity-name="DataSource">
+        <key-map field-name="dataSourceId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_PCNTNT" title="Owner" rel-entity-name="Content">
+        <key-map field-name="ownerContentId" rel-field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_IOFCNT" title="InstanceOf" rel-entity-name="Content">
+          <key-map field-name="instanceOfContentId" rel-field-name="contentId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+    </entity>
+    <view-entity entity-name="ContentAndRole" package-name="org.ofbiz.content.content" title="Content And Role Entity">
+        <member-entity entity-alias="CNT" entity-name="Content"/>
+        <member-entity entity-alias="CRLE" entity-name="ContentRole"/>
+        <alias-all entity-alias="CNT"/>
+        <alias-all entity-alias="CRLE"/>
+        <view-link entity-alias="CNT" rel-entity-alias="CRLE">
+            <key-map field-name="contentId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="ContentApproval"
+        package-name="org.ofbiz.content.content"
+        title="Content Approval Entity">
+        <field name="contentApprovalId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="contentRevisionSeqId" type="id-ne"></field>
+        <field name="partyId" type="id-ne"></field>
+        <field name="roleTypeId" type="id-ne"></field>
+        <field name="approvalStatusId" type="id-ne"></field>
+        <field name="approvalDate" type="date-time"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <field name="comments" type="comment"></field>
+        <prim-key field="contentApprovalId"/>
+        <relation type="one" fk-name="CNTNTAPPR_CNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContentRevision">
+            <key-map field-name="contentId"/>
+            <key-map field-name="contentRevisionSeqId"/>
+        </relation>
+        <relation type="one" fk-name="CNTNTAPPR_PTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="CNTNTAPPR_RLTP" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="CNTNTAPPR_APSI" title="Approval" rel-entity-name="StatusItem">
+            <key-map field-name="approvalStatusId" rel-field-name="statusId"/>
+        </relation>
+    </entity>
+    <entity entity-name="ContentAssoc"
+            package-name="org.ofbiz.content.content"
+            title="Content Association Entity">
+      <field name="contentId" type="id-ne"></field>
+      <field name="contentIdTo" type="id-ne"></field>
+      <field name="contentAssocTypeId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="contentAssocPredicateId" type="id"></field>
+      <field name="dataSourceId" type="id"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <field name="mapKey" type="name"></field>
+      <field name="upperCoordinate" type="numeric"></field>
+      <field name="leftCoordinate" type="numeric"></field>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="contentId"/>
+      <prim-key field="contentIdTo"/>
+      <prim-key field="contentAssocTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="CONTENTASSC_FROM" title="From" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTASSC_TO" title="To" rel-entity-name="Content">
+        <key-map field-name="contentIdTo" rel-field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTASSC_TYP" rel-entity-name="ContentAssocType">
+        <key-map field-name="contentAssocTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTASSC_CBUSR" title="CreatedBy" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTASSC_LMBUR" title="LastModifiedBy" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTASSC_PRED" rel-entity-name="ContentAssocPredicate">
+        <key-map field-name="contentAssocPredicateId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTASSC_DTSRC" rel-entity-name="DataSource">
+        <key-map field-name="dataSourceId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ContentAssocDataResourceViewFrom"
+                package-name="org.ofbiz.content.content"
+                title="Main Assoc To and DataResource">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="CA" prefix="ca"/>
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
+      <view-link entity-alias="CO" rel-entity-alias="CA" rel-optional="true">
+        <key-map field-name="contentId" rel-field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
+        <key-map field-name="dataResourceId" rel-field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" /> </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentPurpose">
+          <key-map field-name="contentId" rel-field-name="contentId"/>
+      </relation>
+      <relation type="many" title="From" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="many" title="To" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId" rel-field-name="contentIdTo"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentRole">
+        <key-map field-name="contentId"/>
+      </relation>
+    </view-entity>
+    <view-entity entity-name="ContentAssocDataResourceViewTo"
+                package-name="org.ofbiz.content.content"
+                title="Main Assoc To and DataResource">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="CA" prefix="ca"/>
+      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <alias entity-alias="CA" name="contentIdStart" field="contentId"/>
+      <view-link entity-alias="CA" rel-entity-alias="CO" rel-optional="true">
+        <key-map field-name="contentIdTo" rel-field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
+        <key-map field-name="dataResourceId" rel-field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentPurpose">
+          <key-map field-name="caContentIdTo" rel-field-name="contentId"/>
+      </relation>
+      <relation type="many" title="From" rel-entity-name="ContentAssoc">
+        <key-map field-name="caContentIdTo" rel-field-name="contentId"/>
+      </relation>
+      <relation type="many" title="To" rel-entity-name="ContentAssoc">
+        <key-map field-name="caContentIdTo" rel-field-name="contentIdTo"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentRole">
+        <key-map field-name="caContentIdTo" rel-field-name="contentId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="ContentAssocPredicate"
+            package-name="org.ofbiz.content.content"
+            title="Content Association Predicate Entity">
+      <field name="contentAssocPredicateId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contentAssocPredicateId"/>
+    </entity>
+    <entity entity-name="ContentAssocType"
+            package-name="org.ofbiz.content.content"
+            default-resource-name="ContentEntityLabels"
+            title="Content Association Type Entity">
+      <field name="contentAssocTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contentAssocTypeId"/>
+    </entity>
+    <view-entity entity-name="ContentAssocViewFrom"
+                package-name="org.ofbiz.content.content"
+                title="Main Assoc To">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias-all entity-alias="CO"/>
+      <alias-all entity-alias="CA" prefix="ca"/>
+      <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
+      <view-link entity-alias="CO" rel-entity-alias="CA">
+        <key-map field-name="contentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="ContentAssocViewTo"
+                package-name="org.ofbiz.content.content"
+                title="Main Assoc To">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias-all entity-alias="CO"/>
+      <alias-all entity-alias="CA" prefix="ca"/>
+      <alias entity-alias="CA" name="contentIdStart" field="contentId"/>
+      <view-link entity-alias="CO" rel-entity-alias="CA">
+        <key-map field-name="contentId" rel-field-name="contentIdTo"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="ContentAttribute"
+            package-name="org.ofbiz.content.content"
+            title="Content Attribute Entity">
+      <field name="contentId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="contentId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="CONTENT_ATTR" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="ContentDataResourceView"
+                package-name="org.ofbiz.content.content"
+                title="Content and DataResource">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
+        <key-map field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" title="From" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="many" title="To" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId" rel-field-name="contentIdTo"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentPurpose">
+          <key-map field-name="contentId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentRole">
+        <key-map field-name="contentId"/>
+      </relation>
+    </view-entity>
+    <view-entity entity-name="CommEventContentDataResource"
+                package-name="org.ofbiz.content.content"
+                title="CommEvent and Content and DataResource">
+      <member-entity entity-alias="CECA" entity-name="CommEventContentAssoc"/>
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="CECA" />
+      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <view-link entity-alias="CECA" rel-entity-alias="CO" rel-optional="false">
+        <key-map field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
+        <key-map field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" title="From" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="many" title="To" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId" rel-field-name="contentIdTo"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentPurpose">
+          <key-map field-name="contentId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentRole">
+        <key-map field-name="contentId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="ContentMetaData"
+            package-name="org.ofbiz.content.content"
+            title="Content Meta-Data Predicate Entity">
+      <field name="contentId" type="id-ne"></field>
+      <field name="metaDataPredicateId" type="id-ne"></field>
+      <field name="metaDataValue" type="value"></field>
+      <field name="dataSourceId" type="id"></field>
+      <prim-key field="contentId"/>
+      <prim-key field="metaDataPredicateId"/>
+      <prim-key field="metaDataValue"/>
+      <relation type="one" fk-name="CONTENTMD_CNTNT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTMD_DMDPRD" rel-entity-name="MetaDataPredicate">
+        <key-map field-name="metaDataPredicateId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENTMD_DTSRC" rel-entity-name="DataSource">
+        <key-map field-name="dataSourceId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContentOperation"
+            package-name="org.ofbiz.content.content"
+            default-resource-name="ContentEntityLabels"
+            title="Content Operation Entity">
+      <field name="contentOperationId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contentOperationId"/>
+    </entity>
+    <entity entity-name="ContentPurpose"
+            package-name="org.ofbiz.content.content"
+            title="Content Purpose Entity">
+      <field name="contentId" type="id-ne"></field>
+      <field name="contentPurposeTypeId" type="id-ne"></field>
+      <prim-key field="contentId"/>
+      <prim-key field="contentPurposeTypeId"/>
+      <relation type="one" fk-name="CONTENT_PRP" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_PRP_TYPE" rel-entity-name="ContentPurposeType">
+        <key-map field-name="contentPurposeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContentPurposeOperation"
+            package-name="org.ofbiz.content.content"
+            title="Content Purpose Entity">
+      <field name="contentPurposeTypeId" type="id-ne"></field>
+      <field name="contentOperationId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="privilegeEnumId" type="id-ne"></field>
+      <prim-key field="contentPurposeTypeId"/>
+      <prim-key field="contentOperationId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="statusId"/>
+      <prim-key field="privilegeEnumId"/>
+      <relation type="one" fk-name="CONTENT_PRO_TYPE" rel-entity-name="ContentPurposeType">
+        <key-map field-name="contentPurposeTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_PRO_OPER" rel-entity-name="ContentOperation">
+        <key-map field-name="contentOperationId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_PRO_RLT" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_PRO_STI" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="CONTENT_PRO_PEI" rel-entity-name="Enumeration">
+        <key-map field-name="privilegeEnumId" rel-field-name="enumId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContentPurposeType"
+            package-name="org.ofbiz.content.content"
+            default-resource-name="ContentEntityLabels"
+            title="Content Purpose Type Entity">
+      <field name="contentPurposeTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contentPurposeTypeId"/>
+    </entity>
+    <entity entity-name="ContentRevision"
+        package-name="org.ofbiz.content.content"
+        title="Content Revision Entity">
+        <field name="contentId" type="id-ne"></field>
+        <field name="contentRevisionSeqId" type="id-ne"></field>
+        <field name="committedByPartyId" type="id-ne"></field>
+        <field name="comments" type="comment"></field>
+        <prim-key field="contentId"/>
+        <prim-key field="contentRevisionSeqId"/>
+        <relation type="one" fk-name="CNTNTREV_CNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="CNTNTREV_CBPTY" title="CommittedBy" rel-entity-name="Party">
+            <key-map field-name="committedByPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+    <entity entity-name="ContentRevisionItem"
+        package-name="org.ofbiz.content.content"
+        title="Content Revision Entity">
+        <field name="contentId" type="id-ne"></field>
+        <field name="contentRevisionSeqId" type="id-ne"></field>
+        <field name="itemContentId" type="id-ne"></field>
+        <field name="oldDataResourceId" type="id-ne"></field>
+        <field name="newDataResourceId" type="id-ne"></field>
+        <prim-key field="contentId"/>
+        <prim-key field="contentRevisionSeqId"/>
+        <prim-key field="itemContentId"/>
+        <relation type="one" fk-name="CNTNTREVIT_CNTREV" rel-entity-name="ContentRevision">
+            <key-map field-name="contentId"/>
+            <key-map field-name="contentRevisionSeqId"/>
+        </relation>
+        <relation type="one" fk-name="CNTNTREVIT_OLDDR" title="Old" rel-entity-name="DataResource">
+            <key-map field-name="oldDataResourceId" rel-field-name="dataResourceId"/>
+        </relation>
+        <relation type="one" fk-name="CNTNTREVIT_NEWDR" title="New" rel-entity-name="DataResource">
+            <key-map field-name="newDataResourceId" rel-field-name="dataResourceId"/>
+        </relation>
+    </entity>
+    <entity entity-name="ContentRole"
+            package-name="org.ofbiz.content.content"
+            title="Content Role Entity">
+      <field name="contentId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="contentId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="CNTNT_RL_CNTNT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="CNTNT_RL_PTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContentType"
+            package-name="org.ofbiz.content.content"
+            default-resource-name="ContentEntityLabels"
+            title="Content Type Entity">
+      <field name="contentTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="contentTypeId"/>
+      <relation type="one" fk-name="CNTNT_TYPE_PARENT" title="Parent" rel-entity-name="ContentType">
+        <key-map field-name="parentTypeId" rel-field-name="contentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContentTypeAttr"
+            package-name="org.ofbiz.content.content"
+            title="Content Type Attribute Entity">
+      <field name="contentTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="contentTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="CONTENT_TPAT_TYP" rel-entity-name="ContentType">
+        <key-map field-name="contentTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Content">
+        <key-map field-name="contentTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="SubContentDataResourceView"
+                package-name="org.ofbiz.content.content"
+                title="Content and DataResource for SubContent">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
+        <key-map field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentPurpose">
+        <key-map field-name="contentId" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentRole">
+        <key-map field-name="contentId" />
+      </relation>
+      <relation type="many" title="From" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="many" title="To" rel-entity-name="ContentAssoc">
+        <key-map field-name="contentId" rel-field-name="contentIdTo"/>
+      </relation>
+    </view-entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.content.data -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="CharacterSet"
+            package-name="org.ofbiz.content.data"
+            title="Character Set Entity">
+      <field name="characterSetId" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="characterSetId"/>
+    </entity>
+    <entity entity-name="DataCategory"
+            package-name="org.ofbiz.content.data"
+            default-resource-name="ContentEntityLabels"
+            title="Data Category Entity">
+      <field name="dataCategoryId" type="id-ne"></field>
+      <field name="parentCategoryId" type="id"></field>
+      <field name="categoryName" type="name"></field>
+      <prim-key field="dataCategoryId"/>
+      <relation type="one" fk-name="DATA_CAT_PARENT" title="Parent" rel-entity-name="DataCategory">
+        <key-map field-name="parentCategoryId" rel-field-name="dataCategoryId"/>
+      </relation>
+      <relation type="many" title="Sibling" rel-entity-name="DataCategory">
+        <key-map field-name="parentCategoryId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DataResource"
+            package-name="org.ofbiz.content.data"
+            title="Data Object Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="dataResourceTypeId" type="id"></field>
+      <field name="dataTemplateTypeId" type="id"></field>
+      <field name="dataCategoryId" type="id-ne"></field>
+      <field name="dataSourceId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="dataResourceName" type="name"></field>
+      <field name="localeString" type="very-short"></field>
+      <field name="mimeTypeId" type="id-long"></field>
+      <field name="characterSetId" type="id-long"></field>
+      <field name="objectInfo" type="long-varchar"></field>
+      <field name="relatedDetailId" type="id"><description>Depending on the dataResourceTypeId this can point to other entities, like: Survey, SurveyResponse, etc.</description></field>
+      <field name="isPublic" type="indicator"><description>If this is set to Y then anyone can download it, otherwise the download is restricted.</description></field>
+      <field name="createdDate" type="date-time"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="dataResourceId"/>
+      <relation type="one" fk-name="DTRSRC_STATUS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_TO_TYPE" rel-entity-name="DataResourceType">
+        <key-map field-name="dataResourceTypeId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_TO_TTP" rel-entity-name="DataTemplateType">
+        <key-map field-name="dataTemplateTypeId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_TO_CAT" rel-entity-name="DataCategory">
+        <key-map field-name="dataCategoryId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_DTSRC" rel-entity-name="DataSource">
+        <key-map field-name="dataSourceId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_MMTP" rel-entity-name="MimeType">
+        <key-map field-name="mimeTypeId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_CHST" rel-entity-name="CharacterSet">
+        <key-map field-name="characterSetId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DataResourceTypeAttr">
+        <key-map field-name="dataResourceTypeId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_CB_ULGN" title="CreatedBy" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_LMB_ULGN" title="LastModifiedBy" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DataResourceAttribute"
+            package-name="org.ofbiz.content.data"
+            title="Data Object Attribute Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="dataResourceId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="DATA_REC_ATTR" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DataResourceTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="DataResourceContentView"
+                package-name="org.ofbiz.content.content"
+                title="DataResource and Content View">
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <alias-all entity-alias="DR"/>
+      <alias-all entity-alias="CO"  prefix="co"/>
+      <view-link entity-alias="DR" rel-entity-alias="CO" rel-optional="true">
+        <key-map field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one" rel-entity-name="DataResourceType">
+        <key-map field-name="dataResourceTypeId"/>
+      </relation>
+      <relation type="one" rel-entity-name="DataCategory">
+        <key-map field-name="dataCategoryId"/>
+      </relation>
+      <relation type="one" rel-entity-name="DataSource">
+        <key-map field-name="dataSourceId"/>
+      </relation>
+      <relation type="one" rel-entity-name="MimeType">
+        <key-map field-name="mimeTypeId"/>
+      </relation>
+      <relation type="one" rel-entity-name="CharacterSet">
+        <key-map field-name="characterSetId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DataResourceTypeAttr">
+        <key-map field-name="dataResourceTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DataResourceAttribute">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DataResourceRole">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one" title="CreatedBy" rel-entity-name="UserLogin">
+        <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" title="LastModifiedBy" rel-entity-name="UserLogin">
+        <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="DataResourceMetaData"
+            package-name="org.ofbiz.content.data"
+            title="Data Resource Meta-Data Predicate Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="metaDataPredicateId" type="id-ne"></field>
+      <field name="metaDataValue" type="value"></field>
+      <field name="dataSourceId" type="id"></field>
+      <prim-key field="dataResourceId"/>
+      <prim-key field="metaDataPredicateId"/>
+      <prim-key field="metaDataValue"/>
+      <relation type="one" fk-name="DATA_MD_DATREC" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_MD_DMDPRD" rel-entity-name="MetaDataPredicate">
+        <key-map field-name="metaDataPredicateId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_MD_DTSRC" rel-entity-name="DataSource">
+        <key-map field-name="dataSourceId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DataResourcePurpose"
+            package-name="org.ofbiz.content.data"
+            title="Data Object Purpose Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="contentPurposeTypeId" type="id-ne"></field>
+      <prim-key field="dataResourceId"/>
+      <prim-key field="contentPurposeTypeId"/>
+      <relation type="one" fk-name="DATA_REC_PRP" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one" fk-name="DATA_REC_PRP_TYPE" rel-entity-name="ContentPurposeType">
+        <key-map field-name="contentPurposeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DataResourceRole"
+            package-name="org.ofbiz.content.data"
+            title="DataResource Role Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="dataResourceId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="DATARECRL_DATREC" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="DATARECRL_PTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DataResourceType"
+            package-name="org.ofbiz.content.data"
+            default-resource-name="ContentEntityLabels"
+            title="Data Object Type Entity">
+      <field name="dataResourceTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="dataResourceTypeId"/>
+      <relation type="one" fk-name="DATA_OBTYPE_PARENT" title="Parent" rel-entity-name="DataResourceType">
+        <key-map field-name="parentTypeId" rel-field-name="dataResourceTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DataResourceTypeAttr"
+            package-name="org.ofbiz.content.data"
+            title="Data Object Type Attribute Entity">
+      <field name="dataResourceTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="dataResourceTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="DATA_OBTYPE_ATTR" rel-entity-name="DataResourceType">
+        <key-map field-name="dataResourceTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DataResourceAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DataTemplateType"
+            package-name="org.ofbiz.content.data"
+            default-resource-name="ContentEntityLabels"
+            title="Data Template Type Entity">
+      <field name="dataTemplateTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="extension" type="short-varchar"></field>
+      <prim-key field="dataTemplateTypeId"/>
+    </entity>
+    <entity entity-name="ElectronicText"
+            package-name="org.ofbiz.content.data"
+            title="Electronic Text Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="textData" type="very-long"></field>
+      <prim-key field="dataResourceId"/>
+      <relation type="one" fk-name="DATA_REC_TEXT" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FileExtension"
+            package-name="org.ofbiz.content.data"
+            title="File Extension Entity">
+      <field name="fileExtensionId" type="id-long-ne"></field>
+      <field name="mimeTypeId" type="id-long-ne"></field>
+      <prim-key field="fileExtensionId"/>
+      <relation type="one" fk-name="FILEEXT_MMTYP" rel-entity-name="MimeType">
+        <key-map field-name="mimeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ImageDataResource"
+            package-name="org.ofbiz.content.data"
+            title="Image Data Object Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="imageData" type="blob"></field>
+      <prim-key field="dataResourceId"/>
+      <relation type="one" fk-name="DATA_REC_IMAGE" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+    </entity>
+    <entity entity-name="MetaDataPredicate"
+            package-name="org.ofbiz.content.data"
+            default-resource-name="ContentEntityLabels"
+            title="Data Meta-Data Predicate Entity">
+      <field name="metaDataPredicateId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="metaDataPredicateId"/>
+    </entity>
+    <entity entity-name="MimeType"
+            package-name="org.ofbiz.content.data"
+            default-resource-name="ContentEntityLabels"
+            title="Mime Type Entity">
+      <field name="mimeTypeId" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="mimeTypeId"/>
+    </entity>
+    <entity entity-name="OtherDataResource"
+            package-name="org.ofbiz.content.data"
+            title="Other Data Object Entity">
+      <field name="dataResourceId" type="id-ne"></field>
+      <field name="dataResourceContent" type="blob"></field>
+      <prim-key field="dataResourceId"/>
+      <relation type="one" fk-name="DATA_REC_OTHER" rel-entity-name="DataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.content.document -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Document"
+            package-name="org.ofbiz.content.document"
+            title="Document Entity">
+      <field name="documentId" type="id-ne"></field>
+      <field name="documentTypeId" type="id"></field>
+      <field name="dateCreated" type="date-time"></field>
+      <field name="comments" type="comment"></field>
+      <field name="documentLocation" type="long-varchar"></field>
+      <field name="documentText" type="long-varchar"></field>
+      <field name="imageData" type="blob"></field>
+      <prim-key field="documentId"/>
+      <relation type="one" fk-name="DOCUMENT_TO_TYPE" rel-entity-name="DocumentType">
+        <key-map field-name="documentTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DocumentTypeAttr">
+        <key-map field-name="documentTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ShippingDocument">
+        <key-map field-name="documentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DocumentAttribute"
+            package-name="org.ofbiz.content.document"
+            title="Document Attribute Entity">
+      <field name="documentId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="documentId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="DOCUMENT_ATTR" rel-entity-name="Document">
+        <key-map field-name="documentId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DocumentTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="DocumentType"
+            package-name="org.ofbiz.content.document"
+            title="Document Type Entity">
+      <field name="documentTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="documentTypeId"/>
+      <relation type="one" fk-name="DOC_TYPE_PARENT" title="Parent" rel-entity-name="DocumentType">
+        <key-map field-name="parentTypeId" rel-field-name="documentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DocumentTypeAttr"
+            package-name="org.ofbiz.content.document"
+            title="Document Type Attribute Entity">
+      <field name="documentTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="documentTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="DOC_TYPE_ATTR" rel-entity-name="DocumentType">
+        <key-map field-name="documentTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="DocumentAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Document">
+        <key-map field-name="documentTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.content.preference -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="WebPreferenceType"
+            package-name="org.ofbiz.content.preference"
+            title="Web Preference Type Entity">
+      <field name="webPreferenceTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="webPreferenceTypeId"/>
+    </entity>
+    <entity entity-name="WebUserPreference"
+            package-name="org.ofbiz.content.preference"
+            title="Web User Preference Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="webPreferenceTypeId" type="id-ne"></field>
+      <prim-key field="userLoginId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="webPreferenceTypeId"/>
+      <relation type="one" fk-name="WEB_PREF_TYPE" rel-entity-name="WebPreferenceType">
+        <key-map field-name="webPreferenceTypeId"/>
+      </relation>
+      <relation type="one" fk-name="WEB_PREF_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="WEB_PREF_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.content.subscription -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Subscription" package-name="org.ofbiz.content.subscription" title="Subscription Entity">
+      <field name="subscriptionId" type="id-ne"></field>
+      <field name="subscriptionResourceId" type="id"></field>
+      <field name="communicationEventId" type="id"></field>
+      <field name="contactMechId" type="id"></field>
+      <field name="originatedFromPartyId" type="id"></field>
+      <field name="originatedFromRoleTypeId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="partyNeedId" type="id"></field>
+      <field name="needTypeId" type="id"></field>
+      <field name="orderId" type="id"></field>
+      <field name="orderItemSeqId" type="id"></field>
+      <field name="productId" type="id"></field>
+      <field name="productCategoryId" type="id"></field>
+      <field name="subscriptionTypeId" type="id"></field>
+      <field name="externalSubscriptionId" type="id"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="subscriptionId"/>
+      <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
+        <key-map field-name="subscriptionResourceId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_COM_EVENT" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_CONT_MECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_ROLE_TYPE" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_OPARTY" title="OriginatedFrom" rel-entity-name="Party">
+        <key-map field-name="originatedFromPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_OROLE_TYPE" title="OriginatedFrom" rel-entity-name="RoleType">
+        <key-map field-name="originatedFromRoleTypeId" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="OriginatedFrom" rel-entity-name="PartyRole">
+        <key-map field-name="originatedFromPartyId" rel-field-name="partyId"/>
+        <key-map field-name="originatedFromRoleTypeId" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyNeed">
+        <description>No foreign key because we want to optionally be able to have a partyId without the other fields.</description>
+        <key-map field-name="partyNeedId"/>
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_NEED_TYPE" rel-entity-name="NeedType">
+        <key-map field-name="needTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <description>Note that foreign key not needed because there is an fk for OrderItem.</description>
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_ORDERITM" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_PRODUCT" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_PROD_CAT" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_TO_TYPE" rel-entity-name="SubscriptionType">
+        <key-map field-name="subscriptionTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="SubscriptionTypeAttr">
+        <key-map field-name="subscriptionTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="SubscriptionActivity" package-name="org.ofbiz.content.subscription" title="Subscription Activity Entity">
+      <field name="subscriptionActivityId" type="id-ne"></field>
+      <field name="comments" type="comment"></field>
+      <field name="dateSent" type="date-time"></field>
+      <prim-key field="subscriptionActivityId"/>
+    </entity>
+    <entity entity-name="SubscriptionAttribute" package-name="org.ofbiz.content.subscription" title="Subscription Attribute Entity">
+      <field name="subscriptionId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="subscriptionId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="SUBSC_ATTR" rel-entity-name="Subscription">
+        <key-map field-name="subscriptionId"/>
+      </relation>
+      <relation type="many" rel-entity-name="SubscriptionTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="SubscriptionFulfillmentPiece" package-name="org.ofbiz.content.subscription" title="Subscription Fulfillment Piece Entity">
+      <field name="subscriptionActivityId" type="id-ne"></field>
+      <field name="subscriptionId" type="id-ne"></field>
+      <prim-key field="subscriptionActivityId"/>
+      <prim-key field="subscriptionId"/>
+      <relation type="one" fk-name="SUBSC_FP" rel-entity-name="Subscription">
+        <key-map field-name="subscriptionId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_FP_ACT" rel-entity-name="SubscriptionActivity">
+        <key-map field-name="subscriptionActivityId"/>
+      </relation>
+    </entity>
+    <entity entity-name="SubscriptionResource" package-name="org.ofbiz.content.subscription" title="Subscription Resource Entity">
+        <field name="subscriptionResourceId" type="id-ne"></field>
+        <field name="parentResourceId" type="id"></field>
+        <field name="description" type="description"></field>
+        <field name="contentId" type="id"><description>Optional (use if applicable) ID of a Content record that this would represent a subscription to.</description></field>
+        <field name="webSiteId" type="id"><description>Optional (use if applicable) ID of a WebSite record that this would represent a subscription to.</description></field>
+        <prim-key field="subscriptionResourceId"/>
+        <relation type="one" fk-name="SUBSC_RES_PARENT" title="Parent" rel-entity-name="SubscriptionResource">
+            <key-map field-name="parentResourceId" rel-field-name="subscriptionResourceId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_RES_CNTNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_RES_WBSITE" rel-entity-name="WebSite">
+            <key-map field-name="webSiteId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SubscriptionType" package-name="org.ofbiz.content.subscription" title="Subscription Type Entity">
+      <field name="subscriptionTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="subscriptionTypeId"/>
+      <relation type="one" fk-name="SUBSC_TYPE_PARENT" title="Parent" rel-entity-name="SubscriptionType">
+        <key-map field-name="parentTypeId" rel-field-name="subscriptionTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="SubscriptionTypeAttr" package-name="org.ofbiz.content.subscription" title="Subscription Type Attribute Entity">
+      <field name="subscriptionTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="subscriptionTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="SUBSC_TYPE_ATTR" rel-entity-name="SubscriptionType">
+        <key-map field-name="subscriptionTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="SubscriptionAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Subscription">
+        <key-map field-name="subscriptionTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.content.survey -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Survey"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Entity">
+      <field name="surveyId" type="id-ne"/>
+      <field name="surveyName" type="name"/>
+      <field name="description" type="description"/>
+      <field name="comments" type="comment"/>
+      <field name="submitCaption" type="short-varchar"/>
+      <field name="responseService" type="long-varchar"/>
+      <field name="isAnonymous" type="indicator"><description>Allow response to the survey without login?</description></field>
+      <field name="allowMultiple" type="indicator"><description>Allow multiple responses to this survey (if Y), or just a single answer (if N)?</description></field>
+      <field name="allowUpdate" type="indicator"><description>Allow change to responses?</description></field>
+      <field name="acroFormContentId" type="id-ne"><description>Points to PDF with AcroForm</description></field>
+      <prim-key field="surveyId"/>
+    </entity>
+    <entity entity-name="SurveyApplType"
+            package-name="org.ofbiz.content.survey"
+			default-resource-name="ContentEntityLabels"
+            title="Survey Application Type Entity">
+      <field name="surveyApplTypeId" type="id-ne"/>
+      <field name="description" type="description"/>
+      <prim-key field="surveyApplTypeId"/>
+    </entity>
+    <entity entity-name="SurveyMultiResp"
+        package-name="org.ofbiz.content.survey"
+        title="Survey Multi-Response Group Entity">
+        <field name="surveyId" type="id-ne"/>
+        <field name="surveyMultiRespId" type="id-ne"/>
+        <field name="multiRespTitle" type="name"/>
+        <prim-key field="surveyId"/>
+        <prim-key field="surveyMultiRespId"/>
+        <relation type="one" fk-name="SRVYMRSP_SRVY" rel-entity-name="Survey">
+            <key-map field-name="surveyId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SurveyMultiRespColumn"
+        package-name="org.ofbiz.content.survey"
+        title="Survey Multi-Response Group Column/Category Entity">
+        <field name="surveyId" type="id-ne"/>
+        <field name="surveyMultiRespId" type="id-ne"/>
+        <field name="surveyMultiRespColId" type="id-ne"/>
+        <field name="columnTitle" type="name"/>
+        <field name="sequenceNum" type="numeric"/>
+        <prim-key field="surveyId"/>
+        <prim-key field="surveyMultiRespId"/>
+        <prim-key field="surveyMultiRespColId"/>
+        <relation type="one" fk-name="SRVYMRSPCL_SMRESP" rel-entity-name="SurveyMultiResp">
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyMultiRespId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SurveyPage"
+        package-name="org.ofbiz.content.survey"
+        title="Survey Page Type Entity">
+        <field name="surveyId" type="id-ne"/>
+        <field name="surveyPageSeqId" type="id-ne"/>
+        <field name="pageName" type="name"/>
+        <field name="sequenceNum" type="numeric"/>
+        <prim-key field="surveyId"/>
+        <prim-key field="surveyPageSeqId"/>
+        <relation type="one" fk-name="SRVYPAGE_SRVY" rel-entity-name="Survey">
+            <key-map field-name="surveyId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SurveyQuestion"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Question Entity">
+      <field name="surveyQuestionId" type="id-ne"/>
+      <field name="surveyQuestionCategoryId" type="id-ne"/>
+      <field name="surveyQuestionTypeId" type="id-ne"/>
+      <field name="description" type="description"/>
+      <field name="question" type="very-long"/>
+      <field name="hint" type="very-long"/>
+      <prim-key field="surveyQuestionId"/>
+      <relation type="one" fk-name="SRVYQST_SRVYQTP" rel-entity-name="SurveyQuestionType">
+        <key-map field-name="surveyQuestionTypeId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYQST_SRVYQTCT" rel-entity-name="SurveyQuestionCategory">
+        <key-map field-name="surveyQuestionCategoryId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="SurveyQuestionAndAppl"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Question And Application View Entity">
+      <member-entity entity-alias="SQ" entity-name="SurveyQuestion"/>
+      <member-entity entity-alias="SA" entity-name="SurveyQuestionAppl"/>
+      <alias-all entity-alias="SQ"/>
+      <alias-all entity-alias="SA"/>
+      <view-link entity-alias="SQ" rel-entity-alias="SA">
+        <key-map field-name="surveyQuestionId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="SurveyQuestionCategory">
+        <key-map field-name="surveyQuestionCategoryId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="SurveyQuestionType">
+        <key-map field-name="surveyQuestionTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Survey">
+        <key-map field-name="surveyId"/>
+      </relation>
+      <relation type="many" rel-entity-name="SurveyQuestionOption">
+        <key-map field-name="surveyQuestionId"/>
+      </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyPage">
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyPageSeqId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyMultiResp">
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyMultiRespId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyMultiRespColumn">
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyMultiRespId"/>
+            <key-map field-name="surveyMultiRespColId"/>
+        </relation>
+    </view-entity>
+    <entity entity-name="SurveyQuestionAppl"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Question Application Entity">
+      <field name="surveyId" type="id-ne"/>
+      <field name="surveyQuestionId" type="id-ne"/>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
+      <field name="surveyPageSeqId" type="id-ne"/>
+      <field name="surveyMultiRespId" type="id-ne"/>
+      <field name="surveyMultiRespColId" type="id"><description>Used to optionally associate this question to a specific column in the Multi-Response set; with this you can associate a single question to each cell in the question/column grid; this is useful for AcroForm round trips where the target PDF needs a question associated with each cell, or even the same question applied with different externalFieldRef values.</description></field>
+      <field name="requiredField" type="indicator"/>
+      <field name="sequenceNum" type="numeric"/>
+      <field name="externalFieldRef" type="long-varchar"><description>External field ID/reference; for AcroForms used to track the field ID</description></field>
+      <field name="withSurveyQuestionId" type="id"><description>These two with* fields are used to specify that this question should only appear if the with option has been selected for the with question.</description></field>
+      <field name="withSurveyOptionSeqId" type="id"/>
+      <prim-key field="surveyId"/>
+      <prim-key field="surveyQuestionId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="SRVYQSTAPL_SRVY" rel-entity-name="Survey">
+        <key-map field-name="surveyId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYQSTAPL_SRVYQ" rel-entity-name="SurveyQuestion">
+        <key-map field-name="surveyQuestionId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYQSTAPL_SVQO" title="With" rel-entity-name="SurveyQuestionOption">
+        <key-map field-name="withSurveyQuestionId" rel-field-name="surveyQuestionId"/>
+        <key-map field-name="withSurveyOptionSeqId" rel-field-name="surveyOptionSeqId"/>
+      </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyPage">
+            <description>This does not have a foreign key because the surveyId will never be null, and we want the surveyPageSeqId to be optional.</description>
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyPageSeqId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyMultiResp">
+            <description>This does not have a foreign key because the surveyId will never be null, and we want the surveyMultiRespId to be optional.</description>
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyMultiRespId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyMultiRespColumn">
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyMultiRespId"/>
+            <key-map field-name="surveyMultiRespColId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SurveyQuestionCategory"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Question Category Entity">
+      <field name="surveyQuestionCategoryId" type="id-ne"/>
+      <field name="parentCategoryId" type="id"/>
+      <field name="description" type="description"/>
+      <prim-key field="surveyQuestionCategoryId"/>
+      <relation type="one" fk-name="SRVYQSTCT_PAR" title="Parent" rel-entity-name="SurveyQuestionCategory">
+        <key-map field-name="parentCategoryId" rel-field-name="surveyQuestionCategoryId"/>
+      </relation>
+    </entity>
+    <entity entity-name="SurveyQuestionOption"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Question Option Entity">
+      <field name="surveyQuestionId" type="id-ne"/>
+      <field name="surveyOptionSeqId" type="id-ne"/>
+      <field name="description" type="description"/>
+      <field name="sequenceNum" type="numeric"/>
+      <field name="amountBase" type="currency-amount"/>
+      <field name="amountBaseUomId" type="id"/>
+      <field name="weightFactor" type="floating-point"/>
+      <field name="duration" type="numeric"/>
+      <field name="durationUomId" type="id"/>
+      <prim-key field="surveyQuestionId"/>
+      <prim-key field="surveyOptionSeqId"/>
+      <relation type="one" fk-name="SRVYQSTOP_SRVYQ" rel-entity-name="SurveyQuestion">
+        <key-map field-name="surveyQuestionId"/>
+      </relation>
+    </entity>
+    <entity entity-name="SurveyQuestionType"
+            package-name="org.ofbiz.content.survey"
+            default-resource-name="ContentEntityLabels"
+            title="Survey Question Type Entity">
+      <field name="surveyQuestionTypeId" type="id-ne"/>
+      <field name="description" type="description"/>
+      <prim-key field="surveyQuestionTypeId"/>
+    </entity>
+    <entity entity-name="SurveyResponse"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Response Entity">
+      <field name="surveyResponseId" type="id-ne"></field>
+      <field name="surveyId" type="id-ne"></field>
+      <field name="partyId" type="id"></field>
+      <field name="responseDate" type="date-time"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="referenceId" type="id-vlong"></field>
+      <field name="generalFeedback" type="very-long"></field>
+      <field name="orderId" type="id"></field>
+      <field name="orderItemSeqId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <prim-key field="surveyResponseId"/>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYRSP_SRVY" rel-entity-name="Survey">
+        <key-map field-name="surveyId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYRSP_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="SurveyResponseAndAnswer"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Response And Answer View Entity">
+      <member-entity entity-alias="SR" entity-name="SurveyResponse"/>
+      <member-entity entity-alias="SRA" entity-name="SurveyResponseAnswer"/>
+      <alias-all entity-alias="SR"/>
+      <alias-all entity-alias="SRA"/>
+      <view-link entity-alias="SR" rel-entity-alias="SRA">
+        <key-map field-name="surveyResponseId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Survey">
+        <key-map field-name="surveyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="SurveyQuestion">
+        <key-map field-name="surveyQuestionId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="SurveyQuestionOption">
+        <key-map field-name="surveyQuestionId"/>
+        <key-map field-name="surveyOptionSeqId"/>
+      </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyResponse">
+            <key-map field-name="surveyResponseId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="SurveyMultiRespColumn">
+            <key-map field-name="surveyId"/>
+            <key-map field-name="surveyMultiRespId"/>
+            <key-map field-name="surveyMultiRespColId"/>
+        </relation>
+    </view-entity>
+    <entity entity-name="SurveyResponseAnswer"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Response Answer Entity">
+      <field name="surveyResponseId" type="id-ne"></field>
+      <field name="surveyQuestionId" type="id-ne"></field>
+      <field name="surveyMultiRespColId" type="id-ne"><description>This is needed to support multiple responses for different MultiResp Columns; if not part of a MultiResp will be _NA_</description></field>
+      <field name="surveyMultiRespId" type="id-ne"><description>This is not part of the primary key, but should be populated so that the SurveyMultiRespColumn can be more easily looked up.</description></field>
+      <field name="booleanResponse" type="indicator"></field>
+      <field name="currencyResponse" type="currency-amount"></field>
+      <field name="floatResponse" type="floating-point"></field>
+      <field name="numericResponse" type="numeric"></field>
+      <field name="textResponse" type="very-long"></field>
+      <field name="surveyOptionSeqId" type="id"></field>
+      <field name="contentId" type="id"></field>
+      <field name="answeredDate" type="date-time"></field>
+      <field name="amountBase" type="currency-amount"/>
+      <field name="amountBaseUomId" type="id"/>
+      <field name="weightFactor" type="floating-point"/>
+      <field name="duration" type="numeric"/>
+      <field name="durationUomId" type="id"/>
+      <prim-key field="surveyResponseId"/>
+      <prim-key field="surveyQuestionId"/>
+      <prim-key field="surveyMultiRespColId"/>
+      <relation type="one" fk-name="SRVYRSPA_SVRSP" rel-entity-name="SurveyResponse">
+        <key-map field-name="surveyResponseId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYRSPA_SVQU" rel-entity-name="SurveyQuestion">
+        <key-map field-name="surveyQuestionId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYRSPA_OPT" rel-entity-name="SurveyQuestionOption">
+        <key-map field-name="surveyQuestionId"/>
+        <key-map field-name="surveyOptionSeqId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYRSPA_CONT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="SurveyTrigger"
+            package-name="org.ofbiz.content.survey"
+            title="Survey Trigger Entity">
+      <field name="surveyId" type="id-ne"/>
+      <field name="surveyApplTypeId" type="id-ne"/>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
+      <prim-key field="surveyId"/>
+      <prim-key field="surveyApplTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="SRVYTRG_SRVY" rel-entity-name="Survey">
+        <key-map field-name="surveyId"/>
+      </relation>
+      <relation type="one" fk-name="SRVYTRG_SRVYAPT" rel-entity-name="SurveyApplType">
+        <key-map field-name="surveyApplTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.content.compdoc -->
+  <!-- ========================================================= -->
+    
+    <view-entity entity-name="AssocRevisionItemView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest Revision Children">
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias entity-alias="CA" name="contentId" group-by="true"/>
+      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
+      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
+      <alias entity-alias="CA" name="thruDate" group-by="true"/>
+      <alias entity-alias="CA" name="fromDate" group-by="true"/>
+      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
+      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
+      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
+      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+      <view-link entity-alias="CA" rel-entity-alias="CRI">
+        <key-map field-name="contentId" rel-field-name="itemContentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="ContentAssocRevisionItemView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest Revision Children">
+      <member-entity entity-alias="C" entity-name="Content"/>
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias entity-alias="C" name="instanceOfContentId" group-by="true"/>
+      <alias entity-alias="C" name="dataResourceId" group-by="true"/>
+      <alias entity-alias="CA" name="contentId" group-by="true"/>
+      <alias entity-alias="CA" name="contentIdTo" group-by="true"/>
+      <alias entity-alias="CA" name="contentAssocTypeId" group-by="true"/>
+      <alias entity-alias="CA" name="thruDate" group-by="true"/>
+      <alias entity-alias="CA" name="fromDate" group-by="true"/>
+      <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
+      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
+      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
+      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+      <view-link entity-alias="C" rel-entity-alias="CA">
+        <key-map field-name="contentId" rel-field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CA" rel-entity-alias="CRI">
+        <key-map field-name="contentId" rel-field-name="itemContentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="MaxRevisionItemView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest Revision Children">
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
+      <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
+      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+    </view-entity>
+    <view-entity entity-name="MaxContentApprovalView"
+                package-name="org.ofbiz.content.compdoc"
+                title="Latest ContentApproval">
+      <member-entity entity-alias="C" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentApproval"/>
+      <alias entity-alias="C" name="contentTypeId"  group-by="true"/>
+      <alias entity-alias="CA" name="contentId"  group-by="true"/>
+      <alias entity-alias="CA" name="partyId"  group-by="true"/>
+      <alias entity-alias="CA" name="roleTypeId" group-by="true"/>
+      <alias entity-alias="CA" name="sequenceNum" group-by="false"/>
+      <alias entity-alias="CA" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CA" name="maxContentRevisionSeqId" field="contentRevisionSeqId" function="max"/>
+      <view-link entity-alias="C" rel-entity-alias="CA">
+        <key-map field-name="contentId" rel-field-name="contentId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="ContentAssocOptViewFrom"
+                package-name="org.ofbiz.content.content"
+                title="Main Assoc To">
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
+      <alias-all entity-alias="CO"/>
+      <alias-all entity-alias="CA" prefix="ca"/>
+      <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
+      <view-link entity-alias="CO" rel-entity-alias="CA" rel-optional="true">
+        <key-map field-name="contentId"/>
+      </view-link>
+    </view-entity>
+<!--     
+    <view-entity entity-name="ContentRevisionItemAndContentApprovalView"
+                package-name="org.ofbiz.content.content"
+                title="ContentRevisionItem and ContentApproval">
+      <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
+      <member-entity entity-alias="CA" entity-name="ContentApproval"/>
+      <alias-all entity-alias="CRI" />
+      <alias entity-alias="CA" name="caContentId" field="contentId" group-by="true" />
+      <alias entity-alias="CA" name="caContentRevisionSeqId" name="contentRevisionSeqId" group-by="true"/>
+      <alias entity-alias="CA" name="approvalCount" field="contentId" function="count"/>
+      <view-link entity-alias="CRI" rel-entity-alias="CA" rel-optional="true">
+        <key-map field-name="contentId"/>
+        <key-map field-name="contentRevisionSeqId"/>
+      </view-link>
+    </view-entity>
+-->
+</entitymodel>

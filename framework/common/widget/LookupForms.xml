@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <!-- Geo Lookup forms -->
+    <form name="LookupGeo" target="LookupGeo" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="geoId" title="${uiLabelMap.SegmentGroupGeoId}"><text-find/></field>
+        <field name="geoTypeId" title="${uiLabelMap.SegmentGroupGeoTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="geoTypeId" entity-name="GeoType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="geoName" title="${uiLabelMap.SegmentGroupGeoName}"><text-find/></field>
+        <field name="geoCode" title="${uiLabelMap.SegmentGroupGeoCode}"><text-find/></field>
+        <field name="geoSecCode" title="${uiLabelMap.SegmentGroupGeoSecCode}"><text-find/></field>
+        <field name="geoAbbr" title="${uiLabelMap.SegmentGroupGeoAbbr}"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupGeo" list-name="listIt" target="" paginate-target="LookupGeo" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Geo"/>
+                <field-map field-name="orderBy" value="geoName"/>
+            </service>
+        </actions>
+        <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.SegmentGroupGeoId}">
+            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_value('${geoId}')"/>
+        </field>
+        <field name="geoTypeId" title="${uiLabelMap.SegmentGroupGeoTypeId}">
+            <display-entity key-field-name="geoTypeId" entity-name="GeoType" description="${description}"/>
+        </field>
+        <field name="geoName" title="${uiLabelMap.SegmentGroupGeoName}"><display/></field>
+        <field name="geoCode" title="${uiLabelMap.SegmentGroupGeoCode}"><display/></field>
+        <field name="geoSecCode" title="${uiLabelMap.SegmentGroupGeoSecCode}"><display/></field>
+        <field name="geoAbbr" title="${uiLabelMap.SegmentGroupGeoAbbr}"><display/></field>
+    </form>
+</forms>

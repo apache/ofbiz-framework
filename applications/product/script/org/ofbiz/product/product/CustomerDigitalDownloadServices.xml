@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2006-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createCustomerDigitalDownloadProduct" short-description="createCustomerDigitalDownloadProduct">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+
+        <make-value value-name="createProductMap" entity-name="Product"/>
+        <sequenced-id-to-env sequence-name="Product" env-name="createProductMap.productId"/>
+        <set field="productId" from-field="createProductMap.productId"/>
+
+        <set field="createProductMap.productName" from-field="parameters.productName"/>
+        <set field="createProductMap.internalName" from-field="parameters.productName"/>
+        <set field="createProductMap.description" from-field="parameters.description"/>
+        <set field="createProductMap.productTypeId" value="DIGITAL_GOOD"/>
+        <create-value value-name="createProductMap"/>
+
+        <make-value value-name="createProductPriceMap" entity-name="ProductPrice"/>
+        <set field="createProductPriceMap.productId" from-field="productId"/>
+        <set field="createProductPriceMap.productPriceTypeId" value="DEFAULT_PRICE"/>
+        <set field="createProductPriceMap.productPricePurposeId" value="PURCHASE"/>
+        <set field="createProductPriceMap.currencyUomId" from-field="parameters.currencyUomId" default-value="USD"/>
+        <set field="createProductPriceMap.productStoreGroupId" value="_NA_"/>
+        <set field="createProductPriceMap.fromDate" from-field="nowTimestamp"/>
+        <set field="createProductPriceMap.price" from-field="parameters.price"/>
+        <create-value value-name="createProductPriceMap"/>
+        
+        <make-value value-name="createProductSupplierMap" entity-name="SupplierProduct"/>
+        <set field="createProductSupplierMap.productId" from-field="productId"/>
+        <set field="createProductSupplierMap.partyId" from-field="userLogin.partyId"/>
+        <set field="createProductSupplierMap.currencyUomId" from-field="parameters.currencyUomId" default-value="USD"/>
+        <set field="createProductSupplierMap.minimumOrderQuantity" value="1" type="Double"/>
+        <set field="createProductSupplierMap.availableFromDate" from-field="nowTimestamp"/>
+        <create-value value-name="createProductSupplierMap"/>
+
+        <field-to-result field-name="productId"/>
+        <field-to-result field-name="createProductSupplierMap.currencyUomId" result-name="currencyUomId"/>
+        <field-to-result field-name="createProductSupplierMap.minimumOrderQuantity" result-name="minimumOrderQuantity"/>
+        <field-to-result field-name="createProductSupplierMap.availableFromDate" result-name="availableFromDate"/>
+        
+        <!-- create association with ProductStore.digProdUploadCategoryId -->
+        <entity-one entity-name="ProductStore" value-name="productStore"/>
+        <if-not-empty field-name="productStore.digProdUploadCategoryId">
+            <make-value value-name="addProductToCategoryMap" entity-name="ProductCategoryMember"/>
+            <set field="addProductToCategoryMap.productId" from-field="productId"/>
+            <set field="addProductToCategoryMap.productCategoryId" from-field="productStore.digProdUploadCategoryId"/>
+            <create-value value-name="addProductToCategoryMap"/>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="updateCustomerDigitalDownloadProduct" short-description="updateCustomerDigitalDownloadProduct">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+
+        <!-- make sure SupplierProduct exists for userLogin.partyId -->
+        <set field="parameters.partyId" from-field="userLogin.partyId"/>
+        <entity-one entity-name="SupplierProduct" value-name="supplierProduct"/>
+        
+        <if-empty field-name="supplierProduct">
+            <add-error><fail-message message="Cannot update this Product: you are not associated with it as the Supplier"/></add-error>
+        </if-empty>
+        <check-errors/>
+
+        <!-- update productName/description -->
+        <if>
+            <condition>
+                <or>
+                    <not><if-empty field-name="parameters.productName"></if-empty></not>
+                    <not><if-empty field-name="parameters.description"></if-empty></not>
+                </or>
+            </condition>
+            <then>
+                <entity-one entity-name="Product" value-name="product"/>
+                <set field="product.productName" from-field="parameters.productName" set-if-empty="false"/>
+                <set field="product.description" from-field="parameters.description" set-if-empty="false"/>
+                <store-value value-name="product"/>
+            </then>
+        </if>
+
+        <!-- update price -->        
+        <if-not-empty field-name="parameters.price">
+            <entity-and entity-name="ProductPrice" list-name="productPriceList">
+                <field-map field-name="productId" env-name="parameters.productId"/>
+                <field-map field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
+                <field-map field-name="productPricePurposeId" value="PURCHASE"/>
+                <field-map field-name="productStoreGroupId" value="_NA_"/>
+            </entity-and>
+            <!-- should just be one -->
+            <first-from-list entry-name="productPrice" list-name="productPriceList"/>
+            <set field="productPrice.price" from-field="parameters.price"/>
+            <store-value value-name="productPrice"/>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="deleteCustomerDigitalDownloadProduct" short-description="deleteCustomerDigitalDownloadProduct">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+
+        <!-- make sure SupplierProduct exists for userLogin.partyId -->
+        <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
+            <field-map field-name="productId" env-name="parameters.productId"/>
+            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+        </entity-and>
+        
+        <if-empty field-name="supplierProductList">
+            <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
+        </if-empty>
+        <check-errors/>
+        
+        <!-- keep the product around, just expire SupplierProduct and ProductCategoryMember records -->
+        <iterate entry-name="supplierProduct" list-name="supplierProductList">
+            <set field="supplierProduct.availableThruDate" from-field="nowTimestamp"/>
+            <store-value value-name="supplierProduct"/>
+        </iterate>
+        
+        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMemberList">
+            <field-map field-name="productId"/>
+        </entity-and>
+        <iterate entry-name="productCategoryMember" list-name="productCategoryMemberList">
+            <set field="productCategoryMember.thruDate" from-field="nowTimestamp"/>
+            <store-value value-name="productCategoryMember"/>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="addCustomerDigitalDownloadProductFile" short-description="addCustomerDigitalDownloadProductFile">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        
+        <!-- make sure SupplierProduct exists for userLogin.partyId -->
+        <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
+            <field-map field-name="productId" env-name="parameters.productId"/>
+            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+        </entity-and>
+        <if-empty field-name="supplierProductList">
+            <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
+        </if-empty>
+        
+        <!-- make sure there is a ContentRole for userLogin.partyId and parameters.contentId and roleTypeId=OWNER -->
+        <entity-and entity-name="ContentRole" list-name="contentRoleList">
+            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="contentId" env-name="parameters.contentId"/>
+            <field-map field-name="roleTypeId" value="OWNER"/>
+        </entity-and>
+        <if-empty field-name="contentRoleList">
+            <add-error><fail-message message="Cannot add this Content: you are not associated with it as an Owner"/></add-error>
+        </if-empty>
+        
+        <check-errors/>
+        
+        <make-value value-name="productContent" entity-name="ProductContent"/>
+        <set field="productContent.productId" from-field="parameters.productId"/>
+        <set field="productContent.contentId" from-field="parameters.contentId"/>
+        <set field="productContent.productContentTypeId" value="DIGITAL_DOWNLOAD"/>
+        <set field="productContent.fromDate" from-field="nowTimestamp"/>
+        <create-value value-name="productContent"/>
+    </simple-method>
+    <simple-method method-name="removeCustomerDigitalDownloadProductFile" short-description="removeCustomerDigitalDownloadProductFile">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        
+        <!-- make sure SupplierProduct exists for userLogin.partyId -->
+        <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
+            <field-map field-name="productId" env-name="parameters.productId"/>
+            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+        </entity-and>
+        
+        <if-empty field-name="supplierProductList">
+            <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
+        </if-empty>
+        <check-errors/>
+        
+        <entity-one entity-name="ProductContent" value-name="productContent"/>
+        <set field="productContent.thruDate" from-field="nowTimestamp"/>
+        <store-value value-name="productContent"/>
+    </simple-method>
+</simple-methods>

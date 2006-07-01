@@ -1,0 +1,83 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      3.0
+*/
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.widget.html.HtmlFormWrapper;
+
+delegator = request.getAttribute("delegator");
+paymentId = request.getParameter("paymentId");
+if (paymentId == null) {
+    paymentId = request.getAttribute("paymentId");
+}
+
+payment = null;
+
+if (UtilValidate.isNotEmpty(paymentId)) {
+     payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
+}
+context.put("payment", payment);
+
+currentType = null;
+currentStatus = null;
+currentMethod = null;
+paymentApplications = null;
+if (payment != null) {
+    // get the current type
+    currentType = payment.getRelatedOne("PaymentType");
+    // get the current status
+    currentStatus = payment.getRelatedOne("StatusItem");
+    // get the current method
+    currentMethod = payment.getRelatedOne("PaymentMethodType");
+    // get the payment's applications
+    paymentApplications = payment.getRelated("PaymentApplication");
+    HtmlFormWrapper paymentApplicationsWrapper = new HtmlFormWrapper("/payment/PaymentForms.xml", "PaymentApplicationsList", request, response);
+    paymentApplicationsWrapper.putInContext("entityList", paymentApplications);
+    paymentApplicationsWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));
+    context.put("paymentApplicationsWrapper", paymentApplicationsWrapper);
+    HtmlFormWrapper editPaymentApplicationWrapper = new HtmlFormWrapper("/payment/PaymentForms.xml", "EditPaymentApplication", request, response);
+    editPaymentApplicationWrapper.putInContext("paymentApplication", null);
+    editPaymentApplicationWrapper.putInContext("paymentId", paymentId);
+    editPaymentApplicationWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));
+    context.put("editPaymentApplicationWrapper", editPaymentApplicationWrapper);
+}
+context.put("currentType", currentType);
+context.put("currentStatus", currentStatus);
+context.put("currentMethod", currentMethod);
+context.put("paymentApplications", paymentApplications);
+
+// get the payment types
+paymentTypes = delegator.findAll("PaymentType", UtilMisc.toList("description"));
+context.put("paymentTypes", paymentTypes);
+
+// get the payment statuses
+paymentStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "PMNT_STATUS"), UtilMisc.toList("sequenceId", "description"));
+context.put("paymentStatuses", paymentStatuses);
+
+// get the payment method types
+paymentMethodTypes = delegator.findAll("PaymentMethodType", UtilMisc.toList("description"));
+context.put("paymentMethodTypes", paymentMethodTypes);
+

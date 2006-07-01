@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Edit DataResource Type</property>
+    <property name="headerItem">DataResourceSetupMenu</property>    
+    <property name="entityName">DataResourceType</property>    
+    <property name="formDefFile">/datasetup/DataSetupForms.xml</property>    
+    <property name="subMenu">/datasetup/datasetup_menu.ftl</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+    <page-action name="/includes/permprep.bsh" />
+    <content-action name="/includes/crudprep.bsh" />
+</page>

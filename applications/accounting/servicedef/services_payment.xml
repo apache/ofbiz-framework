@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: services_payment.xml 6977 2006-03-11 00:27:55Z sichen $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Accounting Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Payment services -->
+    <service name="createPayment" engine="simple" default-entity-name="Payment"
+        location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPayment" auth="true">
+        <description>Create a Payment</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <override name="paymentTypeId" optional="false"/>
+        <override name="paymentMethodTypeId" optional="false"/>
+        <override name="partyIdFrom" optional="false"/>
+        <override name="partyIdTo" optional="false"/>
+        <override name="statusId" optional="false"/>
+        <override name="amount" optional="false"/>
+    </service>
+    
+    <service name="updatePayment" engine="simple" default-entity-name="Payment"
+        location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="updatePayment" auth="true">
+        <description>Update a Payment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="createPaymentApplication" engine="simple" 
+            location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentApplication" auth="true">
+        <description>Create a payment application</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="amountApplied" type="Double" mode="IN" optional="false"/>
+        <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
+    </service>
+    
+    <service name="setPaymentStatus" engine="simple" default-entity-name="Payment"
+        location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="setPaymentStatus" auth="true">
+        <description>Change the status of a Payment</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="checkPaymentInvoices" engine="java"
+        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="checkPaymentInvoices">
+        <description>Checks to see if each invoice to which a payment is applied has been fully paid up.  If so, sets the invoice status to PAID.</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="quickSendPayment" engine="simple" default-entity-name="Payment"
+        location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="quickSendPayment">
+        <description>Updates a Payment and then marks it as PMNT_SENT</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+</services>

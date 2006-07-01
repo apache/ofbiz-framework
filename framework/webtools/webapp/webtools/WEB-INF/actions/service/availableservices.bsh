@@ -1,0 +1,587 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Ashish Hareet(ashish.hareet@cpbinc.com - http://www.cpbinc.com)
+ *@version    $Rev$
+*/
+
+import java.util.*;
+import javax.wsdl.WSDLException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.service.eca.ServiceEcaUtil;
+import org.ofbiz.service.ModelPermGroup;
+import org.ofbiz.service.ModelPermission;
+
+getEcaListForService(String selectedService){
+    ecaMap = org.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService);
+
+    if(ecaMap == null) return null;
+
+    //ecaMap is a HashMap so get keyset & iterate
+    ecaMapList = new java.util.ArrayList();
+
+    ecaMapIter = ecaMap.keySet().iterator();
+    while(ecaMapIter.hasNext()){
+        curRuleKey = ecaMapIter.next(); //get key in ecaMap
+
+        curRuleListIter = ecaMap.get(curRuleKey).iterator(); // get rule object from ecaMap using above key
+
+        while(curRuleListIter.hasNext()){
+            curRule = curRuleListIter.next();
+            curRuleMap = new java.util.HashMap();
+
+            curRuleMap.put("ruleKey", curRuleKey);
+
+            curRuleClass = curRule.getClass();
+
+            //event name for rule
+            eventName = curRuleClass.getDeclaredField("eventName");
+            eventName.setAccessible(true);
+            eventNameVal = eventName.get(curRule);
+            if(eventNameVal != null){
+                curRuleMap.put("eventName", eventNameVal+"");
+            }
+            eventName.setAccessible(false);
+
+            //runOnError
+            runOnError = curRuleClass.getDeclaredField("runOnError");
+            runOnError.setAccessible(true);
+            runOnErrorVal = runOnError.get(curRule);
+            if(runOnErrorVal != null){
+                curRuleMap.put("runOnError", runOnErrorVal+"");
+            }
+            runOnError.setAccessible(false);
+
+            //runOnFailure
+            runOnFailure = curRuleClass.getDeclaredField("runOnFailure");
+            runOnFailure.setAccessible(true);
+            runOnFailureVal = runOnFailure.get(curRule);
+            if(runOnFailureVal != null){
+                curRuleMap.put("runOnFailure", runOnFailureVal+"");
+            }
+            runOnFailure.setAccessible(false);
+
+            //extract actions
+            actions = curRuleClass.getDeclaredField("actions");            
+            actions.setAccessible(true);
+            actionsVal = actions.get(curRule);
+            if(actionsVal != null){
+                actionsList = new ArrayList(actionsVal.size());
+                actionsIter = actionsVal.iterator();
+                while(actionsVal != null && actionsIter.hasNext()){
+                    curAction = actionsIter.next();
+                    actionMap = new HashMap();
+                    actionClass = curAction.getClass();
+
+                    //eventName
+                    eventName = actionClass.getDeclaredField("eventName");
+                    eventName.setAccessible(true);
+                    eventNameVal = eventName.get(curAction);
+                    if(eventNameVal != null){
+                        actionMap.put("eventName", eventNameVal+"");
+                    }
+                    eventName.setAccessible(false);
+
+                    //ignoreError
+                    ignoreError = actionClass.getDeclaredField("ignoreError");
+                    ignoreError.setAccessible(true);
+                    ignoreErrorVal = ignoreError.get(curAction);
+                    if(ignoreErrorVal != null){
+                        actionMap.put("ignoreError", ignoreErrorVal+"");
+                    }
+                    ignoreError.setAccessible(false);
+
+                    //ignoreFailure
+                    ignoreFailure = actionClass.getDeclaredField("ignoreFailure");
+                    ignoreFailure.setAccessible(true);
+                    ignoreFailureVal = ignoreFailure.get(curAction);
+                    if(ignoreFailureVal != null){
+                        actionMap.put("ignoreFailure", ignoreFailureVal+"");
+                    }
+                    ignoreFailure.setAccessible(false);
+
+                    //persist
+                    persist = actionClass.getDeclaredField("persist");
+                    persist.setAccessible(true);
+                    persistVal = persist.get(curAction);
+                    if(persistVal != null){
+                        actionMap.put("persist", persistVal+"");
+                    }
+                    persist.setAccessible(false);
+
+                    //resultMapName
+                    resultMapName = actionClass.getDeclaredField("resultMapName");
+                    resultMapName.setAccessible(true);
+                    resultMapNameVal = resultMapName.get(curAction);
+                    if(resultMapNameVal != null && resultMapNameVal.length() > 0){
+                        actionMap.put("resultMapName", resultMapNameVal+"");
+                    }
+                    resultMapName.setAccessible(false);
+
+                    //resultToContext
+                    resultToContext = actionClass.getDeclaredField("resultToContext");
+                    resultToContext.setAccessible(true);
+                    resultToContextVal = resultToContext.get(curAction);
+                    if(resultToContextVal != null){
+                        actionMap.put("resultToContext", resultToContextVal+"");
+                    }
+                    resultToContext.setAccessible(false);
+
+                    //serviceMode
+                    serviceMode = actionClass.getDeclaredField("serviceMode");
+                    serviceMode.setAccessible(true);
+                    serviceModeVal = serviceMode.get(curAction);
+                    if(serviceModeVal != null){
+                        actionMap.put("serviceMode", serviceModeVal+"");
+                    }
+                    serviceMode.setAccessible(false);
+
+                    //serviceName
+                    serviceName = actionClass.getDeclaredField("serviceName");
+                    serviceName.setAccessible(true);
+                    serviceNameVal = serviceName.get(curAction);
+                    if(serviceNameVal != null){
+                        actionMap.put("serviceName", serviceNameVal+"");
+                    }
+                    serviceName.setAccessible(false);
+
+                    actionsList.add(actionMap);
+                }
+
+                curRuleMap.put("actions", actionsList);
+            }
+            actions.setAccessible(true);
+
+            //extract conditions
+            conditions = curRuleClass.getDeclaredField("conditions");
+            conditions.setAccessible(true);
+            conditionsVal = conditions.get(curRule);
+            if(conditionsVal != null){
+                curRuleMap.put("conditions", runOnFailureVal+"");
+                condIter = conditionsVal.iterator();
+                condList = new ArrayList(conditionsVal.size());
+                while(condIter.hasNext()){
+                    condVal = condIter.next();
+                    condValClass = condVal.getClass();
+                    condMap = new HashMap();
+
+                    //compareType
+                    compareType = condValClass.getDeclaredField("compareType");
+                    compareType.setAccessible(true);
+                    compareTypeVal = compareType.get(condVal);
+                    if(compareTypeVal != null && compareTypeVal.length() > 0){
+                        condMap.put("compareType", compareTypeVal+"");
+                    }
+                    compareType.setAccessible(false);
+
+                    //conditionService
+                    conditionService = condValClass.getDeclaredField("conditionService");
+                    conditionService.setAccessible(true);
+                    conditionServiceVal = conditionService.get(condVal);
+                    if(conditionServiceVal != null && conditionServiceVal.length() > 0){
+                        condMap.put("conditionService", conditionServiceVal+"");
+                    }
+                    conditionService.setAccessible(false);
+
+                    //format
+                    format = condValClass.getDeclaredField("format");
+                    format.setAccessible(true);
+                    formatVal = format.get(condVal);
+                    if(formatVal != null && formatVal.length() > 0){
+                        condMap.put("format", formatVal+"");
+                    }
+                    format.setAccessible(false);
+
+                    //isConstant
+                    isConstant = condValClass.getDeclaredField("isConstant");
+                    isConstant.setAccessible(true);
+                    isConstantVal = isConstant.get(condVal);
+                    if(isConstantVal != null){
+                        condMap.put("isConstant", isConstantVal+"");
+                    }
+                    isConstant.setAccessible(false);
+
+                    //isService
+                    isService = condValClass.getDeclaredField("isService");
+                    isService.setAccessible(true);
+                    isServiceVal = isService.get(condVal);
+                    if(isServiceVal != null){
+                        condMap.put("isService", isServiceVal+"");
+                    }
+                    isService.setAccessible(false);
+
+                    //lhsMapName
+                    lhsMapName = condValClass.getDeclaredField("lhsMapName");
+                    lhsMapName.setAccessible(true);
+                    lhsMapNameVal = lhsMapName.get(condVal);
+                    if(lhsMapNameVal != null && lhsMapNameVal.length() > 0){
+                        condMap.put("lhsMapName", lhsMapNameVal+"");
+                    }
+                    lhsMapName.setAccessible(false);
+
+                    //lhsValueName
+                    lhsValueName = condValClass.getDeclaredField("lhsValueName");
+                    lhsValueName.setAccessible(true);
+                    lhsValueNameVal = lhsValueName.get(condVal);
+                    if(lhsValueNameVal != null && lhsValueNameVal.length() > 0){
+                        condMap.put("lhsValueName", lhsValueNameVal+"");
+                    }
+                    lhsValueName.setAccessible(false);
+
+                    //operator
+                    operator = condValClass.getDeclaredField("operator");
+                    operator.setAccessible(true);
+                    operatorVal = operator.get(condVal);
+                    if(operatorVal != null && operatorVal.length() > 0 ){
+                        condMap.put("operator", operatorVal+"");
+                    }
+                    operator.setAccessible(false);
+
+                    //rhsMapName
+                    rhsMapName = condValClass.getDeclaredField("rhsMapName");
+                    rhsMapName.setAccessible(true);
+                    rhsMapNameVal = rhsMapName.get(condVal);
+                    if(rhsMapNameVal != null && rhsMapNameVal.length() > 0){
+                        condMap.put("rhsMapName", rhsMapNameVal+"");
+                    }
+                    rhsMapName.setAccessible(false);
+
+                    //rhsValueName
+                    rhsValueName = condValClass.getDeclaredField("rhsValueName");
+                    rhsValueName.setAccessible(true);
+                    rhsValueNameVal = rhsValueName.get(condVal);
+                    if(rhsValueNameVal != null && rhsValueNameVal.length() > 0){
+                        condMap.put("rhsValueName", rhsValueNameVal+"");
+                    }
+                    rhsValueName.setAccessible(false);
+
+                    condList.add(condMap);
+                }
+                curRuleMap.put("conditions", condList);
+            }
+            conditions.setAccessible(false);
+            
+            ecaMapList.add(curRuleMap);    
+        }
+    }
+    return ecaMapList;
+}
+
+
+/*Local Dispatchers
+accounting, content, ecommerce, manufacturing, marketing, ordermgr, partymgr, catalog, facility, workeffort, example, WFDispatcher, webtools, order, wholesale, salesrep, hotelbackend, community
+*/
+//Ashish: Don't know how to get list of available dispatchers, so hardcoded. Add to this list if I missed some.
+dispArrList = new ArrayList();
+dispArrList.add("accounting");
+dispArrList.add("content");
+dispArrList.add("ecommerce");
+dispArrList.add("manufacturing");
+dispArrList.add("marketing");
+dispArrList.add("order");
+dispArrList.add("partymgr");
+dispArrList.add("catalog");
+dispArrList.add("facility");
+dispArrList.add("workeffort");
+dispArrList.add("example");
+dispArrList.add("WFDispatcher");
+dispArrList.add("webtools");
+dispArrList.add("wholesale");
+dispArrList.add("salesrep");
+dispArrList.add("hotelbackend");
+dispArrList.add("community");
+Collections.sort(dispArrList);
+context.put("dispArrList", dispArrList);
+
+selDisp = request.getParameter("selDisp");
+selDisp = selDisp == null || selDisp.length() == 0 ? request.getAttribute("selDisp") : selDisp;
+//default disptacher is partymgr
+selDisp = selDisp == null || selDisp.length() == 0 ? "partymgr" : selDisp;
+
+curDispatcher = request.getAttribute("dispatcher");
+curLocalDispatcher = curDispatcher.getLocalDispatcher(selDisp, request.getAttribute("delegator"));
+curDispatchContext = curLocalDispatcher.getDispatchContext();
+context.put("dispatcherName", curLocalDispatcher.getName());
+
+selectedService = request.getParameter("sel_service_name");
+if(selectedService == null || selectedService.length() == 0){
+    selectedService = request.getAttribute("sel_service_name");
+}
+
+if(selectedService != null && selectedService.length() > 0){
+    HashMap curServiceMap = new HashMap();
+
+    curServiceMap.put("serviceName", selectedService);
+    curServiceModel = curDispatchContext.getModelService(selectedService);
+    curServiceMap.put("description", curServiceModel.description);
+
+    if(curServiceModel != null){
+
+        engineName = curServiceModel.engineName;
+        defaultEntityName = curServiceModel.defaultEntityName;
+        export = curServiceModel.export ? "True" : "False";
+        permissionGroups = curServiceModel.permissionGroups;
+        implServices = curServiceModel.implServices;
+        overrideParameters = curServiceModel.overrideParameters;
+        useTrans = curServiceModel.useTransaction ? "True" : "False";
+        maxRetry = curServiceModel.maxRetry;
+
+        //Test for ECA's
+        ecaMapList = getEcaListForService(selectedService);
+        if(ecaMapList != null){
+            context.put("ecaMapList", ecaMapList);
+        }
+        //End Test for ECA's
+
+        invoke = curServiceModel.invoke;
+        location = curServiceModel.location;
+        requireNewTransaction = curServiceModel.requireNewTransaction ? "True" : "False";
+        engineName = engineName != null && engineName.length() > 0 ? engineName : "NA";
+        defaultEntityName = defaultEntityName != null && defaultEntityName.length() > 0 ? defaultEntityName : "NA";
+        invoke = invoke != null && invoke.length() > 0 ? invoke : "NA";
+        location = location != null && location.length() > 0 ? location : "NA";
+        permissionGroups = permissionGroups != null && permissionGroups.size() > 0 ? permissionGroups : "NA";
+        implServices = implServices != null && implServices.size() > 0 ? implServices : "NA";
+
+        curServiceMap.put("engineName", engineName);
+        curServiceMap.put("defaultEntityName", defaultEntityName);
+        curServiceMap.put("invoke", invoke);
+        curServiceMap.put("location", location);
+        curServiceMap.put("requireNewTransaction", requireNewTransaction);
+        curServiceMap.put("export", export);        
+
+        if(permissionGroups != null && !permissionGroups.equals("NA") && permissionGroups.size() > 0){
+            permIter = permissionGroups.iterator();
+            permList = new ArrayList(permissionGroups.size());
+            while(permIter.hasNext()){
+                curPerm = (ModelPermGroup)permIter.next();//This is a ModelPermGroup
+                curIter = curPerm.permissions.size() > 0 ? curPerm.permissions.iterator() : null;
+                while(curIter != null && curIter.hasNext()){
+                    curPermObj = curIter.next();
+                    permObj = new HashMap();
+                    permObj.put("action" , curPermObj.action);
+                    permType = curPermObj.permissionType;
+                    if(permType == 1){
+                        permType = "Simple Permission";
+                    }else if(permType == 2){
+                        permType = "Entity Permission";
+                    }else if(permType == 3){
+                        permType = "Role Member";
+                    }
+                    permObj.put("permType" , permType);
+                    permObj.put("nameOrRole" , curPermObj.nameOrRole);
+                    permList.add(permObj);
+                }
+            }
+            curServiceMap.put("permissionGroups", permList);
+        }else{
+            curServiceMap.put("permissionGroups", permissionGroups);
+        }
+
+        curServiceMap.put("implServices", implServices);
+        curServiceMap.put("useTrans", useTrans);
+        curServiceMap.put("maxRetry", maxRetry);
+
+        allParamsList = new ArrayList(3);
+
+        inParams = curServiceModel.getInParamNames();
+        if(inParams != null){
+            inParamsList = new ArrayList(inParams.size());
+            inParamsIter = inParams.iterator();
+            while(inParamsIter.hasNext()){
+                curParam = curServiceModel.getParam(inParamsIter.next());
+                curInParam = new HashMap();
+                curInParam.put("entityName", curParam.entityName);
+                curInParam.put("fieldName", curParam.fieldName);
+                curInParam.put("internal", curParam.internal ? "True" : "False");
+                curInParam.put("mode", curParam.mode);
+                curInParam.put("name", curParam.name);
+                curInParam.put("optional", curParam.optional ? "True" : "False");
+                curInParam.put("type", curParam.type);
+                inParamsList.add(curInParam);
+            }
+            inParamMap = new HashMap();
+            inParamMap.put("title", "In parameters");
+            inParamMap.put("paramList", inParamsList);
+            allParamsList.add(inParamMap);
+        }
+
+        outParams = curServiceModel.getOutParamNames();
+        if(outParams != null){
+            outParamsList = new ArrayList(outParams.size());
+            outParamsIter = outParams.iterator();
+            while(outParamsIter.hasNext()){
+                curParam = curServiceModel.getParam(outParamsIter.next());
+                curOutParam = new HashMap();
+                curOutParam.put("entityName", curParam.entityName);
+                curOutParam.put("fieldName", curParam.fieldName);
+                curOutParam.put("internal", curParam.internal ? "True" : "False");
+                curOutParam.put("mode", curParam.mode);
+                curOutParam.put("name", curParam.name);
+                curOutParam.put("optional", curParam.optional ? "True" : "False");
+                curOutParam.put("type", curParam.type);
+                outParamsList.add(curOutParam);
+            }
+            outParamMap = new HashMap();
+            outParamMap.put("title", "Out parameters");
+            outParamMap.put("paramList", outParamsList);
+            allParamsList.add(outParamMap);
+        }
+
+        if(overrideParameters != null && overrideParameters.size() > 0){
+            ovrPrmList = new ArrayList(overrideParameters.size());
+            ovrPrmIter = overrideParameters.iterator();
+            while(ovrPrmIter.hasNext()){
+                curParam = ovrPrmIter.next();
+                curOvrPrm = new HashMap();
+                curOvrPrm.put("entityName", curParam.entityName);
+                curOvrPrm.put("fieldName", curParam.fieldName);
+                curOvrPrm.put("internal", curParam.internal ? "True" : "False");
+                curOvrPrm.put("mode", curParam.mode);
+                curOvrPrm.put("name", curParam.name);
+                curOvrPrm.put("optional", curParam.optional ? "True" : "False");
+                curOvrPrm.put("type", curParam.type);
+                ovrPrmList.add(curOvrPrm);
+            }
+            ovrParamMap = new HashMap();
+            ovrParamMap.put("title", "Override parameters");
+            ovrParamMap.put("paramList", ovrPrmList);
+            allParamsList.add(ovrParamMap);
+        }
+        curServiceMap.put("allParamsList", allParamsList);
+    }
+    
+    showWsdl = request.getParameter("show_wsdl");
+    if(showWsdl == null || showWsdl.length() == 0){
+    	showWsdl = request.getAttribute("show_wsdl");
+    }
+    
+    if(showWsdl != null && showWsdl.equals("true")) {
+    	try {
+    		wsdl = curServiceModel.toWSDL("http://" + request.getServerName() + ":" + UtilProperties.getPropertyValue("url.properties", "port.http", "80") + (String) request.getAttribute("_CONTROL_PATH_") + "/SOAPService");
+    		curServiceMap.put("wsdl", UtilXml.writeXmlDocument(wsdl));
+    	} catch (WSDLException ex) {
+    		curServiceMap.put("wsdl", ex.getLocalizedMessage());
+    	}
+    	context.put("showWsdl", Boolean.TRUE);
+    }
+    context.put("selectedServiceMap", curServiceMap);
+}
+
+
+if(selectedService == null || selectedService.length() == 0){
+
+    //get constraints if any
+    constraint = request.getParameter("constraint");
+    if(constraint == null || constraint.length() == 0){
+        constraint = request.getAttribute("constraint");
+    }
+
+
+    serviceNames = curDispatchContext.getAllServiceNames();
+    serviceNamesAlphaList = new ArrayList(26);
+    servicesIter = serviceNames.iterator();
+    servicesList = new ArrayList(serviceNames.size());
+    servicesFoundCount = 0;
+    while(servicesIter.hasNext()){
+        serviceName = servicesIter.next();
+
+        //add first char of service name to list
+        if(serviceName.length() > 0){
+            serviceCharAt1 = serviceName.charAt(0);
+            if(!serviceNamesAlphaList.contains(serviceCharAt1)){
+                serviceNamesAlphaList.add(serviceCharAt1);
+            }
+        }
+
+        //create basic service def
+        HashMap curServiceMap = new HashMap();
+        curServiceMap.put("serviceName", serviceName);
+        curServiceModel = curDispatchContext.getModelService(serviceName);
+
+        canIncludeService = true;
+        if(constraint != null && constraint.length() > 0 && curServiceModel != null){
+            consArr = constraint.split("@");
+            constraintName = consArr[0];
+            constraintVal = consArr[1];
+            
+            if(canIncludeService && constraintName.equals("engine_name")){
+                canIncludeService = curServiceModel.engineName.equals(constraintVal);
+                if(constraintVal.equals("NA")){
+                    canIncludeService = 
+                        curServiceModel.engineName == null ||curServiceModel.engineName.equals("");
+                }
+            }
+
+            if(canIncludeService && constraintName.equals("default_entity_name")){
+                canIncludeService = curServiceModel.defaultEntityName.equals(constraintVal);
+                if(constraintVal.equals("NA")){
+                    canIncludeService = 
+                    curServiceModel.defaultEntityName == null ||curServiceModel.defaultEntityName.equals("");
+                }
+            }
+
+            if(canIncludeService && constraintName.equals("location")){
+                canIncludeService = curServiceModel.location.equals(constraintVal);
+                if(constraintVal.equals("NA")){
+                    canIncludeService = 
+                    curServiceModel.location == null ||curServiceModel.location.equals("");
+                }
+            }
+
+            if(canIncludeService && constraintName.equals("alpha")){
+                canIncludeService = (serviceName.charAt(0)+"").equals(constraintVal);
+                if(constraintVal.equals("NA")){
+                    canIncludeService = true;
+                }
+            }
+        }
+
+
+        if(curServiceModel != null && canIncludeService){
+            engineName = curServiceModel.engineName;
+            defaultEntityName = curServiceModel.defaultEntityName;
+            invoke = curServiceModel.invoke;
+            location = curServiceModel.location;
+            requireNewTransaction = curServiceModel.requireNewTransaction;
+
+            engineName = engineName != null && engineName.length() > 0 ? engineName : "NA";
+            defaultEntityName = defaultEntityName != null && defaultEntityName.length() > 0 ? defaultEntityName : "NA";
+            invoke = invoke != null && invoke.length() > 0 ? invoke : "NA";
+            location = location != null && location.length() > 0 ? location : "NA";
+
+            curServiceMap.put("engineName", engineName);
+            curServiceMap.put("defaultEntityName", defaultEntityName);
+            curServiceMap.put("invoke", invoke);
+            curServiceMap.put("location", location);
+            curServiceMap.put("requireNewTransaction", requireNewTransaction);
+
+            servicesList.add(curServiceMap);
+            servicesFoundCount++;
+        }        
+    }
+
+    context.put("servicesList", servicesList);
+    context.put("serviceNamesAlphaList", serviceNamesAlphaList);
+    context.put("servicesFoundCount", servicesFoundCount);
+}

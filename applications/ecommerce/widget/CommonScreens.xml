@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: CommonScreens.xml 7870 2006-06-27 05:41:26Z jonesde $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                
+                <set field="MainColumnStyle" value="nocolumns" global="true"/>
+                <set field="layoutSettings.extraHead" value="&lt;link rel=&quot;stylesheet&quot; href=&quot;/content/images/contentForum.css&quot; type=&quot;text/css&quot;/&gt;" global="true"/>
+                <script location="component://ecommerce/widget/EcommerceSetup.bsh"/>
+            </actions>
+            <widgets>
+                <!-- render header -->
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/header.ftl"/></html></platform-specific>
+                
+                <container id="ecom-mainarea">
+                    <!-- by default will render left-bar only if left/rightbarScreenName value not empty -->
+                    <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
+                    <include-screen name="${rightbarScreenName}" location="${rightbarScreenLocation}"/>
+                
+                    <container style="${MainColumnStyle}">
+                        <!-- render messages -->
+                        <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                        <decorator-section-include name="body"/>
+                    </container>
+                    
+                    <container style="endcolumns"/>
+                </container>
+                
+                <!-- render footer -->
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/footer.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Side Columns -->
+    <screen name="leftbar">
+        <section>
+            <widgets>
+                <container style="left">
+                    <include-screen name="choosecatalog" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="keywordsearchbox" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="sidedeepcategory" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="minireorderprods" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="minipoll" location="component://ecommerce/widget/ContentScreens.xml"/>
+                    <include-screen name="forums" location="component://ecommerce/widget/ForumScreens.xml"/>
+                    <include-screen name="content_categories" location="component://ecommerce/widget/ContentScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="rightbar">
+        <section>
+            <widgets>
+                <container style="right">
+                    <include-screen name="language"/>
+                    <include-screen name="minicart" location="component://ecommerce/widget/CartScreens.xml"/>
+                    <include-screen name="minipromotext" location="component://ecommerce/widget/CartScreens.xml"/>
+                    <include-screen name="miniassocprods" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="factoids" location="component://ecommerce/widget/ContentScreens.xml"/>
+                    <include-screen name="minilastviewedcategories" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="minilastviewedproducts" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="minilastproductsearches" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="recentlyviewed" location="component://ecommerce/widget/ContentScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="commonForumDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                      <label style="head1" text="${uiLabelMap.${titleProperty}}"></label>
+                      <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Column Included Screens -->
+    <screen name="language">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/language.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Top Level Screens -->
+    <screen name="main">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleMain"/>
+                <set field="headerItem" value="main"/>
+                <set field="randomSurveyGroup" value="testSurveyGroup"/>
+
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/main.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/category.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://ecommerce/webapp/ecommerce/main.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="login">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleLogin"/>
+                <set field="headerItem" value="login"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/login.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://ecommerce/webapp/ecommerce/login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="responseTreeLine">
+        <section>
+            <actions>
+                <service service-name="getPublicForumMessage" result-map-name="contentData">
+                    <field-map field-name="contentId" env-name="rsp.contentId"/>
+                </service>
+                <set field="textData" from-field="contentData.resultData.electronicText.textData"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-compare-field field-name="responseContentId" operator="equals" to-field-name="rsp.contentId" />
+                    </condition>
+                    <widgets>
+                        <container style="responseSelected">
+                            <container style="responsetext">
+                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/messageDisplay.ftl"/></html></platform-specific>
+                            </container>
+                        </container>    
+                    </widgets>
+                    <fail-widgets>
+                        <container>
+                            <container style="responsetext">
+                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/messageDisplay.ftl"/></html></platform-specific>
+                            </container>
+                        </container>    
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="policies">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <sub-content content-id="WebStoreCONTENT" map-key="policies"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

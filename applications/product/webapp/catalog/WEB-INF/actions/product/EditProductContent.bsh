@@ -1,0 +1,156 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@author     Brad Steiner
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import java.sql.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.string.*;
+import org.ofbiz.widget.html.*;
+
+nowTimestamp = UtilDateTime.nowTimestamp();
+context.put("nowTimestamp", nowTimestamp);
+
+String nowTimestampString = nowTimestamp.toString();
+context.put("nowTimestampString", nowTimestampString);
+
+// make the image file formats
+String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
+String imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
+String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+context.put("imageFilenameFormat", imageFilenameFormat);
+context.put("imageServerPath", imageServerPath);
+context.put("imageUrlPrefix", imageUrlPrefix);
+
+FlexibleStringExpander filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
+context.put("imageNameSmall", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("location","products", "type", "small", "id", productId)));
+context.put("imageNameMedium", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("location","products","type", "medium", "id", productId)));
+context.put("imageNameLarge", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("location","products","type", "large", "id", productId)));
+context.put("imageNameDetail", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("location","products","type", "detail", "id", productId)));
+
+// Start ProductContent stuff
+productContent = null;
+if (product != null) productContent = product.getRelated("ProductContent", null, UtilMisc.toList("productContentTypeId"));
+context.put("productContent", productContent);
+
+if (productContent != null) {
+    List productContentDatas = new LinkedList();
+    Iterator productContentIter = productContent.iterator();
+    while (productContentIter.hasNext()) {
+        GenericValue productContent = (GenericValue) productContentIter.next();
+        GenericValue content = productContent.getRelatedOne("Content");
+        productContentDatas.add(UtilMisc.toMap("productContent", productContent, "content", content));
+    }
+    
+    HtmlFormWrapper updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "UpdateProductContentAssoc", request, response);
+    context.put("updateProductContentWrapper", updateProductContentWrapper);
+    updateProductContentWrapper.putInContext("productContentDatas", productContentDatas);
+    
+    HtmlFormWrapper prepareAddProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "PrepareAddProductContentAssoc", request, response);
+    context.put("prepareAddProductContentWrapper", prepareAddProductContentWrapper);
+    prepareAddProductContentWrapper.putInContext("product", product);
+    
+    HtmlFormWrapper addProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "AddProductContentAssoc", request, response);
+    context.put("addProductContentWrapper", addProductContentWrapper);
+    addProductContentWrapper.putInContext("product", product);
+    
+    context.put("productContentList", productContentDatas);
+}
+// End ProductContent stuff
+
+boolean tryEntity = true;
+if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
+if (product == null) tryEntity = false;
+if("true".equalsIgnoreCase((String) request.getParameter("tryEntity"))) tryEntity = true;
+context.put("tryEntity", tryEntity);
+
+// UPLOADING STUFF
+
+Object forLock = new Object();
+String contentType = null;
+String fileType = request.getParameter("upload_file_type");
+if (fileType != null) {
+    context.put("fileType", fileType);
+
+    String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", fileType, "id", productId));
+    String filePathPrefix = "";
+    String filenameToUse = fileLocation;
+    if (fileLocation.lastIndexOf("/") != -1) {
+        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
+        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
+    }
+    
+    int i1;
+    if (contentType != null && (i1 = contentType.indexOf("boundary=")) != -1) {
+        contentType = contentType.substring(i1 + 9);
+        contentType = "--" + contentType;
+    }
+        
+    String defaultFileName = filenameToUse + "_temp";
+    HttpRequestFileUpload uploadObject = new HttpRequestFileUpload();
+    uploadObject.setOverrideFilename(defaultFileName);
+    uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix);
+    uploadObject.doUpload(request);
+    
+    String clientFileName = uploadObject.getFilename();
+    if (clientFileName != null) context.put("clientFileName", clientFileName);
+    
+    if (clientFileName != null && clientFileName.length() > 0) {
+        if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
+            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."));
+        } else {
+            filenameToUse += ".jpg";
+        }
+    
+        context.put("clientFileName", clientFileName);        
+        context.put("filenameToUse", filenameToUse);
+        
+        String characterEncoding = request.getCharacterEncoding();
+        String imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
+        
+        try {
+            File file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
+            File file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
+            try {
+                file1.delete();
+            } catch(Exception e) { 
+                System.out.println("error deleting existing file (not neccessarily a problem)");
+            }
+            file.renameTo(file1);
+        } catch(Exception e) { 
+            e.printStackTrace();
+        }
+    
+        if (imageUrl != null && imageUrl.length() > 0) {
+            context.put("imageUrl", imageUrl);
+            product.set(fileType + "ImageUrl", imageUrl);
+            product.store();
+        }
+    }
+}
+

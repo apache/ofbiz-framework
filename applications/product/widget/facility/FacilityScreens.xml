@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: FacilityScreens.xml 7888 2006-06-28 06:23:35Z jacopo $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="FindFacility">
+        <section>
+            <actions>
+                <set field="headerItem" value="facility"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacility.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/FindFacility.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonFacilityDecorator">
+        <section>
+            <actions>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <entity-one entity-name="Facility" value-name="facility"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="facility"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/facility/facility/FacilityTabBar.ftl"/></html>
+                                        </platform-specific>
+
+                                        <decorator-section-include name="body"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="head3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditFacility">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductEditFacility"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacility"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacility.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindFacilityTransfers">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindFacilityTransfers"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="FindFacilityTransfers"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacilityTransfers.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/FindFacilityTransfers.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindFacilityLocation">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindFacilityLocation"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="FindFacilityLocation"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacilityLocation.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/FindFacilityLocation.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFacilityLocation">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityLocation"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="FindFacilityLocation"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityLocation.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/EditFacilityLocation.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFacilityInventoryItems">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityInventoryItems.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/EditFacilityInventoryItems.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewFacilityInventoryByProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="productTypeId" from-field="parameters.productTypeId"/>
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <set field="productSupplierId" from-field="parameters.productSupplierId"/>
+                <set field="offsetQty" from-field="parameters.offsetQty"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+
+                        <container>
+                            <label style="head1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
+                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                        </container>
+                        <container>
+                            <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="[${uiLabelMap.ProductInventoryItems}]" style="buttontext"/>
+                        </container>
+
+                        <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SearchInventoryItems">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchInventoryItems"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="manufacturerPartyId" from-field="parameters.manufacturerPartyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+
+                        <container>
+                            <label style="head1">${uiLabelMap.PageTitleSearchInventoryItems} ${uiLabelMap.CommonFor}:</label>
+                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>                            
+                        </container>
+                        <container>
+                            <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="[${uiLabelMap.ProductInventoryItems}]" style="buttontext"/>
+                        </container>
+
+                        <include-form name="SearchInventoryItemsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="SearchInventoryItemsResults" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+ 
+    <screen name="EditFacilityGroups">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityGroups"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityGroups"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityGroups.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/EditFacilityGroups.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFacilityRoles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityRoles"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityRoles"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityRoles.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/EditFacilityRoles.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewContactMechs">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewFacilityContactMechanism"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ViewContactMechs"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewContactMechs.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/ViewContactMechs.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditContactMech">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityContactMech"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ViewContactMechs"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditContactMech.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/EditContactMech.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditInventoryItem">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditInventoryItem"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/EditInventoryItem.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/inventory/EditInventoryItem.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TransferInventoryItem">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleTransferInventoryItem"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="FindFacilityTransfers"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/TransferInventoryItem.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/inventory/TransferInventoryItem.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ReceiveInventory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductReceiveInventory"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ReceiveInventory"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/receiveInventory.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/inventory/receiveInventory.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ReceiveReturn">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductReceiveReturn"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ReceiveReturn"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/returns/receiveReturn.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/returns/receiveReturn.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PicklistOptions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitlePickListOptions"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="PicklistOptions"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <service service-name="findOrdersToPickMove">
+                    <field-map field-name="facilityId"/>
+                </service>
+
+                <entity-condition entity-name="Picklist" list-name="picklistActiveList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
+                    </condition-list>
+                    <order-by field-name="picklistDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/PicklistOptions.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PicklistManage">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitlePickListOptions"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="PicklistOptions"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <service service-name="getPicklistDisplayInfo">
+                    <field-map field-name="facilityId"/>
+                </service>
+
+                <entity-condition entity-name="PartyRoleAndPartyDetail" list-name="partyRoleAndPartyDetailList" use-cache="true">
+                    <condition-expr field-name="roleTypeId" value="PICKER"/>
+                </entity-condition>
+                <entity-condition entity-name="Picklist" list-name="picklistActiveList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
+                    </condition-list>
+                    <order-by field-name="picklistDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/PicklistManage.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PickMoveStock">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitlePickingMoveStock"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="PicklistOptions"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <service service-name="findStockMovesNeeded">
+                    <field-map field-name="facilityId"/>
+                </service>
+                <set field="oiirWarningMessageList" from-field="warningMessageList"/>
+                <service service-name="findStockMovesRecommended">
+                    <field-map field-name="facilityId"/>
+                    <field-map field-name="stockMoveHandled"/>
+                </service>
+                <set field="pflWarningMessageList" from-field="warningMessageList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/PickMoveStock.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PicklistReport.fo">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="picklistId" from-field="parameters.picklistId"/>
+                <service service-name="getPickAndPackReportInfo">
+                    <field-map field-name="picklistId"/>
+                </service>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://product/webapp/facility/facility/Picklist.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>    
+
+    <!-- generates the subtab of [Scheduling] using FacilityScheduleTabBar -->
+    <screen name="CommonFacilityScheduleDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container>
+                                    <label style="head1">${uiLabelMap.PageTitlePackageShipmentScheduling}</label>                                    
+                                </container>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/facility/FacilityScheduleTabBar.ftl"/></html>
+                                </platform-specific>
+
+                                <decorator-section-include name="schedule-body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Subscreen of [Scheduling] for weighting and scheduling a route segment -->
+    <screen name="ScheduleShipmentRouteSegment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitlePackageShipmentScheduling"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="Scheduling"/>
+                <set field="scheduleTabButtonItem" value="ScheduleTabButton"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+
+                <!-- get ShipmentRouteSegmentDetails that are PACKED and not CONFIRMED with carrier -->
+                <entity-condition entity-name="ShipmentRouteSegmentDetail" list-name="shipmentRouteSegments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.facilityId"/>
+                        <condition-expr field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
+                        <condition-expr field-name="carrierServiceStatusId" operator="not-equals" value="SHRSCS_CONFIRMED"/>
+                    </condition-list>
+                    <order-by field-name="shipmentId DESC"/>
+                </entity-condition>
+
+                <!-- get the default facility Uom -->
+                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-one entity-name="Uom" value-name="defaultWeightUom" use-cache="true" auto-field-map="false">
+                    <field-map env-name="facility.defaultWeightUomId" field-name="uomId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityScheduleDecorator">
+                    <decorator-section name="schedule-body">
+                        <container>
+                            <include-form name="SchedulingList" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Subscreen of [Scheduling] for listing labels ready to be printed -->
+    <screen name="Labels">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLabelPrinting"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="Scheduling"/>
+                <set field="scheduleTabButtonItem" value="LabelsTabButton"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+
+                <!-- get all carrier CONFIRMED ShipmentPackageRouteDetails -->
+                <entity-condition entity-name="ShipmentPackageRouteDetail" list-name="shipmentPackageRouteSegments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="labelPrinted" operator="not-equals" value="Y"/>
+                        <condition-expr field-name="carrierServiceStatusId" operator="equals" value="SHRSCS_CONFIRMED"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityScheduleDecorator">
+                    <decorator-section name="schedule-body">
+                        <container>
+                            <include-form name="Labels" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Generates a PDF of selected Labels for batch printing -->
+    <screen name="BatchPrintShippingLabels">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://product/webapp/facility/facility/batchPrintShippingLabels.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>    
+
+</screens>

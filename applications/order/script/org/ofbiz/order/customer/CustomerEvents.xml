@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.2
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+        
+    <simple-method method-name="validateCustomerInfo" short-description="validateCustomerInfo" login-required="false">
+        <!-- timestamp to be used -->
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <!-- setup the party/person -->
+        <call-map-processor in-map-name="parameters" out-map-name="personMap">
+            <simple-map-processor name="newPerson">
+                <process field="personalTitle"><copy/></process>
+                <process field="firstName">
+                    <copy/>
+                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyFirstNameMissing"/></not-empty>
+                </process>
+                <process field="middleName"><copy/></process>
+                <process field="lastName">
+                    <copy/>
+                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyLastNameMissingError"/></not-empty>
+                </process>
+                <process field="suffix"><copy/></process>
+                <process field="birthDate">
+                    <convert type="Date" to-field="birthDate"><fail-property resource="EcommerceUiLabels" property="PartyBirthDateMissingError"/></convert>
+                </process>
+                <process field="gender"><copy/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        
+        <!-- setup the email -->        
+        <call-map-processor in-map-name="parameters" out-map-name="emailMap">
+            <simple-map-processor name="newEmail">
+                <process field="emailAddress">
+                    <copy/>
+                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyEmailAddressMissingError"/></not-empty>
+                    <validate-method method="isEmail"><fail-property resource="EcommerceUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
+                </process>
+                <process field="emailSol"><copy to-field="allowSolicitation"/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        
+        <!-- Create the Postal Address -->
+        <if-compare field-name="parameters.useAddress" operator="equals" value="true">
+            <call-map-processor in-map-name="parameters" out-map-name="addressContext">
+                <simple-map-processor name="newAddress">
+                    <make-in-string field="fullName">
+                        <in-field field="firstName"/><constant> </constant>
+                        <in-field field="middleName"/><constant> </constant>
+                        <in-field field="lastName"/>
+                    </make-in-string>
+                    <process field="fullName"><copy to-field="toName"/></process>
+                    <process field="address1">
+                        <copy/>
+                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyAddressLine1MissingError"/></not-empty>
+                    </process>
+                    <process field="address2"><copy/></process>
+                    <process field="city">
+                        <copy/>
+                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCityMissing"/></not-empty>
+                    </process>
+                    <process field="stateProvinceGeoId"><copy/></process>
+                    <process field="postalCode">
+                        <copy/>
+                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyZipCodeMissing"/></not-empty>
+                    </process>
+                    <process field="countryGeoId">
+                        <copy/>
+                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/></not-empty>
+                    </process>
+                    <process field="allowSolicitation"><copy/></process>
+                </simple-map-processor>
+            </call-map-processor>
+            <if-compare value="USA" operator="equals" field-name="countryGeoId" map-name="parameters">
+                <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+                    <string-to-list string="State is missing, and is required for an address in the United States." message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                </if-empty>
+            </if-compare>
+            <if-compare value="CAN" operator="equals" field-name="countryGeoId" map-name="parameters">
+                <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+                    <string-to-list string="State is missing, and is required for an address in the Canada." message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                </if-empty>
+            </if-compare>
+        </if-compare>
+        
+        <!-- Create the Home Phone -->
+        <call-map-processor in-map-name="parameters" out-map-name="homePhoneMap">
+            <simple-map-processor name="newTelecomNumber">
+                <process field="homeCountryCode"><copy to-field="countryCode"/></process>
+                <process field="homeAreaCode">
+                    <copy to-field="areaCode"/>
+                    <not-empty><fail-message message="Home Phone Area Code is missing."/></not-empty>
+                </process>
+                <process field="homeContactNumber">
+                    <copy to-field="contactNumber"/>
+                    <not-empty><fail-message message="Home Phone Contact Number is missing."/></not-empty>
+                </process>
+                <process field="homeExt"><copy to-field="extension"/></process>
+                <process field="homeSol"><copy to-field="allowSolicitation"/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        
+        <!-- Create the Work Phone -->
+        <call-map-processor in-map-name="parameters" out-map-name="workPhoneMap">
+            <simple-map-processor name="newTelecomNumber">
+                <process field="workCountryCode"><copy to-field="countryCode"/></process>
+                <process field="workAreaCode">
+                    <copy to-field="areaCode"/>
+                </process>
+                <process field="workContactNumber">
+                    <copy to-field="contactNumber"/>
+                </process>
+                <process field="workExt"><copy to-field="extension"/></process>
+                <process field="workSol"><copy to-field="allowSolicitation"/></process>
+            </simple-map-processor>
+        </call-map-processor>
+    </simple-method>
+    
+    <simple-method method-name="createUpdateCustomerInfo" short-description="Create Customer" login-required="false">
+        <!-- update the email address -->
+        <if-not-empty field-name="parameters.emailContactMechId">
+            <env-to-env env-name="partyId" to-env-name="emailMap.partyId"/>
+            <env-to-env env-name="parameters.emailContactMechId" to-env-name="emailMap.contactMechId"/>
+            <!-- call the update email service -->
+            <call-service service-name="updatePartyEmailAddress" in-map-name="emailMap"/>
+        <else>
+            <!-- create the email address -->
+            <env-to-env env-name="partyId" to-env-name="emailMap.partyId"/>
+            <string-to-field field-name="contactMechPurposeTypeId" map-name="emailMap" string="PRIMARY_EMAIL"/>
+            <!-- call the create email service -->
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailMap"/>
+        </else>
+        </if-not-empty>
+        
+        
+        <!-- create home phone -->
+        <if-not-empty field-name="parameters.homePhoneContactMechId">
+            <env-to-env env-name="partyId" to-env-name="homePhoneMap.partyId"/>
+            <env-to-env env-name="parameters.homePhoneContactMechId" to-env-name="homePhoneMap.contactMechId"/>
+            <!-- call update telecom service -->
+            <call-service service-name="updatePartyTelecomNumber" in-map-name="homePhoneMap"/>
+        <else>
+            <!-- create home phone -->
+            <if-not-empty field-name="homeContactNumber" map-name="parameters">
+                <env-to-env env-name="partyId" to-env-name="homePhoneMap.partyId"/>
+                <string-to-field field-name="contactMechPurposeTypeId" map-name="homePhoneMap" string="PHONE_HOME"/>
+                <!-- call create telecom service -->
+                <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneMap"/>
+            </if-not-empty>
+        </else>
+        </if-not-empty>
+        
+        <!-- create work phone -->
+        <if-not-empty field-name="parameters.workPhoneContactMechId">
+            <env-to-env env-name="partyId" to-env-name="workPhoneMap.partyId"/>
+            <env-to-env env-name="parameters.workPhoneContactMechId" to-env-name="workPhoneMap.contactMechId"/>
+            <!-- call update telecom service -->
+            <call-service service-name="updatePartyTelecomNumber" in-map-name="workPhoneMap"/>
+        <else>
+            <!-- create work phone -->
+            <if-not-empty field-name="workContactNumber" map-name="parameters">
+                <env-to-env env-name="partyId" to-env-name="workPhoneMap.partyId"/>
+                <string-to-field field-name="contactMechPurposeTypeId" map-name="workPhoneMap" string="PHONE_WORK"/>
+                <!-- call create telecom service -->
+                <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneMap"/>
+            </if-not-empty>
+        </else>
+        </if-not-empty>
+        
+        <!-- shipping address -->
+        <if-not-empty field-name="parameters.shippingContactMechId">
+            <env-to-env env-name="partyId" to-env-name="addressContext.partyId"/>
+            <env-to-env env-name="parameters.shippingContactMechId" to-env-name="addressContext.contactMechId"/>
+            <!-- call the update address service -->
+            <call-service service-name="updatePartyPostalAddress" in-map-name="addressContext">
+                <!-- this is needed for the "anonymous" checkout process, will be used as the shipping address -->
+                <result-to-request result-name="contactMechId"/>
+            </call-service>
+        <else>
+            <if-compare field-name="parameters.useAddress" operator="equals" value="true">
+                <env-to-env env-name="partyId" to-env-name="addressContext.partyId"/>
+                <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
+                    <result-to-field result-name="contactMechId" map-name="addressPurposeContext"/>
+                    <result-to-request result-name="contactMechId"/>
+                </call-service>
+                <field-to-field field-name="partyId" map-name="tempMap" to-map-name="addressPurposeContext"/>
+                <!-- create the shipping location -->
+                <string-to-field string="SHIPPING_LOCATION" field-name="contactMechPurposeTypeId" map-name="addressPurposeContext"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
+                <!-- also consider this address the general correspondence address -->
+                <string-to-field string="GENERAL_LOCATION" field-name="contactMechPurposeTypeId" map-name="addressPurposeContext"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
+            </if-compare>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
+        <call-simple-method method-name="validateCustomerInfo"/>
+        
+        <!-- see if we should continue now... -->
+        <check-errors/>
+        
+        <!-- call the create person service -->
+        <call-service service-name="createPerson" in-map-name="personMap">
+            <result-to-field result-name="partyId" map-name="tempMap"/>
+            <result-to-request result-name="partyId"/>
+        </call-service>
+        
+        <!-- the rest of the methods require a userLogin object; so if we are anonymous lets fake it -->
+        <if-empty field-name="userLogin">
+            <set field="ulLookup.userLoginId" value="anonymous"/>
+            <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-name="userLogin"/>
+            <set field="userLogin.partyId" from-field="tempMap.partyId"/>
+            <set-current-user-login value-name="userLogin"/>
+            <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->
+                <if-compare field-name="userLogin.userLoginId" value="anonymous" operator="equals">
+                    <set field="userLogin.partyId" from-field="tempMap.partyId"/>
+                </if-compare>
+            </else>
+        </if-empty>
+
+        <log level="info" message="UserLogin : ${userLogin}"/>
+        
+        <!-- add the party to the customer role -->
+        <set field="roleMap.roleTypeId" value="CUSTOMER"/>
+        <set field="roleMap.partyId" from-field="tempMap.partyId"/>
+        <call-service service-name="createPartyRole" in-map-name="roleMap"/>
+        
+        <env-to-env env-name="tempMap.partyId" to-env-name="partyId"/>
+        <call-simple-method method-name="createUpdateCustomerInfo"/>
+        
+        <!-- create userLogin -->
+        <if-not-empty field-name="userLoginId" map-name="parameters">
+            <set field="loginMap.userLoginId" from-field="parameters.userLoginId"/>
+            <!-- call create userLogin -->
+            <!-- call reset password (to email a password) -->
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="updateCustomer" short-description="Update Customer" login-required="true">
+        <if-empty field-name="parameters.partyId"><add-error><fail-message message="No partyId passed, cannot Update Customer"/></add-error></if-empty>
+        
+        <call-simple-method method-name="validateCustomerInfo"/>
+        
+        <!-- see if we should continue now... -->
+        <check-errors/>
+        
+        <!-- update person service -->
+        <env-to-env env-name="parameters.partyId" to-env-name="personMap.partyId"/>
+        <call-service service-name="updatePerson" in-map-name="personMap">
+        </call-service>
+        
+        <env-to-env env-name="parameters.partyId" to-env-name="partyId"/>
+        <call-simple-method method-name="createUpdateCustomerInfo"/>
+    </simple-method>
+</simple-methods>

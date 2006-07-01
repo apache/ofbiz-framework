@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Catalog Manager security -->
+    <SecurityPermission description="View operations in the Catalog Manager." permissionId="CATALOG_VIEW"/>
+    <SecurityPermission description="Create operations in the Catalog Manager." permissionId="CATALOG_CREATE"/>
+    <SecurityPermission description="Update operations in the Catalog Manager." permissionId="CATALOG_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Catalog Manager." permissionId="CATALOG_DELETE"/>
+    <SecurityPermission description="ALL operations in the Catalog Manager." permissionId="CATALOG_ADMIN"/>
+    <SecurityPermission description="Limited Create operations in the Catalog Manager." permissionId="CATALOG_ROLE_CREATE"/>
+    <SecurityPermission description="Limited Update operations in the Catalog Manager." permissionId="CATALOG_ROLE_UPDATE"/>
+    <SecurityPermission description="Limited Delete operations in the Catalog Manager." permissionId="CATALOG_ROLE_DELETE"/>
+    <SecurityPermission description="Permission required, in addition to other applicable permissions, to maintain product price information including prices, promotions, and price rules." permissionId="CATALOG_PRICE_MAINT"/>
+
+    <SecurityGroup description="Limited Catalog Admin group, has limited catalog permissions." groupId="CATALOGADMIN_LTD"/>
+    <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
+    
+    <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
+    
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_ADMIN"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+    
+    <!-- Shipping Rate security -->
+    <SecurityPermission description="View operations in the Shipping Rate Editor." permissionId="SHIPRATE_VIEW"/>
+    <SecurityPermission description="Create operations in the Shipping Rate Editor." permissionId="SHIPRATE_CREATE"/>
+    <SecurityPermission description="Delete operations in the Shipping Rate Editor." permissionId="SHIPRATE_DELETE"/>
+    <SecurityPermission description="ALL operations in the Shipping Rate Editor." permissionId="SHIPRATE_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SHIPRATE_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SHIPRATE_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SHIPRATE_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SHIPRATE_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SHIPRATE_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="SHIPRATE_ADMIN"/>
+    
+    <!-- Tax Rate security -->
+    <SecurityPermission description="View operations in the Tax Rate Editor." permissionId="TAXRATE_VIEW"/>
+    <SecurityPermission description="Create operations in the Tax Rate Editor." permissionId="TAXRATE_CREATE"/>
+    <SecurityPermission description="Delete operations in the Tax Rate Editor." permissionId="TAXRATE_DELETE"/>
+    <SecurityPermission description="ALL operations in the Tax Rate Editor." permissionId="TAXRATE_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="TAXRATE_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="TAXRATE_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="TAXRATE_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="TAXRATE_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="TAXRATE_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="TAXRATE_ADMIN"/>
+    
+    <!-- Facility Manager security -->
+    <SecurityPermission description="View operations in the Facility Manager." permissionId="FACILITY_VIEW"/>
+    <SecurityPermission description="Create operations in the Facility Manager." permissionId="FACILITY_CREATE"/>
+    <SecurityPermission description="Update operations in the Facility Manager." permissionId="FACILITY_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Facility Manager." permissionId="FACILITY_DELETE"/>
+    <SecurityPermission description="ALL operations in the Facility Manager." permissionId="FACILITY_ADMIN"/>
+    <SecurityPermission description="Limited view operations in the Facility Manager." permissionId="FACILITY_ROLE_VIEW"/>
+    <SecurityPermission description="Limited update operations in the Facility Manager." permissionId="FACILITY_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="FACILITY_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="FACILITY_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="FACILITY_ADMIN"/>
+</entity-engine-xml>

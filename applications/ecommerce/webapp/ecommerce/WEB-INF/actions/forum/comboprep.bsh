@@ -1,0 +1,214 @@
+/*
+ * $Id: comboprep.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      3.0
+
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+import org.ofbiz.content.data.DataResourceWorker;
+import org.ofbiz.webapp.ftl.FreeMarkerViewHandler;
+import org.ofbiz.content.content.ContentWorker;
+
+import java.io.StringWriter;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.template.SimpleHash;
+import freemarker.template.WrappingTemplateModel;
+
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+// load edit or create Content form
+
+dispatcher    = (LocalDispatcher)request.getAttribute("dispatcher");
+delegator = (GenericDelegator) request.getAttribute("delegator");
+
+formDefFile	= page.getProperty("formDefFile");
+addFormName	= page.getProperty("addFormName");
+editFormName	= page.getProperty("editFormName");
+listFormName	= page.getProperty("listFormName");
+mruFormName	= page.getProperty("mruFormName");
+entityName	= page.getProperty("entityName");
+targetOperation		= page.getProperty("targetOperation");
+//Debug.logInfo("in comboprep, targetOperation(1):" + targetOperation, "");
+paramMap = UtilHttp.getParameterMap(request);
+contentIdTo = (String)paramMap.get("contentIdTo");
+if (UtilValidate.isEmpty(contentIdTo)) {
+    contentIdTo = (String)paramMap.get("caContentIdTo");
+}
+context.put("contentIdTo", contentIdTo);
+//Debug.logInfo("in comboprep, contentIdTo:" + contentIdTo, "");
+//String defaultMapName		= page.getProperty("defaultMapName");
+//if( defaultMapName == null) defaultMapName	= "currentValue";
+defaultMapName	= "currentValue";
+GenericValue currentValue = (GenericValue)request.getAttribute("currentValue");
+//Debug.logInfo("in comboprep, currentValue:" + currentValue, "");
+mode = (String)request.getParameter("mode");
+if (mode == null || mode.length() == 0) {
+    mode = (String)request.getAttribute("mode");
+}
+//Debug.logInfo("in comboprep, mode:" + mode, "");
+Locale locale = Locale.getDefault();
+if (mode != null && mode.equalsIgnoreCase("restore")) {
+    singleWrapper = new HtmlFormWrapper(formDefFile, addFormName, request, response);
+    if (currentValue != null) {
+        singleWrapper = new HtmlFormWrapper(formDefFile, editFormName, request, response);
+        singleWrapper.putInContext("currentValue", currentMap);
+    }
+    singleWrapper.putInContext("contentIdTo", contentIdTo);
+    singleWrapper.putInContext("imageData", paramMap.get("imageData"));
+    singleWrapper.putInContext("dataResourceId", paramMap.get("dataResourceId"));
+    singleWrapper.putInContext("ownerContentId", paramMap.get("ownerContentId"));
+    singleWrapper.putInContext("contentName", paramMap.get("contentName"));
+    singleWrapper.putInContext("description", paramMap.get("description"));
+    singleWrapper.putInContext("summaryData", paramMap.get("summaryData"));
+    singleWrapper.putInContext("textData", paramMap.get("textData"));
+    singleWrapper.putInContext("section", paramMap.get("section"));
+    singleWrapper.putInContext("topic", paramMap.get("topic"));
+    singleWrapper.putInContext("ftlContentId", paramMap.get("ftlContentId"));
+    singleWrapper.putInContext("sumContentId", paramMap.get("sumContentId"));
+    singleWrapper.putInContext("txtContentId", paramMap.get("txtContentId"));
+    singleWrapper.putInContext("imgContentId", paramMap.get("imgContentId"));
+    singleWrapper.putInContext("statusId", paramMap.get("statusId"));
+    singleWrapper.putInContext("ftlDataResourceId", paramMap.get("ftlDataResourceId"));
+    singleWrapper.putInContext("sumDataResourceId", paramMap.get("sumDataResourceId"));
+    singleWrapper.putInContext("txtDataResourceId", paramMap.get("txtDataResourceId"));
+    singleWrapper.putInContext("imgDataResourceId", paramMap.get("imgDataResourceId"));
+    singleWrapper.putInContext("contentPurposeId", paramMap.get("contentPurposeId"));
+    singleWrapper.putInContext("targetOperationId", paramMap.get("targetOperationId"));
+    singleWrapper.putInContext("nodeTrailCsv", paramMap.get("nodeTrailCsv"));
+   
+} else if (currentValue == null || (mode != null && mode.equalsIgnoreCase("add"))) {
+    view = delegator.makeValue("SubContentDataResourceView", null);
+    view.put("localeString", locale.toString());
+    singleWrapper = new HtmlFormWrapper(formDefFile, addFormName, request, response);
+    currentMap = new HashMap(view);
+    currentMap.put("textData", "");
+    singleWrapper.putInContext("currentValue", currentMap);
+    singleWrapper.putInContext("contentPurposeTypeId", page.getProperty("contentPurposeTypeId"));
+    addTargetOperation		= page.getProperty("addTargetOperation");
+//Debug.logInfo("in comboprep, addTargetOperation(1):" + addTargetOperation, "");
+    if (UtilValidate.isEmpty(addTargetOperation))
+        singleWrapper.putInContext("targetOperation", targetOperation);
+    else
+        singleWrapper.putInContext("targetOperation", addTargetOperation);
+    singleWrapper.putInContext("statusId", page.getProperty("statusId"));
+} else {
+
+    singleWrapper = new HtmlFormWrapper(formDefFile, editFormName, request, response);
+    dataResourceId = (String)currentValue.get("drDataResourceId");
+    dataResourceTypeId =  (String)currentValue.get("drDataResourceTypeId");
+    contentId = (String)currentValue.get("contentId");
+    singleWrapper.putInContext("ftlContentId", contentId);
+    singleWrapper.putInContext("ftlDataResourceId", dataResourceId);
+    singleWrapper.putInContext("contentName", currentValue.get("contentName"));
+    singleWrapper.putInContext("description", currentValue.get("description"));
+    singleWrapper.putInContext("statusId", currentValue.get("statusId"));
+    editTargetOperation		= page.getProperty("editTargetOperation");
+    if (UtilValidate.isEmpty(editTargetOperation))
+        singleWrapper.putInContext("targetOperation", targetOperation);
+    else
+        singleWrapper.putInContext("targetOperation", editTargetOperation);
+    //Debug.logInfo("in comboprep, dataResourceId:" + dataResourceId, "");
+    //Debug.logInfo("in comboprep, contentId:" + contentId, "");
+
+
+        mimeTypeId =  (String)currentValue.get("drMimeTypeId");
+        rootDir = request.getSession().getServletContext().getRealPath("/");
+        wrapper = BeansWrapper.getDefaultInstance();
+        WrappingTemplateModel.setDefaultObjectWrapper(wrapper);
+        //templateRoot = new SimpleHash(wrapper);
+        templateRoot = new HashMap();
+        FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);
+        ctx = new HashMap();
+        ctx.put("rootDir", rootDir);
+        // webSiteId and https need to go here, too
+        templateRoot.put("context", ctx);
+        userLogin = session.getAttribute("userLogin");
+        fromDate = UtilDateTime.nowTimestamp();
+        assocTypes = null;
+        //assocTypes = UtilMisc.toList("SUB_CONTENT");
+        subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "ARTICLE", null, userLogin, assocTypes, fromDate);
+        if ( subContentDataResourceView != null) {
+            out = new StringWriter();
+            ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
+            textData = out.toString();
+            singleWrapper.putInContext("txtContentId", subContentDataResourceView.get("contentId"));
+            singleWrapper.putInContext("txtDataResourceId", subContentDataResourceView.get("dataResourceId"));
+            singleWrapper.putInContext("textData", textData);
+        }
+
+        //assocTypes = UtilMisc.toList("DESCRIPTION");
+        subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "SUMMARY", null, userLogin, assocTypes, fromDate);
+        if ( subContentDataResourceView != null) {
+            out = new StringWriter();
+            ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
+            summaryData = out.toString();
+            singleWrapper.putInContext("sumContentId", subContentDataResourceView.get("contentId"));
+            singleWrapper.putInContext("sumDataResourceId", subContentDataResourceView.get("dataResourceId"));
+            singleWrapper.putInContext("summaryData", summaryData);
+        }
+
+        subContentDataResourceView = ContentWorker.getSubContent(delegator, contentId, "IMAGE", null, userLogin, assocTypes, fromDate);
+        if ( subContentDataResourceView != null) {
+            out = new StringWriter();
+            ContentWorker.renderContentAsText(delegator, null, out, templateRoot, subContentDataResourceView, locale, mimeTypeId);
+            imageData = out.toString();
+            singleWrapper.putInContext("imgContentId", subContentDataResourceView.get("contentId"));
+            singleWrapper.putInContext("imgDataResourceId", subContentDataResourceView.get("dataResourceId"));
+            singleWrapper.putInContext("imageData", imageData);
+        }
+}
+
+singleWrapper.putInContext("pageName", page.getPageName());
+singleWrapper.putInContext("contentIdTo", contentIdTo);
+mapKey = (String)paramMap.get("mapKey");
+//Debug.logInfo("in comboprep, mapKey:" + mapKey, "");
+singleWrapper.putInContext("mapKey", mapKey);
+context.put("singleWrapper", singleWrapper);
+nodeTrailCsv = context.get("nodeTrailCsv");
+singleWrapper.putInContext("nodeTrailCsv", nodeTrailCsv);
+
+servletContext = (ServletContext)request.getSession().getServletContext();
+rootDir = servletContext.getRealPath("/");
+context.put("rootDir", rootDir);
+context.put("webSiteId", servletContext.getAttribute("webSiteId"));
+
+
+summaryDataResourceTypeId = page.getProperty("summaryDataResourceTypeId");
+if (UtilValidate.isNotEmpty(summaryDataResourceTypeId )) {
+    singleWrapper.putInContext("summaryDataResourceTypeId", summaryDataResourceTypeId);
+}

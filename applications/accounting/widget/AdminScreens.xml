@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="ListCompanies">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingAvailableInternalOrganizations"/>
+                <set field="headerItem" value="companies"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
+                <entity-condition entity-name="PartyRole" list-name="parties">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListCompanies" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="TimePeriods">
+        <section>
+            <actions>				
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="TimePeriod"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.TimePeriod}"/>
+                <set field="tabButtonItem" value="TimePeriods"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <entity-condition entity-name="CustomTimePeriod" list-name="openTimePeriods">
+                    <condition-list>
+                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="isClosed" operator="equals" value="N"/>
+                    </condition-list>
+                    <order-by field-name="thruDate"/>
+                </entity-condition>
+                <entity-condition entity-name="CustomTimePeriod" list-name="closedTimePeriods">
+                    <condition-list>
+                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="isClosed" operator="equals" value="Y"/>
+                    </condition-list>
+                    <order-by field-name="periodTypeId"/>
+                    <order-by field-name="periodNum"/>
+                    <order-by field-name="thruDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://accounting/webapp/accounting/admin/timePeriods.ftl"/></html>
+                        </platform-specific>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="PartyAcctgPreference">
+        <section>
+            <actions>			
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingPreference"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingPreference}"/>
+                <set field="tabButtonItem" value="PartyAcctgPreference"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyId" from-field="parameters.organizationPartyId"/>
+                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="PartyAcctgPreference" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListUnpostedAcctgTrans">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="ListUnpostedAcctgTrans"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
+                <set field="partyId" from-field="parameters.organizationPartyId"/>
+                <entity-condition entity-name="AcctgTrans" list-name="transactions">
+                    <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
+                    <order-by field-name="transactionDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!-- Screen to view and manage foreign exchange conversions -->
+    <screen name="ViewFXConversions">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingFX"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingFX}"/>
+                <set field="tabButtonItem" value="ViewFXConversions"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
+                    stored in UomConversion, we need to change the logic here -->
+                <entity-condition entity-name="UomConversionDated" list-name="conversions">
+                    <order-by field-name="uomId"/>
+                    <order-by field-name="uomIdTo"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListConversions" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <label style="head1">${uiLabelMap.AccountingUpdateFX}</label>
+                        <include-form name="updateFXConversion" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="GlAccountSalInvoice">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingGlAccountAssignments"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlAccountAssignments}"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <container><label style="head1">${uiLabelMap.AccountingSalesInvoiceToRevenue}</label></container>
+                            <include-form name="ListSalInvoiceItemTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <container><label style="head1">${uiLabelMap.AccountingAssignSalesInvoiceToRevenue}</label></container>
+                            <include-form name="AddSalInvoiceItemTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="GlAccountPurInvoice">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <container><label style="head1">Purchase Invoice type to Expense GL Account Number assignmentlist</label></container>
+                            <container>
+                                <include-form name="ListPurInvoiceItemTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            </container>
+                            <container><label style="head1">Assign Purchase Invoice Item type to Expense GL Account Number</label></container>
+                            <include-form name="AddPurInvoiceItemTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GlAccountTypePaymentType">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <container><label style="head1">Payment type to GL Account type assignment list</label></container>
+                            <include-form name="ListPaymentTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <container><label style="head1">Assign Payment type to GL Account Type</label></container>
+                            <include-form name="AddPaymentTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GlAccountNrPaymentMethod">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <container><label style="head1">Payment methods to GL Account numbers assigmentlist</label></container>
+                            <include-form name="ListPaymentMethodTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <container><label style="head1">Assign Payment method type to GL Account number></label></container>
+                            <include-form name="AddPaymentMethodTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- generates the subtab of [Checks] using AdminChecksTabBar -->
+    <screen name="CommonAdminChecksDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets> 
+                                <container>
+                                    <label style="head1" text="${title}"/>
+                                </container>
+                                <platform-specific>
+                                    <html><html-template location="component://accounting/webapp/accounting/admin/AdminChecksTabBar.ftl"/></html>
+                                </platform-specific>
+
+                                <decorator-section-include name="checks-body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ListChecksToPrint">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingPrintChecks"/>
+                <set field="tabButtonItem" value="ChecksTabButton"/>
+                <set field="checksTabButtonItem" value="PrintChecksTabButton"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+
+                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
+                <entity-condition entity-name="Payment" list-name="payments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="COMPANY_CHECK"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="effectiveDate"/>
+                </entity-condition>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminChecksDecorator">
+                    <decorator-section name="checks-body">
+                        <section>
+                        <condition><if-has-permission permission="ACCOUNTING" action="_PRINT_CHECKS"/></condition>
+                        <widgets>
+                            <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="head3">${uiLabelMap.AccountingPrintChecksPermissionError}</label>
+                        </fail-widgets>
+                      </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListChecksToSend">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="Mark Checks Sent"/>
+                <set field="tabButtonItem" value="ChecksTabButton"/>
+                <set field="checksTabButtonItem" value="SendChecksTabButton"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+
+                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
+                <entity-condition entity-name="Payment" list-name="payments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="COMPANY_CHECK"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="effectiveDate"/>
+                </entity-condition>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminChecksDecorator">
+                    <decorator-section name="checks-body">
+                        <section>
+                        <condition><if-has-permission permission="PAY_INFO" action="_UPDATE"/></condition>
+                        <widgets>
+                            <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="head3">${uiLabelMap.AccountingUpdatePaymentPermissionError}</label>
+                        </fail-widgets>
+                      </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Johan Isacsson (johan@oddjob.se)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ * @since      3.0
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- ProductContent -->
+    <simple-method method-name="createProductContent" short-description="Create Content For Product">
+        <make-value value-name="newEntity" entity-name="ProductContent"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+
+        <create-value value-name="newEntity"/>
+
+        <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
+
+        <field-to-result map-name="newEntity" field-name="contentId"/>
+        <field-to-result map-name="newEntity" field-name="productId"/>
+        <field-to-result map-name="newEntity" field-name="productContentTypeId"/>
+    </simple-method>
+    <simple-method method-name="updateProductContent" short-description="Update Content For Product">
+        <make-value value-name="lookupPKMap" entity-name="ProductContent"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+
+        <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
+    </simple-method>
+    <simple-method method-name="removeProductContent" short-description="Remove Content From Product">
+        <make-value value-name="lookupPKMap" entity-name="ProductContent"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Specialized -->
+    <simple-method method-name="createEmailContentForProduct" short-description="Create Email Content For Product">
+        <set-service-fields service-name="createProductContent" map-name="parameters" to-map-name="createProductContent"/>
+        <set-service-fields service-name="createEmailContent" map-name="parameters" to-map-name="createEmail"/>
+        <call-service service-name="createEmailContent" in-map-name="createEmail" break-on-error="true" >
+            <result-to-field result-name="contentId" map-name="createProductContent" />
+        </call-service>
+        <call-service service-name="createProductContent" in-map-name="createProductContent"/>
+    </simple-method>
+    <simple-method method-name="updateEmailContentForProduct" short-description="Update Email Content For Product">
+        <set-service-fields service-name="updateProductContent" map-name="parameters" to-map-name="updateProductContent"/>
+        <call-service service-name="updateProductContent" in-map-name="updateProductContent"/>
+        <set-service-fields service-name="updateEmailContent" map-name="parameters" to-map-name="updateEmail"/>
+        <call-service service-name="updateEmailContent" in-map-name="updateEmail"/>
+    </simple-method>
+
+    <simple-method method-name="createDownloadContentForProduct" short-description="Create Email Content For Product">
+        <set-service-fields service-name="createProductContent" map-name="parameters" to-map-name="createProductContent"/>
+        <set-service-fields service-name="createDownloadContent" map-name="parameters" to-map-name="createDownload"/>
+        <call-service service-name="createDownloadContent" in-map-name="createDownload" break-on-error="true" >
+            <result-to-field result-name="contentId" map-name="createProductContent" />
+        </call-service>
+        <call-service service-name="createProductContent" in-map-name="createProductContent"/>
+    </simple-method>
+    <simple-method method-name="updateDownloadContentForProduct" short-description="Update Email Content For Product">
+        <set-service-fields service-name="updateProductContent" map-name="parameters" to-map-name="updateProductContent"/>
+        <call-service service-name="updateProductContent" in-map-name="updateProductContent"/>
+        <set-service-fields service-name="updateDownloadContent" map-name="parameters" to-map-name="updateDownload"/>
+        <call-service service-name="updateDownloadContent" in-map-name="updateDownload"/>
+    </simple-method>
+
+    <simple-method method-name="createSimpleTextContentForProduct" short-description="Create Simple Text Content For Product">
+        <set-service-fields service-name="createProductContent" map-name="parameters" to-map-name="createProductContentMap"/>
+        <set-service-fields service-name="createSimpleTextContent" map-name="parameters" to-map-name="createSimpleTextMap"/>
+        <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
+            <result-to-field result-name="contentId" map-name="createProductContentMap"/>
+        </call-service>
+        <call-service service-name="createProductContent" in-map-name="createProductContentMap"/>
+    </simple-method>
+    <simple-method method-name="updateSimpleTextContentForProduct" short-description="Update Simple Text Content For Product">
+        <set-service-fields service-name="updateProductContent" map-name="parameters" to-map-name="updateProductContent"/>
+        <call-service service-name="updateProductContent" in-map-name="updateProductContent"/>
+        <set-service-fields service-name="updateSimpleTextContent" map-name="parameters" to-map-name="updateSimpleText"/>
+        <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
+    </simple-method>
+
+    <!-- ProductFeatureDataResource -->
+    <simple-method method-name="createProductFeatureDataResource" short-description="Create ProductFeature-DataResource">
+        <make-value value-name="newEntity" entity-name="ProductFeatureDataResource"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="removeProductFeatureDataResource" short-description="Remove ProductFeature-DataResource">
+        <make-value value-name="lookupPKMap" entity-name="ProductFeatureDataResource"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+</simple-methods>

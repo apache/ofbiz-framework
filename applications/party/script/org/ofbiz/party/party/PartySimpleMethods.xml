@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2002-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @author     David E Jones (jonesde@ofbiz.org)
+ * @version    1.0
+ * @created    Sept 19, 2002
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="updateAVSOverride" short-description="Create/Update The AVS Override String">
+        <make-value value-name="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="PartyIcsAvsOverride" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-not-empty map-name="lookedUpValue" field-name="partyId">
+            <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+            <store-value value-name="lookedUpValue"/>
+        </if-not-empty>
+        <if-empty map-name="lookedUpValue" field-name="partyId">
+            <set-nonpk-fields map-name="parameters" value-name="lookupPKMap"/>
+            <create-value value-name="lookupPKMap"/>
+        </if-empty>
+    </simple-method>
+
+    <simple-method method-name="deleteAVSOverride" short-description="Delete The AVS Override String">
+        <make-value value-name="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="PartyIcsAvsOverride" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-not-empty map-name="lookedUpValue" field-name="partyId">
+            <remove-value value-name="lookedUpValue"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="ensureNaPartyRole" short-description="Ensure Party is in _NA_ or the specified Role" login-required="false">
+        <!-- must have a partyId, partyIdFrom, or partyIdTo in the parameters map, should be called through different service defs for each one -->
+        <if-not-empty field-name="partyId" map-name="parameters">
+            <field-to-field field-name="partyId" map-name="parameters" to-map-name="lookupPKMap"/>
+            <else>
+                <if-not-empty field-name="partyIdFrom" map-name="parameters">
+                    <field-to-field field-name="partyIdFrom" map-name="parameters" to-field-name="partyId" to-map-name="lookupPKMap"/>
+                    <else>
+                        <if-not-empty field-name="partyIdTo" map-name="parameters">
+                            <field-to-field field-name="partyIdTo" map-name="parameters" to-field-name="partyId" to-map-name="lookupPKMap"/>
+                        </if-not-empty>
+                    </else>
+                </if-not-empty>
+            </else>
+        </if-not-empty>
+
+        <if-empty field-name="parameters.roleTypeId">
+            <string-to-field string="_NA_" field-name="lookupPKMap.roleTypeId"/>
+        <else>
+            <env-to-env env-name="parameters.roleTypeId" to-env-name="lookupPKMap.roleTypeId"/>
+        </else>
+        </if-empty>
+        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-empty field-name="lookedUpValue">
+            <make-value value-name="newValue" entity-name="PartyRole" map-name="lookupPKMap"/>
+            <create-value value-name="newValue"/>
+        </if-empty>
+    </simple-method>
+
+    <simple-method method-name="createPersonAndUserLogin" short-description="Creates a person and userlogin" login-required="false">
+        <set-service-fields service-name="createUserLogin" map-name="parameters" to-map-name="createUlInMap"/>
+
+        <set-service-fields service-name="createPerson" map-name="parameters" to-map-name="createPersonCtx"/>
+        <call-service service-name="createPerson" in-map-name="createPersonCtx">
+            <result-to-field result-name="partyId" map-name="createUlInMap"/>
+        </call-service>
+
+        <!-- call the service with the system account to get around security constraints for this special create -->
+        <entity-one entity-name="UserLogin" value-name="createUlInMap.userLogin" auto-field-map="false">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        
+        <call-service service-name="createUserLogin" in-map-name="createUlInMap"/>
+        <entity-one entity-name="UserLogin" value-name="newUserLogin"/>
+
+        <field-to-result field-name="newUserLogin"/>
+        <field-to-result field-name="createUlInMap.partyId" result-name="partyId"/>
+    </simple-method>
+</simple-methods>

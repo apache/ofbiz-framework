@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>OFBIZ Test Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="testScv" engine="java" export="true" validate="false" require-new-transaction="true"
+            location="org.ofbiz.common.CommonServices" invoke="testService">
+        <description>Test service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="resp" type="String" mode="OUT"/>
+    </service>
+    <service name="blockingTestScv" engine="java" export="true" validate="false" require-new-transaction="true"
+            location="org.ofbiz.common.CommonServices" invoke="blockingTestService">
+        <description>Blocking Test service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="resp" type="String" mode="OUT"/>
+    </service>
+    <service name="testError" engine="java" export="true" validate="false" require-new-transaction="true" max-retry="1"
+            location="org.ofbiz.common.CommonServices" invoke="returnErrorService">
+    </service>
+    <!-- see serviceengin.xml to configure the rmi location alias -->
+    <service name="testRmi" engine="rmi" validate="false"
+            location="main-rmi" invoke="testScv">
+        <implements service="testScv"/>
+    </service>
+    <service name="testRmiFail" engine="rmi" validate="false"
+            location="main-rmi" invoke="testBsh">
+        <implements service="testScv"/>
+    </service>
+
+    <service name="testWorkflow" engine="workflow" location="TEST-PKG" invoke="TestWorkflow">
+        <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="orderStatusId" type="String" mode="OUT"/>
+    </service>
+    <service name="testWorkflowCondition" engine="java"
+            location="org.ofbiz.common.CommonServices" invoke="testWorkflowCondition">
+        <attribute name="serviceName" type="String" mode="IN" optional="true"/>
+        <attribute name="evaluationResult" type="Boolean" mode="OUT"/>
+    </service>
+    <service name="testRollback" engine="java" export="true" validate="false"
+            location="org.ofbiz.common.CommonServices" invoke="testRollbackListener">
+        <description>Test service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="resp" type="String" mode="OUT"/>
+    </service>
+    <service name="testCommit" engine="java" export="true" validate="false"
+            location="org.ofbiz.common.CommonServices" invoke="testCommitListener">
+        <description>Test service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="resp" type="String" mode="OUT"/>
+    </service>
+
+    <service name="groupTest" engine="group" location="testGroup" invoke=""/>
+
+    <service name="testHttp" engine="http"
+            location="http://localhost:8080/webtools/control/httpService" invoke="testScv">
+        <description>HTTP service wrapper around the test service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="resp" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testSoap" engine="soap" export="true"
+            location="http://nagoya.apache.org:5049/axis/servlet/AxisServlet" invoke="echoString">
+        <description>Test SOAP service; calls echoString service on Axis server</description>
+        <namespace>http://soapinterop.org/</namespace>
+        <attribute name="message" type="String" mode="IN"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testBsh" engine="bsh"
+            location="org/ofbiz/common/BshServiceTest.bsh" invoke="">
+        <description>Test BeanShell Script Service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testJMSQueue" engine="jms"
+            location="serviceMessenger" invoke="testScv">
+        <description>Test JMS Queue service</description>
+        <attribute name="message" type="String" mode="IN"/>
+    </service>
+
+    <service name="testJMSTopic" engine="jms"
+            location="serviceMessenger" invoke="testScv">
+        <description>Test JMS Topic service</description>
+        <attribute name="message" type="String" mode="IN"/>
+    </service>
+
+    <service name="testMca" engine="java"
+            location="org.ofbiz.common.CommonServices" invoke="mcaTest">
+        <description>Test Service MCA</description>
+        <implements service="mailProcessInterface"/>
+    </service>
+
+    <service name="testRoute" engine="route" location="" invoke="" auth="true">
+    	<description>Test the Route engine</description>
+    </service>
+
+    <service name="testJavsScript" engine="javascript" auth="false"
+			location="org/ofbiz/common/JavaScriptTest.js" invoke="">
+    	<description>Test JavaScript Service</description>
+    	<attribute name="message" type="String" mode="IN" optional="true"/>
+    	<attribute name="result" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="testEntityFailure" engine="java" auth="false" validate="false"
+            location="org.ofbiz.common.CommonServices" invoke="entityFailTest">
+        <description>Cause a Referential Integrity Error</description>
+    </service>
+
+    <service name="entitySortTest" engine="java" auth="false" validate="false"
+            location="org.ofbiz.common.CommonServices" invoke="entitySortTest">
+        <description>Test Entity Comparable</description>
+    </service>
+
+     <service name="makeALotOfVisits" engine="java" auth="true"
+            location="org.ofbiz.common.CommonServices" invoke="makeALotOfVisits">
+        <description>Test JavaScript Service</description>
+        <attribute name="count" type="Integer" mode="IN" optional="false"/>
+        <attribute name="rollback" type="Boolean" mode="IN" optional="true"/>     
+    </service>
+    
+    <service name="byteWrapperTest" engine="java" auth="true"
+            location="org.ofbiz.common.CommonServices" invoke="byteWrapperTest">
+        <description>Test Passing ByteWrapper To Service</description>
+        <attribute name="byteWrapper1" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="saveAsFileName1" type="String" mode="IN" optional="false"/>
+        <attribute name="byteWrapper2" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="saveAsFileName2" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="uploadContentTest" engine="java" auth="true"
+            location="org.ofbiz.common.CommonServices" invoke="uploadTest">
+        <description>Upload Content Test Service</description>
+        <attribute name="uploadFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="_uploadFile_contentType" type="String" mode="IN" optional="false"/>
+        <attribute name="_uploadFile_fileName" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="conditionReturnTrue" engine="java" auth="true"
+            location="org.ofbiz.common.CommonServices" invoke="conditionTrueService">
+        <description>ECA Condition Service - Return TRUE</description>
+        <implements service="serviceEcaConditionInterface"/>
+    </service>
+    <service name="conditionReturnFalse" engine="java" auth="true"
+            location="org.ofbiz.common.CommonServices" invoke="conditionFalseService">
+        <description>ECA Condition Service - Return FALSE</description>
+        <implements service="serviceEcaConditionInterface"/>
+    </service>
+
+    <service name="ping" engine="java" export="true" require-new-transaction="true"
+            location="org.ofbiz.common.CommonServices" invoke="ping">
+        <description>Test Ping Service</description>
+        <attribute name="message" type="String" mode="INOUT" optional="true"/>
+    </service>
+</services>

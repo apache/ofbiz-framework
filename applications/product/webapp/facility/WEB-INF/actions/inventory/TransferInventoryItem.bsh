@@ -1,0 +1,112 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@author     Brad Steiner
+ *@version    $Rev$
+ *@since      2.2
+ */
+ 
+import java.util.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+delegator = request.getAttribute("delegator");
+
+String facilityId = request.getParameter("facilityId");
+
+String inventoryTransferId = request.getParameter("inventoryTransferId");
+context.put("inventoryTransferId", inventoryTransferId);
+
+String inventoryItemId = request.getParameter("inventoryItemId");
+
+GenericValue inventoryTransfer = null;
+GenericValue inventoryItem = null;
+GenericValue inventoryItemType = null;
+GenericValue inventoryStatus = null;
+
+if (inventoryTransferId != null) {
+    inventoryTransfer = delegator.findByPrimaryKey("InventoryTransfer", UtilMisc.toMap("inventoryTransferId", inventoryTransferId));
+    if (inventoryTransfer != null) {
+        context.put("inventoryTransfer", inventoryTransfer);
+        if (facilityId == null) {
+            facilityId = inventoryTransfer.getString("facilityId");
+            parameters.put("facilityId", facilityId);
+        }
+        if (inventoryItemId == null) {
+            inventoryItemId = inventoryTransfer.getString("inventoryItemId");
+        }
+    }
+}
+GenericValue facility = null;
+facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+context.put("facilityId", facilityId);
+context.put("facility", facility);
+context.put("inventoryItemId", inventoryItemId);
+
+if (facilityId != null) {
+    facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+}
+
+String illegalInventoryItem = null;
+if (inventoryItemId != null) {
+    inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
+    if (facilityId != null && inventoryItem != null && inventoryItem.get("facilityId") != null && !inventoryItem.getString("facilityId").equals(facilityId)) {
+        illegalInventoryItem = "Inventory item not found for this facility.";
+        inventoryItem = null;
+    }
+    if (inventoryItem != null) {
+        context.put("inventoryItem", inventoryItem); 
+        inventoryItemType = inventoryItem.getRelatedOne("InventoryItemType");
+    
+        if (inventoryItemType != null) context.put("inventoryItemType", inventoryItemType);
+        if (inventoryItem.getString("statusId") != null) {
+            inventoryStatus = inventoryItem.getRelatedOne("StatusItem");
+            if (inventoryStatus != null) context.put("inventoryStatus", inventoryStatus);
+        }
+    }
+}
+
+// facilities
+List facilities = delegator.findAll("Facility");
+context.put("facilities", facilities);
+
+// status items
+if (inventoryTransfer != null && UtilValidate.isNotEmpty(inventoryTransfer.getString("statusId"))) {
+    List statusChange = delegator.findByAnd("StatusValidChange", UtilMisc.toMap("statusId", inventoryTransfer.getString("statusId")));
+    if (statusChange != null) {
+        List statusItems = new ArrayList();
+        Iterator statusChangeIter = statusChange.iterator();
+        while (statusChangeIter.hasNext()) {
+            GenericValue curStatusChange = (GenericValue) statusChangeIter.next();
+            GenericValue curStatusItem = delegator.findByPrimaryKey("StatusItem", UtilMisc.toMap("statusId", curStatusChange.get("statusIdTo")));
+            if (curStatusItem != null) statusItems.add(curStatusItem);
+        }
+        List statusItem = EntityUtil.orderBy(statusItems, UtilMisc.toList("sequenceId"));
+        context.put("statusItems", statusItems);
+    }
+} else {
+    List statusItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "INVENTORY_XFER_STTS"), UtilMisc.toList("sequenceId"));
+    if (statusItems != null) context.put("statusItems", statusItems);
+}

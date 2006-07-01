@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
+ * @version 1.0
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <!-- ================================================================ -->
+    <!-- Quote Services -->
+    <!-- ================================================================ -->
+    
+    <simple-method method-name="getNextQuoteId" short-description="Get Next quoteId">
+        <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special quote number sequencing -->
+        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
+        <log level="info" message="In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
+        
+        <if>
+            <condition>
+                <if-compare field-name="partyAcctgPreference.quoteSequenceEnumId" operator="equals" value="QTESQ_ENF_SEQ"/>
+            </condition>
+            <then>
+                <!-- <log level="info" message="In getNextQuoteId sequence enum QTESQ_ENF_SEQ"/> -->
+                <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
+                <if-not-empty field-name="partyAcctgPreference.lastQuoteNumber">
+                    <calculate field-name="partyAcctgPreference.lastQuoteNumber" type="Long">
+                        <calcop operator="add" field-name="partyAcctgPreference.lastQuoteNumber"/>
+                        <number value="1"/>
+                    </calculate>
+                    <else>
+                        <calculate field-name="partyAcctgPreference.lastQuoteNumber" type="Long"><number value="1"/></calculate>
+                    </else>
+                </if-not-empty>
+                <store-value value-name="partyAcctgPreference"/>
+                <set from-field="partyAcctgPreference.lastQuoteNumber" field="quoteIdTemp"/>
+            </then>
+            <else>
+                <!-- <log level="info" message="In getNextQuoteId sequence enum QTESQ_STANDARD"/> -->
+                <!-- default to the default sequencing: QTESQ_STANDARD -->
+                <set from-field="parameters.quoteId" field="quoteIdTemp"/>
+                <if-empty field-name="quoteIdTemp">
+                    <sequenced-id-to-env sequence-name="Quote" env-name="quoteIdTemp"/>
+                    <else>
+                        <!-- check the provided ID --> 
+                        <check-id field-name="quoteIdTemp"/>
+                        <check-errors/>
+                    </else>
+                </if-empty>
+            </else>
+        </if>
+        
+        <!-- use quoteIdTemp along with the quoteIdPrefix to create the real ID -->
+        <set field="quoteId" value="${partyAcctgPreference.quoteIdPrefix}${quoteIdTemp}"/>
+        <field-to-result field-name="quoteId" result-name="quoteId"/>
+    </simple-method>
+
+    <!-- create a new Quote -->
+    <simple-method method-name="createQuote" short-description="Create a Quote">
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.partyId"/></not>
+                    <not><if-compare-field field-name="parameters.partyId" operator="equals" to-field-name="userLogin.partyId"/></not>
+                    <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuote"/></add-error>
+            </then>
+        </if>
+        <check-errors/>
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="Quote"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.statusId">
+            <set value="QUO_CREATED" field="newEntity.statusId"/>
+        </if-empty>
+
+        <!-- create a non existing ID; if we have a productStoreId do it for the payToPartyId of that ProductStore according to PartyAcctgPreferences, otherwise get from standard sequence -->
+        <entity-one entity-name="ProductStore" value-name="productStore"/>
+        <if-not-empty field-name="productStore.payToPartyId">
+            <set field="getNextQuoteIdContext.partyId" from-field="productStore.payToPartyId"/>
+            <call-service service-name="getNextQuoteId" in-map-name="getNextQuoteIdContext">
+                <result-to-field result-name="quoteId" field-name="newEntity.quoteId"/>
+            </call-service>
+        <else>
+            <sequenced-id-to-env sequence-name="Quote" env-name="newEntity.quoteId"/>
+        </else>
+        </if-not-empty>
+        <field-to-result field-name="newEntity.quoteId" result-name="quoteId"/>
+
+        <!-- finally create the record (should not exist already)-->
+        <create-value value-name="newEntity"/>
+
+        <!-- If the logged in partyId that is creating the quote is not equal to the partyId
+             then we associate it to the quote as the request taker.
+             This is not done if they are the same e.g. a logged in customer that is creating a quote for its
+             own sake. -->
+        <if-compare-field field-name="parameters.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+            <set from-field="newEntity.quoteId" field="takerMap.quoteId"/>
+            <set from-field="userLogin.partyId" field="takerMap.partyId"/>
+            <set value="REQ_TAKER" field="takerMap.roleTypeId"/>
+            <call-service service-name="createQuoteRole" in-map-name="takerMap"/>
+        </if-compare-field>
+
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing Quote -->
+    <simple-method method-name="updateQuote" short-description="Update an existing Quote">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuote"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="quote"/>
+        <store-value value-name="quote"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- copy an existing Quote -->
+    <simple-method method-name="copyQuote" short-description="Copy an existing Quote">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCopyQuote"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
+        <check-errors/>
+        <set-service-fields service-name="createQuote" to-map-name="createQuoteInMap" map-name="quote"/>
+        <clear-field field-name="createQuoteInMap.statusId"/>
+        <call-service service-name="createQuote" in-map-name="createQuoteInMap">
+            <result-to-field result-name="quoteId" field-name="quoteIdTo"/>
+        </call-service>
+        <if-compare field-name="parameters.copyQuoteItems" value="Y" operator="equals">
+            <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+            <iterate list-name="quoteItems" entry-name="quoteItem">
+                <clear-field field-name="createQuoteItemInMap"/>
+                <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="quoteItem"/>
+                <set from-field="quoteIdTo" field="createQuoteItemInMap.quoteIdTo"/>
+                <set from-field="parameters.copyQuoteAdjustments" field="createQuoteItemInMap.copyQuoteAdjustments"/>
+                <call-service service-name="copyQuoteItem" in-map-name="createQuoteItemInMap"/>
+            </iterate>
+        </if-compare>
+
+        <if-compare field-name="parameters.copyQuoteAdjustments" value="Y" operator="equals">
+            <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
+            <iterate list-name="quoteAdjustments" entry-name="quoteAdjustment">
+                <if-empty field-name="quoteAdjustment.quoteItemSeqId">
+                    <clear-field field-name="createQuoteAdjustmentInMap"/>
+                    <set-service-fields service-name="createQuoteAdjustment" to-map-name="createQuoteAdjustmentInMap" map-name="quoteAdjustment"/>
+                    <set from-field="quoteIdTo" field="createQuoteAdjustmentInMap.quoteId"/>
+                    <call-service service-name="createQuoteAdjustment" in-map-name="createQuoteAdjustmentInMap"/>
+                </if-empty>
+            </iterate>
+        </if-compare>
+        
+        <if-compare field-name="parameters.copyQuoteRoles" value="Y" operator="equals">
+            <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
+            <iterate list-name="quoteRoles" entry-name="quoteRole">
+                <if-compare field-name="quoteRole.roleTypeId" value="REQ_TAKER" operator="not-equals">
+                    <clear-field field-name="createQuoteRoleInMap"/>
+                    <set-service-fields service-name="createQuoteRole" to-map-name="createQuoteRoleInMap" map-name="quoteRole"/>
+                    <set from-field="quoteIdTo" field="createQuoteRoleInMap.quoteId"/>
+                    <call-service service-name="createQuoteRole" in-map-name="createQuoteRoleInMap"/>
+                </if-compare>
+            </iterate>
+        </if-compare>
+
+        <if-compare field-name="parameters.copyQuoteAttributes" value="Y" operator="equals">
+            <get-related value-name="quote" relation-name="QuoteAttribute" list-name="quoteAttributes"/>
+            <iterate list-name="quoteAttributes" entry-name="quoteAttribute">
+                <clear-field field-name="createQuoteAttributeInMap"/>
+                <set-service-fields service-name="createQuoteAttribute" to-map-name="createQuoteAttributeInMap" map-name="quoteAttribute"/>
+                <set from-field="quoteIdTo" field="createQuoteAttributeInMap.quoteId"/>
+                <call-service service-name="createQuoteAttribute" in-map-name="createQuoteAttributeInMap"/>
+            </iterate>
+        </if-compare>
+
+        <if-compare field-name="parameters.copyQuoteCoefficients" value="Y" operator="equals">
+            <get-related value-name="quote" relation-name="QuoteCoefficient" list-name="quoteCoefficients"/>
+            <iterate list-name="quoteCoefficients" entry-name="quoteCoefficient">
+                <clear-field field-name="createQuoteCoefficientInMap"/>
+                <set-service-fields service-name="createQuoteCoefficient" to-map-name="createQuoteCoefficientInMap" map-name="quoteCoefficient"/>
+                <set from-field="quoteIdTo" field="createQuoteCoefficientInMap.quoteId"/>
+                <call-service service-name="createQuoteCoefficient" in-map-name="createQuoteCoefficientInMap"/>
+            </iterate>
+        </if-compare>
+
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="checkUpdateQuoteStatus" short-description="Set the Quote status to ordered.">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckUpdateQuoteStatus"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
+        <check-errors/>
+        <set field="quote.statusId" value="QUO_ORDERED"/>
+        <store-value value-name="quote"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- create a new QuoteRole -->
+    <simple-method method-name="createQuoteRole" short-description="Create a QuoteRole">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-message message="Security Error: to run createQuoteRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
+        <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
+        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
+        <if-empty map-name="partyRole" field-name="partyId">
+            <make-value value-name="partyRole" entity-name="PartyRole"/>
+            <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
+            <create-value value-name="partyRole"/>
+        </if-empty>
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="QuoteRole"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing QuoteRole -->
+    <simple-method method-name="removeQuoteRole" short-description="Remove an existing QuoteRole">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-message message="Security Error: to run removeQuoteRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteRole" value-name="quoteRole" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="quoteRole"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- create a new QuoteItem -->
+    <simple-method method-name="createQuoteItem" short-description="Create a QuoteItem">
+        <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="quote.partyId"/></not>
+                    <not><if-compare-field field-name="quote.partyId" operator="equals" to-field-name="userLogin.partyId"/></not>
+                    <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteItem"/></add-error>
+            </then>
+        </if>
+
+        <check-errors/>
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="QuoteItem"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <set from-field="parameters.quoteId" field="newEntity.quoteId"/>
+        <set from-field="parameters.quoteItemSeqId" field="newEntity.quoteItemSeqId"/>
+        <if-empty field-name="newEntity.quoteItemSeqId">
+            <!-- create a non existing ID -->
+            <make-next-seq-id value-name="newEntity" seq-field-name="quoteItemSeqId"/>
+            <set from-field="quoteItemSeqId" field="newEntity.quoteItemSeqId"/>
+        </if-empty>
+        <field-to-result field-name="newEntity.quoteId" result-name="quoteId"/>
+        <field-to-result field-name="newEntity.quoteItemSeqId" result-name="quoteItemSeqId"/>
+
+        <!-- finally create the record (should not exist already)-->
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing QuoteItem -->
+    <simple-method method-name="updateQuoteItem" short-description="Update an existing QuoteItem">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteItem"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteItem" value-name="quoteItem" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="quoteItem"/>
+        <store-value value-name="quoteItem"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an quoteItem -->
+    <simple-method method-name="removeQuoteItem" short-description="Remove a QuoteItem">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteItem" value-name="quoteItem" auto-field-map="true"/>
+        <remove-related value-name="quoteItem" relation-name="QuoteAdjustment"/>
+        <check-errors/>
+        <remove-value value-name="quoteItem"/>
+    </simple-method>
+
+    <!-- copy an existing QuoteItem -->
+    <simple-method method-name="copyQuoteItem" short-description="Copy an existing QuoteItem">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCopyQuoteItem"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteItem" value-name="quoteItem" auto-field-map="true"/>
+        <check-errors/>
+        
+        <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="quoteItem"/>
+        <set from-field="parameters.quoteIdTo" field="createQuoteItemInMap.quoteId"/>
+        <set from-field="parameters.quoteItemSeqId" field="createQuoteItemInMap.quoteItemSeqId"/>
+        <if-empty field-name="parameters.quoteIdTo">
+            <if-empty field-name="parameters.quoteItemSeqIdTo">
+                <clear-field field-name="createQuoteItemInMap.quoteItemSeqId"/>
+            </if-empty>
+        </if-empty>
+       
+        <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
+            <result-to-field result-name="quoteId" field-name="quoteIdTo"/>
+            <result-to-field result-name="quoteItemSeqId" field-name="quoteItemSeqId"/>
+        </call-service>
+
+        <check-errors/>
+                
+        <if-compare field-name="parameters.copyQuoteAdjustments" value="Y" operator="equals">
+            <get-related value-name="quoteItem" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
+            <iterate list-name="quoteAdjustments" entry-name="quoteAdjustment">
+                <clear-field field-name="createQuoteAdjustmentInMap"/>
+                <set-service-fields service-name="createQuoteAdjustment" to-map-name="createQuoteAdjustmentInMap" map-name="quoteAdjustment"/>
+                <set from-field="quoteIdTo" field="createQuoteAdjustmentInMap.quoteId"/>
+                <set from-field="quoteItemSeqId" field="createQuoteAdjustmentInMap.quoteItemSeqId"/>
+                <call-service service-name="createQuoteAdjustment" in-map-name="createQuoteAdjustmentInMap"/>
+            </iterate>
+        </if-compare>
+
+        <check-errors/>
+    </simple-method>
+
+    <!-- create a new QuoteAttribute -->
+    <simple-method method-name="createQuoteAttribute" short-description="Create a QuoteAttribute">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAttribute"/>
+        </check-permission>
+        <check-errors/>
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="QuoteAttribute"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing QuoteAttribute -->
+    <simple-method method-name="updateQuoteAttribute" short-description="Update an existing QuoteAttribute">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteAttribute"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteAttribute" value-name="quoteAttribute" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="quoteAttribute"/>
+        <store-value value-name="quoteAttribute"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing QuoteAttribute -->
+    <simple-method method-name="removeQuoteAttribute" short-description="Remove an existing QuoteAttribute">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteAttribute"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteAttribute" value-name="quoteAttribute" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="quoteAttribute"/>
+        <check-errors/>
+    </simple-method>
+    
+    <!-- create a new QuoteCoefficient -->
+    <simple-method method-name="createQuoteCoefficient" short-description="Create a QuoteCoefficient">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteCoefficient"/>
+        </check-permission>
+        <check-errors/>
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newEntity" entity-name="QuoteCoefficient"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing QuoteCoefficient -->
+    <simple-method method-name="updateQuoteCoefficient" short-description="Update an existing QuoteCoefficient">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteCoefficient"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteCoefficient" value-name="quoteCoefficient" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="quoteCoefficient"/>
+        <store-value value-name="quoteCoefficient"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing QuoteCoefficient -->
+    <simple-method method-name="removeQuoteCoefficient" short-description="Remove an existing QuoteCoefficient">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteCoefficient"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteCoefficient" value-name="quoteCoefficient" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="quoteCoefficient"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- create a new Quote and QuoteItem for a given CustRequest -->
+    <simple-method method-name="createQuoteAndQuoteItemForRequest" short-description="Create a Quote">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest"/>        
+		</check-permission>
+        <check-errors/>
+        <entity-one entity-name="CustRequest" value-name="custRequest" auto-field-map="true"/>
+        <entity-one entity-name="CustRequestItem" value-name="custRequestItem" auto-field-map="true"/>
+        
+        <if-empty field-name="custRequest">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCustRequestWithIdDoesntExist"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        <!-- create new entity and create all the fields -->
+        <make-value value-name="newQuote" entity-name="Quote"/>
+        <make-value value-name="newQuoteItem" entity-name="QuoteItem"/>
+        <set-nonpk-fields map-name="parameters" value-name="newQuote"/>
+        <set-nonpk-fields map-name="parameters" value-name="newQuoteItem"/>
+        <if-empty field-name="newQuote.statusId">
+            <set value="QUO_CREATED" field="newQuote.statusId"/>
+        </if-empty>
+        <set value="PROPOSAL" field="newQuote.quoteTypeId"/>
+
+        <!-- create a non existing ID -->
+        <sequenced-id-to-env sequence-name="Quote" env-name="quoteId"/>
+        <set from-field="quoteId" field="newQuote.quoteId"/>
+        <set from-field="quoteId" field="newQuoteItem.quoteId"/>
+        <make-next-seq-id value-name="newQuoteItem" seq-field-name="quoteItemSeqId"/>
+        <field-to-result field-name="quoteId" result-name="quoteId"/>
+        <field-to-result field-name="newQuoteItem.quoteItemSeqId" result-name="quoteItemSeqId"/>
+        
+        <set from-field="custRequest.fromPartyId" field="newQuote.partyId"/>
+        <set from-field="custRequest.custRequestName" field="newQuote.quoteName"/>
+        <set from-field="custRequest.description" field="newQuote.description"/>
+        <set from-field="custRequest.maximumAmountUomId" field="newQuote.currencyUomId"/>
+        <set from-field="custRequest.productStoreId" field="newQuote.productStoreId"/>
+        <set from-field="custRequestItem.story" field="newQuoteItem.comments"/>
+        <create-value value-name="newQuote"/>
+        <create-value value-name="newQuoteItem"/>
+        <!-- copy the roles from the request to the quote-->
+        <make-value value-name="lookupRequestRole" entity-name="CustRequestRole"/>
+        <set from-field="parameters.custRequestId" field="lookupRequestRole.custRequestId"/>
+        <find-by-and entity-name="CustRequestRole" map-name="lookupRequestRole" list-name="roles"/>
+        <iterate entry-name="role" list-name="roles">
+            <clear-field field-name="cqrContext"/>
+            <set from-field="quoteId" field="cqrContext.quoteId"/>
+            <set from-field="role.partyId" field="cqrContext.partyId"/>
+            <set from-field="role.roleTypeId" field="cqrContext.roleTypeId"/>
+            <call-service service-name="createQuoteRole" in-map-name="cqrContext"></call-service>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="autoUpdateQuotePrice" short-description="Auto update a QuoteItem price">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAutoUpdateQuotePrice"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteItem" value-name="quoteItem" auto-field-map="true"/>
+        <check-errors/>
+        <if-not-empty field-name="parameters.manualQuoteUnitPrice">
+            <set from-field="parameters.manualQuoteUnitPrice" field="quoteItem.quoteUnitPrice"/>
+        </if-not-empty>
+        <if-empty field-name="parameters.manualQuoteUnitPrice">
+            <if-not-empty field-name="parameters.defaultQuoteUnitPrice">
+                <set from-field="parameters.defaultQuoteUnitPrice" field="quoteItem.quoteUnitPrice"/>
+            </if-not-empty>
+            <!--
+            <calculate field-name="quoteItem.quoteUnitPrice" type="Double">
+                <calcop operator="multiply">
+                    <calcop operator="get" field-name="parameters.averageCost"/>
+                    <calcop operator="get" field-name="parameters.costToPriceMult"/>
+                </calcop>
+            </calculate>
+            -->
+        </if-empty>
+        <store-value value-name="quoteItem"/>
+        <check-errors/>
+        <field-to-request field-name="quoteItem.quoteId" request-name="quoteId"/>
+    </simple-method>
+    <simple-method method-name="autoCreateQuoteAdjustments" short-description="Auto create QuoteAdjustments">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAutoCreateQuoteAdjustments"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
+        <!-- all existing promo quote items are removed -->
+        <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+        <iterate list-name="quoteItems" entry-name="quoteItem">
+            <if-compare field-name="quoteItem.isPromo" value="Y" operator="equals">
+                <clear-field field-name="removeQuoteItemInMap"/>
+                <set-service-fields service-name="removeQuoteItem" to-map-name="removeQuoteItemInMap" map-name="parameters"/>
+                <set from-field="quoteItem.quoteItemSeqId" field="removeQuoteItemInMap.quoteItemSeqId"/>
+                <call-service service-name="removeQuoteItem" in-map-name="removeQuoteItemInMap"/>
+            </if-compare>
+        </iterate>
+        <!-- all existing auto quote adjustments are removed -->
+        <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
+        <iterate list-name="quoteAdjustments" entry-name="quoteAdjustment">
+            <!-- make sure this is not a manual adjustments -->
+            <if-not-empty field-name="quoteAdjustment.productPromoId">
+                <clear-field field-name="removeQuoteAdjustmentInMap"/>
+                <set-service-fields service-name="removeQuoteAdjustment" to-map-name="removeQuoteAdjustmentInMap" map-name="parameters"/>
+                <set from-field="quoteAdjustment.quoteAdjustmentId" field="removeQuoteAdjustmentInMap.quoteAdjustmentId"/>
+                <call-service service-name="removeQuoteAdjustment" in-map-name="removeQuoteAdjustmentInMap"/>
+            </if-not-empty>
+        </iterate>
+        <set-service-fields service-name="loadCartFromQuote" to-map-name="loadCartFromQuoteInMap" map-name="parameters"/>
+        <set value="false" field="loadCartFromQuoteInMap.applyQuoteAdjustments"/>
+        <call-service service-name="loadCartFromQuote" in-map-name="loadCartFromQuoteInMap">
+            <result-to-field result-name="shoppingCart" field-name="cart"/>
+        </call-service>
+
+        <call-object-method obj-field-name="cart" method-name="items" ret-field-name="items"/>
+        <iterate list-name="items" entry-name="item">
+            <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="orderItemSeqId"/>
+            <if-empty field-name="orderItemSeqId">
+                <!-- this is a new (promo) item -->
+                <!-- a new quote item is created -->
+                <clear-field field-name="createQuoteItemInMap"/>
+                <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="parameters"/>
+                <call-object-method obj-field-name="item" method-name="getProductId" ret-field-name="createQuoteItemInMap.productId"/>
+                <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="createQuoteItemInMap.quantity"/>
+                <set value="Y" field="createQuoteItemInMap.isPromo"/>
+                <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
+                    <result-to-field result-name="quoteItemSeqId" field-name="quoteItemSeqId"/>
+                </call-service>
+                <!-- and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId) -->
+                <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
+                    <field field-name="quoteItemSeqId" type="String"/>
+                </call-object-method>
+            <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="newOrderItemSeqId"/>
+            </if-empty>
+        </iterate>
+        <!-- set the quoteUnitPrice from the item basePrice -->
+        <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+        <iterate list-name="quoteItems" entry-name="quoteItem">
+            <if>
+                <condition>
+                    <or>
+                        <if-empty field-name="quoteItem.quoteUnitPrice"/>
+                        <if-compare field-name="quoteItem.quoteUnitPrice" value="0" operator="equals" type="Double"/>
+                    </or>
+                </condition>
+                <then>
+                    <call-object-method obj-field-name="cart" method-name="findCartItem" ret-field-name="item">
+                        <field field-name="quoteItem.quoteItemSeqId" type="String"/>
+                    </call-object-method>
+                    <clear-field field-name="updateQuoteItemInMap"/>
+                    <set from-field="quoteItem.quoteId" field="updateQuoteItemInMap.quoteId"/>
+                    <set from-field="quoteItem.quoteItemSeqId" field="updateQuoteItemInMap.quoteItemSeqId"/>
+                    <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field-name="updateQuoteItemInMap.quoteUnitPrice"/>
+                    <call-service service-name="updateQuoteItem" in-map-name="updateQuoteItemInMap"/>
+                </then>
+            </if>
+        </iterate>
+
+        <call-object-method obj-field-name="cart" method-name="makeAllQuoteAdjustments" ret-field-name="adjustments"/>
+
+        <iterate list-name="adjustments" entry-name="adjustment">
+            <set from-field="parameters.quoteId" field="adjustment.quoteId"/>
+            <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="adjustment.quoteAdjustmentId"/>
+            <create-value value-name="adjustment"/>
+        </iterate>
+    </simple-method>
+    <simple-method method-name="createQuoteAdjustment" short-description="Create a QuoteAdjustment">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAdjustement"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="QuoteAdjustment"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="quoteAdjustmentId"/>
+        <now-timestamp-to-env env-name="newEntity.createdDate"/>
+        <set from-field="quoteAdjustmentId" field="newEntity.quoteAdjustmentId"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
+        <field-to-result field-name="quoteAdjustmentId" result-name="quoteAdjustmentId"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="removeQuoteAdjustment" short-description="Remove an existing QuoteAdjustment">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteAdjustment"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteAdjustment" value-name="quoteAdjustment" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="quoteAdjustment"/>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="updateQuoteAdjustment" short-description="Update an existing QuoteAdjustment">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteAdjustment"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuoteAdjustment" value-name="quoteAdjustment" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="quoteAdjustment"/>
+        <store-value value-name="quoteAdjustment"/>
+        <check-errors/>
+    </simple-method>
+    
+    <simple-method method-name="createQuoteFromCart" short-description="Create a Quote from a Cart">
+        <call-object-method obj-field-name="parameters.cart" method-name="getPartyId" ret-field-name="createQuoteInMap.partyId"/>
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="createQuoteInMap.partyId"/></not>
+                    <not><if-compare-field field-name="createQuoteInMap.partyId" operator="equals" to-field-name="userLogin.partyId"/></not>
+                    <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteFromCart"/></add-error>
+            </then>
+        </if>
+        <check-errors/>
+
+        <call-object-method obj-field-name="parameters.cart" method-name="getCurrency" ret-field-name="createQuoteInMap.currencyUomId"/>
+        <call-object-method obj-field-name="parameters.cart" method-name="getProductStoreId" ret-field-name="createQuoteInMap.productStoreId"/>
+        <set value="PRODUCT_QUOTE" field="createQuoteInMap.quoteTypeId"/>
+        <set value="QUO_CREATED" field="createQuoteInMap.statusId"/>
+        <call-service service-name="createQuote" in-map-name="createQuoteInMap">
+            <result-to-field result-name="quoteId" field-name="quoteId"/>
+        </call-service>
+        <entity-one entity-name="Quote" value-name="quote" auto-field-map="true"/>
+
+        <!-- create, for every cart item, a quote item -->
+        <call-object-method obj-field-name="parameters.cart" method-name="items" ret-field-name="items"/>
+        <iterate list-name="items" entry-name="item">
+            <!-- a new quote item is created -->
+            <clear-field field-name="createQuoteItemInMap"/>
+            <call-object-method obj-field-name="item" method-name="getIsPromo" ret-field-name="isPromo"/>
+            <if-compare field-name="isPromo" value="true" operator="equals" type="Boolean">
+                <set value="Y" field="createQuoteItemInMap.isPromo"/>
+            </if-compare>
+            <if>
+                <condition>
+                    <or>
+                        <if-compare field-name="parameters.applyStorePromotions" value="N" operator="not-equals" type="String"/>
+                        <if-compare field-name="createQuoteItemInMap.isPromo" value="Y" operator="not-equals" type="String"/>
+                    </or>
+                </condition>
+                <then>
+                    <set from-field="quote.quoteId" field="createQuoteItemInMap.quoteId"/>
+                    <call-object-method obj-field-name="item" method-name="getProductId" ret-field-name="createQuoteItemInMap.productId"/>
+                    <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="createQuoteItemInMap.quantity"/>
+                    <call-object-method obj-field-name="item" method-name="getSelectedAmount" ret-field-name="createQuoteItemInMap.selectedAmount"/>
+                    <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field-name="createQuoteItemInMap.quoteUnitPrice"/>
+                    <call-object-method obj-field-name="item" method-name="getItemComment" ret-field-name="createQuoteItemInMap.comments"/>
+                    <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
+                        <result-to-field result-name="quoteItemSeqId" field-name="quoteItemSeqId"/>
+                    </call-service>
+                    <!-- and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId) -->
+                    <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
+                        <field field-name="quoteItemSeqId" type="String"/>
+                    </call-object-method>
+                </then>
+            </if>
+        </iterate>
+
+        <if>
+            <condition>
+                <if-compare field-name="parameters.applyStorePromotions" value="N" operator="not-equals" type="String"/>
+            </condition>
+            <then>
+                <call-object-method obj-field-name="parameters.cart" method-name="makeAllQuoteAdjustments" ret-field-name="adjustments"/>
+                <iterate list-name="adjustments" entry-name="adjustment">
+                    <set from-field="quote.quoteId" field="adjustment.quoteId"/>
+                    <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="adjustment.quoteAdjustmentId"/>
+                    <create-value value-name="adjustment"/>
+                </iterate>
+            </then>
+        </if>
+        
+        <field-to-result field-name="quote.quoteId" result-name="quoteId"/>
+    </simple-method>
+
+    <simple-method method-name="createQuoteFromShoppingList" short-description="Create a Quote from a Shopping List">
+        <call-service service-name="loadCartFromShoppingList" in-map-name="parameters">
+            <result-to-field result-name="shoppingCart" field-name="cart"/>
+        </call-service>
+        <set from-field="cart" field="createQuoteFromCartInMap.cart"/>
+        <set from-field="parameters.applyStorePromotions" field="createQuoteFromCartInMap.applyStorePromotions"/>
+        <call-service service-name="createQuoteFromCart" in-map-name="createQuoteFromCartInMap">
+            <result-to-field result-name="quoteId" field-name="quoteId"/>
+        </call-service>
+     
+        <field-to-result field-name="quoteId" result-name="quoteId"/>
+    </simple-method>
+
+    <simple-method method-name="createQuoteFromCustRequest" short-description="Create a Quote from a CustRequest">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteFromCustRequest"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="CustRequest" value-name="custRequest" auto-field-map="true"/>
+        <if-compare field-name="custRequest.custRequestTypeId" operator="not-equals" value="RF_QUOTE">
+            <add-error><fail-message message="ERROR: CustRequest [${custRequest.custRequestId}] is not a request for quote."/></add-error>
+        </if-compare>
+        <check-errors/>
+
+        <set field="createQuoteInMap.partyId" from-field="custRequest.fromPartyId"/>
+        <set field="createQuoteInMap.productStoreId" from-field="custRequest.productStoreId"/>
+        <set field="createQuoteInMap.quoteName" from-field="custRequest.custRequestName"/>
+        <set field="createQuoteInMap.description" from-field="custRequest.description"/>
+        <set field="createQuoteInMap.currencyUomId" from-field="custRequest.maximumAmountUomId"/>
+        <set field="createQuoteInMap.statusId" value="QUO_CREATED"/>
+        <set field="createQuoteInMap.quoteTypeId" from-field="parameters.quoteTypeId"/>
+        <if-empty field-name="createQuoteInMap.quoteTypeId">
+            <set field="createQuoteInMap.quoteTypeId" value="PRODUCT_QUOTE"/>
+        </if-empty>
+        <call-service service-name="createQuote" in-map-name="createQuoteInMap">
+            <result-to-field result-name="quoteId" field-name="quoteId"/>
+        </call-service>
+        <check-errors/>
+        
+        <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems"/>
+        <iterate list-name="custRequestItems" entry-name="custRequestItem">
+            <clear-field field-name="createQuoteItemInMap"/>
+            <set field="createQuoteItemInMap.quoteId" from-field="quoteId"/>
+            <set field="createQuoteItemInMap.custRequestId" from-field="custRequestItem.custRequestId"/>
+            <set field="createQuoteItemInMap.custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
+            <set field="createQuoteItemInMap.productId" from-field="custRequestItem.productId"/>
+            <set field="createQuoteItemInMap.quantity" from-field="custRequestItem.quantity"/>
+            <set field="createQuoteItemInMap.selectedAmount" from-field="custRequestItem.selectedAmount"/>
+            <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap"/>
+        </iterate>
+        <!-- roles -->
+        <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="custRequestRoles"/>
+        <iterate list-name="custRequestRoles" entry-name="custRequestRole">
+            <clear-field field-name="createQuoteRoleInMap"/>
+            <!-- The REQ_TAKER role is automatically added by the createQuote service -->
+            <if-compare field-name="custRequestRole.roleTypeId" value="REQ_TAKER" operator="not-equals">
+                <set field="createQuoteRoleInMap.quoteId" from-field="quoteId"/>
+                <set field="createQuoteRoleInMap.partyId" from-field="custRequestRole.partyId"/>
+                <set field="createQuoteRoleInMap.roleTypeId" from-field="custRequestRole.roleTypeId"/>
+                <call-service service-name="createQuoteRole" in-map-name="createQuoteRoleInMap"/>
+            </if-compare>
+        </iterate>
+        
+        <field-to-result field-name="quoteId" result-name="quoteId"/>
+    </simple-method>
+
+    <!--Quote workeffort -->
+    <simple-method method-name="createQuoteWorkEffort" short-description="Create a QuoteWorkEffort">
+        <make-value entity-name="QuoteWorkEffort" value-name="lookupMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupMap"/>
+        <find-by-primary-key entity-name="QuoteWorkEffort" map-name="lookupMap" value-name="quoteWorkEffort"/>
+        <if-not-empty field-name="quoteId" map-name="quoteWorkEffort">
+            <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists."/></add-error>
+            <check-errors/>
+        </if-not-empty>
+        <if-empty field-name="quoteId" map-name="quoteWorkEffort">
+            <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+            <create-value value-name="lookupMap"/>
+            <field-to-result field-name="quoteId" map-name="lookupMap"/>
+            <field-to-result field-name="workEffortId" map-name="lookupMap"/>
+        </if-empty>
+    </simple-method>
+    <simple-method method-name="deleteQuoteWorkEffort" short-description="Delete a QuoteWorkEffort">
+        <make-value entity-name="QuoteWorkEffort" value-name="lookupMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupMap"/>
+        <find-by-primary-key entity-name="QuoteWorkEffort" map-name="lookupMap" value-name="quoteWorkEffort"/>
+        <if-empty field-name="quoteId" map-name="quoteWorkEffort">
+            <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <check-errors/>
+        </if-empty>
+        <if-not-empty field-name="quoteId" map-name="quoteWorkEffort">
+            <remove-value value-name="quoteWorkEffort"/>
+        </if-not-empty>
+    </simple-method>
+</simple-methods>

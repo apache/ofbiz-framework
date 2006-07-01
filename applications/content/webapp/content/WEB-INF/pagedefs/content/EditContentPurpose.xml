@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Edit Content Purpose</property>
+    <property name="headerItem">Content</property>    
+    <property name="subMenu">/content/content_menu.ftl</property>    
+    <property name="formDefFile">/content/ContentForms.xml</property>    
+    <property name="singleFormName">AddContentPurpose</property>    
+    <property name="listFormName">ListContentPurpose</property>    
+    <property name="entityName">ContentPurpose</property>    
+    <property name="currentEntityPropertyName">parentEntityName</property>    
+    <property name="parentEntityName">Content</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+    <property name="entityOperation">_CREATE</property>    
+    <page-action name="/includes/permprep.bsh"/>
+    <content-action name="/includes/currentvalprep.bsh"/>
+    <content-action name="/includes/relatedprep.bsh" />
+    <content-action name="/includes/formprep.bsh" />
+</page>

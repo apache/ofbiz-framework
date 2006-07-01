@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="CommonOrderHeaderDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ORDERMGR, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <label style="head1">[${uiLabelMap.CommonId}:${orderHeader.orderId}] </label>
+                                </container>
+
+                                <decorator-section-include name="body"/>
+
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.OrderViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditOrderHeader">
+        <section>
+            <actions>
+                <set field="title" value="Edit OrderHeader"/>
+                <set field="titleProperty" value="PageTitleEditOrderHeader"/>
+                <set field="headerItem" value="OrderHeader"/>
+                <set field="tabButtonItem" value="EditOrderHeader"/>
+                
+                <set field="orderId" from-field="parameters.orderId"/>
+                <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderHeaderDecorator">
+                    <decorator-section name="body">
+                        <include-form name="EditOrderHeader" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListOrderHeaders">
+        <section>
+            <actions>
+                <set field="title" value="Edit OrderHeader"/>
+                <set field="titleProperty" value="PageTitleEditOrderHeader"/>
+                <set field="headerItem" value="OrderHeader"/>
+                <set field="tabButtonItem" value="EditOrderHeader"/>
+                
+                <set field="orderId" from-field="parameters.orderId"/>
+                <entity-one entity-name="OrderHeader" value-name="OrderHeader"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderHeaderDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListOrderHeaders" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
+

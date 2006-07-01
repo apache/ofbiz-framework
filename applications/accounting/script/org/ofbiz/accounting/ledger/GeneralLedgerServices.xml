@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2002-2004 The Open For Business Project - www.ofbiz.org
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
+ * @version 1.0
+ * Created on November 13, 2002
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- ========= GlAccount methods ========= -->
+    <simple-method method-name="createGlAccount" short-description="Create an GlAccount">
+        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlAccount" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <!-- GlAccount uses a sequenced id, so get the next one now and set it... -->
+        <if-empty field-name="parameters.glAccountId">
+            <sequenced-id-to-env sequence-name="GlAccount" env-name="newEntity.glAccountId"/>
+        <else>
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        </else>
+        </if-empty>
+        <field-to-result field-name="newEntity.glAccountId" result-name="glAccountId"/>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateGlAccount" short-description="Update an GlAccount">
+        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlAccount you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlAccount" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteGlAccount" short-description="Delete an GlAccount">
+        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlAccount you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlAccount" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- ========= GlAccountOrganization methods ========= -->
+    <simple-method method-name="createGlAccountOrganization" short-description="Create GlAccountOrganization">
+        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlAccountOrganization you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlAccountOrganization" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateGlAccountOrganization" short-description="Update GlAccountOrganization">
+        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlAccountOrganization you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlAccountOrganization" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+       
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteGlAccountOrganization" short-description="Delete GlAccountOrganization">
+        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlAccountOrganization you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlAccountOrganization" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- ========= GlJournal methods ========= -->
+    <simple-method method-name="createGlJournalEntry" short-description="Creates an AcctgTrans and two offsetting AcctgTransEntry records">
+        <!-- TODO: Do we need to create a GlJournal record here? -->
+    
+        <!-- first, create the AcctgTrans -->
+        <set-service-fields service-name="createAcctgTrans" to-map-name="createAcctgTransParams" map-name="parameters"/>
+        <now-timestamp-to-env env-name="createAcctgTransParams.transactionDate"/>
+        <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransParams">
+            <result-to-field result-name="acctgTransId"/>
+        </call-service>
+
+        <!-- TODO: if someday there are more than one type of acctgTransEntryTypeId (other than _NA_, we should get rid of the lines below
+            that fix those values -->
+        <!-- now, create the debit AcctgTransEntry -->
+        <set-service-fields service-name="createAcctgTransEntry" map-name="parameters" to-map-name="createAcctgTransEntryParams"/>
+        <set field="createAcctgTransEntryParams.acctgTransId" from-field="acctgTransId"/>
+        <set field="createAcctgTransEntryParams.glAccountId" from-field="parameters.debitGlAccountId"/>
+        <set field="createAcctgTransEntryParams.debitCreditFlag" value="D"/>
+        <set field="createAcctgTransEntryParams.acctgTransEntryTypeId" value="_NA_"/>
+        <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransEntryParams"/>
+        
+        <!-- now the credit AcctgTransEntry -->
+        <set-service-fields service-name="createAcctgTransEntry" map-name="parameters" to-map-name="createAcctgTransEntryParams"/>
+        <set field="createAcctgTransEntryParams.acctgTransId" from-field="acctgTransId"/>
+        <set field="createAcctgTransEntryParams.glAccountId" from-field="parameters.creditGlAccountId"/>
+        <set field="createAcctgTransEntryParams.debitCreditFlag" value="C"/>
+        <set field="createAcctgTransEntryParams.acctgTransEntryTypeId" value="_NA_"/>
+        <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransEntryParams"/>
+        
+        <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>
+    </simple-method> 
+       
+    <simple-method method-name="createGlJournal" short-description="Create an GlJournal">
+        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlJournal you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlJournal" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <!-- GlJournal uses a sequenced id, so get the next one now and set it... -->        
+        <sequenced-id-to-env sequence-name="GlJournal" env-name="newEntity.glJournalId"/>
+        <field-to-result field-name="newEntity.glJournalId" result-name="glJournalId"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateGlJournal" short-description="Update an GlJournal">
+        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlJournal you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="GlJournal" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteGlJournal" short-description="Delete an GlJournal">
+        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlJournal you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="GlJournal" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+        
+    <!-- GlJournal Trial Balance and Post routines -->
+    <simple-method method-name="calculateGlJournalTrialBalance" short-description="Calculate Trial Balance for a GlJournal">
+        <check-permission permission="ACCOUNTING" action="_VIEW"><fail-message message="Security Error: to run calculateGlJournalTrialBalance you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <!-- iterate through all AcctgTrans in this journal and that are not yet posted, and get totals of all debits and of all credits -->
+        <entity-condition entity-name="AcctgTrans" list-name="acctgTransList">
+            <condition-list combine="and">
+                <condition-expr field-name="glJournalId" env-name="parameters.glJournalId"/>
+                <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
+            </condition-list>
+        </entity-condition>
+        
+        <iterate entry-name="acctgTrans" list-name="acctgTransList">
+            <clear-field field-name="callServiceMap"/>
+            <clear-field field-name="serviceResults"/>
+            <set from-field="acctgTrans.acctgTransId" field="callServiceMap.acctgTransId"/>
+            <call-service service-name="calculateAcctgTransTrialBalance" in-map-name="callServiceMap">
+                <results-to-map map-name="serviceResults"/>
+            </call-service>
+            <calculate field-name="debitTotal" type="Double">
+                <calcop operator="get" field-name="debitTotal"/>
+                <calcop operator="get" field-name="serviceResults.debitTotal"/>
+            </calculate>
+            <calculate field-name="creditTotal" type="Double">
+                <calcop operator="get" field-name="creditTotal"/>
+                <calcop operator="get" field-name="serviceResults.creditTotal"/>
+            </calculate>
+            <calculate field-name="debitCreditDifference" type="Double">
+                <calcop operator="get" field-name="debitCreditDifference"/>
+                <calcop operator="get" field-name="serviceResults.debitCreditDifference"/>
+            </calculate>
+        </iterate>
+        
+        <field-to-result field-name="debitTotal"/>
+        <field-to-result field-name="creditTotal"/>
+        <field-to-result field-name="debitCreditDifference"/>
+    </simple-method>
+
+    <simple-method method-name="postGlJournal" short-description="Post a GlJournal">
+        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run postGlJournal you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+        <!-- first calculate the trial balance for the journal and make sure debits and credits match -->
+        <set from-field="parameters.glJournalId" field="trialBalanceCallMap.glJournalId"/>
+        <call-service service-name="calculateGlJournalTrialBalance" in-map-name="trialBalanceCallMap">
+            <results-to-map map-name="trialBalanceResultMap"/>
+        </call-service>
+        
+        <if-compare field-name="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="Double">
+            <add-error><fail-message message="Not posting GL Journal with ID [${parameters.glJournalId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+            <check-errors/>
+        </if-compare>
+        
+        <!-- iterate through all AcctgTrans in this journal and that are not yet posted, and post each one -->
+        <entity-condition entity-name="AcctgTrans" list-name="acctgTransList">
+            <condition-list combine="and">
+                <condition-expr field-name="glJournalId" env-name="parameters.glJournalId"/>
+                <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
+            </condition-list>
+        </entity-condition>
+        <iterate entry-name="acctgTrans" list-name="acctgTransList">
+            <clear-field field-name="callServiceMap"/>
+            <set from-field="acctgTrans.acctgTransId" field="callServiceMap.acctgTransId"/>
+            <call-service service-name="postAcctgTrans" in-map-name="callServiceMap"/>
+        </iterate>
+    </simple-method>
+
+    <!-- ========= GlReconciliation methods ========= -->
+    <simple-method method-name="createGlReconciliation" short-description="Create an GlReconciliation">
+        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlReconciliation you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlReconciliation" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <!-- GlReconciliation uses a sequenced id, so get the next one now and set it... -->        
+        <sequenced-id-to-env sequence-name="GlReconciliation" env-name="newEntity.glReconciliationId"/>
+        <field-to-result field-name="newEntity.glReconciliationId" result-name="glReconciliationId"/>
+        
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateGlReconciliation" short-description="Update an GlReconciliation">
+        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlReconciliation you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="GlReconciliation" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        
+        <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteGlReconciliation" short-description="Delete an GlReconciliation">
+        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlReconciliation you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="GlReconciliation" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="updateGlReconciliationLastModified" short-description="Update GlReconciliation LastModified Info">
+        <!-- this is just a little method that is meant to be called as an inline call-simple-method target with the context already setup -->
+        <entity-one entity-name="GlReconciliation" value-name="lookedUpGLR"/>
+        <set from-field="userLogin.userLoginId" field="lookedUpGLR.lastModifiedByUserLogin"/>
+        <store-value value-name="lookedUpGLR"/>
+    </simple-method>
+    
+    <!-- ========= GlReconciliationEntry methods ========= -->
+    <simple-method method-name="createGlReconciliationEntry" short-description="Add Entry To GlReconciliation">
+        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlReconciliationEntry you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="GlReconciliationEntry" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+
+        <!-- when changing entries, also update the last modified info for the GlReconciliation -->
+        <call-simple-method method-name="updateGlReconciliationLastModified"/>
+    </simple-method>
+    <simple-method method-name="updateGlReconciliationEntry" short-description="Update Entry To GlReconciliation">
+        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlReconciliationEntry you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="GlReconciliationEntry" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+        
+        <!-- when changing entries, also update the last modified info for the GlReconciliation -->
+        <call-simple-method method-name="updateGlReconciliationLastModified"/>
+    </simple-method>
+    <simple-method method-name="deleteGlReconciliationEntry" short-description="Remove Entry From GlReconciliation">
+        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlReconciliationEntry you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="GlReconciliationEntry" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+
+        <!-- when changing entries, also update the last modified info for the GlReconciliation -->
+        <call-simple-method method-name="updateGlReconciliationLastModified"/>
+    </simple-method>
+
+    <!-- ========== GL Posting Services ========== -->
+    <simple-method method-name="createAcctgTransAndEntries" short-description="Verifies and posts a set of AcctgTransEntries">
+        <!-- first loop through and make sure all the entries are valid  -->
+        <iterate list-name="parameters.acctgTransEntries" entry-name="acctgTransEntry">
+            <!-- the organization party must be an internal organization -->
+            <entity-one entity-name="PartyRole" value-name="partyRole" use-cache="true" auto-field-map="false">
+                <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
+                <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+            </entity-one>
+            <if-empty field-name="partyRole">
+                <add-error><fail-message message="${acctgTransEntry.organizationPartyId} for transaction ${acctgTransEntry.acctgTransId} entry ${acctgTransEntry.acctTransEntrySeqId} is not an internal organization "/></add-error>
+                <check-errors/>
+            </if-empty>
+            <!-- add up debits and credits -->
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <calculate field-name="debitTotal">
+                    <calcop operator="get" field-name="acctgTransEntry.amount"/>
+                    <calcop operator="get" field-name="debitTotal"/>
+                </calculate>
+            </if-compare>
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <calculate field-name="creditTotal">
+                    <calcop operator="get" field-name="acctgTransEntry.amount"/>
+                    <calcop operator="get" field-name="creditTotal"/>
+                </calculate>
+            </if-compare>
+        </iterate>
+        <calculate field-name="debitCreditDifference">
+            <calcop operator="get" field-name="debitTotal"/>
+            <calcop operator="negative" field-name="creditTotal"/>
+        </calculate>
+
+        <!-- if the debit and credit totals do not balance, return an error -->
+        <if-compare field-name="debitCreditDifference" operator="greater-equals" value="0.000001" type="Double">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingDebitCreditMustEqual"/></add-error>
+        </if-compare>
+        <if-compare field-name="debitCreditDifference" operator="less-equals" value="-0.000001" type="Double">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingDebitCreditMustEqual"/></add-error>
+        </if-compare>
+        <check-errors/>
+        
+        <!-- now do the posting. First, create the AcctgTrans entity -->
+        <set-service-fields service-name="createAcctgTrans" map-name="parameters" to-map-name="createAcctgTransParams"/>
+        <if-empty field-name="createAcctgTransParams.transactionDate">
+            <now-timestamp-to-env env-name="createAcctgTransParams.transactionDate"/>
+        </if-empty>
+        <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransParams">
+            <result-to-field result-name="acctgTransId"/>
+        </call-service>
+        
+        <!-- Next, create the AcctgTransEntry entities one by one -->
+        <iterate list-name="parameters.acctgTransEntries" entry-name="acctgTransEntry">
+            <!-- if any amount is negative, then get the absolute (positive) value of that amount, and flip the Debit/Credit flag  -->
+            <if-compare field-name="amount" map-name="acctgTransEntry" operator="less" value="0">
+                <log level="verbose" message="${acctgTransEntry} is going to get inverted"/>
+                <calculate field-name="acctgTransEntry.amount">
+                    <calcop field-name="acctgTransEntry.amount" operator="negative"/>
+                </calculate>
+                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <set value="C" field="acctgTransEntry.debitCreditFlag"/>
+                <else>
+                    <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                        <set value="D" field="acctgTransEntry.debitCreditFlag"/>
+                    </if-compare>
+                </else>
+                </if-compare>
+            </if-compare>
+            
+            <!-- now create the AcctgTransEntry using the acctgTransId we already have from above -->    
+            <set-service-fields service-name="createAcctgTransEntry" map-name="acctgTransEntry" to-map-name="createAcctgTransEntryParams"/>
+            <set from-field="acctgTransId" field="createAcctgTransEntryParams.acctgTransId"/>
+            <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransEntryParams"/>
+        </iterate>
+        
+        <!-- all done -->
+        <field-to-result field-name="acctgTransId"/>
+    </simple-method>
+
+    <!-- Miscellaneous services for product and inventory -->
+
+    <simple-method method-name="getProductOrgGlAccount" short-description="Look up a GlAccountId from ProductGlAccount, then GlAccountTypeDefault"> 
+        <log level="warning" message="getProductOrgGlAccount is deprecated. Please use UtilAccounting.getProductOrgGlAccountId instead."/>
+        <!-- if parameters for ProductGlAccount were passed, then try there first -->
+        <if>
+            <condition>
+                <not>
+                    <or>
+                        <if-empty field-name="parameters.productId"/>
+                        <if-empty field-name="parameters.glAccountTypeId"/>
+                        <if-empty field-name="parameters.organizationPartyId"/>
+                    </or>
+                </not>
+            </condition>
+            <then>
+                <entity-one entity-name="ProductGlAccount" value-name="lookedUpValue" use-cache="true"/> 
+            </then>
+        </if>
+        <!-- if nothing found or if no such parameters were passed (lookedUpValue empty in both cases), try GlAccountTypeDefault -->
+        <if-empty field-name="lookedUpValue.glAccountId">
+            <entity-one entity-name="GlAccountTypeDefault" value-name="lookedUpValue" use-cache="true"/> 
+        </if-empty>
+        <field-to-result field-name="lookedUpValue.glAccountId" result-name="glAccountId"/> 
+    </simple-method>
+
+    <simple-method method-name="getInventoryItemOwner" short-description="Get an ownerPartyId from inventoryItemId">
+        <entity-one entity-name="InventoryItem" value-name="item"/>
+        <get-related-one  relation-name="Facility" value-name="item" to-value-name="facility"/>
+        <field-to-result field-name="facility.ownerPartyId" result-name="ownerPartyId"/>
+   </simple-method>
+</simple-methods>

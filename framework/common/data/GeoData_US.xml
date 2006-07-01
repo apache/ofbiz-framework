@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Geo abbreviation="AA" geoCode="AA" geoId="AA" geoName="Armed Forces Americas" geoTypeId="STATE"/>
+    <Geo abbreviation="AE" geoCode="AE" geoId="AE" geoName="Armed Forces Europe" geoTypeId="STATE"/>
+    <Geo abbreviation="AP" geoCode="AP" geoId="AP" geoName="Armed Forces Pacific" geoTypeId="STATE"/>
+
+    <Geo abbreviation="AK" geoCode="AK" geoId="AK" geoName="Alaska" geoTypeId="STATE"/>
+    <Geo abbreviation="AL" geoCode="AL" geoId="AL" geoName="Alabama" geoTypeId="STATE"/>
+    <Geo abbreviation="AR" geoCode="AR" geoId="AR" geoName="Arkansas" geoTypeId="STATE"/>
+    <Geo abbreviation="AS" geoCode="AS" geoId="AS" geoName="American Samoa" geoTypeId="STATE"/>
+    <Geo abbreviation="AZ" geoCode="AZ" geoId="AZ" geoName="Arizona" geoTypeId="STATE"/>
+    <Geo abbreviation="CA" geoCode="CA" geoId="CA" geoName="California" geoTypeId="STATE"/>
+    <Geo abbreviation="CO" geoCode="CO" geoId="CO" geoName="Colorado" geoTypeId="STATE"/>
+    <Geo abbreviation="CT" geoCode="CT" geoId="CT" geoName="Connecticut" geoTypeId="STATE"/>
+    <Geo abbreviation="DC" geoCode="DC" geoId="DC" geoName="Washington Dc" geoTypeId="STATE"/>
+    <Geo abbreviation="DE" geoCode="DE" geoId="DE" geoName="Delaware" geoTypeId="STATE"/>
+    <Geo abbreviation="FL" geoCode="FL" geoId="FL" geoName="Florida" geoTypeId="STATE"/>
+    <Geo abbreviation="FM" geoCode="FM" geoId="FM" geoName="Federated States of Micronesia" geoTypeId="STATE"/>
+    <Geo abbreviation="GA" geoCode="GA" geoId="GA" geoName="Georgia" geoTypeId="STATE"/>
+    <Geo abbreviation="GU" geoCode="GU" geoId="GU" geoName="Guam" geoTypeId="STATE"/>
+    <Geo abbreviation="HI" geoCode="HI" geoId="HI" geoName="Hawaii" geoTypeId="STATE"/>
+    <Geo abbreviation="IA" geoCode="IA" geoId="IA" geoName="Iowa" geoTypeId="STATE"/>
+    <Geo abbreviation="ID" geoCode="ID" geoId="ID" geoName="Idaho" geoTypeId="STATE"/>
+    <Geo abbreviation="IL" geoCode="IL" geoId="IL" geoName="Illinois" geoTypeId="STATE"/>
+    <Geo abbreviation="IN" geoCode="IN" geoId="IN" geoName="Indiana" geoTypeId="STATE"/>
+    <Geo abbreviation="KS" geoCode="KS" geoId="KS" geoName="Kansas" geoTypeId="STATE"/>
+    <Geo abbreviation="KY" geoCode="KY" geoId="KY" geoName="Kentucky" geoTypeId="STATE"/>
+    <Geo abbreviation="LA" geoCode="LA" geoId="LA" geoName="Louisiana" geoTypeId="STATE"/>
+    <Geo abbreviation="MA" geoCode="MA" geoId="MA" geoName="Massachusetts" geoTypeId="STATE"/>
+    <Geo abbreviation="MD" geoCode="MD" geoId="MD" geoName="Maryland" geoTypeId="STATE"/>
+    <Geo abbreviation="ME" geoCode="ME" geoId="ME" geoName="Maine" geoTypeId="STATE"/>
+    <Geo abbreviation="MH" geoCode="MH" geoId="MH" geoName="Marshall Islands" geoTypeId="STATE"/>
+    <Geo abbreviation="MI" geoCode="MI" geoId="MI" geoName="Michigan" geoTypeId="STATE"/>
+    <Geo abbreviation="MN" geoCode="MN" geoId="MN" geoName="Minnesota" geoTypeId="STATE"/>
+    <Geo abbreviation="MP" geoCode="MP" geoId="MP" geoName="Northern Mariana Islands" geoTypeId="STATE"/>
+    <Geo abbreviation="MO" geoCode="MO" geoId="MO" geoName="Missouri" geoTypeId="STATE"/>
+    <Geo abbreviation="MS" geoCode="MS" geoId="MS" geoName="Mississippi" geoTypeId="STATE"/>
+    <Geo abbreviation="MT" geoCode="MT" geoId="MT" geoName="Montana" geoTypeId="STATE"/>
+    <Geo abbreviation="NC" geoCode="NC" geoId="NC" geoName="North Carolina" geoTypeId="STATE"/>
+    <Geo abbreviation="ND" geoCode="ND" geoId="ND" geoName="North Dakota" geoTypeId="STATE"/>
+    <Geo abbreviation="NE" geoCode="NE" geoId="NE" geoName="Nebraska" geoTypeId="STATE"/>
+    <Geo abbreviation="NH" geoCode="NH" geoId="NH" geoName="New Hampshire" geoTypeId="STATE"/>
+    <Geo abbreviation="NJ" geoCode="NJ" geoId="NJ" geoName="New Jersey" geoTypeId="STATE"/>
+    <Geo abbreviation="NM" geoCode="NM" geoId="NM" geoName="New Mexico" geoTypeId="STATE"/>
+    <Geo abbreviation="NV" geoCode="NV" geoId="NV" geoName="Nevada" geoTypeId="STATE"/>
+    <Geo abbreviation="NY" geoCode="NY" geoId="NY" geoName="New York" geoTypeId="STATE"/>
+    <Geo abbreviation="OH" geoCode="OH" geoId="OH" geoName="Ohio" geoTypeId="STATE"/>
+    <Geo abbreviation="OK" geoCode="OK" geoId="OK" geoName="Oklahoma" geoTypeId="STATE"/>
+    <Geo abbreviation="OR" geoCode="OR" geoId="OR" geoName="Oregon" geoTypeId="STATE"/>
+    <Geo abbreviation="PA" geoCode="PA" geoId="PA" geoName="Pennsylvania" geoTypeId="STATE"/>
+    <Geo abbreviation="PW" geoCode="PW" geoId="PW" geoName="Palau" geoTypeId="STATE"/>
+    <Geo abbreviation="PR" geoCode="PR" geoId="PR" geoName="Puerto Rico" geoTypeId="STATE"/>
+    <Geo abbreviation="RI" geoCode="RI" geoId="RI" geoName="Rhode Island" geoTypeId="STATE"/>
+    <Geo abbreviation="SC" geoCode="SC" geoId="SC" geoName="South Carolina" geoTypeId="STATE"/>
+    <Geo abbreviation="SD" geoCode="SD" geoId="SD" geoName="South Dakota" geoTypeId="STATE"/>
+    <Geo abbreviation="TN" geoCode="TN" geoId="TN" geoName="Tennessee" geoTypeId="STATE"/>
+    <Geo abbreviation="TX" geoCode="TX" geoId="TX" geoName="Texas" geoTypeId="STATE"/>
+    <Geo abbreviation="UM" geoCode="UM" geoId="UM" geoName="U.S. Minor Outlying Islands" geoTypeId="STATE"/>
+    <Geo abbreviation="UT" geoCode="UT" geoId="UT" geoName="Utah" geoTypeId="STATE"/>
+    <Geo abbreviation="VA" geoCode="VA" geoId="VA" geoName="Virginia" geoTypeId="STATE"/>
+    <Geo abbreviation="VT" geoCode="VT" geoId="VT" geoName="Vermont" geoTypeId="STATE"/>
+    <Geo abbreviation="WA" geoCode="WA" geoId="WA" geoName="Washington" geoTypeId="STATE"/>
+    <Geo abbreviation="WI" geoCode="WI" geoId="WI" geoName="Wisconsin" geoTypeId="STATE"/>
+    <Geo abbreviation="WV" geoCode="WV" geoId="WV" geoName="West Virginia" geoTypeId="STATE"/>
+    <Geo abbreviation="WY" geoCode="WY" geoId="WY" geoName="Wyoming" geoTypeId="STATE"/>
+    <Geo abbreviation="VI" geoCode="VI" geoId="VI" geoName="Virgin Islands" geoTypeId="STATE"/>
+
+    <GeoAssoc geoId="USA" geoIdTo="AK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="AL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="AR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="AZ" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="CA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="CO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="CT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="DC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="DE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="FL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="GA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="GU" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="HI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="IA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="ID" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="IL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="IN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="KS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="KY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="LA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="MA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="MD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="ME" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="MI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="MN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="MO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="MS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="MT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="NC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="ND" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="NE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="NH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="NJ" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="NM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="NV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="NY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="OH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="OK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="OR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="PA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="PR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="RI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="SC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="SD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="TN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="TX" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="UT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="VA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="VT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="WA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="WI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="WV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="WY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="USA" geoIdTo="VI" geoAssocTypeId="REGIONS"/>
+    
+    <Geo abbreviation="AB" geoCode="AB" geoId="AB" geoName="Alberta" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="BC" geoCode="BC" geoId="BC" geoName="British Columbia" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="MB" geoCode="MB" geoId="MB" geoName="Manitoba" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NB" geoCode="NB" geoId="NB" geoName="New Brunswick" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NL" geoCode="NL" geoId="NL" geoName="Newfoundland and Labrador" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NS" geoCode="NS" geoId="NS" geoName="Nova Scotia" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NT" geoCode="NT" geoId="NT" geoName="Northwest Territories" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NU" geoCode="NU" geoId="NU" geoName="Nunavut" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="ON" geoCode="ON" geoId="ON" geoName="Ontario" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PE" geoCode="PE" geoId="PE" geoName="Prince Edward Island" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="QC" geoCode="QC" geoId="QC" geoName="Quebec" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="SK" geoCode="SK" geoId="SK" geoName="Saskatchewan" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="YT" geoCode="YT" geoId="YT" geoName="Yukon" geoTypeId="PROVINCE"/>
+
+    <GeoAssoc geoId="CAN" geoIdTo="AB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="BC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="MB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="NB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="NL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="NS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="NT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="NU" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="ON" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="PE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="QC" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="SK" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CAN" geoIdTo="YT" geoAssocTypeId="REGIONS"/>
+    
+    <Geo abbreviation="USAF" geoCode="USAF" geoId="USAF" geoName="US Armed Forces" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="AA" geoIdTo="USAF" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="AE" geoIdTo="USAF" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="AP" geoIdTo="USAF" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="AKHI" geoCode="AKHI" geoId="AKHI" geoName="Alaska/Hawaii" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="AK" geoIdTo="AKHI" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="HI" geoIdTo="AKHI" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="USTR" geoCode="USTR" geoId="USTR" geoName="US Territories" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="AS" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="FM" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="GU" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MH" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MP" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="PW" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="PR" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="UM" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="VI" geoIdTo="USTR" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="AHUST" geoCode="AHUST" geoId="AHUST" geoName="Alaska/Hawaii/Territories" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="AKHI" geoIdTo="AHUST" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="USTR" geoIdTo="AHUST" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="USCN" geoCode="USCN" geoId="USCN" geoName="US Continental" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="AL" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="AR" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="AZ" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="CA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="CO" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="CT" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="DC" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="DE" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="FL" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="GA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="IA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="ID" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="IL" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="IN" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="KS" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="KY" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="LA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MD" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="ME" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MI" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MN" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MO" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MS" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MT" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="NC" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="ND" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="NE" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="NH" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="NJ" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="NM" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="NV" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="NY" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="OH" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="OK" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="OR" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="PA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="RI" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="SC" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="SD" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="TN" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="TX" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="UT" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="VA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="VT" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="WA" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="WI" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="WV" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="WY" geoIdTo="USCN" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="USALL" geoCode="USALL" geoId="USALL" geoName="US All (w/ APO/FPO)" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="USCN" geoIdTo="USALL" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="USAF" geoIdTo="USALL" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="AHUST" geoIdTo="USALL" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="US50" geoCode="US50" geoId="US50" geoName="US 50 (no APO/FPO)" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="USCN" geoIdTo="US50" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="AHUST" geoIdTo="US50" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="USCAN" geoCode="USCAN" geoId="USCAN" geoName="US/Canada" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="USA" geoIdTo="USCAN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="CAN" geoIdTo="USCAN" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="MEXCAN" geoCode="MEXCAN" geoId="MEXCAN" geoName="Mexico/Canada" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="CAN" geoIdTo="MEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+
+    <Geo abbreviation="USMEXCAN" geoCode="USMEXCAN" geoId="USMEXCAN" geoName="US/Mexico/Canada" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="USA" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="MEX" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="CAN" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+</entity-engine-xml>
+

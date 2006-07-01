@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ShipmentScreens.xml 7361 2006-04-21 15:06:25Z jacopo $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="FindShipment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductFindShipment"/>
+                <set field="headerItem" value="shipment"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/FindShipment.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/FindShipment.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonShipmentDecorator">
+        <section>
+            <actions>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <entity-one entity-name="Shipment" value-name="shipment"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/ShipmentTabBar.ftl"/></html>
+                                </platform-specific>
+
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewShipment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewShipment"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="ViewShipment"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipment.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentInfo.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentItemInfo.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentPackageInfo.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentRouteInfo.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditShipment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductEditShipment"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="EditShipment"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipment.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/EditShipment.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditShipmentItems">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditShipmentItems"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="EditShipmentItems"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/EditShipmentItems.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditShipmentPlan">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditShipmentPlan"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="EditShipmentPlan"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPlan.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/EditShipmentPlan.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditShipmentPackages">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditShipmentPackages"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="EditShipmentPackages"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/EditShipmentPackages.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditShipmentRouteSegments">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditShipmentRouteSegments"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="EditShipmentRouteSegments"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/EditShipmentRouteSegments.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddItemsFromOrder">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAddItemsFromOrder"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="AddItemsFromOrder"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/AddItemsFromOrder.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/AddItemsFromOrder.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="QuickShipOrder">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductQuickShipOrder"/>
+                <set field="headerItem" value="shipment"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/QuickShipOrder.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/QuickShipOrder.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PackOrder">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductPackOrder"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackOrder.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/PackOrder.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PackingSlip.fo">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://product/webapp/facility/shipment/PackingSlip.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ShipmentBarCode.fo">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://product/webapp/facility/shipment/ShipmentBarCode.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

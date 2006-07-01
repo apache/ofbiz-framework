@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+  *
+  *  Permission is hereby granted, free of charge, to any person obtaining a
+  *  copy of this software and associated documentation files (the "Software"),
+  *  to deal in the Software without restriction, including without limitation
+  *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  *  and/or sell copies of the Software, and to permit persons to whom the
+  *  Software is furnished to do so, subject to the following conditions:
+  *
+  *  The above copyright notice and this permission notice shall be included
+  *  in all copies or substantial portions of the Software.
+  *
+  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+  *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+  *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+  *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+
+    <!-- form whose input filters the ListGatewayResponses -->
+    <form name="FindGatewayResponses" type="single" target="FindGatewayResponses" title=""
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="hideSearch"><hidden value="Y"/></field> <!-- what is this for? -->
+        <field name="paymentGatewayResponseId" title="${uiLabelMap.AccountingPaymentGatewayResponseId}"><text-find/></field>
+        <field name="orderPaymentPreferenceId" title="${uiLabelMap.AccountingOrderPaymentPreferenceId}"><text-find/></field>
+        <field name="transCodeEnumId" title="${uiLabelMap.AccountingStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="PGT_CODE"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <!-- Brings up a list of gateway responses. TODO: should cut down data displayd -->
+    <form name="ListGatewayResponses" type="list" use-row-submit="true" 
+            target="" title="" list-name="listIt" paginate-target="FindRequirements"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <set field="entityName" value="PaymentGatewayResponse"/>
+            <set field="orderBy" value="transactionDate DESC"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+                <field-map field-name="orderBy" env-name="orderBy"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="PaymentGatewayResponse" default-field-type="display"/>
+        <!-- note that this overrides auto-fields-entity -->
+        <field name="paymentGatewayResponseId">
+          <hyperlink description="${paymentGatewayResponseId}" target="ViewGatewayResponse?paymentGatewayResponseId=${paymentGatewayResponseId}"/>
+        </field>
+    </form>
+
+    <!-- presents the orderId and orderPaymentPreferenceId for a gateway response with links to the order -->
+    <form name="ViewGatewayResponseRelations" type="single" target="" title=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="orderId">
+          <hyperlink also-hidden="false" target-type="inter-app" description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}"/>
+        </field>
+        <field name="orderPaymentPreferenceId"><display/></field>
+    </form>
+
+    <!-- displays the gateway response in detail -->
+    <form name="ViewGatewayResponse" type="single" target="processCaptureTransaction" title="" default-map-name="paymentGatewayResponse"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="PaymentGatewayResponse" default-field-type="display"/>
+        <!-- TODO: what is the correct way to ensure that the response was authorized?
+        <field name="submitButton" use-when="paymentGatewayResponse!=null&amp;&amp;paymentGatewayResponse.getString(&quot;gatewayFlag&quot;).equals(&quot;A&quot;)" title="${uiLabelMap.AccountingCapture}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        -->
+    </form>
+
+    <!-- form for authorizing a transaction -->
+    <form name="AuthorizeTransaction" type="single" target="processAuthorizeTransaction" title="" default-title-style="tableheadtext" default-widget-style="tabletext"
+        default-tooltip-style="tabletext">
+        <field name="orderId"><text/></field>
+        <field name="orderPaymentPreferenceId"><text/></field>
+        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentMethodType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="overrideAmount" title="${uiLabelMap.AccountingAmount}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.AccountingAuthorize}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- form for capturing a transaction -->
+    <form name="CaptureTransaction" type="single" target="processCaptureTransaction" title="" default-title-style="tableheadtext" default-widget-style="tabletext"
+        default-tooltip-style="tabletext">
+        <field name="orderId"><text/></field>
+        <field name="orderPaymentPreferenceId"><text/></field>
+        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentMethodType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentType" description="${description}" key-field-name="paymentTypeId">
+                    <entity-constraint name="parentTypeId" operator="equals" value="RECEIPT"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="captureAmount" title="${uiLabelMap.AccountingAmount}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.AccountingCapture}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+</forms>

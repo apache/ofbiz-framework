@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: DataSourceScreens.xml,v 1.1 2005/10/15 13:54:27 titanouk Exp $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+   <screen name="CommonDataSourceDecorator">
+        <section>
+            <actions>
+                <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="headerItem" value="contactlist"/>
+                <set field="tabButtonItem" value="DataSource"/>
+                <set field="dataSourceId" from-field="parameters.dataSourceId"/>
+                <entity-one entity-name="DataSource" value-name="dataSource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://marketing/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for MARKETING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="MARKETING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <widgets>
+                                        <include-menu name="DataSourceTabBar" location="component://marketing/webapp/marketing/datasource/DataSourceMenus.xml"/>
+                                    </widgets>
+                                </section>
+
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.MarketingViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+   <screen name="EditDataSource">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditDataSource"/>
+                <set field="tabButtonItem" value="DataSource"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataSource"/>
+
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSource"/>
+                <set field="dataSourceId" from-field="parameters.dataSourceId"/>
+                <entity-one entity-name="DataSource" value-name="dataSource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonDataSourceDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="dataSource"/></not>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.PageTitleEditDataSource}</label></container>
+                                <container><link  text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head1">${uiLabelMap.PageTitleAddDataSource}</label>
+                                <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+   <screen name="ListDataSource">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListDataSource"/>
+                <set field="tabButtonItem" value="DataSource"/>
+                <set field="labelTitleProperty" value="PageTitleListDataSource"/>
+
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSource"/>
+                <set field="dataSourceId" from-field="parameters.dataSourceId"/>
+                <set field="entityName" value="DataSource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonDataSourceDecorator">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleEditDataSource}</label></container>
+                        <container><link text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                        <include-form name="ListDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+   <screen name="EditDataSourceType">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditDataSourceType"/>
+                <set field="tabButtonItem" value="DataSourceType"/>
+                <set field="labelTitleProperty" value="PageTitleEditDataSourceType"/>
+
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSourceType"/>
+                <set field="dataSourceTypeId" from-field="parameters.dataSourceTypeId"/>
+                <entity-one entity-name="DataSourceType" value-name="dataSourceType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonDataSourceDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="dataSourceType"/></not>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.PageTitleEditDataSourceType}</label></container>
+                                <container><link  text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head1">${uiLabelMap.PageTitleAddDataSourceType}</label>
+                                <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+   <screen name="ListDataSourceType">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListDataSourceType"/>
+                <set field="tabButtonItem" value="DataSourceType"/>
+                <set field="labelTitleProperty" value="PageTitleListDataSourceType"/>
+
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSourceType"/>
+                <set field="dataSourceTypeId" from-field="parameters.dataSourceTypeId"/>
+                <set field="entityName" value="DataSourceType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonDataSourceDecorator">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleEditDataSourceType}</label></container>
+                        <container><link text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                        <include-form name="ListDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

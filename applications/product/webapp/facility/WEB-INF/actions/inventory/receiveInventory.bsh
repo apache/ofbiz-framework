@@ -1,0 +1,206 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+ 
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.service.ServiceUtil;
+
+delegator = request.getAttribute("delegator");
+facilityId = request.getParameter("facilityId"); 
+purchaseOrderId = request.getParameter("purchaseOrderId");
+productId = request.getParameter("productId");
+shipmentId = request.getParameter("shipmentId");
+
+facility = null;
+if (facilityId != null) {
+    facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+}
+
+purchaseOrder = null;
+if (purchaseOrderId != null && purchaseOrderId.length() > 0) {
+    purchaseOrder = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", purchaseOrderId));
+    if (purchaseOrder != null && !"PURCHASE_ORDER".equals(purchaseOrder.getString("orderTypeId"))) {
+        purchaseOrder = null;
+    }
+}
+
+product = null;
+if (productId != null) {  
+    product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));      
+}
+
+shipments = null;
+if (purchaseOrder != null && shipmentId == null) {
+    issuances = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", purchaseOrderId));
+    if (issuances != null) {
+        shipments = new TreeSet();
+        issueIter = issuances.iterator();
+        while (issueIter.hasNext()) {
+            issuance = issueIter.next();
+            shipment = issuance.getRelatedOne("Shipment");
+            if (!"PURCH_SHIP_RECEIVED".equals(shipment.getString("statusId")) &&
+                !"SHIPMENT_CANCELLED".equals(shipment.getString("statusId")) &&
+                (shipment.getString("destinationFacilityId") == null || facilityId.equals(shipment.getString("destinationFacilityId")))) {
+                shipments.add(shipment);
+            }
+        }        
+    }
+}
+
+shipment = null;
+if (shipmentId != null && !shipmentId.equals("_NA_")) {
+    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+}
+
+shippedQuantities = new HashMap();
+purchaseOrderItems = null;
+if (purchaseOrder != null) {
+    if (product != null) {
+        purchaseOrderItems = purchaseOrder.getRelated("OrderItem", UtilMisc.toMap("productId", productId), null);
+    } else if (shipment != null) {
+        orderItems = purchaseOrder.getRelated("OrderItem");
+        issuances = shipment.getRelated("ItemIssuance", UtilMisc.toMap("orderId", purchaseOrderId), null);
+        issueIter = issuances.iterator();
+        exprs = new ArrayList();
+        while (issueIter.hasNext()) {
+            issuance = issueIter.next();
+            exprs.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, issuance.getString("orderItemSeqId")));
+            double issuanceQty = issuance.getDouble("quantity").doubleValue();
+            if (shippedQuantities.containsKey(issuance.getString("orderItemSeqId"))) {
+                issuanceQty += ((Double)shippedQuantities.get(issuance.getString("orderItemSeqId"))).doubleValue();
+            }
+            shippedQuantities.put(issuance.getString("orderItemSeqId"), issuanceQty);
+        }               
+        purchaseOrderItems = EntityUtil.filterByOr(orderItems, exprs);
+    } else {    
+        purchaseOrderItems = purchaseOrder.getRelated("OrderItem");
+    }
+}
+// convert the unit prices to that of the facility owner's currency
+if (purchaseOrder != null && facility != null) {
+    owner = facility.getRelatedOne("OwnerParty");
+    acctgPref = null;
+    if (owner != null) acctgPref = owner.getRelatedOne("PartyAcctgPreference");
+    if (acctgPref != null) {
+        ownerCurrencyUomId = acctgPref.get("baseCurrencyUomId");
+        orderCurrencyUomId = purchaseOrder.get("currencyUom");
+        if (!orderCurrencyUomId.equals(ownerCurrencyUomId)) {
+            for (iter = purchaseOrderItems.iterator(); iter.hasNext(); ) {
+                item = iter.next();
+                serviceResults = dispatcher.runSync("convertUom", 
+                        UtilMisc.toMap("uomId", orderCurrencyUomId, "uomIdTo", ownerCurrencyUomId, "originalValue", item.get("unitPrice")));
+                if (ServiceUtil.isError(serviceResults)) {
+                    request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(serviceResults)); 
+                    return;
+                } else {
+                    convertedValue = serviceResults.get("convertedValue");
+                    if (convertedValue != null) {
+                        item.put("unitPrice", convertedValue);
+                    }
+                }
+            }
+        }
+
+        // put the pref currency in the map for display and form use
+        context.put("currencyUomId", ownerCurrencyUomId);
+    } else {
+        request.setAttribute("_ERROR_MESSAGE_", "Either no owner party was set for this facility, or no accounting preferences were set for this owner party.");
+    }
+}
+receivedQuantities = new HashMap();
+salesOrderItems = new HashMap();
+if (purchaseOrderItems != null && purchaseOrderItems.size() > 0) {
+    context.put("firstOrderItem", EntityUtil.getFirst(purchaseOrderItems));
+    context.put("purchaseOrderItemsSize", purchaseOrderItems.size());
+    itemsIter = purchaseOrderItems.iterator();
+    while (itemsIter.hasNext()) {
+        totalReceived = 0.0;
+        thisItem = itemsIter.next();
+        receipts = thisItem.getRelated("ShipmentReceipt");
+        if (receipts != null && receipts.size() > 0) {
+            recIter = receipts.iterator();
+            while (recIter.hasNext()) {
+                rec = recIter.next();
+                if (shipment != null) {
+                    if (rec.getString("shipmentId") == null || 
+                        !rec.getString("shipmentId").equals(shipment.getString("shipmentId"))) {
+                        continue;
+                    }
+                }
+                accepted = rec.getDouble("quantityAccepted");
+                rejected = rec.getDouble("quantityRejected");
+                if (accepted != null)
+                    totalReceived += accepted.doubleValue();
+                if (rejected != null)
+                    totalReceived += rejected.doubleValue();                                            
+            }            
+        }
+        receivedQuantities.put(thisItem.getString("orderItemSeqId"), new Double(totalReceived));
+        //----------------------
+        salesOrderItemAssocs = thisItem.getRelated("PurchaseOrderItemAssociation");
+        if (salesOrderItemAssocs != null && salesOrderItemAssocs.size() > 0) {
+            salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs);
+            salesOrderItems.put(thisItem.getString("orderItemSeqId"), salesOrderItem);        
+        }
+    }
+}
+
+receivedItems = null;
+if (purchaseOrder != null) {
+    receivedItems = delegator.findByAnd("ShipmentReceiptAndItem", UtilMisc.toMap("orderId", purchaseOrderId, "facilityId", facilityId));
+    context.put("receivedItems", receivedItems);
+}
+
+String invalidProductId = null;
+if (productId != null && productId.length() > 0 && product == null) {
+    invalidProductId = "No product found with product ID: [" + productId + "]";
+    context.put("invalidProductId", invalidProductId);
+}
+
+// reject reasons
+rejectReasons = delegator.findAll("RejectionReason");
+
+// inv item types
+inventoryItemTypes = delegator.findAll("InventoryItemType");
+
+// facilities
+facilities = delegator.findAll("Facility");
+    
+context.put("facilityId", facilityId);
+context.put("facility", facility);
+context.put("purchaseOrder", purchaseOrder);
+context.put("product", product);
+context.put("shipments", shipments);
+context.put("shipment", shipment);
+context.put("shippedQuantities", shippedQuantities);
+context.put("purchaseOrderItems", purchaseOrderItems);
+context.put("receivedQuantities", receivedQuantities);
+context.put("salesOrderItems", salesOrderItems);
+context.put("rejectReasons", rejectReasons);
+context.put("inventoryItemTypes", inventoryItemTypes);
+context.put("facilities", facilities);

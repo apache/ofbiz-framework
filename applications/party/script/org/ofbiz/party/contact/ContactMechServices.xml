@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2002-2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Johan Isacsson
+ * @author     Olivier.Heintz@nereide.biz 
+ * @version    $Rev$
+ * @since      2.2
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createContactMech" short-description="Create Contact Mechanism">
+        <make-value value-name="newValue" entity-name="ContactMech"/>
+        <if-empty field-name="parameters.contactMechId">
+            <sequenced-id-to-env sequence-name="ContactMech" env-name="newValue.contactMechId"/>
+            <else>
+                <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
+            </else>
+        </if-empty>
+        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <create-value value-name="newValue"/>
+        <field-to-result map-name="newValue" field-name="contactMechId"/>
+        <field-to-request map-name="newValue" field-name="contactMechId"/>
+        <log level="info" message="Contact mech created with id ${newValue.contactMechId}"/>     
+    </simple-method>
+    
+    <simple-method method-name="updateContactMech" short-description="Update Contact Mechanism">
+        <if-compare field-name="contactMechTypeId" operator="equals" value="POSTAL_ADDRESS">
+            <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForPostalAddress"/></add-error>
+        </if-compare>
+        <if-compare field-name="contactMechTypeId" operator="equals" value="TELECOM_NUMBER">
+            <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForTelecomNumber"/></add-error>
+        </if-compare>                       
+        <check-errors/>
+
+        <make-value entity-name="ContactMech" value-name="ContactMechMap"/>
+        <set-pk-fields value-name="ContactMechMap" map-name="parameters"/>
+        <find-by-primary-key entity-name="ContactMech" map-name="ContactMechMap" value-name="oldValue" /> 
+        <if-compare-field map-name="parameters" field-name="infoString" to-map-name="oldValue" operator="not-equals">
+             <log level="info" message="Contact mech need updating"/> 
+            <clone-value value-name="oldValue" new-value-name="newValue"/>
+            <set-nonpk-fields map-name="parameters" value-name="newValue" set-if-null="false"/>
+            <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+                processor-name="contactMech" in-map-name="newValue" out-map-name="context"/>
+            <call-service service-name="createContactMech" in-map-name="context">
+                <default-message>Contact Mechanism successfully created.</default-message>
+                <result-to-field result-name="contactMechId" map-name="newValue"/>
+            </call-service>                                        
+            <field-to-result map-name="newValue" field-name="contactMechId"/>
+            <field-to-request map-name="newValue" field-name="contactMechId"/> 
+            <else>
+                <log level="info" message="Contact mech not changed"/>
+                <field-to-result map-name="oldValue" field-name="contactMechId"/>
+                <field-to-request map-name="oldValue" field-name="contactMechId"/>
+            </else>            
+        </if-compare-field>
+    </simple-method>
+    
+    <simple-method method-name="createPostalAddress" short-description="Create Contact Mechanism with PostalAddress">
+        <if-compare value="USA" operator="equals" field-name="countryGeoId" map-name="parameters">
+          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+            </add-error>                        
+          </if-empty>
+        </if-compare>        
+        <if-compare value="CAN" operator="equals" field-name="countryGeoId" map-name="parameters">
+          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
+            </add-error>
+          </if-empty>
+        </if-compare>                        
+        <check-errors/>
+        <make-value entity-name="PostalAddress" value-name="newValue"/>
+        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
+        <string-to-field map-name="context" field-name="contactMechTypeId" string="POSTAL_ADDRESS"/>
+        <call-service service-name="createContactMech" in-map-name="context">
+            <default-message>Contact Mechanism successfully created.</default-message>
+            <result-to-field result-name="contactMechId" map-name="newValue"/>
+        </call-service>
+        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <create-value value-name="newValue"/>   
+        <field-to-result map-name="newValue" field-name="contactMechId"/>
+        <field-to-request map-name="newValue" field-name="contactMechId"/>             
+    </simple-method>
+    
+    <simple-method method-name="updatePostalAddress" short-description="Update Contact Mechanism with PostalAddress">
+        <if-compare value="USA" operator="equals" field-name="countryGeoId" map-name="parameters">
+          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+            </add-error>                        
+          </if-empty>
+        </if-compare>        
+        <if-compare value="CAN" operator="equals" field-name="countryGeoId" map-name="parameters">
+          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+            <add-error>
+              <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
+            </add-error>
+          </if-empty>
+        </if-compare>                        
+        <check-errors/>
+        <make-value entity-name="PostalAddress" value-name="newValue"/>
+        <set-pk-fields value-name="newValue" map-name="parameters"/>
+        <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-name="oldValue" />
+        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+          
+        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
+        <string-to-field map-name="context" field-name="contactMechTypeId" string="POSTAL_ADDRESS"/>
+        
+        <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
+            <log level="info" message="Postal address need updating"/>
+            <call-service service-name="createContactMech" in-map-name="context">
+                <default-message>Contact Mechanism successfully updated.</default-message>
+                <result-to-field result-name="contactMechId" map-name="newValue"/>
+            </call-service>
+            <create-value value-name="newValue"/>
+            <else>
+                <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="context"/>                
+                <call-service service-name="updateContactMech" in-map-name="context">
+                    <default-message>Contact Mechanism successfully updated.</default-message>
+                    <result-to-field result-name="contactMechId" map-name="newValue"/>
+                </call-service>
+                <if-compare-field map-name="oldValue" to-map-name="newValue" field-name="contactMechId" operator="not-equals">
+                    <log level="info" message="Postal address need updating, contact mech changed"/>
+                    <create-value value-name="newValue"/>
+                    <else>
+                        <log level="info" message="Postal address unchanged"/>
+                    </else>
+                </if-compare-field>            
+            </else>        
+        </if-compare-field>    
+        <field-to-request map-name="newValue" field-name="contactMechId" request-name="contactMechId"/>
+        <field-to-result map-name="parameters" field-name="contactMechId" result-name="oldContactMechId"/>
+        <field-to-result map-name="newValue" field-name="contactMechId" result-name="contactMechId"/>
+    </simple-method>
+    
+    <simple-method method-name="createTelecomNumber" short-description="Create Contact Mechanism with Telecom Number">
+        <make-value entity-name="TelecomNumber" value-name="newValue"/>
+        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
+        <string-to-field map-name="context" field-name="contactMechTypeId" string="TELECOM_NUMBER"/>
+        <call-service service-name="createContactMech" in-map-name="context">
+            <default-message>Contact Mechanism successfully created.</default-message>
+            <result-to-field result-name="contactMechId" map-name="newValue"/>
+        </call-service>
+        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <create-value value-name="newValue"/>   
+        <field-to-result map-name="newValue" field-name="contactMechId"/>
+        <field-to-request map-name="newValue" field-name="contactMechId"/>             
+    </simple-method>
+     
+    <simple-method method-name="updateTelecomNumber" short-description="Update Contact Mechanism with Telecom Number">
+        <make-value entity-name="TelecomNumber" value-name="newValue"/>
+        <set-pk-fields value-name="newValue" map-name="parameters"/>
+        <find-by-primary-key entity-name="TelecomNumber" map-name="newValue" value-name="oldValue" />
+        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        
+        
+        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
+        <string-to-field map-name="context" field-name="contactMechTypeId" string="TELECOM_NUMBER"/>
+        
+        <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
+            <log level="info" message="Telecom number needs updating"/>
+            <call-service service-name="createContactMech" in-map-name="context">
+                <default-message>Contact Mechanism successfully updated.</default-message>
+                <result-to-field result-name="contactMechId" map-name="newValue"/>
+            </call-service>
+            <create-value value-name="newValue"/>
+            <else>
+                <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="context"/>                
+                <call-service service-name="updateContactMech" in-map-name="context">
+                    <default-message>Contact Mechanism successfully updated.</default-message>
+                    <result-to-field result-name="contactMechId" map-name="newValue"/>
+                </call-service>
+                <if-compare-field map-name="oldValue" to-map-name="newValue" field-name="contactMechId" operator="not-equals">
+                    <log level="info" message="Postal address need updating, contact mech changed"/>
+                    <create-value value-name="newValue"/>
+                    <else>
+                        <log level="info" message="Postal address unchanged"/>
+                    </else>
+                </if-compare-field>            
+            </else>        
+        </if-compare-field>    
+        <field-to-result map-name="newValue" field-name="contactMechId" result-name="contactMechId"/>
+        <field-to-result map-name="parameters" field-name="contactMechId" result-name="oldContactMechId"/>
+    </simple-method>
+    
+    <simple-method method-name="createEmailAddress" short-description="Create an email address contact mechanism">
+        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+            processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <call-service service-name="createContactMech" in-map-name="context">
+            <default-message>Contact Mechanism successfully created.</default-message>
+            <result-to-result result-name="contactMechId"/>
+            <result-to-request result-name="contactMechId"/>
+        </call-service>
+    </simple-method>
+    <simple-method method-name="updateEmailAddress" short-description="Update an email address contact mechanism">
+        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
+            processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
+        <check-errors/>
+        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <call-service service-name="updateContactMech" in-map-name="context">
+            <default-message>Contact Mechanism successfully updated.</default-message>
+            <result-to-result result-name="contactMechId"/>
+            <result-to-request result-name="contactMechId"/>
+        </call-service>
+    </simple-method>                     
+
+   <simple-method method-name="createContactMechLink" short-description="Create a link between two ContactMechs, such as PostalAddress and TelecomNumber or email">
+       <!--TODO: need security check of some sort? -->
+       <check-errors/>
+       <make-value value-name="newEntity" entity-name="ContactMechLink"/>
+       <set-pk-fields map-name="parameters" value-name="newEntity"/>
+       <create-value value-name="newEntity"/>
+   </simple-method>
+   <simple-method method-name="deleteContactMechLink" short-description="Delete a link between two ContactMechs">
+       <!--TODO: need security check of some sort? -->
+       <check-errors/>
+       <make-value value-name="lookupPKMap" entity-name="ContactMechLink"/>
+       <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+       <find-by-primary-key entity-name="ContactMechLink" map-name="lookupPKMap" value-name="contactMechLinkInstance"/>
+       <remove-value value-name="contactMechLinkInstance"/>
+   </simple-method>
+
+    <!-- contactmech attribute services -->
+    <simple-method method-name="createContactMechAttribute" short-description="createContactMechAttribute">
+        <check-permission permission="PARTYMGR" action="_CREATE">
+            <fail-property resource="PartyUiLabels" property="PartyCreateAttributePermissionError"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ContactMechAttribute"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
+        <check-permission permission="PARTYMGR" action="_UPDATE">
+            <fail-property resource="PartyUiLabels" property="PartyUpdateAttributePermissionError"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">
+        <check-permission permission="PARTYMGR" action="_DELETE">
+            <fail-property resource="PartyUiLabels" property="PartyRemoveAttributePermissionError"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+</simple-methods>

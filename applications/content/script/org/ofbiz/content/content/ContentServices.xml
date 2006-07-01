@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: ContentServices.xml 7769 2006-06-11 06:28:05Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="setContentStatus" short-description="Set The Content Status">
+        <check-permission permission="CONTENTMGR" action="_CREATE">
+            <fail-message message="Security Error: to change the Content Status you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="Content" value-name="content"/>
+        <field-to-result field-name="content.statusId" result-name="oldStatusId"/>
+        
+        <if-compare-field field-name="content.statusId" operator="not-equals" to-field-name="parameters.statusId">
+            <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
+                <field-map field-name="statusId" env-name="content.statusId"/>
+                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            </entity-one>
+            
+            <if-empty field-name="statusChange">
+                <add-error><fail-message message="Status is not a valid change"/></add-error>
+                <log level="error" message="Cannot change from ${content.statusId} to ${parameters.statusId}"/>
+                <check-errors/>
+                <else>
+                    <set from-field="parameters.statusId" field="content.statusId"/>
+                    <store-value value-name="content"/>
+                </else>   
+            </if-empty>
+        </if-compare-field>
+    </simple-method>
+
+    <simple-method method-name="copyContentAndElectronicTextandAssoc" short-description="copy a content, electronic text and assocs and set status in progress">
+        <check-permission permission="CONTENTMGR" action="_CREATE">
+            <fail-message message="Security Error: to run copyContentAndElectronicTextandAssoc you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <set-service-fields service-name="getContent" map-name="parameters" to-map-name="getC"/>
+        <call-service service-name="getContent" in-map-name="getC">
+            <result-to-field result-name="view" field-name="content"/>
+        </call-service>
+        <if-not-empty field-name="content.dataResourceId">
+            <set-service-fields service-name="getElectronicText" map-name="content" to-map-name="getEt"/>
+            <call-service service-name="getElectronicText" in-map-name="getEt">
+                <result-to-field result-name="textData" field-name="et.textData"/>
+            </call-service>
+            <set field="dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+            <call-service service-name="createDataResource" in-map-name="dataResource">
+                <result-to-field result-name="dataResourceId" field-name="et.dataResourceId"/>
+            </call-service>
+            <call-service service-name="createElectronicText" in-map-name="et"/>
+            
+            <set field="content.dataResourceId" from-field="et.dataResourceId"/>
+            
+        </if-not-empty>
+
+        <clear-field field-name="content.contentId"/><!-- force new value -->        
+        <clear-field field-name="content.statusId"/><!-- force new value -->
+        <set-service-fields service-name="createContent" map-name="content" to-map-name="createContent"/>
+        <call-service service-name="createContent" in-map-name="createContent">
+            <result-to-field result-name="contentId" field-name="newContentId"/>
+        </call-service>
+        
+        <entity-and entity-name="ContentAssoc" list-name="assocs">
+            <field-map field-name="contentId" env-name="parameters.contentId"/>
+        </entity-and>
+        <iterate entry-name="assoc" list-name="assocs">
+            <set field="assoc.contentId" from-field="newContentId"/>
+            <set-service-fields service-name="createContentAssoc" map-name="assoc" to-map-name="assocS"/>
+            <call-service service-name="createContentAssoc" in-map-name="assocS"/>
+        </iterate>
+
+        <entity-and entity-name="ContentAssoc" list-name="assocsTo">
+            <field-map field-name="contentIdTo" env-name="parameters.contentId"/>
+        </entity-and>
+        <iterate entry-name="assocTo" list-name="assocsTo">
+            <set field="assocTo.contentIdTo" from-field="newContentId"/>
+            <set-service-fields service-name="createContentAssoc" map-name="assocTo" to-map-name="assocTos"/>
+            <call-service service-name="createContentAssoc" in-map-name="assocTos"/>
+        </iterate>
+        
+        <field-to-result field-name="newContentId" result-name="contentId"/>
+        
+    </simple-method>
+
+
+
+    <!-- Methods for Content -->
+    <simple-method method-name="deleteContent" short-description="Delete a Content">
+        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="Content" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="Content" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentAssoc -->
+    <simple-method login-required="true" method-name="assocContent" short-description="Associate Content" >
+        <log level="always" message="assocContent, parameters:${parameters}"/>
+        <log level="always" message="assocContent, context:${context}"/>
+        <call-service in-map-name="parameters" service-name="checkAssocPermission">
+            <result-to-field field-name="permissionStatus" result-name="permissionStatus"/>
+            <result-to-field field-name="rolesOut" result-name="rolesOut"/>
+        </call-service>
+        <log level="always" message="permissionStatus:${permissionStatus}"/>
+
+
+        <field-to-field map-name="parameters" field-name="contentIdTo" 
+                     to-map-name="pk" to-field-name="contentId" />
+        <field-to-field field-name="currentContent" to-map-name="context"/>
+
+        <field-to-field map-name="parameters" field-name="contentIdFrom" 
+                     to-map-name="pk" to-field-name="contentId" />
+        <field-to-field field-name="userLogin" map-name="parameters" to-map-name="context"/>
+        <find-by-primary-key value-name="currentContent" entity-name="Content" map-name="pk" />
+        <find-by-primary-key value-name="fromContent" entity-name="Content" map-name="pk" />
+
+        <if-compare field-name="permissionStatus" operator="equals" type="String" value="granted">
+                <make-value entity-name="ContentAssoc" value-name="newContentAssoc"/>
+                <field-to-field map-name="parameters" field-name="contentIdTo" 
+                         to-map-name="newContentAssoc" to-field-name="contentIdTo" />
+                <field-to-field map-name="parameters" field-name="contentIdFrom" 
+                         to-map-name="newContentAssoc" to-field-name="contentId" />
+                <field-to-field 
+                        map-name="parameters" field-name="contentAssocTypeId" 
+                        to-map-name="newContentAssoc" to-field-name="contentAssocTypeId" />
+                <now-timestamp-to-env env-name="nowTimestamp"/>
+                <field-to-field map-name="newUserLogin" field-name="userLoginId"
+                    to-field-name="createdByUserLogin" to-map-name="newContentAssoc"/>
+                <field-to-field map-name="newUserLogin" field-name="userLoginId"
+                    to-field-name="lastModifiedByUserLogin" to-map-name="newContentAssoc"/>
+                <env-to-field env-name="nowTimestamp" field-name="createdDate" map-name="newContentAssoc"/>
+                <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="newContentAssoc"/>
+              
+                <if-empty map-name="parameters" field-name="fromDate" >
+                    <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="parameters"/>
+                    <to-string map-name="parameters" field-name="fromDate" />
+                </if-empty>
+                <field-to-field map-name="parameters" field-name="fromDate" to-map-name="newContentAssoc"/>
+                <if-not-empty map-name="parameters" field-name="thruDate" >
+                    <field-to-field map-name="parameters" field-name="thruDate" to-map-name="newContentAssoc"/>
+                </if-not-empty>
+                <create-value value-name="newContentAssoc" />
+        </if-compare>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="removeContentAssoc" short-description="Remove a Content Assoc">
+        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run removeContentAssoc you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ContentAssoc" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentAssoc" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>    
+    
+    <!-- Methods for ContentMetaData -->
+    <simple-method method-name="createContentMetaData" short-description="Create Content Meta Data">
+        <check-permission permission="CONTENTMGR" action="_CREATE"><fail-message message="Security Error: to run createContentMetaData you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ContentMetaData" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContentMetaData" short-description="Update Content Meta Data">
+        <check-permission permission="CONTENTMGR" action="_UPDATE"><fail-message message="Security Error: to run updateContentMetaData you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ContentMetaData" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentMetaData" short-description="Remove Content Meta Data">
+        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run removeContentMetaData you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ContentMetaData" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>    
+    
+    <!-- Methods for ContentRole -->
+    <simple-method method-name="createContentRole" short-description="Create Content Role">
+        <check-permission permission="CONTENTMGR" action="_CREATE"><fail-message message="Security Error: to run createContentRole you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <if-empty field-name="parameters.fromDate">
+            <now-timestamp-to-env env-name="parameters.fromDate"/>
+        </if-empty>
+        <make-value value-name="partyRolePK" entity-name="PartyRole"/>
+        <set-pk-fields value-name="partyRolePK" map-name="parameters"/>
+        <find-by-primary-key entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
+        <if-empty field-name="partyRole">
+            <make-value entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
+            <create-value value-name="partyRole"/>
+        </if-empty>
+        <check-errors/>
+
+        <make-value entity-name="ContentRole" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <find-by-primary-key entity-name="ContentRole" map-name="newEntity" value-name="contentRole"/>
+        <if-empty field-name="contentRole">
+            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <create-value value-name="newEntity"/>
+        </if-empty>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="updateContentRole" short-description="Update Content Role">
+        <check-permission permission="CONTENTMGR" action="_UPDATE"><fail-message message="Security Error: to run updateContentRole you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ContentRole" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentRole" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deactivateAllContentRoles" short-description="Update Content Role">
+        <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
+            <check-permission permission="CONTENTMGR" action="_UPDATE">
+                <fail-message message="Security Error: to run updateContentRole you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            </check-permission>
+        </if-compare-field>
+                
+        <now-timestamp-to-env env-name="nowStamp"/>
+        <make-value entity-name="ContentRole" value-name="lookupKeyValue"/>
+        <field-to-field field-name="contentId" map-name="parameters" to-map-name="lookupKeyValue"/>
+        <field-to-field field-name="partyId" map-name="parameters" to-map-name="lookupKeyValue"/>
+        <field-to-field field-name="roleTypeId" map-name="parameters" to-map-name="lookupKeyValue"/>
+        <find-by-and entity-name="ContentRole" map-name="lookupKeyValue" list-name="roleList"/>
+        <iterate entry-name="contentRoleMap" list-name="roleList">
+            <make-value entity-name="ContentRole" value-name="role" map-name="contentRoleMap"/>
+            <env-to-field field-name="thruDate" map-name="role" env-name="nowStamp"/>
+            <store-value value-name="role"/>
+        </iterate>
+    </simple-method>
+    <simple-method method-name="removeContentRole" short-description="Remove Content Role">
+        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run removeContentRole you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ContentRole" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentRole" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+        
+    
+  <!-- Methods for ContentType -->
+    <simple-method method-name="createContentType" short-description="Create Content Type">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentType you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result map-name="newEntity" field-name="contentTypeId" />
+    </simple-method>
+    <simple-method method-name="updateContentType" short-description="Update Content Type">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentType you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentType" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentType" short-description="Remove Content Type">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentType you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentType" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentTypeAttr -->
+    <simple-method method-name="createContentTypeAttr" short-description="Create Content TypeAttr">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentTypeAttr you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentTypeAttr" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="removeContentTypeAttr" short-description="Remove Content TypeAttr">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentTypeAttr you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentTypeAttr" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentTypeAttr" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentAssocType -->
+    <simple-method method-name="createContentAssocType" short-description="Create Content AssocType">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentAssocType you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAssocType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result map-name="newEntity" field-name="contentAssocTypeId" />
+    </simple-method>
+    <simple-method method-name="updateContentAssocType" short-description="Update Content AssocType">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentAssocType you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAssocType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentAssocType" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentAssocType" short-description="Remove Content AssocType">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentAssocType you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAssocType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentAssocType" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentPurposeType -->
+    <simple-method method-name="createContentPurposeType" short-description="Create Content PurposeType">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentPurposeType you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+		<if-empty field-name="contentPurposeTypeId" map-name="newEntity">
+			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-name="newEntity"/>
+		</if-empty>
+        <create-value value-name="newEntity"/>
+        <field-to-result map-name="newEntity" field-name="contentPurposeTypeId" />
+    </simple-method>
+    <simple-method method-name="updateContentPurposeType" short-description="Update Content PurposeType">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentPurposeType you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurposeType" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentPurposeType" short-description="Remove Content PurposeType">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentPurposeType you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurposeType" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentAssocPredicate -->
+    <simple-method method-name="createContentAssocPredicate" short-description="Create Content AssocPredicate">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentAssocPredicate you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAssocPredicate" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result map-name="newEntity" field-name="contentAssocPredicateId" />
+    </simple-method>
+    <simple-method method-name="updateContentAssocPredicate" short-description="Update Content AssocPredicate">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentAssocPredicate you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAssocPredicate" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentAssocPredicate" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentAssocPredicate" short-description="Remove Content AssocPredicate">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentAssocPredicate you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAssocPredicate" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentAssocPredicate" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentPurposeOperation -->
+    <simple-method method-name="createContentPurposeOperation" short-description="Create Content PurposeOperation">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentPurposeOperation you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeOperation" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContentPurposeOperation" short-description="Update Content PurposeOperation">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentPurposeOperation you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeOperation" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentPurposeOperation" short-description="Remove Content PurposeOperation">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentPurposeOperation you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeOperation" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentPurpose -->
+    <simple-method method-name="createContentPurpose" short-description="Create Content Purpose">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentPurpose you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurpose" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContentPurpose" short-description="Update Content Purpose">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentPurpose you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurpose" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurpose" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentPurpose" short-description="Remove Content Purpose">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentPurpose you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurpose" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurpose" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentOperation -->
+    <simple-method method-name="createContentOperation" short-description="Create Content Operation">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentOperation you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentOperation" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContentOperation" short-description="Update Content Operation">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentOperation you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentOperation" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentOperation" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentOperation" short-description="Remove Content Operation">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentOperation you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentOperation" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentOperation" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentPurposeOperation -->
+    <simple-method method-name="createContentPurposeOperation" short-description="Create Content PurposeOperation">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentPurposeOperation you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeOperation" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContentPurposeOperation" short-description="Update Content PurposeOperation">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentPurposeOperation you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeOperation" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentPurposeOperation" short-description="Remove Content PurposeOperation">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentPurposeOperation you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentPurposeOperation" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentPurposeOperation" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentAttribute -->
+    <simple-method method-name="createContentAttribute" short-description="Create Content Attribute">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentAttribute you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAttribute" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContentAttribute" short-description="Update Content Attribute">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentAttribute you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAttribute" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentAttribute" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentAttribute" short-description="Remove Content Attribute">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentAttribute you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentAttribute" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentAttribute" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for ContentMetaData -->
+    <simple-method method-name="createContentMetaData" short-description="Create Content MetaData">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createContentMetaData you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentMetaData" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContentMetaData" short-description="Update Content MetaData">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateContentMetaData you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentMetaData" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContentMetaData" short-description="Remove Content MetaData">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run removeContentMetaData you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="ContentMetaData" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ContentMetaData" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Util -->
+    <simple-method method-name="findAssocContent" short-description="Find associated content">
+        <field-to-field field-name="contentId" map-name="parameters" to-map-name="queryMap"/>
+        <field-to-env field-name="mapKeys" map-name="parameters"/>
+        <field-to-list field-name="mapKey" list-name="mapKeys"/>
+        <iterate entry-name="mapKey" list-name="mapKeys">
+            <field-to-field field-name="mapKey" to-map-name="queryMap"/>
+            <find-by-and list-name="resultMap" entity-name="ContentAssoc" map-name="queryMap"/>
+            <filter-list-by-date list-name="resultMap" to-list-name="validContent"/>
+            <iterate entry-name="contentAssoc" list-name="validContent">
+                <field-to-list field-name="contentAssoc" list-name="result"/>
+            </iterate>
+        </iterate>
+        <if>
+            <condition>
+                <if-empty field-name="mapKey" map-name="parameters"/>
+            </condition>
+            <then>
+                <field-to-result field-name="result" result-name="contentAssocs"/>
+            </then>
+            <else>
+                <field-to-result field-name="result" result-name="contentAssoc"/>
+            </else>
+        </if>
+    </simple-method>
+
+    <!-- Generic content services -->
+    <simple-method method-name="createEmailContent" short-description="Create Email as Content">
+        <check-permission permission="CONTENTMGR" action="_CREATE">
+            <fail-message message="Security Error: to run createContentEmail you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <!-- Create subject -->
+        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createSubjectContent"/>
+        <field-to-field map-name="parameters" field-name="subject" to-map-name="createSubjectEtext" to-field-name="textData"/>
+        <call-service service-name="createElectronicText" in-map-name="createSubjectEtext">
+            <result-to-field result-name="dataResourceId" map-name="createSubjectContent"/>
+        </call-service>
+        <call-service service-name="createContent" in-map-name="createSubjectContent">
+            <result-to-field result-name="contentId" map-name="createBodyAssoc"/>
+        </call-service>
+
+        <!-- Create plain body -->
+        <field-to-field map-name="parameters" field-name="plainBody" to-map-name="createPlainBodyEtext" to-field-name="textData"/>
+        <call-service service-name="createElectronicText" in-map-name="createPlainBodyEtext">
+            <result-to-field result-name="dataResourceId" map-name="createPlainBodyContent"/>
+        </call-service>
+        <call-service service-name="createContent" in-map-name="createPlainBodyContent">
+            <result-to-field result-name="contentId" map-name="createBodyAssoc" field-name="contentIdTo"/>
+        </call-service>
+        <!-- Create content assoc between subject and plain body -->
+        <string-to-field string="TREE_CHILD" field-name="contentAssocTypeId" map-name="createBodyAssoc"/>
+        <string-to-field string="plainBody" field-name="mapKey" map-name="createBodyAssoc"/>
+        <call-service service-name="createContentAssoc" in-map-name="createBodyAssoc"/>
+
+        <!-- Create HTML body -->
+        <field-to-field map-name="parameters"  field-name="htmlBody" to-map-name="createHtmlBodyEtext" to-field-name="textData"/>
+        <call-service service-name="createElectronicText" in-map-name="createHtmlBodyEtext">
+            <result-to-field result-name="dataResourceId" map-name="createHtmlBodyContent"/>
+        </call-service>
+        <call-service service-name="createContent" in-map-name="createHtmlBodyContent">
+            <result-to-field result-name="contentId" map-name="createBodyAssoc" field-name="contentIdTo"/>
+        </call-service>
+        <!-- Create content assoc between subject and html body -->
+        <string-to-field string="htmlBody" field-name="mapKey" map-name="createBodyAssoc"/>
+        <call-service service-name="createContentAssoc" in-map-name="createBodyAssoc"/>
+
+        <field-to-result field-name="contentId" map-name="createBodyAssoc" result-name="contentId"/>
+    </simple-method>
+    <simple-method method-name="updateEmailContent" short-description="Update Email Content">
+        <check-permission permission="CONTENTMGR" action="_UPDATE">
+            <fail-message message="Security Error: to run updateContentEmail you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <if-not-empty field-name="subjectDataResourceId" map-name="parameters">
+            <field-to-field field-name="subjectDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateSubjectEt"/>
+            <field-to-field field-name="subject" map-name="parameters" to-field-name="textData" to-map-name="updateSubjectEt"/>
+            <call-service service-name="updateElectronicText" in-map-name="updateSubjectEt"/>
+        </if-not-empty>
+        <if-not-empty field-name="plainBodyDataResourceId" map-name="parameters">
+            <field-to-field field-name="plainBodyDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updatePlainBodyEt"/>
+            <field-to-field field-name="plainBody" map-name="parameters" to-field-name="textData" to-map-name="updatePlainBodyEt"/>
+            <call-service service-name="updateElectronicText" in-map-name="updatePlainBodyEt"/>
+        </if-not-empty>
+        <if-not-empty field-name="htmlBodyDataResourceId" map-name="parameters">
+            <field-to-field field-name="htmlBodyDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateHtmlBodyEt"/>
+            <field-to-field field-name="htmlBody" map-name="parameters" to-field-name="textData" to-map-name="updateHtmlBodyEt"/>
+            <call-service service-name="updateElectronicText" in-map-name="updateHtmlBodyEt"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="createDownloadContent" short-description="Create Download as Content">
+        <check-permission permission="CONTENTMGR" action="_CREATE">
+            <fail-message message="Security Error: to run createContentEmail you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createDownloadContent"/>
+        <field-to-field map-name="parameters" field-name="file" to-map-name="createDownload" to-field-name="dataResourceContent"/>
+        <call-service service-name="createOtherDataResource" in-map-name="createDownload">
+            <result-to-field result-name="dataResourceId" map-name="createDownloadContent"/>
+        </call-service>
+        <call-service service-name="createContent" in-map-name="createDownloadContent">
+            <result-to-result result-name="contentId"/>
+        </call-service>
+    </simple-method>
+    <simple-method method-name="updateDownloadContent" short-description="Update Download Content">
+        <check-permission permission="CONTENTMGR" action="_UPDATE">
+            <fail-message message="Security Error: to run updateContentEmail you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <if-not-empty field-name="fileDataResourceId" map-name="parameters">
+            <field-to-field field-name="fileDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateFile"/>
+            <field-to-field field-name="file" map-name="parameters" to-field-name="dataResourceContent" to-map-name="updateFile"/>
+            <call-service service-name="updateOtherDataResource" in-map-name="updateFile"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="createSimpleTextContent" short-description="Create Simple Text Content">
+        <check-permission permission="CONTENTMGR" action="_CREATE">
+            <fail-message message="Security Error: to run createSimpleTextContent you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createSimpleTextContent"/>
+        <string-to-field string="DOCUMENT" field-name="contentTypeId" map-name="createSimpleTextContent"/>
+
+        <field-to-field map-name="parameters" field-name="text" to-map-name="createSimpleText" to-field-name="textData"/>
+        
+        <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="createSimpleTextDataResource"/>
+        <string-to-field string="ELECTRONIC_TEXT" field-name="dataResourceTypeId" map-name="createSimpleTextDataResource"/>
+        <string-to-field string="FTL" field-name="dataTemplateTypeId" map-name="createSimpleTextDataResource"/>
+        
+        <call-service service-name="createDataResource" in-map-name="createSimpleTextDataResource">
+            <result-to-field result-name="dataResourceId" map-name="createSimpleText"/>
+            <result-to-field result-name="dataResourceId" map-name="createSimpleTextContent"/>
+        </call-service>
+        
+        <call-service service-name="createElectronicText" in-map-name="createSimpleText"/>
+
+        <call-service service-name="createContent" in-map-name="createSimpleTextContent">
+            <result-to-result result-name="contentId"/>
+        </call-service>
+    </simple-method>
+    <simple-method method-name="updateSimpleTextContent" short-description="Update Simple Text Content">
+        <check-permission permission="CONTENTMGR" action="_UPDATE">
+            <fail-message message="Security Error: to run updateSimpleTextContent you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <if-not-empty field-name="textDataResourceId" map-name="parameters">
+            <field-to-field field-name="textDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateSimpleText"/>
+            <field-to-field field-name="text" map-name="parameters" to-field-name="textData" to-map-name="updateSimpleText"/>
+            <call-service service-name="updateElectronicText" in-map-name="updateSimpleText"/>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="createTopic" short-description="Create TOPIC type Content">
+        <make-value value-name="content" entity-name="Content" />
+        <field-to-field map-name="parameters" field-name="newTopicId" to-map-name="content" to-field-name="contentId" />
+        <field-to-field map-name="parameters" field-name="newTopicId" to-map-name="content" to-field-name="contentName" />
+        <field-to-field map-name="parameters" field-name="newTopicDescription" to-map-name="content" to-field-name="description" />
+        <string-to-field string="TOPIC" map-name="content" field-name="contentTypeId" />
+        
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="content"/>
+        <env-to-field env-name="nowTimestamp" field-name="createdDate" map-name="content"/>
+        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="content"/>
+        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="createdByUserLogin" to-map-name="content"/>
+
+        <create-value value-name="content"/>
+    </simple-method>
+
+	<!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
+		 by calling persistContentAndAssoc.
+		
+		It then takes the contentId coming out of that service, the passed in communicationEventId
+		 and calls the "createCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
+		-->
+    <simple-method method-name="createCommContentDataResource" short-description="Create CommunicationEvent and Content">
+		
+		<!--
+        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+			-->
+		
+		<now-timestamp-to-env env-name="nowTimestamp"/>
+		<set-service-fields to-map-name="persistIn" service-name="persistContentAndAssoc" map-name="parameters"/>
+		<!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
+		<if-empty field-name="persistIn.dataResourceTypeId">
+		<log level="info" message="persistIn.drMimeTypeId: ${persistIn.drMimeTypeId}" />
+			<if-regexp expr="text.*" field-name="persistIn.drMimeTypeId">
+				<set field="persistIn.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+				<else>
+					<set field="persistIn.dataResourceTypeId" value="IMAGE_OBJECT"/>
+				</else>
+			</if-regexp>
+		</if-empty>
+		<log level="info" message="persistIn.dataResourceTypeId: ${persistIn.dataResourceTypeId}" />
+		
+		<call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
+			<results-to-map map-name="persistOut"/>
+		</call-service>
+
+		<iterate-map key-name="key" value-name="val" map-name="persistOut">
+			<field-to-result field-name="val" result-name="${key}"/>
+		</iterate-map>
+
+		<set field="mapIn.contentId"  from-field="persistOut.contentId"/>
+		<!-- <set field="mapIn.fromDate"  from-field="nowTimestamp"/> -->
+		<set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
+		<set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
+		<call-service service-name="createCommEventContentAssoc" in-map-name="mapIn">
+			<result-to-result result-name="fromDate"/>
+		</call-service>
+
+	</simple-method>
+    
+	<!-- This method first updates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
+		 by calling persistContentAndAssoc.	It then takes the passed in contentId, communicationEventId and fromDate primary keys
+		 and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
+		-->
+    <simple-method method-name="updateCommContentDataResource" short-description="Update CommunicationEvent and Content">
+		
+		<!--
+        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-errors/>
+			-->
+		<set-service-fields to-map-name="persistIn" service-name="persistContentAndAssoc" map-name="parameters"/>
+		<call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
+			<results-to-map map-name="persistOut"/>
+		</call-service>
+
+		<set field="mapIn.contentId"  from-field="persistOut.contentId"/>
+		<set field="mapIn.fromDate"  from-field="parameters.fromDate"/>
+		<set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
+		<set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
+		<call-service service-name="updateCommEventContentAssoc" in-map-name="mapIn">
+		</call-service>
+
+		<iterate-map key-name="key" value-name="val" map-name="persistOut">
+			<field-to-result field-name="val" result-name="${key}"/>
+		</iterate-map>
+
+	</simple-method>
+    
+	<!-- This service ties CommunicationEvent and Content entities together along with the standard from/thruDate fields.
+		-->
+    <simple-method method-name="createCommEventContentAssoc" short-description="Create CommEventContentAssoc">
+		<make-value entity-name="CommEventContentAssoc" value-name="commEventContentAssoc" />
+		<set-pk-fields value-name="commEventContentAssoc" map-name="parameters"/>
+		<set-nonpk-fields value-name="commEventContentAssoc" map-name="parameters"/>
+		<if-empty field-name="commEventContentAssoc.fromDate">
+			<now-timestamp-to-env env-name="commEventContentAssoc.fromDate"/>
+		</if-empty>
+		<create-value value-name="commEventContentAssoc" />
+		<field-to-result field-name="commEventContentAssoc.fromDate" result-name="fromDate"/>
+	</simple-method>
+    
+	<!-- This service would primarily be used to update the thruDate field.
+		-->
+    <simple-method method-name="updateCommEventContentAssoc" short-description="Create CommEventContentAssoc">
+		<make-value entity-name="CommEventContentAssoc" value-name="pkCommEventContentAssoc" />
+		<set-pk-fields value-name="pkCommEventContentAssoc" map-name="parameters"/>
+		<find-by-primary-key value-name="commEventContentAssoc" map-name="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
+		<if-empty field-name="commEventContentAssoc">
+			<add-error>
+				<fail-message message="CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
+			</add-error>
+		</if-empty>
+		<set-nonpk-fields value-name="commEventContentAssoc" map-name="parameters"/>
+		<store-value value-name="commEventContentAssoc" />
+	</simple-method>
+    
+    <simple-method method-name="removeCommEventContentAssoc" short-description="Delete CommEventContentAssoc">
+        <make-value entity-name="CommEventContentAssoc" value-name="pkCommEventContentAssoc" />
+        <set-pk-fields value-name="pkCommEventContentAssoc" map-name="parameters"/>
+        <find-by-primary-key value-name="commEventContentAssoc" map-name="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
+        <if-empty field-name="commEventContentAssoc">
+            <add-error>
+                <fail-message message="CommEventContentAssoc entity not found for removal, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
+            </add-error>
+        </if-empty>
+        <remove-value value-name="commEventContentAssoc" />
+    </simple-method>
+
+    <simple-method method-name="createContentAndAssoc" short-description="Create content and associate with other content">
+        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="contentData"/>
+        <call-service service-name="createContent" in-map-name="contentData">
+            <result-to-field result-name="contentId" field-name="newContentId"/>
+        </call-service>
+        <if-not-empty field-name="newContentId">
+            <set-service-fields service-name="createContentAssoc" map-name="parameters" to-map-name="assocData"/>
+            <set field="assocData.contentId" from-field="newContentId"/> 
+            <call-service service-name="createContentAssoc" in-map-name="assocData">
+                <result-to-result result-name="contentId" service-result-name="contentIdFrom"/>
+                <result-to-result result-name="contentIdTo" service-result-name="contentIdTo"/>
+            </call-service>
+            <field-to-result field-name="newContentId" result-name="contentId"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <!-- retrieve Data resource information -->
+    <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">
+        <!--check-permission permission="CONTENTMGR" action="_READ"><fail-message message="Security Error: to retrieve content information you must have the CONTENTMGR_READ permission"/></check-permission>
+        <check-errors/-->
+        <entity-one entity-name="DataResource" value-name="resultData.dataResource">
+            <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+        </entity-one>
+        <if-not-empty field-name="resultData.dataResource">
+            <if-compare field-name="resultData.dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT" operator="equals">
+                <get-related-one value-name="resultData.dataResource" relation-name="ElectronicText" 
+                    to-value-name="resultData.electronicText"/>
+            </if-compare>
+            <if-compare field-name="resultData.dataResource.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
+                <get-related-one value-name="resultData.dataResource" relation-name="ImageDataResource" 
+                    to-value-name="resultData.imageDataResource"/>
+            </if-compare>
+        </if-not-empty>
+        <field-to-result field-name="resultData" result-name="resultData"/>
+    </simple-method>
+        
+    <simple-method method-name="getContentAndDataResource" short-description="get the content and related resource information" login-required="false">
+        <if-empty field-name="publicForumMessage">
+            <check-permission permission="CONTENTMGR" action="_READ"><fail-message message="Security Error: to retrieve content information you must have the CONTENTMGR_READ permission"/></check-permission>
+            <check-errors/>
+        </if-empty>
+        <entity-one entity-name="Content" value-name="resultDataContent.content">
+            <field-map field-name="contentId" env-name="parameters.contentId"/>
+        </entity-one>
+        <if-not-empty field-name="resultDataContent.content">
+            <if-not-empty field-name="resultDataContent.content.dataResourceId">
+                <set field="parameters.dataResourceId" from-field="resultDataContent.content.dataResourceId"/>
+                <call-simple-method method-name="getDataResource"/>
+                <set field="resultDataContent.dataResource" from-field="resultData.dataResource"/>
+                <set field="resultDataContent.electronicText" from-field="resultData.electronicText"/>
+                <set field="resultDataContent.imageDataResource" from-field="resultData.imageDataResource"/>
+            </if-not-empty>
+            <field-to-result field-name="resultDataContent" result-name="resultData"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="getPublicForumMessage" short-description="get the content and related resource information without security" login-required="false">
+        <set field="publicForumMessage" value="true"/>
+        <call-simple-method method-name="getContentAndDataResource"/>
+    </simple-method>
+</simple-methods>

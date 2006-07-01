@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN"
+                         "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<!--
+  Comment the DTD declaration to avoid looking for it on the web.
+  Alternatively we can place a copy of the DTD locally and refer to it.
+-->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <!-- <public publicId="-//W3C//DTD SVG 1.0//EN" uri="svg10.dtd"/> -->
+    <system systemId="http://www.ofbiz.org/dtds/component-loader.xsd" uri="component-loader.xsd"/>
+    <system systemId="http://www.ofbiz.org/dtds/jndi-config.xsd" uri="jndi-config.xsd"/>
+    <system systemId="http://www.ofbiz.org/dtds/ofbiz-component.xsd" uri="ofbiz-component.xsd"/>
+    <system systemId="http://www.ofbiz.org/dtds/ofbiz-containers.xsd" uri="ofbiz-containers.xsd"/>
+</catalog>

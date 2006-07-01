@@ -1,0 +1,68 @@
+/*
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:mujinsong@gmail.com">Mu Jinsong</a>
+ * @version $Rev:  6395
+ * @since 3.2
+ */
+
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.marketing.report.ReportHelper;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.Debug;
+
+//query for both number of visits and number of orders
+
+marketingCampaignId = request.getParameter("marketingCampaignId");
+fromDateStr = request.getParameter("fromDate");
+thruDateStr = request.getParameter("thruDate");
+visitConditionList = new LinkedList();
+orderConditionList = new LinkedList();
+
+if ((fromDateStr != null) && !(fromDateStr.equals(""))) {
+    visitConditionList.add(new EntityExpr("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
+    orderConditionList.add(new EntityExpr("orderDate",EntityOperator.GREATER_THAN_EQUAL_TO,fromDateStr));
+}
+if ((thruDateStr != null) && !(thruDateStr.equals(""))) {
+    visitConditionList.add(new EntityExpr("fromDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
+    orderConditionList.add(new EntityExpr("orderDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
+}
+if ((marketingCampaignId != null) && !(marketingCampaignId.equals(""))) {
+    visitConditionList.add(new EntityExpr("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
+    orderConditionList.add(new EntityExpr("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
+}
+
+visitConditions = new EntityConditionList(visitConditionList, EntityOperator.AND);
+orderConditions = new EntityConditionList(orderConditionList, EntityOperator.AND);
+
+visits = delegator.findByCondition("MarketingCampaignAndVisit", visitConditions, UtilMisc.toList("marketingCampaignId", "visitId"),UtilMisc.toList("marketingCampaignId"));
+orders = delegator.findByCondition("MarketingCampaignAndOrderHeader", orderConditions, UtilMisc.toList("marketingCampaignId", "orderId", "grandTotal"), UtilMisc.toList("marketingCampaignId"));
+
+//use this helper to build a List of visits, orders, order totals, and conversion rates
+marketingCampaignVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "marketingCampaignId");
+context.put("marketingCampaignVisitAndOrders", marketingCampaignVisitAndOrders);

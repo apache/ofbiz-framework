@@ -1,0 +1,203 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+// The only required parameter is "productionRunId".
+// The "actionForm" parameter triggers actions (see "ProductionRunSimpleEvents.xml").
+
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.widget.html.HtmlFormWrapper;
+import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
+
+delegator = request.getAttribute("delegator");
+
+HashMap productionRunData= new HashMap();
+
+productionRunId = parameters.get("productionRunId");
+if (!UtilValidate.isEmpty(productionRunId)) {
+    ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
+    if (productionRun.exist()){
+        productionRunId = productionRun.getGenericValue().getString("workEffortId");
+        context.put("productionRunId", productionRunId);
+        context.put("productionRun", productionRun.getGenericValue());
+        // Find all the order items to which this production run is linked.
+        List orderItems = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId));
+        if (orderItems.size() > 0) {
+            context.put("orderItems", orderItems);
+        }
+
+        // Find all the work efforts that must be completed before this one.
+        List mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
+        if (mandatoryWorkEfforts.size() > 0) {
+            context.put("mandatoryWorkEfforts", mandatoryWorkEfforts);
+        }
+        // Find all the work efforts that can start after this one.
+        List dependentWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
+        if (dependentWorkEfforts.size() > 0) {
+            context.put("dependentWorkEfforts", dependentWorkEfforts);
+        }
+
+        // productionRun update sub-screen
+        HtmlFormWrapper updateProductionRunWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "UpdateProductionRun", request, response);
+        updateProductionRunWrapper.putInContext("productionRunData", productionRunData);
+        updateProductionRunWrapper.putInContext("actionForm", "updateProductionRun");
+        updateProductionRunWrapper.setUseRequestParameters(false);
+        context.put("updateProductionRunWrapper",updateProductionRunWrapper);
+
+        productionRunData.put("productionRunId",productionRunId);
+        productionRunData.put("productId",productionRun.getProductProduced().getString("productId"));
+        productionRunData.put("productName",productionRun.getProductProduced().getString("internalName"));
+        productionRunData.put("facilityId",productionRun.getGenericValue().getString("facilityId"));
+        actionForm = request.getParameter("actionForm");
+        if (UtilValidate.isEmpty(actionForm)) {
+            actionForm = "beforeActionProductionRun";
+        }
+        context.put("actionForm",actionForm);
+        String quantity, estimatedStartDate, estimatedCompletionDate, workEffortName, description, facilityId;
+        if (actionForm.equals("updateProductionRun")){
+            quantity = request.getParameter("quantity");
+            estimatedStartDate = request.getParameter("estimatedStartDate");
+            workEffortName = request.getParameter("workEffortName");
+            description = request.getParameter("description");
+            facilityId = request.getParameter("facilityId");
+        }
+        if (facilityId != null) {
+            productionRunData.put("facilityId", facilityId);
+        }
+        if (quantity != null) {
+            productionRunData.put("quantity", quantity);
+        } else {
+            productionRunData.put("quantity", productionRun.getQuantity());
+        }
+
+        if (estimatedStartDate != null) {
+            productionRunData.put("estimatedStartDate",estimatedStartDate);
+        } else {
+            productionRunData.put("estimatedStartDate",productionRun.getEstimatedStartDate());
+        }
+        productionRunData.put("estimatedCompletionDate",productionRun.getEstimatedCompletionDate());
+
+        if (workEffortName != null) {
+            productionRunData.put("workEffortName", workEffortName);
+        } else {
+            productionRunData.put("workEffortName", productionRun.getProductionRunName());
+        }
+
+        if (description != null) {
+            productionRunData.put("description",description);
+        } else {
+            productionRunData.put("description",productionRun.getDescription());
+        }
+
+        //---------------
+        // Routing tasks
+        //---------------
+        // routingTask add sub-screen
+        if (actionForm.equals("AddRoutingTask")){
+            Map routingTaskData =UtilMisc.toMap("workEffortParentId",productionRunId);
+            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "EditProductionRunRoutingTask", request, response);
+            editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
+            editPrRoutingTaskWrapper.putInContext("actionForm", "addRoutingTask");
+            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "Y");
+            context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
+        }
+        // routingTask update sub-screen
+        routingTaskId = request.getParameter("routingTaskId");
+        if (routingTaskId != null  && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))){
+            GenericValue routingTask = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", routingTaskId));
+            Map routingTaskData = routingTask.getAllFields();
+            routingTaskData.put("estimatedSetupMillis",routingTask.getDouble("estimatedSetupMillis").toString());
+            routingTaskData.put("estimatedMilliSeconds",routingTask.getDouble("estimatedMilliSeconds").toString());
+            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "EditProductionRunRoutingTask", request, response);
+            editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
+            editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
+            editPrRoutingTaskWrapper.putInContext("actionIsAdd", "null");
+            context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
+            context.put("routingTaskId",routingTaskId);
+        }
+        //  RoutingTasks list
+        List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
+        HtmlFormWrapper ListProductionRunRoutingTasksWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "ListProductionRunRoutingTasks", request, response);
+        ListProductionRunRoutingTasksWrapper.putInContext("productionRunRoutingTasks", productionRunRoutingTasks);
+        context.put("ListProductionRunRoutingTasksWrapper",ListProductionRunRoutingTasksWrapper);
+
+        //---------------
+        // Components
+        //---------------
+        // Product component add sub-screen
+        if (actionForm.equals("AddProductComponent")){
+            Map productComponentData = UtilMisc.toMap("productionRunId", productionRunId);
+            HtmlFormWrapper editPrProductComponentWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "EditProductionRunComponent", request, response);
+            editPrProductComponentWrapper.putInContext("productComponentData", productComponentData);
+            editPrProductComponentWrapper.putInContext("actionForm", "addProductComponent");
+            editPrProductComponentWrapper.putInContext("actionIsAdd","Y");
+            context.put("editPrProductComponentWrapper",editPrProductComponentWrapper);
+        }
+        // Product component update sub-screen
+        productId = request.getParameter("productId");
+        if (productId != null && (actionForm.equals("updateProductComponent") || actionForm.equals("EditProductComponent"))){
+            workEffortId = request.getParameter("workEffortId");
+            List productComponents = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", workEffortId, "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "productId",productId));
+            GenericValue productComponent = EntityUtil.getFirst(productComponents);
+            Map productComponentData = productComponent.getAllFields();
+            productComponentData.put("productionRunId", productionRunId);
+            internalName = productComponent.getRelatedOne("Product").getString("internalName");
+            productComponentData.put("internalName",internalName);
+            HtmlFormWrapper editPrProductComponentWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "EditProductionRunComponent", request, response);
+            editPrProductComponentWrapper.putInContext("productComponentData", productComponentData);
+            editPrProductComponentWrapper.putInContext("actionForm", "updateProductComponent");
+            editPrProductComponentWrapper.putInContext("actionIsAdd", "null");
+            context.put("editPrProductComponentWrapper",editPrProductComponentWrapper);
+            context.put("productId",productId);
+        }
+        //  Product component/parts list
+        List productionRunComponents = productionRun.getProductionRunComponents();
+        List productionRunComponentsData = new LinkedList();
+        if (productionRunComponents != null){
+            GenericValue component;
+            for (Iterator iter=productionRunComponents.iterator(); iter.hasNext();){
+                component = (GenericValue) iter.next();
+                String componentName = component.getRelatedOne("Product").getString("productName");
+                String workEffortName = component.getRelatedOne("WorkEffort").getString("workEffortName");
+                Map componentData = component.getAllFields();
+                componentData.put("internalName", componentName);
+                componentData.put("workEffortName", workEffortName);
+                productionRunComponentsData.add(componentData);
+            }
+        }
+        HtmlFormWrapper ListProductionRunComponentsWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "ListProductionRunComponents", request, response);
+        ListProductionRunComponentsWrapper.putInContext("productionRunId", productionRunId);
+        ListProductionRunComponentsWrapper.putInContext("productionRunComponentsData", productionRunComponentsData);
+        context.put("ListProductionRunComponentsWrapper",ListProductionRunComponentsWrapper);
+    }
+}
+
+List msgResult = new LinkedList();
+msgResult = request.getParameter("msgResult");
+if (msgResult == null) msgResult = request.getAttribute("msgResult");
+context.put("msgResult", msgResult);
+
+tryEntity = true;
+errorMessage = request.getAttribute("_ERROR_MESSAGE_");
+if (errorMessage != null && errorMessage.length() > 0) {
+    tryEntity = false;    
+}
+

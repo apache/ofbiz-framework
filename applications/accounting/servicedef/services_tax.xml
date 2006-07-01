@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Accounting Services: TaxAuthority and related </description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <!-- Tax Calc Interfaces -->
+    <service name="calcTaxInterface" engine="interface" location="" invoke="">
+        <description>Tax Calc Service Interface</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"><!-- this will be used to find the payToPartyId, if the payToPartyId parameter is not explicitly passed, and as one of the columns to constrain by on the lookup --></attribute>
+        <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="billToPartyId" type="String" mode="IN" optional="true"><!-- would like to have this not-optional, but in some circumstances may need a tax estimate without knowing who the customer is --></attribute>
+        <attribute name="itemProductList" type="java.util.List" mode="IN" optional="false"><!-- List of GenericValues --></attribute>
+        <attribute name="itemAmountList" type="java.util.List" mode="IN" optional="false"><!-- List of BigDecimals --></attribute>
+        <attribute name="itemPriceList" type="java.util.List" mode="IN" optional="false"><!-- List of BigDecimals --></attribute>
+        <attribute name="itemShippingList" type="java.util.List" mode="IN" optional="true"><!-- List of BigDecimals --></attribute>
+        <attribute name="orderShippingAmount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="shippingAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderAdjustments" type="java.util.List" mode="OUT" optional="false"><!-- List of GenericValues (OrderAdjustment) --></attribute>
+        <attribute name="itemAdjustments" type="java.util.List" mode="OUT" optional="false"><!-- List of Lists of GenericValues (OrderAdjustment), one List of Adjustments per item --></attribute>
+    </service>
+    <service name="calcTaxTotalForDisplayInterface" engine="interface" location="" invoke="">
+        <description>Tax Calc Total For Display Service Interface</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"><!-- this will be used to get the taxAuthPartyId and taxAuthGeoId to use for the rate lookup, and for the payToPartyId, and as one of the columns to constrain by on the lookup --></attribute> 
+        <attribute name="billToPartyId" type="String" mode="IN" optional="true"><!-- would like to have this not-optional, but in some circumstances may need a tax estimate without knowing who the customer is --></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="basePrice" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="shippingPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="taxTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="taxPercentage" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="priceWithTax" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+    
+    <!-- Tax Authority Calc Services -->
+    <service name="calcTax" engine="java"
+        location="org.ofbiz.accounting.tax.TaxAuthorityServices" invoke="rateProductTaxCalc">
+        <description>Tax Authority Rate Product Calc Service</description>
+        <implements service="calcTaxInterface"/>
+    </service>
+    <service name="calcTaxForDisplay" engine="java"
+        location="org.ofbiz.accounting.tax.TaxAuthorityServices" invoke="rateProductTaxCalcForDisplay">
+        <description>Tax Authority Rate Product Calc Service</description>
+        <implements service="calcTaxTotalForDisplayInterface"/>
+    </service>
+    
+    <!-- TaxAuthority -->
+    <service name="createTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthority">
+        <description>Create TaxAuthority</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthority">
+        <description>Update TaxAuthority</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthority">
+        <description>Delete TaxAuthority</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- TaxAuthorityAssoc -->
+    <service name="createTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityAssoc">
+        <description>Create TaxAuthorityAssoc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityAssoc">
+        <description>Update TaxAuthorityAssoc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTaxAuthorityAssoc" default-entity-name="TaxAuthorityAssoc" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityAssoc">
+        <description>Delete TaxAuthorityAssoc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- TaxAuthorityCategory -->
+    <service name="createTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityCategory">
+        <description>Create TaxAuthorityCategory</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
+        <description>Delete TaxAuthorityCategory</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- TaxAuthorityGlAccount -->
+    <service name="createTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityGlAccount">
+        <description>Create TaxAuthorityGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityGlAccount">
+        <description>Update TaxAuthorityGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTaxAuthorityGlAccount" default-entity-name="TaxAuthorityGlAccount" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityGlAccount">
+        <description>Delete TaxAuthorityGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <!-- TaxAuthorityRateProduct -->
+    <service name="createTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityRateProduct">
+        <description>Create TaxAuthorityRateProduct</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityRateProduct">
+        <description>Update TaxAuthorityRateProduct</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityRateProduct">
+        <description>Delete TaxAuthorityRateProduct</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <!-- PartyTaxAuthInfo -->
+    <service name="createPartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
+        <description>Create PartyTaxAuthInfo</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updatePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updatePartyTaxAuthInfo">
+        <description>Update PartyTaxAuthInfo</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deletePartyTaxAuthInfo">
+        <description>Delete PartyTaxAuthInfo</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createCustomerTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createCustomerTaxAuthInfo">
+        <description>Create Customer PartyTaxAuthInfo</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="taxAuthPartyGeoIds" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <!-- Simple Tax Rate Services (SimpleSalesTaxLookup) -->
+    <service name="simpleTaxCalc" engine="java"
+        location="org.ofbiz.accounting.tax.SimpleTaxServices" invoke="simpleTaxCalc">
+        <description>Simple Calc Tax Service</description>
+        <implements service="calcTaxInterface"/>
+    </service>
+    
+    <service name="createTaxRate" engine="simple"
+        location="org/ofbiz/accounting/tax/TaxRateServices.xml" invoke="createTaxRate">
+        <description>Create a Tax Rate entry</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="false"/>
+        <attribute name="taxCategory" type="String" mode="IN" optional="true"/>
+        <attribute name="taxShipping" type="String" mode="IN" optional="false"/>
+        <attribute name="minItemPrice" type="Double" mode="IN" optional="false"/>
+        <attribute name="minPurchase" type="Double" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="salesTaxPercentage" type="Double" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="removeTaxRate" engine="simple"
+        location="org/ofbiz/accounting/tax/TaxRateServices.xml" invoke="removeTaxRate">
+        <description>Remove a Tax Rate entry</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="false"/>
+        <attribute name="taxCategory" type="String" mode="IN" optional="false"/>
+        <attribute name="minItemPrice" type="Double" mode="IN" optional="false"/>
+        <attribute name="minPurchase" type="Double" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+    
+    <!-- ZipSales Tax Services -->
+    <service name="importZipSalesTaxData" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="importFlatTable">
+        <description>Import ZipSales Flat File</description>
+        <attribute name="taxFileLocation" type="String" mode="IN" optional="false"/>
+        <attribute name="ruleFileLocation" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="flatZipSalesTaxCalc" engine="java"
+        location="org.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="flatTaxCalc">
+        <description>Zip Sales Calc Tax Service - change this to calcTax to run</description>
+        <implements service="calcTaxInterface"/>
+    </service>
+</services>

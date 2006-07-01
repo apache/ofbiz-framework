@@ -1,0 +1,68 @@
+/*
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Peter Goron (peter.goron@nereide.biz)
+ *@version    $Rev$
+ *@since      3.1
+ */
+
+import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+
+delegator = request.getAttribute("delegator");
+
+cart = ShoppingCartEvents.getCartObject(request);
+additionalPartyRole = cart.getAdditionalPartyRoleMap();
+it = additionalPartyRole.entrySet().iterator();
+
+roleData = new HashMap();
+partyData = new HashMap();
+
+while (it.hasNext()) {
+    me = (Map.Entry) it.next();
+    roleData.put(me.getKey(), delegator.findByPrimaryKeyCache("RoleType", UtilMisc.toMap("roleTypeId", me.getKey())));
+    pIt = ((List)me.getValue()).iterator();
+
+    while (pIt.hasNext()) {
+        partyId = pIt.next();
+        party = new HashMap();
+        party.put("partyId", partyId);
+        gv = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", partyId));
+        if (gv.get("partyTypeId").equals("PERSON")) {
+            gv = gv.getRelatedOneCache("Person");
+            party.put("type", "person");
+            party.put("firstName", gv.get("firstName"));
+            party.put("lastName", gv.get("lastName"));
+        } else {
+            gv = gv.getRelatedOneCache("PartyGroup");
+            party.put("type", "group");
+            party.put("groupName", gv.get("groupName"));
+        }
+        partyData.put(partyId, party);
+    }
+}
+
+context.put("additionalPartyRoleMap", additionalPartyRole);
+context.put("roleList", cart.getAdditionalPartyRoleMap().keySet());
+context.put("roleData", roleData);
+context.put("partyData", partyData);

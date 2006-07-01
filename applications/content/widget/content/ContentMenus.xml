@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+
+    <menu name="ContentAppBar" default-menu-item-name="main" default-selected-style="headerButtonLeftSelected" 
+        default-tooltip-style="tabletext" default-widget-style="headerButtonLeft" 
+        default-align-style="col" menu-container-style="row" fill-style="col-fill"
+        orientation="horizontal" type="simple" selected-menuitem-context-field-name="headerItem">
+        <menu-item name="main" title="${uiLabelMap.ContentMain}"><link target="main"/></menu-item>
+        <menu-item name="websites" title="${uiLabelMap.ContentWebSites}"><link target="FindWebSite"/></menu-item>
+        <menu-item name="survey" title="${uiLabelMap.ContentSurvey}"><link target="FindSurvey"/></menu-item>
+        <menu-item name="Forum" title="${uiLabelMap.ContentForum}"><link target="findForumGroups"/></menu-item>
+        <menu-item name="Content" title="${uiLabelMap.ContentContent}"><link target="findContent"/></menu-item>
+        <menu-item name="DataResource" title="${uiLabelMap.ContentDataResource}"><link target="findDataResource"/></menu-item>
+        <menu-item name="ContentSetupMenu" title="${uiLabelMap.ContentContentSetup}"><link target="ContentSetupMenu"/></menu-item>
+        <menu-item name="DataResourceSetupMenu" title="${uiLabelMap.ContentDataSetup}"><link target="DataSetupMenu"/></menu-item>
+        <menu-item name="Layout" title="${uiLabelMap.ContentTemplate}"><link target="LayoutMenu"/></menu-item>
+        <menu-item name="CMS" title="${uiLabelMap.ContentCMS}"><link target="CMSContentFind"/></menu-item>
+        <menu-item name="CompDoc" title="${uiLabelMap.ContentCompDoc}"><link target="FindCompDoc"/></menu-item>
+        
+        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="content" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN"
+        default-associated-content-id="${userLogin.userLoginId}"
+        selected-menuitem-context-field-name="tabButtonItem"
+        title="" type="simple">
+        
+        <menu-item name="content" title="${uiLabelMap.ContentContent}">
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="EditContent?contentId=${parameters.contentId}"/>
+        </menu-item>
+        
+        <menu-item name="association" title="${uiLabelMap.ContentAssociation}">
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="EditContentAssoc?contentId=${parameters.contentId}"/>
+        </menu-item>
+        
+        <menu-item name="role" title="${uiLabelMap.FormFieldTitle_roles}" >
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="EditContentRole?contentId=${parameters.contentId}"/>
+        </menu-item>
+        
+        <menu-item name="purpose" title="${uiLabelMap.FormFieldTitle_purposes}" >
+            <condition>
+                <not>
+                    <if-empty field-name="currentValue.contentId" />
+                </not>
+            </condition>
+            <link target="EditContentPurpose?contentId=${contentId}"/>
+        </menu-item>
+        
+        <menu-item name="attribute" title="${uiLabelMap.ContentAttribute}" >
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="EditContentAttribute?contentId=${contentId}"/>
+        </menu-item>
+        
+        <menu-item name="metaData" title="${uiLabelMap.ContentMetadata}" >
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="EditContentMetaData?contentId=${contentId}"/>
+        </menu-item>
+        
+    </menu>
+    <menu name="contentSub" default-title-style="buttontext"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="buttontext"
+        default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
+        default-permission-entity-action="_ADMIN"
+        default-associated-content-id="${userLogin.userLoginId}"
+        selected-menuitem-context-field-name="currentMenuItemName"
+        title="" type="simple">
+        
+        <menu-item name="NewContent" title="${uiLabelMap.CommonCreateNew}">
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="EditContent"/>
+        </menu-item>
+        <menu-item name="NewContentAssoc" title="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentAssociation}">
+            <condition>
+                <if-compare field-name="tabButtonItem" operator="equals" value="association"/>
+            </condition>
+            <link target="EditContentAssoc?contentId=${parameters.contentId}"/>
+        </menu-item>
+    </menu>
+        
+</menus>

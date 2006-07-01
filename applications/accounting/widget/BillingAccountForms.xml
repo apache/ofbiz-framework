@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2006-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    
+    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="" default-map-name="billingAccount" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
+        <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
+ 
+        <field use-when="billingAccount!=null" name="billingAccountId" title="${uiLabelMap.PartyParty}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="billingAccount==null&amp;&amp;billingAccountId==null" name="billingAccountId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName"/></field>
+        <field use-when="billingAccount==null&amp;&amp;billingAccountId!=null" name="billingAccountId" title="${uiLabelMap.PartyParty}" tooltip="${uiLabelMap.CommonCannotBeFound}:[${billingAccountId}]"><lookup target-form-name="LookupPartyName"/></field>
+        
+        <field name="accountCurrencyUomId">
+            <drop-down allow-empty="false" no-current-selected-key="USD">
+                <entity-options entity-name="Uom" description="[${abbreviation}] ${description}" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="contactMechId" tooltip="${uiLabelMap.AccountingBillingContactMechIdMessage}">
+            <drop-down>
+                <entity-options entity-name="BillingAccountRoleAndAddress" description="[${partyId}][${contactMechId}] ${toName}, ${attnName}, ${address1}, ${stateProvinceGeoId} ${postalCode}" key-field-name="contactMechId" filter-by-date="true">
+                    <entity-constraint name="billingAccountId" env-name="billingAccountId"/>
+                    <entity-order-by field-name="partyId"/>
+                    <entity-order-by field-name="contactMechId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="BillingAccountRole" list-name="billingAccountRoleList">
+                <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+                <order-by field-name="roleTypeId"/>
+            </entity-condition>
+        </actions>
+        
+        <auto-fields-service service-name="updateBillingAccountRole" default-field-type="edit"/>
+
+        <field name="billingAccountId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="tabletext">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}" widget-style="tabletext">
+            <display-entity entity-name="RoleType" description="${description}"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteBillingAccountRole?billingAccountId=${billingAccountId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        
+        <auto-fields-service service-name="createBillingAccountRole"/>
+        <field name="billingAccountId"><hidden/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
+            <drop-down allow-empty="false" no-current-selected-key="BILL_TO_CUSTOMER">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!ENTITY % ComplexType "RecordType 
+	| UnionType 
+	| EnumerationType 
+	| ArrayType 
+	| ListType">
+<!ENTITY % Type "%ComplexType; 
+	| BasicType 
+	| PlainType 
+	| DeclaredType">
+<!ENTITY % Mode "Automatic 
+	| Manual">
+<!ELEMENT Package (PackageHeader, RedefinableHeader?, ConformanceClass?, ExternalPackages?, TypeDeclarations?, Participants?, Applications?, DataFields?, WorkflowProcesses?, ExtendedAttributes?)>
+<!ATTLIST Package
+	xmlns:xpdl CDATA #FIXED "http://www.wfmc.org/standards/docs/xpdl"
+	Id NMTOKEN #REQUIRED
+	Name CDATA #IMPLIED
+>
+<!ELEMENT PackageHeader (XPDLVersion, Vendor, Created, Description?, Documentation?, PriorityUnit?, CostUnit?)>
+<!ELEMENT ExternalPackages (ExternalPackage*)>
+<!ELEMENT TypeDeclarations (TypeDeclaration*)>
+<!ELEMENT Participants (Participant*)>
+<!ELEMENT Applications (Application*)>
+<!ELEMENT DataFields (DataField*)>
+<!ELEMENT WorkflowProcesses (WorkflowProcess*)>
+<!ELEMENT ExtendedAttributes (ExtendedAttribute*)>
+<!ELEMENT Responsibles (Responsible*)>
+<!ELEMENT FormalParameters (FormalParameter*)>
+<!ELEMENT Activities (Activity*)>
+<!ELEMENT Transitions (Transition*)>
+<!ELEMENT TransitionRestrictions (TransitionRestriction*)>
+<!ELEMENT ActualParameters (ActualParameter*)>
+<!ELEMENT TransitionRefs (TransitionRef*)>
+<!ELEMENT Participant (ParticipantType, Description?, ExtendedAttributes?)>
+<!ATTLIST Participant
+	Id NMTOKEN #REQUIRED
+	Name CDATA #IMPLIED
+>
+<!ELEMENT ParticipantType EMPTY>
+<!ATTLIST ParticipantType
+	Type (RESOURCE_SET | RESOURCE | ROLE | ORGANIZATIONAL_UNIT | HUMAN | SYSTEM) #REQUIRED
+>
+<!ELEMENT XPDLVersion (#PCDATA)>
+<!ELEMENT Vendor (#PCDATA)>
+<!ELEMENT Created (#PCDATA)>
+<!ELEMENT Description (#PCDATA)>
+<!ELEMENT Documentation (#PCDATA)>
+<!ELEMENT PriorityUnit (#PCDATA)>
+<!ELEMENT CostUnit (#PCDATA)>
+<!ELEMENT ExtendedAttribute ANY>
+<!ATTLIST ExtendedAttribute
+	Name NMTOKEN #REQUIRED
+	Value CDATA #IMPLIED
+>
+<!ELEMENT RedefinableHeader (Author?, Version?, Codepage?, Countrykey?, Responsibles?)>
+<!ATTLIST RedefinableHeader
+	PublicationStatus (UNDER_REVISION | RELEASED | UNDER_TEST) #IMPLIED
+>
+<!ELEMENT Author (#PCDATA)>
+<!ELEMENT Version (#PCDATA)>
+<!ELEMENT Codepage (#PCDATA)>
+<!ELEMENT Countrykey (#PCDATA)>
+<!ELEMENT Responsible (#PCDATA)>
+<!ELEMENT ConformanceClass EMPTY>
+<!ATTLIST ConformanceClass
+	GraphConformance (FULL_BLOCKED | LOOP_BLOCKED | NON_BLOCKED) #IMPLIED
+>
+<!ELEMENT ExternalPackage (ExtendedAttributes?)>
+<!ATTLIST ExternalPackage
+	href CDATA #IMPLIED
+>
+<!ELEMENT TypeDeclaration ((%Type;), Description?, ExtendedAttributes?)>
+<!ATTLIST TypeDeclaration
+	Id NMTOKEN #REQUIRED
+	Name CDATA #IMPLIED
+>
+<!ELEMENT PlainType EMPTY>
+<!ATTLIST PlainType
+	Type (BOOLEAN | UNIT | PERFORMER) #REQUIRED
+>
+<!ELEMENT BasicType EMPTY>
+<!ATTLIST BasicType
+	Type (STRING | FLOAT | INTEGER | REFERENCE | DATETIME) #REQUIRED
+>
+<!ELEMENT RecordType (Member+)>
+<!ELEMENT UnionType (Member+)>
+<!ELEMENT EnumerationType (EnumerationValue+)>
+<!ELEMENT EnumerationValue EMPTY>
+<!ATTLIST EnumerationValue
+	Name NMTOKEN #REQUIRED
+>
+<!ELEMENT Member (%Type;)>
+<!ELEMENT ArrayType (%Type;)>
+<!ATTLIST ArrayType
+	LowerIndex NMTOKEN #REQUIRED
+	UpperIndex NMTOKEN #REQUIRED
+>
+<!ELEMENT ListType (%Type;)>
+<!ELEMENT DeclaredType EMPTY>
+<!ATTLIST DeclaredType
+	Id IDREF #REQUIRED
+>
+<!ELEMENT WorkflowProcess (ProcessHeader, RedefinableHeader?, FormalParameters?, (%Type;)*, DataFields?, Participants?, Applications?, Activities?, Transitions?, ExtendedAttributes?)>
+<!ATTLIST WorkflowProcess
+	Id NMTOKEN #REQUIRED
+	Name CDATA #IMPLIED
+>
+<!ELEMENT ProcessHeader (Created?, Description?, Priority?, Limit?, ValidFrom?, ValidTo?, TimeEstimation?)>
+<!ATTLIST ProcessHeader
+	DurationUnit (Y | M | D | h | m | s) #IMPLIED
+>
+<!ELEMENT Priority (#PCDATA)>
+<!ELEMENT Limit (#PCDATA)>
+<!ELEMENT TimeEstimation (WaitingTime?, WorkingTime?, Duration?)>
+<!ELEMENT WaitingTime (#PCDATA)>
+<!ELEMENT WorkingTime (#PCDATA)>
+<!ELEMENT Duration (#PCDATA)>
+<!ELEMENT ValidFrom (#PCDATA)>
+<!ELEMENT ValidTo (#PCDATA)>
+<!ELEMENT DataField (DataType, InitialValue?, Length?, Description?, ExtendedAttributes?)>
+<!ATTLIST DataField
+	Id NMTOKEN #REQUIRED
+	Name CDATA #IMPLIED
+	IsArray (TRUE | FALSE) "FALSE"
+>
+<!ELEMENT DataTypes (DataType*)>
+<!ELEMENT DataType (%Type;)>
+<!ELEMENT InitialValue (#PCDATA)>
+<!ELEMENT Length (#PCDATA)>
+<!ELEMENT Application (Description?, FormalParameters?, ExtendedAttributes?)>
+<!ATTLIST Application
+	Id NMTOKEN #REQUIRED
+	Name CDATA #IMPLIED
+>
+<!ELEMENT Activity (Description?, Limit?, (Route | Implementation), Performer?, StartMode?, FinishMode?, Priority?, SimulationInformation?, Icon?, Documentation?, TransitionRestrictions?, ExtendedAttributes?)>
+<!ATTLIST Activity
+	Id NMTOKEN #REQUIRED
+	Name CDATA #IMPLIED
+>
+<!ELEMENT Route EMPTY>
+<!ELEMENT Implementation (No | Tool+ | SubFlow | Loop)>
+<!ELEMENT No EMPTY>
+<!ELEMENT Tool (ActualParameters?, Description?, ExtendedAttributes?)>
+<!ATTLIST Tool
+	Id NMTOKEN #REQUIRED
+	Type (APPLICATION | PROCEDURE) #IMPLIED
+>
+<!ELEMENT SubFlow (ActualParameters?)>
+<!ATTLIST SubFlow
+	Id CDATA #REQUIRED
+	Execution (ASYNCHR | SYNCHR) #IMPLIED
+>
+<!ELEMENT Loop (Condition?)>
+<!ATTLIST Loop
+	Kind (WHILE | REPEAT_UNTIL) #IMPLIED
+>
+<!ELEMENT ActualParameter (#PCDATA)>
+<!ELEMENT Performer (#PCDATA)>
+<!ELEMENT StartMode (%Mode;)>
+<!ELEMENT FinishMode (%Mode;)>
+<!ELEMENT Automatic EMPTY>
+<!ELEMENT Manual EMPTY>
+<!ELEMENT Icon (#PCDATA)>
+<!ELEMENT TransitionRestriction (InlineBlock?, Join?, Split?)>
+<!ELEMENT InlineBlock (BlockName?, Description?, Icon?, Documentation?, ExtendedAttributes?)>
+<!ATTLIST InlineBlock
+	Begin NMTOKEN #REQUIRED
+	End NMTOKEN #REQUIRED
+>
+<!ELEMENT BlockName (#PCDATA)>
+<!ELEMENT Join EMPTY>
+<!ATTLIST Join
+	Type (AND | XOR) #IMPLIED
+>
+<!ELEMENT Split (TransitionRefs?)>
+<!ATTLIST Split
+	Type (AND | XOR) #IMPLIED
+>
+<!ELEMENT TransitionRef EMPTY>
+<!ATTLIST TransitionRef
+	Id NMTOKEN #REQUIRED
+>
+<!ELEMENT SimulationInformation (Cost, TimeEstimation)>
+<!ATTLIST SimulationInformation
+	Instantiation (ONCE | MULTIPLE) #IMPLIED
+>
+<!ELEMENT Cost (#PCDATA)>
+<!ELEMENT Transition (Condition?, Description?, ExtendedAttributes?)>
+<!ATTLIST Transition
+	Id NMTOKEN #REQUIRED
+	From NMTOKEN #REQUIRED
+	To NMTOKEN #REQUIRED
+	Loop (NOLOOP | FROMLOOP | TOLOOP) #IMPLIED
+	Name CDATA #IMPLIED
+>
+<!ELEMENT Condition (#PCDATA | Xpression)*>
+<!ATTLIST Condition
+	Type (CONDITION | OTHERWISE) #IMPLIED
+>
+<!ELEMENT Xpression ANY>
+<!ELEMENT FormalParameter (DataType, Description?)>
+<!ATTLIST FormalParameter
+	Id NMTOKEN #REQUIRED
+	Index NMTOKEN #IMPLIED
+	Mode (IN | OUT | INOUT) "IN"
+>

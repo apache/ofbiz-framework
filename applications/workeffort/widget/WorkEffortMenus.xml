@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ProductScreens.xml 4990 2005-05-14 10:00:28Z jacopo $
+-->
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+
+    <menu name="WorkEffortAppBar" default-menu-item-name="task" default-selected-style="headerButtonLeftSelected" 
+        default-tooltip-style="tabletext" default-widget-style="headerButtonLeft" 
+        default-align-style="col" menu-container-style="row" fill-style="col-fill"
+        orientation="horizontal" type="simple" selected-menuitem-context-field-name="headerItem">
+        <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
+        <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
+        <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
+        <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
+        <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="FindWorkEffort"/></menu-item>
+        <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimesheet"/></menu-item>
+        
+        <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="Login" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+    </menu>
+    <menu name="WorkEffortTabBar" default-menu-item-name="WorkEffort" default-selected-style="tabButtonSelected" 
+        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
+        orientation="horizontal" type="simple">
+        <menu-item name="WorkEffortRelatedSummary" title="${uiLabelMap.WorkEffortSummary}">
+            <link target="WorkEffortSummary?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffort" title="${uiLabelMap.WorkEffortWorkEffort}">
+            <link target="EditWorkEffort?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortAssocs" title="${uiLabelMap.WorkEffortChildren}">
+            <link target="ChildWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortPartyAssigns" title="${uiLabelMap.WorkEffortParties}">
+            <link target="ListWorkEffortPartyAssigns?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortAssignmentRates" title="${uiLabelMap.TimesheetRates}">
+            <link target="EditWorkEffortAssignmentRates?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortCommEvents" title="${uiLabelMap.WorkEffortCommEvents}">
+            <link target="ListWorkEffortCommEvents?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortShopLists" title="${uiLabelMap.WorkEffortShopLists}">
+            <link target="ListWorkEffortShopLists?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortRequests" title="${uiLabelMap.WorkEffortRequests}">
+            <link target="ListWorkEffortRequests?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortRequirements" title="${uiLabelMap.WorkEffortRequirements}">
+            <link target="ListWorkEffortRequirements?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortQuotes" title="${uiLabelMap.WorkEffortQuotes}">
+            <link target="ListWorkEffortQuotes?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortOrderHeaders" title="${uiLabelMap.WorkEffortOrderHeaders}">
+            <link target="ListWorkEffortOrderHeaders?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="WorkEffortTimeEntries" title="${uiLabelMap.TimesheetTimeEntries}">
+            <link target="EditWorkEffortTimeEntries?workEffortId=${workEffortId}"/>
+        </menu-item>
+    </menu>
+</menus>

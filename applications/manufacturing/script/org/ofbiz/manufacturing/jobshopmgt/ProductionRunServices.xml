@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <!-- Warehouse -->
+    <simple-method method-name="issueProductionRunTask" short-description="Issues the Inventory for a Production Run Task" login-required="false">
+        <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+
+        <if-not-empty field-name="workEffort">
+            <if-compare value="PRUN_CANCELLED" operator="not-equals" field-name="currentStatusId" map-name="workEffort">
+                <field-to-field field-name="parameters.workEffortId" to-field-name="lookupComponentsMap.workEffortId"/>
+                <string-to-field string="WEGS_CREATED" field-name="lookupComponentsMap.statusId"/>
+                <set field="lookupComponentsMap.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
+
+                <find-by-and entity-name="WorkEffortGoodStandard" list-name="components" map-name="lookupComponentsMap" />
+                <!-- now go through each work effort good standard and call a service to issue the inventory -->
+                <iterate list-name="components" entry-name="component">
+                    <if-not-empty field-name="component.productId">
+                        <clear-field field-name="callSvcMap"/>
+                        <set-service-fields to-map-name="callSvcMap" service-name="issueProductionRunTaskComponent" map-name="component"/>
+                        <env-to-env env-name="workEffort" to-env-name="callSvcMap.workEffort"/>
+                        <env-to-env env-name="component" to-env-name="callSvcMap.workEffortGoodStandard"/>
+                        <env-to-env env-name="reserveOrderEnumId" to-env-name="callSvcMap.reserveOrderEnumId"/>
+                        <call-service service-name="issueProductionRunTaskComponent" in-map-name="callSvcMap"/>
+                    </if-not-empty>
+                </iterate>
+                <log level="info" message="Issued inventory for workEffortId ${workEffort.workEffortId}."/>
+            </if-compare>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="issueProductionRunTaskComponent" short-description="Issues the Inventory for a Production Run Task Component" login-required="false">
+        <if-empty field-name="parameters.workEffortGoodStandard">
+            <set field="parameters.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
+            <entity-one entity-name="WorkEffortGoodStandard" value-name="workEffortGoodStandard"/>
+        <else>
+            <env-to-env env-name="parameters.workEffortGoodStandard" to-env-name="workEffortGoodStandard"/>
+        </else>
+        </if-empty>
+
+        <!-- kind of like the inventory reservation routine, find InventoryItems to issue from, but instead of doing the reservation just create an issuance and an inventory item detail for the change -->
+        <if-not-empty field-name="workEffortGoodStandard.productId">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+
+            <!-- NOTE: the inventory will be issued from the WorkEffort.facilityId -->
+            <if-empty field-name="parameters.workEffort">
+                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            <else>
+                <env-to-env env-name="parameters.workEffort" to-env-name="workEffort"/>
+            </else>
+            </if-empty>
+            
+            <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
+            <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                <string-to-field string="+expireDate" field-name="orderByString"/>
+            <else>
+                <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                    <string-to-field string="-expireDate" field-name="orderByString"/>
+                <else>
+                    <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
+                        <string-to-field string="+datetimeReceived" field-name="orderByString"/>
+                    <else>
+                        <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
+                        <string-to-field string="-datetimeReceived" field-name="orderByString"/>
+                        <string-to-field string="INVRO_FIFO_REC" field-name="reserveOrderEnumId" map-name="parameters"/>
+                    </else>
+                    </if-compare>
+                </else>
+                </if-compare>
+            </else>
+            </if-compare>
+            <field-to-list field-name="orderByString" list-name="orderByList"/>
+            <env-to-env env-name="workEffortGoodStandard.productId" to-env-name="lookupFieldMap.productId"/>
+            <env-to-env env-name="workEffort.facilityId" to-env-name="lookupFieldMap.facilityId"/>
+            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItemList" order-by-list-name="orderByList"/>
+    
+            <env-to-env env-name="workEffortGoodStandard.estimatedQuantity" to-env-name="parameters.quantityNotIssued"/>
+
+            <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+                <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
+                <call-simple-method method-name="issueProductionRunTaskComponentInline"/>
+            </iterate>
+            
+            <!-- if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found, in the quantityNotIssued field -->
+            <if-compare field-name="parameters.quantityNotIssued" operator="not-equals" value="0" type="Double">
+                <if-not-empty field-name="lastNonSerInventoryItem">
+                    <!-- create ItemIssuance record -->
+                    <field-to-field field-name="workEffortId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <field-to-field field-name="inventoryItemId" map-name="lastNonSerInventoryItem" to-map-name="issuanceCreateMap"/>
+                    <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
+                    <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
+                    </call-service>
+
+                    <!-- subtract from quantityNotIssued from the availableToPromise and quantityOnHand of existing inventory item -->
+                    <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                    <env-to-env env-name="lastNonSerInventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
+                    <env-to-env env-name="parameters.workEffortId" to-env-name="createDetailMap.workEffortId"/>
+                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+
+                    <clear-field field-name="createDetailMap"/>
+                <else>
+                    <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued -->
+                    <clear-field field-name="createInvItemInMap"/>
+                    <clear-field field-name="createInvItemOutMap"/>
+                    <set field="createInvItemInMap.productId" from-field="workEffortGoodStandard.productId"/>
+                    <set field="createInvItemInMap.facilityId" from-field="workEffort.facilityId"/>
+                    <set field="createInvItemInMap.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+                    <call-service service-name="createInventoryItem" in-map-name="createInvItemInMap">
+                        <result-to-field result-name="inventoryItemId" field-name="createInvItemOutMap.inventoryItemId"/>
+                    </call-service>
+                    
+                    <!-- create ItemIssuance record -->
+                    <set field="issuanceCreateMap.workEffortId" from-field="parameters.workEffortId"/>
+                    <set field="issuanceCreateMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
+                    <set field="issuanceCreateMap.quantity" from-field="parameters.quantityNotIssued"/>
+                    <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
+                    </call-service>
+
+                    <!-- also create a detail record with the quantities -->
+                    <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
+                    <set field="createDetailMap.workEffortId" from-field="parameters.workEffortId"/>
+                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+
+                    <clear-field field-name="createDetailMap"/>
+                </else>
+                </if-not-empty>
+
+                <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
+            </if-compare>
+            <string-to-field string="WEGS_COMPLETED" field-name="workEffortGoodStandard.statusId"/>
+            <store-value value-name="workEffortGoodStandard"/>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="issueProductionRunTaskComponentInline" short-description="Does a issuance for one InventoryItem, meant to be called in-line">
+        <!-- only do something with this inventoryItem if there is more inventory to issue -->
+        <if-compare field-name="parameters.quantityNotIssued" operator="greater" value="0" type="Double">
+            <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="inventoryItemTypeId" map-name="inventoryItem">
+                <if-compare value="INV_AVAILABLE" operator="equals" field-name="statusId" map-name="inventoryItem">
+                    <!-- change status on inventoryItem -->
+                    <string-to-field string="INV_DELIVERED" field-name="inventoryItem.statusId"/>
+                    <store-value value-name="inventoryItem"/>
+
+                    <!-- create ItemIssuance record -->
+                    <field-to-field field-name="workEffortId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
+                    <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                    <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
+                    <clear-field field-name="issuanceCreateMap"/>
+
+                    <calculate field-name="parameters.quantityNotIssued">
+                        <calcop field-name="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
+                    </calculate>
+                </if-compare>
+            </if-compare>
+            <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+                <if-not-empty field-name="inventoryItem.availableToPromiseTotal">
+                    <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
+                    <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
+                        <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
+                            <field-to-field field-name="availableToPromiseTotal" map-name="inventoryItem" to-field-name="deductAmount" to-map-name="parameters"/>
+                        <else>
+                            <field-to-field field-name="quantityNotIssued" map-name="parameters" to-field-name="deductAmount" to-map-name="parameters"/>
+                        </else>
+                        </if-compare-field>
+                        
+                        <!-- create WorkEffortInventoryAssign record -->
+                        <field-to-field field-name="workEffortId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                        <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
+                        <field-to-field field-name="deductAmount" map-name="parameters" to-field-name="quantity" to-map-name="issuanceCreateMap"/>
+                        <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
+                        </call-service>
+
+                        <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                        <env-to-env env-name="inventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
+                        <env-to-env env-name="parameters.workEffortId" to-env-name="createDetailMap.workEffortId"/>
+                        <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
+                        <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                            <calcop field-name="parameters.deductAmount" operator="negative"/>
+                        </calculate>
+                        <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                            <calcop field-name="parameters.deductAmount" operator="negative"/>
+                        </calculate>
+                        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                        <clear-field field-name="createDetailMap"/>
+                        
+                        <calculate field-name="quantityNotIssued" map-name="parameters">
+                            <calcop operator="subtract" field-name="parameters.quantityNotIssued">
+                                <calcop operator="get" field-name="parameters.deductAmount"/>
+                            </calcop>
+                        </calculate>
+
+                        <clear-field field-name="issuanceCreateMap"/>
+                    </if-compare>
+                </if-not-empty>
+
+                <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
+                <!-- use env variable named lastNonSerInventoryItem -->
+                <env-to-env env-name="inventoryItem" to-env-name="lastNonSerInventoryItem"/>
+            </if-compare>
+        </if-compare>
+    </simple-method>
+</simple-methods>
+

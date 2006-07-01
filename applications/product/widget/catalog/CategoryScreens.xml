@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: CategoryScreens.xml 7801 2006-06-15 23:29:15Z sichen $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="CommonCategoryDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="productCategoryId"/></not></condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/category/CategoryTabBar.ftl"/></html>
+                                        </platform-specific>
+                                        <container>
+                                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
+                                        </container>
+                                        
+                                        <container>
+                                            <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext"/>
+                                            <link target="createProductInCategoryStart?productCategoryId=${productCategoryId}" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext"/>
+                                            <link target="advancedsearch?SEARCH_CATEGORY_ID=${productCategoryId}" text="${uiLabelMap.ProductSearchinCategory}" style="buttontext"/>
+                                            <link target="/ecommerce/control/category?category_id=${productCategoryId}" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductCategories"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategory"/>
+                <set field="labelTitleProperty" value="ProductCategory"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+
+                <entity-condition entity-name="ProductCategory" list-name="categoryList">
+                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <entity-condition entity-name="ProductCategoryType" list-name="productCategoryTypes">
+                    <order-by field-name="description"/>
+                </entity-condition>
+
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategory.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/EditCategory.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryContent"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryContent"/>
+                <set field="labelTitleProperty" value="ProductCategoryContent"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <get-related-one value-name="productCategory" relation-name="ProductCategoryType" to-value-name="productCategoryType"/>
+                <set field="categoryContentOrderList[]" value="prodCatContentTypeId"/>
+                <get-related value-name="productCategory" relation-name="ProductCategoryContent" list-name="productCategoryContentList" order-by-list-name="categoryContentOrderList"/>
+
+                <entity-condition entity-name="ProductCategoryType" list-name="productCategoryTypes"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <include-form name="UpdateCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+
+                        <container><label text="${uiLabelMap.ProductAddProductCategoryContentFromDate}" style="head2"/></container>
+                        <include-form name="PrepareAddCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+
+                        <container><label text="${uiLabelMap.ProductAddContentCategory}" style="head2"/></container>
+                        <include-form name="AddCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryContent.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryContentContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryContentContent"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryContent"/>
+                <set field="labelTitleProperty" value="ProductCategoryContent"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-one entity-name="ProductCategoryContent" value-name="categoryContent"/>
+                <entity-one entity-name="Content" value-name="content"/>
+                <entity-one entity-name="ElectronicText" value-name="electronicText" auto-field-map="false">
+                    <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+                </entity-one>
+                <set field="textDataMap.text" from-field="electronicText.textData"/>
+                <set field="textDataMap.textDataResourceId" from-field="content.dataResourceId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition><not><if-empty field-name="contentId"/></not></condition>
+                            <widgets><link target="/content/control/gotoContent?contentId=${contentId}" text="${uiLabelMap.ContentContent} ${uiLabelMap.CommonPage}" url-mode="inter-app" style="buttontext"/></widgets>
+                        </section>
+                        <include-form name="EditCategoryContentSimpleText" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryRollup">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryRollup"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryRollup"/>
+                <set field="labelTitleProperty" value="ProductRollup"/>
+                <set field="productCategoryId" from-field="parameters.showProductCategoryId"/>
+
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+
+                <entity-condition entity-name="ProductCategoryRollup" list-name="currentProductCategoryRollups">
+                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-condition>
+                <entity-condition entity-name="ProductCategoryRollup" list-name="parentProductCategoryRollups">
+                    <condition-expr field-name="parentProductCategoryId" env-name="productCategoryId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-condition>
+
+                <entity-condition entity-name="ProductCategory" list-name="productCategoryCol">
+                    <order-by field-name="description"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryRollup.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryProducts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryProducts"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryProducts"/>
+                <set field="labelTitleProperty" value="ProductProducts"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+
+                <entity-condition entity-name="ProductCategory" list-name="productCategories">
+                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
+                    <order-by field-name="description"/>
+                </entity-condition>
+
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategoryProducts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryProducts.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryProdCatalogs">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryProductCatalogs"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryProdCatalogs"/>
+                <set field="labelTitleProperty" value="ProductCatalogs"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+
+                <entity-condition entity-name="ProdCatalogCategory" list-name="prodCatalogCategories">
+                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <order-by field-name="prodCatalogCategoryTypeId"/>
+                    <order-by field-name="sequenceNum"/>
+                    <order-by field-name="prodCatalogId"/>
+                </entity-condition>
+
+                <entity-condition entity-name="ProdCatalog" list-name="prodCatalogs">
+                    <order-by field-name="catalogName"/>
+                </entity-condition>
+                <entity-condition entity-name="ProdCatalogCategoryType" list-name="prodCatalogCategoryTypes">
+                    <order-by field-name="description"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryProdCatalogs.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryFeatureCats">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryFeatureCategories"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryFeatureCats"/>
+                <set field="labelTitleProperty" value="ProductFeatureCategoriesGroups"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+
+                <entity-condition entity-name="ProductFeatureCategoryAppl" list-name="productFeatureCategoryAppls">
+                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <order-by field-name="productFeatureCategoryId"/>
+                </entity-condition>
+                <entity-condition entity-name="ProductFeatureCatGrpAppl" list-name="productFeatureCatGrpAppls">
+                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <order-by field-name="productFeatureGroupId"/>
+                </entity-condition>
+
+                <entity-condition entity-name="ProductFeatureCategory" list-name="productFeatureCategories">
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <entity-condition entity-name="ProductFeatureGroup" list-name="productFeatureGroups">
+                    <order-by field-name="description"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryFeatureCats.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryParties">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryParties"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryParties"/>
+                <set field="labelTitleProperty" value="PartyParties"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+
+                <entity-condition entity-name="ProductCategoryRole" list-name="productCategoryRoles">
+                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                    <order-by field-name="roleTypeId"/>
+                    <order-by field-name="partyId"/>
+                </entity-condition>
+
+                <entity-condition entity-name="RoleType" list-name="roleTypes">
+                    <order-by field-name="description"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/EditCategoryParties.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCategoryAttributes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCategoryAttributes"/>
+                <set field="headerItem" value="category"/>
+                <set field="tabButtonItem" value="EditCategoryAttributes"/>
+                <set field="labelTitleProperty" value="CategoryAttributes"/>
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+                <entity-condition entity-name="ProductCategoryAttribute" list-name="categoryAttributes">
+                    <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <include-form name="CreateProductCategoryAttribute" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                        <include-form name="EditProductCategoryAttributes" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="createProductInCategoryStart">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCreateProductCategoryStart"/>
+                <set field="headerItem" value="category"/>
+                <set field="labelTitleProperty" value="ProductCreateProductInCategory"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/createProductInCategoryStart.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>    
+    <screen name="createProductInCategoryCheckExisting">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCreateProductCategoryCheckExisting"/>
+                <set field="headerItem" value="category"/>
+                <set field="labelTitleProperty" value="ProductCreateProductInCategory"/>
+
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/createProductInCategoryCheckExisting.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/category/createProductInCategoryCheckExisting.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

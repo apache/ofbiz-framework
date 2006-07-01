@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EditWebSite" type="single" 
+        target="updateWebSite" title="" default-map-name="webSite"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        
+        <alt-target use-when="webSite==null" target="createWebSite"/>
+        
+        <auto-fields-service service-name="updateWebSite" map-name=""/>
+        
+        <field use-when="webSite!=null" name="webSiteId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="webSite==null&amp;&amp;webSiteId!=null" name="webSiteId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${webSiteId}]"><text size="20" maxlength="20"/></field>
+        <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
+        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId"><text size="20" maxlength="20"/></field>
+
+        <field name="siteName"><text size="30" maxlength="60"/></field>
+        <field name="enableHttps" widget-style="selectBox">
+            <drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down>
+        </field>
+        
+        <field name="productStoreId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStore" description="${storeName}">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+                <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" target-type="inter-app" target="/catalog/control/EditProductStore?productStoreId=${webSite.productStoreId}" description="${uiLabelMap.ContentEditProductStore}"/>
+            </drop-down>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddWebSiteRole" type="single" 
+        target="addWebSiteRole" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="addWebSiteRole"/>
+        <field name="webSiteId" map-name="webSite"><hidden/></field>
+        <field name="roleTypeId" widget-style="selectBox">
+            <drop-down no-current-selected-key="_NA_">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateWebSiteRole" type="list" 
+        target="updateWebSiteRole" title="" list-name="webSiteRoleDatas"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateWebSiteRole" map-name="webSiteRole"/>
+        <field name="webSiteId"><hidden/></field>
+        <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
+        <field name="partyId" widget-style="buttontext">
+            <hyperlink target-type="inter-app" target="/partymgr/control/viewprofile?partyId=${webSiteRole.partyId}"
+                description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName} ${person.suffix} ${partyGroup.groupName} [${webSiteRole.partyId}]"/>
+        </field>
+        <field name="roleTypeId" widget-style="tabletext">
+            <display description="${roleType.description}"/>
+        </field>
+        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="thruDate"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeWebSiteRole?webSiteId=${webSiteRole.webSiteId}&amp;partyId=${webSiteRole.partyId}&amp;roleTypeId=${webSiteRole.roleTypeId}&amp;fromDate=${webSiteRole.fromDate}"
+                description="[Delete]" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="ListWebSites" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true">
+        <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
+            <hyperlink description="${webSiteId}" target="EditWebSite?webSiteId=${webSiteId}" also-hidden="false"/>
+        </field>
+        <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
+    </form>
+</forms>

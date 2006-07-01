@@ -1,0 +1,114 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+import org.ofbiz.securityext.login.*;
+import org.ofbiz.common.*;
+import org.ofbiz.webapp.control.*;
+
+
+userLogin = session.getAttribute("userLogin");
+if (userLogin != null) request.setAttribute("userLogin", userLogin);
+
+
+person = session.getAttribute("_PERSON_");
+partyGroup = session.getAttribute("_PARTY_GROUP_");
+if (person == null) {
+    person = userLogin == null ? null : userLogin.getRelatedOne("Person");
+    if (person != null) session.setAttribute("_PERSON_", person);
+}
+if (person != null) {
+    request.setAttribute("person", person);
+} else if (partyGroup == null) {
+    partyGroup = userLogin == null ? null : userLogin.getRelatedOne("PartyGroup");
+    if (partyGroup != null) session.setAttribute("_PARTY_GROUP_", partyGroup);
+}
+if (partyGroup != null) request.setAttribute("partyGroup", partyGroup);
+
+controlPath = request.getAttribute("_CONTROL_PATH_");
+contextRoot = request.getAttribute("_CONTEXT_ROOT_");
+serverRoot = request.getAttribute("_SERVER_ROOT_URL_");
+
+/* reading of the localization information */
+availableLocales = UtilMisc.availableLocales();
+request.setAttribute("availableLocales",availableLocales);
+
+locale = UtilHttp.getLocale(request);
+request.setAttribute("locale",locale);
+uiLabelMap = UtilProperties.getResourceBundleMap("ContentUiLabels", locale);
+uiLabelMap.addBottomResourceBundle("CommonUiLabels");
+request.setAttribute("uiLabelMap", uiLabelMap);
+
+layoutSettings = new HashMap();
+request.setAttribute("layoutSettings", layoutSettings);
+    
+layoutSettings.put("companyName", uiLabelMap.get("ContentCompanyName"));
+layoutSettings.put("companySubtitle", uiLabelMap.get("ContentCompanySubtitle"));
+layoutSettings.put("headerImageUrl", "/images/ofbiz_logo.jpg");
+layoutSettings.put("headerMiddleBackgroundUrl", null);
+layoutSettings.put("headerRightBackgroundUrl", null);
+
+request.setAttribute("checkLoginUrl", LoginWorker.makeLoginUrl(request, "checkLogin"));
+
+externalLoginKey = LoginWorker.getExternalLoginKey(request);
+externalKeyParam = externalLoginKey == null ? "" : "&externalLoginKey=" + externalLoginKey;
+request.setAttribute("externalKeyParam", externalKeyParam);
+request.setAttribute("activeApp", "contentmgr");
+
+List eventMessageList = (List) request.getAttribute("eventMessageList");
+if (eventMessageList == null) eventMessageList = new LinkedList();
+List errorMessageList = (List) request.getAttribute("errorMessageList");
+if (errorMessageList == null) errorMessageList = new LinkedList();
+
+if (request.getAttribute("_EVENT_MESSAGE_") != null) {
+    eventMessageList.add(UtilFormatOut.replaceString(request.getAttribute("_EVENT_MESSAGE_"), "\n", "<br>"));
+    request.removeAttribute("_EVENT_MESSAGE_");
+}
+if (request.getAttribute("_EVENT_MESSAGE_LIST_") != null) {
+    eventMessageList.addAll(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+    request.removeAttribute("_EVENT_MESSAGE_LIST_");
+}
+if (request.getAttribute("_ERROR_MESSAGE_") != null) {
+    errorMessageList.add(UtilFormatOut.replaceString(request.getAttribute("_ERROR_MESSAGE_"), "\n", "<br>"));
+    request.removeAttribute("_ERROR_MESSAGE_");
+}
+if (session.getAttribute("_ERROR_MESSAGE_") != null) {
+    errorMessageList.add(UtilFormatOut.replaceString(session.getAttribute("_ERROR_MESSAGE_"), "\n", "<br>"));
+    session.removeAttribute("_ERROR_MESSAGE_");
+}
+if (request.getAttribute("_ERROR_MESSAGE_LIST_") != null) {
+    errorMessageList.addAll(request.getAttribute("_ERROR_MESSAGE_LIST_"));
+    request.removeAttribute("_ERROR_MESSAGE_LIST_");
+}
+request.setAttribute("eventMessageList", eventMessageList);
+request.setAttribute("errorMessageList", errorMessageList);

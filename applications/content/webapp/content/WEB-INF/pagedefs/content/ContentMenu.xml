@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <property name="defaultSubMenu">FindContent</property>    
+    <property name="headerItem">Content</property>    
+    <page-action name="/includes/redirectpage.bsh"/>
+</page>

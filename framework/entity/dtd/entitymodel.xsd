@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     *  Copyright (c) 2001-2004 The Open For Business Project - www.ofbiz.org
+     *
+     *  Permission is hereby granted, free of charge, to any person obtaining a
+     *  copy of this software and associated documentation files (the "Software"),
+     *  to deal in the Software without restriction, including without limitation
+     *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+     *  and/or sell copies of the Software, and to permit persons to whom the
+     *  Software is furnished to do so, subject to the following conditions:
+     *
+     *  The above copyright notice and this permission notice shall be included
+     *  in all copies or substantial portions of the Software.
+     *
+     *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+     *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+     *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+     *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+     *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+     *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+     *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    
+    *This is the DTD for the Open For Business Generic Entity Model entity definition XML file.
+    *This DTD is meant to be as simple as possible, and is modelled from the standard ejb deployment descriptor ejb-jar.xml.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!-- ====================== Root Element ======================= -->
+    <xs:element name="entitymodel">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="title"/>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="copyright"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="author"/>
+                <xs:element minOccurs="0" ref="version"/>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="entity"/>
+                    <xs:element ref="view-entity"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- ================= Children of entitymodel =================== -->
+    <xs:element name="title" type="xs:string"/>
+    <xs:element name="description" type="xs:string"/>
+    <xs:element name="copyright" type="xs:string"/>
+    <xs:element name="author" type="xs:string"/>
+    <xs:element name="version" type="xs:string"/>
+    <!-- ================== entity ===================== -->
+    <xs:element name="entity">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element maxOccurs="unbounded" ref="field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="prim-key"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="relation"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.entity"/>
+        </xs:complexType>
+    </xs:element>
+    <!-- see the children of entitymodel section for description, etc. -->
+    <xs:attributeGroup name="attlist.entity">
+        <xs:attribute type="xs:string" name="entity-name" use="required"/>
+        <xs:attribute type="xs:string" name="table-name"/>
+        <xs:attribute type="xs:string" name="package-name" use="required"/>
+        <xs:attribute type="xs:string" name="default-resource-name"/>
+        <xs:attribute type="xs:string" name="dependent-on"/>
+        <xs:attribute name="enable-lock" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="no-auto-stamp" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="never-cache" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="auto-clear-cache" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="copyright"/>
+        <xs:attribute type="xs:string" name="author"/>
+        <xs:attribute type="xs:string" name="version"/>
+    </xs:attributeGroup>
+    <xs:element name="prim-key">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.prim-key"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.prim-key">
+        <xs:attribute type="xs:string" name="field" use="required"/>
+    </xs:attributeGroup>
+    <!-- ==================== field ===================== -->
+    <xs:element name="field">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="validate"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.field"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.field">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="col-name"/>
+        <xs:attribute type="xs:string" name="type" use="required"/>
+        <xs:attribute name="encrypt" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="validate">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.validate"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.validate">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+    </xs:attributeGroup>
+    <!-- ==================== relation ====================== -->
+    <!-- specifies whether or not the relation is a dependent one; ie if the related entity can exist without the main entity -->
+    <xs:element name="relation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element maxOccurs="unbounded" ref="key-map"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.relation"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.relation">
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="one"/>
+                    <xs:enumeration value="many"/>
+                    <xs:enumeration value="one-nofk"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="rel-entity-name" use="required"/>
+        <xs:attribute type="xs:string" name="fk-name"/>
+    </xs:attributeGroup>
+    <xs:element name="key-map">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.key-map"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.key-map">
+        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="rel-field-name"/>
+    </xs:attributeGroup>
+    <!-- ==================== index ===================== -->
+    <xs:element name="index">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element maxOccurs="unbounded" ref="index-field"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.index"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.index">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute name="unique" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="index-field">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.index-field"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.index-field">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+    </xs:attributeGroup>
+    <!-- ================== view-entity ===================== -->
+    <xs:element name="view-entity">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element maxOccurs="unbounded" ref="member-entity"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alias-all"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alias"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="view-link"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="relation"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.view-entity"/>
+        </xs:complexType>
+    </xs:element>
+    <!-- see the children of entitymodel section for description, etc. -->
+    <xs:attributeGroup name="attlist.view-entity">
+        <xs:attribute type="xs:string" name="entity-name" use="required"/>
+        <xs:attribute type="xs:string" name="package-name" use="required"/>
+        <xs:attribute type="xs:string" name="dependent-on"/>
+        <xs:attribute type="xs:string" name="default-resource-name"/>
+        <xs:attribute name="never-cache" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="auto-clear-cache" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="copyright"/>
+        <xs:attribute type="xs:string" name="author"/>
+        <xs:attribute type="xs:string" name="version"/>
+    </xs:attributeGroup>
+    <xs:element name="member-entity">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.member-entity"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.member-entity">
+        <xs:attribute type="xs:string" name="entity-alias" use="required"/>
+        <xs:attribute type="xs:string" name="entity-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="alias-all">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.alias-all"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.alias-all">
+        <xs:attribute type="xs:string" name="entity-alias" use="required"/>
+        <xs:attribute type="xs:string" name="prefix"/>
+    </xs:attributeGroup>
+    <xs:element name="exclude">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.exclude"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.exclude">
+        <xs:attribute type="xs:string" name="field" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="alias">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element minOccurs="0" ref="complex-alias"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.alias"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.alias">
+        <xs:attribute type="xs:string" name="entity-alias" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="field"/>
+        <xs:attribute type="xs:string" name="col-alias"/>
+        <xs:attribute type="xs:string" name="prim-key"/>
+        <xs:attribute name="group-by" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="function">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="min"/>
+                    <xs:enumeration value="max"/>
+                    <xs:enumeration value="sum"/>
+                    <xs:enumeration value="avg"/>
+                    <xs:enumeration value="count"/>
+                    <xs:enumeration value="count-distinct"/>
+                    <xs:enumeration value="upper"/>
+                    <xs:enumeration value="lower"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="complex-alias">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="complex-alias"/>
+                <xs:element ref="complex-alias-field"/>
+            </xs:choice>
+            <xs:attributeGroup ref="attlist.complex-alias"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.complex-alias">
+        <xs:attribute type="xs:string" name="operator" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="complex-alias-field">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.complex-alias-field"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.complex-alias-field">
+        <xs:attribute type="xs:string" name="entity-alias" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
+        <xs:attribute name="function">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="min"/>
+                    <xs:enumeration value="max"/>
+                    <xs:enumeration value="sum"/>
+                    <xs:enumeration value="avg"/>
+                    <xs:enumeration value="count"/>
+                    <xs:enumeration value="count-distinct"/>
+                    <xs:enumeration value="upper"/>
+                    <xs:enumeration value="lower"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="view-link">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="description"/>
+                <xs:element maxOccurs="unbounded" ref="key-map"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.view-link"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.view-link">
+        <xs:attribute type="xs:string" name="entity-alias" use="required"/>
+        <xs:attribute type="xs:string" name="rel-entity-alias" use="required"/>
+        <xs:attribute name="rel-optional" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+</xs:schema>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ContentSetupScreens.xml 7698 2006-05-30 07:25:15Z hansbak $
+-->
+
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="ContentSetupMenu">
+        <section>
+            <actions>
+                <set field="headerItem" value="Content"/>
+                <set field="currentMenuItemName" from-field="currentMenuItemName" from-scope="user" default-value="FindContent"/>
+                <set field="subScreens.ContentPurposeOp" value="ContentPurposeOp"/>
+                <set field="subScreens.ContentOp" value="ContentOp"/>
+                <set field="subScreens.assocPrep" value="assocPrep"/>
+                <set field="subScreens.typeAttr" value="typeAttr"/>
+                <set field="subScreens.purposeType" value="purposeType"/>
+                <set field="subScreens.assocType" value="assocType"/>
+                <set field="subScreens.type" value="type"/>
+            </actions>
+            <widgets>
+                <include-screen name="${subScreens.${currentMenuItemName}}"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentType">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+				<set field="titleProperty" value="PageTitleEditContentType"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="type"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentTypeAttr">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+				<set field="titleProperty" value="PageTitleEditContentAttribute"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="typeAttr"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentTypeAttr" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentTypeAttr" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentAssocType">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>			
+				<set field="titleProperty" value="PageTitleEditContentAssoc"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="assocType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentAssocType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentAssocType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentPurposeType">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+				<set field="titleProperty" value="PageTitleEditContentPurpose"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="purposeType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentPurposeType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentPurposeType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentAssocPredicate">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+				<set field="titleProperty" value="PageTitleEditContentAssocPredicate"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="assocPred"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentAssocPredicate" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentAssocPredicate" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentPurposeOperation">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+				<set field="titleProperty" value="PageTitleEditContentPurposeOperation"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="contentPurposeOp"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentPurposeOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentPurposeOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="UserPermissions">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="ADMIN"/>
+            </condition>
+            <actions>
+				<set field="titleProperty" value="PageTitleEditContentUserPermissions"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="userpermission"/>
+                <set field="webSitePublishPoint" from-field="parameters.webSitePublishPoint" default-value="OFBIZDOCROOT"/>
+                <script location="component://content/widget/contentsetup/userpermprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/contentsetup/UserPermissions.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditContentOperation">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>			
+				<set field="titleProperty" value="PageTitleEditContentOperation"/>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="contentOp"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentPurpose">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="ContentSetupMenu"/>
+                <set field="currentMenuItemName" to-scope="user" value="contentPurposeOp"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateContentPurpose" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        <include-form name="AddContentPurpose" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: entitymodel.xml 7425 2006-04-26 23:04:59Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+<!--
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2002 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.entity.group -->
+  <!--  - org.ofbiz.entity.synchronization -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.entity.group -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="EntityGroup"
+            package-name="org.ofbiz.entity.group"
+            title="Entity Grouping Entity">
+      <field name="entityGroupId" type="id-ne"></field>
+      <field name="entityGroupName" type="name"></field>
+      <prim-key field="entityGroupId"/>
+    </entity>
+    <entity entity-name="EntityGroupEntry"
+            package-name="org.ofbiz.entity.group"
+            title="Entity Grouping Entity">
+      <field name="entityGroupId" type="id-ne"></field>
+      <field name="entityOrPackage" type="long-varchar"></field>
+      <field name="applEnumId" type="id-ne"></field>
+      <prim-key field="entityGroupId"/>
+      <prim-key field="entityOrPackage"/>
+      <relation type="one" fk-name="ENTGRP_GRP" rel-entity-name="EntityGroup">
+        <key-map field-name="entityGroupId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.entity.synchronization -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="EntitySync"
+            package-name="org.ofbiz.entity.synchronization"
+            title="Entity Synchronization Entity">
+      <field name="entitySyncId" type="id-ne"></field>
+      <field name="runStatusId" type="id-ne"></field>
+      <field name="lastSuccessfulSynchTime" type="date-time"></field>
+      <field name="lastHistoryStartDate" type="date-time"></field>
+      <field name="preOfflineSynchTime" type="date-time"></field>
+      <field name="offlineSyncSplitMillis" type="numeric"></field>
+      <field name="syncSplitMillis" type="numeric"></field>
+      <field name="syncEndBufferMillis" type="numeric"></field>
+      <field name="maxRunningNoUpdateMillis" type="numeric"></field>
+      <field name="targetServiceName" type="long-varchar"></field>
+      <field name="targetDelegatorName" type="long-varchar"></field>
+      <field name="keepRemoveInfoHours" type="floating-point"></field>
+      <field name="forPullOnly" type="indicator"></field>
+      <field name="forPushOnly" type="indicator"></field>
+      <prim-key field="entitySyncId"/>
+      <relation type="many" rel-entity-name="EntitySyncInclGrpDetailView">
+        <key-map field-name="entitySyncId"/>
+      </relation>
+      <relation type="one-nofk" title="Last" rel-entity-name="EntitySyncHistory">
+        <key-map field-name="entitySyncId"/>
+        <key-map field-name="lastHistoryStartDate" rel-field-name="startDate"/>
+      </relation>
+    </entity>
+    <entity entity-name="EntitySyncHistory"
+            package-name="org.ofbiz.entity.synchronization"
+            title="Entity Synchronization History Entity">
+      <field name="entitySyncId" type="id-ne"></field>
+      <field name="startDate" type="date-time"></field>
+      <field name="runStatusId" type="id-ne"></field>
+      <field name="beginningSynchTime" type="date-time"></field>
+      <field name="lastSuccessfulSynchTime" type="date-time"></field>
+      <field name="lastCandidateEndTime" type="date-time"></field>
+      <field name="lastSplitStartTime" type="numeric"></field>
+      <field name="toCreateInserted" type="numeric"></field>
+      <field name="toCreateUpdated" type="numeric"></field>
+      <field name="toCreateNotUpdated" type="numeric"></field>
+      <field name="toStoreInserted" type="numeric"></field>
+      <field name="toStoreUpdated" type="numeric"></field>
+      <field name="toStoreNotUpdated" type="numeric"></field>
+      <field name="toRemoveDeleted" type="numeric"></field>
+      <field name="toRemoveAlreadyDeleted" type="numeric"></field>
+      <field name="totalRowsExported" type="numeric"></field>
+      <field name="totalRowsToCreate" type="numeric"></field>
+      <field name="totalRowsToStore" type="numeric"></field>
+      <field name="totalRowsToRemove" type="numeric"></field>
+      <field name="totalSplits" type="numeric"></field>
+      <field name="totalStoreCalls" type="numeric"></field>
+      <field name="runningTimeMillis" type="numeric"></field>
+      <field name="perSplitMinMillis" type="numeric"></field>
+      <field name="perSplitMaxMillis" type="numeric"></field>
+      <field name="perSplitMinItems" type="numeric"></field>
+      <field name="perSplitMaxItems" type="numeric"></field>
+      <prim-key field="entitySyncId"/>
+      <prim-key field="startDate"/>
+      <relation type="one" fk-name="ENTSYNC_HSTSNC" rel-entity-name="EntitySync">
+        <key-map field-name="entitySyncId"/>
+      </relation>
+    </entity>
+    <entity entity-name="EntitySyncInclude"
+            package-name="org.ofbiz.entity.synchronization"
+            title="Entity Synchronization Include Entity">
+      <field name="entitySyncId" type="id-ne"></field>
+      <field name="entityOrPackage" type="long-varchar"></field>
+      <field name="applEnumId" type="id-ne"></field>
+      <prim-key field="entitySyncId"/>
+      <prim-key field="entityOrPackage"/>
+      <relation type="one" fk-name="ENTSYNC_INCSNC" rel-entity-name="EntitySync">
+        <key-map field-name="entitySyncId"/>
+      </relation>
+    </entity>
+    <entity entity-name="EntitySyncIncludeGroup"
+            package-name="org.ofbiz.entity.synchronization"
+            title="Entity Synchronization Include Entity Group Entity">
+      <field name="entitySyncId" type="id-ne"></field>
+      <field name="entityGroupId" type="id-ne"></field>
+      <prim-key field="entitySyncId"/>
+      <prim-key field="entityGroupId"/>
+      <relation type="one" fk-name="ENTSNCGU_GRP" rel-entity-name="EntityGroup">
+        <key-map field-name="entityGroupId"/>
+      </relation>
+      <relation type="one" fk-name="ENTSNCGU_SNC" rel-entity-name="EntitySync">
+        <key-map field-name="entitySyncId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="EntitySyncInclGrpDetailView"
+    	    package-name="org.ofbiz.entity.synchronization"
+    	    title="Entity Synchronization Include Entity Group Detail View Entity">
+      <member-entity entity-alias="ESIG" entity-name="EntitySyncIncludeGroup"/>
+      <member-entity entity-alias="EGE" entity-name="EntityGroupEntry"/>
+      <alias-all entity-alias="ESIG"/>
+      <alias-all entity-alias="EGE"/>
+      <view-link entity-alias="ESIG" rel-entity-alias="EGE">
+        <key-map field-name="entityGroupId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="EntitySyncRemove"
+            package-name="org.ofbiz.entity.synchronization"
+            title="Entity Synchronization Remove Entity">
+      <field name="entitySyncRemoveId" type="id-ne"></field>
+      <field name="primaryKeyRemoved" type="very-long"></field>
+      <prim-key field="entitySyncRemoveId"/>
+    </entity>
+</entitymodel>
+

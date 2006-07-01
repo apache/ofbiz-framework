@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="FindFacilityInventoryByProduct" type="single" 
+            target="ViewFacilityInventoryByProduct" title="" 
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><hidden/></field>
+        <field name="action"><hidden value="SEARCH"/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${description} [${productCategoryId}]">
+                    <entity-constraint name="showInSelect"  value="N" operator="not-equals"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productSupplierId" title="${uiLabelMap.ProductSupplier}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
+                    <entity-constraint name="roleTypeId"  value="SUPPLIER" operator="equals"/>
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="offsetQty" title="${uiLabelMap.ProductQtyOffsetBelow}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListFacilityInventoryByProduct" type="list" 
+            target="" title="" list-name="inventoryByProduct" paginate-target="ViewFacilityInventoryByProduct"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="editLink" title="${uiLabelMap.CommonUpdateLink}" widget-style="buttontext">
+            <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" />
+        </field>
+        <field name="productId" title="${uiLabelMap.CommonDescription}">
+            <display-entity entity-name="Product" description="${internalName}"/>
+        </field>
+        <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}"><display/></field>
+        <field name="reorderQuantity" title="${uiLabelMap.ProductReorderQuantity}"><display/></field>
+        <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}"><display/></field>
+        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}"><display/></field>
+        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}"><display/></field>
+        <field name="offsetQtyAvailable" title="${uiLabelMap.ProductQtyOffset}"><display/></field>
+    </form>
+
+    <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><text/></field>
+        <field name="manufacturerPartyId"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="SearchInventoryItemsResults" type="list" list-name="listIt"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+           <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
+               <field-map field-name="inputFields" env-name="parameters"/>
+               <field-map field-name="entityName" value="ProductInventoryItem"/>
+           </service>
+        </actions>        
+        <field name="inventoryItemId"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="manufacturerPartyId"><display/></field>
+        <field name="serialNumber"><display/></field> 
+    </form>
+
+    <!-- multi-form for list of packages ready to be weighted and scheduled for shipment -->
+    <form name="SchedulingList" type="multi" use-row-submit="true" list-name="shipmentRouteSegments" title="${uiLabelMap.PageTitlePackageShipmentScheduling}" target="BatchScheduleShipmentRouteSegments"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
+        <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
+            <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
+        </field>
+        <field name="primaryOrderId" title="${uiLabelMap.ProductOrderId}">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${primaryOrderId}" description="${primaryOrderId}" target-type="inter-app"/>
+        </field>
+        <field name="shipmentRouteSegmentId"><display/></field>
+        <field name="carrierPartyId" title="${uiLabelMap.ProductCarrier}">
+            <display-entity description="${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
+        </field>
+        <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductShipmentMethodType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ShipmentMethodType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="billingWeight" title="${uiLabelMap.CommonWeight}"><text size="10"/></field>
+        <field name="billingWeightUomId"  title="${uiLabelMap.ProductWeightUomId}">
+            <drop-down allow-empty="false">
+                <option key="${defaultWeightUom.uomId}" description="${defaultWeightUom.description}"/>
+                <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" operator="equals" value="WEIGHT_MEASURE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.ProductSchedule}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
+
+    <!-- multi-form to print confirmed shipping labels -->
+    <form name="Labels" type="multi" list-name="shipmentPackageRouteSegments" title="" target="BatchPrintShippingLabels"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
+        <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
+            <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
+        </field>
+        <field name="primaryOrderId" title="${uiLabelMap.ProductOrderId}">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${primaryOrderId}" description="${primaryOrderId}" target-type="inter-app"/>
+        </field>
+        <field name="shipmentRouteSegmentId"><display/></field>
+        <field name="shipmentPackageSeqId"><display/></field>
+        <field name="carrierPartyId" title="${uiLabelMap.ProductCarrier}">
+            <display-entity description="${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
+        </field>
+        <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductShipmentMethodType}">
+            <display-entity entity-name="ShipmentMethodType"/>
+        </field>
+        <field name="label" title="${uiLabelMap.ProductLabel}">
+          <hyperlink target="viewShipmentPackageRouteSegLabelImage?shipmentId=${shipmentId}&amp;shipmentRouteSegmentId=${shipmentRouteSegmentId}&amp;shipmentPackageSeqId=${shipmentPackageSeqId}" description="${uiLabelMap.ProductLabel}"/>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonPrint}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
+</forms>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Edit LayoutUrl</property>
+    <property name="formDefFile">/layout/LayoutForms.xml</property>    
+    <property name="singleFormName">EditLayoutUrl</property>    
+    <property name="addFormName">AddLayoutUrl</property>    
+    <property name="editFormName">EditLayoutUrl</property>    
+    <property name="listFormName">listFindLayout</property>    
+    <property name="subMenu">/layout/layout_menu.ftl</property>    
+    <property name="headerItem">Layout</property>    
+    <property name="entityName">SubContentDataResourceView</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="priKeyName">contentId</property>    
+    <property name="entityOperation">_UPDATE</property>    
+    <property name="permissionType">simple</property>    
+    <page-action name="/includes/permprep.bsh"/>
+    <content-action name="/includes/currentvalprep.bsh"/>
+    <content-action name="/layout/editsubcontentprep.bsh"/>
+    <content-action name="/layout/findrelatedlayouts.bsh"/>
+    <content-action name="/includes/pagelistprep.bsh"/>
+</page>

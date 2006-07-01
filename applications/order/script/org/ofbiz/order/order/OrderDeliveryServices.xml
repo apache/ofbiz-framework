@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Tristan Austin (tristana@twibble.org)
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.2
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createOrderDeliverySchedule" short-description="Creates a new Purchase Order Schedule">
+        <!-- Verify the user is allowed to set the fields -->
+        <string-to-field string="createOrderDeliverySchedule" field-name="callingMethodName"/>
+        <string-to-field string="CREATE" field-name="checkAction"/>
+        <call-simple-method method-name="checkSupplierRelatedPermission"/>
+        <check-errors/>
+
+        <make-value entity-name="OrderDeliverySchedule" value-name="schedule"/>
+        <set-pk-fields map-name="parameters" value-name="schedule"/>
+        <if-empty field-name="orderItemSeqId" map-name="schedule">
+            <string-to-field string="_NA_" field-name="orderItemSeqId" map-name="schedule"/>
+        </if-empty>
+    
+        <!-- only set statusId if hasScheduleAdminRelatedPermission -->
+        <set-nonpk-fields value-name="schedule" map-name="parameters"/>
+        <if-has-permission permission="ORDERMGR" action="_${checkAction}">
+        <else>
+            <!-- no permission, set to initial -->
+            <string-to-field string="ODS_SUBMITTED" field-name="statusId" map-name="schedule"/>
+        </else>
+        </if-has-permission>
+        
+        <create-value value-name="schedule"/>
+    </simple-method>
+    <simple-method method-name="updateOrderDeliverySchedule" short-description="Updates an existing Purchase Order Schedule">
+        <!-- Verify the user is allowed to edit the fields -->
+        <string-to-field string="updateOrderDeliverySchedule" field-name="callingMethodName"/>
+        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <call-simple-method method-name="checkSupplierRelatedPermission"/>
+        <check-errors/>
+
+        <!-- Lookup the existing schedule to modify -->
+        <make-value entity-name="OrderDeliverySchedule" value-name="lookupPkMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPkMap"/>
+        <find-by-primary-key entity-name="OrderDeliverySchedule" map-name="lookupPkMap" value-name="schedule"/>
+
+        <!-- only set statusId if hasScheduleAdminRelatedPermission -->
+        <field-to-env field-name="statusId" map-name="schedule" env-name="saveStatusId"/>
+        <set-nonpk-fields value-name="schedule" map-name="parameters"/>
+        <if-has-permission permission="ORDERMGR" action="_${checkAction}">
+        <else>
+            <!-- no permission, restore saved status -->
+            <env-to-field env-name="saveStatusId" field-name="statusId" map-name="schedule"/>
+        </else>
+        </if-has-permission>
+        
+        <!-- Update the actual schedule -->
+        <store-value value-name="schedule"/>
+    </simple-method>
+    <simple-method method-name="sendOrderDeliveryScheduleNotification" short-description="Send Order Delivery Schedule Notification">
+        <string-to-field string="sendOrderDeliveryScheduleNotification" field-name="callingMethodName"/>
+        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <call-simple-method method-name="checkSupplierRelatedPermission"/>
+        <check-errors/>
+
+        <if-empty field-name="parameters.orderItemSeqId">
+            <string-to-field string="_NA_" field-name="parameters.orderItemSeqId"/>
+        </if-empty>
+        
+        <make-value entity-name="OrderDeliverySchedule" value-name="orderDeliverySchedule"/>
+        <set-pk-fields value-name="orderDeliverySchedule" map-name="parameters"/>
+        <find-by-primary-key map-name="orderDeliverySchedule" value-name="orderDeliverySchedule"/>
+        
+        <!-- find email address for currently logged in user, set as sendFrom -->
+        <field-to-field field-name="partyId" map-name="userLogin" to-map-name="curUserPcmFindMap"/>
+        <string-to-field string="EMAIL_ADDRESS" field-name="contactMechTypeId" map-name="curUserPcmFindMap"/>
+        <find-by-and entity-name="PartyAndContactMech" map-name="curUserPcmFindMap" list-name="curUserPartyAndContactMechs"/>
+        <first-from-list entry-name="curUserPartyAndContactMech" list-name="curUserPartyAndContactMechs"/>
+        <string-append field-name="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
+        
+        <!-- find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo -->
+        <string-to-field string="SHIPMENT_CLERK" field-name="roleTypeId" map-name="shipmentClerkFindMap"/>
+        <find-by-and entity-name="PartyRole" map-name="shipmentClerkFindMap" list-name="shipmentClerkRoles"/>
+        <iterate entry-name="shipmentClerkRole" list-name="shipmentClerkRoles">
+            <env-to-env env-name="shipmentClerkRole.partyId" to-env-name="sendToPartyIdMap.${shipmentClerkRole.partyId}"/>
+        </iterate>
+        
+        <!-- go through all send to parties and get email addresses -->
+        <iterate-map key-name="sendToPartyId" value-name="sendToPartyIdValue" map-name="sendToPartyIdMap">
+            <env-to-field env-name="sendToPartyId" field-name="partyId" map-name="sendToPartyPcmFindMap"/>
+            <string-to-field string="EMAIL_ADDRESS" field-name="contactMechTypeId" map-name="sendToPartyPcmFindMap"/>
+            <find-by-and entity-name="PartyAndContactMech" map-name="sendToPartyPcmFindMap" list-name="sendToPartyPartyAndContactMechs"/>
+            <iterate entry-name="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
+                <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
+            </iterate>
+        </iterate-map>
+        
+        <!-- set subject, contentType, templateName, templateData -->
+        <string-to-field string="Delivery Information Updated for Order #${orderDeliverySchedule.orderId}" field-name="subject" map-name="sendEmailMap"/>
+        <if-compare field-name="orderDeliverySchedule.orderItemSeqId" operator="not-equals" value="_NA_">
+            <string-append string=" Item #${orderDeliverySchedule.orderItemSeqId}" field-name="subject" map-name="sendEmailMap"/>
+        </if-compare>
+        <string-to-field string="text/html" field-name="contentType" map-name="sendEmailMap"/>
+        <string-to-field string="default/OrderDeliveryUpdatedNotice.ftl" field-name="templateName" map-name="sendEmailMap"/>
+        <env-to-env env-name="orderDeliverySchedule" to-env-name="sendEmailMap.templateData.orderDeliverySchedule"/>
+        
+        <!-- call sendGenericNotificationEmail service, if enough information was found -->
+        <log level="info" message="Sending generic notification email (if all info is in place): ${sendEmailMap}"/>
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="sendTo" map-name="sendEmailMap"/></not>
+                    <not><if-empty field-name="sendFrom" map-name="sendEmailMap"/></not>
+                </and>
+            </condition>
+            <then>
+                <call-service service-name="sendGenericNotificationEmail" in-map-name="sendEmailMap"/>
+            </then>
+            <else>
+                <log level="error" message="Insufficient data to send notice email: ${sendEmailMap}"/>
+            </else>
+        </if>
+    </simple-method>
+
+    <simple-method method-name="checkSupplierRelatedOrderPermissionService" short-description="Check Supplier Related Permission Service">
+        <field-to-env field-name="checkAction" map-name="parameters" env-name="checkAction"/>
+        <field-to-env field-name="callingMethodName" map-name="parameters" env-name="callingMethodName"/>
+        <call-simple-method method-name="checkSupplierRelatedPermission"/>
+        <field-to-result field-name="hasSupplierRelatedPermission"/>
+    </simple-method>
+    
+    <!-- Should be called in-line to use its out parameter indicating whether the user has permission or not. -->
+    <simple-method method-name="checkSupplierRelatedPermission" short-description="Check Supplier Related Permission">
+        <if-empty field-name="callingMethodName">
+            <string-to-field string="this operation" field-name="callingMethodName"/>
+        </if-empty>
+        <if-empty field-name="checkAction">
+            <string-to-field string="UPDATE" field-name="checkAction"/>
+        </if-empty>
+        <string-to-field field-name="hasSupplierRelatedPermission" string="false"/>
+        <if>
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_${checkAction}"/>
+            </condition>
+            <then>
+                <string-to-field field-name="hasSupplierRelatedPermission" string="true"/>
+            </then>
+            <else>
+                <field-to-field field-name="orderId" map-name="parameters" to-map-name="lookupOrderRoleMap"/>
+                <field-to-field field-name="partyId" map-name="userLogin" to-map-name="lookupOrderRoleMap"/>
+                <string-to-field string="SUPPLIER_AGENT" field-name="roleTypeId" map-name="lookupOrderRoleMap"/>
+                <find-by-primary-key entity-name="OrderRole" map-name="lookupOrderRoleMap" value-name="permOrderRole"/>
+                <if>
+                    <condition>
+                        <if-empty field-name="permOrderRole"/>
+                    </condition>
+                    <then>
+                        <string-to-field field-name="hasSupplierRelatedPermission" string="false"/>
+                        <string-to-list list-name="error_list" string="ERROR: You do not have permission to ${checkAction} Delivery Schedule Information; you must be associated with this order as a Supplier Agent or have the ORDERMGR_${checkAction} permission."/>
+                    </then>
+                    <else>
+                        <string-to-field field-name="hasSupplierRelatedPermission" string="true"/>
+                    </else>
+                </if>
+            </else>
+        </if>
+        <log level="info" message="hasSupplierRelatedPermission is: ${hasSupplierRelatedPermission}"/>
+    </simple-method>
+</simple-methods>

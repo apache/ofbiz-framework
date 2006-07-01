@@ -1,0 +1,170 @@
+/*
+ * $Id: GenericXaResource.java 6778 2006-02-20 05:13:55Z jonesde $
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+package org.ofbiz.entity.transaction;
+
+import org.ofbiz.base.util.Debug;
+
+import javax.transaction.xa.XAResource;
+import javax.transaction.xa.Xid;
+import javax.transaction.xa.XAException;
+import javax.transaction.*;
+
+/**
+ * GenericXaResource - Abstract XA Resource implementation supporting a single transaction
+ *
+ * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
+ * @version    $Rev$
+ * @since      3.0
+ */
+public abstract class GenericXaResource implements XAResource {
+
+    public static final String module = GenericXaResource.class.getName();
+
+    protected boolean active = false;
+    protected int timeout = 0;
+    protected Xid xid = null;
+
+    /**
+     * Enlists this resource in the current transaction
+     * @throws XAException
+     */
+    public void enlist() throws XAException {
+        TransactionManager tm = TransactionFactory.getTransactionManager();
+        try {
+            if (tm != null && tm.getStatus() == Status.STATUS_ACTIVE) {
+                Transaction tx = tm.getTransaction();
+                if (tx != null) {
+                    tx.enlistResource(this);
+                } else {
+                    throw new XAException(XAException.XAER_NOTA);
+                }
+            } else {
+                throw new XAException("No transaction manager or invalid status");
+            }
+        } catch (SystemException e) {
+            throw new XAException("Unable to get transaction status");
+        } catch (RollbackException e) {
+            throw new XAException("Unable to enlist resource with transaction");
+        }
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#start(javax.transaction.xa.Xid xid, int flag)
+     */
+    public void start(Xid xid, int flag) throws XAException {
+        if (this.active) {
+            if (this.xid != null && this.xid.equals(xid)) {
+                throw new XAException(XAException.XAER_DUPID);
+            } else {
+                throw new XAException(XAException.XAER_PROTO);
+            }
+        }
+        if (this.xid != null && !this.xid.equals(xid)) {
+            throw new XAException(XAException.XAER_NOTA);
+        }
+
+        this.xid = xid;
+        this.active = true;
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#end(javax.transaction.xa.Xid xid, int flag)
+     */
+    public void end(Xid xid, int flag) throws XAException {
+        if (!this.active) {
+            throw new XAException(XAException.XAER_PROTO);
+        }
+
+        if (this.xid == null || !this.xid.equals(xid)) {
+            throw new XAException(XAException.XAER_NOTA);
+        }
+        this.active = false;
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#forget(javax.transaction.xa.Xid xid)
+     */
+    public void forget(Xid xid) throws XAException {
+        if (this.xid == null || !this.xid.equals(xid)) {
+            throw new XAException(XAException.XAER_NOTA);
+        }
+        this.xid = null;
+        if (active) {
+            // non-fatal
+            Debug.logWarning("forget() called without end()", module);
+        }
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#prepare(javax.transaction.xa.Xid xid)
+     */
+    public int prepare(Xid xid) throws XAException {
+        if (this.xid == null || !this.xid.equals(xid)) {
+            throw new XAException(XAException.XAER_NOTA);
+        }
+        return XA_OK;
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#recover(int flag)
+     */
+    public Xid[] recover(int flag) throws XAException {
+        if (this.xid == null) {
+            return new Xid[0];
+        } else {
+            return new Xid[] {this.xid};
+        }
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#isSameRM(javax.transaction.xa.XAResource xaResource)
+     */
+    public boolean isSameRM(XAResource xaResource) throws XAException {
+        return xaResource == this;
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#getTransactionTimeout()
+     */
+    public int getTransactionTimeout() throws XAException {
+        return this.timeout;
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#setTransactionTimeout(int seconds)
+     * Note: the valus is saved but in the current implementation this is not used.
+     */
+    public boolean setTransactionTimeout(int seconds) throws XAException {
+        this.timeout = seconds;
+        return true;
+    }
+
+    public Xid getXid() {
+        return this.xid;
+    }
+
+    /**
+     * @see javax.transaction.xa.XAResource#commit(javax.transaction.xa.Xid xid, boolean onePhase)
+     */
+    public abstract void commit(Xid xid, boolean onePhase) throws XAException;
+
+    /**
+     * @see javax.transaction.xa.XAResource#rollback(javax.transaction.xa.Xid xid)
+     */
+    public abstract void rollback(Xid xid) throws XAException;
+}

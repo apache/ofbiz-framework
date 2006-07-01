@@ -1,0 +1,2895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @author     Si Chen (sichen@opensourcestrategies.com)
+ * @version    $Rev$
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+    <!-- ========================================================= -->
+    <!-- ======================== Data Model ===================== -->
+    <!-- The modules in this file are as follows:                  -->
+    <!--  - org.ofbiz.accounting.budget -->
+    <!--  - org.ofbiz.accounting.fixedasset -->
+    <!--  - org.ofbiz.accounting.invoice -->
+    <!--  - org.ofbiz.accounting.ledger -->
+    <!--  - org.ofbiz.accounting.payment -->
+    <!--  - org.ofbiz.accounting.tax -->
+    <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.budget -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Budget"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="budgetTypeId" type="id"></field>
+      <field name="customTimePeriodId" type="id"></field>
+      <field name="comments" type="comment"></field>
+      <prim-key field="budgetId"/>
+      <relation type="one" fk-name="BUDGET_BGTTYP" rel-entity-name="BudgetType">
+        <key-map field-name="budgetTypeId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_CTP" rel-entity-name="CustomTimePeriod">
+        <key-map field-name="customTimePeriodId"/>
+      </relation>
+      <relation type="many" rel-entity-name="BudgetTypeAttr">
+        <key-map field-name="budgetTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetAttribute"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Attribute Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="BUDGET_ATTR_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+      <relation type="many" rel-entity-name="BudgetTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetItem"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Item Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="budgetItemSeqId" type="id-ne"></field>
+      <field name="budgetItemTypeId" type="id"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="purpose" type="long-varchar"></field>
+      <field name="justification" type="long-varchar"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="budgetItemSeqId"/>
+      <relation type="one" fk-name="BUDGET_ITEM_BTYP" rel-entity-name="BudgetItemType">
+        <key-map field-name="budgetItemTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="BudgetItemTypeAttr">
+        <key-map field-name="budgetItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetItemAttribute"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Item Attribute Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="budgetItemSeqId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="budgetItemSeqId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="BUDGET_ITEM_ATTR" rel-entity-name="BudgetItem">
+        <key-map field-name="budgetId"/>
+        <key-map field-name="budgetItemSeqId"/>
+      </relation>
+      <relation type="many" rel-entity-name="BudgetItemTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetItemType"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Item Type Entity">
+      <field name="budgetItemTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="budgetItemTypeId"/>
+      <relation type="one" fk-name="BUDGET_ITM_TYPPAR" title="Parent" rel-entity-name="BudgetItemType">
+        <key-map field-name="parentTypeId" rel-field-name="budgetItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetItemTypeAttr"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Item Type Attribute Entity">
+      <field name="budgetItemTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="budgetItemTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="BUDGET_ITMTYPATTR" rel-entity-name="BudgetItemType">
+        <key-map field-name="budgetItemTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="BudgetItemAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="BudgetItem">
+        <key-map field-name="budgetItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetReview"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Review Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="budgetReviewId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="budgetReviewResultTypeId" type="id-ne"></field>
+      <field name="reviewDate" type="date-time"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="budgetReviewId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="budgetReviewResultTypeId"/>
+      <relation type="one" fk-name="BUDGET_RVW_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_RVW_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_RVW_RTYPE" rel-entity-name="BudgetReviewResultType">
+        <key-map field-name="budgetReviewResultTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetReviewResultType"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Review Result Type Entity">
+      <field name="budgetReviewResultTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="comments" type="comment"></field>
+      <prim-key field="budgetReviewResultTypeId"/>
+    </entity>
+    <entity entity-name="BudgetRevision"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Revision Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="revisionSeqId" type="id-ne"></field>
+      <field name="dateRevised" type="date-time"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="revisionSeqId"/>
+      <relation type="one" fk-name="BUDGET_RVSN_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetRevisionImpact"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Revision Impact Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="budgetItemSeqId" type="id-ne"></field>
+      <field name="revisionSeqId" type="id-ne"></field>
+      <field name="revisedAmount" type="currency-amount"></field>
+      <field name="addDeleteFlag" type="indicator"></field>
+      <field name="revisionReason" type="long-varchar"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="budgetItemSeqId"/>
+      <prim-key field="revisionSeqId"/>
+      <relation type="one" fk-name="BUDGET_RNIMP_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_RNIMP_BITM" rel-entity-name="BudgetItem">
+        <key-map field-name="budgetId"/>
+        <key-map field-name="budgetItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_RNIMP_REV" rel-entity-name="BudgetRevision">
+        <key-map field-name="budgetId"/>
+        <key-map field-name="revisionSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetRole"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Role Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="BUDGET_ROLE_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_ROLE_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_ROLE_PROLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetScenario"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Scenario Entity">
+      <field name="budgetScenarioId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="budgetScenarioId"/>
+    </entity>
+    <entity entity-name="BudgetScenarioApplication"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Scenario Application Entity">
+      <field name="budgetScenarioApplicId" type="id-ne"></field>
+      <field name="budgetScenarioId" type="id-ne"></field>
+      <field name="budgetId" type="id"></field>
+      <field name="budgetItemSeqId" type="id"></field>
+      <field name="amountChange" type="currency-amount"></field>
+      <field name="percentageChange" type="floating-point"></field>
+      <prim-key field="budgetScenarioApplicId"/>
+      <prim-key field="budgetScenarioId"/>
+      <relation type="one" fk-name="BUDGET_SAPL_BSCN" rel-entity-name="BudgetScenario">
+        <key-map field-name="budgetScenarioId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_SAPL_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_SAPL_BITM" rel-entity-name="BudgetItem">
+        <key-map field-name="budgetId"/>
+        <key-map field-name="budgetItemSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetScenarioRule"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Scenario Rule Entity">
+      <field name="budgetScenarioId" type="id-ne"></field>
+      <field name="budgetItemTypeId" type="id-ne"></field>
+      <field name="amountChange" type="currency-amount"></field>
+      <field name="percentageChange" type="floating-point"></field>
+      <prim-key field="budgetScenarioId"/>
+      <prim-key field="budgetItemTypeId"/>
+      <relation type="one" fk-name="BUDGET_SRLE_BSCN" rel-entity-name="BudgetScenario">
+        <key-map field-name="budgetScenarioId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_SRLE_BITP" rel-entity-name="BudgetItemType">
+        <key-map field-name="budgetItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetStatus"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Status Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="statusDate" type="date-time"></field>
+      <field name="comments" type="comment"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="statusId"/>
+      <relation type="one" fk-name="BUDGET_STTS_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+      <relation type="one" fk-name="BUDGET_STTS_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetType"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Type Entity">
+      <field name="budgetTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="budgetTypeId"/>
+      <relation type="one" fk-name="BUDGET_TYPE_PAR" title="Parent" rel-entity-name="BudgetType">
+        <key-map field-name="parentTypeId" rel-field-name="budgetTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BudgetTypeAttr"
+            package-name="org.ofbiz.accounting.budget"
+            title="Budget Type Attribute Entity">
+      <field name="budgetTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="budgetTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="BUDGET_TPATR_BT" rel-entity-name="BudgetType">
+        <key-map field-name="budgetTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="BudgetAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Budget">
+        <key-map field-name="budgetTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.fixedasset -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="DepreciationMethod"
+            package-name="org.ofbiz.accounting.fixedasset"
+            title="Depreciation Method Entity">
+      <field name="depreciationMethodId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="formula" type="long-varchar"></field>
+      <prim-key field="depreciationMethodId"/>
+    </entity>
+    <entity entity-name="FixedAsset" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="fixedAssetTypeId" type="id"></field>
+        <field name="parentFixedAssetId" type="id-ne"></field>
+        <field name="instanceOfProductId" type="id"></field>
+        <field name="classEnumId" type="id"></field>
+        <field name="partyId" type="id"></field>
+        <field name="roleTypeId" type="id"></field>
+        <field name="uomId" type="id"></field>
+        <field name="fixedAssetName" type="name"></field>
+        <field name="dateAcquired" type="date-time"></field>
+        <field name="dateLastServiced" type="date-time"></field>
+        <field name="dateNextService" type="date-time"></field>
+        <field name="productionCapacity" type="floating-point"></field>
+        <field name="calendarId" type="id-ne"></field>
+        <field name="serialNumber" type="long-varchar"></field>
+        <field name="locatedAtFacilityId" type="id"></field>
+        <field name="locatedAtLocationSeqId" type="id"></field>
+        <prim-key field="fixedAssetId"/>
+        <relation type="one" fk-name="FIXEDAST_TYPE" rel-entity-name="FixedAssetType">
+            <key-map field-name="fixedAssetTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="FixedAssetTypeAttr">
+            <key-map field-name="fixedAssetTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_PAR" title="Parent" rel-entity-name="FixedAsset">
+            <key-map field-name="parentFixedAssetId" rel-field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_IOPROD" title="InstanceOf" rel-entity-name="Product">
+            <key-map field-name="instanceOfProductId" rel-field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_CLSENM" title="Class" rel-entity-name="Enumeration">
+            <key-map field-name="classEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_ROLETYP" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_UOM" rel-entity-name="Uom">
+            <key-map field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_CALENDAR" rel-entity-name="TechDataCalendar">
+            <key-map field-name="calendarId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_FAC" title="LocatedAt" rel-entity-name="Facility">
+            <key-map field-name="locatedAtFacilityId" rel-field-name="facilityId"/>
+        </relation>
+        <relation type="one-nofk" title="LocatedAt" rel-entity-name="FacilityLocation">
+            <key-map field-name="locatedAtFacilityId" rel-field-name="facilityId"/>
+            <key-map field-name="locatedAtLocationSeqId" rel-field-name="locationSeqId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetAttribute"
+            package-name="org.ofbiz.accounting.fixedasset"
+            title="Fixed Asset Attribute Entity">
+      <field name="fixedAssetId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="fixedAssetId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="FIXEDAST_ATTR" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FixedAssetTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="FixedAssetDepMethod"
+            package-name="org.ofbiz.accounting.fixedasset"
+            title="Fixed Asset Depreciation Method Entity">
+      <field name="depreciationMethodId" type="id-ne"></field>
+      <field name="fixedAssetId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="depreciationMethodId"/>
+      <prim-key field="fixedAssetId"/>
+      <relation type="one" fk-name="FIXDAST_DM_DPMTH" rel-entity-name="DepreciationMethod">
+        <key-map field-name="depreciationMethodId"/>
+      </relation>
+      <relation type="one" fk-name="FIXDAST_DM_FXAST" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FixedAssetIdent"
+        package-name="org.ofbiz.accounting.fixedasset"
+        title="Fixed Asset Identification Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="fixedAssetIdentTypeId" type="id-ne"></field>
+        <field name="idValue" type="long-varchar"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="fixedAssetIdentTypeId"/>
+        <relation type="one" fk-name="FIXDASTID_FXAST" rel-entity-name="FixedAsset">
+            <key-map field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one" fk-name="FIXDASTID_IDTYP" rel-entity-name="FixedAssetIdentType">
+            <key-map field-name="fixedAssetIdentTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetIdentType"
+        package-name="org.ofbiz.accounting.fixedasset"
+        default-resource-name="AccountingEntityLabels"
+        title="Fixed Asset Identification Type Entity">
+        <field name="fixedAssetIdentTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="fixedAssetIdentTypeId"/>
+    </entity>
+    <entity entity-name="FixedAssetMaint"
+        package-name="org.ofbiz.accounting.fixedasset"
+        title="Fixed Asset Maintenance Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="maintHistSeqId" type="id-ne"></field>
+        <field name="statusId" type="id"></field>
+        <field name="productMaintTypeId" type="id-ne"><description>If productMaintSeqId is known can lookup using that and the FixedAsset.productId; for un-scheduled maintenance is filled in directly</description></field>
+        <field name="productMaintSeqId" type="id"><description>Optional, though should be filled in to determine upcoming maintenance for all scheduled maintenance</description></field>
+        <field name="scheduleWorkEffortId" type="id"><description>Has field for estimated/actual start and finish dates, etc</description></field>
+        <field name="intervalQuantity" type="floating-point"></field>
+        <field name="intervalUomId" type="id"><description>UOM for intervalQuantity; if used intervalMeterTypeId is generally not used (ie one or the other); if a meter reading is done as well that is not tied to the interval it should be tracked in a FixedAssetMaintMeter record</description></field>
+        <field name="intervalMeterTypeId" type="id"><description>Meter Type for intervalQuantity; if used intervalUomId is generally not used (ie one or the other)</description></field>
+        <field name="purchaseOrderId" type="id"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="maintHistSeqId"/>
+        <relation type="one" fk-name="FXDASTMNT_FXAST" rel-entity-name="FixedAsset">
+            <key-map field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNT_PMNTP" rel-entity-name="ProductMaintType">
+            <key-map field-name="productMaintTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNT_SCHWE" title="Schedule" rel-entity-name="WorkEffort">
+            <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNT_INTUOM" title="Interval" rel-entity-name="Uom">
+            <key-map field-name="intervalUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNT_PDMTTYP" title="Interval" rel-entity-name="ProductMeterType">
+            <key-map field-name="intervalMeterTypeId" rel-field-name="productMeterTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNT_PURORD" title="Purchase" rel-entity-name="OrderHeader">
+            <key-map field-name="purchaseOrderId" rel-field-name="orderId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetMaintMeter"
+        package-name="org.ofbiz.accounting.fixedasset"
+        title="Fixed Asset Maintenance Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="maintHistSeqId" type="id-ne"></field>
+        <field name="productMeterTypeId" type="id-ne"></field>
+        <field name="meterValue" type="floating-point"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="maintHistSeqId"/>
+        <prim-key field="productMeterTypeId"/>
+        <relation type="one" fk-name="FXDASTMNMT_FAMNT" rel-entity-name="FixedAssetMaint">
+            <key-map field-name="fixedAssetId"/>
+            <key-map field-name="maintHistSeqId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNMT_PMTYP" rel-entity-name="ProductMeterType">
+            <key-map field-name="productMeterTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetProduct"
+            package-name="org.ofbiz.accounting.fixedasset"
+            title="Fixed Asset Product Representation Entity">
+      <field name="fixedAssetId" type="id-ne"></field>
+      <field name="productId" type="id-ne"></field>
+      <field name="fixedAssetProductTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="comments" type="comment"></field>
+      <field name="sequenceNum" type="numeric"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="quantityUomId" type="id"></field>
+      <prim-key field="fixedAssetId"/>
+      <prim-key field="productId"/>
+      <prim-key field="fixedAssetProductTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="FIXDASTPRD_PRD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="FIXDASTPRD_FA" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+      <relation type="one" fk-name="FIXDASTPRD_FAPT" rel-entity-name="FixedAssetProductType">
+        <key-map field-name="fixedAssetProductTypeId"/>
+      </relation>
+      <relation type="one" fk-name="FIXDASTPRD_UOM" rel-entity-name="Uom">
+        <key-map field-name="quantityUomId" rel-field-name="uomId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FixedAssetProductType"
+            package-name="org.ofbiz.accounting.fixedasset"
+            default-resource-name="AccountingEntityLabels"
+            title="Fixed Asset Product Type Entity">
+      <field name="fixedAssetProductTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="fixedAssetProductTypeId"/>
+    </entity>
+    <entity entity-name="FixedAssetRegistration" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Registration Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="registrationDate" type="date-time"></field>
+        <field name="govAgencyPartyId" type="id-ne"></field>
+        <field name="registrationNumber" type="long-varchar"></field>
+        <field name="licenseNumber" type="long-varchar"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FIXDASTREG_FXAST" rel-entity-name="FixedAsset">
+            <key-map field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one" fk-name="FIXDASTREG_GVAPTY" title="GovAgency" rel-entity-name="Party">
+            <key-map field-name="govAgencyPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetStdCost" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Standard Cost Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="fixedAssetStdCostTypeId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="amountUomId" type="id"></field>
+        <field name="amount" type="currency-amount"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="fixedAssetStdCostTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FIXASTCO_FIXAST" rel-entity-name="FixedAsset">
+            <key-map field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one" fk-name="FIXASTCO_TYPCOS" rel-entity-name="FixedAssetStdCostType">
+            <key-map field-name="fixedAssetStdCostTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FIXASTCO_AMCURR" rel-entity-name="Uom">
+            <key-map field-name="amountUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetStdCostType"
+        package-name="org.ofbiz.accounting.fixedasset"
+        default-resource-name="AccountingEntityLabels"
+        title="Fixed Asset Standard Cost Type Entity">
+        <field name="fixedAssetStdCostTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id-ne"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="fixedAssetStdCostTypeId"/>
+        <relation type="one" fk-name="FIXASTCO_TYPPAR" title="Parent" rel-entity-name="FixedAssetStdCostType">
+            <key-map field-name="parentTypeId" rel-field-name="fixedAssetStdCostTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetType"
+            package-name="org.ofbiz.accounting.fixedasset"
+            default-resource-name="AccountingEntityLabels"
+            title="Fixed Asset Type Entity">
+      <field name="fixedAssetTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="fixedAssetTypeId"/>
+      <relation type="one" fk-name="FIXEDAST_TYPPAR" title="Parent" rel-entity-name="FixedAssetType">
+        <key-map field-name="parentTypeId" rel-field-name="fixedAssetTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FixedAssetTypeAttr"
+            package-name="org.ofbiz.accounting.fixedasset"
+            title="Fixed Asset Type Attribute Entity">
+      <field name="fixedAssetTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="fixedAssetTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="FIXEDAST_TYPATTR" rel-entity-name="FixedAssetType">
+        <key-map field-name="fixedAssetTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FixedAssetAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PartyFixedAssetAssignment"
+            package-name="org.ofbiz.accounting.fixedasset"
+            title="Party Fixed Asset Assignment Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fixedAssetId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="allocatedDate" type="date-time"></field>
+      <field name="statusId" type="id-ne"></field>
+      <field name="comments" type="comment"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fixedAssetId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PTY_FASTAS_PTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PTY_FASTAS_FA" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+      <relation type="one" fk-name="PTY_FASTAS_SI" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.invoice -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="Invoice"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Entity">
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="invoiceTypeId" type="id"></field>
+      <field name="partyIdFrom" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="statusId" type="id"></field>
+      <field name="billingAccountId" type="id"></field>
+      <field name="contactMechId" type="id"></field>
+      <field name="invoiceDate" type="date-time"></field>
+      <field name="dueDate" type="date-time"></field>
+      <field name="paidDate" type="date-time"></field>
+      <field name="invoiceMessage" type="long-varchar"></field>
+      <field name="referenceNumber" type="short-varchar"></field> <!-- used to record things like the vendor's invoice number -->
+      <field name="description" type="description"></field>
+      <field name="currencyUomId" type="id"></field>
+      <prim-key field="invoiceId"/>
+      <relation type="one" fk-name="INVOICE_INVTYP" rel-entity-name="InvoiceType">
+        <key-map field-name="invoiceTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceTypeAttr">
+        <key-map field-name="invoiceTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_PARTY_FRM" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_ROLETYP" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_STTSITM" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_BILLACCT" rel-entity-name="BillingAccount">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_CUOM" title="Currency" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceAttribute"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Attribute Entity">
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="invoiceId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="INVOICE_ATTR" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceContactMech"
+            package-name="org.ofbiz.accounting.invoice"
+            never-cache="true"
+            title="Invoice Contact Mechanism Entity">
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="contactMechPurposeTypeId" type="id-ne"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <prim-key field="invoiceId"/>
+      <prim-key field="contactMechPurposeTypeId"/>
+      <prim-key field="contactMechId"/>
+      <relation type="one" fk-name="INVOICE_CMECH_HDR" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_CMECH_CM" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_CMECH_CMPT" rel-entity-name="ContactMechPurposeType">
+        <key-map field-name="contactMechPurposeTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceItem"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Entity">
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="invoiceItemSeqId" type="id-ne"></field>
+      <field name="invoiceItemTypeId" type="id"></field>
+      <field name="overrideGlAccountId" type="id"><!-- used to specify the override or actual glAccountId used for the invoice, avoids problems if configuration changes after initial posting, etc --></field>
+      <field name="inventoryItemId" type="id"></field>
+      <field name="productId" type="id"></field>
+      <field name="productFeatureId" type="id"></field>
+      <field name="parentInvoiceId" type="id"></field>
+      <field name="parentInvoiceItemSeqId" type="id"></field>
+      <field name="uomId" type="id"></field>
+      <field name="taxableFlag" type="indicator"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="description" type="description"></field>
+      <field name="taxAuthPartyId" type="id-ne"/>
+      <field name="taxAuthGeoId" type="id-ne"/>
+      <field name="taxAuthorityRateSeqId" type="id-ne"></field>
+      <prim-key field="invoiceId"/>
+      <prim-key field="invoiceItemSeqId"/>
+      <relation type="one" fk-name="INVOICE_ITMITYP" rel-entity-name="InvoiceItemType">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceItemTypeAttr">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_INVCE" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_INVITM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_PROD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_PRDFT" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_PINVIT" rel-entity-name="InvoiceItem">
+        <key-map field-name="parentInvoiceId" rel-field-name="invoiceId" />
+        <key-map field-name="parentInvoiceItemSeqId" rel-field-name="invoiceItemSeqId" />
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_UOM" rel-entity-name="Uom">
+        <key-map field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_ORGLA" title="Override" rel-entity-name="GlAccount">
+        <key-map field-name="overrideGlAccountId" rel-field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_TAXPTY" title="TaxAuthority" rel-entity-name="Party">
+          <key-map field-name="taxAuthPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_TAXGEO" title="Tax" rel-entity-name="Geo">
+          <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_ITM_TARP" rel-entity-name="TaxAuthorityRateProduct">
+        <key-map field-name="taxAuthorityRateSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceItemAttribute"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Attribute Entity">
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="invoiceItemSeqId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="invoiceId"/>
+      <prim-key field="invoiceItemSeqId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="INVOICE_IMAT_ITM" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceId"/>
+        <key-map field-name="invoiceItemSeqId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceItemTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceItemType"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Type Entity" default-resource-name="AccountingEntityLabels">
+      <field name="invoiceItemTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <field name="defaultGlAccountId" type="id"></field>
+      <prim-key field="invoiceItemTypeId"/>
+      <relation type="one" fk-name="INVOICE_ITEM_TPAR" title="Parent" rel-entity-name="InvoiceItemType">
+        <key-map field-name="parentTypeId" rel-field-name="invoiceItemTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_ITM_DGLAC" title="Default" rel-entity-name="GlAccount">
+        <key-map field-name="defaultGlAccountId" rel-field-name="glAccountId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceItemTypeAttr"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Type Attribute Entity">
+      <field name="invoiceItemTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="invoiceItemTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="INVOICE_ITEM_TATR" rel-entity-name="InvoiceItemType">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceItemAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceItemTypeGlAccount"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Type GL Account Entity">
+      <field name="invoiceItemTypeId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
+      <prim-key field="invoiceItemTypeId"/>
+      <prim-key field="organizationPartyId"/>
+      <relation type="one" fk-name="INVOICE_ITGA_IIT" rel-entity-name="InvoiceItemType">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_ITGA_OPTY" title="Organization" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_ITGA_GLAC" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceItemTypeMap"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Item Type Map Entity">
+      <field name="invoiceItemMapKey" type="id-ne"></field>
+      <field name="invoiceTypeId" type="id-ne"></field>
+      <field name="invoiceItemTypeId" type="id-ne"></field>
+      <prim-key field="invoiceItemMapKey"/>
+      <prim-key field="invoiceTypeId"/>
+      <relation type="one" fk-name="INVOICE_ITEM_MAP" rel-entity-name="InvoiceItemType">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVITMMAP_INVTYP" rel-entity-name="InvoiceType">
+        <key-map field-name="invoiceTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceRole"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Role Entity">
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="datetimePerformed" type="date-time"></field>
+      <field name="percentage" type="floating-point"></field>
+      <prim-key field="invoiceId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="INVCE_RLE_INVCE" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_RLE_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_RLE_PTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceStatus"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Status Entity">
+      <field name="statusId" type="id-ne"></field>
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="statusDate" type="date-time"></field>
+      <prim-key field="statusId"/>
+      <prim-key field="invoiceId"/>
+      <prim-key field="statusDate"/>
+      <relation type="one" fk-name="INVCE_STS_STSITM" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_STS_INVCE" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceTerm"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Term Entity">
+      <field name="invoiceTermId" type="id-ne"></field>
+      <field name="termTypeId" type="id"></field>
+      <field name="invoiceId" type="id"></field>
+      <field name="invoiceItemSeqId" type="id"></field>
+      <field name="termValue" type="currency-amount"></field>
+      <field name="termDays" type="numeric"></field>
+      <field name="uomId" type="id"></field>
+      <prim-key field="invoiceTermId"/>
+      <relation type="one" fk-name="INVCE_TRM_TRM" rel-entity-name="TermType">
+        <key-map field-name="termTypeId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_TRM_INVCE" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceId"/>
+        <key-map field-name="invoiceItemSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceTermAttribute"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Term Attribute Entity">
+      <field name="invoiceTermId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="invoiceTermId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="INVOICE_TRM_ATTR" rel-entity-name="InvoiceTerm">
+        <key-map field-name="invoiceTermId"/>
+      </relation>
+      <relation type="many" rel-entity-name="TermTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceType"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Type Entity" default-resource-name="AccountingEntityLabels">
+      <field name="invoiceTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="invoiceTypeId"/>
+      <relation type="one" fk-name="INVOICE_TYPE_PAR" title="Parent" rel-entity-name="InvoiceType">
+        <key-map field-name="parentTypeId" rel-field-name="invoiceTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="InvoiceTypeAttr"
+            package-name="org.ofbiz.accounting.invoice"
+            title="Invoice Type Attribute Entity">
+      <field name="invoiceTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="invoiceTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="INVOICE_TPAT_TYP" rel-entity-name="InvoiceType">
+        <key-map field-name="invoiceTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="InvoiceAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Invoice">
+        <key-map field-name="invoiceTypeId"/>
+      </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.ledger -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="AcctgTrans"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Accounting Transaction Entity">
+      <field name="acctgTransId" type="id-ne"></field>
+      <field name="acctgTransTypeId" type="id"></field>
+      <field name="description" type="description"></field>
+      <field name="transactionDate" type="date-time"></field>
+      <field name="isPosted" type="indicator"></field>
+      <field name="postedDate" type="date-time"></field>
+      <field name="glJournalId" type="id"></field>
+      <field name="glFiscalTypeId" type="id"></field>
+      <field name="voucherRef" type="short-varchar"></field>
+      <field name="voucherDate" type="date-time"></field>
+      <field name="groupStatusId" type="id"></field>
+      <field name="fixedAssetId" type="id"></field>
+      <field name="inventoryItemId" type="id"></field>
+      <field name="physicalInventoryId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="invoiceId" type="id"></field>
+      <field name="paymentId" type="id"></field>
+      <field name="shipmentId" type="id"></field>
+      <field name="receiptId" type="id"></field>
+      <field name="workEffortId" type="id"></field>
+      <field name="theirAcctgTransId" type="id-long"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="acctgTransId"/>
+      <relation type="one" fk-name="ACCTTX_TYPE" rel-entity-name="AcctgTransType">
+        <key-map field-name="acctgTransTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_GLJRNL" rel-entity-name="GlJournal">
+        <key-map field-name="glJournalId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_GLFST" rel-entity-name="GlFiscalType">
+        <key-map field-name="glFiscalTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_GRPSTTS" rel-entity-name="StatusItem">
+        <key-map field-name="groupStatusId" rel-field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_FASSET" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_PHS_INV" rel-entity-name="PhysicalInventory">
+        <key-map field-name="physicalInventoryId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_INVITEM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_INVITEMVAR" rel-entity-name="InventoryItemVariance">
+        <key-map field-name="inventoryItemId"/>
+        <key-map field-name="physicalInventoryId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_ROLETYP" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_INVOICE" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_PAYMENT" rel-entity-name="Payment">
+        <key-map field-name="paymentId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_SHIPMENT" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_SHIPRCPT" rel-entity-name="ShipmentReceipt">
+        <key-map field-name="receiptId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTX_WEFF" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AcctgTransTypeAttr">
+        <key-map field-name="acctgTransTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AcctgTransAttribute"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Accounting Transaction Attribute Entity">
+      <field name="acctgTransId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="acctgTransId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="ACCTTX_ATTR" rel-entity-name="AcctgTrans">
+        <key-map field-name="acctgTransId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AcctgTransTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="AcctgTransEntry"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Transaction Entry Entity">
+      <field name="acctgTransId" type="id-ne"></field>
+      <field name="acctgTransEntrySeqId" type="id-ne"></field>
+      <field name="acctgTransEntryTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="voucherRef" type="short-varchar"></field>
+      <field name="partyId" type="id"></field>
+      <field name="roleTypeId" type="id"></field>
+      <field name="theirPartyId" type="id"></field>
+      <field name="productId" type="id"></field>
+      <field name="theirProductId" type="id"></field>
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="currencyUomId" type="id"></field>
+      <field name="origAmount" type="currency-amount"></field>
+      <field name="debitCreditFlag" type="indicator"></field>
+      <field name="dueDate" type="date"></field>
+      <field name="groupId" type="id"></field>
+      <field name="taxId" type="id"></field>
+      <field name="reconcileStatusId" type="id"></field>
+      <field name="settlementTermId" type="id"></field>
+      <field name="isSummary" type="indicator"></field>
+      <prim-key field="acctgTransId"/>
+      <prim-key field="acctgTransEntrySeqId"/>
+      <relation type="one" fk-name="ACCTTXENT_ATET" rel-entity-name="AcctgTransEntryType">
+        <key-map field-name="acctgTransEntryTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_CURNCY" title="Currency" rel-entity-name="Uom">  <!-- title strictly speaking not necessary here but nice for consistency -->
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_ACTX" rel-entity-name="AcctgTrans">
+        <key-map field-name="acctgTransId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_RLTYP" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_GLACT" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_GLACOG" rel-entity-name="GlAccountOrganization">
+        <key-map field-name="glAccountId"/>
+        <key-map field-name="organizationPartyId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_RCSTS" rel-entity-name="StatusItem">
+        <key-map field-name="reconcileStatusId" rel-field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_STLEN" rel-entity-name="SettlementTerm">
+        <key-map field-name="settlementTermId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="AcctgTransAndEntries"
+            package-name="org.ofbiz.accounting.ledger"
+            title="View of AcctgTrans and Entries, for easier lookup and calculation">
+      <member-entity entity-alias="ATR" entity-name="AcctgTrans"/>
+      <member-entity entity-alias="ATE" entity-name="AcctgTransEntry"/>
+      <member-entity entity-alias="GLA" entity-name="GlAccount"/>
+      <member-entity entity-alias="GLAC" entity-name="GlAccountClass"/>
+      <alias entity-alias="ATR" name="isPosted"/>
+      <alias entity-alias="ATR" name="glFiscalTypeId"/>
+      <alias entity-alias="ATR" name="acctgTransTypeId"/>
+      <alias entity-alias="ATR" name="transactionDate"/>
+      <alias entity-alias="ATR" name="invoiceId"/>
+      <alias entity-alias="ATR" name="paymentId"/>
+      <alias entity-alias="ATR" name="shipmentId"/>
+      <alias entity-alias="ATR" name="receiptId"/>
+      <alias entity-alias="ATR" name="inventoryItemId"/>
+      <alias entity-alias="ATR" name="physicalInventoryId"/>
+      <alias entity-alias="ATE" name="acctgTransId"/>
+      <alias entity-alias="ATE" name="acctgTransEntrySeqId"/>
+      <alias entity-alias="ATE" name="glAccountId"/>
+      <alias entity-alias="ATE" name="debitCreditFlag"/>
+      <alias entity-alias="ATE" name="amount"/>
+      <alias entity-alias="ATE" name="currencyUomId"/>
+      <alias entity-alias="ATE" name="organizationPartyId"/>
+      <alias entity-alias="GLA" name="glAccountTypeId"/>
+      <alias entity-alias="GLAC" name="glAccountClassId"/>
+      <alias entity-alias="ATE" name="partyId"/>
+      <alias entity-alias="ATE" name="reconcileStatusId"/>
+      <alias entity-alias="ATE" name="acctgTransEntryTypeId"/>
+      <view-link entity-alias="ATR" rel-entity-alias="ATE">
+        <key-map field-name="acctgTransId"/>
+      </view-link>
+      <view-link entity-alias="ATE" rel-entity-alias="GLA">
+        <key-map field-name="glAccountId"/>
+      </view-link>
+      <view-link entity-alias="GLA" rel-entity-alias="GLAC">
+        <key-map field-name="glAccountClassId"/>
+      </view-link>
+      <relation type="one" fk-name="ATAE_GLACT" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="ATAE_GLACTCLS" rel-entity-name="GlAccountClass">
+        <key-map field-name="glAccountClassId"/>
+      </relation>
+      <relation type="one" fk-name="ATAE_ATTYPE" rel-entity-name="AcctgTransType">
+        <key-map field-name="acctgTransTypeId"/>
+      </relation>
+    </view-entity>
+    <view-entity entity-name="AcctgTransEntryProdSums"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Sum of AcctgTransEntry entity amounts, grouped by glAccountId, productId, debitCreditFlag">
+      <member-entity entity-alias="ATE" entity-name="AcctgTransEntry"/>
+      <member-entity entity-alias="ACT" entity-name="AcctgTrans"/>
+      <member-entity entity-alias="GLA" entity-name="GlAccount"/>
+      <alias entity-alias="ATE" name="organizationPartyId" group-by="true"/>
+      <alias entity-alias="ATE" name="productId" group-by="true"/>
+      <alias entity-alias="ATE" name="debitCreditFlag" group-by="true"/>
+      <alias entity-alias="ATE" name="amount" function="sum"/>
+      <alias entity-alias="ATE" name="glAccountId" group-by="false"/>
+      <alias entity-alias="GLA" name="glAccountTypeId" group-by="true"/> <!-- so we can select by type of account -->
+      <alias entity-alias="ACT" name="isPosted" group-by="false"/> <!-- so we can select by posted status -->
+      <alias entity-alias="ACT" name="transactionDate" group-by="false"/> <!-- so we can select the sum by date -->
+      <view-link entity-alias="ATE" rel-entity-alias="GLA">
+        <key-map field-name="glAccountId"/>
+      </view-link>
+      <view-link entity-alias="ATE" rel-entity-alias="ACT">
+        <key-map field-name="acctgTransId"/>
+      </view-link>
+    </view-entity>
+    <entity entity-name="AcctgTransEntryType"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Accounting Transaction Entry Type Entity">
+      <field name="acctgTransEntryTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="acctgTransEntryTypeId"/>
+      <relation type="one" fk-name="ACCTTXE_TYPE_PAR" title="Parent" rel-entity-name="AcctgTransEntryType">
+        <key-map field-name="parentTypeId" rel-field-name="acctgTransEntryTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AcctgTransType"
+            package-name="org.ofbiz.accounting.ledger"
+            default-resource-name="AccountingEntityLabels"
+            title="Accounting Transaction Type Entity">
+      <field name="acctgTransTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="acctgTransTypeId"/>
+      <relation type="one" fk-name="ACCTTX_TYPE_PAR" title="Parent" rel-entity-name="AcctgTransType">
+        <key-map field-name="parentTypeId" rel-field-name="acctgTransTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="AcctgTransTypeAttr"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Accounting Transaction Type Attribute Entity">
+      <field name="acctgTransTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="acctgTransTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="ACCTTX_TYPE_ATTR" rel-entity-name="AcctgTransType">
+        <key-map field-name="acctgTransTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="AcctgTransAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="AcctgTrans">
+        <key-map field-name="acctgTransTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlAccount"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Account Entity">
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="glAccountTypeId" type="id"></field>
+      <field name="glAccountClassId" type="id"></field>
+      <field name="glResourceTypeId" type="id"></field>
+      <field name="glXbrlClassId" type="id"></field>
+      <field name="parentGlAccountId" type="id"></field>
+      <field name="accountCode" type="name"></field>
+      <field name="accountName" type="name"></field>
+      <field name="description" type="description"></field>
+      <field name="productId" type="id"></field>
+      <field name="postedBalance" type="currency-amount"></field>
+      <prim-key field="glAccountId"/>
+      <relation type="one" fk-name="GLACCT_TYPE" rel-entity-name="GlAccountType">
+        <key-map field-name="glAccountTypeId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_CLSS" rel-entity-name="GlAccountClass">
+        <key-map field-name="glAccountClassId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_REC" rel-entity-name="GlResourceType">
+        <key-map field-name="glResourceTypeId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_XBRLCLS" rel-entity-name="GlXbrlClass">
+        <key-map field-name="glXbrlClassId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_PAR" title="Parent" rel-entity-name="GlAccount">
+        <key-map field-name="parentGlAccountId" rel-field-name="glAccountId"/>
+      </relation>
+      <index name="GLACCT_UNQCD" unique="true">
+        <index-field name="accountCode"/>
+      </index>
+    </entity>
+    <entity entity-name="GlAccountClass"
+            package-name="org.ofbiz.accounting.ledger"
+            default-resource-name="AccountingEntityLabels"
+            title="General Ledger Account Class Entity">
+      <field name="glAccountClassId" type="id-ne"></field>
+      <field name="parentClassId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="isAssetClass" type="indicator"></field>
+      <prim-key field="glAccountClassId"/>
+      <relation type="one" fk-name="GLACTCLS_PAR" title="Parent" rel-entity-name="GlAccountClass">
+        <key-map field-name="parentClassId" rel-field-name="glAccountClassId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlAccountGroup"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Account Group Entity">
+      <field name="glAccountGroupId" type="id-ne"></field>
+      <field name="glAccountGroupTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glAccountGroupId"/>
+      <relation type="one" fk-name="GLACT_GRP_TP" rel-entity-name="GlAccountGroupType">
+        <key-map field-name="glAccountGroupTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlAccountGroupMember"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Account Group Member Entity">
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="glAccountGroupTypeId" type="id-ne"></field>
+      <field name="glAccountGroupId" type="id-ne"></field>
+      <prim-key field="glAccountId"/>
+      <prim-key field="glAccountGroupTypeId"/>
+      <relation type="one" fk-name="GLACT_GPMBR_AC" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLACT_GPMBR_GP" rel-entity-name="GlAccountGroup">
+        <key-map field-name="glAccountGroupId"/>
+      </relation>
+      <relation type="one" fk-name="GLACT_GPMBR_TP" rel-entity-name="GlAccountGroupType">
+        <key-map field-name="glAccountGroupTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlAccountGroupType"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Account Group Type Entity">
+      <field name="glAccountGroupTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glAccountGroupTypeId"/>
+    </entity>
+    <entity entity-name="GlAccountHistory"
+            package-name="org.ofbiz.accounting.ledger"
+            title="GL Account History Entity">
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="customTimePeriodId" type="id-ne"></field>
+      <field name="postedDebits" type="currency-amount"></field>
+      <field name="postedCredits" type="currency-amount"></field>
+      <field name="endingBalance" type="currency-amount"></field>
+      <prim-key field="glAccountId"/>
+      <prim-key field="organizationPartyId"/>
+      <prim-key field="customTimePeriodId"/>
+      <relation type="one" fk-name="GLACCT_HST_GLA" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_HST_PARTY" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_HST_CTP" rel-entity-name="CustomTimePeriod">
+        <key-map field-name="customTimePeriodId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="GlAccountAndHistory"
+            package-name="org.ofbiz.accounting.ledger"
+            title="View of GL Account and its History, for lookup and calculation">
+      <member-entity entity-alias="GLA" entity-name="GlAccount"/>
+      <member-entity entity-alias="GLAH" entity-name="GlAccountHistory"/>
+      <member-entity entity-alias="GLAC" entity-name="GlAccountClass"/>
+      <alias-all entity-alias="GLA"/>
+      <alias-all entity-alias="GLAH"/>
+      <alias entity-alias="GLAC" name="glAccountClassId"/>
+      <view-link entity-alias="GLA" rel-entity-alias="GLAH">
+        <key-map field-name="glAccountId"/>
+      </view-link>
+      <view-link entity-alias="GLA" rel-entity-alias="GLAC">
+        <key-map field-name="glAccountClassId"/>
+      </view-link>
+      <relation type="one" fk-name="GLAAH_GLACT" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLAAH_GLACTCLS" rel-entity-name="GlAccountClass">
+        <key-map field-name="glAccountClassId"/>
+      </relation>
+      <relation type="one" fk-name="GLAAH_GLAH" rel-entity-name="GlAccountHistory">
+        <key-map field-name="glAccountId"/>
+        <key-map field-name="organizationPartyId"/>
+        <key-map field-name="customTimePeriodId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="GlAccountOrganization"
+            package-name="org.ofbiz.accounting.ledger"
+            title="GL Account Organization Entity">
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="postedBalance" type="currency-amount"></field>
+      <prim-key field="glAccountId"/>
+      <prim-key field="organizationPartyId"/>
+      <relation type="one" fk-name="GLACCT_ORG_GLA" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_ORG_PARTY" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="GlAccountOrganizationAndClass"
+            package-name="org.ofbiz.accounting.ledger"
+            title="View of GL Account Organization and the GlAccount and class, for lookup and calculation">
+      <member-entity entity-alias="GLAO" entity-name="GlAccountOrganization"/>
+      <member-entity entity-alias="GLA" entity-name="GlAccount"/>
+      <alias-all entity-alias="GLAO"/>
+      <alias-all entity-alias="GLA">
+        <exclude field="postedBalance"/>
+      </alias-all>
+      <alias entity-alias="GLA" name="accountPostedBalance" field="postedBalance"/>
+      <view-link entity-alias="GLAO" rel-entity-alias="GLA">
+        <key-map field-name="glAccountId"/>
+      </view-link>
+      <relation type="one" fk-name="GLAOC_GLA" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLAOC_GLAO" rel-entity-name="GlAccountOrganization">
+        <key-map field-name="glAccountId"/>
+        <key-map field-name="organizationPartyId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="GlAccountRole"
+            package-name="org.ofbiz.accounting.ledger"
+            title="GL Account Role Entity">
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="glAccountId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="GLACCT_RL_GLA" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_RL_PTRLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlAccountType"
+            package-name="org.ofbiz.accounting.ledger"
+            default-resource-name="AccountingEntityLabels"
+            title="General Ledger Account Type Entity">
+      <field name="glAccountTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glAccountTypeId"/>
+    </entity>
+    <entity entity-name="GlAccountTypeDefault"
+            package-name="org.ofbiz.accounting.ledger"
+            title="GL Account Organization Entity">
+      <field name="glAccountTypeId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="glAccountId" type="id-ne"></field>
+      <prim-key field="glAccountTypeId"/>
+      <prim-key field="organizationPartyId"/>
+      <relation type="one" fk-name="GLACCT_TPDF_GLAT" rel-entity-name="GlAccountType">
+        <key-map field-name="glAccountTypeId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_TPDF_OPTY" title="Organization" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="GLACCT_TPDF_GLA" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlBudgetXref"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Budget Cross Reference Entity">
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="budgetItemTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="allocationPercentage" type="floating-point"></field>
+      <prim-key field="glAccountId"/>
+      <prim-key field="budgetItemTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="GL_BDGT_XRF_GLA" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GL_BDGT_XRF_BIT" rel-entity-name="BudgetItemType">
+        <key-map field-name="budgetItemTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlFiscalType"
+            package-name="org.ofbiz.accounting.ledger"
+            default-resource-name="AccountingEntityLabels"
+            title="General Ledger Fiscal Entity">
+      <field name="glFiscalTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glFiscalTypeId"/>
+    </entity>
+    <entity entity-name="GlJournal"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Journal Entity">
+      <field name="glJournalId" type="id-ne"></field>
+      <field name="glJournalName" type="name"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="isPosted" type="indicator"></field>
+      <field name="postedDate" type="date-time"></field>
+      <prim-key field="glJournalId"/>
+      <relation type="one" fk-name="GLJOURN_PARTY" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlReconciliation"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Reconciliation Entity">
+      <field name="glReconciliationId" type="id-ne"></field>
+      <field name="glReconciliationName" type="name"></field>
+      <field name="description" type="description"></field>
+      <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="reconciledBalance" type="currency-amount"></field>
+      <field name="reconciledDate" type="date-time"></field>
+      <prim-key field="glReconciliationId"/>
+      <relation type="one" fk-name="GLREC_GLACCT" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLREC_GLPARTY" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlReconciliationEntry"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger Reconciliation Entry Entity">
+      <field name="glReconciliationId" type="id-ne"></field>
+      <field name="acctgTransId" type="id-ne"></field>
+      <field name="acctgTransEntrySeqId" type="id-ne"></field>
+      <field name="reconciledAmount" type="currency-amount"></field>
+      <prim-key field="glReconciliationId"/>
+      <prim-key field="acctgTransId"/>
+      <prim-key field="acctgTransEntrySeqId"/>
+      <relation type="one" fk-name="GL_RECENT_GLREC" rel-entity-name="GlReconciliation">
+        <key-map field-name="glReconciliationId"/>
+      </relation>
+      <relation type="one" fk-name="GL_RECENT_ACTTXE" rel-entity-name="AcctgTransEntry">
+        <key-map field-name="acctgTransId"/>
+        <key-map field-name="acctgTransEntrySeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="AcctgTrans">
+        <key-map field-name="acctgTransId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GlResourceType"
+            package-name="org.ofbiz.accounting.ledger"
+            default-resource-name="AccountingEntityLabels"
+            title="General Ledger Resource Entity">
+      <field name="glResourceTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glResourceTypeId"/>
+    </entity>
+    <entity entity-name="GlXbrlClass"
+            package-name="org.ofbiz.accounting.ledger"
+            title="General Ledger XBRL Class Entity">
+      <field name="glXbrlClassId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="glXbrlClassId"/>
+    </entity>
+    <entity entity-name="PartyAcctgPreference"
+        package-name="org.ofbiz.accounting.ledger"
+        title="Party (organization) accounting preferences">
+        <field name="partyId" type="id-ne"/>
+        <field name="fiscalYearStartMonth" type="numeric"/>
+        <field name="fiscalYearStartDay" type="numeric"/>
+        <field name="taxFormId" type="id-ne"/>
+        <field name="cogsMethodId" type="id-ne"/>
+        <field name="baseCurrencyUomId" type="id-ne"/>
+        <field name="invoiceSequenceEnumId" type="id-ne"/>
+        <field name="invoiceIdPrefix" type="very-short"/>
+        <field name="lastInvoiceNumber" type="numeric"/>
+        <field name="lastInvoiceRestartDate" type="date-time"/>
+        <field name="useInvoiceIdForReturns" type="indicator"/>
+        <field name="quoteSequenceEnumId" type="id-ne"/>
+        <field name="quoteIdPrefix" type="very-short"/>
+        <field name="lastQuoteNumber" type="numeric"/>
+        <field name="orderSequenceEnumId" type="id-ne"/>
+        <field name="orderIdPrefix" type="very-short"/>
+        <field name="lastOrderNumber" type="numeric"/>
+        <prim-key field="partyId"/>
+        <relation type="one" rel-entity-name="Party" fk-name="ACTG_PREF_PTY">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_TAXFORM" title="TaxForm" rel-entity-name="Enumeration">
+            <key-map field-name="taxFormId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_COGS" title="Cogs" rel-entity-name="Enumeration">
+            <key-map field-name="cogsMethodId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="ACCTGPREF_CURNCY" rel-entity-name="Uom">
+            <key-map field-name="baseCurrencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_INVSQ" title="InvoiceSequence" rel-entity-name="Enumeration">
+            <key-map field-name="invoiceSequenceEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_QTESQ" title="QuoteSequence" rel-entity-name="Enumeration">
+            <key-map field-name="quoteSequenceEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_ODRSQ" title="OrderSequence" rel-entity-name="Enumeration">
+            <key-map field-name="orderSequenceEnumId" rel-field-name="enumId"/>
+        </relation>
+    </entity>
+    <entity entity-name="ProductAverageCost"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Running tally of average cost">
+       <description>Running tally of a product's average cost in a particular company</description>
+       <field name="organizationPartyId" type="id-ne"/>
+       <field name="productId" type="id-ne"/>
+       <field name="averageCost" type="floating-point"/>
+       <field name="fromDate" type="date-time"/>
+       <field name="thruDate" type="date-time"/>
+       <prim-key field="organizationPartyId"/>
+       <prim-key field="productId"/>
+       <prim-key field="fromDate"/>
+       <relation type="one" rel-entity-name="Party" fk-name="AVG_COST_PARTY">
+           <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+       </relation>
+       <relation type="one" rel-entity-name="Product" fk-name="AVG_COST_PROD">
+           <key-map field-name="productId"/>
+       </relation>
+    </entity>
+    <entity entity-name="SettlementTerm"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Settlement Term Entity">
+      <field name="settlementTermId" type="id-ne"></field>
+      <field name="termName" type="name"></field>
+      <field name="termValue" type="numeric"></field>
+      <field name="uomId" type="id"></field>
+      <prim-key field="settlementTermId"/>
+    </entity>
+    <entity entity-name="VarianceReasonGlAccount"
+            package-name="org.ofbiz.accounting.ledger"
+            title="Defines GL Accounts for Inventory Variance Reasons">
+      <field name="varianceReasonId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="glAccountId" type="id-ne"></field>
+      <prim-key field="varianceReasonId"/>
+      <prim-key field="organizationPartyId"/>
+      <relation type="one" fk-name="VRGL_VREAS" rel-entity-name="VarianceReason">
+        <key-map field-name="varianceReasonId"/>
+      </relation>
+      <relation type="one" fk-name="VRGL_PARTY" title="Organization" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="VRGL_GLACCT" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+    </entity>
+
+    <!-- Work Effort Costing -->
+    <entity entity-name="WorkEffortCostCalc"
+            package-name="org.ofbiz.accounting.costs"
+            title="Work Effort Cost Calculation Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="costComponentTypeId" type="id-ne"></field>
+        <field name="costComponentCalcId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="workEffortId"/>
+        <prim-key field="costComponentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="WK_EFFRT_COS_WEF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one" fk-name="WK_EFFRT_COS_CCT" rel-entity-name="CostComponentType">
+            <key-map field-name="costComponentTypeId"/>
+        </relation>
+        <relation type="one" fk-name="WK_EFFRT_COS_CCC" rel-entity-name="CostComponentCalc">
+            <key-map field-name="costComponentCalcId"/>
+        </relation>
+    </entity>
+    <entity entity-name="CostComponentCalc"
+            package-name="org.ofbiz.accounting.costs"
+            title="Cost Component Calculation Entity">
+        <field name="costComponentCalcId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <field name="costGlAccountTypeId" type="id"></field>
+        <field name="offsettingGlAccountTypeId" type="id"></field>
+        <field name="fixedCost" type="currency-amount"></field>
+        <field name="variableCost" type="currency-amount"></field>
+        <field name="perMilliSecond" type="numeric"></field>
+        <field name="currencyUomId" type="id"></field>
+        <field name="costCustomMethodId" type="id"></field>
+        <prim-key field="costComponentCalcId"/>
+        <relation type="one" fk-name="COST_COM_CGLAT" title="Cost" rel-entity-name="GlAccountType">
+            <key-map field-name="costGlAccountTypeId" rel-field-name="glAccountTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COST_COM_OGLAT" title="Offsetting" rel-entity-name="GlAccountType">
+            <key-map field-name="offsettingGlAccountTypeId" rel-field-name="glAccountTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COST_COM_CUOM" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="COST_COM_CMET" rel-entity-name="CustomMethod">
+            <key-map field-name="costCustomMethodId" rel-field-name="customMethodId"/>
+        </relation>
+    </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.payment -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="BillingAccount"
+            package-name="org.ofbiz.accounting.payment"
+            title="Billing Account Entity">
+      <description>A BillingAccount Payment Method</description>
+      <field name="billingAccountId" type="id-ne"></field>
+      <field name="accountLimit" type="currency-amount"></field>
+      <field name="accountCurrencyUomId" type="id"></field>
+      <field name="contactMechId" type="id"><!-- This is a PostalAddress --></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="description" type="description"></field>
+      <field name="externalAccountId" type="id"></field>
+      <prim-key field="billingAccountId"/>
+      <relation type="one" fk-name="BILLACCT_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="BILLACCT_CUOM" rel-entity-name="Uom">
+        <key-map field-name="accountCurrencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="BILLACCT_PADDR" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="BillingAccountAndRole"
+            package-name="org.ofbiz.accounting.payment"
+            title="Billing Account and Role Entity"
+            never-cache="true">
+      <member-entity entity-alias="BA" entity-name="BillingAccount"/>
+      <member-entity entity-alias="BR" entity-name="BillingAccountRole"/>
+      <alias-all entity-alias="BR"/>
+      <alias entity-alias="BA" name="billingAccountId"/>
+      <alias entity-alias="BA" name="accountLimit"/>
+      <alias entity-alias="BA" name="contactMechId"/>
+      <alias entity-alias="BA" name="accountFromDate" field="fromDate"/>
+      <alias entity-alias="BA" name="accountThruDate" field="thruDate"/>
+      <alias entity-alias="BA" name="description"/>
+      <view-link entity-alias="BA" rel-entity-alias="BR">
+        <key-map field-name="billingAccountId"/>
+      </view-link>
+      <relation type="many" rel-entity-name="OrderHeader">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+      <relation type="many" rel-entity-name="BillingAccountRole">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+      <relation type="many" rel-entity-name="Invoice">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PaymentApplication">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="BillingAccountRole"
+            package-name="org.ofbiz.accounting.payment"
+            title="Billing Account Role Entity">
+      <field name="billingAccountId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="billingAccountId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="BILLACCT_ROLE" rel-entity-name="BillingAccount">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+      <relation type="one" fk-name="BILLACCT_RL_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="BILLACCT_RL_PTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="BillingAccountRoleAndAddress"
+        package-name="org.ofbiz.accounting.payment"
+        title="Billing Account Role and Address Entity">
+        <description>Note that the ContactMech is not linked into this view and the PADDR is not optional, this way we naturally only get postal address entries</description>
+        <member-entity entity-alias="BAR" entity-name="BillingAccountRole"/>
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="PADDR" entity-name="PostalAddress"/>
+        <alias-all entity-alias="BAR"/>
+        <alias-all entity-alias="PADDR"/>
+        <alias entity-alias="PCM" name="pcmFromDate" field="fromDate"/>
+        <alias entity-alias="PCM" name="pcmThruDate" field="thruDate"/>
+        <view-link entity-alias="BAR" rel-entity-alias="PCM">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="PADDR">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="BillingAccountTerm"
+            package-name="org.ofbiz.accounting.payment"
+            title="Billing Account Term Entity">
+      <field name="billingAccountTermId" type="id-ne"></field>
+      <field name="billingAccountId" type="id-ne"></field>
+      <field name="termTypeId" type="id"></field>
+      <field name="termValue" type="currency-amount"></field>
+      <field name="termDays" type="numeric"></field>
+      <field name="uomId" type="id"></field>
+      <prim-key field="billingAccountTermId"/>
+      <relation type="one" fk-name="BILLACCT_TRM_UOM" rel-entity-name="Uom">
+        <key-map field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="BILLACCT_TRM_TRM" rel-entity-name="TermType">
+        <key-map field-name="termTypeId"/>
+      </relation>
+      <relation type="one" fk-name="BILLACCT_TRM_BACT" rel-entity-name="BillingAccount">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+    </entity>
+    <entity entity-name="BillingAccountTermAttr"
+            package-name="org.ofbiz.accounting.payment"
+            title="Billing Account Term Attribute Entity">
+      <field name="billingAccountTermId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="billingAccountTermId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="BILLACCT_TRM_ATTR" rel-entity-name="BillingAccountTerm">
+        <key-map field-name="billingAccountTermId"/>
+      </relation>
+      <relation type="many" rel-entity-name="TermTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="CreditCard"
+            package-name="org.ofbiz.accounting.payment"
+            title="Credit Card Information Entity">
+      <field name="paymentMethodId" type="id-ne"></field>
+      <field name="cardType" type="short-varchar"></field>
+      <field name="cardNumber" type="credit-card-number" encrypt="true"></field>
+      <field name="cvvNumber" type="credit-card-number" encrypt="true"><description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION, TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE; this is the 3 digit on back (for Visa, MC, etc) or 4 digit on front (Amex, etc) card verification code; also note that this field is longer than needed to accommodate encryption.</description></field>
+      <field name="validFromDate" type="credit-card-date"><description>Not common in some parts of the world.</description></field>
+      <field name="expireDate" type="credit-card-date"></field>
+      <field name="issueNumber" type="credit-card-date"><description>Single digit number on some Switch and Maestro cards</description></field>
+      <field name="companyNameOnCard" type="name"></field>
+      <field name="titleOnCard" type="name"></field>
+      <field name="firstNameOnCard" type="name"></field>
+      <field name="middleNameOnCard" type="name"></field>
+      <field name="lastNameOnCard" type="name"></field>
+      <field name="suffixOnCard" type="name"></field>
+      <field name="contactMechId" type="id-ne"><description>The Billing PostalAddress</description></field>
+      <field name="consecutiveFailedAuths" type="numeric"></field>
+      <field name="lastFailedAuthDate" type="date-time"></field>
+      <prim-key field="paymentMethodId"/>
+      <relation type="one" fk-name="CREDCARD_PMNTMETH" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one" fk-name="CREDCARD_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="CREDCARD_PADDR" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <entity entity-name="CreditCardTypeGlAccount"
+            package-name="org.ofbiz.accounting.payment"
+            title="Credit Card Type GL Account Entity">
+      <field name="cardType" type="short-varchar"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="glAccountId" type="id-ne"></field>
+      <prim-key field="cardType"/>
+      <prim-key field="organizationPartyId"/>
+    </entity>
+    <entity entity-name="Deduction"
+            package-name="org.ofbiz.accounting.payment"
+            title="Deduction Entity">
+      <field name="deductionId" type="id-ne"></field>
+      <field name="deductionTypeId" type="id"></field>
+      <field name="paymentId" type="id"></field>
+      <field name="amount" type="currency-amount"></field>
+      <prim-key field="deductionId"/>
+      <relation type="one" fk-name="DEDCTN_DEDTYP" rel-entity-name="DeductionType">
+        <key-map field-name="deductionTypeId"/>
+      </relation>
+      <relation type="one" fk-name="DEDCTN_PMNT" rel-entity-name="Payment">
+        <key-map field-name="paymentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="DeductionType"
+            package-name="org.ofbiz.accounting.payment"
+            title="Deduction Type Entity">
+      <field name="deductionTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="deductionTypeId"/>
+    </entity>
+    <entity entity-name="EftAccount"
+            package-name="org.ofbiz.accounting.payment"
+            title="EFT Account Information Entity">
+      <field name="paymentMethodId" type="id-ne"></field>
+      <field name="bankName" type="name"></field>
+      <field name="routingNumber" type="short-varchar"></field>
+      <field name="accountType" type="short-varchar"></field>
+      <field name="accountNumber" type="long-varchar"></field>
+      <field name="nameOnAccount" type="name"></field>
+      <field name="companyNameOnAccount" type="name"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="yearsAtBank" type="numeric"></field>
+      <prim-key field="paymentMethodId"/>
+      <relation type="one" fk-name="EFTACCT_PMETH" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one" fk-name="EFTACCT_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="EFTACCT_PADDR" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+    
+    <!-- financial account entities for gift certificates, calling cards, or customer accounts -->
+    <entity entity-name="FinAccount"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Entity">
+      <field name="finAccountId" type="id-ne"></field>
+      <field name="finAccountTypeId" type="id"></field>
+      <field name="finAccountName" type="name"></field>
+      <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
+      <field name="fromDate" type="date-time">
+        <description>Describes when account will be valid.  If null, valid immediately.</description>
+      </field>
+      <field name="thruDate" type="date-time">
+        <description>Expiration date of the account.  If null, will never expire.</description>
+      </field>
+      <prim-key field="finAccountId"/>
+      <relation type="one" fk-name="FINACCT_TYPE" rel-entity-name="FinAccountType">
+        <key-map field-name="finAccountTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccountTypeAttr">
+        <key-map field-name="finAccountTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountAttribute"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Attribute Entity">
+      <field name="finAccountId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="finAccountId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="FINACCT_ATTR" rel-entity-name="FinAccount">
+        <key-map field-name="finAccountId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccountTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountRole"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Role Entity">
+      <field name="finAccountId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="finAccountId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="FIN_ACT_RL_FNACT" rel-entity-name="FinAccount">
+        <key-map field-name="finAccountId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="FIN_ACT_RL_RTRL" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountTrans"
+            package-name="org.ofbiz.accounting.finacount"
+            title="Financial Account Transaction Entity">
+      <field name="finAccountTransId" type="id-ne"></field>
+      <field name="finAccountTransTypeId" type="id-ne"></field>
+      <field name="finAccountId" type="id"></field>
+      <field name="partyId" type="id"></field>
+      <field name="transactionDate" type="date-time"></field>
+      <field name="entryDate" type="date-time"></field>
+      <field name="paymentId" type="id-ne"></field>
+      <prim-key field="finAccountTransId"/>
+      <relation type="one" fk-name="FINACCT_TX_TYPE" rel-entity-name="FinAccountTransType">
+        <key-map field-name="finAccountTransTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccountTransTypeAttr">
+        <key-map field-name="finAccountTransTypeId"/>
+      </relation>
+      <relation type="one" fk-name="FIN_ACT_TX_FNACT" rel-entity-name="FinAccount">
+        <key-map field-name="finAccountId"/>
+      </relation>
+      <relation type="one" fk-name="FIN_ACT_TX_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="FIN_ACT_TX_PMT" rel-entity-name="Payment">
+        <key-map field-name="paymentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountAuth"
+                package-name="org.ofbiz.accounting.finaccount"
+                title="Financial Account Authorizations record">
+      <field name="finAccountAuthId" type="id-ne"/>
+      <field name="finAccountId" type="id-ne"/>
+      <field name="amount" type="currency-amount"/>
+      <field name="currencyUomId" type="id-ne"/>
+      <field name="authorizationDate" type="date-time"/>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
+      <prim-key field="finAccountAuthId"/>
+      <relation type="one" fk-name="FINACT_AUTH_FINACT" rel-entity-name="FinAccount">
+        <key-map field-name="finAccountId"/>
+      </relation>
+      <relation type="one" fk-name="FINACT_AUTH_CURNCY" title="Currency" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountTransAttribute"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Transaction Attribute Entity">
+      <field name="finAccountTransId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="finAccountTransId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="FINACCT_TX_ATTR" rel-entity-name="FinAccountTrans">
+        <key-map field-name="finAccountTransId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccountTransTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountTransType"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Transaction Type Entity">
+      <field name="finAccountTransTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="finAccountTransTypeId"/>
+      <relation type="one" fk-name="FINACCT_TX_TYPPAR" title="Parent" rel-entity-name="FinAccountTransType">
+        <key-map field-name="parentTypeId" rel-field-name="finAccountTransTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountTransTypeAttr"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Transaction Type Attribute Entity">
+      <field name="finAccountTransTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="finAccountTransTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="FINACCT_TX_TYPATR" rel-entity-name="FinAccountTransType">
+        <key-map field-name="finAccountTransTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccountTransAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccountTrans">
+        <key-map field-name="finAccountTransTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountType"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Type Entity">
+      <field name="finAccountTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="finAccountTypeId"/>
+      <relation type="one" fk-name="FINACCT_TYPE_PAR" title="Parent" rel-entity-name="FinAccountType">
+        <key-map field-name="parentTypeId" rel-field-name="finAccountTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="FinAccountTypeAttr"
+            package-name="org.ofbiz.accounting.finaccount"
+            title="Financial Account Type Attribute Entity">
+      <field name="finAccountTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="finAccountTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="FINACCT_TYPE_ATTR" rel-entity-name="FinAccountType">
+        <key-map field-name="finAccountTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccountAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="FinAccount">
+        <key-map field-name="finAccountTypeId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="FinAccountTransSum"
+               package-name="org.ofbiz.accounting.finaccount"
+               title="View entity to help calculate total of financial account transactions by doing a query for the sum of all amounts 
+               on a range of transactionDates for a given finAccountId, finAccountTransTypeId">
+       <member-entity entity-alias="FAT" entity-name="FinAccountTrans"/>
+       <member-entity entity-alias="P" entity-name="Payment"/>
+       <alias entity-alias="FAT" name="finAccountId" group-by="true"/>
+       <alias entity-alias="FAT" name="finAccountTransTypeId" group-by="false"/> <!-- must not group-by this, or aggregating DEPOSIT and ADJUSTMENT won't work -->
+       <alias entity-alias="FAT" name="transactionDate" group-by="false"/>
+       <alias entity-alias="P" name="amount" function="sum"/>
+       <alias entity-alias="P" name="currencyUomId" group-by="true"/>
+       <view-link entity-alias="FAT" rel-entity-alias="P">
+         <key-map field-name="paymentId"/>
+       </view-link>       
+    </view-entity>
+    <view-entity entity-name="FinAccountAuthSum"
+          package-name="org.ofbiz.accounting.finaccount"
+          title="View entity to help calculate total of financial account authorizations by doing a query for the sum of all amounts 
+          on a range of transactionDates for a given finAccountId.  Note there is no auth type to consider here, but authorizations do
+          have from and thru dates">
+      <member-entity entity-alias="FAA" entity-name="FinAccountAuth"/>
+      <alias entity-alias="FAA" name="finAccountId" group-by="true"/>
+      <alias entity-alias="FAA" name="authorizationDate" group-by="false"/>
+      <alias entity-alias="FAA" name="fromDate" group-by="false"/>
+      <alias entity-alias="FAA" name="thruDate" group-by="false"/>
+      <alias entity-alias="FAA" name="amount" function="sum"/>
+      <alias entity-alias="FAA" name="currencyUomId" group-by="true"/>
+    </view-entity>
+    
+    <entity entity-name="GiftCard"
+            package-name="org.ofbiz.accounting.payment"
+            title="Gift Card Information Entity">
+      <field name="paymentMethodId" type="id-ne"></field>
+      <field name="cardNumber" type="long-varchar" encrypt="true"></field>
+      <field name="pinNumber" type="long-varchar" encrypt="true"></field>
+      <field name="expireDate" type="credit-card-date"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <prim-key field="paymentMethodId"/>
+      <relation type="one" fk-name="GIFTCARD_PMNTMETH" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one" fk-name="GIFTCARD_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="GIFTCARD_PADDR" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
+    <entity entity-name="GiftCardFulfillment"
+            package-name="org.ofbiz.accounting.payment"
+            title="Gift Card Fulfillment History">
+      <field name="fulfillmentId" type="id-ne"></field>
+      <field name="typeEnumId" type="id-ne"></field>
+      <field name="merchantId" type="id-vlong-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="surveyResponseId" type="id-ne"></field>
+      <field name="cardNumber" type="long-varchar" encrypt="true"></field>
+      <field name="pinNumber" type="long-varchar" encrypt="true"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="responseCode" type="short-varchar"></field>
+      <field name="referenceNum" type="short-varchar"></field>
+      <field name="authCode" type="short-varchar"></field>
+      <field name="fulfillmentDate" type="date-time"></field>
+      <prim-key field="fulfillmentId"/>
+      <relation type="one" fk-name="GC_FILL_ENUM" rel-entity-name="Enumeration">
+          <key-map field-name="typeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="GC_FILL_PARTY" rel-entity-name="Party">
+          <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="GC_FILL_ODRH" rel-entity-name="OrderHeader">
+          <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="GC_FILL_ODRI" rel-entity-name="OrderItem">
+          <key-map field-name="orderId"/>
+          <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="GC_FILL_SURVY" rel-entity-name="SurveyResponse">
+          <key-map field-name="surveyResponseId"/>
+      </relation>
+    </entity>
+    
+    <entity entity-name="Payment"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Entity">
+      <field name="paymentId" type="id-ne"></field>
+      <field name="paymentTypeId" type="id-ne"></field>
+      <field name="paymentMethodTypeId" type="id-ne"></field>
+      <field name="paymentMethodId" type="id"></field>
+      <field name="paymentGatewayResponseId" type="id"></field>
+      <field name="paymentPreferenceId" type="id"></field>
+      <field name="partyIdFrom" type="id-ne"></field>
+      <field name="partyIdTo" type="id-ne"></field>
+      <field name="roleTypeIdTo" type="id-ne"></field>
+      <field name="statusId" type="id"></field>
+      <field name="effectiveDate" type="date-time"></field>
+      <field name="paymentRefNum" type="short-varchar"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="currencyUomId" type="id"></field>
+      <field name="comments" type="comment"></field>
+      <field name="finAccountTransId" type="id"></field>
+      <field name="overrideGlAccountId" type="id"></field>
+      <field name="actualCurrencyAmount" type="currency-amount"><!-- The ActualCurrency amount and uomId are for the values coming from the bank (if known) and are to be used for reconciliation and such later, and not for PaymentApplication. --></field>
+      <field name="actualCurrencyUomId" type="id"></field>
+      <prim-key field="paymentId"/>
+      <relation type="one" fk-name="PAYMENT_PMTYP" rel-entity-name="PaymentType">
+        <key-map field-name="paymentTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PaymentTypeAttr">
+        <key-map field-name="paymentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_PMETH_TP" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_PMETH" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_CUOM" title="Currency" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_ACUOM" title="ActualCurrency" rel-entity-name="Uom">
+        <key-map field-name="actualCurrencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="CreditCard">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="EftAccount">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="GiftCard">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_ORDPMPRF" rel-entity-name="OrderPaymentPreference">
+        <key-map field-name="paymentPreferenceId" rel-field-name="orderPaymentPreferenceId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_PAYGATR" rel-entity-name="PaymentGatewayResponse">
+        <key-map field-name="paymentGatewayResponseId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_FPTY" title="From" rel-entity-name="Party">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_TPTY" title="To" rel-entity-name="Party">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_TRTP" title="To" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_STTSITM" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_FACTX" rel-entity-name="FinAccountTrans">
+        <key-map field-name="finAccountTransId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_ORGLA" rel-entity-name="GlAccount">
+        <key-map field-name="overrideGlAccountId" rel-field-name="glAccountId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="PaymentAndApplication"
+            package-name="org.ofbiz.accounting.payment"
+            never-cache="true"
+            title="Payment and Application View Entity">
+      <member-entity entity-alias="PY" entity-name="Payment"/>
+      <member-entity entity-alias="PA" entity-name="PaymentApplication"/>
+      <alias-all entity-alias="PY"/>
+      <alias-all entity-alias="PA"/>
+      <view-link entity-alias="PY" rel-entity-alias="PA">
+        <key-map field-name="paymentId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PaymentGatewayResponse">
+        <key-map field-name="paymentGatewayResponseId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Geo">
+        <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
+      </relation>
+    </view-entity>
+    <entity entity-name="PaymentApplication"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Application Entity">
+      <field name="paymentApplicationId" type="id-ne"></field>
+      <field name="paymentId" type="id"></field>
+      <field name="invoiceId" type="id"></field>
+      <field name="invoiceItemSeqId" type="id"></field>
+      <field name="billingAccountId" type="id"></field>
+      <field name="toPaymentId" type="id"><!-- To be used when a payment is based on or comes from another payment, like a payment that is a return of a mistaken or over-payment --></field>
+      <field name="taxAuthGeoId" type="id"/>
+      <field name="amountApplied" type="currency-amount"></field>
+      <prim-key field="paymentApplicationId"/>
+      <relation type="one" fk-name="PAYMENT_APP_PMT" rel-entity-name="Payment">
+        <key-map field-name="paymentId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_APP_INV" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceId"/>
+        <key-map field-name="invoiceItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_APP_BACT" rel-entity-name="BillingAccount">
+        <key-map field-name="billingAccountId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_APP_TPMT" title="To" rel-entity-name="Payment">
+        <key-map field-name="toPaymentId" rel-field-name="paymentId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_APP_GEO" rel-entity-name="Geo">
+        <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentAttribute"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Attribute Entity">
+      <field name="paymentId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="paymentId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="PAYMENT_ATTR" rel-entity-name="Payment">
+        <key-map field-name="paymentId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PaymentTypeAttr">
+        <key-map field-name="attrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentBudgetAllocation"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Budget Allocation Entity">
+      <field name="budgetId" type="id-ne"></field>
+      <field name="budgetItemSeqId" type="id-ne"></field>
+      <field name="paymentId" type="id-ne"></field>
+      <field name="amount" type="currency-amount"></field>
+      <prim-key field="budgetId"/>
+      <prim-key field="budgetItemSeqId"/>
+      <prim-key field="paymentId"/>
+      <relation type="one" fk-name="PAYMENT_BA_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="BudgetItem">
+        <key-map field-name="budgetId"/>
+        <key-map field-name="budgetItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_BA_PMT" rel-entity-name="Payment">
+        <key-map field-name="paymentId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentMethod"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Method Entity">
+      <field name="paymentMethodId" type="id-ne"></field>
+      <field name="paymentMethodTypeId" type="id"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="glAccountId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="paymentMethodId"/>
+      <relation type="one" fk-name="PAYMETH_TYPE" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMETH_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMETH_GLACCT" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="PaymentMethodAndCreditCard"
+            package-name="org.ofbiz.accounting.payment"
+            never-cache="true"
+            title="PaymentMethod and CreditCard View Entity">
+      <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
+      <member-entity entity-alias="CC" entity-name="CreditCard"/>
+      <alias entity-alias="PM" name="paymentMethodId"/>
+      <alias entity-alias="PM" name="paymentMethodTypeId"/>
+      <alias entity-alias="PM" name="partyId"/>
+      <alias entity-alias="PM" name="glAccountId"/>
+      <alias entity-alias="PM" name="fromDate"/>
+      <alias entity-alias="PM" name="thruDate"/>
+      <alias entity-alias="CC" name="cardType"/>
+      <alias entity-alias="CC" name="cardNumber"/>
+      <alias entity-alias="CC" name="expireDate"/>
+      <alias entity-alias="CC" name="companyNameOnCard"/>
+      <alias entity-alias="CC" name="titleOnCard"/>
+      <alias entity-alias="CC" name="firstNameOnCard"/>
+      <alias entity-alias="CC" name="lastNameOnCard"/>
+      <alias entity-alias="CC" name="suffixOnCard"/>
+      <alias entity-alias="CC" name="contactMechId"/>
+      <view-link entity-alias="PM" rel-entity-alias="CC">
+        <key-map field-name="paymentMethodId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="CreditCard">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </view-entity>
+    <view-entity entity-name="PaymentMethodAndGiftCard"
+            package-name="org.ofbiz.accounting.payment"
+            never-cache="true"
+            title="PaymentMethod and GiftCard View Entity">
+      <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
+      <member-entity entity-alias="GC" entity-name="GiftCard"/>
+      <alias entity-alias="PM" name="paymentMethodId"/>
+      <alias entity-alias="PM" name="paymentMethodTypeId"/>
+      <alias entity-alias="PM" name="partyId"/>
+      <alias entity-alias="PM" name="glAccountId"/>
+      <alias entity-alias="PM" name="fromDate"/>
+      <alias entity-alias="PM" name="thruDate"/>
+      <alias entity-alias="GC" name="cardNumber"/>
+      <alias entity-alias="GC" name="pinNumber"/>
+      <alias entity-alias="GC" name="expireDate"/>
+      <alias entity-alias="GC" name="contactMechId"/>
+      <view-link entity-alias="PM" rel-entity-alias="GC">
+        <key-map field-name="paymentMethodId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="GiftCard">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PostalAddress">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </view-entity>    
+    <entity entity-name="PaymentMethodType"
+            package-name="org.ofbiz.accounting.payment"
+            title="PaymentMethodType Entity" default-resource-name="AccountingEntityLabels"> <!-- /* @author     <a href="mailto:jlr@les7arts.com">Jacques Le Roux</a> */ -->
+      <field name="paymentMethodTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <field name="defaultGlAccountId" type="id"></field>
+      <prim-key field="paymentMethodTypeId"/>
+      <relation type="one" fk-name="PAYMENT_MTP_DGLAC" title="Default" rel-entity-name="GlAccount">
+        <key-map field-name="defaultGlAccountId" rel-field-name="glAccountId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentMethodTypeGlAccount"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Method Type GL Account Entity">
+      <field name="paymentMethodTypeId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"></field>
+      <field name="glAccountId" type="id"></field>
+      <prim-key field="paymentMethodTypeId"/>
+      <prim-key field="organizationPartyId"/>
+      <relation type="one" fk-name="PAYMENT_MTGA_PMT" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_MTGA_OPTY" title="Organization" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_MTGA_GLAC" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentType"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Type Entity" default-resource-name="AccountingEntityLabels">
+      <field name="paymentTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="paymentTypeId"/>
+      <relation type="one" fk-name="PAYMENT_TYPE_PAR" title="Parent" rel-entity-name="PaymentType">
+        <key-map field-name="parentTypeId" rel-field-name="paymentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentTypeAttr"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Type Attribute Entity">
+      <field name="paymentTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
+      <prim-key field="paymentTypeId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="PAYMETH_TYPE_ATTR" rel-entity-name="PaymentType">
+        <key-map field-name="paymentTypeId"/>
+      </relation>
+      <relation type="many" rel-entity-name="PaymentAttribute">
+        <key-map field-name="attrName"/>
+      </relation>
+      <relation type="many" rel-entity-name="Payment">
+        <key-map field-name="paymentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentGlAccountTypeMap"
+            package-name="org.ofbiz.accounting.payment"
+            title="Maps PaymentTypes to GlAccountTypes, allowing user to configure payments and gl accounts">
+      <field name="paymentTypeId" type="id-ne"></field>
+      <field name="organizationPartyId" type="id-ne"/>
+      <field name="glAccountTypeId" type="id-ne"/>
+      <prim-key field="paymentTypeId"/>
+      <prim-key field="organizationPartyId"/>
+      <relation type="one" fk-name="PMTGLACCT_PMTTYPE" rel-entity-name="PaymentType">
+        <key-map field-name="paymentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PMTGLACCT_PARTY" rel-entity-name="Party">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PMTGLACCT_GLACCT" rel-entity-name="GlAccountType">
+        <key-map field-name="glAccountTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentGatewayRespMsg"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Gateway Response Message">
+        <field name="paymentGatewayRespMsgId" type="id-ne"></field>
+        <field name="paymentGatewayResponseId" type="id-ne"></field>
+        <field name="pgrMessage" type="very-long"></field>
+        <prim-key field="paymentGatewayRespMsgId"/>
+        <relation type="one" fk-name="PAYGATRM_PAYGR" rel-entity-name="PaymentGatewayResponse">
+            <key-map field-name="paymentGatewayResponseId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentGatewayResponse"
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Gateway Response">
+      <field name="paymentGatewayResponseId" type="id-ne"></field>
+      <field name="paymentServiceTypeEnumId" type="id-ne"></field>
+      <field name="orderPaymentPreferenceId" type="id"></field>
+      <field name="paymentMethodTypeId" type="id"></field>
+      <field name="paymentMethodId" type="id"></field>
+      <field name="transCodeEnumId" type="id"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="currencyUomId" type="id"></field>
+      <field name="referenceNum" type="short-varchar"></field>
+      <field name="altReference" type="short-varchar"></field>
+      <field name="subReference" type="short-varchar"></field>
+      <field name="gatewayCode" type="short-varchar"></field>
+      <field name="gatewayFlag" type="short-varchar"></field>
+      <field name="gatewayAvsResult" type="short-varchar"></field>
+      <field name="gatewayScoreResult" type="short-varchar"></field>
+      <field name="gatewayMessage" type="long-varchar"></field>
+      <field name="transactionDate" type="date-time"></field>
+      <prim-key field="paymentGatewayResponseId"/>
+      <relation type="one" fk-name="PAYGATR_PSTENUM" title="ServiceType" rel-entity-name="Enumeration">
+        <key-map field-name="paymentServiceTypeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PAYGATR_TXCODE" title="TranCode" rel-entity-name="Enumeration">
+        <key-map field-name="transCodeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PAYGATR_CUOM" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="PAYGATR_ORDPMPRF" rel-entity-name="OrderPaymentPreference">
+        <key-map field-name="orderPaymentPreferenceId"/>
+      </relation>
+      <relation type="one" fk-name="PAYGATR_PMTP" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PAYGATR_PMETH" rel-entity-name="PaymentMethod">
+        <key-map field-name="paymentMethodId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ValueLinkKey"
+            package-name="org.ofbiz.accounting.payment"
+            title="Value Link Key Store">
+      <field name="merchantId" type="id-vlong-ne"></field>
+      <field name="publicKey" type="very-long"></field>
+      <field name="privateKey" type="very-long"></field>
+      <field name="exchangeKey" type="very-long"></field>
+      <field name="workingKey" type="very-long"></field>
+      <field name="workingKeyIndex" type="numeric"></field>
+      <field name="lastWorkingKey" type="very-long"></field>
+      <field name="lastModifiedDate" type="date-time"></field>
+      <field name="lastModifiedByTerminal" type="short-varchar"></field>
+      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <prim-key field="merchantId"/>
+    </entity>
+    
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.tax -->
+    <!-- ========================================================= -->
+    
+    <entity entity-name="PartyTaxAuthInfo" package-name="org.ofbiz.accounting.tax" title="Party Tax Information Entity">
+        <description></description>
+        <field name="partyId" type="id-ne"></field>
+        <field name="taxAuthGeoId" type="id-ne"></field>
+        <field name="taxAuthPartyId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="partyTaxId" type="id-long-ne"></field>
+        <field name="isExempt" type="indicator"></field>
+        <field name="isNexus" type="indicator"><!-- default N; if Y it means that this Party has a sufficient presence in the area to warrant having to charge tax --></field>
+        <prim-key field="partyId"/>
+        <prim-key field="taxAuthGeoId"/>
+        <prim-key field="taxAuthPartyId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PARTY_TXAI_PTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PARTY_TXAI_TXA" rel-entity-name="TaxAuthority">
+            <key-map field-name="taxAuthGeoId"/>
+            <key-map field-name="taxAuthPartyId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="PartyTaxAuthInfoAndDetail" package-name="org.ofbiz.accounting.tax">
+        <member-entity entity-alias="PTAI" entity-name="PartyTaxAuthInfo"/>
+        <member-entity entity-alias="PG" entity-name="PartyGroup"/>
+        <member-entity entity-alias="GEO" entity-name="Geo"/>
+        <alias-all entity-alias="PTAI"/>
+        <alias-all entity-alias="PG"/>
+        <alias-all entity-alias="GEO"/>
+        <view-link entity-alias="PTAI" rel-entity-alias="PG">
+            <key-map field-name="taxAuthPartyId" rel-field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTAI" rel-entity-alias="GEO">
+            <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="SimpleSalesTaxLookup" package-name="org.ofbiz.accounting.tax" title="Simple Sales Tax Lookup Entity">
+        <description>NOTE: this entity is deprecated by TaxAuthorityRateProduct</description>
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="countryGeoId" type="id-ne"></field>
+        <field name="stateProvinceGeoId" type="id-ne"></field>
+        <field name="taxCategory" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="description" type="description"></field>
+        <field name="minItemPrice" type="currency-amount"></field>
+        <field name="minPurchase" type="currency-amount"></field>
+        <field name="taxShipping" type="indicator"></field>
+        <field name="salesTaxPercentage" type="floating-point"></field>
+        <field name="taxAuthPartyId" type="id"></field>
+        <field name="taxAuthGlAccountId" type="id"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="countryGeoId"/>
+        <prim-key field="stateProvinceGeoId"/>
+        <prim-key field="taxCategory"/>
+        <prim-key field="minItemPrice"/>
+        <prim-key field="minPurchase"/>
+        <prim-key field="fromDate"/>
+        <relation type="many" rel-entity-name="Product">
+            <key-map field-name="taxCategory"/>
+        </relation>
+    </entity>
+    <entity entity-name="TaxAuthority" package-name="org.ofbiz.accounting.tax" title="Tax Authority Entity">
+        <field name="taxAuthGeoId" type="id-ne"></field>
+        <field name="taxAuthPartyId" type="id-ne"></field>
+        <field name="requireTaxIdForExemption" type="indicator"></field>
+        <field name="taxIdFormatPattern" type="long-varchar"></field>
+        <field name="includeTaxInPrice" type="indicator"><!-- this is mainly for VAT tax authorities --></field>
+        <prim-key field="taxAuthGeoId"/>
+        <prim-key field="taxAuthPartyId"/>
+        <relation type="one" fk-name="TAXAUTH_TAGEO" title="TaxAuth" rel-entity-name="Geo">
+            <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTH_TAPARTY" title="TaxAuth" rel-entity-name="Party">
+            <key-map field-name="taxAuthPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="TaxAuthorityAndDetail" package-name="org.ofbiz.accounting.tax">
+        <member-entity entity-alias="TA" entity-name="TaxAuthority"/>
+        <member-entity entity-alias="PG" entity-name="PartyGroup"/>
+        <member-entity entity-alias="GEO" entity-name="Geo"/>
+        <alias-all entity-alias="TA"/>
+        <alias-all entity-alias="PG"/>
+        <alias-all entity-alias="GEO"/>
+        <view-link entity-alias="TA" rel-entity-alias="PG">
+            <key-map field-name="taxAuthPartyId" rel-field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="TA" rel-entity-alias="GEO">
+            <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="TaxAuthorityAssoc" package-name="org.ofbiz.accounting.tax" title="Tax Authority Association Entity">
+        <field name="taxAuthGeoId" type="id-ne"></field>
+        <field name="taxAuthPartyId" type="id-ne"></field>
+        <field name="toTaxAuthGeoId" type="id-ne"></field>
+        <field name="toTaxAuthPartyId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="taxAuthorityAssocTypeId" type="id-ne"></field>
+        <prim-key field="taxAuthGeoId"/>
+        <prim-key field="taxAuthPartyId"/>
+        <prim-key field="toTaxAuthGeoId"/>
+        <prim-key field="toTaxAuthPartyId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="TAXAUTHASC_TXA" rel-entity-name="TaxAuthority">
+            <key-map field-name="taxAuthGeoId"/>
+            <key-map field-name="taxAuthPartyId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHASC_TOTXA" title="To" rel-entity-name="TaxAuthority">
+            <key-map field-name="toTaxAuthGeoId" rel-field-name="taxAuthGeoId"/>
+            <key-map field-name="toTaxAuthPartyId" rel-field-name="taxAuthPartyId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHASC_ASTP" rel-entity-name="TaxAuthorityAssocType">
+            <key-map field-name="taxAuthorityAssocTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="TaxAuthorityAssocType"
+        package-name="org.ofbiz.accounting.tax"
+        default-resource-name="AccountingEntityLabels"
+        title="Tax Authority Assoc Type Entity">
+        <field name="taxAuthorityAssocTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="taxAuthorityAssocTypeId"/>
+    </entity>
+    <entity entity-name="TaxAuthorityCategory" package-name="org.ofbiz.accounting.tax" title="Tax Authority Product Category Entity">
+        <field name="taxAuthGeoId" type="id-ne"></field>
+        <field name="taxAuthPartyId" type="id-ne"></field>
+        <field name="productCategoryId" type="id-ne"></field>
+        <prim-key field="taxAuthGeoId"/>
+        <prim-key field="taxAuthPartyId"/>
+        <prim-key field="productCategoryId"/>
+        <relation type="one" fk-name="TAXAUTHCAT_TXA" rel-entity-name="TaxAuthority">
+            <key-map field-name="taxAuthGeoId"/>
+            <key-map field-name="taxAuthPartyId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHCAT_CAT" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="TaxAuthorityCategoryView" package-name="org.ofbiz.accounting.tax">
+        <member-entity entity-alias="TAC" entity-name="TaxAuthorityCategory"/>
+        <member-entity entity-alias="PC" entity-name="ProductCategory"/>
+        <alias-all entity-alias="TAC"/>
+        <alias-all entity-alias="PC"/>
+        <view-link entity-alias="TAC" rel-entity-alias="PC">
+            <key-map field-name="productCategoryId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="TaxAuthorityGlAccount" package-name="org.ofbiz.accounting.tax" title="Tax Authority GL Account Entity">
+        <field name="taxAuthGeoId" type="id-ne"></field>
+        <field name="taxAuthPartyId" type="id-ne"></field>
+        <field name="organizationPartyId" type="id-ne"></field>
+        <field name="glAccountId" type="id-ne"></field>
+        <prim-key field="taxAuthGeoId"/>
+        <prim-key field="taxAuthPartyId"/>
+        <prim-key field="organizationPartyId"/>
+        <relation type="one" fk-name="TAXAUTHGLA_TXA" rel-entity-name="TaxAuthority">
+            <key-map field-name="taxAuthGeoId"/>
+            <key-map field-name="taxAuthPartyId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHGLA_OPTY" title="Organization" rel-entity-name="Party">
+            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHGLA_GLA" rel-entity-name="GlAccount">
+            <key-map field-name="glAccountId"/>
+        </relation>
+    </entity>
+    <entity entity-name="TaxAuthorityRateProduct" package-name="org.ofbiz.accounting.tax" title="Tax Authority Rate Entity">
+        <field name="taxAuthorityRateSeqId" type="id-ne"></field>
+        <field name="taxAuthGeoId" type="id-ne"></field>
+        <field name="taxAuthPartyId" type="id-ne"></field>
+        <field name="taxAuthorityRateTypeId" type="id-ne"></field>
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="productCategoryId" type="id-ne"></field>
+        <field name="titleTransferEnumId" type="id-ne"></field>
+        <field name="minItemPrice" type="currency-amount"></field>
+        <field name="minPurchase" type="currency-amount"></field>
+        <field name="taxShipping" type="indicator"></field>
+        <field name="taxPercentage" type="floating-point"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="taxAuthorityRateSeqId"/>
+        <relation type="one" fk-name="TAXAUTHRTEP_TXA" rel-entity-name="TaxAuthority">
+            <key-map field-name="taxAuthGeoId"/>
+            <key-map field-name="taxAuthPartyId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHRTEP_RTTP" rel-entity-name="TaxAuthorityRateType">
+            <key-map field-name="taxAuthorityRateTypeId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHRTEP_PSTR" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="TAXAUTHRTEP_PCAT" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
+    </entity>
+    <entity entity-name="TaxAuthorityRateType"
+        package-name="org.ofbiz.accounting.tax"
+        default-resource-name="AccountingEntityLabels"
+        title="Tax Authority Rate Type Entity">
+        <field name="taxAuthorityRateTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="taxAuthorityRateTypeId"/>
+    </entity>
+    <entity entity-name="ZipSalesRuleLookup" package-name="org.ofbiz.accounting.tax" title="Zip Sales Tax Lookup Entity">
+        <field name="stateCode" type="short-varchar"></field>
+        <field name="city" type="short-varchar"></field>
+        <field name="county" type="short-varchar"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="idCode" type="short-varchar"></field>
+        <field name="taxable" type="short-varchar"></field>
+        <field name="shipCond" type="long-varchar"></field>
+        <prim-key field="stateCode"/>
+        <prim-key field="city"/>
+        <prim-key field="county"/>
+        <prim-key field="fromDate"/>
+    </entity>
+    <entity entity-name="ZipSalesTaxLookup" package-name="org.ofbiz.accounting.tax" title="Zip Sales Tax Lookup Entity">
+        <field name="zipCode" type="short-varchar"></field>
+        <field name="stateCode" type="short-varchar"></field>
+        <field name="city" type="short-varchar"></field>
+        <field name="county" type="short-varchar"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="countyFips" type="short-varchar"></field>
+        <field name="countyDefault" type="indicator"></field>
+        <field name="generalDefault" type="indicator"></field>
+        <field name="insideCity" type="indicator"></field>
+        <field name="geoCode" type="short-varchar"></field>
+        <field name="stateSalesTax" type="floating-point"></field>
+        <field name="citySalesTax" type="floating-point"></field>
+        <field name="cityLocalSalesTax" type="floating-point"></field>
+        <field name="countySalesTax" type="floating-point"></field>
+        <field name="countyLocalSalesTax" type="floating-point"></field>
+        <field name="comboSalesTax" type="floating-point"></field>
+        <field name="stateUseTax" type="floating-point"></field>
+        <field name="cityUseTax" type="floating-point"></field>
+        <field name="cityLocalUseTax" type="floating-point"></field>
+        <field name="countyUseTax" type="floating-point"></field>
+        <field name="countyLocalUseTax" type="floating-point"></field>
+        <field name="comboUseTax" type="floating-point"></field>
+        <prim-key field="zipCode"/>
+        <prim-key field="stateCode"/>
+        <prim-key field="city"/>
+        <prim-key field="county"/>
+        <prim-key field="fromDate"/>
+    </entity>
+</entitymodel>

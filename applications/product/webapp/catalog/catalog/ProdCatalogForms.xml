@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EditProdCatalog" type="single" 
+            target="updateProdCatalog" title="" default-map-name="prodCatalog"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        
+        <alt-target use-when="prodCatalog==null" target="createProdCatalog"/>
+        
+        <auto-fields-service service-name="updateProdCatalog" map-name=""/>
+        
+        <field use-when="prodCatalog!=null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductCatalog}."><display/></field>
+        <field use-when="prodCatalog==null&amp;&amp;prodCatalogId!=null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}" tooltip="${uiLabelMap.ProductCouldNotFindProductCatalogWithId} [${prodCatalogId}]"><text size="20" maxlength="20"/></field>
+        <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
+        <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}"><text size="20" maxlength="20"/></field>
+
+        <field name="catalogName" title="${uiLabelMap.ProductCatalogName}"><text size="30" maxlength="60"/></field>
+        
+        <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+
+        <field name="styleSheet" title="${uiLabelMap.ProductStyleSheet}"><text size="60" maxlength="250"/></field>
+        <field name="headerLogo" title="${uiLabelMap.ProductHeaderLogo}"><text size="60" maxlength="250"/></field>
+        <field name="contentPathPrefix" title="${uiLabelMap.ProductContentPathPrefix}" tooltip="${uiLabelMap.ProductPrependedImageContentPaths}"><text size="60" maxlength="250"/></field>
+        <field name="templatePathPrefix" title="${uiLabelMap.ProductTemplatePathPrefix}"  tooltip="${uiLabelMap.ProductPrependedTemplatePaths}"><text size="60" maxlength="250"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddProdCatalogToParty" type="single" 
+            target="addProdCatalogToParty" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="addProdCatalogToParty"/>
+        <field name="prodCatalogId" map-name="prodCatalog"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"></lookup></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRole}"   widget-style="selectBox">
+            <drop-down no-current-selected-key="_NA_">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateProdCatalogToParty" type="list" 
+        target="updateProdCatalogToParty" title="" list-name="prodCatalogRoleList"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateProdCatalogToParty"/>
+        <field name="prodCatalogId"><hidden/></field>
+        <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <display-entity entity-name="PartyNameView" description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" also-hidden="true" cache="false">
+                <sub-hyperlink target-type="inter-app" link-style="buttontext" target="/partymgr/control/viewprofile?party_id=${partyId}" description="${partyId}"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRole}"><display-entity entity-name="RoleType"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}" widget-style="inputBox"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeProdCatalogFromParty?prodCatalogId=${prodCatalogId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="CreateProductStoreCatalog" type="single" 
+            target="createProdCatalogStore" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createProductStoreCatalog"/>
+        <field name="prodCatalogId" map-name="prodCatalog"><hidden/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductStore}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductStore" description="${storeName}">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateProductStoreCatalog" type="list"
+            target="updateProdCatalogStore" title="" list-name="productStoreCatalogList"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateProductStoreCatalog"/>
+        <field name="prodCatalogId"><hidden/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductStoreId}">
+            <display-entity entity-name="ProductStore" description="${storeName}" also-hidden="true" cache="true">
+                <sub-hyperlink link-style="buttontext" target="EditProductStore?productStoreId=${productStoreId}" description="${productStoreId}"/>
+            </display-entity>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteProdCatalogStore?prodCatalogId=${prodCatalogId}&amp;productStoreId=${productStoreId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditProdCatalogCategories" type="list"
+            target="updateProductCategoryToProdCatalog" title="" list-name="prodCatalogCategories"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateProductCategoryToProdCatalog"/>
+        <field name="prodCatalogId"><hidden/></field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
+            <display-entity entity-name="ProductCategory" description="${description}" also-hidden="true" cache="true">
+                <sub-hyperlink link-style="buttontext" target="EditCategory?productCategoryId=${productCategoryId}" description="${productCategoryId}"/>
+            </display-entity>
+        </field>
+        <field name="prodCatalogCategoryTypeId"><display-entity entity-name="ProdCatalogCategoryType" also-hidden="true" cache="true"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}" widget-style="inputBox"></field>
+        <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}" widget-style="inputBox"></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeProductCategoryFromProdCatalog?prodCatalogId=${prodCatalogId}&amp;productCategoryId=${productCategoryId}&amp;fromDate=${fromDate}&amp;prodCatalogCategoryTypeId=${prodCatalogCategoryTypeId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="makeTopLink" title="" widget-style="buttontext">
+            <hyperlink target="EditCategory?CATALOG_TOP_CATEGORY=${productCategoryId}&amp;productCategoryId=${productCategoryId}"
+                description="${uiLabelMap.ProductMakeTop}" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="addProductCategoryToProdCatalog" type="single" 
+            target="addProductCategoryToProdCatalog" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="addProductCategoryToProdCatalog"/>
+        <field name="prodCatalogId"><hidden/></field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductCategory" description="${description} [${productCategoryId}]">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="prodCatalogCategoryTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProdCatalogCategoryType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="inputBox"/>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"/>
+        <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

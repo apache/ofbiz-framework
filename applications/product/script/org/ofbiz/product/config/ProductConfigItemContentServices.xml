@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @author     Jacopo Cappellato (tiz@sastau.it)
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- ProductConfigItemContent -->
+    <simple-method method-name="createProductConfigItemContent" short-description="Create Content For ProductConfigItem">
+        <make-value value-name="newEntity" entity-name="ProdConfItemContent"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+
+        <create-value value-name="newEntity"/>
+
+        <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
+
+        <field-to-result map-name="newEntity" field-name="contentId"/>
+        <field-to-result map-name="newEntity" field-name="configItemId"/>
+        <field-to-result map-name="newEntity" field-name="confItemContentTypeId"/>
+    </simple-method>
+    <simple-method method-name="updateProductConfigItemContent" short-description="Update Content For ProductConfigItem">
+        <make-value value-name="lookupPKMap" entity-name="ProdConfItemContent"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+
+        <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
+    </simple-method>
+    <simple-method method-name="removeProductConfigItemContent" short-description="Remove Content From ProductConfigItem">
+        <make-value value-name="lookupPKMap" entity-name="ProdConfItemContent"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Specialized -->
+    <simple-method method-name="createSimpleTextContentForProductConfigItem" short-description="Create Simple Text Content For Product">
+        <set-service-fields service-name="createProductConfigItemContent" map-name="parameters" to-map-name="createProductConfigItemContent"/>
+        <set-service-fields service-name="createSimpleTextContent" map-name="parameters" to-map-name="createSimpleText"/>
+        <call-service service-name="createSimpleTextContent" in-map-name="createSimpleText" break-on-error="true" >
+            <result-to-field result-name="contentId" map-name="createProductConfigItemContent" />
+        </call-service>
+        <call-service service-name="createProductConfigItemContent" in-map-name="createProductConfigItemContent"/>
+    </simple-method>
+    <simple-method method-name="updateSimpleTextContentForProductConfigItem" short-description="Update Simple Text Content For Product">
+        <set-service-fields service-name="updateProductConfigItemContent" map-name="parameters" to-map-name="updateProductConfigItemContent"/>
+        <call-service service-name="updateProductConfigItemContent" in-map-name="updateProductConfigItemContent"/>
+        <set-service-fields service-name="updateSimpleTextContent" map-name="parameters" to-map-name="updateSimpleText"/>
+        <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
+    </simple-method>
+
+</simple-methods>

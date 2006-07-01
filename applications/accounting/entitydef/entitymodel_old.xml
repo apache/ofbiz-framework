@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2002 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+    <!-- ========================================================= -->
+    <!-- ======================== Data Model ===================== -->
+    <!-- The modules in this file are as follows:                  -->
+    <!--  - org.ofbiz.accounting.payment -->
+    <!-- ========================================================= -->
+
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.accounting.payment -->
+    <!-- ========================================================= -->
+    <entity entity-name="OldValueLinkFulfillment" table-name="VALUE_LINK_FULFILLMENT"
+            package-name="org.ofbiz.accounting.payment"
+            title="Value Link Fulfillment History">
+      <field name="fulfillmentId" type="id-ne"></field>
+      <field name="typeEnumId" type="id-ne"></field>
+      <field name="merchantId" type="id-vlong-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="surveyResponseId" type="id-ne"></field>
+      <field name="cardNumber" type="short-varchar"></field>
+      <field name="pinNumber" type="short-varchar"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="responseCode" type="short-varchar"></field>
+      <field name="referenceNum" type="short-varchar"></field>
+      <field name="authCode" type="short-varchar"></field>
+      <field name="fulfillmentDate" type="date-time"></field>
+      <prim-key field="fulfillmentId"/>
+      <relation type="one" fk-name="VL_FILL_ENUM" rel-entity-name="Enumeration">
+          <key-map field-name="typeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_PARTY" rel-entity-name="Party">
+          <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_ODRH" rel-entity-name="OrderHeader">
+          <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_ODRI" rel-entity-name="OrderItem">
+          <key-map field-name="orderId"/>
+          <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_SURVY" rel-entity-name="SurveyResponse">
+          <key-map field-name="surveyResponseId"/>
+      </relation>
+    </entity>
+</entitymodel>

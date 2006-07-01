@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2002 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+  <!-- ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.service.schedule -->
+  <!-- ========================================================= -->
+
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.service.schedule -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="JobSandbox"
+            package-name="org.ofbiz.service.schedule"
+            title="Job Scheduler Sandbox Entity">
+      <field name="jobId" type="id-ne"></field>
+      <field name="jobName" type="name"></field>
+      <field name="runTime" type="date-time"></field>
+      <field name="poolId" type="name"></field>
+      <field name="statusId" type="id"></field>
+      <field name="parentJobId" type="id"></field>
+      <field name="previousJobId" type="id"></field>
+      <field name="serviceName" type="name"></field>
+      <field name="loaderName" type="name"></field>
+      <field name="maxRetry" type="numeric"></field>
+      <field name="runAsUser" type="id-vlong"></field>
+      <field name="runtimeDataId" type="id"></field>
+      <field name="recurrenceInfoId" type="id"></field>
+      <field name="runByInstanceId" type="id"></field>
+      <field name="startDateTime" type="date-time"></field>
+      <field name="finishDateTime" type="date-time"></field>
+      <field name="cancelDateTime" type="date-time"></field>
+      <prim-key field="jobId"/>
+      <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
+        <key-map field-name="recurrenceInfoId"/>
+      </relation>
+      <relation type="one" fk-name="JOB_SNDBX_RNTMDTA" rel-entity-name="RuntimeData">
+        <key-map field-name="runtimeDataId"/>
+      </relation>
+      <relation type="one" fk-name="JOB_SNDBX_USRLGN" title="RunAs" rel-entity-name="UserLogin">
+        <key-map field-name="runAsUser" rel-field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="JOB_SNDBX_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <index name="JOB_SNDBX_RUNSTAT">
+          <index-field name="runByInstanceId"/>
+          <index-field name="statusId"/>
+      </index>
+    </entity>
+    <entity entity-name="RecurrenceInfo"
+            package-name="org.ofbiz.service.schedule"
+            title="Recurrence Info Entity">
+      <field name="recurrenceInfoId" type="id-ne"></field>
+      <field name="startDateTime" type="date-time"></field>
+      <field name="exceptionDateTimes" type="very-long"></field>
+      <field name="recurrenceDateTimes" type="very-long"></field>
+      <field name="exceptionRuleId" type="id-ne"></field>
+      <field name="recurrenceRuleId" type="id-ne"></field>
+      <field name="recurrenceCount" type="numeric"></field>
+      <prim-key field="recurrenceInfoId"/>
+      <relation type="one" fk-name="REC_INFO_RCRLE" rel-entity-name="RecurrenceRule">
+        <key-map field-name="recurrenceRuleId"/>
+      </relation>
+      <relation type="one" fk-name="REC_INFO_EX_RCRLE" title="Exception" rel-entity-name="RecurrenceRule">
+        <key-map field-name="exceptionRuleId" rel-field-name="recurrenceRuleId"/>
+      </relation>
+    </entity>
+    <entity entity-name="RecurrenceRule"
+            package-name="org.ofbiz.service.schedule"
+            title="Recurrence Rule Entity">
+      <field name="recurrenceRuleId" type="id-ne"></field>
+      <field name="frequency" type="short-varchar"></field>
+      <field name="untilDateTime" type="date-time"></field>
+      <field name="countNumber" type="numeric"></field>
+      <field name="intervalNumber" type="numeric"></field>
+      <field name="bySecondList" type="very-long"></field>
+      <field name="byMinuteList" type="very-long"></field>
+      <field name="byHourList" type="very-long"></field>
+      <field name="byDayList" type="very-long"></field>
+      <field name="byMonthDayList" type="very-long"></field>
+      <field name="byYearDayList" type="very-long"></field>
+      <field name="byWeekNoList" type="very-long"></field>
+      <field name="byMonthList" type="very-long"></field>
+      <field name="bySetPosList" type="very-long"></field>
+      <field name="weekStart" type="short-varchar"></field>
+      <field name="xName" type="very-long"></field>
+      <prim-key field="recurrenceRuleId"/>
+    </entity>
+    <entity entity-name="RuntimeData"
+            package-name="org.ofbiz.service.schedule"
+            title="Runtime Data Entity">
+      <field name="runtimeDataId" type="id-ne"></field>
+      <field name="runtimeInfo" type="very-long"></field>
+      <prim-key field="runtimeDataId"/>
+    </entity>
+</entitymodel>
+

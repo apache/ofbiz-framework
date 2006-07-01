@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.1.1
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createShoppingList" short-description="Create a ShoppingList">
+        <if>
+            <condition>
+                  <and>
+                    <not><if-empty field-name="partyId" map-name="parameters"/></not>
+                    <not><if-compare-field field-name="partyId" map-name="parameters" operator="equals" to-map-name="userLogin"/></not>
+                    <not><if-has-permission permission="PARTYMGR" action="_CREATE"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateShoppingListForAnotherParty"/></add-error>
+            </then>
+        </if>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ShoppingList"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <if-empty field-name="newEntity.partyId">
+            <set from-field="userLogin.partyId" field="newEntity.partyId"/>
+        </if-empty>
+        
+        <if-empty field-name="newEntity.shoppingListTypeId">
+            <set value="SLT_WISH_LIST" field="newEntity.shoppingListTypeId"/>
+        </if-empty>
+                
+        <if-empty field-name="listName" map-name="newEntity">
+            <set value="New Shopping List" field="newEntity.listName"/>
+        </if-empty>
+        
+        <if-empty field-name="isPublic" map-name="newEntity">
+            <set value="N" field="newEntity.isPublic"/>
+        </if-empty>
+        
+        <if-empty field-name="isActive" map-name="newEntity">
+            <if-compare field-name="newEntity.shoppingListTypeId" operator="equals" value="SLT_AUTO_REODR">
+                <set value="N" field="newEntity.isActive"/>
+            <else>
+                <set value="Y" field="newEntity.isActive"/>
+            </else>
+            </if-compare>
+        </if-empty>
+
+        <sequenced-id-to-env sequence-name="ShoppingList" env-name="newEntity.shoppingListId"/>
+        <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateShoppingList" short-description="Update a ShoppingList">
+        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+
+        <set field="parentMethodName" value="updateShoppingList"/>
+        <set field="permissionAction" value="UPDATE"/>
+        <call-simple-method method-name="checkShoppingListSecurity"/>
+        <check-errors/>
+
+        <set-nonpk-fields map-name="parameters" value-name="shoppingList"/>
+        
+        <!-- don't let auto-reorders be active unless there is some recurrence info -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare field-name="shoppingList.shoppingListTypeId" operator="equals" value="SLT_AUTO_REODR"/>
+                    <or>
+                        <if-empty field-name="shoppingList.recurrenceInfoId"/>
+                        <if-empty field-name="shoppingList.paymentMethodId"/>
+                        <if-empty field-name="shoppingList.contactMechId"/>
+                        <if-empty field-name="shoppingList.shipmentMethodTypeId"/>
+                    </or>
+                </and>
+            </condition>
+            <then>
+                <set value="N" field="shoppingList.isActive"/>
+            </then>
+        </if>
+        
+        <store-value value-name="shoppingList"/>
+    </simple-method>
+    
+    <simple-method method-name="removeShoppingList" short-description="Remove a ShoppingList">
+        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        
+        <set field="parentMethodName" value="removeShoppingList"/>
+        <set field="permissionAction" value="DELETE"/>
+        <call-simple-method method-name="checkShoppingListSecurity"/>
+        <check-errors/>
+
+        <remove-value value-name="shoppingList"/>
+    </simple-method>
+    
+    <simple-method method-name="createShoppingListItem" short-description="Create a ShoppingList Item">
+        <set field="parentMethodName" value="createShoppingListItem"/>
+        <set field="permissionAction" value="CREATE"/>
+        <call-simple-method method-name="checkShoppingListItemSecurity"/>
+        <check-errors/>
+
+        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        
+        <make-value value-name="newEntity" entity-name="ShoppingListItem"/>
+        <set from-field="parameters.shoppingListId" field="newEntity.shoppingListId"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
+
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <field-to-result field-name="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
+        <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
+        <create-value value-name="newEntity"/>
+
+        <if-compare-field field-name="shoppingList.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
+            <store-value value-name="shoppingList"/>
+        </if-compare-field>
+    </simple-method>
+    
+    <simple-method method-name="updateShoppingListItem" short-description="Update a ShoppingListItem">
+        <set field="parentMethodName" value="updateShoppingListItem"/>
+        <set field="permissionAction" value="UPDATE"/>
+        <call-simple-method method-name="checkShoppingListItemSecurity"/>
+        <check-errors/>
+
+        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        <entity-one entity-name="ShoppingListItem" value-name="shoppingListItem"/>
+
+        <if-compare field-name="parameters.quantity" operator="equals" value="0" type="Double">
+          <!-- if we're setting quantity to 0.0 then remove the item -->
+            <set-service-fields service-name="removeShoppingListItem" map-name="parameters" to-map-name="removeParams"/>
+            <call-service service-name="removeShoppingListItem" in-map-name="removeParams"/>
+        <else>
+          <!-- otherwise, just update shopping list item in place -->
+            <set-nonpk-fields map-name="parameters" value-name="shoppingListItem"/>
+            <store-value value-name="shoppingListItem"/>
+        </else>
+        </if-compare>
+
+        <if-compare-field field-name="shoppingList.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
+            <store-value value-name="shoppingList"/>
+        </if-compare-field>
+    </simple-method>
+    
+    <simple-method method-name="removeShoppingListItem" short-description="Remove a ShoppingListItem">
+        <set field="parentMethodName" value="removeShoppingListItem"/>
+        <set field="permissionAction" value="DELETE"/>
+        <call-simple-method method-name="checkShoppingListItemSecurity"/>
+        <check-errors/>
+
+        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        <entity-one entity-name="ShoppingListItem" value-name="shoppingListItem"/>
+        <remove-value value-name="shoppingListItem"/>
+
+        <if-compare-field field-name="shoppingList.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
+            <store-value value-name="shoppingList"/>
+        </if-compare-field>
+    </simple-method>
+
+    <simple-method method-name="calculateShoppingListDeepTotalPrice" short-description="Calculate Deep Total Price for a ShoppingList">
+        <set field="parentMethodName" value="calculateShoppingListDeepTotalPrice"/>
+        <set field="permissionAction" value="VIEW"/>
+        <call-simple-method method-name="checkShoppingListItemSecurity"/>
+        <check-errors/>
+
+        <set from-field="parameters.prodCatalogId" field="calcPriceInBaseMap.prodCatalogId"/>
+        <set from-field="parameters.webSiteId" field="calcPriceInBaseMap.webSiteId"/>
+        <set from-field="parameters.partyId" field="calcPriceInBaseMap.partyId"/>
+        <set from-field="parameters.productStoreId" field="calcPriceInBaseMap.productStoreId"/>
+        <set from-field="parameters.productStoreGroupId" field="calcPriceInBaseMap.productStoreGroupId"/>
+        <set from-field="parameters.currencyUomId" field="calcPriceInBaseMap.currencyUomId"/>
+        <set from-field="parameters.autoUserLogin" field="calcPriceInBaseMap.autoUserLogin"/>
+
+        <entity-and entity-name="ShoppingListItem" list-name="shoppingListItems" use-cache="true">
+            <field-map field-name="shoppingListId" env-name="parameters.shoppingListId"/>
+        </entity-and>
+
+        <set field="totalPrice" type="Double" value="0.0"/>
+        <iterate entry-name="shoppingListItem" list-name="shoppingListItems">
+            <entity-one entity-name="Product" value-name="product" use-cache="true" auto-field-map="false">
+                <field-map field-name="productId" env-name="shoppingListItem.productId"/>
+            </entity-one>
+            
+            <map-to-map map-name="calcPriceInBaseMap" to-map-name="calcPriceInMap"/>
+            <set field="calcPriceInMap.product" from-field="product"/>
+            <set field="calcPriceInMap.quantity" from-field="shoppingListItem.quantity"/>
+            <call-service service-name="calculateProductPrice" in-map-name="calcPriceInMap">
+                <result-to-field result-name="price" field-name="calcPriceOutMap.price"/>
+            </call-service>
+            <calculate field-name="totalPrice">
+                <calcop field-name="totalPrice" operator="add"/>
+                <calcop operator="multiply">
+                    <calcop operator="get" field-name="calcPriceOutMap.price"/>
+                    <calcop operator="get" field-name="shoppingListItem.quantity"/>
+                </calcop>
+            </calculate>
+            <clear-field field-name="calcPriceInMap"/>
+        </iterate>
+
+        <entity-and entity-name="ShoppingList" list-name="childshoppingLists" use-cache="true">
+            <field-map field-name="parentShoppingListId" env-name="parameters.shoppingListId"/>
+            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+        </entity-and>
+        <iterate entry-name="childshoppingList" list-name="childshoppingLists">
+            <map-to-map map-name="calcPriceInBaseMap" to-map-name="calcChildPriceInMap"/>
+            <set from-field="childshoppingList.shoppingListId" field="calcChildPriceInMap.shoppingListId"/>
+            <call-service service-name="calculateShoppingListDeepTotalPrice" in-map-name="calcChildPriceInMap">
+                <result-to-field result-name="totalPrice" field-name="totalPrice" map-name="calcPriceOutMap"/>
+            </call-service>
+            <calculate field-name="totalPrice">
+                <calcop field-name="totalPrice" operator="get"/>
+                <calcop field-name="calcPriceOutMap.totalPrice" operator="get"/>
+            </calculate>
+            <clear-field field-name="calcChildPriceInMap"/>
+        </iterate>
+
+        <field-to-result field-name="totalPrice" result-name="totalPrice"/>
+    </simple-method>
+    
+    <simple-method method-name="checkShoppingListSecurity" short-description="Checks security on a ShoppingList">
+        <if>
+            <condition>
+                <and>
+                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-map-name="shoppingList"/></not>
+                    <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunForAnotherParty"/></add-error>
+            </then>
+        </if>
+    </simple-method>
+    <simple-method method-name="checkShoppingListItemSecurity" short-description="Checks security on a ShoppingListItem">
+        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        <if>
+            <condition>
+                <and>
+                    <not><if-compare-field field-name="userLogin.partyId" operator="equals" to-field-name="shoppingList.partyId"/></not>
+                    <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunForAnotherParty"/></add-error>
+            </then>
+        </if>
+    </simple-method>
+</simple-methods>

@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2003-2006 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
+ * @author <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
+ * @author <a href="mailto:patrick.lykins@gabes.net">Patrick Lykins</a>
+ * @since 3.0
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- Methods for Survey -->
+    <simple-method method-name="createSurvey" short-description="Create Survey">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurvey you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="Survey" value-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="Survey" env-name="newEntity.surveyId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result field-name="surveyId" map-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurvey" short-description="Update Survey">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurvey you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="Survey" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurvey" short-description="Delete Survey">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyt you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="Survey" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for SurveyMultiResp -->
+    <simple-method method-name="createSurveyMultiResp" short-description="Create Survey Multi-Response">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyMultiResp you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <make-value entity-name="SurveyMultiResp" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="surveyMultiRespId" numeric-padding="2"/>
+
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyMultiResp" short-description="Update Survey Multi-Response">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyMultiResp you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="SurveyMultiResp" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyMultiResp" short-description="Delete Survey Multi-Response">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyMultiResp you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="SurveyMultiResp" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for SurveyMultiRespColumn -->
+    <simple-method method-name="createSurveyMultiRespColumn" short-description="Create Survey Multi-Response Column/Category">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyMultiRespColumn you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <make-value entity-name="SurveyMultiRespColumn" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="surveyMultiRespColId" numeric-padding="2"/>
+
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyMultiRespColumn" short-description="Update Survey Multi-Response Column/Category">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyMultiRespColumn you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="SurveyMultiRespColumn" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyMultiRespColumn" short-description="Delete Survey Multi-Response Column/Category">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyMultiRespColumn you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="SurveyMultiRespColumn" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for SurveyPage -->
+    <simple-method method-name="createSurveyPage" short-description="Create Survey Page">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyPage you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value entity-name="SurveyPage" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="surveyPageSeqId" numeric-padding="2"/>
+        
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyPage" short-description="Update Survey Page">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyPage you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="SurveyPage" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyPage" short-description="Delete Survey Page">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyPage you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="SurveyPage" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- Methods for SurveyApplType -->
+    <simple-method method-name="createSurveyApplType" short-description="Create SurveyApplType">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyApplType you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyApplType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyApplType" short-description="Update SurveyApplType">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyApplType you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="Survey" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyApplType" short-description="Delete SurveyApplType">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyApplType you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyApplType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for SurveyQuestion -->
+    <simple-method method-name="createSurveyQuestion" short-description="Create Survey Question">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyQuestion you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestion" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="SurveyQuestion" env-name="newEntity.surveyQuestionId"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result field-name="surveyQuestionId" map-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyQuestion" short-description="Update Survey Question">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyQuestion you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestion" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyQuestion" short-description="Delete Survey Question">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyQuestion you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestion" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for SurveyQuestionOption -->
+    <simple-method method-name="createSurveyQuestionOption" short-description="Create Survey Question Option">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyQuestionOption you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionOption" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="surveyOptionSeqId"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result field-name="surveyOptionSeqId" map-name="newEntity" result-name="surveyOptionSeqId"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyQuestionOption" short-description="Update Survey Question Option">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyQuestionOption you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionOption" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyQuestion" short-description="Delete Survey Question Option">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyQuestionOption you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionOption" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for SurveyQuestionAppl -->
+    <simple-method method-name="createSurveyQuestionAppl" short-description="Create Survey Question Application">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyQuestionAppl you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionAppl" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyQuestionAppl" short-description="Update Survey Question Application">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyQuestionAppl you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <entity-one entity-name="SurveyQuestionAppl" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyQuestionAppl" short-description="Delete Survey Question Application">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyQuestionAppl you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="SurveyQuestionAppl" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for SurveyQuestionCategory -->
+    <simple-method method-name="createSurveyQuestionCategory" short-description="Create Survey QuestionCategory">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyQuestionCategory you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionCategory" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="SurveyQuestionCategory" env-name="newEntity.surveyQuestionCategoryId"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result field-name="surveyQuestionCategoryId" map-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyQuestionCategory" short-description="Update Survey QuestionCategory">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyQuestionCategory you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionCategory" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyQuestionCategory" short-description="Delete Survey QuestionCategory">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyQuestionCategory you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionCategory" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for SurveyQuestionType -->
+    <simple-method method-name="createSurveyQuestionType" short-description="Create SurveyQuestionType">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyQuestionType you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyQuestionType" short-description="Update SurveyQuestionType">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyQuestionType you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyQuestionType" short-description="Delete SurveyQuestionType">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyQuestionType you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionType" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for SurveyTrigger -->
+    <simple-method method-name="createSurveyTrigger" short-description="Create SurveyTrigger">
+        <check-permission action="_CREATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run createSurveyTrigger you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyQuestionType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSurveyTrigger" short-description="Update SurveyTrigger">
+        <check-permission action="_UPDATE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run updateSurveyTrigger you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyTrigger" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="SurveyTrigger" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSurveyTrigger" short-description="Delete SurveyTrigger">
+        <check-permission action="_DELETE" permission="CONTENTMGR">
+            <fail-message message="Security Error: to run deleteSurveyTrigger you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value entity-name="SurveyTrigger" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="SurveyTrigger" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Survey Response Methods -->
+    <simple-method method-name="createSurveyResponse" short-description="Create Survey Response" login-required="false">
+        <!-- lookup the survey -->
+        <entity-one entity-name="Survey" value-name="survey" use-cache="true"/>
+        <if-empty field-name="survey">
+            <add-error><fail-message message="No survey found for survey ID: ${surveyLookup.surveyId}"/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <!-- look up the applied questions -->
+        <entity-and entity-name="SurveyQuestionAndAppl" list-name="surveyQuestionAndApplList" use-cache="true">
+            <field-map field-name="surveyId" env-name="survey.surveyId"/>
+        </entity-and>
+        <if-empty field-name="surveyQuestionAndApplList">
+            <add-error><fail-message message="No questions found for survey ID: ${survey.surveyId}"/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <!-- check if anonymous is allowed and if not that we have a partyId -->
+        <if-compare field-name="isAnonymous" map-name="survey" operator="not-equals" value="Y">
+            <if-empty field-name="parameters.partyId">
+                <add-error><fail-message message="Anonymous response to this survey is not allowed (you must be logged in)"/></add-error>
+                <check-errors/>
+            </if-empty>
+        </if-compare>
+
+        <!-- if this is a single use and we have a partyId check for existing responses -->
+        <if-compare field-name="survey.allowMultiple" operator="not-equals" value="Y">
+            <if-not-empty field-name="parameters.partyId">
+                <entity-and entity-name="SurveyResponse" list-name="existingResponses">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <field-map field-name="surveyId" env-name="survey.surveyId"/>
+                </entity-and>
+                <if-not-empty field-name="existingResponses">
+                    <add-error><fail-message message="You have already responded to this survey; multiple responses are not allowed"/></add-error>
+                    <check-errors/>
+                </if-not-empty>
+            </if-not-empty>
+        </if-compare>
+
+        <!-- make sure we have answers to check -->
+        <if-empty field-name="parameters.answers">
+            <add-error><fail-message message="No answers were found"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <set field="answers" from-field="parameters.answers"/>
+
+        <!-- make sure all required fields were responded to -->
+        <iterate entry-name="surveyQuestionAndAppl" list-name="surveyQuestionAndApplList">
+            <!-- for validation get SurveyMultiResp and SurveyMultiRespColumn entries and if exist process for each surveyMultiRespColId -->
+            <get-related-one value-name="surveyQuestionAndAppl" relation-name="SurveyMultiResp" to-value-name="surveyMultiResp" use-cache="true"/>
+            <if-not-empty field-name="surveyMultiResp">
+                <!-- if the surveyQuestionAndAppl has a surveyMultiRespColId, then just look for one answer with that ID -->
+                <if-empty field-name="surveyQuestionAndAppl.surveyMultiRespColId">
+                    <get-related value-name="surveyMultiResp" relation-name="SurveyMultiRespColumn" list-name="surveyMultiRespColumnList" use-cache="true"/>
+                    <iterate entry-name="surveyMultiRespColumn" list-name="surveyMultiRespColumnList">
+                        <set field="answerFieldName" value="answers.${surveyQuestionAndAppl.surveyQuestionId}_${surveyMultiRespColumn.surveyMultiRespColId}"/>
+                        <call-simple-method method-name="validateSurveyResponseInline"/>
+                    </iterate>
+                <else>
+                    <set field="answerFieldName" value="answers.${surveyQuestionAndAppl.surveyQuestionId}_${surveyQuestionAndAppl.surveyMultiRespColId}"/>
+                    <call-simple-method method-name="validateSurveyResponseInline"/>
+                </else>
+                </if-empty>
+            <else>
+                <set field="answerFieldName" value="answers.${surveyQuestionAndAppl.surveyQuestionId}"/>
+                <call-simple-method method-name="validateSurveyResponseInline"/>
+            </else>
+            </if-not-empty>
+        </iterate>
+        <check-errors/>
+
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+
+        <!-- create/update the response -->
+        <if-compare field-name="survey.allowUpdate" operator="equals" value="Y">
+            <if-not-empty field-name="parameters.surveyResponseId">
+                <set from-field="parameters.surveyResponseId" field="lookupRespMap.surveyResponseId"/>
+                <find-by-primary-key entity-name="SurveyResponse" map-name="lookupRespMap" value-name="surveyResponse"/>
+            </if-not-empty>
+        </if-compare>
+
+        <if-empty field-name="surveyResponse">
+            <make-value value-name="surveyResponse" entity-name="SurveyResponse"/>
+            <sequenced-id-to-env sequence-name="SurveyResponse" env-name="surveyResponse.surveyResponseId"/>
+            <set-nonpk-fields value-name="surveyResponse" map-name="parameters"/>
+            <create-value value-name="surveyResponse"/>
+        </if-empty>
+
+        <if-empty field-name="surveyResponse.responseDate">
+            <set from-field="nowTimestamp" field="surveyResponse.responseDate"/>
+        </if-empty>
+        <set from-field="nowTimestamp" field="surveyResponse.lastModifiedDate"/>
+
+        <store-value value-name="surveyResponse"/>
+        <field-to-result field-name="surveyResponse.surveyResponseId" result-name="surveyResponseId"/>
+        
+        <!-- if a dataResourceId was passed in use it to set DataResource.relatedDetailId to the surveyResponse.surveyResponseId -->
+        <if-not-empty field-name="parameters.dataResourceId">
+            <entity-one entity-name="DataResource" value-name="dataResource"/>
+            <set field="dataResource.relatedDetailId" from-field="surveyResponse.surveyResponseId"/>
+            <store-value value-name="dataResource"/>
+        </if-not-empty>
+
+        <!-- lookup any existing response answers -->
+        <get-related value-name="surveyResponse" relation-name="SurveyResponseAnswer" list-name="existingAnswers"/>
+        <iterate entry-name="existingAnswer" list-name="existingAnswers">
+            <set field="currentAnswersFieldName" from-field="existingAnswer.surveyQuestionId"/>
+            <if-not-empty field-name="existingAnswer.surveyMultiRespColId">
+                <set field="currentAnswersFieldName" value="${currentAnswersFieldName}_${existingAnswer.surveyMultiRespColId}"/>
+            </if-not-empty>
+            <set field="currentAnswers.${currentAnswersFieldName}" from-field="existingAnswer"/>
+        </iterate>
+
+        <!-- create the response answers -->
+        <iterate entry-name="surveyQuestionAndAppl" list-name="surveyQuestionAndApplList">
+            <!-- for process inputs get SurveyMultiResp and SurveyMultiRespColumn entries and if exist process for each surveyMultiRespColId -->
+            <get-related-one value-name="surveyQuestionAndAppl" relation-name="SurveyMultiResp" to-value-name="surveyMultiResp" use-cache="true"/>
+            <if-not-empty field-name="surveyMultiResp">
+                <!-- if the surveyQuestionAndAppl has a surveyMultiRespColId, then just look for one answer with that ID -->
+                <if-empty field-name="surveyQuestionAndAppl.surveyMultiRespColId">
+                    <get-related value-name="surveyMultiResp" relation-name="SurveyMultiRespColumn" list-name="surveyMultiRespColumnList" use-cache="true"/>
+                    <iterate entry-name="surveyMultiRespColumn" list-name="surveyMultiRespColumnList">
+                        <set field="currentFieldName" value="${surveyQuestionAndAppl.surveyQuestionId}_${surveyMultiRespColumn.surveyMultiRespColId}"/>
+                        <call-simple-method method-name="processSurveyResponseInline"/>
+                    </iterate>
+                <else>
+                    <set field="currentFieldName" value="${surveyQuestionAndAppl.surveyQuestionId}_${surveyQuestionAndAppl.surveyMultiRespColId}"/>
+                    <call-simple-method method-name="processSurveyResponseInline"/>
+                </else>
+                </if-empty>
+            <else>
+                <set field="currentFieldName" value="${surveyQuestionAndAppl.surveyQuestionId}"/>
+                <call-simple-method method-name="processSurveyResponseInline"/>
+            </else>
+            </if-not-empty>
+        </iterate>
+
+        <!-- run the survey response service (async) -->
+        <set from-field="surveyResponse.surveyResponseId" field="respServiceCtx.surveyResponseId"/>
+        <if-not-empty field-name="responseService" map-name="survey">
+            <call-service-asynch service-name="${survey.responseService}" in-map-name="respServiceCtx" include-user-login="true"/>  
+        </if-not-empty>
+
+        <field-to-result field-name="surveyResponse.surveyResponseId" result-name="surveyResponseId"/>
+        <field-to-result field-name="parameters.productStoreSurveyId" result-name="productStoreSurveyId"/>
+        <field-to-result field-name="parameters.surveyId" result-name="surveyId"/>
+    </simple-method>
+    
+    <!-- =============== Inline method used by createSurveyResponse ============== -->
+    <simple-method method-name="validateSurveyResponseInline" short-description="validateSurveyResponseInline" login-required="false">
+        <!-- Is required? -->
+        <if-compare field-name="requiredField" map-name="surveyQuestionAndAppl" operator="equals" value="Y">
+            <if-empty field-name="${answerFieldName}">
+                <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a response."/></add-error>
+            </if-empty>
+        </if-compare>
+        
+        <!-- validate the field -->
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CREDIT_CARD">
+            <if-validate-method field-name="${answerFieldName}" method="isCreditCard">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid credit-card number."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="GIFT_CARD">
+            <if-validate-method field-name="${answerFieldName}" method="isGiftCard">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid gift-card number."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="DATE">
+            <if-validate-method field-name="${answerFieldName}" method="isDate">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid date string (mm/dd/yyyy)."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="EMAIL">
+            <if-validate-method field-name="${answerFieldName}" method="isEmail">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid email address."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_CURRENCY">
+            <if-validate-method field-name="${answerFieldName}" method="isSignedDouble">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid currency amount."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_FLOAT">
+            <if-validate-method field-name="${answerFieldName}" method="isSignedDouble">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid decimal number."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_LONG">
+            <if-validate-method field-name="${answerFieldName}" method="isSignedLong">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid whole number."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+        <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="URL">
+            <if-validate-method field-name="${answerFieldName}" method="isUrl">
+                <else>
+                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid URL."/></add-error>
+                </else>
+            </if-validate-method>
+        </if-compare>
+    </simple-method>
+    <simple-method method-name="processSurveyResponseInline" short-description="processSurveyResponseInline" login-required="false">
+        <if-not-empty field-name="currentAnswers">
+            <set field="responseAnswer" from-field="currentAnswers.${currentFieldName}"/>
+        </if-not-empty>
+        
+        <if>
+            <condition>
+                <or>
+                    <if-empty field-name="responseAnswer"/>
+                    <if-compare-field field-name="responseAnswer.surveyQuestionId" operator="not-equals" to-field-name="surveyQuestionAndAppl.surveyQuestionId"/>
+                    <if-compare-field field-name="responseAnswer.surveyMultiRespColId" operator="not-equals" to-field-name="surveyMultiRespColumn.surveyMultiRespColId"/>
+                </or>
+            </condition>
+            <then>
+                <make-value entity-name="SurveyResponseAnswer" value-name="responseAnswer"/>
+                <set from-field="surveyResponse.surveyResponseId" field="responseAnswer.surveyResponseId"/>
+                <set from-field="surveyQuestionAndAppl.surveyQuestionId" field="responseAnswer.surveyQuestionId"/>
+                
+                <!-- If this has a surveyMultiRespColumn then set surveyMultiRespId and surveyMultiRespColId otherwise set surveyMultiRespColId to _NA_ -->
+                <if-not-empty field-name="surveyMultiRespColumn">
+                    <set field="responseAnswer.surveyMultiRespId" from-field="surveyMultiRespColumn.surveyMultiRespId"/>
+                    <set field="responseAnswer.surveyMultiRespColId" from-field="surveyMultiRespColumn.surveyMultiRespColId"/>
+                    <else>
+                        <set field="responseAnswer.surveyMultiRespColId" value="_NA_"/>
+                    </else>
+                </if-not-empty>
+                
+                <create-value value-name="responseAnswer"/>
+            </then>
+        </if>
+        
+        <if-not-empty field-name="answers.${currentFieldName}">
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="BOOLEAN">
+                <set field="responseAnswer.booleanResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="EMAIL">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="DATE">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="URL">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CREDIT_CARD">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="GIFT_CARD">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="PASSWORD">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="TEXT_SHORT">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="TEXT_LONG">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="TEXTAREA">
+                <set field="responseAnswer.textResponse" from-field="answers.${currentFieldName}"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_CURRENCY">
+                <set field="responseAnswer.currencyResponse" from-field="answers.${currentFieldName}" type="Double"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_FLOAT">
+                <set field="responseAnswer.floatResponse" from-field="answers.${currentFieldName}" type="Double"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_LONG">
+                <set field="responseAnswer.numericResponse" from-field="answers.${currentFieldName}" type="Long"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="OPTION">
+                <set from-field="answers.${currentFieldName}" field="responseAnswer.surveyOptionSeqId"/>
+            </if-compare>
+            <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CONTENT">
+                <!-- <log level="always" message="Found CONTENT type question"/> -->
+                <if-instance-of field-name="answers.${currentFieldName}" class="org.ofbiz.entity.util.ByteWrapper">
+                    <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_contentType" field="partyContent._uploadedFile_contentType"/>
+                    <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_fileName" field="partyContent._uploadedFile_fileName"/>
+                    <set from-field="answers.${currentFieldName}" field="partyContent.uploadedFile"/>
+                    <set value="DOCUMENT" field="partyContent.contentTypeId"/>
+                    <set value="PERSONAL" field="partyContent.dataCategoryId"/>
+                    <set value="CTNT_PUBLISHED" field="partyContent.statusId"/>
+                    <call-service service-name="createPartyContent" in-map-name="partyContent">
+                        <result-to-field result-name="contentId" field-name="responseAnswer.contentId"/>
+                    </call-service>
+                <else>                        
+                    <set from-field="answers.${currentFieldName}" field="responseAnswer.contentId"/>
+                </else>
+                </if-instance-of>
+            </if-compare>
+
+            <if-empty field-name="sequenceNum" map-name="responseAnswer">
+                <set from-field="surveyQuestionAndAppl.sequenceNum" field="responseAnswer.sequenceNum"/>
+            </if-empty>      
+            <set from-field="nowTimestamp" field="responseAnswer.answeredDate"/>
+            <store-value value-name="responseAnswer"/>
+        </if-not-empty>
+    </simple-method>
+</simple-methods>

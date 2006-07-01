@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2006-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Test Tool Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="testServiceInterface" engine="interface" location="" invoke="">
+        <description>
+            This has test service specific attributes; most of the important information comes from standard service attributes, including:
+            - responseMessage: success, error, or fail
+            - errorMessage, errorMessageList, errorMessageMap: where messages will comes from for error or fail responses
+            - successMessage, successMessagesList: where messages will comes from for success responses
+        </description>
+        <attribute name="testCase" type="junit.framework.TestCase" mode="IN" optional="false"/>
+    </service>
+</services>

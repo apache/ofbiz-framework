@@ -1,0 +1,90 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@author     Jacopo Cappellato
+ */
+
+import java.util.*;
+import org.ofbiz.base.util.*;
+
+delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
+security = request.getAttribute("security");
+
+productId = request.getParameter("productId");
+productVariantId = productId + "_";
+productFeatureIds = "";
+product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+
+result = dispatcher.runSync("getProductFeaturesByType", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"));
+featureTypes = result.get("productFeatureTypes");
+featuresByTypes = result.get("productFeaturesByType");
+searchFeatures = new ArrayList();
+selectedFeatureTypeValues = new ArrayList();
+for (int i = 0; i < featureTypes.size(); i++) {
+    featureType = featureTypes.get(i);
+    featuresByType = featuresByTypes.get(featureType);
+    featureTypeAndValues = UtilMisc.toMap("featureType", featureType, "features", featuresByType);
+    searchFeatures.add(featureTypeAndValues);
+    //
+    selectedFeatureTypeValue = request.getParameter(featureType);
+    if (selectedFeatureTypeValue != null && selectedFeatureTypeValue.length() > 0) {
+        featureTypeAndValues.put("selectedFeatureId", selectedFeatureTypeValue);
+        selectedFeatureTypeValues.add(selectedFeatureTypeValue);
+        feature = delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", selectedFeatureTypeValue));
+        productVariantId += (feature.getString("idCode") != null? feature.getString("idCode"): "");
+        productFeatureIds += "|" + selectedFeatureTypeValue;
+    }
+}
+
+variants = new ArrayList();
+//if (selectedFeatureTypeValues.size() > 0) {
+    result = dispatcher.runSync("getAllExistingVariants", UtilMisc.toMap("productId", productId, "productFeatureAppls", selectedFeatureTypeValues));
+    variants = result.get("variantProductIds");
+//}
+
+// Quick Add Variant
+productFeatureIdsPar = request.getParameter("productFeatureIds");
+productVariantIdPar = request.getParameter("productVariantId");
+if (productVariantIdPar != null && productFeatureIdsPar != null) {
+    result = dispatcher.runSync("quickAddVariant", UtilMisc.toMap("productId", productId, "productFeatureIds", productFeatureIdsPar, "productVariantId", productVariantIdPar));
+}
+
+context.put("product", product);
+context.put("searchFeatures", searchFeatures);
+context.put("variants", variants);
+
+// also need the variant products themselves
+variantProducts = new ArrayList();
+iter = variants.iterator();
+while (iter.hasNext()) {
+    variantId = iter.next();
+    variantProducts.add(delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", variantId)));
+}
+context.put("variantProducts", variantProducts);
+
+if(security.hasEntityPermission("CATALOG", "_CREATE", session)) {
+    if (selectedFeatureTypeValues.size() == featureTypes.size() && variants.size() == 0) {
+        context.put("productFeatureIds", productFeatureIds);
+        context.put("productVariantId", productVariantId);
+    }
+}

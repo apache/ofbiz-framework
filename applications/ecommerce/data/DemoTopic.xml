@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-transform-xml template="org/ofbiz/ecommerce/data/topic.ftl">
+    <topics>
+        <topic id="9401" name="WIDGETS.MAINTENANCE">
+            <topic_heading>Maintenance</topic_heading>
+            <topic_desc>Maintenance of all products</topic_desc>
+            <category id="53" name="DEP-TOPIC"></category>
+            <keywords>support,manual,documentation</keywords>
+        </topic>
+        <topic id="9402" name="WIDGETS.FUTURE">
+            <topic_heading>Future</topic_heading>
+            <topic_desc>Future product directions</topic_desc>
+            <category id="53" name="DEP-TOPIC"></category>
+            <keywords>future,concept,innovations</keywords>
+        </topic>
+        <topic id="9403" name="WIDGETS.FEEDBACK">
+            <topic_heading>Feedback</topic_heading>
+            <topic_desc>Comments, feedback, etc.</topic_desc>
+            <category id="53" name="DEP-TOPIC"></category>
+            <keywords>feedback,complaint,comment</keywords>
+        </topic>
+    </topics>
+</entity-engine-transform-xml>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="FindExampleFeature">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleFeature"/>
+                <set field="titleProperty" value="PageTitleFindExampleFeature"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://example/widget/example/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
+                                <container>
+                                    <link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext"/>
+                                </container>
+                                <include-form name="ListExampleFeatures" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonExampleFeatureDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleFeature"/>
+
+                <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
+                <entity-one entity-name="ExampleFeature" value-name="exampleFeature"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://example/widget/example/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for EXAMPLE, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="exampleFeature"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="EditExampleFeature" location="component://example/widget/example/ExampleMenus.xml"/>
+                                        <container>
+                                            <link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext"/>
+                                        </container>
+                                        <container>
+                                            <label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${exampleFeature.description}" [${exampleFeatureId}]</label>
+                                        </container>
+                                    </widgets>
+                                </section>
+
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExampleFeature">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExampleFeature"/>
+                <set field="tabButtonItem" value="EditExampleFeature"/>
+                
+                <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
+                <entity-one entity-name="ExampleFeature" value-name="exampleFeature"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleFeatureDecorator">
+                    <decorator-section name="body">
+                        <include-form name="EditExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditExampleFeatureExampleAppls">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExampleFeatureExampleAppls"/>
+                <set field="tabButtonItem" value="EditExampleFeatureExampleAppls"/>
+
+                <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleFeatureDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="LookupExampleFeature">
+        <section>
+            <condition>
+                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>				
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="LookupFindExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        <include-form name="LookupListExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

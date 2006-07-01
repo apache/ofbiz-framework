@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: ofbiz-containers.xml 7900 2006-06-29 05:03:20Z jonesde $
+
+Copyright 2003-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/ofbiz-containers.xsd">
+    <!-- load the ofbiz component container (always first) -->
+    <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
+
+    <!-- load the cached classloader container (always second) -->
+    <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
+
+    <!-- load JNDI/JOTM; this is no longer needed, leaving this in for now just in case someone wants to drop in JOTM from the specialized directory
+    <container name="jotm-container" class="org.ofbiz.jotm.container.JotmContainer">
+        <property name="jndi-config" value="iiop.properties"/>
+    </container>
+    -->
+
+    <!-- load the naming (JNDI) server -->
+    <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
+        <property name="port" value="1099"/>
+    </container>
+    
+    <!-- RMI Service Dispatcher -->
+    <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
+        <property name="bound-name" value="RMIDispatcher"/>
+        <property name="bound-host" value="127.0.0.1"/>
+        <property name="bound-port" value="1099"/>
+        <property name="delegator-name" value="default"/>
+        <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
+        <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
+        <property name="ssl-client-auth" value="true"/>
+    </container>
+
+    <!-- JavaMail Listener Container -->
+    <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
+        <property name="delegator-name" value="default"/>
+        <property name="dispatcher-name" value="JavaMailDispatcher"/>
+        <property name="run-as-user" value="system"/>
+        <property name="poll-delay" value="300000"/>
+        <!-- if set to true, will delete messages after fetching them. otherwise, will try to mark them as seen -->
+        <property name="delete-mail" value="false"/>
+        <property name="default-listener" value="store-listener">
+            <!-- both imap and pop3 are supported, but pop3 will not be able to mark messages as seen, so you would need to delete them --> 
+            <property name="mail.store.protocol" value="imap"/>
+            <property name="mail.host" value="[host]"/>
+            <property name="mail.user" value="[user]"/>
+            <property name="mail.pass" value="[pass]"/>
+            <property name="mail.debug" value="true"/>
+        </property>
+    </container>
+
+    <!-- load Shark Workflow Engine -->
+    <!-- NOTE: before uncommenting this please see the instructions in the ofbiz/OPTIONAL_LIBRARIES file.
+    <container name="shark-container" class="org.ofbiz.shark.container.SharkContainer">
+        <property name="engine-name" value="Shark"/>
+        <property name="delegator-name" value="default"/>
+        <property name="dispatcher-name" value="WFDispatcher"/>
+        <property name="admin-user" value="system"/>
+        <property name="admin-pass" value="ofbiz"/>
+        <property name="iiop-host" value="127.0.0.1"/>
+        <property name="iiop-port" value="2000"/>
+    </container>
+    -->
+
+    <!-- load catalina (tomcat) and all web applications -->
+    <container name="catalina-container" class="org.ofbiz.catalina.container.CatalinaContainer">
+        <!-- static configuration for tomcat -->
+        <property name="delegator-name" value="default"/>
+        <property name="use-naming" value="false"/>
+        <property name="debug" value="0"/>
+        <property name="apps-context-reloadable" value="false"/>
+        <property name="apps-cross-context" value="false"/>
+        <property name="apps-distributable" value="false"/>        
+        <!-- one or more tomcat engines (servers); map to this + host -->
+        <property name="default-server" value="engine">
+            <property name="default-host" value="0.0.0.0"/>
+            <property name="jvm-route" value="jvm1"/>
+            <property name="access-log-pattern">
+                <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
+            </property>
+            <property name="access-log-resolve" value="true"/>
+            <property name="access-log-rotate" value="true"/>
+            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-dir" value="framework/logs"/>
+            <property name="enable-request-dump" value="false"/>
+            <!-- uncomment for cluster support
+            <property name="default-server-cluster" value="cluster">
+                <property name="rep-valve-filter">
+                    <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;</property-value>
+                </property>
+                <property name="manager-class" value="org.apache.catalina.cluster.session.DeltaManager"/>
+                <property name="debug" value="5"/>
+                <property name="replication-mode=" value="pooled"/>
+                <property name="tcp-listen-host" value="auto"/>
+                <property name="tcp-listen-port" value="4001"/>
+                <property name="tcp-sector-timeout" value="100"/>
+                <property name="tcp-thread-count" value="6"/>
+                <property name="mcast-bind-addr" value="192.168.2.1"/>
+                <property name="mcast-addr" value="224.0.0.1"/>
+                <property name="mcast-port" value="45564"/>
+                <property name="mcast-freq" value="500"/>
+                <property name="mcast-drop-time" value="3000"/>
+            </property>
+            -->
+        </property>
+        <!-- all connectors support type, host, port, enable-lookups -->
+        <property name="ajp-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/ajp.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="AJP/1.3"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="http"/>
+            <property name="secure" value="false"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- AJP/13 connector attributes -->
+            <property name="address" value="0.0.0.0"/>
+            <property name="backlog" value="10"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="200"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="port" value="8009"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="soTimeout" value="60000"/>
+            <property name="tomcatAuthentication" value="true"/>
+        </property>
+        <property name="http-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/http.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="HTTP/1.1"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="http"/>
+            <property name="secure" value="false"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- HTTP connector attributes -->
+            <property name="acceptCount" value="10"/>
+            <property name="address" value="0.0.0.0"/>
+            <property name="bufferSize" value="2048"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain"/>
+            <property name="compression" value="on"/>
+            <property name="connectionLinger" value="-1"/>
+            <property name="connectionTimeout" value="60000"/>
+            <property name="disableUploadTimeout" value="false"/>
+            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxKeepAliveRequests" value="100"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="200"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="noCompressionUserAgents" value=""/>
+            <property name="port" value="8080"/>
+            <property name="restrictedUserAgents" value=""/>
+            <property name="server" value=""/>
+            <property name="socketBuffer" value="9000"/>
+            <property name="strategy" value="lf"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>           
+        </property>
+        <property name="https-connector" value="connector">
+            <!-- see http://jakarta.apache.org/tomcat/tomcat-5.5-doc/config/http.html for reference -->
+            <property name="allowTrace" value="false"/>
+            <property name="emptySessionPath" value="false"/>
+            <property name="enableLookups" value="false"/>
+            <property name="maxPostSize" value="2097152"/>
+            <property name="protocol" value="HTTP/1.1"/>
+            <property name="proxyName" value=""/>
+            <property name="proxyPort" value=""/>
+            <property name="redirectPort" value=""/>
+            <property name="scheme" value="https"/>
+            <property name="secure" value="true"/>
+            <property name="URIEncoding" value="UTF-8"/>
+            <property name="useBodyEncodingForURI" value="false"/>
+            <property name="xpoweredBy" value="true"/>
+            <!-- HTTP connector attributes -->
+            <property name="acceptCount" value="10"/>
+            <property name="address" value="0.0.0.0"/>
+            <property name="bufferSize" value="2048"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain"/>
+            <property name="compression" value="on"/>
+            <property name="connectionLinger" value="-1"/>
+            <property name="connectionTimeout" value="60000"/>
+            <property name="disableUploadTimeout" value="false"/>
+            <property name="maxHttpHeaderSize" value="4096"/>
+            <property name="maxKeepAliveRequests" value="100"/>
+            <property name="maxSpareThreads" value="50"/>
+            <property name="maxThreads" value="200"/>
+            <property name="minSpareThreads" value="4"/>
+            <property name="noCompressionUserAgents" value=""/>
+            <property name="port" value="8443"/>
+            <property name="restrictedUserAgents" value=""/>
+            <property name="server" value=""/>
+            <property name="socketBuffer" value="9000"/>
+            <property name="strategy" value="lf"/>
+            <property name="tcpNoDelay" value="true"/>
+            <property name="threadPriority" value="java.lang.Thread#NORM_PRIORITY"/>
+            <!-- SSL connector attributes -->
+            <property name="algorithm" value="SunX509"/>
+            <property name="clientAuth" value="false"/>
+            <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
+            <property name="keystorePass" value="changeit"/>
+            <property name="keystoreType" value="JKS"/>
+            <property name="sslProtocol" value="TLS"/>
+            <property name="ciphers" value=""/>
+        </property>
+    </container>
+   
+    <!-- load BeanShell remote telnet server -->
+    <container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
+        <!-- the port below and port-1 will be opened by beanshell -->
+        <property name="telnet-port" value="9990"/>
+        <property name="app-name" value="OFBiz"/>
+    </container>
+</ofbiz-containers>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a
+*  copy of this software and associated documentation files (the "Software"),
+*  to deal in the Software without restriction, including without limitation
+*  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+*  and/or sell copies of the Software, and to permit persons to whom the
+*  Software is furnished to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included
+*  in all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+*  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+*  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+*  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+*  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+*  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<entity-engine-xml>
+    <RateType rateTypeId="STANDARD" description="Standard Hourly Rate"/>
+    <RateType rateTypeId="DISCOUNTED" description="Discounted Hourly Rate"/>
+    <RateType rateTypeId="OVERTIME" description="Overtime Hourly Rate"/>
+    
+    <EnumerationType description="Parent Type for all Work Effort enum types" enumTypeId="WORK_EFFORT" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Parent Type for all Workflow enum types" enumTypeId="WORKFLOW" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Workflow Graph Conformance Classifications" enumTypeId="WORKFLOW_GRAPH_CONF" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Formal Parameter Mode" enumTypeId="WORKFLOW_PARAM_MODE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Activity Mode" enumTypeId="WFLOW_ACTIVITY_MODE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Activity Type" enumTypeId="WFLOW_ACTIVITY_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Instantiation" enumTypeId="WFLOW_INSTANTIATION" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Join Type" enumTypeId="WORKFLOW_JOIN_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Split Type" enumTypeId="WORKFLOW_SPLIT_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Tool Type" enumTypeId="WORKFLOW_TOOL_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow SubFlow Execution" enumTypeId="WORKFLOW_SUB_EXEC" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Loop Kind" enumTypeId="WORKFLOW_LOOP_KIND" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Transition Loop Type" enumTypeId="WORKFLOW_TRANS_LOOP" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Transition Condition Type" enumTypeId="WORKFLOW_TRANS_COND" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Data Type Enum Type" enumTypeId="WORKFLOW_DATA_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+
+    <EnumerationType description="Work Effort Expectations" enumTypeId="WORK_EFF_EXPECT" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <Enumeration description="For Your Information" enumCode="FYI" enumId="WEE_FYI" sequenceId="01" enumTypeId="WORK_EFF_EXPECT"/>
+    <Enumeration description="Involvement Required" enumCode="REQUIRE" enumId="WEE_REQUIRE" sequenceId="02" enumTypeId="WORK_EFF_EXPECT"/>
+    <Enumeration description="Involvement Requested" enumCode="REQUEST" enumId="WEE_REQUEST" sequenceId="03" enumTypeId="WORK_EFF_EXPECT"/>
+    <Enumeration description="Immediate Response Requested" enumCode="IMMEDIATE" enumId="WEE_IMMEDIATE" sequenceId="04" enumTypeId="WORK_EFF_EXPECT"/>
+
+    <EnumerationType description="Work Effort Scope Classifications" enumTypeId="WORK_EFF_SCOPE" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <Enumeration description="General, public access" enumCode="PUBLIC" enumId="WES_PUBLIC" sequenceId="01" enumTypeId="WORK_EFF_SCOPE"/>
+    <Enumeration description="Restricted, private access" enumCode="PRIVATE" enumId="WES_PRIVATE" sequenceId="02" enumTypeId="WORK_EFF_SCOPE"/>
+    <Enumeration description="Very restricted, confidential access" enumCode="CONFIDENTIAL" enumId="WES_CONFIDENTIAL" sequenceId="03" enumTypeId="WORK_EFF_SCOPE"/>
+
+    <Enumeration description="No restriction on network structure (DEFAULT)" enumCode="NON_BLOCKED" enumId="WGC_NON_BLOCKED" sequenceId="01" enumTypeId="WORKFLOW_GRAPH_CONF"/>
+    <Enumeration description="Network structure restricted to proper nesting of LOOP" enumCode="LOOP_BLOCKED" enumId="WGC_LOOP_BLOCKED" sequenceId="02" enumTypeId="WORKFLOW_GRAPH_CONF"/>
+    <Enumeration description="Network structure restricted to proper nesting of SPLIT/JOIN and LOOP" enumCode="FULL_BLOCKED" enumId="WGC_FULL_BLOCKED" sequenceId="03" enumTypeId="WORKFLOW_GRAPH_CONF"/>
+
+    <Enumeration description="Input Parameter" enumCode="IN" enumId="WPM_IN" sequenceId="01" enumTypeId="WORKFLOW_PARAM_MODE"/>
+    <Enumeration description="Output Parameter" enumCode="OUT" enumId="WPM_OUT" sequenceId="02" enumTypeId="WORKFLOW_PARAM_MODE"/>
+    <Enumeration description="Parameter Used for Input and Output" enumCode="INOUT" enumId="WPM_INOUT" sequenceId="03" enumTypeId="WORKFLOW_PARAM_MODE"/>
+
+    <Enumeration description="Automatic Mode" enumCode="Automatic" enumId="WAM_AUTOMATIC" sequenceId="01" enumTypeId="WFLOW_ACTIVITY_MODE"/>
+    <Enumeration description="Manual Mode" enumCode="Manual" enumId="WAM_MANUAL" sequenceId="02" enumTypeId="WFLOW_ACTIVITY_MODE"/>
+
+    <Enumeration description="Route" enumCode="Route" enumId="WAT_ROUTE" sequenceId="01" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="No Implementation" enumCode="No" enumId="WAT_NO" sequenceId="02" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="Tools Implementation" enumCode="Tool" enumId="WAT_TOOL" sequenceId="03" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="Subflow Implementation" enumCode="Subflow" enumId="WAT_SUBFLOW" sequenceId="04" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="Loop Implementation" enumCode="Loop" enumId="WAT_LOOP" sequenceId="05" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+
+    <Enumeration description="Activity can only be instantiated once (DEFAULT)" enumCode="ONCE" enumId="WFI_ONCE" sequenceId="01" enumTypeId="WFLOW_INSTANTIATION"/>
+    <Enumeration description="Activity can be instantiated multiple times" enumCode="MULTIPLE" enumId="WFI_MULTIPLE" sequenceId="02" enumTypeId="WFLOW_INSTANTIATION"/>
+
+    <Enumeration description="Synchronize all incoming transitions (wait for all)" enumCode="AND" enumId="WJT_AND" sequenceId="01" enumTypeId="WORKFLOW_JOIN_TYPE"/>
+    <Enumeration description="No incoming synchronization required (start on first)" enumCode="XOR" enumId="WJT_XOR" sequenceId="02" enumTypeId="WORKFLOW_JOIN_TYPE"/>
+
+    <Enumeration description="Allow concurrent outgoing transitions" enumCode="AND" enumId="WST_AND" sequenceId="01" enumTypeId="WORKFLOW_SPLIT_TYPE"/>
+    <Enumeration description="Only allow a single outgoing transition" enumCode="XOR" enumId="WST_XOR" sequenceId="02" enumTypeId="WORKFLOW_SPLIT_TYPE"/>
+
+    <Enumeration description="Application" enumCode="APPLICATION" enumId="WTT_APPLICATION" sequenceId="01" enumTypeId="WORKFLOW_TOOL_TYPE"/>
+    <Enumeration description="Procedure" enumCode="PROCEDURE" enumId="WTT_PROCEDURE" sequenceId="02" enumTypeId="WORKFLOW_TOOL_TYPE"/>
+
+    <Enumeration description="Asynchronous Execution" enumCode="ASYNCHR" enumId="WSE_ASYNCHR" sequenceId="01" enumTypeId="WORKFLOW_SUB_EXEC"/>
+    <Enumeration description="Synchronous Execution" enumCode="SYNCHR" enumId="WSE_SYNCHR" sequenceId="02" enumTypeId="WORKFLOW_SUB_EXEC"/>
+
+    <Enumeration description="While loop - go until condition evaluates to false" enumCode="WHILE" enumId="WLK_WHILE" sequenceId="01" enumTypeId="WORKFLOW_LOOP_KIND"/>
+    <Enumeration description="Repeat Until loop - go until condition evaluates to true" enumCode="REPEAT_UNTIL" enumId="WLK_REPEAT_UNTIL" sequenceId="02" enumTypeId="WORKFLOW_LOOP_KIND"/>
+
+    <Enumeration description="No Loop" enumCode="NOLOOP" enumId="WTL_NOLOOP" sequenceId="01" enumTypeId="WORKFLOW_TRANS_LOOP"/>
+    <Enumeration description="From Loop" enumCode="FROMLOOP" enumId="WTL_FROMLOOP" sequenceId="02" enumTypeId="WORKFLOW_TRANS_LOOP"/>
+    <Enumeration description="To Loop" enumCode="TOLOOP" enumId="WTL_TOLOOP" sequenceId="03" enumTypeId="WORKFLOW_TRANS_LOOP"/>
+
+    <Enumeration description="Condition" enumCode="CONDITION" enumId="WTC_CONDITION" sequenceId="01" enumTypeId="WORKFLOW_TRANS_COND"/>
+    <Enumeration description="Otherwise" enumCode="OTHERWISE" enumId="WTC_OTHERWISE" sequenceId="02" enumTypeId="WORKFLOW_TRANS_COND"/>
+
+    <Enumeration description="Boolean - Plain Type" enumCode="BOOLEAN" enumId="WDT_BOOLEAN" sequenceId="01" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Unit - Plain Type" enumCode="UNIT" enumId="WDT_UNIT" sequenceId="02" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Performer - Plain Type" enumCode="PERFORMER" enumId="WDT_PERFORMER" sequenceId="03" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="String - Basic Type" enumCode="STRING" enumId="WDT_STRING" sequenceId="04" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Float - Basic Type" enumCode="FLOAT" enumId="WDT_FLOAT" sequenceId="05" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Integer - Basic Type" enumCode="INTEGER" enumId="WDT_INTEGER" sequenceId="06" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Reference - Basic Type" enumCode="REFERENCE" enumId="WDT_REFERENCE" sequenceId="07" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Date-Time - Basic Type" enumCode="DATETIME" enumId="WDT_DATETIME" sequenceId="08" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Record - Complex Type" enumCode="RECORD" enumId="WDT_RECORD" sequenceId="09" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Union - Complex Type" enumCode="UNION" enumId="WDT_UNION" sequenceId="10" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Enumeration - Complex Type" enumCode="ENUMERATION" enumId="WDT_ENUMERATION" sequenceId="11" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Array - Complex Type" enumCode="ARRAY" enumId="WDT_ARRAY" sequenceId="12" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="List - Complex Type" enumCode="LIST" enumId="WDT_LIST" sequenceId="13" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Declared Type" enumCode="DECLARED" enumId="WDT_DECLARED" sequenceId="14" enumTypeId="WORKFLOW_DATA_TYPE"/>
+
+    <!-- workeffort & workflow status -->
+    <StatusType description="WorkEffort Asset" hasTable="N" parentTypeId="" statusTypeId="WORK_EFF_ASSET_STTS"/>
+    <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/>
+    <StatusType description="Workeffort" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_STATUS"/>
+
+    <StatusType description="Calendar" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Needs Action" sequenceId="01" statusCode="NEEDS ACTION" statusId="CAL_NEEDS_ACTION" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Sent" sequenceId="02" statusCode="SENT" statusId="CAL_SENT" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Declined" sequenceId="03" statusCode="DECLINED" statusId="CAL_DECLINED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Delegated" sequenceId="04" statusCode="DELEGATED" statusId="CAL_DELEGATED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="05" statusCode="CANCELLED" statusId="CAL_CANCELLED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusValidChange condition="" statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_SENT" transitionName="Send"/>
+    <StatusValidChange condition="" statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_DECLINED" transitionName="Decline"/>
+    <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
+    <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+
+    <StatusType description="Task" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="TASK_STATUS"/>
+    <StatusItem description="Accepted" sequenceId="01" statusCode="ACCEPTED" statusId="CAL_ACCEPTED" statusTypeId="TASK_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="CAL_COMPLETED" statusTypeId="TASK_STATUS"/>
+    <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
+
+    <StatusType description="Event" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="Tentative" sequenceId="01" statusCode="TENTATIVE" statusId="CAL_TENTATIVE" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="Confirmed" sequenceId="02" statusCode="CONFIRMED" statusId="CAL_CONFIRMED" statusTypeId="EVENT_STATUS"/>
+    <StatusValidChange condition="" statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_TENTATIVE" transitionName="Tentatively Plan"/>
+    <StatusValidChange condition="" statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
+    <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_DECLINED" transitionName="Decline"/>
+    <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
+    <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
+    <StatusValidChange condition="" statusId="CAL_CONFIRMED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
+
+
+    <StatusType description="Workflow" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Not Started" sequenceId="01" statusCode="open.not_running.not_started" statusId="WF_NOT_STARTED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Suspended" sequenceId="02" statusCode="open.not_running.suspended" statusId="WF_SUSPENDED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Running" sequenceId="03" statusCode="open.running" statusId="WF_RUNNING" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Completed" sequenceId="04" statusCode="closed.completed" statusId="WF_COMPLETED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Terminated" sequenceId="05" statusCode="closed.terminated" statusId="WF_TERMINATED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Aborted" sequenceId="06" statusCode="closed.aborted" statusId="WF_ABORTED" statusTypeId="WORKFLOW_STATUS"/>
+
+    <StatusType description="Workflow Publish" hasTable="N" parentTypeId="" statusTypeId="WORKFLOW_PUB_STATUS"/>
+    <StatusItem description="Under Revision" sequenceId="01" statusCode="UNDER_REVISION" statusId="WPS_UNDER_REVISION" statusTypeId="WORKFLOW_PUB_STATUS"/>
+    <StatusItem description="Under Test" sequenceId="02" statusCode="UNDER_TEST" statusId="WPS_UNDER_TEST" statusTypeId="WORKFLOW_PUB_STATUS"/>
+    <StatusItem description="Released" sequenceId="03" statusCode="RELEASED" statusId="WPS_RELEASED" statusTypeId="WORKFLOW_PUB_STATUS"/>
+
+    <StatusValidChange condition="" statusId="WF_NOT_STARTED" statusIdTo="WF_RUNNING" transitionName="Start"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_SUSPENDED" transitionName="Suspend"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_TERMINATED" transitionName="Terminate"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_ABORTED" transitionName="Abort"/>
+    <StatusValidChange condition="" statusId="WF_SUSPENDED" statusIdTo="WF_RUNNING" transitionName="Un-suspend"/>
+
+    <!-- Status items for WorkEffortPartyAssignment.availabilityStatusId -->
+    <StatusType description="Work Effort Party Availability" hasTable="N" parentTypeId="" statusTypeId="WEPA_AVAILABILITY"/>
+    <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEPA_AV_AVAILABLE" statusTypeId="WEPA_AVAILABILITY"/>
+    <StatusItem description="Busy" sequenceId="02" statusCode="BUSY" statusId="WEPA_AV_BUSY" statusTypeId="WEPA_AVAILABILITY"/>
+    <StatusItem description="Away" sequenceId="03" statusCode="AWAY" statusId="WEPA_AV_AWAY" statusTypeId="WEPA_AVAILABILITY"/>
+
+    <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
+    <WorkEffortAssocType description="Dependency" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
+    <WorkEffortAssocType description="Concurrency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_CONCURRENCY"/>
+    <WorkEffortAssocType description="Precedency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_PRECEDENCY"/>
+    <WorkEffortAssocType description="Template of" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_TEMPLATE"/>
+    <!-- For Routing definition, (workEffort Template) -->
+    <WorkEffortAssocType description="Routing and Routing Task Association" hasTable="N" parentTypeId="" workEffortAssocTypeId="ROUTING_COMPONENT"/>
+    
+    <WorkflowParticipantType description="A set of resource" hasTable="N" parentTypeId="" participantTypeId="RESOURCE_SET" typeCode="RESOURCE_SET"/>
+    <WorkflowParticipantType description="A specific resource agent" hasTable="N" parentTypeId="" participantTypeId="RESOURCE" typeCode="RESOURCE"/>
+    <WorkflowParticipantType description="Specifies a role that may map to a group of humans" hasTable="N" parentTypeId="" participantTypeId="ROLE" typeCode="ROLE"/>
+    <WorkflowParticipantType description="Department or other unit in an organization" hasTable="N" parentTypeId="" participantTypeId="ORGANIZATIONAL_UNIT" typeCode="ORGANIZATIONAL_UNIT"/>
+    <WorkflowParticipantType description="Human interacting with the system through an application" hasTable="N" parentTypeId="" participantTypeId="HUMAN" typeCode="HUMAN"/>
+    <WorkflowParticipantType description="An automatic agent" hasTable="N" parentTypeId="" participantTypeId="SYSTEM" typeCode="SYSTEM"/>
+
+    <WorkEffortPurposeType description="Project" workEffortPurposeTypeId="WEPT_PROJECT"/>
+    <WorkEffortPurposeType description="Phase" workEffortPurposeTypeId="WEPT_PHASE"/>
+    <WorkEffortPurposeType description="Production Run" workEffortPurposeTypeId="WEPT_PRODUCTION_RUN"/>
+    <WorkEffortPurposeType description="Maintenance" workEffortPurposeTypeId="WEPT_MAINTENANCE"/>
+    <WorkEffortPurposeType description="Research" workEffortPurposeTypeId="WEPT_RESEARCH"/>
+    <WorkEffortPurposeType description="Meeting" workEffortPurposeTypeId="WEPT_MEETING"/>
+    <WorkEffortPurposeType description="Development" workEffortPurposeTypeId="WEPT_DEVELOPMENT"/>
+    <WorkEffortPurposeType description="Support" workEffortPurposeTypeId="WEPT_SUPPORT"/>
+    <WorkEffortPurposeType description="Deployment" workEffortPurposeTypeId="WEPT_DEPLOYMENT"/>
+
+    <WorkEffortPurposeType description="Manufacturing" workEffortPurposeTypeId="ROU_MANUFACTURING"/>
+    <WorkEffortPurposeType description="Assembling" workEffortPurposeTypeId="ROU_ASSEMBLING"/>
+    <WorkEffortPurposeType description="Sub-contracting" workEffortPurposeTypeId="ROU_SUBCONTRACTING"/>
+
+    <WorkEffortPurposeType description="Phone Call" workEffortPurposeTypeId="WEPT_TASK_PHONE_CALL"/>
+    <WorkEffortPurposeType description="Email" workEffortPurposeTypeId="WEPT_TASK_EMAIL"/>
+    
+    <WorkEffortType description="Workflow Process" hasTable="N" parentTypeId="" workEffortTypeId="WORK_FLOW"/>
+    <WorkEffortType description="Workflow Activity" hasTable="N" parentTypeId="" workEffortTypeId="ACTIVITY"/>
+    <WorkEffortType description="Task" hasTable="N" parentTypeId="" workEffortTypeId="TASK"/>
+    <WorkEffortType description="Event" hasTable="N" parentTypeId="" workEffortTypeId="EVENT"/>
+    <WorkEffortType description="Available" hasTable="N" parentTypeId="" workEffortTypeId="AVAILABLE"/>
+    <WorkEffortType description="Program" hasTable="N" parentTypeId="" workEffortTypeId="PROGRAM"/>
+    <WorkEffortType description="Project" hasTable="N" parentTypeId="" workEffortTypeId="PROJECT"/>
+    <WorkEffortType description="Project Phase" hasTable="N" parentTypeId="" workEffortTypeId="PHASE"/>
+
+    <WorkEffortType description="Routing" hasTable="N" parentTypeId="" workEffortTypeId="ROUTING"/>
+    <WorkEffortType description="Routing Task" hasTable="N" parentTypeId="" workEffortTypeId="ROU_TASK"/>
+    <WorkEffortType description="Production Run Header" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_HEADER"/>
+    <WorkEffortType description="Production Run Task" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_TASK"/>
+    <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" parentTypeId="" workEffortTypeId="ASSET_USAGE"/>
+    
+    <WorkflowSpecification specificationId="XPDL" currentVersion="0.03"/>
+    
+    <StatusType description="Party" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRTYASGN_STATUS"/>
+    <StatusItem description="Offered" sequenceId="01" statusCode="OFFERED" statusId="PRTYASGN_OFFERED" statusTypeId="PRTYASGN_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="PRTYASGN_ASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
+    <StatusItem description="Unassigned" sequenceId="03" statusCode="UNASSIGNED" statusId="PRTYASGN_UNASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
+
+    <!-- Routing status, (workEffort Template) -->
+    <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
+    
+    <StatusItem description="Well defined and usable" sequenceId="01" statusCode="ACTIVE" statusId="ROU_ACTIVE" statusTypeId="ROUTING_STATUS"/>
+    
+    <!-- Production Run status -->
+    <StatusType description="Production Run Status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRODUCTION_RUN"/>
+    
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PRUN_CREATED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Confirmed" sequenceId="02" statusCode="DOC_PRINTED" statusId="PRUN_DOC_PRINTED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Running" sequenceId="03" statusCode="RUNNING" statusId="PRUN_RUNNING" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="PRUN_COMPLETED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Closed" sequenceId="05" statusCode="CLOSED" statusId="PRUN_CLOSED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PRUN_CANCELLED" statusTypeId="PRODUCTION_RUN"/>
+    
+    <!-- ProductionRun Inventory assignement status -->
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" description="Product and Routing Association" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUN_PROD_DELIV" description="Production Run and Product to Deliver Association" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" description="Production Run Task and Needed Product Association" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_DELIV" description="Production Run Task and Deliverable Product Association" hasTable="N" parentTypeId=""/>
+    <!--  <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/> -->
+    <StatusType description="Work Effort Good Standard Status" hasTable="N" parentTypeId="" statusTypeId="WEFG_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="WEGS_CREATED" statusTypeId="WEFG_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="WEGS_COMPLETED" statusTypeId="WEFG_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="03" statusCode="CANCELLED" statusId="WEGS_CANCELLED" statusTypeId="WEFG_STATUS"/>
+</entity-engine-xml>

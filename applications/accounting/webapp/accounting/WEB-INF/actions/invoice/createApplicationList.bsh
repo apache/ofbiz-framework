@@ -1,0 +1,123 @@
+/*
+ * $Id: $
+ *
+ * Copyright 2005-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+/*
+ *@author     Hans Bakker h.bakker@antwebsystems.com
+ */
+ 
+import java.util.*;
+import java.math.BigDecimal;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.collections.*;
+import org.ofbiz.accounting.invoice.*;
+import org.ofbiz.accounting.payment.*;
+import java.text.DateFormat;
+import java.text.*;
+import java.text.NumberFormat;
+
+int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+NULL = new BigDecimal("0.00");
+
+delegator = request.getAttribute("delegator");
+invoiceId = request.getParameter("invoiceId");
+locale = context.get("locale");
+if (invoiceId == null)  invoiceId = context.get("invoiceId");
+invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+tabButtonItem = context.get("tabButtonItem");
+
+ArrayList invoiceItems = new ArrayList();  // to pass back to the screeen with payment applications added
+if (invoice != null) {    
+    // retrieve related applications with null itemnumber
+    invoiceAppl = null;  
+    invoiceAppls = delegator.findByAnd("PaymentApplication",UtilMisc.toMap("invoiceId", invoiceId,"invoiceItemSeqId",null));
+    Iterator q = invoiceAppls.iterator();
+    while (q.hasNext()) {
+        invoiceAppl = q.next();
+        Map itemmap = new HashMap();
+        itemmap.put("invoiceId",invoiceId);
+        itemmap.put("uomId",invoice.getString("currencyUomId"));
+        itemmap.put("invoiceItemSeqId",invoiceAppl.getString("invoiceItemSeqId"));
+        itemmap.put("total",InvoiceWorker.getInvoiceTotalBd(invoice).doubleValue());
+        itemmap.put("paymentApplicationId",invoiceAppl.getString("paymentApplicationId"));
+        itemmap.put("paymentId",invoiceAppl.getString("paymentId"));
+        itemmap.put("billingAccountId",invoiceAppl.getString("billingAccountId"));
+        itemmap.put("taxAuthGeoId",invoiceAppl.getString("taxAuthGeoId"));
+        itemmap.put("amountToApply",invoiceAppl.get("amountApplied"));
+        itemmap.put("amountApplied",invoiceAppl.get("amountApplied"));
+        invoiceItems.add(itemmap);
+    }
+
+	
+	// retrieve related applications with an existing itemnumber
+    Iterator i = invoice.getRelated("InvoiceItem").iterator();
+    while (i.hasNext()) {
+        item = i.next();
+        BigDecimal itemTotal = null;
+        if (item.get("amount") != null) {
+              if (item.get("quantity") == null || item.getBigDecimal("quantity").compareTo(NULL) == 0) {
+                  itemTotal = item.getBigDecimal("amount");
+              }
+              else {
+                  itemTotal = item.getBigDecimal("amount").multiply(item.getBigDecimal("quantity"));
+              }
+        }
+           
+        // get relation payment applications for every item(can be more than 1 per item number)
+        paymentApplications = item.getRelated("PaymentApplication");
+        if (paymentApplications != null && paymentApplications.size() > 0)    {
+              Iterator p = paymentApplications.iterator();
+              while (p.hasNext())  {
+                  paymentApplication = p.next();
+                  Map itemmap = new HashMap();
+                  itemmap.putAll(item);
+                  itemmap.put("total",NumberFormat.getInstance(locale).format(itemTotal));
+                  itemmap.put("paymentApplicationId",paymentApplication.getString("paymentApplicationId"));
+                  itemmap.put("paymentId",paymentApplication.getString("paymentId"));
+                  itemmap.put("toPaymentId",paymentApplication.getString("toPaymentId"));
+                  itemmap.put("amountApplied",paymentApplication.getBigDecimal("amountApplied"));
+                  itemmap.put("amountToApply",paymentApplication.getBigDecimal("amountApplied"));
+                  itemmap.put("billingAccountId",paymentApplication.getString("billingAccountId"));
+                  itemmap.put("taxAuthGeoId",paymentApplication.getString("taxAuthGeoId"));
+                  invoiceItems.add(itemmap);
+              }
+        }
+
+/*
+        // create an extra line for input when not completely applied but not in the overview 
+        if (tabButtonItem.equals("invoiceOverview") != true && 
+                      (paymentApplications == null || paymentApplications.size() == 0 
+                      || (applied < itemTotal && appliedAmount < invoiceAmount)))    {
+                  Map itemmap = new HashMap();
+                  itemmap.putAll(item);
+                  itemmap.put("total",itemTotal);
+                  itemmap.put("paymentApplicationId","");
+                  itemmap.put("paymentId","");
+                  itemmap.put("amountToApply", NumberFormat.getNumberInstance(locale).format(itemTotal - applied));
+                  itemmap.put("billingAccountId","");
+                  itemmap.put("taxAuthGeoId","");
+                  invoiceItems.add(itemmap);
+        }
+*/
+    }
+	context.put("invoice",invoice);
+	context.put("invoiceId",invoiceId);
+}
+
+if(invoiceItems.size() > 0) context.put("invoiceApplications",invoiceItems);

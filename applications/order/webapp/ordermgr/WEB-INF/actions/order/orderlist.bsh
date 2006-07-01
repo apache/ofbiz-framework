@@ -1,0 +1,164 @@
+/*
+ *  Copyright (c) 2005-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+
+delegator = request.getAttribute("delegator");
+session = request.getSession(true);
+dispatcher = request.getAttribute("dispatcher");
+userLogin = session.getAttribute("userLogin");
+security = request.getAttribute("security");
+partyId = request.getParameter("partyId");
+facilityId = request.getParameter("facilityId");
+
+// checkboxes
+viewcompleted = request.getParameter("viewcompleted");
+viewcancelled = request.getParameter("viewcancelled");
+viewrejected = request.getParameter("viewrejected");
+viewapproved = request.getParameter("viewapproved");
+viewcreated = request.getParameter("viewcreated");
+viewprocessing = request.getParameter("viewprocessing");
+viewsent = request.getParameter("viewsent");
+viewall = request.getParameter("viewall");
+view_SALES_ORDER = request.getParameter("view_SALES_ORDER");
+view_PURCHASE_ORDER = request.getParameter("view_PURCHASE_ORDER");
+
+// if no status is selected, view created, processing, and approved orders by default 
+if ((viewcompleted == null) && (viewcancelled == null) && (viewrejected == null) && (viewapproved == null) && (viewcreated == null) && (viewprocessing == null) && (viewsent == null)) {
+    viewcreated = "Y";
+    viewprocessing = "Y";
+    viewapproved = "Y";
+}
+
+// put back in context for pre-checking checkboxes
+context.put("viewcompleted", viewcompleted);
+context.put("viewcancelled", viewcancelled);
+context.put("viewrejected", viewrejected);
+context.put("viewapproved", viewapproved);
+context.put("viewcreated", viewcreated);
+context.put("viewprocessing", viewprocessing);
+context.put("viewsent", viewsent);
+context.put("viewall", viewall);
+
+// when no constraints are evident, default to view all sales
+if ((view_SALES_ORDER == null) && (view_PURCHASE_ORDER == null)) {
+    view_SALES_ORDER = "Y";
+}
+context.put("view_SALES_ORDER", view_SALES_ORDER);
+context.put("view_PURCHASE_ORDER", view_PURCHASE_ORDER);
+
+typeConditions = new ArrayList();       // list of order type conditions
+statusConditions = new ArrayList();     // list of order status conditions
+allConditions = new ArrayList();        // type and status conditions joined by AND
+
+// condition for facility Id
+if (facilityId != null) {
+    allConditions.add(new EntityExpr("originFacilityId", EntityOperator.EQUALS, facilityId));
+}
+
+// conditions for order status
+completedOrdersCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_COMPLETED");
+cancelledOrdersCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_CANCELLED");
+rejectedOrdersCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_REJECTED");
+approvedOrdersCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_APPROVED");
+createdOrdersCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_CREATED");
+processingOrdersCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_PROCESSING");
+sentOrdersCondition = new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_SENT");
+
+// conditions for order type
+salesOrdersCondition = null;
+purchaseOrdersCondition = null;
+workOrdersCondition = null;
+
+// check permission for each order type
+hasPermission = false;
+if ((view_SALES_ORDER != null) && security.hasEntityPermission("ORDERMGR", "_VIEW", session)) {
+    hasPermission = true;
+    salesOrdersCondition = new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER");
+}
+if ((view_PURCHASE_ORDER != null) && security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session)) {
+    hasPermission = true;
+    purchaseOrdersCondition = new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER");
+}
+context.put("hasPermission", hasPermission);
+
+
+// this is for convenience
+allStatus = false;
+if ((viewall != null) && (viewall.equals("Y"))) {
+    allStatus = true;
+}
+
+if (allStatus || (viewcompleted != null)) {
+    statusConditions.add(completedOrdersCondition);
+}
+if (allStatus || (viewcancelled != null)) {
+    statusConditions.add(cancelledOrdersCondition);
+}
+if (allStatus || (viewrejected != null)) {
+    statusConditions.add(rejectedOrdersCondition);
+}
+if (allStatus || (viewapproved != null)) {
+    statusConditions.add(approvedOrdersCondition);
+}
+if (allStatus || (viewcreated != null)) {
+    statusConditions.add(createdOrdersCondition);
+}
+if (allStatus || (viewprocessing != null)) {
+    statusConditions.add(processingOrdersCondition);
+}
+if (allStatus || (viewsent != null)) {
+    statusConditions.add(sentOrdersCondition);
+}
+if (salesOrdersCondition != null) {
+    typeConditions.add(salesOrdersCondition);
+}
+if (purchaseOrdersCondition != null) {
+    typeConditions.add(purchaseOrdersCondition);
+}
+if (workOrdersCondition != null) {
+    typeConditions.add(workOrdersCondition);
+}
+
+// construct conditions and find orderheaders: select ORH where (status1 OR status2 OR ...) AND (type1 OR type2 OR ...)
+statusConditionsList = new EntityConditionList(statusConditions,  EntityOperator.OR);
+typeConditionsList = new EntityConditionList(typeConditions, EntityOperator.OR);
+if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {
+    allConditions.add(statusConditionsList);
+    allConditions.add(typeConditionsList);
+}
+queryConditionsList = new EntityConditionList(allConditions, EntityOperator.AND);
+orderHeaderList = delegator.findByCondition("OrderHeader", queryConditionsList, null, UtilMisc.toList("orderId DESC"));
+context.put("orderHeaderList", orderHeaderList);
+
+locale = UtilHttp.getLocale(request);
+
+// a list of order type descriptions
+ordertypes = delegator.findAllCache("OrderType");
+iter = ordertypes.iterator();
+while (iter.hasNext()) {
+    type = iter.next();
+    context.put("descr_" + type.getString("orderTypeId"), type.get("description",locale));
+}

@@ -1,0 +1,64 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@created    May 10, 2002
+*/
+
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+
+delegator = request.getAttribute("delegator");
+
+String facilityId = request.getParameter("facilityId");
+if (UtilValidate.isEmpty(facilityId) && UtilValidate.isNotEmpty((String) request.getAttribute("facilityId"))) {
+  facilityId = (String) request.getAttribute("facilityId");
+}
+GenericValue facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+GenericValue facilityType = null;
+if(facility == null) {
+  facility = delegator.makeValue("Facility", null);
+  facilityType = delegator.makeValue("FacilityType", null);
+} else {
+  facilityType = facility.getRelatedOne("FacilityType");
+}
+context.put("facility", facility);
+context.put("facilityType", facilityType);
+context.put("facilityId", facilityId);
+
+//Facility types
+Collection facilityTypes = delegator.findAll("FacilityType");
+if (facilityTypes != null)
+  context.put("facilityTypes", facilityTypes);
+
+// possible owners of facilities
+ownerParties = delegator.findByAndCache("PartyRole", UtilMisc.toMap("roleTypeId", "INTERNAL_ORGANIZATIO"));
+context.put("ownerParties", ownerParties);
+
+// all possible inventory item types
+inventoryItemTypes = delegator.findAllCache("InventoryItemType", UtilMisc.toList("description"));
+context.put("inventoryItemTypes", inventoryItemTypes);
+
+// unit of measures
+weightUomList = delegator.findByAndCache("Uom", UtilMisc.toMap("uomTypeId", "WEIGHT_MEASURE"));
+context.put("weightUomList", weightUomList);

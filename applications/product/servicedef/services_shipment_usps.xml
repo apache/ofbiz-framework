@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Common Application Components Shipment Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <!-- USPS Webtools API Services -->
+    <service name="uspsRateInquire" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsRateInquire" auth="false">
+        <implements service="calcShipmentEstimateInterface"/>
+    </service>
+    
+    <service name="uspsTrackConfirm" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsTrackConfirm">
+        <attribute name="trackingId" type="String" mode="IN" optional="false"/>
+        <attribute name="trackingSummary" type="String" mode="OUT" optional="false"/>
+        <attribute name="trackingDetailList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="uspsAddressValidation" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsAddressValidation">
+        <attribute name="firmName" type="String" mode="INOUT" optional="true"/>
+        <attribute name="address1" type="String" mode="INOUT" optional="false"/>
+        <attribute name="address2" type="String" mode="INOUT" optional="true"/>
+        <attribute name="city" type="String" mode="INOUT" optional="false"/>
+        <attribute name="state" type="String" mode="INOUT" optional="false"/>
+        <attribute name="zip5" type="String" mode="INOUT" optional="true"/>
+        <attribute name="zip4" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="uspsCityStateLookup" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsCityStateLookup">
+        <attribute name="zip5" type="String" mode="IN" optional="false"/>
+        <attribute name="city" type="String" mode="OUT" optional="false"/>
+        <attribute name="state" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="uspsPriorityMailStandard" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPriorityMailStandard">
+        <attribute name="originZip" type="String" mode="IN" optional="false"/>
+        <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
+        <attribute name="days" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="uspsPackageServicesStandard" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPackageServicesStandard">
+        <attribute name="originZip" type="String" mode="IN" optional="false"/>
+        <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
+        <attribute name="days" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="uspsDomesticRate" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsDomesticRate">
+        <attribute name="service" type="String" mode="IN" optional="false"/>
+        <attribute name="originZip" type="String" mode="IN" optional="false"/>
+        <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
+        <attribute name="pounds" type="String" mode="IN" optional="false"/>
+        <attribute name="ounces" type="String" mode="IN" optional="false"/>
+        <attribute name="container" type="String" mode="IN" optional="true"/>
+        <attribute name="size" type="String" mode="IN" optional="true"/>
+        <attribute name="machinable" type="String" mode="IN" optional="true"/>
+        <attribute name="zone" type="String" mode="OUT" optional="false"/>
+        <attribute name="postage" type="String" mode="OUT" optional="false"/>
+        <attribute name="restrictionCodes" type="String" mode="OUT" optional="true"/>
+        <attribute name="restrictionDesc" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="uspsUpdateShipmentRateInfo" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsUpdateShipmentRateInfo">
+        <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="uspsDeliveryConfirmation" engine="java"
+            location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsDeliveryConfirmation">
+        <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
+    </service>
+</services>

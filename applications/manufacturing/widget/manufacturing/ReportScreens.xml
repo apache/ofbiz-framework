@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="ManufacturingReports">
+        <section>
+            <actions>
+                <set field="title" value="Manufacturing Reports"/>
+                <set field="titleProperty" value="ManufacturingReports"/>
+                <set field="headerItem" value="ManufacturingReports"/>
+                
+                <set field="mrpName" from-field="parameters.mrpName"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1" text="${uiLabelMap.ManufacturingReports}"/>
+                        </container>
+                        <container>
+                            <include-form name="SelectMrpName" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        </container>
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/MrpReports.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CuttingListReport">
+        <section>
+            <actions>
+                <set field="title" value="Cutting List Report"/>
+                <script location="component://manufacturing/widget/manufacturing/CuttingListReport.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/CuttingListReport.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="MRPPRunsProductsByFeature">
+        <section>
+            <actions>
+                <set field="title" value="MRPPRunsProductsByFeature"/>
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mrpName" from-field="parameters.mrpName"/>
+                <set field="planName" value="MRP_${mrpName}"/>
+
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsByFeature.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SPPRunsProductsByFeature">
+        <section>
+            <actions>
+                <set field="title" value="SPPRunsProductsByFeature"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <set field="planName" value="SP_${shipmentId}"/>
+
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-one entity-name="Shipment" value-name="shipment"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsByFeature.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="MRPPRunsComponentsByFeature">
+        <section>
+            <actions>
+                <set field="title" value="MRPPRunsComponentsByFeature"/>
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mrpName" from-field="parameters.mrpName"/>
+                <set field="planName" value="MRP_${mrpName}"/>
+                <set field="showLocation" from-field="parameters.showLocation"/>
+
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsComponentsByFeature.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsComponentsByFeature.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SPPRunsComponentsByFeature">
+        <section>
+            <actions>
+                <set field="title" value="SPPRunsComponentsByFeature"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <set field="planName" value="SP_${shipmentId}"/>
+                <set field="showLocation" from-field="parameters.showLocation"/>
+
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-one entity-name="Shipment" value-name="shipment"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsComponentsByFeature.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsComponentsByFeature.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PRunsProductsStacks">
+        <section>
+            <actions>
+                <set field="title" value="PRunsProductsStacks"/>
+                <set field="mrpName" from-field="parameters.mrpName"/>
+                <set field="planName" value="MRP_${mrpName}"/>
+
+                <set field="stackQty" value="50" type="Integer"/>
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsStacks.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsStacks.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PackageContentsAndOrder">
+        <section>
+            <actions>
+                <set field="title" value="PackageContentsAndOrder"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <set field="planName" value="SP_${shipmentId}"/>
+
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PackageContentsAndOrder.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PackageContentsAndOrder.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PRunsProductsAndOrder">
+        <section>
+            <actions>
+                <set field="title" value="PRunsProductsAndOrder"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <set field="planName" value="SP_${shipmentId}"/>
+
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsAndOrder.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsAndOrder.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="PRunsInfoAndOrder">
+        <section>
+            <actions>
+                <set field="title" value="PRunsInfoAndOrder"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <set field="planName" value="SP_${shipmentId}"/>
+
+                <set field="taskNamePar" from-field="parameters.taskNamePar"/>
+                <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
+                <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
+
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsInfoAndOrder.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsInfoAndOrder.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+</screens>
+

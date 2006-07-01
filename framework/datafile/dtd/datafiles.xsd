@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     *  Copyright (c) 2001-2004 The Open For Business Project - www.ofbiz.org
+     *
+     *  Permission is hereby granted, free of charge, to any person obtaining a 
+     *  copy of this software and associated documentation files (the "Software"), 
+     *  to deal in the Software without restriction, including without limitation 
+     *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+     *  and/or sell copies of the Software, and to permit persons to whom the 
+     *  Software is furnished to do so, subject to the following conditions:
+     *
+     *  The above copyright notice and this permission notice shall be included 
+     *  in all copies or substantial portions of the Software.
+     *
+     *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+     *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+     *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+     *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+     *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+     *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+     *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    
+    *This is the DTD for the Open For Business Data File definition XML file.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="data-files">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="data-file"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="data-file">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="record"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.data-file"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.data-file">
+        <xs:attribute name="name" use="required"/>
+        <xs:attribute name="type-code" use="required"/>
+        <xs:attribute name="sender"/>
+        <xs:attribute name="receiver"/>
+        <xs:attribute name="delimiter"/>
+        <xs:attribute name="record-length"/>
+        <xs:attribute name="separator-style" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="fixed-length"/>
+                    <xs:enumeration value="fixed-record"/>
+                    <xs:enumeration value="delimited"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="description"/>
+    </xs:attributeGroup>
+    <xs:element name="record">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="field"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.record"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.record">
+        <xs:attribute name="name" use="required"/>
+        <xs:attribute name="type-code"/>
+        <xs:attribute name="tc-min"/>
+        <xs:attribute name="tc-max"/>
+        <xs:attribute name="tc-isnum" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="false"/>
+                    <xs:enumeration value="true"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="tc-position"/>
+        <xs:attribute name="tc-length"/>
+        <xs:attribute name="description"/>
+        <xs:attribute name="parent-name"/>
+        <xs:attribute name="limit" default="many">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="one"/>
+                    <xs:enumeration value="many"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="field">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.field"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.field">
+        <xs:attribute name="name" use="required"/>
+        <xs:attribute name="position"/>
+        <xs:attribute name="length"/>
+        <xs:attribute name="type" use="required"/>
+        <xs:attribute name="format"/>
+        <xs:attribute name="valid-exp"/>
+        <xs:attribute name="description"/>
+        <xs:attribute name="default-value"/>
+        <xs:attribute name="prim-key" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ignored" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="expression" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ref-field"/>
+    </xs:attributeGroup>
+</xs:schema>

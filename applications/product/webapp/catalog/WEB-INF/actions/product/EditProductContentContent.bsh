@@ -1,0 +1,144 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@author     Brad Steiner
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+import javax.servlet.HttpServletRequest;
+
+contentId = request.getParameter("contentId");
+if("".equals(contentId)) contentId = null;
+
+productContentTypeId = request.getParameter("productContentTypeId");
+fromDate = request.getParameter("fromDate");
+if("".equals(fromDate)) fromDate = null;
+
+description = request.getParameter("description");
+if("".equals(description)) description = null;
+
+productContent = delegator.findByPrimaryKey("ProductContent", UtilMisc.toMap("contentId", contentId, "productId", productId, "productContentTypeId", productContentTypeId, "fromDate", fromDate));
+if(productContent == null) {
+    productContent = new HashMap();
+    productContent.put("productId", productId);
+    productContent.put("contentId", contentId);
+    productContent.put("productContentTypeId", productContentTypeId);
+    productContent.put("fromDate", fromDate);
+    productContent.put("thruDate", request.getParameter("thruDate"));
+    productContent.put("purchaseFromDate", request.getParameter("purchaseFromDate"));
+    productContent.put("purchaseThruDate", request.getParameter("purchaseThruDate"));
+    productContent.put("useCountLimit", request.getParameter("useCountLimit"));
+    productContent.put("useTime", request.getParameter("useTime"));
+    productContent.put("useTimeUomId", request.getParameter("useTimeUomId"));
+    productContent.put("useRoleTypeId", request.getParameter("useRoleTypeId"));
+}
+context.put("productContent", productContent);
+
+productContentData = new HashMap();
+productContentData.putAll(productContent);
+
+Map content = null;
+context.put("contentId", contentId);
+if(contentId != null) {
+    content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
+    context.put("content", content);
+} else {
+    content = new HashMap();
+    if(description != null) content.put("description", description);
+}
+
+HtmlFormWrapper updateProductContentWrapper = null;
+
+//Email
+if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
+    emailData = new HashMap();
+    if (contentId != null && content != null) {
+        subjectDr = content.getRelatedOne("DataResource");
+        if (subjectDr != null) {
+            subject = subjectDr.getRelatedOne("ElectronicText");
+            emailData.put("subject", subject.get("textData"));
+            emailData.put("subjectDataResourceId", subject.get("dataResourceId"));
+        }
+        serviceCtx = UtilMisc.toMap("userLogin", userLogin, "contentId", contentId, "mapKeys", UtilMisc.toList("plainBody", "htmlBody"));
+        result = dispatcher.runSync("findAssocContent", serviceCtx);
+        contentAssocs = result.get("contentAssocs");
+        if (contentAssocs != null) {
+            for (java.util.Iterator iterator = contentAssocs.iterator(); iterator.hasNext(); ) {
+                contentAssoc  = iterator.next();
+                bodyContent = contentAssoc.getRelatedOne("ToContent");
+                bodyDr = bodyContent.getRelatedOne("DataResource");
+                body = bodyDr.getRelatedOne("ElectronicText");
+                emailData.put(contentAssoc.get("mapKey"), body.get("textData"));
+                emailData.put(contentAssoc.get("mapKey")+"DataResourceId", body.get("dataResourceId"));
+            }
+        }
+    }
+
+    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentEmail", request, response);
+    updateProductContentWrapper.putInContext("emailData", emailData);
+    context.put("emailData", emailData);
+} else if ("DIGITAL_DOWNLOAD".equals(productContentTypeId)) {
+    downloadData = new HashMap();
+    if (contentId != null && content != null) {
+        downloadDr = content.getRelatedOne("DataResource");
+        if (subjectDr != null) {
+            download = downloadDr.getRelatedOne("OtherDataResource");
+            if (download != null) {
+                downloadData.put("file", download.get("dataResourceContent"));
+                downloadData.put("fileDataResourceId", download.get("dataResourceId"));
+            }
+        }
+    }
+    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentDownload", request, response);
+    updateProductContentWrapper.putInContext("downloadData", downloadData);
+} else if ("FULFILLMENT_EXTERNAL".equals(productContentTypeId)) {
+    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentExternal", request, response);
+} else {
+    //Assume it is a generic simple text content
+    textData = new HashMap();
+    if (contentId != null && content != null) {
+        textDr = content.getRelatedOne("DataResource");
+        if (textDr != null) {
+            text = textDr.getRelatedOne("ElectronicText");
+            textData.put("text", text.get("textData"));
+            textData.put("textDataResourceId", text.get("dataResourceId"));
+        }
+    }
+    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentSimpleText", request, response);
+    updateProductContentWrapper.putInContext("textData", textData);
+
+}
+
+context.put("updateProductContentWrapper", updateProductContentWrapper);
+updateProductContentWrapper.putInContext("productContentData", productContentData);
+//updateProductContentWrapper.putInContext("content", content);
+context.put("productContentData", productContentData);
+updateProductContentWrapper.putInContext("content", content);
+updateProductContentWrapper.putInContext("contentId", contentId);
+//context.put("log", log);

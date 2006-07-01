@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Content Manager security -->
+    <SecurityPermission description="View operations in the Content Manager." permissionId="CONTENTMGR_VIEW"/>
+    <SecurityPermission description="Create operations in the Content Manager." permissionId="CONTENTMGR_CREATE"/>
+    <SecurityPermission description="Update operations in the Content Manager." permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Content Manager." permissionId="CONTENTMGR_DELETE"/>
+    <SecurityPermission description="ALL operations in the Content Manager." permissionId="CONTENTMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CONTENTMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="CONTENTMGR_ADMIN"/>
+    
+    <!-- Control Applet security -->
+    <SecurityPermission description="Send to the Control Applet." permissionId="SEND_CONTROL_APPLET"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SEND_CONTROL_APPLET"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SEND_CONTROL_APPLET"/>
+</entity-engine-xml>

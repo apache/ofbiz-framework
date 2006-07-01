@@ -1,0 +1,82 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.*;
+import java.sql.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+security = request.getAttribute("security");
+delegator = request.getAttribute("delegator");
+
+nowDate = UtilDateTime.nowDate();
+context.put("nowDate", nowDate);
+
+String nowTimestampString = UtilHttp.encodeBlanks(UtilDateTime.nowTimestamp().toString());
+context.put("nowTimestampString", nowTimestampString);
+
+boolean useValues = true;
+if (request.getAttribute("_ERROR_MESSAGE_") != null) useValues = false;
+
+String productId = request.getParameter("productId");
+if (productId != null) context.put("productId", productId);
+
+String productIdTo = request.getParameter("productIdTo");
+String updateMode = request.getParameter("UPDATE_MODE");
+
+if (productIdTo != null) context.put("productIdTo", productIdTo);
+
+String productAssocTypeId = request.getParameter("productAssocTypeId");
+if (productAssocTypeId != null) context.put("productAssocTypeId", productAssocTypeId);
+
+String fromDateStr = request.getParameter("fromDate");
+
+Timestamp fromDate = null;
+if (fromDateStr != null && fromDateStr.length() > 0) fromDate = Timestamp.valueOf(fromDateStr);
+if (fromDate == null) fromDate = (Timestamp)request.getAttribute("ProductAssocCreateFromDate");
+if (fromDate != null) context.put("fromDate", fromDate);
+
+GenericValue productAssoc = delegator.findByPrimaryKey("ProductAssoc", UtilMisc.toMap("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate));
+if (updateMode != null) {
+    productAssoc = null;
+    context.remove("productIdTo");
+}
+if (productAssoc != null) {
+    context.put("productAssoc", productAssoc);
+}
+
+if("true".equalsIgnoreCase((String)request.getParameter("useValues"))) useValues = true;
+if(productAssoc == null) useValues = false;
+
+context.put("useValues", useValues);
+
+Collection assocTypes = delegator.findByAnd("ProductAssocType", UtilMisc.toMap("parentTypeId", "PRODUCT_COMPONENT"), UtilMisc.toList("productAssocTypeId", "description"));
+context.put("assocTypes", assocTypes);
+
+Collection formulae = delegator.findByAnd("CustomMethod", UtilMisc.toMap("customMethodTypeId", "BOM_FORMULA"), UtilMisc.toList("customMethodId", "description"));
+context.put("formulae", formulae);
+
+if (product != null) {
+    List assocFromProducts = product.getRelated("MainProductAssoc", (productAssocTypeId != null? UtilMisc.toMap("productAssocTypeId", productAssocTypeId): null), UtilMisc.toList("sequenceNum"));
+    if (assocFromProducts != null) context.put("assocFromProducts", assocFromProducts);
+
+    List assocToProducts = product.getRelatedByAnd("AssocProductAssoc", (productAssocTypeId != null? UtilMisc.toMap("productAssocTypeId", productAssocTypeId): null));
+    if (assocTOProducts != null) context.put("assocToProducts", assocToProducts);
+}
+

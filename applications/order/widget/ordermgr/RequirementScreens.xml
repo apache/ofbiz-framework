@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: RequirementScreens.xml 7286 2006-04-13 00:09:44Z sichen $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="CommonRequirementDecorator">
+        <section>
+            <actions>
+                <!-- <set field="leftbarScreenName" value="leftbar"/> -->
+                <!-- <set field="leftbarScreenLocation" value=""/> -->
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ORDERMGR, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://order/webapp/ordermgr/requirement/RequirementTabBar.ftl"/></html>
+                                </platform-specific>
+                                <container>
+                                    <label style="head1">${uiLabelMap.OrderRequirement}</label>
+                                </container>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.OrderViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindRequirements">
+        <section>
+            <actions>
+                <set field="title" value="Find Requirements"/>
+                <set field="titleProperty" value="PageTitleFindRequirements"/>
+                <set field="headerItem" value="requirement"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.OrderRequirements}</label>
+                        </container>
+                        <container>
+                            <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
+                        </container>
+                        <include-form name="FindRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        <include-form name="ListRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditRequirement">
+        <section>
+            <actions>
+                <set field="title" value="Edit Requirement"/>
+                <set field="titleProperty" value="PageTitleEditRequirement"/>
+                <set field="headerItem" value="requirement"/>
+                <set field="tabButtonItem" value="EditRequirement"/>
+                
+                <set field="requirementId" from-field="parameters.requirementId"/>
+                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
+
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequirementDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
+                        </container>
+                        <include-form name="EditRequirement" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListRequirementCustRequests">
+        <section>
+            <actions>
+                <set field="title" value="List RequirementCustRequests"/>
+                <set field="titleProperty" value="PageTitleListRequirementCustRequests"/>
+                <set field="headerItem" value="requirement"/>
+                <set field="tabButtonItem" value="ListRequirementCustRequests"/>
+
+                <set field="requirementId" from-field="parameters.requirementId"/>
+                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
+
+                <entity-and entity-name="RequirementCustRequest" list-name="requirementCustRequests">
+                    <field-map env-name="requirementId" field-name="requirementId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequirementDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListRequirementCustRequests" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- screen listing orders related to a given requirement -->
+    <screen name="ListRequirementOrders">
+        <section>
+            <actions>
+                <set field="title" value="ListRequirementOrders"/>
+                <set field="titleProperty" value="PageTitleListRequirementOrders"/>
+                <set field="headerItem" value="requirement"/>
+                <set field="tabButtonItem" value="ListRequirementOrdersTab"/>
+
+                <set field="requirementId" from-field="parameters.requirementId"/>
+                <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
+                <entity-and entity-name="OrderRequirementCommitment" list-name="orderRequirements">
+                    <field-map env-name="requirementId" field-name="requirementId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequirementDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListRequirementOrders" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+
+</screens>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: ofbiz-component.xml 7385 2006-04-23 15:00:45Z jonesde $
+
+Copyright 2003-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<ofbiz-component name="product"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="dir" location="config"/>
+    <classpath type="dir" location="script"/>
+    <classpath type="jar" location="build/lib/*"/>
+
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_odbc.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_shipment.xml"/>
+    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>
+    <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductScheduledServices.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ShipmentTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ApiSchemaDhl.xml"/>
+
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_facility.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_feature.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_maint.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_picklist.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_pricepromo.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_shipment_dhl.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_shipment_ups.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_shipment_usps.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_shipment.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_store.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_view.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_cost.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_uom.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas_shipment.xml"/>
+    <service-resource type="group" loader="main" location="servicedef/groups_shipment.xml"/>
+
+    <webapp name="catalog" title="Catalog" server="default-server" location="webapp/catalog"
+        base-permission="OFBTOOLS,CATALOG" mount-point="/catalog"/>
+    <webapp name="facility" title="Facility" server="default-server" location="webapp/facility"
+        base-permission="OFBTOOLS,FACILITY" mount-point="/facility"/>
+</ofbiz-component>

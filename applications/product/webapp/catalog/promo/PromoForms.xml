@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EditProductPromo" type="single"
+            target="updateProductPromo" title="" default-map-name="productPromo"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+        <alt-target use-when="productPromo==null" target="createProductPromo"/>
+        <auto-fields-service service-name="updateProductPromo" map-name=""/>
+
+        <field use-when="productPromo!=null" name="productPromoId" title="${uiLabelMap.ProductPromotion}" tooltip=""><display/></field>
+        <field use-when="productPromo==null&amp;&amp;productPromoId!=null" name="productPromoId" title="${uiLabelMap.ProductPromotion}" tooltip="${uiLabelMap.ProductCouldNotFindProductPromotion} [${productPromoId}]"><display/></field>
+        <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
+        <field use-when="productPromo==null&amp;&amp;productPromoId==null" name="productPromoId" title="${uiLabelMap.ProductPromotion}"><ignored/></field>
+
+        <field name="promoText" title="${uiLabelMap.ProductPromoText}" widget-style="textAreaBox"><textarea cols="70" rows="5"/></field>
+        <field name="userEntered" title="${uiLabelMap.ProductPromoUserEntered}" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="showToCustomer" title="${uiLabelMap.ProductPromoShowToCustomer}" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="requireCode" title="${uiLabelMap.ProductPromotionReqCode}" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+
+        <field use-when="productPromo!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:" widget-style="tabletext">
+            <display description="[${productPromo.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.lastModifiedDate}" also-hidden="false"/>
+        </field>
+        <field use-when="productPromo!=null" name="createdByText" title="${uiLabelMap.ProductLastCreatedBy}:" widget-style="tabletext">
+            <display description="[${productPromo.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.createdDate}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditProductPromoCode" type="single"
+            target="updateProductPromoCode" title="" default-map-name="productPromoCode"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+        <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
+        <auto-fields-service service-name="updateProductPromoCode" map-name=""/>
+
+        <field use-when="productPromoCode!=null" name="productPromoCodeId" tooltip=""><display/></field>
+        <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId!=null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductCouldNotFindProductPromoCode} [${productPromoCodeId}]"><display/></field>
+        <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
+        <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId==null" name="productPromoCodeId"><ignored/></field>
+
+        <field name="userEntered" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="requireEmailOrParty" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+
+        <field use-when="productPromoCode!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:" widget-style="tabletext">
+            <display description="[${productPromoCode.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.lastModifiedDate}" also-hidden="false"/>
+        </field>
+        <field use-when="productPromoCode!=null" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:" widget-style="tabletext">
+            <display description="[${productPromoCode.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.createdDate}" also-hidden="false"/>
+        </field>
+    </form>
+</forms>

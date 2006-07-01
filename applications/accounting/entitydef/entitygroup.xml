@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.budget -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="Budget" />
+    <entity-group group="org.ofbiz" entity="BudgetAttribute" />
+    <entity-group group="org.ofbiz" entity="BudgetItem" />
+    <entity-group group="org.ofbiz" entity="BudgetItemAttribute" />
+    <entity-group group="org.ofbiz" entity="BudgetItemType" />
+    <entity-group group="org.ofbiz" entity="BudgetItemTypeAttr" />
+    <entity-group group="org.ofbiz" entity="BudgetReview" />
+    <entity-group group="org.ofbiz" entity="BudgetReviewResultType" />
+    <entity-group group="org.ofbiz" entity="BudgetRevision" />
+    <entity-group group="org.ofbiz" entity="BudgetRevisionImpact" />
+    <entity-group group="org.ofbiz" entity="BudgetRole" />
+    <entity-group group="org.ofbiz" entity="BudgetScenario" />
+    <entity-group group="org.ofbiz" entity="BudgetScenarioApplication" />
+    <entity-group group="org.ofbiz" entity="BudgetScenarioRule" />
+    <entity-group group="org.ofbiz" entity="BudgetStatus" />
+    <entity-group group="org.ofbiz" entity="BudgetType" />
+    <entity-group group="org.ofbiz" entity="BudgetTypeAttr" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.fixedasset -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="DepreciationMethod" />
+    <entity-group group="org.ofbiz" entity="FixedAsset" />
+    <entity-group group="org.ofbiz" entity="FixedAssetAttribute" />
+    <entity-group group="org.ofbiz" entity="FixedAssetDepMethod" />
+    <entity-group group="org.ofbiz" entity="FixedAssetIdent" />
+    <entity-group group="org.ofbiz" entity="FixedAssetIdentType" />
+    <entity-group group="org.ofbiz" entity="FixedAssetMaint" />
+    <entity-group group="org.ofbiz" entity="FixedAssetMaintMeter" />
+    <entity-group group="org.ofbiz" entity="FixedAssetProduct" />
+    <entity-group group="org.ofbiz" entity="FixedAssetProductType" />
+    <entity-group group="org.ofbiz" entity="FixedAssetRegistration" />
+    <entity-group group="org.ofbiz" entity="FixedAssetStdCost" />
+    <entity-group group="org.ofbiz" entity="FixedAssetStdCostType" />
+    <entity-group group="org.ofbiz" entity="FixedAssetType" />
+    <entity-group group="org.ofbiz" entity="FixedAssetTypeAttr" />
+    <entity-group group="org.ofbiz" entity="PartyFixedAssetAssignment" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.invoice -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="Invoice" />
+    <entity-group group="org.ofbiz" entity="InvoiceAttribute" />
+    <entity-group group="org.ofbiz" entity="InvoiceContactMech" />
+    <entity-group group="org.ofbiz" entity="InvoiceItem" />
+    <entity-group group="org.ofbiz" entity="InvoiceItemAttribute" />
+    <entity-group group="org.ofbiz" entity="InvoiceItemType" />
+    <entity-group group="org.ofbiz" entity="InvoiceItemTypeAttr" />
+    <entity-group group="org.ofbiz" entity="InvoiceItemTypeGlAccount" />
+    <entity-group group="org.ofbiz" entity="InvoiceItemTypeMap" />
+    <entity-group group="org.ofbiz" entity="InvoiceRole" />
+    <entity-group group="org.ofbiz" entity="InvoiceStatus" />
+    <entity-group group="org.ofbiz" entity="InvoiceTerm" />
+    <entity-group group="org.ofbiz" entity="InvoiceTermAttribute" />
+    <entity-group group="org.ofbiz" entity="InvoiceType" />
+    <entity-group group="org.ofbiz" entity="InvoiceTypeAttr" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.ledger -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="AcctgTrans" />
+    <entity-group group="org.ofbiz" entity="AcctgTransAttribute" />
+    <entity-group group="org.ofbiz" entity="AcctgTransEntry" />
+    <entity-group group="org.ofbiz" entity="AcctgTransAndEntries" />
+    <entity-group group="org.ofbiz" entity="AcctgTransEntryProdSums" />
+    <entity-group group="org.ofbiz" entity="AcctgTransEntryType" />
+    <entity-group group="org.ofbiz" entity="AcctgTransType" />
+    <entity-group group="org.ofbiz" entity="AcctgTransTypeAttr" />
+    <entity-group group="org.ofbiz" entity="GlAccount" />
+    <entity-group group="org.ofbiz" entity="GlAccountClass" />
+    <entity-group group="org.ofbiz" entity="GlAccountGroup" />
+    <entity-group group="org.ofbiz" entity="GlAccountGroupMember" />
+    <entity-group group="org.ofbiz" entity="GlAccountGroupType" />
+    <entity-group group="org.ofbiz" entity="GlAccountHistory" />
+    <entity-group group="org.ofbiz" entity="GlAccountAndHistory" />
+    <entity-group group="org.ofbiz" entity="GlAccountOrganization" />
+    <entity-group group="org.ofbiz" entity="GlAccountOrganizationAndClass" />
+    <entity-group group="org.ofbiz" entity="GlAccountRole" />
+    <entity-group group="org.ofbiz" entity="GlAccountType" />
+    <entity-group group="org.ofbiz" entity="GlAccountTypeDefault" />
+    <entity-group group="org.ofbiz" entity="GlBudgetXref" />
+    <entity-group group="org.ofbiz" entity="GlFiscalType" />
+    <entity-group group="org.ofbiz" entity="GlJournal" />
+    <entity-group group="org.ofbiz" entity="GlReconciliation" />
+    <entity-group group="org.ofbiz" entity="GlReconciliationEntry" />
+    <entity-group group="org.ofbiz" entity="GlResourceType" />
+    <entity-group group="org.ofbiz" entity="GlXbrlClass" />
+    <entity-group group="org.ofbiz" entity="PartyAcctgPreference" />
+    <entity-group group="org.ofbiz" entity="ProductAverageCost" />
+    <entity-group group="org.ofbiz" entity="SettlementTerm" />
+    <entity-group group="org.ofbiz" entity="VarianceReasonGlAccount" />
+    <entity-group group="org.ofbiz" entity="CostComponentCalc" />
+    <entity-group group="org.ofbiz" entity="WorkEffortCostCalc" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.accounting.payment -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="BillingAccount" />
+    <entity-group group="org.ofbiz" entity="BillingAccountAndRole" />
+    <entity-group group="org.ofbiz" entity="BillingAccountRole" />
+    <entity-group group="org.ofbiz" entity="BillingAccountRoleAndAddress" />
+    <entity-group group="org.ofbiz" entity="BillingAccountTerm" />
+    <entity-group group="org.ofbiz" entity="BillingAccountTermAttr" />
+    <entity-group group="org.ofbiz" entity="CreditCard" />
+    <entity-group group="org.ofbiz" entity="CreditCardTypeGlAccount" />
+    <entity-group group="org.ofbiz" entity="Deduction" />
+    <entity-group group="org.ofbiz" entity="DeductionType" />
+    <entity-group group="org.ofbiz" entity="EftAccount" />
+    <entity-group group="org.ofbiz" entity="FinAccount" />
+    <entity-group group="org.ofbiz" entity="FinAccountAttribute" />
+    <entity-group group="org.ofbiz" entity="FinAccountRole" />
+    <entity-group group="org.ofbiz" entity="FinAccountTrans" />
+    <entity-group group="org.ofbiz" entity="FinAccountAuth" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransAttribute" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransType" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransTypeAttr" />
+    <entity-group group="org.ofbiz" entity="FinAccountType" />
+    <entity-group group="org.ofbiz" entity="FinAccountTypeAttr" />
+    <entity-group group="org.ofbiz" entity="FinAccountTransSum" />
+    <entity-group group="org.ofbiz" entity="FinAccountAuthSum" />
+    <entity-group group="org.ofbiz" entity="GiftCard" />
+    <entity-group group="org.ofbiz" entity="GiftCardFulfillment" />
+    <entity-group group="org.ofbiz" entity="OldValueLinkFulfillment" />
+    <entity-group group="org.ofbiz" entity="Payment" />
+    <entity-group group="org.ofbiz" entity="PaymentAndApplication" />
+    <entity-group group="org.ofbiz" entity="PaymentApplication" />
+    <entity-group group="org.ofbiz" entity="PaymentAttribute" />
+    <entity-group group="org.ofbiz" entity="PaymentBudgetAllocation" />
+    <entity-group group="org.ofbiz" entity="PaymentMethod" />
+    <entity-group group="org.ofbiz" entity="PaymentMethodAndCreditCard" />
+    <entity-group group="org.ofbiz" entity="PaymentMethodAndGiftCard" />
+    <entity-group group="org.ofbiz" entity="PaymentMethodType" />
+    <entity-group group="org.ofbiz" entity="PaymentMethodTypeGlAccount" />
+    <entity-group group="org.ofbiz" entity="PaymentType" />
+    <entity-group group="org.ofbiz" entity="PaymentTypeAttr" />
+    <entity-group group="org.ofbiz" entity="PaymentGlAccountTypeMap" />
+    <entity-group group="org.ofbiz" entity="PaymentGatewayRespMsg" />
+    <entity-group group="org.ofbiz" entity="PaymentGatewayResponse" />
+    <entity-group group="org.ofbiz" entity="ValueLinkKey" />
+    
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.tax -->
+    <!-- ========================================================= -->
+    
+    <entity-group group="org.ofbiz" entity="PartyTaxAuthInfo" />
+    <entity-group group="org.ofbiz" entity="PartyTaxAuthInfoAndDetail" />
+    <entity-group group="org.ofbiz" entity="SimpleSalesTaxLookup" />
+    <entity-group group="org.ofbiz" entity="TaxAuthority" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityAndDetail" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityAssoc" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityAssocType" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityCategory" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityCategoryView" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityGlAccount" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityGlAccountBalance" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityRateProduct" />
+    <entity-group group="org.ofbiz" entity="TaxAuthorityRateType" />
+    <entity-group group="org.ofbiz" entity="ZipSalesRuleLookup" />
+    <entity-group group="org.ofbiz" entity="ZipSalesTaxLookup" />
+</entitygroup>

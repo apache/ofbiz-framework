@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- ProductionRun creation, field check events -->
+    <simple-method method-name="checkFieldCreateProductionRun" 
+            short-description="Check if the field value are valid and convert quantity field to Double">
+        <call-map-processor in-map-name="parameters" out-map-name="context1">
+            <simple-map-processor name="checkFieldCreatePRun">
+                <process field="productId">
+                    <copy/>
+                    <not-empty>
+                        <fail-property resource="ProductUiLabels" property="ProductProductIdMissing"/>
+                    </not-empty>
+                </process>
+                <process field="pRQuantity">
+                    <copy/>
+                    <not-empty>
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityMissing"/>
+                    </not-empty>
+                    <convert type="Double">
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                    </convert>
+                </process>
+                <process field="startDate">
+                    <copy/>
+                    <not-empty>
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateMissing"/>
+                    </not-empty>
+                    <convert type="Timestamp">
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateNotCorrect"/>
+                    </convert>
+                </process>
+                <process field="facilityId">
+                    <copy/>
+                    <not-empty>
+                        <fail-property resource="ProductUiLabels" property="ProductFacilityIdMissing"/>
+                    </not-empty>
+                </process>
+                <process field="routingId">
+                    <copy/>
+                </process>
+                <process field="workEffortName">
+                    <copy/>
+                </process>
+                <process field="description">
+                    <copy/>
+                </process>
+            </simple-map-processor>
+        </call-map-processor>
+        <check-errors/>
+        <call-service service-name="createProductionRun" in-map-name="context1">
+            <result-to-field result-name="productionRunId"/>
+        </call-service>
+        <field-to-request field-name="productionRunId"/>
+    </simple-method>
+
+    <!-- ProductionRun edition, actions events -->
+    <simple-method method-name="actionEditProductionRun" short-description="Run services, depending of action parameters ">
+        <log level="info" message="debut parameters = ${parameters}"/>
+        <if-compare value="updateProductionRun" field-name="actionForm" map-name="parameters"  operator="equals">
+            <call-map-processor in-map-name="parameters" out-map-name="context">
+                <simple-map-processor name="prepareUpdatePRun">
+                    <process field="productionRunId">
+                        <copy/>
+                    </process>
+                    <process field="quantity">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedStartDate">
+                        <copy/>
+                        <not-empty>
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateMissing"/>
+                        </not-empty>
+                        <convert type="Timestamp">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="workEffortName">
+                        <copy/>
+                    </process>
+                    <process field="description">
+                        <copy/>
+                    </process>
+                    <process field="facilityId">
+                        <copy/>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <check-errors/>
+            <call-service service-name="updateProductionRun" in-map-name="context">
+            </call-service>
+            <log level="info" message="parameters = ${parameters}"/>
+        </if-compare>
+        <if-compare value="UpdateRoutingTask" field-name="actionForm" map-name="parameters"  operator="equals">
+            <call-map-processor in-map-name="parameters" out-map-name="context">
+                <simple-map-processor name="prCheckUpdatePrunRoutingTask">
+                    <process field="productionRunId">
+                        <copy/>
+                    </process>
+                    <process field="routingTaskId">
+                        <copy/>
+                    </process>
+                    <process field="priority">
+                        <copy/>
+                        <convert type="Long">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingRoutingSeqIdFormatNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedStartDate">
+                        <copy/>
+                        <not-empty>
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateMissing"/>
+                        </not-empty>
+                        <convert type="Timestamp">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedSetupMillis">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedMilliSeconds">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <check-errors/>
+            <call-service service-name="checkUpdatePrunRoutingTask" in-map-name="context">
+            </call-service>
+            <check-errors/>
+            <call-map-processor in-map-name="parameters" out-map-name="context1">
+                <simple-map-processor name="prepareUpdateRoutingTask">
+                    <process field="productionRunId">
+                        <copy to-field="workEffortParentId"/>
+                    </process>
+                    <process field="routingTaskId">
+                        <copy to-field="workEffortId"/>
+                    </process>
+                    <process field="priority">
+                        <copy/>
+                        <convert type="Long">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingRoutingSeqIdFormatNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="workEffortName">
+                        <copy/>
+                    </process>
+                    <process field="description">
+                        <copy/>
+                    </process>
+                    <process field="estimatedSetupMillis">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedMilliSeconds">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <check-errors/>
+            <call-service service-name="updateWorkEffort" in-map-name="context1">
+            </call-service>
+            <log level="info" message="parameters = ${parameters}"/>
+        </if-compare>
+        
+        <if-compare value="addProductComponent" field-name="actionForm" map-name="parameters"  operator="equals">
+            <call-map-processor in-map-name="parameters" out-map-name="context">
+                <simple-map-processor name="prepareAddProductComponent">
+                    <process field="productionRunId">
+                        <copy/>
+                    </process>
+                    <process field="productId">
+                        <copy/>
+                    </process>
+                    <process field="estimatedQuantity">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunComponentQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="workEffortId">
+                        <copy/>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <check-errors/>
+            <call-service service-name="addProductionRunComponent" in-map-name="context">
+            </call-service>
+            <log level="info" message="parameters = ${parameters}"/>
+        </if-compare>
+        <if-compare value="updateProductComponent" field-name="actionForm" map-name="parameters"  operator="equals">
+            <call-map-processor in-map-name="parameters" out-map-name="context">
+                <simple-map-processor name="prepareUpdateProductComponent">
+                    <process field="productionRunId">
+                        <copy/>
+                    </process>
+                    <process field="productId">
+                        <copy/>
+                    </process>
+                    <process field="estimatedQuantity">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunComponentQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="workEffortId">
+                        <copy/>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <check-errors/>
+            <call-service service-name="updateProductionRunComponent" in-map-name="context">
+            </call-service>
+            <log level="info" message="parameters = ${parameters}"/>
+        </if-compare>
+        
+        <if-compare value="addRoutingTask" field-name="actionForm" map-name="parameters"  operator="equals">
+            <call-map-processor in-map-name="parameters" out-map-name="context">
+                <simple-map-processor name="prepareAddRoutingTask">
+                    <process field="productionRunId">
+                        <copy/>
+                    </process>
+                    <process field="routingTaskId">
+                        <copy/>
+                        <not-empty>
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingRoutingTaskIdMissing"/>
+                        </not-empty>
+                    </process>
+                    <process field="priority">
+                        <copy/>
+                        <not-empty>
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunPriorityMissing"/>
+                        </not-empty>
+                        <convert type="Long">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingRoutingSeqIdFormatNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedStartDate">
+                        <copy/>
+                        <convert type="Timestamp">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunStartDateNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedCompletionDate">
+                        <copy/>
+                        <convert type="Timestamp">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunCompletionDateNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedSetupMillis">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="estimatedMilliSeconds">
+                        <copy/>
+                        <convert type="Double">
+                            <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        </convert>
+                    </process>
+                    <process field="workEffortName">
+                        <copy/>
+                    </process>
+                    <process field="description">
+                        <copy/>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <check-errors/>
+            <call-service service-name="addProductionRunRoutingTask" in-map-name="context">
+            </call-service>
+            <log level="info" message="parameters = ${parameters}"/>
+        </if-compare>
+
+    </simple-method>
+</simple-methods>
+

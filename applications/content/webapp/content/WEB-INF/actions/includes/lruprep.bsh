@@ -1,0 +1,97 @@
+/*
+ * $Id: lruprep.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      3.0
+
+ * Builds a list of most recently used EntityValues from a session-kept cache
+ * for the "current" entity. It also builds a listFormWrapper.
+ * This is used in popup lookup pages.
+ */
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+
+GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+entityName = page.getProperty("entityName");
+lookupCaches = (Map)session.getAttribute("lookupCaches");
+org.ofbiz.base.util.Debug.logInfo("entityName:" + entityName, "");
+org.ofbiz.base.util.Debug.logInfo("in lruprep.bsh, lookupCaches:" + lookupCaches, "");
+if(lookupCaches == null){
+    lookupCaches	= new HashMap();
+    session.setAttribute("lookupCaches", lookupCaches);
+} 
+
+utilCache = (UtilCache)lookupCaches.get(entityName);
+org.ofbiz.base.util.Debug.logInfo("utilCache:" + utilCache, "");
+    if(utilCache == null){
+        utilCache	= new UtilCache(entityName, 10, 0);
+        lookupCaches.put(entityName, utilCache);
+    }    
+
+LinkedList lruList = new LinkedList();
+int sz = utilCache.keyLRUList.size();
+GenericValue gv	= null;
+GenericPK pk	= null;
+Object contentIdKey = null;
+
+for(int i=(sz-1); i >= 0; i--){
+    contentIdKey = utilCache.keyLRUList.get(i);
+
+    if (contentIdKey != null && contentIdKey.length() > 0) {
+        pk = (GenericPK)utilCache.cacheLineTable.get(contentIdKey).getValue();
+        gv = delegator.findByPrimaryKey(pk);
+        lruList.add(gv);
+    }
+}
+String formDefFile		= page.getProperty("formDefFile");
+String lruFormName		= page.getProperty("lruFormName");
+HtmlFormWrapper lruWrapper = new HtmlFormWrapper(formDefFile, lruFormName, request, response);
+lruWrapper.putInContext("lruList", lruList);
+
+context.put("lruWrapper", lruWrapper);
+

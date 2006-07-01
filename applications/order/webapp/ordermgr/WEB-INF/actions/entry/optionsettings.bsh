@@ -1,0 +1,78 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+*/
+
+import java.sql.Timestamp;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.order.shoppingcart.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.store.*;
+
+delegator = request.getAttribute("delegator");
+cart = session.getAttribute("shoppingCart");
+context.put("cart", cart);
+productStoreId = ProductStoreWorker.getProductStoreId(request);
+
+// nuke the event messages
+request.removeAttribute("_EVENT_MESSAGE_");
+
+party = null;
+orderPartyIdId = cart.getPartyId();
+if (orderPartyIdId != null) {
+    orderPartyId = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", orderPartyIdId));
+    context.put("orderPartyId", orderPartyId);
+}
+
+context.put("carrierShipmentMethodList", delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber")));
+context.put("emailList",  ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false));
+
+if (cart.getShipmentMethodTypeId() != null && cart.getCarrierPartyId() != null) {
+    context.put("chosenShippingMethod", cart.getShipmentMethodTypeId() + '@' + cart.getCarrierPartyId());
+}    
+
+// create the beforeDate for calendar
+fromCal = Calendar.getInstance();
+fromCal.setTime(new java.util.Date());
+fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY));
+fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE));
+fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND));
+fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND));
+fromTs = new Timestamp(fromCal.getTimeInMillis());
+fromStr = fromTs.toString();
+fromStr = fromStr.substring(0, fromStr.indexOf('.'));
+context.put("beforeDateStr", fromStr);
+
+// create the afterDate for calendar
+toCal = Calendar.getInstance();
+toCal.setTime(new java.util.Date());
+//toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
+toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
+toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
+toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
+toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
+toTs = new Timestamp(toCal.getTimeInMillis());
+toStr = toTs.toString();
+context.put("afterDateStr", toStr);

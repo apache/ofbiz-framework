@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">View Response</property>
+    <property name="formDefFile">/content/BlogContentForms.xml</property>    
+    <property name="singleFormName">ViewComboResponse</property>    
+    <property name="addFormName">ViewComboResponse</property>    
+    <property name="editFormName">ViewComboResponse</property>    
+    <property name="listFormName">listFindCombo</property>    
+    <property name="subMenu">/blog_menu.ftl</property>    
+    <property name="headerItem">Blog</property>    
+    <property name="entityName">SubContentDataResourceView</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="primaryHTMLField">textData</property>    
+    <property name="secondaryHTMLField"></property>    
+    <property name="summaryDataResourceTypeId">ELECTRONIC_TEXT</property>    
+    <property name="priKeyName">contentId</property>    
+    <property name="permissionIdName">contentIdTo</property>    
+    <property name="entityOperation">_VIEW</property>    
+    <property name="targetOperation">CONTENT_VIEW</property>    
+    <property name="contentPurposeTypeId">RESPONSE</property>    
+    <property name="statusId">BLOG_PUBLISHED</property>    
+    <property name="permissionType">complex</property>    
+    <page-action name="/includes/currentvalprep.bsh"/>
+    <page-action name="/includes/permprep.bsh"/>
+    <page-action name="/layout/htmlareaprep.bsh"/>
+    <page-action name="/trailprep.bsh"/>
+    <content-action name="/content/comboprep.bsh"/>
+</page>

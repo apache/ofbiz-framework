@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>plain</template> 
+    <property name="title">Browse List </property>
+    <property name="qbeExpr">new EntityExpr(&quot;dataCategoryId&quot;, EntityOperator.EQUALS, dataCategoryId)</property>
+    <content-action name="/includes/qbefind.bsh"/>
+    <content-action name="/data/dataresourcepagelist.bsh"/>
+<!--
+-->
+</page>
+

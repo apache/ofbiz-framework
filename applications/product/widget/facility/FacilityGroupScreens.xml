@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: FacilityGroupScreens.xml 5462 2005-08-05 18:35:48Z jonesde $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="FindFacilityGroup">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindFacilityGroup"/>
+                <set field="headerItem" value="facilityGroup"/>
+                <entity-and entity-name="FacilityGroup" list-name="facilityGroups">
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/group/FindFacilityGroup.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonFacilityGroupDecorator">
+        <section>
+            <actions>
+                <set field="facilityGroupId" from-field="parameters.facilityGroupId"/>
+                <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/group/FacilityGroupTabBar.ftl"/></html>
+                                </platform-specific>
+            
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFacilityGroup">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityGroup"/>
+                <set field="headerItem" value="facilityGroup"/>
+                <set field="tabButtonItem" value="EditFacilityGroup"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroup.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityGroupDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroup.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFacilityGroupMembers">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityGroupMembers"/>
+                <set field="headerItem" value="facilityGroup"/>
+                <set field="tabButtonItem" value="EditFacilityGroupMembers"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroupMembers.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityGroupDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroupMembers.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFacilityGroupRoles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityGroupRoles"/>
+                <set field="headerItem" value="facilityGroup"/>
+                <set field="tabButtonItem" value="EditFacilityGroupRoles"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroupRoles.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityGroupDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroupRoles.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFacilityGroupRollup">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityGroupRollup"/>
+                <set field="headerItem" value="facilityGroup"/>
+                <set field="tabButtonItem" value="EditFacilityGroupRollup"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/group/EditFacilityGroupRollup.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityGroupDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/group/EditFacilityGroupRollup.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
+

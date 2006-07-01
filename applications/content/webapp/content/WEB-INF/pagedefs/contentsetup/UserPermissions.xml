@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Edit User Permissions</property>
+    <property name="formDefFile">/contentsetup/ContentSetupForms.xml</property>    
+    <property name="headerItem">ContentSetupMenu</property>    
+    <property name="entityName">PartyAndUserLoginAndPerson</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+
+    <property name="menuDefFile">/contentsetup/ContentSetupMenus.xml</property>
+    <property name="menuName">contentsetup</property>
+    <property name="menuItemName">userpermissions</property>
+    <property name="targetName">dflt</property>
+
+    <page-action name="/includes/permprep.bsh" />
+    <page-action name="/blog/menuinit.bsh"/>
+    <page-action name="/blog/currentmenuval.bsh"/>
+    <page-action name="/blog/storecurrentmenuval.bsh"/>
+    <page-action name="/blog/setcurrentmenuitem.bsh"/>
+
+    <content-action name="/contentsetup/userpermprep.bsh" />
+
+</page>

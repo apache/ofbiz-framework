@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+  <Geo abbreviation="AC" geoCode="AC" geoId="BR-AC" geoName="Acre" geoTypeId="STATE"/>
+  <Geo abbreviation="AL" geoCode="AL" geoId="BR-AL" geoName="Alagoas" geoTypeId="STATE"/>
+  <Geo abbreviation="AM" geoCode="AM" geoId="BR-AM" geoName="Amazonas" geoTypeId="STATE"/>
+  <Geo abbreviation="AP" geoCode="AP" geoId="BR-AP" geoName="Amapá" geoTypeId="STATE"/>
+  <Geo abbreviation="BA" geoCode="BA" geoId="BR-BA" geoName="Bahia" geoTypeId="STATE"/>
+  <Geo abbreviation="CE" geoCode="CE" geoId="BR-CE" geoName="Ceará" geoTypeId="STATE"/>
+  <Geo abbreviation="DF" geoCode="DF" geoId="BR-DF" geoName="Distrito Federal" geoTypeId="STATE"/>
+  <Geo abbreviation="ES" geoCode="ES" geoId="BR-ES" geoName="Espírito Santo" geoTypeId="STATE"/>
+  <Geo abbreviation="GO" geoCode="GO" geoId="BR-GO" geoName="Goiás" geoTypeId="STATE"/>
+  <Geo abbreviation="MA" geoCode="MA" geoId="BR-MA" geoName="Maranhão" geoTypeId="STATE"/>
+  <Geo abbreviation="MG" geoCode="MG" geoId="BR-MG" geoName="Minas Gerais" geoTypeId="STATE"/>
+  <Geo abbreviation="MS" geoCode="MS" geoId="BR-MS" geoName="Mato Grosso do Sul" geoTypeId="STATE"/>
+  <Geo abbreviation="MT" geoCode="MT" geoId="BR-MT" geoName="Mato Grosso" geoTypeId="STATE"/>
+  <Geo abbreviation="PA" geoCode="PA" geoId="BR-PA" geoName="Pará" geoTypeId="STATE"/>
+  <Geo abbreviation="PB" geoCode="PB" geoId="BR-PB" geoName="Paraíba" geoTypeId="STATE"/>
+  <Geo abbreviation="PE" geoCode="PE" geoId="BR-PE" geoName="Pernambuco" geoTypeId="STATE"/>
+  <Geo abbreviation="PI" geoCode="PI" geoId="BR-PI" geoName="Piauí" geoTypeId="STATE"/>
+  <Geo abbreviation="PR" geoCode="PR" geoId="BR-PR" geoName="Paraná" geoTypeId="STATE"/>
+  <Geo abbreviation="RJ" geoCode="RJ" geoId="BR-RJ" geoName="Rio de Janeiro" geoTypeId="STATE"/>
+  <Geo abbreviation="RN" geoCode="RN" geoId="BR-RN" geoName="Rio Grande do Norte" geoTypeId="STATE"/>
+  <Geo abbreviation="RO" geoCode="RO" geoId="BR-RO" geoName="Rondônia" geoTypeId="STATE"/>
+  <Geo abbreviation="RR" geoCode="RR" geoId="BR-RR" geoName="Roraima" geoTypeId="STATE"/>
+  <Geo abbreviation="RS" geoCode="RS" geoId="BR-RS" geoName="Rio Grande do Sul" geoTypeId="STATE"/>
+  <Geo abbreviation="SC" geoCode="SC" geoId="BR-SC" geoName="Santa Catarina" geoTypeId="STATE"/>
+  <Geo abbreviation="SE" geoCode="SE" geoId="BR-SE" geoName="Sergipe" geoTypeId="STATE"/>
+  <Geo abbreviation="SP" geoCode="SP" geoId="BR-SP" geoName="São Paulo" geoTypeId="STATE"/>
+  <Geo abbreviation="TO" geoCode="TO" geoId="BR-TO" geoName="Tocantins" geoTypeId="STATE"/>
+
+   <GeoAssoc geoId="BRA" geoIdTo="BR-AL" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-AM" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-AP" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-BA" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-CE" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-DF" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-ES" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-GO" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MA" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MG" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MS" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MT" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PA" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PB" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PE" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PI" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PR" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RJ" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RN" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RO" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RR" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RS" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-SC" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-SE" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-SP" geoAssocTypeId="REGIONS" />  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-TO" geoAssocTypeId="REGIONS" />
+</entity-engine-xml>

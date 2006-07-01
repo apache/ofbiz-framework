@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+
+    <menu name="contentsetup">
+        <menu-item name="adddataresource" title="Add" >
+            <link target="AddDataResource" name="AddDataResource" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="finddataresource" title="Find" >
+            <link target="FindDataResource" name="FindDataResource" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="browsedataresource" title="Browse" >
+            <link target="BrowseDataResource" name="BrowseDataResource" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editdataresource" title="Data Resource" >
+            <condition disabled-style="buttontextdisabled">
+                <not><if-empty field-name="dataResourceId" /></not>
+            </condition>
+            <link target="EditDataResource" name="EditDataResource" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editelectronictext" title="Text" >
+            <condition disabled-style="buttontextdisabled">
+                <not><if-empty field-name="dataResourceId" /></not>
+            </condition>
+            <link target="EditElectronicText" name="EditElectronicText" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="edithtmltext" title="Html" >
+            <condition disabled-style="buttontextdisabled">
+                <not><if-empty field-name="dataResourceId" /></not>
+            </condition>
+            <link target="EditHtmlText" name="EditHtmlText" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="uploadimage" title="Image" >
+            <condition disabled-style="buttontextdisabled">
+                <not><if-empty field-name="dataResourceId" /></not>
+            </condition>
+            <link target="UploadImage" name="UploadImage" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editdataresourceattribute" title="Attribute" >
+            <condition disabled-style="buttontextdisabled">
+                <not><if-empty field-name="dataResourceId" /></not>
+            </condition>
+            <link target="EditDataResourceAttribute" name="EditDataResourceAttribute" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editdataresourcerole" title="Role" >
+            <condition disabled-style="buttontextdisabled">
+                <not><if-empty field-name="dataResourceId"/></not>
+            </condition>
+            <link target="EditDataResourceRole" name="EditDataResourceRole" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editdataresourceproductfeatures" title="Product Features" >
+            <condition disabled-style="buttontextdisabled">
+                <not><if-empty field-name="dataResourceId" /></not>
+            </condition>
+            <link target="EditDataResourceProductFeatures" name="EditDataResourceProductFeatures" target-window="_top" style="tabButton" />
+        </menu-item>
+    </menu>
+    <menu name="dataresource">
+        
+        <menu-item name="editDataResource" title="${uiLabelMap.ContentDataResource}" >
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="editDataResource?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+        <menu-item name="editElectronicText" title="${uiLabelMap.ContentDataResourceText}" >
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="EditElectronicText?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+        <menu-item name="editHtmlText" title="${uiLabelMap.ContentDataResourceHtml}" >
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="EditHtmlText?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+        <menu-item name="uploadImage" title="${uiLabelMap.ContentDataResourceImage}" >
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="UploadImage?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+        <menu-item name="editDataResourceAttribute" title="${uiLabelMap.ContentDataResourceAttribute}" >
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="EditDataResourceAttribute?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+        <menu-item name="editDataResourceRole" title="${uiLabelMap.ContentDataResourceRole}" >
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="EditDataResourceRole?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+        <menu-item name="editDataResourceProductFeatures" title="${uiLabelMap.ContentDataResourceProductFeatures}" >
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="EditDataResourceProductFeatures?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+    </menu>
+</menus>

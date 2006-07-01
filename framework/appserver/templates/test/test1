@@ -1,0 +1,7 @@
+ofbiz.home = ${env.get("ofbiz.home")}
+
+Classpath - JARS
+======================================================================
+<#list classpathJars as jar>
+${jar}
+</#list>

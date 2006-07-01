@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Content Component Services</description>
+    <vendor>OFBiz</vendor>
+
+    <!-- Email Related Services -->
+    <service name="sendMailInterface" engine="interface" location="" invoke="">
+    	<description>Interface service for mail services.  contentType defaults to "text/html", sendType defaults to
+    	    "mail.smtp.host".  sendVia must be specified if sendType is different.  Configured in general.properties</description>
+        <attribute name="sendTo" type="String" mode="IN" optional="true"/>
+        <attribute name="sendCc" type="String" mode="IN" optional="true"/>
+        <attribute name="sendBcc" type="String" mode="IN" optional="true"/>
+        <attribute name="sendFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="subject" type="String" mode="IN" optional="false"/>
+        <attribute name="authUser" type="String" mode="IN" optional="true"/>
+        <attribute name="authPass" type="String" mode="IN" optional="true"/>
+        <attribute name="sendVia" type="String" mode="IN" optional="true"/>
+        <attribute name="sendType" type="String" mode="IN" optional="true"/>
+        <attribute name="contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="subject" type="String" mode="INOUT" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="sendMail" engine="java"
+            location="org.ofbiz.content.email.EmailServices" invoke="sendMail">
+        <description>Send E-Mail Service.  partyId and communicationEventId aren't used by sendMail 
+            but are passed down to storeEmailAsCommunication during the SECA chain.  See sednMailInterface for more comments.</description>
+        <implements service="sendMailInterface"/>
+        <attribute name="body" type="String" mode="INOUT" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>
+        <override name="contentType" mode="INOUT"/>
+        <override name="subject" mode="INOUT" optional="false"/>
+    </service>
+    <service name="sendMailMultiPart" engine="java"
+            location="org.ofbiz.content.email.EmailServices" invoke="sendMail">
+        <description>Send Multi-Part E-Mail Service</description>
+        <implements service="sendMailInterface"/>
+        <attribute name="bodyParts" type="java.util.List" mode="INOUT" optional="false"/>
+        <attribute name="subject" type="String" mode="INOUT" optional="false"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+        <override name="contentType" mode="INOUT"/>
+    </service>
+    <service name="sendMailFromUrl" engine="java"
+            location="org.ofbiz.content.email.EmailServices" invoke="sendMailFromUrl">
+        <description>Send E-Mail From URL Service</description>
+        <implements service="sendMailInterface"/>
+        <attribute name="bodyUrl" type="String" mode="IN" optional="false"/>
+        <attribute name="bodyUrlParameters" type="Map" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="sendMailFromScreen" max-retry="3" engine="java"
+        location="org.ofbiz.content.email.EmailServices" invoke="sendMailFromScreen">
+        <description>Send E-Mail From Screen Widget Service</description>
+        <implements service="sendMailInterface"/>
+        <attribute name="bodyText" type="String" mode="IN" optional="true"/>
+        <attribute name="bodyScreenUri" type="String" mode="IN" optional="true"/>
+        <attribute name="xslfoAttachScreenLocation" type="String" mode="IN" optional="true"/>
+        <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="OUT" optional="false"/>
+    </service>
+    
+    <service name="prepareNotificationInterface" engine="interface"
+            location="" invoke="">
+        <description>Send Template Based Notification Service</description>
+        <implements service="sendMailInterface"/>
+        <attribute name="body" type="String" mode="INOUT" optional="true"/>
+        <attribute name="baseUrl" type="String" mode="IN" optional="true"/>
+        <attribute name="templateName" type="String" mode="IN" optional="false"/>
+        <attribute name="templateData" type="Map" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="sendNotificationInterface" engine="interface"
+            location="" invoke="">
+        <description>Send Template Based Notification Service</description>
+        <implements service="prepareNotificationInterface"/>
+        <attribute name="body" type="String" mode="IN" optional="true"/>
+        <attribute name="templateName" type="String" mode="IN" optional="false"/>
+        <attribute name="templateData" type="Map" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="sendGenericNotificationEmail" engine="java"
+            location="org.ofbiz.content.email.NotificationServices" invoke="sendNotification">
+        <description>Generic Template Based Notification Service</description>
+        <implements service="sendNotificationInterface"/>
+    </service>
+    <service name="storeEmailAsCommunication" engine="java"
+            location="org.ofbiz.content.email.EmailServices" invoke="storeEmailAsCommunication" auth="true">
+        <description>Store email as a communication event with the status COM_COMPLETE.  The communication event will be
+                     from the party of the userLogin to the party of the partyId parameter.  It is meant to run a SECA after
+                     a sendMail to record outgoing emails.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
+        <attribute name="subject" type="String" mode="IN" optional="false"/>
+        <attribute name="body" type="String" mode="IN" optional="false"/>
+        <attribute name="contentType" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="storeIncomingEmail" engine="java"
+            location="org.ofbiz.content.email.EmailServices" invoke="storeIncomingEmail" auth="true">
+        <description>
+            Process incoming email. Try to determine partyIdFrom from the first SendFrom email address. datetimeStarted and datetimeEnded are the
+            sent and received dates respectively, partyIdTo is from the first SendTo email address. If the parties are not found,
+            the email addresses are stored in CommunicationEvent.note
+        </description>
+        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="storeForwardedEmail" engine="java"
+            location="org.ofbiz.content.email.EmailServices" invoke="storeForwardedEmail" auth="true">
+        <description>Process incoming email. Try to determine partyIdFrom from email address.</description>
+        <implements service="mailProcessInterface"/>
+    </service>
+</services>

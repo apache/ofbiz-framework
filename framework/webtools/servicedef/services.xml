@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+	<description>OFBiz WebTools Services</description>
+	<vendor>OFBiz</vendor>
+	<version>1.0</version>
+
+    <!-- Entity Import Services -->
+    <service name="parseEntityXmlFile" engine="java" require-new-transaction="true"
+            location="org.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true">
+        <description>Parses an entity xml file or an entity xml text</description>
+        <attribute name="url" type="java.net.URL" mode="IN" optional="true"/>
+        <attribute name="xmltext" type="String" mode="IN" optional="true"/>
+        <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
+        <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
+        <attribute name="rowProcessed" type="Long" mode="OUT" optional="false"/>
+    </service>
+    <service name="entityImport" engine="java"
+            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImport" auth="true">
+        <description>Imports an entity xml file or text string</description>
+        <attribute name="filename" type="String" mode="IN" optional="true"/>
+        <attribute name="fmfilename" type="String" mode="IN" optional="true"/>
+        <attribute name="fulltext" type="String" mode="IN" optional="true"/>
+        <attribute name="isUrl" type="String" mode="IN" optional="true"/>
+        <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
+        <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
+        <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="messages" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="entityImportDir" engine="java"
+            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportDir" auth="true">
+        <description>Imports all entity xml files contained in a directory</description>
+        <attribute name="path" type="String" mode="IN" optional="true"/>
+        <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
+        <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
+        <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
+        <attribute name="deleteFiles" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="filePause" type="Long" mode="IN" optional="true"/>
+        <attribute name="messages" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="entityExportAll" engine="java"
+            location="org.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true">
+        <description>Exports all entities into xml files</description>
+        <attribute name="outpath" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="results" type="List" mode="OUT" optional="false"/>
+    </service>
+
+</services>

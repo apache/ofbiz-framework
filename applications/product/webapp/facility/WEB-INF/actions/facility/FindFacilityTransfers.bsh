@@ -1,0 +1,67 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      3.0
+ */
+
+import java.util.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+delegator = request.getAttribute("delegator");
+
+String facilityId = request.getParameter("facilityId");
+if (facilityId != null) context.put("facilityId", facilityId);
+
+GenericValue facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+if (facility != null) context.put("facility", facility);
+
+//default this to true, ie only show active
+boolean activeOnly = !"false".equals(request.getParameter("activeOnly"));
+context.put("activeOnly", activeOnly);
+
+boolean useValues = true;
+if (request.getAttribute("_ERROR_MESSAGE_") != null) useValues = false;
+
+// get the 'to' this facility transfers
+List exprsTo = null;
+if (activeOnly) {
+    exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
+} else {
+    exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId));
+}
+List toTransfers = delegator.findByAnd("InventoryTransfer", exprsTo, UtilMisc.toList("sendDate"));
+if (toTransfers != null) context.put("toTransfers", toTransfers);
+
+// get the 'from' this facility transfers
+List exprsFrom = null;
+if (activeOnly) {
+    exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
+} else {
+    exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
+}
+List fromTransfers = delegator.findByAnd("InventoryTransfer", exprsFrom, UtilMisc.toList("sendDate"));
+if (fromTransfers != null) context.put("fromTransfers", fromTransfers);

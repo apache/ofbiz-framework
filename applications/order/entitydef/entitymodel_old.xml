@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2002 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>None</author>
+    <version>1.0</version>
+    <!-- ========================================================= -->
+    <!-- ======================== Data Model ===================== -->
+    <!-- The modules in this file are as follows:                  -->
+    <!--  - org.ofbiz.order.order -->
+    <!-- ========================================================= -->
+
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.order.order -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="OldOrderItemInventoryRes" table-name="ORDER_ITEM_INVENTORY_RES"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="The OLD Order Item Inventory Reservation Entity">
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="inventoryItemId" type="id-ne"></field>
+      <field name="reserveOrderEnumId" type="id-ne"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="quantityNotAvailable" type="floating-point"></field>
+      <field name="reservedDatetime" type="date-time"></field>
+      <field name="createdDatetime" type="date-time"></field>
+      <field name="promisedDatetime" type="date-time"></field>
+      <field name="currentPromisedDate" type="date-time"></field>
+      <field name="pickStartDate" type="date-time"></field>
+      <prim-key field="orderId"/>
+      <prim-key field="orderItemSeqId"/>
+      <prim-key field="inventoryItemId"/>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="OLDODR_ITIR_OITM" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="OLDODR_ITIR_INVITM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+    </entity>
+    <entity entity-name="OldOrderShipmentPreference" table-name="ORDER_SHIPMENT_PREFERENCE"
+        package-name="org.ofbiz.order.order"
+        never-cache="true"
+        title="The Order Shipment Preference Entity (Deprecated)">
+        <field name="orderId" type="id-ne"></field>
+        <field name="orderItemSeqId" type="id-ne"></field>
+        <field name="shipmentMethodTypeId" type="id"></field>
+        <field name="carrierPartyId" type="id"></field>
+        <field name="carrierRoleTypeId" type="id"></field>
+        <field name="trackingNumber" type="short-varchar"></field>
+        <field name="shippingInstructions" type="long-varchar"></field>
+        <field name="maySplit" type="indicator"></field>
+        <field name="giftMessage" type="long-varchar"></field>
+        <field name="isGift" type="indicator"></field>
+        <field name="shipAfterDate" type="date-time"></field>
+        <field name="shipBeforeDate" type="date-time"></field>
+        <prim-key field="orderId"/>
+        <prim-key field="orderItemSeqId"/>
+        <relation type="one" fk-name="ORDER_SHPREF_CSHM" rel-entity-name="CarrierShipmentMethod">
+            <key-map field-name="shipmentMethodTypeId"/>
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+            <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_OHDR" rel-entity-name="OrderHeader">
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="OrderItem">
+            <key-map field-name="orderId"/>
+            <key-map field-name="orderItemSeqId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_CPRTY" title="Carrier" rel-entity-name="Party">
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_CPRLE" title="Carrier" rel-entity-name="PartyRole">
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+            <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_SHMTP" rel-entity-name="ShipmentMethodType">
+            <key-map field-name="shipmentMethodTypeId"/>
+        </relation>
+    </entity>
+</entitymodel>

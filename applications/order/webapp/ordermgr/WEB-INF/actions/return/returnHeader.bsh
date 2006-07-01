@@ -1,0 +1,131 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+ 
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.party.contact.*;
+
+
+orderId = parameters.get("orderId");
+partyId = parameters.get("fromPartyId");
+returnId = parameters.get("returnId");
+    
+returnHeader = null;
+addressEditable = true;
+postalAddressFrom = null;
+if (returnId != null) {
+    returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+    if (returnHeader != null) {   
+        partyId = returnHeader.getString("fromPartyId"); 
+        toPartyId = parameters.get("toPartyId");
+        currentStatus = returnHeader.getRelatedOne("StatusItem");
+        context.put("currentStatus", currentStatus);
+        // user can change fromAddress as long as the ReturnHeader hasn't been accepted( returnStatus==Requested )
+        addressEditable = "RETURN_REQUESTED".equals(currentStatus.get("statusId"));
+        postalAddressFrom = returnHeader.getRelatedOne("PostalAddress");            
+        currentAccount = returnHeader.getRelatedOne("BillingAccount");
+        context.put("currentAccount", currentAccount);
+        currentFacility = returnHeader.getRelatedOne("Facility");
+        context.put("currentFacility", currentFacility);     
+        context.put("entryDate", returnHeader.getTimestamp("entryDate"));
+        context.put("needsInventoryReceive", returnHeader.getString("needsInventoryReceive"));        
+    }
+}
+context.put("returnHeader", returnHeader);
+context.put("returnId", returnId);
+context.put("addressEditable", addressEditable);
+currencyUom = null;
+
+if (returnHeader != null) {
+    context.put("returnInfo", returnHeader);
+    currencyUom = returnHeader.get("currencyUomId");
+} else {
+    context.put("returnInfo", parameters);
+    currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+}
+
+// default currency
+if (currencyUom != null) {
+    defaultCurrency = delegator.findByPrimaryKey("Uom", UtilMisc.toMap("uomId", currencyUom));
+    context.put("defaultCurrency", defaultCurrency);
+}
+
+// billing account info
+billingAccountList = null;
+if (partyId != null) {
+    billingAccountList = delegator.findByAnd("BillingAccountAndRole", UtilMisc.toMap("partyId", partyId));
+    billingAccountList = EntityUtil.filterByDate(billingAccountList);
+}
+context.put("billingAccountList", billingAccountList);
+
+facilityList = delegator.findAll("Facility", UtilMisc.toList("facilityName"));
+context.put("facilityList", facilityList);
+
+currentStatus = returnHeader != null ? returnHeader.getString("statusId") : null;
+if (currentStatus != null) {
+    returnStatus = delegator.findByAnd("StatusValidChangeToDetail", UtilMisc.toMap("statusId", currentStatus), UtilMisc.toList("sequenceId"));
+    context.put("returnStatus", returnStatus);
+}
+
+orderRole = null;
+orderHeader = null;
+if (orderId != null) {
+    orderRoles = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"));
+    orderRole = EntityUtil.getFirst(orderRoles);
+    orderHeader = delegator.findByPrimaryKeyCache("OrderHeader", UtilMisc.toMap("orderId", orderId));
+}
+context.put("orderRole", orderRole);
+context.put("orderHeader", orderHeader);
+
+
+// from address
+addresses = ContactMechWorker.getPartyPostalAddresses(request, partyId, "_NA_");
+context.put("addresses", addresses);
+context.put("postalAddressFrom", postalAddressFrom); 
+
+if (returnHeader != null) {
+    postalAddressTo = null;
+    facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", returnHeader.getString("destinationFacilityId")));
+    if (facility != null) {
+        facilityContactMechs = delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facility.getString("facilityId")), UtilMisc.toList("fromDate DESC"));
+    
+        facilityContactMechIterator = facilityContactMechs.iterator();
+        while (facilityContactMechIterator.hasNext()) {
+            facilityContactMech = facilityContactMechIterator.next();
+            contactMech = facilityContactMech.getRelatedOne("ContactMech");
+            if ("POSTAL_ADDRESS".equals(contactMech.getString("contactMechTypeId"))) {
+                postalAddressTo = contactMech.getRelatedOne("PostalAddress");
+                break;
+            }
+        }
+    }
+    context.put("postalAddressTo", postalAddressTo);
+}
+
+// get a list of all currencies
+currencies = delegator.findByAndCache("Uom", UtilMisc.toMap("uomTypeId", "CURRENCY_MEASURE"), UtilMisc.toList("description"));
+context.put("currencies", currencies);

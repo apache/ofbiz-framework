@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListCalendarWeek" type="list" 
+            target="UpdateCalendarWeek" title="" list-name="calendarWeeks"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="updateLink" title="" widget-style="buttontext">
+            <hyperlink target="EditCalendarWeek?calendarWeekId=${calendarWeekId}" description="${uiLabelMap.CommonUpdate}" />
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="RemoveCalendarWeek?calendarWeekId=${calendarWeekId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+ 
+
+    <form name="ListCalendarExceptionDay" type="list" 
+            target="UpdateCalendarExceptionDay" title="" list-name="calendarExceptionDays"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        <auto-fields-service service-name="updateCalendarExceptionDay" map-name="calendarExceptionDay"/>
+        <field name="calendarId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field> 
+        <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}"><display/></field>
+        <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" ><display/></field>
+        <field name="updateLink" title="" widget-style="buttontext">
+            <hyperlink target="EditCalendarExceptionDay?calendarId=${calendarId}&amp;exceptionDateStartTime=${exceptionDateStartTime}"
+                description="${uiLabelMap.CommonSelected}" />
+        </field> 
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="RemoveCalendarExceptionDay?calendarId=${calendarId}&amp;exceptionDateStartTime=${exceptionDateStartTime}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+ 
+     <form name="UpdateCalendarExceptionDay" type="single" 
+            target="UpdateCalendarExceptionDay" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateCalendarExceptionDay" map-name="calendarExceptionDay"/> 
+        <field name="calendarId" ><hidden/></field>
+        <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}" ><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" position="2" ></field>
+        <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" position="3" ></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit" position="4" ><submit button-type="button"/></field>
+        <sort-order>
+            <sort-field name="exceptionDateStartTime"/>
+            <sort-field name="description"/>
+            <sort-field name="exceptionCapacity"/>
+        </sort-order>
+    </form>
+
+     <form name="AddCalendarExceptionDay" type="single" 
+            target="CreateCalendarExceptionDay" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createCalendarExceptionDay" map-name="calendarExceptionDay"/>
+        <field name="calendarId" map-name="techDataCalendar"><hidden/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" ></field>
+        <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}" ></field>
+        <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit" ><submit button-type="button"/></field>
+    </form>
+ 
+     <form name="ListCalendarExceptionWeek" type="list" 
+            target="UpdateCalendarExceptionWeek" title="" list-name="calendarExceptionWeeksDatas"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+            >
+        <auto-fields-service service-name="updateCalendarExceptionWeek" map-name="calendarExceptionWeek"/>
+        <field name="calendarId"><hidden/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display /></field>
+        <field name="exceptionDateStart" title="${uiLabelMap.ManufacturingExceptionDateStart}"><display/></field>
+        <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeek}">  
+            <display description="${calendarWeek.description} "/>
+        </field>
+        <field name="updateLink" title="" widget-style="buttontext">
+            <hyperlink target="EditCalendarExceptionWeek?calendarId=${calendarExceptionWeek.calendarId}&amp;exceptionDateStart=${calendarExceptionWeek.exceptionDateStart}"
+                description="${uiLabelMap.CommonSelected}" />
+        </field> 
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="RemoveCalendarExceptionWeek?calendarId=${calendarExceptionWeek.calendarId}&amp;exceptionDateStart=${calendarExceptionWeek.exceptionDateStart}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+     </form>
+     <form name="UpdateCalendarExceptionWeek" type="single" 
+            target="UpdateCalendarExceptionWeek" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateCalendarExceptionWeek" map-name="calendarExceptionWeek"/>
+        <field name="calendarId" ><hidden/></field>
+        <field name="exceptionDateStart" title="${uiLabelMap.ManufacturingExceptionDateStart}" ><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" position="2" ></field>
+        <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}" position="3" >
+            <drop-down>
+                <entity-options entity-name="TechDataCalendarWeek" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit" position="4" ><submit button-type="button"/></field>
+        <sort-order>
+            <sort-field name="exceptionDateStart"/>
+            <sort-field name="description"/>
+            <sort-field name="calendarWeekId"/>
+        </sort-order>
+    </form>
+     <form name="AddCalendarExceptionWeek" type="single" 
+            target="CreateCalendarExceptionWeek" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createCalendarExceptionWeek" map-name="calendarExceptionWeek"/>
+        <field name="calendarId" map-name="techDatacalendar"><hidden/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" ></field>
+        <field name="exceptionDateStart" title="${uiLabelMap.ManufacturingExceptionDateStart}" ><date-time type="date"/></field>
+        <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="TechDataCalendarWeek" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit" ><submit button-type="button"/></field>
+    </form>
+ </forms>

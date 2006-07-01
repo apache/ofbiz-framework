@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <DataCategory dataCategoryId="ROOT" parentCategoryId="" categoryName=""/>
+    <DataCategory dataCategoryId="BUSINESS" parentCategoryId="ROOT" categoryName="Business"/>
+    <DataCategory dataCategoryId="TECHNOLOGY" parentCategoryId="ROOT" categoryName="Technology"/>
+    <DataCategory dataCategoryId="PERSONAL" parentCategoryId="ROOT" categoryName="Personal"/>
+    <DataCategory dataCategoryId="LEGAL" parentCategoryId="ROOT" categoryName="Legal"/>
+    <DataCategory dataCategoryId="POLITICAL" parentCategoryId="ROOT" categoryName="Political"/>
+    <DataCategory dataCategoryId="FINANCIAL" parentCategoryId="ROOT" categoryName="Financial"/>
+    <DataCategory dataCategoryId="BUS_RETAIL" parentCategoryId="BUSINESS" categoryName="Retail"/>
+    <DataCategory dataCategoryId="BUS_SERVICE" parentCategoryId="BUSINESS" categoryName="Service"/>
+    <DataCategory dataCategoryId="BUS_MANU" parentCategoryId="BUSINESS" categoryName="Manufacturing"/>
+    <DataCategory dataCategoryId="TECH_SOFT" parentCategoryId="TECHNOLOGY" categoryName="Software"/>
+    <DataCategory dataCategoryId="TECH_SOFT_OFBIZ" parentCategoryId="TECH_SOFT" categoryName="Open for Business"/>
+    <DataCategory dataCategoryId="TECH_SOFT_LINUX" parentCategoryId="TECH_SOFT" categoryName="Linux"/>
+    <DataCategory dataCategoryId="TECH_SOFT_JAVA" parentCategoryId="TECH_SOFT" categoryName="Java"/>
+    <DataCategory dataCategoryId="TECH_HARD" parentCategoryId="TECHNOLOGY" categoryName="Hardware"/>
+    <DataCategory dataCategoryId="TECH_SERV" parentCategoryId="TECHNOLOGY" categoryName="Service"/>
+</entity-engine-xml>

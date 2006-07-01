@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Add Site</property>
+    <property name="subMenu">/cms/cms_menu.ftl</property>    
+    <property name="headerItem">CMS</property>    
+    <property name="entityName">Content</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">complex</property>    
+    <property name="permissionIdName">rootForumId</property>    
+    <property name="entityOperation">_ADMIN</property>
+    <property name="targetOperation">CONTENT_UPDATE</property>    
+    <property name="requiredRoles">OWNER|BLOG_EDITOR|BLOG_ADMIN</property>    
+    <property name="menuDefFile">/cms/CMSMenus.xml</property>    
+    <property name="menuName">cms</property>
+    <property name="rootForumId">WebStoreFORUM</property>
+
+
+    <page-action name="/includes/permprep.bsh"/>
+    <page-action name="/menu/menuinit.bsh"/>
+    <page-action name="/includes/requiredrole.bsh"/>
+    <page-action name="/menu/setcurrentmenuitem.bsh"/>
+    <page-action name="/menu/storecurrentmenuval.bsh"/>
+
+</page>
+

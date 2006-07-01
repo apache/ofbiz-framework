@@ -1,0 +1,53 @@
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.content.search.SearchWorker;
+
+
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.search.Searcher;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.queryParser.QueryParser;
+import org.ofbiz.widget.html.HtmlFormWrapper;
+
+delegator = request.getAttribute("delegator");
+paramMap = UtilHttp.getParameterMap(request);
+indexContentIds = paramMap.get("indexContentIds");
+Debug.logInfo("in search, indexContentIds:" + indexContentIds, "");
+indexAll = paramMap.get("indexAll");
+Debug.logInfo("in search, indexAll:" + indexAll, "");
+
+/*
+formDefFile		= page.getProperty("formDefFile");
+singleFormName		= page.getProperty("singleFormName");
+HtmlFormWrapper singleWrapper = new HtmlFormWrapper(formDefFile, singleFormName, request, response);
+context.put("singleWrapper", singleWrapper);
+
+singleFormName2		= page.getProperty("singleFormName2");
+HtmlFormWrapper singleWrapper2 = new HtmlFormWrapper(formDefFile, singleFormName2, request, response);
+context.put("singleWrapper2", singleWrapper2);
+*/
+
+
+if (UtilValidate.isEmpty(indexAll) || !indexAll.equalsIgnoreCase("true")) {
+    if (UtilValidate.isNotEmpty(indexContentIds)) {
+        context = new HashMap();
+        contentIdList = StringUtil.split(indexContentIds, " " ); 
+            Debug.logInfo("in index, contentIdList:" + contentIdList, "");
+        SearchWorker.indexContentList(contentIdList, delegator, context);
+        //iter = contentIdList.iterator();
+        //while (iter.hasNext()) {
+            //contentId = iter.next();
+            //Debug.logInfo("in search, contentId:" + contentId, "");
+            //SearchWorker.indexContent(contentId, null, delegator, context);
+        //}
+
+    }
+} else {
+        request.setAttribute("errorMsgReq", "Index all not operable.");
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Order Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Customer Request Services -->
+    <service name="createCustRequest" engine="simple" default-entity-name="CustRequest"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
+        <description>Create a custRequest record</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="true"/>
+        <attribute name="custRequestTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
+        <description>Update a custRequest record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createCustRequestAttribute" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestAttribute" auth="true">
+        <description>Create CustRequestAttribute record</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="attrName" type="String" mode="IN" optional="false"/>
+        <attribute name="attrValue" type="String" mode="IN" optional="false"/>
+    </service>
+
+   <service name="updateCustRequestAttribute" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestAttribute" auth="true">
+        <description>Update CustRequestAttribute record</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="attrName" type="String" mode="IN" optional="false"/>
+        <attribute name="attrValue" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestItem" auth="true">
+        <description>Create a CustRequestItem record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="custRequestItemSeqId" optional="true"/>
+    </service>
+    <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestItem" auth="true">
+        <description>Update a CustRequestItem record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="copyCustRequestItem" default-entity-name="CustRequestItem" engine="simple"
+                location="org/ofbiz/order/request/CustRequestServices.xml" invoke="copyCustRequestItem" auth="true">
+        <description>Copy a CustRequest</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="custRequestIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestItemSeqIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="copyLinkedQuotes" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createCustRequestRole" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestRole" auth="true">
+        <description>Create a CustRequestRole record</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeCustRequestRole" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="removeCustRequestRole" auth="true">
+        <description>Remove a CustRequestRole record</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createCustRequestNote" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
+        <description>Create a note for a CustRequest</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="note" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createCustRequestItemNote" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestItemNote" auth="true">
+        <description>Create a note for a CustRequestItem</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="note" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createCustRequestFromCart" engine="simple" auth="true"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCart">
+        <description>Creates a new request from a shopping cart</description>
+        <attribute name="cart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="custRequestName" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createCustRequestFromShoppingList" engine="simple" auth="true"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromShoppingList">
+        <description>Creates a new quote from a shopping list</description>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createCustRequestStatus" engine="simple" auth="true"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestStatus">
+        <description>Creates a CustRequestStatus entry, which is a history of CustRequest status change.</description>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusDateTime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="custRequestStatusId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <!-- Services for finding Associated CustRequests -->
+    <service name="getCustRequestsByRole" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="getCustRequestsByRole" auth="true">
+        <description>Get CustRequests Associated By Role</description>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestAndRoles" type="java.util.List" mode="OUT" optional="false"/>
+    </service>
+</services>
+

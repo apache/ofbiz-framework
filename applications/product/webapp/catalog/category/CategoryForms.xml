@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="CreateProductCategoryAttribute" type="single"
+            target="createProductCategoryAttribute" title=""
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createProductCategoryAttribute" default-field-type="edit"/>
+        <field name="productCategoryId"><display/></field>
+        <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
+    <form name="EditProductCategoryAttributes" type="list"
+            target="updateProductCategoryAttribute" title=""
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+            list-name="categoryAttributes">
+        <auto-fields-service service-name="updateProductCategoryAttribute" default-field-type="display"/>
+        <field name="productCategoryId"><hidden/></field>
+        <field name="attrValue"><text size="60"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteProductCategoryAttribute?productCategoryId=${productCategoryId}&amp;attrName=${attrName}"
+                description="[${uiLabelMap.CommonDelete}]"/>
+        </field>
+    </form>
+
+    <!-- Product Category Content Forms  -->
+    <form name="AddCategoryContentAssoc" type="single"
+        target="addContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="ProductCategoryContent"/>
+        <field name="productCategoryId" map-name="productCategory"><hidden/></field>
+        <field name="prodCatContentTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductCategoryContentType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="PrepareAddCategoryContentAssoc" type="single"
+        target="prepareAddContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="productId"><hidden/></field>
+        <field name="productCategoryId" map-name="productCategory"><hidden/></field>
+        <field name="prodCatContentTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductCategoryContentType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- <field name="description"><text size="40"/></field> -->
+        <field name="submitButton" title="${uiLabelMap.ProductPrepareCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateCategoryContentAssoc" type="list"
+        target="updateContentToCategory" title="" list-name="productCategoryContentList"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="productCategoryId"><hidden/></field>
+        <field name="contentId" title="${uiLabelMap.ProductContent}" widget-style="tabletext">
+            <display-entity entity-name="Content" description="${description}" also-hidden="true">
+                <sub-hyperlink target="/content/control/EditContent?contentId=${contentId}" description="Content: ${contentId}" target-type="inter-app" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="thruDate"><date-time type="timestamp"/></field>
+        <field name="prodCatContentTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductCategoryContentType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="editLink" title="" widget-style="buttontext">
+            <hyperlink target="EditCategoryContentContent?productCategoryId=${productCategoryId}&amp;contentId=${contentId}&amp;prodCatContentTypeId=${prodCatContentTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonEdit}"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeContentFromCategory?productCategoryId=${productCategoryId}&amp;contentId=${contentId}&amp;prodCatContentTypeId=${prodCatContentTypeId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent"
+        target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="content==null" target="createSimpleTextContentForCategory"/>
+        <auto-fields-entity entity-name="ProductCategoryContent"/>
+
+        <field use-when="content==null" name="contentId"><ignored/></field>
+        <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="categoryContentData" widget-style="tabletext"><display/></field>
+
+        <field name="prodCatContentTypeId" title="Category Content Type" widget-style="tabletext"><display-entity entity-name="ProductCategoryContentType" also-hidden="true"/></field>
+        <field name="description" map-name="content"><text size="40"/></field>
+        <field name="localeString" map-name="content"><text size="40"/></field>
+        <field name="text" map-name="textDataMap" widget-style="textAreaBox"><textarea cols="80" rows="10"/></field>
+        <field name="textDataResourceId" map-name="textDataMap"><hidden/></field>
+        <field name="useCountLimit"><hidden/></field>
+        <field name="purchaseThruDate"><hidden/></field>
+        <field name="purchaseFromDate"><hidden/></field>
+        <field name="productCategoryId"><hidden/></field>
+        <field use-when="content == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="content != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

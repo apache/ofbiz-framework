@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+$Id: controller.xml 7426 2006-04-26 23:35:58Z jonesde $
+
+Copyright 2004-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/site-conf.xsd">
+    <description>Shark Workflow Manager Component Site Configuration File</description>
+    <owner>Copyright 2004-2006 The Apache Software Foundation</owner>
+    <errorpage>/error/error.jsp</errorpage>
+    
+    <!-- event handlers -->
+    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
+    <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
+    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
+
+    <!-- view handlers -->
+    <handler name="jpublish" type="view" class="org.ofbiz.webapp.view.JPublishViewHandler"/>        
+    <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
+
+    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
+    <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
+    <handler name="fop" type="view" class="org.ofbiz.webapp.view.FopPdfViewHandler"/>
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
+    <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
+        
+    <preprocessor>
+    	<!-- Events to run on every request before security (chains exempt) -->
+    	<!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+    	<event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="checkExternalLoginKey"/>
+    </preprocessor>
+    <postprocessor>
+    	<!-- Events to run on every request after all other processing (chains exempt) -->
+    	<!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+    </postprocessor>
+
+    <!-- Security Mappings -->
+    <request-map uri="checkLogin" edit="false">
+        <description>Verify a user is logged in.</description>
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="checkLogin" />
+        <response name="success" type="view" value="main" />
+        <response name="error" type="view" value="login" />
+    </request-map>
+
+    <request-map uri="login">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="login"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+
+    <request-map uri="logout">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="logout"/>
+        <response name="success" type="request" value="checkLogin"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <!-- End of Security Mappings -->
+
+    <!-- Request Mappings -->
+    <request-map uri="view">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="authview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+    	<response name="success" type="view" value="main"/>
+    </request-map>
+
+    <request-map uri="repository">
+        <security https="true" auth="true"/>
+    	<response name="success" type="view" value="repository"/>
+    </request-map>    
+    <request-map uri="processes">
+        <security https="true" auth="true"/>
+    	<response name="success" type="view" value="processList"/>
+    </request-map>
+    <request-map uri="processDetailList">
+        <security https="true" auth="true"/>
+    	<response name="success" type="view" value="processDetailList"/>
+    </request-map>
+    <request-map uri="processHistory">
+        <security https="true" auth="true"/>
+    	<response name="success" type="view" value="processHistory"/>
+    </request-map>
+    <request-map uri="processSteps">
+        <security https="true" auth="true"/>
+    	<response name="success" type="view" value="processSteps"/>
+    </request-map>
+    <request-map uri="worklist">
+        <security https="true" auth="true"/>
+    	<response name="success" type="view" value="worklist"/>
+    </request-map>
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="error" page="/error/error.jsp"/>
+    <view-map name="main" type="jpublish" page="/main.ftl"/>
+    <view-map name="login" type="jpublish" page="/login.ftl"/>
+
+    <view-map name="repository" type="jpublish" page="/repository/showRepository.ftl"/>
+    <view-map name="processList" type="jpublish" page="/process/processList.ftl"/>
+    <view-map name="processDetailList" type="jpublish" page="/process/processDetailList.ftl"/>
+    <view-map name="processHistory" type="jpublish" page="/process/processHistory.ftl"/>
+    <view-map name="processSteps" type="jpublish" page="/process/processSteps.ftl"/>
+    <view-map name="worklist" type="jpublish" page="/tasklist/worklist.ftl"/>
+    <!-- end of view mappings -->
+</site-conf>

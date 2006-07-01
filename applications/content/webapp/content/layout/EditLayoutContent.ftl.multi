@@ -1,0 +1,18 @@
+<table border="0" width="100%">
+<tr>
+<td>
+${singleWrapper.renderFormString()}
+</td>
+<td>
+<@renderSubContent/>
+</td>
+</tr>
+<tr>
+<td>
+${listWrapper.renderFormString()}
+</td>
+<td>
+${mruWrapper.renderFormString()}
+</td>
+</tr>
+</table>

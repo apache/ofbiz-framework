@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <StandardLanguage standardLanguageId="6301" langCode3t="aar" langCode3b="aar" langCode2="aa" langName="Afar" langFamily="Hamitic"/>
+    <StandardLanguage standardLanguageId="6302" langCode3t="abk" langCode3b="abk" langCode2="ab" langName="Abkhazian" langFamily="Ibero-caucasian"/>
+    <StandardLanguage standardLanguageId="6303" langCode3t="ace" langCode3b="ace" langName="Achinese"/>
+    <StandardLanguage standardLanguageId="6304" langCode3t="ach" langCode3b="ach" langName="Acoli"/>
+    <StandardLanguage standardLanguageId="6305" langCode3t="ada" langCode3b="ada" langName="Adangme"/>
+    <StandardLanguage standardLanguageId="6306" langCode3t="afa" langCode3b="afa" langName="Afro-Asiatic (Other)"/>
+    <StandardLanguage standardLanguageId="6307" langCode3t="afh" langCode3b="afh" langName="Afrihili"/>
+    <StandardLanguage standardLanguageId="6308" langCode3t="afr" langCode3b="afr" langCode2="af" langName="Afrikaans" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6309" langCode3t="aka" langCode3b="aka" langName="Akan"/>
+    <StandardLanguage standardLanguageId="6310" langCode3t="akk" langCode3b="akk" langName="Akkadian"/>
+    <StandardLanguage standardLanguageId="6311" langCode3t="ale" langCode3b="ale" langName="Aleut"/>
+    <StandardLanguage standardLanguageId="6312" langCode3t="alg" langCode3b="alg" langName="Algonquian languages"/>
+    <StandardLanguage standardLanguageId="6313" langCode3t="amh" langCode3b="amh" langCode2="am" langName="Amharic" langFamily="Semitic"/>
+    <StandardLanguage standardLanguageId="6314" langCode3t="ang" langCode3b="ang" langName="English, Old (ca. 450-1100)"/>
+    <StandardLanguage standardLanguageId="6315" langCode3t="apa" langCode3b="apa" langName="Apache languages"/>
+    <StandardLanguage standardLanguageId="6316" langCode3t="ara" langCode3b="ara" langCode2="ar" langName="Arabic" langFamily="Semitic"/>
+    <StandardLanguage standardLanguageId="6317" langCode3t="arc" langCode3b="arc" langName="Aramaic"/>
+    <StandardLanguage standardLanguageId="6318" langCode3t="arn" langCode3b="arn" langName="Araucanian"/>
+    <StandardLanguage standardLanguageId="6319" langCode3t="arp" langCode3b="arp" langName="Arapaho"/>
+    <StandardLanguage standardLanguageId="6320" langCode3t="art" langCode3b="art" langName="Artificial (Other)"/>
+    <StandardLanguage standardLanguageId="6321" langCode3t="arw" langCode3b="arw" langName="Arawak"/>
+    <StandardLanguage standardLanguageId="6322" langCode3t="asm" langCode3b="asm" langCode2="as" langName="Assamese" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6323" langCode3t="ath" langCode3b="ath" langName="Athapascan languages"/>
+    <StandardLanguage standardLanguageId="6324" langCode3t="aus" langCode3b="aus" langName="Australian languages"/>
+    <StandardLanguage standardLanguageId="6325" langCode3t="ava" langCode3b="ava" langName="Avaric"/>
+    <StandardLanguage standardLanguageId="6326" langCode3t="ave" langCode3b="ave" langCode2="ae" langName="Avestan"/>
+    <StandardLanguage standardLanguageId="6327" langCode3t="awa" langCode3b="awa" langName="Awadhi"/>
+    <StandardLanguage standardLanguageId="6328" langCode3t="aym" langCode3b="aym" langCode2="ay" langName="Aymara" langFamily="Amerindian"/>
+    <StandardLanguage standardLanguageId="6329" langCode3t="aze" langCode3b="aze" langCode2="az" langName="Azerbaijani" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6330" langCode3t="bad" langCode3b="bad" langName="Banda"/>
+    <StandardLanguage standardLanguageId="6331" langCode3t="bai" langCode3b="bai" langName="Bamileke languages"/>
+    <StandardLanguage standardLanguageId="6332" langCode3t="bak" langCode3b="bak" langCode2="ba" langName="Bashkir" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6333" langCode3t="bal" langCode3b="bal" langName="Baluchi"/>
+    <StandardLanguage standardLanguageId="6334" langCode3t="bam" langCode3b="bam" langName="Bambara"/>
+    <StandardLanguage standardLanguageId="6335" langCode3t="ban" langCode3b="ban" langName="Balinese"/>
+    <StandardLanguage standardLanguageId="6336" langCode3t="bas" langCode3b="bas" langName="Basa"/>
+    <StandardLanguage standardLanguageId="6337" langCode3t="bat" langCode3b="bat" langName="Baltic (Other)"/>
+    <StandardLanguage standardLanguageId="6338" langCode3t="bej" langCode3b="bej" langName="Beja"/>
+    <StandardLanguage standardLanguageId="6339" langCode3t="bel" langCode3b="bel" langCode2="be" langName="Belarusian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6340" langCode3t="bem" langCode3b="bem" langName="Bemba"/>
+    <StandardLanguage standardLanguageId="6341" langCode3t="ben" langCode3b="ben" langCode2="bn" langName="Bengali" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6342" langCode3t="ber" langCode3b="ber" langName="Berber (Other)"/>
+    <StandardLanguage standardLanguageId="6343" langCode3t="bho" langCode3b="bho" langName="Bhojpuri"/>
+    <StandardLanguage standardLanguageId="6344" langCode3t="bih" langCode3b="bih" langCode2="bh" langName="Bihari" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6345" langCode3t="bik" langCode3b="bik" langName="Bikol"/>
+    <StandardLanguage standardLanguageId="6346" langCode3t="bin" langCode3b="bin" langName="Bini"/>
+    <StandardLanguage standardLanguageId="6347" langCode3t="bis" langCode3b="bis" langCode2="bi" langName="Bislama"/>
+    <StandardLanguage standardLanguageId="6348" langCode3t="bla" langCode3b="bla" langName="Siksika"/>
+    <StandardLanguage standardLanguageId="6349" langCode3t="bnt" langCode3b="bnt" langName="Bantu (Other)"/>
+    <StandardLanguage standardLanguageId="6350" langCode3t="bod" langCode3b="tib" langCode2="bo" langName="Tibetan" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6351" langCode3t="bos" langCode3b="bos" langCode2="bs" langName="Bosnian"/>
+    <StandardLanguage standardLanguageId="6352" langCode3t="bra" langCode3b="bra" langName="Braj"/>
+    <StandardLanguage standardLanguageId="6353" langCode3t="bre" langCode3b="bre" langCode2="br" langName="Breton" langFamily="Celtic"/>
+    <StandardLanguage standardLanguageId="6354" langCode3t="btk" langCode3b="btk" langName="Batak (Indonesia)"/>
+    <StandardLanguage standardLanguageId="6355" langCode3t="bua" langCode3b="bua" langName="Buriat"/>
+    <StandardLanguage standardLanguageId="6356" langCode3t="bug" langCode3b="bug" langName="Buginese"/>
+    <StandardLanguage standardLanguageId="6357" langCode3t="bul" langCode3b="bul" langCode2="bg" langName="Bulgarian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6358" langCode3t="cad" langCode3b="cad" langName="Caddo"/>
+    <StandardLanguage standardLanguageId="6359" langCode3t="cai" langCode3b="cai" langName="Central American Indian (Other)"/>
+    <StandardLanguage standardLanguageId="6360" langCode3t="car" langCode3b="car" langName="Carib"/>
+    <StandardLanguage standardLanguageId="6361" langCode3t="cat" langCode3b="cat" langCode2="ca" langName="Catalan" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6362" langCode3t="cau" langCode3b="cau" langName="Caucasian (Other)"/>
+    <StandardLanguage standardLanguageId="6363" langCode3t="ceb" langCode3b="ceb" langName="Cebuano"/>
+    <StandardLanguage standardLanguageId="6364" langCode3t="cel" langCode3b="cel" langName="Celtic (Other)"/>
+    <StandardLanguage standardLanguageId="6365" langCode3t="ces" langCode3b="cze" langCode2="cs" langName="Czech" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6366" langCode3t="cha" langCode3b="cha" langCode2="ch" langName="Chamorro"/>
+    <StandardLanguage standardLanguageId="6367" langCode3t="chb" langCode3b="chb" langName="Chibcha"/>
+    <StandardLanguage standardLanguageId="6368" langCode3t="che" langCode3b="che" langCode2="ce" langName="Chechen"/>
+    <StandardLanguage standardLanguageId="6369" langCode3t="chg" langCode3b="chg" langName="Chagatai"/>
+    <StandardLanguage standardLanguageId="6370" langCode3t="chk" langCode3b="chk" langName="Chuukese"/>
+    <StandardLanguage standardLanguageId="6371" langCode3t="chm" langCode3b="chm" langName="Mari"/>
+    <StandardLanguage standardLanguageId="6372" langCode3t="chn" langCode3b="chn" langName="Chinook jargon"/>
+    <StandardLanguage standardLanguageId="6373" langCode3t="cho" langCode3b="cho" langName="Choctaw"/>
+    <StandardLanguage standardLanguageId="6374" langCode3t="chp" langCode3b="chp" langName="Chipewyan"/>
+    <StandardLanguage standardLanguageId="6375" langCode3t="chr" langCode3b="chr" langName="Cherokee"/>
+    <StandardLanguage standardLanguageId="6376" langCode3t="chu" langCode3b="chu" langCode2="cu" langName="Church Slavic"/>
+    <StandardLanguage standardLanguageId="6377" langCode3t="chv" langCode3b="chv" langCode2="cv" langName="Chuvash"/>
+    <StandardLanguage standardLanguageId="6378" langCode3t="chy" langCode3b="chy" langName="Cheyenne"/>
+    <StandardLanguage standardLanguageId="6379" langCode3t="cmc" langCode3b="cmc" langName="Chamic languages"/>
+    <StandardLanguage standardLanguageId="6380" langCode3t="cop" langCode3b="cop" langName="Coptic"/>
+    <StandardLanguage standardLanguageId="6381" langCode3t="cor" langCode3b="cor" langCode2="kw" langName="Cornish"/>
+    <StandardLanguage standardLanguageId="6382" langCode3t="cos" langCode3b="cos" langCode2="co" langName="Corsican" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6383" langCode3t="cpe" langCode3b="cpe" langName="Creoles and pidgins, English based (Other)"/>
+    <StandardLanguage standardLanguageId="6384" langCode3t="cpf" langCode3b="cpf" langName="Creoles and pidgins, French-based (Other)"/>
+    <StandardLanguage standardLanguageId="6385" langCode3t="cpp" langCode3b="cpp" langName="Creoles and pidgins, Portuguese-based (Other)"/>
+    <StandardLanguage standardLanguageId="6386" langCode3t="cre" langCode3b="cre" langName="Cree"/>
+    <StandardLanguage standardLanguageId="6387" langCode3t="crp" langCode3b="crp" langName="Creoles and pidgins (Other)"/>
+    <StandardLanguage standardLanguageId="6388" langCode3t="cus" langCode3b="cus" langName="Cushitic (Other)"/>
+    <StandardLanguage standardLanguageId="6389" langCode3t="cym" langCode3b="wel" langCode2="cy" langName="Welsh" langFamily="Celtic"/>
+    <StandardLanguage standardLanguageId="6390" langCode3t="dak" langCode3b="dak" langName="Dakota"/>
+    <StandardLanguage standardLanguageId="6391" langCode3t="dan" langCode3b="dan" langCode2="da" langName="Danish" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6392" langCode3t="day" langCode3b="day" langName="Dayak"/>
+    <StandardLanguage standardLanguageId="6393" langCode3t="del" langCode3b="del" langName="Delaware"/>
+    <StandardLanguage standardLanguageId="6394" langCode3t="den" langCode3b="den" langName="Slave (Athapascan)"/>
+    <StandardLanguage standardLanguageId="6395" langCode3t="deu" langCode3b="ger" langCode2="de" langName="German" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6396" langCode3t="dgr" langCode3b="dgr" langName="Dogrib"/>
+    <StandardLanguage standardLanguageId="6397" langCode3t="din" langCode3b="din" langName="Dinka"/>
+    <StandardLanguage standardLanguageId="6398" langCode3t="div" langCode3b="div" langName="Divehi"/>
+    <StandardLanguage standardLanguageId="6399" langCode3t="doi" langCode3b="doi" langName="Dogri"/>
+    <StandardLanguage standardLanguageId="6400" langCode3t="dra" langCode3b="dra" langName="Dravidian (Other)"/>
+    <StandardLanguage standardLanguageId="6401" langCode3t="dua" langCode3b="dua" langName="Duala"/>
+    <StandardLanguage standardLanguageId="6402" langCode3t="dum" langCode3b="dum" langName="Dutch, Middle (ca. 1050-1350)"/>
+    <StandardLanguage standardLanguageId="6403" langCode3t="dyu" langCode3b="dyu" langName="Dyula"/>
+    <StandardLanguage standardLanguageId="6404" langCode3t="dzo" langCode3b="dzo" langCode2="dz" langName="Dzongkha" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6405" langCode3t="efi" langCode3b="efi" langName="Efik"/>
+    <StandardLanguage standardLanguageId="6406" langCode3t="egy" langCode3b="egy" langName="Egyptian (Ancient)"/>
+    <StandardLanguage standardLanguageId="6407" langCode3t="eka" langCode3b="eka" langName="Ekajuk"/>
+    <StandardLanguage standardLanguageId="6408" langCode3t="ell" langCode3b="gre" langCode2="el" langName="Greek, Modern (1453-)" langFamily="Latin/greek"/>
+    <StandardLanguage standardLanguageId="6409" langCode3t="elx" langCode3b="elx" langName="Elamite"/>
+    <StandardLanguage standardLanguageId="6410" langCode3t="eng" langCode3b="eng" langCode2="en" langName="English" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6411" langCode3t="enm" langCode3b="enm" langName="English, Middle (1100-1500)"/>
+    <StandardLanguage standardLanguageId="6412" langCode3t="epo" langCode3b="epo" langCode2="eo" langName="Esperanto" langFamily="International aux."/>
+    <StandardLanguage standardLanguageId="6413" langCode3t="est" langCode3b="est" langCode2="et" langName="Estonian" langFamily="Finno-ugric"/>
+    <StandardLanguage standardLanguageId="6414" langCode3t="eus" langCode3b="baq" langCode2="eu" langName="Basque" langFamily="Basque"/>
+    <StandardLanguage standardLanguageId="6415" langCode3t="ewe" langCode3b="ewe" langName="Ewe"/>
+    <StandardLanguage standardLanguageId="6416" langCode3t="ewo" langCode3b="ewo" langName="Ewondo"/>
+    <StandardLanguage standardLanguageId="6417" langCode3t="fan" langCode3b="fan" langName="Fang"/>
+    <StandardLanguage standardLanguageId="6418" langCode3t="fao" langCode3b="fao" langCode2="fo" langName="Faroese" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6419" langCode3t="fas" langCode3b="per" langCode2="fa" langName="Persian"/>
+    <StandardLanguage standardLanguageId="6420" langCode3t="fat" langCode3b="fat" langName="Fanti"/>
+    <StandardLanguage standardLanguageId="6421" langCode3t="fij" langCode3b="fij" langCode2="fj" langName="Fijian" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6422" langCode3t="fin" langCode3b="fin" langCode2="fi" langName="Finnish" langFamily="Finno-ugric"/>
+    <StandardLanguage standardLanguageId="6423" langCode3t="fiu" langCode3b="fiu" langName="Finno-Ugrian (Other)"/>
+    <StandardLanguage standardLanguageId="6424" langCode3t="fon" langCode3b="fon" langName="Fon"/>
+    <StandardLanguage standardLanguageId="6425" langCode3t="fra" langCode3b="fre" langCode2="fr" langName="French" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6426" langCode3t="frm" langCode3b="frm" langName="French, Middle (ca. 1400-1600)"/>
+    <StandardLanguage standardLanguageId="6427" langCode3t="fro" langCode3b="fro" langName="French, Old (842-ca. 1400)"/>
+    <StandardLanguage standardLanguageId="6428" langCode3t="fry" langCode3b="fry" langCode2="fy" langName="Frisian" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6429" langCode3t="ful" langCode3b="ful" langName="Fulah"/>
+    <StandardLanguage standardLanguageId="6430" langCode3t="fur" langCode3b="fur" langName="Friulian"/>
+    <StandardLanguage standardLanguageId="6431" langCode3t="gaa" langCode3b="gaa" langName="Ga"/>
+    <StandardLanguage standardLanguageId="6432" langCode3t="gay" langCode3b="gay" langName="Gayo"/>
+    <StandardLanguage standardLanguageId="6433" langCode3t="gba" langCode3b="gba" langName="Gbaya"/>
+    <StandardLanguage standardLanguageId="6434" langCode3t="gem" langCode3b="gem" langName="Germanic (Other)"/>
+    <StandardLanguage standardLanguageId="6435" langCode3t="gez" langCode3b="gez" langName="Geez"/>
+    <StandardLanguage standardLanguageId="6436" langCode3t="gil" langCode3b="gil" langName="Gilbertese"/>
+    <StandardLanguage standardLanguageId="6437" langCode3t="gla" langCode3b="gla" langCode2="gd" langName="Gaelic (Scots)" langFamily="Celtic"/>
+    <StandardLanguage standardLanguageId="6438" langCode3t="gle" langCode3b="gle" langCode2="ga" langName="Irish" langFamily="Celtic"/>
+    <StandardLanguage standardLanguageId="6439" langCode3t="glg" langCode3b="glg" langCode2="gl" langName="Gallegan" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6440" langCode3t="glv" langCode3b="glv" langCode2="gv" langName="Manx"/>
+    <StandardLanguage standardLanguageId="6441" langCode3t="gmh" langCode3b="gmh" langName="German, Middle High (ca. 1050-1500)"/>
+    <StandardLanguage standardLanguageId="6442" langCode3t="goh" langCode3b="goh" langName="German, Old High (ca. 750-1050)"/>
+    <StandardLanguage standardLanguageId="6443" langCode3t="gon" langCode3b="gon" langName="Gondi"/>
+    <StandardLanguage standardLanguageId="6444" langCode3t="gor" langCode3b="gor" langName="Gorontalo"/>
+    <StandardLanguage standardLanguageId="6445" langCode3t="got" langCode3b="got" langName="Gothic"/>
+    <StandardLanguage standardLanguageId="6446" langCode3t="grb" langCode3b="grb" langName="Grebo"/>
+    <StandardLanguage standardLanguageId="6447" langCode3t="grc" langCode3b="grc" langName="Greek, Ancient (to 1453)"/>
+    <StandardLanguage standardLanguageId="6448" langCode3t="grn" langCode3b="grn" langCode2="gn" langName="Guarani" langFamily="Amerindian"/>
+    <StandardLanguage standardLanguageId="6449" langCode3t="guj" langCode3b="guj" langCode2="gu" langName="Gujarati" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6450" langCode3t="gwi" langCode3b="gwi" langName="Gwich´in"/>
+    <StandardLanguage standardLanguageId="6451" langCode3t="hai" langCode3b="hai" langName="Haida"/>
+    <StandardLanguage standardLanguageId="6452" langCode3t="hau" langCode3b="hau" langCode2="ha" langName="Hausa" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6453" langCode3t="haw" langCode3b="haw" langName="Hawaiian"/>
+    <StandardLanguage standardLanguageId="6454" langCode3t="heb" langCode3b="heb" langCode2="he" langName="Hebrew"/>
+    <StandardLanguage standardLanguageId="6455" langCode3t="her" langCode3b="her" langCode2="hz" langName="Herero"/>
+    <StandardLanguage standardLanguageId="6456" langCode3t="hil" langCode3b="hil" langName="Hiligaynon"/>
+    <StandardLanguage standardLanguageId="6457" langCode3t="him" langCode3b="him" langName="Himachali"/>
+    <StandardLanguage standardLanguageId="6458" langCode3t="hin" langCode3b="hin" langCode2="hi" langName="Hindi" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6459" langCode3t="hit" langCode3b="hit" langName="Hittite"/>
+    <StandardLanguage standardLanguageId="6460" langCode3t="hmn" langCode3b="hmn" langName="Hmong"/>
+    <StandardLanguage standardLanguageId="6461" langCode3t="hmo" langCode3b="hmo" langCode2="ho" langName="Hiri Motu"/>
+    <StandardLanguage standardLanguageId="6462" langCode3t="hrv" langCode3b="scr" langCode2="hr" langName="Croatian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6463" langCode3t="hun" langCode3b="hun" langCode2="hu" langName="Hungarian" langFamily="Finno-ugric"/>
+    <StandardLanguage standardLanguageId="6464" langCode3t="hup" langCode3b="hup" langName="Hupa"/>
+    <StandardLanguage standardLanguageId="6465" langCode3t="hye" langCode3b="arm" langCode2="hy" langName="Armenian" langFamily="Indo-european (other)"/>
+    <StandardLanguage standardLanguageId="6466" langCode3t="iba" langCode3b="iba" langName="Iban"/>
+    <StandardLanguage standardLanguageId="6467" langCode3t="ibo" langCode3b="ibo" langName="Igbo"/>
+    <StandardLanguage standardLanguageId="6468" langCode3t="ijo" langCode3b="ijo" langName="Ijo"/>
+    <StandardLanguage standardLanguageId="6469" langCode3t="iku" langCode3b="iku" langCode2="iu" langName="Inuktitut"/>
+    <StandardLanguage standardLanguageId="6470" langCode3t="ile" langCode3b="ile" langCode2="ie" langName="Interlingue" langFamily="International aux."/>
+    <StandardLanguage standardLanguageId="6471" langCode3t="ilo" langCode3b="ilo" langName="Iloko"/>
+    <StandardLanguage standardLanguageId="6472" langCode3t="ina" langCode3b="ina" langCode2="ia" langName="Interlingua" langFamily="International aux."/>
+    <StandardLanguage standardLanguageId="6473" langCode3t="inc" langCode3b="inc" langName="Indic (Other)"/>
+    <StandardLanguage standardLanguageId="6474" langCode3t="ind" langCode3b="ind" langCode2="id" langName="Indonesian"/>
+    <StandardLanguage standardLanguageId="6475" langCode3t="ine" langCode3b="ine" langName="Indo-European (Other)"/>
+    <StandardLanguage standardLanguageId="6476" langCode3t="ipk" langCode3b="ipk" langCode2="ik" langName="Inupiaq" langFamily="Eskimo"/>
+    <StandardLanguage standardLanguageId="6477" langCode3t="ira" langCode3b="ira" langName="Iranian (Other)"/>
+    <StandardLanguage standardLanguageId="6478" langCode3t="iro" langCode3b="iro" langName="Iroquoian languages"/>
+    <StandardLanguage standardLanguageId="6479" langCode3t="isl" langCode3b="ice" langCode2="is" langName="Icelandic" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6480" langCode3t="ita" langCode3b="ita" langCode2="it" langName="Italian" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6481" langCode3t="jaw" langCode3b="jav" langCode2="jw" langName="Javanese"/>
+    <StandardLanguage standardLanguageId="6482" langCode3t="jpn" langCode3b="jpn" langCode2="ja" langName="Japanese" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6483" langCode3t="jpr" langCode3b="jpr" langName="Judeo-Persian"/>
+    <StandardLanguage standardLanguageId="6484" langCode3t="kaa" langCode3b="kaa" langName="Kara-Kalpak"/>
+    <StandardLanguage standardLanguageId="6485" langCode3t="kab" langCode3b="kab" langName="Kabyle"/>
+    <StandardLanguage standardLanguageId="6486" langCode3t="kac" langCode3b="kac" langName="Kachin"/>
+    <StandardLanguage standardLanguageId="6487" langCode3t="kal" langCode3b="kal" langCode2="kl" langName="Kalaallisut" langFamily="Eskimo"/>
+    <StandardLanguage standardLanguageId="6488" langCode3t="kam" langCode3b="kam" langName="Kamba"/>
+    <StandardLanguage standardLanguageId="6489" langCode3t="kan" langCode3b="kan" langCode2="kn" langName="Kannada" langFamily="Dravidian"/>
+    <StandardLanguage standardLanguageId="6490" langCode3t="kar" langCode3b="kar" langName="Karen"/>
+    <StandardLanguage standardLanguageId="6491" langCode3t="kas" langCode3b="kas" langCode2="ks" langName="Kashmiri" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6492" langCode3t="kat" langCode3b="geo" langCode2="ka" langName="Georgian" langFamily="Ibero-caucasian"/>
+    <StandardLanguage standardLanguageId="6493" langCode3t="kau" langCode3b="kau" langName="Kanuri"/>
+    <StandardLanguage standardLanguageId="6494" langCode3t="kaw" langCode3b="kaw" langName="Kawi"/>
+    <StandardLanguage standardLanguageId="6495" langCode3t="kaz" langCode3b="kaz" langCode2="kk" langName="Kazakh" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6496" langCode3t="kha" langCode3b="kha" langName="Khasi"/>
+    <StandardLanguage standardLanguageId="6497" langCode3t="khi" langCode3b="khi" langName="Khoisan (Other)"/>
+    <StandardLanguage standardLanguageId="6498" langCode3t="khm" langCode3b="khm" langCode2="km" langName="Khmer" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6499" langCode3t="kho" langCode3b="kho" langName="Khotanese"/>
+    <StandardLanguage standardLanguageId="6500" langCode3t="kik" langCode3b="kik" langCode2="ki" langName="Kikuyu"/>
+    <StandardLanguage standardLanguageId="6501" langCode3t="kin" langCode3b="kin" langCode2="rw" langName="Kinyarwanda" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6502" langCode3t="kir" langCode3b="kir" langCode2="ky" langName="Kirghiz" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6503" langCode3t="kmb" langCode3b="kmb" langName="Kimbundu"/>
+    <StandardLanguage standardLanguageId="6504" langCode3t="kok" langCode3b="kok" langName="Konkani"/>
+    <StandardLanguage standardLanguageId="6505" langCode3t="kom" langCode3b="kom" langCode2="kv" langName="Komi"/>
+    <StandardLanguage standardLanguageId="6506" langCode3t="kon" langCode3b="kon" langName="Kongo"/>
+    <StandardLanguage standardLanguageId="6507" langCode3t="kor" langCode3b="kor" langCode2="ko" langName="Korean" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6508" langCode3t="kos" langCode3b="kos" langName="Kosraean"/>
+    <StandardLanguage standardLanguageId="6509" langCode3t="kpe" langCode3b="kpe" langName="Kpelle"/>
+    <StandardLanguage standardLanguageId="6510" langCode3t="kro" langCode3b="kro" langName="Kru"/>
+    <StandardLanguage standardLanguageId="6511" langCode3t="kru" langCode3b="kru" langName="Kurukh"/>
+    <StandardLanguage standardLanguageId="6512" langCode3t="kum" langCode3b="kum" langName="Kumyk"/>
+    <StandardLanguage standardLanguageId="6513" langCode3t="kur" langCode3b="kur" langCode2="ku" langName="Kurdish" langFamily="Iranian"/>
+    <StandardLanguage standardLanguageId="6514" langCode3t="kut" langCode3b="kut" langName="Kutenai"/>
+    <StandardLanguage standardLanguageId="6515" langCode3t="lad" langCode3b="lad" langName="Ladino"/>
+    <StandardLanguage standardLanguageId="6516" langCode3t="lah" langCode3b="lah" langName="Lahnda"/>
+    <StandardLanguage standardLanguageId="6517" langCode3t="lam" langCode3b="lam" langName="Lamba"/>
+    <StandardLanguage standardLanguageId="6518" langCode3t="lao" langCode3b="lao" langCode2="lo" langName="Lao" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6519" langCode3t="lat" langCode3b="lat" langCode2="la" langName="Latin" langFamily="Latin/greek"/>
+    <StandardLanguage standardLanguageId="6520" langCode3t="lav" langCode3b="lav" langCode2="lv" langName="Latvian" langFamily="Baltic"/>
+    <StandardLanguage standardLanguageId="6521" langCode3t="lez" langCode3b="lez" langName="Lezghian"/>
+    <StandardLanguage standardLanguageId="6522" langCode3t="lin" langCode3b="lin" langCode2="ln" langName="Lingala" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6523" langCode3t="lit" langCode3b="lit" langCode2="lt" langName="Lithuanian" langFamily="Baltic"/>
+    <StandardLanguage standardLanguageId="6524" langCode3t="lol" langCode3b="lol" langName="Mongo"/>
+    <StandardLanguage standardLanguageId="6525" langCode3t="loz" langCode3b="loz" langName="Lozi"/>
+    <StandardLanguage standardLanguageId="6526" langCode3t="ltz" langCode3b="ltz" langCode2="lb" langName="Letzeburgesch"/>
+    <StandardLanguage standardLanguageId="6527" langCode3t="lua" langCode3b="lua" langName="Luba-Lulua"/>
+    <StandardLanguage standardLanguageId="6528" langCode3t="lub" langCode3b="lub" langName="Luba-Katanga"/>
+    <StandardLanguage standardLanguageId="6529" langCode3t="lug" langCode3b="lug" langName="Ganda"/>
+    <StandardLanguage standardLanguageId="6530" langCode3t="lui" langCode3b="lui" langName="Luiseno"/>
+    <StandardLanguage standardLanguageId="6531" langCode3t="lun" langCode3b="lun" langName="Lunda"/>
+    <StandardLanguage standardLanguageId="6532" langCode3t="luo" langCode3b="luo" langName="Luo (Kenya and Tanzania)"/>
+    <StandardLanguage standardLanguageId="6533" langCode3t="lus" langCode3b="lus" langName="lushai"/>
+    <StandardLanguage standardLanguageId="6534" langCode3t="mad" langCode3b="mad" langName="Madurese"/>
+    <StandardLanguage standardLanguageId="6535" langCode3t="mag" langCode3b="mag" langName="Magahi"/>
+    <StandardLanguage standardLanguageId="6536" langCode3t="mah" langCode3b="mah" langCode2="mh" langName="Marshall"/>
+    <StandardLanguage standardLanguageId="6537" langCode3t="mai" langCode3b="mai" langName="Maithili"/>
+    <StandardLanguage standardLanguageId="6538" langCode3t="mak" langCode3b="mak" langName="Makasar"/>
+    <StandardLanguage standardLanguageId="6539" langCode3t="mal" langCode3b="mal" langCode2="ml" langName="Malayalam" langFamily="Dravidian"/>
+    <StandardLanguage standardLanguageId="6540" langCode3t="man" langCode3b="man" langName="Mandingo"/>
+    <StandardLanguage standardLanguageId="6541" langCode3t="map" langCode3b="map" langName="Austronesian (Other)"/>
+    <StandardLanguage standardLanguageId="6542" langCode3t="mar" langCode3b="mar" langCode2="mr" langName="Marathi" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6543" langCode3t="mas" langCode3b="mas" langName="Masai"/>
+    <StandardLanguage standardLanguageId="6544" langCode3t="mdr" langCode3b="mdr" langName="Mandar"/>
+    <StandardLanguage standardLanguageId="6545" langCode3t="men" langCode3b="men" langName="Mende"/>
+    <StandardLanguage standardLanguageId="6546" langCode3t="mga" langCode3b="mga" langName="Irish, Middle (900-1200)"/>
+    <StandardLanguage standardLanguageId="6547" langCode3t="mic" langCode3b="mic" langName="Micmac"/>
+    <StandardLanguage standardLanguageId="6548" langCode3t="min" langCode3b="min" langName="Minangkabau"/>
+    <StandardLanguage standardLanguageId="6549" langCode3t="mis" langCode3b="mis" langName="Miscellaneous languages"/>
+    <StandardLanguage standardLanguageId="6550" langCode3t="mkd" langCode3b="mac" langCode2="mk" langName="Macedonian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6551" langCode3t="mkh" langCode3b="mkh" langName="Mon-Khmer (Other)"/>
+    <StandardLanguage standardLanguageId="6552" langCode3t="mlg" langCode3b="mlg" langCode2="mg" langName="Malagasy" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6553" langCode3t="mlt" langCode3b="mlt" langCode2="mt" langName="Maltese" langFamily="Semitic"/>
+    <StandardLanguage standardLanguageId="6554" langCode3t="mnc" langCode3b="mnc" langName="Manchu"/>
+    <StandardLanguage standardLanguageId="6555" langCode3t="mni" langCode3b="mni" langName="Manipuri"/>
+    <StandardLanguage standardLanguageId="6556" langCode3t="mno" langCode3b="mno" langName="Manobo languages"/>
+    <StandardLanguage standardLanguageId="6557" langCode3t="moh" langCode3b="moh" langName="Mohawk"/>
+    <StandardLanguage standardLanguageId="6558" langCode3t="mol" langCode3b="mol" langCode2="mo" langName="Moldavian" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6559" langCode3t="mon" langCode3b="mon" langCode2="mn" langName="Mongolian"/>
+    <StandardLanguage standardLanguageId="6560" langCode3t="mos" langCode3b="mos" langName="Mossi"/>
+    <StandardLanguage standardLanguageId="6561" langCode3t="mri" langCode3b="mao" langCode2="mi" langName="Maori" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6562" langCode3t="msa" langCode3b="may" langCode2="ms" langName="Malay" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6563" langCode3t="mul" langCode3b="mul" langName="Multiple languages"/>
+    <StandardLanguage standardLanguageId="6564" langCode3t="mun" langCode3b="mun" langName="Munda languages"/>
+    <StandardLanguage standardLanguageId="6565" langCode3t="mus" langCode3b="mus" langName="Creek"/>
+    <StandardLanguage standardLanguageId="6566" langCode3t="mwr" langCode3b="mwr" langName="Marwari"/>
+    <StandardLanguage standardLanguageId="6567" langCode3t="mya" langCode3b="bur" langCode2="my" langName="Burmese" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6568" langCode3t="myn" langCode3b="myn" langName="Mayan languages"/>
+    <StandardLanguage standardLanguageId="6569" langCode3t="nah" langCode3b="nah" langName="Nahuatl"/>
+    <StandardLanguage standardLanguageId="6570" langCode3t="nai" langCode3b="nai" langName="North American Indian"/>
+    <StandardLanguage standardLanguageId="6571" langCode3t="nau" langCode3b="nau" langCode2="na" langName="Nauru"/>
+    <StandardLanguage standardLanguageId="6572" langCode3t="nav" langCode3b="nav" langCode2="nv" langName="Navajo"/>
+    <StandardLanguage standardLanguageId="6573" langCode3t="nbl" langCode3b="nbl" langCode2="nr" langName="Ndebele, South"/>
+    <StandardLanguage standardLanguageId="6574" langCode3t="nde" langCode3b="nde" langCode2="nd" langName="Ndebele, North"/>
+    <StandardLanguage standardLanguageId="6575" langCode3t="ndo" langCode3b="ndo" langCode2="ng" langName="Ndonga"/>
+    <StandardLanguage standardLanguageId="6576" langCode3t="nds" langCode3b="nds" langName="Low German; Low Saxon; German, Low; Saxon, Low"/>
+    <StandardLanguage standardLanguageId="6577" langCode3t="nep" langCode3b="nep" langCode2="ne" langName="Nepali" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6578" langCode3t="new" langCode3b="new" langName="Newari"/>
+    <StandardLanguage standardLanguageId="6579" langCode3t="nia" langCode3b="nia" langName="Nias"/>
+    <StandardLanguage standardLanguageId="6580" langCode3t="nic" langCode3b="nic" langName="Niger-Kordofanian (Other)"/>
+    <StandardLanguage standardLanguageId="6581" langCode3t="niu" langCode3b="niu" langName="Niuean"/>
+    <StandardLanguage standardLanguageId="6582" langCode3t="nld" langCode3b="dut" langCode2="nl" langName="Dutch" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6583" langCode3t="nno" langCode3b="nno" langCode2="nn" langName="Norwegian Nynorsk"/>
+    <StandardLanguage standardLanguageId="6584" langCode3t="nob" langCode3b="nob" langCode2="nb" langName="Norwegian Bokmål"/>
+    <StandardLanguage standardLanguageId="6585" langCode3t="non" langCode3b="non" langName="Norse, Old"/>
+    <StandardLanguage standardLanguageId="6586" langCode3t="nor" langCode3b="nor" langCode2="no" langName="Norwegian" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6587" langCode3t="nso" langCode3b="nso" langName="Sotho, Northern"/>
+    <StandardLanguage standardLanguageId="6588" langCode3t="nub" langCode3b="nub" langName="Nubian languages"/>
+    <StandardLanguage standardLanguageId="6589" langCode3t="nya" langCode3b="nya" langCode2="ny" langName="Chichewa; Nyanja"/>
+    <StandardLanguage standardLanguageId="6590" langCode3t="nym" langCode3b="nym" langName="Nyamwezi"/>
+    <StandardLanguage standardLanguageId="6591" langCode3t="nyn" langCode3b="nyn" langName="Nyankole"/>
+    <StandardLanguage standardLanguageId="6592" langCode3t="nyo" langCode3b="nyo" langName="Nyoro"/>
+    <StandardLanguage standardLanguageId="6593" langCode3t="nzi" langCode3b="nzi" langName="Nzima"/>
+    <StandardLanguage standardLanguageId="6594" langCode3t="oci" langCode3b="oci" langCode2="oc" langName="Occitan (post 1500); Provençal" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6595" langCode3t="oji" langCode3b="oji" langName="Ojibwa"/>
+    <StandardLanguage standardLanguageId="6596" langCode3t="ori" langCode3b="ori" langCode2="or" langName="Oriya" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6597" langCode3t="orm" langCode3b="orm" langCode2="om" langName="Oromo" langFamily="Hamitic"/>
+    <StandardLanguage standardLanguageId="6598" langCode3t="osa" langCode3b="osa" langName="Osage"/>
+    <StandardLanguage standardLanguageId="6599" langCode3t="oss" langCode3b="oss" langCode2="os" langName="Ossetian; Ossetic"/>
+    <StandardLanguage standardLanguageId="6600" langCode3t="ota" langCode3b="ota" langName="Turkish, Ottoman (1500-1928)"/>
+    <StandardLanguage standardLanguageId="6601" langCode3t="oto" langCode3b="oto" langName="Otomian languages"/>
+    <StandardLanguage standardLanguageId="6602" langCode3t="paa" langCode3b="paa" langName="Papuan (Other)"/>
+    <StandardLanguage standardLanguageId="6603" langCode3t="pag" langCode3b="pag" langName="Pangasinan"/>
+    <StandardLanguage standardLanguageId="6604" langCode3t="pal" langCode3b="pal" langName="Pahlavi"/>
+    <StandardLanguage standardLanguageId="6605" langCode3t="pam" langCode3b="pam" langName="Pampanga"/>
+    <StandardLanguage standardLanguageId="6606" langCode3t="pan" langCode3b="pan" langCode2="pa" langName="Panjabi" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6607" langCode3t="pap" langCode3b="pap" langName="Papiamento"/>
+    <StandardLanguage standardLanguageId="6608" langCode3t="pau" langCode3b="pau" langName="Palauan"/>
+    <StandardLanguage standardLanguageId="6609" langCode3t="peo" langCode3b="peo" langName="Persian, Old (ca. 600-400 b.c.)"/>
+    <StandardLanguage standardLanguageId="6610" langCode3t="phi" langCode3b="phi" langName="Philippine (Other)"/>
+    <StandardLanguage standardLanguageId="6611" langCode3t="pli" langCode3b="pli" langCode2="pi" langName="Pali"/>
+    <StandardLanguage standardLanguageId="6612" langCode3t="pol" langCode3b="pol" langCode2="pl" langName="Polish" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6613" langCode3t="pon" langCode3b="pon" langName="Pohnpeian"/>
+    <StandardLanguage standardLanguageId="6614" langCode3t="por" langCode3b="por" langCode2="pt" langName="Portuguese" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6615" langCode3t="pra" langCode3b="pra" langName="Prakrit languages"/>
+    <StandardLanguage standardLanguageId="6616" langCode3t="pro" langCode3b="pro" langName="Provençal, Old (to 1500)"/>
+    <StandardLanguage standardLanguageId="6617" langCode3t="pus" langCode3b="pus" langCode2="ps" langName="Pushto" langFamily="Iranian"/>
+    <StandardLanguage standardLanguageId="6618" langCode3t="que" langCode3b="que" langCode2="qu" langName="Quechua" langFamily="Amerindian"/>
+    <StandardLanguage standardLanguageId="6619" langCode3t="raj" langCode3b="raj" langName="Rajasthani"/>
+    <StandardLanguage standardLanguageId="6620" langCode3t="rap" langCode3b="rap" langName="Rapanui"/>
+    <StandardLanguage standardLanguageId="6621" langCode3t="rar" langCode3b="rar" langName="Rarotongan"/>
+    <StandardLanguage standardLanguageId="6622" langCode3t="roa" langCode3b="roa" langName="Romance (Other)"/>
+    <StandardLanguage standardLanguageId="6623" langCode3t="rom" langCode3b="rom" langName="Romany"/>
+    <StandardLanguage standardLanguageId="6624" langCode3t="ron" langCode3b="rum" langCode2="ro" langName="Romanian" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6625" langCode3t="run" langCode3b="run" langCode2="rn" langName="Rundi" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6626" langCode3t="rus" langCode3b="rus" langCode2="ru" langName="Russian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6627" langCode3t="sad" langCode3b="sad" langName="Sandawe"/>
+    <StandardLanguage standardLanguageId="6628" langCode3t="sag" langCode3b="sag" langCode2="sg" langName="Sango" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6629" langCode3t="sah" langCode3b="sah" langName="Yakut"/>
+    <StandardLanguage standardLanguageId="6630" langCode3t="sai" langCode3b="sai" langName="South American Indian (Other)"/>
+    <StandardLanguage standardLanguageId="6631" langCode3t="sal" langCode3b="sal" langName="Salishan languages"/>
+    <StandardLanguage standardLanguageId="6632" langCode3t="sam" langCode3b="sam" langName="Samaritan Aramaic"/>
+    <StandardLanguage standardLanguageId="6633" langCode3t="san" langCode3b="san" langCode2="sa" langName="Sanskrit" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6634" langCode3t="sas" langCode3b="sas" langName="Sasak"/>
+    <StandardLanguage standardLanguageId="6635" langCode3t="sat" langCode3b="sat" langName="Santali"/>
+    <StandardLanguage standardLanguageId="6636" langCode3t="sco" langCode3b="sco" langName="Scots"/>
+    <StandardLanguage standardLanguageId="6637" langCode3t="sel" langCode3b="sel" langName="Selkup"/>
+    <StandardLanguage standardLanguageId="6638" langCode3t="sem" langCode3b="sem" langName="Semitic (Other)"/>
+    <StandardLanguage standardLanguageId="6639" langCode3t="sga" langCode3b="sga" langName="Irish, Old (to 900)"/>
+    <StandardLanguage standardLanguageId="6640" langCode3t="sgn" langCode3b="sgn" langName="Sign Languages"/>
+    <StandardLanguage standardLanguageId="6641" langCode3t="shn" langCode3b="shn" langName="Shan"/>
+    <StandardLanguage standardLanguageId="6642" langCode3t="sid" langCode3b="sid" langName="Sidamo"/>
+    <StandardLanguage standardLanguageId="6643" langCode3t="sin" langCode3b="sin" langCode2="si" langName="Sinhalese" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6644" langCode3t="sio" langCode3b="sio" langName="Siouan languages"/>
+    <StandardLanguage standardLanguageId="6645" langCode3t="sit" langCode3b="sit" langName="Sino-Tibetan (Other)"/>
+    <StandardLanguage standardLanguageId="6646" langCode3t="sla" langCode3b="sla" langName="Slavic (Other)"/>
+    <StandardLanguage standardLanguageId="6647" langCode3t="slk" langCode3b="slo" langCode2="sk" langName="Slovak" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6648" langCode3t="slv" langCode3b="slv" langCode2="sl" langName="Slovenian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6649" langCode3t="sme" langCode3b="sme" langCode2="se" langName="Northern Sami"/>
+    <StandardLanguage standardLanguageId="6650" langCode3t="smi" langCode3b="smi" langName="Sami languages (Other)"/>
+    <StandardLanguage standardLanguageId="6651" langCode3t="smo" langCode3b="smo" langCode2="sm" langName="Samoan" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6652" langCode3t="sna" langCode3b="sna" langCode2="sn" langName="Shona" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6653" langCode3t="snd" langCode3b="snd" langCode2="sd" langName="Sindhi" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6654" langCode3t="snk" langCode3b="snk" langName="Soninke"/>
+    <StandardLanguage standardLanguageId="6655" langCode3t="sog" langCode3b="sog" langName="Sogdian"/>
+    <StandardLanguage standardLanguageId="6656" langCode3t="som" langCode3b="som" langCode2="so" langName="Somali" langFamily="Hamitic"/>
+    <StandardLanguage standardLanguageId="6657" langCode3t="son" langCode3b="son" langName="Songhai"/>
+    <StandardLanguage standardLanguageId="6658" langCode3t="sot" langCode3b="sot" langCode2="st" langName="Sotho, Southern" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6659" langCode3t="spa" langCode3b="spa" langCode2="es" langName="Spanish" langFamily="Romance"/>
+    <StandardLanguage standardLanguageId="6660" langCode3t="sqi" langCode3b="alb" langCode2="sq" langName="Albanian" langFamily="Indo-european (other)"/>
+    <StandardLanguage standardLanguageId="6661" langCode3t="srd" langCode3b="srd" langCode2="sc" langName="Sardinian"/>
+    <StandardLanguage standardLanguageId="6662" langCode3t="srp" langCode3b="scc" langCode2="sr" langName="Serbian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6663" langCode3t="srr" langCode3b="srr" langName="Serer"/>
+    <StandardLanguage standardLanguageId="6664" langCode3t="ssa" langCode3b="ssa" langName="Nilo-Saharan (Other)"/>
+    <StandardLanguage standardLanguageId="6665" langCode3t="ssw" langCode3b="ssw" langCode2="ss" langName="Swati" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6666" langCode3t="suk" langCode3b="suk" langName="Sukuma"/>
+    <StandardLanguage standardLanguageId="6667" langCode3t="sun" langCode3b="sun" langCode2="su" langName="Sundanese" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6668" langCode3t="sus" langCode3b="sus" langName="Susu"/>
+    <StandardLanguage standardLanguageId="6669" langCode3t="sux" langCode3b="sux" langName="Sumerian"/>
+    <StandardLanguage standardLanguageId="6670" langCode3t="swa" langCode3b="swa" langCode2="sw" langName="Swahili" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6671" langCode3t="swe" langCode3b="swe" langCode2="sv" langName="Swedish" langFamily="Germanic"/>
+    <StandardLanguage standardLanguageId="6672" langCode3t="syr" langCode3b="syr" langName="Syriac"/>
+    <StandardLanguage standardLanguageId="6673" langCode3t="tah" langCode3b="tah" langCode2="ty" langName="Tahitian"/>
+    <StandardLanguage standardLanguageId="6674" langCode3t="tai" langCode3b="tai" langName="Tai (Other)"/>
+    <StandardLanguage standardLanguageId="6675" langCode3t="tam" langCode3b="tam" langCode2="ta" langName="Tamil" langFamily="Dravidian"/>
+    <StandardLanguage standardLanguageId="6676" langCode3t="tat" langCode3b="tat" langCode2="tt" langName="Tatar" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6677" langCode3t="tel" langCode3b="tel" langCode2="te" langName="Telugu" langFamily="Dravidian"/>
+    <StandardLanguage standardLanguageId="6678" langCode3t="tem" langCode3b="tem" langName="Timne"/>
+    <StandardLanguage standardLanguageId="6679" langCode3t="ter" langCode3b="ter" langName="Tereno"/>
+    <StandardLanguage standardLanguageId="6680" langCode3t="tet" langCode3b="tet" langName="Tetum"/>
+    <StandardLanguage standardLanguageId="6681" langCode3t="tgk" langCode3b="tgk" langCode2="tg" langName="Tajik" langFamily="Iranian"/>
+    <StandardLanguage standardLanguageId="6682" langCode3t="tgl" langCode3b="tgl" langCode2="tl" langName="Tagalog" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6683" langCode3t="tha" langCode3b="tha" langCode2="th" langName="Thai" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6684" langCode3t="tig" langCode3b="tig" langName="Tigre"/>
+    <StandardLanguage standardLanguageId="6685" langCode3t="tir" langCode3b="tir" langCode2="ti" langName="Tigrinya" langFamily="Semitic"/>
+    <StandardLanguage standardLanguageId="6686" langCode3t="tiv" langCode3b="tiv" langName="Tiv"/>
+    <StandardLanguage standardLanguageId="6687" langCode3t="tkl" langCode3b="tkl" langName="Tokelau"/>
+    <StandardLanguage standardLanguageId="6688" langCode3t="tli" langCode3b="tli" langName="Tlingit"/>
+    <StandardLanguage standardLanguageId="6689" langCode3t="tmh" langCode3b="tmh" langName="Tamashek"/>
+    <StandardLanguage standardLanguageId="6690" langCode3t="tog" langCode3b="tog" langName="Tonga (Nyasa)"/>
+    <StandardLanguage standardLanguageId="6691" langCode3t="ton" langCode3b="ton" langCode2="to" langName="Tonga (Tonga Islands)" langFamily="Oceanic/indonesian"/>
+    <StandardLanguage standardLanguageId="6692" langCode3t="tpi" langCode3b="tpi" langName="Tok Pisin"/>
+    <StandardLanguage standardLanguageId="6693" langCode3t="tsi" langCode3b="tsi" langName="Tsimshian"/>
+    <StandardLanguage standardLanguageId="6694" langCode3t="tsn" langCode3b="tsn" langCode2="tn" langName="Tswana" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6695" langCode3t="tso" langCode3b="tso" langCode2="ts" langName="Tsonga" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6696" langCode3t="tuk" langCode3b="tuk" langCode2="tk" langName="Turkmen" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6697" langCode3t="tum" langCode3b="tum" langName="Tumbuka"/>
+    <StandardLanguage standardLanguageId="6698" langCode3t="tur" langCode3b="tur" langCode2="tr" langName="Turkish" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6699" langCode3t="tut" langCode3b="tut" langName="Altaic (Other)"/>
+    <StandardLanguage standardLanguageId="6700" langCode3t="tvl" langCode3b="tvl" langName="Tuvalu"/>
+    <StandardLanguage standardLanguageId="6701" langCode3t="twi" langCode3b="twi" langCode2="tw" langName="Twi" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6702" langCode3t="tyv" langCode3b="tyv" langName="Tuvinian"/>
+    <StandardLanguage standardLanguageId="6703" langCode3t="uga" langCode3b="uga" langName="Ugaritic"/>
+    <StandardLanguage standardLanguageId="6704" langCode3t="uig" langCode3b="uig" langCode2="ug" langName="Uighur"/>
+    <StandardLanguage standardLanguageId="6705" langCode3t="ukr" langCode3b="ukr" langCode2="uk" langName="Ukrainian" langFamily="Slavic"/>
+    <StandardLanguage standardLanguageId="6706" langCode3t="umb" langCode3b="umb" langName="Umbundu"/>
+    <StandardLanguage standardLanguageId="6707" langCode3t="und" langCode3b="und" langName="Undetermined"/>
+    <StandardLanguage standardLanguageId="6708" langCode3t="urd" langCode3b="urd" langCode2="ur" langName="Urdu" langFamily="Indian"/>
+    <StandardLanguage standardLanguageId="6709" langCode3t="uzb" langCode3b="uzb" langCode2="uz" langName="Uzbek" langFamily="Turkic/altaic"/>
+    <StandardLanguage standardLanguageId="6710" langCode3t="vai" langCode3b="vai" langName="Vai"/>
+    <StandardLanguage standardLanguageId="6711" langCode3t="ven" langCode3b="ven" langName="Venda"/>
+    <StandardLanguage standardLanguageId="6712" langCode3t="vie" langCode3b="vie" langCode2="vi" langName="Vietnamese" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6713" langCode3t="vol" langCode3b="vol" langCode2="vo" langName="Volapük" langFamily="International aux."/>
+    <StandardLanguage standardLanguageId="6714" langCode3t="vot" langCode3b="vot" langName="Votic"/>
+    <StandardLanguage standardLanguageId="6715" langCode3t="wak" langCode3b="wak" langName="Wakashan languages"/>
+    <StandardLanguage standardLanguageId="6716" langCode3t="wal" langCode3b="wal" langName="Walamo"/>
+    <StandardLanguage standardLanguageId="6717" langCode3t="war" langCode3b="war" langName="Waray"/>
+    <StandardLanguage standardLanguageId="6718" langCode3t="was" langCode3b="was" langName="Washo"/>
+    <StandardLanguage standardLanguageId="6719" langCode3t="wen" langCode3b="wen" langName="Sorbian languages"/>
+    <StandardLanguage standardLanguageId="6720" langCode3t="wol" langCode3b="wol" langCode2="wo" langName="Wolof" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6721" langCode3t="xho" langCode3b="xho" langCode2="xh" langName="Xhosa" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6722" langCode3t="yao" langCode3b="yao" langName="Yao"/>
+    <StandardLanguage standardLanguageId="6723" langCode3t="yap" langCode3b="yap" langName="Yapese"/>
+    <StandardLanguage standardLanguageId="6724" langCode3t="yid" langCode3b="yid" langCode2="yi" langName="Yiddish"/>
+    <StandardLanguage standardLanguageId="6725" langCode3t="yor" langCode3b="yor" langCode2="yo" langName="Yoruba" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6726" langCode3t="ypk" langCode3b="ypk" langName="Yupik languages"/>
+    <StandardLanguage standardLanguageId="6727" langCode3t="zap" langCode3b="zap" langName="Zapotec"/>
+    <StandardLanguage standardLanguageId="6728" langCode3t="zen" langCode3b="zen" langName="Zenaga"/>
+    <StandardLanguage standardLanguageId="6729" langCode3t="zha" langCode3b="zha" langCode2="za" langName="Zhuang"/>
+    <StandardLanguage standardLanguageId="6730" langCode3t="zho" langCode3b="chi" langCode2="zh" langName="Chinese" langFamily="Asian"/>
+    <StandardLanguage standardLanguageId="6731" langCode3t="znd" langCode3b="znd" langName="Zande"/>
+    <StandardLanguage standardLanguageId="6732" langCode3t="zul" langCode3b="zul" langCode2="zu" langName="Zulu" langFamily="Negro-african"/>
+    <StandardLanguage standardLanguageId="6733" langCode3t="zun" langCode3b="zun" langName="Zuni"/>
+</entity-engine-xml>

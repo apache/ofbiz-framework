@@ -1,0 +1,70 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski
+ *@version    $Rev$
+ *@since      2.1
+ */
+
+/*
+ * This script is also referenced by the ecommerce's screens and
+ * should not contain order component's specific code.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.product.catalog.*;
+
+detailScreen = "categorydetail";
+catalogName = CatalogWorker.getCatalogName(request);
+delegator = request.getAttribute("delegator");
+requestParameters = UtilHttp.getParameterMap(request);
+productCategoryId = request.getAttribute("productCategoryId");
+if (productCategoryId == null) {
+    productCategoryId = requestParameters.get("category_id");
+}
+context.put("productCategoryId", productCategoryId);
+
+category = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
+if (category != null) {
+    if (category.get("detailScreen") != null) 
+        detailScreen = category.getString("detailScreen");
+    pageContext = context.get("page");
+    if (pageContext instanceof Map) {
+        pageContext.put("title", category.getString("description"));
+    } else {
+        pageContext.setProperty("title", category.getString("description"));
+    }
+    context.put("metaDescription", category.getString("description"));
+    context.put("metaKeywords", category.getString("description") + ", " + catalogName);
+    context.put("productCategory", category);
+}
+
+// check the catalogs template path and update
+templatePathPrefix = CatalogWorker.getTemplatePathPrefix(request);
+if (templatePathPrefix != null) {
+    detailScreen = templatePathPrefix + detailScreen;
+}
+context.put("detailScreen", detailScreen);
+
+request.setAttribute("productCategoryId", productCategoryId);
+request.setAttribute("defaultViewSize", new Integer(10));
+request.setAttribute("limitView", new Boolean(true));

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2001-2005 The Open For Business Project (www.ofbiz.org)
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author    <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
+ * @version   1.0
+ * Created    January 27, 2002
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createAffiliate" short-description="Create Affiliate" login-required="false">
+
+       <!-- Create the UserLogin Record -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilParty" in-map-name="parameters" out-map-name="ul_context"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilUser" in-map-name="parameters" out-map-name="ul_context"/>
+        <check-errors/>
+        <call-service service-name="createUserLogin" in-map-name="ul_context"/>
+        <field-to-field field-name="userLoginId" map-name="ul_context" to-map-name="newUserLoginMap"/>
+        <field-to-field field-name="currentPassword" map-name="ul_context" to-map-name="newUserLoginMap"/>
+        <field-to-field field-name="passwordHint" map-name="ul_context" to-map-name="newUserLoginMap"/>
+        <field-to-field field-name="partyId" map-name="ul_context" to-map-name="newUserLoginMap"/>
+        <make-value entity-name="UserLogin" map-name="newUserLoginMap" value-name="newUserLogin"/>
+        <set-current-user-login value-name="newUserLogin"/>
+
+        <!-- Create the Party/PartyGroup -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilParty" in-map-name="parameters" out-map-name="pg_context"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilGroup" in-map-name="parameters" out-map-name="pg_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyGroup" in-map-name="pg_context"/>
+
+        <!-- Create the Contact Person -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilContact" in-map-name="parameters" out-map-name="ct_context"/>
+        <check-errors/>
+        <call-service service-name="createPerson" in-map-name="ct_context"/>
+
+        <!-- Create the Postal Address -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPostal" in-map-name="parameters" out-map-name="pa_context"/>
+        <check-errors/>
+        <call-service service-name="createPostalAddress" in-map-name="pa_context">
+            <result-to-field result-name="contactMechId" map-name="parameters"/>
+        </call-service>
+
+        <!-- Create the Postal Address Purpose -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPostalPurpose" in-map-name="parameters" out-map-name="pr_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyContactMechPurpose" in-map-name="pr_context"/>
+
+        <!-- Create the Phone ContactMech -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPhone" in-map-name="parameters" out-map-name="ph_context"/>
+        <check-errors/>
+        <call-service service-name="createTelecomNumber" in-map-name="ph_context">
+            <result-to-field result-name="contactMechId" map-name="parameters"/>
+        </call-service>
+
+        <!-- Create the Phone ContactMech Purpose -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPhonePurpose" in-map-name="parameters" out-map-name="phr_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyContactMechPurpose" in-map-name="phr_context"/>
+
+        <!-- Create the Fax ContactMech -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilFax" in-map-name="parameters" out-map-name="fax_context"/>
+        <check-errors/>
+
+        <if-not-empty field-name="contactNumber" map-name="fax_context">
+          <call-service service-name="createTelecomNumber" in-map-name="fax_context">
+              <result-to-field result-name="contactMechId" map-name="parameters"/>
+          </call-service>
+        </if-not-empty>
+
+        <!-- Create the Fax ContactMech Purpose -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilFaxPurpose" in-map-name="parameters" out-map-name="faxp_context"/>
+        <check-errors/>
+        <if-not-empty field-name="contactNumber" map-name="faxp_context">
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="faxp_context"/>
+        </if-not-empty>
+
+        <!-- Create the Email ContactMech -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilEmail" in-map-name="parameters" out-map-name="em_context"/>
+        <check-errors/>
+        <call-service service-name="createEmailAddress" in-map-name="em_context">
+            <result-to-field result-name="contactMechId" map-name="parameters"/>
+        </call-service>
+
+        <!-- Create the Email ContactMech Purpose -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPhonePurpose" in-map-name="parameters" out-map-name="emp_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyContactMechPurpose" in-map-name="emp_context"/>
+
+        <!-- Create the URL ContactMech -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilURL" in-map-name="parameters" out-map-name="url_context"/>
+        <check-errors/>
+        <call-service service-name="createContactMech" in-map-name="url_context"/>
+
+        <!-- Create the Affiliate Record -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilParty" in-map-name="parameters" out-map-name="af_context"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
+                processor-name="newAffil" in-map-name="parameters" out-map-name="af_context"/>
+        <check-errors/>
+        <call-service service-name="createAffiliate" in-map-name="af_context">
+            <default-message>Affiliate record successfully created.</default-message>
+        </call-service>
+
+    </simple-method>
+
+</simple-methods>

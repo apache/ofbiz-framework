@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- scheduled service status codes -->
+    <StatusType description="Scheduled Service" hasTable="N" parentTypeId="" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="SERVICE_PENDING" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="Queued" sequenceId="02" statusCode="QUEUED" statusId="SERVICE_QUEUED" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="Running" sequenceId="05" statusCode="RUNNING" statusId="SERVICE_RUNNING" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="Finished" sequenceId="10" statusCode="FINISHED" statusId="SERVICE_FINISHED" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="Failed" sequenceId="20" statusCode="FAILED" statusId="SERVICE_FAILED" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="Crashed" sequenceId="40" statusCode="CRASHED" statusId="SERVICE_CRASHED" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SERVICE_CANCELLED" statusTypeId="SERVICE_STATUS"/>
+</entity-engine-xml>

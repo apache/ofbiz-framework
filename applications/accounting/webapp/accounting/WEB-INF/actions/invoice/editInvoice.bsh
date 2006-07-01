@@ -1,0 +1,89 @@
+/*
+ * $Id: editInvoice.bsh 7413 2006-04-25 14:10:03Z jacopo $
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.collections.*;
+import org.ofbiz.accounting.invoice.*;
+import java.text.DateFormat;
+ 
+// delegator = parameters.get("delegator");
+invoiceId = parameters.get("invoiceId");
+
+invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+context.put("invoice", invoice);
+
+if (invoice != null) {
+    invoiceItems = invoice.getRelatedOrderBy("InvoiceItem",UtilMisc.toList("invoiceItemSeqId"));
+
+    context.put("invoiceItems", invoiceItems);
+    
+    invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice);
+    context.put("invoiceTotal", new Double(invoiceTotal));    
+    
+    // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
+    // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
+    // home of the customer.)
+    billingAddress = null;
+    if ((invoice.getString("invoiceTypeId") != null) && (invoice.getString("invoiceTypeId").equals("PURCHASE_INVOICE"))) {
+        billingAddress = InvoiceWorker.getSendFromAddress(invoice);
+    } else {
+        billingAddress = InvoiceWorker.getBillToAddress(invoice);
+    }
+    if (billingAddress != null) {
+        context.put("billingAddress", billingAddress);
+    }
+    billingParty = InvoiceWorker.getBillToParty(invoice);
+    context.put("billingParty", billingParty);
+    sendingParty = InvoiceWorker.getSendFromParty(invoice);
+    context.put("sendingParty", sendingParty);
+    
+    terms = invoice.getRelated("InvoiceTerm");
+    context.put("terms", terms);
+    
+    paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("invoiceId", invoiceId));
+    context.put("payments", paymentAppls);
+    
+    orderItemBillings = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("invoiceId", invoiceId), UtilMisc.toList("orderId"));
+    orders = new OrderedSet();
+    oibIter = orderItemBillings.iterator();
+    while (oibIter.hasNext()) {
+        orderIb = oibIter.next();
+        orders.add(orderIb.getString("orderId"));
+    }
+    context.put("orders", orders);
+    
+    invoiceStatus = invoice.getRelatedOne("StatusItem");            
+    context.put("invoiceStatus", invoiceStatus);
+    
+    edit = parameters.get("editInvoice");
+    if (edit != null && edit.equalsIgnoreCase("true")) {            
+        invoiceItemTypes = delegator.findAll("InvoiceItemType");
+        context.put("invoiceItemTypes", invoiceItemTypes);  
+        context.put("editInvoice", new Boolean(true));  
+    }
+
+    // format the date
+    if (invoice.get("invoiceDate") != null) {
+        invoiceDate = DateFormat.getDateInstance(DateFormat.LONG).format(invoice.get("invoiceDate"));
+        context.put("invoiceDate", invoiceDate);
+    } else {
+        context.put("invoiceDate", "N/A");
+    }       
+}

@@ -1,0 +1,375 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import java.sql.Timestamp;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.collections.*;
+import org.ofbiz.order.order.*;
+import org.ofbiz.party.contact.*;
+
+orderId = parameters.get("orderId");
+context.put("orderId", orderId);
+
+workEffortId = parameters.get("workEffortId");
+assignPartyId = parameters.get("partyId");
+assignRoleTypeId = parameters.get("roleTypeId");
+fromDate = parameters.get("fromDate");
+delegate = parameters.get("delegate");
+if (delegate != null && parameters.get("toFromDate") != null) {
+    fromDate = parameters.get("toFromDate");
+}
+context.put("workEffortId", workEffortId);
+context.put("assignPartyId", assignPartyId);
+context.put("assignRoleTypeId", assignRoleTypeId);
+context.put("fromDate", fromDate);
+context.put("delegate", delegate);
+context.put("toDayDate", (new java.sql.Date(System.currentTimeMillis())).toString());
+
+orderHeader = null;
+if (orderId != null && orderId.length() > 0) {
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+}
+
+if (orderHeader != null) {
+    // note these are overridden in the orderviewwebsecure.bsh script if run
+    context.put("hasPermission", true);
+    context.put("canViewInternalDetails", true);
+
+    orderReadHelper = new OrderReadHelper(orderHeader);
+    orderItems = orderReadHelper.getValidOrderItems();
+    orderAdjustments = orderReadHelper.getAdjustments();
+    orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments();
+    orderSubTotal = orderReadHelper.getOrderItemsSubTotal();
+    orderTerms = orderHeader.getRelated("OrderTerm");
+
+    context.put("orderHeader", orderHeader);
+    context.put("orderReadHelper", orderReadHelper);
+    context.put("orderItems", orderItems);
+    context.put("orderAdjustments", orderAdjustments);
+    context.put("orderHeaderAdjustments", orderHeaderAdjustments);
+    context.put("orderSubTotal", orderSubTotal);
+    context.put("currencyUomId", orderReadHelper.getCurrency());
+    context.put("orderTerms",orderTerms);
+
+    // get the order type
+    orderType = orderHeader.getString("orderTypeId");
+    context.put("orderType", orderType);
+
+    // get the display party
+    displayParty = null;
+    if ("PURCHASE_ORDER".equals(orderType)) {
+        displayParty = orderReadHelper.getSupplierAgent();
+    } else {
+        displayParty = orderReadHelper.getPlacingParty();
+    }
+    if (displayParty != null) {
+        partyId = displayParty.getString("partyId");
+        context.put("displayParty", displayParty);
+        context.put("partyId", partyId);
+    }
+
+    otherAdjAmount = OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, true, false, false);
+    context.put("otherAdjAmount", otherAdjAmount);
+
+    shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
+    shippingAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
+    context.put("shippingAmount", shippingAmount);
+
+    taxAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false);
+    taxAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false);
+    context.put("taxAmount", taxAmount);
+
+    grandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments);
+    context.put("grandTotal", grandTotal);
+
+    orderItemList = orderReadHelper.getOrderItems();
+    context.put("orderItemList", orderItemList);
+
+    shippingAddress = orderReadHelper.getShippingAddress();
+    context.put("shippingAddress", shippingAddress);
+
+    billingAddress = orderReadHelper.getBillingAddress();
+    context.put("billingAddress", billingAddress);
+
+    distributorId = orderReadHelper.getDistributorId();
+    context.put("distributorId", distributorId);
+
+    affiliateId = orderReadHelper.getAffiliateId();
+    context.put("affiliateId", affiliateId);
+
+    billingAccount = orderHeader.getRelatedOne("BillingAccount");
+    context.put("billingAccount", billingAccount);
+
+    // get a list of all shipments, and a list of ItemIssuances per order item
+    allShipmentsMap = new HashMap();
+    primaryShipments = orderHeader.getRelated("PrimaryShipment");
+    primaryShipmentIter = primaryShipments.iterator();
+    while (primaryShipmentIter.hasNext()) {
+        primaryShipment = primaryShipmentIter.next();
+        allShipmentsMap.put(primaryShipment.get("shipmentId"), primaryShipment);
+    }
+    itemIssuancesPerItem = new HashMap();
+    itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("shipmentId", "shipmentItemSeqId"));
+    itemIssuanceIter = itemIssuances.iterator();
+    while (itemIssuanceIter.hasNext()) {
+        itemIssuance = itemIssuanceIter.next();
+        if (!allShipmentsMap.containsKey(itemIssuance.get("shipmentId"))) {
+            iiShipment = itemIssuance.getRelatedOne("Shipment");
+            if (iiShipment != null) {
+                allShipmentsMap.put(iiShipment.get("shipmentId"), iiShipment);
+            }
+        }
+
+        perItemList = itemIssuancesPerItem.get(itemIssuance.get("orderItemSeqId"));
+        if (perItemList == null) {
+            perItemList = new LinkedList();
+            itemIssuancesPerItem.put(itemIssuance.get("orderItemSeqId"), perItemList);
+        }
+        perItemList.add(itemIssuance);
+    }
+    context.put("allShipments", allShipmentsMap.values());
+    context.put("itemIssuancesPerItem", itemIssuancesPerItem);
+
+    // get a list of all invoices
+    allInvoices = new OrderedSet();
+    orderBilling = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("invoiceId"));
+    obIter = orderBilling.iterator();
+    while (obIter.hasNext()) {
+        billingGv = obIter.next();
+        allInvoices.add(billingGv.getString("invoiceId"));
+    }
+    context.put("invoices", allInvoices);
+
+    oppFields = UtilMisc.toList(new EntityExpr("orderId", EntityOperator.EQUALS, orderId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
+    orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", oppFields);
+    context.put("orderPaymentPreferences", orderPaymentPreferences);
+
+    // ship groups
+    shipGroups = delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("shipGroupSeqId"));
+    context.put("shipGroups", shipGroups);
+
+    // get Shipment tracking info
+    osisCond = new EntityFieldMap(UtilMisc.toMap("orderId", orderId), EntityOperator.AND);
+    osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
+    osisFields = UtilMisc.toList("shipGroupSeqId", "shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId");
+    osisFields.add("shipmentPackageSeqId"); osisFields.add("trackingCode"); osisFields.add("boxNumber");
+    osisFindOptions = new EntityFindOptions(); osisFindOptions.setDistinct(true);
+    orderShipmentInfoSummaryList = delegator.findByCondition("OrderShipmentInfoSummary", osisCond, null, osisFields, osisOrder, osisFindOptions);
+    context.put("orderShipmentInfoSummaryList", orderShipmentInfoSummaryList);
+
+    customerPoNumber = null;
+    orderItemPOIter = UtilMisc.toIterator(orderItemList);
+    if (orderItemPOIter != null && orderItemPOIter.hasNext()) {
+        customerPoNumber = ((GenericValue)orderItemPOIter.next()).getString("correspondingPoId");
+    }
+    context.put("customerPoNumber", customerPoNumber);
+
+    statusChange = delegator.findByAnd("StatusValidChange",UtilMisc.toMap("statusId",orderHeader.getString("statusId")));
+    context.put("statusChange", statusChange);
+
+    currentStatus = orderHeader.getRelatedOne("StatusItem");
+    context.put("currentStatus", currentStatus);
+
+    orderHeaderStatuses = orderReadHelper.getOrderHeaderStatuses();
+    context.put("orderHeaderStatuses", orderHeaderStatuses);
+
+    adjustmentTypes = delegator.findAll("OrderAdjustmentType", UtilMisc.toList("description"));
+    context.put("orderAdjustmentTypes", adjustmentTypes);
+
+    notes = delegator.findByAnd("OrderHeaderNoteView", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("-noteDateTime"));
+    context.put("orderNotes", notes);
+
+    cmvm = ContactMechWorker.getOrderContactMechValueMaps(delegator, orderId);
+    context.put("orderContactMechValueMaps", cmvm);
+
+    if ("PURCHASE_ORDER".equals(orderType)) {
+        // for purchase orders, we need also the supplier's postal address
+        GenericValue supplier = orderReadHelper.getBillFromParty();
+        if (supplier != null) {
+            List supplierContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, supplier.getString("partyId"), false, "POSTAL_ADDRESS");
+            context.put("supplierContactMechValueMaps", supplierContactMechValueMaps);
+            Iterator supplierContactMechValueMapsIt = supplierContactMechValueMaps.iterator();
+            while (supplierContactMechValueMapsIt.hasNext()) {
+                Map supplierContactMechValueMap = (Map)supplierContactMechValueMapsIt.next();
+                List contactMechPurposes = supplierContactMechValueMap.get("partyContactMechPurposes");
+                Iterator contactMechPurposesIt = contactMechPurposes.iterator();
+                while (contactMechPurposesIt.hasNext()) {
+                    GenericValue contactMechPurpose = (GenericValue)contactMechPurposesIt.next();
+                    if (contactMechPurpose.getString("contactMechPurposeTypeId").equals("GENERAL_LOCATION")) {
+                        context.put("supplierGeneralContactMechValueMap", supplierContactMechValueMap);
+                    } else if (contactMechPurpose.getString("contactMechPurposeTypeId").equals("SHIPPING_LOCATION")) {
+                        context.put("supplierShippingContactMechValueMap", supplierContactMechValueMap);
+                    } else if (contactMechPurpose.getString("contactMechPurposeTypeId").equals("BILLING_LOCATION")) {
+                        context.put("supplierBillingContactMechValueMap", supplierContactMechValueMap);
+                    } else if (contactMechPurpose.getString("contactMechPurposeTypeId").equals("PAYMENT_LOCATION")) {
+                        context.put("supplierPaymentContactMechValueMap", supplierContactMechValueMap);
+                    }
+                }
+            }
+        }
+    }
+
+    // see if an approved order with all items completed exists
+    context.put("setOrderCompleteOption", false);
+    if ("ORDER_APPROVED".equals(orderHeader.getString("statusId"))) {
+        expr = new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED");
+        notCreatedItems = orderReadHelper.getOrderItemsByCondition(expr);
+        if (notCreatedItems.size() == 0) {
+            context.put("setOrderCompleteOption", true);
+        }
+    }
+
+    // get inventory summary for each shopping cart product item
+    inventorySummary = dispatcher.runSync("getProductInventorySummaryForItems", UtilMisc.toMap("orderItems", orderItems));
+    context.put("availableToPromiseMap", inventorySummary.get("availableToPromiseMap"));
+    context.put("quantityOnHandMap", inventorySummary.get("quantityOnHandMap"));
+
+    // get a list of facilities for purchase orders to receive against.  These facilities must be owned by the bill-to party of the purchase order.
+    if ("PURCHASE_ORDER".equals(orderType)) {
+        facilities = delegator.findByAndCache("Facility", UtilMisc.toMap("ownerPartyId", orderReadHelper.getBillToParty().getString("partyId")));
+        context.put("facilities", facilities);
+    }
+
+    // set the type of return based on type of order
+    if ("SALES_ORDER".equals(orderType)) {
+        context.put("returnHeaderTypeId", "CUSTOMER_RETURN");
+        // also set the product store facility Id for sales orders
+        context.put("storeFacilityId", orderHeader.getRelatedOne("ProductStore").getString("inventoryFacilityId"));
+    } else {
+        context.put("returnHeaderTypeId", "VENDOR_RETURN");
+    }
+
+    // QUANTITY: get the returned quantity by order item map
+    context.put("returnQuantityMap", orderReadHelper.getOrderItemReturnedQuantities());
+
+    // INVENTORY: construct a Set of productIds in the order for use in querying for inventory, otherwise these queries can get expensive
+    productIds = new HashSet();
+    for (iter = orderItems.iterator(); iter.hasNext(); ) {
+        productIds.add(iter.next().getString("productId"));
+    }
+
+    // INVENTORY: get the production quantity for each product and store the results in a map of productId -> quantity
+    productionMap = new HashMap();
+    for (iter = productIds.iterator(); iter.hasNext(); ) {
+        productId = iter.next();
+        if (productId == null) continue;  // avoid order items without productIds, such as bulk order items
+        contextInput = UtilMisc.toMap("productId", productId, "userLogin", userLogin);
+        resultOutput = dispatcher.runSync("getProductManufacturingSummaryByFacility", contextInput);
+        manufacturingInQuantitySummaryByFacility = resultOutput.get("summaryInByFacility");
+        Double productionQuantity = (Double) manufacturingInQuantitySummaryByFacility.get("estimatedQuantityTotal");
+        productionMap.put(productId, productionQuantity);
+    }
+    context.put("productionProductQuantityMap", productionMap);
+
+    // INVENTORY: find the number of products in outstanding sales orders for the same product store
+    fieldsToSelect = UtilMisc.toList("productId", "quantity");
+    condList = UtilMisc.toList(
+            new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
+            );
+    if (productIds.size() > 0) {
+        condList.add(new EntityExpr("productId", EntityOperator.IN, productIds));
+    }
+    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
+    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+    conditions = new EntityConditionList(condList, EntityOperator.AND);
+    List requiredProducts = delegator.findByCondition("OrderReportGroupByProduct", conditions, fieldsToSelect, null);
+
+    // store the results in a map of productId -> quantity
+    requiredMap = new HashMap();
+    for (iter = requiredProducts.iterator(); iter.hasNext(); ) {
+        value = iter.next();
+        requiredMap.put(value.getString("productId"), value.getDouble("quantity"));
+    }
+    context.put("requiredProductQuantityMap", requiredMap);
+
+    // INVENTORY: find the quantity of each product in outstanding purchase orders
+    fieldsToSelect = UtilMisc.toList("productId", "quantity");
+    condList = UtilMisc.toList(
+            new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"),
+            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
+            );
+    if (productIds.size() > 0) {
+        condList.add(new EntityExpr("productId", EntityOperator.IN, productIds));
+    }
+    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
+    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+    conditions = new EntityConditionList(condList, EntityOperator.AND);
+    List onOrderProducts = delegator.findByCondition("OrderReportGroupByProduct", conditions, fieldsToSelect, null);
+
+    // store the results in a map of productId -> quantity
+    onOrderMap = new HashMap();
+    for (iter = onOrderProducts.iterator(); iter.hasNext(); ) {
+        value = iter.next();
+        onOrderMap.put(value.getString("productId"), value.getDouble("quantity"));
+    }
+    context.put("onOrderProductQuantityMap", onOrderMap);
+}
+
+paramString = "";
+if (orderId != null) paramString = paramString + "orderId=" + orderId;
+if (workEffortId != null) paramString = paramString + "&workEffortId=" + workEffortId;
+if (assignPartyId != null) paramString = paramString + "&partyId=" + assignPartyId;
+if (assignRoleTypeId != null) paramString = paramString + "&roleTypeId=" + assignRoleTypeId;
+if (fromDate != null) paramString = paramString + "&fromDate=" + fromDate;
+context.put("paramString", paramString);
+
+workEffortStatus = null;
+if (workEffortId != null && assignPartyId != null && assignRoleTypeId != null && fromDate != null) {
+    fields = UtilMisc.toMap("workEffortId", workEffortId, "partyId", assignPartyId, "roleTypeId", assignRoleTypeId, "fromDate", fromDate);
+    wepa = delegator.findByPrimaryKey("WorkEffortPartyAssignment", fields);
+
+    if (wepa != null && wepa.get("statusId") != null && wepa.getString("statusId").equals("CAL_ACCEPTED")) {
+        workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+        workEffortStatus = workEffort.getString("currentStatusId");
+        if (workEffortStatus != null) {
+            context.put("workEffortStatus", workEffortStatus);
+            if (workEffortStatus.equals("WF_RUNNING") || workEffortStatus.equals("WF_SUSPENDED"))
+                context.put("inProcess", new Boolean(true));
+        }
+
+        if (workEffort != null) {
+            if ((delegate != null && delegate.equals("true")) || (workEffortStatus != null && workEffortStatus.equals("WF_RUNNING"))) {
+                actFields = UtilMisc.toMap("packageId", workEffort.getString("workflowPackageId"), "packageVersion", workEffort.getString("workflowPackageVersion"), "processId", workEffort.getString("workflowProcessId"), "processVersion", workEffort.getString("workflowProcessVersion"), "activityId", workEffort.getString("workflowActivityId"));
+                activity = delegator.findByPrimaryKey("WorkflowActivity", actFields);
+                if (activity != null) {
+                    transitions = activity.getRelated("FromWorkflowTransition", null, UtilMisc.toList("-transitionId"));
+                    context.put("wfTransitions", transitions);
+                }
+            }
+        }
+    }
+}

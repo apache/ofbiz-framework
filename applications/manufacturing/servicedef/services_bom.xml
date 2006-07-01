@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Manufacturing Services - Bill Of Materials</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Bill of Materials services -->
+    <service name="createBOMAssoc" default-entity-name="ProductAssoc" engine="simple"
+                location="org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="createBOMAssoc" auth="true">
+        <description>Add Product to Product Association</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="copyBOMAssocs" default-entity-name="ProductAssoc" engine="simple"
+                location="org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="copyBOMAssocs" auth="true">
+        <description>Copy BOM associations from one product to another</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="copyToProductId" type="String" optional="false" mode="IN"/>
+        <override name="fromDate" optional="true"/>
+        <override name="productIdTo" optional="true"/>
+    </service>
+
+    <service name="updateProductManufacturingRule" engine="simple" default-entity-name="ProductManufacturingRule"
+            location="org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="updateProductManufacturingRule">
+        <description>Update a Product Manufacturing Rule</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="ruleSeqId"/>
+            <exclude field-name="description"/>
+        </auto-attributes>
+        <override name="productIdIn" optional="false"/>
+    </service>
+
+    <service name="addProductManufacturingRule" engine="simple" default-entity-name="ProductManufacturingRule"
+            location="org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="addProductManufacturingRule">
+        <description>Create a Product Manufacturing Rule</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="ruleSeqId"/>
+            <exclude field-name="description"/>
+        </auto-attributes>
+        <override name="productIdIn" optional="false"/>
+    </service>
+
+    <service name="deleteProductManufacturingRule" engine="simple"
+            location="org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="deleteProductManufacturingRule">
+        <description>Remove a Product Manufacturing Rule</description>
+        <attribute name="ruleId" form-label="${uiLabelMap.ManufacturingRuleId}" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="getMaxDepth" default-entity-name="ProductAssoc" engine="java"
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getMaxDepth">
+        <description>Returns the max product's depth in the bill of materials</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="String"/>
+        <attribute mode="IN" name="bomType" optional="true" type="String"/>
+        <attribute mode="OUT" name="depth" optional="false" type="Integer"/>
+    </service>
+
+    <service name="updateLowLevelCode" engine="java"
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="updateLowLevelCode">
+        <description>Updates the low level code of the product in the Product entity</description>
+        <attribute mode="IN" name="productIdTo" optional="false" type="String"/>
+        <attribute mode="IN" name="alsoComponents" optional="true" type="Boolean"/>
+        <attribute mode="IN" name="alsoVariants" optional="true" type="Boolean"/>
+        <attribute mode="OUT" name="lowLevelCode" optional="false" type="Integer"/>
+    </service>
+
+    <service name="initLowLevelCode" engine="java"
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="initLowLevelCode">
+        <description>Updates the low level code of all the products in the Product entity</description>
+    </service>
+
+    <service name="searchDuplicatedAncestor" default-entity-name="ProductAssoc" engine="java"
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="searchDuplicatedAncestor">
+        <description>Returns the ProductAssoc generic value for a duplicate productIdTo ancestor if present, null otherwise. Useful to avoid loops when adding new assocs to a bill of materials.</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="productIdTo" optional="false" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="productAssocTypeId" optional="false" type="String"/>
+        <attribute mode="OUT" name="duplicatedProductAssoc" optional="true" type="org.ofbiz.entity.GenericValue"/>
+    </service>
+
+    <service name="getBOMTree" default-entity-name="ProductAssoc" engine="java"
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getBOMTree">
+        <description>Returns a BOMTree (an object that represents a configured bill of material tree in memory). Useful for tree traversal (breakdown, explosion, implosion).</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="type" optional="true" type="Integer"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="String"/>
+        <attribute mode="IN" name="bomType" optional="false" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="amount" optional="true" type="Double"/>
+        <attribute mode="OUT" name="tree" optional="true" type="org.ofbiz.manufacturing.bom.BOMTree"/>
+    </service>
+
+    <service name="getManufacturingComponents" engine="java"
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getManufacturingComponents">
+        <description>Returns the product's routing id and the components of a given product (if necessary, running the configurator).</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="amount" optional="true" type="Double"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="String"/>
+        <attribute mode="IN" name="excludeWIPs" optional="true" type="Boolean"/>
+        <attribute mode="OUT" name="workEffortId" optional="true" type="String"/>
+        <attribute mode="OUT" name="components" optional="true" type="java.util.List"/>
+        <attribute mode="OUT" name="componentsMap" optional="true" type="java.util.List"/>
+    </service>
+
+    <service name="getProductsInPackages" engine="java"
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getProductsInPackages">
+        <description>Returns the components (that needs to be packaged) of a given product (if necessary, running the configurator).</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="String"/>
+        <attribute mode="OUT" name="productsInPackages" optional="false" type="java.util.List"/>
+    </service>
+    <service name="getNotAssembledComponents" engine="java"
+                location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getNotAssembledComponents" auth="true">
+        <description>Explodes a product id and returns all the components that are not manufactured on customer order: these components will be taken from warehouse.</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+        <attribute mode="IN" name="amount" optional="true" type="Double"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="String"/>
+        <attribute mode="OUT" name="notAssembledComponents" type="java.util.List"/>
+    </service>
+</services>

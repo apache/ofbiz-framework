@@ -1,0 +1,78 @@
+/*
+ * $Id: lruadd.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      2.2
+ */
+
+session = request.getSession();
+UtilCache contentLookupCache = (UtilCache)session.getAttribute("contentLookupCache");
+if(contentLookupCache == null){
+    contentLookupCache	= new UtilCache("contentLookupCache",10,0);
+    session.setAttribute("contentLookupCache", contentLookupCache);
+}    
+
+// If this event is called from a ContentAssoc req, then contentIdTo should be used.
+String contentIdTo = (String)request.getAttribute("contentIdTo");
+String contentId = request.getAttribute("contentId");
+String contentIdParam = request.getParameter("contentId");
+Debug.logInfo("in lruadd, contentIdParam:" + contentIdParam, null);
+Debug.logInfo("in lruadd, contentId:" + contentId, null);
+String id = null;
+if(contentIdTo != null) id = contentIdTo;
+else if (contentId != null) id = contentId;
+else id = contentIdParam;
+
+Debug.logInfo("in lruadd, id:" + id, null);
+
+LocalDispatcher dispatcher	= (LocalDispatcher)request.getAttribute("dispatcher");
+GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+
+GenericValue genericValue = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", id));
+GenericPK pk	= null;
+if(genericValue != null) pk = genericValue.getPrimaryKey();
+contentLookupCache.put(id, pk);
+
+
+
+
+//String contentOwnerId = (String)request.getAttribute("contentOwnerId");
+//if(contentOwnerId != null){
+	//genericValue = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentOwnerId));
+	//contentLookupCache.put(contentOwnerId, genericValue);
+//}
+return "success";
+

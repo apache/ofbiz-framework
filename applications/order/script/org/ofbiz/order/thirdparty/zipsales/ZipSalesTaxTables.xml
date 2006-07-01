@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.2
+-->
+
+<data-files xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/datafiles.xsd">
+    <data-file name="FlatTaxTable" type-code="001" record-length="182" separator-style="fixed-length">
+        <record name="taxEntry">
+            <field name="zipCode" position="0" length="5" type="String"/>
+            <field name="city" position="5" length="28" type="String"/>
+            <field name="county" position="33" length="25" type="String"/>
+            <field name="stateCode" position="58" length="2" type="String"/>
+            <field name="countyDefault" position="60" length="1" type="String"/>
+            <field name="generalDefault" position="61" length="1" type="String"/>
+            <field name="countyFips" position="62" length="5" type="String"/>
+            <field name="stateSalesTax" position="67" length="8" type="Double"/>
+            <field name="countySalesTax" position="75" length="7" type="Double"/>
+            <field name="countyLocalSalesTax" position="83" length="8" type="Double"/>
+            <field name="citySalesTax" position="91" length="8" type="Double"/>
+            <field name="cityLocalSalesTax" position="99" length="8" type="Double"/>
+            <field name="comboSalesTax" position="107" length="8" type="Double"/>
+            <field name="stateUseTax" position="115" length="8" type="Double"/>
+            <field name="countyUseTax" position="123" length="8" type="Double"/>
+            <field name="countyLocalUseTax" position="131" length="8" type="Double"/>
+            <field name="cityUseTax" position="139" length="8" type="Double"/>
+            <field name="cityLocalUseTax" position="147" length="8" type="Double"/>
+            <field name="comboUseTax" position="155" length="8" type="Double"/>
+            <field name="effectiveDate" position="163" length="8" type="String"/>
+            <field name="geoCode" position="171" length="10" type="String"/>
+            <field name="insideCity" position="181" length="1" type="String"/>
+        </record>
+    </data-file>
+
+    <data-file name="FreightRuleTable" type-code="001" record-length="321" separator-style="fixed-length">
+        <record name="ruleEntry">
+            <field name="stateCode" position="0" length="2" type="String"/>
+            <field name="county" position="2" length="25" type="String"/>
+            <field name="city" position="27" length="28" type="String"/>
+            <field name="idCode" position="55" length="3" type="String"/>
+            <field name="taxable" position="58" length="1" type="String"/>
+            <field name="shipCond" position="59" length="254" type="String"/>
+            <field name="effectiveDate" position="313" length="8" type="String"/>
+        </record>
+    </data-file>
+</data-files>

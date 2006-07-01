@@ -1,0 +1,14 @@
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+
+seqNo = context.get("caSequenceNum");
+if (UtilValidate.isEmpty(seqNo)) {
+	seqNo = context.get("sequenceNum");
+}
+Debug.logInfo("caSequenceNum:" + seqNo, "");
+if (seqNo != null) {
+    seqNumBefore = seqNo - 1;
+    context.put("seqNumBefore", seqNumBefore);
+    seqNumAfter = seqNo + 1;
+    context.put("seqNumAfter", seqNumAfter);
+}

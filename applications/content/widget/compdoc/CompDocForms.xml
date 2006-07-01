@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id$
+
+Copyright 2005-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+
+    <!-- CompDoc forms -->
+    <form name="FindCompDoc" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        default-entity-name="Content"  target="FindCompDoc" title="" type="single"> 
+        <field name="contentId" map-name="empty"><text-find/></field>
+        <field name="contentName"><text-find/></field>
+        <field name="contentTypeId">
+            <drop-down no-current-selected-key="COMPDOC_TEMPLATE">
+                <option key="COMPDOC_TEMPLATE" description="Root Template"/>             
+                <option key="COMPDOC_INSTANCE" description="Root Instance"/>             
+                <option key="TEMPLATE" description="Template Child"/>             
+                <option key="DOCUMENT" description="Instance Child"/>             
+            </drop-down>
+        </field>
+        <!-- <field name="rootonly" map-name="dummy" title="Root CompDocs Only"><check/></field> -->
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListCompDoc" default-title-style="tableheadtext" default-tooltip-style="tabletext" 
+        default-widget-style="tabletext" type="list" list-name="listIt"
+        target="" paginate-target="FindCompDoc">
+        <actions>
+            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Content"/>
+            </service>
+        </actions>
+        <field name="contentId"><display/></field>
+        <field name="contentTypeId"><display/></field>
+        <field name="contentName"><display/></field>
+        <field name="edit" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc?contentId=${contentId}&amp;rootContentId=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}&amp;caFromDate=${caFromDate}"/> 
+        </field>
+        <field name="edit" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc?contentId=${contentId}&amp;rootContentId=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}&amp;caFromDate=${caFromDate}"/> 
+        </field>
+        <field name="edit" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}&amp;caFromDate=${caFromDate}"/> 
+        </field>
+        <field name="edit" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${caContentIdTo}&amp;caContentAssocTypeId=${caContentAssocTypeId}&amp;caFromDate=${caFromDate}"/> 
+        </field>
+        <field name="tree" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree?rootContentId=${contentId}"/> 
+        </field>
+        <field name="tree" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree?rootContentId=${contentId}"/> 
+        </field>
+    </form>
+    
+    <form name="ListCompDocInstances" default-title-style="tableheadtext" default-tooltip-style="tabletext" 
+        default-widget-style="tabletext" type="list" list-name="compDocFindList"
+        target=""  paginate-target="ListCompDocInstances">
+        <field name="contentId"><display/></field>
+        <field name="contentName"><display/></field>
+        <field name="rootContentId" title="Content Id To"><display/></field>
+        <field name="caContentAssocTypeId" title="Content Assoc Type ID"><display/></field>
+        <field name="caFromDate" title="From Date"><display/></field>
+        <field name="caThruDate"><hidden/></field>
+        <field name="editTemplate" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="Edit" target="EditRootCompDoc?rootContentId=${contentId}"/> 
+        </field>
+        <field name="templateTree" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="Tree" target="ViewCompDocInstanceTree?rootContentId=${contentId}"/> 
+        </field>
+    </form>
+    
+    <!-- ContentRevision forms -->
+    <form name="EditContentRevision" default-map-name="contentRevision" target="updateContentRevision" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <alt-target target="createContentRevision" use-when="contentRevision==null"/>
+        <auto-fields-entity entity-name="ContentRevision"/>
+        
+        <field name="rootContentId" map-name="empty" widget-style="buttontext"><hidden/></field>
+        <field name="rootContentRevisionSeqId"  map-name="empty" widget-style="buttontext"><hidden/></field>
+        <field name="contentId" widget-style="buttontext"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentRevisionSeqId" widget-style="inputBox"><text/></field>
+<!--         <field name="contentRevisionSeqId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="" key-field-name="contentRevisionSeqId"/>
+            </drop-down>
+        </field>
+-->
+        <field name="committedByPartyId" widget-style="inputBox"><text/></field>
+        <field name="comments" widget-style="inputBox"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
+    </form>
+
+    <form name="ListContentRevisions" default-title-style="tableheadtext" default-tooltip-style="tabletext" 
+        list-name="contentRevisionList" default-widget-style="tabletext" type="list">
+        <field name="contentId"><display/></field>
+        <field name="contentRevisionSeqId"><display/></field>
+        <field name="committedByPartyId"><display/></field>
+        <field name="comments"><display/></field>
+        <field name="editLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevision?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </field>
+        <field name="itemLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonItems}" target="ListContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </field>
+        <field name="create" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreate}" target="EditContentRevision?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </field>
+        <field name="tree" title="" widget-style="buttontext" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree?rootContentId=${contentId}&amp;rootContentRevisionSeqId=${contentRevisionSeqId}"/>
+        </field>
+        <field name="tree" title="" widget-style="buttontext" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree?rootContentId=${contentId}&amp;rootContentRevisionSeqId=${contentRevisionSeqId}"/>
+        </field>
+    </form>
+    
+    <!-- ContentRevisionItem forms -->
+    <form name="EditContentRevisionItem" default-map-name="contentRevisionItem" target="updateContentRevisionItem" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <alt-target target="createContentRevisionItem" use-when="contentRevisionItem==null"/>
+        <auto-fields-entity entity-name="ContentRevisionItem"/>
+        
+        <field name="rootContentId" map-name="empty" widget-style="buttontext"><hidden/></field>
+        <field name="rootContentRevisionSeqId"  map-name="empty" widget-style="buttontext"><hidden/></field>
+        <field name="contentId" widget-style="buttontext"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentRevisionSeqId" widget-style="inputBox"><text/></field>
+        <field name="itemContentId" widget-style="inputBox"><text/></field>
+        <field name="oldDataResourceId" widget-style="inputBox"><text/></field>
+        <field name="newDataResourceId" widget-style="inputBox"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
+    </form>
+
+    <form name="ListContentRevisionItem" default-title-style="tableheadtext" 
+        list-name="contentRevisionItemList" default-tooltip-style="tabletext" default-widget-style="tabletext" type="list">
+        <field name="contentId"><display/></field>
+        <field name="contentRevisionSeqId"><display/></field>
+        <field name="itemContentId"><display/></field>
+        <field name="oldDataResourceId"><display/></field>
+        <field name="newDataResourceId"><display/></field>
+        <field name="editLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;itemContentId=${itemContentId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </field>
+        <field name="create" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreate}" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </field>
+    </form>
+
+    <!-- ContentApproval forms -->
+    <form name="EditContentApproval" default-map-name="contentApproval" target="updateContentApproval" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentApprovalId" widget-style="tabletext"><display/></field>
+        <field name="contentId" widget-style="inputBox"><hidden/></field>
+        <field name="contentRevisionSeqId" widget-style="inputBox"><text></text></field>
+        <field name="partyId" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                    <!-- <entity-constraint name="parentTypeId" value=""/> -->
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
+            <drop-down allow-empty="true">
+                <option key="SOFT_REJ" description="Soft Rejected"/>
+                <option key="REJECTED" description="Rejected"/>
+                <option key="APPROVED" description="Approved"/>
+            </drop-down>
+        </field>
+        <field name="approvalDate" widget-style="inputBox"><date-time/></field>
+        <field name="sequenceNum" widget-style="inputBox"><text/></field>
+        <field name="comments" widget-style="inputBox"><textarea cols="30" rows="3"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
+    </form>
+
+    <form name="AddContentApproval" default-map-name="contentApproval" target="createContentApproval" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentId" widget-style="inputBox"><hidden/></field>
+        <field name="contentRevisionSeqId" map-name="empty" widget-style="inputBox"><text/></field>
+        <field name="partyId" map-name="empty" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                    <!-- <entity-constraint name="parentTypeId" value=""/> -->
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="approvalDate" map-name="empty" widget-style="inputBox"><date-time/></field>
+        <field name="sequenceNum" map-name="empty" widget-style="inputBox"><text/></field>
+        <field name="comments" map-name="empty" widget-style="inputBox"><text size="40"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
+    </form>
+
+    <form name="ListContentApproval" default-title-style="tableheadtext" default-tooltip-style="tabletext"
+        target="updateContentApproval" list-name="contentApprovalList" default-widget-style="tabletext" type="list">
+        <field name="contentApprovalId" widget-style="tabletext"><display/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="rootContentId" map-name="empty"><hidden/></field>
+        <field name="contentRevisionSeqId"><hidden/></field>
+        <field name="partyId" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                    <!-- <entity-constraint name="parentTypeId" value=""/> -->
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
+            <drop-down allow-empty="true">
+                <option key="SOFT_REJ" description="Soft Rejected"/>
+                <option key="REJECTED" description="Rejected"/>
+                <option key="APPROVED" description="Approved"/>
+            </drop-down>
+        </field>
+        <field name="approvalDate" widget-style="inputBox"   use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)"><date-time/></field>
+        <field name="sequenceNum" widget-style="inputBox"  use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)"><text/></field>
+        <field name="comments" widget-style="inputBox"><textarea cols="30" rows="3"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
+            <hyperlink target="removeContentApproval?contentApprovalId=${contentApprovalId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}" description="${uiLabelMap.CommonDelete}"></hyperlink>
+        </field>
+    </form>
+
+    <form name="ListWaitingContentApproval" default-title-style="tableheadtext" default-tooltip-style="tabletext"
+        target="updateWaitingContentApproval" list-name="contentApprovalList" default-widget-style="tabletext" type="list">
+        <field name="contentApprovalId" widget-style="tabletext"><display/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="rootContentId" map-name="empty"><hidden/></field>
+        <field name="contentRevisionSeqId"><display/></field>
+        <field name="partyId" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="approvalStatusId" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
+            <drop-down allow-empty="true">
+                <option key="SOFT_REJ" description="Soft Rejected"/>
+                <option key="REJECTED" description="Rejected"/>
+                <option key="APPROVED" description="Approved"/>
+            </drop-down>
+        </field>
+        <field name="approvalDate" widget-style="inputBox"><date-time/></field>
+        <field name="sequenceNum" widget-style="inputBox"><text/></field>
+        <field name="comments" widget-style="inputBox"><text size="40"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"  use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)"><submit/></field>
+    </form>
+    
+    <form name="AddRootCompDocInstance" default-map-name="" type="single" target="genCompDocInstance"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentName"><text/></field>
+        <field name="instanceOfContentId" entry-name="rootContentId" map-name="parameters" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentTypeId"><hidden value="COMPDOC_INSTANCE"/></field>
+        <!--
+        <field name="rootContentId"><hidden/></field>
+        <field name="rootContentRevisionId"><hidden/></field>
+            -->
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditRootCompDocInstance" default-map-name="content" type="single" target="updateRootCompDocTemplate"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentName"><text/></field>
+        <field name="instanceOfContentId" widget-style="tabletext"><display/></field>
+        <field name="contentTypeId"><hidden value="COMPDOC_INSTANCE"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="AddRootCompDocTemplate" default-map-name="" type="single" target="createRootCompDocTemplate"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentName" title="CompDoc Template Name"><text/></field>
+        <field name="contentTypeId" map-name="dummy"><hidden value="COMPDOC_TEMPLATE"/></field>
+        <field name="rootTemplateContentId"><hidden/></field>
+        <field name="rootTemplateRevSeqId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditRootCompDocTemplate" default-map-name="content" type="single" target="updateRootCompDocTemplate"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentName"><text/></field>
+        <field name="contentTypeId" map-name="dummy"><hidden value="COMPDOC_TEMPLATE"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddChildCompDoc" default-map-name="" type="single" target="${childCompDocTarget}"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="rootContentId"><hidden/></field>
+        <field name="contentId"><ignored/></field>
+        <field name="contentName"><text/></field>
+        <field name="contentTypeId"><hidden/></field>
+        <field name="instanceOfContentId" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" title="Instance of Content" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="caContentIdTo" entry-name="rootContentId" map-name="parameters" widget-style="tabletext" title="Parent Content ID">
+            <display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/>
+        </field>
+        <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType"/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="sequenceNum"><text/></field>
+        
+        <field name="mimeTypeId" title="Document Type" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
+            <hidden value="application/vnd.ofbiz.survey.response"/>
+        </field>
+        <field name="displayMimeTypeId" map-name="empty" title="Document Type" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; &quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
+            <display description="Survey Response"/>
+        </field>
+        <field name="mimeTypeId" title="Document Type" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; !&quot;SURVEY&quot;.equals(templateDataResourceTypeId)" widget-style="tabletext">
+            <display-entity entity-name="MimeType" description="${description}"/>
+        </field>
+        <field name="mimeTypeId" title="Document Type" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect">
+            <drop-down allow-empty="false">
+                <option key="application/msword" description="MS Word"/>
+                <option key="application/pdf" description="PDF File"/>
+                <option key="application/vnd.ofbiz.survey" description="Survey"/>
+                <option key="text/html" description="HTML Text"/>
+                <option key="text/plain" description="Plain Text"/>
+                <option key="image/jpeg" description="JPEG"/>
+                <option key="image/gif" description="GIF"/>
+                <option key="image/tiff" description="TIFF"/>
+                <option key="image/png" description="PNG"/>
+                <option key="application/octet-stream" description="Other"/>
+            </drop-down>
+        </field>
+        <field name="rootContentId"><hidden/></field>
+        <field name="rootContentRevisionSeqId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditChildCompDoc" default-map-name="contentAssoc" type="single" target="${childCompDocTarget}"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        
+        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentName" map-name="itemContent"><text/></field>
+        <field name="contentTypeId" map-name="itemContent"><hidden/></field>
+        <field name="instanceOfContentId" map-name="itemContent" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId)" title="Instance of Content" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentIdTo" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
+        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="sequenceNum"><text/></field>
+        
+        <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
+            use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)">
+            <drop-down allow-empty="false">
+                <option key="application/msword" description="MS Word"/>
+                <option key="application/pdf" description="PDF File"/>
+                <option key="application/vnd.ofbiz.survey" description="Survey"/>
+                <option key="text/html" description="HTML Text"/>
+                <option key="text/plain" description="Plain Text"/>
+                <option key="image/jpeg" description="JPEG"/>
+                <option key="image/gif" description="GIF"/>
+                <option key="image/tiff" description="TIFF"/>
+                <option key="image/png" description="PNG"/>
+                <option key="application/octet-stream" description="Other"/>
+            </drop-down>
+        </field>
+        <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
+            use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
+            <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
+        </field>
+        <field name="mimeTypeId" map-name="dataResource" widget-style="tabletext"
+            use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; &quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
+            <display description="Survey Response"/>
+        </field>
+        <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type"  widget-style="tabletext"><display/></field> -->
+        <!-- <field name="contentTypeId" map-name="content" title="Content Type"  widget-style="tabletext"><display/></field> -->
+        
+        <field name="relatedDetailId" map-name="dataResource" title="Survey ID"
+            use-when="dataResource!=null &amp;&amp; &quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">
+            <lookup target-form-name="LookupSurvey">
+                <sub-hyperlink target="EditSurvey?surveyId=${dataResource.relatedDetailId}" description="Edit Survey" link-style="buttontext" 
+                    use-when="dataResource.get(&quot;relatedDetailId&quot;)!=null"/>
+            </lookup>
+        </field>
+        <field name="relatedDetailId" map-name="dataResource" title="Survey Response ID" 
+            use-when="dataResource!=null &amp;&amp; &quot;SURVEY_RESPONSE&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">      
+            <lookup target-form-name="LookupSurveyResponse">
+                <sub-hyperlink target="EditSurveyResponse?surveyResponseId=${dataResource.relatedDetailId}" 
+                    description="Edit Survey Response" link-style="buttontext" use-when="dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)!=null"/>
+            </lookup>
+        </field>
+        <field name="addSurveyResponse" map-name="dummy" widget-style="buttontext" 
+            use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)==null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
+            <hyperlink description="Create Response (for Survey ${templateDataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}&amp;dataResourceId=${dataResource.dataResourceId}&amp;rootContentId=${rootContentId}" also-hidden="false" target-window="_blank"/>
+        </field>
+        <field name="updateSurveyResponse" map-name="dummy" widget-style="buttontext" 
+            use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)!=null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
+            <hyperlink description="Update Response (for Survey ${templateDataResource.relatedDetailId}, Response ${dataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}&amp;surveyResponseId=${dataResource.relatedDetailId}&amp;dataResourceId=${dataResource.dataResourceId}&amp;rootContentId=${rootContentId}" also-hidden="false" target-window="_blank"/>
+        </field>
+        
+        <field name="objectInfo" title="Current File Name" map-name="dataResource" widget-style="tabletext"
+            use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
+            <display also-hidden="false"/>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ViewChildCompDoc" default-map-name="contentAssoc" type="single" target=""
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        
+        <field name="contentId" widget-style="tabletext"><display/></field>
+        <field name="contentName" map-name="itemContent"><display/></field>
+        <field name="contentTypeId" map-name="itemContent"><hidden/></field>
+        <field name="instanceOfContentId" map-name="itemContent" use-when="contentTypeId.equals(&quot;DOCUMENT&quot;)" title="Instance of Content" widget-style="tabletext"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentIdTo" widget-style="tabletext" title="Parent Content ID"><display-entity entity-name="Content" key-field-name="contentId" description="${contentName} [${contentId}]"/></field>
+        <field name="contentAssocTypeId" widget-style="tabletext"><display-entity entity-name="ContentAssocType" also-hidden="false"/></field>
+        <field name="fromDate" title="From Date" widget-style="tabletext"><display/></field>
+        <field name="thruDate" title="Thru Date"><display/></field>
+        <field name="sequenceNum" title="Sequence Num"><display/></field>
+        
+       <field name="mimeTypeId" map-name="dataResource" title="Document Type"  widget-style="tabletext">
+            <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
+        </field>
+        <field name="relatedDetailId" map-name="dataResource" title="Survey ID" use-when="dataResource!=null&amp;&amp;&quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">      
+            <display/>
+        </field>
+        <field name="relatedDetailId" map-name="dataResource" title="Survey Response ID" use-when="dataResource!=null&amp;&amp;&quot;SURVEY_RESPONSE&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))&amp;&amp;dataResource.get(&quot;relatedDetailId&quot;)!=null">      
+            <display/>
+        </field>
+    </form>
+
+    <!-- ================ CompDoc Revision ================= -->
+    <form name="EditContentRevisionAndItem" target="updateContentRevisionAndItem" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ContentRevision"/>
+        <auto-fields-entity entity-name="ContentRevisionItem"/>
+        
+        <field name="contentId" widget-style="buttontext"><text/></field>
+        <field name="contentRevisionSeqId"><hidden/></field> 
+        <field name="committedByPartyId" widget-style="inputBox"></field>
+        <field name="comments" widget-style="inputBox"></field>
+        <field name="itemContentId" widget-style="inputBox"></field>
+        <field name="oldDataResourceId" widget-style="inputBox"></field>
+        <field name="newDataResourceId" widget-style="inputBox"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="ListContentRevisionItemApproval" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="tabletext" type="list">
+        <actions>
+            <entity-and entity-name="ContentRevisionItemAndContentApprovalView" use-cache="true">
+                <field-map env-name="contentId" field-name="contentId"/>
+                <field-map env-name="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
+            </entity-and>
+        </actions>
+        <field name="contentId"><display/></field>
+        <field name="contentRevisionSeqId"><display/></field>
+        <field name="itemContentId"><display/></field>
+        <field name="oldDataResourceId"><display/></field>
+        <field name="newDataResourceId"><display/></field>
+        <field name="contentApprovalId"><display/></field>
+
+        <field name="editLink" title="" widget-style="buttontext" use-when="approvalCount &gt; 0">
+            <hyperlink also-hidden="false" description="Edit" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;itemContentId=${itemContentId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+        </field>
+        <field name="create" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="Create" target="EditContentRevisionItem"/>
+        </field>
+    </form>
+    
+    <form name="UploadCompDocContent" type="upload" default-title-style="tableheadtext" 
+        target="uploadCompDocContent" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <field name="caContentIdTo" entry-name="contentIdTo" map-name="contentAssoc"><hidden/></field>
+        <field name="caContentAssocTypeId"><hidden value="COMPDOC_PART"/></field>
+        <field name="caFromDate" entry-name="fromDate" map-name="contentAssoc"><hidden/></field>
+        
+        <field name="contentId" map-name="contentAssoc"><hidden/></field>
+        <field name="dataResourceId" map-name="dataResource"><hidden/></field>
+        <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
+        <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
+        <!-- would show previous file name... doesn't make too much sense <field name="objectInfo" title="File Name" map-name="dataResource"><display also-hidden="false"/></field> -->
+        <field name="imageData" title="File"><file/></field>
+        <field name="rootContentId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    
+    <form name="UploadCompDocPdf2Survey" type="upload" default-title-style="tableheadtext" 
+        target="persistCompDocPdf2Survey" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="caContentIdTo" entry-name="contentIdTo" map-name="contentAssoc"><hidden/></field>
+        <field name="caContentAssocTypeId"><hidden value="COMPDOC_PART"/></field>
+        <field name="caFromDate" entry-name="fromDate" map-name="contentAssoc"><hidden/></field>
+        
+        <field name="contentId" map-name="contentAssoc"><hidden/></field>
+        <field name="dataResourceId" map-name="dataResource"><hidden/></field>
+        <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
+        <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
+        <!-- <field name="objectInfo" title="File Name" map-name="dataResource"><display also-hidden="false"/></field> -->
+        <field name="pdfName" title="PDF/Survey Name"><text/></field>
+        <field name="imageData" title="Enter a PDF file path to automatically create a survey."><file size="60"/></field>
+        <field name="rootContentId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    
+    <form name="EditCompDocTextContent" type="single" default-title-style="tableheadtext" 
+        target="uploadCompDocContent" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <field name="rootContentId" map-name="dummy"><hidden/></field>
+        <field name="caContentIdTo" map-name="parameters"><hidden/></field>
+        <field name="caContentAssocTypeId" map-name="parameters"><hidden/></field>
+        <field name="caFromDate" map-name="parameters"><hidden/></field>
+        
+        <field name="contentId" map-name="content"><hidden/></field>
+        <field name="dataResourceId" map-name="dataResource"><hidden/></field>
+        <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
+        <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
+        <field name="textData" title="Text Data"><textarea rows="30" cols="60"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
+    </form>
+
+    <form name="UploadCompDocSurveyId" type="single" default-title-style="tableheadtext" 
+        target="uploadCompDocContent" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <field name="rootContentId" map-name="dummy"><hidden/></field>
+        <field name="caContentIdTo" map-name="parameters"><hidden/></field>
+        <field name="caContentAssocTypeId" map-name="parameters"><hidden/></field>
+        <field name="caFromDate" map-name="parameters"><hidden/></field>
+        
+        <field name="contentId" map-name="content"><hidden/></field>
+        <field name="dataResourceId" map-name="dataResource"><hidden/></field>
+        <field name="dataResourceTypeId" map-name="dataResource"><hidden/></field>
+        <field name="mimeTypeId" map-name="dataResource"><hidden/></field>
+        <field name="objectInfo" title="Survey Id"><lookup target-form-name="LookupSurvey"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
+    </form>
+</forms>

@@ -1,0 +1,178 @@
+/*
+ *  Copyright (c) 2005-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Hans Bakker (h.bakker@antwebsystems.com)
+ *@version    $Rev$
+ */
+ 
+ // this script is used to get the company's logo header information for orders, invoices, and returns.  It can either take order, invoice, returnHeader from
+ // parameters or use orderId, invoiceId, or returnId to look them up.  
+  
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.party.contact.*;
+import java.sql.Timestamp;
+
+orderHeader = (GenericValue) parameters.get("orderHeader");
+orderId = parameters.get("orderId");
+invoice = (GenericValue) parameters.get("invoice");
+invoiceId = parameters.get("invoiceId");
+shipmentId = parameters.get("shipmentId");
+returnHeader = (GenericValue) parameters.get("returnHeader");
+returnId = parameters.get("returnId");
+nowTimestamp = UtilDateTime.nowTimestamp();
+
+if (orderHeader == null && orderId != null) {
+    orderHeader = (GenericValue) delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+} else if (shipmentId != null) {
+    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+    orderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
+}
+
+if (invoice == null && invoiceId != null)	{
+    invoice = (GenericValue) delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+}
+
+if (returnHeader == null && returnId != null) {
+    returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+}
+
+// defaults:
+logoImageUrl = null; // "http://localhost:8080/images/ofbiz_powered.gif";
+partyId = null;
+
+if (orderHeader != null) {
+    GenericValue productStore = (GenericValue) orderHeader.getRelatedOne("ProductStore");
+    if (orderHeader.getString("orderTypeId").equals("SALES_ORDER")) {
+        GenericValue billFromVendor = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderRole", UtilMisc.toMap("roleTypeId", "BILL_FROM_VENDOR")));
+        if (billFromVendor != null) {
+            partyId = billFromVendor.getString("partyId");
+        } else if (productStore != null && productStore.get("payToPartyId") != null) {
+            partyId = productStore.getString("payToPartyId");
+        }
+    } else if (orderHeader.getString("orderTypeId").equals("PURCHASE_ORDER")) {
+        GenericValue billToCustomer = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER")));
+        if (billToCustomer != null) {
+            partyId = billToCustomer.getString("partyId");
+        }
+    }
+} else if (invoice != null) {
+    if (invoice.get("invoiceTypeId").equals("SALES_INVOICE") && invoice.get("partyIdFrom") != null) {
+        partyId = invoice.getString("partyIdFrom");
+    }
+    if (invoice.get("invoiceTypeId").equals("PURCHASE_INVOICE") && invoice.get("partyId") != null) {
+        partyId = invoice.getString("partyId");
+    }
+} else if (returnHeader != null) {
+    if (returnHeader.getString("returnHeaderTypeId").equals("CUSTOMER_RETURN") && returnHeader.get("toPartyId") != null) {
+        partyId = returnHeader.getString("toPartyId");
+    }
+}
+
+// the logo
+GenericValue partyGroup = delegator.findByPrimaryKey("PartyGroup", UtilMisc.toMap("partyId",partyId));
+if (partyGroup != null && UtilValidate.isNotEmpty(partyGroup.getString("logoImageUrl"))) {
+    logoImageUrl = partyGroup.getString("logoImageUrl");
+}
+context.put("logoImageUrl", logoImageUrl);
+
+// the company name
+String companyName = "not found";
+if (partyGroup != null && UtilValidate.isNotEmpty(partyGroup.get("groupName"))) {
+    companyName = partyGroup.getString("groupName");
+}
+context.put("companyName", companyName);
+
+// the address
+List addresses = delegator.findByAnd("PartyContactMechPurpose",
+        UtilMisc.toMap("partyId",partyId,"contactMechPurposeTypeId","GENERAL_LOCATION"));
+List selAddresses = EntityUtil.filterByDate(addresses, nowTimestamp, "fromDate", "thruDate", true);        
+GenericValue address = null;
+if (addresses != null && addresses.size() > 0) {
+    address = delegator.findByPrimaryKey("PostalAddress",UtilMisc.toMap("contactMechId",selAddresses.iterator().next().getString("contactMechId")));
+}
+if (address != null)	{
+   // get the country name and state/province abbreviation
+   country = address.getRelatedOneCache("CountryGeo");
+   if (country != null) {
+      context.put("countryName", country.getString("geoName"));
+   }
+   stateProvince = address.getRelatedOneCache("StateProvinceGeo");
+   if (stateProvince != null) {
+       context.put("stateProvinceAbbr", stateProvince.getString("abbreviation"));
+   }
+}
+context.put("postalAddress", address);
+
+//telephone
+List phones = delegator.findByAnd("PartyContactMechPurpose",
+        UtilMisc.toMap("partyId",partyId,"contactMechPurposeTypeId","PRIMARY_PHONE"));
+List selPhones = EntityUtil.filterByDate(phones, nowTimestamp, "fromDate", "thruDate", true);        
+if (phones != null && phones.size() > 0) {
+    context.put("phone",delegator.findByPrimaryKey("TelecomNumber",UtilMisc.toMap("contactMechId",selPhones.iterator().next().getString("contactMechId"))));
+}
+
+//Email
+List emails = delegator.findByAnd("PartyContactMechPurpose",
+        UtilMisc.toMap("partyId",partyId,"contactMechPurposeTypeId","PRIMARY_EMAIL"));
+List selEmails = EntityUtil.filterByDate(emails, nowTimestamp, "fromDate", "thruDate", true);        
+if (emails != null && emails.size() > 0) {
+    context.put("email",delegator.findByPrimaryKey("ContactMech",UtilMisc.toMap("contactMechId",selEmails.iterator().next().getString("contactMechId"))));
+}
+else	{	//get email address from party contact mech
+	List contacts = delegator.findByAnd("PartyContactMech",
+	        UtilMisc.toMap("partyId",partyId));
+	List selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);        
+	if (selContacts != null && selContacts.size() > 0) {
+		Iterator i = selContacts.iterator();
+		while (i.hasNext())	{
+			email = i.next().getRelatedOne("ContactMech");
+			if (email.getString("contactMechTypeId").equals("ELECTRONIC_ADDRESS"))	{
+				context.put("email",email);
+				break;
+			}
+		}
+	}
+}
+
+// website
+List contacts = delegator.findByAnd("PartyContactMech",
+	        UtilMisc.toMap("partyId",partyId));
+List selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);        
+if (selContacts != null && selContacts.size() > 0) {
+	Iterator i = selContacts.iterator();
+	while (i.hasNext())	{
+		website = i.next().getRelatedOne("ContactMech");
+		if (website.getString("contactMechTypeId").equals("WEB_ADDRESS"))	{
+			context.put("website",website);
+			break;
+		}
+	}
+}
+
+//Bank account
+List paymentMethods = delegator.findByAnd("PaymentMethod",UtilMisc.toMap("partyId",partyId,"paymentMethodTypeId", "EFT_ACCOUNT"));
+List selPayments = EntityUtil.filterByDate(paymentMethods, nowTimestamp, "fromDate", "thruDate", true);        
+if (selPayments != null && selPayments.size() > 0)
+    context.put("eftAccount",delegator.findByPrimaryKey("EftAccount",UtilMisc.toMap("paymentMethodId",selPayments.iterator().next().getString("paymentMethodId"))));
+
+

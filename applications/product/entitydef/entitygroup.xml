@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.catalog -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ProdCatalog" />
+    <entity-group group="org.ofbiz" entity="ProdCatalogCategory" />
+    <entity-group group="org.ofbiz" entity="ProdCatalogCategoryType" />
+    <entity-group group="org.ofbiz" entity="ProdCatalogInvFacility" />
+    <entity-group group="org.ofbiz" entity="ProdCatalogRole" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.category -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ProductCategory" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryAndMember" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryAttribute" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryContent" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryContentAndInfo" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryContentType" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryMember" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryMemberAndRole" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryRole" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryRollup" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryRollupAndRole" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryType" />
+    <entity-group group="org.ofbiz" entity="ProductCategoryTypeAttr" />
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.product.config -->
+    <!-- ========================================================= -->
+    
+    <entity-group group="org.ofbiz" entity="ProductConfig" />
+    <entity-group group="org.ofbiz" entity="ProductConfigItem" />
+    <entity-group group="org.ofbiz" entity="ProdConfItemContent" />
+    <entity-group group="org.ofbiz" entity="ProdConfItemContentType" />
+    <entity-group group="org.ofbiz" entity="ProductConfigOption" />
+    <entity-group group="org.ofbiz" entity="ProductConfigOptionIactn" />
+    <entity-group group="org.ofbiz" entity="ProductConfigProduct" />
+    <entity-group group="org.ofbiz" entity="ProductConfigConfig" />
+    <entity-group group="org.ofbiz" entity="ProductConfigStats" />
+    
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.cost -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="CostComponent" />
+    <entity-group group="org.ofbiz" entity="CostComponentAttribute" />
+    <entity-group group="org.ofbiz" entity="CostComponentType" />
+    <entity-group group="org.ofbiz" entity="CostComponentTypeAttr" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.feature -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ProductFeature" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureAndAppl" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureAppl" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureApplType" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureApplAttr" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureCategory" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureCategoryAppl" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureCatGrpAppl" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureDataResource" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureGroup" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureGroupAndAppl" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureGroupAppl" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureIactn" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureIactnType" />
+    <entity-group group="org.ofbiz" entity="ProductFeatureType" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.inventory -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="InventoryItem" />
+    <entity-group group="org.ofbiz" entity="InventoryItemAndLocation" />
+    <entity-group group="org.ofbiz" entity="InventoryItemAttribute" />
+    <entity-group group="org.ofbiz" entity="InventoryItemDetail" />
+    <entity-group group="org.ofbiz" entity="InventoryItemDetailSummary" />
+    <entity-group group="org.ofbiz" entity="InventoryItemStatus" />
+    <entity-group group="org.ofbiz" entity="InventoryItemTempRes" />
+    <entity-group group="org.ofbiz" entity="InventoryItemType" />
+    <entity-group group="org.ofbiz" entity="InventoryItemTypeAttr" />
+    <entity-group group="org.ofbiz" entity="InventoryItemVariance" />
+    <entity-group group="org.ofbiz" entity="InventoryTransfer" />
+    <entity-group group="org.ofbiz" entity="Lot" />
+    <entity-group group="org.ofbiz" entity="PhysicalInventory" />
+    <entity-group group="org.ofbiz" entity="PhysicalInventoryAndVariance" />
+    <entity-group group="org.ofbiz" entity="VarianceReason" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.location -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ProductFacility" />
+    <entity-group group="org.ofbiz" entity="ProductFacilityLocation" />
+    <entity-group group="org.ofbiz" entity="ProductFacilityLocationView" />
+    <entity-group group="org.ofbiz" entity="ProductFacilityLocationQuantityTest" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.price -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ProductPaymentMethodType" />
+    <entity-group group="org.ofbiz" entity="ProductPrice" />
+    <entity-group group="org.ofbiz" entity="ProductPriceAction" />
+    <entity-group group="org.ofbiz" entity="ProductPriceActionType" />
+    <entity-group group="org.ofbiz" entity="ProductPriceAutoNotice" />
+    <entity-group group="org.ofbiz" entity="ProductPriceChange" />
+    <entity-group group="org.ofbiz" entity="ProductPriceCond" />
+    <entity-group group="org.ofbiz" entity="ProductPricePurpose" />
+    <entity-group group="org.ofbiz" entity="ProductPriceRule" />
+    <entity-group group="org.ofbiz" entity="ProductPriceType" />
+    <entity-group group="org.ofbiz" entity="QuantityBreak" />
+    <entity-group group="org.ofbiz" entity="QuantityBreakType" />
+    <entity-group group="org.ofbiz" entity="SaleType" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.product -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="CommunicationEventProduct" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventAndProduct" />
+    <entity-group group="org.ofbiz" entity="GoodIdentification" />
+    <entity-group group="org.ofbiz" entity="GoodIdentificationAndProduct" />
+    <entity-group group="org.ofbiz" entity="GoodIdentificationType" />
+    <entity-group group="org.ofbiz" entity="Product" />
+    <entity-group group="org.ofbiz" entity="ProductAssoc" />
+    <entity-group group="org.ofbiz" entity="ProductAssocType" />
+    <entity-group group="org.ofbiz" entity="ProductAttribute" />
+    <entity-group group="org.ofbiz" entity="ProductCalculatedInfo" />
+    <entity-group group="org.ofbiz" entity="ProductContent" />
+    <entity-group group="org.ofbiz" entity="ProductContentAndInfo" />
+    <entity-group group="org.ofbiz" entity="ProductContentType" />
+    <entity-group group="org.ofbiz" entity="ProductGlAccount" />
+    <entity-group group="org.ofbiz" entity="ProductInventoryItem" />
+    <entity-group group="org.ofbiz" entity="ProductKeyword" />
+    <entity-group group="org.ofbiz" entity="OldProductKeywordResult" />
+    <entity-group group="org.ofbiz" entity="ProductMeter" />
+    <entity-group group="org.ofbiz" entity="ProductMeterType" />
+    <entity-group group="org.ofbiz" entity="ProductMaint" />
+    <entity-group group="org.ofbiz" entity="ProductMaintType" />
+    <entity-group group="org.ofbiz" entity="ProductReview" />
+    <entity-group group="org.ofbiz" entity="ProductSearchConstraint" />
+    <entity-group group="org.ofbiz" entity="ProductSearchResult" />
+    <entity-group group="org.ofbiz" entity="ProductSubscriptionResource" />
+    <entity-group group="org.ofbiz" entity="ProductType" />
+    <entity-group group="org.ofbiz" entity="ProductTypeAttr" />
+    <entity-group group="org.ofbiz" entity="ProductVirtualAndAssocPrices" />
+    <entity-group group="org.ofbiz" entity="ProductVirtualAndVariantInfo" />
+    <entity-group group="org.ofbiz" entity="ProductAndPriceView" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.promo -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ProductPromo" />
+    <entity-group group="org.ofbiz" entity="ProductPromoAction" />
+    <entity-group group="org.ofbiz" entity="ProductPromoCategory" />
+    <entity-group group="org.ofbiz" entity="ProductPromoCode" />
+    <entity-group group="org.ofbiz" entity="ProductPromoCodeEmail" />
+    <entity-group group="org.ofbiz" entity="ProductPromoCodeEmailParty" />
+    <entity-group group="org.ofbiz" entity="ProductPromoCodeParty" />
+    <entity-group group="org.ofbiz" entity="ProductPromoCond" />
+    <entity-group group="org.ofbiz" entity="ProductPromoProduct" />
+    <entity-group group="org.ofbiz" entity="ProductPromoRule" />
+    <entity-group group="org.ofbiz" entity="ProductPromoUse" />
+    <entity-group group="org.ofbiz" entity="ProductPromoUseCheck" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.storage -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="Container" />
+    <entity-group group="org.ofbiz" entity="ContainerType" />
+    <entity-group group="org.ofbiz" entity="Facility" />
+    <entity-group group="org.ofbiz" entity="FacilityAttribute" />
+    <entity-group group="org.ofbiz" entity="FacilityCarrierShipment" />
+    <entity-group group="org.ofbiz" entity="FacilityContactMech" />
+    <entity-group group="org.ofbiz" entity="FacilityContactMechPurpose" />
+    <entity-group group="org.ofbiz" entity="FacilityGroup" />
+    <entity-group group="org.ofbiz" entity="FacilityGroupMember" />
+    <entity-group group="org.ofbiz" entity="FacilityGroupRole" />
+    <entity-group group="org.ofbiz" entity="FacilityGroupRollup" />
+    <entity-group group="org.ofbiz" entity="FacilityGroupType" />
+    <entity-group group="org.ofbiz" entity="FacilityLocation" />
+    <entity-group group="org.ofbiz" entity="FacilityRole" />
+    <entity-group group="org.ofbiz" entity="FacilityType" />
+    <entity-group group="org.ofbiz" entity="FacilityTypeAttr" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.store -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ProductStore" />
+    <entity-group group="org.ofbiz" entity="ProductStoreCatalog" />
+    <entity-group group="org.ofbiz" entity="ProductStoreEmailSetting" />
+    <entity-group group="org.ofbiz" entity="ProductStoreFinActSetting" />
+    <entity-group group="org.ofbiz" entity="ProductStoreFacility" />
+    <entity-group group="org.ofbiz" entity="ProductStoreFacilityByOrder" />
+    <entity-group group="org.ofbiz" entity="ProductStoreGroup" />
+    <entity-group group="org.ofbiz" entity="ProductStoreGroupMember" />
+    <entity-group group="org.ofbiz" entity="ProductStoreGroupRole" />
+    <entity-group group="org.ofbiz" entity="ProductStoreGroupRollup" />
+    <entity-group group="org.ofbiz" entity="ProductStoreGroupType" />
+    <entity-group group="org.ofbiz" entity="ProductStoreKeywordOvrd" />
+    <entity-group group="org.ofbiz" entity="ProductStorePaymentSetting" />
+    <entity-group group="org.ofbiz" entity="ProductStorePromoAndAppl" />
+    <entity-group group="org.ofbiz" entity="ProductStorePromoAppl" />
+    <entity-group group="org.ofbiz" entity="ProductStoreRole" />
+    <entity-group group="org.ofbiz" entity="ProductStoreShipmentMeth" />
+    <entity-group group="org.ofbiz" entity="ProductStoreShipmentMethView" />
+    <entity-group group="org.ofbiz" entity="ProductStoreSurveyAppl" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.product.supplier -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="MarketInterest" />
+    <entity-group group="org.ofbiz" entity="ReorderGuideline" />
+    <entity-group group="org.ofbiz" entity="SupplierPrefOrder" />
+    <entity-group group="org.ofbiz" entity="SupplierProduct" />
+    <entity-group group="org.ofbiz" entity="SupplierProductFeature" />
+    <entity-group group="org.ofbiz" entity="SupplierRatingType" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.issuance -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ItemIssuance" />
+    <entity-group group="org.ofbiz" entity="ItemIssuanceRole" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.picklist -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="Picklist" />
+    <entity-group group="org.ofbiz" entity="PicklistAndBinAndItem" />
+    <entity-group group="org.ofbiz" entity="PicklistBin" />
+    <entity-group group="org.ofbiz" entity="PicklistItem" />
+    <entity-group group="org.ofbiz" entity="PicklistRole" />
+    <entity-group group="org.ofbiz" entity="PicklistStatusHistory" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.receipt -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="RejectionReason" />
+    <entity-group group="org.ofbiz" entity="ShipmentReceipt" />
+    <entity-group group="org.ofbiz" entity="ShipmentReceiptRole" />
+    <entity-group group="org.ofbiz" entity="ShipmentReceiptAndItem" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.shipment.shipment -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="Delivery" />
+    <entity-group group="org.ofbiz" entity="CarrierAndShipmentMethod" />
+    <entity-group group="org.ofbiz" entity="CarrierShipmentMethod" />
+    <entity-group group="org.ofbiz" entity="CarrierShipmentBoxType" />
+    <entity-group group="org.ofbiz" entity="OrderShipmentInfoSummary" />
+    <entity-group group="org.ofbiz" entity="Shipment" />
+    <entity-group group="org.ofbiz" entity="ShipmentAndItem" />
+    <entity-group group="org.ofbiz" entity="ShipmentAttribute" />
+    <entity-group group="org.ofbiz" entity="ShipmentBoxType" />
+    <entity-group group="org.ofbiz" entity="ShipmentContactMech" />
+    <entity-group group="org.ofbiz" entity="ShipmentContactMechType" />
+    <entity-group group="org.ofbiz" entity="ShipmentCostEstimate" />
+    <entity-group group="org.ofbiz" entity="ShipmentItem" />
+    <entity-group group="org.ofbiz" entity="ShipmentItemBilling" />
+    <entity-group group="org.ofbiz" entity="ShipmentItemFeature" />
+    <entity-group group="org.ofbiz" entity="ShipmentManifestView" />
+    <entity-group group="org.ofbiz" entity="ShipmentMethodType" />
+    <entity-group group="org.ofbiz" entity="ShipmentPackage" />
+    <entity-group group="org.ofbiz" entity="ShipmentPackageContent" />
+    <entity-group group="org.ofbiz" entity="ShipmentPackageRouteSeg" />
+    <entity-group group="org.ofbiz" entity="ShipmentRouteSegment" />
+    <entity-group group="org.ofbiz" entity="ShipmentPackageRouteDetail" />
+    <entity-group group="org.ofbiz" entity="ShipmentRouteSegmentDetail" />
+    <entity-group group="org.ofbiz" entity="ShipmentStatus" />
+    <entity-group group="org.ofbiz" entity="ShipmentType" />
+    <entity-group group="org.ofbiz" entity="ShipmentTypeAttr" />
+    <entity-group group="org.ofbiz" entity="ShippingDocument" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.odbc.shipment -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz.odbc" entity="OdbcPackageOut" />
+    <entity-group group="org.ofbiz.odbc" entity="OdbcShipmentOut" />
+    <entity-group group="org.ofbiz.odbc" entity="OdbcPackageIn" />
+</entitygroup>
+

@@ -1,0 +1,49 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+
+import java.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.widget.html.*;
+
+requestParams = UtilHttp.getParameterMap(request);
+security = request.getAttribute("security");
+delegator = request.getAttribute("delegator");
+
+if(security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+    context.put("hasPermission", Boolean.TRUE);
+} else {
+    context.put("hasPermission", Boolean.FALSE);
+}
+GenericValue techDataCalendar = null;
+List calendarWeeks = null;
+
+String calendarWeekId = request.getParameter("calendarWeekId");
+calendarWeekData = new HashMap();
+if (calendarWeekId == null)  calendarWeekId = request.getAttribute("calendarWeekId");
+if (calendarWeekId != null) {
+    calendarWeek = delegator.findByPrimaryKey("TechDataCalendarWeek", UtilMisc.toMap("calendarWeekId", calendarWeekId));
+    context.put("calendarWeek",calendarWeek);
+    calendarWeekData = calendarWeek;
+}
+errorMessage = request.getAttribute("_ERROR_MESSAGE_");
+if (errorMessage != null && errorMessage.length() > 0) {
+    calendarWeekData = requestParams;
+}
+if (calendarWeekData == null) calendarWeekData = new HashMap();
+context.put("calendarWeekData", calendarWeekData);

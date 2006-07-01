@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>OFBiz Security Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <!-- UserLogin services -->
+    <service name="userLogin" engine="java" location="org.ofbiz.securityext.login.LoginServices" invoke="userLogin">
+        <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
+        <attribute name="login.username" type="String" mode="IN"/>
+        <attribute name="login.password" type="String" mode="IN"/>
+        <attribute name="visitId" type="String" mode="IN" optional="true"/>
+        <attribute name="isServiceAuth" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="createUserLogin" engine="java" auth="false" 
+            location="org.ofbiz.securityext.login.LoginServices" invoke="createUserLogin">
+        <description>Create a UserLogin</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="false"/>
+        <attribute name="currentPasswordVerify" type="String" mode="IN" optional="false"/>
+        <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateUserLoginId" engine="java" location="org.ofbiz.securityext.login.LoginServices" invoke="updateUserLoginId" auth="true">
+        <description>Update a UserLoginId by creating a new one and expiring the old one</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="newUserLogin" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
+    </service>
+    <service name="updatePassword" engine="java" default-entity-name="UserLogin" 
+            location="org.ofbiz.securityext.login.LoginServices" invoke="updatePassword" auth="true">
+        <description>Update a UserLogin Password</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="true"/>
+        <attribute name="newPassword" type="String" mode="IN" optional="true"/>
+        <attribute name="newPasswordVerify" type="String" mode="IN" optional="true"/>
+        <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
+        <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateUserLoginSecurity" engine="java" default-entity-name="UserLogin" 
+            location="org.ofbiz.securityext.login.LoginServices" invoke="updateUserLoginSecurity" auth="true">
+        <description>Update UserLogin Security Settings</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="enabled" type="String" mode="IN" optional="false"/>
+        <attribute name="disabledDateTime" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="successiveFailedLogins" type="Long" mode="IN" optional="true"/>
+    </service>
+
+    <!-- SecurityGroup services -->
+    <service name="createSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="createSecurityGroup" auth="true">
+        <description>Create an SecurityGroup</description>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateSecurityGroup" auth="true">
+        <description>Update a SecurityGroup</description>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+    </service>
+    <!-- SecurityPermission services -->
+    <service name="createSecurityPermission" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="createSecurityPermission" auth="true">
+        <description>Create a SecurityPermission</description>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateSecurityPermission" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateSecurityPermission" auth="true">
+        <description>Update a SecurityPermission</description>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- SecurityPermission to SecurityGroup services -->
+    <service name="addSecurityPermissionToSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="addSecurityPermissionToSecurityGroup" auth="true">
+        <description>Add a SecurityPermission to a SecurityGroup</description>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeSecurityPermissionFromSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="removeSecurityPermissionFromSecurityGroup" auth="true">
+        <description>Remove a SecurityPermission from a SecurityGroup</description>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- UserLogin to SecurityGroup services -->
+    <service name="addUserLoginToSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="addUserLoginToSecurityGroup" auth="true">
+        <description>Add a UserLogin to a SecurityGroup</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="updateUserLoginToSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateUserLoginToSecurityGroup" auth="true">
+        <description>Update a UserLogin to SecurityGroup Appl</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="removeUserLoginFromSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="removeUserLoginFromSecurityGroup" auth="true">
+        <description>Remove a UserLogin from a SecurityGroup</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+</services>

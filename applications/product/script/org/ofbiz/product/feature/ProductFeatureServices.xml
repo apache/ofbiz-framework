@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.0
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createProductFeatureCategory" short-description="Create Product Feature Category">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <call-map-processor in-map-name="parameters" out-map-name="newEntityContext">
+            <simple-map-processor name="populateEntity">
+                <process field="parentCategoryId"><copy/></process>
+                <process field="description"><copy/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        <sequenced-id-to-env sequence-name="ProductFeatureCategory" env-name="productFeatureCategoryId"/>
+        <to-string field-name="productFeatureCategoryId"/>
+        <env-to-field env-name="productFeatureCategoryId" map-name="newEntityContext"/>
+        <field-to-result field-name="productFeatureCategoryId" result-name="productFeatureCategoryId"/>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="ProductFeatureCategory" map-name="newEntityContext"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductFeatureCategory" short-description="Update Product Feature Category">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategory you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <field-to-field field-name="productFeatureCategoryId" map-name="parameters" to-map-name="productFeatureCategoryPKMap"/>
+        <find-by-primary-key entity-name="ProductFeatureCategory" map-name="productFeatureCategoryPKMap" value-name="productFeatureCategory"/>
+        <call-map-processor in-map-name="parameters" out-map-name="productFeatureCategory">
+            <simple-map-processor name="populateEntity">
+                <process field="parentCategoryId"><copy/></process>
+                <process field="description"><copy/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        <check-errors/>
+        <store-value value-name="productFeatureCategory"/>
+    </simple-method>
+
+    <simple-method method-name="createProductFeature" short-description="Create Product Feature">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeature you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <make-value value-name="newEntity" entity-name="ProductFeature"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <sequenced-id-to-env sequence-name="ProductFeature" env-name="productFeatureId"/>
+        <to-string field-name="productFeatureId"/>
+        <env-to-field env-name="productFeatureId" map-name="newEntity"/>
+        <field-to-result field-name="productFeatureId" result-name="productFeatureId"/>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductFeature" short-description="Update Product Feature">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeature you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <field-to-field field-name="productFeatureId" map-name="parameters" to-map-name="productFeaturePKMap"/>
+        <find-by-primary-key entity-name="ProductFeature" map-name="productFeaturePKMap" value-name="productFeature"/>
+        <set-nonpk-fields map-name="parameters" value-name="productFeature"/>
+        <store-value value-name="productFeature"/>
+    </simple-method>
+
+    <simple-method method-name="applyFeatureToProduct" short-description="Apply Feature to Product">
+        <string-to-field string="applyFeatureToProduct" field-name="callingMethodName"/>
+        <string-to-field string="CREATE" field-name="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <check-errors/>
+        
+        <if-empty field-name="fromDate" map-name="parameters">
+            <now-timestamp-to-env env-name="nowStamp"/>
+            <env-to-field env-name="nowStamp" field-name="fromDate" map-name="parameters"/>
+        </if-empty>
+        <make-value value-name="newEntity" entity-name="ProductFeatureAppl"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+
+        <!-- clear by and caches for the view-entity -->
+        <!-- NOTE that these cannot be cleared automatically because they are on a view-entity -->
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearCacheByProductIdMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearCacheByProductIdMap"/>
+        
+        <!-- this cache is from the ProductServices.makeGroup method -->
+        <!-- a trickier cache, need to know the productFeatureTypeId for this one, so look it up first... -->
+        <field-to-field field-name="productFeatureId" map-name="parameters" to-map-name="lookupProductFeatureMap"/>
+        <find-by-primary-key entity-name="ProductFeature" map-name="lookupProductFeatureMap" value-name="productFeature"/>
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearMakeGroupCacheMap"/>
+        <field-to-field field-name="productFeatureTypeId" map-name="productFeature" to-map-name="clearMakeGroupCacheMap"/>
+        <string-to-field string="STANDARD_FEATURE" field-name="productFeatureApplTypeId" map-name="clearMakeGroupCacheMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearMakeGroupCacheMap"/>
+
+        <!-- the SELECTABLE_FEATURE cache -->
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearSelFeatCacheMap"/>
+        <string-to-field string="SELECTABLE_FEATURE" field-name="productFeatureApplTypeId" map-name="clearSelFeatCacheMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearSelFeatCacheMap"/>
+    </simple-method>
+    <simple-method method-name="updateFeatureToProductApplication" short-description="Update Feature to Product Application">
+        <string-to-field string="updateFeatureToProductApplication" field-name="callingMethodName"/>
+        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <check-errors/>
+        
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="productFeatureApplPKMap"/>
+        <field-to-field field-name="productFeatureId" map-name="parameters" to-map-name="productFeatureApplPKMap"/>
+        <field-to-field field-name="fromDate" map-name="parameters" to-map-name="productFeatureApplPKMap"/>
+        <find-by-primary-key entity-name="ProductFeatureAppl" map-name="productFeatureApplPKMap" value-name="productFeatureAppl"/>
+        <set-nonpk-fields map-name="parameters" value-name="productFeatureAppl"/>
+        <store-value value-name="productFeatureAppl"/>
+
+        <!-- clear by and caches for the view-entity -->
+        <!-- NOTE that these cannot be cleared automatically because they are on a view-entity -->
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearCacheByProductIdMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearCacheByProductIdMap"/>
+        
+        <!-- this cache is from the ProductServices.makeGroup method -->
+        <!-- a trickier cache, need to know the productFeatureTypeId for this one, so look it up first... -->
+        <field-to-field field-name="productFeatureId" map-name="parameters" to-map-name="lookupProductFeatureMap"/>
+        <find-by-primary-key entity-name="ProductFeature" map-name="lookupProductFeatureMap" value-name="productFeature"/>
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearMakeGroupCacheMap"/>
+        <field-to-field field-name="productFeatureTypeId" map-name="productFeature" to-map-name="clearMakeGroupCacheMap"/>
+        <string-to-field string="STANDARD_FEATURE" field-name="productFeatureApplTypeId" map-name="clearMakeGroupCacheMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearMakeGroupCacheMap"/>
+
+        <!-- the SELECTABLE_FEATURE cache -->
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearSelFeatCacheMap"/>
+        <string-to-field string="SELECTABLE_FEATURE" field-name="productFeatureApplTypeId" map-name="clearSelFeatCacheMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearSelFeatCacheMap"/>
+    </simple-method>
+    <simple-method method-name="removeFeatureFromProduct" short-description="Remove Feature from Product">
+        <string-to-field string="removeFeatureFromProduct" field-name="callingMethodName"/>
+        <string-to-field string="DELETE" field-name="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <check-errors/>
+        
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="productFeatureApplPKMap"/>
+        <field-to-field field-name="productFeatureId" map-name="parameters" to-map-name="productFeatureApplPKMap"/>
+        <field-to-field field-name="fromDate" map-name="parameters" to-map-name="productFeatureApplPKMap"/>
+        <find-by-primary-key entity-name="ProductFeatureAppl" map-name="productFeatureApplPKMap" value-name="productFeatureAppl"/>
+        <!-- This is old code that just sets the thru date; the current codes actually removes the db row
+        <if-empty field-name="thruDate" map-name="parameters">
+            <now-timestamp-to-env env-name="nowStamp"/>
+            <env-to-field env-name="nowStamp" field-name="thruDate" map-name="parameters"/>
+        </if-empty>
+        <field-to-field field-name="thruDate" map-name="parameters" to-map-name="productFeatureAppl"/>
+        <store-value value-name="productFeatureAppl"/>
+        -->
+        <remove-value value-name="productFeatureAppl"/>
+
+        <!-- clear by and caches for the view-entity -->
+        <!-- NOTE that these cannot be cleared automatically because they are on a view-entity -->
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearCacheByProductIdMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearCacheByProductIdMap"/>
+        
+        <!-- this cache is from the ProductServices.makeGroup method -->
+        <!-- a trickier cache, need to know the productFeatureTypeId for this one, so look it up first... -->
+        <field-to-field field-name="productFeatureId" map-name="parameters" to-map-name="lookupProductFeatureMap"/>
+        <find-by-primary-key entity-name="ProductFeature" map-name="lookupProductFeatureMap" value-name="productFeature"/>
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearMakeGroupCacheMap"/>
+        <field-to-field field-name="productFeatureTypeId" map-name="productFeature" to-map-name="clearMakeGroupCacheMap"/>
+        <string-to-field string="STANDARD_FEATURE" field-name="productFeatureApplTypeId" map-name="clearMakeGroupCacheMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearMakeGroupCacheMap"/>
+
+        <!-- the SELECTABLE_FEATURE cache -->
+        <field-to-field field-name="productId" map-name="parameters" to-map-name="clearSelFeatCacheMap"/>
+        <string-to-field string="SELECTABLE_FEATURE" field-name="productFeatureApplTypeId" map-name="clearSelFeatCacheMap"/>
+        <clear-cache-line entity-name="ProductFeatureAndAppl" map-name="clearSelFeatCacheMap"/>
+    </simple-method>
+
+    <simple-method method-name="applyFeatureToProductFromTypeAndCode" short-description="Apply Feature to Product using Feature Type and ID Code">
+        <string-to-field string="applyFeatureToProductFromTypeAndCode" field-name="callingMethodName"/>
+        <string-to-field string="CREATE" field-name="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <check-errors/>
+
+        <!-- find the ProductFeatures by type and id code -->
+        <field-to-field field-name="productFeatureTypeId" map-name="parameters" to-map-name="findProductFeaturesContext"/>
+        <field-to-field field-name="idCode" map-name="parameters" to-map-name="findProductFeaturesContext"/>
+        <find-by-and entity-name="ProductFeature" map-name="findProductFeaturesContext" list-name="productFeatures"/>
+        
+        <iterate entry-name="productFeature" list-name="productFeatures">
+            <field-to-field field-name="productId" map-name="parameters" to-map-name="applyFeatureContext"/>
+            <field-to-field field-name="productFeatureApplTypeId" map-name="parameters" to-map-name="applyFeatureContext"/>
+            <field-to-field field-name="fromDate" map-name="parameters" to-map-name="applyFeatureContext"/>
+            <field-to-field field-name="thruDate" map-name="parameters" to-map-name="applyFeatureContext"/>
+            <field-to-field field-name="sequenceNum" map-name="parameters" to-map-name="applyFeatureContext"/>
+            
+            <field-to-field field-name="productFeatureId" map-name="productFeature" to-map-name="applyFeatureContext"/>
+
+            <if-empty field-name="sequenceNum" map-name="parameters">
+                <field-to-field field-name="defaultSequenceNum" map-name="productFeature" to-field-name="sequenceNum" to-map-name="applyFeatureContext"/>
+            </if-empty>
+            
+            <call-service service-name="applyFeatureToProduct" in-map-name="applyFeatureContext"/>
+        </iterate>
+    </simple-method>
+
+    <!-- Methods for ProductFeatureCategoryAppl -->
+    <simple-method method-name="createProductFeatureCategoryAppl" short-description="Create an Product Feature Category Application">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCategoryAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProductFeatureCategoryAppl"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductFeatureCategoryAppl" short-description="Update an Product Feature Category Application">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategoryAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeProductFeatureCategoryAppl" short-description="Remove a Product Feature Category Application">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCategoryAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for ProductFeatureCatGrpAppl -->
+    <simple-method method-name="createProductFeatureCatGrpAppl" short-description="Create a ProductFeatureGroup to ProductCategory Application">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCatGrpAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProductFeatureCatGrpAppl"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductFeatureCatGrpAppl" short-description="Update a ProductFeatureGroup to ProductCategory Application">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCatGrpAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeProductFeatureCatGrpAppl" short-description="Remove a ProductFeatureGroup to ProductCategory Application">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCatGrpAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- ProductFeatureGroup Services -->
+    <simple-method method-name="createProductFeatureGroup" short-description="Create Product Feature Group">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureGroup you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProductFeatureGroup"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <sequenced-id-to-env sequence-name="ProductFeatureGroup" env-name="productFeatureGroupId"/>
+        <to-string field-name="productFeatureGroupId"/>
+        <env-to-field env-name="productFeatureGroupId" map-name="newEntity"/>
+        <field-to-result field-name="productFeatureGroupId" result-name="productFeatureGroupId"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductFeatureGroup" short-description="Update Product Feature Group">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroup you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <field-to-field field-name="productFeatureGroupId" map-name="parameters" to-map-name="productFeatureGroupPKMap"/>
+        <find-by-primary-key entity-name="ProductFeatureGroup" map-name="productFeatureGroupPKMap" value-name="productFeatureGroup"/>
+        <set-nonpk-fields map-name="parameters" value-name="productFeatureGroup"/>
+        <store-value value-name="productFeatureGroup"/>
+    </simple-method>
+    <simple-method method-name="createProductFeatureGroupAppl" short-description="Create an Product Feature Group Application">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureGroupAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProductFeatureGroupAppl"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        </if-empty>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductFeatureGroupAppl" short-description="Update an Product Feature Group Application">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroupAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ProductFeatureGroupAppl" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeProductFeatureGroupAppl" short-description="Remove a Product Feature Group Application">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureGroupAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="ProductFeatureGroupAppl" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- Methods for ProductFeatureType -->
+    <simple-method method-name="createProductFeatureType" short-description="Create a Product Feature Type">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureType you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="ProductFeatureType"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateProductFeatureType" short-description="Update an Product Feature Type">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureType you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureType"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeProductFeatureType" short-description="Remove a Product Feature Type">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureType you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureType"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <!-- create a new ProductFeatureApplAttr -->
+    <simple-method method-name="createProductFeatureApplAttr" short-description="Create a ProductFeatureApplAttr">
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-message message="Security Error: to run createProductFeatureApplAttr you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="ProductFeatureApplAttr"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <entity-condition entity-name="ProductFeatureAppl" list-name="productFeatureAppls" filter-by-date="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" env-name="newEntity.productId"/>
+                    <condition-expr field-name="productFeatureId" env-name="newEntity.productFeatureId"/>
+                </condition-list>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+            <first-from-list list-name="productFeatureAppls" entry-name="productFeatureAppl"/>
+            <set field="newEntity.fromDate" from-field="productFeatureAppl.fromDate"/>
+        </if-empty>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing ProductFeatureApplAttr -->
+    <simple-method method-name="updateProductFeatureApplAttr" short-description="Update an existing ProductFeatureApplAttr">
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-message message="Security Error: to run updateProductFeatureApplAttr you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="ProductFeatureApplAttr" value-name="productFeatureApplAttr" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="productFeatureApplAttr"/>
+        <store-value value-name="productFeatureApplAttr"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing ProductFeatureApplAttr -->
+    <simple-method method-name="removeProductFeatureApplAttr" short-description="Remove an existing ProductFeatureApplAttr">
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-message message="Security Error: to run removeProductFeatureApplAttr you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="ProductFeatureApplAttr" value-name="productFeatureApplAttr" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="productFeatureApplAttr"/>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

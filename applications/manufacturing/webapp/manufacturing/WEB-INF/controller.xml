@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/site-conf.xsd">
+    <description>Manufacturing Component Site Configuration File</description>
+    <owner>The Open For Business Project Copyright (c) 2003</owner>
+    <errorpage>/error/error.jsp</errorpage>
+    
+    <!-- event handlers -->
+    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
+    <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
+    <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
+    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+
+    <!-- view handlers -->
+    <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
+    <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
+
+    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
+    <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
+    <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
+    
+    <preprocessor>
+        <!-- Events to run on every request before security (chains exempt) -->
+        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="checkExternalLoginKey"/>
+    </preprocessor>
+    <postprocessor>
+        <!-- Events to run on every request after all other processing (chains exempt) -->
+        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+    </postprocessor>
+
+    <!-- Security Mappings -->
+    <request-map uri="checkLogin" edit="false">
+        <description>Verify a user is logged in.</description>
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="checkLogin" />
+        <response name="success" type="view" value="main" />
+        <response name="error" type="view" value="login" />
+    </request-map>
+
+    <request-map uri="login">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="login"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+
+    <request-map uri="logout">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="logout"/>
+        <response name="success" type="request" value="checkLogin"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <!-- End of Security Mappings -->
+
+    <!-- Request Mappings -->
+    <request-map uri="view">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="authview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="changeDelegator">
+        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    <request-map uri="setSessionLocale">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <!-- Lookup request mappings -->
+    <request-map uri="LookupRouting">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupRouting"/>
+    </request-map> 
+    <request-map uri="LookupRoutingTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupRoutingTask"/>
+    </request-map> 
+    <request-map uri="LookupProduct">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupProduct"/>
+    </request-map>
+    <request-map uri="LookupVirtualProduct">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupVirtualProduct"/>
+    </request-map>
+    <request-map uri="LookupVariantProduct">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupVariantProduct"/>
+    </request-map>
+    <request-map uri="LookupProductFeature">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupProductFeature"/>
+    </request-map>
+
+    <!-- Routing requests -->
+    <request-map uri="FindCalendar">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindCalendar"/>
+    </request-map>
+    <request-map uri="EditCalendar">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCalendar"/>
+    </request-map>
+    <request-map uri="CreateCalendar">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCalendar"/>
+        <response name="success" type="view" value="EditCalendar"/>
+        <response name="error" type="view" value="EditCalendar"/>
+    </request-map>
+    <request-map uri="UpdateCalendar">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCalendar"/>
+        <response name="success" type="view" value="EditCalendar"/>
+        <response name="error" type="view" value="EditCalendar"/>
+    </request-map>
+    <request-map uri="RemoveCalendar">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCalendar"/>
+        <response name="success" type="view" value="FindCalendar"/>
+        <response name="error" type="view" value="FindCalendar"/>
+    </request-map>
+
+    <request-map uri="EditCalendarWeek">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCalendarWeek"/>
+    </request-map>
+    <request-map uri="ListCalendarWeek">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListCalendarWeek"/>
+    </request-map>
+    <request-map uri="CreateCalendarWeek">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCalendarWeek"/>
+        <response name="success" type="view" value="EditCalendarWeek"/>
+        <response name="error" type="view" value="EditCalendarWeek"/>
+    </request-map>
+    <request-map uri="UpdateCalendarWeek">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCalendarWeek"/>
+        <response name="success" type="view" value="EditCalendarWeek"/>
+        <response name="error" type="view" value="EditCalendarWeek"/>
+    </request-map>
+    <request-map uri="RemoveCalendarWeek">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCalendarWeek"/>
+        <response name="success" type="view" value="ListCalendarWeek"/>
+        <response name="error" type="view" value="ListCalendarWeek"/>
+    </request-map>
+
+    <request-map uri="EditCalendarExceptionDay">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCalendarExceptionDay"/>
+    </request-map>
+    <request-map uri="CreateCalendarExceptionDay">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCalendarExceptionDay"/>
+        <response name="success" type="view" value="EditCalendarExceptionDay"/>
+        <response name="error" type="view" value="EditCalendarExceptionDay"/>
+    </request-map>
+    <request-map uri="UpdateCalendarExceptionDay">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCalendarExceptionDay"/>
+        <response name="success" type="view" value="EditCalendarExceptionDay"/>
+        <response name="error" type="view" value="EditCalendarExceptionDay"/>
+    </request-map>
+    <request-map uri="RemoveCalendarExceptionDay">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCalendarExceptionDay"/>
+        <response name="success" type="view" value="EditCalendarExceptionDay"/>
+        <response name="error" type="view" value="EditCalendarExceptionDay"/>
+    </request-map>
+
+    <request-map uri="EditCalendarExceptionWeek">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCalendarExceptionWeek"/>
+    </request-map>
+    <request-map uri="CreateCalendarExceptionWeek">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCalendarExceptionWeek"/>
+        <response name="success" type="view" value="EditCalendarExceptionWeek"/>
+        <response name="error" type="view" value="EditCalendarExceptionWeek"/>
+    </request-map>
+    <request-map uri="UpdateCalendarExceptionWeek">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCalendarExceptionWeek"/>
+        <response name="success" type="view" value="EditCalendarExceptionWeek"/>
+        <response name="error" type="view" value="EditCalendarExceptionWeek"/>
+    </request-map>
+    <request-map uri="RemoveCalendarExceptionWeek">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCalendarExceptionWeek"/>
+        <response name="success" type="view" value="EditCalendarExceptionWeek"/>
+        <response name="error" type="view" value="EditCalendarExceptionWeek"/>
+    </request-map>
+
+    <request-map uri="FindRoutingTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindRoutingTask"/>
+    </request-map>
+    <request-map uri="EditRoutingTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingTask"/>
+    </request-map>
+    <request-map uri="EditRoutingTaskCosts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingTaskCosts"/>
+    </request-map>
+    <request-map uri="ListRoutingTaskRoutings">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListRoutingTaskRoutings"/>
+    </request-map>
+    <request-map uri="ListRoutingTaskProducts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListRoutingTaskProducts"/>
+    </request-map>
+    <request-map uri="EditRoutingTaskProduct">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingTaskProduct"/>
+    </request-map>
+    <request-map uri="CreateRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="EditRoutingTask"/>
+        <response name="error" type="view" value="EditRoutingTask"/>
+    </request-map>
+    <request-map uri="UpdateRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditRoutingTask"/>
+        <response name="error" type="view" value="EditRoutingTask"/>
+    </request-map>
+    <request-map uri="RemoveRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffort"/>
+        <response name="success" type="view" value="FindRoutingTask"/>
+        <response name="error" type="view" value="FindRoutingTask"/>
+    </request-map>
+    
+    <request-map uri="FindRouting">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindRouting"/>
+    </request-map>
+    <request-map uri="EditRouting">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRouting"/>
+    </request-map>
+    
+    <request-map uri="CreateRouting">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="EditRouting"/>
+        <response name="error" type="view" value="EditRouting"/>
+    </request-map>
+    <request-map uri="UpdateRouting">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditRouting"/>
+        <response name="error" type="view" value="EditRouting"/>
+    </request-map>
+    
+    <request-map uri="EditRoutingTaskAssoc">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingTaskAssoc"/>
+    </request-map>
+    <request-map uri="AddRoutingTaskAssoc">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/techdata/RoutingSimpleEvents.xml" invoke="addRoutingTaskAssoc"/>
+        <response name="success" type="view" value="EditRoutingTaskAssoc"/>
+        <response name="error" type="view" value="EditRoutingTaskAssoc"/>
+    </request-map>
+    <request-map uri="UpdateRoutingTaskAssoc">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/techdata/RoutingSimpleEvents.xml" invoke="updateRoutingTaskAssoc"/>
+        <response name="success" type="view" value="EditRoutingTaskAssoc"/>
+        <response name="error" type="view" value="EditRoutingTaskAssoc"/>
+    </request-map>
+    <request-map uri="RemoveRoutingTaskAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortAssoc"/>
+        <response name="success" type="view" value="EditRoutingTaskAssoc"/>
+        <response name="error" type="view" value="EditRoutingTaskAssoc"/>
+    </request-map>
+    <request-map uri="UpdateRoutingTaskForRouting">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditRoutingTaskAssoc"/>
+        <response name="error" type="view" value="EditRoutingTaskAssoc"/>
+    </request-map>
+    <request-map uri="EditRoutingProductLink">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingProductLink"/>
+    </request-map>
+    <request-map uri="AddRoutingProductLink">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditRoutingProductLink"/>
+        <response name="error" type="view" value="EditRoutingProductLink"/>
+    </request-map>
+    <request-map uri="UpdateRoutingProductLink">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditRoutingProductLink"/>
+        <response name="error" type="view" value="EditRoutingProductLink"/>
+    </request-map>
+    <request-map uri="addRoutingTaskProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditRoutingTaskProduct"/>
+        <response name="error" type="view" value="EditRoutingTaskProduct"/>
+    </request-map>
+    <request-map uri="updateRoutingTaskProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditRoutingTaskProduct"/>
+        <response name="error" type="view" value="EditRoutingTaskProduct"/>
+    </request-map>
+    <request-map uri="addRoutingTaskCost">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortCostCalc"/>
+        <response name="success" type="view" value="EditRoutingTaskCosts"/>
+        <response name="error" type="view" value="EditRoutingTaskCosts"/>
+    </request-map>
+    <request-map uri="removeRoutingTaskCost">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortCostCalc"/>
+        <response name="success" type="view" value="EditRoutingTaskCosts"/>
+        <response name="error" type="view" value="EditRoutingTaskCosts"/>
+    </request-map>
+    <!-- CostCalc mappings -->
+    <request-map uri="EditCostCalcs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+    </request-map>
+    <request-map uri="createCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCostComponentCalc"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+        <response name="error" type="view" value="EditCostCalcs"/>
+    </request-map>
+    <request-map uri="updateCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCostComponentCalc"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+        <response name="error" type="view" value="EditCostCalcs"/>
+    </request-map>
+    <request-map uri="removeCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCostComponentCalc"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+        <response name="error" type="view" value="EditCostCalcs"/>
+    </request-map>
+    <!-- BOM request mappings -->
+    <request-map uri="BomSimulation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="BomSimulation"/>
+    </request-map>
+    <request-map uri="runBomSimulation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getBOMTree"/>
+        <response name="success" type="view" value="BomSimulation"/>
+    </request-map>
+  
+    <request-map uri="EditProductBom">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductBom"/>
+    </request-map>
+    <request-map uri="UpdateProductBom">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/bom/BomSimpleMethods.xml" invoke="eventEditBOM"/>
+        <response name="success" type="view" value="EditProductBom"/>
+        <response name="error" type="view" value="EditProductBom"/>
+    </request-map>
+
+    <request-map uri="EditProductManufacturingRules">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductManufacturingRules"/>
+    </request-map>
+    <request-map uri="AddProductManufacturingRule">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addProductManufacturingRule"/>
+        <response name="success" type="view" value="EditProductManufacturingRules"/>
+        <response name="error" type="view" value="EditProductManufacturingRules"/>
+    </request-map>
+    <request-map uri="UpdateProductManufacturingRule">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductManufacturingRule"/>
+        <response name="success" type="view" value="EditProductManufacturingRules"/>
+        <response name="error" type="view" value="EditProductManufacturingRules"/>
+    </request-map>
+    <request-map uri="DeleteProductManufacturingRule">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteProductManufacturingRule"/>
+        <response name="success" type="view" value="EditProductManufacturingRules"/>
+        <response name="error" type="view" value="EditProductManufacturingRules"/>
+    </request-map>
+ 
+     <!-- Requirement request mappings -->
+    <request-map uri="ApproveRequirements">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ApproveRequirements"/>
+    </request-map>
+    <request-map uri="approveRequirements">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="approveRequirement"/>
+        <response name="success" type="view" value="ApproveRequirements"/>
+        <response name="error" type="view" value="ApproveRequirements"/>
+    </request-map>
+
+    <!-- MRP request mappings -->
+    <request-map uri="FindInventoryEventPlan">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindMrpPlannedEvents"/>
+    </request-map>
+    <request-map uri="RunMrp">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="MrpExecution"/>
+    </request-map>
+    <request-map uri="runMrpGo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="runningMrp"/>
+        <response name="success" type="view" value="MrpExecution"/>
+        <response name="error" type="view" value="MrpExecution"/>
+    </request-map>
+    
+     <!-- JobShop Management request mappings -->
+    <request-map uri="CreateProductionRun">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateProductionRun"/>
+    </request-map>
+    <request-map uri="CreateProductionRunGo">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="checkFieldCreateProductionRun"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="CreateProductionRun"/>
+    </request-map>
+    <request-map uri="ShowProductionRun">
+        <security https="true" auth="true"/>
+        <event type="bsf" path="/jobshopmgt/" invoke="ShowProductionRun.bsh"/>
+        <response name="docs_not_printed" type="view" value="EditProductionRun"/>
+        <response name="docs_printed" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="FindProductionRun"/>
+    </request-map>
+    <request-map uri="ManufacturingReports">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ManufacturingReports"/>
+    </request-map>
+    <request-map uri="FindProductionRun">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindProductionRun"/>
+    </request-map>
+    <request-map uri="EditProductionRun">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="actionEditProductionRun"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+    </request-map>
+    <request-map uri="ProductionRunDeclaration">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="ProductionRunCosts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductionRunCosts"/>
+    </request-map>
+    <request-map uri="ProductionRunAssocs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductionRunAssocs"/>
+    </request-map>
+    <request-map uri="removeRoutingProductLink">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditRoutingProductLink"/>
+        <response name="error" type="view" value="EditRoutingProductLink"/>
+    </request-map>
+    <request-map uri="removeRoutingTaskProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="ListRoutingTaskProducts"/>
+        <response name="error" type="view" value="ListRoutingTaskProducts"/>
+    </request-map>
+    <request-map uri="deleteProductionRunRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
+    <request-map uri="deleteProductionRunComponent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
+    <!-- Production Run Declaration -->
+    <request-map uri="changeProductionRunStatusToPrinted">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="changeProductionRunStatus"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
+    <request-map uri="changeProductionRunStatusToClosed">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="changeProductionRunStatus"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
+    <request-map uri="changeProductionRunTaskStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="changeProductionRunTaskStatus"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="issueProductionRunRoutingTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="issueProductionRunTask"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="createProductionRunTaskProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="productionRunTaskProduce"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="productionRunTaskReturnMaterials">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="productionRunTaskReturnMaterial"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="quickRunProductionRunTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="quickRunProductionRunTask"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="quickRunAllProductionRunTasks">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="quickRunAllProductionRunTasks"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="quickChangeProductionRunStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="quickChangeProductionRunStatus"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="cancelProductionRun">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelProductionRun"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="productionRunProduce">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="productionRunProduce"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="updateProductionRunTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductionRunTask"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="createProductionRunsForShipment">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.manufacturing.bom.BOMHelper" invoke="createProductionRunsForShipment"/>
+        <response name="success" type="view" value="WorkWithShipmentPlans"/>
+    </request-map>
+    <request-map uri="WorkWithShipmentPlans">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WorkWithShipmentPlans"/>
+        <response name="error" type="view" value="WorkWithShipmentPlans"/>
+    </request-map>
+
+    <!-- Reports -->    
+    <request-map uri="CuttingListReport.pdf"><security https="true" auth="true"/>
+        <response name="success" type="view" value="CuttingListReport"/>
+    </request-map>
+    <request-map uri="ShipmentPlanStockReport.pdf">
+        <security https="true" auth="true"/>
+        <event type="bsf" path="/jobshopmgt/" invoke="ShipmentPlanStockReportPrepare.bsh"/>
+        <response name="success" type="view" value="ShipmentPlanStockReport"/>
+    </request-map>
+    <request-map uri="ShipmentLabel.pdf">
+        <security https="true" auth="true"/>
+        <event type="bsf" path="/jobshopmgt/" invoke="ShipmentLabelPrepare.bsh"/>
+        <response name="success" type="view" value="ShipmentLabel"/>
+    </request-map>
+    <request-map uri="ShipmentWorkEffortTasks.pdf">
+        <security https="true" auth="true"/>
+        <event type="bsf" path="/jobshopmgt/" invoke="ShipmentWorkEffortTasksPrepare.bsh"/>
+        <response name="success" type="view" value="ShipmentWorkEffortTasks"/>
+    </request-map>
+    <request-map uri="MRPPRunsProductsByFeature.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="MRPPRunsProductsByFeature"/>
+    </request-map>
+    <request-map uri="SPPRunsProductsByFeature.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SPPRunsProductsByFeature"/>
+    </request-map>
+    <request-map uri="MRPPRunsComponentsByFeature.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="MRPPRunsComponentsByFeature"/>
+    </request-map>
+    <request-map uri="SPPRunsComponentsByFeature.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SPPRunsComponentsByFeature"/>
+    </request-map>
+    <request-map uri="PackageContentsAndOrder.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PackageContentsAndOrder"/>
+    </request-map>
+    <request-map uri="PRunsProductsStacks.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PRunsProductsStacks"/>
+    </request-map>
+
+    <request-map uri="PRunsProductsAndOrder.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PRunsProductsAndOrder"/>
+    </request-map>
+    
+    <request-map uri="PRunsInfoAndOrder.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PRunsInfoAndOrder"/>
+    </request-map>
+
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="error" page="/error/error.jsp"/>
+    <view-map name="main" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun" type="screen"/>
+    <view-map name="login" type="screen" page="component://manufacturing/widget/manufacturing/CommonScreens.xml#login"/>
+
+    <!-- Routing view mappings -->
+    <view-map name="FindCalendar" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#FindCalendar" type="screen"/>
+    <view-map name="EditCalendar" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendar" type="screen"/>
+    <view-map name="EditCalendarWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarWeek" type="screen"/>
+    <view-map name="ListCalendarWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#ListCalendarWeek" type="screen"/>
+    <view-map name="EditCalendarExceptionDay" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionDay" type="screen"/>
+    <view-map name="EditCalendarExceptionWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionWeek" type="screen"/>
+    
+    <view-map name="FindRoutingTask" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#FindRoutingTask" type="screen"/>
+    <view-map name="EditRoutingTask" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTask" type="screen"/>
+    <view-map name="EditRoutingTaskCosts" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskCosts" type="screen"/>
+    <view-map name="ListRoutingTaskRoutings" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#ListRoutingTaskRoutings" type="screen"/>
+    <view-map name="ListRoutingTaskProducts" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#ListRoutingTaskProducts" type="screen"/>
+    <view-map name="EditRoutingTaskProduct" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskProduct" type="screen"/>
+    <view-map name="FindRouting" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#FindRouting" type="screen"/>
+    <view-map name="EditRouting" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRouting" type="screen"/>
+    <view-map name="EditRoutingTaskAssoc" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskAssoc" type="screen"/>
+    <view-map name="EditRoutingProductLink" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingProductLink" type="screen"/>
+    
+    <!-- Lookup view mappings -->
+    <view-map name="LookupProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct" type="screen"/>
+    <view-map name="LookupVariantProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct" type="screen"/>
+    <view-map name="LookupVirtualProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVirtualProduct" type="screen"/>
+    <view-map name="LookupRouting" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRouting" type="screen"/>
+    <view-map name="LookupRoutingTask" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRoutingTask" type="screen"/>
+    <view-map name="LookupProductFeature" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature" type="screen"/>
+
+    <!-- BOM view mappings -->
+    <view-map name="EditProductBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductBom" type="screen"/>
+    <view-map name="EditProductManufacturingRules" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductManufacturingRules" type="screen"/>
+    <view-map name="BomSimulation" page="component://manufacturing/widget/manufacturing/BomScreens.xml#BomSimulation" type="screen"/>
+
+    <!-- Costs view mappings -->
+    <view-map name="EditCostCalcs" page="component://manufacturing/widget/manufacturing/CostScreens.xml#EditCostCalcs" type="screen"/>
+
+    <!-- MRP view mappings -->
+    <view-map name="ApproveRequirements" page="component://manufacturing/widget/manufacturing/RequirementScreens.xml#ApproveRequirements" type="screen"/>
+    
+    <!-- MRP view mappings -->
+    <view-map name="FindMrpPlannedEvents" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#FindMrpPlannedEvents" type="screen"/>
+    <view-map name="MrpExecution" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#MrpExecution" type="screen"/>
+    <view-map name="ManufacturingReports" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ManufacturingReports" type="screen"/>
+    
+    <!-- JobShop Management view mappings -->
+    <view-map name="CreateProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#CreateProductionRun" type="screen"/>
+    <view-map name="FindProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun" type="screen"/>
+    <view-map name="EditProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#EditProductionRun" type="screen"/>
+    <view-map name="ProductionRunDeclaration" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunDeclaration" type="screen"/>
+    <view-map name="ProductionRunCosts" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunCosts" type="screen"/>
+    <view-map name="ProductionRunAssocs" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs" type="screen"/>
+    <view-map name="WorkWithShipmentPlans" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans" type="screen"/>
+    
+    <!-- Report view mappings -->
+    <view-map name="ShipmentPlanStockReport" type="jasperreportspdf" page="/jobshopmgt/ShipmentPlanStockReport.xml" content-type="application/pdf" encoding="none"/>
+    <view-map name="ShipmentLabel" type="jasperreportspdf" page="/jobshopmgt/ShipmentLabel.xml" content-type="application/pdf" encoding="none"/>
+    <view-map name="ShipmentWorkEffortTasks" type="jasperreportspdf" page="/jobshopmgt/ShipmentWorkEffortTasks.xml" content-type="application/pdf" encoding="none"/>
+    <view-map name="CuttingListReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#CuttingListReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="PackageContentsAndOrder" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#PackageContentsAndOrder" content-type="application/pdf" encoding="none"/>
+    <view-map name="PRunsProductsStacks" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#PRunsProductsStacks" content-type="application/pdf" encoding="none"/>
+    <view-map name="PRunsProductsAndOrder" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#PRunsProductsAndOrder" content-type="application/pdf" encoding="none"/>
+    <view-map name="MRPPRunsProductsByFeature" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#MRPPRunsProductsByFeature" content-type="application/pdf" encoding="none"/>
+    <view-map name="SPPRunsProductsByFeature" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#SPPRunsProductsByFeature" content-type="application/pdf" encoding="none"/>
+    <view-map name="MRPPRunsComponentsByFeature" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#MRPPRunsComponentsByFeature" content-type="application/pdf" encoding="none"/>
+    <view-map name="SPPRunsComponentsByFeature" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#SPPRunsComponentsByFeature" content-type="application/pdf" encoding="none"/>
+    <view-map name="PRunsInfoAndOrder" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#PRunsInfoAndOrder" content-type="application/pdf" encoding="none"/>
+    <!-- end of view mappings -->
+</site-conf>

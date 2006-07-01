@@ -1,0 +1,119 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.transaction.*;
+
+module = "showvisits.bsh";
+
+partyId = parameters.get("partyId");
+context.put("partyId", partyId);
+
+showAll = parameters.get("showAll");
+if (showAll == null) showAll = "false";
+context.put("showAll", showAll);
+
+sort = parameters.get("sort");
+context.put("sort", sort);
+
+visitListIt = null;          
+sortList = UtilMisc.toList("-fromDate");
+if (sort != null) sortList.add(0, sort);
+    
+boolean beganTransaction = false;
+try {
+    beganTransaction = TransactionUtil.begin();
+
+    if (partyId != null) {
+        visitListIt = delegator.findListIteratorByCondition("Visit", new EntityExpr("partyId", EntityOperator.EQUALS, partyId), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));    
+    } else if (showAll.equalsIgnoreCase("true")) {
+        visitListIt = delegator.findListIteratorByCondition("Visit", null, null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
+    } else {
+        // show active visits       
+        visitListIt = delegator.findListIteratorByCondition("Visit", new EntityExpr("thruDate", EntityOperator.EQUALS, null), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));  
+    }
+    
+    viewIndex = 0;
+    viewSize = 20;    
+    try {
+        viewIndex = Integer.valueOf((String) parameters.get("VIEW_INDEX")).intValue();
+    } catch (Exception e) {
+        viewIndex = 0;
+    }
+    context.put("viewIndex", viewIndex);
+    
+    try {
+        viewSize = Integer.valueOf((String) parameters.get("VIEW_SIZE")).intValue();
+    } catch (Exception e) {
+        viewSize = 20;
+    }
+    context.put("viewSize", viewSize);
+        
+    lowIndex = viewIndex * viewSize;
+    highIndex = (viewIndex + 1) * viewSize;
+        
+    // attempt to get the full size
+    visitListIt.last();
+    visitSize = visitListIt.currentIndex();
+    context.put("visitSize", visitSize);
+    visitListIt.first();
+                
+    visitList = new ArrayList();
+    if (visitSize > 0) {
+        visitList = visitListIt.getPartialList(lowIndex + 1, viewSize + 1);
+    }
+    
+    visitListIt.close();
+} catch (GenericEntityException e) {
+    String errMsg = "Failure in operation, rolling back transaction";
+    Debug.logError(e, errMsg, module);
+    try {
+        // only rollback the transaction if we started one...
+        TransactionUtil.rollback(beganTransaction, errMsg, e);
+    } catch (GenericEntityException e2) {
+        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+    }
+    // after rolling back, rethrow the exception
+    throw e;
+} finally {
+    // only commit the transaction if we started one... this will throw an exception if it fails
+    TransactionUtil.commit(beganTransaction);
+}
+
+context.put("visitList", visitList);
+if (visitList != null) {
+    listSize = lowIndex + visitList.size();
+}
+
+if (listSize < highIndex) {
+    highIndex = listSize;
+}
+context.put("lowIndex", lowIndex);
+context.put("highIndex", highIndex);
+context.put("listSize", listSize);

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <property name="menuDefFile">/cms/CMSMenus.xml</property>
+    <property name="menuName">cms</property>
+    <property name="defaultSubMenu">content</property>
+    <page-action name="/menu/setmenuitem.bsh"/>
+    <page-action name="/menu/redirectmenu.bsh"/>
+</page>
+

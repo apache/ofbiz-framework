@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE web-site PUBLIC "Orion Web-site" "http://www.orionserver.com/dtds/web-site.dtd">
+
+<web-site host="[ALL]" port="8080" display-name="OFBiz HTTP WebSite">
+    <!-- The default web-app for this site, bound to the root -->
+    <default-web-app application="ofbiz" name="ofbizDefault"/>
+
+    <#list webApps as webapp>
+    <web-app load-on-startup="true" application="ofbiz" shared="true" name="${webapp.getName()}" root="${webapp.getContextRoot()}"/>
+    </#list>
+
+    <!-- Access Log, where requests are logged to -->
+    <access-log path="../log/ofbiz-http-access.log"/>
+</web-site>

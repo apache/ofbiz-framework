@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2005-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: CustomerScreens.xml 6985 2006-03-12 11:55:41Z jonesde $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="survey">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleAdditionalInfo"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/survey.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="newcustomer">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleNewCustomer"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/newcustomer.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/newcustomer.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="customertaxinfo">
+        <!-- meant to be included, generally through a screens.render type of thing -->
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <entity-condition entity-name="PartyTaxAuthInfoAndDetail" list-name="partyTaxAuthInfoAndDetailList">
+                    <condition-expr field-name="partyId" env-name="partyId"/>
+                    <order-by field-name="geoCode"/>
+                    <order-by field-name="groupName"/>
+                </entity-condition>
+                <entity-condition entity-name="TaxAuthorityAndDetail" list-name="taxAuthorityAndDetailList">
+                    <order-by field-name="geoCode"/>
+                    <order-by field-name="groupName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/customertaxinfo.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="viewprofile">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleViewProfile"/>
+                
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Person" value-name="person"/>
+                <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
+                
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/viewprofile.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/viewprofile.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editcontactmech">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleEditContactMechanism"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editcontactmech.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/editcontactmech.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="editcreditcard">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleEditCreditCard"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/editcreditcard.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editeftaccount">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleEditEFTAccount"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/editeftaccount.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editgiftcard">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleEditGiftCard"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/editgiftcard.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="changepassword">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleChangePassword"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/changepassword.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/changepassword.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editperson">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleEditPerson"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editperson.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/editperson.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="giftcardbalance">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleGiftCardBalance"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/giftcardbalance.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/giftcardbalance.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="giftcardlink">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="title-property" value="PageTitleGiftCardLink"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/giftcardlink.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/giftcardlink.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="customersurvey">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleProfileSurvey"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/customersurvey.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/customersurvey.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="contactus">
+        <section>
+            <actions>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+
+                <set field="title-property" value="PageTitleLogin"/>
+                <set field="pageHeader" value="Contact Us"/>
+                <set field="headerItem" value="contactus"/>
+                <set field="submitRequest" value="contactsubmit"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/newmsg.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagelist">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleMessageList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="messagelist-include"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagelist-include">
+        <section>
+            <actions>
+                <entity-condition entity-name="CommunicationEvent" list-name="receivedCommunicationEvents">
+                    <condition-expr field-name="partyIdTo" operator="equals" env-name="userLogin.partyId"/>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition><if-compare field-name="parameters.showSent" operator="equals" value="true"/></condition>
+                    <actions>
+                        <entity-condition entity-name="CommunicationEvent" list-name="sentCommunicationEvents">
+                            <condition-expr field-name="partyIdFrom" operator="equals" env-name="userLogin.partyId"/>
+                            <order-by field-name="-entryDate"/>
+                        </entity-condition>
+                    </actions>
+                    <widgets></widgets>
+                </section>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/messagelist.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagedetail">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleMessageDetail"/>
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/messagedetail.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagecreate">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleNewMessage"/>
+                <set field="pageHeader" value="New Message"/>
+                <set field="showMessageLinks" value="true"/>
+
+                <set field="submitRequest" value="sendmessage"/>
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" auto-field-map="true"/>
+                <set field="partyIdTo" from-field="communicationEvent.partyIdFrom"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/newmsg.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="digitalproductlist">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleDigitalProductList"/>
+                
+                <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition><if-compare field-name="productStore.enableDigProdUpload" operator="equals" value="Y"/></condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/digitalproductlist.ftl"/></html></platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <container><label style="head2" text="Sorry, digital product upload is not enabled."></label></container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="digitalproductedit">
+        <section>
+            <actions>
+                <set field="title-property" value="PageTitleDigitalProductEdit"/>
+
+                <set field="parameters.minimumOrderQuantity" value="1" type="Double"/>
+                <entity-one entity-name="SupplierProduct" value-name="supplierProduct" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/><!-- get from userLogin for security reasons -->
+                    <field-map field-name="productId" env-name="parameters.productId"/>
+                    <field-map field-name="currencyUomId" env-name="parameters.currencyUomId"/>
+                    <field-map field-name="minimumOrderQuantity" env-name="parameters.minimumOrderQuantity"/>
+                    <field-map field-name="availableFromDate" env-name="parameters.availableFromDate"/>
+                </entity-one>
+                <entity-one entity-name="Product" value-name="product"/>
+                
+                <!-- should just be one, but don't have all pk fields so will just get first from list -->
+                <entity-and entity-name="ProductPrice" list-name="productPriceList">
+                    <field-map field-name="productId" env-name="parameters.productId"/>
+                    <field-map field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
+                    <field-map field-name="productPricePurposeId" value="PURCHASE"/>
+                    <field-map field-name="productStoreGroupId" value="_NA_"/>
+                </entity-and>
+                
+                <entity-condition entity-name="ProductContentAndInfo" list-name="productContentAndInfoList" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" env-name="parameters.productId"/>
+                        <condition-expr field-name="productContentTypeId" value="DIGITAL_DOWNLOAD"/>
+                    </condition-list>
+                    <order-by field-name="contentId"/>
+                </entity-condition>
+                <entity-and entity-name="ContentAndRole" list-name="ownerContentAndRoleList">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="roleTypeId" value="OWNER"/>
+                    <order-by field-name="contentId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition><if-compare field-name="productStore.enableDigProdUpload" operator="equals" value="Y"/></condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/digitalproductedit.ftl"/></html></platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <container><label style="head2" text="Sorry, digital product upload is not enabled."></label></container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

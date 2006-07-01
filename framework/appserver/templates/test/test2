@@ -1,0 +1,8 @@
+
+Web Applications 
+======================================================================
+
+<#list webApps as webapp>
+${webapp.getName()} : ${webapp.getContextRoot()} - ${webapp.getLocation()?if_exists}
+</#list>
+

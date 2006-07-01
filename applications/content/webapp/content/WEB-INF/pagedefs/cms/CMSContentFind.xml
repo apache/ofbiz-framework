@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Find CMS Content</property>
+    <property name="formDefFile">/cms/CMSForms.xml</property>    
+    <property name="singleFormName">findContent</property>    
+    <property name="listFormName">listFindContent</property>    
+    <property name="subMenu">/cms/cms_menu.ftl</property>    
+    <property name="headerItem">CMS</property>    
+    <property name="entityName">ContentAssocDataResourceViewFrom</property>    
+    <property name="orderBy">-lastModifiedDate</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">complex</property>    
+    <property name="entityOperation">_ADMIN</property>
+    <property name="targetOperation">CONTENT_UPDATE</property>    
+    <property name="requiredRoles">OWNER|BLOG_EDITOR|BLOG_ADMIN</property>    
+    <property name="menuDefFile">/cms/CMSMenus.xml</property>    
+    <property name="menuName">cms</property>
+    <property name="menuItemName">content</property>
+
+
+    <page-action name="/includes/requiredrole.bsh"/>
+    <content-action name="/includes/formprep.bsh"/>
+    <content-action name="/includes/findprep.bsh"/>
+    <content-action name="/includes/pagelistprep.bsh"/>
+    
+    <content-action name="/menu/setcurrentmenuitem.bsh"/>
+    <content-action name="/menu/menuinit.bsh"/>
+    <content-action name="/menu/setpagelistparams.bsh"/>
+</page>

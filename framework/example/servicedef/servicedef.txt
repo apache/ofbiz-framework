@@ -1,0 +1,7 @@
+
+Service definitions including group and eca definitions.
+Usually formatted as:
+
+services.xml
+groups.xml
+secas.xml

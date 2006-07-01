@@ -1,0 +1,95 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      3.0
+*/
+
+import org.ofbiz.base.util.*;
+
+// stores
+productStores = delegator.findAllCache("ProductStore", UtilMisc.toList("storeName"));
+context.put("productStores", productStores);
+
+// current store
+productStoreId = parameters.get("productStoreId");
+if (productStoreId != null) {
+    productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+    context.put("currentStore", productStore);
+}
+
+// payment settings
+paymentSettings = delegator.findByAnd("Enumeration", UtilMisc.toMap("enumTypeId", "PRDS_PAYSVC"), UtilMisc.toList("sequenceId"));
+context.put("paymentSettings", paymentSettings);
+
+// payment method (for auto-fill)
+paymentMethodId = parameters.get("paymentMethodId");
+context.put("paymentMethodId", paymentMethodId);
+
+// payment method type
+paymentMethodTypeId = parameters.get("paymentMethodTypeId");
+context.put("paymentMethodTypeId", paymentMethodTypeId);
+
+// service type (transaction type)
+txType = parameters.get("transactionType");
+context.put("txType", txType);
+if (txType != null) {
+    currentTx = delegator.findByPrimaryKey("Enumeration", UtilMisc.toMap("enumId", txType));
+    context.put("currentTx", currentTx);
+}
+
+if (paymentMethodId != null) {
+    paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+    if (paymentMethod != null) {
+        // payment method type
+        paymentMethodTypeId = paymentMethod.getString("paymentMethodTypeId");
+
+        // party information
+        party = paymentMethod.getRelatedOne("Party");
+        if (party != null && "PERSON".equals(party.getString("partyTypeId"))) {
+            person = party.getRelatedOne("Person");
+            context.put("person", person);
+        } else if (party != null && "PARTY_GROUP".equals(party.getString("partyTypeId"))) {
+            partyGroup = party.getRelatedOne("PartyGroup");
+            context.put("partyGroup", partyGroup);
+        }
+
+        // method info + address
+        creditCard = paymentMethod.getRelatedOne("CreditCard");
+        context.put("creditCard", creditCard);
+        if (creditCard != null) {
+            postalAddress = creditCard.getRelatedOne("PostalAddress");
+            context.put("postalFields", postalAddress);
+        }
+
+        giftCard = paymentMethod.getRelatedOne("GiftCard");
+        context.put("giftCard", giftCard);
+
+        // todo add support for eft account
+    }
+}
+
+if (paymentMethodTypeId != null) {
+    paymentMethodType = delegator.findByPrimaryKey("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", paymentMethodTypeId));
+    context.put("paymentMethodType", paymentMethodType);
+    context.put("paymentMethodTypeId", paymentMethodTypeId);
+}

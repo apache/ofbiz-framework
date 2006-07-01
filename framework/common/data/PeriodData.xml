@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- these need to be loaded after the UnitData file for the time frequency data -->
+    <PeriodType description="Fiscal Year" periodTypeId="FISCAL_YEAR" periodLength="1" uomId="TF_yr"/>
+    <PeriodType description="Fiscal Quarter" periodTypeId="FISCAL_QUARTER" periodLength="3" uomId="TF_mon"/>
+    <PeriodType description="Fiscal Month" periodTypeId="FISCAL_MONTH" periodLength="1" uomId="TF_mon"/>
+    <PeriodType description="Fiscal Week" periodTypeId="FISCAL_WEEK" periodLength="1" uomId="TF_wk"/>
+    <PeriodType description="Fiscal Bi-Week" periodTypeId="FISCAL_BIWEEK" periodLength="2" uomId="TF_wk"/>
+
+    <PeriodType description="Sales Quarter" periodTypeId="SALES_QUARTER" periodLength="3" uomId="TF_mon"/>
+    <PeriodType description="Sales Month" periodTypeId="SALES_MONTH" periodLength="1" uomId="TF_mon"/>
+</entity-engine-xml>

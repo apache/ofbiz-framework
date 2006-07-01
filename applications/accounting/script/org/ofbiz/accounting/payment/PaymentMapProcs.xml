@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * <p><b>Title:</b> ContactMechMapProcs
+ * <p><b>Description:</b> Map processors for Contact Mechanism maintenance
+ * <p>Copyright (c) 2001-2005 The Open For Business Project and repected authors.
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * <p>The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
+ * @version 1.0
+ * Created on January 18, 2001
+ -->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+  <simple-map-processor name="deletePaymentMethod">
+    <process field="paymentMethodId"><copy/><not-empty><fail-message message="Payment Method ID is missing"/></not-empty></process>
+  </simple-map-processor>
+
+  <!-- CreditCard map procs -->
+  <simple-map-processor name="createCreditCard">
+    <make-in-string field="expireDate">
+      <in-field field="expMonth"/>
+      <constant>/</constant>
+      <in-field field="expYear"/>
+    </make-in-string>
+    <process field="partyId"><copy/></process>
+    <process field="companyNameOnCard"><copy/></process>
+    <process field="titleOnCard"><copy/></process>
+    <process field="firstNameOnCard"><copy/><not-empty><fail-message message="First Name on Card is missing"/></not-empty></process>
+    <process field="middleNameOnCard"><copy/></process>
+    <process field="lastNameOnCard"><copy/><not-empty><fail-message message="Last Name on Card is missing"/></not-empty></process>
+    <process field="suffixOnCard"><copy/></process>    
+    <process field="cardType"><copy/><not-empty><fail-message message="Card Type is missing"/></not-empty></process>
+    <process field="cardNumber"><copy/></process>
+    <process field="contactMechId"><copy/></process>
+    <process field="expMonth"><not-empty><fail-message message="Expiration Month is missing"/></not-empty></process>
+    <process field="expYear"><not-empty><fail-message message="Expiration Year is missing"/></not-empty></process>
+    <process field="expireDate">
+        <copy/>
+        <validate-method method="isDateAfterToday"><fail-message message="The expiration date is before today"/></validate-method></process>
+  </simple-map-processor>
+  <simple-map-processor name="updateCreditCard">
+    <process field="paymentMethodId"><copy/><not-empty><fail-message message="Credit Card Payment Method ID is missing"/></not-empty></process>
+    <!-- also call createCreditCard after calling updateCreditCard -->
+  </simple-map-processor>
+
+  <!-- EftAccount map procs -->
+  <simple-map-processor name="createEftAccount">
+    <process field="partyId"><copy/></process>
+    <process field="bankName"><copy/><not-empty><fail-message message="Bank Name is missing"/></not-empty></process>
+    <process field="routingNumber"><copy/><not-empty><fail-message message="Routing Number is missing"/></not-empty></process>
+    <process field="accountType"><copy/><not-empty><fail-message message="Account Type is missing"/></not-empty></process>
+    <process field="accountNumber"><copy/><not-empty><fail-message message="Account Number is missing"/></not-empty></process>
+    <process field="nameOnAccount"><copy/><not-empty><fail-message message="Name on Account is missing"/></not-empty></process>
+    <process field="companyNameOnAccount"><copy/></process>
+    <process field="contactMechId"><copy/></process>
+  </simple-map-processor>
+  <simple-map-processor name="updateEftAccount">
+    <process field="paymentMethodId"><copy/><not-empty><fail-message message="EFT Account Payment Method ID is missing"/></not-empty></process>
+    <!-- also call createEftAccount after calling updateEftAccount -->
+  </simple-map-processor>
+</simple-map-processors>

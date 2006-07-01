@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE application-server PUBLIC "Orion Application Server Config" "http://www.orionserver.com/dtds/application-server.dtd">
+
+<application-server
+    application-directory="../applications"
+    deployment-directory="../application-deployments"
+    >
+    <rmi-config path="./rmi.xml"/>
+    <!-- JMS-server config link, uncomment to activate the JMS service -->
+    <!-- <jms-config path="./jms.xml" /> -->
+    <log>
+        <file path="../log/server.log"/>
+    </log>
+
+    <global-application name="default" path="application.xml"/>
+    <global-application name="ofbiz" path="ofbiz-application.xml"/>
+
+    <global-web-app-config path="global-web-application.xml"/>
+    <web-site path="./default-web-site.xml"/>
+    <web-site path="./ofbiz-http-site.xml"/>
+
+    <!-- Compiler, activate this to specify an alternative compiler such
+        as jikes for EJB/JSP compiling. -->
+    <!-- <compiler executable="jikes" classpath="/myjdkdir/jre/lib/rt.jar" /> -->
+</application-server>

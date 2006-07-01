@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Product Component Maintenance Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Product Category Maintenance Services -->
+    <service name="copyCategoryProductMembers" engine="simple"
+            location="org/ofbiz/product/category/CategoryServices.xml" invoke="copyCategoryProductMembers" auth="true">
+        <description>Copy Product Members from one Category to Another, optionally filtering by the given valid date (otherwise no date filtering done), and optionally recursing (if recurse=Y) down the from category</description>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="productCategoryIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="validDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="recurse" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="expireAllCategoryProductMembers" engine="simple"
+            location="org/ofbiz/product/category/CategoryServices.xml" invoke="expireAllCategoryProductMembers" auth="true">
+        <description>Expire All Product Members in a Category optionally using the thruDate specified as the expire date (now timestamp used by default)</description>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="removeExpiredCategoryProductMembers" engine="simple"
+            location="org/ofbiz/product/category/CategoryServices.xml" invoke="removeExpiredCategoryProductMembers" auth="true">
+        <description>Remove All Expired Product Members in a Category, optionally uses the valid date instead of now to determine if the member has expired</description>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="validDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+
+    <!-- ========================================= -->
+    <!-- Some Product Maintenance Utility Services -->
+    <!-- ========================================= -->
+    <!-- These are generally run manually, but some can be run on a schedule as well. -->
+    <service name="discVirtualsWithDiscVariants" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="discVirtualsWithDiscVariants" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+        <description>Discontinue Virtuals With Discontinued Variants</description>
+    </service>
+    <service name="removeCategoryMembersOfDiscProducts" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeCategoryMembersOfDiscProducts" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+        <description>Remove Category Members Of Discontinued Products</description>
+    </service>
+    <service name="removeDuplicateOpenEndedCategoryMembers" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeDuplicateOpenEndedCategoryMembers" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+        <description>Remove Duplicate, excluding fromDate, Category Members that have no thruDate</description>
+    </service>
+    
+    <service name="makeStandAloneFromSingleVariantVirtuals" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="makeStandAloneFromSingleVariantVirtuals" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+        <description>Make Stand Alone From Single Variant Virtuals</description>
+    </service>
+    <service name="mergeVirtualWithSingleVariant" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="mergeVirtualWithSingleVariant" auth="true" transaction-timeout="3600000" require-new-transaction="true">
+        <description>A service to be called by the make stand alone service to do the operation for one product.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="removeOld" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="test" type="Boolean" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="setAllProductImageNames" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="setAllProductImageNames" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+        <description>Set All Product Image Names; pattern example: /images/products/${size}/${productId}.jpg; defaults to values in the catalog.properties file (image.url.prefix + / + image.filename.format)</description>
+        <attribute name="pattern" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="clearAllVirtualProductImageNames" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="clearAllVirtualProductImageNames" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+        <description>Set All Product Image Names</description>
+    </service>
+    
+    <service name="attachProductFeaturesToCategory" engine="java"
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="attachProductFeaturesToCategory" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+        <description>Attach Product Features To Category Through Groups</description>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="doSubCategories" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- ============================== -->
+    <!-- Promotion Maintenance Services -->
+    <!-- ============================== -->
+    <service name="purgeOldStoreAutoPromos" engine="java"
+            location="org.ofbiz.product.promo.PromoServices" invoke="purgeOldStoreAutoPromos" auth="true">
+        <description>Purge Expired ProductStorePromoAppl Records, by store or global if productStoreId is null</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- ============================== -->
+    <!-- Inventory Maintenance Services -->
+    <!-- ============================== -->
+    <service name="getInventoryAlerts" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getInventoryAlerts" auth="false">
+        <description>Get all Inventory Alerts in effect for a given catalog</description>
+        <attribute name="catalogId" type="String" mode="IN" optional="false"/>
+        <attribute name="alertResults" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="emailInventoryAlerts" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="emailInventoryAlerts" auth="false">
+        <description>Get all Inventory Alerts in effect for a given catalog</description>
+        <attribute name="catalogId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="updateOldInventoryToDetailAll" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailAll" auth="true">
+        <description>Update Old Inventory To Detail</description>
+    </service>
+    <service name="updateOldInventoryToDetailSingle" engine="simple" require-new-transaction="true"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailSingle" auth="true">
+        <description>Update Old Inventory To Detail</description>
+        <attribute name="inventoryItem" type="GenericValue" mode="IN" optional="false"/>
+    </service>
+</services>

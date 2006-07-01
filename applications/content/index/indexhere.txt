@@ -1,0 +1,5 @@
+
+The Lucene indexing files for the content manager go in this directory.
+
+
+

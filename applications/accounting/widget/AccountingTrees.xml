@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: AccountingTrees.xml 7414 2006-04-25 14:11:48Z jacopo $
+-->
+
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-tree.xsd">
+       
+    <tree name="GlAccountTree" entity-name="GlAccount" root-node-name="node-root" default-render-style="expand-collapse" default-wrap-style="accountItem">      
+    <!-- tree name="GlAccountTree" root-node-name="node-root" render-style="expand-collapse" default-wrap-style="accountItem" -->      
+        <node name="node-root" render-style="simple" >
+            <!-- entity-one entity-name="GlAccount" use-cache="true">
+                <field-map field-name="glAccountId" env-name="glAccountId" />
+            </entity-one -->
+            <!-- include-screen name="GlAccountDetails" location="component://accounting/widget/AccountingScreens.xml" / -->     
+            <!-- label style="treeitem" text="${glAccountId}  ${}" / -->     
+            <sub-node node-name="node-body">
+                <entity-and entity-name="GlAccount" >
+                    <field-map field-name="parentGlAccountId" env-name="NA" />
+                </entity-and >
+            </sub-node>
+        </node>
+        <node name="node-body" wrap-style="treewrapper">
+            <!-- include-screen name="GlAccountDetails" location="component://accounting/widget/AccountingScreens.xml" / -->
+            <!-- label style="treeitem" text="${glAccountId} ${accountName} ${postedBalance}" / -->
+            <link style="treeitem" target="GlAccountNavigate?glAccountId=${glAccountId}&amp;trail=${currentNodeTrailPiped}" text="${glAccountId} ${accountName} ${postedBalance}" />
+            <sub-node node-name="node-body" >
+                <entity-and entity-name="GlAccount" >
+                    <field-map field-name="parentGlAccountId" env-name="glAccountId" />
+                </entity-and>
+
+            </sub-node>
+        </node>
+    </tree>
+    
+</trees>

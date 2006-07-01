@@ -1,0 +1,108 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.1
+ */
+
+/*
+ * This script is also referenced by the ecommerce's screens and
+ * should not contain order component's specific code.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.service.*;
+import org.ofbiz.product.catalog.*;
+import org.ofbiz.product.category.CategoryContentWrapper;
+
+viewSize = requestParameters.get("VIEW_SIZE");
+viewIndex = requestParameters.get("VIEW_INDEX");
+currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
+
+// set the default view size
+defaultViewSize = request.getAttribute("defaultViewSize");
+if (defaultViewSize == null) {
+    defaultViewSize = new java.lang.Integer(10);
+}
+context.put("defaultViewSize", defaultViewSize);
+
+// set the limit view
+Boolean limitViewObj = request.getAttribute("limitView");
+limitView = true;
+if (limitViewObj != null) {
+    limitView = limitViewObj;
+}
+context.put("limitView", limitView);
+
+// get the product category & members
+andMap = UtilMisc.toMap("productCategoryId", request.getAttribute("productCategoryId"), 
+        "viewIndexString", viewIndex, "viewSizeString", viewSize, 
+        "defaultViewSize", defaultViewSize, "limitView", limitView);
+andMap.put("prodCatalogId", currentCatalogId);
+andMap.put("checkViewAllow", Boolean.TRUE);
+catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
+
+productCategory = catResult.get("productCategory");
+context.put("productCategoryId", request.getAttribute("productCategoryId"));
+if (catResult != null) {
+    context.put("productCategoryMembers", catResult.get("productCategoryMembers"));
+    context.put("productCategory", productCategory);
+    context.put("viewIndex", catResult.get("viewIndex"));
+    context.put("viewSize", catResult.get("viewSize"));
+    context.put("lowIndex", catResult.get("lowIndex"));
+    context.put("highIndex", catResult.get("highIndex"));
+    context.put("listSize", catResult.get("listSize"));
+}
+
+// set this as a last viewed
+categoryId = request.getAttribute("productCategoryId");
+int LAST_VIEWED_TO_KEEP = 10; // modify this to change the number of last viewed to keep
+lastViewedCategories = session.getAttribute("lastViewedCategories");
+if (lastViewedCategories == null) {
+    lastViewedCategories = new LinkedList();
+    session.setAttribute("lastViewedCategories", lastViewedCategories);
+}
+lastViewedCategories.remove(categoryId);
+lastViewedCategories.add(0, categoryId);
+while (lastViewedCategories.size() > LAST_VIEWED_TO_KEEP) {
+    lastViewedCategories.remove(lastViewedCategories.size() - 1);
+}
+
+// set the content path prefix
+contentPathPrefix = CatalogWorker.getContentPathPrefix(request); 
+context.put("contentPathPrefix", contentPathPrefix);
+
+// little routine to see if any members have a quantity > 0 assigned
+members = context.get("productCategoryMembers");
+if (members != null && members.size() > 0) {
+    for (i = 0; i < members.size(); i++) {      
+        productCategoryMember = (GenericValue) members.get(i);
+        if (productCategoryMember.get("quantity") != null && productCategoryMember.getDouble("quantity").doubleValue() > 0.0) {            
+            context.put("hasQuantities", new Boolean(true));
+            break;
+        }        
+    }    
+}
+
+CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(productCategory, request);
+context.put("categoryContentWrapper", categoryContentWrapper);

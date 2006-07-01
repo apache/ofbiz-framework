@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<barcode>
+    <code39>
+        <height>15mm</height>
+        <module-width>0.45mm</module-width>
+        <wide-factor>2</wide-factor>
+        <interchar-gap-width>1mm</interchar-gap-width>
+        <checksum>add</checksum>
+    </code39>
+</barcode>
+

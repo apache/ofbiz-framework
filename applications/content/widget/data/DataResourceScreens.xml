@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ *  Copyright (c) 2005-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ContentSetupScreens.xml 5661 2005-09-07 20:40:17Z jonesde $
+-->
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="common-decorator">
+        <section>
+            <actions>
+                <set field="currentMenuItemName" from-field="currentMenuItemName"/>
+				<set field="menuName" from-field="menuName" default-value="dataresource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+						<container>
+							<label style="head1" text="${title}"/>
+						</container>
+                        <include-menu name="${menuName}" location="component://content/widget/data/DataResourceMenus.xml"/>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindDataResource">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="menuName" value="empty"/>
+                <set field="title" value="${UiLabelMap.PageTitleFindDataResource}"/>
+				<set field="titleProperty" value="PageTitleFindDataResource"/>	
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+						<container><link target="AddDataResource" text="${uiLabelMap.PageTitleAddDataResource}" style="buttontext"/></container>
+                        <include-form name="findDataResource" location="component://content/widget/data/DataResourceForms.xml"/>
+                        <include-form name="listFindDataResource" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!--
+    <screen name="BrowseDataResource">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="browsedataresource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    -->
+    <screen name="UploadImage">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="uploadimage"/>
+                <set field="menuName" value="dataresource"/>
+                <set field="title" value="Upload Image, dataResourceId: ${parameters.dataResourceId}"/>
+                <set field="currentMenuItemName" value="uploadimage"/>
+				<entity-one entity-name="DataResource" value-name="dataResource" />
+				<set field="dataResourceId" from-field="dataResource.dataResourceId" default-value="${parameters.dataResourceId}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="ImageUpload" location="component://content/widget/data/DataResourceForms.xml"/>
+						<label text="View Image" style="head1"/>
+						<content dataresource-id="${dataResource.dataResourceId}"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDataResource">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresource"/>
+                
+                <set field="dataResourceId" from-field="parameters.dataResourceId" to-scope="screen" default-value="${defaultContentId}"/>
+                <set field="dataResourceId" from-field="dataResourceId" to-scope="user"/>
+                <entity-one entity-name="DataResource" value-name="currentValue">
+                    <field-map field-name="dataResourceId" env-name="dataResourceId"/>
+                </entity-one>
+                <set field="menuName" value="dataresource"/>
+                <set field="title" value="Edit Data Resource: ${dataResourceId}"/>
+				<set field="currentMenuItemName" to-scope="user" value="editdataresource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="EditDataResource" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!--screen name="AddDataResource">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="menuName" value="empty"/>
+                <set field="titleProperty" value="PageTitleAddDataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="adddataresource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResource" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen-->
+    <screen name="AddDataResourceText">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="adddataresourcetext"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResourceText" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddDataResourceUrl">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="adddataresourceurl"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResourceUrl" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                    
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddDataResourceUpload">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="adddataresourceupload"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResourceUpload" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDataResourceText">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresourcetext"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="EditDataResourceText" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDataResourceUrl">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresourceurl"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="EditDataResourceUrl" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDataResourceUpload">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresourceupload"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="EditDataResourceUpload" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditElectronicText">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editelectronictext"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="EditElectronicText" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDataResourceAttribute">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresourceattribute"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResourceAttribute" location="component://content/widget/data/DataResourceForms.xml"/>
+                        <include-form name="ListDataResourceAttribute" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDataResourceRole">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresourcerole"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResourceRole" location="component://content/widget/data/DataResourceForms.xml"/>
+                        <include-form name="ListDataResourceRole" location="component://content/widget/data/DataResourceForms.xml"/>
+                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditDataResourceProductFeatures">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresourceproductfeatures"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResourceProductFeature" location="component://content/widget/data/DataResourceForms.xml"/>
+                        <include-form name="ListDataResourceProductFeature" location="component://content/widget/data/DataResourceForms.xml"/>
+                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditHtmlText">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="DataResource"/>
+                <set field="currentMenuItemName" to-scope="user" value="edithtmltext"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="common-decorator">
+                    <decorator-section name="body">
+                        <include-form name="EditHtmlText" location="component://content/widget/data/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

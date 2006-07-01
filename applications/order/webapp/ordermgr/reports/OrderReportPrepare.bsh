@@ -1,0 +1,108 @@
+/*
+ * $Id: OrderReportPrepare.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+import java.sql.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.content.report.*;
+
+GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+
+fromDateStr = request.getParameter("fromDate");
+toDateStr = request.getParameter("toDate");
+
+fromDate = null;
+toDate = null;
+try {
+    if (fromDateStr != null && fromDateStr.length() != 0) {
+        fromDate = Timestamp.valueOf(fromDateStr);
+    }
+} catch (Exception e) {
+    Debug.logError(e);
+}
+try {
+    if (toDateStr != null && toDateStr.length() != 0) {
+        toDate = Timestamp.valueOf(toDateStr);
+    }
+} catch (Exception e) {
+    Debug.log(e);
+}
+
+
+/* we'll have to work on getting this to work again, maybe with the ad-hoc view entity feature...
+String groupName = request.getParameter("groupName");
+if (groupName.equals("product")) {
+    groupName = "order_item.product_id";
+    reportName = "orderitemreport.jasper";
+}
+if (groupName.equals("orderStatus")) {
+    groupName = "status_item.description";
+    reportName = "orderreport.jasper";
+}
+if (groupName.equals("itemStatus")) {
+    groupName = "item_status.description";
+    reportName = "orderitemreport.jasper";
+}
+if (groupName.equals("adjustment")) {
+    groupName = "order_adjustment_type.description";
+    reportName = "orderitemreport.jasper";
+}
+if (groupName.equals("ship")) {
+    groupName = "concat(concat(order_shipment_preference.carrier_party_id, ' - '), shipment_method_type.description)";
+    reportName = "orderreport.jasper";
+}
+if (groupName.equals("payment")) {
+    groupName = "payment_method_type.description";
+    reportName = "orderreport.jasper";
+}
+if (groupName.length() < 4) {
+    groupName = "status_item.description";
+    reportName = "orderreport.jasper";
+}
+
+sbSql.append( groupName +" as GroupName, ");
+sbSql.append(" order_item.unit_price * order_item.quantity as purchaseAmount, ");
+*/
+
+conditionList = new LinkedList();
+if (fromDate != null) {
+    conditionList.add(new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+}
+if (toDate != null) {
+    conditionList.add(new EntityExpr("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, toDate));
+}
+entityCondition = new EntityConditionList(conditionList, EntityOperator.AND);
+orderByList = UtilMisc.toList("orderTypeId", "orderStatus");
+
+eli = delegator.findListIteratorByCondition("OrderReportView", entityCondition, null, null, orderByList, null);
+jrDataSource = new JREntityListIteratorDataSource(eli);
+
+jrParameters = new HashMap();
+jrParameters.put("dateRange", fromDateStr + " - " + toDateStr);
+
+request.setAttribute("jrDataSource", jrDataSource);
+request.setAttribute("jrParameters", jrParameters);
+            
+return "success";

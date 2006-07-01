@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+    <menu name="dataresource" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}"
+		selected-menuitem-context-field-name="currentMenuItemName"
+        title="" type="simple">
+
+        <menu-item name="editdataresource" title="${uiLabelMap.ContentDataResource}" >
+            <link target="EditDataResource?dataResourceId=${dataResourceId}" name="EditDataResource" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editelectronictext" title="${uiLabelMap.ContentDataResourceText}" >
+            <link target="EditElectronicText?dataResourceId=${dataResourceId}" name="EditElectronicText" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="edithtmltext" title="${uiLabelMap.ContentDataResourceHtml}" >
+            <link target="EditHtmlText?dataResourceId=${dataResourceId}" name="EditHtmlText" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="uploadimage" title="${uiLabelMap.ContentDataResourceImage}" >
+            <link target="UploadImage?dataResourceId=${dataResourceId}" name="UploadImage" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editdataresourceattribute" title="${uiLabelMap.ContentDataResourceAttribute}" >
+            <link target="EditDataResourceAttribute?dataResourceId=${dataResourceId}" name="EditDataResourceAttribute" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editdataresourcerole" title="${uiLabelMap.ContentDataResourceRole}" >
+            <link target="EditDataResourceRole?dataResourceId=${dataResourceId}" name="EditDataResourceRole" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="editdataresourceproductfeatures" title="${uiLabelMap.ContentDataResourceProductFeatures}" >
+            <link target="EditDataResourceProductFeatures?dataResourceId=${dataResourceId}" name="EditDataResourceProductFeatures" target-window="_top" style="tabButton" />
+        </menu-item>
+	</menu>
+	
+    <menu name="empty" default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}"
+        title="" type="simple">
+    </menu>
+</menus>

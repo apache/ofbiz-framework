@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *  Title: Entity Generator Definitions for the General Data Model
+ *  Description: None
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity testing suite</title>
+    <description>None</description>
+    <copyright>Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org</copyright>
+    <author>Manuel Meyer</author>
+    <author>Si Chen</author>
+    <version>1.0</version>
+
+  <!-- =========================================================
+    For the test, testing is the basic entity.
+    It can have a type represented by TestingType, and can be a member of a TestingNode.
+    
+    TestingNodes represent a hierarchy of Node, each Node can have one parent
+    and many children. 
+    
+    A TestingNodeMember can be member of many TestingNodes.
+    
+  ========================================================= -->
+  <!-- ======================== Data Model ===================== -->
+  <!-- The modules in this file are as follows:                  -->
+  <!--  - org.ofbiz.entity.test -->
+  <!-- ========================================================= -->
+
+  <!-- ========================================================= 
+    The testing entity is a basic entity with a type 
+  ========================================================= -->
+    <entity entity-name="Testing"
+        package-name="org.ofbiz.entity.test"
+        title="Testing Entity">
+        <field name="testingId" type="id-ne"/>
+        <field name="testingTypeId" type="id-ne"/>
+        <field name="testingName" type="name"/>
+        <field name="description" type="description"/>
+        <field name="comments" type="comment"/>
+        <field name="testingSize" type="numeric"/>
+        <field name="testingDate" type="date-time"/>
+        <prim-key field="testingId"/>
+        <relation type="one" fk-name="ENTITY_ENTY_TYP" rel-entity-name="TestingType">
+            <key-map field-name="testingTypeId"/>
+        </relation>
+    </entity>
+    <!-- ========================================================= 
+     Testing entity type
+    ========================================================= -->
+    <entity entity-name="TestingType"
+        package-name="org.ofbiz.entity.test"
+        title="Testing Entity Type">
+        <field name="testingTypeId" type="id-ne"/>
+        <field name="description" type="description"/>
+        <prim-key field="testingTypeId"/>
+    </entity>       
+  <!-- =========================================================
+     An entity for testing the BLOB data type
+   ========================================================== -->
+    <entity entity-name="TestBlob"
+        package-name="org.ofbiz.entity.test"
+        title="Entity for testing the blob type">
+        <field name="testBlobId" type="id-ne"/>
+        <field name="testBlobField" type="blob"/>
+         <prim-key field="testBlobId"/>
+    </entity> 
+  <!-- ========================================================= 
+    Testing Node entity : hierachy of nodes having 
+    'testing node member' as potential members
+  ========================================================= -->
+    <entity entity-name="TestingNode"
+            package-name="org.ofbiz.entity.test"
+            title="Testing Node">
+        <field name="testingNodeId" type="id-ne"></field>
+        <field name="primaryParentNodeId" type="id"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="testingNodeId"/>
+        <relation type="one" fk-name="TESTNG_NDE_PARNT" title="PrimaryParent" rel-entity-name="TestingNode">
+            <key-map field-name="primaryParentNodeId" rel-field-name="testingNodeId"/>
+        </relation>
+        <relation type="many" title="PrimaryChild" rel-entity-name="TestingNode">
+            <key-map field-name="testingNodeId" rel-field-name="primaryParentNodeId"/>
+        </relation>
+    </entity>
+  <!-- ========================================================= 
+    Testing Node member
+    A testing member entity can belong to any testing node
+  ========================================================= -->
+    <entity entity-name="TestingNodeMember"
+            package-name="org.ofbiz.entity.test"
+            title="Testing Node Member">
+      <field name="testingNodeId" type="id-ne"></field>
+      <field name="testingId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="testingNodeId"/>
+      <prim-key field="testingId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="TESTING_NMBR_TEST" rel-entity-name="Testing">
+        <key-map field-name="testingId"/>
+      </relation>
+      <relation type="one" fk-name="TEST_NMBR_NODE" rel-entity-name="TestingNode">
+        <key-map field-name="testingNodeId"/>
+      </relation>
+    </entity>
+  <!-- ========================================================= 
+    View : a Testing Node with its member(s)
+  ========================================================= -->
+    <view-entity entity-name="TestingNodeAndMember"
+            package-name="org.ofbiz.entity.test"
+            title="TestingNode And TestingNodeMember View">
+      <member-entity entity-alias="TN" entity-name="TestingNode"/>
+      <member-entity entity-alias="TNM" entity-name="TestingNodeMember"/>
+      <alias-all entity-alias="TN"/>
+      <alias-all entity-alias="TNM"/>
+      <view-link entity-alias="TN" rel-entity-alias="TNM">
+        <key-map field-name="testingNodeId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="TestingNodeMember">
+        <key-map field-name="testingNodeId"/>
+        <key-map field-name="testingId"/>
+        <key-map field-name="fromDate"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="TestingNode">
+        <key-map field-name="testingNodeId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Testing">
+        <key-map field-name="testingId"/>
+      </relation>
+    </view-entity>
+</entitymodel>

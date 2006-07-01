@@ -1,0 +1,68 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      3.0
+ */
+
+import java.util.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+delegator = request.getAttribute("delegator");
+
+facilityId = request.getParameter("facilityId");
+locationSeqId = request.getParameter("locationSeqId");
+facility = null;
+facilityLocation = null;
+
+if (UtilValidate.isEmpty(facilityId) && UtilValidate.isNotEmpty((String) request.getAttribute("facilityId"))) {
+    facilityId = (String) request.getAttribute("facilityId");
+}
+
+if (UtilValidate.isEmpty(locationSeqId) && UtilValidate.isNotEmpty((String) request.getAttribute("locationSeqId"))) {
+    locationSeqId = (String) request.getAttribute("locationSeqId");
+}
+
+if (facilityId != null && locationSeqId != null) {
+    facilityLocation = delegator.findByPrimaryKey("FacilityLocation", UtilMisc.toMap("facilityId", facilityId, "locationSeqId", locationSeqId));
+}
+if (facilityId != null) {
+    facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+}
+
+locationTypeEnums = delegator.findByAnd("Enumeration", UtilMisc.toMap("enumTypeId", "FACLOC_TYPE"));
+
+// ProductFacilityLocation stuff
+productFacilityLocations = null;
+if (facilityLocation != null) {
+    productFacilityLocations = facilityLocation.getRelated("ProductFacilityLocation", null, UtilMisc.toList("productId"));
+}
+
+context.put("facilityId", facilityId);
+context.put("locationSeqId", locationSeqId);
+context.put("facility", facility);
+context.put("facilityLocation", facilityLocation);       
+context.put("locationTypeEnums", locationTypeEnums);
+context.put("productFacilityLocations", productFacilityLocations);

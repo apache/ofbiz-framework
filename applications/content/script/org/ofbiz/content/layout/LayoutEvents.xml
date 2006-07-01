@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<simple-methods>
+    <simple-method login-required="true" method-name="createLayout">
+      <log level="always" message="in createLayout."/>
+      <log level="always" message="parameters: ${parameters}"/>
+
+      <make-value entity-name="Content" value-name="currentContent"/>
+      <set-pk-fields map-name="parameters" value-name="currentContent"/>
+      <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+      <map-to-map map-name="currentContent" to-map-name="context" />
+      <log level="always" message="context: ${context}"/>
+      <field-to-field map-name="parameters" field-name="contentPurposeTypeId"
+          to-map-name="context" />
+      <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
+      <env-to-field env-name="targetOperationList" to-map-name="context" 
+               to-field-name="targetOperationList" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <field-to-field map-name="parameters" field-name="drObjectInfo"
+                      to-map-name="context" to-field-name="objectInfo" />
+      <string-to-field string="LOCAL_FILE" map-name="context" field-name="dataResourceTypeId" />
+      <call-service in-map-name="context" service-name="persistContentAndAssoc">
+        <result-to-field field-name="contentId" result-name="contentId"/>
+        <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
+      </call-service>
+      <if-empty field-name="contentId" >
+        <add-error>
+          <fail-message message="Permission not granted."/>
+        </add-error>
+      </if-empty>
+      <check-errors/>
+      <field-to-request field-name="contentId" request-name="contentId" />
+      <field-to-request field-name="dataResourceId" request-name="drDataResourceId" />
+
+    </simple-method>
+    <simple-method login-required="true" method-name="updateLayout">
+      <log level="always" message="in updateLayout."/>
+      <log level="always" message="parameters: ${parameters}"/>
+
+      <make-value entity-name="Content" value-name="currentContent"/>
+      <set-pk-fields map-name="parameters" value-name="currentContent"/>
+      <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+      <field-to-field field-name="currentContent" to-map-name="context" />
+      <field-to-field map-name="parameters" field-name="contentPurposeTypeId"
+          to-map-name="context" />
+      <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
+      <env-to-field env-name="targetOperationList" map-name="context" 
+               field-name="targetOperationList" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <call-service in-map-name="context" service-name="checkContentPermission">
+        <result-to-field field-name="permissionStatus" result-name="permissionStatus"/>
+      </call-service>
+      <if-compare field-name="permissionStatus" operator="not-equals" value="granted" type="String">
+        <add-error>
+          <fail-message message="Permission not granted."/>
+        </add-error>
+      </if-compare>
+      <check-errors/>
+      <field-to-field map-name="parameters" field-name="contentId" to-map-name="content" />
+      <find-by-primary-key entity-name="Content" value-name="content" map-name="content"/>
+      <set-nonpk-fields map-name="parameters" value-name="content"/>
+      <log level="always" message="content: ${content}"/>
+      <store-value value-name="content"/>
+      <field-to-request map-name="content" field-name="contentId" request-name="contentId" />
+      <field-to-field map-name="parameters" field-name="dataResourceId" to-map-name="dataResource" />
+      <find-by-primary-key entity-name="DataResource" value-name="dataResource" map-name="dataResource"/>
+      <set-nonpk-fields map-name="parameters" value-name="dataResource"/>
+      <field-to-field map-name="parameters" field-name="drObjectInfo" 
+                      to-map-name="dataResource" to-field-name="objectInfo" />
+      <log level="always" message="dataResource: ${dataResource}"/>
+      <store-value value-name="dataResource"/>
+      <field-to-request map-name="dataResource" field-name="dataResourceId" request-name="drDataResourceId" />
+      <check-errors/>
+    </simple-method>
+
+
+    <simple-method login-required="true" method-name="createLayoutText">
+      <log level="always" message="in createLayoutText."/>
+      <log level="always" message="parameters: ${parameters}"/>
+
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context" />
+
+      <log level="always" message="context: ${context}"/>
+      <field-to-field map-name="context" field-name="contentName" to-field-name="dataResourceName" />
+      <field-to-field map-name="parameters" field-name="contentPurposeTypeId" to-map-name="context" />
+      <field-to-field map-name="parameters" field-name="contentIdTo" to-map-name="context" />
+      <field-to-field map-name="parameters" field-name="textData" to-map-name="context" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <string-to-field string="ELECTRONIC_TEXT" map-name="context" field-name="dataResourceTypeId" />
+      <string-to-field string="text/plain" map-name="context" field-name="mimeTypeId" />
+      <string-to-field string="SUB_CONTENT" map-name="context" field-name="contentAssocTypeId" />
+      <string-to-field string="DOCUMENT" map-name="context" field-name="contentTypeId" />
+      <call-service in-map-name="context" service-name="persistContentAndAssoc">
+        <result-to-field map-name="context2" field-name="activeContentId" result-name="contentId"/>
+        <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
+        <result-to-field map-name="context2" field-name="contentAssocTypeId" result-name="contentAssocTypeId"/>
+        <result-to-field map-name="context2" field-name="fromDate" result-name="fromDate"/>
+      </call-service>
+      <check-errors/>
+      <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId" />
+      <field-to-request field-name="dataResourceId" request-name="drDataResourceId" />
+      <string-to-field string="SubContentDataResourceView" field-name="currentEntityName" />
+      <field-to-request field-name="currentEntityName" request-name="currentEntityName" />
+
+      <field-to-field map-name="parameters" field-name="contentIdTo" to-map-name="context2" />
+      <field-to-field map-name="parameters" field-name="mapKey" to-map-name="context2" />
+      <if-not-empty map-name="context2" field-name="activeContentId">
+        <call-service in-map-name="context2" service-name="deactivateAssocs">
+          <result-to-field field-name="deactivateList" result-name="deactivateList"/>
+        </call-service>
+      </if-not-empty>
+
+      <!-- add to most recently used list -->
+      <!--
+      <make-value entity-name="SubContentDataResourceView" value-name="subContent"/>
+      <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
+      <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
+      <log level="always" message="subContent: ${subContent}"/>
+      <log level="always" message="contentId: ${contentId}"/>
+      <log level="always" message="dataResourceId: ${dataResourceId}"/>
+      <call-class-method class-name="org.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
+        <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+        <field field-name="subContent" type="org.ofbiz.entity.GenericEntity"/>
+      </call-class-method>
+      -->
+    </simple-method>
+
+    <simple-method login-required="true" method-name="updateLayoutText">
+      <log level="always" message="in updateLayoutText."/>
+      <log level="always" message="parameters: ${parameters}"/>
+
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context" />
+
+      <log level="always" message="context: ${context}"/>
+      <field-to-field map-name="context" field-name="contentName" to-field-name="dataResourceName" />
+      <field-to-field map-name="parameters" field-name="contentPurposeTypeId" to-map-name="context" />
+      <field-to-field map-name="parameters" field-name="contentIdTo" to-map-name="context" />
+      <field-to-field map-name="parameters" field-name="textData" to-map-name="context" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <call-service in-map-name="context" service-name="persistContentAndAssoc">
+          <result-to-field result-name="contentId" field-name="contentId"/>
+          <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
+      </call-service>
+      <check-errors/>
+    </simple-method>
+
+
+    <simple-method login-required="true" method-name="createLayoutImage">
+      <log level="always" message="in createLayoutImage."/>
+      <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+            method-name="uploadImageAndParameters"
+            ret-field-name="formInput"
+         >
+        <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+        <string value="imageData"/>
+      </call-class-method>
+      <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+            method-name="returnByteWrapper"
+            ret-field-name="byteWrap"
+         >
+        <field field-name="formInput" type="java.util.Map"/>
+      </call-class-method>
+      <clear-field map-name="formInput" field-name="imageData"/>
+      <log level="always" message="formInput: ${formInput}"/>
+      <log level="always" message="byteWrap: ${byteWrap}"/>
+
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentIn" in-map-name="formInput" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="dataResourceIn" in-map-name="formInput" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentAssocIn" in-map-name="formInput" out-map-name="context" />
+
+      <log level="always" message="context: ${context}"/>
+      <field-to-field map-name="context" field-name="contentName" to-field-name="dataResourceName" />
+      <field-to-field map-name="formInput" field-name="contentPurposeTypeId" to-map-name="context" />
+      <field-to-field map-name="formInput" field-name="contentIdTo" to-map-name="context" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <string-to-field string="IMAGE_OBJECT" map-name="context" field-name="dataResourceTypeId" />
+      <string-to-field string="text/plain" map-name="context" field-name="mimeTypeId" />
+      <string-to-field string="SUB_CONTENT" map-name="context" field-name="contentAssocTypeId" />
+      <string-to-field string="DOCUMENT" map-name="context" field-name="contentTypeId" />
+      <call-service in-map-name="context" service-name="persistContentAndAssoc">
+        <result-to-field map-name="context2" field-name="activeContentId" result-name="contentId"/>
+        <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
+        <result-to-field map-name="context2" field-name="contentAssocTypeId" result-name="contentAssocTypeId"/>
+        <result-to-field map-name="context2" field-name="fromDate" result-name="fromDate"/>
+      </call-service>
+      <check-errors/>
+
+      <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId" />
+      <field-to-request field-name="dataResourceId" request-name="drDataResourceId" />
+      <string-to-field string="SubContentDataResourceView" field-name="currentEntityName" />
+      <field-to-request field-name="currentEntityName" request-name="currentEntityName" />
+
+      <field-to-field map-name="formInput" field-name="contentIdTo" to-map-name="context2" />
+      <field-to-field map-name="formInput" field-name="mapKey" to-map-name="context2" />
+      <if-not-empty map-name="context2" field-name="activeContentId">
+        <call-service in-map-name="context2" service-name="deactivateAssocs">
+          <result-to-field field-name="deactivateList" result-name="deactivateList"/>
+        </call-service>
+      </if-not-empty>
+
+      <!-- add to most recently used list -->
+      <!--
+      <make-value entity-name="SubContentDataResourceView" value-name="subContent"/>
+      <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
+      <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
+      <log level="always" message="subContent: ${subContent}"/>
+      <log level="always" message="contentId: ${contentId}"/>
+      <log level="always" message="dataResourceId: ${dataResourceId}"/>
+      <call-class-method class-name="org.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
+        <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+        <field field-name="subContent" type="org.ofbiz.entity.GenericEntity"/>
+      </call-class-method>
+      -->
+    </simple-method>
+
+    <simple-method login-required="true" method-name="createLayoutUrl" >
+      <log level="always" message="in createLayoutUrl"/>
+      <log level="always" message="parameters: ${parameters}"/>
+
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context" />
+
+      <log level="always" message="context: ${context}"/>
+      <field-to-field map-name="context" field-name="contentName" to-field-name="dataResourceName" />
+      <field-to-field map-name="parameters" field-name="contentPurposeTypeId" to-map-name="context" />
+      <field-to-field map-name="parameters" field-name="contentIdTo" to-map-name="context" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <string-to-field string="URL_RESOURCE" map-name="context" field-name="dataResourceTypeId" />
+      <string-to-field string="text/plain" map-name="context" field-name="mimeTypeId" />
+      <string-to-field string="SUB_CONTENT" map-name="context" field-name="contentAssocTypeId" />
+      <string-to-field string="DOCUMENT" map-name="context" field-name="contentTypeId" />
+      <call-service in-map-name="context" service-name="persistContentAndAssoc">
+        <result-to-field map-name="context2" field-name="activeContentId" result-name="contentId"/>
+        <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
+        <result-to-field map-name="context2" field-name="contentAssocTypeId" result-name="contentAssocTypeId"/>
+        <result-to-field map-name="context2" field-name="fromDate" result-name="fromDate"/>
+      </call-service>
+      <check-errors/>
+      <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId" />
+      <field-to-request field-name="dataResourceId" request-name="drDataResourceId" />
+      <string-to-field string="SubContentDataResourceView" field-name="currentEntityName" />
+      <field-to-request field-name="currentEntityName" request-name="currentEntityName" />
+
+      <field-to-field map-name="parameters" field-name="contentIdTo" to-map-name="context2" />
+      <field-to-field map-name="parameters" field-name="mapKey" to-map-name="context2" />
+      <if-not-empty map-name="context2" field-name="activeContentId">
+        <call-service in-map-name="context2" service-name="deactivateAssocs">
+          <result-to-field field-name="deactivateList" result-name="deactivateList"/>
+        </call-service>
+      </if-not-empty>
+
+      <!-- add to most recently used list -->
+      <!--
+      <make-value entity-name="SubContentDataResourceView" value-name="subContent"/>
+      <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
+      <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
+      <log level="always" message="subContent: ${subContent}"/>
+      <log level="always" message="contentId: ${contentId}"/>
+      <log level="always" message="dataResourceId: ${dataResourceId}"/>
+      <call-class-method class-name="org.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
+        <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+        <field field-name="subContent" type="org.ofbiz.entity.GenericEntity"/>
+      </call-class-method>
+      -->
+    </simple-method>
+
+    <simple-method login-required="true" method-name="updateLayoutUrl">
+      <log level="always" message="in updateLayoutUrl."/>
+      <log level="always" message="parameters: ${parameters}"/>
+
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="dataResourceIn" in-map-name="parameters" out-map-name="context" />
+      <call-map-processor xml-resource="org/ofbiz/content/ContentManagementMapProcessors.xml" 
+                  processor-name="contentAssocIn" in-map-name="parameters" out-map-name="context" />
+
+      <log level="always" message="context: ${context}"/>
+      <field-to-field map-name="context" field-name="contentName" to-field-name="dataResourceName" />
+      <field-to-field map-name="parameters" field-name="contentPurposeTypeId" to-map-name="context" />
+      <field-to-field map-name="parameters" field-name="contentIdTo" to-map-name="context" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <call-service in-map-name="context" service-name="persistContentAndAssoc">
+          <result-to-field result-name="contentId" field-name="contentId"/>
+          <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
+      </call-service>
+      <check-errors/>
+    </simple-method>
+
+
+</simple-methods>
+

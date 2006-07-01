@@ -1,0 +1,141 @@
+/*
+ *  Copyright (c) 2003-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@author     Andy Zeneski
+ *@version    $Rev$
+ *@since      2.1
+ */
+
+/*
+ * This script is also referenced by the ecommerce's screens and
+ * should not contain order component's specific code.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.service.*;
+import org.ofbiz.product.product.ProductContentWrapper;
+import org.ofbiz.product.catalog.*;
+import org.ofbiz.product.store.*;
+import org.ofbiz.order.shoppingcart.*;
+
+//either optProduct, optProductId or productId must be specified
+product = request.getAttribute("optProduct");
+optProductId = request.getAttribute("optProductId");
+productId = request.getAttribute("productId");
+
+webSiteId = CatalogWorker.getWebSiteId(request);
+catalogId = CatalogWorker.getCurrentCatalogId(request);
+productStore = ProductStoreWorker.getProductStore(request);
+facilityId = productStore.getString("inventoryFacilityId");
+productStoreId = productStore.getString("productStoreId");
+autoUserLogin = session.getAttribute("autoUserLogin");
+userLogin = session.getAttribute("userLogin");
+cart = ShoppingCartEvents.getCartObject(request);
+
+context.put("nowTimestamp", UtilDateTime.nowTimestamp());
+context.remove("daysToShip");
+context.remove("averageRating");
+context.remove("numRatings");
+
+if (product != null) {
+    productId = product.get("productId");
+}
+if (optProductId != null) {
+    productId = optProductId;
+}
+
+// get the product entity
+if (product == null && productId != null) {
+    product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+}
+if (product != null) {
+    productFacility = delegator.findByPrimaryKeyCache("ProductFacility", UtilMisc.toMap("productId", product.get("productId"), "facilityId", facilityId));
+    if (productFacility != null && productFacility.get("daysToShip") != null) {
+        context.put("daysToShip", productFacility.get("daysToShip"));
+    }
+    
+    // make the productContentWrapper
+    ProductContentWrapper productContentWrapper = new ProductContentWrapper(product, request);
+    context.put("productContentWrapper", productContentWrapper);
+}
+
+categoryId = null;
+reviews = null;
+if (product != null) {
+    categoryId = parameters.get("category_id");
+    if (categoryId == null) {
+        categoryId = request.getAttribute("productCategoryId");
+    }
+
+    // get the product price
+    if (cart.isSalesOrder()) {
+        // sales order: run the "calculateProductPrice" service
+        priceContext = UtilMisc.toMap("product", product, "currencyUomId", cart.getCurrency(), 
+                "autoUserLogin", autoUserLogin, "userLogin", userLogin);
+        priceContext.put("webSiteId", webSiteId);
+        priceContext.put("prodCatalogId", catalogId);
+        priceContext.put("productStoreId", productStoreId);
+        priceContext.put("checkIncludeVat", "Y");
+        priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+
+        context.put("price", priceMap);
+    } else {
+        // purchase order: run the "calculatePurchasePrice" service
+        priceContext = UtilMisc.toMap("product", product, "currencyUomId", cart.getCurrency(), 
+                "partyId", cart.getPartyId(), "userLogin", userLogin);
+        priceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
+
+        context.put("price", priceMap);
+    }
+    // get the product review(s)
+    reviews = product.getRelatedCache("ProductReview", null, UtilMisc.toList("-postedDateTime"));
+}
+
+// get the average rating
+if (reviews != null && reviews.size() > 0) {
+    reviewIter = reviews.iterator();
+    double totalProductRating = 0;
+    long numRatings = 0;
+    while (reviewIter.hasNext()) {
+        productReview = reviewIter.next();
+        productRating = productReview.get("productRating");
+        if (productRating != null) {
+            totalProductRating += productRating;
+            numRatings++;
+        }
+    }
+    if (numRatings > 0) {
+        context.put("averageRating", totalProductRating/numRatings);
+        context.put("numRatings", numRatings);
+    }
+}
+
+// an example of getting features of a certain type to show
+sizeProductFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "SIZE"), UtilMisc.toList("sequenceNum", "defaultSequenceNum"));
+
+context.put("product", product);
+context.put("productStoreId", productStoreId);
+context.put("categoryId", categoryId);
+context.put("productReviews", reviews);
+context.put("sizeProductFeatureAndAppls", sizeProductFeatureAndAppls);
+    

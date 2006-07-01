@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: InventoryIssueServices.xml 7023 2006-03-20 14:11:03Z jacopo $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="issueImmediatelyFulfilledOrder" short-description="Issues the Inventory for an Order that was Immediately Fulfilled" login-required="false">
+        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+
+        <entity-one entity-name="ProductStore" value-name="productStore">
+            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+        </entity-one>
+
+        <if-not-empty field-name="orderHeader">
+            <if-compare field-name="orderHeader.needsInventoryIssuance" operator="equals" value="Y">
+                <get-related list-name="orderItemList" relation-name="OrderItem" value-name="orderHeader"/>
+        
+                <!-- before issuing inventory, check to see if there is inventory information in this database -->
+                <!-- if inventory info is not available for all of the products, then don't do the issuance, ie there has to be at least SOME inventory info in the database to facilitate inventory-less POS terminals -->
+                <entity-count entity-name="InventoryItem" count-name="iiCount">
+                    <condition-expr field-name="facilityId" operator="equals" env-name="orderHeader.originFacilityId"/>
+                </entity-count>
+        
+                <!-- now go through each order item and call a service to issue the inventory -->
+                <if-compare field-name="iiCount" operator="greater" value="0" type="Double">
+                    <iterate list-name="orderItemList" entry-name="orderItem">
+                        <if-not-empty field-name="orderItem.productId">
+                            <clear-field field-name="callSvcMap"/>
+                            <set-service-fields to-map-name="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map-name="orderItem"/>
+                            <env-to-env env-name="orderHeader" to-env-name="callSvcMap.orderHeader"/>
+                            <env-to-env env-name="orderItem" to-env-name="callSvcMap.orderItem"/>
+                            <env-to-env env-name="productStore" to-env-name="callSvcMap.productStore"/>
+                            <call-service service-name="issueImmediatelyFulfilledOrderItem" in-map-name="callSvcMap"/>
+                        </if-not-empty>
+                    </iterate>
+                    <!-- now that the issuance is done, set the needsInventoryIssuance=N -->
+                    <string-to-field string="N" field-name="orderHeader.needsInventoryIssuance"/>
+                    <store-value value-name="orderHeader"/>
+                    <log level="info" message="Issued inventory for orderId ${orderHeader.orderId}."/>
+                <else>
+                    <log level="info" message="Not issuing inventory for orderId ${orderHeader.orderId}, no inventory information available."/>
+                </else>
+                </if-compare>
+            </if-compare>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="issueImmediatelyFulfilledOrderItem" short-description="Issues the Inventory for an Order Item that was Immediately Fulfilled" login-required="false">
+        <if-empty field-name="parameters.orderItem">
+            <entity-one entity-name="OrderItem" value-name="orderItem"/>
+        <else>
+            <env-to-env env-name="parameters.orderItem" to-env-name="orderItem"/>
+        </else>
+        </if-empty>
+
+        <!-- kind of like the inventory reservation routine (with a few variations...), find InventoryItems to issue from, but instead of doing the reservation just create an issuance and an inventory item detail for the change -->
+        <if-not-empty field-name="orderItem.productId">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+
+            <!-- NOTE: the inventory will be issued from the OrderHeader.originFacilityId -->
+            <if-empty field-name="parameters.orderHeader">
+                <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+            <else>
+                <env-to-env env-name="parameters.orderHeader" to-env-name="orderHeader"/>
+            </else>
+            </if-empty>
+            
+            <!-- get the ProductStore to fund the reserveOrderEnumId -->
+            <if-empty field-name="parameters.productStore">
+                <entity-one entity-name="ProductStore" value-name="productStore">
+                    <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+                </entity-one>
+            <else>
+                <env-to-env env-name="parameters.productStore" to-env-name="productStore"/>
+            </else>
+            </if-empty>
+            
+            <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
+            <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="productStore.reserveOrderEnumId">
+                <string-to-field string="+expireDate" field-name="orderByString"/>
+            <else>
+                <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="productStore.reserveOrderEnumId">
+                    <string-to-field string="-expireDate" field-name="orderByString"/>
+                <else>
+                    <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="productStore.reserveOrderEnumId">
+                        <string-to-field string="+datetimeReceived" field-name="orderByString"/>
+                    <else>
+                        <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
+                        <string-to-field string="-datetimeReceived" field-name="orderByString"/>
+                    </else>
+                    </if-compare>
+                </else>
+                </if-compare>
+            </else>
+            </if-compare>
+            <field-to-list field-name="orderByString" list-name="orderByList"/>
+            <env-to-env env-name="orderItem.productId" to-env-name="lookupFieldMap.productId"/>
+            <env-to-env env-name="orderHeader.originFacilityId" to-env-name="lookupFieldMap.facilityId"/>
+            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItemList" order-by-list-name="orderByList"/>
+    
+            <env-to-env env-name="orderItem.quantity" to-env-name="parameters.quantityNotIssued"/>
+
+            <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+                <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
+                <call-simple-method method-name="issueImmediateForInventoryItemInline"/>
+            </iterate>
+            
+            <!-- if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found, in the quantityNotIssued field -->
+            <if-compare field-name="parameters.quantityNotIssued" operator="not-equals" value="0" type="Double">
+                <if-not-empty field-name="lastNonSerInventoryItem">
+                    <!-- create ItemIssuance record -->
+                    <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <field-to-field field-name="inventoryItemId" map-name="lastNonSerInventoryItem" to-map-name="issuanceCreateMap"/>
+                    <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
+                    <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
+                        <result-to-field result-name="itemIssuanceId"/>
+                    </call-service>
+
+                    <!-- subtract from quantityNotIssued from the availableToPromise and quantityOnHand of existing inventory item -->
+                    <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                    <env-to-env env-name="lastNonSerInventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
+                    <env-to-env env-name="parameters.orderId" to-env-name="createDetailMap.orderId"/>
+                    <env-to-env env-name="parameters.orderItemSeqId" to-env-name="createDetailMap.orderItemSeqId"/>
+                    <env-to-env env-name="itemIssuanceId" to-env-name="createDetailMap.itemIssuanceId"/>
+                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+
+                    <clear-field field-name="createDetailMap"/>
+                    <clear-field field-name="itemIssuanceId"/>
+                <else>
+                    <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued -->
+                    <clear-field field-name="createInvItemInMap"/>
+                    <clear-field field-name="createInvItemOutMap"/>
+                    <set field="createInvItemInMap.productId" from-field="orderItem.productId"/>
+                    <set field="createInvItemInMap.facilityId" from-field="orderHeader.originFacilityId"/>
+                    <set field="createInvItemInMap.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+                    <call-service service-name="createInventoryItem" in-map-name="createInvItemInMap">
+                        <result-to-field result-name="inventoryItemId" field-name="createInvItemOutMap.inventoryItemId"/>
+                    </call-service>
+
+                    <!-- create ItemIssuance record -->
+                    <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <set field="issuanceCreateMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
+                    <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
+                    <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
+                        <result-to-field result-name="itemIssuanceId"/>
+                    </call-service>
+
+                    <!-- also create a detail record with the quantities -->
+                    <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
+                    <env-to-env env-name="parameters.orderId" to-env-name="createDetailMap.orderId"/>
+                    <env-to-env env-name="parameters.orderItemSeqId" to-env-name="createDetailMap.orderItemSeqId"/>
+                    <env-to-env env-name="itemIssuanceId" to-env-name="createDetailMap.itemIssuanceId"/>
+                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    </calculate>
+                    <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+
+                    <clear-field field-name="createDetailMap"/>
+                    <clear-field field-name="itemIssuanceId"/>
+                </else>
+                </if-not-empty>
+
+                <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
+            </if-compare>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="issueImmediateForInventoryItemInline" short-description="Does a issuance for one InventoryItem, meant to be called in-line">
+        <!-- only do something with this inventoryItem if there is more inventory to issue -->
+        <if-compare field-name="parameters.quantityNotIssued" operator="greater" value="0" type="Double">
+            <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="inventoryItemTypeId" map-name="inventoryItem">
+                <if-compare value="INV_AVAILABLE" operator="equals" field-name="statusId" map-name="inventoryItem">
+                    <!-- change status on inventoryItem -->
+                    <string-to-field string="INV_DELIVERED" field-name="inventoryItem.statusId"/>
+                    <store-value value-name="inventoryItem"/>
+
+                    <!-- create ItemIssuance record -->
+                    <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
+                    <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                    <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap"/>
+                    <clear-field field-name="issuanceCreateMap"/>
+
+                    <calculate field-name="parameters.quantityNotIssued">
+                        <calcop field-name="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
+                    </calculate>
+                </if-compare>
+            </if-compare>
+            <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+                <if-not-empty field-name="inventoryItem.availableToPromiseTotal">
+                    <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
+                    <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
+                        <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
+                            <field-to-field field-name="availableToPromiseTotal" map-name="inventoryItem" to-field-name="deductAmount" to-map-name="parameters"/>
+                        <else>
+                            <field-to-field field-name="quantityNotIssued" map-name="parameters" to-field-name="deductAmount" to-map-name="parameters"/>
+                        </else>
+                        </if-compare-field>
+                        
+                        <!-- create ItemIssuance record -->
+                        <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                        <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                        <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
+                        <field-to-field field-name="deductAmount" map-name="parameters" to-field-name="quantity" to-map-name="issuanceCreateMap"/>
+                        <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
+                            <result-to-field result-name="itemIssuanceId"/>
+                        </call-service>
+
+                        <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                        <env-to-env env-name="inventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
+                        <env-to-env env-name="parameters.orderId" to-env-name="createDetailMap.orderId"/>
+                        <env-to-env env-name="parameters.orderItemSeqId" to-env-name="createDetailMap.orderItemSeqId"/>
+                        <env-to-env env-name="itemIssuanceId" to-env-name="createDetailMap.itemIssuanceId"/>
+                        <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
+                        <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                            <calcop field-name="parameters.deductAmount" operator="negative"/>
+                        </calculate>
+                        <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                            <calcop field-name="parameters.deductAmount" operator="negative"/>
+                        </calculate>
+                        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                        <clear-field field-name="createDetailMap"/>
+                        
+                        <calculate field-name="quantityNotIssued" map-name="parameters">
+                            <calcop operator="subtract" field-name="parameters.quantityNotIssued">
+                                <calcop operator="get" field-name="parameters.deductAmount"/>
+                            </calcop>
+                        </calculate>
+
+                        <clear-field field-name="issuanceCreateMap"/>
+                        <clear-field field-name="itemIssuanceId"/>
+                    </if-compare>
+                </if-not-empty>
+
+                <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
+                <!-- use env variable named lastNonSerInventoryItem -->
+                <env-to-env env-name="inventoryItem" to-env-name="lastNonSerInventoryItem"/>
+            </if-compare>
+        </if-compare>
+    </simple-method>
+</simple-methods>
+

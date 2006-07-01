@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: InvoiceServices.xml 7417 2006-04-26 07:34:19Z hansbak $
+
+Copyright 2002-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../../../../../../framework/minilang/dtd/simple-methods.xsd">
+
+    <simple-method method-name="getNextInvoiceId" short-description="Get Next invoiceId">
+        <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing -->
+        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
+            <field-map field-name="partyId" env-name="parameters.partyId"/>
+        </entity-one>
+        <log level="info" message="In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
+        
+        <if>
+            <condition>
+                <if-compare field-name="partyAcctgPreference.invoiceSequenceEnumId" operator="equals" value="INVSQ_ENF_SEQ"/>
+            </condition>
+            <then>
+                <log level="info" message="In createInvoice sequence enum INVSQ_ENF_SEQ"/>
+                <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
+                <if-not-empty field-name="partyAcctgPreference.lastInvoiceNumber">
+                    <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long">
+                        <calcop operator="add" field-name="partyAcctgPreference.lastInvoiceNumber"/>
+                        <number value="1"/>
+                    </calculate>
+                    <else>
+                        <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+                    </else>
+                </if-not-empty>
+                <store-value value-name="partyAcctgPreference"/>
+                <set from-field="partyAcctgPreference.lastInvoiceNumber" field="invoiceIdTemp"/>
+            </then>
+            <else-if>
+                <condition>
+                    <if-compare field-name="partyAcctgPreference.invoiceSequenceEnumId" operator="equals" value="INVSQ_RESTARTYR"/>
+                </condition>
+                <then>
+                    <log level="info" message="In createInvoice sequence enum INVSQ_RESTARTYR"/>
+                    <!-- this is sequential sequencing, we can't skip a number; except that it is restarted each fiscal year -->
+                    
+                    <if-empty field-name="partyAcctgPreference.lastInvoiceRestartDate">
+                        <!-- if no lastInvoiceRestartDate then it's easy, just start now with 1 -->
+                        <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+                        <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
+                        <else>
+                            <!-- first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year? -->
+                            <calculate field-name="zeroLong" type="Long"><number value="0"/></calculate>
+                            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field-name="curYearFiscalStartDate">
+                                <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
+                                <field field-name="partyAcctgPreference.fiscalYearStartDay" type="java.lang.Number"/>
+                                <field field-name="partyAcctgPreference.fiscalYearStartMonth" type="java.lang.Number"/>
+                                <field field-name="zeroLong" type="java.lang.Number"/>
+                            </call-class-method>
+                            <if>
+                                <condition>
+                                    <and>
+                                        <if-compare-field field-name="partyAcctgPreference.lastInvoiceRestartDate" operator="less" to-field-name="curYearFiscalStartDate" type="Timestamp"/>
+                                        <if-compare-field field-name="nowTimestamp" operator="greater-equals" to-field-name="curYearFiscalStartDate" type="Timestamp"/>
+                                    </and>
+                                </condition>
+                                <then>
+                                    <!-- less than fiscal year start, we need to reset it -->
+                                    <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+                                    <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
+                                </then>
+                                <else>
+                                    <!-- greater than or equal to fiscal year start or nowTimestamp hasn't yet hit the current year fiscal start date, we're okay, just increment -->
+                                    <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long">
+                                        <calcop operator="add" field-name="partyAcctgPreference.lastInvoiceNumber"/>
+                                        <number value="1"/>
+                                    </calculate>
+                                </else>
+                            </if>
+                        </else>
+                    </if-empty>
+                    <store-value value-name="partyAcctgPreference"/>
+                    
+                    <!-- get the current year string for prefix, etc; simple 4 digit year date string -->
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="toDateString" ret-field-name="curYearString">
+                        <field field-name="partyAcctgPreference.lastInvoiceRestartDate" type="java.util.Date"/>
+                        <string value="yyyy"/>
+                    </call-class-method>
+                    
+                    <set value="${curYearString}-${partyAcctgPreference.lastInvoiceNumber}" field="invoiceIdTemp"/>
+                </then>
+            </else-if>
+            <else>
+                <log level="info" message="In createInvoice sequence enum INVSQ_STANDARD"/>
+                <!-- default to the default sequencing: INVSQ_STANDARD -->
+                <set from-field="parameters.invoiceId" field="invoiceIdTemp"/>
+                <if-empty field-name="invoiceIdTemp">
+                    <sequenced-id-to-env sequence-name="Invoice" env-name="invoiceIdTemp"/>
+                    <else>
+                        <!-- check the provided ID --> 
+                        <check-id field-name="invoiceIdTemp"/>
+                        <check-errors/>
+                    </else>
+                </if-empty>
+            </else>
+        </if>
+        
+        <!-- use invoiceIdTemp along with the invoiceIdPrefix to create the real ID -->
+        <set field="invoiceId" value="${partyAcctgPreference.invoiceIdPrefix}${invoiceIdTemp}"/>
+        <field-to-result field-name="invoiceId" result-name="invoiceId"/>
+    </simple-method>
+    
+    
+    <simple-method method-name="createInvoice" short-description="Create a new Invoice">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createInvoice you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+
+        <make-value value-name="newEntity" entity-name="Invoice"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied 
+                            else use it from the input -->
+        <if-empty field-name="parameters.invoiceId">
+            <set field="getNextInvoiceIdMap.partyId" from-field="parameters.partyIdFrom"/>
+            <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
+                <result-to-field result-name="invoiceId" field-name="newEntity.invoiceId"/>
+            </call-service>        
+            <else>
+                <set field="newEntity.invoiceId" from-field="parameters.invoiceId"/>
+            </else>
+        </if-empty>
+        <field-to-result field-name="newEntity.invoiceId" result-name="invoiceId"/>
+        
+        <if-empty field-name="parameters.invoiceDate">
+            <set from-field="nowTimestamp" field="newEntity.invoiceDate"/>
+        </if-empty>
+        <if-empty field-name="parameters.currencyUomId">
+            <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
+        </if-empty>
+
+        <create-value value-name="newEntity"/>
+        
+        <!-- create new status entry, and set lastStatusUpdate date -->
+        <make-value value-name="newInvoiceStatus" entity-name="InvoiceStatus"/>
+        <set from-field="newEntity.invoiceId" field="newInvoiceStatus.invoiceId"/>
+        <set from-field="newEntity.statusId" field="newInvoiceStatus.statusId"/>
+        <set from-field="nowTimestamp" field="newInvoiceStatus.statusDate"/>
+        <create-value value-name="newInvoiceStatus"/>
+    </simple-method>
+
+    <simple-method method-name="copyInvoice" short-description="Create a new Invoice from an existing invoice">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createInvoice you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <set field="invoiceLookup.invoiceId" from-field="parameters.invoiceIdToCopyFrom"/>
+        <call-service service-name="getInvoice" in-map-name="invoiceLookup">
+            <result-to-field result-name="invoice" field-name="invoice"/>
+            <result-to-field result-name="invoiceItems" field-name="invoiceItems"/>
+        </call-service>
+        <set field="invoice.invoiceId" from-field="parameters.invoiceId"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set field="invoice.invoiceDate" from-field="nowTimestamp"/>
+        <set field="invoice.statusId" value="INVOICE_IN_PROCESS"/>
+        <set-service-fields service-name="createInvoice" map-name="invoice" to-map-name="newInvoice"/>
+        <call-service service-name="createInvoice" in-map-name="newInvoice">
+            <result-to-field result-name="invoiceId" field-name="invoiceId"/>
+        </call-service>
+        <field-to-result field-name="invoiceId" result-name="invoiceId"/>
+        <field-to-request field-name="invoiceId" request-name="invoiceId"/>
+        <iterate entry-name="invoiceItem" list-name="invoiceItems">
+            <set-service-fields service-name="createInvoiceItem" map-name="invoiceItem" to-map-name="createInvoiceItem"/>
+            <set field="createInvoiceItem.invoiceId" from-field="invoiceId"/>
+            <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItem"/>
+        </iterate>
+    </simple-method>
+    
+    <simple-method method-name="getInvoice" short-description="Retrieve an invoice and the items">
+        <check-permission permission="ACCOUNTING" action="_VIEW">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_VIEW"/>
+            <fail-message message="Security Error: to run getInvoice you must have the ACCOUNTING_VIEW or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <!-- find the invoice record -->
+        <make-value value-name="lookupPKMap" entity-name="Invoice"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="Invoice" map-name="lookupPKMap" value-name="invoiceValue"/>
+        <field-to-result field-name="invoiceValue" result-name="invoice"/>
+        <!-- and the items -->
+        <get-related value-name="invoiceValue" relation-name="InvoiceItem" list-name="invoiceItemValues"/>
+        <field-to-result field-name="invoiceItemValues" result-name="invoiceItems"/>        
+    </simple-method>
+    
+    <simple-method method-name="updateInvoice" short-description="Update the header of an existing Invoice">
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <!-- find the current record -->
+        <make-value value-name="lookupPKMap" entity-name="Invoice"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="Invoice" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        
+        <!-- only try to update content if the status is in process.... -->            
+        <if-compare field-name="statusId" map-name="lookedUpValue" operator="equals" value="INVOICE_IN_PROCESS">
+            <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
+            <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+            
+            <!-- only save if something has changed, do not update status here -->
+            <set from-field="savedValue.statusId" field="lookedUpValue.statusId"/>  <!-- get old status back -->
+            <if-compare-field field-name="lookedUpValue" operator="not-equals" to-field-name="savedValue" type="Object">
+                <store-value value-name="lookedUpValue"/> <!-- update all non status and key fields -->
+            </if-compare-field>
+            <else>
+                <add-error><fail-message message="Can only update Invoice, when status is in-process...current status: ${lookedUpValue.statusId}"/></add-error>
+                <log level="error" message="Can only update Invoice, when status is in-process...current Status: ${lookedUpValue.statusId}"/>
+                <check-errors/>
+            </else>
+        </if-compare>
+        
+        <!-- check if there is a status change if yes call invoice status update service -->
+        <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="savedValue.statusId">
+            <set from-field="parameters.invoiceId" field="inputMap.invoiceId"/>
+            <set from-field="parameters.statusId" field="inputMap.statusId"/>
+            <now-timestamp-to-env env-name="inputMap.statusDate"/>
+            <call-service service-name="setInvoiceStatus" in-map-name="inputMap"/>
+        </if-compare-field>
+    </simple-method>
+    
+    <simple-method method-name="sendInvoicePerEmail" short-description="Send an invoice per Email">
+        <set-service-fields service-name="sendMailFromScreen" map-name="parameters" to-map-name="emailParams"/>
+        <set field="emailParams.xslfoAttachScreenLocation" value="component://accounting/widget/AccountingPrintForms.xml#InvoicePDF"/>
+        <set field="emailParams.bodyParameters.invoiceId" from-field="parameters.invoiceId"/>
+        <set field="emailParams.bodyParameters.userLogin" from-field="parameters.userLogin"/>
+        <call-service-asynch service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        <property-to-field resource="AccountingUiLabels" property="AccountingEmailScheduledToSend" field-name="successMessage"/>
+    </simple-method>
+    
+    <simple-method method-name="createInvoiceItem" short-description="Create a new Invoice Item">
+        <set field="invoiceId" from-field="parameters.invoiceId"/>
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <make-value value-name="newEntity" entity-name="InvoiceItem"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.invoiceItemSeqId">
+            <make-next-seq-id value-name="newEntity" seq-field-name="invoiceItemSeqId"/> <!-- this finds the next sub-sequence ID -->
+            <!--field-to-result field-name="newEntity.invoiceItemSeqId" result-name="invoiceItemSeqId"/-->
+        </if-empty>
+        <!-- if there is no amount and a productItem is supplied fill the amount(price) and description from the product record 
+             TODO: there are return adjustments now that make this code very broken. The check for price was added as a quick fix. -->
+        <if-empty field-name="parameters.amount">
+            <if-not-empty field-name="parameters.productId">
+                <entity-one entity-name="Product" value-name="product"/>
+                <set from-field="product.description" field="newEntity.description"/>
+                <set from-field="product" field="calculateProductPriceMap.product"/>
+                <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
+                    <result-to-field result-name="price" field-name="newEntity.amount"/>
+                </call-service>
+            </if-not-empty>
+        </if-empty>
+        <if-empty field-name="newEntity.amount">
+            <add-error>
+                <fail-message message="The amount value is mandatory"/>
+            </add-error>
+        </if-empty>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateInvoiceItem" 
+        short-description="Update an existing Invoice Item">
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <make-value value-name="lookupPKMap" entity-name="InvoiceItem"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        
+        <find-by-primary-key entity-name="InvoiceItem" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
+        
+        <!-- set all parameters -->        
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+
+        <!-- check if the productNumber is updated, when yes retrieve product description and price -->
+        <if-compare-field field-name="productId"  map-name="savedValue" operator="not-equals" to-map-name="lookedUpValue">
+            <entity-one entity-name="Product" value-name="product"/>
+            <set from-field="product.description" field="lookedUpValue.description"/>
+            
+            <set from-field="product" field="calculateProductPriceMap.product"/>
+            <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
+                <result-to-field result-name="price" field-name="lookedUpValue.amount"/>
+            </call-service>
+        </if-compare-field>
+        <if-empty field-name="newEntity.amount">
+            <add-error>
+                <fail-message message="The amount value is mandatory"/>
+            </add-error>
+        </if-empty>
+        <if-compare-field field-name="lookedUpValue" operator="not-equals" to-field-name="savedValue" type="Object">
+            <store-value value-name="lookedUpValue"/>
+        </if-compare-field>
+    </simple-method>
+    <simple-method method-name="removeInvoiceItem" short-description="Remove an existing Invoice Item">
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <set field="invoiceId" from-field="parameters.invoiceId"/>
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+
+        <set field="paymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
+        <set field="paymentApplicationMap.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
+        <if-not-empty field-name="parameters.invoiceItemSeqId">        
+            <!-- check if there are specific item paymentApplications when yes remove those -->
+            <remove-by-and entity-name="PaymentApplication" map-name="paymentApplicationMap"/>
+            <else><!-- update global application with a null sequence number -->
+                <!-- TODO: reduce amount on global paymentApplication record -->
+            </else>
+        </if-not-empty>
+        
+        <entity-one entity-name="InvoiceItem" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="removePaymentApplication" 
+        short-description="Remove an existing payment application">
+        <!-- check access to the accounting function -->
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: To update an Invoice you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <entity-one entity-name="PaymentApplication" value-name="paymentApplication">
+            <field-map field-name="paymentApplicationId" value="${parameters.paymentApplicationId}"/>
+        </entity-one>
+        <if-empty field-name="paymentApplication">
+            <add-error>
+                <fail-message message="Cannot find payment application record [${parameters.paymentApplicationId}]"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <!-- payment -->
+        <if-not-empty field-name="paymentApplication.paymentId">
+            <entity-one entity-name="Payment" value-name="payment">
+                <field-map field-name="paymentId" value="${paymentApplication.paymentId}"/>
+            </entity-one>
+            <if-not-empty field-name="payment">
+                <if-compare field-name="payment.statusId" operator="equals" value="PMNT_CONFIRMED">
+                    <add-error><fail-message message="PaymentID [${payment.paymentId}] has status 'confirmed', cannot remove application."/></add-error>
+                </if-compare>
+                <check-errors/>
+            </if-not-empty>
+            <field-to-result field-name="paymentApplication.paymentId" result-name="paymentId"/>
+        </if-not-empty>
+        <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field-name="successMessage"/>
+        <!-- check invoice -->
+        <if-not-empty field-name="paymentApplication.invoiceId">
+            <entity-one entity-name="Invoice" value-name="invoice">
+                <field-map field-name="invoiceId" value="${paymentApplication.invoiceId}"/>
+            </entity-one>
+            <if-empty field-name="invoice">
+                <add-error><fail-message message="Invoice not found, invoice Id: ${paymentApplication.invoiceId}"/></add-error>
+                <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
+                <check-errors/>
+            </if-empty>
+            <!-- check if the status is not Paid... -->            
+            <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_PAID">
+                <add-error><fail-message message="InvoiceID [${invoice.invoiceId}] has status 'Paid', cannot remove application."/></add-error>
+            </if-compare>
+            <check-errors/>
+            <field-to-result field-name="paymentApplication.invoiceId" result-name="invoiceId"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToInvoice" field-name="toMessage"/>
+        </if-not-empty>
+        <!-- invoice item -->
+        <if-not-empty field-name="paymentApplication.invoiceItemSeqId">
+            <field-to-result field-name="paymentApplication.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingApplicationToInvoiceItem" field-name="toMessage"/>
+        </if-not-empty>
+        <!-- toPayment -->
+        <if-not-empty field-name="paymentApplication.toPaymentId">
+            <entity-one entity-name="Payment" value-name="toPayment">
+                <field-map field-name="paymentId" value="${paymentApplication.toPaymentId}"/>
+            </entity-one>
+            <if-not-empty field-name="toPayment">
+                <if-compare field-name="toPayment.statusId" operator="equals" value="PMNT_CONFIRMED">
+                    <add-error><fail-message message="Related payment [${toPayment.paymentId}] has status 'confirmed', cannot remove application."/></add-error>
+                </if-compare>
+                <check-errors/>
+            </if-not-empty>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToPayment" field-name="toMessage"/>
+            <field-to-result field-name="paymentApplication.toPaymentId" result-name="toPaymentId"/>
+        </if-not-empty>
+        <!-- billing account -->
+        <if-not-empty field-name="paymentApplication.billingAccountId">
+            <field-to-result field-name="paymentApplication.billingAccountId" result-name="billingAccountId"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToBillingAccount" field-name="toMessage"/>
+        </if-not-empty>
+        <!-- tax authority -->
+        <if-not-empty field-name="paymentApplication.taxAuthGeoId">
+            <field-to-result field-name="paymentApplication.taxAuthGeoId" result-name="taxAuthGeoId"/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToTaxAuth" field-name="toMessage"/>
+        </if-not-empty>
+        <!-- finaly delete application -->
+        <string-append field-name="successMessage" string=" ${toMessage}"/>
+        <remove-value value-name="paymentApplication"/>
+    </simple-method>
+    
+    <simple-method method-name="createInvoiceRole" short-description="Create a Invoice Role">
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <make-value value-name="newEntity" entity-name="InvoiceRole"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.datetimePerformed"><now-timestamp-to-env env-name="newEntity.datetimePerformed"/></if-empty>        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="removeInvoiceRole" short-description="Remove existing Invoice Role">
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+        <entity-one entity-name="InvoiceRole" value-name="lookedUpValue"/>
+        <remove-value value-name="lookupPKMap"/>
+    </simple-method>
+    
+    <simple-method method-name="setInvoiceStatus" short-description="Set The Invoice Status">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: To update an Invoice you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+
+        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <field-to-result field-name="invoice.statusId" result-name="oldStatusId"/>
+        
+        <if-compare-field field-name="invoice.statusId" operator="not-equals" to-field-name="parameters.statusId">
+            <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
+                <field-map field-name="statusId" env-name="invoice.statusId"/>
+                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            </entity-one>
+            
+            <if-empty field-name="statusChange">
+                <add-error><fail-message message="Status is not a valid change"/></add-error>
+                <log level="error" message="Cannot change from ${invoice.statusId} to ${parameters.statusId}"/>
+                <check-errors/>
+            <else>
+                <!-- if new status is paid check if the complete invoice is applied. -->
+                <if-compare field-name="parameters.statusId" operator="equals" value="INVOICE_PAID">
+                    <set field="notApplied" type="Double" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
+                    <if-compare field-name="notApplied" operator="not-equals" value="0.00" type="Double">
+                        <add-error><fail-message message="Cannot change status to 'paid', invoice ${invoice.invoiceId} has an unapplied balance of [${notApplied}]"/></add-error>
+                        <check-errors/>
+                    </if-compare>
+
+                    <!-- if it's OK to mark invoice paid, use parameter for paidDate -->
+                    <set from-field="parameters.paidDate" field="invoice.paidDate"/>
+                </if-compare>
+
+                <set from-field="parameters.statusId" field="invoice.statusId"/>
+                <store-value value-name="invoice"/>
+                
+                <make-value value-name="newEntity" entity-name="InvoiceStatus"/>
+                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <set-pk-fields map-name="parameters" value-name="newEntity"/>
+                
+                <if-empty field-name="newEntity.statusDate">
+                    <now-timestamp-to-env env-name="newEntity.statusDate"/>
+                </if-empty>     
+                <create-value value-name="newEntity"/>
+                
+                <!-- if new status is cancelled remove existing payment applications. -->
+                <if-compare field-name="parameters.statusId" operator="equals" value="INVOICE_CANCELLED">
+                    <set field="removePaymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
+                    <remove-by-and entity-name="PaymentApplication" map-name="removePaymentApplicationMap"/>
+                </if-compare>
+            </else>   
+            </if-empty>
+        </if-compare-field>
+    </simple-method>
+    
+    <simple-method method-name="createInvoiceTerm" short-description="Create a Invoice Term">
+        <call-simple-method method-name="InvoiceStatusInProgress"/>
+
+        <make-value value-name="newEntity" entity-name="InvoiceTerm"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <sequenced-id-to-env sequence-name="InvoiceTerm" env-name="newEntity.invoiceTermId"/>
+        <field-to-result field-name="newEntity.invoiceTermId" result-name="invoiceTermId"/>
+
+        <create-value value-name="newEntity"/>        
+    </simple-method>        
+    
+    <!-- ===============subroutine services =================-->
+    <simple-method method-name="InvoiceStatusInProgress" short-description="Check if the invoiceStatus is in progress">
+        <!-- check access to the accounting function -->
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: To update an Invoice you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <!-- find the current header record -->
+        <entity-one entity-name="Invoice" value-name="headerValue"/>
+        <if-empty field-name="headerValue">
+            <add-error><fail-message message="Invoice not found, invoice Id: ${invoiceId}"/></add-error>
+            <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
+            <check-errors/>
+        </if-empty>
+        <!-- check if the status is in progress... -->            
+        <if-compare field-name="headerValue.statusId" operator="not-equals" value="INVOICE_IN_PROCESS">
+            <add-error><fail-message message="Can only update Invoice, when status is in-process...is now: ${headerValue.statusId}"/></add-error>
+            <log level="info" message="Can only update Invoice, when status is in-process...is now: ${headerValue.statusId}"/>
+        </if-compare>
+        <check-errors/>
+    </simple-method>    
+</simple-methods>

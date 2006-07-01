@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: PaymentServices.xml 7398 2006-04-25 07:35:36Z hansbak $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../../../../../../framework/minilang/dtd/simple-methods.xsd">
+    
+    <simple-method method-name="createPayment" short-description="Create a Payment">        
+        <if>
+            <condition>
+                <and>
+                    <not><if-has-permission permission="PAY_INFO" action="_UPDATE"/></not>
+                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdFrom" to-map-name="parameters"/></not>
+                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdTo" to-map-name="parameters"/></not>
+                </and>                
+            </condition>
+            <then>
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingCreatePaymentPermissionError"/></add-error>
+            </then>
+        </if>
+        <check-errors/>
+        
+        <make-value entity-name="Payment" value-name="payment"/>
+        <if-empty field-name="parameters.paymentId">
+            <sequenced-id-to-env sequence-name="Payment" env-name="payment.paymentId"/>
+            <else>
+                <set field="payment.paymentId" from-field="parameters.paymentId"/>
+            </else>            
+        </if-empty>
+        <field-to-result field-name="payment.paymentId" result-name="paymentId"/>
+        
+        <set-nonpk-fields map-name="parameters" value-name="payment"/>
+        <if-empty field-name="payment.effectiveDate">
+            <now-timestamp-to-env env-name="payment.effectiveDate"/>
+        </if-empty>
+        
+        <create-value value-name="payment"/>
+    </simple-method>
+    <simple-method method-name="updatePayment" short-description="Update a Payment">
+        <make-value entity-name="Payment" value-name="lookupPayment"/>
+        <set-pk-fields value-name="lookupPayment" map-name="parameters"/>
+        
+        <find-by-primary-key entity-name="Payment" map-name="lookupPayment" value-name="payment"/>
+        <if>
+            <condition>
+                <and>
+                    <not><if-has-permission permission="PAY_INFO" action="_UPDATE"/></not>
+                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdFrom" to-map-name="payment"/></not>
+                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdTo" to-map-name="payment"/></not>
+                </and>                
+            </condition>
+            <then>
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingUpdatePaymentPermissionError"/></add-error>
+            </then>
+        </if>
+        <check-errors/>
+        
+        <if-compare field-name="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingPSUpdateNotAllowedBecauseOfStatus"/>
+            </add-error>
+        </if-compare>
+        <check-errors/>
+        
+        <set field="statusIdSave" from-field="payment.statusId"/>    <!-- do not allow status change here -->
+        <set-nonpk-fields map-name="parameters" value-name="payment"/>
+        <set field="payment.statusId" from-field="statusIdSave"/>    <!-- do not allow status change here -->
+        
+        <if-empty field-name="payment.effectiveDate">
+            <now-timestamp-to-env env-name="payment.effectiveDate"/>
+        </if-empty>
+        <store-value value-name="payment"/>
+        
+        <if-not-empty field-name="parameters.StatusId">
+            <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="statusIdSave">
+                <set-service-fields service-name="setPaymentSatus" map-name="parameters" to-map-name="param"/>
+                <call-service service-name="setPaymentStatus" in-map-name="param"/>
+                <check-errors/>
+            </if-compare-field>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="createPaymentApplication" short-description="Create a Payment Application">
+        <if-empty field-name="invoiceId" map-name="parameters">
+            <if-empty field-name="billingAccountId" map-name="parameters">
+                <if-empty field-name="taxAuthGeoId" map-name="parameters">
+                  <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/></add-error>
+                  <check-errors/>
+                </if-empty>
+            </if-empty>
+        </if-empty>
+
+        <make-value entity-name="PaymentApplication" value-name="paymentAppl"/>
+        <set-nonpk-fields map-name="parameters" value-name="paymentAppl"/>
+
+        <!-- get the invoice and do some further validation against it -->
+        <if-not-empty field-name="parameters.invoiceId">
+            <entity-one entity-name="Invoice" value-name="invoice"/>
+            <if-not-empty field-name="invoice.billingAccountId">
+                <set from-field="invoice.billingAccountId" field="paymentAppl.billingAccountId"/>
+            </if-not-empty>
+
+            <!-- get the amount that has not been applied yet for the invoice (outstanding amount) -->
+            <set field="notApplied" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue()}" type="Double"/>
+
+            <!-- if the amount to apply goes over the outstanding amount, then use the notApplied amount and log a warning -->
+            <if-compare-field field-name="paymentAppl.amountApplied" operator="greater" to-field-name="notApplied">
+                <log level="warning" message="Create Payment Application: Amount to apply [${paymentAppl.amountApplied}] is greater than the outstanding amount [${notApplied}] of the invoice [${invoice.invoiceId}]. Creating Payment Application for outstanding amount [${notApplied}] instead."/>
+                <set field="paymentAppl.amountApplied" from-field="notApplied"/>
+            </if-compare-field>
+        </if-not-empty>
+
+        <sequenced-id-to-env sequence-name="PaymentApplication" env-name="paymentAppl.paymentApplicationId"/>
+        <field-to-result field-name="paymentAppl.paymentApplicationId" result-name="paymentApplicationId"/>
+
+        <create-value value-name="paymentAppl"/>
+    </simple-method>
+    
+    <simple-method method-name="setPaymentStatus" short-description="Set The Payment Status">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
+        </check-permission>
+
+        <entity-one entity-name="Payment" value-name="payment"/>
+        <field-to-result field-name="payment.paymentId" result-name="oldStatusId"/>
+        
+        <if-compare-field field-name="payment.statusId" operator="not-equals" to-field-name="parameters.statusId">
+            <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
+                <field-map field-name="statusId" env-name="payment.statusId"/>
+                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            </entity-one>
+            <if-empty field-name="statusChange">
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/></add-error>
+                <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}"/>
+                <check-errors/>
+                <else>
+                    
+                    <!-- check if the payment fully applied when set to confirmed-->
+                    <if-compare field-name="parameters.statusId" operator="equals" value="PMNT_CONFIRMED">
+                        <set field="notYetApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(payment)}"/>
+                        <if-compare field-name="notYetApplied" operator="greater" value="0.00">
+                            <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSNotConfirmedNotFullyApplied"/></add-error>
+                            <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}, payment not fully applied: ${notYetapplied}"/>
+                            <check-errors/>
+                        </if-compare>
+                    </if-compare>    
+                    
+                    <!-- if new status is cancelled delete existing payment applications. -->
+                    <if-compare field-name="parameters.statusId" operator="equals" value="PMNT_CANCELLED">
+                        <set field="removePaymentApplicationMap.paymentId" from-field="parameters.paymentId"/>
+                        <remove-by-and entity-name="PaymentApplication" map-name="removePaymentApplicationMap"/>
+                    </if-compare>
+                    
+                    <!-- everything ok so now change the status field -->
+                    <set from-field="parameters.statusId" field="payment.statusId"/>
+                    <store-value value-name="payment"/>
+                    
+                </else>   
+            </if-empty>
+            
+        </if-compare-field>
+    </simple-method>
+    
+    <simple-method method-name="quickSendPayment" short-description="Update a Payment then set it to status PMNT_SENT">
+        <call-service service-name="updatePayment" in-map-name="parameters"/>
+        <set field="param.paymentId" from-field="parameters.paymentId"/>
+        <set field="param.statusId" value="PMNT_SENT"/>
+        <call-service service-name="setPaymentStatus" in-map-name="param"/>
+    </simple-method>
+    
+</simple-methods>

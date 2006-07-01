@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: OrderEntryCommonScreens.xml 7286 2006-04-13 00:09:44Z sichen $
+-->
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="CommonOrderEntryDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="headerItem" value="orderentry"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryTabBar.ftl"/></html>
+                                </platform-specific>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonOrderCatalogDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbarCatalog"/>
+                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="headerItem" value="orderentry"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryCatalogTabBar.ftl"/></html>
+                                </platform-specific>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="leftbar">
+        <section>
+            <widgets>
+                <container style="left">
+                    <include-screen name="orderHeaderInfo" location="component://order/widget/ordermgr/OrderEntryCartScreens.xml"/>
+                    <include-screen name="orderShortcuts" location="component://order/widget/ordermgr/OrderEntryCartScreens.xml"/>
+                    <include-screen name="choosecatalog" location="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml"/>
+                    <include-screen name="keywordsearchbox" location="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml"/>
+                    <include-screen name="sidedeepcategory" location="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="leftbarCatalog">
+        <section>
+            <widgets>
+                <container style="left">
+                    <include-screen name="orderHeaderInfo" location="component://order/widget/ordermgr/OrderEntryCartScreens.xml"/>
+                    <include-screen name="minicart" location="component://order/widget/ordermgr/OrderEntryCartScreens.xml"/>
+                    <include-screen name="sidedeepcategory" location="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+   
+</screens>

@@ -1,0 +1,77 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.base.util.*;
+ 
+shipmentCostEstimateId = request.getParameter("shipmentCostEstimateId");
+if (shipmentCostEstimateId != null) {
+    shipmentCostEstimate = delegator.findByPrimaryKey("ShipmentCostEstimate", UtilMisc.toMap("shipmentCostEstimateId", shipmentCostEstimateId));
+    context.put("shipEstimate", shipmentCostEstimate);
+}
+
+estimates = delegator.findByAnd("ShipmentCostEstimate", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("geoIdFrom", "shipmentMethodTypeId", "geoIdTo"));
+context.put("estimates", estimates);   
+
+geos = delegator.findAll("Geo", UtilMisc.toList("geoTypeId", "geoName"));
+context.put("geoList", geos);
+
+storeShipMeth = delegator.findByAnd("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"));
+context.put("storeShipMethods", storeShipMeth);
+
+shipMeth = delegator.findAll("CarrierAndShipmentMethod", UtilMisc.toList("sequenceNumber"));
+context.put("shipmentMethods", shipMeth);
+
+shipMethTypes = delegator.findAll("ShipmentMethodType", UtilMisc.toList("description"));
+context.put("shipmentMethodTypes", shipMethTypes);
+
+roleTypes = delegator.findAll("RoleType", UtilMisc.toList("description"));
+context.put("roleTypes", roleTypes);
+        
+exprs = UtilMisc.toList(new EntityExpr("uomTypeId", EntityOperator.NOT_EQUAL, "CURRENCY_MEASURE"));        
+quantityUoms = delegator.findByAnd("Uom", exprs, UtilMisc.toList("description"));
+context.put("quantityUoms", quantityUoms);
+        
+weightUoms = delegator.findByAnd("Uom", UtilMisc.toMap("uomTypeId", "WEIGHT_MEASURE"), UtilMisc.toList("description")); 
+context.put("weightUoms", weightUoms);
+
+editCarrier = request.getParameter("editCarrierShipmentMethodId");
+carrierShipmentMethod = new HashMap();
+if (editCarrier != null) {
+    splitKey = StringUtil.split(editCarrier, "|");
+    Debug.log(splitKey.toString());
+    carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("partyId", splitKey.get(0), "roleTypeId", splitKey.get(1), "shipmentMethodTypeId", splitKey.get(2)));
+}
+context.put("carrierShipmentMethod", carrierShipmentMethod);
+
+editMethod = request.getParameter("editShipmentMethodTypeId");
+shipmentMethodType = new HashMap();
+if (editMethod != null) {
+    shipmentMethodType = delegator.findByPrimaryKey("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", editMethod));
+}
+context.put("shipmentMethodType", shipmentMethodType);
+

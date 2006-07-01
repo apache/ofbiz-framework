@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="FindForumGroups">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindForumGroup"/>
+                <set field="headerItem" value="ForumGroups"/>
+                <set field="labelTitleProperty" value="PageTitleFindForumGroup"/>
+                <entity-and entity-name="Content" list-name="forumGroups">
+                    <field-map field-name="contentTypeId" value="FORUM_ROOT"/>
+                    <order-by field-name="contentName"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListForumGroups" location="component://content/widget/forum/ForumForms.xml"/>
+                                <label style="head1" text="${uiLabelMap.ForumGroupCreate}"/>
+                                <include-form name="AddForumGroup" location="component://content/widget/forum/ForumForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindForums">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="forums"/>
+                <set field="titleProperty" value="PageTitleFindForums"/>
+                <set field="tabBar" value="ForumGroupTabBar"/>
+                <set field="forumGroupId" from-field="parameters.forumGroupId" default-value="parameters.contentId"/>
+                <entity-one entity-name="Content" value-name="forumGroup">
+                    <field-map field-name="contentId" env-name="forumGroupId"/>
+                </entity-one>
+                <set field="objectName" from-field="forumGroup.contentName"/>
+                <set field="objectId"  from-field="forumGroup.contentId"/>
+                <entity-and entity-name="ContentAssocDataResourceViewFrom" list-name="forums">
+                    <field-map field-name="contentIdStart" env-name="forumGroupId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListForums" location="component://content/widget/forum/ForumForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.ForumAddTo} &quot;${forumGroup.contentName}&quot;"/>
+                        <include-form name="AddForum" location="component://content/widget/forum/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ForumGroupRoles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleForumGroupRoles"/>
+                <set field="tabButtonItem" value="roles"/>
+                <set field="tabBar" value="ForumGroupTabBar"/>
+                <entity-one entity-name="Content" value-name="forumGroup">
+                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                </entity-one>
+                <set field="objectName" from-field="forumGroup.contentName"/>
+                <set field="objectId"  from-field="forumGroup.contentId"/>
+                <entity-and entity-name="ContentRole" list-name="forumRoles">
+                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                    <order-by field-name="roleTypeId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ForumGroupRoles" location="component://content/widget/forum/ForumForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.ForumAddRoleTo} &quot;${forumGroup.contentName}&quot; [${forumGroup.contentId}]"/>
+                        <include-form name="AddForumGroupRole" location="component://content/widget/forum/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ForumGroupPurposes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleForumGroupPurposes"/>
+                <set field="tabButtonItem" value="purposes"/>
+                <set field="tabBar" value="ForumGroupTabBar"/>
+                <entity-one entity-name="Content" value-name="forumGroup">
+                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                </entity-one>
+                <set field="objectName" from-field="forumGroup.contentName"/>
+                <set field="objectId"  from-field="forumGroup.contentId"/>
+                <entity-and entity-name="ContentPurpose" list-name="forumPurposes">
+                    <field-map field-name="contentId" env-name="parameters.forumGroupId"/>
+                    <order-by field-name="contentPurposeTypeId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ForumGroupPurposes" location="component://content/widget/forum/ForumForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.ForumAddPurposeTo} &quot;${forumGroup.contentName}&quot; [${forumGroup.contentId}]"/>
+                        <include-form name="AddForumGroupPurpose" location="component://content/widget/forum/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindForumMessages">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindForumMessages"/>
+                <set field="headerItem" value="ForumMessages"/>
+                <set field="tabBar" value="ForumMessagesTabBar"/>
+                <set field="tabButtonItem" value="messageList"/>
+                <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
+                <entity-one entity-name="Content" value-name="forum">
+                    <field-map field-name="contentId" env-name="requestParameters.forumId"/>
+                </entity-one>
+                <set field="objectName" from-field="forum.contentName"/>
+                <set field="objectId"  from-field="forum.contentId"/>
+                <set field="forumNbrMessages" from-field="forum.childBranchCount" default-value="0"/>
+                <entity-and entity-name="ContentAssocViewFrom" list-name="forumMessages">
+                    <field-map field-name="ownerContentId" env-name="parameters.forumId"/>
+                    <order-by field-name="createdDate DESC"/>
+                </entity-and>
+                <set field="parameters.forumMessageIdTo" from-field="requestParameters.forumId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <include-form name="ListForumMessages" location="component://content/widget/forum/ForumForms.xml"/>
+                                    <label style="head1" text="${uiLabelMap.ForumAddThreadTo}: ${forum.description}" ></label>
+                                    <include-form name="AddForumMessage" location="component://content/widget/forum/ForumForms.xml"/>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindForumThreads">
+        <section>
+            <actions>
+                <set  field="contentId" from-field="parameters.forumId" />
+                <set  field="responseContentId" from-field="parameters.forumId" />
+                <set  field="threadContentId" from-field="parameters.threadContentId" default-value="${contentId}" />
+                <set  field="forumId" from-field="parameters.forumId" />
+                <entity-one entity-name="Content" value-name="content" use-cache="true">
+                    <field-map field-name="contentId" env-name="contentId"/>
+                </entity-one>
+                <set  field="ownerContentId" from-field="content.ownerContentId" default-value="${forumId}" />
+                <set  field="trail" from-field="threadContentId" />
+                <set field="enableEdit" value="false"/>
+                <set field="webPutPt" from-field="parameters.forumGroupId"/>
+                <set field="rsp.contentName" value="${content.contentName}" />
+                <set field="titleProperty" value="PageTitleFindForumMessages"/>
+                <set field="headerItem" value="ForumMessages"/>
+                <set field="tabBar" value="ForumMessagesTabBar"/>
+                <set field="tabButtonItem" value="messageThread"/>
+                <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
+                <entity-one entity-name="Content" value-name="forum">
+                    <field-map field-name="contentId" env-name="requestParameters.forumId"/>
+                </entity-one>
+                <set field="objectName" from-field="forum.contentName"/>
+                <set field="objectId"  from-field="forum.contentId"/>
+                <set field="forumNbrMessages" from-field="forum.childBranchCount" default-value="0"/>
+                <entity-one entity-name="Content" value-name="forumThread">
+                    <field-map field-name="contentId" env-name="requestParameters.forumThreadId"/>
+                </entity-one>
+                <entity-one entity-name="Content" value-name="forumMessage">
+                    <field-map field-name="contentId" env-name="requestParameters.forumMessageId"/>
+                </entity-one>
+                <entity-one entity-name="ElectronicText" value-name="electronicText">
+                    <field-map field-name="dataResourceId" env-name="forumMessage.dataResourceId"/>
+                </entity-one>
+                <set field="contentId" from-field="requestParameters.forumId"/>
+                <set field="trail" from-field="requestParameters.trail"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-tree name="MessageTree" location="component://content/widget/forum/ForumTrees.xml" /> 
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="requestParameters.forumThreadId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label text="thread: ${requestParameters.forumThreadId}"></label>
+                                        <include-form name="EditForumThread" location="component://content/widget/forum/ForumForms.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="requestParameters.forumMessageId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label text="Message: ${requestParameters.forumMessageId}"></label>
+                                        <include-form name="EditForumMessage" location="component://content/widget/forum/ForumForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditForumMessage">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabButtonItem" value="EditForumMessage"/>
+                <set field="labelTitleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabBar" value="ForumMessagesTabBar"/>
+                <set field="tabButtonItem" value=""/>
+                <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label text="Add a response to message: ${contentData.resultData.content.description}"></label>
+                        <include-form name="EditForumMessage" location="component://content/widget/forum/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AddForumMessage">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabButtonItem" value="EditForumMessage"/>
+                <set field="labelTitleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabBar" value="ForumMessagesTabBar"/>
+                <set field="tabButtonItem" value=""/>
+                <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
+                <entity-one entity-name="Content" value-name="forumMessage">
+                    <field-map field-name="contentId" env-name="parameters.forumMessageIdTo"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label text="Add a response to message: ${forumMessage.description}"></label>
+                        <include-form name="AddForumMessage" location="component://content/widget/forum/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddForumThreadMessage">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabButtonItem" value="EditForumMessage"/>
+                <set field="labelTitleProperty" value="PageTitleEditForumMessage"/>
+                <set field="tabBar" value="ForumMessagesTabBar"/>
+                <set field="tabButtonItem" value=""/>
+                <set field="labelTitleProperty" value="PageTitleFindForumMessages"/>
+                <entity-one entity-name="Content" value-name="forumMessage">
+                    <field-map field-name="contentId" env-name="parameters.forumMessageIdTo"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonForumDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label text="Add a response to message: ${forumMessage.description}[${forumMessage.contentId}]"></label>
+                        <include-form name="AddForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

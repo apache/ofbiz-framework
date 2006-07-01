@@ -1,0 +1,90 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+ 
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.order.order.OrderReadHelper;
+
+dispatcher = request.getAttribute("dispatcher");
+delegator = request.getAttribute("delegator");
+returnId = request.getParameter("returnId");
+if (returnId == null) {
+    returnId = request.getAttribute("returnId");
+}
+context.put("returnId", returnId);
+
+orderId = request.getParameter("orderId");
+context.put("orderId", orderId);
+
+returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
+context.put("returnHeader", returnHeader);
+
+returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
+context.put("returnItems", returnItems);
+
+// these are just the adjustments not associated directly with a return item--the rest are gotten with a .getRelated on the returnItems in the .FTL
+returnAdjustments = delegator.findByAnd("ReturnAdjustment", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", "_NA_"), UtilMisc.toList("returnItemSeqId", "returnAdjustmentTypeId"));
+context.put("returnAdjustments", returnAdjustments);
+
+returnTypes = delegator.findAll("ReturnType", UtilMisc.toList("sequenceId"));
+context.put("returnTypes", returnTypes);
+
+itemStatus = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "INV_SERIALIZED_STTS"),
+                       UtilMisc.toList("statusId", "description"));
+context.put("itemStatus", itemStatus);
+
+returnReasons = delegator.findAll("ReturnReason", UtilMisc.toList("sequenceId"));
+context.put("returnReasons", returnReasons);
+
+itemStts = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "INV_SERIALIZED_STTS"), UtilMisc.toList("sequenceId"));
+context.put("itemStts", itemStts);
+
+returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", UtilMisc.toMap("returnHeaderTypeId", "CUSTOMER_RETURN"));
+iter = returnItemTypeMap.iterator();
+typeMap = new HashMap();
+while (iter.hasNext()) {
+    value = iter.next();
+    typeMap.put(value.getString("returnItemMapKey"), value.getString("returnItemTypeId"));
+}
+context.put("returnItemTypeMap", typeMap);
+
+orderId = request.getParameter("orderId");
+if (orderId != null) {
+    order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    Map returnRes = dispatcher.runSync("getReturnableItems", UtilMisc.toMap("orderId", orderId));
+    context.put("returnableItems", returnRes.get("returnableItems"));
+
+   orh = new OrderReadHelper(order);
+   context.put("orderHeaderAdjustments", orh.getAvailableOrderHeaderAdjustments());
+
+    // get the order shipping amount
+    Map shipRes = dispatcher.runSync("getOrderShippingAmount", UtilMisc.toMap("orderId", orderId));
+    Double shippingAmount = shipRes.get("shippingAmount");
+    context.put("shippingAmount", shippingAmount);
+}
+
+partyOrders = delegator.findByAnd("OrderHeaderAndRoles", UtilMisc.toMap("roleTypeId", "PLACING_CUSTOMER", "partyId", returnHeader.getString("fromPartyId")), UtilMisc.toList("orderId"));
+context.put("partyOrders", partyOrders);

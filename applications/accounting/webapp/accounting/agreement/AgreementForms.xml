@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+
+    <form name="FindAgreements" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="inputBox"
+            target="FindAgreement" title="" type="single">
+        <auto-fields-entity entity-name="Agreement" default-field-type="find"/>
+        <field name="productId" title="${uiLabelMap.AccountingProductId}">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="AgreementType" key-field-name="agreementTypeId"/>
+            </drop-down>
+        </field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingPartyIdFrom}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}"><hidden/></field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}"><hidden/></field>
+        <field name="agreementDate" title="${uiLabelMap.AccountingAgreementDate}"><hidden/></field>
+        <field name="description" title="${uiLabelMap.AccountingDescription}"><hidden/></field>
+        <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
+        <field name="thruDate" title="${uiLabelMap.AccountingThruDate}"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="ListAgreements" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext"
+            list-name="listIt" target="" paginate-target="FindAgreement" title="" type="list">
+        <actions>
+          <set field="entityName" value="Agreement"/>
+          <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+            <field-map field-name="inputFields" env-name="requestParameters"/>
+            <field-map field-name="entityName" env-name="entityName"/>
+          </service>
+        </actions>
+        <auto-fields-entity entity-name="Agreement" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${agreementId}" target="EditAgreement?agreementId=${agreementId}"/>
+        </field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}"><hidden/></field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
+        </field>
+        <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
+            <display-entity entity-name="AgreementType"/>
+        </field>
+        <field name="agreementDate" title="${uiLabelMap.AccountingAgreementDate}"><hidden/></field>
+        <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
+        <field name="cancelLink" title="" widget-style="buttontext">
+            <hyperlink target="cancelAgreement?agreementId=${agreementId}" description="[${uiLabelMap.CommonCancel}]" also-hidden="false"/>
+        </field>
+    </form>
+
+    <form name="EditAgreement" type="single"
+            target="updateAgreement" title="" default-map-name="agreement"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreement==null" target="createAgreement"/>
+        <auto-fields-entity entity-name="Agreement" default-field-type="edit"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><display/></field>
+        <field name="productId" title="${uiLabelMap.AccountingProductId}">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="AgreementType" key-field-name="agreementTypeId"/>
+            </drop-down>
+        </field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingPartyIdFrom}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+            </drop-down>
+        </field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+            </drop-down>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="ListAgreementItems" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext"
+            list-name="agreementItems" target="" paginate-target="ListAgreementItems" title="" type="list">
+        <auto-fields-entity entity-name="AgreementItem" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${agreementItemSeqId}" target="EditAgreementItem?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
+        </field>
+        <field name="agreementItemTypeId" title="${uiLabelMap.AccountingAgreementItemTypeId}">
+            <display-entity entity-name="AgreementItemType"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeAgreementItem?agreementItemSeqId=${agreementItemSeqId}&amp;agreementId=${agreementId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+        </field>
+    </form>
+
+    <form name="EditAgreementItem" type="single"
+            target="updateAgreementItem" title="" default-map-name="agreementItem"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreementItem==null" target="createAgreementItem"/>
+        <auto-fields-entity entity-name="AgreementItem" default-field-type="edit"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><display/></field>
+        <field name="agreementItemTypeId" title="${uiLabelMap.AccountingAgreementItemTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="AgreementItemType" key-field-name="agreementItemTypeId"/>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down allow-empty="true">
+                <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="ListAgreementTerms" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementTerms"
+            target="" paginate-target="ListAgreementTerms" title="" type="list">
+        <auto-fields-entity entity-name="AgreementTerm" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="agreementTermId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${agreementTermId}" target="EditAgreementTerm?agreementTermId=${agreementTermId}&amp;agreementId=${agreementId}"/>
+        </field>
+        <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
+            <display-entity entity-name="TermType"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeAgreementTerm?agreementTermId=${agreementTermId}&amp;agreementId=${agreementId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="ListAgreementItemTerms" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementTerms"
+            target="" paginate-target="ListAgreementItemTerms" title="" type="list">
+        <auto-fields-entity entity-name="AgreementTerm" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="agreementTermId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${agreementTermId}" target="EditAgreementItemTerm?agreementTermId=${agreementTermId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
+        </field>
+        <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
+            <display-entity entity-name="TermType"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeAgreementItemTerm?agreementTermId=${agreementTermId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditAgreementTerm" type="single"
+            target="updateAgreementTerm" title="" default-map-name="agreementTerm"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreementTerm==null" target="createAgreementTerm"/>
+        <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
+        <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><display/></field>
+        <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="TermType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="EditAgreementItemTerm" type="single"
+            target="updateAgreementItemTerm" title="" default-map-name="agreementTerm"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreementTerm==null" target="createAgreementItemTerm"/>
+        <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
+        <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><display/></field>
+        <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="TermType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListAgreementItemProducts" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementProducts"
+            target="" paginate-target="ListAgreementItemProducts" title="" type="list">
+        <auto-fields-entity entity-name="AgreementProductAppl" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${productId}" target="EditAgreementItemProduct?productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
+        </field>
+        <field name="internalName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeAgreementItemProduct?productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditAgreementItemProduct" type="single"
+            target="updateAgreementItemProduct" title="" default-map-name="agreementProductAppl"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreementProductAppl==null" target="createAgreementItemProduct"/>
+        <auto-fields-entity entity-name="AgreementProductAppl" default-field-type="edit"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="productId" use-when="agreementProductAppl==null">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="ListAgreementPromoAppls" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementPromoAppls"
+            target="" paginate-target="ListAgreementPromoAppls" title="" type="list">
+        <auto-fields-entity entity-name="AgreementPromoAppl" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="productPromoId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${productPromoId}" target="EditAgreementPromoAppl?productPromoId=${productPromoId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;fromDate=${fromDate}"/>
+        </field>
+        <field name="productPromoName" entry-name="productPromoId">
+            <display-entity entity-name="ProductPromo" key-field-name="productPromoId" description="${promoName}"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeAgreementPromoAppl?productPromoId=${productPromoId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditAgreementPromoAppl" type="single"
+            target="updateAgreementPromoAppl" title="" default-map-name="agreementPromoAppl"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreementPromoAppl==null" target="createAgreementPromoAppl"/>
+        <auto-fields-entity entity-name="AgreementPromoAppl" default-field-type="edit"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field use-when="agreementPromoAppl!=null" name="productPromoId" title="${uiLabelMap.FormFieldTitle_productPromoId}">
+            <display-entity entity-name="ProductPromo" key-field-name="productPromoId" description="${promoName}"/>
+        </field>
+        <field name="productPromoId" use-when="agreementPromoAppl==null">
+            <drop-down allow-empty="true">
+                <entity-options description="${promoName}" entity-name="ProductPromo" key-field-name="productPromoId"/>
+            </drop-down>
+        </field>
+
+        <field use-when="agreementPromoAppl!=null" name="fromDate"><display/></field>
+        <field use-when="agreementPromoAppl==null" name="fromDate"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListAgreementItemParties" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementParties"
+            target="" paginate-target="ListAgreementItemParties" title="" type="list">
+        <auto-fields-entity entity-name="AgreementPartyApplic" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${partyId}" target="EditAgreementItemParty?partyId=${partyId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
+        </field>
+        <field name="partyName" entry-name="partyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName}"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeAgreementItemParty?partyId=${partyId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditAgreementItemParty" type="single"
+            target="updateAgreementItemParty" title="" default-map-name="agreementPartyApplic"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreementPartyApplic==null" target="createAgreementItemParty"/>
+        <auto-fields-entity entity-name="AgreementPartyApplic" default-field-type="edit"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="partyId" use-when="agreementPartyApplic==null">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="partyId" use-when="agreementPartyApplic!=null"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+</forms>

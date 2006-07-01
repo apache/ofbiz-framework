@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Find Content</property>
+    <property name="formDefFile">/content/ContentForms.xml</property>    
+    <property name="singleFormName">findContent</property>    
+    <property name="listFormName">listFindContent</property>    
+    <property name="subMenu">/content/content_menu.ftl</property>    
+    <property name="headerItem">Content</property>    
+    <property name="entityName">Content</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">none</property>    
+    <content-action name="/includes/formprep.bsh"/>
+    <content-action name="/includes/findprep.bsh"/>
+    <content-action name="/includes/pagelistprep.bsh"/>
+</page>

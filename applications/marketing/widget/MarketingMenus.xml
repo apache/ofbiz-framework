@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: ProductScreens.xml 4990 2005-05-14 10:00:28Z jacopo $
+-->
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+    <menu name="MarketingAppBar" default-menu-item-name="main" default-selected-style="headerButtonLeftSelected" 
+        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="headerButtonLeft" 
+        default-align-style="col" menu-container-style="row" fill-style="col-fill" orientation="horizontal" type="simple">
+        <menu-item name="main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
+        <menu-item name="DataSource" title="${uiLabelMap.DataSource}"><link target="FindDataSource"/></menu-item>
+        <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="FindMarketingCampaign"/></menu-item>
+        <menu-item name="Tracking" title="${uiLabelMap.Tracking}"><link target="FindTrackingCode"/></menu-item>
+        <menu-item name="Segment" title="${uiLabelMap.Segment}"><link target="FindSegmentGroup"/></menu-item>
+        <menu-item name="ContactList" title="${uiLabelMap.ContactList}"><link target="ListContactLists"/></menu-item>
+
+        <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="Login" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+        <menu-item name="Reports" title="${uiLabelMap.Reports}" align-style="col-right" widget-style="headerButtonRight"><link target="MarketingReport"/></menu-item>
+
+    </menu>
+</menus>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: services.xml 7617 2006-05-16 04:07:06Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Common Application Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="echoService" engine="java" validate="false"
+            location="org.ofbiz.common.CommonServices" invoke="echoService">
+        <description>Echos back all passed parameters</description>
+    </service>
+    <service name="returnErrorService" engine="java" validate="false"
+            location="org.ofbiz.common.CommonServices" invoke="returnErrorService">
+        <description>Always returns error</description>
+    </service>
+
+    <service name="forceGarbageCollection" engine="java"
+            location="org.ofbiz.common.CommonServices" invoke="forceGc">
+       <description>Force the JVM to run the GC</description>
+       <required-permissions join-type="AND">
+           <check-permission permission="UTIL_CACHE_EDIT"/>
+       </required-permissions>
+    </service>
+
+    <service name="createNote" engine="java"
+            location="org.ofbiz.common.CommonServices" invoke="createNote">
+        <description>Create a new note record</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
+        <attribute name="note" type="String" mode="IN"/>
+        <attribute name="noteId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="updateDebugLevel" engine="java"
+            location="org.ofbiz.common.CommonServices" invoke="setDebugLevels">
+        <description>Sets/Updates cached debugging levels</description>
+        <attribute name="verbose" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="timing" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="info" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="important" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="warning" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="error" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="fatal" type="Boolean" mode="IN" optional="true"/>
+    </service>
+
+    <service name="displayXaDebugInfo" engine="java"
+            location="org.ofbiz.common.CommonServices" invoke="displayXaDebugInfo" auth="true">
+        <required-permissions join-type="AND">
+            <check-permission permission="SERVICE_INVOKE_ANY"/>
+        </required-permissions>
+    </service>
+
+    <!-- DataSource Services -->
+    <service name="interfaceDataSource" engine="interface" location="" invoke="">
+        <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createDataSource" engine="simple"
+            location="org/ofbiz/common/datasource/DataSourceServices.xml" invoke="createDataSource" auth="true">
+        <description>Create a DataSource record</description>
+        <implements service="interfaceDataSource"/>
+    </service>
+    <service name="updateDataSource" engine="simple"
+            location="org/ofbiz/common/datasource/DataSourceServices.xml" invoke="updateDataSource" auth="true">
+        <description>Update a DataSource record</description>
+        <implements service="interfaceDataSource"/>
+    </service>
+    <service name="deleteDataSource" engine="simple"
+            location="org/ofbiz/common/datasource/DataSourceServices.xml" invoke="deleteDataSource" auth="true">
+        <description>Delete a DataSource record</description>
+        <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- DataSourceType Services -->
+    <service name="interfaceDataSourceType" engine="interface" location="" invoke="">
+        <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createDataSourceType" engine="simple"
+            location="org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="createDataSourceType" auth="true">
+        <description>Create a DataSourceType record</description>
+        <implements service="interfaceDataSourceType"/>
+    </service>
+    <service name="updateDataSourceType" engine="simple"
+            location="org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="updateDataSourceType" auth="true">
+        <description>Update a DataSourceType record</description>
+        <implements service="interfaceDataSourceType"/>
+    </service>
+    <service name="deleteDataSourceType" engine="simple"
+            location="org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="deleteDataSourceType" auth="true">
+        <description>Delete a DataSourceType record</description>
+        <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- CustomTimePeriod Services -->
+    <service name="createCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
+            location="org/ofbiz/common/period/PeriodServices.xml" invoke="createCustomTimePeriod" auth="true">
+        <description>Create a CustomTimePeriod record</description>
+        <auto-attributes mode="OUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="periodTypeId" optional="false"/>
+    </service>
+    <service name="updateCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
+            location="org/ofbiz/common/period/PeriodServices.xml" invoke="updateCustomTimePeriod" auth="true">
+        <description>Update a CustomTimePeriod record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteCustomTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
+            location="org/ofbiz/common/period/PeriodServices.xml" invoke="deleteCustomTimePeriod" auth="true">
+        <description>Delete a CustomTimePeriod record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+
+    <service name="findCustomTimePeriods" engine="simple"
+            location="org/ofbiz/common/period/PeriodServices.xml" invoke="findCustomTimePeriods" auth="true">
+        <description>Find CustomTimePeriod records, returns both general ones and those for the organizationPartyId passed</description>
+        <attribute name="findDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="excludeNoOrganizationPeriods" type="String" mode="IN" optional="true"/>
+        <attribute name="onlyIncludePeriodTypeIdList" type="List" mode="IN" optional="true"/>
+        <attribute name="customTimePeriodList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="findLastClosedDate" engine="java"
+            location="org.ofbiz.common.period.PeriodServices" invoke="findLastClosedDate" auth="true">
+        <description>Find the last date before findDate whose TimePeriod is marked isClosed="Y" for organizationPartyId and periodTypeId combination.
+            If none are found, ie, no closed CustomTimePeriod exists, then return the earliest date available for any
+            CustomTimePeriod of the organizationPartyId and periodTypeId.
+            If no findDate is given, then use the current moment (nowTimestamp).
+        </description>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="findDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="lastClosedDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="lastClosedTimePeriod" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+    </service>
+
+    <!-- Status services -->
+    <service name="getStatusItems" engine="java"
+            location="org.ofbiz.common.status.StatusServices" invoke="getStatusItems" auth="false">
+        <description>Gets all StatusItem entries for the supplied StatusTypeId's</description>
+        <attribute name="statusTypeIds" type="List" mode="IN" optional="false"/>
+        <attribute name="statusItems" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="getStatusValidChangeToDetails" engine="java"
+            location="org.ofbiz.common.status.StatusServices" invoke="getStatusValidChangeToDetails" auth="false">
+        <description>Gets all StatusValidChangeToDetails entries for the supplied statusId</description>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusValidChangeToDetails" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <!-- Lookup services -->
+    <service name="lookupParty" engine="simple"
+            location="org/ofbiz/common/LookupServices.xml" invoke="lookupParty" auth="true">
+        <description>Performs a lookup for parties</description>
+        <attribute name="firstName" type="String" form-display="true" form-label="First name" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" form-display="true" form-label="Last name" mode="IN" optional="true"/>
+        <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="prepareFind" auth="false" engine="java" invoke="prepareFind" location="org.ofbiz.common.FindServices">
+        <description>Generic service to return a entity conditions</description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
+        <attribute name="orderBy" type="String" mode="IN" optional="true"/>
+        <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
+        <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
+        <attribute name="queryString" type="String" mode="OUT" optional="true"/>
+        <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="orderByList" type="java.util.List" mode="OUT" optional="true"/>
+        <attribute name="entityConditionList" type="org.ofbiz.entity.condition.EntityConditionList" mode="OUT" optional="true"/>
+    </service>
+    <service name="executeFind" auth="false" engine="java" invoke="executeFind" location="org.ofbiz.common.FindServices">
+        <description>Generic service to return an entity iterator</description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="orderByList" type="java.util.List" mode="IN" optional="true"/>
+        <attribute name="entityConditionList" type="org.ofbiz.entity.condition.EntityConditionList" mode="IN" optional="true"/>
+        <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
+        <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="performFind" auth="false" engine="java" invoke="performFind" location="org.ofbiz.common.FindServices">
+        <description>Generic service to return an entity iterator.  set filterByDate to Y to exclude expired records.  
+           set noConditionFind to Y to find without conditions.  </description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
+        <attribute name="orderBy" type="String" mode="IN" optional="true"/>
+        <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
+        <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
+        <attribute name="listIt" type="org.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
+        <attribute name="queryString" type="String" mode="OUT" optional="true"/>
+        <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="performFindList" auth="false" engine="java" invoke="performFindList" location="org.ofbiz.common.FindServices">
+        <description>Generic service to return an partial list.  set filterByDate to Y to exclude expired records.  
+            set noConditionFind to Y to find without conditions.  </description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
+        <attribute name="orderBy" type="String" mode="IN" optional="true"/>
+        <attribute name="noConditionFind" type="String" mode="IN" optional="true"><!-- find with no condition (empty entityConditionList) only done when this is Y --></attribute>
+        <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
+        <attribute name="viewIndex" type="Integer" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+        <attribute name="list" type="List" mode="OUT" optional="true"/>
+        <attribute name="listSize" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="queryString" type="String" mode="OUT" optional="true"/>
+        <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    
+    <!-- Keyword Thesaurus services -->
+    <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
+            location="org/ofbiz/common/CommonServices.xml" invoke="createKeywordThesaurus" auth="true">
+        <description>Create a Keyword Thesaurus</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
+            location="org/ofbiz/common/CommonServices.xml" invoke="updateKeywordThesaurus" auth="true">
+        <description>Update a Keyword Thesaurus</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
+            location="org/ofbiz/common/CommonServices.xml" invoke="deleteKeywordThesaurus" auth="true">
+        <description>Delete a Keyword Thesaurus</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="alternateKeyword" optional="true" />
+    </service>
+    
+    <!-- Uom conversion service -->
+    <service name="createUomConversionDated" default-entity-name="UomConversionDated" engine="simple"
+            location="org/ofbiz/common/CommonServices.xml" invoke="createUomConversionDated" auth="true">
+        <description>Create a new dated UOM converesion entity</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="convertUom" default-entity-name="UomConversion" engine="simple"
+            location="org/ofbiz/common/CommonServices.xml" invoke="convertUom" auth="false">
+        <description>Make a unit of measure conversion, first using UomConversion, then with UomConversionDated</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="originalValue" mode="IN" type="Double" optional="false"/>
+        <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
+        <attribute name="convertedValue" mode="OUT" type="Double" optional="false"/>
+    </service>
+    <service name="convertUomCustom" default-entity-name="UomConversion" engine="simple"
+            location="org/ofbiz/common/CommonServices.xml" invoke="convertUomCustom" auth="false">
+        <description>Make a unit of measure conversion, using CustomMethod entity</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="originalValue" mode="IN" type="Double" optional="false"/>
+        <attribute name="uomConversion" mode="IN" type="Map" optional="false"/>
+        <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
+        <attribute name="convertedValue" mode="OUT" type="Double" optional="false"/>
+    </service>
+
+    <!-- ftp services -->
+    <service name="ftpInterface" engine="interface" location="" invoke="">
+        <attribute name="hostname" type="String" mode="IN" optional="false"/>
+        <attribute name="username" type="String" mode="IN" optional="false"/>
+        <attribute name="password" type="String" mode="IN" optional="false"/>
+        <attribute name="localFilename" type="String" mode="IN" optional="false"/>
+        <attribute name="remoteFilename" type="String" mode="IN" optional="false"/>
+        <attribute name="binaryTransfer" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="passiveMode" type="Boolean" mode="IN" optional="true"/>
+    </service>
+    <service name="ftpPutFile" engine="java" use-transaction="false"
+        location="org.ofbiz.common.FtpServices" invoke="putFile">
+        <implements service="ftpInterface"/>
+        <attribute name="siteCommands" type="List" mode="IN" optional="true"/>
+    </service>
+    <service name="ftpGetFile" engine="java" use-transaction="false"
+        location="org.ofbiz.common.FtpServices" invoke="getFile">
+        <implements service="ftpInterface"/>
+    </service>
+</services>

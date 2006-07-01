@@ -1,0 +1,106 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski
+ *@version    $Rev$
+ *@since      2.1
+*/
+
+import java.lang.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.accounting.payment.*;
+import org.ofbiz.order.order.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.catalog.*;
+import org.ofbiz.product.store.*;
+
+cart = session.getAttribute("shoppingCart");
+context.put("cart", cart);
+
+orderAdjustments = cart.makeAllAdjustments();
+context.put("orderAdjustments", orderAdjustments);
+
+orderItems = cart.makeOrderItems();
+context.put("orderItems", orderItems);
+
+workEfforts = cart.makeWorkEfforts();   // if required make workefforts for rental fixed assets too.
+context.put("workEfforts", workEfforts);
+
+orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(orderAdjustments, null);
+context.put("orderHeaderAdjustments", orderHeaderAdjustments);
+context.put("orderItemShipGroups", cart.getShipGroups());
+context.put("headerAdjustmentsToShow", OrderReadHelper.filterOrderAdjustments(orderHeaderAdjustments, true, false, false, false, false));
+
+orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(orderItems, orderAdjustments,workEfforts);
+context.put("orderSubTotal", orderSubTotal);
+context.put("placingCustomerPerson", userLogin == null ? null : userLogin.getRelatedOne("Person"));
+context.put("paymentMethods", cart.getPaymentMethods());
+
+paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
+paymentMethodType = null;
+paymentMethodTypeId = null;
+if (paymentMethodTypeIds != null && paymentMethodTypeIds.size() > 0) {
+    paymentMethodTypeId = paymentMethodTypeIds.get(0);
+    paymentMethodType = delegator.findByPrimaryKey("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", paymentMethodTypeId));
+    context.put("paymentMethodType", paymentMethodType);
+}
+
+webSiteId = CatalogWorker.getWebSiteId(request);
+
+productStore = ProductStoreWorker.getProductStore(request);
+context.put("productStore", productStore);
+
+isDemoStore = !"N".equals(productStore.getString("isDemoStore"));
+context.put("isDemoStore", isDemoStore);
+
+payToPartyId = productStore.getString("payToPartyId");
+paymentAddress = PaymentWorker.getPaymentAddress(delegator, payToPartyId);
+if (paymentAddress != null) context.put("paymentAddress", paymentAddress);
+
+
+// TODO: FIXME!
+/*
+billingAccount = cart.getBillingAccountId() != null ? delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", cart.getBillingAccountId())) : null;
+if (billingAccount != null)
+    context.put("billingAccount", billingAccount);
+*/
+
+context.put("customerPoNumber", cart.getPoNumber());
+context.put("carrierPartyId", cart.getCarrierPartyId());
+context.put("shipmentMethodTypeId", cart.getShipmentMethodTypeId());
+context.put("shippingInstructions", cart.getShippingInstructions());
+context.put("maySplit", cart.getMaySplit());
+context.put("giftMessage", cart.getGiftMessage());
+context.put("isGift", cart.getIsGift());
+context.put("currencyUomId", cart.getCurrency());
+
+shipmentMethodType = delegator.findByPrimaryKey("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", cart.getShipmentMethodTypeId()));
+if (shipmentMethodType != null) context.put("shipMethDescription", shipmentMethodType.getString("description"));
+
+OrderReadHelper orh = new OrderReadHelper(orderAdjustments, orderItems);
+context.put("localOrderReadHelper", orh);
+context.put("orderShippingTotal", cart.getTotalShipping());
+context.put("orderTaxTotal", cart.getTotalSalesTax());
+context.put("orderGrandTotal", new Double(cart.getGrandTotal()));
+
+// nuke the event messages
+request.removeAttribute("_EVENT_MESSAGE_");

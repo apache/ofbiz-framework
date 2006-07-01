@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <RecurrenceRule recurrenceRuleId="100" untilDateTime="" frequency="DAILY" intervalNumber="1" countNumber="-1"/>
+    <RecurrenceInfo recurrenceInfoId="100" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="100" recurrenceCount="0"/>
+
+    <JobSandbox jobId="8300" jobName="Purge Old Jobs" runTime="2000-01-01 00:00:00.000" serviceName="purgeOldJobs" poolId="pool" runAsUser="system" recurrenceInfoId="100"/>
+</entity-engine-xml>

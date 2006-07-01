@@ -1,0 +1,143 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@author     Brad Steiner
+ *@version    $Rev$
+ *@since      2.2
+ */
+ 
+import java.util.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+delegator = request.getAttribute("delegator");
+
+
+parameterMap = UtilHttp.getParameterMap(request);
+
+facilityId = request.getParameter("facilityId");
+locationSeqId = request.getParameter("locationSeqId");
+
+session.removeAttribute("inventoryItemId");
+
+boolean tryEntity = true;
+if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
+
+inventoryItemId = request.getParameter("inventoryItemId");
+if (UtilValidate.isEmpty(inventoryItemId) && UtilValidate.isNotEmpty((String) request.getAttribute("inventoryItemId"))) {
+    inventoryItemId = request.getAttribute("inventoryItemId");
+}
+
+inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
+curStatusItem = null;
+inventoryItemType = null;
+facilityLocation = null;
+facility = null;
+
+if(inventoryItem == null) {
+    tryEntity = false;
+} else {
+    curStatusItem = inventoryItem.getRelatedOneCache("StatusItem");
+    inventoryItemType = inventoryItem.getRelatedOneCache("InventoryItemType");
+    facilityLocation = inventoryItem.getRelatedOne("FacilityLocation");
+    facility = inventoryItem.getRelatedOne("Facility");
+    if (facility != null && facilityId == null) {
+        facilityId = facility.getString("facilityId");
+        parameters.put("facilityId", facilityId);
+    }
+
+    //statuses
+    if ("NON_SERIAL_INV_ITEM".equals(inventoryItem.getString("inventoryItemTypeId"))) {
+        //do nothing for non-serialized inventory
+    } else if ("SERIALIZED_INV_ITEM".equals(inventoryItem.getString("inventoryItemTypeId"))) {
+        if (UtilValidate.isNotEmpty(inventoryItem.getString("statusId"))) {
+            statusChange = delegator.findByAnd("StatusValidChange", UtilMisc.toMap("statusId", inventoryItem.getString("statusId")));
+            statusItems = new ArrayList();
+            statusChangeIter = statusChange.iterator();
+            while (statusChangeIter.hasNext()) {
+                iterStatusChange = statusChangeIter.next();
+                iterStatusItem = delegator.findByPrimaryKey("StatusItem", UtilMisc.toMap("statusId", iterStatusChange.get("statusIdTo")));
+                if (iterStatusItem != null) statusItems.add(iterStatusItem);
+            }
+            context.put("statusItems", statusItems);
+        } else {
+            //no status id, just get all statusItems
+            statusItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "INV_SERIALIZED_STTS"), UtilMisc.toList("sequenceId"));
+            context.put("statusItems", statusItems);
+        }
+    }
+}
+
+//inv item types
+inventoryItemTypes = delegator.findAll("InventoryItemType", UtilMisc.toList("description"));
+
+//facilities
+facilities = delegator.findAll("Facility", UtilMisc.toList("facilityName"));
+
+//get physicalInventoryAndVarianceDatas if this is a NON_SERIAL_INV_ITEM
+if (inventoryItem != null && "NON_SERIAL_INV_ITEM".equals(inventoryItem.getString("inventoryItemTypeId"))) {
+    physicalInventoryAndVariances = delegator.findByAnd("PhysicalInventoryAndVariance", UtilMisc.toMap("inventoryItemId", inventoryItemId), UtilMisc.toList("-physicalInventoryDate", "-physicalInventoryId"));
+    physicalInventoryAndVarianceDatas = new ArrayList(physicalInventoryAndVariances.size());
+    physicalInventoryAndVarianceIter = physicalInventoryAndVariances.iterator();
+    while (physicalInventoryAndVarianceIter.hasNext()) {
+        physicalInventoryAndVariance = physicalInventoryAndVarianceIter.next();
+        physicalInventoryAndVarianceData = new HashMap();
+        physicalInventoryAndVarianceDatas.add(physicalInventoryAndVarianceData);
+
+        physicalInventoryAndVarianceData.put("physicalInventoryAndVariance", physicalInventoryAndVariance);
+        physicalInventoryAndVarianceData.put("varianceReason", physicalInventoryAndVariance.getRelatedOneCache("VarianceReason"));
+        physicalInventoryAndVarianceData.put("person", physicalInventoryAndVariance.getRelatedOne("Person"));
+        physicalInventoryAndVarianceData.put("partyGroup", physicalInventoryAndVariance.getRelatedOne("PartyGroup"));
+    }
+
+    HtmlFormWrapper viewPhysicalInventoryAndVarianceWrapper = new HtmlFormWrapper("/inventory/InventoryForms.xml", "ViewPhysicalInventoryAndVariance", request, response);
+    viewPhysicalInventoryAndVarianceWrapper.putInContext("physicalInventoryAndVarianceDatas", physicalInventoryAndVarianceDatas);
+
+    HtmlFormWrapper createPhysicalInventoryAndVarianceWrapper = new HtmlFormWrapper("/inventory/InventoryForms.xml", "CreatePhysicalInventoryAndVariance", request, response);
+    createPhysicalInventoryAndVarianceWrapper.putInContext("inventoryItem", inventoryItem);
+
+    context.put("physicalInventoryAndVarianceDatas", physicalInventoryAndVarianceDatas);
+    context.put("viewPhysicalInventoryAndVarianceWrapper", viewPhysicalInventoryAndVarianceWrapper);
+    context.put("createPhysicalInventoryAndVarianceWrapper", createPhysicalInventoryAndVarianceWrapper);
+}
+
+nowTimestampString = UtilDateTime.nowTimestamp().toString();
+
+context.put("inventoryItem", inventoryItem);
+context.put("inventoryItemId", inventoryItemId);
+context.put("inventoryItemType", inventoryItemType);
+context.put("curStatusItem", curStatusItem);
+context.put("facilityLocation", facilityLocation);
+context.put("facility", facility);
+context.put("facilityId", facilityId);
+context.put("locationSeqId", locationSeqId);
+context.put("inventoryItemTypes", inventoryItemTypes);
+context.put("facilities", facilities);
+context.put("nowTimestampString", nowTimestampString);
+context.put("tryEntity", tryEntity);
+if (tryEntity) {
+    context.put("inventoryItemData", inventoryItem);
+} else {
+    context.put("inventoryItemData", parameterMap);
+}

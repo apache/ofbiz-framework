@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * <p><b>Title:</b> Map processors for Affiliate
+ * <p><b>Description:</b> None
+ * <p>Copyright (c) 2001-2005 The Open For Business Project and repected authors.
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * <p>The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author    <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
+ * @version   1.0
+ * Created    January 27, 2002
+ -->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+  <simple-map-processor name="newAffilParty">
+    <process field="AFFILIATE_ID"><copy to-field="partyId"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyAffiliateCodeMissingError"/></not-empty></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilGroup">
+    <process field="COMPANY_NAME"><copy to-field="groupName"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyCompanyNameMissingError"/></not-empty></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPostal">
+    <process field="COMPANY_NAME"><copy to-field="toName"/></process>
+    <process field="COMPANY_ATTN"><copy to-field="attnName"/></process>
+    <process field="COMPANY_ADDRESS1"><copy to-field="address1"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyAddressLine1MissingError"/></not-empty></process>
+    <process field="COMPANY_ADDRESS2"><copy to-field="address2"/></process>
+    <process field="COMPANY_CITY"><copy to-field="city"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyCityMissing"/></not-empty></process>
+    <process field="COMPANY_STATE"><copy to-field="stateProvinceGeoId"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyProvinceMissing"/></not-empty></process>
+    <process field="COMPANY_POSTAL_CODE"><copy to-field="postalCode"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyZipCodeMissing"/></not-empty></process>
+    <process field="COMPANY_COUNTRY"><copy to-field="countryGeoId"/></process>
+    <process field="COMPANY_ADDRESS_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPostalPurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>BILLING_LOCATION</constant></make-in-string>
+    <process field="contactMechId"><copy/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilContact">
+    <process field="CONTACT_FIRST_NAME"><copy to-field="firstName"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyFirstNameMissing"/></not-empty></process>
+    <process field="CONTACT_LAST_NAME"><copy to-field="lastName"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyLastNameMissingError"/></not-empty></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPhone">
+    <process field="COMPANY_WORK_COUNTRY"><copy to-field="countryCode"/></process>
+    <process field="COMPANY_WORK_AREA"><copy to-field="areaCode"/></process>
+    <process field="COMPANY_WORK_CONTACT"><copy to-field="contactNumber"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyContactNumberMissing"/></not-empty></process>
+    <process field="COMPANY_WORK_EXT"><copy to-field="extension"/></process>
+    <process field="COMPANY_WORK_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPhonePurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>PHONE_WORK</constant></make-in-string>
+    <process field="contactMechId"><copy/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilFax">
+    <process field="COMPANY_FAX_COUNTRY"><copy to-field="countryCode"/></process>
+    <process field="COMPANY_FAX_AREA"><copy to-field="areaCode"/></process>
+    <process field="COMPANY_FAX_CONTACT"><copy to-field="contactNumber"/></process>
+    <process field="COMPANY_FAX_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilFaxPurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>FAX_NUMBER</constant></make-in-string>
+    <process field="contactMechId"><copy/></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilEmail">
+    <process field="COMPANY_EMAIL">
+      <copy to-field="emailAddress"/>
+      <not-empty>
+      <fail-property resource="EcommerceUiLabels" property="PartyEmailAddressMissingError"/>
+      </not-empty>
+      <validate-method method="isEmail">
+      <fail-property resource="EcommerceUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
+      </validate-method>
+    </process>
+    <process field="COMPANY_EMAIL_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilEmailPurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>PRIMARY_EMAIL</constant></make-in-string>
+    <process field="contactMechId"><copy/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilURL">
+    <make-in-string field="contactMechTypeId"><constant>WEB_ADDRESS</constant></make-in-string>
+    <make-in-string field="allowSolicitation"><constant>Y</constant></make-in-string>
+    <process field="SITE_URL"><copy to-field="infoString"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartySiteURLMissing"/></not-empty></process>
+    <process field="contactMechTypeId"><copy/></process>
+    <process field="allowSolicitation"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffil">
+    <process field="SITE_NAME"><copy to-field="affiliateName"/><not-empty>
+     <fail-property resource="EcommerceUiLabels" property="PartyAffiliateNameMissing"/></not-empty></process>
+    <process field="SITE_DESCRIPTION"><copy to-field="affiliateDescription"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilUser">
+    <process field="AFFILIATE_ID"><copy to-field="userLoginId"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyAffiliateCodeMissingError"/></not-empty></process>
+    <process field="PASSWORD"><copy to-field="currentPassword"/><not-empty>
+    <fail-property resource="EcommerceUiLabels" property="PartyPasswordMissing"/></not-empty></process>
+    <process field="CONFIRM_PASSWORD">
+      <compare-field operator="equals" field="PASSWORD">
+    <fail-property resource="EcommerceUiLabels" property="PartyPasswordMatchError"/>
+      </compare-field>
+        <not-empty>
+         <fail-property resource="EcommerceUiLabels" property="PartyEnterPasswordTwice"/>
+        </not-empty>
+        <copy to-field="currentPasswordVerify"/>
+    </process>
+    <process field="PASSWORD_HINT"><copy to-field="passwordHint"/></process>
+  </simple-map-processor>
+
+</simple-map-processors>

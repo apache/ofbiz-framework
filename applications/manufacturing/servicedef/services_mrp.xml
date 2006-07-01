@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Manufacturing Services - MRP</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- MRP services -->
+    <service name="runningMrp" engine="java"
+            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="runningMrp" auth="true" use-transaction="false">
+        <description>Performs a run of Mrp</description>
+        <attribute name="facilityId" type="String" form-display="true" form-label="Facility" mode="IN" optional="false"/>
+        <attribute name="mrpName" type="String" form-display="true" form-label="Mrp Name" mode="IN" optional="true"/>
+        <attribute name="msgResult" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="initInventoryEventPlanned" engine="java"
+            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="initInventoryEventPlanned" auth="true" use-transaction="false">
+        <description>Initialize the table "InventoryEventPlanned"</description>
+        <attribute name="reInitialize" type="Boolean" mode="IN" optional="false"/>
+    </service>
+    <service name="listProductForMrp" engine="java"
+            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="listProductForMrp" auth="true">
+        <description>List the products for the MRP"</description>
+        <attribute name="billOfMaterialLevel" type="Long" mode="IN" optional="false"/>
+        <attribute name="listInventoryEventForMrp" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="findProductMrpQoh" engine="java"
+            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="findProductMrpQoh" auth="true">
+        <description>Find the quantity on hand of products for the MRP</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="createInventoryEventPlanned" engine="java"
+            location="org.ofbiz.manufacturing.mrp.InventoryEventPlannedServices" invoke="createInventoryEventPlanned" auth="false">
+        <description>create an createInventoryEventPlanned record in the database</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="eventDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="inventoryEventPlanTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="eventQuantity" type="Double" mode="IN" optional="false"/>
+    </service>
+</services>

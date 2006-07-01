@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2002-2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Olivier.Heintz@nereide.biz 
+ * @version    $Rev$
+ * @since      2.0
+-->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+  <!-- ContactMech map procs -->
+  <simple-map-processor name="partyContactMech">    
+    <process field="infoString"><copy/></process>
+    <process field="partyId"><copy/></process>
+    <process field="extension"><copy/></process>
+    <process field="allowSolicitation"><copy/></process>
+  </simple-map-processor>
+  <simple-map-processor name="updatePartyContactMech">
+    <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="infoString"><copy/></process>
+    <process field="partyId"><copy/></process>
+    <process field="extension"><copy/></process>
+    <process field="allowSolicitation"><copy/></process>    
+  </simple-map-processor>
+  <simple-map-processor name="deleteContactMech">
+    <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="partyId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="postalAddress">
+    <process field="partyId"><copy/></process>
+    <process field="toName"><copy/></process>
+    <process field="attnName"><copy/></process>
+    <process field="address1"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
+    <process field="address2"><copy/></process>
+    <process field="directions"><copy/></process>
+    <process field="city"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
+    <process field="stateProvinceGeoId"><copy/></process>
+    <process field="postalCode"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/></not-empty></process>
+    <process field="countryGeoId"><copy/></process>
+    <process field="postalCodeGeoId"><copy/></process>
+    <process field="allowSolicitation"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="telecomNumber">
+    <process field="partyId"><copy/></process>
+    <process field="countryCode"><copy/></process>
+    <process field="areaCode"><copy/></process>
+    <process field="contactNumber"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactNumberMissing"/></not-empty></process>
+    <process field="extension"><copy/></process>
+    <process field="allowSolicitation"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="emailAddress">
+  	<process field="contactMechId"><copy set-if-null="false"/></process>
+    <process field="partyId"><copy/></process>
+    <process field="emailAddress">
+        <copy to-field="infoString"/>
+        <not-empty><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissing"/></not-empty>
+        <validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method></process>
+    <process field="allowSolicitation"><copy/></process>
+  </simple-map-processor>
+
+  <!-- PartyContactMechPurpose map procs -->  
+  <simple-map-processor name="createPartyContactMechPurpose">
+    <process field="partyId"><copy/></process>
+    <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPurposeTypeMissingCannotAdd"/></not-empty></process>
+  </simple-map-processor>
+  <simple-map-processor name="deletePartyContactMechPurpose">
+    <process field="partyId"><copy/></process>
+    <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPurposeTypeMissingCannotRemove"/></not-empty></process>
+    <process field="fromDate">
+        <not-empty><fail-property resource="PartyUiLabels" property="CommonFromDateMissing"/></not-empty>
+        <convert type="Timestamp"><fail-property resource="PartyUiLabels" property="CommonFromDateNotValidDateTime"/></convert></process>
+  </simple-map-processor>
+  
+  <!-- PartyContactMech -->
+  
+</simple-map-processors>

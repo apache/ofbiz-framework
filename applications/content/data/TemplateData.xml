@@ -1,0 +1,473 @@
+<entity-engine-xml>
+
+    <DataResource dataResourceId="WRAP_STD_LOOP" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Loop Wrap" mimeTypeId="text/html" createdDate="2004-01-20 22:24:40.258" createdByUserLogin="admin" lastModifiedDate="2004-02-06 15:02:34.002" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-06 15:02:34.004" lastUpdatedTxStamp="2004-02-06 15:02:34.004" createdStamp="2004-01-20 22:24:40.236" createdTxStamp="2004-01-20 22:24:40.236"/>
+    <DataResource dataResourceId="AFIBC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="SFIBC Logo" objectInfo="sfibc_logo.png" createdDate="2004-02-04 20:59:15.418" createdByUserLogin="admin" lastModifiedDate="2004-02-04 20:59:15.418" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-04 20:59:26.308" lastUpdatedTxStamp="2004-02-04 20:57:34.305" createdStamp="2004-02-04 20:59:15.418" createdTxStamp="2004-02-04 20:59:15.418"/>
+    <DataResource dataResourceId="AGEP_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGEP Logo" objectInfo="agep_logo.png" createdDate="2004-02-04 21:00:17.683" createdByUserLogin="admin" lastModifiedDate="2004-02-04 21:00:17.683" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-05 05:45:18.09" lastUpdatedTxStamp="2004-02-05 05:21:43.748" createdStamp="2004-02-04 21:00:17.683" createdTxStamp="2004-02-04 21:00:17.683"/>
+    <DataResource dataResourceId="AGINC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGINC Logo" objectInfo="aginc_logo.png" createdDate="2004-02-04 20:58:37.938" createdByUserLogin="admin" lastModifiedDate="2004-02-04 20:58:37.938" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-04 20:58:46.743" lastUpdatedTxStamp="2004-02-04 20:57:34.305" createdStamp="2004-02-04 20:58:37.938" createdTxStamp="2004-02-04 20:58:37.938"/>
+    <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ArticleWrap.ftl" createdDate="2003-12-31 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2003-12-31 11:40:15.818" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:40:15.819" lastUpdatedTxStamp="2003-12-31 11:40:15.819" createdStamp="2003-12-31 11:40:15.819" createdTxStamp="2003-12-31 11:40:15.819"/>
+    <DataResource dataResourceId="LEFTBAR" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" dataResourceName="Left Bar" objectInfo="/leftbar.ftl" lastModifiedDate="2004-03-10 17:11:01.58" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-10 17:11:01.582" lastUpdatedTxStamp="2004-03-10 17:11:01.582"/>
+    <DataResource dataResourceId="RIGHTBAR" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Right Bar" objectInfo="RIGHT BAR"/>
+    <DataResource dataResourceId="RP_MEDAL" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="Project Reliance Medallion Logo" objectInfo="pr_medal.png" createdDate="2004-02-13 13:37:54.199" createdByUserLogin="admin" lastModifiedDate="2004-02-13 13:37:54.199" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-13 13:39:33.035" lastUpdatedTxStamp="2004-02-13 13:37:54.73" createdStamp="2004-02-13 13:37:54.2" createdTxStamp="2004-02-13 13:37:54.2"/>
+    <DataResource dataResourceId="STDWRAP001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html" lastModifiedDate="2004-01-16 15:28:58.289" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 15:28:58.306" lastUpdatedTxStamp="2004-01-16 15:28:58.306"/>
+    <DataResource dataResourceId="TMPLT_IMG_CENTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:12:56.675" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 01:24:06.482" createdTxStamp="2004-01-16 01:24:06.482"/>
+    <DataResource dataResourceId="TEMPLATE_IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.317" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:25:44.317" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:12:56.683" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 19:25:44.317" createdTxStamp="2004-01-16 19:25:44.317"/>
+    <DataResource dataResourceId="TEMPLATE_TEXT_ONLY" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.047" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:34:15.047" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:12:56.725" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 19:34:15.047" createdTxStamp="2004-01-16 19:34:15.047"/>
+    <DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ViewWrap.ftl" createdDate="2003-12-31 11:41:46.78" createdByUserLogin="admin" lastModifiedDate="2003-12-31 11:41:46.78" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:41:46.781" lastUpdatedTxStamp="2003-12-31 11:41:46.78" createdStamp="2003-12-31 11:41:46.781" createdTxStamp="2003-12-31 11:41:46.78"/>
+    <DataResource dataResourceId="WRAP_ARTICLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" createdDate="2004-01-21 00:00:00.0" createdByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:10:53.041" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.041" createdTxStamp="2004-01-21 16:10:53.026"/>
+    <DataResource dataResourceId="WRAP_ARTICLE_TABLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Article wrap with table elements" createdDate="2004-03-16 12:04:00.338" createdByUserLogin="admin" lastModifiedDate="2004-03-16 12:04:00.338" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-16 12:04:00.338" lastUpdatedTxStamp="2004-03-16 12:04:00.338" createdStamp="2004-03-16 12:04:00.338" createdTxStamp="2004-03-16 12:04:00.338"/>
+    <DataResource dataResourceId="WRAP_NEXT_PREV" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Next/Prev wrapper" createdDate="2004-02-03 14:03:42.09" createdByUserLogin="admin" lastModifiedDate="2004-02-03 14:03:42.09" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-03 14:03:42.091" lastUpdatedTxStamp="2004-02-03 14:03:42.091" createdStamp="2004-02-03 14:03:42.091" createdTxStamp="2004-02-03 14:03:42.091"/>
+    <DataResource dataResourceId="WRAP_STD_001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html" lastModifiedDate="2004-01-16 15:28:58.289" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:12:56.651" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-21 16:10:53.062" createdTxStamp="2004-01-21 16:10:53.026"/>
+    <DataResource dataResourceId="WRAP_VIEW" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" createdDate="2004-01-21 00:00:00.0" createdByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:10:53.053" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.053" createdTxStamp="2004-01-21 16:10:53.026"/>
+    <DataResource dataResourceId="10250" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:20:58.892" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.482" createdTxStamp="2004-01-16 01:24:06.482"/>
+    <DataResource dataResourceId="10261" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.317" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:25:44.317" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:25:44.317" lastUpdatedTxStamp="2004-01-16 19:25:44.317" createdStamp="2004-01-16 19:25:44.317" createdTxStamp="2004-01-16 19:25:44.317"/>
+    <DataResource dataResourceId="10263" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.047" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:34:15.047" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:34:15.047" lastUpdatedTxStamp="2004-01-16 19:34:15.047" createdStamp="2004-01-16 19:34:15.047" createdTxStamp="2004-01-16 19:34:15.047"/>
+    <Content contentId="LEFTBAR" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="LEFTBAR" contentName="Left Bar" description="Left Bar"/>
+    <Content contentId="OWNER_BLOG_CONTENT" contentTypeId="PLACEHOLDER" contentName="Blog Content Owner" createdDate="2004-01-17 22:21:36.952" createdByUserLogin="admin" lastModifiedDate="2004-01-17 22:21:36.952" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-17 22:21:36.955" lastUpdatedTxStamp="2004-01-17 22:21:36.955" createdStamp="2004-01-17 22:21:36.955" createdTxStamp="2004-01-17 22:21:36.955"/>
+    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="10250" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.897" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:20:58.898" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.525" createdTxStamp="2004-01-16 01:24:06.525"/>
+    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="10261" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.324" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:25:44.324" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:25:44.326" lastUpdatedTxStamp="2004-01-16 19:25:44.326" createdStamp="2004-01-16 19:25:44.326" createdTxStamp="2004-01-16 19:25:44.326"/>
+    <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master" lastUpdatedStamp="2003-12-22 10:56:18.986" lastUpdatedTxStamp="2003-12-22 10:56:18.899"/>
+    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="10263" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.052" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:34:15.052" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:34:15.054" lastUpdatedTxStamp="2004-01-16 19:34:15.054" createdStamp="2004-01-16 19:34:15.054" createdTxStamp="2004-01-16 19:34:15.054"/>
+    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="10250" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.897" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:20:58.898" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.525" createdTxStamp="2004-01-16 01:24:06.525"/>
+    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="10261" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html" createdDate="2004-01-16 19:25:44.324" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:25:44.324" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:25:44.326" lastUpdatedTxStamp="2004-01-16 19:25:44.326" createdStamp="2004-01-16 19:25:44.326" createdTxStamp="2004-01-16 19:25:44.326"/>
+    <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master" lastUpdatedStamp="2003-12-22 10:56:18.986" lastUpdatedTxStamp="2003-12-22 10:56:18.899"/>
+    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="10263" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html" createdDate="2004-01-16 19:34:15.052" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:34:15.052" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 19:34:15.054" lastUpdatedTxStamp="2004-01-16 19:34:15.054" createdStamp="2004-01-16 19:34:15.054" createdTxStamp="2004-01-16 19:34:15.054"/>
+
+    <Content contentId="VIEW_WRAP" contentTypeId="DOCUMENT" dataResourceId="VIEW_WRAP" contentName="View Wrap" createdDate="2003-12-31 11:56:35.694" createdByUserLogin="admin" lastModifiedDate="2003-12-31 11:56:35.694" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:56:35.694" lastUpdatedTxStamp="2003-12-31 11:56:35.694" createdStamp="2003-12-31 11:56:35.694" createdTxStamp="2003-12-31 11:56:35.694"/>
+    <Content contentId="WRAP_ARTICLE" contentTypeId="DOCUMENT" dataResourceId="WRAP_ARTICLE" createdDate="2004-01-21 00:00:00.0" createdByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:10:53.046" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.046" createdTxStamp="2004-01-21 16:10:53.026"/>
+    <Content contentId="WRAP_NEXT_PREV" contentTypeId="ANNOTATION" dataResourceId="WRAP_NEXT_PREV" contentName="Next-Prev wrapper" description="Next and Previous wrapper" createdDate="2004-02-03 14:05:16.909" createdByUserLogin="admin" lastModifiedDate="2004-02-03 14:05:16.909" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-03 14:05:16.909" lastUpdatedTxStamp="2004-02-03 14:05:16.909" createdStamp="2004-02-03 14:05:16.909" createdTxStamp="2004-02-03 14:05:16.909"/>
+    <Content contentId="WRAP_STD_001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper" mimeTypeId="text/html" lastModifiedDate="2004-01-16 15:28:58.37" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:12:56.656" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-21 16:10:53.066" createdTxStamp="2004-01-21 16:10:53.026"/>
+    <Content contentId="WRAP_STD_LOOP" contentTypeId="DOCUMENT" dataResourceId="WRAP_STD_LOOP" contentName="Loop Wrap" mimeTypeId="text/html" createdDate="2004-01-20 22:24:40.258" createdByUserLogin="admin" lastModifiedDate="2004-02-12 18:09:55.174" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-12 18:09:55.176" lastUpdatedTxStamp="2004-02-12 18:09:55.176" createdStamp="2004-01-20 22:24:40.261" createdTxStamp="2004-01-20 22:24:40.261"/>
+    <Content contentId="WRAP_VIEW" contentTypeId="DOCUMENT" dataResourceId="WRAP_VIEW" createdDate="2004-01-21 00:00:00.0" createdByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:10:53.056" lastUpdatedTxStamp="2004-01-21 16:10:53.026" createdStamp="2004-01-21 16:10:53.056" createdTxStamp="2004-01-21 16:10:53.026"/>
+    <Content contentId="ARTICLE_WRAP" contentTypeId="DOCUMENT" dataResourceId="ARTICLE_WRAP" lastModifiedDate="2003-12-31 11:44:17.079" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:44:17.081" lastUpdatedTxStamp="2003-12-31 11:44:17.081" createdStamp="2003-12-31 10:34:37.14" createdTxStamp="2003-12-31 10:32:29.118"/>
+    <Content contentId="BLOG_MASTER" contentTypeId="DOCUMENT" contentName="Blog Master" createdDate="2004-01-05 02:50:06.173" createdByUserLogin="admin" lastModifiedDate="2004-01-05 02:50:06.173" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-05 02:50:06.174" lastUpdatedTxStamp="2004-01-05 02:50:06.174" createdStamp="2004-01-05 02:50:06.174" createdTxStamp="2004-01-05 02:50:06.174"/>
+    <ElectronicText dataResourceId="LEFTBAR" lastUpdatedStamp="2004-03-05 11:06:24.277" lastUpdatedTxStamp="2004-03-05 11:06:24.277">
+        <textData><![CDATA[<#--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Al Byers(byersa@automationgroups.com)
+ *@version    $Rev$
+ *@since      3.0
+-->
+
+
+<table width='100%' border='0' cellpadding='0' cellspacing='0'>
+  <tr>
+    <td width='100%' valign='top'>
+      <table border='0' width='100%' cellspacing='0' cellpadding='0' >
+  <#if requestAttributes.userLogin?has_content>
+    <tr>
+     <td>
+    <div class="tabletext"><a href="<@ofbizUrl>/logout</@ofbizUrl>" class="tableText">Logout</a></div>
+     <br/>
+    <div class="tabletext"><a href="<@ofbizUrl>/viewprofile</@ofbizUrl>" class="tableText">Profile</a></div>
+     </td>
+      </tr>
+  <#else>
+
+       <tr>
+          <td width='100%'>
+            <table width='100%' border='0' cellspacing='0' cellpadding='0' '>
+              <tr>
+                <td>
+                  <form method="POST" action="<@ofbizUrl>/login${previousParams?if_exists}</@ofbizUrl>" name="loginform" style='margin: 0;'>
+                    <table width='100%' border='0' cellpadding='0' cellspacing='2'>
+                      <tr align="center">
+                        <td align='left'><span class="tabletext">Username: </span></td>
+                      </tr>
+                       <tr>
+                         <td align=left>
+                          <input type="text" class='inputBox' name="USERNAME" value='<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME?if_exists}<#elseif autoUserLogin?has_content><${autoUserLogin.userLoginId?if_exists}</#if>' size="20">
+                        </td>
+                      </tr>
+                       <tr align="center">
+                        <td align='left'><span class="tabletext">Password: </span></td>
+                       </tr>
+                       <tr>
+                         <td align='left'><input type="password" class='inputBox' name="PASSWORD" value="" size="20"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" align="center"><input type="submit" value="Login"></td>
+                      </tr>
+                    </table>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+       </#if>
+             <tr>
+                <td valign='middle' align='center'>
+                  <div class="tabletext"><a class="tableText" href="<@ofbizUrl>/forgotpasswd</@ofbizUrl>">Forgot Password?</a></div>
+                </td>
+              </tr>
+              <tr>
+                <td valign='middle' align='center'>
+                  <div class="tabletext"><a  class="tableText"  href="<@ofbizUrl>/newblogger</@ofbizUrl>">New User</a></div>
+                </td>
+              </tr>
+      </table>
+      <br>
+   </td>
+ 
+  </tr>
+</table>
+
+<script language="JavaScript">
+  <#if autoUserLogin?has_content>document.loginform.PASSWORD.focus();</#if>
+  <#if !autoUserLogin?has_content>document.loginform.USERNAME.focus();</#if>
+   function requery() {
+       alert("REQUERY" + document.sectionform.sectionId.value);
+   }
+</script>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="RIGHTBAR" lastUpdatedStamp="2004-02-18 23:34:03.642" lastUpdatedTxStamp="2004-02-18 23:34:03.642">
+        <textData><![CDATA[       <table width='127' border='0' cellspacing='0' cellpadding='0' class='headerboxtop'>
+        <#list allPublishPoints?keys as publishPtKey>
+              <#if publishPtKey != pubPt>
+                  <tr>
+                  <td align=left width='1%'>
+                    <#assign publishPtValue=allPublishPoints[publishPtKey]?if_exists/>
+                    <a href="<@ofbizUrl>/MenuRedirect?pubPt=${publishPtKey?if_exists}</@ofbizUrl>">
+                      <img border="0" src='<@ofbizContentUrl>${allPublishPoints[publishPtKey?if_exists]?if_exists.medallionLogo?if_exists}</@ofbizContentUrl>' width="127"  height="93" />
+                    </a>
+                  </td>
+                  </tr>
+              </#if>
+          </#list>
+         </table>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="STDWRAP001" lastUpdatedStamp="2004-01-16 15:28:58.335" lastUpdatedTxStamp="2004-01-16 15:28:58.306">
+        <textData><![CDATA[<#assign mapKey=wrapMapKey?if_exists/>
+<#assign subDataResourceId=wrapDataResourceId?if_exists/>
+<#assign subDataResourceTypeId=wrapDataResourceTypeId?if_exists/>
+<#assign contentIdTo=wrapContentIdTo?if_exists/>
+<#assign mimeTypeId=wrapMimeTypeId?if_exists/>
+<#assign subContentId=wrapSubContentId?if_exists/>
+<div id="divTwo" class="wrapOuter">
+    <div class="tabletext">
+    ${mapKey?if_exists}
+    <a class="buttontext" href="javascript:lookupSubContent('<@ofbizUrl>/LookupSubContent</@ofbizUrl>', '${contentIdTo?if_exists}','${mapKey?if_exists}',  '${subDataResourceTypeId?if_exists}', '${mimeTypeId?if_exists}')"
+>[Find]</a>
+    <#assign ofbizRequest=""/>
+    <#assign httpParams="contentIdTo=" + contentIdTo?if_exists + "&mapKey=" + mapKey?if_exists />
+    <#if subDataResourceTypeId == "IMAGE_OBJECT">
+        <#assign ofbizRequest="EditLayoutImage"/>
+    <#else>
+        <#if subDataResourceTypeId == "URL_RESOURCE">
+            <#assign ofbizRequest="EditLayoutUrl"/>
+        <#else>
+            <#assign ofbizRequest="EditLayoutSubContent"/>
+        </#if>
+    </#if>
+    <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&mode=add</@ofbizUrl>">[New]</a>
+    <#if subContentId?exists && (0 < subContentId?length)>
+        <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&contentId=${subContentId}&drData
+ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
+    </#if>
+    </div>
+<div id="divOne" class="wrapInner">
+<@renderWrappedText/>
+</div>
+</div>]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TMPLT_IMG_CENTER" lastUpdatedStamp="2004-01-30 16:48:06.505" lastUpdatedTxStamp="2004-01-30 16:48:06.505" createdStamp="2004-01-16 01:24:06.499" createdTxStamp="2004-01-16 01:24:06.482">
+        <textData><![CDATA[<table>
+  <tr>
+    <td>
+            <#assign thisContentId=contentId?if_exists/>
+        <@traverseSubContentCache subContentId=thisContentId
+            pickWhen="mapKey != null && mapKey.equals(\"IMAGE\")"
+            returnFromPickWhen="mapKey != null && mapKey.equals(\"IMAGE\")"
+        >
+            <#assign drDataResourceId=content.dataResourceId?if_exists/>
+        </@traverseSubContentCache>
+        <img src="<@ofbizUrl>/img?imgId=${drDataResourceId?if_exists}</@ofbizUrl>" />
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<table>
+  <tr>
+    <td>
+<@renderSubContentCache mapKey="ARTICLE" contentId=thisContentId subContentId=""/>
+    </td>
+  </tr>
+</table>]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TEMPLATE_IMAGE_LEFT" lastUpdatedStamp="2004-01-30 16:49:08.969" lastUpdatedTxStamp="2004-01-30 16:49:08.969" createdStamp="2004-01-16 19:25:44.318" createdTxStamp="2004-01-16 19:25:44.317">
+        <textData><![CDATA[<@editRenderSubContentCache mapKey="IMAGE">
+  <@renderSubContentCache/>
+</@editRenderSubContentCache>
+<@editRenderSubContentCache mapKey="SUMMARY">
+  <@renderSubContentCache/>
+</@editRenderSubContentCache>
+ ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TEMPLATE_TEXT_ONLY" lastUpdatedStamp="2004-03-18 10:05:46.703" lastUpdatedTxStamp="2004-03-18 10:05:46.703" createdStamp="2004-01-16 19:34:15.048" createdTxStamp="2004-01-16 19:34:15.047">
+        <textData><![CDATA[<@renderSubContentCache mapKey="ARTICLE" wrapTemplateId=""/>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_ARTICLE" lastUpdatedStamp="2004-03-16 12:05:33.806" lastUpdatedTxStamp="2004-03-16 12:05:33.806" createdStamp="2004-01-21 16:10:53.043" createdTxStamp="2004-01-21 16:10:53.026">
+        <textData><![CDATA[<#assign thisContentId = ""/>
+<#if nodeTrailCsv?exists>
+    <#assign idList = nodeTrailCsv?split(",")/>
+    <#if 0 < idList?size >
+        <#assign thisContentId = idList?last>
+    </#if>
+</#if>
+
+<a class="tabButton" href="<@ofbizUrl>/ViewArticle?contentId=${thisContentId}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >View</a>
+
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_ARTICLE_TABLE" lastUpdatedStamp="2004-03-16 12:04:07.687" lastUpdatedTxStamp="2004-03-16 12:04:07.687" createdStamp="2004-03-16 12:04:07.687" createdTxStamp="2004-03-16 12:04:07.687">
+        <textData><![CDATA[<#assign thisContentId = ""/>
+<#if nodeTrailCsv?exists>
+    <#assign idList = nodeTrailCsv?split(",")/>
+    <#if 0 < idList?size >
+        <#assign thisContentId = idList?last>
+    </#if>
+</#if>
+<tr>
+<td>
+${wrappedContent?if_exists} 
+</td>
+</tr>
+<tr>
+<td align="right">
+
+<a class="tabButton" href="<@ofbizUrl>/ViewArticle?contentId=${thisContentId}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >View</a>
+</td>
+</tr>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_NEXT_PREV" lastUpdatedStamp="2004-02-12 15:41:07.692" lastUpdatedTxStamp="2004-02-12 15:41:07.692" createdStamp="2004-02-03 14:04:15.768" createdTxStamp="2004-02-03 14:04:15.768">
+        <textData><![CDATA[<tr><td>${wrappedContent}</td></tr>
+
+<#assign listSize=listSize?number/>
+<#assign viewIndex=viewIndex?number/>
+<#assign highIndex=highIndex?number/>
+<#assign lowIndex=lowIndex?number/>
+<#assign requestURL=requestURL?if_exists/>
+<#assign queryString=queryString?if_exists/>
+<#assign lowIndexShow=lowIndex + 1 />
+
+<#if highIndex < lowIndexShow >
+    <#assign lowIndexShow=highIndex/>
+</#if>
+
+<tr><td>
+             <#if 0 < listSize>
+                <#if 0 < viewIndex>
+                  <a href="${requestURL}?${queryString}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}${paramList?if_exists}" class="submenutext">Previous</a>
+                <#else>
+                  <span class="submenutextdisabled">Previous</span>
+                </#if>
+                <#if 0 < listSize>
+                  <span class="submenutextinfo">${lowIndexShow} - ${highIndex?if_exists} of ${listSize?if_exists}</span>
+                </#if>
+                <#if highIndex?if_exists < listSize?if_exists>
+                  <a href="${requestURL}?${queryString?if_exists}&VIEW_SIZE=${viewSize?if_exists}&VIEW_INDEX=${viewIndex?if_exists+1}${paramList?if_exists}" class="submenutextright">Next</a>
+                <#else>
+                  <span class="submenutextrightdisabled">Next</span>
+                </#if>
+              </#if>
+</td></tr>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_STD_001" lastUpdatedStamp="2004-01-21 16:12:56.653" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-21 16:10:53.064" createdTxStamp="2004-01-21 16:10:53.026">
+        <textData><![CDATA[<#assign mapKey=wrapMapKey?if_exists/>
+<#assign subDataResourceId=wrapDataResourceId?if_exists/>
+<#assign subDataResourceTypeId=wrapDataResourceTypeId?if_exists/>
+<#assign contentIdTo=wrapContentIdTo?if_exists/>
+<#assign mimeTypeId=wrapMimeTypeId?if_exists/>
+<#assign subContentId=wrapSubContentId?if_exists/>
+<div id="divTwo" class="wrapOuter">
+    <div class="tabletext">
+    ${mapKey?if_exists}
+    <a class="buttontext" href="javascript:lookupSubContent('<@ofbizUrl>/LookupSubContent</@ofbizUrl>', '${contentIdTo?if_exists}','${mapKey?if_exists}',  '${subDataResourceTypeId?if_exists}', '${mimeTypeId?if_exists}')"
+>[Find]</a>
+    <#assign ofbizRequest=""/>
+    <#assign httpParams="contentIdTo=" + contentIdTo?if_exists + "&mapKey=" + mapKey?if_exists />
+    <#if subDataResourceTypeId == "IMAGE_OBJECT">
+        <#assign ofbizRequest="EditLayoutImage"/>
+    <#else>
+        <#if subDataResourceTypeId == "URL_RESOURCE">
+            <#assign ofbizRequest="EditLayoutUrl"/>
+        <#else>
+            <#assign ofbizRequest="EditLayoutSubContent"/>
+        </#if>
+    </#if>
+    <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&mode=add</@ofbizUrl>">[New]</a>
+    <#if subContentId?exists && (0 < subContentId?length)>
+        <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&contentId=${subContentId}&drData
+ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
+    </#if>
+    </div>
+<div id="divOne" class="wrapInner">
+<@renderWrappedText/>
+</div>
+</div>]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_STD_LOOP" lastUpdatedStamp="2004-02-11 22:29:52.832" lastUpdatedTxStamp="2004-02-11 22:29:52.832" createdStamp="2004-01-20 22:24:40.238" createdTxStamp="2004-01-20 22:24:40.236">
+        <textData><![CDATA[<#assign contentIdTo=contentIdTo?if_exists/>
+
+<tr><td>
+<@checkPermission entityOperation="_CREATE" targetPurpose="${targetPurpose?if_exists}">
+<a class="tabButton" style="height:14pt;" href="<@ofbizUrl>/EditCombo?contentIdTo=${contentIdTo?if_exists}&mode=add</@ofbizUrl>" >New</a>
+<br/>
+</@checkPermission>
+</td></tr>
+<#-- can't include this file because this template is not run thru JPublish and it, therefore,
+     does not know where to find nextprev.ftl.
+     Looks like Configuration.setDirectoryForTemplateLoading could be used, but I don't want to
+     worry about passing a request object down to this level, at this time.
+<#include "nextprev.ftl" />
+-->
+
+<#assign outputIndex = 0/>
+<#if outputIndex?exists >
+<#assign outputIndex = outputIndex?number/>
+<#else>
+<#assign outputIndex = 0/>
+</#if>
+<#if listSize?exists >
+<#assign listSize = listSize?number/>
+<#else>
+<#assign listSize = 0/>
+</#if>
+<#if viewIndex?exists >
+<#assign viewIndex = viewIndex?number/>
+<#else>
+<#assign viewIndex = 0/>
+</#if>
+<#if lowIndex?exists >
+<#assign lowIndex = lowIndex?number/>
+<#else>
+<#assign lowIndex = 0/>
+</#if>
+<#assign lowPlusOne = lowIndex + 1/>
+<#assign prevStr = "" />
+<#if highIndex?exists >
+<#assign highIndex = highIndex?number/>
+<#else>
+<#assign highIndex = 0/>
+</#if>
+<#assign hiIndex = highIndex -1 />
+<#assign nextStr = "" />
+<tr><td>
+<table border="0" width="100%">
+    <tr><td>
+<span class="tabletext">
+<#if 0 < lowIndex?if_exists >
+    <#assign prevArg=(viewIndex - 1)?string />
+<a href="<@ofbizUrl>/main</@ofbizUrl>?viewIndex=${prevArg?if_exists}">Prev</a>
+</#if>
+<#if 0 < outputIndex >
+ ${lowIndex?if_exists}-${outputIndex?if_exists}
+<#else>
+ No records found
+</#if>
+<#if highIndex < listSize >
+    <#assign nextArg=(viewIndex + 1)?string />
+<a href="<@ofbizUrl>/main</@ofbizUrl>?viewIndex=${nextArg?if_exists}">Next</a>
+</#if>
+</span>
+    </td></tr>
+</table>
+</td></tr>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_VIEW" lastUpdatedStamp="2004-03-06 15:18:33.369" lastUpdatedTxStamp="2004-03-06 15:18:33.369" createdStamp="2004-01-21 16:10:53.054" createdTxStamp="2004-01-21 16:10:53.026">
+        <textData><![CDATA[<#assign txt=wrappedContent?default("")/>
+${txt}
+<br/>
+<@checkPermission targetOperation="CONTENT_CREATE|CONTENT_RESPOND">
+<a class="tabButton" href="<@ofbizUrl>/AddResponse?contentIdTo=${subContentId?if_exists}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >Respond</a>
+</@checkPermission>
+<br/>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="10250" lastUpdatedStamp="2004-01-16 19:20:58.895" lastUpdatedTxStamp="2004-01-16 19:20:58.892" createdStamp="2004-01-16 01:24:06.499" createdTxStamp="2004-01-16 01:24:06.482">
+        <textData><![CDATA[<table>
+  <tr>
+    <td>
+<@editRenderSubContent mapKey="IMAGE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+    </td>
+  </tr>
+</table>
+
+<hr/>
+
+<table>
+  <tr>
+    <td>
+<@editRenderSubContent mapKey="ARTICLE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+    </td>
+  </tr>
+</table>]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="10261" lastUpdatedStamp="2004-01-16 19:25:44.318" lastUpdatedTxStamp="2004-01-16 19:25:44.317" createdStamp="2004-01-16 19:25:44.318" createdTxStamp="2004-01-16 19:25:44.317">
+        <textData><![CDATA[<@editRenderSubContent mapKey="IMAGE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+<@editRenderSubContent mapKey="SUMMARY">
+  <@renderSubContent/>
+</@editRenderSubContent>
+ ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="10263" lastUpdatedStamp="2004-01-16 19:34:15.048" lastUpdatedTxStamp="2004-01-16 19:34:15.047" createdStamp="2004-01-16 19:34:15.048" createdTxStamp="2004-01-16 19:34:15.047">
+        <textData><![CDATA[<@editRenderSubContent mapKey="ARTICLE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+            ]]></textData>
+    </ElectronicText>
+    <DataResource dataResourceId="TMPLT_IMG_CENTER_FL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:12:56.675" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 01:24:06.482" createdTxStamp="2004-01-16 01:24:06.482"/>
+    <ElectronicText dataResourceId="TMPLT_IMG_CENTER_FL" lastUpdatedStamp="2004-01-30 16:48:06.505" lastUpdatedTxStamp="2004-01-30 16:48:06.505" createdStamp="2004-01-16 01:24:06.499" createdTxStamp="2004-01-16 01:24:06.482">
+        <textData><![CDATA[<table>
+  <tr>
+    <td>
+        <img src="<@ofbizContentUrl><@renderSubContentCache mapKey="IMAGE" wrapTemplateId=""/></@ofbizContentUrl>" />
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<table>
+  <tr>
+    <td>
+<@renderSubContentCache mapKey="ARTICLE"/>
+    </td>
+  </tr>
+</table>]]></textData>
+    </ElectronicText>
+    <DataResource dataResourceId="TEMPLATE_COMPOSITE" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" objectInfo="/content/TemplateComposite.ftl" createdDate="2004-05-15 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2004-05-15 11:40:15.818" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:40:15.819" lastUpdatedTxStamp="2003-12-31 11:40:15.819" createdStamp="2003-12-31 11:40:15.819" createdTxStamp="2003-12-31 11:40:15.819"/>
+</entity-engine-xml>

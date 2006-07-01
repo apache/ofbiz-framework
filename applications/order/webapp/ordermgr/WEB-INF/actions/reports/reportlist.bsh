@@ -1,0 +1,51 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+*/
+
+import java.util.*;
+import java.sql.Timestamp;
+
+Calendar fromCal = Calendar.getInstance();
+fromCal.setTime(new java.util.Date());
+fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK));
+fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY));
+fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE));
+fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND));
+Timestamp fromTs = new Timestamp(fromCal.getTimeInMillis());
+String fromStr = fromTs.toString();
+fromStr = fromStr.substring(0, fromStr.indexOf('.'));
+context.put("fromStr", fromStr);
+
+Calendar toCal = Calendar.getInstance();
+toCal.setTime(new java.util.Date());
+toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
+toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
+toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
+toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
+Timestamp toTs = new Timestamp(toCal.getTimeInMillis());
+String toStr = toTs.toString();
+toStr = toStr.substring(0, toStr.indexOf('.'));
+context.put("toStr", toStr);
+

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: entitymodel.xml 7426 2006-04-26 23:35:58Z jonesde $
+
+Copyright 2004-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+<!--
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright 2004-2006 The Apache Software Foundation</copyright>
+    <author>None</author>
+    <version>1.0</version>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.shark.audit                                     -->
+    <!-- ========================================================= -->
+    <entity entity-name="WfAssignmentEventAudit"
+            package-name="org.ofbiz.shark.audit"
+            title="">
+      <field name="eventAuditId" type="id-ne"></field>
+      <field name="oldUserName" type="long-varchar"></field>
+      <field name="oldName" type="long-varchar"></field>
+      <field name="newUserName" type="long-varchar"></field>
+      <field name="newName" type="long-varchar"></field>
+      <field name="isAccepted" type="indicator"></field>
+      <prim-key field="eventAuditId"/>
+    </entity>
+    <entity entity-name="WfCreateProcessEventAudit"
+            package-name="org.ofbiz.shark.audit"
+            title="">
+      <field name="eventAuditId" type="id-ne"></field>
+      <field name="pActivityId" type="long-varchar"></field>
+      <field name="pActivityDefId" type="long-varchar"></field>
+      <field name="pProcessId" type="long-varchar"></field>
+      <field name="pProcessName" type="long-varchar"></field>
+      <field name="pProcessDefId" type="long-varchar"></field>
+      <field name="pProcessDefName" type="long-varchar"></field>
+      <field name="pProcessDefVer" type="long-varchar"></field>
+      <field name="pPackageId" type="long-varchar"></field>
+      <prim-key field="eventAuditId"/>
+    </entity>
+    <entity entity-name="WfDataEventAudit"
+            package-name="org.ofbiz.shark.audit"
+            title="">
+      <field name="eventAuditId" type="id-ne"></field>
+      <field name="oldData" type="blob"></field>
+      <field name="newData" type="blob"></field>
+      <prim-key field="eventAuditId"/>
+    </entity>
+    <entity entity-name="WfEventAudit"
+            package-name="org.ofbiz.shark.audit"
+            title="">
+      <field name="eventAuditId" type="id-ne"></field>
+      <field name="auditTime" type="long-varchar"></field>
+      <field name="auditType" type="long-varchar"></field>
+      <field name="packageId" type="long-varchar"></field>
+      <field name="processId" type="long-varchar"></field>
+      <field name="processName" type="long-varchar"></field>
+      <field name="processDefId" type="long-varchar"></field>
+      <field name="processDefName" type="long-varchar"></field>
+      <field name="processDefVer" type="long-varchar"></field>
+      <field name="activityId" type="long-varchar"></field>
+      <field name="activityName" type="long-varchar"></field>
+      <field name="activityDefId" type="long-varchar"></field>
+      <prim-key field="eventAuditId"/>
+    </entity>
+    <entity entity-name="WfStateEventAudit"
+            package-name="org.ofbiz.shark.audit"
+            title="">
+      <field name="eventAuditId" type="id-ne"></field>
+      <field name="oldState" type="long-varchar"></field>
+      <field name="newState" type="long-varchar"></field>
+      <prim-key field="eventAuditId"/>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.shark.auth                                      -->
+    <!-- ========================================================= -->
+    <entity entity-name="SharkGroup"
+            package-name="org.ofbiz.shark.auth"
+            title="">
+      <field name="groupName" type="id-vlong"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="groupName"/>
+    </entity>
+    <entity entity-name="SharkGroupMember"
+            package-name="org.ofbiz.shark.auth"
+            title="">
+      <field name="groupName" type="id-vlong"></field>
+      <field name="userName" type="id-vlong"></field>
+      <prim-key field="groupName"/>
+      <prim-key field="userName"/>
+    </entity>
+    <entity entity-name="SharkGroupRollup"
+            package-name="org.ofbiz.shark.auth"
+            title="">
+      <field name="parentGroupName" type="id-vlong"></field>
+      <field name="groupName" type="id-vlong"></field>
+      <prim-key field="parentGroupName"/>
+      <prim-key field="groupName"/>
+    </entity>
+    <entity entity-name="SharkUser"
+            package-name="org.ofbiz.shark.auth"
+            title="">
+      <field name="userName" type="id-vlong"></field>
+      <field name="firstName" type="long-varchar"></field>
+      <field name="lastName" type="long-varchar"></field>
+      <field name="passwd" type="long-varchar"></field>
+      <field name="emailAddress" type="long-varchar"></field>
+      <prim-key field="userName"/>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.shark.instance                                  -->
+    <!-- ========================================================= -->
+    <entity entity-name="WfActivity"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="activityId" type="id-vlong"></field>
+      <field name="processId" type="id-vlong"></field>
+      <field name="setDefinitionId" type="id-long"></field>
+      <field name="definitionId" type="id-long"></field>
+      <field name="subFlowId" type="id-vlong"></field>
+      <field name="blockId" type="id-vlong"></field>
+      <field name="isSubAsync" type="indicator"></field>
+      <field name="resourceUser" type="long-varchar"></field>
+      <field name="activityName" type="long-varchar"></field>
+      <field name="description" type="long-varchar"></field>
+      <field name="currentState" type="long-varchar"></field>
+      <field name="priority" type="numeric"></field>
+      <field name="activatedTime" type="date-time"></field>
+      <field name="acceptedTime" type="date-time"></field>
+      <field name="lastStateTime" type="date-time"></field>
+      <prim-key field="activityId"/>
+      <relation type="one" fk-name="WF_ACT_PROC" rel-entity-name="WfProcess">
+          <key-map field-name="processId"/>
+      </relation>
+      <relation type="one" fk-name="WF_ACT_SUBF" title="SubFlow" rel-entity-name="WfProcess">
+          <key-map field-name="subFlowId" rel-field-name="processId"/>
+      </relation>
+    </entity>
+    <entity entity-name="WfActivityVariable"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="activityVariableId" type="id"></field>
+      <field name="activityId" type="id-vlong"></field>
+      <field name="definitionId" type="id-long"></field>
+      <field name="valueField" type="name"></field>
+      <field name="strValue" type="very-long"></field>
+      <field name="numValue" type="numeric"></field>
+      <field name="dblValue" type="floating-point"></field>
+      <field name="objValue" type="blob"></field>
+      <field name="isModified" type="indicator"></field>
+      <prim-key field="activityVariableId"/>
+    </entity>
+    <entity entity-name="WfAndJoin"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="andJoinId" type="id-ne"></field>
+      <field name="processId" type="id-vlong"></field>
+      <field name="activityId" type="id-vlong"></field>
+      <field name="activityDefId" type="id-vlong"></field>
+      <field name="activitySetDefId" type="id-vlong"></field>
+      <prim-key field="andJoinId"/>
+    </entity>
+    <entity entity-name="WfAssignment"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="activityId" type="id-vlong"></field>
+      <field name="processId" type="id-vlong"></field>
+      <field name="userName" type="id-vlong"></field>
+      <field name="isValid" type="indicator"></field>
+      <prim-key field="activityId"/>
+      <prim-key field="userName"/>
+      <relation type="one" fk-name="WF_ASSIGN_PROC" rel-entity-name="WfProcess">
+          <key-map field-name="processId"/>
+      </relation>
+      <relation type="one" fk-name="WF_ASSIGN_ACT" rel-entity-name="WfActivity">
+          <key-map field-name="activityId"/>
+      </relation>
+    </entity>
+    <entity entity-name="WfDeadline"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="deadlineId" type="id-ne"></field>
+      <field name="processId" type="id-vlong"></field>
+      <field name="activityId" type="id-vlong"></field>
+      <field name="exceptionName" type="long-varchar"></field>
+      <field name="timeLimit" type="numeric"></field>
+      <field name="isExecuted" type="indicator"></field>
+      <field name="isSync" type="indicator"></field>
+      <prim-key field="deadlineId"/>
+      <relation type="one" fk-name="WF_DEADLINE_PROC" rel-entity-name="WfProcess">
+          <key-map field-name="processId"/>
+      </relation>
+      <relation type="one" fk-name="WF_DEADLINE_ACT" rel-entity-name="WfActivity">
+          <key-map field-name="activityId"/>
+      </relation>
+    </entity>
+    <entity entity-name="WfProcess"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="processId" type="id-vlong"></field>
+      <field name="packageId" type="id-long"></field>
+      <field name="packageVer" type="long-varchar"></field>
+      <field name="mgrName" type="id-vlong"></field>
+      <field name="definitionId" type="id-long"></field>
+      <field name="activityReqProcessId" type="id-long"></field>
+      <field name="activityReqId" type="id-long"></field>
+      <field name="resourceReqId" type="id-long"></field>
+      <field name="processName" type="long-varchar"></field>
+      <field name="description" type="long-varchar"></field>
+      <field name="currentState" type="long-varchar"></field>
+      <field name="priority" type="numeric"></field>
+      <field name="externalReq" type="blob"></field>
+      <field name="createdTime" type="date-time"></field>
+      <field name="startedTime" type="date-time"></field>
+      <field name="lastStateTime" type="date-time"></field>
+      <prim-key field="processId"/>
+      <relation type="one" fk-name="WF_PROC_MGR" rel-entity-name="WfProcessMgr">
+          <key-map field-name="mgrName"/>
+      </relation>
+    </entity>
+    <entity entity-name="WfProcessMgr"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="mgrName" type="id-vlong"></field>
+      <field name="packageId" type="id-long"></field>
+      <field name="packageVer" type="long-varchar"></field>
+      <field name="definitionId" type="id-long"></field>
+      <field name="created" type="long-varchar"></field>
+      <field name="currentState" type="numeric"></field>
+      <prim-key field="mgrName"/>
+    </entity>
+    <entity entity-name="WfProcessVariable"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="processVariableId" type="id"></field>
+      <field name="processId" type="id-vlong"></field>
+      <field name="definitionId" type="id-long"></field>
+      <field name="valueField" type="name"></field>
+      <field name="strValue" type="very-long"></field>
+      <field name="numValue" type="numeric"></field>
+      <field name="dblValue" type="floating-point"></field>
+      <field name="objValue" type="blob"></field>
+      <prim-key field="processVariableId"/>
+    </entity>
+    <entity entity-name="WfResource"
+            package-name="org.ofbiz.shark.instance"
+            title="">
+      <field name="userName" type="id-vlong"></field>
+      <field name="resourceName" type="id-vlong"></field>
+      <prim-key field="userName"/>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.shark.mapping                                   -->
+    <!-- ========================================================= -->
+    <entity entity-name="WfApplicationMap"
+            package-name="org.ofbiz.shark.mapping"
+            title="">
+      <field name="packageId" type="id-vlong"></field>
+      <field name="processDefId" type="id-vlong"></field>
+      <field name="applicationDefId" type="id-vlong"></field>
+      <field name="toolAgentName" type="long-varchar"></field>
+      <field name="userName" type="id-vlong"></field>
+      <field name="passwd" type="long-varchar"></field>
+      <field name="applicationName" type="long-varchar"></field>
+      <field name="applicationMode" type="numeric"></field>
+      <prim-key field="packageId"/>
+      <prim-key field="processDefId"/>
+      <prim-key field="applicationDefId"/>
+    </entity>
+    <entity entity-name="WfParticipantMap"
+            package-name="org.ofbiz.shark.mapping"
+            title="">
+      <field name="participantMapId" type="id"></field>
+      <field name="packageId" type="id-vlong"></field>
+      <field name="processDefId" type="id-vlong"></field>
+      <field name="participantId" type="id-vlong"></field>
+      <field name="userName" type="id-vlong"></field>
+      <field name="isGroupUser" type="indicator"></field>
+      <prim-key field="participantMapId"/>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.shark.repository                                -->
+    <!-- ========================================================= -->
+    <entity entity-name="WfRepository"
+            package-name="org.ofbiz.shark.repository"
+            title="">
+      <field name="xpdlId" type="id-ne"></field>
+      <field name="xpdlVersion" type="id-vlong"></field>
+      <field name="xpdlData" type="blob"></field>
+      <field name="isHistorical" type="indicator"></field>
+      <prim-key field="xpdlId"/>
+      <prim-key field="xpdlVersion"/>
+    </entity>
+    <entity entity-name="WfRepositoryRef"
+            package-name="org.ofbiz.shark.repository"
+            title="">
+      <field name="xpdlId" type="id-ne"></field>
+      <field name="xpdlVersion" type="id-vlong"></field>
+        <field name="refXpdlId" type="id-ne"></field>
+      <prim-key field="xpdlId"/>
+      <prim-key field="xpdlVersion"/>
+      <prim-key field="refXpdlId"/>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.shark.requester                                 -->
+    <!-- ========================================================= -->
+    <entity entity-name="WfRequester"
+            package-name="org.ofbiz.shark.requester"
+            title="">
+      <field name="requesterId" type="id-ne"></field>
+      <field name="processId" type="id-vlong"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="className" type="id-vlong"></field>
+      <field name="classData" type="very-long"></field>
+      <prim-key field="requesterId"/>
+      <prim-key field="processId"/>
+      <prim-key field="fromDate"/>
+    </entity>
+</entitymodel>

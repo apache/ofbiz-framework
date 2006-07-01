@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Andy Zeneski (jaz@ofbiz.org)
+ * @version    $Rev$
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+	<form name="EditReturn" type="single" target="updateReturnHeader" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+		<alt-target use-when="returnHeader==null" target="createReturnHeader"/>
+		<auto-fields-service service-name="updateReturnHeader"/>
+		
+		<field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
+		<field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="Could not find Return with ID [${returnId}]"><text size="20" maxlength="20"/></field>
+		<field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
+		
+		<field position="1" name="entryDate"/>
+		<field name="statusId" widget-style="selectBox">
+			<drop-down>
+				<entity-options entity-name="StatusItem" description="${description}">
+					<entity-constraint name="statusTypeId" value="ORDER_RETURN_STTS"/>
+					<entity-order-by field-name="sequenceId"/>
+				</entity-options>
+			</drop-down>
+		</field>
+		
+		<field name="destinationFacilityId">
+			<radio no-current-selected-key="">
+				<option key="" description="No Facility Specified"/>				
+				<entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
+					<entity-order-by field-name="facilityName"/>
+				</entity-options>				
+			</radio>
+		</field>
+		
+		<field service-name="updateReturnHeader" name="fromPartyId"/>
+		<field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+	</form>
+	
+	<form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+		<field name="itemDescription"><display/></field>
+		<auto-fields-service service-name="createReturnItem"/>
+		<field name="returnId"><hidden/></field>
+		<field name="orderId"><hidden/></field>
+		<field name="orderItemSeqId"><hidden/></field>
+		<field name="statusId"><ignored/></field>		
+	</form>
+
+    <form name="FindReturns" type="single"  target="findreturn" title=""
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="returnId" title="${uiLabelMap.OrderReturnId}"><text-find/></field>
+        <field name="fromPartyId" title="${uiLabelMap.OrderReturnFromParty}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="billingAccountId" title="${uiLabelMap.AccountingBillingAccount}">
+            <text-find/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_RETURN_STTS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="entryDate" title="${uiLabelMap.OrderEntryDate}">
+            <date-find/>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="ListReturns" type="list"  target="findreturn" title=""
+                list-name="listIt" paginate-target="findreturn"
+                default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <service service-name="performFind"  result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" value="ReturnHeader"/>
+            </service>
+        </actions>
+        <field name="returnId"  widget-style="buttontext" title="${uiLabelMap.OrderReturnId}">
+            <hyperlink description="${returnId}" target="returnMain?returnId=${returnId}"/>
+        </field>
+        <field name="entryDate" title="${uiLabelMap.OrderEntryDate}">
+            <display/>
+        </field>
+        <field name="fromPartyId" widget-style="buttontext" title="${uiLabelMap.OrderReturnFromParty}">
+            <hyperlink target-type="inter-app" description="${fromPartyId}" target="/partymgr/control/viewprofile?partyId=${fromPartyId}${externalKeyParam}"/>
+        </field>        
+        <field name="destinationFacilityId" widget-style="buttontext" title="${uiLabelMap.OrderReturnDestinationFacility}">
+            <hyperlink target-type="inter-app" description="${destinationFacilityId}" target="/facility/control/EditFacility?facilityId=${destinationFacilityId}${externalKeyParam}"/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </form>
+
+</forms>

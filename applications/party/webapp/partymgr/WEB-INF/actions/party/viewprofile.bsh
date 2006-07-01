@@ -1,0 +1,117 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Johan Isacsson
+ *@author     Andy Zeneski
+ *@author     David E. Jones
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.*;
+import org.ofbiz.securityext.login.*;
+import org.ofbiz.common.*;
+
+import org.ofbiz.party.contact.*;
+import org.ofbiz.party.party.*;
+import org.ofbiz.accounting.payment.*;
+import org.ofbiz.securityext.login.*;
+
+partyId = parameters.get("party_id");
+if (partyId == null) partyId = parameters.get("partyId");
+context.put("partyId", partyId);
+
+userLoginId = parameters.get("userlogin_id");
+if (partyId == null && userLoginId != null) {
+    thisUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+    if (thisUserLogin != null) {
+        partyId = thisUserLogin.getString("partyId");
+    }
+}
+
+attributes = delegator.findByAnd("PartyAttribute", UtilMisc.toMap("partyId", partyId));
+context.put("attributes", attributes);
+
+userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
+context.put("userLogins", userLogins);
+
+partyRoles = delegator.findByAnd("RoleTypeAndParty", UtilMisc.toMap("partyId", partyId));
+context.put("partyRoles", partyRoles);
+
+partyNameHistoryList = delegator.findByAnd("PartyNameHistory", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-changeDate"));
+context.put("partyNameHistoryList", partyNameHistoryList);
+
+custRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "CUSTOMER"));
+if (custRole != null) {
+    context.put("isCustomer", custRole);
+}
+
+roles = delegator.findAll("RoleType", UtilMisc.toList("description", "roleTypeId"));
+context.put("roles", roles);
+
+relateTypes = delegator.findAll("PartyRelationshipType", UtilMisc.toList("description", "partyRelationshipTypeId"));
+context.put("relateTypes", relateTypes);
+
+savedCartList = EntityUtil.getFirst(delegator.findByAnd("ShoppingList",UtilMisc.toMap("partyId", partyId, "shoppingListTypeId","SLT_SPEC_PURP", "listName", "auto-save")));
+
+if (savedCartList != null){
+      savedCartListId = savedCartList.getString("shoppingListId");
+      context.put("savedCartListId", savedCartListId);
+      savedCartItems = savedCartList.getRelated("ShoppingListItem");
+      context.put("savedCartItems", savedCartItems);
+}
+
+notes = delegator.findByAnd("PartyNoteView", UtilMisc.toMap("targetPartyId", partyId), UtilMisc.toList("-noteDateTime"));
+context.put("notes", notes);
+
+GenericValue avsOverride = delegator.findByPrimaryKey("PartyIcsAvsOverride", UtilMisc.toMap("partyId", partyId));
+context.put("avsOverride", avsOverride);
+    
+visits = delegator.findByAnd("Visit", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+context.put("visits", visits);
+
+otherValues = PartyWorker.getPartyOtherValues(request, partyId, "party", "lookupPerson", "lookupGroup");
+context.put("party", otherValues.get("party"));
+context.put("lookupPerson", otherValues.get("lookupPerson"));
+context.put("lookupGroup", otherValues.get("lookupGroup"));
+
+boolean showOld = "true".equals(parameters.get("SHOW_OLD"));
+context.put("showOld", new Boolean(showOld));
+
+List partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld);
+context.put("contactMeches", partyContactMechValueMaps);
+
+List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
+context.put("paymentMethodValueMaps", paymentMethodValueMaps);
+ 
+context.put("nowStr", UtilDateTime.nowTimestamp().toString());
+
+
+// call the getOrderedSummaryInformation service to get the sub-total of valid orders in last X months
+monthsToInclude = new Integer(12);
+Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER", "statusId", "ORDER_COMPLETED", "monthsToInclude", monthsToInclude, "userLogin", userLogin);
+Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
+context.put("monthsToInclude", monthsToInclude);
+context.put("totalSubRemainingAmount", result.get("totalSubRemainingAmount"));
+context.put("totalOrders", result.get("totalOrders"));

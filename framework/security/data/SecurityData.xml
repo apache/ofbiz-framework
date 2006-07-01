@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- OFBiz Core security -->
+    <!-- Target file: framework/security/data/SecurityData.xml -->
+    <SecurityGroup groupId="FULLADMIN" description="Full Admin group, has all general permissions."/>
+    <SecurityGroup groupId="FLEXADMIN" description="Flexible Admin group, has all granular permissions."/>
+    <SecurityGroup groupId="VIEWADMIN" description="Demo Admin group, has all view permissions."/>
+
+    <SecurityGroup groupId="BIZADMIN" description="Full Business Applications permission group, has all business app admin permissions, not technical permissions."/>
+    
+    <!-- general admin tools permission -->
+    <SecurityPermission description="Permission to access the WebTools Menu." permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="OFBTOOLS_VIEW"/>
+    
+    <!-- System UserLogin Account -->
+    <UserLogin userLoginId="system" enabled="N" isSystem="Y"/>
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="system" fromDate="2001-01-01 12:00:00.0"/>
+</entity-engine-xml>

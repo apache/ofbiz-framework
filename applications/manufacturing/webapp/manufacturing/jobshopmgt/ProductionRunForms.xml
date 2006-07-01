@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="findProductionRun" target="FindProductionRun" title="" type="single"
+            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="workEffortTypeId"><hidden value="PROD_ORDER_HEADER"/></field>
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingProductionRunId}"><text-find/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="PRODUCTION_RUN"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text-find/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find/></field>
+        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
+                    <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="listFindProductionRun"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+            list-name="listIt" paginate-target="/FindProductionRun" 
+            title="" type="list">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" value="WorkEffortAndGoods"/>
+            </service>
+        </actions>
+        <field name="workEffortId" title="" widget-style="buttontext">
+            <hyperlink target="ShowProductionRun?productionRunId=${workEffortId}" description="${workEffortId}" also-hidden="false"/>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
+        <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
+        
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
+    </form>
+
+     <form name="UpdateProductionRun" type="single" 
+            target="EditProductionRun" title="" default-map-name="productionRunData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="actionForm"><hidden value="${actionForm}"/></field>
+        <field name="productionRunId"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
+            <display description="[${productionRunData.productId}]/${productionRunData.productName}"/>
+        </field>
+        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
+            <drop-down>
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
+                    <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="quantity"  title="${uiLabelMap.ManufacturingQuantity}"><text size="10"/></field>
+        <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
+        <field name="workEffortName"  title="${uiLabelMap.ManufacturingProductionRunName}"><text/></field>
+        <field name="description"  title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit" ><submit button-type="button"/></field>
+    </form>
+    
+     <form name="ListProductionRunRoutingTasks" type="list" 
+            target="EditProductionRun" title="" list-name="productionRunRoutingTasks"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
+        <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
+        <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
+        <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
+        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
+        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>
+        <field name="editLink" title="" widget-style="smallSubmit">
+            <hyperlink target="EditProductionRun?actionForm=EditRoutingTask&amp;routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="smallSubmit">
+            <!--<hyperlink target="RemoveRoutingTaskAssoc?workEffortIdFrom=${workEffortIdFrom}&amp;workEffortIdTo=${workEffortIdTo}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=ROUTING_COMPONENT" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>-->
+            <hyperlink target="deleteProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+ 
+   <form name="ListProductionRunComponents" type="list" 
+            target="EditProductionRun" title="" list-name="productionRunComponentsData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
+            <display description="${workEffortName} [${workEffortId}]"/>
+        </field>
+        <field name="internalName" title="${uiLabelMap.ProductProductName}">
+            <display description="${productName} [${productId}]"/>
+        </field> 
+        <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
+        <field name="editLink" title="" widget-style="smallSubmit">
+            <hyperlink target="EditProductionRun?actionForm=EditProductComponent&amp;workEffortId=${workEffortId}&amp;productId=${productId}&amp;productionRunId=${productionRunId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="smallSubmit">
+            <!--<hyperlink target="RemoveWorkEffortGoodStandard?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>-->
+            <hyperlink target="deleteProductionRunComponent?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}&amp;workEffortGoodStdTypeId=PRUNT_PROD_NEEDED" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+
+     <form name="EditProductionRunRoutingTask" type="single" 
+            target="EditProductionRun" title="" default-map-name="routingTaskData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="actionForm">
+            <hidden value="${actionForm}"/>
+        </field>
+        <field name="productionRunId">
+            <hidden value="${routingTaskData.workEffortParentId}"/>
+        </field>
+        <field name="routingTaskId" use-when="${actionIsAdd} == null">
+            <hidden value="${routingTaskData.workEffortId}"/>
+        </field>
+        <field name="routingTaskId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="${actionIsAdd} != null">
+            <lookup target-form-name="LookupRoutingTask"/>
+        </field>
+        <field name="priority" title="${uiLabelMap.CommonSequenceNum}">
+            <text size="4"/>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}">
+            <text/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}">
+            <text/>
+        </field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}">
+            <date-time/>
+        </field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}">
+            <display/>
+        </field>
+        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}">
+            <text/>
+        </field>
+        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}">
+            <text/>
+        </field>
+        <field name="submitButton" title="${uiLabelButton}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="EditProductionRunComponent" type="single" 
+            target="EditProductionRun" title="" default-map-name="productComponentData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="actionForm">
+            <hidden value="${actionForm}"/>
+        </field>
+        <field name="productionRunId">
+            <hidden value="${productComponentData.productionRunId}"/>
+        </field>
+        <field name="productId" use-when="${actionIsAdd}==null">
+            <hidden value="${productComponentData.productId}"/>
+        </field>
+        <field name="workEffortId" use-when="${actionIsAdd}==null">
+            <hidden value="${productComponentData.workEffortId}"/>
+        </field>
+        <field name="productId" use-when="${actionIsAdd}!=null">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="internalName" title="${uiLabelMap.ProductProductName}" use-when="${actionIsAdd}==null">
+            <display description="${productComponentData.internalName} [${productComponentData.productId}]"/>
+        </field> 
+        <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}">
+            <text size="10"/>
+        </field>
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}" widget-style="selectBox" use-when="${actionIsAdd}!=null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" description="${workEffortId}">
+                    <entity-constraint name="workEffortParentId" value="${productComponentData.productionRunId}"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="${actionIsAdd}==null">
+            <display description="${productComponentData.workEffortId}"/>
+        </field> 
+        <field name="submitButton" title="${uiLabelButton}" widget-style="smallSubmit" >
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <!-- Production Run Declaration -->
+    <form name="ShowProductionRun" type="single" 
+            target="productionRunProduce" title="" default-map-name="productionRunData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="workEffortId"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
+            <display description="[${productionRunData.productId}]/${productionRunData.productName}"/>
+        </field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
+        <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}">
+            <display/>
+        </field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingEstimatedStartDate}"><display/></field>
+        <field name="actualStartDate" title="${uiLabelMap.ManufacturingActualStartDate}"><display/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}"><display/></field>
+        <field name="productionRunName"  title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingProduceQuantity}" use-when="${showQuantity}!=null"><text/></field>
+        <field name="submitButton" title="${uiLabelButton}" widget-style="smallSubmit" use-when="${showQuantity}!=null">
+            <submit button-type="button"/>
+        </field>
+        <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}"><display/></field>
+        <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}"><display/></field>
+        <sort-order>
+            <sort-field name="productionRunName"/>
+            <sort-field name="description"/>
+            <sort-field name="estimatedStartDate"/>
+            <sort-field name="actualStartDate"/>
+            <sort-field name="estimatedCompletionDate"/>
+            <sort-field name="actualCompletionDate"/>
+            <sort-field name="productId"/>
+            <sort-field name="quantityToProduce"/>
+            <sort-field name="quantity"/>
+            <sort-field name="submitButton"/>
+            <sort-field name="quantityProduced"/>
+            <sort-field name="quantityRejected"/>
+        </sort-order>
+    </form>
+   
+    <form name="ListProductionRunDeclRoutingTasks" type="list" 
+            target="ProductionRunDeclaration" title="" list-name="productionRunRoutingTasks"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="actionForm"><hidden value="EditRoutingTask"/></field>
+        <field name="productionRunId"><hidden value="${workEffortParentId}"/></field>
+        <field name="routingTaskId"><hidden value="${workEffortId}"/></field>
+        <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
+        <field name="actualSetupMillis" title="${uiLabelMap.ManufacturingTaskActualSetupMillis}" ><display/></field>
+        <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}" ><display/></field>
+        <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}" ><display/></field>
+        <field name="startLink" title="" widget-style="smallSubmit" use-when="&quot;${startTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
+            <hyperlink target="changeProductionRunTaskStatus?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingStartProductionRunTask}" also-hidden="false"/>
+        </field>
+        <field name="issueLink" title="" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
+            <hyperlink target="issueProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingIssueProductionRunTask}" also-hidden="false"/>
+        </field>
+        <field name="declareLink" title="" widget-style="smallSubmit" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)">
+            <hyperlink target="ProductionRunDeclaration?actionForm=EditRoutingTask&amp;routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" also-hidden="false"/>
+        </field>
+        <field name="completeLink" title="" widget-style="smallSubmit" use-when="&quot;${completeTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
+            <hyperlink target="changeProductionRunTaskStatus?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingCompleteProductionRunTask}" also-hidden="false"/>
+        </field>
+    </form>
+   <form name="ListProductionRunDeclComponents" type="multi" use-row-submit="true"
+            target="productionRunTaskReturnMaterials?productionRunId=${productionRunId}" title="" list-name="productionRunComponentsData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="actionForm"><hidden value="EditProductComponent"/></field>
+        <field name="productId"><hidden/></field>
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="task" entry-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
+            <display description="${workEffortName} [${workEffortId}]"/>
+        </field>
+        <field name="internalName" title="${uiLabelMap.ProductProductName}">
+            <display description="${productName} [${productId}]"/>
+        </field> 
+        <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
+        <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display/></field>
+        <field name="returnedQuantity" title="${uiLabelMap.ManufacturingReturnedQuantity}"><display/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><text/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+        <!--<field name="quantity" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)" title="${uiLabelMap.CommonQuantity}"><text/></field>
+        <field name="quantity2" use-when="&quot;PRUN_CREATED&quot;.equals(&quot;${currentStatusId}&quot;)" title="${uiLabelMap.CommonQuantity}"><display/></field>-->
+    </form>
+    
+     <form name="EditProductionRunDeclRoutingTask" type="single" 
+            target="updateProductionRunTask" title="" default-map-name="routingTaskData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="actionForm">
+            <hidden value="${actionForm}"/>
+        </field>
+        <field name="productionRunId">
+            <hidden value="${routingTaskData.workEffortParentId}"/>
+        </field>
+        <field name="productionRunTaskId">
+            <hidden value="${routingTaskData.workEffortId}"/>
+        </field>
+        <field name="priority" title="${uiLabelMap.CommonSequenceNum}">
+            <display/>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}">
+            <display/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}">
+            <display/>
+        </field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}">
+            <display/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.ManufacturingFromDate}">
+            <date-time/>
+        </field>
+        <field name="toDate" title="${uiLabelMap.ManufacturingToDate}">
+            <date-time/>
+        </field>
+        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}">
+            <display/>
+        </field>
+        <field name="actualSetupMillis" title="${uiLabelMap.ManufacturingTaskActualSetupMillis}">
+            <display/>
+        </field>
+        <field name="addSetupTime" title="${uiLabelMap.ManufacturingAddSetupTime}">
+            <text/>
+        </field>
+        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}">
+            <display/>
+        </field>
+        <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}">
+            <display/>
+        </field>
+        <field name="addTaskTime" title="${uiLabelMap.ManufacturingAddTaskTime}">
+            <text/>
+        </field>
+
+        <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}">
+            <display/>
+        </field>
+        <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}">
+            <display/>
+        </field>
+        <field name="addQuantityProduced" title="${uiLabelMap.ManufacturingAddQuantityProduced}">
+            <text/>
+        </field>
+        <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}">
+            <display/>
+        </field>
+        <field name="addQuantityRejected" title="${uiLabelMap.ManufacturingAddQuantityRejected}">
+            <text/>
+        </field>
+        <field name="comments" title="${uiLabelMap.ManufacturingComments}">
+            <text/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.ManufacturingWorker}">
+            <text/>
+        </field>
+        <field name="submitButton" title="${uiLabelButton}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="CreateRoutingTaskDelivProduct" type="single" 
+            target="createProductionRunTaskProduct" title="" default-map-name="formData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="selectBox" use-when="${bsh:delivProducts.size()>0}">
+            <drop-down allow-empty="false">
+                <list-options list-name="delivProducts" key-name="productId" description="${productId}"/>
+            </drop-down>
+        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${bsh:delivProducts.size()==0}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingAddQuantityProduced}">
+            <text/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ProductionRunTaskInventoryProducedList" type="list" 
+            title="" list-name="prunInventoryProduced"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="inventoryItemId" title="${uiLabelMap.FacilityInventoryItem}" widget-style="buttontext">
+            <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
+        </field>
+    </form>
+    <!-- ******************* -->
+    <!-- Shipment Plan Forms -->
+    <!-- ******************* -->
+    <!-- List for Shipment Plan -->
+    <form name="listShipmentPlan" type="list" 
+            target="" title="" list-name="shipmentPlan"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
+        <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
+        <!-- quantity planned in this shipment -->
+        <field name="quantity" title="${uiLabelMap.ProductQuantity}"><display/></field>
+        <!-- quantity issued in this shipment -->
+        <field name="issuedQuantity"><display/></field>
+        <!-- total ordered quantity -->
+        <field name="totOrderedQuantity"><display/></field>
+        <!-- total not available quantity -->
+        <field name="notAvailableQuantity" title="${uiLabelMap.ProductNotAvailable}"><display/></field>
+        <!-- total planned quantity not issued -->
+        <field name="totPlannedQuantity"><display/></field>
+        <!-- total issued quantity -->
+        <field name="totIssuedQuantity"><display/></field>
+        <field name="productionRuns" title="Production Run"><display/></field>
+    </form>
+
+    <form name="listShipmentPlans" type="list" 
+            target="" title="" list-name="shipmentPlans"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="shipmentId"><display/></field>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="estimatedShipDate"><display/></field>
+        <field name="viewShipmentPlanLink" title="" widget-style="buttontext">
+            <hyperlink target="WorkWithShipmentPlans?shipmentId=${shipmentId}" description="${uiLabelMap.CommonView}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="SelectMrpName" type="single" 
+            target="ManufacturingReports" title=""
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="mrpName"  title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="mandatoryWorkEfforts" type="list" 
+            target="" title="" list-name="mandatoryWorkEfforts"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="workEffortIdFrom" title="" widget-style="buttontext">
+            <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdFrom}" description="${workEffortIdFrom}" also-hidden="false"/>
+        </field>
+        <field name="workEffortName" entry-name="workEffortIdFrom">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} " cache="true"/>
+        </field>
+        <field name="quantityToProduce" entry-name="workEffortIdFrom">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${quantityToProduce} " cache="true"/>
+        </field>
+        <field name="quantityProduced" entry-name="workEffortIdFrom">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${quantityProduced} " cache="true"/>
+        </field>
+        <field name="estimatedStartDate" entry-name="workEffortIdFrom">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${estimatedStartDate} " cache="true"/>
+        </field>
+        <field name="estimatedCompletionDate" entry-name="workEffortIdFrom">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${estimatedCompletionDate} " cache="true"/>
+        </field>
+        <field name="actualStartDate" entry-name="workEffortIdFrom">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualStartDate} " cache="true"/>
+        </field>
+        <field name="actualCompletionDate" entry-name="workEffortIdFrom">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualCompletionDate} " cache="true"/>
+        </field>
+    </form>
+    <form name="dependentWorkEfforts" type="list" 
+            target="" title="" list-name="dependentWorkEfforts"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="workEffortIdTo" title="" widget-style="buttontext">
+            <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdTo}" description="${workEffortIdTo}" also-hidden="false"/>
+        </field>
+        <field name="workEffortName" entry-name="workEffortIdTo">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} " cache="true"/>
+        </field>
+        <field name="quantityToProduce" entry-name="workEffortIdTo">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${quantityToProduce} " cache="true"/>
+        </field>
+        <field name="quantityProduced" entry-name="workEffortIdTo">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${quantityProduced} " cache="true"/>
+        </field>
+        <field name="estimatedStartDate" entry-name="workEffortIdTo">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${estimatedStartDate} " cache="true"/>
+        </field>
+        <field name="estimatedCompletionDate" entry-name="workEffortIdTo">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${estimatedCompletionDate} " cache="true"/>
+        </field>
+        <field name="actualStartDate" entry-name="workEffortIdTo">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualStartDate} " cache="true"/>
+        </field>
+        <field name="actualCompletionDate" entry-name="workEffortIdTo">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualCompletionDate} " cache="true"/>
+        </field>
+    </form>
+    <form name="ProductionRunTaskCosts" type="list" 
+            target="" title="" list-name="taskCosts"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="CostComponent" default-field-type="display"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="productId"><hidden/></field>
+        <field name="partyId"><hidden/></field>
+        <field name="geoId"><hidden/></field>
+        <field name="productFeatureId"><hidden/></field>
+        <field name="costComponentTypeId">
+            <display-entity entity-name="CostComponentType"/>
+        </field>
+        <field name="costComponentCalcId">
+            <display-entity entity-name="CostComponentCalc"/>
+        </field>
+    </form>
+</forms>

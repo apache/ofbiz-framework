@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Accounting Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Payment Method services -->
+    <service name="deletePaymentMethod" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="deletePaymentMethod" auth="true">
+        <description>Delete PaymentMethod</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createCreditCard" default-entity-name="CreditCard" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="createCreditCard" auth="true">
+        <description>Create CreditCard</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <!-- these three fields are for updating on the PaymentMethod -->
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <!-- these two will be assembled into a expireDate by buildCcExpireDate on an ECA if needed -->
+        <attribute name="expMonth" type="String" mode="IN" optional="true"/>
+        <attribute name="expYear" type="String" mode="IN" optional="true"/>
+        <override name="firstNameOnCard" optional="false"/>
+        <override name="lastNameOnCard" optional="false"/>
+        <override name="cardType" optional="false"/>
+        <override name="cardNumber" optional="false"/>
+        <override name="expireDate" optional="false"/>
+    </service>
+    <service name="createCreditCardAndAddress" engine="group" location="createCreditCardAndAddress" invoke="" auth="true">
+        <description>Creates a CreditCard and PostalAddress</description>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateCreditCardAndAddress" engine="group" location="updateCreditCardAndAddress" invoke="" auth="true">
+        <description>Updates a CreditCard and PostalAddress</description>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateCreditCard" default-entity-name="CreditCard" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateCreditCard" auth="true">
+        <description>Update CreditCard</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <!-- these three fields are for updating on the PaymentMethod -->
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <!-- these two will be assembled into a expireDate by buildCcExpireDate on an ECA if needed -->
+        <attribute name="expMonth" type="String" mode="IN" optional="true"/>
+        <attribute name="expYear" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="OUT" optional="false"/> <!-- This is the id of the new cc -->
+        <attribute name="oldPaymentMethodId" type="String" mode="OUT" optional="false"/> <!-- This is the id of the old cc -->
+    </service>
+    <service name="buildCcExpireDate" engine="java"
+                location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="makeExpireDate">
+        <description>Makes a Expire Date</description>
+        <attribute name="expMonth" type="String" mode="IN" optional="false"/>
+        <attribute name="expYear" type="String" mode="IN" optional="false"/>
+        <attribute name="expireDate" type="String" mode="OUT"/>
+    </service>
+
+    <service name="createGiftCard" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="createGiftCard" auth="true">
+        <description>Create GiftCard</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="pinNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="expireDate" type="String" mode="IN" optional="true"/>
+        <attribute name="expMonth" type="String" mode="IN" optional="true"/>
+        <attribute name="expYear" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateGiftCard" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateGiftCard" auth="true">
+        <description>Update GiftCard</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="cardNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="pinNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="expireDate" type="String" mode="IN" optional="true"/>
+        <attribute name="expMonth" type="String" mode="IN" optional="true"/>
+        <attribute name="expYear" type="String" mode="IN" optional="true"/>
+        <attribute name="oldPaymentMethodId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="createEftAccount" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="createEftAccount" auth="true">
+        <description>Create EftAccount</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="bankName" type="String" mode="IN" optional="false"/>
+        <attribute name="routingNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="accountType" type="String" mode="IN" optional="false"/>
+        <attribute name="accountNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="nameOnAccount" type="String" mode="IN" optional="false"/>
+        <attribute name="companyNameOnAccount" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="createEftAccountAndAddress" engine="group" location="createEftAccountAndAddress" invoke="" auth="true">
+        <description>Creates an EftAccount and PostalAddress</description>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateEftAccountAndAddress" engine="group" location="updateEftAccountAndAddress" invoke="" auth="true">
+        <description>Updates an EftAccount and PostalAddress</description>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateEftAccount" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="updateEftAccount" auth="true">
+        <description>Update EftAccount</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="bankName" type="String" mode="IN" optional="false"/>
+        <attribute name="routingNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="accountType" type="String" mode="IN" optional="false"/>
+        <attribute name="accountNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="nameOnAccount" type="String" mode="IN" optional="false"/>
+        <attribute name="companyNameOnAccount" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="oldPaymentMethodId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="setPaymentMethodAddress" engine="simple"
+            location="org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="setPaymentMethodAddress" auth="true">
+        <description>Set the inital payment method address.</description>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updatePaymentMethodAddress" engine="simple"
+            location="org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updatePaymentMethodAddress" auth="true" use-transaction="false">
+        <description>Finds CreditCards and EftAccounts that use the oldContactMechId and updates to the contactMechId</description>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- Payment Auth/Capture Services -->
+    <service name="manualForcedCcTransaction" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcTx" auth="true">
+        <description>Direct link to payment processors to force manual transactions; not logged in system</description>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="transactionType" type="String" mode="IN" optional="false"/>
+        <attribute name="companyNameOnCard" type="String" mode="IN" optional="true"/>
+        <attribute name="titleOnCard" type="String" mode="IN" optional="true"/>
+        <attribute name="firstNameOnCard" type="String" mode="IN" optional="false"/>
+        <attribute name="middleNameOnCard" type="String" mode="IN" optional="true"/>
+        <attribute name="lastNameOnCard" type="String" mode="IN" optional="false"/>
+        <attribute name="suffixOnCard" type="String" mode="IN" optional="true"/>
+        <attribute name="cardType" type="String" mode="IN" optional="false"/>
+        <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="cardSecurityCode" type="String" mode="IN" optional="true"/>
+        <attribute name="expMonth" type="String" mode="IN" optional="false"/>
+        <attribute name="expYear" type="String" mode="IN" optional="false"/>
+        <attribute name="firstName" type="String" mode="IN" optional="false"/>
+        <attribute name="lastName" type="String" mode="IN" optional="false"/>
+        <attribute name="infoString" type="String" mode="IN" optional="false"/>
+        <attribute name="address1" type="String" mode="IN" optional="false"/>
+        <attribute name="address2" type="String" mode="IN" optional="true"/>
+        <attribute name="city" type="String" mode="IN" optional="false"/>
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="postalCode" type="String" mode="IN" optional="false"/>
+        <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="Double" mode="IN" optional="false"/>
+        <attribute name="referenceCode" type="String" mode="IN" optional="true"/>
+        <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
+        <attribute name="tranRespMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="retryFailedAuths" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedAuths" auth="true">
+        <description>(Batch) Retries failed authorizations due to processor/connection problems</description>
+        <!-- this service has no parameters IN or OUT -->
+    </service>
+
+    <service name="retryFailedOrderAuth" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedOrderAuth" auth="true">
+        <description>Retries failed authorizations due to processor/connection problems for an order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="processResult" type="String" mode="OUT" optional="true"/>
+        <attribute name="authResultMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="authOrderPaymentPreference" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPaymentPreference" auth="true">
+        <description>Process (authorizes/re-authorizes) a single payment for an order with an optional overrideAmount</description>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
+        <attribute name="overrideAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="finished" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="errors" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="messages" type="List" mode="OUT" optional="true"/>
+        <attribute name="processAmount" type="Double" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="authOrderPayments" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPayments" auth="true">
+        <description>Process (authorizes/re-authorizes) payments for an order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="processResult" type="String" mode="OUT" optional="false"/>
+        <attribute name="authResultMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="releaseOrderPayments" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="releaseOrderPayments" auth="true">
+        <description>Releases all payment authorizations for an order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="processResult" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="capturePaymentsByInvoice" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="capturePaymentsByInvoice" auth="true">
+        <description>Captures (settles) pre-authorized order payments by invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="processResult" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="captureOrderPayments" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureOrderPayments" auth="true">
+        <description>Captures (settles) pre-authorized order payments</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="captureAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="processResult" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="refundPayment" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundPayment" auth="true">
+        <description>Refunds A Payment</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="processAuthResult" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processAuthResult" auth="true">
+        <description>Process the payment authorization result(s)</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="processAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="authResult" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="serviceTypeEnum" type="String" mode="IN" optional="true"/>
+        <attribute name="authCode" type="String" mode="IN" optional="true"/>
+        <attribute name="authAltRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="authRefNum" type="String" mode="IN" optional="false"/>
+        <attribute name="authFlag" type="String" mode="IN" optional="true"/>
+        <attribute name="authMessage" type="String" mode="IN" optional="true"/>
+        <attribute name="cvCode" type="String" mode="IN" optional="true"/>
+        <attribute name="avsCode" type="String" mode="IN" optional="true"/>
+        <attribute name="scoreCode" type="String" mode="IN" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
+    </service>
+
+    <service name="processCaptureResult" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCaptureResult" auth="true">
+        <description>Process the payment capture result(s)</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="serviceTypeEnum" type="String" mode="IN" optional="true"/>
+        <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="captureAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="captureResult" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="captureAltRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="captureRefNum" type="String" mode="IN" optional="false"/>
+        <attribute name="captureCode" type="String" mode="IN" optional="true"/>
+        <attribute name="captureFlag" type="String" mode="IN" optional="true"/>
+        <attribute name="captureMessage" type="String" mode="IN" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
+    </service>
+
+    <service name="processPaymentServiceError" engine="java" require-new-transaction="true"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="true">
+        <description>Process (store) error messages from payment service failures</description>
+        <attribute name="paymentServiceTypeEnumId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="transCodeEnumId" type="String" mode="IN" optional="false"/>
+        <attribute name="serviceResultMap" type="Map" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Payment Gateway Interfaces -->
+    <service name="paymentProcessInterface" engine="interface" location="" invoke="">
+        <description>Generic Payment Processing Interface</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="processAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="orderItems" type="List" mode="IN" optional="false"/>
+        <attribute name="billToParty" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="billToEmail" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="billingAddress" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="shippingAddress" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="customerIpAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="currency" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="authResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="authCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="authAltRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="authRefNum" type="String" mode="OUT" optional="false"/>
+        <attribute name="authFlag" type="String" mode="OUT" optional="true"/>
+        <attribute name="authMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="cvCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="avsCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="scoreCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureAltRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureFlag" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+        <attribute name="customerRespMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="paymentReleaseInterface" engine="interface" location="" invoke="">
+        <description>Generic Payment Release (reverse) Interface</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="releaseAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="currency" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="releaseResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="releaseAltRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="releaseRefNum" type="String" mode="OUT" optional="false"/>
+        <attribute name="releaseCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="releaseFlag" type="String" mode="OUT" optional="true"/>
+        <attribute name="releaseMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="paymentCreditInterface" engine="interface" location="" invoke="">
+        <description>Generic Payment Credit Interface</description>
+        <attribute name="referenceCode" type="String" mode="IN" optional="false"/>
+        <attribute name="creditAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="orderItems" type="List" mode="IN" optional="true"/>
+        <attribute name="billToParty" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="billToEmail" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="billingAddress" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="currency" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="creditResult" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="creditAltRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="creditRefNum" type="String" mode="OUT" optional="false"/>
+        <attribute name="creditCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="creditFlag" type="String" mode="OUT" optional="true"/>
+        <attribute name="creditMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="paymentRefundInterface" engine="interface" location="" invoke="">
+        <description>Generic Payment Refund Interface</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="currency" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="refundResult" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="refundAltRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="refundRefNum" type="String" mode="OUT" optional="false"/>
+        <attribute name="refundCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="refundFlag" type="String" mode="OUT" optional="true"/>
+        <attribute name="refundMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <!-- Credit Card Interfaces -->
+    <service name="ccAuthInterface" engine="interface" location="" invoke="">
+        <description>Credit Card Authorization Interface</description>
+        <implements service="paymentProcessInterface"/>
+        <attribute name="creditCard" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="cardSecurityCode" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="ccCaptureInterface" engine="interface" location="" invoke="">
+        <description>Credit Card Capture Interface</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="captureAmount" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="currency" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="authTrans" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="captureAltRefNum" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureRefNum" type="String" mode="OUT" optional="false"/>
+        <attribute name="captureCode" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureFlag" type="String" mode="OUT" optional="true"/>
+        <attribute name="captureMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="ccCreditInterface" engine="interface" location="" invoke="">
+        <description>Credit Card 'Credit' Inteface</description>
+        <implements service="paymentCreditInterface"/>
+        <attribute name="creditCard" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="cardSecurityCode" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- EFT Account Interfaces -->
+    <service name="eftProcessInterface" engine="interface" location="" invoke="">
+        <description>EFT Account Processing Interface</description>
+        <implements service="paymentProcessInterface"/>
+        <attribute name="eftAccount" type="GenericValue" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Gift Card Interfaces -->
+    <service name="giftCardProcessInterface" engine="interface" location="" invoke="">
+        <description>Gift Card Processing Interface</description>
+        <implements service="paymentProcessInterface"/>
+        <attribute name="giftCard" type="GenericValue" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Test Implementations -->
+    <service name="testCCProcessor" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+     <service name="testCCProcessorWithCapture" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessorWithCapture">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="alwaysApproveCCProcessor" engine="java"
+             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="alwaysApproveWithCaptureCCProcessor" engine="java"
+             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveWithCapture">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="alwaysDeclineCCProcessor" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="alwaysFailCCProcessor" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysFailProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="testCCCapture" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCapture">
+        <description>Credit Card Test Capture</description>
+        <implements service="ccCaptureInterface"/>
+    </service>
+    <service name="testCCCaptureWithReAuth" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCaptureWithReAuth">
+        <description>Credit Card Test Capture</description>
+        <implements service="ccCaptureInterface"/>
+    </service>
+    <service name="testCCRelease" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
+        <description>Credit Card Test Release</description>
+        <implements service="paymentReleaseInterface"/>
+    </service>
+    <service name="testCCRefund" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRefund">
+        <description>Credit Card Test Refund</description>
+        <implements service="paymentRefundInterface"/>
+    </service>
+
+    <!-- Test GiftCard Services -->
+    <service name="alwaysApproveGCProcessor" engine="java"
+             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveWithCapture">
+        <description>Gift Card Processing</description>
+        <implements service="giftCardProcessInterface"/>
+    </service>
+    <service name="alwaysDeclineGCProcessor" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
+        <description>Gift Card Processing</description>
+        <implements service="giftCardProcessInterface"/>
+    </service>
+    <service name="testGCRelease" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
+        <description>Gift Card Test Release</description>
+        <implements service="paymentReleaseInterface"/>
+    </service>
+
+    <!-- Test EFT Implementations -->
+    <service name="testEFTProcessor" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testProcessor">
+        <description>EFT Account Processing</description>
+        <implements service="eftProcessInterface"/>
+    </service>
+    <service name="alwaysApproveEFTProcessor" engine="java"
+             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
+        <description>EFT Account Processing</description>
+        <implements service="eftProcessInterface"/>
+    </service>
+    <service name="alwaysDeclineEFTProcessor" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
+        <description>EFT Account Processing</description>
+        <implements service="eftProcessInterface"/>
+    </service>
+    <service name="testEFTRelease" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
+        <description>EFT Account Test Release</description>
+        <implements service="paymentReleaseInterface"/>
+    </service>
+</services>

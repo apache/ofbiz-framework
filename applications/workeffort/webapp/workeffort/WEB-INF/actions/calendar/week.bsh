@@ -1,0 +1,82 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Johan Isacsson
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import org.ofbiz.security.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.webapp.pseudotag.*;
+import org.ofbiz.workeffort.workeffort.*;
+import java.sql.Timestamp;
+
+String currentDay = parameters.get("currentDay");
+String startParam = parameters.get("start");
+
+facilityId = parameters.get("facilityId");
+fixedAssetId = parameters.get("fixedAssetId");
+partyId = parameters.get("partyId");
+
+eventsParam = "";
+if (facilityId != null) {
+    eventsParam = "facilityId=" + facilityId;
+}
+if (fixedAssetId != null) {
+    eventsParam = "fixedAssetId=" + fixedAssetId;
+}
+if (partyId != null) {
+    eventsParam = "partyId=" + partyId;
+}
+
+Timestamp now = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
+Timestamp start = null;
+if(startParam != null) 
+    start = new Timestamp(Long.parseLong(startParam));
+    
+if(start == null) {
+    start = now;
+} else {
+    start = UtilDateTime.getWeekStart(start);
+}
+    
+Timestamp prev = UtilDateTime.getDayStart(start,-7);
+Timestamp next = UtilDateTime.getDayStart(start,7);
+Timestamp end = UtilDateTime.getDayStart(start,6);
+
+Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(7),"periodSeconds",new Integer(3600*24));
+serviceCtx.put("partyId", partyId);
+serviceCtx.put("facilityId", facilityId);
+serviceCtx.put("fixedAssetId", fixedAssetId);
+
+Map result = dispatcher.runSync("getWorkEffortEventsByPeriod",serviceCtx);
+context.put("periods",result.get("periods"));
+context.put("maxConcurrentEntries",result.get("maxConcurrentEntries"));
+context.put("start",start);
+context.put("end",end);
+context.put("prev",prev);
+context.put("next",next);
+context.put("now",now);
+context.put("eventsParam", eventsParam);

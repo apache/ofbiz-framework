@@ -1,0 +1,175 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.1
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.accounting.payment.*;
+import org.ofbiz.order.order.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.catalog.*;
+import org.ofbiz.product.store.*;
+
+orderId = parameters.get("orderId");
+
+partyId = null;
+if (userLogin != null) partyId = userLogin.getString("partyId");
+
+orderHeader = null;
+if (orderId != null && orderId.length() > 0) {
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    if (orderHeader != null) {
+        orderRole = delegator.findByPrimaryKey("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", "PLACING_CUSTOMER"));
+        if (userLogin == null || orderRole == null) {
+            context.remove("orderHeader");
+            orderHeader = null;
+        }
+    }
+}
+
+if (orderHeader != null) {
+    orderReadHelper = new OrderReadHelper(orderHeader);
+    orderItems = orderReadHelper.getOrderItems();
+    orderAdjustments = orderReadHelper.getAdjustments();
+    orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments();
+    orderSubTotal = orderReadHelper.getOrderItemsSubTotal();
+    orderItemShipGroups = orderReadHelper.getOrderItemShipGroups();
+    headerAdjustmentsToShow = orderReadHelper.getOrderHeaderAdjustmentsToShow();
+
+    orderShippingTotal = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
+    orderShippingTotal += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
+
+    orderTaxTotal = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false);
+    orderTaxTotal += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false);
+    
+    placingCustomerOrderRoles = delegator.findByAnd("OrderRole",UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER"));
+    placingCustomerOrderRole = EntityUtil.getFirst(placingCustomerOrderRoles);        
+    placingCustomerPerson = placingCustomerOrderRole == null ? null : delegator.findByPrimaryKey("Person",UtilMisc.toMap("partyId", placingCustomerOrderRole.getString("partyId")));
+
+    billingAccount = orderHeader.getRelatedOne("BillingAccount");
+  
+    orderPaymentPreferences = UtilMisc.toIterator(EntityUtil.filterByAnd(orderHeader.getRelated("OrderPaymentPreference"),
+            UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"))));
+    paymentMethods = new ArrayList();
+    if (orderPaymentPreferences != null) {
+        while (orderPaymentPreferences.hasNext()) {
+            opp = orderPaymentPreferences.next();
+            paymentMethod = opp.getRelatedOne("PaymentMethod");
+            if (paymentMethod != null) {
+                paymentMethods.add(paymentMethod);
+            } else {
+                paymentMethodType = opp.getRelatedOne("PaymentMethodType");
+                if (paymentMethodType != null) {
+                    context.put("paymentMethodType", paymentMethodType);
+                }
+            }
+        }
+    }
+
+    webSiteId = orderHeader.getString("webSiteId");
+    if (webSiteId == null) {
+        webSiteId = CatalogWorker.getWebSiteId(request);
+    }
+
+    productStore = orderHeader.getRelatedOne("ProductStore");
+    boolean isDemoStore = true;
+    if (productStore != null) isDemoStore = !"N".equals(productStore.getString("isDemoStore"));
+    
+    payToPartyId = productStore.getString("payToPartyId");
+    paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);    
+    if (paymentAddress != null) context.put("paymentAddress", paymentAddress);  
+     
+    // get Shipment tracking info
+    osisCond = new EntityFieldMap(UtilMisc.toMap("orderId", orderId), EntityOperator.AND);
+    osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
+    osisFields = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId");
+    osisFields.add("shipmentPackageSeqId");
+    osisFields.add("trackingCode");
+    osisFields.add("boxNumber");
+    osisFindOptions = new EntityFindOptions(); osisFindOptions.setDistinct(true);
+    orderShipmentInfoSummaryList = delegator.findByCondition("OrderShipmentInfoSummary", osisCond, null, osisFields, osisOrder, osisFindOptions);
+
+    customerPoNumberSet = new TreeSet();
+    orderItemPoIter = UtilMisc.toIterator(orderItems);
+    while (orderItemPoIter != null && orderItemPoIter.hasNext()) {
+        orderItemPo = orderItemPoIter.next();
+        String correspondingPoId = orderItemPo.getString("correspondingPoId");
+        if (UtilValidate.isNotEmpty(correspondingPoId) && !"(none)".equals(correspondingPoId)) {
+            customerPoNumberSet.add(correspondingPoId);
+        }
+    }
+    
+    // check if there are returnable items
+    returned = 0.00;
+    totalItems = 0.00;    
+    oii = orderItems.iterator();
+    while (oii.hasNext()) {
+        oitem = oii.next();
+        totalItems += oitem.getDouble("quantity").doubleValue();
+        ritems = oitem.getRelated("ReturnItem");
+        if (ritems != null) {
+            rii = ritems.iterator();
+            while (rii.hasNext()) {
+                ritem = rii.next();
+                rh = ritem.getRelatedOne("ReturnHeader");
+                if (!rh.getString("statusId").equals("RETURN_CANCELLED")) {
+                    returned += ritem.getDouble("returnQuantity").doubleValue();
+                }
+            }           
+        }
+    }
+
+    if (totalItems > returned) {
+        context.put("returnLink", "Y");
+    }    
+
+    context.put("orderId", orderId);
+    context.put("orderHeader", orderHeader);
+    context.put("localOrderReadHelper", orderReadHelper);
+    context.put("orderItems", orderItems);
+    context.put("orderAdjustments", orderAdjustments);
+    context.put("orderHeaderAdjustments", orderHeaderAdjustments);
+    context.put("orderSubTotal", orderSubTotal);
+    context.put("orderItemShipGroups", orderItemShipGroups);
+    context.put("headerAdjustmentsToShow", headerAdjustmentsToShow);    
+    context.put("currencyUomId", orderReadHelper.getCurrency());
+
+    context.put("orderShippingTotal", orderShippingTotal);
+    context.put("orderTaxTotal", orderTaxTotal);   
+    context.put("orderGrandTotal", OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments));
+    context.put("placingCustomerPerson", placingCustomerPerson);
+
+    context.put("billingAccount", billingAccount);
+    context.put("paymentMethods", paymentMethods);
+
+    context.put("productStore", productStore);
+    context.put("isDemoStore", isDemoStore);
+
+    context.put("orderShipmentInfoSummaryList", orderShipmentInfoSummaryList);
+    context.put("customerPoNumberSet", customerPoNumberSet);
+}

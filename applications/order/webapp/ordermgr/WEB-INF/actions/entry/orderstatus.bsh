@@ -1,0 +1,146 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski
+ *@version    $Rev$
+ *@since      2.1
+*/
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.accounting.payment.*;
+import org.ofbiz.order.order.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.catalog.*;
+import org.ofbiz.product.store.*;
+
+delegator = request.getAttribute("delegator");
+orderId = request.getParameter("orderId");
+if (orderId == null) orderId = request.getAttribute("orderId");
+orderHeader = null;
+
+if (orderId != null && orderId.length() > 0) {
+  orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+}
+
+if (orderHeader != null) {   
+    orderReadHelper = new OrderReadHelper(orderHeader);
+    orderItems = orderReadHelper.getOrderItems();
+    orderAdjustments = orderReadHelper.getAdjustments();
+    orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments();
+    orderSubTotal = orderReadHelper.getOrderItemsSubTotal();
+    headerAdjustmentsToShow = orderReadHelper.getOrderHeaderAdjustmentsToShow();
+    orderTerms = orderHeader.getRelated("OrderTerm");
+
+    if (orderHeader.getString("orderTypeId").equals("PURCHASE_ORDER")) {
+        context.put("orderForParty", orderReadHelper.getSupplierAgent());    
+    } else {
+        context.put("orderForParty", orderReadHelper.getBillToParty());
+    }
+   
+    context.put("orderName", orderReadHelper.getOrderName());  // a direct get on OrderHeader should also work
+    context.put("orderHeader", orderHeader);
+    context.put("currencyUomId", orderHeader.get("currencyUom"));
+    context.put("localOrderReadHelper", orderReadHelper);
+    context.put("orderItems", orderItems);
+    context.put("orderAdjustments", orderAdjustments);
+    context.put("orderHeaderAdjustments", orderHeaderAdjustments);
+    context.put("orderSubTotal", orderSubTotal);
+    context.put("headerAdjustmentsToShow", headerAdjustmentsToShow);
+    context.put("orderTerms",orderTerms);
+    
+    shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
+    shippingAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
+    context.put("orderShippingTotal", shippingAmount);
+
+    taxAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false);
+    taxAmount += OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false);
+    context.put("orderTaxTotal", taxAmount);   
+    context.put("orderGrandTotal", OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments));
+    
+    placingCustomerOrderRoles = delegator.findByAnd("OrderRole",UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER"));
+    placingCustomerOrderRole = EntityUtil.getFirst(placingCustomerOrderRoles);        
+    placingCustomerPerson = placingCustomerOrderRole == null ? null : delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", placingCustomerOrderRole.getString("partyId")));
+    context.put("placingCustomerPerson", placingCustomerPerson);
+
+    shippingAddress = orderReadHelper.getShippingAddress("00001");
+    context.put("shippingAddress", shippingAddress);
+    billingAccount = orderHeader.getRelatedOne("BillingAccount");
+    context.put("billingAccount", billingAccount);
+  
+    orderPaymentPreferences = UtilMisc.toIterator(orderHeader.getRelated("OrderPaymentPreference"));
+    paymentMethodTypeId = null;
+    if (orderPaymentPreferences != null && orderPaymentPreferences.hasNext()) {
+        orderPaymentPreference = orderPaymentPreferences.next();
+        paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod");        
+        paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType");
+        paymentMethodTypeId = paymentMethodType.getString("paymentMethodTypeId");
+        context.put("paymentMethod", paymentMethod);
+        context.put("paymentMethodType", paymentMethodType);
+        
+        if (paymentMethod != null && "CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+            creditCard = paymentMethod.getRelatedOneCache("CreditCard");
+            context.put("creditCard", creditCard);
+            context.put("formattedCardNumber", ContactHelper.formatCreditCard(creditCard));
+        } else if (paymentMethod != null && "EFT_ACCOUNT".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+            eftAccount = paymentMethod.getRelatedOneCache("EftAccount");
+            context.put("eftAccount", eftAccount);
+        }        
+    } 
+    
+    webSiteId = CatalogWorker.getWebSiteId(request);
+    productStore = ProductStoreWorker.getProductStore(request);
+    if (productStore != null) {
+        payToPartyId = productStore.getString("payToPartyId");
+        paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);    
+        if (paymentAddress != null) context.put("paymentAddress", paymentAddress);
+    }    
+       
+    orderItemShipGroups = UtilMisc.toIterator(orderHeader.getRelated("OrderItemShipGroup"));
+    if (orderItemShipGroups != null && orderItemShipGroups.hasNext()) {
+        shipGroup = orderItemShipGroups.next();
+        context.put("carrierPartyId", shipGroup.getString("carrierPartyId"));
+        context.put("shipmentMethodTypeId", shipGroup.getString("shipmentMethodTypeId"));
+        shipmentMethodType = delegator.findByPrimaryKey("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", shipGroup.getString("shipmentMethodTypeId")));
+        if (shipmentMethodType != null) {
+            context.put("shipMethDescription", shipmentMethodType.getString("description"));
+        } else {
+            context.put("shipMethDescription", "N/A");
+        }
+        context.put("shippingInstructions", shipGroup.getString("shippingInstructions"));
+        context.put("maySplit", shipGroup.getString("maySplit"));
+        context.put("giftMessage", shipGroup.getString("giftMessage"));
+        context.put("isGift", shipGroup.getString("isGift"));
+        context.put("trackingNumber", shipGroup.getString("trackingNumber"));
+        context.put("shipBeforeDate", shipGroup.get("shipByDate"));
+        context.put("shipAfterDate", shipGroup.get("shipAfterDate"));
+    }
+
+    customerPoNumber = null;
+    orderItemPOIter = UtilMisc.toIterator(orderItems);
+    if (orderItemPOIter != null && orderItemPOIter.hasNext()) {
+        orderItemPo = orderItemPOIter.next();
+        context.put("customerPoNumber", orderItemPo.getString("correspondingPoId"));
+    }
+    orderType = orderReadHelper.getOrderTypeId();
+    context.put("orderType", orderType);
+}

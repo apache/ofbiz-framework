@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="FindRequirements" type="single" target="RequirementsForSupplier" title="" default-title-style="tableheadtext" default-widget-style="tabletext"
+        default-tooltip-style="tabletext">
+        <field name="hideSearch"><hidden value="Y"/></field>
+        <field name="requirementId"><text-find/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="requirementByDate"><date-find type="date"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="RequirementsList" type="multi" use-row-submit="true" target="addRequirementsToCart" title="" list-name="requirementsForSupplier"
+        paginate-target="RequirementsForSupplier" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <service service-name="prepareFind" result-map-name="resultConditions">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+            </service>
+            <service service-name="getRequirementsForSupplier" result-map-name="result" result-map-list-name="requirementsForSupplier">
+                <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
+                <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
+            </service>
+        </actions>
+        <field name="requirementId"><display/></field>
+        <field name="productId"><hidden value="${productId}"/></field>
+        <field name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+        </field>
+
+        <field name="requiredByDate"><display/></field>
+        <field name="quantity"><text/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="FindQuotes" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="inputBox"
+            target="FindQuoteForCart" title="" type="single">
+        <auto-fields-entity entity-name="Quote" default-field-type="find"/>
+        <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
+        <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId"/>
+            </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
+        <field name="statusId"><hidden/></field>
+        <field name="currencyUomId"><hidden/></field>
+        <field name="validFromDate"><hidden/></field>
+        <field name="validThruDate"><hidden/></field>
+        <field name="description"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListQuotes" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext"
+            list-name="listIt" target="" paginate-target="FindQuoteForCart" title="" type="list">
+      	<actions>
+          <set field="entityName" value="Quote"/>
+          <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+            <field-map field-name="inputFields" env-name="requestParameters"/>
+            <field-map field-name="entityName" env-name="entityName"/>
+          </service>
+        </actions>
+        <auto-fields-entity entity-name="Quote" default-field-type="display"/>
+
+        <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${quoteId}" target="loadCartFromQuote?quoteId=${quoteId}"/>
+        </field>
+        <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
+            <display-entity entity-name="QuoteType"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"></field>
+        <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
+        <field name="validFromDate" title="${uiLabelMap.CommonValidFromDate}"></field>
+        <field name="validThruDate" title="${uiLabelMap.CommonValidThruDate}"></field>
+        <field name="statusId"><hidden/></field>
+        <field name="currencyUomId"><hidden/></field>
+    </form>
+    <form name="ViewShoppingLists" type="list" default-title-style="tableheadtext" default-widget-style="tabletext"
+          list-name="customershoppinglists" target="">
+          <field name="listName" title="${uiLabelMap.PageTitleShoppingList}"><display/></field>
+          <field name="shoppingListTypeId" title="${uiLabelMap.EcommerceListType}">
+              <display-entity entity-name="ShoppingListType"/>
+          </field>
+          <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+          <field name="addFromList" title="" widget-style="buttontext">
+              <hyperlink target="addFromShoppingList?shoppingListId=${shoppingListId}" description="View List" also-hidden="false"/>
+          </field>
+          <field name="addAllFromList" title="" widget-style="buttontext">
+              <hyperlink target="addAllFromShoppingList?shoppingListId=${shoppingListId}" description="Quick Add All" also-hidden="false"/>
+          </field>
+    </form>
+    <form name="AddFromShoppingList" type="list" default-title-style="tableheadtext" default-widget-style="tabletext"
+          list-name="shoppinglistitems" target="">
+          <auto-fields-entity entity-name="ShoppingListItem" default-field-type="display"/>
+          <field name="productId" title="${uiLabelMap.ProductProduct}">
+              <display-entity entity-name="Product" description="${productId} - ${description}"/>
+          </field>
+          <field name="addToCart" title="" widget-style="buttontext">
+              <hyperlink target="additem/editShoppingList?shoppingListId=${shoppingListId}&amp;shoppingListItemSeqId=${shoppingListItemSeqId}&amp;add_product_id=${productId}&amp;quantity=${quantity}"
+                  description="Add ${quantity} to Order" also-hidden="false"/>
+          </field>
+    </form>
+    <form name="AddFromShoppingListAll" type="single" target="">
+          <field name="addAllFromList" title="" widget-style="buttontext">
+              <hyperlink target="addAllFromShoppingList?shoppingListId=${shoppingListId}" description="Quick Add All" also-hidden="false"/>
+          </field>
+          <field name="returnToOrderEntry" title="" widget-style="buttontext">
+              <hyperlink target="orderentry" description="Return" also-hidden="false"/>
+          </field>
+    </form>
+
+    <form name="LookupBulkAddProducts" type="multi" use-row-submit="true" list-name="productList" title=""
+            target="BulkAddProducts"  paginate-target="LookupBulkAddProducts" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
+        </field>
+        <field name="brandName" widget-style="tabletext"><display/></field>
+        <field name="internalName" widget-style="tabletext"><display/></field>
+        <field name="quantity" title="${uiLabelMap.OrderQuantity}">
+            <text size="5" maxlength="10"/>
+        </field>
+        <field name="amount" title="${uiLabelMap.OrderAmount}">
+            <text size="5" maxlength="10"/>
+        </field>
+        <field name="itemDesiredDeliveryDate" title="${uiLabelMap.OrderDesiredDeliveryDate}">
+            <date-time/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.OrderAddToOrder}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
+
+</forms>

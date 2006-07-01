@@ -1,0 +1,123 @@
+/*
+ * $Id: permprep.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      3.0
+
+ * Does either a "simple" (does entity perm check) or complex
+ * (uses EntityPurpose/Operation/etc. tables) to check by roles.
+ */
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+String module = "permprep.bsh";
+
+dispatcher = request.getAttribute("dispatcher");
+delegator = request.getAttribute("delegator");
+    
+security = request.getAttribute("security");
+// Get permission from pagedef config file
+permission = page.getProperty("permission");
+permissionType = page.getProperty("permissionType");
+if (permissionType == null) permissionType = "simple";
+entityName = page.getProperty("entityName");
+entityOperation = page.getProperty("entityOperation");
+if (entityOperation == null) entityOperation = "_ADMIN";
+targetOperation = page.getProperty("targetOperation");
+if (targetOperation == null) targetOperation = "CREATE_CONTENT";
+
+if (permissionType.equals("complex")) {
+    mapIn = new HashMap();
+    userLogin = session.getAttribute("userLogin");
+    mapIn.put("userLogin", userLogin);
+    mapIn.put("entityOperation", entityOperation);
+    
+    currentValue = request.getAttribute("currentValue");
+
+    if (currentValue == null || !currentValue.getEntityName().equals("Content")) {
+        currentEntityMap = session.getAttribute("currentEntityMap");
+        if (currentEntityMap == null) {
+            currentEntityMap = new HashMap();
+            session.setAttribute("currentEntityMap", currentEntityMap);
+        }
+        cachedPK = currentEntityMap.get("Content");
+        if (cachedPK != null)
+            currentValue = delegator.findByPrimaryKey(cachedPK);
+    }
+    if (currentValue != null && currentValue.getEntityName().equals("Content")) {
+        mapIn.put("currentContent", currentValue);
+    }
+    List targetOperationList = UtilMisc.toList(targetOperation);
+    mapIn.put("targetOperationList", targetOperationList );
+
+    result = dispatcher.runSync("checkContentPermission", mapIn);
+    permissionStatus = result.get("permissionStatus");
+    if (Debug.verboseOn()) Debug.logVerbose("permissionStatus:" + permissionStatus, module);
+    if (permissionStatus != null && permissionStatus.equals("granted")) {
+        context.put("hasPermission", Boolean.TRUE);
+        request.setAttribute("hasPermission", Boolean.TRUE);
+        request.setAttribute("permissionStatus", "granted");
+    } else {
+        context.put("hasPermission", false);
+        request.setAttribute("hasPermission", false);
+        request.setAttribute("permissionStatus", "");
+    }
+} else {
+        
+    if (Debug.verboseOn()) Debug.logVerbose("permission:" + permission , module);
+    if (Debug.verboseOn()) Debug.logVerbose("entityOperation:" + entityOperation , module);
+    if(security.hasEntityPermission(permission, entityOperation, session)) {
+    if (Debug.verboseOn()) Debug.logVerbose("hasEntityPermission is true:" , module);
+    	context.put("hasPermission", Boolean.TRUE);
+        request.setAttribute("hasPermission", Boolean.TRUE);
+        request.setAttribute("permissionStatus", "granted");
+    } else {
+    if (Debug.verboseOn()) Debug.logVerbose("hasEntityPermission is false:" , module);
+    	context.put("hasPermission", Boolean.FALSE);
+        request.setAttribute("hasPermission", Boolean.FALSE);
+        request.setAttribute("permissionStatus", "");
+    }
+}

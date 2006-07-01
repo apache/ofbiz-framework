@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<project name="OFBiz Applications Build" default="build" basedir=".">
+
+    <filelist id="application-builds" dir="."
+        files="content/build.xml,party/build.xml,
+               workeffort/build.xml,product/build.xml,marketing/build.xml,
+               order/build.xml,manufacturing/build.xml,
+               accounting/build.xml,ecommerce/build.xml,
+               securityext/build.xml,
+               pos/build.xml"/>
+
+    <!-- ================================================================== -->
+    <!-- Removes all created files and directories                          -->
+    <!-- ================================================================== -->
+
+    <target name="refresh">
+        <antcall target="clean-all"/>
+        <antcall target="build"/>
+    </target>
+
+    <target name="clean-all">
+        <antcall target="clean-data"/>
+        <antcall target="clean-logs"/>
+        <antcall target="clean-xtra"/>
+        <antcall target="clean-catalina"/>
+        <antcall target="clean"/>
+    </target>
+
+    <target name="clean-data">
+        <delete verbose="on" dir="data"/>
+    </target>
+
+    <target name="clean-logs">
+        <delete verbose="on">
+            <fileset dir="logs" includes="*"/>
+        </delete>
+    </target>
+
+    <target name="clean-xtra" depends="">
+        <delete verbose="on">
+            <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
+        </delete>
+    </target>
+
+    <target name="clean-catalina" depends="">
+        <delete dir="framework/catalina/work"/>
+    </target>
+
+    <target name="tests">
+    </target>
+
+    <target name="clean">
+        <subant target="clean">
+            <filelist refid="application-builds"/>
+        </subant>
+        <delete file="ofbiz.jar"/>
+        <echo message="[clean] ========== Done Cleaning Applications =========="/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Build Components                                                   -->
+    <!-- ================================================================== -->
+
+    <target name="build" depends="">
+        <echo message="[build] ========== Start Building Applications (Compile) =========="/>
+
+        <subant inheritall="false">
+            <filelist refid="application-builds"/>
+        </subant>
+
+        <echo message="[build] ========== Done Building Applications (Compile) =========="/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Build JavaDocs                                                     -->
+    <!-- ================================================================== -->
+
+    <target name="docs" depends="">
+        <echo message="[docs] ========== Start Building Applications (JavaDoc) =========="/>
+
+        <subant target="docs">
+            <filelist refid="application-builds"/>
+        </subant>
+
+        <echo message="[docs] ========== Done Building Applications (JavaDocs) =========="/>
+    </target>
+</project>

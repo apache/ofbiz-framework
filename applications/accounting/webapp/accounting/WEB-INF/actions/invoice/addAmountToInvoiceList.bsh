@@ -1,0 +1,40 @@
+/*
+ * $Id: $
+ *
+ * Copyright 2005-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+ 
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.collections.*;
+import org.ofbiz.accounting.invoice.*;
+import java.text.DateFormat;
+
+delegator = request.getAttribute("delegator");
+// if (invoiceId == null)  return;
+// invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+
+ArrayList newInvoices = new ArrayList();    //create new list, cannot modify existing one
+Iterator i = (Iterator) context.get("listIt");  // get iterator existing list
+while (i.hasNext())    {
+    item = i.next();
+    Map itemmap = new HashMap();
+    itemmap.putAll((Map) item);
+    itemmap.put("total", InvoiceWorker.getInvoiceTotal(item));
+     //create new list
+    newInvoices.add(itemmap);
+}
+context.put("newListIt",newInvoices.iterator());

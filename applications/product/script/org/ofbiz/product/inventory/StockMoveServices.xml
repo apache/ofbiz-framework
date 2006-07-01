@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     David E. Jones (jonesde@ofbiz.org)
+ * @version    $Rev$
+ * @since      2.2
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <!-- =================================================================== -->
+    <!-- ======================= Stock Move Services ======================= -->
+    <!-- =================================================================== -->
+
+    <simple-method method-name="findStockMovesNeeded" short-description="Find all Stock Moves that need to be done">
+        <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
+        <check-permission permission="FACILITY" action="_VIEW">
+            <fail-message message="Security Error: to run findStockMovesNeeded you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <!-- First find all OrderItemShipGrpInvRes that are in a FLT_BULK location in the current Facility -->
+        <entity-and entity-name="OrderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+            <field-map field-name="locationTypeEnumId" value="FLT_BULK"/>
+            <field-map field-name="orderItemStatusId" value="ITEM_APPROVED"/>
+            <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+        </entity-and>
+
+        <!--
+            Consolidate into a List of infos return as moveByOisgirInfoList where each info Map contains:
+             - product
+             - facilityLocationFrom
+             - facilityLocationTo
+             - totalQuantity
+             - orderItemShipGrpInvResInfoList (to be done later if we need it)
+        -->
+        <!-- start by making a Map where the locationSeqId is the key and the value is a List of orderItemShipGrpInvResAndItemLocation -->
+        <iterate entry-name="orderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+            <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByLocMap.${orderItemShipGrpInvResAndItemLocation.locationSeqId}"/>
+        </iterate>
+
+        <!-- now get all info for each origin location -->
+        <iterate-map key-name="locationSeqId" value-name="perLocationOiirailList" map-name="oiirailByLocMap">
+            <!-- now for more fun, split up by productId; this should generally not happen, but we'll make sure here -->
+            <clear-field field-name="oiirailByProdMap"/>
+            <iterate entry-name="orderItemShipGrpInvResAndItemLocation" list-name="perLocationOiirailList">
+                <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByProdMap.${orderItemShipGrpInvResAndItemLocation.productId}"/>
+            </iterate>
+
+            <clear-field field-name="perProductOiirailList"/>
+            <clear-field field-name="productId"/>
+            <iterate-map key-name="productId" value-name="perProductOiirailList" map-name="oiirailByProdMap">
+                <!-- get product -->
+                <entity-one entity-name="Product" value-name="moveInfo.product"/>
+
+                <!-- get facilityLocationFrom -->
+                <entity-one entity-name="FacilityLocation" value-name="moveInfo.facilityLocationFrom">
+                    <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+                    <field-map field-name="locationSeqId" env-name="locationSeqId"/>
+                </entity-one>
+                
+                <!-- get facilityLocationTo: a little more tricky, find the first FLT_PICKLOC  -->
+                <entity-and entity-name="ProductFacilityLocationView" list-name="productFacilityLocationViewList">
+                    <field-map field-name="productId" env-name="productId"/>
+                    <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+                    <field-map field-name="locationTypeEnumId" value="FLT_PICKLOC"/>
+                </entity-and>
+
+                <if-empty field-name="productFacilityLocationViewList">
+                    <string-to-list string="Error in stock move, could not find a pick/primary location for facility [${parameters.facilityId}] and product [${productId}]" list-name="warningMessageList"/>
+                <else>
+                    <!-- should generally only be one pick/primary location, just choose the first... -->
+                    <first-from-list entry-name="productFacilityLocationView" list-name="productFacilityLocationViewList"/>
+                    <get-related-one value-name="productFacilityLocationView" relation-name="FacilityLocation" to-value-name="moveInfo.facilityLocationTo"/>
+                    <get-related-one value-name="productFacilityLocationView" relation-name="ProductFacilityLocation" to-value-name="targetProductFacilityLocation"/>
+
+                    <!-- get totalQuantity: iterate through perProductOiirailList and add up quantity (from OrderItemShipGrpInvRes) -->
+                    <calculate field-name="moveInfo.totalQuantity" type="Double"><number value="0"/></calculate>
+                    <iterate entry-name="perProductOiirail" list-name="perProductOiirailList">
+                        <calculate field-name="moveInfo.totalQuantity" type="Double">
+                            <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="perProductOiirail.quantity" operator="get"/></calcop>
+                        </calculate>
+                    </iterate>
+
+                    <!-- if moveInfo.totalQuantity is greater than the total quantity in the given location, show an error and do something (hopefully) intelligent -->
+                    <entity-and entity-name="InventoryItem" list-name="inventoryItemList">
+                        <field-map field-name="productId" env-name="productId"/>
+                        <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+                        <field-map field-name="locationSeqId" env-name="locationSeqId"/>
+                    </entity-and>
+
+                    <calculate field-name="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
+                    <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+                        <calculate field-name="totalQuantityOnHand" type="Double">
+                            <calcop field-name="totalQuantityOnHand" operator="add"><calcop field-name="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
+                        </calculate>
+                    </iterate>
+                    <if-compare-field field-name="totalQuantityOnHand" operator="less" to-field-name="moveInfo.totalQuantity" type="Double">
+                        <!-- not enough on hand for move: add warning message, set moveInfo.totalQuantity to totalQuantityOnHand, and don't even bother looking for pre-emptive replenishment needs for this location right now -->
+                        <string-to-list string="Warning in stock move: for facility [${parameters.facilityId}] and product [${productId}] going from location [${productFacilityLocation.locationSeqId}] to location [${targetProductFacilityLocation.locationSeqId}] a quantity of [${moveInfo.totalQuantity}] was needed but there are only [${totalQuantityOnHand}] on hand (this will be in the pick list with the full quantity on hand, but note that this will not be enough to prepare for all orders reserved against this location)" list-name="warningMessageList"/>
+                        <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
+                    <else>
+                        <!-- check ProductFacilityLocation for where this is going and see if we should do a pre-emptive transfer too... -->
+
+                        <!-- get all InventoryItems and total the availableToPromise for the target location -->
+                        <get-related value-name="targetProductFacilityLocation" relation-name="InventoryItem" list-name="targetInventoryItemList"/>
+                        <calculate field-name="targetTotalAvailableToPromise" type="Double"><number value="0"/></calculate>
+                        <iterate entry-name="inventoryItem" list-name="targetInventoryItemList">
+                            <calculate field-name="targetTotalAvailableToPromise" type="Double">
+                                <calcop field-name="targetTotalAvailableToPromise" operator="add"><calcop field-name="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
+                            </calculate>
+                        </iterate>
+
+                        <!--
+                            now if there is enough left and there is less than the minimum for the
+                            ProductFacilityLocation, move the restock quantity from ProductFacilityLocation
+                        -->
+                        <if-compare-field field-name="targetTotalAvailableToPromise" operator="less" to-field-name="targetProductFacilityLocation.minimumStock" type="Double">
+                            <if-empty field-name="targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}">
+                                <!-- if targetTotalAvailableToPromise is less than productFacilityLocation.minimumStock, move over the targetProductFacilityLocation.moveQuantity -->
+
+                                <!-- if trying to move more from the location than is there, find the difference and put it in targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId} -->
+                                <calculate field-name="moveInfo.totalQuantity" type="Double">
+                                    <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="targetProductFacilityLocation.moveQuantity" operator="get"/></calcop>
+                                </calculate>
+                            <else>
+                                <!--
+                                    see if there is enough left for the full amount in
+                                    targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId},
+                                    if not do whatever is available and put difference back in
+                                    targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}
+                                -->
+                                <calculate field-name="moveInfo.totalQuantity" type="Double">
+                                    <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}" operator="get"/></calcop>
+                                </calculate>
+                            </else>
+                            </if-empty>
+                            <if-compare-field field-name="totalQuantityOnHand" operator="less" to-field-name="moveInfo.totalQuantity" type="Double">
+                                <calculate field-name="targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}" type="Double">
+                                    <calcop field-name="moveInfo.totalQuantity" operator="subtract"><calcop field-name="totalQuantityOnHand" operator="get"/></calcop>
+                                </calculate>
+                                <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
+                            </if-compare-field>
+
+                            <!-- add it to the stockMoveHandled Map to keep track of minimumStock based transfers already done so they are not duplicated below -->
+                            <set value="Y" field="stockMoveHandled.${targetProductFacilityLocation.locationSeqId}"/>
+                        </if-compare-field>
+                    </else>
+                    </if-compare-field>
+
+                    <!-- add the moveInfo to the master list -->
+                    <field-to-list field-name="moveInfo" list-name="moveByOisgirInfoList"/>
+                    <clear-field field-name="moveInfo"/>
+                </else>
+                </if-empty>
+            </iterate-map>
+        </iterate-map>
+        <field-to-result field-name="moveByOisgirInfoList"/>
+        <field-to-result field-name="stockMoveHandled"/>
+
+        <!-- TODO: go through targetLocationSimpleMoveQuantity Map and if any item is not zero, add a warning message -->
+
+        <field-to-result field-name="warningMessageList"/>
+    </simple-method>
+    <simple-method method-name="findStockMovesRecommended" short-description="Find all Stock Moves recommended to be done based on ProductFacilityLocation settings">
+        <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
+        <check-permission permission="FACILITY" action="_VIEW">
+            <fail-message message="Security Error: to run findStockMovesNeeded you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <set field="stockMoveHandled" from-field="parameters.stockMoveHandled"/>
+        <set field="productSave.productId" value=""/>
+
+        <!--
+            The will involve finding all stock moves for ProductFacilityLocation based pre-emptive moves.
+            These will go in a separate list returned as moveByPflInfoList where each info Map contains:
+             - product
+             - facilityLocationFrom
+             - facilityLocationTo
+             - totalQuantity
+        -->
+        <!-- start by finding all Xxx where locationTypeEnumId=FLT_PICKLOC and total of InventoryItems in the loc are less than minimumStock (ProductFacilityLocation, FacilityLocation, InventoryItem) -->
+        <entity-and entity-name="ProductFacilityLocationQuantityTest" list-name="productFacilityLocationQuantityTestList">
+            <field-map field-name="locationTypeEnumId" value="FLT_PICKLOC"/>
+            <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+            <order-by field-name="productId"/>
+        </entity-and>
+        
+        <iterate entry-name="productFacilityLocationQuantityTest" list-name="productFacilityLocationQuantityTestList">
+            <!-- TODO: this comparison could be done by the database and be more efficient, but since we don't have field to field comparisons in the entity engine or EntityCondition operations in simple-methods, some work needs to be done before that can happen -->
+            <if>
+                <condition>
+                    <and>
+                        <not><if-empty field-name="productFacilityLocationQuantityTest.moveQuantity"/></not>
+                        <if-compare field-name="productFacilityLocationQuantityTest.moveQuantity" operator="greater" value="0" type="Double"/>
+                        <or>
+                            <and>
+                                <if-empty field-name="productFacilityLocationQuantityTest.availableToPromiseTotal"/>
+                                <not><if-empty field-name="productFacilityLocationQuantityTest.minimumStock"/></not>
+                                <if-compare field-name="productFacilityLocationQuantityTest.minimumStock" operator="greater" value="0" type="Double"></if-compare>
+                            </and>
+                            <and>
+                                <not><if-empty field-name="productFacilityLocationQuantityTest.availableToPromiseTotal"/></not>
+                                <if-compare-field field-name="productFacilityLocationQuantityTest.availableToPromiseTotal" operator="less" to-field-name="productFacilityLocationQuantityTest.minimumStock" type="Double"/>
+                            </and>
+                        </or>
+                    </and>
+                </condition>
+                <then>
+                    <if>
+                        <condition>
+                            <or>
+                                <if-empty field-name="stockMoveHandled.${productFacilityLocationQuantityTest.locationSeqId}"/>
+                                <if-compare field-name="stockMoveHandled.${productFacilityLocationQuantityTest.locationSeqId}" operator="not-equals" value="Y"/>
+                            </or>
+                        </condition>
+                        <then>
+                            <if-compare-field map-name="productFacilityLocationQuantityTest" field-name="productId" operator="not-equals" to-map-name="productSave">
+                                <get-related-one value-name="productFacilityLocationQuantityTest" relation-name="Product" to-value-name="productSave"/>
+                                 <clear-field field-name="fromLocationTotalAvailableToPromise"/>
+                            </if-compare-field>
+                            <get-related-one value-name="productFacilityLocationQuantityTest" relation-name="FacilityLocation" to-value-name="targetFacilityLocationSave"/>
+
+                            <!-- create a moveInfo for each from location with a corresponding quantity -->
+                            <entity-and entity-name="InventoryItemAndLocation" list-name="inventoryItemAndLocationList">
+                                <field-map field-name="productId" env-name="productFacilityLocationQuantityTest.productId"/>
+                                <field-map field-name="facilityId" env-name="productFacilityLocationQuantityTest.facilityId"/>
+                                <field-map field-name="locationTypeEnumId" value="FLT_BULK"/>
+                            </entity-and>
+
+                            <if-empty field-name="inventoryItemAndLocationList">
+                                <string-to-list string="Error in stock move, could not find a bulk location for facility [${productFacilityLocationQuantityTest.facilityId}] and product [${productFacilityLocationQuantityTest.productId}]" list-name="warningMessageList"/>
+                            <else>
+                                <set from-field="productFacilityLocationQuantityTest.moveQuantity" field="targetLocationMoveQuantity"/>
+                                <!-- start by making a Map where the locationSeqId is the key and the value is a List of InventoryItemAndLocation -->
+                                <iterate entry-name="InventoryItemAndLocation" list-name="inventoryItemAndLocationList">
+                                    <field-to-list field-name="InventoryItemAndLocation" list-name="InventoryItemAndLocationByLocMap.${InventoryItemAndLocation.locationSeqId}"/>
+                                </iterate>
+                                <iterate-map key-name="locationSeqId" value-name="perLocationInventoryItemAndLocList" map-name="InventoryItemAndLocationByLocMap">
+                                    <if-empty field-name="fromLocationTotalAvailableToPromise.${locationSeqId}">
+                                        <calculate field-name="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
+                                        <iterate entry-name="inventoryItem" list-name="perLocationInventoryItemAndLocList">
+                                            <calculate field-name="totalAvailableToPromise" type="Double">
+                                                <calcop field-name="totalAvailableToPromise" operator="add"><calcop field-name="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
+                                            </calculate>
+                                        </iterate>
+                                    <else>
+                                        <set from-field="fromLocationTotalAvailableToPromise.${locationSeqId}" field="totalAvailableToPromise"/>
+                                    </else>
+                                    </if-empty>
+
+                                    <if>
+                                       <condition>
+                                          <and>
+                                                <if-compare field-name="totalAvailableToPromise" operator="greater" value="0" type="Double"/>
+                                                <if-compare field-name="targetLocationMoveQuantity" operator="greater" value="0" type="Double"/>
+                                          </and>
+                                        </condition>
+                                    <then>   
+                                        <set from-field="productSave" field="moveInfo.product"/>
+                                        <set from-field="targetFacilityLocationSave" field="moveInfo.facilityLocationTo"/>
+                                        <first-from-list entry-name="InventoryItemAndLocation" list-name="perLocationInventoryItemAndLocList"/>
+                                        <get-related-one value-name="InventoryItemAndLocation" relation-name="FacilityLocation" to-value-name="moveInfo.facilityLocationFrom"/>
+
+                                        <!--   see if there is enough left for the full amount in targetLocationMoveQuantity,
+                                                 if not do whatever is available and put difference back in targetLocationMoveQuantity,
+                                                 trying to move more from the location than is there, find the difference and put it in targetLocationMoveQuantity     -->
+                                        <if-compare-field field-name="totalAvailableToPromise" operator="less" to-field-name="targetLocationMoveQuantity" type="Double">
+                                            <calculate field-name="targetLocationMoveQuantity" type="Double">
+                                                <calcop field-name="targetLocationMoveQuantity" operator="subtract"><calcop field-name="totalAvailableToPromise" operator="get"/></calcop>
+                                            </calculate>
+                                            <set from-field="totalAvailableToPromise" field="moveInfo.totalQuantity"/>
+                                            <calculate field-name="fromLocationTotalAvailableToPromise.${locationSeqId}" type="Double"><number value="0"/></calculate>
+                                        <else>
+                                            <set from-field="targetLocationMoveQuantity" field="moveInfo.totalQuantity"/>
+                                            <calculate map-name="fromLocationTotalAvailableToPromise" field-name="${locationSeqId}" type="Double">
+                                                <calcop field-name="totalAvailableToPromise" operator="subtract"><calcop field-name="targetLocationMoveQuantity" operator="get"/></calcop>
+                                            </calculate>
+                                            <calculate field-name="targetLocationMoveQuantity" type="Double"><number value="0"/></calculate>
+                                        </else>
+                                        </if-compare-field>
+                                    
+                                        <!-- add the moveInfo to the master list -->
+                                        <field-to-list field-name="moveInfo" list-name="moveByPflInfoList"/>
+                                        <clear-field field-name="moveInfo"/>
+                                    </then>    
+                                    </if>
+                                </iterate-map>
+                                <!-- TODO: add a warning message if there are not BULK location(s) with sufficient quantity -->
+                            </else>
+                            </if-empty>
+                        </then>
+                    </if>
+                </then>
+            </if>
+        </iterate>
+
+        <field-to-result field-name="moveByPflInfoList"/>
+        <field-to-result field-name="warningMessageList"/>
+    </simple-method>
+
+    <simple-method method-name="processPhysicalStockMove" short-description="Process a Physical Stock Move from one FacilityLocation to another, in the same Facility">
+        <check-permission permission="FACILITY" action="_CREATE">
+            <fail-message message="Security Error: to run processPhysicalStockMove you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+        <check-permission permission="FACILITY" action="_UPDATE">
+            <fail-message message="Security Error: to run processPhysicalStockMove you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+
+        <set from-field="parameters.quantityMoved" field="quantityLeftToProcess"/>
+        <!-- move this over just in case a list was passed in that should be appended to; used when calling multiple times in succession -->
+        <set from-field="parameters.warningMessageList" field="warningMessageList"/>
+
+        <!-- Start by processing all OrderItemShipGrpInvRes from the origin FacilityLocation, and transfer to target, OrderItem.statusId (approved), orderBy reservedDatetime -->
+        <set value="ITEM_APPROVED" field="orderItemStatusId"/>
+        <call-simple-method method-name="processOisgirMoveByStatusInline"/>
+        <!-- should only need to pay attention to two statuses: ITEM_APPROVED, ITEM_CREATED, then the rest can go to non-reserved -->
+        <set value="ITEM_CREATED" field="orderItemStatusId"/>
+        <call-simple-method method-name="processOisgirMoveByStatusInline"/>
+
+        <!-- Now for any remaining quantity, do a simple, ie non-OISGIR, stock move -->
+        <if-compare field-name="quantityLeftToProcess" operator="greater" value="0" type="Double">
+            <!-- find InventoryItems in the origin location with some availableToPromise to move -->
+            <entity-and entity-name="InventoryItem" list-name="inventoryItemList">
+                <field-map field-name="productId" env-name="parameters.productId"/>
+                <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+                <field-map field-name="locationSeqId" env-name="parameters.locationSeqId"/>
+                <order-by field-name="datetimeReceived"/>
+            </entity-and>
+
+            <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+                <!-- for each inventoryItem only process if quantityLeftToProcess > 0 and inventoryItem.availableToPromiseTotal > 0 -->
+                <if-compare field-name="quantityLeftToProcess" operator="greater" value="0" type="Double">
+                    <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
+                        <!-- set the currentQuantityToMove to the lower of these two values to ensure we don't move too much -->
+                        <if-compare-field field-name="quantityLeftToProcess" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
+                            <set from-field="inventoryItem.availableToPromiseTotal" field="currentQuantityToMove"/>
+                        <else>
+                            <set from-field="quantityLeftToProcess" field="currentQuantityToMove"/>
+                        </else>
+                        </if-compare-field>
+
+                        <!-- create a new InventoryItem for the targetInventoryItem -->
+                        <make-value entity-name="InventoryItem" map-name="inventoryItem" value-name="targetInventoryItem"/>
+                        <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
+                        <!-- now that targetInventoryItem is populated with quantities, etc, call createInventoryItem service -->
+                        <clear-field field-name="createNonOisgirTargetDetailMap"/>
+                        <set-service-fields map-name="targetInventoryItem" service-name="createInventoryItem" to-map-name="createInventoryItemMap"/>
+                        <call-service service-name="createInventoryItem" in-map-name="createInventoryItemMap">
+                            <result-to-field result-name="inventoryItemId" field-name="createNonOisgirTargetDetailMap.inventoryItemId"/>
+                        </call-service>
+
+                        <!-- instead of updating InventoryItem, add an InventoryItemDetail for new Target InventoryItem -->
+                        <set from-field="currentQuantityToMove" field="createNonOisgirTargetDetailMap.availableToPromiseDiff"/>
+                        <set from-field="currentQuantityToMove" field="createNonOisgirTargetDetailMap.quantityOnHandDiff"/>
+                        <call-service service-name="createInventoryItemDetail" in-map-name="createNonOisgirTargetDetailMap"/>
+
+                        <!-- okay, move it over, calculate new ATP, QOH -->
+                        <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                        <clear-field field-name="createNonOisgirDetailMap"/>
+                        <set from-field="inventoryItem.inventoryItemId" field="createNonOisgirDetailMap.inventoryItemId"/>
+                        <calculate field-name="createNonOisgirDetailMap.availableToPromiseDiff" type="Double">
+                            <calcop field-name="currentQuantityToMove" operator="negative"/>
+                        </calculate>
+                        <calculate field-name="createNonOisgirDetailMap.quantityOnHandDiff" type="Double">
+                            <calcop field-name="currentQuantityToMove" operator="negative"/>
+                        </calculate>
+                        <call-service service-name="createInventoryItemDetail" in-map-name="createNonOisgirDetailMap"/>
+
+                        <refresh-value value-name="targetInventoryItem"/>
+                        <log level="info" message="Just created new targetInventoryItem from non-OISGIR (ie location level based) [${targetInventoryItem}]"/>
+                    </if-compare>
+                </if-compare>
+            </iterate>
+        </if-compare>
+
+        <if-compare field-name="quantityLeftToProcess" operator="greater" value="0" type="Double">
+            <!-- this really isn't good, that means more was moved than we found to move, how did that happen? -->
+            <string-to-list string="ERROR: Not enough available inventory found in location [${parameters.locationSeqId}] in facility [${parameters.facilityId}], did not reallocate ${quantityLeftToProcess} of the ${parameters.quantityMoved} reported as physically moved." list-name="warningMessageList"/>
+        </if-compare>
+
+        <field-to-result field-name="warningMessageList"/>
+    </simple-method>
+    <simple-method method-name="processOisgirMoveByStatusInline" short-description="Inline method to process OISGIR stock move for a specific OrderItem.statusId">
+        <entity-and entity-name="OrderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+            <field-map field-name="productId" env-name="parameters.productId"/>
+            <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+            <field-map field-name="locationSeqId" env-name="parameters.locationSeqId"/>
+            <field-map field-name="orderItemStatusId" env-name="orderItemStatusId"/>
+            <order-by field-name="reservedDatetime"/>
+        </entity-and>
+
+        <clear-field field-name="oiirailByInvItemMap"/>
+        <log level="info" message="In processOisgirMoveByStatusInline orderItemShipGrpInvResAndItemLocationList=${orderItemShipGrpInvResAndItemLocationList}"/>
+        <iterate entry-name="orderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+            <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByInvItemMap.${orderItemShipGrpInvResAndItemLocation.inventoryItemId}"/>
+        </iterate>
+
+        <iterate-map key-name="inventoryItemId" value-name="orderItemShipGrpInvResAndItemLocationList" map-name="oiirailByInvItemMap">
+            <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+
+            <!-- if this is a serialized InventoryItem, then just update the location -->
+            <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
+                <set from-field="parameters.targetLocationSeqId" field="inventoryItem.locationSeqId"/>
+                <store-value value-name="inventoryItem"/>
+            </if-compare>
+
+            <!--
+                if this is a non-serialized InventoryItem, create a new targetInventoryItem in the
+                target location and start moving all OrderItemShipGrpInvRes over, plus min move quantity from ProductFacilityLocation
+            -->
+            <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+                <!-- create a new InventoryItem for the targetInventoryItem -->
+                <make-value entity-name="InventoryItem" map-name="inventoryItem" value-name="targetInventoryItem"/>
+                <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
+                <!-- now that targetInventoryItem is populated with initial values, call createInventoryItem service -->
+                <set-service-fields map-name="targetInventoryItem" service-name="createInventoryItem" to-map-name="createInventoryItemMap"/>
+                <call-service service-name="createInventoryItem" in-map-name="createInventoryItemMap">
+                    <result-to-field result-name="inventoryItemId" map-name="targetInventoryItem"/>
+                </call-service>
+                <!-- refresh the value object now that the create has been done -->
+                <refresh-value value-name="targetInventoryItem"/>
+                
+                <!-- if we don't end up setting any detail for this inventory item, then we'll delete it after -->
+                <set value="N" field="haveSetIiDetail"/>
+                
+                <!-- <log level="info" message="Just created new targetInventoryItem from OISGIR [${targetInventoryItem}]"/> -->
+                
+                <!--
+                    go through OrderItemShipGrpInvRes and move each one over, starting with the older making
+                    sure to stay within quantityOnHand
+                -->
+                <set from-field="inventoryItem.quantityOnHandTotal" field="remainingQuantityOnHand"/>
+                <iterate entry-name="orderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+                    <get-related-one value-name="orderItemShipGrpInvResAndItemLocation" relation-name="OrderItemShipGrpInvRes" to-value-name="orderItemShipGrpInvRes"/>
+                    
+                    <!-- see if there is enough physically moved over to move this reservation -->
+                    <!-- note that we need to check this because if there was a reservation against an 
+                         InventoryItem then the full quantity will be against that item for the given 
+                         OISGIR (reservation), so we would have to split it up
+                    -->
+                    <clear-field field-name="reservedQuantityLeftOver"/>
+                    <if-compare-field field-name="quantityLeftToProcess" operator="less" to-field-name="orderItemShipGrpInvRes.quantity" type="Double">
+                        <!-- the complicated part: can split up the OISGIR (reservation) into two parts, and then transfer the inventory, somewhat complicated... -->
+                        <calculate field-name="reservedQuantityLeftOver" type="Double">
+                            <calcop field-name="orderItemShipGrpInvRes.quantity" operator="get"/>
+                            <calcop field-name="quantityLeftToProcess" operator="negative"/>
+                        </calculate>
+                        
+                        <set from-field="quantityLeftToProcess" field="currentQuantityToMove"/>
+                        
+                        <!-- NOTE: we are now handling this scenario, so we'll not log this message
+                        <set value="WARNING: In process stock move: quantityLeftToProcess [${quantityLeftToProcess}] was &lt; orderItemShipGrpInvRes.quantity [${orderItemShipGrpInvResAndItemLocation.quantity}] for orderItemShipGrpInvRes [${orderItemShipGrpInvRes}], which shouldn't happen from the inventory reservation process and must has happened from a later inventory change; the reservation or other information may need be manually corrected for this stock move to go through." field="quantityErrorMessage"/>
+                        <log level="warning" message="${quantityErrorMessage}"/>
+                        -->
+                    <else>
+                        <set from-field="orderItemShipGrpInvRes.quantity" field="currentQuantityToMove"/>
+                    </else>
+                    </if-compare-field>
+                    
+                    <!-- now make sure that the currentQuantityToMove we decided on is not greater than remainingQuantityOnHand... -->
+                    <if-compare-field field-name="currentQuantityToMove" operator="greater" to-field-name="remainingQuantityOnHand">
+                        <set from-field="remainingQuantityOnHand" field="currentQuantityToMove"/>
+                    </if-compare-field>
+                    
+                    <!-- now one other little trick: reservedQuantityLeftOver is not empty and if orderItemShipGrpInvRes.quantityNotAvailable is greater than reservedQuantityLeftOver, then the difference should be moved -->
+                    <if>
+                        <condition>
+                            <and>
+                                <not><if-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
+                                <not><if-empty field-name="reservedQuantityLeftOver"/></not>
+                                <if-compare-field field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" to-field-name="reservedQuantityLeftOver" type="Double"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <calculate field-name="quantityNotAvailableToMove">
+                                <calcop field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="get"/>
+                                <calcop field-name="reservedQuantityLeftOver" operator="negative"/>
+                            </calculate>
+                        </then>
+                        <else>
+                            <set from-field="orderItemShipGrpInvRes.quantityNotAvailable" field="quantityNotAvailableToMove"/>
+                        </else>
+                    </if>
+
+                    <!-- make a new OISGIR value object -->
+                    <make-value entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvRes" value-name="targetOrderItemShipGrpInvRes"/>
+                    <set from-field="targetInventoryItem.inventoryItemId" field="targetOrderItemShipGrpInvRes.inventoryItemId"/>
+
+                    <!-- okay, move it over, start by calculating new QOHs; note that don't need to modify the ATP since with an OISGIR that has already been subtracted out, so it shouldn't be subtracted from the source or added to the target -->
+                    <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                    <clear-field field-name="createOisgirDetailMap"/>
+                    <clear-field field-name="createOisgirTargetDetailMap"/>
+                    <set from-field="inventoryItem.inventoryItemId" field="createOisgirDetailMap.inventoryItemId"/>
+                    <set from-field="targetInventoryItem.inventoryItemId" field="createOisgirTargetDetailMap.inventoryItemId"/>
+                    <calculate field-name="createOisgirDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field-name="currentQuantityToMove" operator="negative"/>
+                    </calculate>
+                    <calculate field-name="createOisgirTargetDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field-name="currentQuantityToMove" operator="get"/>
+                    </calculate>
+
+                    <!--
+                        note that nothing needs to be done with the OISGIR.quantity because if all is
+                        balanced the new one should have a zero availableToPromise, of course that is different when a
+                        ProductFacilityLocation based pre-emptive move is done
+                    -->
+                    <!-- if the OISGIR has a quantityNotAvailable, move that over by adding it to the origin, and subtracting it from the target -->
+                    <if-not-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable">
+                        <if-compare field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" value="0" type="Double">
+                            <calculate field-name="createOisgirDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field-name="quantityNotAvailableToMove" operator="get"/>
+                            </calculate>
+                            <calculate field-name="createOisgirTargetDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field-name="quantityNotAvailableToMove" operator="negative"/>
+                            </calculate>
+                        </if-compare>
+                    </if-not-empty>
+
+                    <call-service service-name="createInventoryItemDetail" in-map-name="createOisgirDetailMap"/>
+                    <call-service service-name="createInventoryItemDetail" in-map-name="createOisgirTargetDetailMap"/>
+
+                    <!-- create the new and remove or update the old OISGIRs -->
+                    <create-value value-name="targetOrderItemShipGrpInvRes"/>
+                    <if-empty field-name="reservedQuantityLeftOver">
+                        <remove-value value-name="orderItemShipGrpInvRes"/>
+                    <else>
+                        <calculate field-name="orderItemShipGrpInvRes.quantity" type="Double">
+                            <calcop field-name="orderItemShipGrpInvRes.quantity" operator="get"/>
+                            <calcop field-name="reservedQuantityLeftOver" operator="negative"/>
+                        </calculate>
+                        <calculate field-name="orderItemShipGrpInvRes.quantityNotAvailable" type="Double">
+                            <calcop field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="get"/>
+                            <calcop field-name="quantityNotAvailableToMove" operator="negative"/>
+                        </calculate>
+                        <store-value value-name="orderItemShipGrpInvRes"/>
+                    </else>
+                    </if-empty>
+
+                    <set value="Y" field="haveSetIiDetail"/>
+
+                    <!-- deduct the orderItemShipGrpInvRes.quantity from quantityLeftToProcess -->
+                    <calculate field-name="quantityLeftToProcess" type="Double">
+                        <calcop field-name="quantityLeftToProcess" operator="get"/>
+                        <calcop field-name="currentQuantityToMove" operator="negative"/>
+                    </calculate>
+                    <calculate field-name="remainingQuantityOnHand" type="Double">
+                        <calcop field-name="remainingQuantityOnHand" operator="subtract"/>
+                        <calcop field-name="currentQuantityToMove" operator="negative"/>
+                    </calculate>
+                    <!-- part of the following log data prep: <refresh-value value-name="targetInventoryItem"/> -->
+                    <!-- <log level="info" message="Just update targetInventoryItem from OISGIR [${targetInventoryItem}]"/> -->
+                </iterate>
+                
+                <if-compare field-name="haveSetIiDetail" operator="equals" value="N">
+                    <log level="info" message="Did not end up finding an OISGIR that we could move inventory with, so removing targetInventoryItem: ${targetInventoryItem}"/>
+                    <remove-value value-name="targetInventoryItem"/>
+                </if-compare>
+            </if-compare>
+        </iterate-map>
+    </simple-method>
+</simple-methods>

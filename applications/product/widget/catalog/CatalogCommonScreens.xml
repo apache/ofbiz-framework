@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: CatalogCommonScreens.xml 5462 2005-08-05 18:35:48Z jonesde $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                
+                <set field="MainColumnStyle" value="nocolumns" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.CatalogCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ProductCompanySubtitle" global="true"/>
+                <set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
+                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
+                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <set field="activeApp" value="catalogmgr" global="true"/>
+                <set field="appheaderTemplate" value="component://product/webapp/catalog/includes/appheader.ftl" global="true"/>
+
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonProductDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+                
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="productId"/></not></condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/product/ProductTabBar.ftl"/></html>
+                                        </platform-specific>
+                                        <container>
+                                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
+                                        </container>
+                                        
+                                        <!-- add Create Product and View Product (in ecommerce) links -->
+                                        <container>
+                                            <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
+                                            <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext"/>
+                                            <link target="/ecommerce/control/product?product_id=${productId}" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonCatalogDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/catalog/CatalogTabBar.ftl"/></html>
+                                </platform-specific>
+                                <container>
+                                    <link target="EditProdCatalog" text="${uiLabelMap.ProductNewProdCatalog}" style="buttontext"/>
+                                </container>
+                                
+                                <!-- add Create Product and View Product (in ecommerce) links -->
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonProductStoreDecorator">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="productStoreId"/></not></condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/store/ProductStoreTabBar.ftl"/></html>
+                                        </platform-specific>
+                                        
+                                        <container>
+                                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
+                                        </container>
+                                        <container>
+                                            <link target="EditProductStore" text="${uiLabelMap.ProductNewProductStore}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                
+                                <!-- add Create Product and View Product (in ecommerce) links -->
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="leftbar">
+        <section>
+            <widgets>
+                <container style="left">
+                    <include-screen name="keywordsearchbox"/>
+                    <include-screen name="sidecatalogs"/>
+                    <include-screen name="sidedeepcategory"/>
+                    <include-screen name="miniproductlist"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="keywordsearchbox">
+        <section>
+            <actions>
+                <entity-condition entity-name="ProductCategory" list-name="productCategories">
+                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearchbox.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://product/webapp/catalog/find/keywordsearchbox.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="sidecatalogs">
+        <section>
+            <actions>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidecatalogs.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://product/webapp/catalog/find/sidecatalogs.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="sidedeepcategory">
+        <section>
+            <actions>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidedeepcategory.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://product/webapp/catalog/find/sidedeepcategory.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="miniproductlist">
+        <section>
+            <actions>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/miniproductlist.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://product/webapp/catalog/find/miniproductlist.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ChooseTopCategory">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+    
+                <set field="titleProperty" value="PageTitleChooseTopCategory"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/ChooseTopCategory.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://product/webapp/catalog/ChooseTopCategory.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FastLoadCache">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+    
+                <set field="titleProperty" value="ProductFastLoadCatalogIntoCache"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/FastLoadCache.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://product/webapp/catalog/FastLoadCache.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="main">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="headerItem" value="main"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/main.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="login">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/webcommon/login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

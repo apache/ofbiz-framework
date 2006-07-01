@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createCalendar" short-description="Create Calendar">
+        <check-permission permission="MANUFACTURING" action="_CREATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendar"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendar" map-name="lookupPKMap" value-name="newEntity"/>
+        <if-not-empty field-name="calendarId" map-name="newEntity">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarIdAlreadyExist"/>
+            </add-error>
+            <check-errors/>
+        <else>
+            <make-value value-name="lookupPKMap" entity-name="TechDataCalendarWeek"/>
+            <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+            <find-by-primary-key entity-name="TechDataCalendarWeek" map-name="lookupPKMap" value-name="newEntity"/>
+            <if-empty field-name="calendarWeekId" map-name="newEntity">
+                <add-error>
+                    <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarWeekIdNotExisting"/>
+                </add-error>
+                <check-errors/>
+            <else>
+                <make-value value-name="newEntity" entity-name="TechDataCalendar"/>
+                <set-pk-fields map-name="parameters" value-name="newEntity"/>
+                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <create-value value-name="newEntity"/>
+            </else>
+            </if-empty>
+        </else>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="updateCalendar" short-description="Update Calendar">
+        <check-permission permission="MANUFACTURING" action="_UPDATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendar"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendar" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="removeCalendar" short-description="Remove Calendar">
+        <check-permission permission="MANUFACTURING" action="_DELETE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendar"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcDay" list-name="relatedResultList" />
+        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <if-not-empty  field-name="relatedResult">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionDayUseCalendar"/>
+            </add-error>
+            <check-errors/>
+        </if-not-empty>
+        <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcWeek" list-name="relatedResultList" />
+        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <if-not-empty  field-name="relatedResult">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionWeekUseCalendar"/>
+            </add-error>
+            <check-errors/>
+        </if-not-empty>
+        <find-by-primary-key entity-name="TechDataCalendar" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-not-empty map-name="lookedUpValue" field-name="calendarWeekId">
+            <remove-value value-name="lookedUpValue"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="createCalendarWeek" short-description="Create Calendar Week">
+        <check-permission permission="MANUFACTURING" action="_CREATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarWeek"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarWeek" map-name="lookupPKMap" value-name="newEntity"/>
+        <if-not-empty field-name="calendarWeekId" map-name="newEntity">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarWeekIdAlreadyExist"/>
+            </add-error>
+            <check-errors/>
+        <else>
+            <make-value value-name="newEntity" entity-name="TechDataCalendarWeek"/>
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <create-value value-name="newEntity"/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="updateCalendarWeek" short-description="Update CalendarWeek">
+        <check-permission permission="MANUFACTURING" action="_UPDATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarWeek"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarWeek" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="removeCalendarWeek" short-description="Remove CalendarWeek">
+        <check-permission permission="MANUFACTURING" action="_DELETE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarWeek"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <get-related value-name="lookupPKMap" relation-name="TechDataCalendar" list-name="relatedResultList" />
+        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <if-not-empty  field-name="relatedResult">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarUseCalendarWeek"/>
+            </add-error>
+            <check-errors/>
+        </if-not-empty>
+        <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcWeek" list-name="relatedResultList" />
+        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <if-not-empty  field-name="relatedResult">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarWeekExceptionUseCalendarWeek"/>
+            </add-error>
+            <check-errors/>
+        </if-not-empty>
+        <find-by-primary-key entity-name="TechDataCalendarWeek" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-not-empty map-name="lookedUpValue" field-name="calendarWeekId">
+            <remove-value value-name="lookedUpValue"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="createCalendarExceptionDay" short-description="Create Calendar Exception Day">
+        <check-permission permission="MANUFACTURING" action="_CREATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcDay"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarExcDay" map-name="lookupPKMap" value-name="newEntity"/>
+        <if-not-empty field-name="calendarId" map-name="newEntity">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionDayIdAlreadyExist"/>
+            </add-error>
+            <check-errors/>
+        <else>
+            <make-value value-name="newEntity" entity-name="TechDataCalendarExcDay"/>
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <create-value value-name="newEntity"/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="updateCalendarExceptionDay" short-description="Update CalendarExceptionDay">
+        <check-permission permission="MANUFACTURING" action="_UPDATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcDay"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarExcDay" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="removeCalendarExceptionDay" short-description="Remove CalendarExceptionDay">
+        <check-permission permission="MANUFACTURING" action="_DELETE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcDay"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarExcDay" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-not-empty map-name="lookedUpValue" field-name="calendarId">
+            <remove-value value-name="lookedUpValue"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="createCalendarExceptionWeek" short-description="Create Calendar Exception Week">
+        <check-permission permission="MANUFACTURING" action="_CREATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcWeek"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarExcWeek" map-name="lookupPKMap" value-name="newEntity"/>
+        <if-not-empty field-name="calendarId" map-name="newEntity">
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionWeekIdAlreadyExist"/>
+            </add-error>
+            <check-errors/>
+        <else>
+            <make-value value-name="newEntity" entity-name="TechDataCalendarExcWeek"/>
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <create-value value-name="newEntity"/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="updateCalendarExceptionWeek" short-description="Update Calendar Exception Week">
+        <check-permission permission="MANUFACTURING" action="_UPDATE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcWeek"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarExcWeek" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="removeCalendarExceptionWeek" short-description="Remove CalendarExceptionWeek">
+        <check-permission permission="MANUFACTURING" action="_DELETE"><fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcWeek"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TechDataCalendarExcWeek" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-not-empty map-name="lookedUpValue" field-name="calendarId">
+            <remove-value value-name="lookedUpValue"/>
+        </if-not-empty>
+    </simple-method>
+
+</simple-methods>

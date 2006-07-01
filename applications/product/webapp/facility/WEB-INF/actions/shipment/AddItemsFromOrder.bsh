@@ -1,0 +1,234 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+
+delegator = request.getAttribute("delegator");
+
+shipmentId = request.getParameter("shipmentId");
+orderId = request.getParameter("orderId");
+shipGroupSeqId = request.getParameter("shipGroupSeqId");
+selectFromShipmentPlan = request.getParameter("selectFromShipmentPlan");
+
+shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+
+if (shipment != null) {
+    context.put("originFacility", shipment.getRelatedOne("OriginFacility"));
+    context.put("destinationFacility", shipment.getRelatedOne("DestinationFacility"));
+}
+
+if (UtilValidate.isEmpty(orderId) && shipment != null && selectFromShipmentPlan == null) {
+    orderId = shipment.get("primaryOrderId");
+}
+if (UtilValidate.isEmpty(shipGroupSeqId) && shipment != null) {
+    shipGroupSeqId = shipment.get("primaryShipGroupSeqId");
+}
+
+if (UtilValidate.isNotEmpty(orderId) && shipment != null) {
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    context.put("orderHeader", orderHeader);
+    
+    if (orderHeader != null) {
+        context.put("orderHeaderStatus", orderHeader.getRelatedOne("StatusItem"));
+        context.put("orderType", orderHeader.getRelatedOne("OrderType"));
+        
+        isSalesOrder = "SALES_ORDER".equals(orderHeader.getString("orderTypeId"));
+        context.put("isSalesOrder", isSalesOrder);
+
+        orderItemShipGroup = null;
+        if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+            orderItemShipGroup = delegator.findByPrimaryKey("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId));
+            context.put("orderItemShipGroup", orderItemShipGroup);
+        }
+
+        oiasgaLimitMap = null;
+        if (orderItemShipGroup != null) {
+            oiasgaLimitMap = UtilMisc.toMap("shipGroupSeqId", shipGroupSeqId);
+        }
+        orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, UtilMisc.toList("shipGroupSeqId", "orderItemSeqId"));
+        orderItemDatas = new LinkedList();
+        orderItemIter = orderItems.iterator();
+        while (orderItemIter.hasNext()) {
+            orderItemData = new HashMap();
+            orderItemAndShipGroupAssoc = orderItemIter.next();
+            product = orderItemAndShipGroupAssoc.getRelatedOne("Product");
+            
+            itemIssuances = orderItemAndShipGroupAssoc.getRelated("ItemIssuance");
+            totalQuantityIssued = 0;
+            itemIssuanceIter = itemIssuances.iterator();
+            while (itemIssuanceIter.hasNext()) {
+                itemIssuance = itemIssuanceIter.next();
+                if (itemIssuance.get("quantity") != null) {
+                    totalQuantityIssued += itemIssuance.getDouble("quantity");
+                }
+            }
+
+            if (isSalesOrder) {
+                oisgirLimitMap = null;
+                if (orderItemShipGroup != null) {
+                    oisgirLimitMap = UtilMisc.toMap("shipGroupSeqId", shipGroupSeqId);
+                }
+                orderItemShipGrpInvResList = orderItemAndShipGroupAssoc.getRelated("OrderItemShipGrpInvRes", oisgirLimitMap, UtilMisc.toList("reservedDatetime"));
+                orderItemShipGrpInvResDatas = new LinkedList();
+                totalQuantityReserved = 0;
+                orderItemShipGrpInvResIter = orderItemShipGrpInvResList.iterator();
+                while (orderItemShipGrpInvResIter.hasNext()) {
+                    orderItemShipGrpInvRes = orderItemShipGrpInvResIter.next();
+                    inventoryItem = orderItemShipGrpInvRes.getRelatedOne("InventoryItem");
+                    orderItemShipGrpInvResData = new HashMap();
+                    orderItemShipGrpInvResData.put("orderItemShipGrpInvRes", orderItemShipGrpInvRes);
+                    orderItemShipGrpInvResData.put("inventoryItem", inventoryItem);
+                    orderItemShipGrpInvResData.put("inventoryItemFacility", inventoryItem.getRelatedOne("Facility"));
+                    orderItemShipGrpInvResDatas.add(orderItemShipGrpInvResData);
+    
+                    if (orderItemShipGrpInvRes.get("quantity") != null) {
+                        totalQuantityReserved += orderItemShipGrpInvRes.getDouble("quantity");
+                    }
+                }
+                
+                orderItemData.put("orderItemShipGrpInvResDatas", orderItemShipGrpInvResDatas);
+                orderItemData.put("totalQuantityReserved", totalQuantityReserved);
+                orderItemData.put("totalQuantityIssuedAndReserved", totalQuantityReserved + totalQuantityIssued);
+            }
+            
+            orderItemData.put("orderItemAndShipGroupAssoc", orderItemAndShipGroupAssoc);
+            orderItemData.put("product", product);
+            orderItemData.put("itemIssuances", itemIssuances);
+            orderItemData.put("totalQuantityIssued", totalQuantityIssued);
+            orderItemDatas.add(orderItemData);
+        }
+        context.put("orderItemDatas", orderItemDatas);
+    }
+}
+if (shipment != null && selectFromShipmentPlan != null) {
+
+    shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipment.getString("shipmentId")), UtilMisc.toList("orderId", "orderItemSeqId"));
+    orderItemDatas = new LinkedList();
+
+    context.put("isSalesOrder", true);
+
+    shipmentPlansIt = shipmentPlans.iterator();
+
+    while (shipmentPlansIt.hasNext()) {
+        orderItemData = new HashMap();
+
+        shipmentPlan = shipmentPlansIt.next();
+        orderItem = shipmentPlan.getRelatedOne("OrderItem");
+
+        orderItemShipGroup = null;
+        if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+            orderItemShipGroup = delegator.findByPrimaryKey("OrderItemShipGroup", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "shipGroupSeqId", shipGroupSeqId));
+            context.put("orderItemShipGroup", orderItemShipGroup);
+        }
+
+        oiasgaLimitMap = null;
+        if (orderItemShipGroup != null) {
+            oiasgaLimitMap = UtilMisc.toMap("shipGroupSeqId", shipGroupSeqId);
+        }
+
+        orderItemShipGroupAssoc = null;
+        orderItemShipGroupAssocs = orderItem.getRelatedByAnd("OrderItemShipGroupAssoc", oiasgaLimitMap);
+        if (UtilValidate.isNotEmpty(orderItemShipGroupAssocs)) {
+            orderItemShipGroupAssoc = EntityUtil.getFirst(orderItemShipGroupAssocs);
+        }
+        plannedQuantity = shipmentPlan.getDouble("quantity");
+        totalProposedQuantity = 0.0;
+            
+        product = orderItem.getRelatedOne("Product");
+            
+        itemIssuances = orderItem.getRelated("ItemIssuance");
+        totalQuantityIssued = 0;
+        totalQuantityIssuedInShipment = 0;
+        itemIssuanceIter = itemIssuances.iterator();
+        while (itemIssuanceIter.hasNext()) {
+            itemIssuance = itemIssuanceIter.next();
+            if (itemIssuance.get("quantity") != null) {
+                totalQuantityIssued += itemIssuance.getDouble("quantity");
+            }
+            if (itemIssuance.get("shipmentId") != null && itemIssuance.getString("shipmentId").equals(shipmentId)) {
+                totalQuantityIssuedInShipment += itemIssuance.getDouble("quantity");
+            }
+        }
+
+        orderItemShipGrpInvResList = orderItem.getRelated("OrderItemShipGrpInvRes", null, UtilMisc.toList("reservedDatetime"));
+        orderItemShipGrpInvResDatas = new LinkedList();
+        totalQuantityReserved = 0;
+        orderItemShipGrpInvResIter = orderItemShipGrpInvResList.iterator();
+
+        while (orderItemShipGrpInvResIter.hasNext()) {
+            orderItemShipGrpInvRes = orderItemShipGrpInvResIter.next();
+            inventoryItem = orderItemShipGrpInvRes.getRelatedOne("InventoryItem");
+            orderItemShipGrpInvResData = new HashMap();
+            orderItemShipGrpInvResData.put("orderItemShipGrpInvRes", orderItemShipGrpInvRes);
+            orderItemShipGrpInvResData.put("inventoryItem", inventoryItem);
+            orderItemShipGrpInvResData.put("inventoryItemFacility", inventoryItem.getRelatedOne("Facility"));
+            orderItemShipGrpInvResDatas.add(orderItemShipGrpInvResData);
+
+            reservedQuantity = 0.0;
+            quantityNotAvailable = 0.0;
+            proposedQuantity = 0.0;
+            if (orderItemShipGrpInvRes.get("quantity") != null) {
+                reservedQuantity = orderItemShipGrpInvRes.getDouble("quantity");
+                totalQuantityReserved += reservedQuantity;
+            }
+            if (orderItemShipGrpInvRes.get("quantityNotAvailable") != null) {
+                quantityNotAvailable = orderItemShipGrpInvRes.getDouble("quantityNotAvailable");
+            }
+            proposedQuantity = reservedQuantity - quantityNotAvailable;
+            if (plannedQuantity - totalProposedQuantity < proposedQuantity) {
+                proposedQuantity = plannedQuantity - totalProposedQuantity;
+            }
+            if (proposedQuantity < 0) {
+                proposedQuantity = 0.0;
+            }
+            totalProposedQuantity += proposedQuantity;
+            orderItemShipGrpInvResData.put("shipmentPlanQuantity", proposedQuantity);
+        }
+
+        Map orderItemShipGroupAssocMap = new HashMap(orderItemShipGroupAssoc);
+        orderItemShipGroupAssocMap.put("quantity", orderItemShipGroupAssoc.getDouble("quantity"));
+        orderItemData.put("orderItemAndShipGroupAssoc", orderItemShipGroupAssocMap);
+        orderItemData.put("orderItemShipGrpInvResDatas", orderItemShipGrpInvResDatas);
+        orderItemData.put("totalQuantityReserved", totalQuantityReserved);
+        orderItemData.put("totalQuantityIssuedAndReserved", totalQuantityReserved + totalQuantityIssued);
+
+        orderItemData.put("orderItem", orderItem);
+        orderItemData.put("product", product);
+        orderItemData.put("itemIssuances", itemIssuances);
+        orderItemData.put("totalQuantityIssued", totalQuantityIssued);
+        orderItemDatas.add(orderItemData);
+
+    }
+    context.put("orderItemDatas", orderItemDatas);
+}
+context.put("shipmentId", shipmentId);
+context.put("shipment", shipment);
+context.put("orderId", orderId);
+context.put("shipGroupSeqId", shipGroupSeqId);
+

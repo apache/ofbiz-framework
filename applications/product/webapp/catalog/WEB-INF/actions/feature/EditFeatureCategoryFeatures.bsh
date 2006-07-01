@@ -1,0 +1,137 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@author     Brad Steiner
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.EntityFieldMap;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.transaction.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+module = "EditFeatureCategoryFeatures.bsh";
+
+security = request.getAttribute("security");
+delegator = request.getAttribute("delegator");
+
+if(security.hasEntityPermission("CATALOG", "_VIEW", session)) {
+    context.put("hasPermission", Boolean.TRUE);
+} else {
+    context.put("hasPermission", Boolean.FALSE);
+}
+nowTimestampString = UtilDateTime.nowTimestamp().toString();
+context.put("nowTimestampString", nowTimestampString);
+
+productId = request.getParameter("productId");
+context.put("productId", productId);
+
+productFeatureCategoryId = parameters.get("productFeatureCategoryId"); 
+context.put("productFeatureCategoryId", productFeatureCategoryId);
+
+curProductFeatureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
+context.put("curProductFeatureCategory", curProductFeatureCategory);
+
+productFeatureTypes = delegator.findAll("ProductFeatureType", UtilMisc.toList("description"));
+context.put("productFeatureTypes", productFeatureTypes);
+
+productFeatureCategories = delegator.findAll("ProductFeatureCategory", UtilMisc.toList("description"));
+context.put("productFeatureCategories", productFeatureCategories);
+
+//we only need these if we will be showing the apply feature to category forms
+if (productId != null && productId.length() > 0) {
+    productFeatureApplTypes = delegator.findAll("ProductFeatureApplType", UtilMisc.toList("description"));
+    context.put("productFeatureApplTypes", productFeatureApplTypes);
+}
+
+productFeaturesSize = delegator.findCountByAnd("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
+
+int highIndex = 0;
+int lowIndex = 0;
+int listSize = (int) productFeaturesSize;
+
+if (viewIndex == null) {
+    viewIndex = 0;
+}
+
+lowIndex = viewIndex * viewSize;
+highIndex = (viewIndex + 1) * viewSize;
+if (listSize < highIndex) {
+    highIndex = listSize;
+}
+
+context.put("viewIndex", viewIndex);
+context.put("viewSize", viewSize);
+context.put("listSize", listSize);
+context.put("lowIndex", lowIndex);
+context.put("highIndex", highIndex);
+
+whereCondition = new EntityFieldMap(UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId), EntityOperator.AND);
+EntityFindOptions efo = new EntityFindOptions();
+efo.setDistinct(true);
+efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+
+boolean beganTransaction = false;
+try {
+    beganTransaction = TransactionUtil.begin();
+
+    productFeaturesEli = delegator.findListIteratorByCondition("ProductFeature", whereCondition, null, null, UtilMisc.toList("productFeatureTypeId", "description"), efo);
+    productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex);
+    productFeaturesEli.close();
+} catch (GenericEntityException e) {
+    String errMsg = "Failure in operation, rolling back transaction";
+    Debug.logError(e, errMsg, module);
+    try {
+        // only rollback the transaction if we started one...
+        TransactionUtil.rollback(beganTransaction, errMsg, e);
+    } catch (GenericEntityException e2) {
+        Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
+    }
+    // after rolling back, rethrow the exception
+    throw e;
+} finally {
+    // only commit the transaction if we started one... this will throw an exception if it fails
+    TransactionUtil.commit(beganTransaction);
+}
+
+context.put("productFeatures", productFeatures);
+
+productFeatureApplMap = new HashMap();
+productFeatureAppls = null;
+productFeatureIter = productFeatures.iterator();
+productFeatureApplIter = null;
+while (productFeatureIter.hasNext()) {
+    productFeature = productFeatureIter.next();
+    productFeatureAppls = delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureId", productFeature.getString("productFeatureId")), null);
+    productFeatureApplIter = productFeatureAppls.iterator();
+    while (productFeatureApplIter.hasNext()) {
+        productFeatureAppl = productFeatureApplIter.next();
+        productFeatureApplMap.put(productFeatureAppl.getString("productFeatureId"), productFeatureAppl.getString("productFeatureApplTypeId"));
+    }
+}
+context.put("productFeatureApplMap", productFeatureApplMap);

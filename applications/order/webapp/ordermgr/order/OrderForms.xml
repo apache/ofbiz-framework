@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     Al Byers (byersa@automationgroups.com)
+ * @version    $Rev$
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EditOrderHeader" type="single" target="updateOrderHeader" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" 
+            default-tooltip-style="tabletext" >
+        <alt-target target="createOrderHeader" use-when="orderHeader==null"/>
+        <auto-fields-entity entity-name="OrderHeader" />
+        <actions>
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="orderHeader.statusId"/>
+            </entity-one>
+        </actions>
+        
+        <field name="orderId" use-when="orderHeader!=null" ><display/></field>
+        <field name="orderId" use-when="orderHeader==null" ><ignored/></field>
+        <field name="orderTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options description="${description}" entity-name="OrderType" key-field-name="orderTypeId">
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="statusId" use-when="orderHeader==null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+            <drop-down>
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="orderHeader!=null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${orderHeader.statusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="salesChannelEnumId" widget-style="selectBox">
+            <drop-down>
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="currencyUom" widget-style="selectBox">
+            <drop-down>
+                <entity-options description="${description}" entity-name="Uom" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="firstAttemptOrderId" ><lookup target-form-name="/ordermgr/control/LookupOrderHeader"/></field>
+        <field name="productStoreId">
+            <lookup target-form-name="/marketing/control/LookupProductStore"/>
+        </field>
+        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListOrderHeaders" type="single" target="" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" 
+            default-tooltip-style="tabletext" >
+        <auto-fields-entity entity-name="OrderHeader" default-field-type="display"/>
+        <actions>
+            <entity-and entity-name="OrderHeader">
+                <field-map field-name="orderId"/>
+            </entity-and>
+        </actions>
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="EditOrderHeader?orderId=${orderId}" description="[${orderId}]" />
+        </field>
+        <field name="statusId"> <display-entity entity-name="StatusItem"/> </field>
+        <field name="productStoreId"> <display-entity entity-name="ProductStore"/> </field>
+    </form>
+</forms>

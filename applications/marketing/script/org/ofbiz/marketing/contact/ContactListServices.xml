@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
+ * @version 1.0
+ * Created on October 19, 2002
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- ContactList methods -->
+    <simple-method method-name="createContactList" short-description="Create an ContactList">
+        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createContactList you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ContactList" value-name="newEntity"/>
+        <if-empty field-name="parameters.contactListId">
+            <sequenced-id-to-env sequence-name="ContactList" env-name="newEntity.contactListId"/>
+            <else>
+                <set field="newEntity.contactListId" from-field="parameters.contactListId"/>
+            </else>            
+        </if-empty>
+        <field-to-result field-name="newEntity.contactListId" result-name="contactListId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateContactList" short-description="Update an ContactList">
+        <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateContactList you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ContactList" value-name="lookedUpValue" auto-field-map="true"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeContactList" short-description="Delete an ContactList">
+        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteContactList you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ContactList" value-name="lookedUpValue" auto-field-map="true"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <!-- ContactListParty methods -->
+    <simple-method method-name="inlineCheckContactListMechType" short-description="inlineCheckContactListMechType">
+        <!-- check the preferredContactMechId, make sure it is the right type -->
+        <if-not-empty field-name="parameters.preferredContactMechId">
+            <entity-one entity-name="ContactMech" value-name="preferredContactMech" auto-field-map="false">
+                <field-map field-name="contactMechId" env-name="parameters.preferredContactMechId"/>
+            </entity-one>
+            <if-compare-field field-name="preferredContactMech.contactMechTypeId" operator="not-equals" to-field-name="contactList.contactMechTypeId">
+                <entity-one entity-name="ContactMechType" value-name="preferredContactMechType" auto-field-map="false">
+                    <field-map field-name="contactMechTypeId" env-name="preferredContactMech.contactMechTypeId"/>
+                </entity-one>
+                <entity-one entity-name="ContactMechType" value-name="listContactMechType" auto-field-map="false">
+                    <field-map field-name="contactMechTypeId" env-name="contactList.contactMechTypeId"/>
+                </entity-one>
+                <add-error><fail-message message="The preferred contact mechanism [${preferredContactMechType.description}] was not of the right type for the list [${listContactMechType.description}]."/></add-error>
+            </if-compare-field>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="inlineCheckContactListStatusParameter" short-description="inlineCheckContactListMechType">
+        <!-- if this is not an email contact list and the status is pending, just set the status to accepted -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare field-name="contactList.contactMechTypeId" operator="not-equals" value="EMAIL_ADDRESS"/>
+                    <if-compare field-name="parameters.statusId" operator="equals" value="CLPT_PENDING"/>
+                </and>
+            </condition>
+            <then>
+                <string-to-field string="CLPT_ACCEPTED" field-name="parameters.statusId"/>
+            </then>
+        </if>
+    </simple-method>
+    <simple-method method-name="createContactListParty" short-description="Add Party To ContactList">
+        <!-- allow if userLogin.partyId = parameters.partyId or has permission -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="parameters.partyId"/>
+                    <not><if-has-permission permission="MARKETING" action="_CREATE"/></not>
+                </and>
+            </condition>
+            <then><add-error><fail-message message="Security Error: to run createContactListParty you must run it for yourself or have the MARKETING_CREATE or MARKETING_ADMIN permissions."/></add-error></then>
+        </if>
+
+        <entity-one entity-name="ContactList" value-name="contactList"/>
+        <call-simple-method method-name="inlineCheckContactListMechType"/>
+        <call-simple-method method-name="inlineCheckContactListStatusParameter"/>
+        
+        <!-- okay, now check for all errors -->
+        <check-errors/>
+        
+        
+        <make-value entity-name="ContactListParty" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
+        
+        <create-value value-name="newEntity"/>
+        
+        <set-service-fields service-name="createContactListPartyStatus" map-name="newEntity" to-map-name="createContactListPartyStatusMap"/>
+        <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
+    </simple-method>
+    <simple-method method-name="updateContactListParty" short-description="Update Add Party To ContactList">
+        <!-- allow if userLogin.partyId = parameters.partyId or has permission -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="parameters.partyId"/>
+                    <not><if-has-permission permission="MARKETING" action="_UPDATE"/></not>
+                </and>
+            </condition>
+            <then><add-error><fail-message message="Security Error: to run updateContactListParty you must run it for yourself or have the MARKETING_UPDATE or MARKETING_ADMIN permissions."/></add-error></then>
+        </if>
+        <check-errors/>
+
+        <entity-one entity-name="ContactList" value-name="contactList"/>
+        <call-simple-method method-name="inlineCheckContactListMechType"/>
+        <call-simple-method method-name="inlineCheckContactListStatusParameter"/>
+        
+        <entity-one entity-name="ContactListParty" value-name="lookedUpValue"/>
+        <if-not-empty field-name="parameters.statusId">
+            <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="lookedUpValue.statusId">
+                <!-- NOTE: must be parameters as this will have the new statusId, and it will have additional attributes like optInVerifyCode -->
+                <set-service-fields service-name="createContactListPartyStatus" map-name="parameters" to-map-name="createContactListPartyStatusMap"/>
+                <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
+            </if-compare-field>
+        </if-not-empty>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteContactListParty" short-description="Remove Party from ContactList">
+        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteContactListParty you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="ContactListParty" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="createContactListPartyStatus" short-description="Create ContactListParty Status">
+        <!-- allow if userLogin.partyId = parameters.partyId or has permission -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="parameters.partyId"/>
+                    <not><if-has-permission permission="MARKETING" action="_CREATE"/></not>
+                    <not><if-has-permission permission="MARKETING" action="_UPDATE"/></not>
+                </and>
+            </condition>
+            <then><add-error><fail-message message="Security Error: to run createContactListPartyStatus you must run it for yourself or have the MARKETING_CREATE or MARKETING_UPDATE or MARKETING_ADMIN permissions."/></add-error></then>
+        </if>
+        <check-errors/>
+        
+        <make-value entity-name="ContactListPartyStatus" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <now-timestamp-to-env env-name="newEntity.statusDate"/>
+        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.setByUserLoginId"/>
+        
+        <!-- if statusId is CLPT_PENDING, set optInVerifyCode; else if statusId is CLPT_ACCEPTED, make sure optInVerifyCode is the same as the last CLPT_PENDING -->
+        <if>
+            <condition><if-compare field-name="newEntity.statusId" operator="equals" value="CLPT_PENDING"/></condition>
+            <then>
+                <call-bsh><![CDATA[newEntity.set("optInVerifyCode", Long.toString(Math.round(9999999999L * Math.random())))]]></call-bsh>
+            </then>
+        <else-if>
+            <condition><if-compare field-name="newEntity.statusId" operator="equals" value="CLPT_ACCEPTED"/></condition>
+            <then>
+                <!-- look up the last ContactListPartyStatus with statusId=CLPT_PENDING -->
+                <entity-condition entity-name="ContactListPartyStatus" list-name="lastContactListPartyStatusList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contactListId" env-name="parameters.contactListId"/>
+                        <condition-expr field-name="partyId" env-name="parameters.partyId"/>
+                        <condition-expr field-name="fromDate" env-name="parameters.fromDate"/>
+                        <condition-expr field-name="statusId" value="CLPT_PENDING"/>
+                    </condition-list>
+                    <order-by field-name="-statusDate"/>
+                </entity-condition>
+                <first-from-list entry-name="lastContactListPartyStatus" list-name="lastContactListPartyStatusList"/>
+
+                <!-- only require an optInVerifyCode if there was one in place -->
+                <if-not-empty field-name="lastContactListPartyStatus.optInVerifyCode">
+                    <if-not-empty field-name="parameters.optInVerifyCode">
+                        <if-compare-field field-name="lastContactListPartyStatus.optInVerifyCode" operator="not-equals" to-field-name="parameters.optInVerifyCode">
+                            <add-error><fail-message message="The Opt-in Verify Code specified [${parameters.optInVerifyCode}] was not correct. Please check the code you were sent."/></add-error>
+                        </if-compare-field>
+                    <else>
+                        <add-error><fail-message message="No Opt-in Verify Code specified, but one is required."/></add-error>
+                    </else>
+                    </if-not-empty>
+                </if-not-empty>
+                <check-errors/>
+            </then>
+        </else-if>
+        </if>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="sendContactListPartyVerifyEmail" short-description="Send ContactListParty Verify Email">
+        <!-- allow if userLogin.partyId = parameters.partyId or has permission -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="parameters.partyId"/>
+                    <not><if-has-permission permission="MARKETING" action="_VIEW"/></not>
+                </and>
+            </condition>
+            <then><add-error><fail-message message="Security Error: to run sendContactListPartyVerifyEmail you must run it for yourself or have the MARKETING_VIEW or MARKETING_ADMIN permissions."/></add-error></then>
+        </if>
+        <check-errors/>
+
+        <entity-one entity-name="ContactList" value-name="contactList"/>
+        <entity-one entity-name="ContactListParty" value-name="contactListParty"/>
+        <get-related-one value-name="contactListParty" relation-name="PreferredContactMech" to-value-name="preferredContactMech"/>
+        
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="contactList.verifyEmailFrom"></if-empty></not>
+                    <not><if-empty field-name="contactList.verifyEmailSubject"></if-empty></not>
+                    <not><if-empty field-name="contactList.verifyEmailScreen"></if-empty></not>
+                    <not><if-empty field-name="contactList.verifyEmailWebSiteId"></if-empty></not>
+                </and>
+            </condition>
+            <then>
+                <!-- get the latest pending status -->
+                <!-- look up the last ContactListPartyStatus with statusId=CLPT_PENDING -->
+                <entity-condition entity-name="ContactListPartyStatus" list-name="lastContactListPartyStatusList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contactListId" env-name="parameters.contactListId"/>
+                        <condition-expr field-name="partyId" env-name="parameters.partyId"/>
+                        <condition-expr field-name="fromDate" env-name="parameters.fromDate"/>
+                        <condition-expr field-name="statusId" value="CLPT_PENDING"/>
+                    </condition-list>
+                    <order-by field-name="-statusDate"/>
+                </entity-condition>
+                <first-from-list entry-name="contactListPartyStatus" list-name="lastContactListPartyStatusList"/>
+                
+                <!-- TODO: if preferredContactMech.contactMechTypeId != EMAIL_ADDRESS, return an error -->
+                <!-- TODO: if preferredContactMech is empty, should we try to find the ContactMech we want based on the Party? -->
+                
+                <!-- TODO: this could really use some more work to be more flexible, or easier to maintain, like perhaps a general EmailSendSettings entity or something -->
+                <env-to-env env-name="preferredContactMech.infoString" to-env-name="sendMailFromScreenMap.sendTo"/>
+                <env-to-env env-name="contactList.verifyEmailFrom" to-env-name="sendMailFromScreenMap.sendFrom"/>
+                <env-to-env env-name="contactList.verifyEmailSubject" to-env-name="sendMailFromScreenMap.subject"/>
+                <env-to-env env-name="contactList.verifyEmailScreen" to-env-name="sendMailFromScreenMap.bodyScreenUri"/>
+                <env-to-env env-name="contactList.verifyEmailWebSiteId" to-env-name="sendMailFromScreenMap.webSiteId"/>
+                <string-to-field string="text/html" field-name="sendMailFromScreenMap.contentType"/>
+                
+                <env-to-env env-name="contactList" to-env-name="sendMailFromScreenMap.bodyParameters.contactList"/>
+                <env-to-env env-name="contactListParty" to-env-name="sendMailFromScreenMap.bodyParameters.contactListParty"/>
+                <env-to-env env-name="contactListPartyStatus" to-env-name="sendMailFromScreenMap.bodyParameters.contactListPartyStatus"/>
+                
+                <call-service service-name="sendMailFromScreen" in-map-name="sendMailFromScreenMap"/>
+            </then>
+            <else>
+                <log level="warning" message="WARNING: Not sending subscription verify email because verifyEmail* settings are missing on the ContactList record: ${contactList}"/>
+            </else>
+        </if>
+    </simple-method>
+</simple-methods>

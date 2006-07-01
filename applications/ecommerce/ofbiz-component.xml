@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *  $Id: ofbiz-component.xml 7589 2006-05-15 06:19:21Z jonesde $
+-->
+
+<ofbiz-component name="ecommerce"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="jar" location="build/lib/*"/>
+    <classpath type="dir" location="config"/>
+    <classpath type="dir" location="script"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoMerchant.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductImages.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoSurvey.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalShipping.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoShipping.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoWebSitePublishPointData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTemplateData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoContent.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTopic.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTree.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoFactoids.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRelatedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoConfigurator.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalProduct.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTaxAuthority.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrderPeopleData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoMarketing.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStandardCosting.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPurchasing.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStoreGiftCertificateSettings.xml"/>
+    <webapp name="ecommerce"
+        title="ECommerce"
+        server="default-server"
+        location="webapp/ecommerce"
+        mount-point="/ecommerce"
+        app-bar-display="false"/>
+</ofbiz-component>

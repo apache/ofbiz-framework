@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Order (ShoppingCart) Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="assignItemShipGroup" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="assignItemShipGroup">
+        <description>Assign a ShoppingCartItem -> Quantity to a ship group</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="fromGroupIndex" type="Integer" mode="IN" optional="false"/>
+        <attribute name="toGroupIndex" type="Integer" mode="IN" optional="false"/>
+        <attribute name="itemIndex" type="Integer" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+    </service>
+
+    <service name="setCartShippingOptions" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setShippingOptions">
+        <description>Sets The ShoppingCart Shipping Options</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="groupIndex" type="Integer" mode="IN" optional="false"/>
+        <attribute name="shippingContactMechId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderUiLabels" property="checkhelper.select_shipping_destination"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shipmentMethodString" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderUiLabels" property="checkhelper.select_shipping_method"/>
+            </type-validate>
+        </attribute>
+        <attribute name="shippingInstructions" type="String" mode="IN" optional="true"/>
+        <attribute name="maySplit" type="Boolean" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderUiLabels" property="checkhelper.select_splitting_preference"/>
+            </type-validate>
+        </attribute>
+        <attribute name="isGift" type="Boolean" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderUiLabels" property="checkhelper.specify_if_order_is_gift"/>
+            </type-validate>
+        </attribute>
+        <attribute name="giftMessage" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="setCartShippingAddress" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setShippingOptions">
+        <description>Sets The ShoppingCart Shipping Options</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="groupIndex" type="Integer" mode="IN" optional="false"/>
+        <attribute name="shippingContactMechId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderUiLabels" property="checkhelper.select_shipping_destination"/>
+            </type-validate>
+        </attribute>
+    </service>
+
+    <service name="setCartPaymentOptions" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setPaymentOptions">
+        <description>Sets the ShoppingCart Payment Options</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="paymentInfoId" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="refNum" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="setCartOtherOptions" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="setOtherOptions">
+        <description>Sets the ShoppingCart Other Options (besided payment and shipping)</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="orderAdditionalEmails" type="String" mode="IN" optional="true"/>
+        <attribute name="correspondingPoId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="loadCartFromOrder" engine="java" auth="true"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromOrder">
+        <description>Create a ShoppingCart Object based on an existing order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="loadCartFromQuote" engine="java" auth="true"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromQuote">
+        <description>Create a ShoppingCart Object based on an existing quote. If applyQuoteAdjustments is set to false then standard cart adjustments are generated.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+        <attribute name="applyQuoteAdjustments" type="String" mode="IN" optional="true"/>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
+    </service>
+    <service name="loadCartFromShoppingList" engine="java" auth="true"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromShoppingList">
+        <description>Create a ShoppingCart Object based on an existing shopping list.</description>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+        <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
+    </service>
+</services>

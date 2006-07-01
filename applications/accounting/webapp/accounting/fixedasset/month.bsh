@@ -1,0 +1,114 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Johan Isacsson
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import org.ofbiz.security.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.webapp.pseudotag.*;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.text.NumberFormat;
+
+delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
+
+fixedAssetId = request.getParameter("fixedAssetId");
+fixedAsset = delegator.findByPrimaryKeyCache("FixedAsset", UtilMisc.toMap("fixedAssetId",fixedAssetId));
+
+String startMonth = request.getParameter("month"); //optional command to change the month
+Timestamp currentMonth = session.getAttribute("currentMonth");    // the month displayed the last time.
+
+Timestamp now = null;
+if (startMonth == null || currentMonth == null)    // a fresh start
+    now = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp());
+else if (startMonth.equals("1") && currentMonth != null)
+        now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, 35));
+else if (startMonth.equals("-1") && currentMonth != null)
+    now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, -15));
+else if (startMonth.equals("3") && currentMonth != null)
+    now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, 100));
+else if (startMonth.equals("-3") && currentMonth != null)
+    now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, -75));
+else
+    now = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp());
+
+currentMonth = now;
+nextMonth = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(now, 35));
+
+condition = new ArrayList();
+condition.add(new EntityExpr("calendarId", EntityOperator.EQUALS, fixedAsset.getString("calendarId")));
+condition.add(new EntityExpr("exceptionDateStartTime",EntityOperator.GREATER_THAN, now));
+condition.add(new EntityExpr("exceptionDateStartTime",EntityOperator.LESS_THAN, nextMonth));
+List allDates = delegator.findByAnd("TechDataCalendarExcDay", condition);
+Iterator dbInt = allDates.iterator();
+dbValid = false;    // flag to see if the current dbInt is ok
+excDayRecord = null;
+if (dbInt.hasNext())    {
+    excDayRecord = dbInt.next();
+    dbValid = true;
+}
+
+calendarStartWeek = UtilDateTime.getWeekStart(now);
+calendarEndDay = UtilDateTime.getWeekStart(nextMonth);
+
+Timestamp currentWeek = calendarStartWeek;
+weeks = new ArrayList();
+while ( currentWeek.compareTo(calendarEndDay) <= 0 ){
+    days = UtilMisc.toMap("week",UtilDateTime.weekNumber(currentWeek));
+    
+    for (int day = 1; day < 8 ; day++)    {
+        String extraText = "";
+        available = "N/A";
+        if (dbValid == true && UtilDateTime.getDayStart(currentWeek,day).compareTo(excDayRecord.getTimestamp("exceptionDateStartTime")) == 0) {
+            if (fixedAsset.get("productionCapacity") != null && fixedAsset.getDouble("productionCapacity").doubleValue() != 0)
+                available = fixedAsset.getString("productionCapacity") + "*"; // default value
+            if (excDayRecord.get("exceptionCapacity") != null && excDayRecord.getDouble("exceptionCapacity").doubleValue() != 0)
+                available = excDayRecord.getString("exceptionCapacity");
+            extraText = "Avail.: " + available + "<br/>Allocated: " + excDayRecord.getString("usedCapacity");
+            if (dbInt.hasNext())    {
+                excDayRecord = dbInt.next();
+                dbValid = true;
+            }
+            else
+                dbValid = false;
+        }
+        days.put(UtilDateTime.days[day-1], UtilDateTime.getDayStart(currentWeek,day).toString().substring(8,10));
+        days.put(UtilDateTime.days[day-1]+"Data", extraText);
+        
+    }
+    weeks.add(days);
+    currentWeek = UtilDateTime.getWeekStart(currentWeek,7);
+}
+int monthNr = NumberFormat.getNumberInstance().parse(now.toString().substring(5,7)).intValue();
+context.put("month",UtilDateTime.months[monthNr-1]);
+context.put("year",now.toString().substring(0,4));
+context.put("weeks",weeks);
+context.put("now",now);
+context.put("nextMonth",nextMonth);
+session.setAttribute("currentMonth",currentMonth);

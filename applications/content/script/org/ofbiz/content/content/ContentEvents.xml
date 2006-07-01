@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<simple-methods>
+    <simple-method login-required="false" method-name="createContentAndPurpose">
+      <log level="always" message="in createContentAndPurpose."/>
+      <log level="always" message="parameters: ${parameters}"/>
+      <make-value entity-name="Content" value-name="currentContent"/>
+      <set-pk-fields map-name="parameters" value-name="currentContent"/>
+      <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+      <call-map-processor in-map-name="currentContent" out-map-name="currentContent">
+        <simple-map-processor>
+        <process field="createdDate">
+          <convert type="Timestamp">
+            <fail-message message="Created Date is not a valid Timestamp input format."/>
+          </convert>
+        </process>
+        <process field="lastModifiedDate">
+          <convert type="Timestamp">
+            <fail-message message="LastModified Date is not a valid Timestamp input format."/>
+          </convert>
+        </process>
+        </simple-map-processor>
+      </call-map-processor>
+      <map-to-map map-name="currentContent" to-map-name="context" />
+      <log level="always" message="currentContent: ${currentContent}"/>
+      <log level="always" message="context: ${context}"/>
+      <field-to-field map-name="parameters" field-name="contentPurposeTypeId"
+          to-map-name="context" />
+      <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
+      <env-to-field env-name="targetOperationList" to-map-name="context" 
+               to-field-name="targetOperationList" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <call-service in-map-name="context" service-name="createContent">
+        <result-to-field field-name="contentId" result-name="contentId"/>
+        <result-to-request request-name="contentId" result-name="contentId"/>
+      </call-service>
+      <if-empty field-name="contentId" >
+        <add-error>
+          <fail-message message="Permission not granted."/>
+        </add-error>
+      </if-empty>
+      <check-errors/>
+
+      <session-to-field session-name="currentEntityMap" field-name="entityMap" />
+      <if-not-empty field-name="entityMap" >
+          <env-to-env env-name="entityMap" to-env-name="currentEntityMap" />
+      </if-not-empty>
+      <make-value entity-name="Content" value-name="contentPK"/>
+      <env-to-field env-name="contentId" 
+                map-name="contentPK" field-name="contentId"/>
+      <log level="always" message="contentPK: ${contentPK}"/>
+      <env-to-field env-name="contentPK" map-name="currentEntityMap" field-name="Content" />
+      <log level="always" message="currentEntityMap: ${currentEntityMap}"/>
+      <field-to-session session-name="currentEntityMap" field-name="currentEntityMap" />
+
+      <if-not-empty field-name="contentPurposeTypeId" map-name="parameters">
+      <log level="always" message="contentPurposeTypeId: ${parameters.contentPurposeTypeId}"/>
+          <make-value entity-name="ContentPurpose" value-name="newContentPurpose"/>
+          <field-to-field map-name="parameters" field-name="contentPurposeTypeId"
+            to-map-name="newContentPurpose"/>
+      <log level="always" message="contentId: ${contentId}"/>
+          <field-to-field field-name="contentId" 
+                to-map-name="newContentPurpose" to-field-name="contentId"/>
+          <create-value value-name="newContentPurpose"/>
+      <log level="always" message="newContentPurpose: ${newContentPurpose}"/>
+     </if-not-empty>
+    </simple-method>
+
+    <simple-method login-required="false" method-name="updateContent">
+      <log level="always" message="/nin updateContent."/>
+      <log level="always" message="parameters: ${parameters}"/>
+      <make-value entity-name="Content" value-name="currentContent"/>
+      <set-pk-fields map-name="parameters" value-name="currentContent"/>
+      <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+      <call-map-processor in-map-name="currentContent" out-map-name="currentContent">
+        <simple-map-processor>
+        <process field="createdDate">
+          <convert type="Timestamp">
+            <fail-message message="Created Date is not a valid Timestamp input format."/>
+          </convert>
+        </process>
+        <process field="lastModifiedDate">
+          <convert type="Timestamp">
+            <fail-message message="LastModified Date is not a valid Timestamp input format."/>
+          </convert>
+        </process>
+        </simple-map-processor>
+      </call-map-processor>
+      <log level="always" message="datesConverted: ${datesConverted}"/>
+      <map-to-map map-name="currentContent" to-map-name="context" />
+      <get-related value-name="currentContent" relation-name="ContentPurpose"
+                  list-name="contentPurposeList" />
+      <env-to-field env-name="contentPurposeList" to-map-name="context" 
+                             to-field-name="contentPurposeList" />
+      <string-to-list list-name="targetOperationList" string="CONTENT_UPDATE"/>
+      <env-to-field env-name="targetOperationList" to-map-name="context" 
+               to-field-name="targetOperationList" />
+      <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
+      <call-service in-map-name="context" service-name="updateContent">
+        <result-to-field field-name="contentId" result-name="contentId"/>
+      </call-service>
+      <check-errors/>
+    </simple-method>
+
+    <simple-method login-required="true" method-name="addContentAssoc">
+        <log level="always" message="in addContentAssoc."/>
+        <log level="always" message="parameters: ${parameters}"/>
+
+
+        <!-- link article to publish point -->
+        <field-to-field map-name="parameters" field-name="contentIdTo" 
+                        to-map-name="context3" to-field-name="contentIdTo" />
+        <field-to-field map-name="parameters" field-name="contentId" 
+                        to-map-name="context3" to-field-name="contentIdFrom" />
+        <field-to-field map-name="parameters" field-name="contentAssocTypeId" 
+                        to-map-name="context3" to-field-name="contentAssocTypeId" />
+        <session-to-field field-name="userLogin" map-name="context3" session-name="userLogin"/>
+        <string-to-list list-name="contentPurposeList" string="_NA_"/>
+        <field-to-field field-name="contentPurposeList" to-map-name="context3"/>
+        <string-to-list list-name="targetOperationList" string="ASSOC_CONTENT"/>
+        <field-to-field field-name="targetOperationList" to-map-name="context3"/>
+        <call-service in-map-name="context3" service-name="assocContent">
+        </call-service>
+
+    </simple-method>
+</simple-methods>
+

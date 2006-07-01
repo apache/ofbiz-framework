@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="../../../../../framework/widget/dtd/widget-form.xsd">
+    
+    <form name="EditGlJournalEntry" type="single"
+            target="createGlJournalEntry" title="" default-map-name="journal"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="AcctgTransType" description="${description}">
+                    <entity-order-by field-name="acctgTransTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glFiscalTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="organizationPartyId" parameter-name="organizationPartyId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${partyId}">
+                <!-- entity-options entity-name="PartyRoleAndPartyDetail" description="${organizationPartyId}" -->
+                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId" parameter-name="partyId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="Party" key-field-name="partyId" description="${partyId}">
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="roleTypeId" parameter-name="roleTypeId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="invoiceId"><text size="20" maxlength="20"/></field>
+        <field name="paymentId"><text size="20" maxlength="20"/></field>
+        <field name="produtId"><text size="20" maxlength="20"/></field>
+        <field name="debitGlAccountId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="creditGlAccountId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="amount"><text size="20" maxlength="20"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListGlAccountOrganization" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
+        list-name="listIt" target="" paginate-target="/ListGlAccountOrganization" title="" type="list">
+        <actions>
+            <set field="entityName" value="GlAccountOrganization"/>
+            <set field="noConditionFind" value="Y"/> 
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="GlAccountOrganization" default-field-type="display"/>
+        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate?glAccountId=${glAccountId}"/>
+        </field>
+    </form>
+
+    <!-- Displays the form for assigning accounts to a party or company -->
+    <!-- TODO: Localize field names --> 
+    <form name="AssignGlAccount" type="single"
+            target="createGlAccountOrganization" title="" default-map-name="account"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+        <!-- field name="glAccountId" title="Edit" widget-style="buttontext" -->
+
+        <field name="glAccountId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="GlAccount" description="${accountName}"> 
+                    <entity-order-by field-name="accountName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- field name="organizationPartyId" title="Party" widget-style="selectBox" -->
+        <field name="partyId" parameter-name="organizationPartyId" widget-style="selectBox"> 
+            <drop-down>
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${partyId}" > 
+                <!-- entity-options entity-name="PartyRoleAndPartyDetail" description="${organizationPartyId}" --> 
+                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListGlAccount" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="tabletext" default-entity-name="GlAccount"
+        list-name="listIt" target="" paginate-target="/FindGlobalGlAccount" title="" type="list">
+        <actions>
+            <set field="entityName" value="GlAccount"/>
+            <set field="noConditionFind" value="Y"/> 
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+                <field-map field-name="noConditionFind" value="Y"/> 
+            </service>
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+        </actions>
+        
+        <!--auto-fields-entity entity-name="GlAccount" default-field-type="display"/-->
+        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate?glAccountId=${glAccountId}"/>
+        </field>
+        <field name="accountName"><display/></field>
+        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
+        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
+        <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"></display-entity></field>
+        <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"></display-entity></field>
+        <field name="parentGlAccountId"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]" key-field-name="glAccountId"></display-entity></field>
+        <field name="accountCode"><hidden/></field>
+        <field name="postedBalance"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
+    </form>
+
+    <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="glAccount==null" target="createGlAccount"/>
+        <auto-fields-service service-name="updateGlAccount" map-name=""/>
+        
+        <field use-when="glAccount!=null" name="glAccountId" tooltip="${uiLabelMap.AccountingNotModificationRecrationGlAccount}"><display/></field>
+        <field use-when="glAccount==null&amp;&amp;glAccountId!=null" name="glAccountId" tooltip="${uiLabelMap.AccountingCouldNotFindGlAccount} [${glAccountId}]"><text size="20" maxlength="20"/></field>
+        <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
+        <field use-when="glAccount==null&amp;&amp;glAccountId==null" name="glAccountId"><text size="20" maxlength="20"/></field>
+
+        <field name="glAccountTypeId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlAccountType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options> 
+            </drop-down>
+        </field>
+        <field name="glAccountClassId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlAccountClass" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glResourceTypeId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlResourceType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glXbrlClassId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlXbrlClass" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="parentGlAccountId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="glAccountId" entity-name="GlAccount" description="[${glAccountId}] ${accountName}-${accountCode}">
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="postedBalance"><display/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- this is used to list AcctgTransEntries and can be called either by using an acctgTransId or a glAccountId -->
+    <form name="ListAcctgTransEntries" type="list" list-name="entries"  default-entity-name="AcctgTransEntry"  
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <field name="acctgTransId">
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/>
+        </field>
+        <field name="acctgTransEntrySeqId"><display/></field>     
+        <field name="glAccountId">
+            <display-entity entity-name="GlAccount" description="${accountName}">
+                <sub-hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}" description="[${glAccountId}]" link-style="tabletext"/>
+             </display-entity>
+        </field>
+        <field name="description"><display/></field>
+        <field name="voucherRef"><display/></field>
+        <field name="partyId"><display/></field>
+        <field name="organizationPartyId"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="debitCreditFlag"><display/></field>
+        <field name="amount"><display/></field>
+        <field name="reconcileStatusId"><display/></field>
+        <field name="settlementTermId"><display/></field>
+        <field name="isSummary"><display/></field>
+    </form>
+
+    <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="" title="">
+            <hyperlink also-hidden="false" description="[Back to Admin]" target="AdminMain?organizationPartyId=${organizationPartyId}"/>
+        </field>
+    </form>
+
+    <form name="ListGlReconciliations" type="list" list-name="glReconciliations" default-entity-name="GlReconciliation"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
+        <field name="glReconciliationId">
+            <hyperlink also-hidden="false" description="${glReconciliationId}" target="viewGlReconciliation?glReconciliationId=${glReconciliationId}&amp;amp;organizationPartyId=${organizationPartyId}&amp;amp;glAccountId=${glAccountId}"/>
+        </field>
+        <field name="glReconciliationName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="createdByUserLogin"><display/></field>
+        <field name="glAccountId">
+            <display-entity entity-name="GlAccount" description="${accountName}">
+                <sub-hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}&amp;amp;organizationPartyId=${organizationPartyId}" 
+                    description="[${glAccountId}]" link-style="tabletext"/>
+            </display-entity>
+        </field>
+        <field name="reconciledBalance"><display/></field>
+        <field name="reconciledDate"><display/></field>
+    </form>
+
+    <form name="ListGlReconciliationEntries" type="list" list-name="glReconciliationEntries" default-entity-name="GlReconciliationEntry"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
+        <field name="glReconciliationId"><display/></field>
+        <field name="acctgTransId">
+            <hyperlink also-hidden="false" description="${acctgTransId}"
+                target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/>
+        </field>
+        <field name="acctgTransEntrySeqId"><display/></field>
+        <field name="reconciledAmount"><display/></field>
+    </form>
+
+
+</forms>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
+ * @version 1.0
+ * Created on October 19, 2002
+ -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- TrackingCode methods -->
+    <simple-method method-name="createTrackingCode" short-description="Create an TrackingCode">
+        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createTrackingCode you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <make-value value-name="newEntity" entity-name="TrackingCode"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <!-- set the history/audit info -->
+        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="createdByUserLogin" to-map-name="newEntity"/>
+        <env-to-field env-name="nowStamp" field-name="createdDate" map-name="newEntity"/>
+        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="newEntity"/>
+        <env-to-field env-name="lastModifiedDate" field-name="createdDate" map-name="newEntity"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateTrackingCode" short-description="Update an TrackingCode">
+        <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCode you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <make-value entity-name="TrackingCode" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TrackingCode" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        
+        <!-- set the history/audit info -->
+        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="newEntity"/>
+        <env-to-field env-name="lastModifiedDate" field-name="createdDate" map-name="newEntity"/>
+        
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteTrackingCode" short-description="Delete an TrackingCode">
+        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteTrackingCode you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="TrackingCode" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TrackingCode" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <!-- TrackingCodeType methods -->
+    <simple-method method-name="createTrackingCodeType" short-description="Create an TrackingCodeType">
+        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createTrackingCodeType you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <make-value value-name="newEntity" entity-name="TrackingCodeType"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <!-- set the history/audit info -->
+        <env-to-field env-name="nowStamp" field-name="createdStamp" map-name="newEntity"/>
+        <env-to-field env-name="lastModifiedDate" field-name="createdStamp" map-name="newEntity"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateTrackingCodeType" short-description="Update an TrackingCodeType">
+        <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCodeType you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <make-value entity-name="TrackingCodeType" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        
+        <!-- set the history/audit info -->
+        <env-to-field env-name="lastModifiedDate" field-name="createdStamp" map-name="newEntity"/>
+        
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteTrackingCodeType" short-description="Delete an TrackingCodeType">
+        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteTrackingCodeType you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="TrackingCodeType" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+</simple-methods>

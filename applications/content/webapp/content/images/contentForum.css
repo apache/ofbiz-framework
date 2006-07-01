@@ -1,0 +1,120 @@
+
+.responseheader {
+		color:blue;
+		font-size:10pt;
+		font-weight:bold;
+		text-align:left;
+		font-family:verdana, arial, sans-serif;
+		margin-left:10px;
+		}
+		
+.responsetext {
+		color:#222222;
+		font-size:8pt;
+		font-weight:medium;
+		text-align:left;
+		font-family:verdana, arial, sans-serif;
+		margin-left:20px;
+		}
+		
+.responseTreeWrapper { 
+        color:black; 
+        background:#ffffff; 
+        font-size:8pt; 
+		font-weight:medium;
+		font-family:verdana, arial, sans-serif;
+		text-align:left;
+        text-decoration:none;
+        margin-left:12px;
+        margin-top:2px;
+        border-top:1px solid black;
+        border-left:1px solid black;
+        }
+        
+.responseSelected {
+        background:#BBBBBB; 
+        border:1px dashed black;
+        }        
+.forummenuwrapper { 
+        color:#8B008B; 
+        background:#D4D0C8;
+        font-size:10; 
+        text-decoration:none;
+        margin-left:12px;
+        margin-right:20px;
+        float:right;
+        text-align:right;
+        max-width:50%;
+        padding-left:14px;
+        }
+.forumheader {
+		color:black;
+		font-size:12pt;
+		font-weight:bold;
+		text-align:left;
+		font-family:verdana, arial, sans-serif;
+		margin-left:10px;
+		}
+		
+.forumtext {
+		color:#222222;
+		font-size:12pt;
+		font-weight:medium;
+		text-align:left;
+		font-family:verdana, arial, sans-serif;
+		margin-left:20px;
+		}
+		
+.forumtitle{ 
+        color:#8B008B; 
+        background:#D4D0C8;
+        font-size:22; 
+		font-weight:bold;
+		text-align:left;
+		font-family:verdana, arial, sans-serif;
+        text-decoration:none;
+        display:inline;
+        float:left;
+        }
+        
+.forumtitleboxed { 
+        color:#8B008B; 
+        background:#D4D0C8;
+        font-size:22; 
+        text-decoration:none;
+        border:1px solid black;
+        padding:4px;
+        display:inline;
+        float:left;
+        }
+        
+.forumhr {
+        color:#8B008B;
+        background:#D4D0C8;
+        border:1px solid #8B008B;
+        padding:4px;
+        height:22pt;
+        }        
+        
+.forumwrapper {
+        background:#D4D0C8;
+        border:1px solid #8B008B;
+        padding:4px;
+        margin-top:6px;
+		font-size:12pt;
+		font-weight:medium;
+		text-align:left;
+		font-family:verdana, arial, sans-serif;
+        }        
+
+.forumcontentwrapper {
+        background:#f8f8f8;
+        border:1px solid #000000;
+        padding:4px;
+        margin-top:6px;
+		color:black;
+		font-size:12pt;
+		font-weight:medium;
+		text-align:left;
+		font-family:verdana, arial, sans-serif;
+        }        

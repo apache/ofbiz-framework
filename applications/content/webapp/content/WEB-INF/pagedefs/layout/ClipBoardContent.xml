@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>lookup</template> 
+    <property name="title">Lookup Layout</property>
+    <property name="formDefFile">/layout/LayoutForms.xml</property>    
+    <property name="singleFormName">lookupDataResourceContent</property>    
+    <property name="listFormName">listLookupDataResourceContent</property>    
+    <property name="mruFormName">listLookupDataResourceContent</property>    
+    <property name="subMenu">/layout/layout_menu.ftl</property>    
+    <property name="headerItem">Layout</property>    
+    <property name="entityName">DataResourceContentView</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+    <page-action name="/includes/findprep.bsh"/>
+    <page-action name="/includes/mruprep.bsh"/>
+    <content-action name="/includes/pagelistprep.bsh"/>
+    <content-action name="/layout/lookupprep.bsh"/>
+</page>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+    
+    <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListForumGroups" type="list" list-name="forumGroups" separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext" target="updateForumGroup">
+        <field name="select" widget-style="tabButton" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForums?forumGroupId=${contentId}" description="forums"/></field>
+        <field name="forumGroupName" entry-name="contentName" parameter-name="contentName"><text/></field>
+        <field name="forumGroupDescription" entry-name="description" parameter-name="description"><text/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
+    </form>
+    <form name="AddForumGroup" type="single" 
+        target="createForumGroup" title="" default-map-name="forumGroup"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="forumGroupName" parameter-name="contentName"><text/></field>
+        <field name="forumGroupDescription" parameter-name="description"><text/></field>
+        <field name="contentTypeId"><hidden value="FORUM_ROOT"/></field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListForums" type="list" list-name="forums"  separate-columns="true" target="updateForum"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentIdTo"><hidden value="${caContentIdTo}"/></field>
+        <field name="contentAssocTypeId"><hidden value="${caContentAssocTypeId}"/></field>
+        <field name="contentTypeId"><hidden/></field>
+        <field name="select" widget-style="tabButton" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${contentId}" description="Msgs"/></field>
+        <field name="forumName" entry-name="contentName" parameter-name="contentName"><text/></field>
+        <field name="forumDescription" entry-name="description" parameter-name="description"><text/></field>
+        <field name="thruDate" entry-name="caThruDate"><date-time/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}"><hyperlink target="updateForum?forumGroupId=${parameters.forumGroupId}&amp;contentIdTo=${parameters.forumGroupId}&amp;contentId=${contentId}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}&amp;deactivateExisting=yes" description="${uiLabelMap.CommonDelete}"/></field>
+        <field name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate.toString().substring(0,10)}"/></field>
+        <field name="nbrOfMessages" entry-name="childBranchCount"><display/></field>
+    </form>
+    <form name="AddForum" type="single" target="createForum"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="forumName" parameter-name="contentName"><text/></field>
+        <field name="forumDescription" parameter-name="description"><text/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="contentTypeId"><hidden value="WEB_SITE_PUB_PT"/></field>
+        <field name="ownerContentId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentIdTo"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentAssocTypeId"><hidden value="SUBSITE"/></field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ForumGroupPurposes" type="list" list-name="forumPurposes" target="deleteForumGroupPurpose"
+        default-title-style="tableheadtext" default-widget-style="tabletext" separate-columns="true">
+        <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentPurposeTypeId"><display-entity entity-name="ContentPurposeType" description="${description}"/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddForumGroupPurpose" type="single" 
+        target="createForumGroupPurpose" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentPurposeTypeId">
+            <drop-down>
+                <entity-options entity-name="ContentPurposeType" description="${description}"></entity-options>    
+            </drop-down></field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ForumGroupRoles" type="list" list-name="forumRoles" target="updateForumGroupRole" separate-columns="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
+        <auto-fields-entity entity-name="ContentRole" default-field-type="edit"/>
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName}"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}"><hyperlink target="deleteForumGroupRole?forumGroupId=${parameters.forumGroupId}&amp;contentIdTo=${parameters.forumGroupId}&amp;contentId=${contentId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/></field>
+    </form>
+    <form name="AddForumGroupRole" type="single" target="createForumGroupRole" default-map-name=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="ContentRole" default-field-type="edit"/>
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="partyId">
+            <lookup target-form-name="LookupPartyName"></lookup>
+        </field>
+        <field name="roleTypeId">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}"></entity-options>    
+            </drop-down></field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListForumMessages" type="list" list-name="forumMessages" separate-columns="true" target="updateForumMessage"
+        default-title-style="tableheadtext" default-widget-style="tabletext">
+        <row-actions>
+            <service service-name="getContentAndDataResource" result-map-name="contentData">
+                <field-map field-name="contentId" env-name="contentId"/>
+            </service>
+        </row-actions>
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="forumId"><hidden value="${parameters.forumId}"/></field>
+        <field name="contentId"><hidden value="${caContentId}"/></field>
+        <field name="contentIdTo"><hidden value="${caContentIdTo}"/></field>
+        <field name="contentAssocTypeId"><hidden value="${caContentAssocTypeId}"/></field>
+        <field name="contentTypeId"><hidden/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
+        <field position="1" name="messageTitle" entry-name="description" parameter-name="description"><display/></field>
+        <field position="2" name="createdBy" entry-name="createdByUserLogin"><display/></field>
+        <field position="3" name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate!=null?caFromDate.toString().substring(0,10):&quot;&quot;}"/></field>
+        <field position="4" name="thruDate" entry-name="caThruDate"><display description="${bsh:caThruDate!=null?caThruDate.toString().substring(0,10):&quot;&quot;}"/></field>
+        <field position="5" name="deleteButton" title="${uiLabelMap.CommonDelete}"><hyperlink target="updateForumMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;contentIdTo=${caContentIdTo}&amp;contentId=${caContentId}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}&amp;deactivateExisting=yes" description="${uiLabelMap.CommonDelete}"/></field>
+        <field position="6" name="messageText" entry-name="contentData.resultData.electronicText.textData" parameter-name="textData"><textarea rows="8"/></field>
+        <field position="7" name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
+        <field position="8" name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}"><hyperlink target="addForumMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${contentId}&amp;contentAssocTypeId=RESPONSE" description="${uiLabelMap.FormFieldTitle_reponse}"/></field>
+    </form>
+    
+    <form name="EditForumMessage" type="single" target="updateForumMessage" default-map-name="message"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <service service-name="getContentAndDataResource" result-map-name="contentData">
+                <field-map field-name="contentId" env-name="parameters.forumMessageId"/>
+            </service>
+            <set field="message.forumMessageId" from-field="contentData.resultData.content.contentId"/>
+            <set field="message.contentTypeId" from-field="contentData.resultData.content.contentTypeId"/>
+            <set field="message.contentIdTo" from-field="parameters.forumMessageIdTo"/>
+            <set field="message.forumMessageName" from-field="contentData.resultData.content.contentName"/>
+            <set field="message.forumMessageTitle" from-field="contentData.resultData.content.description"/>
+            <set field="message.forumMessageText" from-field="contentData.resultData.electronicText.textData"/>
+            <entity-and entity-name="ContentAssoc" list-name="contentAssocList" filter-by-date="true">
+                <field-map field-name="contentId" env-name="message.forumMessageId"/>
+                <field-map field-name="contentIdTo" env-name="message.contentIdTo"/>
+                <field-map field-name="contentAssocTypeId" value="RESPONSE"/>
+            </entity-and>
+            <set field="contentAssoc" from-field="contentAssocList[0]" />
+        </actions>
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="forumId"><hidden value="${parameters.forumId}"/></field>
+        <field name="forumMessageId"><hidden/></field>
+        <field name="forumMessageName" parameter-name="contentName"><hidden/></field>
+        <field name="forumMessageTitle" parameter-name="description"><text/></field>
+        <field name="contentTypeId"><hidden/></field>
+        <field name="ownerContentId"><hidden value="${parameters.forumId}"/></field>
+        <field name="fromDate"><hidden value="${contentAssoc.fromDate}"/></field>
+        <field name="toDate"><hidden value="${contentAssoc.toDate}"/></field>
+        <field name="contentIdTo"><hidden/></field>
+        <field name="contentAssocTypeId"><hidden value="RESPONSE"/></field>
+        <field name="forumMessageText" parameter-name="textData"><textarea rows="10"/></field>
+        <field name="addButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddForumMessage" type="single" target="updateForumMessage" default-map-name="message"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="VIEW_INDEX"><hidden value="${parameters.VIEW_INDEX}"/></field>
+        <field name="threadView"><hidden value="${parameters.threadView}"/></field>
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
+        <field name="forumId"><hidden value="${parameters.forumId}"/></field>
+        <field name="contentName"><hidden value="New thread/message/response"/></field>
+        <field name="forumMessageTitle" parameter-name="description"><text default-value="${forumMessage.description}"/></field>
+        <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
+        <field name="ownerContentId"><hidden value="${parameters.forumId}"/></field>
+        <field name="contentIdTo"><hidden value="${parameters.forumMessageIdTo}"/></field>
+        <field name="contentAssocTypeId"><hidden value="RESPONSE"/></field>
+        <field name="forumMessageText" parameter-name="textData"><textarea rows="10" visual-editor-enable="true" visual-editor-buttons="undo redo bold italic underline bullet indent outdent link"/></field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddForumThreadMessage" type="single" extends="AddForumMessage" target="updateForumThreadMessage"/>
+    
+    <form name="EditForumThreadMessage" type="single" target="updateForumThreadMessage" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
+        <field name="forumId"><hidden value="${parameters.forumId}"/></field>
+        <field name="rsp.contentId" parameter-name="contenId"><hidden/></field>
+        <field name="rsp.contentName" parameter-name="contentName"><hidden/></field>
+        <field name="rsp.description" parameter-name="description"><text/></field>
+        <field name="rsp.contentTypeId" parameter-name="contentTypeId"><hidden/></field>
+        <field name="rsp.ownerContentId" parameter-name="ownerContentId"><hidden/></field>
+        <field name="rsp.caFromDate" parameter-name="fromDate"><hidden/></field>
+        <field name="rsp.caThruDate" parameter-name="thruDate"><hidden/></field>
+        <field name="rsp.caContentIdTo" parameter-name="contentIdTo"><hidden/></field>
+        <field name="rsp.caContentAssocTypeId" parameter-name="contentAssocTypeId"><hidden/></field>
+        <field name="textData"><textarea rows="8"/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

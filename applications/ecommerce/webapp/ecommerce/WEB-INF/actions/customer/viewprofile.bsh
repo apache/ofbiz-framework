@@ -1,0 +1,96 @@
+/*
+ *  Copyright (c) 2003-2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@version    1.0
+ */
+
+import java.lang.*;
+import java.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.party.contact.ContactMechWorker;
+import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.accounting.payment.PaymentWorker;
+
+productStoreId = ProductStoreWorker.getProductStoreId(request);
+context.put("productStoreId", productStoreId);
+
+if (userLogin != null) {
+    profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", UtilMisc.toMap("partyId", partyId, "productStoreId", productStoreId));
+    
+    showOld = "true".equals(request.getParameter("SHOW_OLD"));
+     
+    partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, userLogin.getString("partyId"), showOld);
+    paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, userLogin.getString("partyId"), showOld);
+    
+    context.put("profiledefs", profiledefs);
+    context.put("showOld", showOld);
+    context.put("partyContactMechValueMaps", partyContactMechValueMaps);
+    context.put("paymentMethodValueMaps", paymentMethodValueMaps);
+
+    // shipping methods - for default selection
+    if (profiledefs != null && profiledefs.get("defaultShipAddr") != null) {
+        shipAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", profiledefs.get("defaultShipAddr")));
+        if (shipAddress != null) {
+            carrierShipMeths = ProductStoreWorker.getAvailableStoreShippingMethods(delegator, productStoreId, shipAddress, UtilMisc.toList(new Double(1)), null, 0, 1);
+            context.put("carrierShipMethods", carrierShipMeths);
+        }
+    }
+
+    profileSurveys = ProductStoreWorker.getProductSurveys(delegator, productStoreId, null, "CUSTOMER_PROFILE");
+    context.put("surveys", profileSurveys);
+
+    orderBy = UtilMisc.toList("-entryDate");
+    findOpts = new EntityFindOptions();
+    findOpts.setMaxRows(5);
+    exprs = UtilMisc.toList(new EntityExpr("partyIdTo", EntityOperator.EQUALS, partyId));
+    exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_READ"));
+    condition = new EntityConditionList(exprs, EntityOperator.AND);
+    messages = delegator.findByCondition("CommunicationEvent", condition, null, null, orderBy, findOpts);
+    context.put("messages", messages);
+    context.put("profileMessages", true);
+
+    partyContent = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"));
+    partyContent = EntityUtil.filterByDate(partyContent);
+    context.put("partyContent", partyContent);
+
+    // call the getOrderedSummaryInformation service to get the sub-total of valid orders in last X months
+    monthsToInclude = new Integer(12);
+    Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER", "statusId", "ORDER_COMPLETED", "monthsToInclude", monthsToInclude, "userLogin", userLogin);
+    Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
+    context.put("monthsToInclude", monthsToInclude);
+    context.put("totalSubRemainingAmount", result.get("totalSubRemainingAmount"));
+    context.put("totalOrders", result.get("totalOrders"));
+    
+    contactListPartyList = delegator.findByAnd("ContactListParty", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+    // show all, including history, ie don't filter: contactListPartyList = EntityUtil.filterByDate(contactListPartyList, true);
+	context.put("contactListPartyList", contactListPartyList);
+	
+	publicContactLists = delegator.findByAnd("ContactList", UtilMisc.toMap("isPublic", "Y"), UtilMisc.toList("contactListName"));
+	context.put("publicContactLists", publicContactLists);
+	
+	partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+	partyAndContactMechList = EntityUtil.filterByDate(partyAndContactMechList, true);
+	context.put("partyAndContactMechList", partyAndContactMechList);
+}

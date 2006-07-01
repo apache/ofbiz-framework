@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    $Id: $
+    
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- ========= Miscellaenous services for accounting ========= -->
+    <simple-method method-name="createPartyAcctgPreference" 
+        short-description="Create accounting preference settings for a party">
+        <!-- permission checking is done in the services definition file (services_other.xml) -->
+        
+        <!-- check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole -->
+        <field-to-field field-name="partyId" map-name="parameters" to-map-name="lookupParams"/>
+        <string-to-field string="INTERNAL_ORGANIZATIO" field-name="roleTypeId" map-name="lookupParams"/>
+        <find-by-primary-key use-cache="true" entity-name="PartyRole" value-name="partyRole" map-name="lookupParams"/>
+        <if-empty field-name="partyRole">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingPartyMustBeInternalOrganization"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <!-- Does not check if the Party is actually a company because real people have to pay taxes too -->    
+
+        <!-- TODO: maybe check to make sure that all fields are not null -->
+        <make-value value-name="newEntity" entity-name="PartyAcctgPreference"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <!-- update currency conversion rates in the UomConversionDated entity -->
+    <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
+        <!-- set the FX rate changes as of now -->
+        <if-empty field-name="parameters.asOfTimestamp">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+        <else>
+            <field-to-env field-name="parameters.asOfTimestamp" env-name="nowTimestamp"/>  
+        </else>            
+        </if-empty>
+        
+        <!-- find the existing exchange rates for this currency pair -->
+        <entity-and entity-name="UomConversionDated" list-name="uomConversions">
+            <field-map env-name="parameters.uomId" field-name="uomId"/>
+            <field-map env-name="parameters.uomIdTo" field-name="uomIdTo"/>
+        </entity-and>
+        <filter-list-by-date list-name="uomConversions"/>
+        
+        <!-- expire all of them -->
+        <iterate list-name="uomConversions" entry-name="uomConversion">
+            <env-to-field env-name="nowTimestamp" field-name="thruDate" map-name="uomConversion"/>
+        </iterate>
+        <store-list list-name="uomConversions"/>
+        
+        <!-- now create a new conversion relationship -->
+        <set-service-fields to-map-name="createParams" service-name="createUomConversionDated" map-name="parameters"/>
+        <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="createParams"/>
+        <call-service service-name="createUomConversionDated" in-map-name="createParams"/>
+    </simple-method>
+
+    <simple-method method-name="addInvoiceItemTypeGlAssignment" short-description="add a override GL account number to a invoice Itemtype for a certain organisation party.">
+        <!--string-to-field string="_CREATE" field-name="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/-->
+        <make-value entity-name="InvoiceItemTypeGlAccount" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>   
+    
+    <simple-method method-name="removeInvoiceItemTypeGlAssignment" short-description="remove a override GL account number from a invoice Itemtype for a certain organisation party.">
+        <!--string-to-field string="_CREATE" field-name="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/-->
+        <make-value entity-name="InvoiceItemTypeGlAccount" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <remove-value value-name="newEntity"/>
+    </simple-method>   
+
+    <simple-method method-name="addPaymentTypeGlAssignment" short-description="add a default GL account type to a payment Type">
+        <!--string-to-field string="_CREATE" field-name="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/-->
+        <make-value entity-name="PaymentGlAccountTypeMap" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>   
+    
+    <simple-method method-name="removePaymentTypeGlAssignment" short-description="remove a default GL account type from a payment Type">
+        <!--string-to-field string="_CREATE" field-name="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/-->
+        <make-value entity-name="PaymentGlAccountTypeMap" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <remove-value value-name="newEntity"/>
+    </simple-method>   
+
+    <simple-method method-name="addPaymentMethodTypeGlAssignment" short-description="add a default GL account number to a payment method Type">
+        <!--string-to-field string="_CREATE" field-name="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/-->
+        <make-value entity-name="PaymentMethodTypeGlAccount" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>   
+    
+    <simple-method method-name="removePaymentMethodTypeGlAssignment" short-description="remove a default GL account number from a payment method Type">
+        <!--string-to-field string="_CREATE" field-name="securityAction"/>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-errors/-->
+        <make-value entity-name="PaymentMethodTypeGlAccount" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <remove-value value-name="newEntity"/>
+    </simple-method>   
+</simple-methods>

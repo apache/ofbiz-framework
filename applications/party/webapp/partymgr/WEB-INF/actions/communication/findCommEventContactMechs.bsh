@@ -1,0 +1,50 @@
+/*
+ *  Copyright (c) 2006 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Si Chen (sichen@opensourcestrategies.com)
+ *
+ */
+ 
+
+/**
+ * This script finds and places in the context of the form current (un-expired) contact mechs for the logged in user and the
+ * party for whom the communication event is intended.  It currently just does searches for email but should be
+ * expanded to work off other communication event types.  
+ */
+ 
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.util.EntityUtil;
+
+delegator = request.getAttribute("delegator");
+userLogin = request.getAttribute("userLogin");
+
+if (parameters.get("communicationEventTypeId") != null) {
+   if (parameters.get("communicationEventTypeId").equals("EMAIL_COMMUNICATION")) {
+      userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId", userLogin.getString("partyId")));
+      userEmailAddresses = EntityUtil.filterByDate(userEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
+      context.put("userEmailAddresses", userEmailAddresses);    
+      
+      targetEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId", parameters.get("partyId")));
+      targetEmailAddresses = EntityUtil.filterByDate(targetEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
+      context.put("targetEmailAddresses", targetEmailAddresses);    
+   }
+}
+

@@ -1,0 +1,232 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.1.1
+ */
+ 
+import java.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.order.shoppingcart.shipping.*;
+import org.ofbiz.order.shoppinglist.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.catalog.*;
+import org.ofbiz.product.store.*;
+import org.ofbiz.service.calendar.*;
+
+delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
+userLogin = session.getAttribute("userLogin");
+party = userLogin.getRelatedOne("Party");
+
+productStoreId = ProductStoreWorker.getProductStoreId(request);
+prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
+webSiteId = CatalogWorker.getWebSiteId(request);
+currencyUomId = UtilHttp.getCurrencyUom(request);
+
+context.put("productStoreId", productStoreId);
+context.put("currencyUomId", currencyUomId);
+
+// get the top level shopping lists for the logged in user
+exprList = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")),
+        new EntityExpr("listName", EntityOperator.NOT_EQUAL, "auto-save"));
+condition = new EntityConditionList(exprList, EntityOperator.AND);
+allShoppingLists = delegator.findByCondition("ShoppingList", condition, null, UtilMisc.toList("listName"));
+shoppingLists = EntityUtil.filterByAnd(allShoppingLists, UtilMisc.toMap("parentShoppingListId", null));
+context.put("allShoppingLists", allShoppingLists);
+context.put("shoppingLists", shoppingLists);
+
+// get all shoppingListTypes
+shoppingListTypes = delegator.findAllCache("ShoppingListType", UtilMisc.toList("description"));
+context.put("shoppingListTypes", shoppingListTypes);
+
+// get the shoppingListId for this reqest
+parameterMap = UtilHttp.getParameterMap(request);
+shoppingListId = parameterMap.get("shoppingListId");
+if (shoppingListId == null || shoppingListId.equals("")) 
+    shoppingListId = request.getAttribute("shoppingListId");
+
+// no passed shopping list id default to first list
+if (shoppingListId == null || shoppingListId.length() == 0) {
+    shoppingListId = session.getAttribute("currentShoppingListId");
+    if (shoppingListId == null || shoppingListId.length() == 0) {
+        firstList = EntityUtil.getFirst(shoppingLists);
+        if (firstList != null) {
+            shoppingListId = firstList.getString("shoppingListId");
+        }
+    }
+}
+session.setAttribute("currentShoppingListId", shoppingListId);
+
+// if we passed a shoppingListId get the shopping list info
+if (shoppingListId != null) {
+    shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
+    context.put("shoppingList", shoppingList);
+
+    if (shoppingList != null) {
+        shoppingListItemTotal = 0.0;
+        shoppingListChildTotal = 0.0;
+    
+        shoppingListItems = shoppingList.getRelatedCache("ShoppingListItem");
+        if (shoppingListItems != null) {
+            shoppingListItemDatas = new ArrayList(shoppingListItems.size());
+            shoppingListItemIter = shoppingListItems.iterator();
+            while (shoppingListItemIter.hasNext()) {
+                shoppingListItem = shoppingListItemIter.next();
+                shoppingListItemData = new HashMap();
+
+                product = shoppingListItem.getRelatedOneCache("Product");
+
+                calcPriceInMap = UtilMisc.toMap("product", product, "quantity", shoppingListItem.get("quantity"), "currencyUomId", currencyUomId, "userLogin", userLogin);
+                calcPriceInMap.put("webSiteId", webSiteId);
+                calcPriceInMap.put("prodCatalogId", prodCatalogId);
+                calcPriceInMap.put("productStoreId", productStoreId);
+                calcPriceOutMap = dispatcher.runSync("calculateProductPrice", calcPriceInMap);
+                price = calcPriceOutMap.get("price");
+                totalPrice = price * shoppingListItem.getDouble("quantity");
+                // similar code at ShoppingCartItem.java getRentalAdjustment
+                if ("ASSET_USAGE".equals(product.getString("productTypeId")))     {
+                    persons = shoppingListItem.getDouble("reservPersons");
+                    reservNthPPPerc = product.get("reservNthPPPerc").doubleValue();
+                    reserv2ndPPPerc = product.get("reserv2ndPPPerc").doubleValue();
+                    if (persons == null) persons = 0;
+                    rentalValue = 0;
+                    if (persons > 1)    {
+                        if (persons > 2 ) {
+                            persons -= 2; 
+                            if(reservNthPPPerc != null && reservNthPPPerc > 0) 
+                                rentalValue = persons * reservNthPPPerc;
+                            else if (reserv2ndPPPerc != null && reserv2ndPPPerc > 0)
+                                rentalValue = persons * reserv2ndPPPerc;
+                            persons = 2;
+                        }
+                        if (persons == 2) {
+                            if (reserv2ndPPPerc != null && reserv2ndPPPerc > 0)
+                                rentalValue += reserv2ndPPPerc;
+                            else  if(reservNthPPPerc != null && reservNthPPPerc > 0) 
+                                rentalValue = persons * reservNthPPPerc;
+                        }
+                    }
+                    rentalValue += 100;    // add final 100 percent for first person
+                    reservLength = 0;
+                    if (shoppingListItem.get("reservLength") != null)
+                        reservLength = shoppingListItem.getDouble("reservLength").doubleValue();
+                    totalPrice *= (rentalValue/100 * reservLength);
+                }
+                shoppingListItemTotal += totalPrice;
+                
+                productVariantAssocs = null;
+                if ("Y".equals(product.getString("isVirtual"))) {
+                    productVariantAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum"));
+                }
+                shoppingListItemData.put("shoppingListItem", shoppingListItem);
+                shoppingListItemData.put("product", product);
+                shoppingListItemData.put("unitPrice", price);
+                shoppingListItemData.put("totalPrice", totalPrice);
+                shoppingListItemData.put("productVariantAssocs", productVariantAssocs);
+                shoppingListItemDatas.add(shoppingListItemData);
+            }
+            context.put("shoppingListItemDatas", shoppingListItemDatas);
+        }
+        
+        shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
+        context.put("shoppingListType", shoppingListType);
+    
+        // get the child shopping lists of the current list for the logged in user
+        childShoppingLists = delegator.findByAndCache("ShoppingList", UtilMisc.toMap("partyId", userLogin.getString("partyId"), "parentShoppingListId", shoppingListId), UtilMisc.toList("listName"));
+        // now get prices for each child shopping list...
+        if (childShoppingLists != null) {
+            childShoppingListDatas = new ArrayList(childShoppingLists.size());
+            childShoppingListIter = childShoppingLists.iterator();
+            while (childShoppingListIter.hasNext()) {
+                childShoppingList = childShoppingListIter.next();
+                childShoppingListData = new HashMap();
+
+                calcListPriceInMap = UtilMisc.toMap("shoppingListId", childShoppingList.get("shoppingListId"), "prodCatalogId", prodCatalogId, "webSiteId", webSiteId, "userLogin", userLogin, "currencyUomId", currencyUomId);
+                childShoppingListPriceMap = dispatcher.runSync("calculateShoppingListDeepTotalPrice", calcListPriceInMap);
+                totalPrice = childShoppingListPriceMap.get("totalPrice");
+                shoppingListChildTotal += totalPrice;
+
+                childShoppingListData.put("childShoppingList", childShoppingList);
+                childShoppingListData.put("totalPrice", totalPrice);
+                childShoppingListDatas.add(childShoppingListData);
+            }
+            context.put("childShoppingListDatas", childShoppingListDatas);
+        }
+        context.put("shoppingListTotalPrice", shoppingListItemTotal + shoppingListChildTotal);
+        context.put("shoppingListItemTotal", shoppingListItemTotal);
+        context.put("shoppingListChildTotal", shoppingListChildTotal);
+
+        // get the parent shopping list if there is one
+        parentShoppingList = shoppingList.getRelatedOne("ParentShoppingList");
+        context.put("parentShoppingList", parentShoppingList);
+
+        if (userLogin.getString("partyId").equals(shoppingList.getString("partyId"))) {
+            context.put("canView", Boolean.TRUE);
+        } else {
+            context.put("canView", Boolean.FALSE);
+        }
+
+        // auto-reorder info
+        if (shoppingListType != null && "SLT_AUTO_REODR".equals(shoppingListType.getString("shoppingListTypeId"))) {
+            recurrenceVo = shoppingList.getRelatedOne("RecurrenceInfo");
+            context.put("recurrenceInfo", recurrenceVo);
+
+            if (userLogin.getString("partyId").equals(shoppingList.getString("partyId"))) {
+                listCart = ShoppingListServices.makeShoppingListCart(dispatcher, shoppingListId, UtilHttp.getLocale(request));
+
+                // get customer's shipping & payment info
+                context.put("chosenShippingMethod", shoppingList.getString("shipmentMethodTypeId") + "@" + shoppingList.getString("carrierPartyId"));
+                context.put("shippingContactMechList", ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
+                context.put("paymentMethodList", EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, UtilMisc.toList("paymentMethodTypeId")), true));
+
+                shipAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shoppingList.get("contactMechId")));
+                Debug.log("SL - address : " + shipAddress);
+                if (shipAddress != null) {
+                    listCart = ShoppingListServices.makeShoppingListCart(dispatcher, shoppingListId, UtilHttp.getLocale(request));
+                    if (listCart != null) {
+                        shippingEstWpr = new ShippingEstimateWrapper(dispatcher, listCart, 0);
+                        carrierShipMeths = shippingEstWpr.getShippingMethods();
+                        context.put("listCart", listCart);
+                        context.put("shippingEstWpr", shippingEstWpr);
+                        context.put("carrierShipMethods", carrierShipMeths);
+                    }
+                }
+
+                if (recurrenceVo != null) {
+                    RecurrenceInfo recInfo = new RecurrenceInfo(recurrenceVo);
+                    context.put("recInfo", recInfo);
+                    lastSlOrderDate = shoppingList.get("lastOrderedDate");
+                    context.put("lastSlOrderDate", lastSlOrderDate);
+                    if (lastSlOrderDate == null) {
+                        lastSlOrderDate = recurrenceVo.get("startDateTime");
+                    }
+                    context.put("lastSlOrderTime", lastSlOrderDate.getTime());                    
+                }
+            }
+        }
+    }
+}
+ 

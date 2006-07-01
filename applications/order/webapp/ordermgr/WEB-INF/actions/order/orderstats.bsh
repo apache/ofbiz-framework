@@ -1,0 +1,196 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+*/
+
+import java.util.*;
+import java.sql.Timestamp;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+
+double calcItemTotal(List headers) {
+    double total = 0.00;
+    Iterator i = headers.iterator();
+    while (i.hasNext()) {
+        GenericValue header = (GenericValue) i.next();          
+        total += (header.get("grandTotal") != null ? header.getDouble("grandTotal").doubleValue() : 0.00);
+    }
+    return total;
+}
+    
+double calcItemCount(List items) {
+    double count = 0.0000;
+    Iterator i = items.iterator();
+    while (i.hasNext()) {
+        GenericValue item = (GenericValue) i.next();
+        count += (item.get("quantity") != null ? item.getDouble("quantity").doubleValue() : 0.0000);
+    }
+    return count;
+}
+
+delegator = request.getAttribute("delegator");
+
+Timestamp endTime = UtilDateTime.nowTimestamp();
+Calendar cal = Calendar.getInstance();
+cal.set(Calendar.AM_PM, Calendar.AM);
+cal.set(Calendar.HOUR, 0);
+cal.set(Calendar.MINUTE, 0);
+cal.set(Calendar.SECOND, 0);    
+cal.set(Calendar.MILLISECOND, 0);   
+Timestamp dayBegin = new Timestamp(cal.getTime().getTime());            
+   
+cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+Timestamp weekBegin = new Timestamp(cal.getTime().getTime());       
+ 
+cal.set(Calendar.DAY_OF_MONTH, 1);
+Timestamp monthBegin = new Timestamp(cal.getTime().getTime());      
+  
+cal.set(Calendar.MONTH, 0);
+Timestamp yearBegin = new Timestamp(cal.getTime().getTime());       
+  
+// order status report
+List dayList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin)));
+context.put("dayOrder", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
+context.put("dayApprove", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
+context.put("dayComplete", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));
+context.put("dayCancelled", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
+context.put("dayRejected", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
+  
+List weekList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin)));
+context.put("weekOrder", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
+context.put("weekApprove", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
+context.put("weekComplete", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));
+context.put("weekCancelled", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
+context.put("weekRejected", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
+  
+List monthList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin)));
+context.put("monthOrder", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
+context.put("monthApprove", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
+context.put("monthComplete", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));
+context.put("monthCancelled", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
+context.put("monthRejected", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
+  
+List yearList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin)));
+context.put("yearOrder", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
+context.put("yearApprove", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
+context.put("yearComplete", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));
+context.put("yearCancelled", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
+context.put("yearRejected", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
+  
+// order totals and item counts
+List dayItemExpr = UtilMisc.toList(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List dayItems = delegator.findByAnd("OrderHeaderAndItems", dayItemExpr);
+List dayItemsPending = EntityUtil.filterByAnd(dayItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
+              
+List dayHeaderExpr = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List dayHeaders = delegator.findByAnd("OrderHeader", dayHeaderExpr);
+List dayHeadersPending = EntityUtil.filterByAnd(dayHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED"));   
+                                                 
+double dayItemTotal = calcItemTotal(dayHeaders);
+double dayItemCount = calcItemCount(dayItems);
+double dayItemTotalPending = calcItemTotal(dayHeadersPending);
+double dayItemCountPending = calcItemCount(dayItemsPending);
+double dayItemTotalPaid = dayItemTotal - dayItemTotalPending;
+double dayItemCountPaid = dayItemCount - dayItemCountPending;
+context.put("dayItemTotal", dayItemTotal);
+context.put("dayItemCount", dayItemCount);
+context.put("dayItemTotalPending", dayItemTotalPending);
+context.put("dayItemCountPending", dayItemCountPending);
+context.put("dayItemTotalPaid", dayItemTotalPaid);
+context.put("dayItemCountPaid", dayItemCountPaid);
+  
+List weekItemExpr = UtilMisc.toList(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List weekItems = delegator.findByAnd("OrderHeaderAndItems", weekItemExpr);
+List weekItemsPending = EntityUtil.filterByAnd(weekItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
+          
+List weekHeaderExpr = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List weekHeaders = delegator.findByAnd("OrderHeader", weekHeaderExpr);
+List weekHeadersPending = EntityUtil.filterByAnd(weekHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED")); 
+         
+double weekItemTotal = calcItemTotal(weekHeaders);
+double weekItemCount = calcItemCount(weekItems);
+double weekItemTotalPending = calcItemTotal(weekHeadersPending);
+double weekItemCountPending = calcItemCount(weekItemsPending);  
+double weekItemTotalPaid = weekItemTotal - weekItemTotalPending;
+double weekItemCountPaid = weekItemCount - weekItemCountPending;
+context.put("weekItemTotal", weekItemTotal);
+context.put("weekItemCount", weekItemCount);
+context.put("weekItemTotalPending", weekItemTotalPending);
+context.put("weekItemCountPending", weekItemCountPending);
+context.put("weekItemTotalPaid", weekItemTotalPaid);
+context.put("weekItemCountPaid", weekItemCountPaid);
+ 
+List monthItemExpr = UtilMisc.toList(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List monthItems = delegator.findByAnd("OrderHeaderAndItems", monthItemExpr);
+List monthItemsPending = EntityUtil.filterByAnd(monthItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
+
+List monthHeaderExpr = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List monthHeaders = delegator.findByAnd("OrderHeader", monthHeaderExpr);
+List monthHeadersPending = EntityUtil.filterByAnd(monthHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED"));   
+
+double monthItemTotal = calcItemTotal(monthHeaders);
+double monthItemCount = calcItemCount(monthItems);
+double monthItemTotalPending = calcItemTotal(monthHeadersPending);
+double monthItemCountPending = calcItemCount(monthItemsPending);    
+double monthItemTotalPaid = monthItemTotal - monthItemTotalPending;
+double monthItemCountPaid = monthItemCount - monthItemCountPending;
+context.put("monthItemTotal", monthItemTotal);
+context.put("monthItemCount", monthItemCount);
+context.put("monthItemTotalPending", monthItemTotalPending);
+context.put("monthItemCountPending", monthItemCountPending);
+context.put("monthItemTotalPaid", monthItemTotalPaid);
+context.put("monthItemCountPaid", monthItemCountPaid);
+  
+List yearItemExpr = UtilMisc.toList(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List yearItems = delegator.findByAnd("OrderHeaderAndItems", yearItemExpr);
+List yearItemsPending = EntityUtil.filterByAnd(yearItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
+   
+List yearHeaderExpr = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+List yearHeaders = delegator.findByAnd("OrderHeader", yearHeaderExpr);
+List yearHeadersPending = EntityUtil.filterByAnd(yearHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED")); 
+
+double yearItemTotal = calcItemTotal(yearHeaders);
+double yearItemCount = calcItemCount(yearItems);
+double yearItemTotalPending = calcItemTotal(yearHeadersPending);
+double yearItemCountPending = calcItemCount(yearItemsPending);  
+double yearItemTotalPaid = yearItemTotal - yearItemTotalPending;
+double yearItemCountPaid = yearItemCount - yearItemCountPending;
+context.put("yearItemTotal", yearItemTotal);
+context.put("yearItemCount", yearItemCount);
+context.put("yearItemTotalPending", yearItemTotalPending);
+context.put("yearItemCountPending", yearItemCountPending);
+context.put("yearItemTotalPaid", yearItemTotalPaid);
+context.put("yearItemCountPaid", yearItemCountPaid);
+    
+// order state report
+List waitingPayment = delegator.findByAnd("OrderHeader", UtilMisc.toMap("statusId", "ORDER_ORDERED", "orderTypeId", "SALES_ORDER"));
+context.put("waitingPayment", waitingPayment.size());
+
+List waitingApproval = delegator.findByAnd("OrderHeader", UtilMisc.toMap("statusId", "ORDER_PROCESSING", "orderTypeId", "SALES_ORDER"));
+context.put("waitingApproval", waitingApproval.size());
+
+List waitingComplete = delegator.findByAnd("OrderHeader", UtilMisc.toMap("statusId", "ORDER_APPROVED", "orderTypeId", "SALES_ORDER"));
+context.put("waitingComplete", waitingComplete.size());

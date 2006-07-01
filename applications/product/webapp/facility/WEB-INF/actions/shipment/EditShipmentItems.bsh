@@ -1,0 +1,84 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+
+delegator = request.getAttribute("delegator");
+
+shipmentId = request.getParameter("shipmentId");
+if (UtilValidate.isEmpty(shipmentId)) {
+    shipmentId = context.get("shipmentId");
+}
+
+shipment = null;
+if (UtilValidate.isNotEmpty(shipmentId)) {
+    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+}
+
+if (shipment != null) {
+    shipmentItems = shipment.getRelated("ShipmentItem", null, UtilMisc.toList("shipmentItemSeqId"));
+    shipmentItemDatas = new LinkedList();
+    if (shipmentItems != null && shipmentItems.size() > 0) {
+        shipmentItemIter = shipmentItems.iterator();
+        while (shipmentItemIter.hasNext()) {
+            shipmentItem = shipmentItemIter.next();
+            shipmentPackageContents = shipmentItem.getRelated("ShipmentPackageContent");
+            totalQuantityPackaged = 0;
+            shipmentPackageContentIter = shipmentPackageContents.iterator();
+            while (shipmentPackageContentIter.hasNext()) {
+                shipmentPackageContent = shipmentPackageContentIter.next();
+                if (shipmentPackageContent.get("quantity") != null) {
+                    totalQuantityPackaged += shipmentPackageContent.getDouble("quantity");
+                }
+            }
+            
+            totalQuantityToPackage = 0;
+            if (shipmentItem.get("quantity") != null) {
+                totalQuantityToPackage = shipmentItem.getDouble("quantity") - totalQuantityPackaged;
+            }
+            
+            shipmentItemData = new HashMap();
+            shipmentItemData.put("shipmentItem", shipmentItem);
+            shipmentItemData.put("shipmentPackageContents", shipmentPackageContents);
+            shipmentItemData.put("itemIssuances", shipmentItem.getRelated("ItemIssuance"));
+            shipmentItemData.put("orderShipments", shipmentItem.getRelated("OrderShipment"));
+            shipmentItemData.put("product", shipmentItem.getRelatedOne("Product"));
+            shipmentItemData.put("totalQuantityPackaged", totalQuantityPackaged);
+            shipmentItemData.put("totalQuantityToPackage", totalQuantityToPackage);
+            shipmentItemDatas.add(shipmentItemData);
+        }
+    }
+    
+    shipmentPackages = shipment.getRelated("ShipmentPackage", null, UtilMisc.toList("shipmentPackageSeqId"));
+    
+    context.put("shipment", shipment);
+    context.put("shipmentItemDatas", shipmentItemDatas);
+    context.put("shipmentPackages", shipmentPackages);
+}
+
+context.put("shipmentId", shipmentId);

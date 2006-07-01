@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Properties
+HM='-Dderby.system.home=data/derby'
+PR='-Dij.protocol=jdbc:derby:'
+DB='-Dij.database=ofbiz;create=true'
+EE='framework/entity/lib/jdbc'
+CP="-cp $EE/derby.jar:$EE/derbytools.jar"
+
+# Command
+OPTIONS="$CP $HM $PR $DB"
+CLASS="org.apache.derby.tools.ij"
+JAVA="java"
+
+$JAVA $OPTIONS $CLASS
+

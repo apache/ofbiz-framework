@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * <p>Copyright (c) 2001-2005 The Open For Business Project and repected authors.
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ * <p>The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+  <simple-map-processor name="contentIn">
+      <process field="contentId"><copy to-field="contentId" replace="true" set-if-null="false" /></process>
+      <process field="contentTypeId"><copy to-field="contentTypeId" replace="true" set-if-null="false" /></process>
+      <process field="ownerContentId"><copy to-field="ownerContentId" replace="true" set-if-null="false" /></process>
+      <process field="dataResourceId"><copy to-field="dataResourceId" replace="true" set-if-null="false" /></process>
+      <process field="dataSourceId"><copy to-field="dataSourceId" replace="true" set-if-null="false" /></process>
+      <process field="statusId"><copy to-field="statusId" replace="true" set-if-null="false" /></process>
+      <process field="serviceName"><copy to-field="serviceName" replace="true" set-if-null="false" /></process>
+      <process field="contentName"><copy to-field="contentName" replace="true" set-if-null="false" /></process>
+      <process field="description"><copy to-field="description" replace="true" set-if-null="false" /></process>
+      <process field="localeString"><copy to-field="localeString" replace="true" set-if-null="false" /></process>
+      <process field="mimeTypeId"><copy to-field="mimeTypeId" replace="true" set-if-null="false" /></process>
+      <process field="characterSetId"><copy to-field="characterSetId" replace="true" set-if-null="false" /></process>
+      <process field="createdDate">
+        <convert to-field="createdDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="createdDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="createdByUserLogin"><copy to-field="createdByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="lastModifiedDate">
+        <convert to-field="lastModifiedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="lastModifiedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="lastModifiedByUserLogin"><copy to-field="lastModifiedByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="templateDataResourceId"><copy to-field="templateDataResourceId" replace="true" set-if-null="false" /></process>
+  </simple-map-processor>
+  <simple-map-processor name="dataResourceIn">
+      <process field="drDataResourceId"><copy to-field="dataResourceId" replace="true" set-if-null="false" /></process>
+      <process field="drDataResourceTypeId"><copy to-field="dataResourceTypeId" replace="true" set-if-null="false" /></process>
+      <process field="drDataTemplateTypeId"><copy to-field="dataTemplateTypeId" replace="true" set-if-null="false" /></process>
+      <process field="drDataCategoryId"><copy to-field="dataCategoryId" replace="true" set-if-null="false" /></process>
+      <process field="drDataSourceId"><copy to-field="dataSourceId" replace="true" set-if-null="false" /></process>
+      <process field="drDataResourceName"><copy to-field="dataResourceName" replace="true" set-if-null="false" /></process>
+      <process field="drLocaleString"><copy to-field="localeString" replace="true" set-if-null="false" /></process>
+      <process field="drMimeTypeId"><copy to-field="mimeTypeId" replace="true" set-if-null="false" /></process>
+      <process field="drCharacterSetId"><copy to-field="characterSetId" replace="true" set-if-null="false" /></process>
+      <process field="drObjectInfo"><copy to-field="objectInfo" replace="true" set-if-null="false" /></process>
+      <process field="drCreatedDate">
+        <convert to-field="createdDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="drCreatedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="drCreatedByUserLogin"><copy to-field="createdByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="drLastModifiedDate">
+        <convert to-field="lastModifiedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="drLastModifiedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="drLastModifiedByUserLogin"><copy to-field="lastModifiedByUserLogin" replace="true" set-if-null="false" /></process>
+  </simple-map-processor>
+  <simple-map-processor name="contentAssocIn">
+      <process field="contentId"><copy to-field="contentId" replace="true" set-if-null="false" /></process>
+      <process field="caContentIdTo"><copy to-field="contentIdTo" replace="true" set-if-null="false" /></process>
+      <process field="caContentAssocTypeId"><copy to-field="contentAssocTypeId" replace="true" set-if-null="false" /></process>
+      <process field="caFromDate">
+        <convert to-field="fromDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="fromDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="caThruDate">
+        <convert to-field="thruDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="thruDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="caContentAssocPredicateId"><copy to-field="contentAssocPredicateId" replace="true" set-if-null="false" /></process>
+      <process field="caDataSourceId"><copy to-field="dataSourceId" replace="true" set-if-null="false" /></process>
+      <process field="caSequenceNum"><copy to-field="sequenceNum" replace="true" set-if-null="false" /></process>
+      <process field="caMapKey"><copy to-field="mapKey" replace="true" set-if-null="false" /></process>
+      <process field="caUpperCoordinate"><copy to-field="upperCoordinate" replace="true" set-if-null="false" /></process>
+      <process field="caLeftCoordinate"><copy to-field="leftCoordinate" replace="true" set-if-null="false" /></process>
+      <process field="caCreatedDate">
+        <convert to-field="createdDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="caCreatedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="caCreatedByUserLogin"><copy to-field="createdByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="caLastModifiedDate">
+        <convert to-field="lastModifiedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="caLastModifiedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="caLastModifiedByUserLogin"><copy to-field="lastModifiedByUserLogin" replace="true" set-if-null="false" /></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="contentOut">
+      <process field="contentId"><copy to-field="contentId" replace="true" set-if-null="false" /></process>
+      <process field="contentTypeId"><copy to-field="contentTypeId" replace="true" set-if-null="false" /></process>
+      <process field="ownerContentId"><copy to-field="ownerContentId" replace="true" set-if-null="false" /></process>
+      <process field="dataResourceId"><copy to-field="dataResourceId" replace="true" set-if-null="false" /></process>
+      <process field="dataSourceId"><copy to-field="dataSourceId" replace="true" set-if-null="false" /></process>
+      <process field="statusId"><copy to-field="statusId" replace="true" set-if-null="false" /></process>
+      <process field="serviceName"><copy to-field="serviceName" replace="true" set-if-null="false" /></process>
+      <process field="contentName"><copy to-field="contentName" replace="true" set-if-null="false" /></process>
+      <process field="description"><copy to-field="description" replace="true" set-if-null="false" /></process>
+      <process field="localeString"><copy to-field="localeString" replace="true" set-if-null="false" /></process>
+      <process field="mimeTypeId"><copy to-field="mimeTypeId" replace="true" set-if-null="false" /></process>
+      <process field="characterSetId"><copy to-field="characterSetId" replace="true" set-if-null="false" /></process>
+      <process field="createdDate">
+        <convert to-field="createdDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="createdDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="createdByUserLogin"><copy to-field="createdByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="lastModifiedDate">
+        <convert to-field="lastModifiedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="lastModifiedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="lastModifiedByUserLogin"><copy to-field="lastModifiedByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="templateDataResourceId"><copy to-field="templateDataResourceId" replace="true" set-if-null="false" /></process>
+  </simple-map-processor>
+  <simple-map-processor name="dataResourceOut">
+      <process field="dataResourceId"><copy to-field="drDataResourceId" replace="true" set-if-null="false" /></process>
+      <process field="dataResourceTypeId"><copy to-field="drDataResourceTypeId" replace="true" set-if-null="false" /></process>
+      <process field="dataTemplateTypeId"><copy to-field="drDataTemplateTypeId" replace="true" set-if-null="false" /></process>
+      <process field="dataCategoryId"><copy to-field="drDataCategoryId" replace="true" set-if-null="false" /></process>
+      <process field="dataSourceId"><copy to-field="drDataSourceId" replace="true" set-if-null="false" /></process>
+      <process field="dataResourceName"><copy to-field="drDataResourceName" replace="true" set-if-null="false" /></process>
+      <process field="localeString"><copy to-field="drLocaleString" replace="true" set-if-null="false" /></process>
+      <process field="mimeTypeId"><copy to-field="drMimeTypeId" replace="true" set-if-null="false" /></process>
+      <process field="characterSetId"><copy to-field="drCharacterSetId" replace="true" set-if-null="false" /></process>
+      <process field="objectInfo"><copy to-field="drObjectInfo" replace="true" set-if-null="false" /></process>
+      <process field="createdDate">
+        <convert to-field="drCreatedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="createdDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="createdByUserLogin"><copy to-field="drCreatedByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="lastModifiedDate">
+        <convert to-field="drLastModifiedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="lastModifiedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="lastModifiedByUserLogin"><copy to-field="drLastModifiedByUserLogin" replace="true" set-if-null="false" /></process>
+  </simple-map-processor>
+  <simple-map-processor name="contentAssocOut">
+      <process field="contentId"><copy to-field="caContentId" replace="true" set-if-null="false" /></process>
+      <process field="contentIdTo"><copy to-field="caContentIdTo" replace="true" set-if-null="false" /></process>
+      <process field="contentAssocTypeId"><copy to-field="caContentAssocTypeId" replace="true" set-if-null="false" /></process>
+      <process field="fromDate">
+        <convert to-field="caFromDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="fromDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="thruDate">
+        <convert to-field="caThruDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="thruDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="contentAssocPredicateId"><copy to-field="caContentAssocPredicateId" replace="true" set-if-null="false" /></process>
+      <process field="dataSourceId"><copy to-field="caDataSourceId" replace="true" set-if-null="false" /></process>
+      <process field="sequenceNum"><copy to-field="caSequenceNum" replace="true" set-if-null="false" /></process>
+      <process field="mapKey"><copy to-field="caMapKey" replace="true" set-if-null="false" /></process>
+      <process field="upperCoordinate"><copy to-field="caUpperCoordinate" replace="true" set-if-null="false" /></process>
+      <process field="leftCoordinate"><copy to-field="caLeftCoordinate" replace="true" set-if-null="false" /></process>
+      <process field="createdDate">
+        <convert to-field="caCreatedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="createdDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="createdByUserLogin"><copy to-field="caCreatedByUserLogin" replace="true" set-if-null="false" /></process>
+      <process field="lastModifiedDate">
+        <convert to-field="caLastModifiedDate" replace="true" set-if-null="false" type="Timestamp">
+          <fail-message message="lastModifiedDate not a valid date format" />
+        </convert>
+      </process>
+      <process field="lastModifiedByUserLogin"><copy to-field="caLastModifiedByUserLogin" replace="true" set-if-null="false" /></process>
+  </simple-map-processor>
+</simple-map-processors>

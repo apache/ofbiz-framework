@@ -1,0 +1,333 @@
+/*
+ *  Copyright (c) 2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Dustin Caldwell (dustin@dscv.org)
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import java.util.Collection.*;
+import java.sql.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.product.product.*;
+import org.ofbiz.entity.condition.*;
+
+nowDate = UtilDateTime.nowDate();
+context.put("nowDate", nowDate);
+
+String nowTimestampString = UtilDateTime.nowTimestamp().toString();
+context.put("nowTimestampString", nowTimestampString);
+
+Collection assocTypes = delegator.findAll("ProductAssocType");
+context.put("assocTypes", assocTypes);
+
+Collection featureTypes = delegator.findAll("ProductFeatureType");
+context.put("featureTypes", featureTypes);
+
+// add/remove feature types
+HashMap addedFeatureTypes = (HashMap) session.getAttribute("addedFeatureTypes");
+if (addedFeatureTypes == null) {
+    addedFeatureTypes = new HashMap();
+    session.setAttribute("addedFeatureTypes", addedFeatureTypes);
+}
+
+HashMap featuresByType = new HashMap();
+String[] addFeatureTypeId = request.getParameterValues("addFeatureTypeId");
+List addFeatureTypeIdList = new ArrayList();
+if (addFeatureTypeId != null) {
+    addFeatureTypeIdList.addAll(Arrays.asList(addFeatureTypeId));
+}
+
+addFeatureTypeIdIter = addFeatureTypeIdList.iterator();
+while (addFeatureTypeIdIter.hasNext()) {
+    String curFeatureTypeId = addFeatureTypeIdIter.next();
+    GenericValue featureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", curFeatureTypeId));
+    if ((featureType != null) && !addedFeatureTypes.containsKey(curFeatureTypeId)) {
+        addedFeatureTypes.put(curFeatureTypeId, featureType);
+    }
+}
+
+String[] removeFeatureTypeId = request.getParameterValues("removeFeatureTypeId");
+if (removeFeatureTypeId != null) {
+    for (int i = 0; i < removeFeatureTypeId.length; i++) {
+        GenericValue featureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", addFeatureTypeId[i]));
+        if ((featureType != null) && addedFeatureTypes.containsKey(removeFeatureTypeId[i])) {
+            addedFeatureTypes.remove(removeFeatureTypeId[i]);
+            featuresByType.remove(removeFeatureTypeId[i]);
+        }
+    }
+}
+Iterator iter = addedFeatureTypes.values().iterator();
+while (iter.hasNext()) {
+    GenericValue featureType = (GenericValue)iter.next();
+    featuresByType.put(featureType.getString("productFeatureTypeId"), featureType.getRelated("ProductFeature", UtilMisc.toList("description")));
+}
+
+context.put("addedFeatureTypeIds", addedFeatureTypes.keySet());
+context.put("addedFeatureTypes", addedFeatureTypes);
+context.put("featuresByType", featuresByType);
+
+productId = request.getParameter("productId");
+if (productId == null) productId = request.getParameter("PRODUCT_ID");
+if (productId == null) productId = request.getAttribute("productId");
+if (productId != null) context.put("productId", productId);
+
+product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+List assocProducts = new ArrayList();
+HashMap featureFloz = new HashMap();
+HashMap featureMl = new HashMap();
+HashMap featureNtwt = new HashMap();
+HashMap featureGrams = new HashMap();
+HashMap featureHazmat = new HashMap();
+HashMap featureSalesThru = new HashMap();
+HashMap featureThruDate = new HashMap();
+HashMap selFeatureDesc = new HashMap();
+Double floz = null;
+Double ml = null;
+Double ntwt = null;
+Double grams = null;
+String hazmat = "nbsp;";
+String salesthru = null;
+String thrudate = null;
+String productFeatureTypeId = request.getParameter("productFeatureTypeId");
+context.put("productFeatureTypeId", productFeatureTypeId);
+
+if (product != null) {
+    context.put("product", product);
+
+    // get categories
+    List allCategories = delegator.findByCondition("ProductCategory",
+            new EntityExpr(new EntityExpr("showInSelect", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("showInSelect", EntityOperator.NOT_EQUAL, "N")),
+            null, UtilMisc.toList("description"));
+
+    List categoryMembers = product.getRelated("ProductCategoryMember");
+    categoryMembers = EntityUtil.filterByDate(categoryMembers);
+    context.put("allCategories", allCategories);
+    context.put("productCategoryMembers", categoryMembers);
+
+    List productFeatureAndAppls = product.getRelated("ProductFeatureAndAppl");
+    
+    // get standard features for this product
+    List standardFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureApplTypeId", "STANDARD_FEATURE"));
+    HashMap productFeatureTypeLookup = new HashMap();
+    HashMap standardFeatureLookup = new HashMap();
+    Iterator standardFeatureApplIter = standardFeatureAppls.iterator();
+    while (standardFeatureApplIter.hasNext()) {
+        GenericValue standardFeatureAndAppl = (GenericValue) standardFeatureApplIter.next();
+        GenericValue featureType = standardFeatureAndAppl.getRelatedOneCache("ProductFeatureType");
+        productFeatureTypeLookup.put(standardFeatureAndAppl.getString("productFeatureId"), featureType);
+        standardFeatureLookup.put(standardFeatureAndAppl.getString("productFeatureId"), standardFeatureAndAppl);
+    }
+    context.put("standardFeatureLookup", standardFeatureLookup);
+    context.put("standardFeatureAppls", standardFeatureAppls);
+
+    // get selectable features for this product
+    List selectableFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureApplTypeId", "SELECTABLE_FEATURE"));
+    HashMap selectableFeatureLookup = new HashMap();
+    // get feature types that are deleteable from selectable features section
+    Set selectableFeatureTypes = new HashSet();
+
+    Iterator selectableFeatureAndApplIter = selectableFeatureAppls.iterator();
+    while (selectableFeatureAndApplIter.hasNext()) {
+        GenericValue selectableFeatureAndAppl = (GenericValue) selectableFeatureAndApplIter.next();
+        GenericValue featureType = selectableFeatureAndAppl.getRelatedOneCache("ProductFeatureType");
+        productFeatureTypeLookup.put(selectableFeatureAndAppl.getString("productFeatureId"), featureType);
+        selectableFeatureLookup.put(selectableFeatureAndAppl.getString("productFeatureId"), selectableFeatureAndAppl);
+        selectableFeatureTypes.add(featureType);
+    }
+    context.put("selectableFeatureLookup", selectableFeatureLookup);
+    context.put("selectableFeatureAppls", selectableFeatureAppls);
+    context.put("selectableFeatureTypes", selectableFeatureTypes);
+
+    if ("Y".equalsIgnoreCase(product.getString("isVariant"))) {
+        Set distinguishingFeatures = ProductWorker.getVariantDistinguishingFeatures(product);
+        context.put("distinguishingFeatures", distinguishingFeatures);
+        Iterator distinguishingFeatureIter = distinguishingFeatures.iterator();
+        while (distinguishingFeatureIter.hasNext()) {
+            GenericValue distFeature = (GenericValue) distinguishingFeatureIter.next();
+            GenericValue featureType = distFeature.getRelatedOneCache("ProductFeatureType");
+            if (!productFeatureTypeLookup.containsKey(distFeature.getString("productFeatureId"))) {
+                productFeatureTypeLookup.put(distFeature.getString("productFeatureId"), featureType);
+            }
+        }
+    }
+    context.put("productFeatureTypeLookup", productFeatureTypeLookup);
+
+
+    // get shipping dimensions and weights for single product
+    List prodFeaturesFiltered = null;
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "VLIQ_ozUS"));
+    if (prodFeaturesFiltered.size() > 0) {
+        try {
+            floz = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+        } catch (Exception e) {
+            floz = null;
+        }
+        context.put("floz", floz);
+    }
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "VLIQ_ml"));
+    if (prodFeaturesFiltered.size() > 0) {
+        try {
+            ml = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+        } catch (Exception e) {
+            ml = null;
+        }
+        context.put("ml", ml);
+
+    }
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "WT_g"));
+    if (prodFeaturesFiltered.size() > 0) {
+        try {
+            grams = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+        } catch (Exception e) {
+            grams = null;
+        }
+        context.put("grams", grams);
+    }
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "WT_oz"));
+    if (prodFeaturesFiltered.size() > 0) {
+        try {
+            ntwt = ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified");
+        } catch (Exception e) {
+            ntwt = null;
+        }
+        context.put("ntwt", ntwt);
+    }
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "HAZMAT"));
+    if (prodFeaturesFiltered.size() > 0) {
+        try {
+            hazmat = ((GenericValue)prodFeaturesFiltered.get(0)).getString("description");
+        } catch (Exception e) {
+            hazmat = "nbsp;";
+        }
+        if (hazmat == null) {
+            hazmat = "nbsp;";
+        }
+        context.put("hazmat", hazmat);
+    }
+    java.sql.Timestamp salesThru = product.getTimestamp("salesDiscontinuationDate");
+    if (salesThru == null) {
+        salesthru = "[&nbsp;]";
+    } else if (salesThru.after(new java.util.Date())) {
+        salesthru = "<div style='color: blue'>[x]</div>";
+    } else {
+        salesthru = "<div style='color: red'>[x]</div>";
+    }
+    context.put("salesthru", salesthru);
+    thrudate = "";
+    context.put("thrudate", thrudate);
+
+    // get all variants - associations first
+    Collection productAssocs = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+    Iterator productAssocIter = productAssocs.iterator();
+    // get shipping dimensions and weights for all the variants
+    while (productAssocIter.hasNext()) {
+        // now get the variant product
+        GenericValue productAssoc = (GenericValue)productAssocIter.next();
+        GenericValue assocProduct = productAssoc.getRelatedOne("AssocProduct");
+        if (assocProduct != null) {
+            assocProducts.add(assocProduct);
+            List assocProductFeatureAndAppls = assocProduct.getRelated("ProductFeatureAndAppl");
+            List prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "VLIQ_ozUS"));
+            if (prodFeaturesFiltered.size() > 0) {
+                featureFloz.put(assocProduct.getString("productId"), ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+            }
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "VLIQ_ml"));
+            if (prodFeaturesFiltered.size() > 0) {
+                featureMl.put(assocProduct.getString("productId"), ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+            }
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "WT_g"));
+            if (prodFeaturesFiltered.size() > 0) {
+                featureGrams.put(assocProduct.getString("productId"), ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+            }
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "AMOUNT", "uomId", "WT_oz"));
+            if (prodFeaturesFiltered.size() > 0) {
+                featureNtwt.put(assocProduct.getString("productId"), ((GenericValue)prodFeaturesFiltered.get(0)).getDouble("numberSpecified"));
+            }
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", "HAZMAT"));
+            if (prodFeaturesFiltered.size() > 0) {
+                featureHazmat.put(assocProduct.getString("productId"),
+                    ((GenericValue)prodFeaturesFiltered.get(0)).getString("description"));
+            } else {
+                featureHazmat.put(assocProduct.getString("productId"), "&nbsp;");
+            }
+            java.sql.Timestamp salesThru = assocProduct.getTimestamp("salesDiscontinuationDate");
+            if (salesThru == null) {
+                featureSalesThru.put(assocProduct.getString("productId"), "<div style='color: blue'>[&nbsp;]</div>");
+            } else if (salesThru.after(new java.util.Date())) {
+                featureSalesThru.put(assocProduct.getString("productId"), "<div style='color: blue'>[x]</div>");
+            } else {
+                featureSalesThru.put(assocProduct.getString("productId"), "<div style='color: red'>[x]</div>");
+            }
+            java.sql.Timestamp thruDate = productAssoc.getTimestamp("thruDate");
+            if (thruDate == null) {
+                featureThruDate.put(assocProduct.getString("productId"), "<div style='color: blue'>[&nbsp;]</div>");
+            } else if (thruDate.after(new java.util.Date())) {
+                featureThruDate.put(assocProduct.getString("productId"), "<div style='color: blue'>[x]</div>");
+            } else {
+                featureThruDate.put(assocProduct.getString("productId"), "<div style='color: red'>[x]</div>");
+            }
+
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId));
+            if (prodFeaturesFiltered.size() > 0) {
+                // this is used for the selectable feature descriptions section; only include here iff the description is also associated with the virtual product as a selectable feature, ie if this is a distinguishing feature
+                String curSelDescription = ((GenericValue) prodFeaturesFiltered.get(0)).getString("description");
+                testProductFeatureAndAppls = EntityUtil.filterByAnd(productFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "description", curSelDescription, "productFeatureApplTypeId", "SELECTABLE_FEATURE"));
+                if (testProductFeatureAndAppls.size() > 0) {
+                    selFeatureDesc.put(assocProduct.getString("productId"), curSelDescription);
+                }
+            }
+        }
+    }
+    assocProducts = EntityUtil.orderBy(assocProducts, UtilMisc.toList("internalName"));
+    context.put("assocProducts", assocProducts);
+    context.put("productAssocs", productAssocs);
+}
+
+context.put("featureFloz", featureFloz);
+context.put("featureMl", featureMl);
+context.put("featureNtwt", featureNtwt);
+context.put("featureGrams", featureGrams);
+context.put("featureHazmat", featureHazmat);
+context.put("featureSalesThru", featureSalesThru);
+context.put("featureThruDate", featureThruDate);
+context.put("selFeatureDesc", selFeatureDesc);
+
+// get "all" category id
+String allCategoryId = UtilProperties.getPropertyValue("catalog", "all.product.category");
+context.put("allCategoryId", allCategoryId);
+
+// show the publish or unpublish section
+List prodCatMembs = delegator.findByAnd("ProductCategoryMember",
+        UtilMisc.toMap("productCategoryId", allCategoryId, "productId", productId));
+//don't filter by date, show all categories: prodCatMembs = EntityUtil.filterByDate(prodCatMembs);
+
+String showPublish = "false";
+if (prodCatMembs.size() == 0) {
+    showPublish = "true";
+}
+context.put("showPublish", showPublish);

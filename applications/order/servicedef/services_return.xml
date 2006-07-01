@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Order Return Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Order Return Services -->
+    <service name="quickReturnOrder" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="quickReturnFromOrder">
+        <description>Quick Return Order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnReasonId" type="String" mode="IN" optional="true"/>
+        <attribute name="returnTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="returnHeaderTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="receiveReturn" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="returnId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createReturnHeader" default-entity-name="ReturnHeader" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnHeader">
+        <description>Create a new ReturnHeader</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="returnHeaderTypeId" optional="false"/>
+    </service>
+    <service name="updateReturnHeader" default-entity-name="ReturnHeader" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnHeader">
+        <description>Update a ReturnHeader</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createReturnItemBilling" engine="simple" default-entity-name="ReturnItemBilling"
+    	    location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnItemBilling">
+        <description>Create a new return item billing record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="returnItemInterface" engine="interface" location="" invoke="">
+        <description>Return Item Interface</description>
+        <auto-attributes entity-name="ReturnItem" include="all" mode="IN" optional="false">
+            <exclude field-name="returnItemSeqId"/>
+        </auto-attributes>
+        <override name="returnItemResponseId" optional="true"/>
+        <override name="orderItemSeqId" optional="true"/>
+        <override name="expectedItemStatus" optional="true"/>
+        <override name="receivedQuantity" optional="true"/>
+        <override name="statusId" optional="true"/>
+        <override name="returnPrice" optional="true"/>
+        <override name="productId" optional="true"/>
+    </service>
+    <service name="createReturnItem" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnItem">
+        <description>Create a new ReturnItem in the RETURN_REQUESTED status, based on returnableQuantity and returnablePrice from the
+                     getReturnableQuantity service.  This can be called by the customer to request a return for himself or by a user with
+                     ORDERMGR_CREATE, but, if the former, the returnPrice will be overriden by the returnablePrice from getReturnableQuantity.</description>
+        <implements service="returnItemInterface"/>
+        <attribute name="returnItemMapKey" type="String" mode="IN" optional="true"/>
+        <attribute name="returnItemSeqId" type="String" mode="OUT" optional="false"/>
+        <override name="returnReasonId" optional="true"/>
+    </service>
+    <service name="updateReturnItem" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnItem">
+        <description>Update a ReturnItem and related adjustments</description>
+        <implements service="returnItemInterface"/>
+        <attribute entity-name="ReturnItem" name="returnItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateReturnItemsStatus" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnItemsStatus">
+        <description>Update ReturnItem(s) Status</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="currentStatusId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeReturnItem" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="removeReturnItem">
+        <description>Remove a ReturnItem and related adjustments</description>
+        <auto-attributes entity-name="ReturnItem" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createReturnItemResponse" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnItemResponse">
+            <description>Creates a ReturnItemResponse record.</description>
+        <auto-attributes entity-name="ReturnItemResponse" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="returnItemResponseId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createPaymentApplicationsFromReturnItemResponse" engine="java"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="createPaymentApplicationsFromReturnItemResponse">
+            <description>Creates PaymentApplications for each return item billing related to the return response until the responseAmount is reached or
+                all items are paid.</description>
+        <attribute name="returnItemResponseId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <!-- services for return adjustments -->
+    <service name="returnAdjustmentInterface" engine="interface" location="" invoke="">
+        <description>Return Adjustment Interface</description>
+        <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
+    </service>
+    <service name="createReturnAdjustment" engine="java" location="org.ofbiz.order.order.OrderReturnServices"
+             invoke="createReturnAdjustment">
+         <description>Simple create service</description>
+         <implements service="returnAdjustmentInterface"/>
+         <override name="returnAdjustmentId" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateReturnAdjustment" engine="java" location="org.ofbiz.order.order.OrderReturnServices"
+             invoke="updateReturnAdjustment">
+        <description></description>
+        <implements service="returnAdjustmentInterface"/>
+        <attribute name="originalReturnPrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="originalReturnQuantity" type="Double" mode="IN" optional="true"/>
+        <override name="returnAdjustmentId" optional="false"/>        
+    </service>
+    <service name="removeReturnAdjustment" engine="simple" location="org/ofbiz/order/order/OrderReturnServices.xml"
+                 invoke="removeReturnAdjustment">
+        <description>Simple remove service</description>
+        <auto-attributes entity-name="ReturnAdjustment" include="pk" mode="IN" optional="false"/>        
+    </service>
+    <service name="createReturnItemOrAdjustment" engine="java"
+             location="org.ofbiz.order.order.OrderReturnServices" invoke="createReturnItemOrAdjustment">
+        <description>create Return Item or Adjustment based on the parameters passed in</description>
+        <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
+        <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
+        <attribute name="returnAdjustmentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="returnItemSeqId" type="String" mode="OUT" optional="true"/>                
+    </service>
+    <service name="updateReturnItemOrAdjustment" engine="java"
+             location="org.ofbiz.order.order.OrderReturnServices" invoke="updateReturnItemOrAdjustment">
+        <description>update Return Item or Adjustment based on the parameters passed in</description>
+        <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
+        <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
+        <attribute name="currentStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <!-- services to verify that returns refunds aren't issued more than once -->
+    <service name="getReturnAmountByOrder" engine="java" 
+             location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnAmountByOrder">
+        <description>Finds the refunded or credited payment amounts for each order on a return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderReturnAmountMap" type="Map" mode="OUT"/>
+    </service>
+    <service name="checkPaymentAmountForRefund" engine="java" 
+             location="org.ofbiz.order.order.OrderReturnServices" invoke="checkPaymentAmountForRefund">
+        <description>Makes sure the return is not over-refunding/crediting any order, or return an error</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="getReturnItemInitialCost" engine="java"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnItemInitialCost">
+        <description>Gets the item's initial cost based on the inventory item record associated with the order item or 0.00 if none found.</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="initialItemCost" type="Double" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="checkReturnComplete" engine="java"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="checkReturnComplete">
+        <description>Checks if all items on a return are complete/cancelled and updates the header status</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="sendReturnAcceptNotification" engine="java" max-retry="3"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnAcceptNotification">
+        <description>Send a notification that a return has been accepted</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="sendReturnCompleteNotification" engine="java" max-retry="3"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCompleteNotification">
+        <description>Send a notification that a return has been completed</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+     <service name="sendReturnCancelNotification" engine="java" max-retry="3"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCancelNotification">
+        <description>Send a notification that a return has been cancelled</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="processCreditReturn" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="processCreditReturn">
+        <description>Process the credits in a return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="processRefundReturn" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="processRefundReturn">
+        <description>Process the refunds in a return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="processReplacementReturn" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="processReplacementReturn">
+        <description>Process the replacements in a return</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="updateReturnStatusFromReceipt" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnStatusFromReceipt">
+        <description>Update return/item status when items have been received</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnHeaderStatus" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="getReturnableQuantity" engine="java"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnableQuantity">
+        <description>Get the quantity allowed for an item to be returned</description>
+        <attribute name="orderItem" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="returnableQuantity" type="Double" mode="OUT" optional="false"/>
+        <attribute name="returnablePrice" type="Double" mode="OUT" optional="false"/>
+    </service>
+    <service name="getReturnableItems" engine="java"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnableItems">
+        <description>Get a map of returnable items orderItem => quantity available to return</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnableItems" type="Map" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="getOrderAvailableReturnedTotal" engine="java"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="getOrderAvailableReturnedTotal">
+        <description>Get the total amount of all returns for an order: orderTotal, returnTotal - totals so far.  availableReturnTotal = orderTotal - returnTotal - adjustment.  Used for checking if the return total has gone over the order total.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="adjustment" type="Double" mode="IN" optional="true"/>
+        <attribute name="orderTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="returnTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableReturnTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
+</services>

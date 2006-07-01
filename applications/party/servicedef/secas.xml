@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2002-2004 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-eca.xsd">
+    <eca service="createPerson" event="commit">
+        <action service="ensureNaPartyRole" mode="sync"/>
+    </eca>
+    <eca service="createPartyGroup" event="commit">
+        <action service="ensureNaPartyRole" mode="sync"/>
+    </eca>
+    <eca service="createAffiliate" event="commit">
+        <action service="ensureNaPartyRole" mode="sync"/>
+    </eca>
+
+    <eca service="updatePerson" event="invoke">
+        <action service="savePartyNameChange" mode="sync"/>
+    </eca>
+    <eca service="updatePartyGroup" event="invoke">
+        <action service="savePartyNameChange" mode="sync"/>
+    </eca>
+    
+    <!-- before running the createPartyRelationship service, make sure the party is in the _NA_ role if that is the desired roleTypeId for From or To -->
+    <eca service="createPartyRelationship" event="invoke">
+        <condition field-name="roleTypeIdFrom" operator="equals" value="_NA_"/>
+        <action service="ensureNaPartyRoleFrom" mode="sync"/>
+    </eca>
+    <eca service="createPartyRelationship" event="invoke">
+        <condition field-name="roleTypeIdTo" operator="equals" value="_NA_"/>
+        <action service="ensureNaPartyRoleTo" mode="sync"/>
+    </eca>
+    
+    <!-- party contact mech service ECAs -->
+    <eca service="createPartyContactMech" event="commit">
+        <condition field-name="contactMechPurposeTypeId" operator="is-not-empty"/>
+        <action service="createPartyContactMechPurpose" mode="sync"/>
+    </eca>    
+    <eca service="createPartyPostalAddress" event="commit">
+        <condition field-name="contactMechPurposeTypeId" operator="is-not-empty"/>
+        <action service="createPartyContactMechPurpose" mode="sync"/>
+    </eca>
+    <eca service="createPartyEmailAddress" event="commit">
+        <condition field-name="contactMechPurposeTypeId" operator="is-not-empty"/>
+        <action service="createPartyContactMechPurpose" mode="sync"/>
+    </eca>        
+    <eca service="createPartyTelecomNumber" event="commit">
+        <condition field-name="contactMechPurposeTypeId" operator="is-not-empty"/>
+        <action service="createPartyContactMechPurpose" mode="sync"/>
+    </eca>
+    <eca service="createCommEventWorkEffort" event="invoke">
+        <condition field-name="workEffortId" operator="is-empty"/>
+        <action service="createWorkEffort" mode="sync" />
+    </eca>
+    
+    <!-- when an email communictaion event for a contact list is marked "IN PROGRESS", launch a background process to send them out -->
+    <eca service="updateCommunicationEvent" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+        <condition field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+        <condition field-name="contactListId" operator="is-not-empty"/>
+        <action service="sendCommEventAsEmail" mode="async"/>
+    </eca>
+    <!-- if there is no contact list, then send it in the same thread and complete it -->
+    <eca service="updateCommunicationEvent" event="commit">
+        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+        <condition field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+        <condition field-name="contactListId" operator="is-empty"/>
+        <action service="sendCommEventAsEmail" mode="sync"/>
+    </eca>
+
+    <!-- when we're done sending a communication event as an email, mark it as complete.  This is helpful when 
+        a comm event email is sent to a contact list.  After all the emails have been sent, mark it as complete. -->
+    <eca service="sendCommEventAsEmail" event="commit">
+        <action service="setCommEventComplete" mode="sync"/>
+    </eca>
+</service-eca>

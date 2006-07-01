@@ -1,0 +1,146 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Jacopo Cappellato (tiz@sastau.it)
+ *@version    $Rev$
+ *@since      3.0
+ */
+
+
+import java.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.transaction.*;
+import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.util.EntityFindOptions;
+
+import org.ofbiz.widget.html.*;
+
+delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
+
+action = request.getParameter("action");
+
+qty = -1;
+
+List rows = new ArrayList();
+
+if (action != null) {
+
+    if (offsetQty != null && offsetQty.length() > 0) {
+        try {
+            qty = Integer.parseInt(offsetQty);
+        } catch(NumberFormatException nfe) {
+            qty = -1;
+        }
+    }
+    // ------------------------------
+    DynamicViewEntity prodView = new DynamicViewEntity();
+    Map conditionMap = UtilMisc.toMap("facilityId", facilityId);
+
+    prodView.addMemberEntity("PRFA", "ProductFacility");
+    prodView.addAliasAll("PRFA", null);
+
+    prodView.addMemberEntity("PROD", "Product");
+    prodView.addViewLink("PROD", "PRFA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+    prodView.addAlias("PROD", "isVirtual");
+    if (productTypeId != null && productTypeId.length() > 0) {
+        prodView.addAlias("PROD", "productTypeId");
+        conditionMap.put("productTypeId", productTypeId);
+    }
+    if (productCategoryId != null && productCategoryId.length() > 0) {
+        prodView.addMemberEntity("PRCA", "ProductCategoryMember");
+        prodView.addViewLink("PRFA", "PRCA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+        prodView.addAlias("PRCA", "productCategoryId");
+        conditionMap.put("productCategoryId", productCategoryId);
+    }
+
+    if (productSupplierId != null && productSupplierId.length() > 0) {
+        prodView.addMemberEntity("SPPR", "SupplierProduct");
+        prodView.addViewLink("PRFA", "SPPR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+        prodView.addAlias("SPPR", "partyId");
+        conditionMap.put("partyId", productSupplierId);
+    }
+
+    // set distinct on so we only get one row per product
+    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+    EntityCondition searchCondition = new EntityFieldMap(conditionMap, EntityOperator.AND);
+    EntityCondition notVirtualCondition = new EntityExpr(new EntityExpr("isVirtual", EntityOperator.EQUALS, null),
+                                                         EntityOperator.OR,
+                                                         new EntityExpr("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
+    EntityCondition whereCondition = new EntityConditionList(UtilMisc.toList(searchCondition, notVirtualCondition), EntityOperator.AND);
+
+    boolean beganTransaction = false;
+    List prods = null;
+    try {
+        beganTransaction = TransactionUtil.begin();
+        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, UtilMisc.toList("productId"), findOpts);
+        prods = prodsEli.getCompleteList();
+        prodsEli.close();
+    } catch (GenericEntityException e) {
+        String errMsg = "Failure in operation, rolling back transaction";
+        Debug.logError(e, errMsg, "ViewFacilityInventoryByProduct");
+        try {
+            // only rollback the transaction if we started one...
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+        } catch (GenericEntityException e2) {
+            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "ViewFacilityInventoryByProduct");
+        }
+        // after rolling back, rethrow the exception
+        throw e;
+    } finally {
+        // only commit the transaction if we started one... this will throw an exception if it fails
+        TransactionUtil.commit(beganTransaction);
+    }
+
+    prodsIt = prods.iterator();
+
+    while (prodsIt.hasNext()) {
+        oneProd = prodsIt.next();
+        contextInput = UtilMisc.toMap("productId",oneProd.getString("productId"), "facilityId", facilityId);
+        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility",contextInput);
+        // qty
+        minimumStockInt = 0;
+        if (oneProd.get("minimumStock") != null) {
+            minimumStockInt = (oneProd.getDouble("minimumStock")).intValue();
+        }
+        quantityOnHandTotalInt = 0;
+        if (resultOutput.get("quantityOnHandTotal") != null) {
+            quantityOnHandTotalInt = ((Double)resultOutput.get("quantityOnHandTotal")).intValue();
+        }
+        offsetQtyAvailable = quantityOnHandTotalInt - minimumStockInt;
+        if (qty >= 0 && offsetQtyAvailable > qty) continue;
+
+        oneInventory = new HashMap();
+        oneInventory.put("productId", oneProd.getString("productId"));
+        oneInventory.put("minimumStock", oneProd.getString("minimumStock"));
+        oneInventory.put("reorderQuantity", oneProd.getString("reorderQuantity"));
+        oneInventory.put("daysToShip", oneProd.getString("daysToShip"));
+        oneInventory.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));
+        oneInventory.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
+        oneInventory.put("offsetQtyAvailable", offsetQtyAvailable);
+        rows.add(oneInventory);
+    }
+
+}
+context.put("inventoryByProduct", rows);

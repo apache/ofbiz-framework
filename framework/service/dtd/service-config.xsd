@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *  Copyright (c) 2001-2004 The Open For Business Project - www.ofbiz.org
+    *
+    *  Permission is hereby granted, free of charge, to any person obtaining a
+    *  copy of this software and associated documentation files (the "Software"),
+    *  to deal in the Software without restriction, including without limitation
+    *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    *  and/or sell copies of the Software, and to permit persons to whom the
+    *  Software is furnished to do so, subject to the following conditions:
+    *
+    *  The above copyright notice and this permission notice shall be included
+    *  in all copies or substantial portions of the Software.
+    *
+    *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+    *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+    *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    
+    *This is the DTD for the Open For Business Service Engine configuration XML file.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!-- ====================== Root Element ======================= -->
+    <xs:element name="service-config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="authorization"/>
+                <xs:element ref="thread-pool"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="engine"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-location"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="startup-service"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="resource-loader"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="global-services"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-groups"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-ecas"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="jms-service"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="authorization">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.authorization"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.authorization">
+        <xs:attribute type="xs:string" name="service-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="thread-pool">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="run-from-pool"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.thread-pool"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.thread-pool">
+        <xs:attribute type="xs:string" name="send-to-pool" use="required"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="purge-job-days" default="30"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="failed-retry-min" default="30"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="ttl" use="required"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="wait-millis" use="required"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="jobs" use="required"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="min-threads" use="required"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="max-threads" use="required"/>
+        <xs:attribute name="poll-enabled" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:nonNegativeInteger" name="poll-db-millis" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="run-from-pool">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.run-from-pool"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.run-from-pool">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="engine">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.engine"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.engine">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="class" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="startup-service">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.startup-service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.startup-service">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="runtime-data-id"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="runtime-delay" default="0"/>
+        <xs:attribute type="xs:string" name="run-in-pool"/>
+    </xs:attributeGroup>
+    <xs:element name="service-location">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.service-location"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.service-location">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="resource-loader">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.resource-loader"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.resource-loader">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="class" use="required"/>
+        <xs:attribute type="xs:string" name="prepend-env"/>
+        <xs:attribute type="xs:string" name="prefix"/>
+    </xs:attributeGroup>
+    <xs:element name="global-services">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.global-services"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.global-services">
+        <xs:attribute type="xs:string" name="loader" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="service-groups">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.service-groups"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.service-groups">
+        <xs:attribute type="xs:string" name="loader" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="service-ecas">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.service-ecas"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.service-ecas">
+        <xs:attribute type="xs:string" name="loader" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="jms-service">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="server"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.jms-service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.jms-service">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute name="send-mode" default="none">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="none"/>
+                    <xs:enumeration value="all"/>
+                    <xs:enumeration value="first-available"/>
+                    <xs:enumeration value="random"/>
+                    <xs:enumeration value="round-robin"/>
+                    <xs:enumeration value="least-load"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="server">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.server"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.server">
+        <xs:attribute type="xs:string" name="jndi-server-name" use="required"/>
+        <xs:attribute type="xs:string" name="jndi-name" use="required"/>
+        <xs:attribute type="xs:string" name="topic-queue" use="required"/>
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="topic"/>
+                    <xs:enumeration value="queue"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="username"/>
+        <xs:attribute type="xs:string" name="password"/>
+        <xs:attribute type="xs:string" name="client-id"/>
+        <xs:attribute name="listen" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="listener-class"/>
+    </xs:attributeGroup>
+</xs:schema>

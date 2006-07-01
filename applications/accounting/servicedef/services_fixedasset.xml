@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: services_fixedasset.xml 7600 2006-05-15 20:12:17Z jonesde $
+
+Copyright 2004-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+    <description>Accounting Services: Fixed Asset </description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <!-- Fixed Asset  -->
+    <service name="createFixedAsset" default-entity-name="FixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAsset" auth="true">
+        <description>Create an FixedAsset</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fixedAssetTypeId" optional="false"/>
+    </service>
+    <service name="updateFixedAsset" default-entity-name="FixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAsset" auth="true">
+        <description>Update an FixedAsset</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fixedAssetTypeId" optional="false"/>
+    </service>
+
+    <!-- Product to Fixed Asset maintenance -->
+    <service name="addFixedAssetProduct" default-entity-name="FixedAssetProduct" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="addFixedAssetProduct" auth="true">
+        <description>Add Product To Fixed Asset</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    
+    <service name="updateFixedAssetProduct" default-entity-name="FixedAssetProduct" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetProduct" auth="true">
+        <description>Update the Product to Fixed Asset information</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="removeFixedAssetProduct" default-entity-name="FixedAssetProduct" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removeFixedAssetProduct" auth="true">
+        <description>Remove Product From FixedAsset</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductInFixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createProductInFixedAsset" auth="true">
+        <description>Create a Product for the Fixed Asset</description>
+        <auto-attributes entity-name="FixedAsset" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="Product" include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes entity-name="Product" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="productFeatureIdByType" type="java.util.Map" mode="IN" optional="false" string-map-prefix="pft_"/>
+        <attribute name="productFeatureSelectableByType" type="java.util.Map" mode="IN" optional="false" string-map-prefix="pftsel_"/>
+        <attribute name="defaultPrice" type="Double" mode="IN" optional="true"/>
+        <attribute name="averageCost" type="Double" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <!-- Fixed Asset calendar -->
+    <service name="updateFixedAssetCalendar" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetCalendar" auth="true">
+        <description>Update the Capacity available of Calendar of a Fixed Asset information</description>
+        <attribute name="fixedAssetId" type="Id" mode="IN" optional="false"/>
+        <attribute name="exceptionDateStartTime" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="exceptionCapacity" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="capacity" type="Double" mode="IN" optional="true"/>
+    </service>
+    <!-- Party to Fixed Asset allocation -->
+    <service name="addPartyToFixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="addPartyToFixedAsset" auth="true">
+        <description>Add Party To Fixed Asset</description>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updatePartyToFixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updatePartyToFixedAsset" auth="true">
+        <description>Update Party To Fixed Asset Information</description>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="removePartyFromFixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removePartyFromFixedAsset" auth="true">
+        <description>Remove Party From Fixed Asset</description>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Fixed Asset rollup services -->
+   <service name="addFixedAssetToFixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="addFixedAssetToFixedAsset" auth="true">
+        <description>Add FixedAsset To FixedAsset</description>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentFixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateFixedAssetToFixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetToFixedAsset" auth="true">
+        <description>Update FixedAsset To FixedAsset</description>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentFixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="removeFixedAssetFromFixedAsset" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removeFixedAssetFromFixedAsset" auth="true">
+        <description>Remove FixedAsset From FixedAsset</description>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentFixedAssetId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+    <!-- FixedAssetStdCost  -->
+    <service name="createFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetStdCost" auth="true">
+        <description>Create a FixedAssetStdCost</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetStdCost" auth="true">
+        <description>Update a FixedAssetStdCost</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="cancelFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="cancelFixedAssetStdCost" auth="true">
+        <description>Cancel a FixedAssetStdCost</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- FixedAssetIdent -->
+    <service name="createFixedAssetIdent" default-entity-name="FixedAssetIdent" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetIdent" auth="true">
+        <description>Create a FixedAssetIdent</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateFixedAssetIdent" default-entity-name="FixedAssetIdent" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetIdent" auth="true">
+        <description>Update a FixedAssetIdent</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeFixedAssetIdent" default-entity-name="FixedAssetIdent" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="removeFixedAssetIdent" auth="true">
+        <description>Remove a FixedAssetIdent</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <!-- Equipment Registration Create/Update/Delete-->
+    <service name="createFixedAssetRegistration" default-entity-name="FixedAssetRegistration" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetRegistration" auth="true">
+        <description>Create a FixedAsset Registration</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateFixedAssetRegistration" default-entity-name="FixedAssetRegistration" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetRegistration" auth="true">
+        <description>Update a FixedAsset Registration</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetRegistration" default-entity-name="FixedAssetRegistration" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetRegistration" auth="true">
+        <description>Delete a FixedAsset Registration</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <!-- FixedAsset Maintenance Create/Update/Delete-->
+    <service name="createFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaint" auth="true">
+        <description>Create a FixedAsset Maintenance</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="maintHistSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->        
+    </service>
+    <service name="updateFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaint" auth="true">
+        <description>Update a FixedAsset Maintenance</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaint" auth="true">
+        <description>Remove a FixedAsset Maintenance</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
+    <service name="createFixedAssetMaintMeter" default-entity-name="FixedAssetMaintMeter" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintMeter" auth="true">
+        <description>Create a FixedAsset Maintenance Meter</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateFixedAssetMaintMeter" default-entity-name="FixedAssetMaintMeter" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaintMeter" auth="true">
+        <description>Update a FixedAsset Maintenance Meter</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetMaintMeter" default-entity-name="FixedAssetMaintMeter" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaintMeter" auth="true">
+        <description>Remove a FixedAsset Maintenance Meter</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
+</services>

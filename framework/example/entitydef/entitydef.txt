@@ -1,0 +1,7 @@
+
+Entity model, Entity ECA, and Entity group definitions. 
+Usually in the format of:
+
+entitymodel.xml
+entitygroup.xml
+eecas.xml

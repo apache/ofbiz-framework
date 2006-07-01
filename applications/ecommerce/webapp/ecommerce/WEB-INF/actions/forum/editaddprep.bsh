@@ -1,0 +1,106 @@
+/*
+ * $Id: editaddprep.bsh 7589 2006-05-15 06:19:21Z jonesde $
+ *
+ * Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      3.0
+ */
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+import org.ofbiz.securityext.login.*;
+import org.ofbiz.common.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.content.ContentManagementWorker;
+import org.ofbiz.content.content.ContentWorker;
+
+import freemarker.template.SimpleHash;
+import freemarker.template.SimpleSequence;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+delegator = (GenericDelegator) request.getAttribute("delegator");
+userLogin = session.getAttribute("userLogin");
+paramMap = UtilHttp.getParameterMap(request);
+
+singleWrapper = context.get("singleWrapper");
+contentIdTo = paramMap.get("contentIdTo");
+singleWrapper.putInContext("contentIdTo", contentIdTo);
+mapKey = paramMap.get("mapKey");
+singleWrapper.putInContext("mapKey", mapKey);
+
+if (mapKey != null && mapKey.equals("SUMMARY")) {
+    singleWrapper.putInContext("textSource", "summaryData");
+} else {
+    singleWrapper.putInContext("textSource", "textData");
+}
+
+singleWrapper.putInContext("dataResourceTypeId", "ELECTRONIC_TEXT");
+singleWrapper.putInContext("contentAssocTypeId", "SUB_CONTENT");
+//Debug.logInfo("in editaddprep, contentIdTo:" + contentIdTo,"");
+//Debug.logInfo("in editaddprep, mapKey:" + mapKey,"");
+//currentValue = request.getAttribute("currentValue");
+//currentValue = request.getAttribute("currentValue");
+
+currentValue = ContentWorker.getSubContentCache(delegator, contentIdTo, mapKey, null, userLogin, null, null, new Boolean(false), null);
+//Debug.logInfo("in editaddprep, currentValue:" + currentValue,"");
+
+if (currentValue == null) {
+    parentValue = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdTo));
+    currentValue = delegator.makeValue("Content", null);
+    subject =  parentValue.get("contentName");
+    if (mapKey != null && mapKey.equals("SUMMARY")) {
+        subject = "Short " + subject;
+    }
+    currentValue.put("contentName", subject);
+    currentValue.put("description", subject);
+    singleWrapper.putInContext("contentTypeId", "DOCUMENT");
+} else {
+    singleWrapper.putInContext("contentTypeId", null);
+    //Debug.logInfo("in editaddprep, currentValue:" + currentValue,"");
+}
+singleWrapper.putInContext("currentValue", currentValue);
+context.put("currentValue", currentValue);
+request.setAttribute("currentValue", currentValue);
+persistAction = paramMap.get("persistAction");
+
+if (UtilValidate.isEmpty(persistAction)) {
+    persistAction = "persistContent";
+}
+singleWrapper.putInContext("persistAction", persistAction);
+//Debug.logInfo("in editaddprep, currentValue:" + currentValue,"");

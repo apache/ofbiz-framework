@@ -1,0 +1,58 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones (jonesde@ofbiz.org)
+ *@author     Johan Isacsson
+ *@version    $Rev$
+ *@since      2.2
+ */
+
+import java.util.*;
+import org.ofbiz.security.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.webapp.pseudotag.*;
+import org.ofbiz.workeffort.workeffort.*;
+
+facilityId = parameters.get("facilityId");
+fixedAssetId = parameters.get("fixedAssetId");
+partyId = parameters.get("partyId");
+start = UtilDateTime.nowTimestamp();
+eventsParam = "";
+if (facilityId != null) {
+    eventsParam = "facilityId=" + facilityId;
+}
+if (fixedAssetId != null) {
+    eventsParam = "fixedAssetId=" + fixedAssetId;
+}
+if (partyId != null) {
+    eventsParam = "partyId=" + partyId;
+}
+
+Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start", start,"numPeriods",new Integer(7),"periodSeconds",new Integer(3600*24));
+serviceCtx.put("partyId", partyId);
+serviceCtx.put("facilityId", facilityId);
+serviceCtx.put("fixedAssetId", fixedAssetId);
+
+Map result = dispatcher.runSync("getWorkEffortEventsByPeriod",serviceCtx);
+context.put("days", result.get("periods"));
+context.put("start", start);
+context.put("eventsParam", eventsParam);

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: OrderEntryCartScreens.xml 7846 2006-06-22 23:06:52Z sichen $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <!-- Included Screens -->
+    <screen name="minicart">
+        <section>
+          <actions>
+              <set field="hidetoplinks" value="Y"/>
+              <set field="hidebottomlinks" value="Y"/>
+          </actions>
+          <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/minicart.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="promoUseDetailsInline">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promoUseDetailsInline.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="orderHeaderInfo">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/orderHeaderInfo.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="orderShortcuts">
+        <section>
+            <actions>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/shoppinglist.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/orderShortcuts.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!-- =========== Top-Level and Stand-Alone Screens =========== -->
+    <screen name="ShowCart">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleOrderShowCart"/>
+                <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
+                <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showcart.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showpromotext.bsh"/>
+                <entity-condition entity-name="ProductPromo" list-name="allProductPromos">
+                    <order-by field-name="productPromoId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showcart.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showcartitems.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promoCodes.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/manualPromotions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promoText.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/associatedProducts.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotionsApplied.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="survey">
+        <section>
+            <actions>
+                <set field="title" value="Show Cart"/>
+                <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
+                <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showcart.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showpromotext.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/survey.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="showAllPromotions">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
+                <set field="title" value="Show All Promotions"/>
+                <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showcart.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showpromotext.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showAllPromotions.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="showPromotionDetails">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
+
+                <set field="title" value="Show Promotion Details"/>
+                <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/showPromotionDetails.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showPromotionDetails.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="LookupBulkAddProducts">
+     <section>
+            <actions>
+                <set field="title" value="Bulk Add Product"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/> <!-- 10 rows seems more appropriate given screen size, etc. -->
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddProducts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="LookupBulkAddProducts" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

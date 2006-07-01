@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EditPerson" type="single" target="updatePerson" title="" default-map-name="person"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="person==null" target="createPerson"/>
+        <auto-fields-service service-name="updatePerson"/>
+
+        <field use-when="person!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="person==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}"><ignored/></field>
+        <field use-when="person==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]" widget-style="tabletext"><display also-hidden="false"/></field>
+
+        <field name="gender">
+            <drop-down allow-empty="true">
+                <option key="M" description="${uiLabelMap.CommonMale}"/>
+                <option key="F" description="${uiLabelMap.CommonFemale}"/>
+            </drop-down>
+        </field>
+        <field name="maritalStatus">
+            <drop-down allow-empty="true">
+                <option key="S" description="${uiLabelMap.PartyMaritalStatusSingle}"/>
+                <option key="M" description="${uiLabelMap.PartyMaritalStatusMarried}"/>
+                <option key="P" description="${uiLabelMap.PartyMaritalStatusSeparated}"/>
+                <option key="D" description="${uiLabelMap.PartyMaritalStatusDivorced}"/>
+                <option key="W" description="${uiLabelMap.PartyMaritalStatusWidowed}"/>
+            </drop-down>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+    <form name="EditPartyGroup" type="single" target="updatePartyGroup" title="" default-map-name="partyGroup"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="partyGroup==null" target="createPartyGroup"/>
+        <auto-fields-service service-name="updatePartyGroup"/>
+
+        <field use-when="partyGroup!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="partyGroup==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}"><ignored/></field>
+        <field use-when="partyGroup==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]" widget-style="tabletext"><display also-hidden="false"/></field>
+
+        <field name="partyTypeId"><ignored/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+    <form name="AddUserLogin" type="single"
+            target="createUserLogin" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createUserLogin"/>
+
+        <field name="partyId"><hidden/></field>
+        <field name="currentPassword"><password/></field>
+        <field name="currentPasswordVerify"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+    <form name="updatePassword" type="single"
+        target="updatePassword" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
+        </actions>
+        <auto-fields-service service-name="updatePassword"/>
+
+        <field name="partyId"><hidden/></field>
+        <field name="userLoginId"><hidden/></field>
+        <field name="currentPassword"><password/></field>
+        <field name="newPassword"><password/></field>
+        <field name="newPasswordVerify"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+    <form name="updateUserLoginSecurity" type="single"
+            target="updateUserLoginSecurity" title="" default-map-name="editUserLogin"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateUserLoginSecurity"/>
+
+        <field name="partyId"><hidden/></field>
+        <field name="userLoginId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+
+    <form name="EditVendor" type="single"
+        target="updateVendor" title="" default-map-name="vendor"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+        <alt-target use-when="vendor==null" target="createVendor"/>
+        <auto-fields-service service-name="updateVendor" map-name="vendor"/>
+
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="manifestCompanyName" title="${uiLabelMap.PartyManifestCompanyName}"></field>
+        <field name="manifestCompanyTitle" title="${uiLabelMap.PartyManifestCompanyTitle}"></field>
+        <field name="manifestLogoUrl" title="${uiLabelMap.PartyManifestLogoUrl}"></field>
+        <field name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}"><textarea cols="60" rows="15"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- PartyRelationship -->
+    <form name="AddPartyRelationshipType" type="single"
+        target="createPartyRelationshipType" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createPartyRelationshipType"/>
+        <field name="partyId"><hidden/></field>
+        <field name="hasTable"><hidden/></field>
+        <field name="parentTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRelationshipType" key-field-name="partyRelationshipTypeId" description="${partyRelationshipName}">
+                    <entity-order-by field-name="partyRelationshipName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="roleTypeIdValidFrom" title="${uiLabelMap.PartyRelationshipValidFromRoleType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="roleTypeIdValidTo" title="${uiLabelMap.PartyRelationshipValidToRoleType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- PartyTaxAuthInfo -->
+    <form name="AddPartyTaxAuthInfo" type="single" target="createPartyTaxAuthInfo" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createPartyTaxAuthInfo"/>
+        <field name="partyId"><hidden/></field>
+        <field name="taxAuthGeoId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonCountry}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonState}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="STATE"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonProvince}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="PROVINCE"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonCounty}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTY"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonCountyCity}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTY_CITY"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonCity}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="CITY"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="taxAuthPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdatePartyTaxAuthInfo" type="list" target="updatePartyTaxAuthInfo" title="" list-name="partyTaxInfos"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updatePartyTaxAuthInfo"/>
+        <field name="partyId"><hidden/></field>
+        <field name="taxAuthGeoId" widget-style="tabletext"><display-entity entity-name="Geo" key-field-name="geoId" description="[${geoId}] ${geoName}" also-hidden="true"/></field>
+        <field name="taxAuthPartyId" widget-style="tabletext">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}" also-hidden="true">
+                <sub-hyperlink target="viewprofile?partyId=${taxAuthPartyId}" description="${taxAuthPartyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deletePartyTaxAuthInfo?partyId=${partyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+
+    <form name="AddPartyNote" type="single"
+            target="createPartyNote" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createPartyNote"/>
+
+        <field name="partyId"><hidden/></field>
+        <field name="note" widget-style="textAreaBox"><textarea cols="70" rows="10"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+
+    <!-- PartyRate -->
+    <form name="AddPartyRate" type="single"
+        target="createPartyRate" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createPartyRate"/>
+        <field name="partyId"><hidden/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPartyRates" type="list"
+        target="updatePartyRate" title="" list-name="partyTaxInfos"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="PartyRate">
+                <condition-expr field-name="partyId" env-name="partyId"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updatePartyRate"/>
+        <field name="partyId"><hidden/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="tabletext"><display-entity entity-name="RateType" also-hidden="true"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deletePartyRate?partyId=${partyId}&amp;rateTypeId=${rateTypeId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    
+    <form name="NewUser" type="single"
+            target="${target}${previousParams}" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="USER_TITLE" title="${uiLabelMap.CommonTitle}"><text size="10" maxlength="30"/></field>
+        <field name="USER_FIRST_NAME" title="${uiLabelMap.PartyFirstName}" tooltip="*"><text size="30" maxlength="60"/></field>
+        <field name="USER_MIDDLE_NAME" title="${uiLabelMap.PartyMiddleInitial}"><text size="4" maxlength="4"/></field>
+        <field name="USER_LAST_NAME" title="${uiLabelMap.PartyLastName}" tooltip="*"><text size="30" maxlength="60"/></field>
+        <field name="USER_SUFFIX" title="${uiLabelMap.PartySuffix}"><text size="10" maxlength="30"/></field>
+
+        <field name="ShippingAddressTitle" title="${uiLabelMap.PartyAddressMailingShipping}"><display description=" " also-hidden="false"/></field>
+        <field name="USER_ADDRESS1" title="${uiLabelMap.CommonAddress1}" tooltip="*" title-style="tabletext"><text size="30" maxlength="60"/></field>
+        <field name="USER_ADDRESS2" title="${uiLabelMap.CommonAddress2}" title-style="tabletext"><text size="30" maxlength="60"/></field>
+        <field name="USER_CITY" title="${uiLabelMap.CommonCity}" tooltip="*" title-style="tabletext"><text size="30" maxlength="60"/></field>
+        <field name="USER_STATE" title="${uiLabelMap.CommonState}" tooltip="*" title-style="tabletext">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonState}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="STATE"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${uiLabelMap.CommonProvince}: [${geoId}] ${geoName}">
+                    <entity-constraint name="geoTypeId" value="PROVINCE"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" tooltip="*" title-style="tabletext"><text size="10" maxlength="30"/></field>
+        <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" tooltip="*" title-style="tabletext">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="USER_ADDRESS_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowAddressSolicitation}?" title-style="tabletext">
+            <drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down>
+        </field>
+
+        <field name="HomePhoneTitle" title="${uiLabelMap.PartyHomePhone}"><display description=" " also-hidden="false"/></field>
+        <field name="USER_HOME_COUNTRY" title="${uiLabelMap.PartyCountryCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_HOME_AREA" title="${uiLabelMap.PartyAreaCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_HOME_CONTACT" title="${uiLabelMap.PartyPhoneNumber}" title-style="tabletext"><text size="15" maxlength="15"/></field>
+        <field name="USER_HOME_EXT" title="${uiLabelMap.PartyContactExt}" title-style="tabletext"><text size="6" maxlength="10"/></field>
+        <field name="USER_HOME_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?" title-style="tabletext"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></field>
+
+        <field name="WorkPhoneTitle" title="${uiLabelMap.PartyContactWorkPhoneNumber}"><display description=" " also-hidden="false"/></field>
+        <field name="USER_WORK_COUNTRY" title="${uiLabelMap.PartyCountryCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_WORK_AREA" title="${uiLabelMap.PartyAreaCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_WORK_CONTACT" title="${uiLabelMap.PartyPhoneNumber}" title-style="tabletext"><text size="15" maxlength="15"/></field>
+        <field name="USER_WORK_EXT" title="${uiLabelMap.PartyContactExt}" title-style="tabletext"><text size="6" maxlength="10"/></field>
+        <field name="USER_WORK_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?" title-style="tabletext"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></field>
+
+        <field name="FaxPhoneTitle" title="${uiLabelMap.PartyContactFaxPhoneNumber}"><display description=" " also-hidden="false"/></field>
+        <field name="USER_FAX_COUNTRY" title="${uiLabelMap.PartyCountryCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_FAX_AREA" title="${uiLabelMap.PartyAreaCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_FAX_CONTACT" title="${uiLabelMap.PartyPhoneNumber}" title-style="tabletext"><text size="15" maxlength="15"/></field>
+        <field name="USER_FAX_EXT" title="${uiLabelMap.PartyContactExt}" title-style="tabletext"><text size="6" maxlength="10"/></field>
+        <field name="USER_FAX_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?" title-style="tabletext"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></field>
+
+        <field name="MobilePhoneTitle" title="${uiLabelMap.PartyContactMobilePhoneNumber}"><display description=" " also-hidden="false"/></field>
+        <field name="USER_MOBILE_COUNTRY" title="${uiLabelMap.PartyCountryCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_MOBILE_AREA" title="${uiLabelMap.PartyAreaCode}" title-style="tabletext"><text size="4" maxlength="10"/></field>
+        <field name="USER_MOBILE_CONTACT" title="${uiLabelMap.PartyPhoneNumber}" title-style="tabletext"><text size="15" maxlength="15"/></field>
+        <field name="USER_MOBILE_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?" title-style="tabletext"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></field>
+
+        <field name="EmailAddressTitle" title="${uiLabelMap.PartyEmailAddress}"><display description=" " also-hidden="false"/></field>
+        <field name="USER_EMAIL" title="${uiLabelMap.CommonEmail}" title-style="tabletext" tooltip="*"><text size="60" maxlength="250"/></field>
+        <field name="USER_EMAIL_ALLOW_SOL" title="${uiLabelMap.PartyContactAllowSolicitation}?" title-style="tabletext"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></field>
+        <!-- <field name="USER_ORDER_EMAIL" title="Order Emails (comma separated)" title-style="tabletext"><text size="60" maxlength="250"/></field> -->
+
+
+        <field use-when="displayPassword!=null" name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="*"><text size="30" maxlength="250"/></field>
+        <field use-when="displayPassword!=null" name="PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="*"><password size="15" maxlength="250"/></field>
+        <field use-when="displayPassword!=null" name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}"><password size="15" maxlength="250"/></field>
+
+        <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyCustomerTemporaryPassword}"><text size="30" maxlength="250"/></field>
+
+        <field name="RequiredNote" title=""><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListSegmentRoles" type="list" target="updateSegmentGroupRole" title=""
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-and entity-name="SegmentGroupRole">
+                <field-map field-name="partyId" />
+            </entity-and>
+        </actions>
+        <field name="segmentGroupId" title="${uiLabelMap.PartySegmentGroupId}">
+            <display-entity entity-name="SegmentGroup">
+                <sub-hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup?segmentGroupId=${segmentGroupId}" target-type="inter-app" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRole}">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteSegmentGroupRole?segmentGroupId=${segmentGroupId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddSegmentRole" type="single"
+            target="createSegmentRole" title="" default-map-name="segmentGroupRole"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+        <field name="segmentGroupId" title="${uiLabelMap.PartySegmentGroupId}">
+            <lookup target-form-name="LookupSegmentGroup"/>
+        </field>
+
+        <field name="partyId"><hidden/></field>
+        <field name="roleTypeId">
+            <drop-down>
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <!-- <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}?segmentGroupId=${segmentGroupId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field> -->
+    </form>
+    <form name="EditPartyAttribute" type="single"
+            target="updatePartyAttribute" title="" default-map-name="attribute"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+
+        <alt-target use-when="attribute==null" target="createPartyAttribute"/>
+        <auto-fields-service service-name="updatePartyAttribute" map-name="attribute"/>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

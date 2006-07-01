@@ -1,0 +1,98 @@
+/*
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski (jaz@ofbiz.org)
+ *@version    $Rev$
+ *@since      2.2
+*/
+
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.accounting.payment.*;
+import org.ofbiz.order.shoppingcart.*;
+import org.ofbiz.party.contact.*;
+
+delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
+cart = session.getAttribute("shoppingCart");
+orderPartyId = cart.getPartyId();
+currencyUomId = cart.getCurrency();
+context.put("cart", cart);
+context.put("paymentMethodType", request.getParameter("paymentMethodType"));
+
+// nuke the event messages
+request.removeAttribute("_EVENT_MESSAGE_");
+
+if (orderPartyId != null && !orderPartyId.equals("_NA_")) {
+    orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", orderPartyId));
+    orderPerson = orderParty.getRelatedOne("Person");
+    context.put("orderParty", orderParty);
+    context.put("orderPerson", orderPerson);
+    if (orderParty != null) { 
+        context.put("paymentMethodList", EntityUtil.filterByDate(orderParty.getRelated("PaymentMethod"), true));
+        
+        billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, orderPartyId, delegator, dispatcher);
+        if (billingAccountList != null && billingAccountList.size() > 0) {
+            context.put("selectedBillingAccountId", cart.getBillingAccountId());
+            context.put("billingAccountList", billingAccountList);
+        }
+    }
+}
+
+if (request.getParameter("useShipAddr") != null && cart.getShippingContactMechId() != null) {
+    shippingContactMech = cart.getShippingContactMechId();
+    postalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMech));    
+    context.put("postalFields", postalAddress);
+} else {
+    context.put("postalFields", UtilHttp.getParameterMap(request));
+}
+
+if (cart != null) {
+    if (cart.getPaymentMethodIds().size() > 0) {
+        checkOutPaymentId = cart.getPaymentMethodIds().get(0);
+        context.put("checkOutPaymentId", checkOutPaymentId); 
+        if (orderParty == null) {                                
+            paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", checkOutPaymentId));           
+            if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
+                paymentMethodType = "CC";
+                account = paymentMethod.getRelatedOne("CreditCard");       
+                context.put("creditCard", account); 
+                context.put("paymentMethodType", paymentMethodType);                     
+            } else if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("EFT_ACCOUNT")) {
+                paymentMethodType = "EFT";
+                account = paymentMethod.getRelatedOne("EftAccount");
+                context.put("eftAccount", account);
+                context.put("paymentMethodType", paymentMethodType);
+            } else {
+                paymentMethodType = "offline";
+                context.put("paymentMethodType", paymentMethodType);
+            }
+            if (account != null) {
+                address = account.getRelatedOne("PostalAddress");
+                context.put("postalAddress", address);                
+            }
+        }            
+    } else if (cart.getPaymentMethodTypeIds().size() > 0) {
+        checkOutPaymentId = cart.getPaymentMethodTypeIds().get(0);
+        context.put("checkOutPaymentId", checkOutPaymentId); 
+    }
+}

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitygroup.xsd">
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.agreement -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="Addendum" />
+    <entity-group group="org.ofbiz" entity="Agreement" />
+    <entity-group group="org.ofbiz" entity="AgreementAttribute" />
+    <entity-group group="org.ofbiz" entity="AgreementGeographicalApplic" />
+    <entity-group group="org.ofbiz" entity="AgreementItem" />
+    <entity-group group="org.ofbiz" entity="AgreementItemAttribute" />
+    <entity-group group="org.ofbiz" entity="AgreementItemType" />
+    <entity-group group="org.ofbiz" entity="AgreementItemTypeAttr" />
+    <entity-group group="org.ofbiz" entity="AgreementPartyApplic" />
+    <entity-group group="org.ofbiz" entity="AgreementProductAppl" />
+    <entity-group group="org.ofbiz" entity="AgreementPromoAppl" />
+    <entity-group group="org.ofbiz" entity="AgreementRole" />
+    <entity-group group="org.ofbiz" entity="AgreementTerm" />
+    <entity-group group="org.ofbiz" entity="AgreementTermAttribute" />
+    <entity-group group="org.ofbiz" entity="AgreementType" />
+    <entity-group group="org.ofbiz" entity="AgreementTypeAttr" />
+    <entity-group group="org.ofbiz" entity="AgreementWorkEffortAppl" />
+    <entity-group group="org.ofbiz" entity="TermType" />
+    <entity-group group="org.ofbiz" entity="TermTypeAttr" />
+
+    <entity-group group="org.ofbiz" entity="AgreementItemAndProductAppl" />
+    <entity-group group="org.ofbiz" entity="AgreementItemAndPartyAppl" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.communication -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="CommunicationEvent" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventPrpTyp" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventPurpose" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventRole" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventType" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventAndRole" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.contact -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="ContactMech" />
+    <entity-group group="org.ofbiz" entity="ContactMechAttribute" />
+    <entity-group group="org.ofbiz" entity="ContactMechLink" />
+    <entity-group group="org.ofbiz" entity="ContactMechPurposeType" />
+    <entity-group group="org.ofbiz" entity="ContactMechType" />
+    <entity-group group="org.ofbiz" entity="ContactMechTypeAttr" />
+    <entity-group group="org.ofbiz" entity="ContactMechTypePurpose" />
+    <entity-group group="org.ofbiz" entity="PartyContactMech" />
+    <entity-group group="org.ofbiz" entity="PartyContactMechPurpose" />
+    <entity-group group="org.ofbiz" entity="PostalAddress" />
+    <entity-group group="org.ofbiz" entity="PostalAddressBoundary" />
+    <entity-group group="org.ofbiz" entity="TelecomNumber" />
+    <entity-group group="org.ofbiz" entity="ValidContactMechRole" />
+    <entity-group group="org.ofbiz" entity="ContactMechDetail" />
+    <entity-group group="org.ofbiz" entity="PartyAndContactMech" />
+    <entity-group group="org.ofbiz" entity="PartyAndPostalAddress" />
+    <entity-group group="org.ofbiz" entity="PartyAndTelecomNumber" />
+    
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.need -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="NeedType" />
+    <entity-group group="org.ofbiz" entity="PartyNeed" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.party.party -->
+  <!-- ========================================================= -->
+
+
+    <entity-group group="org.ofbiz" entity="AddressMatchMap" />        
+    <entity-group group="org.ofbiz" entity="Affiliate" />
+    <entity-group group="org.ofbiz" entity="Party" />
+    <entity-group group="org.ofbiz" entity="PartyAndGroup" />
+    <entity-group group="org.ofbiz" entity="PartyAndPerson" />
+    <entity-group group="org.ofbiz" entity="PartyAndUserLogin" />
+    <entity-group group="org.ofbiz" entity="PartyAndUserLoginAndPerson" />
+    <entity-group group="org.ofbiz" entity="PartyAttribute" />
+    <entity-group group="org.ofbiz" entity="PartyClassification" />
+    <entity-group group="org.ofbiz" entity="PartyClassificationGroup" />
+    <entity-group group="org.ofbiz" entity="PartyClassificationType" />
+    <entity-group group="org.ofbiz" entity="PartyContactWithPurpose" />
+    <entity-group group="org.ofbiz" entity="PartyContent" />
+    <entity-group group="org.ofbiz" entity="PartyDataSource" />
+    <entity-group group="org.ofbiz" entity="PartyGroup" />
+    <entity-group group="org.ofbiz" entity="PartyIcsAvsOverride" />
+    <entity-group group="org.ofbiz" entity="PartyNameHistory" />
+    <entity-group group="org.ofbiz" entity="PartyNameView" />
+    <entity-group group="org.ofbiz" entity="PartyNote" />
+    <entity-group group="org.ofbiz" entity="PartyNoteView" />
+    <entity-group group="org.ofbiz" entity="PartyProfileDefault" />
+    <entity-group group="org.ofbiz" entity="PartyRelationship" />
+    <entity-group group="org.ofbiz" entity="PartyRelationshipType" />
+    <entity-group group="org.ofbiz" entity="PartyRole" />
+    <entity-group group="org.ofbiz" entity="PartyRoleAndPartyDetail" />
+    <entity-group group="org.ofbiz" entity="PartyStatus" />
+    <entity-group group="org.ofbiz" entity="OldPartyTaxInfo" />
+    <entity-group group="org.ofbiz" entity="PartyType" />
+    <entity-group group="org.ofbiz" entity="PartyTypeAttr" />
+    <entity-group group="org.ofbiz" entity="Person" />
+    <entity-group group="org.ofbiz" entity="PriorityType" />
+    <entity-group group="org.ofbiz" entity="RoleType" />
+    <entity-group group="org.ofbiz" entity="RoleTypeAndParty" />
+    <entity-group group="org.ofbiz" entity="RoleTypeAttr" />
+    <entity-group group="org.ofbiz" entity="Vendor" />
+</entitygroup>

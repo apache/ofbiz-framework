@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <QuantityBreakType description="Shipping Weight Break" quantityBreakTypeId="SHIP_WEIGHT"/>
+    <QuantityBreakType description="Shipping Quantity Break" quantityBreakTypeId="SHIP_QUANTITY"/>
+    <QuantityBreakType description="Shipping Price Break" quantityBreakTypeId="SHIP_PRICE"/>
+    <QuantityBreakType description="Price Component Quantity Break" quantityBreakTypeId="QUANTITY"/>
+    <QuantityBreakType description="Price Component Order Value Break" quantityBreakTypeId="ORDER_VALUE"/>
+
+    <ShipmentContactMechType description="Ship-To Address" shipmentContactMechTypeId="SHIP_TO_ADDRESS"/>
+    <ShipmentContactMechType description="Ship-From Address" shipmentContactMechTypeId="SHIP_FROM_ADDRESS"/>
+    <ShipmentContactMechType description="Ship-To Telecom Number" shipmentContactMechTypeId="SHIP_TO_TELECOM"/>
+    <ShipmentContactMechType description="Ship-From Telecom Number" shipmentContactMechTypeId="SHIP_FROM_TELECOM"/>
+    <ShipmentContactMechType description="Ship-To E-Mail" shipmentContactMechTypeId="SHIP_TO_EMAIL"/>
+    <ShipmentContactMechType description="Ship-From E-Mail" shipmentContactMechTypeId="SHIP_TO_EMAIL"/>
+
+    <ShipmentType description="Incoming" hasTable="N" parentTypeId="" shipmentTypeId="INCOMING_SHIPMENT"/>
+    <ShipmentType description="Outgoing" hasTable="N" parentTypeId="" shipmentTypeId="OUTGOING_SHIPMENT"/>
+    <ShipmentType description="Sales Return" hasTable="N" parentTypeId="INCOMING_SHIPMENT" shipmentTypeId="SALES_RETURN"/>
+    <ShipmentType description="Sales Shipment" hasTable="N" parentTypeId="OUTGOING_SHIPMENT" shipmentTypeId="SALES_SHIPMENT"/>
+    <ShipmentType description="Purchase Shipment" hasTable="N" parentTypeId="INCOMING_SHIPMENT" shipmentTypeId="PURCHASE_SHIPMENT"/>
+    <ShipmentType description="Purchase Return" hasTable="N" parentTypeId="OUTGOING_SHIPMENT" shipmentTypeId="PURCHASE_RETURN"/>
+    <ShipmentType description="Drop Shipment" hasTable="N" parentTypeId="" shipmentTypeId="DROP_SHIPMENT"/>
+    <ShipmentType description="Transfer" hasTable="N" parentTypeId="" shipmentTypeId="TRANSFER"/>
+
+    <!-- Shipment status -->
+    <StatusType description="Shipment" hasTable="N" parentTypeId="" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Input" sequenceId="01" statusCode="INPUT" statusId="SHIPMENT_INPUT" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Scheduled" sequenceId="02" statusCode="SCHEDULED" statusId="SHIPMENT_SCHEDULED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Picked" sequenceId="03" statusCode="PICKED" statusId="SHIPMENT_PICKED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Packed" sequenceId="04" statusCode="PACKED" statusId="SHIPMENT_PACKED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Shipped" sequenceId="05" statusCode="SHIPPED" statusId="SHIPMENT_SHIPPED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Delivered" sequenceId="06" statusCode="DELIVERED" statusId="SHIPMENT_DELIVERED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SHIPMENT_CANCELLED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_SCHEDULED" transitionName="Schedule"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_PACKED" statusIdTo="SHIPMENT_SHIPPED" transitionName="Ship"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_SHIPPED" statusIdTo="SHIPMENT_DELIVERED" transitionName="Deliver"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="SHIPMENT_PACKED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+
+    <!-- these shipment status are intended for purchase shipments -->
+    <StatusType description="Purchase Shipment" hasTable="N" parentTypeId="" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PURCH_SHIP_CREATED" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusItem description="Shipped" sequenceId="02" statusCode="SHIPPED" statusId="PURCH_SHIP_SHIPPED" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusItem description="Received" sequenceId="03" statusCode="RECEIVED" statusId="PURCH_SHIP_RECEIVED" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusValidChange condition="" statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange condition="" statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
+    <StatusValidChange condition="" statusId="PURCH_SHIP_SHIPPED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
+
+    <!-- ShipmentRouteSegment CarrierService status -->
+    <StatusType description="ShipmentRouteSegment:CarrierService" hasTable="N" parentTypeId="" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Not Started" sequenceId="01" statusCode="NOT_STARTED" statusId="SHRSCS_NOT_STARTED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Confirmed" sequenceId="02" statusCode="CONFIRMED" statusId="SHRSCS_CONFIRMED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Accepted" sequenceId="03" statusCode="ACCEPTED" statusId="SHRSCS_ACCEPTED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Voided" sequenceId="08" statusCode="VOIDED" statusId="SHRSCS_VOIDED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusValidChange condition="" statusId="SHRSCS_NOT_STARTED" statusIdTo="SHRSCS_CONFIRMED" transitionName="Confirm"/>
+    <StatusValidChange condition="" statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange condition="" statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
+    <StatusValidChange condition="" statusId="SHRSCS_ACCEPTED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
+    <!-- can go from accepted to voided? -->
+
+    <RejectionReason rejectionId="SRJ_DAMAGED" description="Damaged"/>
+    <RejectionReason rejectionId="SRJ_NOT_ORDERED" description="Not Ordered"/>
+    <RejectionReason rejectionId="SRJ_OVER_SHIPPED" description="Over Shipped"/>
+
+    <!-- Picklist status -->
+    <StatusType description="Picklist" hasTable="N" parentTypeId="" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Input" sequenceId="01" statusCode="INPUT" statusId="PICKLIST_INPUT" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="PICKLIST_ASSIGNED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Picked" sequenceId="03" statusCode="PICKED" statusId="PICKLIST_PICKED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PICKLIST_CANCELLED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_ASSIGNED" transitionName="Assign"/>
+    <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange condition="" statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+</entity-engine-xml>

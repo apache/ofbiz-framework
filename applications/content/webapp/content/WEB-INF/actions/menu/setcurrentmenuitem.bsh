@@ -1,0 +1,94 @@
+/*
+ * $Id: setcurrentmenuitem.bsh 5462 2005-08-05 18:35:48Z jonesde $
+ *
+ * Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+/**
+ *
+ * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
+ * @version    $Rev$
+ * @since      3.0
+
+ * A commonly called script to find the "current" entity (either Content or DataResource
+ * usually) from either a cached key or overridden by current values in the parameter map
+ * or request attributes.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.security.*;
+import org.ofbiz.service.*;
+import org.ofbiz.entity.model.*;
+import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.form.*;
+import org.ofbiz.widget.menu.*;
+import org.ofbiz.content.ContentManagementWorker;
+
+import java.lang.StringBuffer;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+
+LocalDispatcher dispatcher	= (LocalDispatcher)request.getAttribute("dispatcher");
+GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+if (request.getAttribute("servletContext") == null) Debug.logError("ServletContext null in setcurrentmenuitem");
+
+entityName		= page.getProperty("entityName");
+pageName		= page.getPageName();
+menuDefFile = page.getProperty("menuDefFile");
+menuName = page.getProperty("menuName");
+menuSig = menuDefFile + "__" + menuName;
+
+menuWrapper = HtmlMenuWrapper.getMenuWrapper( request, response, session, menuDefFile, menuName,  "HtmlMenuWrapper");
+parameterMap = menuWrapper.getFromContext("parameters");
+Debug.logInfo("in setcurrentmenuitem(0), parameterMap:" + parameterMap,"");
+paramMap = UtilHttp.getParameterMap(request);
+Debug.logInfo("in setcurrentmenuitem(0), paramMap:" + paramMap,"");
+String menuItemName = page.getProperty("menuItemName");
+Debug.logInfo("in setcurrentmenuitem(0), menuItemName:" + menuItemName,"");
+if (UtilValidate.isEmpty(menuItemName)) {
+        modelMenu = menuWrapper.getModelMenu();
+//Debug.logInfo("in setcurrentmenuitem(0), modelMenu:" + modelMenu,"");
+        menuItemName = modelMenu.getCurrentMenuItemName();
+//Debug.logInfo("in setcurrentmenuitem(0), menuItemName:" + menuItemName,"");
+}
+String targetName = page.getProperty("targetName");
+if (UtilValidate.isEmpty(targetName))
+    targetName = pageName;
+
+userLogin = request.getSession().getAttribute("userLogin");
+//Debug.logInfo("in setcurrentmenuitem, userLogin:" + userLogin,"");
+ModelMenu currentModelMenu = menuWrapper.getModelMenu();
+if (currentModelMenu != null) {
+StringBuffer buffer = new StringBuffer();
+//currentModelMenu.dump(buffer); 
+currentModelMenu.setCurrentMenuItemName(menuItemName);
+ModelMenuItem currentItem = currentModelMenu.getCurrentMenuItem();
+if (currentItem != null) {
+    currentItem.setCurrentMenuTargetName(targetName);
+}
+Debug.logInfo("in setcurrentmenuitem, menuItemName:" + menuItemName,"");
+Debug.logInfo("in setcurrentmenuitem, targetName:" + targetName,"");
+//Debug.logInfo("in setcurrentmenuitem, dump:" + buffer.toString(),"");
+}
+

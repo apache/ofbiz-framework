@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="EditProductFeature" type="single" 
+            target="updateProductFeature" title="" default-map-name="productFeature"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        
+        <alt-target use-when="productFeature==null" target="createProductFeature"/>
+        
+        <auto-fields-service service-name="updateProductFeature" map-name=""/>
+        
+        <field use-when="productFeature!=null" name="productFeatureId" title="${uiLabelMap.ProductFeatureId}" tooltip="${uiLabelMap.ProductChangeWithoutProductCatalog}"><display/></field>
+        <field use-when="productFeature==null&amp;&amp;productFeatureId!=null" name="productFeatureId" title="${uiLabelMap.ProductFeatureId}" tooltip="${uiLabelMap.ProductCouldNotFindProductConfigItem} [${productFeatureId}]"><text size="20" maxlength="20"/></field>
+        <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
+        <field use-when="productFeature==null&amp;&amp;productFeatureId==null" name="productFeatureId" title="${uiLabelMap.ProductFeatureId}"><ignored/></field>
+
+        <field name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductFeatureType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="productFeatureCategoryId" title="${uiLabelMap.ProductFeatureCategory}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductFeatureCategory" description="${description} [${productFeatureCategoryId}]">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field use-when="productFeature!=null&amp;&amp;productFeature.getString(&quot;productFeatureCategoryId&quot;)!=null" name="categoryLink" title="" widget-style="buttontext">
+            <hyperlink target="/EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeature.productFeatureCategoryId}" target-type="intra-app"
+                description="[${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}]" also-hidden="false"/>
+        </field>
+
+        <field name="description" title="${uiLabelMap.CommonDescription}"/>
+        <field name="uomId" title="${uiLabelMap.ProductUnitOfMeasureId}"/>
+        <field name="numberSpecified" title="${uiLabelMap.ProductNumberQuantity}"/>
+        <field name="defaultAmount" title="${uiLabelMap.ProductDefaultAmount}"/>
+        <field name="defaultSequenceNum" title="${uiLabelMap.ProductDefaultSequenceNumber}"/>
+        <field name="idCode" title="${uiLabelMap.ProductIdCode}"/>
+        <field name="abbrev" title="${uiLabelMap.ProductAbbreviation}"/>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="CreateSupplierProductFeature" type="single"
+            target="createSupplierProductFeature" title=""
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+            default-map-name="productFeature">
+        <auto-fields-service service-name="createSupplierProductFeature" default-field-type="edit"/>
+        <field name="partyId" title="${uiLabelMap.ProductSuppliers}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${groupName} ${firstName} ${lastName} [${partyId}]">
+                    <entity-constraint name="roleTypeId" value="SUPPLIER"/>
+                    <entity-order-by field-name="groupName"/>
+                    <entity-order-by field-name="firstName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="uomId" title="${uiLabelMap.ProductCurrency}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" description="${uomId}"/>
+            </drop-down>
+        </field>
+        <field name="idCode" title="${uiLabelMap.ProductIdCode}"></field>
+        <field name="productFeatureId" ><hidden/></field>
+        <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
+    <form name="EditSupplierProductFeatures" type="list"
+            target="updateSupplierProductFeature" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
+            list-name="supplierProductFeatures">
+        <auto-fields-service service-name="updateSupplierProductFeature" default-field-type="display"/>
+        <field name="productFeatureId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.ProductSuppliers}" widget-style="tabletext">
+            <display-entity entity-name="PartyGroup" description="${groupName}"/>
+        </field>
+
+        <field name="description" title="${uiLabelMap.ProductDescription}"><text size="40"/></field>
+        <field name="idCode" title="${uiLabelMap.ProductIdCode}"><text size="5"/></field>
+        <field name="uomId" title="${uiLabelMap.ProductCurrency}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" description="${uomId}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeSupplierProductFeature?productFeatureId=${productFeatureId}&amp;partyId=${partyId}"
+                description="[${uiLabelMap.CommonDelete}]"/>
+        </field>
+    </form>
+
+    <form name="ListFeatureTypes" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext"
+            list-name="featureTypes" target="" paginate-target="EditFeatureTypes" title="" type="list">
+        <auto-fields-entity entity-name="ProductFeatureType" default-field-type="display"/>
+        <field name="productFeatureTypeId"><hidden/></field>
+        <field name="parentTypeId"><hidden/></field>
+        <field name="hasTable"><hidden/></field>
+        <field name="editFeatureType" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink target="EditFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="[${uiLabelMap.CommonEdit}]"/>
+        </field>
+        <field name="removeFeatureType" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="removeProductFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="[${uiLabelMap.CommonDelete}]"/>
+        </field>
+    </form>
+    <form name="EditFeatureType" type="single" 
+            target="updateProductFeatureType" title="" default-map-name="productFeatureType"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="productFeatureType==null" target="createProductFeatureType"/>
+        <auto-fields-entity entity-name="ProductFeatureType"/>
+        <field use-when="productFeatureType!=null" name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}"><display/></field>
+        <field use-when="productFeatureType==null&amp;&amp;productFeatureTypeId!=null" name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}" tooltip="${uiLabelMap.ProductCouldNotFindProductFeatureType} [${productFeatureTypeId}]"><text size="20" maxlength="20"/></field>
+        <field name="parentTypeId" title="${uiLabelMap.ProductParentType}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductFeatureType" key-field-name="productFeatureTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListFeatureGroupAppls" type="multi" use-row-submit="false"
+            list-name="productFeatureGroupAndAppls" target="UpdateProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" title="">
+        <field name="productFeatureGroupId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="description" title="${uiLabelMap.ProductFeature}"><display/></field>
+        <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="ProductFeatureType"/>
+        </field>
+        <field name="productFeatureCategoryId" title="${uiLabelMap.ProductFeatureCategory}">
+            <display-entity entity-name="ProductFeatureCategory"/>
+        </field>
+        <field name="sequenceNum"><text size="3"/></field>
+        <field name="removeFeatureGroupAppl" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+            <hyperlink target="RemoveProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}&amp;productFeatureId=${productFeatureId}&amp;fromDate=${fromDate}" description="[${uiLabelMap.CommonRemove}]"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
+    <form name="QuickApplyFeatureToGroup" type="single" 
+            target="CreateProductFeatureGroupAppl"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" title="">
+        <field name="productFeatureGroupId"><hidden/></field>
+        <field name="productFeatureId" title="${uiLabelMap.ProductFeatureId}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ApplyFeatureCategoryToGroup" type="single"
+            target="EditFeatureGroupAppls"
+            default-widget-style="inputBox" default-tooltip-style="tabletext" title="" default-title-style="tableheadtext">
+        <field name="productFeatureGroupId"><hidden/></field>
+        <field name="productFeatureCategoryId">
+            <drop-down>
+                <list-options key-name="productFeatureCategoryId" list-name="productFeatureCategories" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonContinue}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ApplyFeaturesFromCategoryToGroup" type="multi" use-row-submit="true"
+            list-name="productFeatures" target="ApplyFeaturesFromCategoryToGroup?productFeatureGroupId=${productFeatureGroupId}"
+            default-widget-style="tabletext" default-title-style="tableheadtext" default-tooltip-style="tabletext" title="">
+        <field name="productFeatureGroupId"><hidden/></field>
+        <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="ProductFeatureType"/>
+        </field>
+        <field name="description" title="${uiLabelMap.ProductFeature}"><display/></field>
+        <field name="idCode" title="${uiLabelMap.CommonIdCode}"><display/></field>
+        <field name="abbrev" title="${uiLabelMap.ProductAbbrev}"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+          <submit/>
+        </field>
+    </form>
+</forms>
+

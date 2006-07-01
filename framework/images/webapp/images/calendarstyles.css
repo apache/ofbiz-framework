@@ -1,0 +1,135 @@
+.calendarempty {vertical-align: top; background: #FFFFFF; padding: 4px;}
+.calendarentry {vertical-align: top; background: #EEF3FB; padding: 4px; }
+.monthcalendarentry {vertical-align: top; background: #EEF3FB; padding: 4px; border-top: solid 1px #B6C7E5; }
+.calendar {
+	background: #1E3C66;
+	
+}
+.bg {
+	background: #FFFFFF;
+}
+
+.monthweekheader {
+	padding: 4px;
+	background: #AFC8D4;
+}
+
+.monthweeknumber {
+	font-weight: bold;
+	color: #1E3C66;
+}
+
+A.monthweeknumber {
+    font-family: Tahoma, Verdana, Arial;
+	font-size: 11px;
+	font-weight: bold;
+	color: #1E3C66;
+	text-decoration: none;
+}
+
+A.monthweeknumber:hover, visited, selected {
+    font-family: Tahoma, Verdana, Arial;
+	font-size: 11px;
+	font-weight: bold;
+	color: black;
+	text-decoration: underline;
+}
+
+.monthdaynumber {
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+	padding-left: 1px;
+	padding-bottom: 3px;
+}
+
+A.monthdaynumber {
+	color: #000000;
+	text-decoration: none;
+}
+
+A.monthdaynumber:hover, visited, selected {
+	color: #000000;
+	text-decoration: underline;
+}
+
+A.previousnext{
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+
+A.previousnext:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.monthdayheader {
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background: #1E3C66;
+	padding: 4px;
+}
+
+.monthheadertable {
+	border-left: solid 1px #1E3C66;
+	border-right: solid 1px #1E3C66;
+	padding: 4px;
+	background: #AFC8D4;
+}
+
+.monthheadertext {
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 18px;
+	font-weight: bold;
+	color: #1E3C66;
+}
+.previousnextmiddle {
+	color: #7D90B1;
+}
+
+td {
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 11px;
+	color: #000000;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+a.add {
+	color: #5886C6;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+a.add:hover {
+	color: #000000;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+a.event {
+	color: #5886C6;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a.event:hover {
+	color: #000000;
+	font-weight: bold;
+	text-decoration: underline;
+}
+

@@ -1,0 +1,119 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     David E. Jones
+ *@version    1.0
+ */
+
+import java.util.HashMap;
+import org.ofbiz.party.contact.ContactMechWorker;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+
+userLogin = session.getAttribute("userLogin");
+security = request.getAttribute("security");
+delegator = request.getAttribute("delegator");
+
+/* puts the following in the context: "contactMech", "contactMechId", 
+        "partyContactMech", "partyContactMechPurposes", "contactMechTypeId", 
+        "contactMechType", "purposeTypes", "postalAddress", "telecomNumber", 
+        "requestName", "donePage", "tryEntity", "contactMechTypes"
+ */
+target = new HashMap();
+ContactMechWorker.getContactMechAndRelated(request, userLogin.getString("partyId"), target);
+targetIter = target.keySet().iterator();
+while (targetIter.hasNext()) {
+    key = targetIter.next();
+    context.put(key, target.get(key));
+}
+
+
+if (!security.hasEntityPermission("PARTYMGR", "_VIEW", session) && context.get("partyContactMech") == null && context.get("contactMech") != null) {
+    context.put("canNotView", true);
+} else {
+    context.put("canNotView", false);
+}
+
+preContactMechTypeId = request.getParameter("preContactMechTypeId");
+if (preContactMechTypeId == null) preContactMechTypeId = request.getAttribute("preContactMechTypeId");
+if (preContactMechTypeId != null) context.put("preContactMechTypeId", preContactMechTypeId);
+
+paymentMethodId = request.getParameter("paymentMethodId");
+if (paymentMethodId == null) paymentMethodId = request.getAttribute("paymentMethodId");
+if (paymentMethodId != null) context.put("paymentMethodId", paymentMethodId);
+
+cmNewPurposeTypeId = request.getParameter("contactMechPurposeTypeId");
+if (cmNewPurposeTypeId == null) cmNewPurposeTypeId = request.getAttribute("contactMechPurposeTypeId");
+if (cmNewPurposeTypeId != null) {
+    contactMechPurposeType = delegator.findByPrimaryKey("ContactMechPurposeType", UtilMisc.toMap("contactMechPurposeTypeId", cmNewPurposeTypeId));
+    if (contactMechPurposeType != null) {
+        context.put("contactMechPurposeType", contactMechPurposeType);
+    } else {
+        cmNewPurposeTypeId = null;
+    }
+    context.put("cmNewPurposeTypeId", cmNewPurposeTypeId);
+}
+
+tryEntity = context.get("tryEntity");
+requestParameters = UtilHttp.getParameterMap(request);
+
+contactMechData = context.get("contactMech");
+if (!tryEntity.booleanValue()) contactMechData = requestParameters;
+if (contactMechData == null) contactMechData = new HashMap();
+if (contactMechData != null) context.put("contactMechData", contactMechData);
+
+partyContactMechData = context.get("partyContactMech");
+if (!tryEntity.booleanValue()) partyContactMechData = requestParameters; 
+if (partyContactMechData == null) partyContactMechData = new HashMap();
+if (partyContactMechData != null) context.put("partyContactMechData", partyContactMechData);
+
+postalAddressData = context.get("postalAddress");
+if (!tryEntity.booleanValue()) postalAddressData = requestParameters; 
+if (postalAddressData == null) postalAddressData = new HashMap();
+if (postalAddressData != null) context.put("postalAddressData", postalAddressData);
+
+telecomNumberData = context.get("telecomNumber");
+if (!tryEntity.booleanValue()) telecomNumberData = requestParameters; 
+if (telecomNumberData == null) telecomNumberData = new HashMap();
+if (telecomNumberData != null) context.put("telecomNumberData", telecomNumberData);
+
+// load the geo names for selected countries and states/regions
+if ( request.getParameter( "countryGeoId" ) != null ) {
+	geoValue = delegator.findByPrimaryKeyCache( "Geo", UtilMisc.toMap("geoId", request.getParameter("countryGeoId")));
+	if ( geoValue != null )
+		context.put("selectedCountryName", geoValue.get("geoName") );
+} else if ( postalAddressData != null && postalAddressData.get("countryGeoId") != null ) {
+	geoValue = delegator.findByPrimaryKeyCache( "Geo", UtilMisc.toMap("geoId", postalAddressData.get("countryGeoId")));
+	if ( geoValue != null )
+		context.put("selectedCountryName", geoValue.get("geoName") );
+}
+
+if ( request.getParameter( "stateProvinceGeoId" ) != null ) {
+	geoValue = delegator.findByPrimaryKeyCache( "Geo", UtilMisc.toMap("geoId", request.getParameter("stateProvinceGeoId")));
+	if ( geoValue != null )
+		context.put("selectedStateName", geoValue.get("geoName") );
+} else if ( postalAddressData != null && postalAddressData.get("stateProvinceGeoId") != null ) {
+	geoValue = delegator.findByPrimaryKeyCache( "Geo", UtilMisc.toMap("geoId", postalAddressData.get("stateProvinceGeoId")));
+	if ( geoValue != null )
+		context.put("selectedStateName", geoValue.get("geoName") );
+}
+
+

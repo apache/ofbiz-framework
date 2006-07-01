@@ -1,0 +1,34 @@
+import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
+
+orderId = context.get("orderId");
+orderPaymentPreferenceId = context.get("orderPaymentPreferenceId");
+
+if ((orderId == null) || (orderPaymentPreferenceId == null)) return;
+
+orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+context.put("orderHeader", orderHeader);
+
+orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
+context.put("orderPaymentPreference", orderPaymentPreference);
+
+paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
+context.put("paymentMethodType", paymentMethodType);
+
+if (orderPaymentPrefrence != null) {
+    context.put("paymentTypeId", "CUSTOMER_PAYMENT");
+}
+
+// we retrieve the captureAmount by looking at the latest authorized gateway response for this orderPaymentPreference
+gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", UtilMisc.toList("transactionDate DESC"));
+EntityUtil.filterByCondition(gatewayResponses, new EntityExpr("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));
+
+if (gatewayResponses.size() > 0) {
+    latestAuth = gatewayResponses.get(0);
+    context.put("captureAmount", latestAuth.getDouble("amount"));
+} else {
+    // todo: some kind of error telling user to re-authorize
+}

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: CommonScreens.xml 7808 2006-06-17 22:18:53Z jonesde $
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.WorkEffortCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.WorkEffortCompanySubtitle" global="true"/>
+                <set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
+                <!-- The WorkEffort component's screens need the calendarstyles.css stylesheet to render the calendar pages:
+                     it is added to the list of default stylesheet (layoutSettings.styleSheets) defined in the GlobalDecorator -->
+                <set field="layoutSettings.styleSheets[]" value="/images/calendarstyles.css" global="true"/>
+                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
+                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <set field="activeApp" value="workeffort" global="true"/>
+                <set field="applicationTitle" from-field="uiLabelMap.WorkEffortWorkEffortManagerApplication" global="true"/>
+                <set field="applicationMenuName" value="WorkEffortAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://workeffort/widget/WorkEffortMenus.xml" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonWorkEffortDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="workeffort"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not>
+                                            <if-empty field-name="workEffortId"/>
+                                        </not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="WorkEffortTabBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                                        <container>
+                                            <label style="head1">${uiLabelMap.WorkEffortWorkEffortId}: ${workEffortId}</label>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonTimesheetDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="timesheet"/>
+                <set field="timesheetId" from-field="parameters.timesheetId"/>
+                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="timesheetId"/></not></condition>
+                                    <widgets>
+                                        <include-menu name="TimesheetTabBar" location="component://workeffort/widget/TimesheetMenus.xml"/>
+                                        <container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId}</label></container>
+                                    </widgets>
+                                </section>
+                                
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonCalendarDecorator">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                            </condition>
+                            <actions>
+                                <entity-condition entity-name="Facility" list-name="allFacilities">
+                                    <order-by field-name="facilityName"/>
+                                </entity-condition>
+                                <entity-condition entity-name="FixedAsset" list-name="allFixedAssets">
+                                    <order-by field-name="fixedAssetId"/>
+                                </entity-condition>
+                            </actions>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/CalendarTabBar.ftl"/></html>
+                                </platform-specific>
+                                <platform-specific>
+                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/eventsByForms.ftl"/></html>
+                                </platform-specific>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="login">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/webcommon/login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="main">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/main.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
+

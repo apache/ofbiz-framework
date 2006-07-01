@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>main</template> 
+    <property name="title">Edit Content Association Type</property>
+    <property name="headerItem">ContentSetupMenu</property>    
+    <property name="entityName">ContentAssocType</property>    
+    <property name="subMenu">/contentsetup/contentsetup_menu.ftl</property>    
+    <property name="formDefFile">/contentsetup/ContentSetupForms.xml</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+    <page-action name="/includes/permprep.bsh" />
+    <content-action name="/includes/crudprep.bsh" />
+</page>

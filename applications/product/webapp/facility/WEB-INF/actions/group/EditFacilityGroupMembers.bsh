@@ -1,0 +1,97 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Andy Zeneski
+ *@author     Brad Steiner
+ *@version    $Rev$
+ *@since      2.2
+ */
+ 
+import java.util.*;
+import java.io.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+delegator = request.getAttribute("delegator");
+
+nowTimestampString = UtilDateTime.nowTimestamp().toString();
+context.put("nowTimestampString", nowTimestampString);
+
+//default this to true, ie only show active
+boolean activeOnly = !"false".equals(request.getParameter("activeOnly"));
+context.put("activeOnly", activeOnly);
+
+boolean useValues = true;
+if (request.getAttribute("_ERROR_MESSAGE_") != null) useValues = false;
+
+facilityGroupId = request.getParameter("facilityGroupId");
+
+GenericValue facilityGroup = delegator.findByPrimaryKey("FacilityGroup", UtilMisc.toMap("facilityGroupId", facilityGroupId));
+if (facilityGroup == null) useValues = false;
+
+facilityGroupMembers = facilityGroup.getRelated("FacilityGroupMember", null, UtilMisc.toList("sequenceNum", "facilityId"));
+if (activeOnly) facilityGroupMembers = EntityUtil.filterByDate(facilityGroupMembers, true);
+
+facilityGroups = delegator.findAll("FacilityGroup", UtilMisc.toList("description"));
+
+if ("true".equalsIgnoreCase((String)request.getParameter("useValues"))) useValues = true;
+
+int viewIndex = 0;
+int viewSize = 20;
+int highIndex = 0;
+int lowIndex = 0;
+int listSize = 0;
+
+try {
+    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+} catch (Exception e) {
+    viewIndex = 0;
+}
+
+try {
+    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+} catch (Exception e) {
+    viewSize = 20;
+}
+
+if (facilityGroupMembers != null) {
+    listSize = facilityGroupMembers.size();
+}
+
+lowIndex = viewIndex * viewSize;
+highIndex = (viewIndex + 1) * viewSize;
+if (listSize < highIndex) {
+    highIndex = listSize;
+}
+
+context.put("facilityGroupId", facilityGroupId);
+context.put("facilityGroup", facilityGroup);
+context.put("facilityGroupMembers", facilityGroupMembers);
+context.put("facilityGroups", facilityGroups);
+context.put("useValues", useValues);
+
+context.put("viewIndex", viewIndex);
+context.put("viewSize", viewSize);
+context.put("listSize", listSize);
+context.put("lowIndex", lowIndex);
+context.put("highIndex", highIndex);

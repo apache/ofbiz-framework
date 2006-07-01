@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <property name="defaultSubMenu">EditContentType</property>    
+    <property name="headerItem">ContentSetupMenu</property>    
+    <page-action name="/includes/redirectpage.bsh"/>
+</page>

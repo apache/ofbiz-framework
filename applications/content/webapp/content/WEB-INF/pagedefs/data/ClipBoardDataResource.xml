@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <template>lookup</template> 
+    <property name="title">ClipBoard DataResource</property>
+    <property name="formDefFile">/data/DataResourceForms.xml</property>    
+    <property name="mruFormName">mruLookupDataResource</property>    
+    <property name="subMenu">/data/data_menu.ftl</property>    
+    <property name="headerItem">Data</property>    
+    <property name="entityName">DataResource</property>    
+    <property name="listName">entityList</property>    
+    <property name="permission">CONTENTMGR</property>    
+    <property name="permissionType">simple</property>    
+    <page-action name="/includes/mruprep.bsh"/>
+</page>

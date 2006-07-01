@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *  Copyright (c) 2003-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Al Byers
+ *@author     David E. Jones
+ *@author     Olivier.Heintz@nereide.biz
+ *@version    $Rev$
+ *@since      3.0
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="lookupProduct" 
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox"
+        target="LookupProduct" title="" type="single">
+        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ProductCategory" key-field-name="productCategoryId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="isVariant"><hidden value="N"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupProduct" 
+        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
+        list-name="listIt" paginate-target="LookupProduct" 
+        title="" type="list">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Product"/>
+            </service>
+        </actions>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_values('${productId}', '${internalName}')"/>
+        </field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
+        <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
+        </field>
+    </form>
+    
+    <form name="lookupVirtualProduct" extends="lookupProduct"
+        default-map-name= "inputFields" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        target="LookupVirtualProduct" title="" type="single">
+        <field name="isVirtual"><hidden value="Y"/></field>
+    </form>
+    <form name="listLookupVirtualProduct" extends="listLookupProduct"
+        default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
+        list-name="listIt" paginate-target="LookupVirtualProduct" 
+        title="" type="list">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Product"/>
+            </service>
+        </actions>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
+        </field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
+    </form>
+
+    <form name="lookupProductAndPrice" target="LookupProductAndPrice" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
+        <field name="primaryProductCategoryId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ProductCategory" key-field-name="productCategoryId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}">
+            <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
+                <entity-options description="${description}" entity-name="ProductPriceType" key-field-name="productPriceTypeId">
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productPricePurposeId">
+            <drop-down allow-empty="false" no-current-selected-key="PURCHASE">
+                <entity-options description="${description}" entity-name="ProductPricePurpose" key-field-name="productPricePurposeId">
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="price" title="${uiLabelMap.ProductPrice}"><range-find/></field>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="filterByDate"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupProductAndPrice" list-name="listIt" paginate-target="LookupProductAndPrice" title="" type="list"
+        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductAndPriceView"/>
+            </service>
+        </actions>
+        <!--
+        <field name="productId" title="" widget-style="buttontext" use-when="isVirtual==null||&quot;${isVirtual}&quot;.equals(&quot;N&quot;)">
+            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_values('${productId}', '${internalName}')"/>
+        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)"><display/></field>
+        -->
+        <field name="productId" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_values('${productId}', '${internalName}')"/>
+        </field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}"><display/></field>
+        <field name="price" title="${uiLabelMap.ProductPrice}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
+        <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
+        </field>
+    </form>
+
+    <form name="lookupProductCategory" target="LookupProductCategory" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ProductCategory" default-field-type="find" />
+        <field name="productCategoryTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ProductCategoryType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupProductCategory" list-name="listIt" paginate-target="LookupProductCategory" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductCategory"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="ProductCategory" default-field-type="display"/>
+        <field name="productCategoryTypeId"><display-entity entity-name="ProductCategoryType"/></field>
+        <field name="productCategoryId" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productCategoryId}" target="javascript:set_value('${productCategoryId}')"/>
+        </field>
+        <field name="longDescription"><ignored/></field>
+        <field name="categoryImageUrl"><ignored/></field>
+        <field name="linkOneImageUrl"><ignored/></field>
+        <field name="linkTwoImageUrl"><ignored/></field>
+        <field name="detailScreen"><ignored/></field>
+    </form>
+    
+    <form name="lookupProductFeature" target="LookupProductFeature" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ProductFeature" default-field-type="find" />
+        <field name="productFeatureTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ProductFeatureType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productFeatureCategoryId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ProductFeatureCategory">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupProductFeature" list-name="listIt" paginate-target="LookupProductFeature" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductFeature"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="ProductFeature" default-field-type="display"/>
+        <field name="productFeatureId" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productFeatureId}" target="javascript:set_value('${productFeatureId}')"/>
+        </field>
+    </form>
+
+    <form name="LookupProductStore" target="LookupProductStore" title="" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <!-- <auto-fields-entity entity-name="ProductStore" default-field-type="find"/> -->
+        
+        <field name="productStoreId"><text-find/></field>
+        <field name="storeName"><text-find/></field>
+        <field name="companyName"><text-find/></field>
+        <field name="payToPartyId"><text-find/></field>
+        
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupProductStore" list-name="listIt" target="" paginate-target="LookupProductStore" title="" type="list"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductStore"/>
+            </service>
+        </actions>
+        
+        <!-- <auto-fields-entity entity-name="ProductStore" default-field-type="display"/> -->
+        
+        <field name="productStoreId" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${productStoreId}" target="javascript:set_value('${productStoreId}')"/>
+        </field>
+        <field name="primaryStoreGroupId"><display/></field>
+        <field name="storeName"><display/></field>
+        <!-- <field name="companyName"><display/></field> -->
+    </form>
+</forms>

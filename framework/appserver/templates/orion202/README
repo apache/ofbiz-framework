@@ -1,0 +1,36 @@
+
+Orion Application Server 2.0.2 Setup
+2004-04-01 - Andy Zeneski
+
+To use Orion 2.0.2 with OFBiz 3.0 follow the following steps:
+
+(all steps assume Orion is already installed and working)
+
+1) generate the configuration files (auto-creates classpath and webapp settings)
+
+- From the OFBiz root directory:
+java -jar ofbiz.jar -start framework/appservers/configure orion202
+
+2) Copy the newly created configuration files to orion config directory
+
+- From the Orion config directory (assuming ofbiz root is ../../ofbiz)
+cp ../../ofbiz/setup/orion202/*.xml .
+
+3) Configure OFBiz for running inside Orion
+
+- Comment out or remove base/config/jndi.properties so you use the one provided w/ Orion
+- Edit entityengine.xml to use JNDI for the datasource, this should match the JNDI name
+  specified in orion data-source.xml
+
+4) Run Orion
+
+- From Orion root directory
+java -Dofbiz.home=../../ofbiz -jar orion.jar
+
+The filter will load the components on the first hit, I have not yet figured out
+how to get Orion to auto-load filters.
+
+*** Note this is an example configuration and SSL is not enabled by default.
+If you would like to contribute the SSL configuration please post it to the
+dev mailing list and we wil include the templates. Until then, you will also
+need to disable SSL in framework/webapp/config/url.properties

@@ -1,0 +1,13 @@
+<entity-engine-xml>
+    <DataResource dataResourceId="NOCONTENTFOUND" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="NONE" objectInfo="/applications/content/webapp/content/images/nocontentfound.png" 
+mimeTypeId="image/png"
+createdDate="2004-08-06 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2004-08-06 11:40:15.818" lastModifiedByUserLogin="admin" />
+    <Content contentId="NOCONTENTFOUND" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="NOCONTENTFOUND" contentName="No Content Found" description="No Content Found"
+createdDate="2004-08-06 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2004-08-06 11:40:15.818" lastModifiedByUserLogin="admin" />
+    <DataResource dataResourceId="NOTEXTFOUND" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="NONE" objectInfo="/applications/content/webapp/content/images/notextfound.html"
+mimeTypeId="text/html"
+createdDate="2004-08-06 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2004-08-06 11:40:15.818" lastModifiedByUserLogin="admin" />
+    <Content contentId="NOTEXTFOUND" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="NOTEXTFOUND" contentName="No Text Found" description="No Text Found"
+createdDate="2004-08-06 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2004-08-06 11:40:15.818" lastModifiedByUserLogin="admin" />
+
+</entity-engine-xml>

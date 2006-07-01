@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *  Copyright (c) 2004-2005 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  copy of this software and associated documentation files (the "Software"),
+ *  to deal in the Software without restriction, including without limitation
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ *  and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  $Id: PaymentMethodScreens.xml 5462 2005-08-05 18:35:48Z jonesde $
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="PaymentMethodDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="find"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://party/widget/partymgr/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for PARTYMGR, _VIEW permission -->
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                    <if-compare-field field-name="paymentMethod.partyId" operator="equals" to-field-name="userLogin.partyId"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="head3">${uiLabelMap.AccountingCardInfoNotBelongToYou}</label>
+                                </container>
+                                <container>
+                                    <link target="authview/${donePage}" text="[${uiLabelMap.CommonBack}]" style="buttontext"/>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editcreditcard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCreditCard"/>
+                <set field="tabButtonItem" value="editcreditcard"/>
+                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editpaymentmethod.bsh"/>                
+            </actions>
+            <widgets>
+                <decorator-screen name="PaymentMethodDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://party/webapp/partymgr/party/editcreditcard.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editgiftcard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditGiftCard"/>
+                <set field="tabButtonItem" value="editgiftcard"/>
+                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editpaymentmethod.bsh"/>                
+            </actions>
+            <widgets>
+                <decorator-screen name="PaymentMethodDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://party/webapp/partymgr/party/editgiftcard.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editeftaccount">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditEftAccount"/>
+                <set field="tabButtonItem" value="editeftaccount"/>
+                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editpaymentmethod.bsh"/>                
+            </actions>
+            <widgets>
+                <decorator-screen name="PaymentMethodDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://party/webapp/partymgr/party/editeftaccount.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="editavsoverride">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditAvsOverride"/>
+                <set field="headerItem" value="find"/>
+
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
+                <entity-one entity-name="PartyIcsAvsOverride" value-name="avsOverride"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://party/widget/partymgr/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for PARTYMGR, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="EditAvsOverride" location="component://party/widget/partymgr/PaymentMethodForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

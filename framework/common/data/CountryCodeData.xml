@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <CountryCode countryAbbr="AFG" countryCode="AF" countryName="AFGHANISTAN" countryNumber="004"/>
+    <CountryCode countryAbbr="ALB" countryCode="AL" countryName="ALBANIA" countryNumber="008"/>
+    <CountryCode countryAbbr="ATA" countryCode="AQ" countryName="ANTARCTICA" countryNumber="010"/>
+    <CountryCode countryAbbr="DZA" countryCode="DZ" countryName="ALGERIA" countryNumber="012"/>
+    <CountryCode countryAbbr="ASM" countryCode="AS" countryName="AMERICAN SAMOA" countryNumber="016"/>
+    <CountryCode countryAbbr="AND" countryCode="AD" countryName="ANDORRA" countryNumber="020"/>
+    <CountryCode countryAbbr="AGO" countryCode="AO" countryName="ANGOLA" countryNumber="024"/>
+    <CountryCode countryAbbr="ATG" countryCode="AG" countryName="ANTIGUA AND BARBUDA" countryNumber="028"/>
+    <CountryCode countryAbbr="AZE" countryCode="AZ" countryName="AZERBAIJAN" countryNumber="031"/>
+    <CountryCode countryAbbr="ARG" countryCode="AR" countryName="ARGENTINA" countryNumber="032"/>
+    <CountryCode countryAbbr="AUS" countryCode="AU" countryName="AUSTRALIA" countryNumber="036"/>
+    <CountryCode countryAbbr="AUT" countryCode="AT" countryName="AUSTRIA" countryNumber="040"/>
+    <CountryCode countryAbbr="BHS" countryCode="BS" countryName="BAHAMAS" countryNumber="044"/>
+    <CountryCode countryAbbr="BHR" countryCode="BH" countryName="BAHRAIN" countryNumber="048"/>
+    <CountryCode countryAbbr="BGD" countryCode="BD" countryName="BANGLADESH" countryNumber="050"/>
+    <CountryCode countryAbbr="ARM" countryCode="AM" countryName="ARMENIA" countryNumber="051"/>
+    <CountryCode countryAbbr="BRB" countryCode="BB" countryName="BARBADOS" countryNumber="052"/>
+    <CountryCode countryAbbr="BEL" countryCode="BE" countryName="BELGIUM" countryNumber="056"/>
+    <CountryCode countryAbbr="BMU" countryCode="BM" countryName="BERMUDA" countryNumber="060"/>
+    <CountryCode countryAbbr="BTN" countryCode="BT" countryName="BHUTAN" countryNumber="064"/>
+    <CountryCode countryAbbr="BOL" countryCode="BO" countryName="BOLIVIA" countryNumber="068"/>
+    <CountryCode countryAbbr="BIH" countryCode="BA" countryName="BOSNIA AND HERZEGOWINA" countryNumber="070"/>
+    <CountryCode countryAbbr="BWA" countryCode="BW" countryName="BOTSWANA" countryNumber="072"/>
+    <CountryCode countryAbbr="BVT" countryCode="BV" countryName="BOUVET ISLAND" countryNumber="074"/>
+    <CountryCode countryAbbr="BRA" countryCode="BR" countryName="BRAZIL" countryNumber="076"/>
+    <CountryCode countryAbbr="BLZ" countryCode="BZ" countryName="BELIZE" countryNumber="084"/>
+    <CountryCode countryAbbr="IOT" countryCode="IO" countryName="BRITISH INDIAN OCEAN TERRITORY" countryNumber="086"/>
+    <CountryCode countryAbbr="SLB" countryCode="SB" countryName="SOLOMON ISLANDS" countryNumber="090"/>
+    <CountryCode countryAbbr="VGB" countryCode="VG" countryName="VIRGIN ISLANDS (BRITISH)" countryNumber="092"/>
+    <CountryCode countryAbbr="BRN" countryCode="BN" countryName="BRUNEI DARUSSALAM" countryNumber="096"/>
+    <CountryCode countryAbbr="BGR" countryCode="BG" countryName="BULGARIA" countryNumber="100"/>
+    <CountryCode countryAbbr="MMR" countryCode="MM" countryName="MYANMAR" countryNumber="104"/>
+    <CountryCode countryAbbr="BDI" countryCode="BI" countryName="BURUNDI" countryNumber="108"/>
+    <CountryCode countryAbbr="BLR" countryCode="BY" countryName="BELARUS" countryNumber="112"/>
+    <CountryCode countryAbbr="KHM" countryCode="KH" countryName="CAMBODIA" countryNumber="116"/>
+    <CountryCode countryAbbr="CMR" countryCode="CM" countryName="CAMEROON" countryNumber="120"/>
+    <CountryCode countryAbbr="CAN" countryCode="CA" countryName="CANADA" countryNumber="124"/>
+    <CountryCode countryAbbr="CPV" countryCode="CV" countryName="CAPE VERDE" countryNumber="132"/>
+    <CountryCode countryAbbr="CYM" countryCode="KY" countryName="CAYMAN ISLANDS" countryNumber="136"/>
+    <CountryCode countryAbbr="CAF" countryCode="CF" countryName="CENTRAL AFRICAN REPUBLIC" countryNumber="140"/>
+    <CountryCode countryAbbr="LKA" countryCode="LK" countryName="SRI LANKA" countryNumber="144"/>
+    <CountryCode countryAbbr="TCD" countryCode="TD" countryName="CHAD" countryNumber="148"/>
+    <CountryCode countryAbbr="CHL" countryCode="CL" countryName="CHILE" countryNumber="152"/>
+    <CountryCode countryAbbr="CHN" countryCode="CN" countryName="CHINA" countryNumber="156"/>
+    <CountryCode countryAbbr="TWN" countryCode="TW" countryName="TAIWAN, PROVINCE OF CHINA" countryNumber="158"/>
+    <CountryCode countryAbbr="CXR" countryCode="CX" countryName="CHRISTMAS ISLAND" countryNumber="162"/>
+    <CountryCode countryAbbr="CCK" countryCode="CC" countryName="COCOS (KEELING) ISLANDS" countryNumber="166"/>
+    <CountryCode countryAbbr="COL" countryCode="CO" countryName="COLOMBIA" countryNumber="170"/>
+    <CountryCode countryAbbr="COM" countryCode="KM" countryName="COMOROS" countryNumber="174"/>
+    <CountryCode countryAbbr="MYT" countryCode="YT" countryName="MAYOTTE" countryNumber="175"/>
+    <CountryCode countryAbbr="COG" countryCode="CG" countryName="CONGO" countryNumber="178"/>
+    <CountryCode countryAbbr="COD" countryCode="CD" countryName="CONGO, THE DEMOCRATIC REPUBLIC OF THE" countryNumber="180"/>
+    <CountryCode countryAbbr="COK" countryCode="CK" countryName="COOK ISLANDS" countryNumber="184"/>
+    <CountryCode countryAbbr="CRI" countryCode="CR" countryName="COSTA RICA" countryNumber="188"/>
+    <CountryCode countryAbbr="HRV" countryCode="HR" countryName="CROATIA (local name: Hrvatska)" countryNumber="191"/>
+    <CountryCode countryAbbr="CUB" countryCode="CU" countryName="CUBA" countryNumber="192"/>
+    <CountryCode countryAbbr="CYP" countryCode="CY" countryName="CYPRUS" countryNumber="196"/>
+    <CountryCode countryAbbr="CZE" countryCode="CZ" countryName="CZECH REPUBLIC" countryNumber="203"/>
+    <CountryCode countryAbbr="BEN" countryCode="BJ" countryName="BENIN" countryNumber="204"/>
+    <CountryCode countryAbbr="DNK" countryCode="DK" countryName="DENMARK" countryNumber="208"/>
+    <CountryCode countryAbbr="DMA" countryCode="DM" countryName="DOMINICA" countryNumber="212"/>
+    <CountryCode countryAbbr="DOM" countryCode="DO" countryName="DOMINICAN REPUBLIC" countryNumber="214"/>
+    <CountryCode countryAbbr="ECU" countryCode="EC" countryName="ECUADOR" countryNumber="218"/>
+    <CountryCode countryAbbr="SLV" countryCode="SV" countryName="EL SALVADOR" countryNumber="222"/>
+    <CountryCode countryAbbr="GNQ" countryCode="GQ" countryName="EQUATORIAL GUINEA" countryNumber="226"/>
+    <CountryCode countryAbbr="ETH" countryCode="ET" countryName="ETHIOPIA" countryNumber="231"/>
+    <CountryCode countryAbbr="ERI" countryCode="ER" countryName="ERITREA" countryNumber="232"/>
+    <CountryCode countryAbbr="EST" countryCode="EE" countryName="ESTONIA" countryNumber="233"/>
+    <CountryCode countryAbbr="FRO" countryCode="FO" countryName="FAROE ISLANDS" countryNumber="234"/>
+    <CountryCode countryAbbr="FLK" countryCode="FK" countryName="FALKLAND ISLANDS (MALVINAS)" countryNumber="238"/>
+    <CountryCode countryAbbr="SGS" countryCode="GS" countryName="SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS" countryNumber="239"/>
+    <CountryCode countryAbbr="FJI" countryCode="FJ" countryName="FIJI" countryNumber="242"/>
+    <CountryCode countryAbbr="FIN" countryCode="FI" countryName="FINLAND" countryNumber="246"/>
+    <CountryCode countryAbbr="FXX" countryCode="FX" countryName="FRANCE, METROPOLITAN" countryNumber="249"/>
+    <CountryCode countryAbbr="FRA" countryCode="FR" countryName="FRANCE" countryNumber="250"/>
+    <CountryCode countryAbbr="GUF" countryCode="GF" countryName="FRENCH GUIANA" countryNumber="254"/>
+    <CountryCode countryAbbr="PYF" countryCode="PF" countryName="FRENCH POLYNESIA" countryNumber="258"/>
+    <CountryCode countryAbbr="ATF" countryCode="TF" countryName="FRENCH SOUTHERN TERRITORIES" countryNumber="260"/>
+    <CountryCode countryAbbr="DJI" countryCode="DJ" countryName="DJIBOUTI" countryNumber="262"/>
+    <CountryCode countryAbbr="GAB" countryCode="GA" countryName="GABON" countryNumber="266"/>
+    <CountryCode countryAbbr="GEO" countryCode="GE" countryName="GEORGIA" countryNumber="268"/>
+    <CountryCode countryAbbr="GMB" countryCode="GM" countryName="GAMBIA" countryNumber="270"/>
+    <CountryCode countryAbbr="PSE" countryCode="PS" countryName="PALESTINIAN TERRITORY, OCCUPIED" countryNumber="275"/>
+    <CountryCode countryAbbr="DEU" countryCode="DE" countryName="GERMANY" countryNumber="276"/>
+    <CountryCode countryAbbr="GHA" countryCode="GH" countryName="GHANA" countryNumber="288"/>
+    <CountryCode countryAbbr="GIB" countryCode="GI" countryName="GIBRALTAR" countryNumber="292"/>
+    <CountryCode countryAbbr="KIR" countryCode="KI" countryName="KIRIBATI" countryNumber="296"/>
+    <CountryCode countryAbbr="GRC" countryCode="GR" countryName="GREECE" countryNumber="300"/>
+    <CountryCode countryAbbr="GRL" countryCode="GL" countryName="GREENLAND" countryNumber="304"/>
+    <CountryCode countryAbbr="GRD" countryCode="GD" countryName="GRENADA" countryNumber="308"/>
+    <CountryCode countryAbbr="GLP" countryCode="GP" countryName="GUADELOUPE" countryNumber="312"/>
+    <CountryCode countryAbbr="GUM" countryCode="GU" countryName="GUAM" countryNumber="316"/>
+    <CountryCode countryAbbr="GTM" countryCode="GT" countryName="GUATEMALA" countryNumber="320"/>
+    <CountryCode countryAbbr="GIN" countryCode="GN" countryName="GUINEA" countryNumber="324"/>
+    <CountryCode countryAbbr="GUY" countryCode="GY" countryName="GUYANA" countryNumber="328"/>
+    <CountryCode countryAbbr="HTI" countryCode="HT" countryName="HAITI" countryNumber="332"/>
+    <CountryCode countryAbbr="HMD" countryCode="HM" countryName="HEARD AND MC DONALD ISLANDS" countryNumber="334"/>
+    <CountryCode countryAbbr="VAT" countryCode="VA" countryName="HOLY SEE (VATICAN CITY STATE)" countryNumber="336"/>
+    <CountryCode countryAbbr="HND" countryCode="HN" countryName="HONDURAS" countryNumber="340"/>
+    <CountryCode countryAbbr="HKG" countryCode="HK" countryName="HONG KONG" countryNumber="344"/>
+    <CountryCode countryAbbr="HUN" countryCode="HU" countryName="HUNGARY" countryNumber="348"/>
+    <CountryCode countryAbbr="ISL" countryCode="IS" countryName="ICELAND" countryNumber="352"/>
+    <CountryCode countryAbbr="IND" countryCode="IN" countryName="INDIA" countryNumber="356"/>
+    <CountryCode countryAbbr="IDN" countryCode="ID" countryName="INDONESIA" countryNumber="360"/>
+    <CountryCode countryAbbr="IRN" countryCode="IR" countryName="IRAN (ISLAMIC REPUBLIC OF)" countryNumber="364"/>
+    <CountryCode countryAbbr="IRQ" countryCode="IQ" countryName="IRAQ" countryNumber="368"/>
+    <CountryCode countryAbbr="IRL" countryCode="IE" countryName="IRELAND" countryNumber="372"/>
+    <CountryCode countryAbbr="ISR" countryCode="IL" countryName="ISRAEL" countryNumber="376"/>
+    <CountryCode countryAbbr="ITA" countryCode="IT" countryName="ITALY" countryNumber="380"/>
+    <CountryCode countryAbbr="CIV" countryCode="CI" countryName="COTE D&apos;IVOIRE" countryNumber="384"/>
+    <CountryCode countryAbbr="JAM" countryCode="JM" countryName="JAMAICA" countryNumber="388"/>
+    <CountryCode countryAbbr="JPN" countryCode="JP" countryName="JAPAN" countryNumber="392"/>
+    <CountryCode countryAbbr="KAZ" countryCode="KZ" countryName="KAZAKHSTAN" countryNumber="398"/>
+    <CountryCode countryAbbr="JOR" countryCode="JO" countryName="JORDAN" countryNumber="400"/>
+    <CountryCode countryAbbr="KEN" countryCode="KE" countryName="KENYA" countryNumber="404"/>
+    <CountryCode countryAbbr="PRK" countryCode="KP" countryName="KOREA, DEMOCRATIC PEOPLE&apos;S REPUBLIC OF" countryNumber="408"/>
+    <CountryCode countryAbbr="KOR" countryCode="KR" countryName="KOREA, REPUBLIC OF" countryNumber="410"/>
+    <CountryCode countryAbbr="KWT" countryCode="KW" countryName="KUWAIT" countryNumber="414"/>
+    <CountryCode countryAbbr="KGZ" countryCode="KG" countryName="KYRGYZSTAN" countryNumber="417"/>
+    <CountryCode countryAbbr="LAO" countryCode="LA" countryName="LAO PEOPLE&apos;S DEMOCRATIC REPUBLIC" countryNumber="418"/>
+    <CountryCode countryAbbr="LBN" countryCode="LB" countryName="LEBANON" countryNumber="422"/>
+    <CountryCode countryAbbr="LSO" countryCode="LS" countryName="LESOTHO" countryNumber="426"/>
+    <CountryCode countryAbbr="LVA" countryCode="LV" countryName="LATVIA" countryNumber="428"/>
+    <CountryCode countryAbbr="LBR" countryCode="LR" countryName="LIBERIA" countryNumber="430"/>
+    <CountryCode countryAbbr="LBY" countryCode="LY" countryName="LIBYAN ARAB JAMAHIRIYA" countryNumber="434"/>
+    <CountryCode countryAbbr="LIE" countryCode="LI" countryName="LIECHTENSTEIN" countryNumber="438"/>
+    <CountryCode countryAbbr="LTU" countryCode="LT" countryName="LITHUANIA" countryNumber="440"/>
+    <CountryCode countryAbbr="LUX" countryCode="LU" countryName="LUXEMBOURG" countryNumber="442"/>
+    <CountryCode countryAbbr="MAC" countryCode="MO" countryName="MACAU" countryNumber="446"/>
+    <CountryCode countryAbbr="MDG" countryCode="MG" countryName="MADAGASCAR" countryNumber="450"/>
+    <CountryCode countryAbbr="MWI" countryCode="MW" countryName="MALAWI" countryNumber="454"/>
+    <CountryCode countryAbbr="MYS" countryCode="MY" countryName="MALAYSIA" countryNumber="458"/>
+    <CountryCode countryAbbr="MDV" countryCode="MV" countryName="MALDIVES" countryNumber="462"/>
+    <CountryCode countryAbbr="MLI" countryCode="ML" countryName="MALI" countryNumber="466"/>
+    <CountryCode countryAbbr="MLT" countryCode="MT" countryName="MALTA" countryNumber="470"/>
+    <CountryCode countryAbbr="MTQ" countryCode="MQ" countryName="MARTINIQUE" countryNumber="474"/>
+    <CountryCode countryAbbr="MRT" countryCode="MR" countryName="MAURITANIA" countryNumber="478"/>
+    <CountryCode countryAbbr="MUS" countryCode="MU" countryName="MAURITIUS" countryNumber="480"/>
+    <CountryCode countryAbbr="MEX" countryCode="MX" countryName="MEXICO" countryNumber="484"/>
+    <CountryCode countryAbbr="MCO" countryCode="MC" countryName="MONACO" countryNumber="492"/>
+    <CountryCode countryAbbr="MNG" countryCode="MN" countryName="MONGOLIA" countryNumber="496"/>
+    <CountryCode countryAbbr="MDA" countryCode="MD" countryName="MOLDOVA, REPUBLIC OF" countryNumber="498"/>
+    <CountryCode countryAbbr="MSR" countryCode="MS" countryName="MONTSERRAT" countryNumber="500"/>
+    <CountryCode countryAbbr="MAR" countryCode="MA" countryName="MOROCCO" countryNumber="504"/>
+    <CountryCode countryAbbr="MOZ" countryCode="MZ" countryName="MOZAMBIQUE" countryNumber="508"/>
+    <CountryCode countryAbbr="OMN" countryCode="OM" countryName="OMAN" countryNumber="512"/>
+    <CountryCode countryAbbr="NAM" countryCode="NA" countryName="NAMIBIA" countryNumber="516"/>
+    <CountryCode countryAbbr="NRU" countryCode="NR" countryName="NAURU" countryNumber="520"/>
+    <CountryCode countryAbbr="NPL" countryCode="NP" countryName="NEPAL" countryNumber="524"/>
+    <CountryCode countryAbbr="NLD" countryCode="NL" countryName="NETHERLANDS" countryNumber="528"/>
+    <CountryCode countryAbbr="ANT" countryCode="AN" countryName="NETHERLANDS ANTILLES" countryNumber="530"/>
+    <CountryCode countryAbbr="ABW" countryCode="AW" countryName="ARUBA" countryNumber="533"/>
+    <CountryCode countryAbbr="NCL" countryCode="NC" countryName="NEW CALEDONIA" countryNumber="540"/>
+    <CountryCode countryAbbr="VUT" countryCode="VU" countryName="VANUATU" countryNumber="548"/>
+    <CountryCode countryAbbr="NZL" countryCode="NZ" countryName="NEW ZEALAND" countryNumber="554"/>
+    <CountryCode countryAbbr="NIC" countryCode="NI" countryName="NICARAGUA" countryNumber="558"/>
+    <CountryCode countryAbbr="NER" countryCode="NE" countryName="NIGER" countryNumber="562"/>
+    <CountryCode countryAbbr="NGA" countryCode="NG" countryName="NIGERIA" countryNumber="566"/>
+    <CountryCode countryAbbr="NIU" countryCode="NU" countryName="NIUE" countryNumber="570"/>
+    <CountryCode countryAbbr="NFK" countryCode="NF" countryName="NORFOLK ISLAND" countryNumber="574"/>
+    <CountryCode countryAbbr="NOR" countryCode="NO" countryName="NORWAY" countryNumber="578"/>
+    <CountryCode countryAbbr="MNP" countryCode="MP" countryName="NORTHERN MARIANA ISLANDS" countryNumber="580"/>
+    <CountryCode countryAbbr="UMI" countryCode="UM" countryName="UNITED STATES MINOR OUTLYING ISLANDS" countryNumber="581"/>
+    <CountryCode countryAbbr="FSM" countryCode="FM" countryName="MICRONESIA, FEDERATED STATES OF" countryNumber="583"/>
+    <CountryCode countryAbbr="MHL" countryCode="MH" countryName="MARSHALL ISLANDS" countryNumber="584"/>
+    <CountryCode countryAbbr="PLW" countryCode="PW" countryName="PALAU" countryNumber="585"/>
+    <CountryCode countryAbbr="PAK" countryCode="PK" countryName="PAKISTAN" countryNumber="586"/>
+    <CountryCode countryAbbr="PAN" countryCode="PA" countryName="PANAMA" countryNumber="591"/>
+    <CountryCode countryAbbr="PNG" countryCode="PG" countryName="PAPUA NEW GUINEA" countryNumber="598"/>
+    <CountryCode countryAbbr="PRY" countryCode="PY" countryName="PARAGUAY" countryNumber="600"/>
+    <CountryCode countryAbbr="PER" countryCode="PE" countryName="PERU" countryNumber="604"/>
+    <CountryCode countryAbbr="PHL" countryCode="PH" countryName="PHILIPPINES" countryNumber="608"/>
+    <CountryCode countryAbbr="PCN" countryCode="PN" countryName="PITCAIRN" countryNumber="612"/>
+    <CountryCode countryAbbr="POL" countryCode="PL" countryName="POLAND" countryNumber="616"/>
+    <CountryCode countryAbbr="PRT" countryCode="PT" countryName="PORTUGAL" countryNumber="620"/>
+    <CountryCode countryAbbr="GNB" countryCode="GW" countryName="GUINEA-BISSAU" countryNumber="624"/>
+    <CountryCode countryAbbr="TMP" countryCode="TP" countryName="EAST TIMOR" countryNumber="626"/>
+    <CountryCode countryAbbr="PRI" countryCode="PR" countryName="PUERTO RICO" countryNumber="630"/>
+    <CountryCode countryAbbr="QAT" countryCode="QA" countryName="QATAR" countryNumber="634"/>
+    <CountryCode countryAbbr="REU" countryCode="RE" countryName="REUNION" countryNumber="638"/>
+    <CountryCode countryAbbr="ROM" countryCode="RO" countryName="ROMANIA" countryNumber="642"/>
+    <CountryCode countryAbbr="RUS" countryCode="RU" countryName="RUSSIAN FEDERATION" countryNumber="643"/>
+    <CountryCode countryAbbr="RWA" countryCode="RW" countryName="RWANDA" countryNumber="646"/>
+    <CountryCode countryAbbr="SHN" countryCode="SH" countryName="ST. HELENA" countryNumber="654"/>
+    <CountryCode countryAbbr="KNA" countryCode="KN" countryName="SAINT KITTS AND NEVIS" countryNumber="659"/>
+    <CountryCode countryAbbr="AIA" countryCode="AI" countryName="ANGUILLA" countryNumber="660"/>
+    <CountryCode countryAbbr="LCA" countryCode="LC" countryName="SAINT LUCIA" countryNumber="662"/>
+    <CountryCode countryAbbr="SPM" countryCode="PM" countryName="ST. PIERRE AND MIQUELON" countryNumber="666"/>
+    <CountryCode countryAbbr="VCT" countryCode="VC" countryName="SAINT VINCENT AND THE GRENADINES" countryNumber="670"/>
+    <CountryCode countryAbbr="SMR" countryCode="SM" countryName="SAN MARINO" countryNumber="674"/>
+    <CountryCode countryAbbr="STP" countryCode="ST" countryName="SAO TOME AND PRINCIPE" countryNumber="678"/>
+    <CountryCode countryAbbr="SAU" countryCode="SA" countryName="SAUDI ARABIA" countryNumber="682"/>
+    <CountryCode countryAbbr="SEN" countryCode="SN" countryName="SENEGAL" countryNumber="686"/>
+    <CountryCode countryAbbr="SYC" countryCode="SC" countryName="SEYCHELLES" countryNumber="690"/>
+    <CountryCode countryAbbr="SLE" countryCode="SL" countryName="SIERRA LEONE" countryNumber="694"/>
+    <CountryCode countryAbbr="SGP" countryCode="SG" countryName="SINGAPORE" countryNumber="702"/>
+    <CountryCode countryAbbr="SVK" countryCode="SK" countryName="SLOVAKIA (Slovak Republic)" countryNumber="703"/>
+    <CountryCode countryAbbr="VNM" countryCode="VN" countryName="VIET NAM" countryNumber="704"/>
+    <CountryCode countryAbbr="SVN" countryCode="SI" countryName="SLOVENIA" countryNumber="705"/>
+    <CountryCode countryAbbr="SOM" countryCode="SO" countryName="SOMALIA" countryNumber="706"/>
+    <CountryCode countryAbbr="ZAF" countryCode="ZA" countryName="SOUTH AFRICA" countryNumber="710"/>
+    <CountryCode countryAbbr="ZWE" countryCode="ZW" countryName="ZIMBABWE" countryNumber="716"/>
+    <CountryCode countryAbbr="ESP" countryCode="ES" countryName="SPAIN" countryNumber="724"/>
+    <CountryCode countryAbbr="ESH" countryCode="EH" countryName="WESTERN SAHARA" countryNumber="732"/>
+    <CountryCode countryAbbr="SDN" countryCode="SD" countryName="SUDAN" countryNumber="736"/>
+    <CountryCode countryAbbr="SUR" countryCode="SR" countryName="SURINAME" countryNumber="740"/>
+    <CountryCode countryAbbr="SJM" countryCode="SJ" countryName="SVALBARD AND JAN MAYEN ISLANDS" countryNumber="744"/>
+    <CountryCode countryAbbr="SWZ" countryCode="SZ" countryName="SWAZILAND" countryNumber="748"/>
+    <CountryCode countryAbbr="SWE" countryCode="SE" countryName="SWEDEN" countryNumber="752"/>
+    <CountryCode countryAbbr="CHE" countryCode="CH" countryName="SWITZERLAND" countryNumber="756"/>
+    <CountryCode countryAbbr="SYR" countryCode="SY" countryName="SYRIAN ARAB REPUBLIC" countryNumber="760"/>
+    <CountryCode countryAbbr="TJK" countryCode="TJ" countryName="TAJIKISTAN" countryNumber="762"/>
+    <CountryCode countryAbbr="THA" countryCode="TH" countryName="THAILAND" countryNumber="764"/>
+    <CountryCode countryAbbr="TGO" countryCode="TG" countryName="TOGO" countryNumber="768"/>
+    <CountryCode countryAbbr="TKL" countryCode="TK" countryName="TOKELAU" countryNumber="772"/>
+    <CountryCode countryAbbr="TON" countryCode="TO" countryName="TONGA" countryNumber="776"/>
+    <CountryCode countryAbbr="TTO" countryCode="TT" countryName="TRINIDAD AND TOBAGO" countryNumber="780"/>
+    <CountryCode countryAbbr="ARE" countryCode="AE" countryName="UNITED ARAB EMIRATES" countryNumber="784"/>
+    <CountryCode countryAbbr="TUN" countryCode="TN" countryName="TUNISIA" countryNumber="788"/>
+    <CountryCode countryAbbr="TUR" countryCode="TR" countryName="TURKEY" countryNumber="792"/>
+    <CountryCode countryAbbr="TKM" countryCode="TM" countryName="TURKMENISTAN" countryNumber="795"/>
+    <CountryCode countryAbbr="TCA" countryCode="TC" countryName="TURKS AND CAICOS ISLANDS" countryNumber="796"/>
+    <CountryCode countryAbbr="TUV" countryCode="TV" countryName="TUVALU" countryNumber="798"/>
+    <CountryCode countryAbbr="UGA" countryCode="UG" countryName="UGANDA" countryNumber="800"/>
+    <CountryCode countryAbbr="UKR" countryCode="UA" countryName="UKRAINE" countryNumber="804"/>
+    <CountryCode countryAbbr="MKD" countryCode="MK" countryName="MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF" countryNumber="807"/>
+    <CountryCode countryAbbr="EGY" countryCode="EG" countryName="EGYPT" countryNumber="818"/>
+    <CountryCode countryAbbr="GBR" countryCode="GB" countryName="UNITED KINGDOM" countryNumber="826"/>
+    <CountryCode countryAbbr="TZA" countryCode="TZ" countryName="TANZANIA, UNITED REPUBLIC OF" countryNumber="834"/>
+    <CountryCode countryAbbr="USA" countryCode="US" countryName="UNITED STATES" countryNumber="840"/>
+    <CountryCode countryAbbr="VIR" countryCode="VI" countryName="VIRGIN ISLANDS (U.S.)" countryNumber="850"/>
+    <CountryCode countryAbbr="BFA" countryCode="BF" countryName="BURKINA FASO" countryNumber="854"/>
+    <CountryCode countryAbbr="URY" countryCode="UY" countryName="URUGUAY" countryNumber="858"/>
+    <CountryCode countryAbbr="UZB" countryCode="UZ" countryName="UZBEKISTAN" countryNumber="860"/>
+    <CountryCode countryAbbr="VEN" countryCode="VE" countryName="VENEZUELA" countryNumber="862"/>
+    <CountryCode countryAbbr="WLF" countryCode="WF" countryName="WALLIS AND FUTUNA ISLANDS" countryNumber="876"/>
+    <CountryCode countryAbbr="WSM" countryCode="WS" countryName="SAMOA" countryNumber="882"/>
+    <CountryCode countryAbbr="YEM" countryCode="YE" countryName="YEMEN" countryNumber="887"/>
+    <CountryCode countryAbbr="YUG" countryCode="YU" countryName="YUGOSLAVIA" countryNumber="891"/>
+    <CountryCode countryAbbr="ZMB" countryCode="ZM" countryName="ZAMBIA" countryNumber="894"/>
+    <CountryCode countryAbbr="SCOT" countryCode="SCT" countryName="SCOTLAND" countryNumber="895"/>
+    <CountryCode countryAbbr="ENGL" countryCode="ENG" countryName="ENGLAND" countryNumber="896"/>
+    <CountryCode countryAbbr="NIRL" countryCode="NIR" countryName="N.IRELAND" countryNumber="897"/>
+    <CountryCode countryAbbr="WALS" countryCode="WLS" countryName="WALES" countryNumber="898"/>
+    <CountryCapital countryCapital="Edinburgh" countryCode="SCT"/>
+    <CountryCapital countryCapital="London" countryCode="ENG"/>
+    <CountryCapital countryCapital="Belfast" countryCode="NIR"/>
+    <CountryCapital countryCapital="Cardiff" countryCode="WLS"/>
+    <CountryCapital countryCapital="Andorra" countryCode="AD"/>
+    <CountryCapital countryCapital="Abu Dhabi" countryCode="AE"/>
+    <CountryCapital countryCapital="Kabul" countryCode="AF"/>
+    <CountryCapital countryCapital="St. Johns" countryCode="AG"/>
+    <CountryCapital countryCapital="The Valley" countryCode="AI"/>
+    <CountryCapital countryCapital="Tiran" countryCode="AL"/>
+    <CountryCapital countryCapital="Yerevan" countryCode="AM"/>
+    <CountryCapital countryCapital="Willemstad" countryCode="AN"/>
+    <CountryCapital countryCapital="Luanda" countryCode="AO"/>
+    <CountryCapital countryCapital="None" countryCode="AQ"/>
+    <CountryCapital countryCapital="Buenos Aires" countryCode="AR"/>
+    <CountryCapital countryCapital="Pago Pago" countryCode="AS"/>
+    <CountryCapital countryCapital="Vienna" countryCode="AT"/>
+    <CountryCapital countryCapital="Canberra" countryCode="AU"/>
+    <CountryCapital countryCapital="Oranjestad" countryCode="AW"/>
+    <CountryCapital countryCapital="Baku" countryCode="AZ"/>
+    <CountryCapital countryCapital="Sarajevo" countryCode="BA"/>
+    <CountryCapital countryCapital="Bridgetown" countryCode="BB"/>
+    <CountryCapital countryCapital="Dhaka" countryCode="BD"/>
+    <CountryCapital countryCapital="Brussels" countryCode="BE"/>
+    <CountryCapital countryCapital="Ouagadougou" countryCode="BF"/>
+    <CountryCapital countryCapital="Sofia" countryCode="BG"/>
+    <CountryCapital countryCapital="Al-Manamah" countryCode="BH"/>
+    <CountryCapital countryCapital="Bujumbura" countryCode="BI"/>
+    <CountryCapital countryCapital="Porto-Novo" countryCode="BJ"/>
+    <CountryCapital countryCapital="Hamilton" countryCode="BM"/>
+    <CountryCapital countryCapital="Bandar Seri Begawan" countryCode="BN"/>
+    <CountryCapital countryCapital="La Paz" countryCode="BO"/>
+    <CountryCapital countryCapital="Brasilia" countryCode="BR"/>
+    <CountryCapital countryCapital="Nassau" countryCode="BS"/>
+    <CountryCapital countryCapital="Thimphu" countryCode="BT"/>
+    <CountryCapital countryCapital="None" countryCode="BV"/>
+    <CountryCapital countryCapital="Gaborone" countryCode="BW"/>
+    <CountryCapital countryCapital="Minsk" countryCode="BY"/>
+    <CountryCapital countryCapital="Belmopan" countryCode="BZ"/>
+    <CountryCapital countryCapital="Ottawa" countryCode="CA"/>
+    <CountryCapital countryCapital="West Island" countryCode="CC"/>
+    <CountryCapital countryCapital="Kinshasa" countryCode="CD"/>
+    <CountryCapital countryCapital="Bangui" countryCode="CF"/>
+    <CountryCapital countryCapital="Brazzaville" countryCode="CG"/>
+    <CountryCapital countryCapital="Bern" countryCode="CH"/>
+    <CountryCapital countryCapital="Abidjan" countryCode="CI"/>
+    <CountryCapital countryCapital="Avarua" countryCode="CK"/>
+    <CountryCapital countryCapital="Santiago" countryCode="CL"/>
+    <CountryCapital countryCapital="Yaounde" countryCode="CM"/>
+    <CountryCapital countryCapital="Beijing" countryCode="CN"/>
+    <CountryCapital countryCapital="Bogota" countryCode="CO"/>
+    <CountryCapital countryCapital="San Jose" countryCode="CR"/>
+    <CountryCapital countryCapital="Havana" countryCode="CU"/>
+    <CountryCapital countryCapital="Praia" countryCode="CV"/>
+    <CountryCapital countryCapital="The Settlement" countryCode="CX"/>
+    <CountryCapital countryCapital="Nicosia" countryCode="CY"/>
+    <CountryCapital countryCapital="Prague" countryCode="CZ"/>
+    <CountryCapital countryCapital="Berlin" countryCode="DE"/>
+    <CountryCapital countryCapital="Djibouti" countryCode="DJ"/>
+    <CountryCapital countryCapital="Copenhagen" countryCode="DK"/>
+    <CountryCapital countryCapital="Roseau" countryCode="DM"/>
+    <CountryCapital countryCapital="Santo Domingo" countryCode="DO"/>
+    <CountryCapital countryCapital="Algiers" countryCode="DZ"/>
+    <CountryCapital countryCapital="Quito" countryCode="EC"/>
+    <CountryCapital countryCapital="Tallinn" countryCode="EE"/>
+    <CountryCapital countryCapital="Cairo" countryCode="EG"/>
+    <CountryCapital countryCapital="El Aaiun" countryCode="EH"/>
+    <CountryCapital countryCapital="Asmara" countryCode="ER"/>
+    <CountryCapital countryCapital="Madrid" countryCode="ES"/>
+    <CountryCapital countryCapital="Addis Ababa" countryCode="ET"/>
+    <CountryCapital countryCapital="Helsinki" countryCode="FI"/>
+    <CountryCapital countryCapital="Suva" countryCode="FJ"/>
+    <CountryCapital countryCapital="Stanley" countryCode="FK"/>
+    <CountryCapital countryCapital="Palikir" countryCode="FM"/>
+    <CountryCapital countryCapital="Torshavn" countryCode="FO"/>
+    <CountryCapital countryCapital="Paris" countryCode="FR"/>
+    <CountryCapital countryCapital="Libreville" countryCode="GA"/>
+    <CountryCapital countryCapital="London" countryCode="GB"/>
+    <CountryCapital countryCapital="St. George&apos;s" countryCode="GD"/>
+    <CountryCapital countryCapital="Tbilisi" countryCode="GE"/>
+    <CountryCapital countryCapital="Cayenne" countryCode="GF"/>
+    <CountryCapital countryCapital="Accra" countryCode="GH"/>
+    <CountryCapital countryCapital="Gibraltar" countryCode="GI"/>
+    <CountryCapital countryCapital="Godthab" countryCode="GL"/>
+    <CountryCapital countryCapital="Banjul" countryCode="GM"/>
+    <CountryCapital countryCapital="Conakry" countryCode="GN"/>
+    <CountryCapital countryCapital="Basse-Terre" countryCode="GP"/>
+    <CountryCapital countryCapital="Malabo" countryCode="GQ"/>
+    <CountryCapital countryCapital="Athens" countryCode="GR"/>
+    <CountryCapital countryCapital="None" countryCode="GS"/>
+    <CountryCapital countryCapital="Guatemala City" countryCode="GT"/>
+    <CountryCapital countryCapital="Agana" countryCode="GU"/>
+    <CountryCapital countryCapital="Bissau" countryCode="GW"/>
+    <CountryCapital countryCapital="Georgetown" countryCode="GY"/>
+    <CountryCapital countryCapital="Victoria" countryCode="HK"/>
+    <CountryCapital countryCapital="None" countryCode="HM"/>
+    <CountryCapital countryCapital="Tegucigalpa" countryCode="HN"/>
+    <CountryCapital countryCapital="Zagreb" countryCode="HR"/>
+    <CountryCapital countryCapital="Port-au-Prince" countryCode="HT"/>
+    <CountryCapital countryCapital="Budapest" countryCode="HU"/>
+    <CountryCapital countryCapital="Jakarta" countryCode="ID"/>
+    <CountryCapital countryCapital="Dublin" countryCode="IE"/>
+    <CountryCapital countryCapital="Jerusalem" countryCode="IL"/>
+    <CountryCapital countryCapital="New Delhi" countryCode="IN"/>
+    <CountryCapital countryCapital="None" countryCode="IO"/>
+    <CountryCapital countryCapital="Baghdad" countryCode="IQ"/>
+    <CountryCapital countryCapital="Tehran" countryCode="IR"/>
+    <CountryCapital countryCapital="Reykjavik" countryCode="IS"/>
+    <CountryCapital countryCapital="Rome" countryCode="IT"/>
+    <CountryCapital countryCapital="Kingston" countryCode="JM"/>
+    <CountryCapital countryCapital="Amman" countryCode="JO"/>
+    <CountryCapital countryCapital="Tokyo" countryCode="JP"/>
+    <CountryCapital countryCapital="Nairobi" countryCode="KE"/>
+    <CountryCapital countryCapital="Bishkek" countryCode="KG"/>
+    <CountryCapital countryCapital="Phnom Penh" countryCode="KH"/>
+    <CountryCapital countryCapital="Tarawa" countryCode="KI"/>
+    <CountryCapital countryCapital="Moroni" countryCode="KM"/>
+    <CountryCapital countryCapital="Basseterre" countryCode="KN"/>
+    <CountryCapital countryCapital="Pyongyang" countryCode="KP"/>
+    <CountryCapital countryCapital="Seoul" countryCode="KR"/>
+    <CountryCapital countryCapital="Kuwait City" countryCode="KW"/>
+    <CountryCapital countryCapital="Georgetown" countryCode="KY"/>
+    <CountryCapital countryCapital="Astana" countryCode="KZ"/>
+    <CountryCapital countryCapital="Vientiane" countryCode="LA"/>
+    <CountryCapital countryCapital="Beirut" countryCode="LB"/>
+    <CountryCapital countryCapital="Castries" countryCode="LC"/>
+    <CountryCapital countryCapital="Vaduz" countryCode="LI"/>
+    <CountryCapital countryCapital="Colombo" countryCode="LK"/>
+    <CountryCapital countryCapital="Monrovia" countryCode="LR"/>
+    <CountryCapital countryCapital="Maseru" countryCode="LS"/>
+    <CountryCapital countryCapital="Vilnius" countryCode="LT"/>
+    <CountryCapital countryCapital="Luxembourg" countryCode="LU"/>
+    <CountryCapital countryCapital="Riga" countryCode="LV"/>
+    <CountryCapital countryCapital="Tripoli" countryCode="LY"/>
+    <CountryCapital countryCapital="Rabat" countryCode="MA"/>
+    <CountryCapital countryCapital="Monaco" countryCode="MC"/>
+    <CountryCapital countryCapital="Kishinev" countryCode="MD"/>
+    <CountryCapital countryCapital="Antananarivo" countryCode="MG"/>
+    <CountryCapital countryCapital="Majuro" countryCode="MH"/>
+    <CountryCapital countryCapital="Skopje" countryCode="MK"/>
+    <CountryCapital countryCapital="Bamako" countryCode="ML"/>
+    <CountryCapital countryCapital="Rangoon" countryCode="MM"/>
+    <CountryCapital countryCapital="Ulan Bator" countryCode="MN"/>
+    <CountryCapital countryCapital="Macau" countryCode="MO"/>
+    <CountryCapital countryCapital="Saipan" countryCode="MP"/>
+    <CountryCapital countryCapital="Fort-de-France" countryCode="MQ"/>
+    <CountryCapital countryCapital="Nouakchott" countryCode="MR"/>
+    <CountryCapital countryCapital="Plymouth" countryCode="MS"/>
+    <CountryCapital countryCapital="Valletta" countryCode="MT"/>
+    <CountryCapital countryCapital="Port Louis" countryCode="MU"/>
+    <CountryCapital countryCapital="Male" countryCode="MV"/>
+    <CountryCapital countryCapital="Lilongwe" countryCode="MW"/>
+    <CountryCapital countryCapital="Mexico City" countryCode="MX"/>
+    <CountryCapital countryCapital="Kuala Lumpur" countryCode="MY"/>
+    <CountryCapital countryCapital="Maputo" countryCode="MZ"/>
+    <CountryCapital countryCapital="Windhoek" countryCode="NA"/>
+    <CountryCapital countryCapital="Noumea" countryCode="NC"/>
+    <CountryCapital countryCapital="Niamey" countryCode="NE"/>
+    <CountryCapital countryCapital="Kingston" countryCode="NF"/>
+    <CountryCapital countryCapital="Lagos" countryCode="NG"/>
+    <CountryCapital countryCapital="Managua" countryCode="NI"/>
+    <CountryCapital countryCapital="Amsterdam" countryCode="NL"/>
+    <CountryCapital countryCapital="Oslo" countryCode="NO"/>
+    <CountryCapital countryCapital="Kathmandu" countryCode="NP"/>
+    <CountryCapital countryCapital="Yaren" countryCode="NR"/>
+    <CountryCapital countryCapital="Alofi" countryCode="NU"/>
+    <CountryCapital countryCapital="Wellington" countryCode="NZ"/>
+    <CountryCapital countryCapital="Muscat" countryCode="OM"/>
+    <CountryCapital countryCapital="Panama City" countryCode="PA"/>
+    <CountryCapital countryCapital="Lima" countryCode="PE"/>
+    <CountryCapital countryCapital="Papeete" countryCode="PF"/>
+    <CountryCapital countryCapital="Port Moresby" countryCode="PG"/>
+    <CountryCapital countryCapital="Manila" countryCode="PH"/>
+    <CountryCapital countryCapital="Islamabad" countryCode="PK"/>
+    <CountryCapital countryCapital="Warsaw" countryCode="PL"/>
+    <CountryCapital countryCapital="St. Pierre" countryCode="PM"/>
+    <CountryCapital countryCapital="Adamstown" countryCode="PN"/>
+    <CountryCapital countryCapital="San Juan" countryCode="PR"/>
+    <CountryCapital countryCapital="Lisbon" countryCode="PT"/>
+    <CountryCapital countryCapital="Koror" countryCode="PW"/>
+    <CountryCapital countryCapital="Asuncion" countryCode="PY"/>
+    <CountryCapital countryCapital="Doha" countryCode="QA"/>
+    <CountryCapital countryCapital="Saint-Denis" countryCode="RE"/>
+    <CountryCapital countryCapital="Bucharest" countryCode="RO"/>
+    <CountryCapital countryCapital="Moscow" countryCode="RU"/>
+    <CountryCapital countryCapital="Kigali" countryCode="RW"/>
+    <CountryCapital countryCapital="Riyadh" countryCode="SA"/>
+    <CountryCapital countryCapital="Honiara" countryCode="SB"/>
+    <CountryCapital countryCapital="Victoria" countryCode="SC"/>
+    <CountryCapital countryCapital="Khartoum" countryCode="SD"/>
+    <CountryCapital countryCapital="Stockholm" countryCode="SE"/>
+    <CountryCapital countryCapital="Singapore" countryCode="SG"/>
+    <CountryCapital countryCapital="Jamestown" countryCode="SH"/>
+    <CountryCapital countryCapital="Ljubljana" countryCode="SI"/>
+    <CountryCapital countryCapital="Longyearbyen" countryCode="SJ"/>
+    <CountryCapital countryCapital="Bratislava" countryCode="SK"/>
+    <CountryCapital countryCapital="Freetown" countryCode="SL"/>
+    <CountryCapital countryCapital="San Marino" countryCode="SM"/>
+    <CountryCapital countryCapital="Dakar" countryCode="SN"/>
+    <CountryCapital countryCapital="Mogadishu" countryCode="SO"/>
+    <CountryCapital countryCapital="Paramaribo" countryCode="SR"/>
+    <CountryCapital countryCapital="Sao Tome" countryCode="ST"/>
+    <CountryCapital countryCapital="San Salvador" countryCode="SV"/>
+    <CountryCapital countryCapital="Damascus" countryCode="SY"/>
+    <CountryCapital countryCapital="Mbabane" countryCode="SZ"/>
+    <CountryCapital countryCapital="Grand Turk" countryCode="TC"/>
+    <CountryCapital countryCapital="N&apos;Djamena" countryCode="TD"/>
+    <CountryCapital countryCapital="None" countryCode="TF"/>
+    <CountryCapital countryCapital="Lome" countryCode="TG"/>
+    <CountryCapital countryCapital="Bangkok" countryCode="TH"/>
+    <CountryCapital countryCapital="Dushanbe" countryCode="TJ"/>
+    <CountryCapital countryCapital="None" countryCode="TK"/>
+    <CountryCapital countryCapital="Ashgabat" countryCode="TM"/>
+    <CountryCapital countryCapital="Tunis" countryCode="TN"/>
+    <CountryCapital countryCapital="Nuku&apos;alofa" countryCode="TO"/>
+    <CountryCapital countryCapital="Dili" countryCode="TP"/>
+    <CountryCapital countryCapital="Ankara" countryCode="TR"/>
+    <CountryCapital countryCapital="Port of Spain" countryCode="TT"/>
+    <CountryCapital countryCapital="Funafuti" countryCode="TV"/>
+    <CountryCapital countryCapital="Taipei" countryCode="TW"/>
+    <CountryCapital countryCapital="Dodoma" countryCode="TZ"/>
+    <CountryCapital countryCapital="Kiev" countryCode="UA"/>
+    <CountryCapital countryCapital="Kampala" countryCode="UG"/>
+    <CountryCapital countryCapital="None" countryCode="UM"/>
+    <CountryCapital countryCapital="Washington" countryCode="US"/>
+    <CountryCapital countryCapital="Montevideo" countryCode="UY"/>
+    <CountryCapital countryCapital="Tashkent" countryCode="UZ"/>
+    <CountryCapital countryCapital="Vatican City" countryCode="VA"/>
+    <CountryCapital countryCapital="Kingstown" countryCode="VC"/>
+    <CountryCapital countryCapital="Caracas" countryCode="VE"/>
+    <CountryCapital countryCapital="Road Town" countryCode="VG"/>
+    <CountryCapital countryCapital="Charlotte Amalie" countryCode="VI"/>
+    <CountryCapital countryCapital="Hanoi" countryCode="VN"/>
+    <CountryCapital countryCapital="Port Vila" countryCode="VU"/>
+    <CountryCapital countryCapital="Mata-Utu" countryCode="WF"/>
+    <CountryCapital countryCapital="Apia" countryCode="WS"/>
+    <CountryCapital countryCapital="San&apos;a" countryCode="YE"/>
+    <CountryCapital countryCapital="Dzaoudzi" countryCode="YT"/>
+    <CountryCapital countryCapital="Belgrade" countryCode="YU"/>
+    <CountryCapital countryCapital="Pretoria" countryCode="ZA"/>
+    <CountryCapital countryCapital="Lusaka" countryCode="ZM"/>
+    <CountryCapital countryCapital="Harare" countryCode="ZW"/>
+    <CountryTeleCode countryCode="AD" teleCode="376"/>
+    <CountryTeleCode countryCode="AE" teleCode="971"/>
+    <CountryTeleCode countryCode="AF" teleCode="93"/>
+    <CountryTeleCode countryCode="AG" teleCode="1-268"/>
+    <CountryTeleCode countryCode="AI" teleCode="1-264"/>
+    <CountryTeleCode countryCode="AL" teleCode="355"/>
+    <CountryTeleCode countryCode="AM" teleCode="374"/>
+    <CountryTeleCode countryCode="AN" teleCode="599"/>
+    <CountryTeleCode countryCode="AO" teleCode="244"/>
+    <CountryTeleCode countryCode="AQ" teleCode="672"/>
+    <CountryTeleCode countryCode="AR" teleCode="54"/>
+    <CountryTeleCode countryCode="AS" teleCode="684"/>
+    <CountryTeleCode countryCode="AT" teleCode="43"/>
+    <CountryTeleCode countryCode="AU" teleCode="61"/>
+    <CountryTeleCode countryCode="AW" teleCode="297"/>
+    <CountryTeleCode countryCode="AZ" teleCode="994"/>
+    <CountryTeleCode countryCode="BA" teleCode="387"/>
+    <CountryTeleCode countryCode="BB" teleCode="1-246"/>
+    <CountryTeleCode countryCode="BD" teleCode="880"/>
+    <CountryTeleCode countryCode="BE" teleCode="32"/>
+    <CountryTeleCode countryCode="BF" teleCode="226"/>
+    <CountryTeleCode countryCode="BG" teleCode="359"/>
+    <CountryTeleCode countryCode="BH" teleCode="973"/>
+    <CountryTeleCode countryCode="BI" teleCode="257"/>
+    <CountryTeleCode countryCode="BJ" teleCode="229"/>
+    <CountryTeleCode countryCode="BM" teleCode="1-441"/>
+    <CountryTeleCode countryCode="BN" teleCode="673"/>
+    <CountryTeleCode countryCode="BO" teleCode="591"/>
+    <CountryTeleCode countryCode="BR" teleCode="55"/>
+    <CountryTeleCode countryCode="BS" teleCode="1-242"/>
+    <CountryTeleCode countryCode="BT" teleCode="975"/>
+    <CountryTeleCode countryCode="BV" teleCode=""/>
+    <CountryTeleCode countryCode="BW" teleCode="267"/>
+    <CountryTeleCode countryCode="BY" teleCode="375"/>
+    <CountryTeleCode countryCode="BZ" teleCode="501"/>
+    <CountryTeleCode countryCode="CA" teleCode="1"/>
+    <CountryTeleCode countryCode="CC" teleCode="61"/>
+    <CountryTeleCode countryCode="CD" teleCode="243"/>
+    <CountryTeleCode countryCode="CF" teleCode="236"/>
+    <CountryTeleCode countryCode="CG" teleCode="242"/>
+    <CountryTeleCode countryCode="CH" teleCode="41"/>
+    <CountryTeleCode countryCode="CI" teleCode="225"/>
+    <CountryTeleCode countryCode="CK" teleCode="682"/>
+    <CountryTeleCode countryCode="CL" teleCode="56"/>
+    <CountryTeleCode countryCode="CM" teleCode="237"/>
+    <CountryTeleCode countryCode="CN" teleCode="86"/>
+    <CountryTeleCode countryCode="CO" teleCode="57"/>
+    <CountryTeleCode countryCode="CR" teleCode="506"/>
+    <CountryTeleCode countryCode="CU" teleCode="53"/>
+    <CountryTeleCode countryCode="CV" teleCode="238"/>
+    <CountryTeleCode countryCode="CX" teleCode="61"/>
+    <CountryTeleCode countryCode="CY" teleCode="357"/>
+    <CountryTeleCode countryCode="CZ" teleCode="420"/>
+    <CountryTeleCode countryCode="DE" teleCode="49"/>
+    <CountryTeleCode countryCode="DJ" teleCode="253"/>
+    <CountryTeleCode countryCode="DK" teleCode="45"/>
+    <CountryTeleCode countryCode="DM" teleCode="1-767"/>
+    <CountryTeleCode countryCode="DO" teleCode="809"/>
+    <CountryTeleCode countryCode="DZ" teleCode="213"/>
+    <CountryTeleCode countryCode="EC" teleCode="593"/>
+    <CountryTeleCode countryCode="EE" teleCode="372"/>
+    <CountryTeleCode countryCode="EG" teleCode="20"/>
+    <CountryTeleCode countryCode="EH" teleCode=""/>
+    <CountryTeleCode countryCode="ER" teleCode="291"/>
+    <CountryTeleCode countryCode="ES" teleCode="34"/>
+    <CountryTeleCode countryCode="ET" teleCode="251"/>
+    <CountryTeleCode countryCode="FI" teleCode="358"/>
+    <CountryTeleCode countryCode="FJ" teleCode="679"/>
+    <CountryTeleCode countryCode="FK" teleCode="500"/>
+    <CountryTeleCode countryCode="FM" teleCode="691"/>
+    <CountryTeleCode countryCode="FO" teleCode="298"/>
+    <CountryTeleCode countryCode="FR" teleCode="33"/>
+    <CountryTeleCode countryCode="GA" teleCode="241"/>
+    <CountryTeleCode countryCode="GB" teleCode="44"/>
+    <CountryTeleCode countryCode="GD" teleCode="1-473"/>
+    <CountryTeleCode countryCode="GE" teleCode="995"/>
+    <CountryTeleCode countryCode="GF" teleCode="594"/>
+    <CountryTeleCode countryCode="GH" teleCode="233"/>
+    <CountryTeleCode countryCode="GI" teleCode="350"/>
+    <CountryTeleCode countryCode="GL" teleCode="299"/>
+    <CountryTeleCode countryCode="GM" teleCode="220"/>
+    <CountryTeleCode countryCode="GN" teleCode="224"/>
+    <CountryTeleCode countryCode="GP" teleCode="590"/>
+    <CountryTeleCode countryCode="GQ" teleCode="240"/>
+    <CountryTeleCode countryCode="GR" teleCode="30"/>
+    <CountryTeleCode countryCode="GS" teleCode=""/>
+    <CountryTeleCode countryCode="GT" teleCode="502"/>
+    <CountryTeleCode countryCode="GU" teleCode="1-671"/>
+    <CountryTeleCode countryCode="GW" teleCode="245"/>
+    <CountryTeleCode countryCode="GY" teleCode="592"/>
+    <CountryTeleCode countryCode="HK" teleCode="852"/>
+    <CountryTeleCode countryCode="HM" teleCode=""/>
+    <CountryTeleCode countryCode="HN" teleCode="504"/>
+    <CountryTeleCode countryCode="HR" teleCode="385"/>
+    <CountryTeleCode countryCode="HT" teleCode="509"/>
+    <CountryTeleCode countryCode="HU" teleCode="36"/>
+    <CountryTeleCode countryCode="ID" teleCode="62"/>
+    <CountryTeleCode countryCode="IE" teleCode="353"/>
+    <CountryTeleCode countryCode="IL" teleCode="972"/>
+    <CountryTeleCode countryCode="IN" teleCode="91"/>
+    <CountryTeleCode countryCode="IO" teleCode=""/>
+    <CountryTeleCode countryCode="IQ" teleCode="964"/>
+    <CountryTeleCode countryCode="IR" teleCode="98"/>
+    <CountryTeleCode countryCode="IS" teleCode="354"/>
+    <CountryTeleCode countryCode="IT" teleCode="39"/>
+    <CountryTeleCode countryCode="JM" teleCode="1-876"/>
+    <CountryTeleCode countryCode="JO" teleCode="962"/>
+    <CountryTeleCode countryCode="JP" teleCode="81"/>
+    <CountryTeleCode countryCode="KE" teleCode="254"/>
+    <CountryTeleCode countryCode="KG" teleCode="996"/>
+    <CountryTeleCode countryCode="KH" teleCode="855"/>
+    <CountryTeleCode countryCode="KI" teleCode="686"/>
+    <CountryTeleCode countryCode="KM" teleCode="269"/>
+    <CountryTeleCode countryCode="KN" teleCode="1-869"/>
+    <CountryTeleCode countryCode="KP" teleCode="850"/>
+    <CountryTeleCode countryCode="KR" teleCode="82"/>
+    <CountryTeleCode countryCode="KW" teleCode="965"/>
+    <CountryTeleCode countryCode="KY" teleCode="1-345"/>
+    <CountryTeleCode countryCode="KZ" teleCode="7"/>
+    <CountryTeleCode countryCode="LA" teleCode="856"/>
+    <CountryTeleCode countryCode="LB" teleCode="961"/>
+    <CountryTeleCode countryCode="LC" teleCode="1-758"/>
+    <CountryTeleCode countryCode="LI" teleCode="423"/>
+    <CountryTeleCode countryCode="LK" teleCode="94"/>
+    <CountryTeleCode countryCode="LR" teleCode="231"/>
+    <CountryTeleCode countryCode="LS" teleCode="266"/>
+    <CountryTeleCode countryCode="LT" teleCode="370"/>
+    <CountryTeleCode countryCode="LU" teleCode="352"/>
+    <CountryTeleCode countryCode="LV" teleCode="371"/>
+    <CountryTeleCode countryCode="LY" teleCode="218"/>
+    <CountryTeleCode countryCode="MA" teleCode="212"/>
+    <CountryTeleCode countryCode="MC" teleCode="377"/>
+    <CountryTeleCode countryCode="MD" teleCode="373"/>
+    <CountryTeleCode countryCode="MG" teleCode="261"/>
+    <CountryTeleCode countryCode="MH" teleCode="692"/>
+    <CountryTeleCode countryCode="MK" teleCode="389"/>
+    <CountryTeleCode countryCode="ML" teleCode="223"/>
+    <CountryTeleCode countryCode="MM" teleCode="95"/>
+    <CountryTeleCode countryCode="MN" teleCode="976"/>
+    <CountryTeleCode countryCode="MO" teleCode="853"/>
+    <CountryTeleCode countryCode="MP" teleCode="670"/>
+    <CountryTeleCode countryCode="MQ" teleCode="596"/>
+    <CountryTeleCode countryCode="MR" teleCode="222"/>
+    <CountryTeleCode countryCode="MS" teleCode="1-664"/>
+    <CountryTeleCode countryCode="MT" teleCode="356"/>
+    <CountryTeleCode countryCode="MU" teleCode="230"/>
+    <CountryTeleCode countryCode="MV" teleCode="960"/>
+    <CountryTeleCode countryCode="MW" teleCode="265"/>
+    <CountryTeleCode countryCode="MX" teleCode="52"/>
+    <CountryTeleCode countryCode="MY" teleCode="60"/>
+    <CountryTeleCode countryCode="MZ" teleCode="258"/>
+    <CountryTeleCode countryCode="NA" teleCode="264"/>
+    <CountryTeleCode countryCode="NC" teleCode="687"/>
+    <CountryTeleCode countryCode="NE" teleCode="227"/>
+    <CountryTeleCode countryCode="NF" teleCode="672"/>
+    <CountryTeleCode countryCode="NG" teleCode="234"/>
+    <CountryTeleCode countryCode="NI" teleCode="505"/>
+    <CountryTeleCode countryCode="NL" teleCode="31"/>
+    <CountryTeleCode countryCode="NO" teleCode="47"/>
+    <CountryTeleCode countryCode="NP" teleCode="977"/>
+    <CountryTeleCode countryCode="NR" teleCode="674"/>
+    <CountryTeleCode countryCode="NU" teleCode="683"/>
+    <CountryTeleCode countryCode="NZ" teleCode="64"/>
+    <CountryTeleCode countryCode="OM" teleCode="968"/>
+    <CountryTeleCode countryCode="PA" teleCode="507"/>
+    <CountryTeleCode countryCode="PE" teleCode="51"/>
+    <CountryTeleCode countryCode="PF" teleCode="689"/>
+    <CountryTeleCode countryCode="PG" teleCode="675"/>
+    <CountryTeleCode countryCode="PH" teleCode="63"/>
+    <CountryTeleCode countryCode="PK" teleCode="92"/>
+    <CountryTeleCode countryCode="PL" teleCode="48"/>
+    <CountryTeleCode countryCode="PM" teleCode="508"/>
+    <CountryTeleCode countryCode="PN" teleCode=""/>
+    <CountryTeleCode countryCode="PR" teleCode="1-787"/>
+    <CountryTeleCode countryCode="PT" teleCode="351"/>
+    <CountryTeleCode countryCode="PW" teleCode="680"/>
+    <CountryTeleCode countryCode="PY" teleCode="595"/>
+    <CountryTeleCode countryCode="QA" teleCode="974"/>
+    <CountryTeleCode countryCode="RE" teleCode="262"/>
+    <CountryTeleCode countryCode="RO" teleCode="40"/>
+    <CountryTeleCode countryCode="RU" teleCode="7"/>
+    <CountryTeleCode countryCode="RW" teleCode="250"/>
+    <CountryTeleCode countryCode="SA" teleCode="966"/>
+    <CountryTeleCode countryCode="SB" teleCode="677"/>
+    <CountryTeleCode countryCode="SC" teleCode="248"/>
+    <CountryTeleCode countryCode="SD" teleCode="249"/>
+    <CountryTeleCode countryCode="SE" teleCode="46"/>
+    <CountryTeleCode countryCode="SG" teleCode="65"/>
+    <CountryTeleCode countryCode="SH" teleCode="290"/>
+    <CountryTeleCode countryCode="SI" teleCode="386"/>
+    <CountryTeleCode countryCode="SJ" teleCode=""/>
+    <CountryTeleCode countryCode="SK" teleCode="421"/>
+    <CountryTeleCode countryCode="SL" teleCode="232"/>
+    <CountryTeleCode countryCode="SM" teleCode="378"/>
+    <CountryTeleCode countryCode="SN" teleCode="221"/>
+    <CountryTeleCode countryCode="SO" teleCode="252"/>
+    <CountryTeleCode countryCode="SR" teleCode="597"/>
+    <CountryTeleCode countryCode="ST" teleCode="239"/>
+    <CountryTeleCode countryCode="SV" teleCode="503"/>
+    <CountryTeleCode countryCode="SY" teleCode="963"/>
+    <CountryTeleCode countryCode="SZ" teleCode="268"/>
+    <CountryTeleCode countryCode="TC" teleCode="1-649"/>
+    <CountryTeleCode countryCode="TD" teleCode="235"/>
+    <CountryTeleCode countryCode="TF" teleCode=""/>
+    <CountryTeleCode countryCode="TG" teleCode="228"/>
+    <CountryTeleCode countryCode="TH" teleCode="66"/>
+    <CountryTeleCode countryCode="TJ" teleCode="992"/>
+    <CountryTeleCode countryCode="TK" teleCode="690"/>
+    <CountryTeleCode countryCode="TM" teleCode="993"/>
+    <CountryTeleCode countryCode="TN" teleCode="216"/>
+    <CountryTeleCode countryCode="TO" teleCode="676"/>
+    <CountryTeleCode countryCode="TP" teleCode="670"/>
+    <CountryTeleCode countryCode="TR" teleCode="90"/>
+    <CountryTeleCode countryCode="TT" teleCode="1-868"/>
+    <CountryTeleCode countryCode="TV" teleCode="688"/>
+    <CountryTeleCode countryCode="TW" teleCode="886"/>
+    <CountryTeleCode countryCode="TZ" teleCode="255"/>
+    <CountryTeleCode countryCode="UA" teleCode="380"/>
+    <CountryTeleCode countryCode="UG" teleCode="256"/>
+    <CountryTeleCode countryCode="UM" teleCode=""/>
+    <CountryTeleCode countryCode="US" teleCode="1"/>
+    <CountryTeleCode countryCode="UY" teleCode="598"/>
+    <CountryTeleCode countryCode="UZ" teleCode="998"/>
+    <CountryTeleCode countryCode="VA" teleCode="39"/>
+    <CountryTeleCode countryCode="VC" teleCode="1-784"/>
+    <CountryTeleCode countryCode="VE" teleCode="58"/>
+    <CountryTeleCode countryCode="VG" teleCode="1-284"/>
+    <CountryTeleCode countryCode="VI" teleCode="1-340"/>
+    <CountryTeleCode countryCode="VN" teleCode="84"/>
+    <CountryTeleCode countryCode="VU" teleCode="678"/>
+    <CountryTeleCode countryCode="WF" teleCode="681"/>
+    <CountryTeleCode countryCode="WS" teleCode="684"/>
+    <CountryTeleCode countryCode="YE" teleCode="967"/>
+    <CountryTeleCode countryCode="YT" teleCode="269"/>
+    <CountryTeleCode countryCode="YU" teleCode="381"/>
+    <CountryTeleCode countryCode="ZA" teleCode="27"/>
+    <CountryTeleCode countryCode="ZM" teleCode="260"/>
+    <CountryTeleCode countryCode="ZW" teleCode="263"/>
+</entity-engine-xml>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="CommonCalendarDecorator">
+        <section>
+            <actions>
+                <!-- <set field="leftbarScreenName" value="leftbar"/> -->
+                <!-- <set field="leftbarScreenLocation" value=""/> -->
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for MANUFACTURING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://manufacturing/webapp/manufacturing/routing/CalendarTabBar.ftl"/></html>
+                                </platform-specific>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ManufacturingViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCalendar">
+        <section>
+            <actions>
+                <set field="title" value="Edit a Calendar"/>
+                <set field="titleProperty" value="PageTitleEditCalendar"/>
+                <set field="tabButtonItem" value="calendar"/>
+                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
+                <set field="headerItem" value="calendar"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendar.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendar.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindCalendar">
+        <section>
+            <actions>
+                <set field="title" value="Find a Calendar"/>
+                <set field="titleProperty" value="PageTitleFindCalendar"/>
+                <set field="tabButtonItem" value="calendar"/>
+                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
+                <set field="headerItem" value="calendar"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/FindCalendar.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/FindCalendar.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListCalendarWeek">
+        <section>
+            <actions>
+                <set field="title" value="List Calendar Weeks"/>
+                <set field="titleProperty" value="PageTitleListCalendarWeek"/>
+                <set field="tabButtonItem" value="calendar"/>
+                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
+                <set field="headerItem" value="calendar"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/ListCalendarWeek.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/ListCalendarWeek.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCalendarWeek">
+        <section>
+            <actions>
+                <set field="title" value="Edit a Calendar Week"/>
+                <set field="titleProperty" value="PageTitleEditCalendarWeek"/>
+                <set field="tabButtonItem" value="calendar"/>
+                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
+                <set field="headerItem" value="calendar"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendarWeek.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendarWeek.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCalendarExceptionWeek">
+        <section>
+            <actions>
+                <set field="title" value="Edit a Calendar Exception Week"/>
+                <set field="titleProperty" value="PageTitleEditCalendarExceptionWeek"/>
+                <set field="tabButtonItem" value="calendarExceptionWeek"/>
+                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
+                <set field="headerItem" value="calendar"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendarExceptionWeek.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendarExceptionWeek.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCalendarExceptionDay">
+        <section>
+            <actions>
+                <set field="title" value="Edit a Calendar Exception Day"/>
+                <set field="titleProperty" value="PageTitleEditCalendarExceptionDay"/>
+                <set field="tabButtonItem" value="calendarExceptionDay"/>
+                <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
+                <set field="headerItem" value="calendar"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditCalendarExceptionDay.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditCalendarExceptionDay.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>
+

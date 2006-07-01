@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *  Copyright (c) 2002-2004 The Open For Business Project - www.ofbiz.org
+    *
+    *  Permission is hereby granted, free of charge, to any person obtaining a
+    *  copy of this software and associated documentation files (the "Software"),
+    *  to deal in the Software without restriction, including without limitation
+    *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    *  and/or sell copies of the Software, and to permit persons to whom the
+    *  Software is furnished to do so, subject to the following conditions:
+    *
+    *  The above copyright notice and this permission notice shall be included
+    *  in all copies or substantial portions of the Software.
+    *
+    *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+    *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+    *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    *  Service Framework - Service ECA Definition DTD
+    *  $Id: service-eca.xsd 7775 2006-06-12 21:17:47Z jonesde $
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="service-eca">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="eca"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="eca">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="condition"/>
+                    <xs:element ref="condition-field"/>
+                    <xs:element ref="condition-service"/>
+                </xs:choice>
+                <xs:element maxOccurs="unbounded" ref="action"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.eca"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.eca">
+        <xs:attribute type="xs:string" name="service" use="required"/>
+        <xs:attribute name="event" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="global-commit"/>
+                    <xs:enumeration value="global-rollback"/>
+                    <xs:enumeration value="auth"/>
+                    <xs:enumeration value="in-validate"/>
+                    <xs:enumeration value="out-validate"/>
+                    <xs:enumeration value="invoke"/>
+                    <xs:enumeration value="commit"/>
+                    <xs:enumeration value="return"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="run-on-failure" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="run-on-error" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="condition">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.condition">
+        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="operator" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="less"/>
+                    <xs:enumeration value="greater"/>
+                    <xs:enumeration value="less-equals"/>
+                    <xs:enumeration value="greater-equals"/>
+                    <xs:enumeration value="equals"/>
+                    <xs:enumeration value="not-equals"/>
+                    <xs:enumeration value="is-empty"/>
+                    <xs:enumeration value="is-not-empty"/>
+                    <xs:enumeration value="contains"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute name="type" default="String">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="PlainString"/>
+                    <xs:enumeration value="String"/>
+                    <xs:enumeration value="BigDecimal"/>
+                    <xs:enumeration value="Double"/>
+                    <xs:enumeration value="Float"/>
+                    <xs:enumeration value="Long"/>
+                    <xs:enumeration value="Integer"/>
+                    <xs:enumeration value="Date"/>
+                    <xs:enumeration value="Time"/>
+                    <xs:enumeration value="Timestamp"/>
+                    <xs:enumeration value="Boolean"/>
+                    <xs:enumeration value="Object"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="format"/>
+    </xs:attributeGroup>
+    <xs:element name="condition-field">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition-field"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.condition-field">
+        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute name="operator" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="less"/>
+                    <xs:enumeration value="greater"/>
+                    <xs:enumeration value="less-equals"/>
+                    <xs:enumeration value="greater-equals"/>
+                    <xs:enumeration value="equals"/>
+                    <xs:enumeration value="not-equals"/>
+                    <xs:enumeration value="contains"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-map-name"/>
+        <xs:attribute type="xs:string" name="to-field-name"/>
+        <xs:attribute name="type" default="String">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="PlainString"/>
+                    <xs:enumeration value="String"/>
+                    <xs:enumeration value="BigDecimal"/>
+                    <xs:enumeration value="Double"/>
+                    <xs:enumeration value="Float"/>
+                    <xs:enumeration value="Long"/>
+                    <xs:enumeration value="Integer"/>
+                    <xs:enumeration value="Date"/>
+                    <xs:enumeration value="Time"/>
+                    <xs:enumeration value="Timestamp"/>
+                    <xs:enumeration value="Boolean"/>
+                    <xs:enumeration value="Object"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="format"/>
+    </xs:attributeGroup>
+    <xs:element name="condition-service">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.condition-service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.condition-service">
+        <xs:attribute type="xs:string" name="service-name"/>
+    </xs:attributeGroup>
+    <xs:element name="action">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.action"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.action">
+        <xs:attribute type="xs:string" name="service" use="required"/>
+        <xs:attribute name="mode" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="sync"/>
+                    <xs:enumeration value="async"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="runAsUser"/>
+        <xs:attribute type="xs:string" name="result-map-name"/>
+        <xs:attribute name="result-to-context" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ignore-failure" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ignore-error" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="persist" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+</xs:schema>
+<!--
+    <service-eca>
+        <eca service="testBsh" event="commit">
+          <condition field-name="foo" operator="equals" rhs="1"/>
+          <action service="testScv" mode="sync"/>
+          <action service="testScv" mode="sync"/>
+        </eca>
+    </service-eca>
+-->

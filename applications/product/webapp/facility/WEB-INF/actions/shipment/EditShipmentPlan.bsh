@@ -1,0 +1,304 @@
+/*
+ *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a 
+ *  copy of this software and associated documentation files (the "Software"), 
+ *  to deal in the Software without restriction, including without limitation 
+ *  the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ *  and/or sell copies of the Software, and to permit persons to whom the 
+ *  Software is furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included 
+ *  in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+ *  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+ *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+ *  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+ *  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+ *  THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *@author     Jacopo Cappellato (tiz@sastau.it)
+ *@version    $Rev$
+ */
+
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.widget.html.*;
+
+delegator = request.getAttribute("delegator");
+
+shipmentId = request.getParameter("shipmentId");
+orderId = request.getParameter("orderId");
+
+if (UtilValidate.isEmpty(shipmentId)) {
+    shipmentId = context.get("shipmentId");
+}
+action = request.getParameter("action");
+
+shipment = null;
+if (UtilValidate.isNotEmpty(shipmentId)) {
+    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+}
+
+
+// **************************************
+// Order Items are searched and put in orderItems
+// **************************************
+orderItems = null;
+// **************************************
+// Search method: search by productId
+// **************************************
+if (UtilValidate.isNotEmpty(action) && UtilValidate.isNotEmpty(orderId)) {
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    if (orderHeader != null && orderHeader.getString("orderTypeId").equals("SALES_ORDER")) {
+        orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+    }
+}
+
+// **************************************
+// ShipmentPlan list form
+// **************************************
+totWeight = 0;
+totVolume = 0;
+shipmentPlans = null;
+shipmentPlansIt = null;
+rows = new ArrayList();
+if (shipment != null) {
+    shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipment.getString("shipmentId")));
+}
+if (shipmentPlans != null) {
+    shipmentPlansIt = shipmentPlans.iterator();
+    while (shipmentPlansIt.hasNext()) {
+        shipmentPlan = shipmentPlansIt.next();
+        oneRow = new HashMap(shipmentPlan);
+        //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemShipGrpInvRes"));
+        orderItem = shipmentPlan.getRelatedOne("OrderItem");
+        oneRow.put("productId", orderItem.getString("productId"));
+        oneRow.put("totOrderedQuantity", orderItem.getString("quantity"));
+        // Total quantity issued
+        issuedQuantity = 0.0;
+        qtyIssuedInShipment = new HashMap();
+        issuances = orderItem.getRelated("ItemIssuance");
+        issuancesIt = issuances.iterator();
+        while (issuancesIt.hasNext()) {
+            issuance = issuancesIt.next();
+            if (issuance.get("quantity") != null) {
+                issuedQuantity += issuance.getDouble("quantity");
+                if (qtyIssuedInShipment.containsKey(issuance.getString("shipmentId"))) {
+                    qtyInShipment = ((Double)qtyIssuedInShipment.get(issuance.getString("shipmentId"))).doubleValue();
+                    qtyInShipment += issuance.getDouble("quantity");
+                    qtyIssuedInShipment.put(issuance.getString("shipmentId"), qtyInShipment);
+                } else {
+                    qtyIssuedInShipment.put(issuance.getString("shipmentId"), issuance.getDouble("quantity"));
+                }
+            }
+        }
+        oneRow.put("totIssuedQuantity", issuedQuantity);
+        // Total quantity planned not issued
+        plannedQuantity = 0.0;
+        qtyPlannedInShipment = new HashMap();
+        plans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")));
+        plansIt = plans.iterator();
+        while (plansIt.hasNext()) {
+            plan = plansIt.next();
+            if (plan.get("quantity") != null) {
+                netPlanQty = plan.getDouble("quantity");
+                if (qtyIssuedInShipment.containsKey(plan.getString("shipmentId"))) {
+                    qtyInShipment = ((Double)qtyIssuedInShipment.get(plan.getString("shipmentId"))).doubleValue();
+                    if (netPlanQty > qtyInShipment) {
+                        netPlanQty -= qtyInShipment;
+                    } else {
+                        netPlanQty = 0;
+                    }
+                }
+                plannedQuantity += netPlanQty;
+                if (qtyPlannedInShipment.containsKey(plan.getString("shipmentId"))) {
+                    qtyInShipment = ((Double)qtyPlannedInShipment.get(plan.getString("shipmentId"))).doubleValue();
+                    qtyInShipment += netPlanQty;
+                    qtyPlannedInShipment.put(plan.getString("shipmentId"), qtyInShipment);
+                } else {
+                    qtyPlannedInShipment.put(plan.getString("shipmentId"), netPlanQty);
+                }
+            }
+        }
+        oneRow.put("totPlannedQuantity", plannedQuantity);
+        if (qtyIssuedInShipment.containsKey(shipmentId)) {
+            oneRow.put("issuedQuantity", qtyIssuedInShipment.get(shipmentId));
+        } else {
+            oneRow.put("issuedQuantity", "");
+        }
+        // Reserved and Not Available quantity
+        reservedQuantity = 0.0;
+        reservedNotAvailable = 0.0;
+        reservations = orderItem.getRelated("OrderItemShipGrpInvRes");
+        reservationsIt = reservations.iterator();
+        while (reservationsIt.hasNext()) {
+            reservation = reservationsIt.next();
+            if (reservation.get("quantity") != null) {
+                reservedQuantity += reservation.getDouble("quantity");
+            }
+            if (reservation.get("quantityNotAvailable") != null) {
+                reservedNotAvailable += reservation.getDouble("quantityNotAvailable");
+            }
+        }
+        oneRow.put("notAvailableQuantity", reservedNotAvailable);
+        // Planned Weight and Volume
+        product = orderItem.getRelatedOne("Product");
+        weight = 0.0;
+        quantity = 0.0;
+        if (shipmentPlan.getDouble("quantity") != null) {
+            quantity = shipmentPlan.getDouble("quantity");
+        }
+        if (product.getDouble("weight") != null) {
+            weight = product.getDouble("weight") * quantity;
+        }
+        oneRow.put("weight", weight);
+        if (product.get("weightUomId") != null) {
+            weightUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("weightUomId")));
+            oneRow.put("weightUom", weightUom.getString("abbreviation"));
+        }
+        volume = 0.0;
+        if (product.getDouble("productHeight") != null &&
+            product.getDouble("productWidth") != null &&
+            product.getDouble("productDepth") != null) {
+                // TODO: check if uom conversion is needed
+                volume = product.getDouble("productHeight") *
+                         product.getDouble("productWidth") *
+                         product.getDouble("productDepth") * 
+                         quantity;
+        }
+        oneRow.put("volume", volume);
+        if (product.get("heightUomId") != null &&
+            product.get("widthUomId") != null &&
+            product.get("depthUomId") != null) {
+
+            heightUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("heightUomId")));
+            widthUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("widthUomId")));
+            depthUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("depthUomId")));
+            oneRow.put("volumeUom", heightUom.getString("abbreviation") + "x" +
+                                    widthUom.getString("abbreviation") + "x" +
+                                    depthUom.getString("abbreviation"));
+        }
+        totWeight += weight;
+        totVolume += volume;
+        rows.add(oneRow);
+    }
+}
+HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "listShipmentPlan", request, response);
+listShipmentPlanForm.putInContext("shipmentPlan", rows);
+
+// **************************************
+// ShipmentPlan add form
+// **************************************
+addRows = new ArrayList();
+if (orderItems != null) {
+    orderItemsIt = orderItems.iterator();
+    while (orderItemsIt.hasNext()) {
+        oneOrderItem = orderItemsIt.next();
+        oneRow = new HashMap();
+        oneRow.put("shipmentId", shipmentId);
+        oneRow.put("orderId", oneOrderItem.getString("orderId"));
+        oneRow.put("orderItemSeqId", oneOrderItem.getString("orderItemSeqId"));
+        oneRow.put("productId", oneOrderItem.getString("productId"));
+        orderedQuantity = oneOrderItem.getDouble("quantity");
+        oneRow.put("orderedQuantity", oneOrderItem.getString("quantity"));
+        // Total quantity issued
+        issuedQuantity = 0.0;
+        qtyIssuedInShipment = new HashMap();
+        issuances = oneOrderItem.getRelated("ItemIssuance");
+        issuancesIt = issuances.iterator();
+        while (issuancesIt.hasNext()) {
+            issuance = issuancesIt.next();
+            if (issuance.get("quantity") != null) {
+                issuedQuantity += issuance.getDouble("quantity");
+                if (qtyIssuedInShipment.containsKey(issuance.getString("shipmentId"))) {
+                    qtyInShipment = ((Double)qtyIssuedInShipment.get(issuance.getString("shipmentId"))).doubleValue();
+                    qtyInShipment += issuance.getDouble("quantity");
+                    qtyIssuedInShipment.put(issuance.getString("shipmentId"), qtyInShipment);
+                } else {
+                    qtyIssuedInShipment.put(issuance.getString("shipmentId"), issuance.getDouble("quantity"));
+                }
+            }
+        }
+        oneRow.put("issuedQuantity", issuedQuantity);
+        // Total quantity planned not issued
+        plannedQuantity = 0.0;
+        plans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("orderId", oneOrderItem.getString("orderId"), "orderItemSeqId", oneOrderItem.getString("orderItemSeqId")));
+        plansIt = plans.iterator();
+        while (plansIt.hasNext()) {
+            plan = plansIt.next();
+            if (plan.get("quantity") != null) {
+                netPlanQty = plan.getDouble("quantity");
+                plannedQuantity += netPlanQty;
+            }
+        }
+        oneRow.put("plannedQuantity", plannedQuantity);
+        // (default) quantity for plan
+        planQuantity = (orderedQuantity - plannedQuantity - issuedQuantity > 0? orderedQuantity - plannedQuantity - issuedQuantity: 0);
+        oneRow.put("quantity", planQuantity);
+        // Planned (unitary) Weight and Volume
+        weight = new Double(0);
+        product = oneOrderItem.getRelatedOne("Product");
+        if (product.getDouble("weight") != null) {
+            weight = product.getDouble("weight");
+        }
+        oneRow.put("weight", weight);
+
+        if (product.getString("weightUomId") != null) {
+            weightUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("weightUomId")));
+            oneRow.put("weightUom", weightUom.getString("abbreviation"));
+        }
+        volume = 0.0;
+        if (product.getDouble("productHeight") != null &&
+            product.getDouble("productWidth") != null &&
+            product.getDouble("productDepth") != null) {
+                // TODO: check if uom conversion is needed
+                volume = product.getDouble("productHeight") *
+                         product.getDouble("productWidth") *
+                         product.getDouble("productDepth");
+        }
+
+        oneRow.put("volume", volume);
+        if (product.get("heightUomId") != null &&
+            product.get("widthUomId") != null &&
+            product.get("depthUomId") != null) {
+
+            heightUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("heightUomId")));
+            widthUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("widthUomId")));
+            depthUom = delegator.findByPrimaryKeyCache("Uom", UtilMisc.toMap("uomId", product.getString("depthUomId")));
+            oneRow.put("volumeUom", heightUom.getString("abbreviation") + "x" +
+                                    widthUom.getString("abbreviation") + "x" +
+                                    depthUom.getString("abbreviation"));
+        }
+        addRows.add(oneRow);
+    }
+}
+// Add form
+HtmlFormWrapper addToShipmentPlanForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "addToShipmentPlan", request, response);
+addToShipmentPlanForm.putInContext("shipmentPlan", addRows);
+
+HtmlFormWrapper findOrderItemsForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "findOrderItems", request, response);
+findOrderItemsForm.putInContext("shipmentId", shipmentId);
+if (shipment != null && shipment.get("primaryOrderId") != null) {
+    findOrderItemsForm.putInContext("orderId", shipment.getString("primaryOrderId"));
+}
+
+HtmlFormWrapper shipmentPlanToOrderItemsForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "shipmentPlanToOrderItems", request, response);
+shipmentPlanToOrderItemsForm.putInContext("shipmentId", shipmentId);
+
+
+context.put("findOrderItemsForm", findOrderItemsForm); // Form for Order search: find By orderId
+context.put("shipmentPlanToOrderItemsForm", shipmentPlanToOrderItemsForm); // From Shipment Plan to Order Items
+context.put("listShipmentPlanForm", listShipmentPlanForm); // Form for ShipmentPlan list
+context.put("listShipmentPlanRows", shipmentPlans);
+context.put("addToShipmentPlanForm", addToShipmentPlanForm); // For for ShipmentPlan entry
+context.put("addToShipmentPlanRows", addRows);
+context.put("rowCount", addRows.size());
+context.put("shipmentId", shipmentId);
+context.put("shipment", shipment);
+context.put("totWeight", totWeight);
+context.put("totVolume", totVolume);
+
