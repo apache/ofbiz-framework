@@ -56,7 +56,7 @@ under the License.
     </target>
 
     <target name="copy-derby-props" if="isMac">
-        <copy file="../website/derby/derby.properties" todir="data/derby"/>
+        <copy file="data/derby.properties" todir="data/derby"/>
     </target>
 
     <!-- ================================================================== -->
