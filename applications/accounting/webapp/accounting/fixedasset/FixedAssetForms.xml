@@ -90,6 +90,8 @@ under the License.
         <field name="parentFixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="locatedAtFacilityId" title=""><lookup target-form-name="LookupFacility"/></field>        
         <field name="locatedAtLocationSeqId" title=""><lookup target-form-name="LookupFacilityLocation"/></field>        
+        <field name="locatedAtFacilityId" title=""><lookup target-form-name="LookupFacility"/></field>        
+        <field name="locatedAtLocationSeqId" title=""><lookup target-form-name="LookupFacilityLocation"/></field>        
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+?xml version="1.0" encoding="UTF-8" ?>
 <!--
  *  Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org
  *
@@ -78,9 +78,9 @@
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeAgreementTerm" default-entity-name="AgreementTerm" engine="simple"
-                location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="removeAgreementTerm" auth="true">
-        <description>Remove an AgreementTerm</description>
+    <service name="deleteAgreementTerm" default-entity-name="AgreementTerm" engine="simple"
+                location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="deleteAgreementTerm" auth="true">
+        <description>Delete an AgreementTerm</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>

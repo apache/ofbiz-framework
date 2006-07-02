@@ -156,53 +156,21 @@
             </widgets>
         </section>
     </screen>
-    <screen name="ListAgreementTerms">
+    <screen name="EditAgreementTerms">
         <section>
             <actions>
-                <set field="title" value="List Agreement Terms"/>
-                <set field="titleProperty" value="PageTitleListAgreementTerms"/>
-                <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementTerms"/>
-    
-                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-and entity-name="AgreementTerm" list-name="agreementTerms">
-                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
-                    <field-map env-name="null" field-name="agreementItemSeqId"/>
-                </entity-and>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
-                    <decorator-section name="body">
-                        <container>
-                            <link target="EditAgreementTerm?agreementId=${agreement.agreementId}" text="[${uiLabelMap.AccountingNewAgreementTerm}]" style="buttontext"/>
-                        </container>
-                        <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="EditAgreementTerm">
-        <section>
-            <actions>
-                <set field="title" value="Edit Agreement Term"/>
+                <set field="title" value="Edit Agreement Terms"/>
                 <set field="titleProperty" value="PageTitleEditAgreementTerm"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementTerms"/>
-                
+                <set field="tabButtonItem" value="EditAgreementTerms"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
-                <set field="agreementTermId" from-field="parameters.agreementTermId"/>
-
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
-                <entity-one entity-name="AgreementTerm" value-name="agreementTerm"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditAgreementTerm?agreementId=${agreement.agreementId}" text="[${uiLabelMap.AccountingNewAgreementTerm}]" style="buttontext"/>
-                        </container>
-                        <include-form name="EditAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="AddAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

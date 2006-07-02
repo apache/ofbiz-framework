@@ -652,28 +652,27 @@
         <response name="error" type="view" value="EditAgreementItem"/>
     </request-map>
     
-    <request-map uri="ListAgreementTerms"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementTerms"/></request-map>
-    <request-map uri="removeAgreementTerm">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeAgreementTerm"/>
-        <response name="success" type="view" value="ListAgreementTerms"/>
-        <response name="error" type="view" value="ListAgreementTerms"/>
-    </request-map>
-
-    <request-map uri="EditAgreementTerm"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementTerm"/></request-map>
+    <request-map uri="EditAgreementTerms"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementTerms"/></request-map>
     <request-map uri="createAgreementTerm">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createAgreementTerm"/>
-        <response name="success" type="view" value="EditAgreementTerm"/>
-        <response name="error" type="view" value="EditAgreementTerm"/>
+        <response name="success" type="view" value="EditAgreementTerms"/>
+        <response name="error" type="view" value="EditAgreementTerms"/>
     </request-map>
     <request-map uri="updateAgreementTerm">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateAgreementTerm"/>
-        <response name="success" type="view" value="EditAgreementTerm"/>
-        <response name="error" type="view" value="EditAgreementTerm"/>
+        <response name="success" type="view" value="EditAgreementTerms"/>
+        <response name="error" type="view" value="EditAgreementTerms"/>
     </request-map>
-
+    <request-map uri="deleteAgreementTerm">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteAgreementTerm"/>
+        <response name="success" type="view" value="EditAgreementTerms"/>
+        <response name="error" type="view" value="EditAgreementTerms"/>
+    </request-map>
+    
+    
     <request-map uri="ListAgreementPromoAppls"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementPromoAppls"/></request-map>
     <request-map uri="removeAgreementPromoAppl">
         <security https="true" auth="true"/>
@@ -1241,8 +1240,7 @@
     <view-map name="EditAgreement" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreement"/>
     <view-map name="ListAgreementItems" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItems"/>
     <view-map name="EditAgreementItem" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItem"/>
-    <view-map name="ListAgreementTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementTerms"/>
-    <view-map name="EditAgreementTerm" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementTerm"/>
+    <view-map name="EditAgreementTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementTerms"/>
     <view-map name="ListAgreementPromoAppls" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementPromoAppls"/>
     <view-map name="EditAgreementPromoAppl" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementPromoAppl"/>
     <view-map name="ListAgreementItemTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemTerms"/>

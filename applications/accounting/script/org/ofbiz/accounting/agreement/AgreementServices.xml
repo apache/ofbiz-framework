@@ -175,11 +175,11 @@
         <check-errors/>
     </simple-method>
 
-    <!-- remove an existing AgreementTerm -->
-    <simple-method method-name="removeAgreementTerm" short-description="Remove an existing AgreementTerm">
+    <!-- delete an existing AgreementTerm -->
+    <simple-method method-name="deleteAgreementTerm" short-description="Delete an existing AgreementTerm">
         <check-permission permission="ACCOUNTING" action="_UPDATE">
             <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run removeAgreementTerm you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+            <fail-message message="Security Error: to run deleteAgreementTerm you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>

@@ -30,7 +30,7 @@
 <#if agreement?has_content>
     <div class="tabContainer">
         <a href="<@ofbizUrl>EditAgreement?agreementId=${agreement.agreementId}</@ofbizUrl>" class="${selectedClassMap.EditAgreement?default(unselectedClassName)}">${uiLabelMap.AccountingAgreement}</a>
-        <a href="<@ofbizUrl>ListAgreementTerms?agreementId=${agreement.agreementId}</@ofbizUrl>" class="${selectedClassMap.ListAgreementTerms?default(unselectedClassName)}">${uiLabelMap.AccountingAgreementTerms}</a>
+        <a href="<@ofbizUrl>EditAgreementTerms?agreementId=${agreement.agreementId}</@ofbizUrl>" class="${selectedClassMap.EditAgreementTerms?default(unselectedClassName)}">${uiLabelMap.AccountingAgreementTerms}</a>
         <a href="<@ofbizUrl>ListAgreementItems?agreementId=${agreement.agreementId}</@ofbizUrl>" class="${selectedClassMap.ListAgreementItems?default(unselectedClassName)}">${uiLabelMap.AccountingAgreementItems}</a>
     </div>
 </#if>
