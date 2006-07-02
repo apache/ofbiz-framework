@@ -169,6 +169,9 @@
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
             <display-entity entity-name="TermType"/>
         </field>
+        <field name="invoiceItemTypeId">
+            <display-entity entity-name="InvoiceItemType" />
+        </field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="removeAgreementItemTerm?agreementTermId=${agreementTermId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
         </field>
@@ -192,7 +195,7 @@
             <display-entity entity-name="TermType"/>
         </field>
         <field name="invoiceItemTypeId" widget-style="selectBox">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options> 
@@ -209,14 +212,14 @@
         <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
         <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><hidden/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false">
                 <entity-options entity-name="TermType" description="${description}"/>
             </drop-down>
         </field>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
         <field name="invoiceItemTypeId" widget-style="selectBox">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options> 
@@ -233,12 +236,19 @@
         <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
         <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><display/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false">
                 <entity-options entity-name="TermType" description="${description}"/>
             </drop-down>
         </field>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
+        <field name="invoiceItemTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="InvoiceItemType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options> 
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
