@@ -178,7 +178,10 @@
         target="updateAgreementTerm" paginate-target="ListAgreementTerms" title="" type="list">
         <actions>
             <entity-condition entity-name="AgreementTerm">
-                <condition-expr field-name="agreementId" env-name="agreementId"/>
+                <condition-list>
+                    <condition-expr field-name="agreementId" env-name="agreementId"/>
+                    <condition-expr field-name="agreementItemSeqId" env-name="null"/>
+                </condition-list>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateAgreementTerm" />
