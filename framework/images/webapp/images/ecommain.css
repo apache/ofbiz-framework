@@ -896,3 +896,21 @@ padding-top: 5px;
 border-top: #999 solid 1px;
 }
 
+.lefthalf{
+left:0;
+width:49%;
+height:1%;
+margin:0% 1% 1% 0%;
+float:left;
+}
+.righthalf {
+float:right;
+height:1%;
+width:49%;
+right:0;
+margin:0 0 1% 1%;
+}
+.leftclear{
+height:1%;
+clear: left;
+}
