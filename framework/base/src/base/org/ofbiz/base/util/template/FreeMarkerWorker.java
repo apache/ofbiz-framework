@@ -95,8 +95,6 @@ public class FreeMarkerWorker {
             ftlTransforms.put("setRequestAttribute", loader.loadClass("org.ofbiz.webapp.ftl.SetRequestAttributeMethod").newInstance());
             ftlTransforms.put("renderWrappedText", loader.loadClass("org.ofbiz.webapp.ftl.RenderWrappedTextTransform").newInstance());
 
-            ftlTransforms.put("barcodeTransform", loader.loadClass("org.ofbiz.webapp.barcode.BarcodeTransform").newInstance());
-
             ftlTransforms.put("menuWrap", loader.loadClass("org.ofbiz.widget.menu.MenuWrapTransform").newInstance());
             
             ftlTransforms.put("editRenderSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.EditRenderSubContentTransform").newInstance());
