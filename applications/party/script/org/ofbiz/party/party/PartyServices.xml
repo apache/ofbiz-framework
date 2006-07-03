@@ -699,4 +699,66 @@
             <remove-value value-name="addr"/>
         </iterate>        
     </simple-method>
+
+    <!-- PartyRelationship services -->
+    <simple-method method-name="createPartyRelationship" short-description="createPartyRelationship">
+        <if-empty field-name="parameters.partyIdFrom">
+            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
+            <else>
+                <check-permission permission="PARTYMGR_REL" action="_CREATE">
+                    <alt-permission permission="PARTYMGR" action="_CREATE"/>
+                    <fail-property resource="ServiceErrorUiLabels" property="serviceUtil.no_permission_to_operation"/>
+                </check-permission>
+            </else>
+        </if-empty>
+        <check-errors/>
+        
+        <if-empty field-name="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
+        <if-empty field-name="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
+
+        <if-empty field-name="parameters.fromDate"><now-timestamp-to-env env-name="parameters.fromDate"/></if-empty>
+        
+        <make-value value-name="newEntity" entity-name="PartyRelationship"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updatePartyRelationship" short-description="updatePartyRelationship">
+        <if-empty field-name="parameters.partyIdFrom">
+            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
+            <else>
+                <check-permission permission="PARTYMGR_REL" action="_UPDATE">
+                    <alt-permission permission="PARTYMGR" action="_UPDATE"/>
+                    <fail-property resource="ServiceErrorUiLabels" property="serviceUtil.no_permission_to_operation"/>
+                </check-permission>
+            </else>
+        </if-empty>
+        <check-errors/>
+        
+        <if-empty field-name="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
+        <if-empty field-name="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
+        
+        <entity-one entity-name="PartyRelationship" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deletePartyRelationship" short-description="deletePartyRelationship">
+        <if-empty field-name="parameters.partyIdFrom">
+            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
+            <else>
+                <check-permission permission="PARTYMGR_REL" action="_DELETE">
+                    <alt-permission permission="PARTYMGR" action="_DELETE"/>
+                    <fail-property resource="ServiceErrorUiLabels" property="serviceUtil.no_permission_to_operation"/>
+                </check-permission>
+            </else>
+        </if-empty>
+        <check-errors/>
+        
+        <if-empty field-name="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
+        <if-empty field-name="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
+
+        <entity-one entity-name="PartyRelationship" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

@@ -61,7 +61,7 @@
                 <td><div class="tabletext">&nbsp;${partyRelationship.fromDate}</div></td>
                 <#if security.hasEntityPermission("PARTYMGR", "_REL_DELETE", session)>
                 <td align="right">                     
-                    <a href="<@ofbizUrl>deletePartyRelationship?partyIdTo=${partyRelationship.partyIdTo}&amp;roleTypeIdTo=${partyRelationship.roleTypeIdTo}&amp;roleTypeIdFrom=${partyRelationship.roleTypeIdFrom}&amp;partyIdFrom=${partyRelationship.partyIdFrom}&amp;fromDate=${partyRelationship.fromDate}&amp;partyId=${partyId?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonRemove}]</a>&nbsp;
+                    <a href="<@ofbizUrl>deletePartyRelationship?partyIdTo=${partyRelationship.partyIdTo}&amp;roleTypeIdTo=${partyRelationship.roleTypeIdTo}&amp;roleTypeIdFrom=${partyRelationship.roleTypeIdFrom}&amp;partyIdFrom=${partyRelationship.partyIdFrom}&amp;fromDate=${partyRelationship.fromDate}&amp;partyId=${partyId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>&nbsp;
                 </td>
                 </#if>
               </tr>
@@ -122,6 +122,7 @@
             <#-- set security group specific to this party relationship -->
             <br/>${uiLabelMap.CommonAnd} ${uiLabelMap.PartyRelationSecurity} 
             <select name="securityGroupId" class="selectBox">
+              <option value="">&nbsp;</option>
               <#list securityGroups as securityGroup>
                 <option value="${securityGroup.groupId}">${securityGroup.get("description",locale)}</option>
               </#list>
@@ -130,7 +131,7 @@
             ${uiLabelMap.CommonThru} <input type="text" size="24" name="thruDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipTo.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
           </div>
           <div><span class="tabletext">${uiLabelMap.CommonComments}:&nbsp;&nbsp;</span><input type="text" size="60" name="comments" class="inputBox"/></div>
-          <div><a href="javascript:document.addPartyRelationshipTo.submit()" class="buttontext">[${uiLabelMap.CommonAdd}]</a></div>
+          <div><a href="javascript:document.addPartyRelationshipTo.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a></div>
         </form>
     </div>
     <div><hr class="sepbar"></div>
@@ -162,6 +163,7 @@
             </select>
             <br/>${uiLabelMap.CommonAnd} ${uiLabelMap.PartyRelationSecurity}
             <select name="securityGroupId" class="selectBox">
+              <option value="">&nbsp;</option>
               <#list securityGroups as securityGroup>
                 <option value="${securityGroup.groupId}">${securityGroup.get("description",locale)}</option>
               </#list>
@@ -170,7 +172,7 @@
             ${uiLabelMap.CommonThru} <input type="text" size="24" name="thruDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipFrom.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
           </div>
           <div><span class="tabletext">${uiLabelMap.CommonComments}:&nbsp;&nbsp;</span><input type="text" size="60" name="comments" class="inputBox"/></div>
-          <div><a href="javascript:document.addPartyRelationshipFrom.submit()" class="buttontext">[${uiLabelMap.CommonAdd}]</a></div>
+          <div><a href="javascript:document.addPartyRelationshipFrom.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a></div>
         </form>
     </div>
   </#if>
