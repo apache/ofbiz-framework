@@ -700,10 +700,10 @@ public class PriceServices {
 
                         totalConds++;
 
-                        if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator)) {
+                        if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPrice, currencyUomId, delegator)) {
                             // if there is a virtualProductId, try that given that this one has failed
                             if (virtualProductId != null) {
-                                if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator)) {
+                                if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPrice, currencyUomId, delegator)) {
                                     allTrue = false;
                                     break;
                                 }
@@ -958,7 +958,7 @@ public class PriceServices {
     }
 
     public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String prodCatalogId,
-            String productStoreGroupId, String webSiteId, String partyId, double quantity, double listPrice,
+            String productStoreGroupId, String webSiteId, String partyId, Double quantity, double listPrice,
             String currencyUomId, GenericDelegator delegator) throws GenericEntityException {
         if (Debug.verboseOn()) Debug.logVerbose("Checking price condition: " + productPriceCond, module);
         int compare = 0;
@@ -998,8 +998,12 @@ public class PriceServices {
                 compare = 1;
             }
         } else if ("PRIP_QUANTITY".equals(productPriceCond.getString("inputParamEnumId"))) {
-            Double quantityValue = new Double(quantity);
-            compare = quantityValue.compareTo(Double.valueOf(productPriceCond.getString("condValue")));
+            if (quantity == null) {
+                // if no quantity is passed in, assume all quantity conditions pass
+                compare = 0;
+            } else {
+                compare = quantity.compareTo(Double.valueOf(productPriceCond.getString("condValue")));
+            }
         } else if ("PRIP_PARTY_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
             if (UtilValidate.isNotEmpty(partyId)) {
                 compare = partyId.compareTo(productPriceCond.getString("condValue"));
