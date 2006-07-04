@@ -239,6 +239,18 @@
     <entity-group group="org.ofbiz" entity="ProductStoreShipmentMethView" />
     <entity-group group="org.ofbiz" entity="ProductStoreSurveyAppl" />
 
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.content.subscription -->
+    <!-- ========================================================= -->
+    
+    <entity-group group="org.ofbiz" entity="Subscription" />
+    <entity-group group="org.ofbiz" entity="SubscriptionActivity" />
+    <entity-group group="org.ofbiz" entity="SubscriptionAttribute" />
+    <entity-group group="org.ofbiz" entity="SubscriptionFulfillmentPiece" />
+    <entity-group group="org.ofbiz" entity="SubscriptionResource" />
+    <entity-group group="org.ofbiz" entity="SubscriptionType" />
+    <entity-group group="org.ofbiz" entity="SubscriptionTypeAttr" />
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.supplier -->
   <!-- ========================================================= -->
