@@ -17,71 +17,70 @@
   under the License.
 -->
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
-  
-  <simple-method method-name="createSubscription" short-description="create a Subscription">
-    <set value="_CREATE" field="securityAction"/>
-    <check-permission permission="CONTENTMGR" action="${securityAction}"><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
-    <check-errors/>
-    <make-value entity-name="Subscription" value-name="newEntity"/>
-    <if-empty field-name="parameters.subscriptionId">
-      <sequenced-id-to-env sequence-name="Subscription" env-name="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
-      <else>
-        <set field="newEntity.subscriptionId" from-field="parameters.subscriptionId"/>
-      </else>
-    </if-empty>
-    <field-to-result field-name="newEntity.subscriptionId" result-name="subscriptionId"/>
-    <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-    <create-value value-name="newEntity"/>
-  </simple-method>   
-  
-  <simple-method method-name="updateSubscription" short-description="update a Subscription">
-    <set value="_UPDATE" field="securityAction"/>
-    <check-permission permission="CONTENTMGR" action="${securityAction}"><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
-    <check-errors/>
-    <entity-one entity-name="Subscription" value-name="lookedUpValue"/>
-    <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
-    <store-value value-name="lookedUpValue"/>
-  </simple-method>
-
-  <simple-method method-name="isSubscribed" short-description="check if a party has a subscription">
-    <set value="_READ" field="securityAction"/>
-    <check-permission permission="CONTENTMGR" action="${securityAction}"><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
-    <check-errors/>
-    <set field="pfInput.inputFields" from-field="parameters"/>
-    <set field="pfInput.entityName" value="Subscription"/>
-    <if-empty field-name="parameters.filterByDate">
-      <set field="pfInput.filterByDate" value="Y"/>
-      <else>
-        <set field="pfInput.filterByDate" from-field="parameters.filterByDate"/>
-      </else>
-    </if-empty>
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
     
-    <call-service service-name="performFindList" in-map-name="pfInput">
-      <result-to-field result-name="list" field-name="pfResultList"/>
-    </call-service>
+    <simple-method method-name="createSubscription" short-description="create a Subscription">
+        <set value="_CREATE" field="securityAction"/>
+        <check-permission permission="CONTENTMGR" action="${securityAction}"><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value entity-name="Subscription" value-name="newEntity"/>
+        <if-empty field-name="parameters.subscriptionId">
+            <sequenced-id-to-env sequence-name="Subscription" env-name="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
+            <else>
+                <set field="newEntity.subscriptionId" from-field="parameters.subscriptionId"/>
+            </else>
+        </if-empty>
+        <field-to-result field-name="newEntity.subscriptionId" result-name="subscriptionId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>   
     
-    <if-empty field-name="pfResultList">
-      <set field="found" value="false" type="Boolean"/>
-      <else>
-        <set field="found" value="true" type="Boolean"/>
-        <first-from-list entry-name="subscription" list-name="pfResultList"/>
-        <field-to-result field-name="subscription.subscriptionId" result-name="subscriptionId"/>
-      </else>
-    </if-empty>
+    <simple-method method-name="updateSubscription" short-description="update a Subscription">
+        <set value="_UPDATE" field="securityAction"/>
+        <check-permission permission="CONTENTMGR" action="${securityAction}"><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="Subscription" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
     
-    <field-to-result field-name="found" result-name="isSubscribed"/>
-  </simple-method>
-
-  <simple-method method-name="getSubscription" short-description="get Subscription data">
-    <set value="_READ" field="securityAction"/>
-    <check-permission permission="CONTENTMGR" action="${securityAction}"><accept-userlogin-party/><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
-    <check-errors/>
-    <entity-one entity-name="Subscription" value-name="subscription"/>
-    <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
-    <if-not-empty field-name="subscription">
-      <field-to-result field-name="subscription" result-name="subscription"/>
-    </if-not-empty>
-  </simple-method>
-  
+    <simple-method method-name="isSubscribed" short-description="check if a party has a subscription">
+        <set value="_READ" field="securityAction"/>
+        <check-permission permission="CONTENTMGR" action="${securityAction}"><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
+        <check-errors/>
+        <set field="pfInput.inputFields" from-field="parameters"/>
+        <set field="pfInput.entityName" value="Subscription"/>
+        <if-empty field-name="parameters.filterByDate">
+            <set field="pfInput.filterByDate" value="Y"/>
+            <else>
+                <set field="pfInput.filterByDate" from-field="parameters.filterByDate"/>
+            </else>
+        </if-empty>
+        
+        <call-service service-name="performFindList" in-map-name="pfInput">
+            <result-to-field result-name="list" field-name="pfResultList"/>
+        </call-service>
+        
+        <if-empty field-name="pfResultList">
+            <set field="found" value="false" type="Boolean"/>
+            <else>
+                <set field="found" value="true" type="Boolean"/>
+                <first-from-list entry-name="subscription" list-name="pfResultList"/>
+                <field-to-result field-name="subscription.subscriptionId" result-name="subscriptionId"/>
+            </else>
+        </if-empty>
+        
+        <field-to-result field-name="found" result-name="isSubscribed"/>
+    </simple-method>
+    
+    <simple-method method-name="getSubscription" short-description="get Subscription data">
+        <set value="_READ" field="securityAction"/>
+        <check-permission permission="CONTENTMGR" action="${securityAction}"><accept-userlogin-party/><fail-property resource="ContentUiLabels" property="SubscriptionPermissionError"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="Subscription" value-name="subscription"/>
+        <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
+        <if-not-empty field-name="subscription">
+            <field-to-result field-name="subscription" result-name="subscription"/>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>
