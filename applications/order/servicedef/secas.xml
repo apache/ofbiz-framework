@@ -76,7 +76,7 @@
         <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="updateSubscriptionByOrder" mode="sync"/>
+        <action service="updateContentSubscriptionByOrder" mode="sync"/>
     </eca>
 
     <!-- create adjustment change -->

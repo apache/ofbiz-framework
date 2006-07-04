@@ -1447,7 +1447,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         return result;
     }
     
-    public static Map updateSubscription(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map updateContentSubscription(DispatchContext dctx, Map context) throws GenericServiceException{
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -1526,7 +1526,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         return result;
     }
     
-    public static Map updateSubscriptionByProduct(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map updateContentSubscriptionByProduct(DispatchContext dctx, Map context) throws GenericServiceException{
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -1566,19 +1566,19 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         context.put("useTimeUomId", productContent.get("useTimeUomId"));
         context.put("useRoleTypeId", productContent.get("useRoleTypeId"));
         context.put("contentId", productContent.get("contentId"));
-        ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateSubscription");
+        ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateContentSubscription");
         Map ctx = subscriptionModel.makeValid(context, "IN");
-        result = dispatcher.runSync("updateSubscription", ctx);
+        result = dispatcher.runSync("updateContentSubscription", ctx);
         return result;
     }
     
-    public static Map updateSubscriptionByOrder(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map updateContentSubscriptionByOrder(DispatchContext dctx, Map context) throws GenericServiceException{
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
         
-        Debug.logInfo("In updateSubscriptionByOrder service with orderId: " + orderId, module);
+        Debug.logInfo("In updateContentSubscriptionByOrder service with orderId: " + orderId, module);
         
         GenericValue orderHeader = null;
         try {
@@ -1603,7 +1603,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             context.put("orderCreatedDate", orderCreatedDate);
             List orderItemList = orderHeader.getRelated("OrderItem");
             Iterator orderItemIter = orderItemList.iterator();
-                ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateSubscriptionByProduct");
+                ModelService subscriptionModel = dispatcher.getDispatchContext().getModelService("updateContentSubscriptionByProduct");
             while (orderItemIter.hasNext()) {
                 GenericValue orderItem = (GenericValue)orderItemIter.next();   
                 Double qty = (Double) orderItem.get("quantity");
@@ -1614,7 +1614,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                     context.put("productId", productId);
                     context.put("quantity", new Integer(qty.intValue()));
                     Map ctx = subscriptionModel.makeValid(context, "IN");
-                    Map thisResult = dispatcher.runSync("updateSubscriptionByProduct", ctx);   
+                    Map thisResult = dispatcher.runSync("updateContentSubscriptionByProduct", ctx);   
                 }
             }
         } catch(GenericEntityException e) {

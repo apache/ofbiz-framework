@@ -1131,8 +1131,8 @@
         <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
         <attribute name="imageData" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
     </service>
-    <service name="updateSubscription" engine="java" transaction-timeout="72000" auth="true"
-            location="org.ofbiz.content.ContentManagementServices" invoke="updateSubscription">
+    <service name="updateContentSubscription" engine="java" transaction-timeout="72000" auth="true"
+        location="org.ofbiz.content.ContentManagementServices" invoke="updateContentSubscription">
         <description>Creates or updates ContentRole</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
@@ -1140,16 +1140,16 @@
         <attribute name="useTimeUomId" type="String" mode="IN" optional="false"/>
         <attribute name="useTime" type="Integer" mode="IN" optional="false"/>
     </service>
-    <service name="updateSubscriptionByProduct" engine="java" transaction-timeout="72000" auth="true"
-            location="org.ofbiz.content.ContentManagementServices" invoke="updateSubscriptionByProduct">
+    <service name="updateContentSubscriptionByProduct" engine="java" transaction-timeout="72000" auth="true"
+        location="org.ofbiz.content.ContentManagementServices" invoke="updateContentSubscriptionByProduct">
         <description>Creates or updates ContentRole</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="orderCreatedDate" type="Timestamp" mode="IN" optional="true" />
         <attribute name="quantity" type="Integer" mode="IN" optional="false"/>
     </service>
-    <service name="updateSubscriptionByOrder" engine="java" transaction-timeout="72000" auth="true"
-            location="org.ofbiz.content.ContentManagementServices" invoke="updateSubscriptionByOrder">
+    <service name="updateContentSubscriptionByOrder" engine="java" transaction-timeout="72000" auth="true"
+        location="org.ofbiz.content.ContentManagementServices" invoke="updateContentSubscriptionByOrder">
         <description>Creates or updates ContentRole</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>

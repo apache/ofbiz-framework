@@ -51,6 +51,7 @@
     <!--  - org.ofbiz.product.promo -->
     <!--  - org.ofbiz.product.storage -->
     <!--  - org.ofbiz.product.store -->
+    <!--  - org.ofbiz.product.subscription -->
     <!--  - org.ofbiz.product.supplier -->
     <!-- ========================================================= -->
 
@@ -3587,9 +3588,166 @@
       </relation>
     </entity>
 
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.product.supplier -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.product.subscription -->
+    <!-- ========================================================= -->
+    
+    <entity entity-name="Subscription" package-name="org.ofbiz.product.subscription" title="Subscription Entity">
+        <field name="subscriptionId" type="id-ne"></field>
+        <field name="subscriptionResourceId" type="id"></field>
+        <field name="communicationEventId" type="id"></field>
+        <field name="contactMechId" type="id"></field>
+        <field name="originatedFromPartyId" type="id"></field>
+        <field name="originatedFromRoleTypeId" type="id"></field>
+        <field name="partyId" type="id"></field>
+        <field name="roleTypeId" type="id"></field>
+        <field name="partyNeedId" type="id"></field>
+        <field name="needTypeId" type="id"></field>
+        <field name="orderId" type="id"></field>
+        <field name="orderItemSeqId" type="id"></field>
+        <field name="productId" type="id"></field>
+        <field name="productCategoryId" type="id"></field>
+        <field name="subscriptionTypeId" type="id"></field>
+        <field name="externalSubscriptionId" type="id"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="subscriptionId"/>
+        <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
+            <key-map field-name="subscriptionResourceId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_COM_EVENT" rel-entity-name="CommunicationEvent">
+            <key-map field-name="communicationEventId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_CONT_MECH" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_ROLE_TYPE" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_OPARTY" title="OriginatedFrom" rel-entity-name="Party">
+            <key-map field-name="originatedFromPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_OROLE_TYPE" title="OriginatedFrom" rel-entity-name="RoleType">
+            <key-map field-name="originatedFromRoleTypeId" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" title="OriginatedFrom" rel-entity-name="PartyRole">
+            <key-map field-name="originatedFromPartyId" rel-field-name="partyId"/>
+            <key-map field-name="originatedFromRoleTypeId" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyNeed">
+            <description>No foreign key because we want to optionally be able to have a partyId without the other fields.</description>
+            <key-map field-name="partyNeedId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_NEED_TYPE" rel-entity-name="NeedType">
+            <key-map field-name="needTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="OrderHeader">
+            <description>Note that foreign key not needed because there is an fk for OrderItem.</description>
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_ORDERITM" rel-entity-name="OrderItem">
+            <key-map field-name="orderId"/>
+            <key-map field-name="orderItemSeqId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_PRODUCT" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_PROD_CAT" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_TO_TYPE" rel-entity-name="SubscriptionType">
+            <key-map field-name="subscriptionTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="SubscriptionTypeAttr">
+            <key-map field-name="subscriptionTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SubscriptionActivity" package-name="org.ofbiz.product.subscription" title="Subscription Activity Entity">
+        <field name="subscriptionActivityId" type="id-ne"></field>
+        <field name="comments" type="comment"></field>
+        <field name="dateSent" type="date-time"></field>
+        <prim-key field="subscriptionActivityId"/>
+    </entity>
+    <entity entity-name="SubscriptionAttribute" package-name="org.ofbiz.product.subscription" title="Subscription Attribute Entity">
+        <field name="subscriptionId" type="id-ne"></field>
+        <field name="attrName" type="id-long-ne"></field>
+        <field name="attrValue" type="value"></field>
+        <prim-key field="subscriptionId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="SUBSC_ATTR" rel-entity-name="Subscription">
+            <key-map field-name="subscriptionId"/>
+        </relation>
+        <relation type="many" rel-entity-name="SubscriptionTypeAttr">
+            <key-map field-name="attrName"/>
+        </relation>
+    </entity>
+    <entity entity-name="SubscriptionFulfillmentPiece" package-name="org.ofbiz.product.subscription" title="Subscription Fulfillment Piece Entity">
+        <field name="subscriptionActivityId" type="id-ne"></field>
+        <field name="subscriptionId" type="id-ne"></field>
+        <prim-key field="subscriptionActivityId"/>
+        <prim-key field="subscriptionId"/>
+        <relation type="one" fk-name="SUBSC_FP" rel-entity-name="Subscription">
+            <key-map field-name="subscriptionId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_FP_ACT" rel-entity-name="SubscriptionActivity">
+            <key-map field-name="subscriptionActivityId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SubscriptionResource" package-name="org.ofbiz.product.subscription" title="Subscription Resource Entity">
+        <field name="subscriptionResourceId" type="id-ne"></field>
+        <field name="parentResourceId" type="id"></field>
+        <field name="description" type="description"></field>
+        <field name="contentId" type="id"><description>Optional (use if applicable) ID of a Content record that this would represent a subscription to.</description></field>
+        <field name="webSiteId" type="id"><description>Optional (use if applicable) ID of a WebSite record that this would represent a subscription to.</description></field>
+        <prim-key field="subscriptionResourceId"/>
+        <relation type="one" fk-name="SUBSC_RES_PARENT" title="Parent" rel-entity-name="SubscriptionResource">
+            <key-map field-name="parentResourceId" rel-field-name="subscriptionResourceId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_RES_CNTNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_RES_WBSITE" rel-entity-name="WebSite">
+            <key-map field-name="webSiteId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SubscriptionType" package-name="org.ofbiz.product.subscription" title="Subscription Type Entity">
+        <field name="subscriptionTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="subscriptionTypeId"/>
+        <relation type="one" fk-name="SUBSC_TYPE_PARENT" title="Parent" rel-entity-name="SubscriptionType">
+            <key-map field-name="parentTypeId" rel-field-name="subscriptionTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SubscriptionTypeAttr" package-name="org.ofbiz.product.subscription" title="Subscription Type Attribute Entity">
+        <field name="subscriptionTypeId" type="id-ne"></field>
+        <field name="attrName" type="id-long-ne"></field>
+        <prim-key field="subscriptionTypeId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="SUBSC_TYPE_ATTR" rel-entity-name="SubscriptionType">
+            <key-map field-name="subscriptionTypeId"/>
+        </relation>
+        <relation type="many" rel-entity-name="SubscriptionAttribute">
+            <key-map field-name="attrName"/>
+        </relation>
+        <relation type="many" rel-entity-name="Subscription">
+            <key-map field-name="subscriptionTypeId"/>
+        </relation>
+    </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.product.supplier -->
+    <!-- ========================================================= -->
 
     <entity entity-name="MarketInterest"
             package-name="org.ofbiz.product.supplier"
