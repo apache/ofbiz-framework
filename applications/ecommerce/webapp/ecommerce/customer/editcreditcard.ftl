@@ -180,7 +180,7 @@
                 <div class="tabletext">
                   <b>${curContactMechPurposeType.get("description",locale)?if_exists}</b>
                   <#if curPartyContactMechPurpose.thruDate?exists>
-                    (Expire:${curPartyContactMechPurpose.thruDate.toString()})
+                    ((${uiLabelMap.CommonExpire}:${curPartyContactMechPurpose.thruDate.toString()})
                   </#if>
                 </div>
               </#list>
@@ -206,7 +206,7 @@
           <#-- is confusing
           <tr>
             <td align="left" valign="top" colspan="2">
-              <div class="tabletext"><b>Select a New Billing Address:</b></div>
+              <div class="tabletext"><b>${uiLabelMap.EcommerceMessage3}</b></div>
             </td>
           </tr>
           -->

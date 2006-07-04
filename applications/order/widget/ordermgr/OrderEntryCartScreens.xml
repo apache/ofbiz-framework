@@ -152,6 +152,7 @@
      <section>
             <actions>
                 <set field="title" value="Bulk Add Product"/>
+                <set field="titleProperty" value="PageTitleLookupBulkAddProduct"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/> <!-- 10 rows seems more appropriate given screen size, etc. -->
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddProducts.bsh"/>

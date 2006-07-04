@@ -140,7 +140,7 @@
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
         </field>
-        <field name="brandName" widget-style="tabletext"><display/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}" widget-style="tabletext"><display/></field>
         <field name="internalName" widget-style="tabletext"><display/></field>
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>

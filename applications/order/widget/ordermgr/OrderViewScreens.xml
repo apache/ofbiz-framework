@@ -147,7 +147,7 @@
         <section>
             <actions>				
                 <set field="titleProperty" value="OrderViewEditDeliveryScheduleInfo"/>
-                <set field="headerItem" value="OrderDeliveryScheduleInfo"/>
+                <set field="headerItem" value="OrderDeliveryScheduleInfo"/>				
 				<property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>

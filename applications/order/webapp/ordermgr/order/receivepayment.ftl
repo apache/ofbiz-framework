@@ -44,7 +44,7 @@
       </tr>    
       <#list paymentMethodTypes as payType>
       <tr>
-        <td width="30%" align="right"><div class="tabletext">${payType.description?default(payType.paymentMethodTypeId)}</div></td>
+        <td width="30%" align="right"><div class="tabletext">${payType.get("description",locale)?default(payType.paymentMethodTypeId)}</div></td>
         <td width="1">&nbsp;&nbsp;&nbsp;</td>
         <td width="1"><input type="text" size="7" name="${payType.paymentMethodTypeId}_amount" class="inputBox"></td>
         <td width="1">&nbsp;&nbsp;&nbsp;</td>
