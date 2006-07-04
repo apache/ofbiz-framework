@@ -23,21 +23,21 @@ under the License.
     <vendor>OFBiz</vendor>
     
     <service name="createSubscription" default-entity-name="Subscription" auth="true" engine="simple"
-        location="org/ofbiz/content/SubscriptionServices.xml" invoke="createSubscription">
-        <description>Create a Subscription Entity record</description>
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscription">
+        <description>Create a Subscription Record</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     
     <service name="updateSubscription" default-entity-name="Subscription" auth="true" engine="simple"
-        location="org/ofbiz/content/SubscriptionServices.xml" invoke="updateSubscription">
-        <description>Update a Subscription Entity Record</description>
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscription">
+        <description>Update a Subscription Record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     
     <service name="isSubscribed" default-entity-name="Subscription" auth="true" engine="simple"
-        location="org/ofbiz/content/SubscriptionServices.xml" invoke="isSubscribed">
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="isSubscribed">
         <description>check if a particular party has at this moment a subscription</description>
         <auto-attributes include="all" mode="IN" optional="true"/>
         <attribute name="filterByDate" type="String" mode="IN" optional="true"/><!-- default is "Y" -->
@@ -47,9 +47,23 @@ under the License.
     </service>
     
     <service name="getSubscriptionEnt" default-entity-name="Subscription" auth="true" engine="simple"
-        location="org/ofbiz/content/SubscriptionServices.xml" invoke="getSubscription">
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="getSubscription">
         <description>Retrieve a single Subscription Entity Record</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <attribute name="subscription" type="GenericValue" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="createSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscriptionResource">
+        <description>Create a SubscriptionResource Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionResource">
+        <description>Update a SubscriptionResource Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 </services>
