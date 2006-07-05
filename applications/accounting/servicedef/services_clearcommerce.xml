@@ -28,6 +28,7 @@ under the License.
             location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccAuth">
         <description>ClearCommerce Credit Card Authorization</description>
         <implements service="ccAuthInterface"/>
+        <attribute name="ccAction" type="String" mode="IN" optional="true"/>
     </service>
     <service name="clearCommerceCCCapture" engine="java"
             location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccCapture">
