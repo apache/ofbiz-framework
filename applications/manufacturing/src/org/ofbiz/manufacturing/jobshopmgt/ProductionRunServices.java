@@ -2282,7 +2282,7 @@ public class ProductionRunServices {
             serviceContext.clear();
             serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),
                                  "currencyUomId", inventoryItem.getString("currencyUomId"),
-                                 "costComponentTypePrefix", "EST_STD_",
+                                 "costComponentTypePrefix", "EST_STD",
                                  "userLogin", userLogin);
             resultService = dispatcher.runSync("getProductCost", serviceContext);
             Double packageCost = (Double)resultService.get("productCost");
@@ -2312,7 +2312,7 @@ public class ProductionRunServices {
                 serviceContext.clear();
                 serviceContext = UtilMisc.toMap("productId", ((GenericValue)component.get("product")).getString("productId"),
                                      "currencyUomId", inventoryItem.getString("currencyUomId"),
-                                     "costComponentTypePrefix", "EST_STD_",
+                                     "costComponentTypePrefix", "EST_STD",
                                      "userLogin", userLogin);
                 resultService = dispatcher.runSync("getProductCost", serviceContext);
                 Double componentCost = (Double)resultService.get("productCost");
