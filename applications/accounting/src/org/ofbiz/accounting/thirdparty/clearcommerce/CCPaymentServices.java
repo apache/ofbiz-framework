@@ -58,9 +58,10 @@ public class CCPaymentServices {
 
     public final static String module = CCPaymentServices.class.getName();
 
-
     public static Map ccAuth(DispatchContext dctx, Map context) {
-        Document authRequestDoc = buildPrimaryTxRequest(context, "PreAuth", (Double) context.get("processAmount"),
+        String ccAction = (String) context.get("ccAction");
+        if (ccAction == null) ccAction = new String("PreAuth");
+        Document authRequestDoc = buildPrimaryTxRequest(context, ccAction, (Double) context.get("processAmount"),
                 (String) context.get("orderId"));
 
         Document authResponseDoc = null;
