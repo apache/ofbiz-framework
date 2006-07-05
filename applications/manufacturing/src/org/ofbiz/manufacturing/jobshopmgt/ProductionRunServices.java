@@ -2277,7 +2277,7 @@ public class ProductionRunServices {
                 serviceContext.put("quantity", quantity);
             }
             resultService = dispatcher.runSync("issueInventoryItemToWorkEffort", serviceContext);
-            Double issuedQuantity = (Double)resultService.get("issuedQuantity");
+            Double issuedQuantity = (Double)resultService.get("quantityIssued");
             // TODO: get the package's unit cost
             serviceContext.clear();
             serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),

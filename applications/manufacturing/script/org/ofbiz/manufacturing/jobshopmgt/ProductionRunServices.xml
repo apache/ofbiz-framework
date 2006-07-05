@@ -253,12 +253,20 @@ under the License.
                 </and>
             </condition>
             <then>
-                <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.quantityOnHandTotal" type="Double">
-                    <set from-field="inventoryItem.quantityOnHandTotal" field="deductAmount"/>
-                <else>
-                    <set from-field="parameters.quantity" field="deductAmount"/>
-                </else>
-                </if-compare-field>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="parameters.quantity"/>
+                            <if-compare field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.quantityOnHandTotal" type="Double"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <set from-field="inventoryItem.quantityOnHandTotal" field="deductAmount"/>
+                    </then>
+                    <else>
+                        <set from-field="parameters.quantity" field="deductAmount"/>
+                    </else>
+                </if>
 
                 <!-- create WorkEffortInventoryAssign record -->
                 <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
