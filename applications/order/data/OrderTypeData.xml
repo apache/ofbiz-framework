@@ -204,7 +204,7 @@
 
     <!-- maps order item types and order adjustment types to return item types and return adjustment types -->
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
-    <ReturnItemTypeMap returnHeaderTypeId="MARKETING_PKG_AUTO" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="DIGITAL_GOOD" returnItemTypeId="RET_DPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINDIG_GOOD" returnItemTypeId="RET_FDPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="PROMOTION_ADJUSTMENT" returnItemTypeId="RET_PROMOTION_ADJ"/>
