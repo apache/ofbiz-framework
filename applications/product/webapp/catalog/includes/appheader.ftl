@@ -1,5 +1,5 @@
 <#--
- *  Copyright (c) 2003 The Open For Business Project - www.ofbiz.org
+ *  Copyright (c) 2003-2006 The Open For Business Project - www.ofbiz.org
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a 
  *  copy of this software and associated documentation files (the "Software"), 
@@ -44,6 +44,7 @@
   <div class="col"><a href="<@ofbizUrl>editKeywordThesaurus</@ofbizUrl>" class="${selectedLeftClassMap.thesaurus?default(unselectedLeftClassName)}">${uiLabelMap.ProductThesaurus}</a></div>
   <div class="col"><a href="<@ofbizUrl>pendingReviews</@ofbizUrl>" class="${selectedLeftClassMap.reviews?default(unselectedLeftClassName)}">${uiLabelMap.ProductReviews}</a></div>
   <div class="col"><a href="<@ofbizUrl>FindProductConfigItems</@ofbizUrl>" class="${selectedLeftClassMap.configs?default(unselectedLeftClassName)}">${uiLabelMap.ProductConfigItems}</a></div>
+  <div class="col"><a href="<@ofbizUrl>FindSubscription</@ofbizUrl>" class="${selectedLeftClassMap.Subscription?default(unselectedLeftClassName)}">${uiLabelMap.ProductSubscriptions}</a></div>
 
   <#if userLogin?has_content>
     <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>

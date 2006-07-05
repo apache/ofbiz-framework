@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2006-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <!-- Subscription Screens -->
+    <screen name="FindSubscription">
+        <section>
+            <actions>
+                <set field="headerItem" value="Subscription"/>
+                <set field="titleProperty" value="PageTitleFindSubscription"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
+                                <container>
+                                    <link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/>
+                                    <link target="FindSubscriptionResource" text="${uiLabelMap.PageTitleFindSubscriptionResource}" style="buttontext"/>
+                                </container>
+                                <include-form name="FindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                <include-form name="ListFindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.SubscriptionViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonSubscriptionDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Subscription"/>
+
+                <set field="subscriptionId" from-field="parameters.subscriptionId"/>
+                <entity-one entity-name="Subscription" value-name="subscription"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="subscription"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="EditSubscription" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
+                                        <container><link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/></container>
+                                        <container><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} [${subscriptionId}]</label></container>
+                                    </widgets>
+                                </section>
+
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.SubscriptionViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSubscription">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSubscription"/>
+                <set field="tabButtonItem" value="EditSubscription"/>
+                
+                <set field="subscriptionId" from-field="parameters.subscriptionId"/>
+                <entity-one entity-name="Subscription" value-name="subscription"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSubscriptionDecorator">
+                    <decorator-section name="body">
+                        <include-form name="EditSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+
+    <!-- SubscriptionResource Screens -->
+    <screen name="FindSubscriptionResource">
+        <section>
+            <actions>
+                <set field="headerItem" value="Subscription"/>
+                <set field="titleProperty" value="PageTitleFindSubscriptionResource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
+                                <container><link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/></container>
+                                <include-form name="ListSubscriptionResources" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.SubscriptionResourceViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonSubscriptionResourceDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="SubscriptionResource"/>
+
+                <set field="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>
+                <entity-one entity-name="SubscriptionResource" value-name="subscriptionResource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="subscriptionResource"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
+                                        <container><link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/></container>
+                                        <container><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${subscriptionResource.description}" [${subscriptionResourceId}]</label></container>
+                                    </widgets>
+                                </section>
+
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.SubscriptionResourceViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSubscriptionResource">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSubscriptionResource"/>
+                <set field="tabButtonItem" value="EditSubscriptionResource"/>
+                
+                <set field="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>
+                <entity-one entity-name="SubscriptionResource" value-name="subscriptionResource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSubscriptionResourceDecorator">
+                    <decorator-section name="body">
+                        <include-form name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditSubscriptionResourceProducts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSubscriptionResourceProducts"/>
+                <set field="tabButtonItem" value="EditSubscriptionResourceProducts"/>
+
+                <set field="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSubscriptionResourceDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListSubscriptionResourceProducts" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <include-form name="AddSubscriptionResourceProduct" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

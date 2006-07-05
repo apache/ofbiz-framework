@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+$Id: $
+
+Copyright 2006-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+
+    <!-- Subscription Forms -->
+    <form name="FindSubscription" default-map-name="subscription" target="FindSubscription" type="single"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="Subscription" default-field-type="find"/>
+        
+        <field name="subscriptionResourceId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SubscriptionResource" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SubscriptionType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="originatedFromPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="originatedFromRoleTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        
+        <field name="partyNeedId"><ignored/></field>
+        <field name="needTypeId"><ignored/></field>
+        
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListFindSubscription" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
+        target="" type="list" paginate-target="FindSubscription" paginate="true">
+        <actions>
+            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Subscription"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="Subscription" default-field-type="display"/>
+
+        <field name="subscriptionResourceId" widget-style="selectBox">
+            <display-entity entity-name="SubscriptionResource" description="${description}">
+                <sub-hyperlink target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}" description="${subscriptionResourceId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}" widget-style="selectBox">
+            <display-entity entity-name="SubscriptionType" description="${description}"/>
+        </field>
+        
+        <field name="originatedFromPartyId"><display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}" key-field-name="partyId"/></field>
+        <field name="originatedFromRoleTypeId"><display-entity entity-name="RoleType" description="${description}" key-field-name="roletypeId"/></field>
+        
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}"/></field>
+        <field name="roleTypeId" widget-style="selectBox"><display-entity entity-name="RoleType" description="${description}" key-field-name="roletypeId"/></field>
+        
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        
+        <field name="partyNeedId"><ignored/></field>
+        <field name="needTypeId"><ignored/></field>
+        
+        <field name="subscriptionId" widget-style="buttontext">
+            <hyperlink description="${subscriptionId}" target="EditSubscription?subscriptionId=${subscriptionId}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditSubscription" type="single" target="updateSubscription" default-map-name="subscription"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="subscription==null" target="createSubscription"/>
+        <auto-fields-service service-name="updateSubscription"/>
+ 
+        <field use-when="subscription!=null" name="subscriptionId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="subscription==null&amp;&amp;subscriptionId==null" name="subscriptionId"><ignored/></field>
+        <field use-when="subscription==null&amp;&amp;subscriptionId!=null" name="subscriptionId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionId}]" also-hidden="false"/></field>
+
+        <field name="subscriptionResourceId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="SubscriptionResource" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SubscriptionType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="originatedFromPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="originatedFromRoleTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        
+        <field name="partyNeedId"><ignored/></field>
+        <field name="needTypeId"><ignored/></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- SubscriptionResource Forms -->
+    <form name="ListSubscriptionResources" type="list" list-name="examples" paginate-target="FindSubscriptionResource"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="SubscriptionResource">
+                <order-by field-name="description"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="SubscriptionResource" default-field-type="display"/>
+
+        <field name="parentResourceId"><ignored/></field>
+
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="contentId">
+            <display-entity entity-name="Content" description="${contentName}">
+                <sub-hyperlink target="/content/control/EditContent?contentId=${contentId}" description="${contentId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="webSiteId">
+            <display-entity entity-name="WebSite" description="${siteName}">
+                <sub-hyperlink target="/content/control/EditWebSite?webSiteId=${webSiteId}" description="${webSiteId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        
+        <field name="subscriptionResourceId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${subscriptionResourceId}" target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}"/>
+        </field>
+    </form>
+    <form name="EditSubscriptionResource" type="single" target="updateSubscriptionResource" default-map-name="subscriptionResource"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="subscriptionResource==null" target="createSubscriptionResource"/>
+        <auto-fields-service service-name="updateSubscriptionResource"/>
+        
+        <field use-when="subscriptionResource!=null" name="subscriptionResourceId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="subscriptionResource==null&amp;&amp;subscriptionResourceId==null" name="subscriptionResourceId"><ignored/></field>
+        <field use-when="subscriptionResource==null&amp;&amp;subscriptionResourceId!=null" name="subscriptionResourceId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionResourceId}]" also-hidden="false"/></field>
+
+        <field name="parentResourceId"><ignored/></field>
+        
+        <field name="description" title="${uiLabelMap.CommonDescription}"/>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="webSiteId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]">
+                    <entity-order-by field-name="siteName"/>
+                </entity-options>
+            </drop-down>
+        </field>        
+        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <!-- ProductSubscriptionResource -->
+    <form name="ListSubscriptionResourceProducts" type="list"  list-name="productSubscriptionResource"  target="updateProductSubscriptionResourceSr"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="ProductSubscriptionResource">
+                <condition-expr field-name="subscriptionResourceId" env-name="subscriptionResourceId"/>
+                <order-by field-name="productId"/>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateProductSubscriptionResource"/>
+        
+        <field name="subscriptionResourceId"><hidden/></field>
+        <field name="productId" widget-style="tabletext"><display/></field>
+        <field name="useTimeUomId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" description="${description} (${abbreviation})">
+                    <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="useRoleTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteProductSubscriptionResourceSr?subscriptionResourceId=${subscriptionResourceId}&amp;productId=${productId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddSubscriptionResourceProduct" type="single" 
+        target="createProductSubscriptionResourceSr" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createProductSubscriptionResource"/>
+        
+        <field name="subscriptionResourceId"><hidden/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="useTimeUomId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" description="${description} (${abbreviation})">
+                    <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="useRoleTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

@@ -28,7 +28,6 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
     <service name="updateSubscription" default-entity-name="Subscription" auth="true" engine="simple"
         location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscription">
         <description>Update a Subscription Record</description>
@@ -56,14 +55,31 @@ under the License.
     <service name="createSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="simple"
         location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscriptionResource">
         <description>Create a SubscriptionResource Record</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
     <service name="updateSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="simple"
         location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionResource">
         <description>Update a SubscriptionResource Record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createProductSubscriptionResource">
+        <description>Create a ProductSubscriptionResource Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateProductSubscriptionResource">
+        <description>Update a ProductSubscriptionResource Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="deleteProductSubscriptionResource">
+        <description>Delete a ProductSubscriptionResource Record</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>

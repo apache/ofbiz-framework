@@ -170,7 +170,6 @@
     <entity-group group="org.ofbiz" entity="ProductReview" />
     <entity-group group="org.ofbiz" entity="ProductSearchConstraint" />
     <entity-group group="org.ofbiz" entity="ProductSearchResult" />
-    <entity-group group="org.ofbiz" entity="ProductSubscriptionResource" />
     <entity-group group="org.ofbiz" entity="ProductType" />
     <entity-group group="org.ofbiz" entity="ProductTypeAttr" />
     <entity-group group="org.ofbiz" entity="ProductVirtualAndAssocPrices" />
@@ -243,6 +242,7 @@
     <!-- org.ofbiz.content.subscription -->
     <!-- ========================================================= -->
     
+    <entity-group group="org.ofbiz" entity="ProductSubscriptionResource" />
     <entity-group group="org.ofbiz" entity="Subscription" />
     <entity-group group="org.ofbiz" entity="SubscriptionActivity" />
     <entity-group group="org.ofbiz" entity="SubscriptionAttribute" />

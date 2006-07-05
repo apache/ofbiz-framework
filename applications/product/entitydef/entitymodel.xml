@@ -2278,34 +2278,6 @@
         <key-map field-name="visitId"/>
       </relation>
     </entity>
-    <entity entity-name="ProductSubscriptionResource" package-name="org.ofbiz.product.product" 
-        title="Product Subscription Resource Entity">
-        <field name="productId" type="id-ne"></field>
-        <field name="subscriptionResourceId" type="id-ne"></field>
-        <field name="fromDate" type="date-time"></field>
-        <field name="thruDate" type="date-time"></field>
-        <field name="purchaseFromDate" type="date-time"></field>
-        <field name="purchaseThruDate" type="date-time"></field>
-        <field name="useCountLimit" type="numeric"></field>
-        <field name="useTime" type="numeric"></field>
-        <field name="useTimeUomId" type="id"></field>
-        <field name="useRoleTypeId" type="id"></field>
-        <prim-key field="productId"/>
-        <prim-key field="subscriptionResourceId"/>
-        <prim-key field="fromDate"/>
-        <relation type="one" fk-name="PROD_SBRS_PROD" rel-entity-name="Product">
-            <key-map field-name="productId"/>
-        </relation>
-        <relation type="one" fk-name="PROD_SBRS_SBRS" rel-entity-name="SubscriptionResource">
-            <key-map field-name="subscriptionResourceId"/>
-        </relation>
-        <relation type="one" fk-name="PROD_SBRS_URT" title="Use" rel-entity-name="RoleType">
-            <key-map field-name="useRoleTypeId" rel-field-name="roleTypeId"/>
-        </relation>
-        <relation type="one" fk-name="PROD_SBRS_UTU" title="UseTime" rel-entity-name="Uom">
-            <key-map field-name="useTimeUomId" rel-field-name="uomId"/>
-        </relation>
-    </entity>
     <entity entity-name="ProductType"
             package-name="org.ofbiz.product.product"
             title="Product Type Entity" default-resource-name="ProductEntityLabels">
@@ -3592,6 +3564,33 @@
     <!-- org.ofbiz.product.subscription -->
     <!-- ========================================================= -->
     
+    <entity entity-name="ProductSubscriptionResource" package-name="org.ofbiz.product.subscription" title="Product Subscription Resource Entity">
+        <field name="productId" type="id-ne"></field>
+        <field name="subscriptionResourceId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="purchaseFromDate" type="date-time"></field>
+        <field name="purchaseThruDate" type="date-time"></field>
+        <field name="useCountLimit" type="numeric"></field>
+        <field name="useTime" type="numeric"></field>
+        <field name="useTimeUomId" type="id"></field>
+        <field name="useRoleTypeId" type="id"></field>
+        <prim-key field="productId"/>
+        <prim-key field="subscriptionResourceId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PROD_SBRS_PROD" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_SBRS_SBRS" rel-entity-name="SubscriptionResource">
+            <key-map field-name="subscriptionResourceId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_SBRS_URT" title="Use" rel-entity-name="RoleType">
+            <key-map field-name="useRoleTypeId" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_SBRS_UTU" title="UseTime" rel-entity-name="Uom">
+            <key-map field-name="useTimeUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
     <entity entity-name="Subscription" package-name="org.ofbiz.product.subscription" title="Subscription Entity">
         <field name="subscriptionId" type="id-ne"></field>
         <field name="subscriptionResourceId" type="id"></field>
