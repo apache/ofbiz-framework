@@ -134,6 +134,17 @@ under the License.
         <attribute name="workEffortGoodStandard" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="issueInventoryItemToWorkEffort" engine="simple"
+                location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="issueInventoryItemToWorkEffort" auth="false">
+        <description>
+            Issue one InventoryItem (or part of it) to a WorkEffort.
+            Note that this skips the normal inventory reservation process.
+        </description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItem" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="quantityIssued" type="Double" mode="OUT" optional="false"/>
+    </service>
     <service name="productionRunProduce" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="productionRunProduce" auth="true">
         <description>
@@ -155,6 +166,9 @@ under the License.
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="unitCost" type="Double" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="createSerializedInventory" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="productionRunTaskReturnMaterial" engine="java"
@@ -166,6 +180,24 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="createSerializedInventory" type="Boolean" mode="IN" optional="true"/>
+    </service>
+    <service name="checkDecomposeInventoryItem" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="decomposeInventoryItem" auth="true">
+        <description>
+            If the inventory item is for a 'marketing package' run the decomposeInventoryItem service.
+            It is intended to be called as seca when a marketing package is received into warehouse (e.g. from a return).
+        </description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityAccepted" type="Double" mode="IN" optional="true"/>
+    </service>
+    <service name="decomposeInventoryItem" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="decomposeInventoryItem" auth="true">
+        <description>
+            Create a decompose work effort, issue the inventory item (or part of it), and put in warehouse its components.
+            It is intended to be called when a marketing package is received into warehouse (e.g. from a return).
+        </description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
     </service>
     <service name="updateProductionRunTask" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="updateProductionRunTask" auth="true">

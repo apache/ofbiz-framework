@@ -227,5 +227,65 @@ under the License.
             </if-compare>
         </if-compare>
     </simple-method>
+
+    <simple-method method-name="issueInventoryItemToWorkEffort" short-description="Issue one InventoryItem to a WorkEffort">
+        <set field="inventoryItem" from-field="parameters.inventoryItem"/>
+        <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="inventoryItem.inventoryItemTypeId">
+            <if-compare value="INV_AVAILABLE" operator="equals" field-name="inventoryItem.statusId">
+                <!-- change status on inventoryItem -->
+                <set field="inventoryItem.statusId" value="INV_DELIVERED"/>
+                <store-value value-name="inventoryItem"/>
+
+                <!-- create ItemIssuance record -->
+                <set field="issuanceCreateMap.workEffortId" from-field="parameters.workEffortId"/>
+                <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+                <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
+                <field-to-result field-name="issuanceCreateMap.quantity" result-name="quantityIssued"/>
+            </if-compare>
+        </if-compare>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
+                    <not><if-empty field-name="inventoryItem.quantityOnHandTotal"/></not>
+                    <if-compare field-name="inventoryItem.quantityOnHandTotal" operator="greater" value="0" type="Double"/>
+                </and>
+            </condition>
+            <then>
+                <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.quantityOnHandTotal" type="Double">
+                    <set from-field="inventoryItem.quantityOnHandTotal" field="deductAmount"/>
+                <else>
+                    <set from-field="parameters.quantity" field="deductAmount"/>
+                </else>
+                </if-compare-field>
+
+                <!-- create WorkEffortInventoryAssign record -->
+                <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
+                <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
+                <set from-field="deductAmount" field="issuanceCreateMap.quantity"/>
+                <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
+                </call-service>
+
+                <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+                <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
+                <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
+                <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                    <calcop field-name="deductAmount" operator="negative"/>
+                </calculate>
+                <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                    <calcop field-name="deductAmount" operator="negative"/>
+                </calculate>
+                <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                <field-to-result field-name="deductAmount" result-name="quantityIssued"/>
+            </then>
+            <else>
+                <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                <field-to-result field-name="deductAmount" result-name="quantityIssued"/>
+            </else>
+        </if>
+    </simple-method>
+
 </simple-methods>
 

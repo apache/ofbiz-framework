@@ -1385,16 +1385,21 @@ public class ProductionRunServices {
         Double quantity = (Double)context.get("quantity");
         
         // Optional input fields
+        String facilityId = (String)context.get("facilityId");
+        String currencyUomId = (String)context.get("currencyUomId");
+        Double unitCost = (Double)context.get("unitCost");
         Boolean createSerializedInventory = (Boolean)context.get("createSerializedInventory");
         
         // The default is non-serialized inventory item
         if (createSerializedInventory == null) {
             createSerializedInventory = new Boolean(false);
         }
-        // TODO: if the task is not running, then return an error message.
-
-        // The production run is loaded
-        ProductionRun productionRun = new ProductionRun(productionRunTaskId, delegator, dispatcher);
+        
+        if (facilityId == null) {
+            // The production run is loaded
+            ProductionRun productionRun = new ProductionRun(productionRunTaskId, delegator, dispatcher);
+            facilityId = productionRun.getGenericValue().getString("facilityId");
+        }
 
         if (createSerializedInventory.booleanValue()) {
             try {
@@ -1403,10 +1408,13 @@ public class ProductionRunServices {
                     Map serviceContext = UtilMisc.toMap("productId", productId,
                                                         "inventoryItemTypeId", "SERIALIZED_INV_ITEM",
                                                         "statusId", "INV_AVAILABLE");
-                    serviceContext.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
+                    serviceContext.put("facilityId", facilityId);
                     serviceContext.put("datetimeReceived", UtilDateTime.nowDate());
                     serviceContext.put("comments", "Created by production run task " + productionRunTaskId);
-                    //serviceContext.put("serialNumber", productionRunTaskId);
+                    if (unitCost != null) {
+                        serviceContext.put("unitCost", unitCost);
+                        serviceContext.put("currencyUomId", currencyUomId);
+                    }
                     serviceContext.put("userLogin", userLogin);
                     Map resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                     String inventoryItemId = (String)resultService.get("inventoryItemId");
@@ -1432,9 +1440,13 @@ public class ProductionRunServices {
             try {
                 Map serviceContext = UtilMisc.toMap("productId", productId,
                                                     "inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
-                serviceContext.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
+                serviceContext.put("facilityId", facilityId);
                 serviceContext.put("datetimeReceived", UtilDateTime.nowTimestamp());
                 serviceContext.put("comments", "Created by production run task " + productionRunTaskId);
+                if (unitCost != null) {
+                    serviceContext.put("unitCost", unitCost);
+                    serviceContext.put("currencyUomId", currencyUomId);
+                }
                 serviceContext.put("userLogin", userLogin);
                 Map resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                 String inventoryItemId = (String)resultService.get("inventoryItemId");
@@ -2196,4 +2208,132 @@ public class ProductionRunServices {
         return result;
     }
 
+    public static Map checkDecomposeInventoryItem(DispatchContext ctx, Map context) {
+        Map result = new HashMap();
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        Timestamp now = UtilDateTime.nowTimestamp();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String inventoryItemId = (String)context.get("inventoryItemId");
+        Double quantity = (Double)context.get("quantityAccepted");
+        try {
+            GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
+            if (inventoryItem == null) {
+                return ServiceUtil.returnError("Error: inventory item with id [" + inventoryItemId + "] not found.");
+            }
+            GenericValue product = inventoryItem.getRelatedOne("Product");
+            if (product == null) {
+                return ServiceUtil.returnError("Error: product with id [" + inventoryItem.get("productId") + "] not found.");
+            }
+            if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+                Map serviceContext = UtilMisc.toMap("inventoryItemId", inventoryItemId,
+                                                    "userLogin", userLogin);
+                if (quantity != null) {
+                    serviceContext.put("quantity", quantity);
+                }
+                dispatcher.runSync("decomposeInventoryItem", serviceContext);
+            }
+        } catch (Exception e) {
+            Debug.logError(e, "Problem calling the checkDecomposeInventoryItem service", module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map decomposeInventoryItem(DispatchContext ctx, Map context) {
+        Map result = new HashMap();
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        Timestamp now = UtilDateTime.nowTimestamp();
+        List msgResult = new LinkedList();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        // Mandatory input fields
+        String inventoryItemId = (String)context.get("inventoryItemId");
+        Double quantity = (Double)context.get("quantity");
+
+        try {
+            GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
+            if (inventoryItem == null) {
+                return ServiceUtil.returnError("Error decomposing inventory item: inventory item with id [" + inventoryItemId + "] not found.");
+            }
+            // the work effort (disassemble order) is created
+            Map serviceContext = UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_HEADER",
+                                 "workEffortPurposeTypeId", "WEPT_PRODUCTION_RUN",
+                                 "currentStatusId", "PRUN_CREATED");
+            serviceContext.put("workEffortName", "Decompose inventory item [" + inventoryItem.getString("inventoryItemId") + "]");
+            serviceContext.put("facilityId", inventoryItem.getString("facilityId"));
+            serviceContext.put("estimatedStartDate", now);
+            serviceContext.put("userLogin", userLogin);
+            Map resultService = dispatcher.runSync("createWorkEffort", serviceContext);
+            String workEffortId = (String)resultService.get("workEffortId");
+            // the inventory (marketing package) is issued
+            serviceContext.clear();
+            serviceContext = UtilMisc.toMap("inventoryItem", inventoryItem,
+                                 "workEffortId", workEffortId,
+                                 "userLogin", userLogin);
+            if (quantity != null) {
+                serviceContext.put("quantity", quantity);
+            }
+            resultService = dispatcher.runSync("issueInventoryItemToWorkEffort", serviceContext);
+            Double issuedQuantity = (Double)resultService.get("issuedQuantity");
+            // TODO: get the package's unit cost
+            serviceContext.clear();
+            serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),
+                                 "currencyUomId", inventoryItem.getString("currencyUomId"),
+                                 "costComponentTypePrefix", "EST_STD_",
+                                 "userLogin", userLogin);
+            resultService = dispatcher.runSync("getProductCost", serviceContext);
+            Double packageCost = (Double)resultService.get("productCost");
+            if (packageCost == null || packageCost.doubleValue() == 0) {
+                packageCost = new Double(1.0);
+            }
+            Double inventoryItemCost = (Double)inventoryItem.getDouble("unitCost");
+            if (inventoryItemCost == null) {
+                inventoryItemCost = new Double(1.0);
+            }
+            Double costCoefficient = new Double(inventoryItemCost.doubleValue() / packageCost.doubleValue());
+            
+            // the components are retrieved
+            serviceContext.clear();
+            serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),
+                                 "quantity", issuedQuantity,
+                                 "userLogin", userLogin);
+            resultService = dispatcher.runSync("getManufacturingComponents", serviceContext);
+            List components = (List)resultService.get("componentsMap");
+            if (components == null || components.isEmpty()) {
+                return ServiceUtil.returnError("Error decomposing inventory item: no components found for marketing package [" + inventoryItem.getString("productId") + "].");
+            }
+            Iterator componentsIt = components.iterator();
+            while (componentsIt.hasNext()) {
+                Map component = (Map)componentsIt.next();
+                // get the component's unit cost
+                serviceContext.clear();
+                serviceContext = UtilMisc.toMap("productId", ((GenericValue)component.get("product")).getString("productId"),
+                                     "currencyUomId", inventoryItem.getString("currencyUomId"),
+                                     "costComponentTypePrefix", "EST_STD_",
+                                     "userLogin", userLogin);
+                resultService = dispatcher.runSync("getProductCost", serviceContext);
+                Double componentCost = (Double)resultService.get("productCost");
+                Double componentInventoryItemCost = new Double(costCoefficient.doubleValue() * componentCost.doubleValue());
+                serviceContext.clear();
+                serviceContext = UtilMisc.toMap("productId", ((GenericValue)component.get("product")).getString("productId"),
+                                     "quantity", component.get("quantity"),
+                                     "facilityId", inventoryItem.getString("facilityId"),
+                                     "unitCost", componentInventoryItemCost,
+                                     "userLogin", userLogin);
+                serviceContext.put("workEffortId", workEffortId);
+                resultService = dispatcher.runSync("productionRunTaskProduce", serviceContext);
+            }
+            // the components are put in warehouse
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem calling the createWorkEffort service", module);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem calling the createWorkEffort service", module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
 }
