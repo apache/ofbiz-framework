@@ -93,13 +93,29 @@
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacility.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="facility"/></not>
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="CommonFacilityDecorator">
+                            <decorator-section name="body">
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
+                                </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                            <decorator-section name="body">
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
+                                </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>
