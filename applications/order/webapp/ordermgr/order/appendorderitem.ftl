@@ -43,6 +43,8 @@
           <tr>
             <td>
               <form method="post" action="<@ofbizUrl>appendItemToOrder?${paramString}</@ofbizUrl>" name="appendItemForm" style="margin: 0;">
+              <#-- TODO: Presently, this is the ofbiz way of getting the prodCatalog, which is not generic. Replace with a selecatble list defaulting to this instead -->
+              <input type="hidden" name="prodCatalogId" value="${Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)}"/>
               <table border="0">
                 <tr>
                   <td align="right"><div class="tableheadtext">${uiLabelMap.ProductProductId} :</div></td>

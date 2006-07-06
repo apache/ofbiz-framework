@@ -59,6 +59,7 @@ import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.party.party.PartyWorker;
+import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -2822,10 +2823,11 @@ public class OrderServices {
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String orderId = (String) context.get("orderId");
         String productId = (String) context.get("productId");
+        String prodCatalogId = (String) context.get("prodCatalogId");
         Double basePrice = (Double) context.get("basePrice");
         Double quantity = (Double) context.get("quantity");
         Double amount = (Double) context.get("amount");
-        Boolean overridePrice = (Boolean) context.get("overridePrice");
+        String overridePrice = (String) context.get("overridePrice");
 
         if (amount == null) {
             amount = new Double(0.00);

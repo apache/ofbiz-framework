@@ -454,6 +454,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         try {
             newItem.setQuantity(quantity, dispatcher, cart, triggerExternalOps, true, triggerPriceRules);
         } catch (CartItemModifyException e) {
+            Debug.logWarning(e.getMessage(), module);
             cart.removeCartItem(cart.getItemIndex(newItem), dispatcher);
             cart.clearItemShipInfo(newItem);
             cart.removeEmptyCartItems();
