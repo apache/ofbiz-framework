@@ -42,10 +42,13 @@ is ${ofbiz.home}/framework/webapp/lib/ -->
        <fo:flow flow-name="xsl-region-body">
        <#assign segments = Static["org.ofbiz.base.util.UtilHttp"].parseMultiFormData(parameters)>
        <#list segments as segment>
-         <fo:block break-before="page"> <#-- this tells fop to put a page break before this content -->
+         <fo:block break-before="page"> <#-- this tells fop to put a page break before this content TODO: content-type must be dynamic -->
            <fo:external-graphic content-type="content-type:image/gif" src="<@ofbizUrl>viewShipmentLabel?shipmentId=${segment.shipmentId}&amp;shipmentRouteSegmentId=${segment.shipmentRouteSegmentId}&amp;shipmentPackageSeqId=${segment.shipmentPackageSeqId}</@ofbizUrl>"></fo:external-graphic>
          </fo:block>
       </#list>
+      <#if segments.size() == 0>
+        <fo:block>No Shipping Labels Selected</fo:block>
+      </#if>
       </fo:flow>
   </fo:page-sequence>
 </fo:root>
