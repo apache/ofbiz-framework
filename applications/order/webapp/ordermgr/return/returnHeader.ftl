@@ -137,7 +137,7 @@
             <option value="${currentAccount.billingAccountId}">${currentAccount.billingAccountId}: ${currentAccount.description?if_exists}</option>
             <option value="${currentAccount.billingAccountId}">---</option>
           </#if>
-          <option value="">${uiLabelMap.AccountingNoAccount}</option>
+          <option value="">${uiLabelMap.AccountingNewBillingAccount}</option>
           <#list billingAccountList as ba>
             <option value="${ba.billingAccountId}">${ba.billingAccountId}: ${ba.description?if_exists}</option>
           </#list>
