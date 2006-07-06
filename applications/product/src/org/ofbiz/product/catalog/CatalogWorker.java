@@ -147,6 +147,12 @@ public class CatalogWorker {
         return null;
     }
 
+    /**
+     * Retrieves the current prodCatalogId.  First it will attempt to find it from a special
+     * request parameter or session attribute named CURRENT_CATALOG_ID.  Failing that, it will
+     * get the first catalog from the database as specified in getCatalogIdsAvailable().  
+     * If this behavior is undesired, give the user a selectable list of catalogs.
+     */
     public static String getCurrentCatalogId(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
         Map requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
