@@ -340,6 +340,34 @@ under the License.
             <link target="EditFixedAssetMaintMeters?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
     </menu>  
+    <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" default-selected-style="tabButtonSelected" 
+        default-title-style="tabButton" default-tooltip-style="tabletext" default-widget-style="tabButton" 
+        orientation="horizontal" type="simple">
+        <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
+            <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="FixedAssetChildren" title="${uiLabelMap.AccountingFixedAssetChildren}">
+            <link target="FixedAssetChildren?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="ListFixedAssetProducts" title="${uiLabelMap.AccountingFixedAssetProducts}">
+            <link target="ListFixedAssetProducts?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="ListFixedAssetCalendar" title="${uiLabelMap.AccountingFixedAssetCalendar}">
+            <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="ListFixedAssetStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
+            <link target="ListFixedAssetStdCosts?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="EditFixedAssetIdents" title="${uiLabelMap.AccountingFixedAssetIdents}">
+            <link target="EditFixedAssetIdents?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="EditFixedAssetRegistrations" title="${uiLabelMap.AccountingFixedAssetRegistrations}">
+            <link target="EditFixedAssetRegistrations?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="ListFixedAssetMaints" title="${uiLabelMap.AccountingFixedAssetMaints}">
+            <link target="ListFixedAssetMaints?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+    </menu>
     
 </menus>
     

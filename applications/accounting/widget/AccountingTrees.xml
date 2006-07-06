@@ -48,9 +48,25 @@
                 <entity-and entity-name="GlAccount" >
                     <field-map field-name="parentGlAccountId" env-name="glAccountId" />
                 </entity-and>
-
             </sub-node>
         </node>
     </tree>
-    
+    <tree name="TreeFixedAsset" root-node-name="node-root" entity-name="FixedAsset"
+        default-render-style="expand-collapse" default-wrap-style="treeWrapper">
+        <node name="node-root"  render-style="simple">
+            <sub-node node-name="node-body">
+                <entity-and entity-name="FixedAsset" >
+                    <field-map field-name="parentFixedAssetId"  env-name="fixedAssetId" />
+                </entity-and >
+            </sub-node>
+        </node>
+        <node name="node-body" wrap-style="treewrapper">
+            <link style="treeitem" target="FixedAssetChildren?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}" text="${fixedAssetId} ${fixedAssetName} ${instanceOfProductId} ${fixedAssetTypeId} " />
+            <sub-node node-name="node-body" >
+                <entity-and entity-name="FixedAsset" >
+                    <field-map field-name="parentFixedAssetId" env-name="fixedAssetId" />
+                </entity-and>
+            </sub-node>
+        </node> 
+    </tree>
 </trees>

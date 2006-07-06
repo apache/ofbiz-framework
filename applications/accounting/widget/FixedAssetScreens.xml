@@ -289,4 +289,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- Fixed Asset Children --> 
+    <screen name="FixedAssetChildren">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListFixedAssetChildren"/>
+                <set field="tabButtonItem" value="FixedAssetChildren"/>
+                <set field="labelTitleProperty" value="PageTitleListFixedAssetChildren"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="trail" from-field="parameters.trail" default-value="${parameters.fixedAssetId}"/>
+                <set field="fixedAssetId" from-field="parameters.trail"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-tree name="TreeFixedAsset" location="component://accounting/widget/AccountingTrees.xml" /> 
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

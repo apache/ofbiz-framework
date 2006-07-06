@@ -189,9 +189,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field-name="fixedAssetId"/></not></condition>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/accounting/fixedasset/FixedAssetTabBar.ftl"/></html>
-                                        </platform-specific>
+                                        <include-menu name="FixedAssetTabBar" location="component://accounting/widget/Menus.xml"/>
                                         <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${uiLabelMap.CommonId}:${fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                 </section>
