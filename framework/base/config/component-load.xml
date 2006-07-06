@@ -23,5 +23,4 @@ under the License.
     <load-components parent-directory="${ofbiz.home}/applications"/>
     <load-components parent-directory="${ofbiz.home}/specialized"/>
     <load-components parent-directory="${ofbiz.home}/hot-deploy"/>
-    <load-component component-location="${ofbiz.home}/website"/>
 </component-loader>
