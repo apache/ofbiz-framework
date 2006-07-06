@@ -249,11 +249,12 @@
         <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="overridePrice" type="String" mode="IN" optional="true"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
         <attribute name="basePrice" type="Double" mode="IN" optional="true"/>
         <attribute name="quantity" type="Double" mode="IN" optional="false"/>
         <attribute name="amount" type="Double" mode="IN" optional="true"/>
-        <attribute name="overridePrice" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="overridePrice" type="String" mode="IN" optional="true"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
 
