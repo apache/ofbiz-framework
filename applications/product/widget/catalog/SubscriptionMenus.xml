@@ -34,7 +34,7 @@ under the License.
         <menu-item name="EditSubscriptionResource" title="${uiLabelMap.ProductSubscriptionResource}">
             <link target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}"/>
         </menu-item>
-        <menu-item name="EditSubscriptionResourceProducts" title="${uiLabelMap.ProductSubscriptionResourceProducts}">
+        <menu-item name="EditSubscriptionResourceProducts" title="${uiLabelMap.ProductProducts}">
             <link target="EditSubscriptionResourceProducts?subscriptionResourceId=${subscriptionResourceId}"/>
         </menu-item>
     </menu>

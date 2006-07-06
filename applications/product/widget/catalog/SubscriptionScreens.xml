@@ -162,7 +162,10 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
-                                        <container><link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/></container>
+                                        <container>
+                                            <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/>
+                                            <link target="FindSubscription?subscriptionResourceId=${subscriptionResourceId}" text="${uiLabelMap.ProductFindResourceSubscriptions}" style="buttontext"/>
+                                        </container>
                                         <container><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${subscriptionResource.description}" [${subscriptionResourceId}]</label></container>
                                     </widgets>
                                 </section>

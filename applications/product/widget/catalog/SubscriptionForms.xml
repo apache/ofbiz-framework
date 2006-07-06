@@ -70,34 +70,56 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListFindSubscription" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        target="" type="list" paginate-target="FindSubscription" paginate="true">
+        target="" type="list" list-name="listIt" paginate-target="FindSubscription" paginate="true">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
+            <service service-name="performFind" result-map-list-name="listIt" result-map-name="performFindResult">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="Subscription"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="Subscription" default-field-type="display"/>
 
-        <field name="subscriptionResourceId" widget-style="selectBox">
+        <field name="subscriptionResourceId">
             <display-entity entity-name="SubscriptionResource" description="${description}">
                 <sub-hyperlink target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}" description="${subscriptionResourceId}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}" widget-style="selectBox">
+        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}">
             <display-entity entity-name="SubscriptionType" description="${description}"/>
         </field>
         
-        <field name="originatedFromPartyId"><display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}" key-field-name="partyId"/></field>
-        <field name="originatedFromRoleTypeId"><display-entity entity-name="RoleType" description="${description}" key-field-name="roletypeId"/></field>
+        <field name="originatedFromPartyId">
+            <display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}" key-field-name="partyId">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${originatedFromPartyId}" target-type="inter-app" description="${originatedFromPartyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="originatedFromRoleTypeId"><display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/></field>
         
-        <field name="partyId"><display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}"/></field>
-        <field name="roleTypeId" widget-style="selectBox"><display-entity entity-name="RoleType" description="${description}" key-field-name="roletypeId"/></field>
+        <field name="partyId">
+            <display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/></field>
         
-        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
-        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
-        <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
-        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}"/>
+        </field>
+        <field name="productId">
+            <display-entity entity-name="Product" description="${productName}">
+                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="productCategoryId">
+            <display-entity entity-name="ProductCategory" description="${categoryName}">
+                <sub-hyperlink target="/catalog/control/EditProductCategory?productCategoryId=${productCategoryId}" target-type="inter-app" description="${productCategoryId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="communicationEventId">
+            <display-entity entity-name="CommunicationEvent" description="${subject}">
+                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app" description="${communicationEventId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
         
         <field name="partyNeedId"><ignored/></field>
         <field name="needTypeId"><ignored/></field>
@@ -130,7 +152,11 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="originatedFromPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="originatedFromPartyId">
+            <lookup target-form-name="LookupPartyName">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${subscription.originatedFromPartyId}" target-type="inter-app" description="${subscription.originatedFromPartyId}" link-style="buttontext"/>
+            </lookup>
+        </field>
         <field name="originatedFromRoleTypeId" widget-style="selectBox">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
@@ -139,7 +165,11 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId">
+            <lookup target-form-name="LookupPartyName">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${subscription.partyId}" target-type="inter-app" description="${subscription.partyId}" link-style="buttontext"/>
+            </lookup>
+        </field>
         <field name="roleTypeId" widget-style="selectBox">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}">
@@ -148,10 +178,26 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
-        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
-        <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
-        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
+        <field name="orderId">
+            <lookup target-form-name="LookupOrderHeader">
+                <sub-hyperlink target="/ordermgr/control/orderview?orderId=${subscription.orderId}" target-type="inter-app" description="${subscription.orderId}" link-style="buttontext"/>
+            </lookup>
+        </field>
+        <field name="productId">
+            <lookup target-form-name="LookupProduct">
+                <sub-hyperlink target="/catalog/control/EditProduct?productId=${subscription.productId}" target-type="inter-app" description="${subscription.productId}" link-style="buttontext"/>
+            </lookup>
+        </field>
+        <field name="productCategoryId">
+            <lookup target-form-name="LookupProductCategory">
+                <sub-hyperlink target="/catalog/control/EditProductCategory?productCategoryId=${subscription.productCategoryId}" target-type="inter-app" description="${subscription.productCategoryId}" link-style="buttontext"/>
+            </lookup>
+        </field>
+        <field name="communicationEventId">
+            <lookup target-form-name="LookupCommEvent">
+                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent?communicationEventId=${subscription.communicationEventId}" target-type="inter-app" description="${subscription.communicationEventId}" link-style="buttontext"/>
+            </lookup>
+        </field>
         
         <field name="partyNeedId"><ignored/></field>
         <field name="needTypeId"><ignored/></field>
@@ -174,12 +220,12 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="contentId">
             <display-entity entity-name="Content" description="${contentName}">
-                <sub-hyperlink target="/content/control/EditContent?contentId=${contentId}" description="${contentId}" link-style="buttontext"/>
+                <sub-hyperlink target="/content/control/EditContent?contentId=${contentId}" target-type="inter-app" description="${contentId}" link-style="buttontext"/>
             </display-entity>
         </field>
         <field name="webSiteId">
             <display-entity entity-name="WebSite" description="${siteName}">
-                <sub-hyperlink target="/content/control/EditWebSite?webSiteId=${webSiteId}" description="${webSiteId}" link-style="buttontext"/>
+                <sub-hyperlink target="/content/control/EditWebSite?webSiteId=${webSiteId}" target-type="inter-app" description="${webSiteId}" link-style="buttontext"/>
             </display-entity>
         </field>
         
@@ -227,7 +273,7 @@ under the License.
         <field name="productId" widget-style="tabletext"><display/></field>
         <field name="useTimeUomId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" description="${description} (${abbreviation})">
+                <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -235,7 +281,7 @@ under the License.
         </field>
         <field name="useRoleTypeId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -256,7 +302,7 @@ under the License.
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="useTimeUomId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" description="${description} (${abbreviation})">
+                <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -264,7 +310,7 @@ under the License.
         </field>
         <field name="useRoleTypeId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
