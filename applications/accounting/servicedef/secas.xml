@@ -30,7 +30,7 @@
     <eca service="createPaymentApplication" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="checkInvoicePaymentApplications" mode="sync"/>
-        <action service="createCommissionInvoices" mode="sync"/>
+        <!-- commission code not working right now for digital products; for details see Jira issue: #OFBIZ-80; <action service="createCommissionInvoices" mode="sync"/> -->
     </eca>
     <eca service="createCommissionInvoices" event="commit">
         <condition field-name="invoicesCreated" operator="is-not-empty"/>
