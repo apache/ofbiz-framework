@@ -2858,7 +2858,7 @@ public class OrderServices {
 
         // add in the new product
         try {
-            ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity.doubleValue(), null, null, null, null, null, null, null, null, null, null, null, null, dispatcher, cart, null, null);
+            ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity.doubleValue(), null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null);
             if (basePrice != null&&overridePrice!=null) {
                 item.setBasePrice(basePrice.doubleValue());
                 // special hack to make sure we re-calc the promos after a price change
