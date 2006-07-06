@@ -589,6 +589,7 @@
         <response name="error" type="view" value="EditFixedAssetRollup"/>
     </request-map>
    <!-- ================ FixedAsset Standard Costs Requests ================= -->
+    <request-map uri="FixedAssetChildren"><security https="true" auth="true"/><response name="success" type="view" value="FixedAssetChildren"/></request-map>
     <request-map uri="ListFixedAssetStdCosts"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssetStdCosts"/></request-map>
     <request-map uri="EditFixedAssetStdCost"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAssetStdCost"/></request-map>
     
@@ -1235,6 +1236,7 @@
     <view-map name="ListFixedAssetsRollUp" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetRollUp"/> 
     <view-map name="ListFixedAssetStdCosts" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetStdCosts"/>
     <view-map name="EditFixedAssetStdCost" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetStdCost"/>
+    <view-map name="FixedAssetChildren" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetChildren"/>
     <!-- agreements -->
     <view-map name="FindAgreement" type="screen" page="component://accounting/widget/AgreementScreens.xml#FindAgreement"/>
     <view-map name="EditAgreement" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreement"/>
