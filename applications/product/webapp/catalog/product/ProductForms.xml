@@ -1089,16 +1089,16 @@
         <auto-fields-service service-name="updateProductSubscriptionResource"/>
         
         <field name="productId"><hidden/></field>
-        <field name="subscriptionResourceId" title="${uiLabelMap.ExampleFeature}" widget-style="tabletext">
+        <field name="subscriptionResourceId" widget-style="tabletext">
             <display-entity entity-name="SubscriptionResource" description="${description}">
                 <sub-hyperlink target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}" description="${exampleFeatureId}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="fromDate"><display/></field>
+        <field name="fromDate" widget-style="tabletext"><display/></field>
         
         <field name="useTimeUomId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" description="${description} (${abbreviation})">
+                <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -1106,7 +1106,7 @@
         </field>
         <field name="useRoleTypeId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1119,15 +1119,22 @@
         </field>
     </form>
     <form name="AddProductSubscriptionResource" type="single" 
-        target="example_createProductSubscriptionResource"
+        target="createProductSubscriptionResource"
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductSubscriptionResource"/>
         
-        <field name="exampleId"><hidden/></field>
-        <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}"><lookup target-form-name="LookupExampleFeature"/></field>
+        <field name="productId"><hidden/></field>
+        <field name="subscriptionResourceId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="SubscriptionResource" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
         <field name="useTimeUomId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" description="${description} (${abbreviation})">
+                <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -1135,7 +1142,7 @@
         </field>
         <field name="useRoleTypeId" widget-style="selectBox">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
