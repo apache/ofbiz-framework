@@ -93,6 +93,10 @@ public class ProductContentWrapper {
     }
     
     public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator) {
+        if (product == null) {
+            return null;
+        }
+        
         String candidateFieldName = ModelUtil.dbNameToVarName(productContentTypeId);
         /* caching: there is one cache created, "product.content"  Each product's content is cached with a key of
          * contentTypeId::locale::mimeType::productId, or whatever the SEPARATOR is defined above to be.
