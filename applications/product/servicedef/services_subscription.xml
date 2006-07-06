@@ -82,4 +82,32 @@ under the License.
         <description>Delete a ProductSubscriptionResource Record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="processExtendSubscription" engine="java" auth="true"
+        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscription">
+        <description>Creates or updates Subscription record</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="subscriptionResourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="useRoleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="useTimeUomId" type="String" mode="IN" optional="false"/>
+        <attribute name="useTime" type="Integer" mode="IN" optional="false"/>
+        <attribute name="alwaysCreateNewRecord" type="String" mode="IN" optional="true"><!-- This defaults to Y (true) which means new Subscription records will be created instead of updating old ones with new thruDates. This keeps a more complete history of subscription activity. --></attribute>
+        <attribute name="subscriptionId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="processExtendSubscriptionByProduct" engine="java" auth="true"
+        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscriptionByProduct">
+        <description>Creates or updates Subscription record</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderCreatedDate" type="Timestamp" mode="IN" optional="true" />
+        <attribute name="quantity" type="Integer" mode="IN" optional="false"/>
+    </service>
+    <service name="processExtendSubscriptionByOrder" engine="java" auth="true"
+        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="processExtendSubscriptionByOrder">
+        <description>Creates or updates Subscription record</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

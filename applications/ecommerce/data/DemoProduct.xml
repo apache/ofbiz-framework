@@ -194,6 +194,13 @@
     <ProductPrice productId="WG-9943" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="549.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="WG-9943" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="550.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="WG-9943" productPricePurposeId="PURCHASE" productPriceTypeId="COMPETITIVE_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="922.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+
+    <!-- test Subscription product, a Gizmo Newsletter -->
+    <Product productId="GZ-NEWS-1MO" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Gizmo Newsletter 1 Month" internalName="Gizmo Newsletter 1 Month Subscription" description="A 1 month subscription to the Gizmo Newsletter: can be used immediately after purchase." longDescription="This newsletter will give you regular updates on the wonderful world of Gizmos!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <SubscriptionResource subscriptionResourceId="GZ-NEWS" description="Gizmo Newsletter"/>
+    <ProductSubscriptionResource productId="GZ-NEWS-1MO" subscriptionResourceId="GZ-NEWS" fromDate="2001-05-13 12:00:00.0" useTime="1" useTimeUomId="TF_mon"/>
+    <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="3.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="5.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     
     <!-- test Digital Download product -->
     <Product productId="GZ-DIG" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Digital Gizmo" internalName="Digital Gizmo" description="A digital gizmo: can be downloaded immediately after purchase." longDescription="This gizmo is part of an exciting new breed that needs no corporeal form: it is all digital! Buy and download it now!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -324,6 +331,7 @@
         productIdTo="WG-9943" quantity="1.0" reason="The Giant Widget is much better than the Big Gizmo, so much so that it makes the Big Gizmo obsolete."/>
 
     <ProductCategoryMember productCategoryId="100" productId="GZ-DIG" sequenceNum="4" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="100" productId="GZ-NEWS-1MO" sequenceNum="5" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-KIT" sequenceNum="5" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-BASKET" sequenceNum="6" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1000" sequenceNum="10" fromDate="2001-05-13 12:00:00.0"/>
@@ -344,6 +352,7 @@
     <ProductCategoryMember productCategoryId="101" productId="GZ-2644" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="101" productId="GZ-5005" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="101" productId="GZ-DIG" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="101" productId="GZ-NEWS-1MO" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-1004" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-1005" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-1006" fromDate="2001-05-13 12:00:00.0"/>
