@@ -877,7 +877,7 @@
     <request-map uri="dhlShipmentConfirm">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="dhlShipmentConfirm"/>
-        <response name="success" type="view" value="EditShipmentRouteSegments"/>
+        <response name="success" type="request-redirect" value="EditShipmentRouteSegments"/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
 
