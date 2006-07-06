@@ -799,8 +799,8 @@ public class DhlServices {
         Element labelElement = UtilXml.firstChildElement(shipmentElement, "Label");
         String encodedImageString = UtilXml.childElementValue(labelElement, "Image");
         if (encodedImageString == null) {
-            Debug.logError("Cannot find response DHL shipment label.", module);
-            // TODO VOID
+            Debug.logError("Cannot find response DHL shipment label.  Rate response document is: " + rateResponseString, module);
+            return ServiceUtil.returnError("Cannot get response DHL shipment label for shipment package route segment " + shipmentPackageRouteSeg + ".  DHL response is: " + rateResponseString);
         }
         
         // TODO: this is a temporary hack to replace the newlines so that Base64 likes the input This is NOT platform independent
