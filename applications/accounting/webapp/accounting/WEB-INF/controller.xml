@@ -402,7 +402,7 @@
     <!-- GlAccount requests -->
     <request-map uri="createGlJournalEntry">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createGlAccountRole"/>
+        <event type="service" invoke="createGlJournalEntry"/>
         <response name="success" type="view" value="EditGlJournalEntry"/>
         <response name="error" type="view" value="EditGlJournalEntry"/>
     </request-map>
