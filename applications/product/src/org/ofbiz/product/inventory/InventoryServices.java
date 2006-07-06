@@ -272,6 +272,9 @@ public class InventoryServices {
             return ServiceUtil.returnError("Inventory item store problem [" + exc.getMessage() + "]");
         }
 
+        // set the inventory transfer record to complete
+        inventoryTransfer.set("statusId", "IXF_COMPLETE");
+        
         // store the entities
         try {
             inventoryTransfer.store();
