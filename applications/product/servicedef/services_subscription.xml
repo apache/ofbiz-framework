@@ -70,6 +70,7 @@ under the License.
         <description>Create a ProductSubscriptionResource Record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="updateProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="simple"
         location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateProductSubscriptionResource">
