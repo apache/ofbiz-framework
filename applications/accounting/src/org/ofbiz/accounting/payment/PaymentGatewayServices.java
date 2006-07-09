@@ -149,7 +149,7 @@ public class PaymentGatewayServices {
         }
 
         // prepare the return map (always return success, default finished=false, default errors=false
-        Map results = UtilMisc.toMap(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS, "finished", new Boolean(false), "errors", new Boolean(false)); 
+        Map results = UtilMisc.toMap(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS, "finished", Boolean.FALSE, "errors", Boolean.FALSE); 
 
         // if our transaction amount exists and is zero, there's nothing to process, so return
         if ((transAmount != null) && (transAmount.doubleValue() <= 0)) {
@@ -176,22 +176,27 @@ public class PaymentGatewayServices {
                     boolean processResult = processResult(dctx, processorResult, userLogin, orderPaymentPreference);
                     if (processResult) {
                         results.put("processAmount", thisAmount);
-                        results.put("finished", new Boolean(true));
+                        results.put("finished", Boolean.TRUE);
                     }
                 } catch (GeneralException e) {
-                    Debug.logError(e, "Trouble processing the result; processorResult: " + processorResult, module);
-                    results.put("errors", new Boolean(true));
+                    String errMsg = "Error saving and processing payment authorization results: " + e.toString();
+                    Debug.logError(e, errMsg + "; processorResult: " + processorResult, module);
+                    results.put(ModelService.ERROR_MESSAGE, errMsg);
+                    results.put("errors", Boolean.TRUE);
                 }
             } else {
                 // error with payment processor; will try later
-                Debug.logInfo("Invalid OrderPaymentPreference; maxAmount is 0", module);
+                String errMsg = "Invalid Order Payment Preference: maxAmount is 0";
+                Debug.logInfo(errMsg, module);
+                results.put("errors", Boolean.TRUE);
+                results.put(ModelService.ERROR_MESSAGE, errMsg);
+
                 orderPaymentPreference.set("statusId", "PAYMENT_CANCELLED");
                 try {
                     orderPaymentPreference.store();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Problem setting OrderPaymentPreference status to CANCELLED", module);
                 }
-                results.put("errors", new Boolean(true));
             }
             return results;
         } catch (GeneralException e) {
@@ -259,15 +264,13 @@ public class PaymentGatewayServices {
             } catch (GenericServiceException se) {
                 Debug.logError(se, "Error in calling authOrderPaymentPreference from authOrderPayments: " + se.toString(), module);
                 hadError += 1;
-                messages.add("Could not authorize OrderPaymentPreference [" + paymentPref.getString("orderPaymentPreferenceId") + "] for order [" + orderId + "]: "
-                    + se.toString());
+                messages.add("Could not authorize OrderPaymentPreference [" + paymentPref.getString("orderPaymentPreferenceId") + "] for order [" + orderId + "]: " + se.toString());
                 continue;
             }
 
             if (ServiceUtil.isError(results)) {
                 hadError += 1;
-                messages.add("Could not authorize OrderPaymentPreference [" + paymentPref.getString("orderPaymentPreferenceId") + "] for order [" + orderId + "]: " 
-                    + results.get(ModelService.ERROR_MESSAGE)); 
+                messages.add("Could not authorize OrderPaymentPreference [" + paymentPref.getString("orderPaymentPreferenceId") + "] for order [" + orderId + "]: " + results.get(ModelService.ERROR_MESSAGE)); 
                 continue;
             }
 
@@ -325,7 +328,7 @@ public class PaymentGatewayServices {
 
         // make sure the service name is not null
         if (serviceName == null) {
-            throw new GeneralException("Invalid payment processor, serviceName is null: + " + paymentSettings);
+            throw new GeneralException("Invalid payment processor, serviceName is null: " + paymentSettings);
         }
 
         // make the process context
@@ -390,8 +393,7 @@ public class PaymentGatewayServices {
             throw new GeneralException("ParseException in number format", e);
         }
 
-        if (Debug.verboseOn())
-            Debug.logVerbose("Charging amount: " + processAmount, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Charging amount: " + processAmount, module);
         processContext.put("processAmount", processAmount);
 
         // invoke the processor.
@@ -2052,9 +2054,9 @@ public class PaymentGatewayServices {
         Double processAmount = (Double) context.get("processAmount");
 
         if (processAmount != null && processAmount.doubleValue() >= 100.00)
-            result.put("authResult", new Boolean(true));
+            result.put("authResult", Boolean.TRUE);
         if (processAmount != null && processAmount.doubleValue() < 100.00)
-            result.put("authResult", new Boolean(false));
+            result.put("authResult", Boolean.FALSE);
             result.put("customerRespMsgs", UtilMisc.toList("Sorry this processor requires at least a $100.00 purchase."));
         if (processAmount == null)
             result.put("authResult", null);
@@ -2079,11 +2081,11 @@ public class PaymentGatewayServices {
         Double processAmount = (Double) context.get("processAmount");
 
         if (processAmount != null && processAmount.doubleValue() >= 100.00)
-            result.put("authResult", new Boolean(true));
-            result.put("captureResult", new Boolean(true));
+            result.put("authResult", Boolean.TRUE);
+            result.put("captureResult", Boolean.TRUE);
         if (processAmount != null && processAmount.doubleValue() < 100.00)
-            result.put("authResult", new Boolean(false));
-            result.put("captureResult", new Boolean(false));
+            result.put("authResult", Boolean.FALSE);
+            result.put("captureResult", Boolean.FALSE);
             result.put("customerRespMsgs", UtilMisc.toList("Sorry this processor requires at least a $100.00 purchase."));
         if (processAmount == null)
             result.put("authResult", null);
@@ -2112,7 +2114,7 @@ public class PaymentGatewayServices {
         long nowTime = new Date().getTime();
         Debug.logInfo("Test Processor Approving Credit Card", module);
 
-        result.put("authResult", new Boolean(true));
+        result.put("authResult", Boolean.TRUE);
         result.put("processAmount", context.get("processAmount"));
         result.put("authRefNum", new Long(nowTime).toString());
         result.put("authAltRefNum", new Long(nowTime).toString());
@@ -2128,8 +2130,8 @@ public class PaymentGatewayServices {
         String refNum = new Long(nowTime).toString();
         Debug.logInfo("Test Processor Approving Credit Card with Capture", module);
 
-        result.put("authResult", new Boolean(true));
-        result.put("captureResult", new Boolean(true));
+        result.put("authResult", Boolean.TRUE);
+        result.put("captureResult", Boolean.TRUE);
         result.put("processAmount", context.get("processAmount"));
         result.put("authRefNum", refNum);
         result.put("authAltRefNum", refNum);
@@ -2151,7 +2153,7 @@ public class PaymentGatewayServices {
         long nowTime = new Date().getTime();
         Debug.logInfo("Test Processor Declining Credit Card", module);
 
-        result.put("authResult", new Boolean(false));
+        result.put("authResult", Boolean.FALSE);
         result.put("processAmount", processAmount);
         result.put("authRefNum", new Long(nowTime).toString());
         result.put("authAltRefNum", new Long(nowTime).toString());
@@ -2171,7 +2173,7 @@ public class PaymentGatewayServices {
         Map result = ServiceUtil.returnSuccess();
         long nowTime = new Date().getTime();
 
-        result.put("releaseResult", new Boolean(true));
+        result.put("releaseResult", Boolean.TRUE);
         result.put("releaseAmount", context.get("releaseAmount"));
         result.put("releaseRefNum", new Long(nowTime).toString());
         result.put("releaseAltRefNum", new Long(nowTime).toString());
@@ -2188,7 +2190,7 @@ public class PaymentGatewayServices {
          long nowTime = new Date().getTime();
             Debug.logInfo("Test Capture Process", module);
 
-         result.put("captureResult", new Boolean(true));
+         result.put("captureResult", Boolean.TRUE);
          result.put("captureAmount", context.get("captureAmount"));
          result.put("captureRefNum", new Long(nowTime).toString());
          result.put("captureAltRefNum", new Long(nowTime).toString());
@@ -2224,9 +2226,9 @@ public class PaymentGatewayServices {
         Debug.log("Re-Auth Capture Test : Tx Date - " + txStamp + " : 2 Min - " + twoMinAfter + " : Now - " + nowStamp, module);
 
         if (nowStamp.after(twoMinAfter)) {
-            result.put("captureResult", new Boolean(false));
+            result.put("captureResult", Boolean.FALSE);
         } else {
-            result.put("captureResult", new Boolean(true));
+            result.put("captureResult", Boolean.TRUE);
             result.put("captureFlag", "C");
             result.put("captureMessage", "This is a test capture; no money was transferred");
         }
@@ -2242,7 +2244,7 @@ public class PaymentGatewayServices {
         long nowTime = new Date().getTime();
         Debug.logInfo("Test Refund Process", module);
 
-        result.put("refundResult", new Boolean(true));
+        result.put("refundResult", Boolean.TRUE);
         result.put("refundAmount", context.get("refundAmount"));
         result.put("refundRefNum", new Long(nowTime).toString());
         result.put("refundFlag", "R");
@@ -2255,12 +2257,11 @@ public class PaymentGatewayServices {
         long nowTime = new Date().getTime();
         Debug.logInfo("Test Refund Process", module);
 
-        result.put("refundResult", new Boolean(false));
+        result.put("refundResult", Boolean.FALSE);
         result.put("refundAmount", context.get("refundAmount"));
         result.put("refundRefNum", new Long(nowTime).toString());
         result.put("refundFlag", "R");
         result.put("refundMessage", "This is a test refund failure; no money was transferred");
         return result;
     }
-
 }
