@@ -40,6 +40,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -301,19 +302,19 @@ public class NotificationServices {
             }
             
             // fill in any missing properties with fields from the global file
-            if (httpsPort == null) {            
+            if (UtilValidate.isEmpty(httpsPort)) {            
                 httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
             }
-            if (httpServer == null) {            
+            if (UtilValidate.isEmpty(httpsServer)) {
                 httpsServer = UtilProperties.getPropertyValue("url.properties", "force.https.host", localServer);
             }
-            if (httpPort == null) {            
+            if (UtilValidate.isEmpty(httpPort)) {
                 httpPort = UtilProperties.getPropertyValue("url.properties", "port.http", "80");
             }
-            if (httpServer == null) {
+            if (UtilValidate.isEmpty(httpServer)) {
                 httpServer = UtilProperties.getPropertyValue("url.properties", "force.http.host", localServer);
             }
-            if (enableHttps == null) {
+            if (UtilValidate.isEmpty(enableHttps)) {
                 enableHttps = (UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y")) ? Boolean.TRUE : Boolean.FALSE;
             }
                                 
