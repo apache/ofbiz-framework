@@ -273,7 +273,7 @@
     </service>
     <service name="createInventoryTransfer" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryTransfer" auth="true">
-        <description>Create an inventory transfer</description>
+        <description>Create an inventory transfer.  Uses the prepareInventoryTransfer service; see comments there about transfer quantities and inventory items.</description>
         <implements service="interfaceInventoryTransfer"/>
         <attribute name="xferQty" type="Double" mode="IN" optional="false"/>
         <attribute name="inventoryTransferId" type="String" mode="OUT" optional="false"/>
@@ -286,8 +286,8 @@
     </service>
     <service name="prepareInventoryTransfer" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
-        <description>Prepares inventory item for transfer</description>
-        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
+        <description>Prepares inventory item for transfer.  If the xferQty is less than quantityOnHandTotal of the inventory item, then the inventory 
+                item is "split," and an new inventory item will be created with xferQty and used for the inventory transfer.</description> <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
         <attribute name="xferQty" type="Double" mode="IN" optional="false"/>
     </service>
     <service name="completeInventoryTransfer" engine="java"
