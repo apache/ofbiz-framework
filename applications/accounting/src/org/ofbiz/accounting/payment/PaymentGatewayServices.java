@@ -1223,85 +1223,96 @@ public class PaymentGatewayServices {
 
     public static Map processAuthResult(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        GenericValue paymentPreference = (GenericValue) context.get("orderPaymentPreference");
+        GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         Boolean authResult = (Boolean) context.get("authResult");
         String authType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         // type of auth this was can be determined by the previous status
         if (UtilValidate.isEmpty(authType)) {
-            authType = ("PAYMENT_NOT_AUTH".equals(paymentPreference.getString("statusId"))) ?
-                    AUTH_SERVICE_TYPE : REAUTH_SERVICE_TYPE;
+            authType = ("PAYMENT_NOT_AUTH".equals(orderPaymentPreference.getString("statusId"))) ? AUTH_SERVICE_TYPE : REAUTH_SERVICE_TYPE;
         }
 
-        // create the PaymentGatewayResponse
-        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-        GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
-        response.set("paymentGatewayResponseId", responseId);
-        response.set("paymentServiceTypeEnumId", authType);
-        response.set("orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
-        response.set("paymentMethodTypeId", paymentPreference.get("paymentMethodTypeId"));
-        response.set("paymentMethodId", paymentPreference.get("paymentMethodId"));
-        response.set("transCodeEnumId", "PGT_AUTHORIZE");
-        response.set("currencyUomId", currencyUomId);
-
-        // set the avs/fraud result
-        response.set("gatewayAvsResult", context.get("avsCode"));
-        response.set("gatewayScoreResult", context.get("scoreCode"));
-
-        // set the auth info
-        response.set("amount", context.get("processAmount"));
-        response.set("referenceNum", context.get("authRefNum"));
-        response.set("altReference", context.get("authAltRefNum"));
-        response.set("gatewayCode", context.get("authCode"));
-        response.set("gatewayFlag", context.get("authFlag"));
-        response.set("gatewayMessage", context.get("authMessage"));
-        response.set("transactionDate", UtilDateTime.nowTimestamp());
         try {
+            // create the PaymentGatewayResponse
+            String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+            GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+            response.set("paymentGatewayResponseId", responseId);
+            response.set("paymentServiceTypeEnumId", authType);
+            response.set("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"));
+            response.set("paymentMethodTypeId", orderPaymentPreference.get("paymentMethodTypeId"));
+            response.set("paymentMethodId", orderPaymentPreference.get("paymentMethodId"));
+            response.set("transCodeEnumId", "PGT_AUTHORIZE");
+            response.set("currencyUomId", currencyUomId);
+    
+            // set the avs/fraud result
+            response.set("gatewayAvsResult", context.get("avsCode"));
+            response.set("gatewayScoreResult", context.get("scoreCode"));
+    
+            // set the auth info
+            response.set("amount", context.get("processAmount"));
+            response.set("referenceNum", context.get("authRefNum"));
+            response.set("altReference", context.get("authAltRefNum"));
+            response.set("gatewayCode", context.get("authCode"));
+            response.set("gatewayFlag", context.get("authFlag"));
+            response.set("gatewayMessage", context.get("authMessage"));
+            response.set("transactionDate", UtilDateTime.nowTimestamp());
             delegator.create(response);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError("Error creating response information");
-        }
-
-        // create the internal messages
-        List messages = (List) context.get("internalRespMsgs");
-        if (messages != null && messages.size() > 0) {
-            Iterator i = messages.iterator();
-            while (i.hasNext()) {
-                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
-                String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                String message = (String) i.next();
-                respMsg.set("paymentGatewayRespMsgId", respMsgId);
-                respMsg.set("paymentGatewayResponseId", responseId);
-                respMsg.set("pgrMessage", message);
-                try {
+    
+            // create the internal messages
+            List messages = (List) context.get("internalRespMsgs");
+            if (messages != null && messages.size() > 0) {
+                Iterator i = messages.iterator();
+                while (i.hasNext()) {
+                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                    String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
+                    String message = (String) i.next();
+                    respMsg.set("paymentGatewayRespMsgId", respMsgId);
+                    respMsg.set("paymentGatewayResponseId", responseId);
+                    respMsg.set("pgrMessage", message);
                     delegator.create(respMsg);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError("Error creating response message information");
                 }
             }
-        }
-
-        if (response.getDouble("amount").doubleValue() != ((Double) context.get("processAmount")).doubleValue()) {
-            Debug.logWarning("The authorized amount does not match the max amount : Response - " + response + " : result - " + context, module);
-        }
-
-        // set the status of the OrderPaymentPreference
-        if (context != null && authResult.booleanValue()) {
-            paymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
-            paymentPreference.set("securityCode", null);
-        } else if (context != null && !authResult.booleanValue()) {
-            paymentPreference.set("statusId", "PAYMENT_DECLINED");
-        } else {
-            paymentPreference.set("statusId", "PAYMENT_ERROR");
-        }
-        try {
-            paymentPreference.store();
+    
+            if (response.getDouble("amount").doubleValue() != ((Double) context.get("processAmount")).doubleValue()) {
+                Debug.logWarning("The authorized amount does not match the max amount : Response - " + response + " : result - " + context, module);
+            }
+    
+            // set the status of the OrderPaymentPreference
+            if (context != null && authResult.booleanValue()) {
+                orderPaymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
+                orderPaymentPreference.set("securityCode", null);
+            } else if (context != null && !authResult.booleanValue()) {
+                orderPaymentPreference.set("statusId", "PAYMENT_DECLINED");
+            } else {
+                orderPaymentPreference.set("statusId", "PAYMENT_ERROR");
+            }
+            orderPaymentPreference.store();
+            
+            // if the payment was declined and this is a CreditCard, save that information on the CreditCard entity  
+            if (context != null && !authResult.booleanValue()) {
+                String paymentMethodId = orderPaymentPreference.getString("paymentMethodId");
+                GenericValue paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+                if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                    GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard");
+                    
+                    Long consecutiveFailedAuths = creditCard.getLong("consecutiveFailedAuths");
+                    if (consecutiveFailedAuths == null) {
+                        creditCard.set("consecutiveFailedAuths", new Long(1));
+                    } else {
+                        creditCard.set("consecutiveFailedAuths", new Long(consecutiveFailedAuths.longValue() + 1));
+                    }
+                    
+                    creditCard.set("lastFailedAuthDate", nowTimestamp);
+                    
+                    creditCard.store();
+                }
+            }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError("Error updating order payment preference information");
+            String errMsg = "Error updating payment status information: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
 
         return ServiceUtil.returnSuccess();
