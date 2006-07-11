@@ -506,14 +506,12 @@
     <service name="createPostalAddressBoundary" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createPostalAddressBoundary">
         <description>Create a Postal Address Boundary</description>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
-        <attribute name="geoId" type="String" mode="IN" optional="false"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="deletePostalAddressBoundary" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePostalAddressBoundary">
         <description>Delete a Postal Address Boundary</description>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
-        <attribute name="geoId" type="String" mode="IN" optional="false"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
     <!-- PartyClassification -->

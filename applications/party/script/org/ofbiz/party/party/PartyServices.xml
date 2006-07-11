@@ -152,56 +152,28 @@
     <simple-method method-name="createPostalAddressBoundary" short-description="Create Postal Address Boundary">
         <check-permission permission="PARTYMGR" action="_CREATE"><fail-property resource="PartyUiLabels" property="PartyCreatePostalAddressBoundaryPermissionError"/></check-permission>
         <check-errors/>
-        
-        <entity-one entity-name="PostalAddressBoundary" value-name="postalAddressBoundaryValue"/>
-        <if-empty map-name="postalAddressBoundaryValue" field-name="geoId">
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-            <create-value value-name="newEntity"/>
-        <else>
-            <set field="respond_code" value="error"/>
-            <set field="error_message" value="The Boundary already exists, cannot create."/>
-            <field-to-list field-name="error_message" list-name="error_list"/>
-            <check-errors/>
-        </else>
-        </if-empty>
+        <make-value entity-name="PostalAddressBoundary" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePostalAddressBoundary" short-description="Delete a  Postal Address Boundary">
         <check-permission permission="PARTYMGR" action="_DELETE"><fail-property resource="PartyUiLabels" property="PartyRemovePostalAddressBoundaryPermissionError"/></check-permission>
         <check-errors/>
-        <!-- DEJ20050928: why is this a remove-by-and, shouldn't it be a remove-value? -->
-        <make-value entity-name="PostalAddressBoundary" value-name="postalAddressBoundaryValue"/>
-        <set-pk-fields value-name="postalAddressBoundaryValue" map-name="parameters"/>
-        <set-nonpk-fields value-name="postalAddressBoundaryValue" map-name="parameters"/>
-        <remove-by-and entity-name="PostalAddressBoundary" map-name="postalAddressBoundaryValue"/>
+        <entity-one entity-name="PostalAddressBoundary" value-name="postalAddressBoundary"/>
+        <remove-value value-name="postalAddressBoundary"/>
     </simple-method>
     <simple-method method-name="getPostalAddressBoundary" short-description="Get Postal Address Boundary">
         <check-permission permission="PARTYMGR" action="_VIEW"><fail-property resource="PartyUiLabels" property="PartyViewPostalAddressBoundaryPermissionError"/></check-permission>
         <check-errors/>
-        <!-- search for all Boundary associations from a PostalAddress--> 
-        <make-value entity-name="PostalAddressBoundary" value-name="postalAddressBoundaryValue"/>
-        <set-pk-fields value-name="postalAddressBoundaryValue" map-name="parameters"/>
-        <find-by-and entity-name="PostalAddressBoundary" map-name="postalAddressBoundaryValue" list-name="postalAddressBoundaryList"/>
+        <make-value entity-name="PostalAddressBoundary" value-name="postalAddressBoundaryLookupMap"/>
+        <set field="postalAddressBoundaryLookupMap.geoId" from-field="parameters.geoId"/>
+        <find-by-and entity-name="PostalAddressBoundary" map-name="postalAddressBoundaryLookupMap" list-name="postalAddressBoundaries"/>
         
-        <iterate entry-name="postalAddressBoundary" list-name="postalAddressBoundaryList">
-            <!-- Search the Geo of the association -->
-            <entity-one entity-name="Geo" value-name="geoValue" auto-field-map="false">
-                <field-map field-name="geoId" env-name="postalAddressBoundary.geoId"/>
-            </entity-one>
-            
-            <!--make-value entity-name="GeoType" value-name="geoTypeValue" />
-            <set-pk-fields value-name="geoTypeValue" map-name="geoValue"/>
-            <find-by-primary-key entity-name="GeoType" map-name="geoTypeValue" value-name="geoTypeValue"/>
-            
-            <call-bsh><![CDATA[
-                return org.ofbiz.base.util.UtilMisc.toMap("geoContext", new java.util.HashMap(geoValue));
-            ]]></call-bsh>
-            <field-to-field map-name="geoTypeValue" field-name="description" to-map-name="geoContext"/-->
-
-            <field-to-list field-name="geoValue" list-name="geoList"/>
-        </iterate>       
-        <if-not-empty field-name="geoList">   
-            <field-to-result field-name="geoList"  result-name="geos"/>
-        </if-not-empty>         
+        <iterate list-name="postalAddressBoundaries" entry-name="postalAddressBoundary">
+            <get-related-one value-name="postalAddressBoundary" to-value-name="geo" relation-name="Geo"/>
+            <field-to-list field-name="geo" list-name="geos"/>
+        </iterate>
+        <field-to-result field-name="geos"/>
     </simple-method>
 
     <!-- PartyClassification methods -->
@@ -253,17 +225,6 @@
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
-    <!-- PartyRelationship methods -->
-    <simple-method method-name="removePartyRelationship" short-description="Remove PartyRelationship">      
-        <check-permission permission="PARTYMGR" action="_DELETE"><fail-property resource="PartyUiLabels" property="PartyRemovePartyRelationshipPermissionError"/></check-permission>
-        <check-errors/>   
-    
-        <make-value entity-name="PartyRelationship" value-name="relationshipMap"/>
-        <set-pk-fields map-name="parameters" value-name="relationshipMap" />
-        <find-by-primary-key entity-name="PartyRelationship" map-name="relationshipMap" value-name="relationshipValue" />
-        <remove-value value-name="relationshipValue" />
-    </simple-method>
-
     <!-- Vendor Party services -->
     <simple-method method-name="createVendor" short-description="createVendor">
         <check-permission permission="PARTYMGR" action="_CREATE">
