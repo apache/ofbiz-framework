@@ -543,7 +543,8 @@ public class OrderReturnServices {
             if (billingAccountId == null) {
                 // create new BillingAccount w/ 0 balance
                 try {
-                    Map newBa = dispatcher.runSync("createBillingAccount", UtilMisc.toMap("accountLimit", new Double(0.00), "description", "Credit Account", "userLogin", userLogin));
+                    // Note that accountLimit must be 0.0 for store credits, because the available balance of BillingAccounts is calculated as accountLimit + sum of Payments - sum of Invoices
+                    Map newBa = dispatcher.runSync("createBillingAccount", UtilMisc.toMap("accountLimit", new Double(0.00), "description", "Credit Account", "userLogin", userLogin, "accountCurrencyUomId", returnHeader.get("currencyUomId")));
                     if (!newBa.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                         billingAccountId = (String) newBa.get("billingAccountId");
                         if (billingAccountId != null) {
