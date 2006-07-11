@@ -145,6 +145,7 @@ public class ShoppingCart implements Serializable {
     protected String facilityId = null;
     protected String webSiteId = null;
     protected String terminalId = null;
+    protected String autoOrderShoppingListId = null;
 
     /** General partyId for the Order, all other IDs default to this one if not specified explicitly */
     protected String orderPartyId = null;
@@ -197,6 +198,10 @@ public class ShoppingCart implements Serializable {
         this.viewCartOnAdd = cart.viewCartOnAdd();
         this.defaultShipAfterDate = cart.getDefaultShipAfterDate();
         this.defaultShipBeforeDate = cart.getDefaultShipBeforeDate();
+        
+        this.terminalId = cart.getTerminalId();
+        this.transactionId = cart.getTransactionId();
+        this.autoOrderShoppingListId = cart.getAutoOrderShoppingListId();
         
         // clone the additionalPartyRoleMap
         this.additionalPartyRole = new HashMap();
@@ -318,6 +323,14 @@ public class ShoppingCart implements Serializable {
 
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
+    }
+
+    public String getAutoOrderShoppingListId() {
+        return this.autoOrderShoppingListId;
+    }
+
+    public void setAutoOrderShoppingListId(String autoOrderShoppingListId) {
+        this.autoOrderShoppingListId = autoOrderShoppingListId;
     }
 
     public String getFacilityId() {
@@ -3352,6 +3365,13 @@ public class ShoppingCart implements Serializable {
         result.put("firstAttemptOrderId", this.getFirstAttemptOrderId());
         result.put("currencyUom", this.getCurrency());
         result.put("billingAccountId", this.getBillingAccountId());
+
+        result.put("partyId", this.getPartyId());
+        result.put("productStoreId", this.getProductStoreId());
+        result.put("transactionId", this.getTransactionId());
+        result.put("originFacilityId", this.getFacilityId());
+        result.put("terminalId", this.getTerminalId());
+        result.put("autoOrderShoppingListId", this.getAutoOrderShoppingListId());
 
         result.put("billToCustomerPartyId", this.getBillToCustomerPartyId());
         result.put("billFromVendorPartyId", this.getBillFromVendorPartyId());

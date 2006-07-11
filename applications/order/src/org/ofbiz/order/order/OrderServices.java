@@ -473,6 +473,10 @@ public class OrderServices {
             orderHeader.set("terminalId", context.get("terminalId"));
         }
 
+        if (UtilValidate.isNotEmpty((String) context.get("autoOrderShoppingListId"))) {
+            orderHeader.set("autoOrderShoppingListId", context.get("autoOrderShoppingListId"));
+        }
+
         if (UtilValidate.isNotEmpty((String) context.get("webSiteId"))) {
             orderHeader.set("webSiteId", context.get("webSiteId"));
         }

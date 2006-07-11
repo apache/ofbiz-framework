@@ -105,6 +105,7 @@
         <attribute name="originFacilityId" type="String" mode="IN" optional="true"/>
         <attribute name="transactionId" type="String" mode="IN" optional="true"/>
         <attribute name="terminalId" type="String" mode="IN" optional="true"/>
+        <attribute name="autoOrderShoppingListId" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="internalCode" type="String" mode="IN" optional="true"/>

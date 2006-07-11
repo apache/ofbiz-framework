@@ -327,6 +327,7 @@
       <field name="productStoreId" type="id"></field>
       <field name="terminalId" type="id-long"></field>
       <field name="transactionId" type="id-long"></field>
+      <field name="autoOrderShoppingListId" type="id"></field>
       <field name="needsInventoryIssuance" type="indicator"></field>
       <field name="isRushOrder" type="indicator"></field>
       <field name="internalCode" type="id-long"></field>
@@ -350,6 +351,9 @@
       </relation>
       <relation type="one" fk-name="ORDER_HDR_PDSTR" rel-entity-name="ProductStore">
         <key-map field-name="productStoreId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_HDR_AOSHLST" title="AutoOrder" rel-entity-name="ShoppingList">
+        <key-map field-name="autoOrderShoppingListId" rel-field-name="shoppingListId"/>
       </relation>
       <relation type="one" fk-name="ORDER_HDR_CBUL" title="CreatedBy" rel-entity-name="UserLogin">
         <key-map field-name="createdBy" rel-field-name="userLoginId"/>
