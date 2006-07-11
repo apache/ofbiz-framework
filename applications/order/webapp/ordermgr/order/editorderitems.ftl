@@ -174,7 +174,7 @@
                         <@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
                       </div>
                      </td>
-                    <td>&nbsp;</td>
+                    <td colspan="3">&nbsp;</td>
                   </tr>
                 </#list>
               </#if>
@@ -227,7 +227,7 @@
                 <td align="right" colspan="4">
                   <div class="tabletext"><b>${adjustmentType.get("description",locale)}</b> ${orderHeaderAdjustment.comments?if_exists} :</div>
                 </td>
-                <td align="left" nowrap colspan="2">
+                <td align="left" nowrap>
                   <div class="tabletext"><input type="text" name="description" value="${orderHeaderAdjustment.get("description")?if_exists}" size="30" maxlength="60" class="inputBox"></div>
                 </td>
                 <td align="left" nowrap>
@@ -245,29 +245,18 @@
             <form name="addAdjustmentForm" method="post" action="<@ofbizUrl>createOrderAdjustment?${paramString}</@ofbizUrl>">
              <input type="hidden" name="comments" value="Added manually by [${userLogin.userLoginId}]"/>
               <tr>
-                <td align="right" colspan="5"><div class="tableheadtext">${uiLabelMap.OrderAdjustmentType} :</div></td>
-                <td align="left" colspan="2">
+                <td align="right" colspan="4">
+                  <span class="tableheadtext">${uiLabelMap.OrderAdjustment} :</span>
                   <select name="orderAdjustmentTypeId" class="selectBox">
                     <#list orderAdjustmentTypes as type>
                          <option value="${type.orderAdjustmentTypeId}">${type.get("description",locale)?default(type.orderAdjustmentTypeId)}</option>
                     </#list>
                   </select>
                 </td>
-              </tr>
-              <tr>
-                <td align="right" colspan="5"><div class="tableheadtext">${uiLabelMap.CommonComment} :</div></td>
-                <td align="left" colspan="2"><div class="tabletext"><input type="text" name="description" value="" size="30" maxlength="60" class="inputBox"></div></td>
-              </tr>
-              <tr>  
-                <td align="right" colspan="5"><div class="tableheadtext">${uiLabelMap.CommonAmount} :</div></td>
-                <td  align="left" colspan="2">
+                <td align="left"><div class="tabletext"><input type="text" name="description" value="" size="30" maxlength="60" class="inputBox"></div></td>
+                <td  align="left">
                    <input type="text" name="amount" size="6" value="<@ofbizAmount amount=0.00/>" class="inputBox"/>
-                </td>
-              </tr>
-              <tr >
-                <td align="right" colspan="5"></td>
-                <td align="left" colspan="3">
-                  <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/>
+                   <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/>
                 </td>
               </tr>
             </form>

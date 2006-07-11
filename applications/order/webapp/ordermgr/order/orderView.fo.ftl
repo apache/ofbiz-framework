@@ -245,6 +245,17 @@ Here is a good place to put boilerplate terms and conditions for a purchase orde
                     </fo:table-row>
                     </#if>
            </#list>
+          <#list orderHeaderAdjustments as orderHeaderAdjustment>
+            <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
+            <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
+            <#if adjustmentAmount != 0>
+            <fo:table-row>
+               <fo:table-cell></fo:table-cell>
+               <fo:table-cell number-columns-spanned="2"><fo:block font-weight="bold">${adjustmentType.get("description",locale)} : <#if orderHeaderAdjustment.get("description")?has_content>(${orderHeaderAdjustment.get("description")?if_exists})</#if> </fo:block></fo:table-cell>
+               <fo:table-cell text-align="right"><fo:block><@ofbizCurrency amount=adjustmentAmount isoCode=currencyUomId/></fo:block></fo:table-cell>
+            </fo:table-row>
+            </#if>
+          </#list>
 
            <#-- summary of order amounts --> 
                     <fo:table-row>
