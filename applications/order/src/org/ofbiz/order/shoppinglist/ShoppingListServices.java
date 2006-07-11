@@ -429,6 +429,7 @@ public class ShoppingListServices {
             if (UtilValidate.isNotEmpty(items)) {
                 listCart = new ShoppingCart(delegator, productStoreId, locale, currencyUom);
                 listCart.setOrderPartyId(shoppingList.getString("partyId"));
+                listCart.setAutoOrderShoppingListId(shoppingList.getString("shoppingListId"));
 
                 Iterator i = items.iterator();
                 while (i.hasNext()) {

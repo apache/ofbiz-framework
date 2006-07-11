@@ -517,22 +517,14 @@ public class CheckOutHelper {
         if (distributorId != null) context.put("distributorId", distributorId);
         if (affiliateId != null) context.put("affiliateId", affiliateId);
 
-        // need the partyId; don't use userLogin in case of an order via order mgr
-        String partyId = this.cart.getPartyId();
-        String facilityId = this.cart.getFacilityId();
-        String terminalId = this.cart.getTerminalId();
-        String transactionId = cart.getTransactionId();
-        String productStoreId = cart.getProductStoreId();
-
         context.put("grandTotal", grandTotal);
         context.put("userLogin", userLogin);
-        context.put("partyId", partyId);
-        context.put("productStoreId", productStoreId);
-        context.put("transactionId", transactionId);
-        context.put("originFacilityId", facilityId);
         context.put("visitId", visitId);
-        context.put("terminalId", terminalId);
         context.put("webSiteId", webSiteId);
+
+        // need the partyId; don't use userLogin in case of an order via order mgr
+        String partyId = this.cart.getPartyId();
+        String productStoreId = cart.getProductStoreId();
 
         // store the order - invoke the service
         Map storeResult = null;
