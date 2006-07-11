@@ -473,7 +473,7 @@
             <#if adjustmentAmount != 0>
               <tr>
                 <td align="right" colspan="5">					
-                  <div class="tabletext"><b>${adjustmentType.get("description",locale)}</b> : ${orderHeaderAdjustment.comments?if_exists}</div>
+                  <div class="tabletext"><b>${adjustmentType.get("description",locale)}</b> ${orderHeaderAdjustment.comments?if_exists}  ${orderHeaderAdjustment.get("description")?if_exists} : </div>
                 </td>
                 <td align="right" nowrap>
                   <div class="tabletext"><@ofbizCurrency amount=adjustmentAmount isoCode=currencyUomId/></div>

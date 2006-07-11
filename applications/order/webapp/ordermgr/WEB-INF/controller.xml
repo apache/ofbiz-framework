@@ -224,13 +224,25 @@
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
-    <request-map uri="addOrderAdjustment">
+    <request-map uri="createOrderAdjustment">
         <security https="true" auth="true"/>
         <event type="service" invoke="createOrderAdjustment"/>
-        <response name="success" type="view" value="orderview"/>
-        <response name="error" type="view" value="orderview"/>
+        <response name="success" type="view" value="editorderitems"/>
+        <response name="error" type="view" value="editorderitems"/>
     </request-map>
-
+    <request-map uri="updateOrderAdjustment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateOrderAdjustment"/>
+        <response name="success" type="view" value="editorderitems"/>
+        <response name="error" type="view" value="editorderitems"/>
+    </request-map>
+    <request-map uri="deleteOrderAdjustment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteOrderAdjustment"/>
+        <response name="success" type="view" value="editorderitems"/>
+        <response name="error" type="view" value="editorderitems"/>
+    </request-map>
+    
     <request-map uri="addpromocode">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>

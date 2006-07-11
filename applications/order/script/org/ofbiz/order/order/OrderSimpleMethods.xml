@@ -27,7 +27,7 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
-    <simple-method method-name="createOrderAdjustment" short-description="Create a ShipmentReceipt">
+    <simple-method method-name="createOrderAdjustment" short-description="Create an OrderAdjustment">
         <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderAdjustement"/></check-permission>
         <check-errors/>
 
@@ -42,7 +42,20 @@
 
         <create-value value-name="newEntity"/>
     </simple-method>
-
+    <simple-method method-name="updateOrderAdjustment" short-description="Update an OrderAdjustment">
+        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderAdjustement"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="OrderAdjustment" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteOrderAdjustment" short-description="Delete an OrderAdjustment">
+        <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderAdjustement"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="OrderAdjustment" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
     <simple-method method-name="createOrderItemBilling" short-description="Create an OrderItemBilling">
         <make-value entity-name="OrderItemBilling" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
