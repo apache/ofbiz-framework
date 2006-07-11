@@ -3530,6 +3530,12 @@
       <relation type="one-nofk" title="Exclude" rel-entity-name="Geo">
         <key-map field-name="excludeGeoId" rel-field-name="geoId"/>
       </relation>
+      <relation type="one-nofk" rel-entity-name="PartyGroup">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ShipmentMethodType">
+        <key-map field-name="shipmentMethodTypeId"/>
+      </relation>
     </view-entity>
     <entity entity-name="ProductStoreSurveyAppl"
             package-name="org.ofbiz.product.store"
