@@ -39,7 +39,7 @@
         <attribute name="authPass" type="String" mode="IN" optional="true"/>
         <attribute name="sendVia" type="String" mode="IN" optional="true"/>
         <attribute name="sendType" type="String" mode="IN" optional="true"/>
-        <attribute name="contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="contentType" type="String" mode="INOUT" optional="true"/>
         <attribute name="subject" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
