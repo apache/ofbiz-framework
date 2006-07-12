@@ -107,7 +107,7 @@
     </form>
 
     <form name="EditDataResource" target="updateDataResource" title="" type="single" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-tooltip-style="tabletext" default-widget-style="inputBox" default-map-name="currentValue">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="currentValue.statusId"/>
