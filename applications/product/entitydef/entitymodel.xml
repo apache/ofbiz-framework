@@ -3081,6 +3081,7 @@
       <field name="autoOrderCcTryOtherCards" type="indicator"><description>For auto-orders try other Credit Cards for the customer?</description></field>
       <field name="autoOrderCcTryLaterNsf" type="indicator"><description>For auto-orders if Credit Cards fails for NSF (Not Sufficient Funds) try again later?</description></field>
       <field name="autoOrderCcTryLaterMax" type="numeric"><description>For auto-orders if Credit Cards fails for NSF try again how many times?</description></field>
+      <field name="storeCreditValidDays" type="numeric"><description>How many days that store credit is valid for. Null value implies no expiration.</description></field>
       <prim-key field="productStoreId"/>
       <relation type="one" fk-name="PROD_STR_PRSTRGP" title="Primary" rel-entity-name="ProductStoreGroup">
         <key-map field-name="primaryStoreGroupId" rel-field-name="productStoreGroupId"/>
