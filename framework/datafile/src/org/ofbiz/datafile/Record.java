@@ -36,6 +36,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.NoSuchElementException;
 
+import org.ofbiz.base.util.UtilFormatOut;
+
 /**
  * Record
  *
@@ -261,7 +263,7 @@ public class Record implements Serializable {
             set(name, new Double(number));
         } // standard types
         else if (fieldType.equals("java.lang.String") || fieldType.equals("String"))
-            set(name, value);
+            set(name, UtilFormatOut.encodeXmlValue(value));
         else if (fieldType.equals("NullTerminatedString")) {
             int terminate = value.indexOf(0x0);
             set(name, terminate>0?value.substring(0,terminate):value);
