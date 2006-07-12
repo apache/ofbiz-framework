@@ -503,12 +503,12 @@
     </service>
 
     <!-- PostalAddressBoundary -->
-    <service name="createPostalAddressBoundary" engine="simple"
+    <service name="createPostalAddressBoundary" engine="simple" default-entity-name="PostalAddressBoundary"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createPostalAddressBoundary">
         <description>Create a Postal Address Boundary</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="deletePostalAddressBoundary" engine="simple"
+    <service name="deletePostalAddressBoundary" engine="simple" default-entity-name="PostalAddressBoundary"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePostalAddressBoundary">
         <description>Delete a Postal Address Boundary</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
