@@ -257,7 +257,7 @@ under the License.
                     <condition>
                         <or>
                             <if-empty field-name="parameters.quantity"/>
-                            <if-compare field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.quantityOnHandTotal" type="Double"/>
+                            <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.quantityOnHandTotal" type="Double"/>
                         </or>
                     </condition>
                     <then>
@@ -289,7 +289,7 @@ under the License.
                 <field-to-result field-name="deductAmount" result-name="quantityIssued"/>
             </then>
             <else>
-                <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                <calculate field-name="deductAmount"><number value="0"/></calculate>
                 <field-to-result field-name="deductAmount" result-name="quantityIssued"/>
             </else>
         </if>
