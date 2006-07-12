@@ -36,6 +36,7 @@ import javolution.util.FastList;
 import org.ofbiz.accounting.invoice.InvoiceWorker;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.entity.GenericDelegator;
@@ -97,6 +98,11 @@ public class BillingAccountWorker {
             while (billingAcctIter.hasNext()) {
                 GenericValue billingAccountRole = (GenericValue) billingAcctIter.next();        
                 GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount");
+
+                // skip accounts that have thruDate < nowTimestamp
+                java.sql.Timestamp thruDate = billingAccountVO.getTimestamp("thruDate");
+                if ((thruDate != null) && UtilDateTime.nowTimestamp().after(thruDate)) continue;
+
                 if (currencyUomId.equals(billingAccountVO.getString("accountCurrencyUomId"))) {
                     double accountBalance = (BillingAccountWorker.getBillingAccountBalance(billingAccountVO)).doubleValue();
                 

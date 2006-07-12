@@ -542,27 +542,12 @@ public class OrderReturnServices {
             }                        
             if (billingAccountId == null) {
                 // create new BillingAccount w/ 0 balance
-                try {
-                    // Note that accountLimit must be 0.0 for store credits, because the available balance of BillingAccounts is calculated as accountLimit + sum of Payments - sum of Invoices
-                    Map newBa = dispatcher.runSync("createBillingAccount", UtilMisc.toMap("accountLimit", new Double(0.00), "description", "Credit Account", "userLogin", userLogin, "accountCurrencyUomId", returnHeader.get("currencyUomId")));
-                    if (!newBa.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-                        billingAccountId = (String) newBa.get("billingAccountId");
-                        if (billingAccountId != null) {
-                            // set the role on the account
-                            Map newBaR = dispatcher.runSync("createBillingAccountRole", UtilMisc.toMap("billingAccountId", billingAccountId, "partyId", fromPartyId, "roleTypeId", "BILL_TO_CUSTOMER", "userLogin", userLogin));
-                            if (newBaR.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-                                Debug.logError("Error with createBillingAccountRole: " + newBaR.get(ModelService.ERROR_MESSAGE), module);
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWithCreateBillingAccountRole", locale) + newBaR.get(ModelService.ERROR_MESSAGE));
-                            }
-                        }
-                    } else {
-                        Debug.logError("Error with createBillingAccount: " + newBa.get(ModelService.ERROR_MESSAGE), module);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWithCreateBillingAccount", locale) + newBa.get(ModelService.ERROR_MESSAGE));
-                    }
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, "Problems creating BillingAccount", module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingBillingAccount", locale));
+                Map results = createBillingAccountFromReturn(returnHeader, returnItems, dctx, context);
+                if (ServiceUtil.isError(results)) {
+                    Debug.logError("Error creating BillingAccount: " + results.get(ModelService.ERROR_MESSAGE), module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWithCreateBillingAccount", locale) + results.get(ModelService.ERROR_MESSAGE));
                 }
+                billingAccountId = (String) results.get("billingAccountId");
             }
 
             // double check; make sure we have a billingAccount
@@ -684,6 +669,77 @@ public class OrderReturnServices {
         }
 
         return ServiceUtil.returnSuccess();
+    }
+
+    /**
+     * Helper method to generate a BillingAccount (store credit) from a return 
+     * header.  This method takes care of all business logic relating to
+     * the initialization of a Billing Account from the Return data.
+     *
+     * The BillingAccount.thruDate will be set to (now + 
+     * ProductStore.storeCreditValidDays + end of day).  The product stores 
+     * are obtained via the return orders, and the minimum storeCreditValidDays
+     * will be used.  The default is to set thruDate to null, which implies no 
+     * expiration.
+     *
+     * Note that we set BillingAccount.accountLimit to 0.0 for store credits.
+     * This is because the available balance of BillingAccounts is 
+     * calculated as accountLimit + sum of Payments - sum of Invoices.
+     */
+    private static Map createBillingAccountFromReturn(GenericValue returnHeader, List returnItems, DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        try {
+            // get the related product stores via the orders related to this return
+            List orders = EntityUtil.getRelated("OrderHeader", returnItems);
+            List productStores = EntityUtil.getRelated("ProductStore", orders);
+
+            // find the minimum storeCreditValidDays of all the ProductStores associated with all the Orders on the Return, skipping null ones
+            Long storeCreditValidDays = null;
+            for (Iterator iter = productStores.iterator(); iter.hasNext(); ) {
+                GenericValue productStore = (GenericValue) iter.next();
+                Long thisStoreValidDays = productStore.getLong("storeCreditValidDays");
+                if (thisStoreValidDays == null) continue;
+
+                if (storeCreditValidDays == null) {
+                    storeCreditValidDays = thisStoreValidDays;
+                } else if (thisStoreValidDays.compareTo(storeCreditValidDays) < 0) {
+                    // if this store's days < store credit valid days, use this store's days
+                    storeCreditValidDays = thisStoreValidDays;
+                }
+            }
+
+            // if there is a storeCreditValidDays, set the thruDate to (nowTimestamp + storeCreditValidDays + end of day)
+            Timestamp thruDate = null;
+            if (storeCreditValidDays != null) thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), storeCreditValidDays.intValue());
+
+            // create the billing account
+            Map input = UtilMisc.toMap("accountLimit", new Double(0.00), "description", "Credit Account for Return #" + returnHeader.get("returnId"), "userLogin", userLogin);
+            input.put("accountCurrencyUomId", returnHeader.get("currencyUomId"));
+            input.put("thruDate", thruDate);
+            Map results = dispatcher.runSync("createBillingAccount", input);
+            if (ServiceUtil.isError(results)) return results;
+            String billingAccountId = (String) results.get("billingAccountId");
+
+            // set the role on the account
+            input = UtilMisc.toMap("billingAccountId", billingAccountId, "partyId", returnHeader.get("fromPartyId"), "roleTypeId", "BILL_TO_CUSTOMER", "userLogin", userLogin);
+            Map roleResults = dispatcher.runSync("createBillingAccountRole", input);
+            if (ServiceUtil.isError(roleResults)) {
+                Debug.logError("Error with createBillingAccountRole: " + roleResults.get(ModelService.ERROR_MESSAGE), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorWithCreateBillingAccountRole", locale) + roleResults.get(ModelService.ERROR_MESSAGE));
+            }
+
+            return results;
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Entity error when creating BillingAccount: " + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingBillingAccount", locale));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Service error when creating BillingAccount: " + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingBillingAccount", locale));
+        }
     }
 
     // refund (cash/charge) return
