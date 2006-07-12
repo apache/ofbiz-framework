@@ -2216,11 +2216,19 @@ public class ProductionRunServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String inventoryItemId = (String)context.get("inventoryItemId");
+        /*
         Double quantity = (Double)context.get("quantityAccepted");
+        if (quantity != null && quantity.doubleValue() == 0) {
+            return ServiceUtil.returnSuccess();
+        }
+         */
         try {
             GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
             if (inventoryItem == null) {
                 return ServiceUtil.returnError("Error: inventory item with id [" + inventoryItemId + "] not found.");
+            }
+            if (inventoryItem.get("availableToPromiseTotal") != null && inventoryItem.getDouble("availableToPromiseTotal").doubleValue() <= 0) {
+                return ServiceUtil.returnSuccess();
             }
             GenericValue product = inventoryItem.getRelatedOne("Product");
             if (product == null) {
@@ -2229,9 +2237,11 @@ public class ProductionRunServices {
             if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
                 Map serviceContext = UtilMisc.toMap("inventoryItemId", inventoryItemId,
                                                     "userLogin", userLogin);
+                /*
                 if (quantity != null) {
                     serviceContext.put("quantity", quantity);
                 }
+                 */
                 dispatcher.runSync("decomposeInventoryItem", serviceContext);
             }
         } catch (Exception e) {
@@ -2278,7 +2288,10 @@ public class ProductionRunServices {
             }
             resultService = dispatcher.runSync("issueInventoryItemToWorkEffort", serviceContext);
             Double issuedQuantity = (Double)resultService.get("quantityIssued");
-            // TODO: get the package's unit cost
+            if (issuedQuantity.doubleValue() == 0) {
+                return ServiceUtil.returnError("Error decomposing inventory item: no marketing packages found in inventory item [" + inventoryItem.getString("inventoryItemId") + "].");
+            }
+            // get the package's unit cost
             serviceContext.clear();
             serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),
                                  "currencyUomId", inventoryItem.getString("currencyUomId"),

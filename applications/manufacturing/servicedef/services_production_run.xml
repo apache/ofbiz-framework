@@ -182,13 +182,13 @@ under the License.
         <attribute name="createSerializedInventory" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="checkDecomposeInventoryItem" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="decomposeInventoryItem" auth="true">
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="checkDecomposeInventoryItem" auth="true">
         <description>
             If the inventory item is for a 'marketing package' run the decomposeInventoryItem service.
             It is intended to be called as seca when a marketing package is received into warehouse (e.g. from a return).
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantityAccepted" type="Double" mode="IN" optional="true"/>
+        <!--<attribute name="quantityAccepted" type="Double" mode="IN" optional="true"/>-->
     </service>
     <service name="decomposeInventoryItem" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="decomposeInventoryItem" auth="true">
