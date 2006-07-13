@@ -110,6 +110,7 @@
     <entity-group group="org.ofbiz" entity="QuoteType" />
     <entity-group group="org.ofbiz" entity="QuoteTypeAttr" />
     <entity-group group="org.ofbiz" entity="QuoteWorkEffort" />
+    <entity-group group="org.ofbiz" entity="QuoteWorkEffortView" />
     <entity-group group="org.ofbiz" entity="QuoteAdjustment" />
 
     <!-- ========================================================= -->

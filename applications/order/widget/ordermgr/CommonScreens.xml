@@ -53,6 +53,9 @@
 
     <screen name="CommonQuoteDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="quote"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="body">
