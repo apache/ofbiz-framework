@@ -79,7 +79,9 @@
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="AddQuoteWorkEffort?quoteId=${quoteId}" text="[${uiLabelMap.OrderCreateOrderQuote}]" style="linktext"></link></container>
+                        <container>
+                            <link target="AddQuoteWorkEffort?quoteId=${quoteId}" text="[${uiLabelMap.OrderCreateQuoteWorkEffort}]" style="linktext"></link>
+                        </container>
                         <include-form name="ListQuoteWorkEfforts" location="component://order/widget/ordermgr/QuoteWorkEffortForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

@@ -25,12 +25,8 @@
                 <field-map field-name="quoteId"/>
             </entity-and>
         </actions>
-        <field name="quoteId" widget-style="buttontext">
-            <display-entity entity-name="Quote" description="${quoteName}" >
-                <sub-hyperlink description="[${quoteId}]" target="EditQuote?quoteId=${quoteId}" link-style="linktext"/>
-            </display-entity>
-        </field>
-        <field name="workEffortId" widget-style="buttontext">
+        <field name="quoteId"><hidden/></field>
+        <field name="workEffortId">
             <display-entity entity-name="WorkEffort" description="${workEffortName}" >
                 <sub-hyperlink description="[${workEffortId}]" target="EditQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}" link-style="linktext"/>
             </display-entity>
