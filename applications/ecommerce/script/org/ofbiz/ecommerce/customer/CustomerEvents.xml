@@ -30,29 +30,29 @@
             <field field-name="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
 
-        <env-to-env env-name="productStore.allowPassword" to-env-name="allowPassword"/>
-        <env-to-env env-name="productStore.defaultPassword" to-env-name="defaultPassword"/>
+        <set from-field="productStore.allowPassword" field="allowPassword"/>
+        <set from-field="productStore.defaultPassword" field="defaultPassword"/>
         <if-empty field-name="allowPassword">
-            <string-to-field field-name="allowPassword" string="Y"/>
+            <set field="allowPassword" value="Y"/>
         </if-empty>
         <if-empty field-name="defaultPassword">
-            <string-to-field field-name="defaultPassword" string="ungssblepswd"/>
+            <set field="defaultPassword" value="ungssblepswd"/>
         </if-empty>
 
         <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
         <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
 
         <now-timestamp-to-env env-name="nowStamp"/>
-        <string-to-field string="CUSTOMER" field-name="roleTypeId" map-name="parameters"/>
+        <set value="CUSTOMER" field="parameters.roleTypeId"/>
 
         <if-compare field-name="allowPassword" operator="not-equals" value="Y">
-            <field-to-field field-name="defaultPassword" to-field-name="PASSWORD" to-map-name="parameters"/>
-            <field-to-field field-name="defaultPassword" to-field-name="CONFIRM_PASSWORD" to-map-name="parameters"/>
-            <string-to-field string="No hint set, account not yet enabled" field-name="PASSWORD_HINT" map-name="parameters"/>
+            <set from-field="defaultPassword" field="parameters.PASSWORD"/>
+            <set from-field="defaultPassword" field="parameters.CONFIRM_PASSWORD"/>
+            <set value="No hint set, account not yet enabled" field="parameters.PASSWORD_HINT"/>
         </if-compare>
         
         <if-compare field-name="productStore.usePrimaryEmailUsername" operator="equals" value="Y">
-            <field-to-field field-name="CUSTOMER_EMAIL" map-name="parameters" to-field-name="USERNAME"/>
+            <set from-field="parameters.CUSTOMER_EMAIL" field="USERNAME"/>
         </if-compare>
 
         <!-- if username and/or password should be lowercased, do that now -->
@@ -78,7 +78,7 @@
             </simple-map-processor>
         </call-map-processor>
         <if-not-empty field-name="userLoginId" map-name="userLoginContext">
-            <field-to-field field-name="userLoginId" map-name="userLoginContext" to-map-name="userLoginExistsMap"/>
+            <set from-field="userLoginContext.userLoginId" field="userLoginExistsMap.userLoginId"/>
             <find-by-primary-key entity-name="UserLogin" map-name="userLoginExistsMap" value-name="existingUserLogin"/>
             <if-not-empty field-name="existingUserLogin">
                 <string-to-list string="Username in use, please choose another." message-field-name="USERNAME" list-name="error_list"/>
@@ -86,9 +86,9 @@
         </if-not-empty>
 
         <make-value entity-name="UserLogin" value-name="newUserLogin"/>
-        <field-to-field field-name="userLoginId" map-name="userLoginContext" to-map-name="newUserLogin"/>
-        <field-to-field field-name="currentPassword" map-name="userLoginContext" to-map-name="newUserLogin"/>
-        <field-to-field field-name="passwordHint" map-name="userLoginContext" to-map-name="newUserLogin"/>
+        <set from-field="userLoginContext.userLoginId" field="newUserLogin.userLoginId"/>
+        <set from-field="userLoginContext.currentPassword" field="newUserLogin.currentPassword"/>
+        <set from-field="userLoginContext.passwordHint" field="newUserLogin.passwordHint"/>
 
         <!-- Check the password, etc for validity -->
         <call-bsh><![CDATA[
@@ -122,7 +122,7 @@
         <log level="info" message="Creating new customer, newUserLogin=${newUserLogin}"/>
 
         <!-- Create the PartyRole -->
-        <field-to-field field-name="roleTypeId" map-name="parameters" to-map-name="partyRoleContext"/>
+        <set from-field="parameters.roleTypeId" field="partyRoleContext.roleTypeId"/>
 
         <!-- Create the Postal Address -->
         <if-compare field-name="USE_ADDRESS" map-name="parameters" operator="equals" value="false">
@@ -276,19 +276,19 @@
 
         <!-- create the PartyDataSource entry to track where this info came from... -->
         <make-value entity-name="PartyDataSource" value-name="partyDataSource"/>
-        <string-to-field string="ECOMMERCE_SITE" field-name="dataSourceId" map-name="partyDataSource"/>
-        <env-to-field env-name="nowStamp" field-name="fromDate" map-name="partyDataSource"/>
-        <string-to-field string="Y" field-name="isCreate" map-name="partyDataSource"/>
+        <set value="ECOMMERCE_SITE" field="partyDataSource.dataSourceId"/>
+        <env-to-field env-name="nowStamp" field-name="partyDataSource.fromDate"/>
+        <set value="Y" field="partyDataSource.isCreate"/>
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field-name="visit"/>
-	<set from-field="visit.visitId" field="partyDataSource.visitId"/>
+        <set from-field="visit.visitId" field="partyDataSource.visitId"/>
 
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
         <check-errors/>
 
         <set-service-fields map-name="personContext" service-name="createPersonAndUserLogin" to-map-name="personUserLoginContext"/>
         <set-service-fields map-name="newUserLogin" service-name="createPersonAndUserLogin" to-map-name="personUserLoginContext"/>
-        <field-to-field field-name="currentPassword" map-name="newUserLogin" to-field-name="currentPasswordVerify" to-map-name="personUserLoginContext"/>
+        <set from-field="newUserLogin.currentPassword" field="personUserLoginContext.currentPasswordVerify"/>
         <!-- the above copy is okay since we checked already that they are the same -->
         <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
             <result-to-field result-name="partyId" map-name="tempMap"/>
@@ -297,16 +297,16 @@
         <set-current-user-login value-name="createdUserLogin"/>
 
         <!-- now that we have the partyId, put it where it needs to go... -->
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="partyDataSource"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="userLoginContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="personContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="partyRoleContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="addressContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="homePhoneContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="workPhoneContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="faxPhoneContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="mobilePhoneContext"/>
-        <field-to-field field-name="partyId" map-name="tempMap" to-map-name="emailContext"/>
+        <set from-field="tempMap.partyId" field="partyDataSource.partyId"/>
+        <set from-field="tempMap.partyId" field="userLoginContext.partyId"/>
+        <set from-field="tempMap.partyId" field="personContext.partyId"/>
+        <set from-field="tempMap.partyId" field="partyRoleContext.partyId"/>
+        <set from-field="tempMap.partyId" field="addressContext.partyId"/>
+        <set from-field="tempMap.partyId" field="homePhoneContext.partyId"/>
+        <set from-field="tempMap.partyId" field="workPhoneContext.partyId"/>
+        <set from-field="tempMap.partyId" field="faxPhoneContext.partyId"/>
+        <set from-field="tempMap.partyId" field="mobilePhoneContext.partyId"/>
+        <set from-field="tempMap.partyId" field="emailContext.partyId"/>
 
         <create-value value-name="partyDataSource"/>
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext" include-user-login="true"/>
@@ -318,12 +318,12 @@
                 <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
                     <result-to-field result-name="contactMechId" map-name="addressPurposeContext"/>
                 </call-service>
-                <field-to-field field-name="partyId" map-name="tempMap" to-map-name="addressPurposeContext"/>
+                <set from-field="tempMap.partyId" field="addressPurposeContext.partyId"/>
                 <!-- create the shipping location -->
-                <string-to-field string="SHIPPING_LOCATION" field-name="contactMechPurposeTypeId" map-name="addressPurposeContext"/>
+                <set value="SHIPPING_LOCATION" field="addressPurposeContext.contactMechPurposeTypeId"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
                 <!-- also consider this address the general correspondence address -->
-                <string-to-field string="GENERAL_LOCATION" field-name="contactMechPurposeTypeId" map-name="addressPurposeContext"/>
+                <set value="GENERAL_LOCATION" field="addressPurposeContext.contactMechPurposeTypeId"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
             </else>
         </if-compare>
@@ -333,8 +333,8 @@
             <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneContext">
                 <result-to-field result-name="contactMechId" map-name="homePhonePurposeContext"/>
             </call-service>
-            <field-to-field field-name="partyId" map-name="tempMap" to-map-name="homePhonePurposeContext"/>
-            <string-to-field string="PHONE_HOME" field-name="contactMechPurposeTypeId" map-name="homePhonePurposeContext"/>
+            <set from-field="tempMap.partyId" field="homePhonePurposeContext.partyId"/>
+            <set value="PHONE_HOME" field="homePhonePurposeContext.contactMechPurposeTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="homePhonePurposeContext"/>
         </if-not-empty>
 
@@ -343,8 +343,8 @@
             <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneContext">
                 <result-to-field result-name="contactMechId" map-name="workPhonePurposeContext"/>
             </call-service>
-            <field-to-field field-name="partyId" map-name="tempMap" to-map-name="workPhonePurposeContext"/>
-            <string-to-field string="PHONE_WORK" field-name="contactMechPurposeTypeId" map-name="workPhonePurposeContext"/>
+            <set from-field="tempMap.partyId" field="workPhonePurposeContext.partyId"/>
+            <set value="PHONE_WORK" field="workPhonePurposeContext.contactMechPurposeTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="workPhonePurposeContext"/>
         </if-not-empty>
 
@@ -353,8 +353,8 @@
             <call-service service-name="createPartyTelecomNumber" in-map-name="faxPhoneContext">
                 <result-to-field result-name="contactMechId" map-name="faxPhonePurposeContext"/>
             </call-service>
-            <field-to-field field-name="partyId" map-name="tempMap" to-map-name="faxPhonePurposeContext"/>
-            <string-to-field string="FAX_NUMBER" field-name="contactMechPurposeTypeId" map-name="faxPhonePurposeContext"/>
+            <set from-field="tempMap.partyId" field="faxPhonePurposeContext.partyId"/>
+            <set value="FAX_NUMBER" field="faxPhonePurposeContext.contactMechPurposeTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="faxPhonePurposeContext"/>
         </if-not-empty>
 
@@ -363,8 +363,8 @@
             <call-service service-name="createPartyTelecomNumber" in-map-name="mobilePhoneContext">
                 <result-to-field result-name="contactMechId" map-name="mobilePhonePurposeContext"/>
             </call-service>
-            <field-to-field field-name="partyId" map-name="tempMap" to-map-name="mobilePhonePurposeContext"/>
-            <string-to-field string="PHONE_MOBILE" field-name="contactMechPurposeTypeId" map-name="mobilePhonePurposeContext"/>
+            <set from-field="tempMap.partyId" field="mobilePhonePurposeContext.partyId"/>
+            <set value="PHONE_MOBILE" field="mobilePhonePurposeContext.contactMechPurposeTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="mobilePhonePurposeContext"/>
         </if-not-empty>
 
@@ -373,14 +373,14 @@
             <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
                 <result-to-field result-name="contactMechId" map-name="emailPurposeContext"/>
             </call-service>
-            <field-to-field field-name="partyId" map-name="tempMap" to-map-name="emailPurposeContext"/>
-            <string-to-field string="PRIMARY_EMAIL" field-name="contactMechPurposeTypeId" map-name="emailPurposeContext"/>
+            <set from-field="tempMap.partyId" field="emailPurposeContext.partyId"/>
+            <set value="PRIMARY_EMAIL" field="emailPurposeContext.contactMechPurposeTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
         </if-not-empty>
 
         <!-- club number -->
         <if-not-empty field-name="REQUIRE_CLUB" map-name="parameters">
-            <field-to-field field-name="partyId" map-name="tempMap" to-map-name="personLookup"/>
+            <set from-field="tempMap.partyId" field="personLookup.partyId"/>
             <find-by-primary-key map-name="personLookup" value-name="personVo" entity-name="Person"/>
             <if-empty field-name="CLUB_NUMBER" map-name="parameters">
                 <call-bsh><![CDATA[
@@ -388,7 +388,7 @@
                     parameters.put("CLUB_NUMBER", clubId);
                 ]]></call-bsh>
             </if-empty>
-            <field-to-field field-name="CLUB_NUMBER" map-name="parameters" to-field-name="memberId" to-map-name="personVo"/>
+            <set from-field="parameters.CLUB_NUMBER" field="personVo.memberId"/>
             <store-value value-name="personVo"/>
         </if-not-empty>
 
@@ -407,8 +407,8 @@
 
         <!-- send off the registration email -->
         <if-not-empty field-name="emailAddress" map-name="emailContext">
-            <env-to-env env-name="parameters.emailProductStoreId" to-env-name="storeEmailLookup.productStoreId"/>
-            <string-to-field string="PRDS_CUST_REGISTER" field-name="emailType" map-name="storeEmailLookup"/>
+            <set from-field="parameters.emailProductStoreId" field="storeEmailLookup.productStoreId"/>
+            <set value="PRDS_CUST_REGISTER" field="storeEmailLookup.emailType"/>
             <find-by-primary-key map-name="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-name="storeEmail"/>
             <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
                 <!-- prepare the email context -->
@@ -416,21 +416,21 @@
                 <env-to-field env-name="createdUserLogin" field-name="userLogin" map-name="emailCtx"/>
                 <env-to-field env-name="personObj" field-name="person" map-name="emailCtx"/>
                 <!-- prepare the notification service context -->
-                <field-to-field field-name="emailAddress" map-name="emailContext" to-field-name="sendTo" to-map-name="notifyCtx"/>
-                <field-to-field field-name="subject" map-name="storeEmail" to-field-name="subject" to-map-name="notifyCtx"/>
-                <field-to-field field-name="fromAddress" map-name="storeEmail" to-field-name="sendFrom" to-map-name="notifyCtx"/>
-                <field-to-field field-name="ccAddress" map-name="storeEmail" to-field-name="sendCc" to-map-name="notifyCtx"/>
-                <field-to-field field-name="bccAddress" map-name="storeEmail" to-field-name="sendBcc" to-map-name="notifyCtx"/>
-                <field-to-field field-name="contentType" map-name="storeEmail" to-field-name="contentType" to-map-name="notifyCtx"/>
-                <field-to-field field-name="bodyScreenLocation" map-name="storeEmail" to-field-name="templateName" to-map-name="notifyCtx"/>
-                <env-to-field env-name="emailCtx" field-name="templateData" map-name="notifyCtx"/>
+                <set from-field="emailContext.emailAddress" field="notifyCtx.sendTo"/>
+                <set from-field="storeEmail.subject" field="notifyCtx.subject"/>
+                <set from-field="storeEmail.fromAddress" field="notifyCtx.sendFrom"/>
+                <set from-field="storeEmail.ccAddress" field="notifyCtx.sendCc"/>
+                <set from-field="storeEmail.bccAddress" field="notifyCtx.sendBcc"/>
+                <set from-field="storeEmail.contentType" field="notifyCtx.contentType"/>
+                <set from-field="storeEmail.bodyScreenLocation" field="notifyCtx.templateName"/>
+                <env-to-field env-name="emailCtx" field-name="notifyCtx.templateData"/>
                 <!-- call the service async -->
                 <call-service-asynch service-name="sendGenericNotificationEmail" in-map-name="notifyCtx" include-user-login="true"/>
             </if-not-empty>
         </if-not-empty>
 
         <!-- tell the control servlet that we just logged in the user... -->
-        <string-to-field string="TRUE" field-name="_LOGIN_PASSED_"/>
+        <set value="TRUE" field="_LOGIN_PASSED_"/>
         <field-to-request field-name="_LOGIN_PASSED_"/>
     </simple-method>
 </simple-methods>
