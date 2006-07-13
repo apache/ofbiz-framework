@@ -21,18 +21,22 @@
     <form name="ListQuoteWorkEfforts" separate-columns="true" default-title-style="tableheadtext" default-tooltip-style="tabletext" 
         default-widget-style="tabletext" target="ListQuoteWorkEfforts" title="" type="list" >
         <actions>
-            <entity-and entity-name="QuoteWorkEffort">
+            <entity-and entity-name="QuoteWorkEffortView">
                 <field-map field-name="quoteId"/>
             </entity-and>
         </actions>
         <field name="quoteId"><hidden/></field>
-        <field name="workEffortId">
-            <display-entity entity-name="WorkEffort" description="${workEffortName}" >
-                <sub-hyperlink description="[${workEffortId}]" target="EditQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}" link-style="linktext"/>
-            </display-entity>
+        <field name="workEffortId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditWorkEffort?workEffortId=${workEffortId}"/>
         </field>
+        <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType" description="${description}"/></field>
+        <field name="statusItemDescription"><display/></field>
+        <field name="description"><display/></field>
+        <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType" description="${description}"/></field>
+        <field name="actualStartDate"><display/></field>
+        <field name="actualEndDate"><display/></field>
         <field name="deleteLink" title="" widget-style="linktext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeQuoteWorkEffort?quoteId=${quoteId}&amp;quoteId=${quoteId}"/>
+            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="deleteQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
     </form>
   
@@ -41,12 +45,6 @@
             default-widget-style="inputBox" 
             extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
             target="createQuoteWorkEffort" title="" type="single">
-        <sort-order>
-            <sort-field name="quoteId"/>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortId}"/>
-            <sort-field name="workEffortId"/>
-            <banner left-text-style="tabletext" left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortIdNew}"/>
-        </sort-order>
         <field name="quoteId" map-name="parameters"><display/></field>
         <field name="workEffortId" use-when="workEffort==null&amp;&amp;workEffortId!=null">
             <lookup target-form-name="/workeffort/control/LookupWorkEffort"/>
@@ -54,6 +52,12 @@
         <field name="submitButton" title="[${uiLabelMap.CommonSave}]" widget-style="buttontext">
             <submit button-type="text-link"/>
         </field>
+        <sort-order>
+            <sort-field name="quoteId"/>
+            <banner left-text-style="tabletext" left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortId}"/>
+            <sort-field name="workEffortId"/>
+            <banner left-text-style="tabletext" left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortIdNew}"/>
+        </sort-order>
     </form>
     
     <form name="EditQuoteWorkEffort" 

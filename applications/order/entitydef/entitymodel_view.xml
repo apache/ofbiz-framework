@@ -1139,6 +1139,29 @@
         <key-map field-name="noteParty" rel-field-name="partyId"/>
       </view-link>
     </view-entity>
+    <view-entity entity-name="QuoteWorkEffortView"
+      package-name="org.ofbiz.order.quote"
+      title="Quote And Workeffort">
+      <description>Shows workefforts for a Quote</description>
+      <member-entity entity-alias="QWE" entity-name="QuoteWorkEffort"/>
+      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+      <member-entity entity-alias="SI" entity-name="StatusItem"/>
+      <alias-all entity-alias="QWE"/>
+      <alias-all entity-alias="WE"/>
+      <alias name="statusItemDescription" field="description" entity-alias="SI"/>
+      <view-link entity-alias="QWE" rel-entity-alias="WE">
+        <key-map field-name="workEffortId"/>
+      </view-link>
+      <view-link entity-alias="WE" rel-entity-alias="SI" rel-optional="true">
+        <key-map field-name="currentStatusId" rel-field-name="statusId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="Quote">
+        <key-map field-name="quoteId"/>
+      </relation>
+    </view-entity>
     <view-entity entity-name="RequirementAndRole"
             package-name="org.ofbiz.order.request"
             title="Requirement And Role View Entity">
