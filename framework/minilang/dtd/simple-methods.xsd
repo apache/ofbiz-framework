@@ -1825,6 +1825,13 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="simple-map-processor">
+        <xs:annotation>
+            <xs:documentation>
+            The Simple Map Processor Mini-Language performes two primary tasks: validation and conversion. 
+            It does this in a context of moving values from one Map to another. 
+            The input map will commonly contain Strings, but can contain other object types like Integer, Long, Float, Double, java.sql.Date, Time, and Timestamp.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="make-in-string"/>
@@ -1838,6 +1845,14 @@
     </xs:attributeGroup>
     <!-- Make In String & Operations -->
     <xs:element name="make-in-string">
+        <xs:annotation>
+            <xs:documentation>
+                In addition to dealing with the fields already in the incoming Map you can build Strings and add them to the in-Map before the processing begins with the make-in-string tag. 
+                You can have zero or many make-in-string tags, and they must all come before the process tags. 
+                Inside each make-in-string is a list of snippets to concatenate together to make the final String. 
+                Each snippet can be another field in the in-Map (in-field element), a value from a properties file (property element), or a constant (constant element).
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element ref="in-field"/>
@@ -1870,6 +1885,25 @@
     <xs:element name="constant" type="xs:string"/>
     <!-- Field Process & Operations -->
     <xs:element name="process">
+        <xs:annotation>
+            <xs:documentation>
+                The process tag is used to contain the operations to be done on the specified field in the in-Map. 
+                It has one required attribute, the field to operate on. 
+                The operations that it contains are: validate-method, compare, compare-field, regexp, not-empty, copy, and convert.
+                
+                All process operations tags except copy must contain one of two tags: fail-message or fail-property. 
+                If the operation fails a message is added to the message list that is either the specified fail-message, or the String from the properties file value that is specified in fail-property.
+                
+                Messages are collected in List as the Simple Map Processor runs. 
+                If the List is not empty when it completes then something failed in the map processor. 
+                This is done so that all failures will be reported immediately rather than having to fix one failure before another can be discovered.
+                
+                All process operations automatically convert the field value and other values from their current type to the type specified for the operation, where applicable. 
+                The ObjectType.simpleTypeConvert method is used to do the conversion. 
+                It supports the following types: String, Double, Float, Long, Integer, Date, Time, and Timestamp. 
+                If the type is not specified String is the default.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element ref="validate-method"/>
@@ -1887,7 +1921,14 @@
         <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
     <xs:element name="validate-method">
-        <xs:annotation><xs:documentation>validate-method calls a static Java method that takes a String and returns a boolean</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                The validate-method tag is used to call any static method that accepts a String and returns a boolean. 
+                If the field coming in is not a String it will be converted to a String before calling the method. 
+                The two attributes for this tag are class and method which should contain the fully qualified class name and the method name, respectively. 
+                If the class name is not specified it will default to org.ofbiz.base.util.UtilValidate.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice>
                 <xs:element ref="fail-message"/>
@@ -1901,6 +1942,13 @@
         <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
     </xs:attributeGroup>
     <xs:element name="compare">
+        <xs:annotation>
+            <xs:documentation>
+                The compare tag is used to compare the field value to the value specified in the value attribute. 
+                An operator must be specified to indicate the comparison desired. 
+                Operators available include less, greater, less-equals, greater-equals, equals, not-equals, and contains.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice>
                 <xs:element ref="fail-message"/>
@@ -1916,6 +1964,11 @@
         <xs:attribute type="xs:string" name="format"/>
     </xs:attributeGroup>
     <xs:element name="compare-field">
+        <xs:annotation>
+            <xs:documentation>
+                The compare-field tag is just like the compare tag except that instead of specifying a value you specify the name of another field in the in-Map to compare the current field to.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice>
                 <xs:element ref="fail-message"/>
@@ -1931,6 +1984,12 @@
         <xs:attribute type="xs:string" name="format"/>
     </xs:attributeGroup>
     <xs:element name="regexp">
+        <xs:annotation>
+            <xs:documentation>
+                The regexp tag validate the current field against the regular expression specified in the expr attribute of the tag. 
+                Standard Perl style regular expressions are used with the ORO library from Jakarta.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice>
                 <xs:element ref="fail-message"/>
@@ -1943,6 +2002,13 @@
         <xs:attribute type="xs:string" name="expr" use="required"/>
     </xs:attributeGroup>
     <xs:element name="not-empty">
+        <xs:annotation>
+            <xs:documentation>
+                The not-empty tag verifies that the current field is not empty. 
+                If the field is a String it must not be null and must have a length greater than zero, otherwise it must simply not be null. 
+                The not-empty tag has no attributes.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice>
                 <xs:element ref="fail-message"/>
@@ -1951,14 +2017,27 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="copy">
-        <xs:annotation><xs:documentation>Copy operation: if no to-field is specified, it is the same as the field on process</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                The copy operation simply copies the current field value to the out-Map from the in-Map. 
+                There are three optional attributes. 
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.copy"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.copy">
-        <xs:attribute type="xs:string" name="to-field"/>
+        <xs:attribute type="xs:string" name="to-field">
+            <xs:annotation><xs:documentation>If a different field name is desired in the out-Map it can be specified in the to-field attribute.</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute name="replace" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    The replace attribute can be used to specify if an existing field in the out-Map should be replaced or not. 
+                    The replace attribute defaults to true. 
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1967,6 +2046,12 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="set-if-null" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    The set-if-null attribute specifies whether or not the value should be put in the out-Map if it is null. 
+                    The default for set-if-null is false.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1976,7 +2061,13 @@
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="convert">
-        <xs:annotation><xs:documentation>Convert operation: if no to-field is specified, it is the same as the field on process</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                The convert tag does the same thing as copy except that the type can be converted to the type specified in the type attribute. 
+                The format attribute can be used to specify the format for date/time fields. 
+                These two tags are in addition to all of the the attributes in the copy tag.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice>
                 <xs:element ref="fail-message"/>
@@ -1986,7 +2077,9 @@
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.convert">
-        <xs:attribute type="xs:string" name="to-field"/>
+        <xs:attribute type="xs:string" name="to-field">
+            <xs:annotation><xs:documentation>If no to-field is specified, it is the same as the field on process.</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute name="type" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
