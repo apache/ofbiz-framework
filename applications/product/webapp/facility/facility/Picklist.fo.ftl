@@ -199,7 +199,7 @@
     <#list picklistInfo.picklistBinInfoList as picklistBinInfo>
         <#assign rowColor = "white">
         <#assign picklistBin = picklistBinInfo.picklistBin>
-        <#assign picklistItemInfoList = picklistBinInfo.picklistItemInfoList>
+        <#assign picklistItemInfoList = picklistBinInfo.picklistItemInfoList?if_exists>
         <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <fo:block text-align="right">
