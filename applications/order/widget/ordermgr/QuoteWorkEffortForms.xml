@@ -27,7 +27,7 @@
         </actions>
         <field name="quoteId"><hidden/></field>
         <field name="workEffortId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditWorkEffort?workEffortId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
         <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType" description="${description}"/></field>
         <field name="statusItemDescription"><display/></field>
