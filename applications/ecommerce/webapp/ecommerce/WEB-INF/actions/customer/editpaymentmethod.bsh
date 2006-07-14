@@ -58,10 +58,14 @@ if (!tryEntity.booleanValue()) eftAccountData = parameterMap;
 if (eftAccountData == null) eftAccountData = new HashMap();
 if (eftAccountData != null) context.put("eftAccountData", eftAccountData);
 
+paymentMethodData = paymentResults.get("paymentMethod");
+if (!tryEntity.booleanValue()) paymentMethodData = parameterMap;
+if (paymentMethodData == null) paymentMethodData = new HashMap();
+if (paymentMethodData != null) context.put("paymentMethodData", paymentMethodData);
+
 //prepare security flag
 if (!security.hasEntityPermission("PARTYMGR", "_VIEW", session) && (context.get("creditCard") != null || context.get("giftCard") != null || context.get("eftAccount") != null) && context.get("paymentMethod") != null && !userLogin.get("partyId").equals((context.get("paymentMethod")).get("partyId"))) {
     context.put("canNotView", true);
 } else {
     context.put("canNotView", false);
 }
-

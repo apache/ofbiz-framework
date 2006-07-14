@@ -40,8 +40,9 @@
         <description>Create CreditCard</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <!-- these three fields are for updating on the PaymentMethod -->
+        <!-- these four fields are for updating on the PaymentMethod -->
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <!-- these two will be assembled into a expireDate by buildCcExpireDate on an ECA if needed -->
@@ -68,10 +69,11 @@
         <description>Update CreditCard</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <!-- these three fields are for updating on the PaymentMethod -->
+        <!-- these four fields are for updating on the PaymentMethod -->
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
         <!-- these two will be assembled into a expireDate by buildCcExpireDate on an ECA if needed -->
         <attribute name="expMonth" type="String" mode="IN" optional="true"/>
         <attribute name="expYear" type="String" mode="IN" optional="true"/>
@@ -92,6 +94,7 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="true"/>
         <attribute name="expireDate" type="String" mode="IN" optional="true"/>
@@ -105,6 +108,7 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="INOUT" optional="false"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="true"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="true"/>
@@ -120,6 +124,7 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="bankName" type="String" mode="IN" optional="false"/>
         <attribute name="routingNumber" type="String" mode="IN" optional="false"/>
         <attribute name="accountType" type="String" mode="IN" optional="false"/>
@@ -145,6 +150,7 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="INOUT" optional="false"/>
         <attribute name="bankName" type="String" mode="IN" optional="false"/>
         <attribute name="routingNumber" type="String" mode="IN" optional="false"/>

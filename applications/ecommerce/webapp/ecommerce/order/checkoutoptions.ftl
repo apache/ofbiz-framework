@@ -390,6 +390,7 @@ function toggleBillingAccount(box) {
                         <td width="50%">
                           <span class="tabletext">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</span>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EC', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
+                          <#if paymentMethod.description?has_content><br/><span class="tabletext">(${paymentMethod.description})</span></#if>
                         </td>
                       </tr>
                      </#if>
@@ -403,6 +404,7 @@ function toggleBillingAccount(box) {
                         <td width="50%">
                           <span class="tabletext">EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</span>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EE', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
+                          <#if paymentMethod.description?has_content><br/><span class="tabletext">(${paymentMethod.description})</span></#if>
                         </td>
                       </tr>
                      </#if>
@@ -433,6 +435,7 @@ function toggleBillingAccount(box) {
                         <td width="50%">
                           <span class="tabletext">${uiLabelMap.AccountingGift}:&nbsp;${giftCardNumber}</span>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EG', '${paymentMethod.paymentMethodId}');" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>
+                          <#if paymentMethod.description?has_content><br/><span class="tabletext">(${paymentMethod.description})</span></#if>
                         </td>
                       </tr>
                      </#if>

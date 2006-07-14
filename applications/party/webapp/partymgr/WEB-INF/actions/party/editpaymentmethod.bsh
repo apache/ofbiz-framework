@@ -71,3 +71,8 @@ if (eftAccountData != null) context.put("eftAccountData", eftAccountData);
 donePage = parameters.get("DONE_PAGE");
 if (donePage == null || donePage.length() <= 0) donePage = "viewprofile";
 context.put("donePage", donePage);
+
+paymentMethodData = paymentResults.get("paymentMethod");
+if (!tryEntity.booleanValue()) paymentMethodData = parameters;
+if (paymentMethodData == null) paymentMethodData = new HashMap();
+if (paymentMethodData != null) context.put("paymentMethodData", paymentMethodData);

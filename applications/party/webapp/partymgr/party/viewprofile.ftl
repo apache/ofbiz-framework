@@ -300,6 +300,7 @@
                                         ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                                     </#if>
                                   </b>
+                                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
                                   (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})
                                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate})</b></#if>
