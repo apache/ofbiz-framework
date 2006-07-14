@@ -265,7 +265,8 @@
                                 <#if creditCard.suffixOnCard?has_content>&nbsp;${creditCard.suffixOnCard}</#if>
                                 &nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                               </b>
-                              (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})
+                              <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                              <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
                               <#if paymentMethod.thruDate?exists><b>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</b></#if>
                             </div>
                           </td>
@@ -294,7 +295,8 @@
                           <td width="80%" valign="top">
                             <div class="tabletext">
                               <b>${uiLabelMap.AccountingGiftCard}: ${giftCardNumber}</b>
-                              (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})
+                              <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                              <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
                               <#if paymentMethod.thruDate?exists><b>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</b></#if>
                             </div>
                           </td>
@@ -307,7 +309,8 @@
                           <td width="80%" valign="top">
                             <div class="tabletext">
                               <b>${uiLabelMap.AccountingEftAccount}: ${eftAccount.nameOnAccount?if_exists} - <#if eftAccount.bankName?has_content>Bank: ${eftAccount.bankName}</#if> <#if eftAccount.accountNumber?has_content>${uiLabelMap.AccountingAccount} #: ${eftAccount.accountNumber}</#if></b>
-                              (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})
+                              <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                              <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
                               <#if paymentMethod.thruDate?exists><b>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</b></#if>
                             </div>
                           </td>
