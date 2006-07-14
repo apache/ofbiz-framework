@@ -302,7 +302,7 @@
                                   </b>
                                   <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                                  (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})
+                                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate})</b></#if>
                                 </div>
                               </td>
@@ -344,8 +344,9 @@
                                         ${giftCardNumber?default("N/A")}
                                     </#if>
                                   </b>
+                                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                                  (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})
+                                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</b></#if>
                                 </div>
                               </td>
@@ -362,8 +363,9 @@
                                   <b>
                                     ${uiLabelMap.PartyEftAccount}: ${eftAccount.nameOnAccount} - <#if eftAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${eftAccount.bankName}</#if> <#if eftAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${eftAccount.accountNumber}</#if>
                                   </b>
+                                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                                  (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})
+                                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</b></#if>
                                 </div>
                               </td>
@@ -376,8 +378,10 @@
                           <#elseif "COMPANY_CHECK" == paymentMethod.paymentMethodTypeId>
                               <td width="90%" valign="top">
                                 <div class="tabletext">
-                                  <b>Company Check</b> <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                                  (${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})
+                                  <b>Company Check</b> 
+                                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                                  <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
+                                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
                                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</b></#if>
                                 </div>
                               </td>
