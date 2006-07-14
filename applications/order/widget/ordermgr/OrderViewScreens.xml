@@ -130,6 +130,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="OrderAddNote"/>
+                <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/newnote.bsh"/>
             </actions>
             <widgets>
@@ -147,7 +148,7 @@
         <section>
             <actions>				
                 <set field="titleProperty" value="OrderViewEditDeliveryScheduleInfo"/>
-                <set field="headerItem" value="OrderDeliveryScheduleInfo"/>				
+                <set field="headerItem" value="findorders"/>
 				<property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
@@ -187,6 +188,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="OrderReceiveOfflinePayments"/>
+               <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/receivepayment.bsh"/>
             </actions>
             <widgets>
@@ -215,6 +217,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="OrderSendConfirmationEmail"/>
+                <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/sendconfirmationemail.bsh"/>
             </actions>
             <widgets>
