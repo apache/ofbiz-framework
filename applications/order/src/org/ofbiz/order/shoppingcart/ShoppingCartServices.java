@@ -411,6 +411,7 @@ public class ShoppingCartServices {
         }
 
         cart.setQuoteId(quoteId);
+        cart.setOrderName(quote.getString("quoteName"));
         
         List quoteItems = null;
         List quoteAdjs = null;
