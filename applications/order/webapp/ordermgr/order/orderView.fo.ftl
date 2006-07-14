@@ -136,7 +136,7 @@ ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${posta
                    <#if orderPaymentPreferences?has_content>
                       <#list orderPaymentPreferences as orderPaymentPreference>
                          <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType")?if_exists>
-                         <#if orderPaymentPreference.getString("paymentMethodTypeId") == "CREDIT_CARD">
+                         <#if ((orderPaymentPreference != null) && (orderPaymentPreference.getString("paymentMethodTypeId") == "CREDIT_CARD") && (orderPaymentPreference.getString("paymentMethodId")?has_content))>
                            <#assign creditCard = orderPaymentPreference.getRelatedOne("PaymentMethod").getRelatedOne("CreditCard")>
                              ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                          <#else>
