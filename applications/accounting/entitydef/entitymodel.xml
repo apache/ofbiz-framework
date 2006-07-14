@@ -2416,6 +2416,7 @@
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="partyId" type="id-ne"></field>
       <field name="glAccountId" type="id-ne"></field>
+      <field name="description" type="description"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="paymentMethodId"/>

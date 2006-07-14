@@ -119,7 +119,10 @@ function makeExpDate() {
                         <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if checkOutPaymentId?exists && paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if>/>
                       </td>
                       <td width="50%">
-                        <span class="tabletext">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</span>                            
+                        <span class="tabletext">
+                          CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                          <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                        </span>                            
                       </td>
                       <td align="right"><a href="/partymgr/control/editcreditcard?party_id=${orderParty.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                     </tr>
@@ -130,7 +133,10 @@ function makeExpDate() {
                         <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if checkOutPaymentId?exists && paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if>/>
                       </td>
                       <td width="50%">
-                        <span class="tabletext">EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</span>                            
+                        <span class="tabletext">
+                          EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}
+                          <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                        </span>
                       </td>
                       <td align="right"><a href="/partymgr/control/editeftaccount?party_id=${orderParty.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                     </tr>
@@ -420,6 +426,13 @@ function makeExpDate() {
                   </select>
                 *</td>                                                       
               </tr>
+              <tr>
+                <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+                <td width="5">&nbsp;</td>
+                <td width="74%">
+                  <input type="text" class="inputBox" size="20" maxlength="30" name="description" value="${creditCard.description?if_exists}"/>
+                </td>
+              </tr>
   	            </#if>  
   	            
   	            <#-- eft fields -->
@@ -476,6 +489,13 @@ function makeExpDate() {
                 <td width="74%">
                   <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccount.accountNumber?if_exists}"/>
                 *</td>
+              </tr>
+              <tr>
+                <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+                <td width="5">&nbsp;</td>
+                <td width="74%">
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${eftAccount.description?if_exists}"/>
+                </td>
               </tr>
             </#if>  	                                               
           </table>                    	                                                                     

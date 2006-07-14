@@ -84,7 +84,13 @@
         <input type="text" class='inputBox' size="20" maxlength="40" name="accountNumber" value="${eftAccountData.accountNumber?if_exists}">
       *</td>
     </tr>
-
+    <tr>
+      <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+      <td width="5">&nbsp;</td>
+      <td width="74%">
+        <input type="text" class='inputBox' size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}">
+      *</td>
+    </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.PartyBillingAddress}</div></td>
       <td width="5">&nbsp;</td>

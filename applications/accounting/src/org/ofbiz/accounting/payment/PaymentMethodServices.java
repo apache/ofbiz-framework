@@ -174,6 +174,7 @@ public class PaymentMethodServices {
         }
 
         newPm.set("partyId", partyId);
+        newPm.set("description",context.get("description"));
         newPm.set("fromDate", (context.get("fromDate") != null ? context.get("fromDate") : now));
         newPm.set("thruDate", context.get("thruDate"));
         newCc.set("companyNameOnCard", context.get("companyNameOnCard"));
@@ -325,6 +326,7 @@ public class PaymentMethodServices {
 
         newPm.set("partyId", partyId);
         newPm.set("fromDate", context.get("fromDate"), false);
+        newPm.set("description",context.get("description"));
         // The following check is needed to avoid to reactivate an expired pm
         if (newPm.get("thruDate") == null) {
             newPm.set("thruDate", context.get("thruDate"));
@@ -443,6 +445,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", (context.get("fromDate") != null ? context.get("fromDate") : now));
         newPm.set("thruDate", context.get("thruDate"));
+        newPm.set("description",context.get("description"));
 
         newGc.set("cardNumber", context.get("cardNumber"));
         newGc.set("pinNumber", context.get("pinNumber"));
@@ -542,6 +545,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", context.get("fromDate"), false);
         newPm.set("thruDate", context.get("thruDate"));
+        newPm.set("description",context.get("description"));
 
         newGc.set("cardNumber", context.get("cardNumber"));
         newGc.set("pinNumber", context.get("pinNumber"));
@@ -621,6 +625,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", (context.get("fromDate") != null ? context.get("fromDate") : now));
         newPm.set("thruDate", context.get("thruDate"));
+        newPm.set("description",context.get("description"));
         newEa.set("bankName", context.get("bankName"));
         newEa.set("routingNumber", context.get("routingNumber"));
         newEa.set("accountType", context.get("accountType"));
@@ -733,6 +738,7 @@ public class PaymentMethodServices {
         newPm.set("partyId", partyId);
         newPm.set("fromDate", context.get("fromDate"), false);
         newPm.set("thruDate", context.get("thruDate"));
+        newPm.set("description",context.get("description"));
         newEa.set("bankName", context.get("bankName"));
         newEa.set("routingNumber", context.get("routingNumber"));
         newEa.set("accountType", context.get("accountType"));

@@ -253,6 +253,13 @@ function shipBillAddr() {
                   </select>
                 *</td>
               </tr>
+              <tr>
+                <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+                <td width="5">&nbsp;</td>
+                <td width="74%">
+                  <input type="text" class="inputBox" size="20" maxlength="30" name="description" value="${creditCard.description?if_exists}">
+                </td>
+              </tr>
             </#if>
 
             <#-- eft fields -->
@@ -315,6 +322,13 @@ function shipBillAddr() {
                   <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccount.accountNumber?if_exists}">
                 *</td>
               </tr>
+              <tr>
+                <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+                <td width="5">&nbsp;</td>
+                <td width="74%">
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${eftAccount.description?if_exists}">
+                </td>
+              </tr>
             </#if>
 
             <#-- gift card fields -->
@@ -327,7 +341,7 @@ function shipBillAddr() {
                 </tr>
               </#if>
               <tr>
-                <td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.AccountingCreditCardInformation}</div></td>
+                <td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.AccountingGiftCardInformation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">&nbsp;</td>
               </tr>
@@ -344,6 +358,13 @@ function shipBillAddr() {
                 <td width="74%">
                   <input type="text" class="inputBox" size="10" maxlength="60" name="giftCardPin" value="${giftCard.pinNumber?if_exists}">
                 *</td>
+              </tr>
+              <tr>
+                <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+                <td width="5">&nbsp;</td>
+                <td width="74%">
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${giftCard.description?if_exists}">
+                </td>
               </tr>
               <#if paymentMethodType != "GC">
                 <tr>

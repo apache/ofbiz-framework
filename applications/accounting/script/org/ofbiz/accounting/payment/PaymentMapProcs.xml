@@ -49,6 +49,7 @@
     <process field="cardType"><copy/><not-empty><fail-message message="Card Type is missing"/></not-empty></process>
     <process field="cardNumber"><copy/></process>
     <process field="contactMechId"><copy/></process>
+    <process field="description"><copy/></process>
     <process field="expMonth"><not-empty><fail-message message="Expiration Month is missing"/></not-empty></process>
     <process field="expYear"><not-empty><fail-message message="Expiration Year is missing"/></not-empty></process>
     <process field="expireDate">
@@ -57,12 +58,14 @@
   </simple-map-processor>
   <simple-map-processor name="updateCreditCard">
     <process field="paymentMethodId"><copy/><not-empty><fail-message message="Credit Card Payment Method ID is missing"/></not-empty></process>
+    <process field="description"><copy/></process>
     <!-- also call createCreditCard after calling updateCreditCard -->
   </simple-map-processor>
 
   <!-- EftAccount map procs -->
   <simple-map-processor name="createEftAccount">
     <process field="partyId"><copy/></process>
+    <process field="description"><copy/></process>
     <process field="bankName"><copy/><not-empty><fail-message message="Bank Name is missing"/></not-empty></process>
     <process field="routingNumber"><copy/><not-empty><fail-message message="Routing Number is missing"/></not-empty></process>
     <process field="accountType"><copy/><not-empty><fail-message message="Account Type is missing"/></not-empty></process>
@@ -73,6 +76,7 @@
   </simple-map-processor>
   <simple-map-processor name="updateEftAccount">
     <process field="paymentMethodId"><copy/><not-empty><fail-message message="EFT Account Payment Method ID is missing"/></not-empty></process>
+    <process field="description"><copy/></process>
     <!-- also call createEftAccount after calling updateEftAccount -->
   </simple-map-processor>
 </simple-map-processors>

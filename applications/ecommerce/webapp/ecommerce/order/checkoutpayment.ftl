@@ -56,7 +56,10 @@ function submitForm(form, mode, value) {
         // edit eft account
         form.action="<@ofbizUrl>updateCheckoutOptions/editeftaccount?DONE_PAGE=checkoutpayment&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
-    }
+    }else if(mode = "EG")
+    //edit gift card
+        form.action="<@ofbizUrl>updateCheckoutOptions/editgiftcard?DONE_PAGE=checkoutpayment&paymentMethodId="+value+"</@ofbizUrl>";
+        form.submit();
 }
 
 function toggleBillingAccount(box) {
@@ -175,7 +178,9 @@ function toggleBillingAccount(box) {
                       <input type="checkbox" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if cart.isPaymentSelected(paymentMethod.paymentMethodId)>checked</#if>>
                     </td>
                     <td width="1%" nowrap>
-                      <span class="tabletext">${uiLabelMap.AccountingGift}:&nbsp;${giftCardNumber}</span>
+                      <span class="tabletext">${uiLabelMap.AccountingGift}:&nbsp;${giftCardNumber}
+                        <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                      </span>
                       <span class="tabletext" align="right">
                         <a href="javascript:submitForm(document.checkoutInfoForm, 'EG', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                       </span>
@@ -196,7 +201,9 @@ function toggleBillingAccount(box) {
                       <input type="checkbox" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if cart.isPaymentSelected(paymentMethod.paymentMethodId)>checked</#if>>
                     </td>
                     <td width="1%" nowrap>
-                      <span class="tabletext">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</span>
+                      <span class="tabletext">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                        <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                      </span>
                       <span class="tabletext" align="right">
                         <a href="javascript:submitForm(document.checkoutInfoForm, 'EC', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                       </span>
@@ -217,7 +224,9 @@ function toggleBillingAccount(box) {
                       <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if paymentMethod.paymentMethodId == checkOutPaymentId>checked</#if>>
                     </td>
                     <td width="1%" nowrap>
-                      <span class="tabletext">EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</span>
+                      <span class="tabletext">EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}
+                        <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
+                      </span>
                       <a href="javascript:submitForm(document.checkoutInfoForm, 'EE', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                     </td>
                     <td>&nbsp;</td>
