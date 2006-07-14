@@ -57,7 +57,7 @@
                 <td class="tabletext"><b>${uiLabelMap.OrderOrderName}</b>:</td> 
                 <td class="tabletext">
                   <form method="post" action="setOrderName" name="setCartOrderNameForm">
-                    <input type="text" name="orderName" class="inputBox" size="15" maxlength="200" value="${shoppingCart.getOrderName()}"/>
+                    <input type="text" name="orderName" class="inputBox" size="15" maxlength="200" value='${shoppingCart.getOrderName()?default("")}'/>
                     <input type="submit" value="${uiLabelMap.CommonSet}" class="smallSubmit"/>
                   </form>
                 </td>
