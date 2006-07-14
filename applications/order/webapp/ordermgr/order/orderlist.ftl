@@ -139,7 +139,7 @@
                 <tr><td colspan="8"><hr class="sepbar"/></td></tr>
                 <tr>
                   <td>
-                    <div class="tabletext">${orderHeader.orderDate.toString()}</div>
+                    <div class="tabletext">${orderHeader.orderDate?string.medium_short}</div>
                   </td>
                   <td>
                     <div class="tabletext"><a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${orderHeader.orderId}</a>
