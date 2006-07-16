@@ -1,5 +1,4 @@
 <#--
-$Id: EditProductFacilityLocations.ftl 7859 2006-06-24 17:03:25Z jacopo $
 
 Copyright 2001-2006 The Apache Software Foundation
 
