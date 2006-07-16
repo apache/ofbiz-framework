@@ -1,5 +1,4 @@
 <#--
-$Id: $
 
 Copyright 2006-2006 The Apache Software Foundation
 
