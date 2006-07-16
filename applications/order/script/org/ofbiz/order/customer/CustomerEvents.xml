@@ -145,13 +145,13 @@
     <simple-method method-name="createUpdateCustomerInfo" short-description="Create Customer" login-required="false">
         <!-- update the email address -->
         <if-not-empty field-name="parameters.emailContactMechId">
-            <env-to-env env-name="partyId" to-env-name="emailMap.partyId"/>
-            <env-to-env env-name="parameters.emailContactMechId" to-env-name="emailMap.contactMechId"/>
+            <set from-field="partyId" field="emailMap.partyId"/>
+            <set from-field="parameters.emailContactMechId" field="emailMap.contactMechId"/>
             <!-- call the update email service -->
             <call-service service-name="updatePartyEmailAddress" in-map-name="emailMap"/>
         <else>
             <!-- create the email address -->
-            <env-to-env env-name="partyId" to-env-name="emailMap.partyId"/>
+            <set from-field="partyId" field="emailMap.partyId"/>
             <string-to-field field-name="contactMechPurposeTypeId" map-name="emailMap" string="PRIMARY_EMAIL"/>
             <!-- call the create email service -->
             <call-service service-name="createPartyEmailAddress" in-map-name="emailMap"/>
@@ -161,14 +161,14 @@
         
         <!-- create home phone -->
         <if-not-empty field-name="parameters.homePhoneContactMechId">
-            <env-to-env env-name="partyId" to-env-name="homePhoneMap.partyId"/>
-            <env-to-env env-name="parameters.homePhoneContactMechId" to-env-name="homePhoneMap.contactMechId"/>
+            <set from-field="partyId" field="homePhoneMap.partyId"/>
+            <set from-field="parameters.homePhoneContactMechId" field="homePhoneMap.contactMechId"/>
             <!-- call update telecom service -->
             <call-service service-name="updatePartyTelecomNumber" in-map-name="homePhoneMap"/>
         <else>
             <!-- create home phone -->
             <if-not-empty field-name="homeContactNumber" map-name="parameters">
-                <env-to-env env-name="partyId" to-env-name="homePhoneMap.partyId"/>
+                <set from-field="partyId" field="homePhoneMap.partyId"/>
                 <string-to-field field-name="contactMechPurposeTypeId" map-name="homePhoneMap" string="PHONE_HOME"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneMap"/>
@@ -178,14 +178,14 @@
         
         <!-- create work phone -->
         <if-not-empty field-name="parameters.workPhoneContactMechId">
-            <env-to-env env-name="partyId" to-env-name="workPhoneMap.partyId"/>
-            <env-to-env env-name="parameters.workPhoneContactMechId" to-env-name="workPhoneMap.contactMechId"/>
+            <set from-field="partyId" field="workPhoneMap.partyId"/>
+            <set from-field="parameters.workPhoneContactMechId" field="workPhoneMap.contactMechId"/>
             <!-- call update telecom service -->
             <call-service service-name="updatePartyTelecomNumber" in-map-name="workPhoneMap"/>
         <else>
             <!-- create work phone -->
             <if-not-empty field-name="workContactNumber" map-name="parameters">
-                <env-to-env env-name="partyId" to-env-name="workPhoneMap.partyId"/>
+                <set from-field="partyId" field="workPhoneMap.partyId"/>
                 <string-to-field field-name="contactMechPurposeTypeId" map-name="workPhoneMap" string="PHONE_WORK"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneMap"/>
@@ -195,8 +195,8 @@
         
         <!-- shipping address -->
         <if-not-empty field-name="parameters.shippingContactMechId">
-            <env-to-env env-name="partyId" to-env-name="addressContext.partyId"/>
-            <env-to-env env-name="parameters.shippingContactMechId" to-env-name="addressContext.contactMechId"/>
+            <set from-field="partyId" field="addressContext.partyId"/>
+            <set from-field="parameters.shippingContactMechId" field="addressContext.contactMechId"/>
             <!-- call the update address service -->
             <call-service service-name="updatePartyPostalAddress" in-map-name="addressContext">
                 <!-- this is needed for the "anonymous" checkout process, will be used as the shipping address -->
@@ -204,7 +204,7 @@
             </call-service>
         <else>
             <if-compare field-name="parameters.useAddress" operator="equals" value="true">
-                <env-to-env env-name="partyId" to-env-name="addressContext.partyId"/>
+                <set from-field="partyId" field="addressContext.partyId"/>
                 <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
                     <result-to-field result-name="contactMechId" map-name="addressPurposeContext"/>
                     <result-to-request result-name="contactMechId"/>
@@ -253,7 +253,7 @@
         <set field="roleMap.partyId" from-field="tempMap.partyId"/>
         <call-service service-name="createPartyRole" in-map-name="roleMap"/>
         
-        <env-to-env env-name="tempMap.partyId" to-env-name="partyId"/>
+        <set from-field="tempMap.partyId" field="partyId"/>
         <call-simple-method method-name="createUpdateCustomerInfo"/>
         
         <!-- create userLogin -->
@@ -273,11 +273,11 @@
         <check-errors/>
         
         <!-- update person service -->
-        <env-to-env env-name="parameters.partyId" to-env-name="personMap.partyId"/>
+        <set from-field="parameters.partyId" field="personMap.partyId"/>
         <call-service service-name="updatePerson" in-map-name="personMap">
         </call-service>
         
-        <env-to-env env-name="parameters.partyId" to-env-name="partyId"/>
+        <set from-field="parameters.partyId" field="partyId"/>
         <call-simple-method method-name="createUpdateCustomerInfo"/>
     </simple-method>
 </simple-methods>
