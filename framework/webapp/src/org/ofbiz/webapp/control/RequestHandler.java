@@ -504,10 +504,10 @@ public class RequestHandler implements Serializable {
     private void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req) throws RequestHandlerException {
         if (Debug.infoOn()) Debug.logInfo("[Sending redirect]: " + url, module);
         // set the attributes in the session so we can access it.
-        java.util.Enumeration enum = req.getAttributeNames();
+        java.util.Enumeration attributeNameEnum = req.getAttributeNames();
         Map reqAttrMap = FastMap.newInstance();
-        while (enum.hasMoreElements()) {
-            String name = (String) enum.nextElement();
+        while (attributeNameEnum.hasMoreElements()) {
+            String name = (String) attributeNameEnum.nextElement();
             Object obj = req.getAttribute(name);
             if (obj instanceof Serializable) {
                 reqAttrMap.put(name, obj);
