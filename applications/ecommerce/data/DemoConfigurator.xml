@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
 <entity-engine-xml>
     <Product productId="PC001" productTypeId="AGGREGATED" productName="Configurable PC" internalName="Configurable PC" description="Configurable PC" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:49:13.418" createdByUserLogin="admin"/>
     <Product productId="RAM256_BRAND" productTypeId="FINISHED_GOOD" productName="RAM256" internalName="RAM 256 no parity" description="RAM 256 no parity" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
