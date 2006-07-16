@@ -1,5 +1,4 @@
 <#--
-$Id: forums.ftl 7615 2006-05-16 03:15:25Z jonesde $
 
 Copyright 2001-2006 The Apache Software Foundation
 
