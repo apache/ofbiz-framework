@@ -27,7 +27,7 @@
 
 <project name="OFBiz Main Build" default="build" basedir=".">
 
-    <property name="site.dir" value="website"/>
+    <property name="site.dir" value="../site"/>
     <property name="memory.max.param" value="-Xmx384M"/>
     
     <!-- ================================================================== -->
