@@ -1,7 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- Copyright (c) 2001-2006 The Open For Business Project - www.ofbiz.org -->
 <#--
-$Id: header.ftl 7808 2006-06-17 22:18:53Z jonesde $
 
 Copyright 2001-2006 The Apache Software Foundation
 
@@ -16,11 +14,6 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
--->
-<#--
- *@author     David E. Jones (jonesde@ofbiz.org)
- *@author     Andy Zeneski (jaz@ofbiz.org)
- *@author     Olivier Heintz (olivier.heintz@nereide.biz)
 -->
 
 <#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
