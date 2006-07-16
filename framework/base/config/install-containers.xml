@@ -15,7 +15,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/ofbiz-containers.xsd">
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
@@ -27,7 +27,6 @@ under the License.
     <container name="dataload-container" class="org.ofbiz.entityext.data.EntityDataLoadContainer">
         <property name="delegator-name" value="default"/>
         <property name="entity-group-name" value="org.ofbiz"/>
-    </container>    
+    </container>
 </ofbiz-containers>
-
 
