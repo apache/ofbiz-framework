@@ -1,5 +1,4 @@
 /*
- * $Id: $
  *
  * Copyright 2006-2006 The Apache Software Foundation
  * 
@@ -16,10 +15,6 @@
  * under the License.
  */
 
-/*
- * Utilities for time periods
- * @author Leon Torres (leon@opensourcestrategies.com)
- */
 
 package org.ofbiz.common.period;
 
