@@ -212,7 +212,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="run-as-user" default="admin"/>
+        <xs:attribute type="xs:string" name="run-as-user" default="system"/>
         <xs:attribute type="xs:string" name="value-attr"/>
     </xs:attributeGroup>
 </xs:schema>
