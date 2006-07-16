@@ -1,9 +1,21 @@
-// ========================================================================
-// Copyright (c) 2002 Mort Bay Consulting (Australia) Pty. Ltd.
-// $Id: Classpath.java 5462 2005-08-05 18:35:48Z jonesde $
-// ========================================================================
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
 
-//package org.mortbay.start;
+// NOTE: Portions Originally Copyright 2002 Mort Bay Consulting (Australia) Pty. Ltd. (this was taken from a code base released under the Apache License, though no header was on this file)
+
 package org.ofbiz.base.start;
 
 import java.io.File;
@@ -17,7 +29,6 @@ import java.util.StringTokenizer;
 
 /**
  * Class to handle CLASSPATH construction
- * @author Jan Hlavat
  */
 public class Classpath {
 
