@@ -2,13 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="framework/testtools/src"/>
-	<classpathentry kind="src" path="hot-deploy"/>
-	<classpathentry kind="src" path="applications/accounting/src/org/ofbiz/accounting/thirdparty/clearcommerce"/>
-	<classpathentry excluding="clearcommerce/" kind="src" path="applications/accounting/src/org/ofbiz/accounting/thirdparty"/>
 	<classpathentry kind="src" path="framework/base/src/base"/>
 	<classpathentry kind="src" path="framework/base/src/start"/>
 	<classpathentry kind="src" path="framework/geronimo/src"/>
-	<classpathentry excluding="org/ofbiz/accounting/thirdparty/clearcommerce/**|org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/worldpay/**|org/ofbiz/accounting/thirdparty/|org/ofbiz/accounting/thirdparty/clearcommerce/" kind="src" path="applications/accounting/src"/>
+    <classpathentry excluding="org/ofbiz/accounting/thirdparty/clearcommerce/**|org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/worldpay/**" kind="src" path="applications/accounting/src"/>
 	<classpathentry excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/" kind="src" path="applications/content/src"/>
 	<classpathentry kind="src" path="applications/ecommerce/src"/>
 	<classpathentry kind="src" path="applications/manufacturing/src"/>
