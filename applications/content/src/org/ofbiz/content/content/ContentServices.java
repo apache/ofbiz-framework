@@ -1,6 +1,4 @@
 /*
- * $Id: ContentServices.java 7769 2006-06-11 06:28:05Z jonesde $
- *
  * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
