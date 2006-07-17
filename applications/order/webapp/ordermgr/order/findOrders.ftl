@@ -1,5 +1,4 @@
 <#--
-$Id: findOrders.ftl 7835 2006-06-21 17:12:26Z sichen $
 
 Copyright 2001-2006 The Apache Software Foundation
 
