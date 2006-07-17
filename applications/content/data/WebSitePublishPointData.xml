@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
 <entity-engine-xml>
     <Content contentId="CONTENT_SITE" contentTypeId="WEB_SITE_PUB_PT" contentName="WebStore" description="Ecommerce Webstore"/>
     <Content contentId="FORUM_1" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CONTENT_SITE" contentName="Test Forum 1" createdDate="2004-02-18 23:26:50.935" createdByUserLogin="admin" lastModifiedDate="2004-02-19 13:19:02.124" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-19 13:19:02.132" lastUpdatedTxStamp="2004-02-19 13:19:02.132" createdStamp="2004-02-18 23:26:50.936" createdTxStamp="2004-02-18 23:26:50.936"/>
