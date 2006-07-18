@@ -182,9 +182,15 @@ under the License.
                     ${postalAddress.address1?if_exists}<br/>
                     <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
                     ${postalAddress.city?if_exists},
-                    ${postalAddress.stateProvinceGeoId?if_exists}
+                    <#if postalAddress.stateProvinceGeoId?has_content>
+                       <#assign stateProvinceAbbrv = postalAddress.getRelatedOneCache("StateProvinceGeo").getString("abbreviation")>
+                       ${stateProvinceAbbrv}
+                    </#if>
                     ${postalAddress.postalCode?if_exists}
-                    <#if postalAddress.countryGeoId?has_content><br/>${postalAddress.countryGeoId}</#if>
+                    <#if postalAddress.countryGeoId?has_content><br/>
+                       <#assign countryName = postalAddress.getRelatedOneCache("CountryGeo").getString("geoName")>
+                       ${countryName}
+                    </#if>
                   </div>
                   <#if (postalAddress?has_content && !postalAddress.countryGeoId?has_content) || postalAddress.countryGeoId = "USA">
                       <#assign addr1 = postalAddress.address1?if_exists>
