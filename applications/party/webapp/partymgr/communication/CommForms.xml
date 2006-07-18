@@ -256,7 +256,7 @@ under the License.
         </actions>
     </form>
     <form name="ListLookupCommEvents" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        extends="ListCommEvents" list-name="listIt" paginate-target="listLookupCommunications" target="updateCommunicationEvent" title="" type="list">
+        extends="ListCommEvents" list-name="listIt" paginate-target="ListLookupCommEvents" target="updateCommunicationEvent" title="" type="list">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>

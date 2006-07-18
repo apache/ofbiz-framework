@@ -121,6 +121,8 @@ under the License.
                 <set field="partyId" value="${parameters.partyId}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
