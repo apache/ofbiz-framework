@@ -517,7 +517,7 @@ under the License.
             <env-to-env env-name="parameters.averageCost" to-env-name="createAverageCostMap.price"/>
             <string-to-field string="_NA_" field-name="createAverageCostMap.productStoreGroupId"/>
             <string-to-field string="AVERAGE_COST" field-name="createAverageCostMap.productPriceTypeId"/>
-            <set field="createDefaultPriceMap.productPricePurposeId" value="PURCHASE"/>
+            <set field="createAverageCostMap.productPricePurposeId" value="PURCHASE"/>
             <call-service service-name="createProductPrice" in-map-name="createAverageCostMap"/>
         </if-not-empty>
 
