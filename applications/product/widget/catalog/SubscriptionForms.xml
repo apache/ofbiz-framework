@@ -271,7 +271,7 @@ under the License.
         <field name="subscriptionResourceId"><hidden/></field>
         <field name="productId" widget-style="tabletext"><display/></field>
         <field name="useTimeUomId" widget-style="selectBox">
-            <drop-down allow-empty="true">
+            <drop-down>
                 <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
@@ -300,7 +300,7 @@ under the License.
         <field name="subscriptionResourceId"><hidden/></field>
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="useTimeUomId" widget-style="selectBox">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
