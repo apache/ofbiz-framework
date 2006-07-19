@@ -184,7 +184,10 @@ public class SubscriptionServices {
                 GenericValue productSubscriptionResource = (GenericValue) productSubscriptionResourceIter.next();
 
                 Long useTime = (Long) productSubscriptionResource.get("useTime");
-                Integer newUseTime = new Integer(useTime.intValue() * qty.intValue());
+                Integer newUseTime = new Integer(0);
+                if (useTime != null) {
+                    newUseTime = new Integer(useTime.intValue() * qty.intValue());
+                }
                 context.put("useTime", newUseTime);
                 context.put("useTimeUomId", productSubscriptionResource.get("useTimeUomId"));
                 context.put("useRoleTypeId", productSubscriptionResource.get("useRoleTypeId"));
