@@ -39,6 +39,7 @@ under the License.
         </field>
         <field position="1" name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyIdTo" parameter-name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
         
