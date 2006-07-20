@@ -358,6 +358,9 @@ under the License.
             <set from-field="oisgir.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
             <set from-field="oisgir.inventoryItemId" field="cancelOisgirMap.inventoryItemId"/>
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
+            <!-- checkDecomposeInventoryItem service is called to decompose a marketing package (if the product is a mkt pkg) -->
+            <set from-field="oisgir.inventoryItemId" field="checkDiiMap.inventoryItemId"/>
+            <call-service service-name="checkDecomposeInventoryItem" in-map-name="checkDiiMap"/>
         </iterate>
     </simple-method>
     <simple-method method-name="cancelOrderItemInvResQty" short-description="Cancel Inventory Reservation Qty For An Item">
@@ -392,6 +395,9 @@ under the License.
                     <set from-field="oisgir.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
                     <set from-field="oisgir.inventoryItemId" field="cancelOisgirMap.inventoryItemId"/>
                     <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
+                    <!-- checkDecomposeInventoryItem service is called to decompose a marketing package (if the product is a mkt pkg) -->
+                    <set from-field="oisgir.inventoryItemId" field="checkDiiMap.inventoryItemId"/>
+                    <call-service service-name="checkDecomposeInventoryItem" in-map-name="checkDiiMap"/>
                     <!-- update the toCancelAmount -->
                     <calculate field-name="toCancelAmount">
                         <calcop operator="subtract" field-name="toCancelAmount">
