@@ -331,6 +331,35 @@ public class ProductionRunServices {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem calling the createWorkEffortAssoc service", module);
                 }
+                // copy date valid WorkEffortPartyAssignments from the routing task to the run task
+                List workEffortPartyAssignments = null;
+                try {
+                    workEffortPartyAssignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", 
+                            UtilMisc.toMap("workEffortId", routingTaskAssoc.getString("workEffortIdTo"))));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e.getMessage(),  module);
+                }
+                if (workEffortPartyAssignments != null) {
+                    Iterator i = workEffortPartyAssignments.iterator();
+                    while(i.hasNext()) {
+                        GenericValue workEffortPartyAssignment = (GenericValue) i.next();
+                        Map partyToWorkEffort = UtilMisc.toMap(
+                                "workEffortId",  productionRunTaskId,
+                                "partyId",  workEffortPartyAssignment.getString("partyId"),
+                                "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
+                                "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
+                                "statusId",  workEffortPartyAssignment.getString("statusId"),
+                                "userLogin", userLogin
+                        );
+                        try {
+                            resultService = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, "Problem calling the assignPartyToWorkEffort service", module);
+                        }
+                        if (Debug.infoOn()) Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", module);
+                    }
+                }
+
                 // Now we iterate thru the components returned by the getManufacturingComponents service
                 // TODO: if in the BOM a routingWorkEffortId is specified, but the task is not in the routing
                 //       the component is not added to the production run.
@@ -1160,6 +1189,34 @@ public class ProductionRunServices {
         productionRun.setEstimatedCompletionDate(productionRun.recalculateEstimatedCompletionDate());
         if (!productionRun.store()) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingAddProductionRunRoutingTaskNotCreated", locale));
+        }
+        
+        // copy date valid WorkEffortPartyAssignments from the routing task to the run task
+        List workEffortPartyAssignments = null;
+        try {
+            workEffortPartyAssignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", UtilMisc.toMap("workEffortId", routingTaskId)));
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(),  module);
+        }
+        if (workEffortPartyAssignments != null) {
+            Iterator i = workEffortPartyAssignments.iterator();
+            while(i.hasNext()) {
+                GenericValue workEffortPartyAssignment = (GenericValue) i.next();
+                Map partyToWorkEffort = UtilMisc.toMap(
+                        "workEffortId",  productionRunTaskId,
+                        "partyId",  workEffortPartyAssignment.getString("partyId"),
+                        "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
+                        "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
+                        "statusId",  workEffortPartyAssignment.getString("statusId"),
+                        "userLogin", userLogin
+                );
+                try {
+                    resultService = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Problem calling the assignPartyToWorkEffort service", module);
+                }
+                if (Debug.infoOn()) Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", module);
+            }
         }
         
         result.put("routingTaskId", productionRunTaskId);
