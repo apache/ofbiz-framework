@@ -70,7 +70,7 @@ under the License.
         list-name="" target="" paginate-target="listMarketingCampaignGeo" title="" type="list">
         <actions>
         <entity-and entity-name="MarketingCampaignRole">
-            <field-map env-name="marketingCampaignId" />
+            <field-map field-name="marketingCampaignId" env-name="marketingCampaignId" />
         </entity-and>
         </actions>
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}">
