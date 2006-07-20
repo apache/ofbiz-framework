@@ -61,6 +61,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
     </form>
     <form name="ListQuotes" list-name="listIt" target="" paginate-target="FindQuote" title="" type="list" 
             default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">

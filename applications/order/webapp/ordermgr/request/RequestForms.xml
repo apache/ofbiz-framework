@@ -53,6 +53,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
     </form>
 
     <form name="ListRequests" type="list" use-row-submit="true" list-name="listIt"
