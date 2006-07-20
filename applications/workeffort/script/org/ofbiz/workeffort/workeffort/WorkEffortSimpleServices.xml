@@ -185,10 +185,10 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field-name="newEntity.fromDate">
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
-        <field-to-result field-name="fromDate" map-name="newValue"/>
+        <field-to-result field-name="newEntity.fromDate" result-name="fromDate"/>
 
         <if-not-empty field-name="parameters.statusId">
             <set from-field="nowTimestamp" field="newEntity.statusDateTime"/>
