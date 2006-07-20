@@ -1,7 +1,5 @@
 /*
- * $Id: TreeStringRenderer.java 7427 2006-04-27 00:02:37Z jonesde $
- *
- * Copyright 2003-2006 The Apache Software Foundation
+ * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
