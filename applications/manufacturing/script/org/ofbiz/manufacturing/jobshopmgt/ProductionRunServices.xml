@@ -248,8 +248,8 @@ under the License.
             <condition>
                 <and>
                     <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
-                    <not><if-empty field-name="inventoryItem.quantityOnHandTotal"/></not>
-                    <if-compare field-name="inventoryItem.quantityOnHandTotal" operator="greater" value="0" type="Double"/>
+                    <not><if-empty field-name="inventoryItem.availableToPromiseTotal"/></not>
+                    <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double"/>
                 </and>
             </condition>
             <then>
@@ -257,11 +257,11 @@ under the License.
                     <condition>
                         <or>
                             <if-empty field-name="parameters.quantity"/>
-                            <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.quantityOnHandTotal" type="Double"/>
+                            <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double"/>
                         </or>
                     </condition>
                     <then>
-                        <set from-field="inventoryItem.quantityOnHandTotal" field="deductAmount"/>
+                        <set from-field="inventoryItem.availableToPromiseTotal" field="deductAmount"/>
                     </then>
                     <else>
                         <set from-field="parameters.quantity" field="deductAmount"/>
