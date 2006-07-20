@@ -228,17 +228,7 @@ under the License.
     <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="55.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="80.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     
-    <!-- test for marketing package and auto-exploded marketing packages -->
-    <Product productId="GZ-KIT" productTypeId="FINISHED_GOOD" productName="Gizmo Kit" internalName="Pre-Assembled Gizmo Kit" 
-        description="Pre-Assembled Gizmo Kit"
-        longDescription="Pre-Assembled Gizmo Kit"
-        taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" />
-    <ProductPrice productId="GZ-KIT" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="150" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductPrice productId="GZ-KIT" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="165" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GZ-KIT" productIdTo="GZ-1000" productAssocTypeId="MARKETING_PACKAGE" quantity="1" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GZ-KIT" productIdTo="GZ-1001" productAssocTypeId="MARKETING_PACKAGE" quantity="2" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductAssoc productId="GZ-KIT" productIdTo="GZ-1004" productAssocTypeId="MARKETING_PACKAGE" quantity="3" fromDate="2001-05-13 12:00:00.0"/>
-    
+    <!-- test for marketing package -->
     <Product productId="GZ-BASKET" productTypeId="MARKETING_PKG_AUTO" productName="Gizmo Basket" internalName="Auto-Assembled Gizmo Basket" 
         description="Auto-Assembled Gizmo Basket.  Automatically assembled each time it's ordered."
         longDescription="Auto-Assembled Gizmo Basket.  This item will be automatically assembled with production runs every time it's ordered, and the inventory counts for it are based on the quantity available and on hand for the component items."
