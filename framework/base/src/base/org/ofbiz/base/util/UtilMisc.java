@@ -403,7 +403,7 @@ public class UtilMisc {
                             if (end == -1) {
                                 end = localesString.length();
                             }
-                            Locale curLocale = new Locale(localesString.substring(start, end));
+                            Locale curLocale = UtilMisc.ensureLocale(localesString.substring(start, end));
                             localeMap.put(curLocale.getDisplayName(), curLocale);
                             start = end + 1;
                         }
