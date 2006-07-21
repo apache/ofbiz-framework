@@ -45,7 +45,7 @@ under the License.
         </if-compare>
         
         <if-compare field-name="productStore.usePrimaryEmailUsername" operator="equals" value="Y">
-            <set from-field="parameters.CUSTOMER_EMAIL" field="USERNAME"/>
+            <set field="parameters.USERNAME" from-field="parameters.CUSTOMER_EMAIL"/>
         </if-compare>
 
         <!-- if username and/or password should be lowercased, do that now -->
