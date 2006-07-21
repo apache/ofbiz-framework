@@ -179,7 +179,7 @@ public class EntityUtil {
                 java.sql.Timestamp fromDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(fromDateField);
                 java.sql.Timestamp thruDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(thruDateField);
 
-                if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment))) {
+                if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
                 }// else not active at moment
             }
@@ -188,7 +188,7 @@ public class EntityUtil {
                 java.sql.Timestamp fromDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(fromDateField);
                 java.sql.Timestamp thruDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(thruDateField);
 
-                if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment))) {
+                if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
                 }// else not active at moment
             }
@@ -199,7 +199,7 @@ public class EntityUtil {
                 java.sql.Timestamp fromDate = datedValue.getTimestamp(fromDateName);
                 java.sql.Timestamp thruDate = datedValue.getTimestamp(thruDateName);
 
-                if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment))) {
+                if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
                 }// else not active at moment
             }
@@ -216,7 +216,7 @@ public class EntityUtil {
         java.sql.Timestamp fromDate = datedValue.getTimestamp(fromDateName);
         java.sql.Timestamp thruDate = datedValue.getTimestamp(thruDateName);
 
-        if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment))) {
+        if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
             return true;
         } else {
             // else not active at moment
