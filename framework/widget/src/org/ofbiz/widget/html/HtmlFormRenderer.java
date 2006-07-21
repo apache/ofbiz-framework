@@ -1708,7 +1708,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append(" <input type=\"radio\" name=\"");
         buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld0_op\" value=\"equals\" checked=\"checked\"/>");
+        buffer.append("_fld0_op\" value=\"equals\" />");
         buffer.append(opEquals);
 
         buffer.append(" <input type=\"radio\" name=\"");
