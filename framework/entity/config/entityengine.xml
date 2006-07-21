@@ -162,9 +162,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         check-on-start="true"
         add-missing-on-start="true"
         use-pk-constraint-names="false">
-        <read-data reader-name="seed"/>
-        <read-data reader-name="demo"/>
-        <read-data reader-name="ext"/>
         <inline-jdbc
             jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
             jdbc-uri="jdbc:derby:ofbizodbc;create=true"
