@@ -1451,30 +1451,18 @@ public class CheckOutHelper {
 
     public double availableAccountBalance(String billingAccountId) {
         GenericValue billingAccount = null;
-        Double accountBalance = new Double(0.00);
-        Double accountLimit = new Double(0.00);
+        Double availableBalance = new Double(0.00);
 
         if (billingAccountId != null) {
             try {
                 Map res = dispatcher.runSync("calcBillingAccountBalance", UtilMisc.toMap("billingAccountId", billingAccountId));
-                billingAccount = (GenericValue) res.get("billingAccount");
-                accountBalance = (Double) res.get("accountBalance");
+                availableBalance = (Double) res.get("availableBalance");
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
             }
-            if (billingAccount != null) {
-                accountLimit = billingAccount.getDouble("accountLimit");
-            }
-
-            if (accountLimit == null) {
-                accountLimit = new Double(0.00);
-            }
-            if (accountBalance == null) {
-                accountBalance = new Double(0.00);
-            }
         }
 
-        return (accountLimit.doubleValue() - accountBalance.doubleValue());
+        return availableBalance.doubleValue();
     }
 
     public Map makeBillingAccountMap(List paymentPrefs) {
