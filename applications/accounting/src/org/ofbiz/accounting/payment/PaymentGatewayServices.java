@@ -464,6 +464,8 @@ public class PaymentGatewayServices {
         }
         if (productStore != null && productStore.get("payToPartyId") != null) {
             payToPartyId = productStore.getString("payToPartyId");
+        } else {
+            Debug.logWarning("Using default value of [Company] for payToPartyId on order [" + orderHeader.getString("orderId") + "]", module);
         }
         return payToPartyId;
     }
@@ -1514,10 +1516,11 @@ public class PaymentGatewayServices {
         Double amount = (Double) context.get("captureAmount");
         String serviceType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
-        Debug.logInfo("Invoice ID: " + invoiceId, module);
-
+        
         if (UtilValidate.isEmpty(payTo)) {
             payTo = "Company";
+            Debug.logWarning("Using default value of [Company] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" + 
+                    paymentPreference.getString("orderPaymentPreferenceId") + "]", module);
         }
 
         if (UtilValidate.isEmpty(serviceType)) {
