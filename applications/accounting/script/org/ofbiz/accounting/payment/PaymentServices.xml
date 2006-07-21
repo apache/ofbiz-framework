@@ -107,15 +107,12 @@ under the License.
         <!-- get the invoice and do some further validation against it -->
         <if-not-empty field-name="parameters.invoiceId">
             <entity-one entity-name="Invoice" value-name="invoice"/>
-            <if-not-empty field-name="invoice.billingAccountId">
-                <set from-field="invoice.billingAccountId" field="paymentAppl.billingAccountId"/>
-            </if-not-empty>
 
             <!-- get the amount that has not been applied yet for the invoice (outstanding amount) -->
             <set field="notApplied" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue()}" type="Double"/>
 
             <!-- if the amount to apply goes over the outstanding amount, then use the notApplied amount and log a warning -->
-            <if-compare-field field-name="paymentAppl.amountApplied" operator="greater" to-field-name="notApplied">
+            <if-compare-field field-name="paymentAppl.amountApplied" operator="greater" to-field-name="notApplied" type="Double">
                 <log level="warning" message="Create Payment Application: Amount to apply [${paymentAppl.amountApplied}] is greater than the outstanding amount [${notApplied}] of the invoice [${invoice.invoiceId}]. Creating Payment Application for outstanding amount [${notApplied}] instead."/>
                 <set field="paymentAppl.amountApplied" from-field="notApplied"/>
             </if-compare-field>
