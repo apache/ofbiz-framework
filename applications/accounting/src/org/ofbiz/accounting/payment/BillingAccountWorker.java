@@ -119,10 +119,21 @@ public class BillingAccountWorker {
     public static BigDecimal getBillingAccountBalance(GenericValue billingAccount) throws GenericEntityException {
         return getBillingAccountBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
     }
-        
+    
+    /**
+     * Calculates the "available" balance of a billing account, which is net balance minus amount of pending (not canceled, rejected, or completed) orders.  When looking at
+     * using a billing account for a new order, you should use this method
+     * @param delegator
+     * @param billingAccountId
+     * @return
+     * @throws GenericEntityException
+     */
+    
     public static BigDecimal getBillingAccountBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
-        BigDecimal balance = ZERO;
-        // first get all the pending orders (not cancelled, rejected or completed)
+        // first get the net balance of invoices - payments
+        BigDecimal balance = getBillingAccountNetBalance(delegator, billingAccountId);
+        
+        // now the amounts of all the pending orders (not cancelled, rejected or completed)
         List orderHeaders = null;
         List exprs1 = new LinkedList();
         exprs1.add(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId));
@@ -141,41 +152,55 @@ public class BillingAccountWorker {
             }
         }
         
-        // next get all the un-paid invoices (this will include all completed orders)
-        List invoices = null;
-        List exprs2 = new LinkedList();
-        exprs2.add(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId));
-        exprs2.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"));
-        exprs2.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "INVOICE_PAID"));
-
-        invoices = delegator.findByAnd("Invoice", exprs2);
-
-        if (invoices != null) {
-            Iterator ii = invoices.iterator();
-            while (ii.hasNext()) {
-                GenericValue invoice = (GenericValue) ii.next();
-                balance = balance.add(InvoiceWorker.getInvoiceNotApplied(invoice));
-            }
+        balance = balance.setScale(decimals, rounding);
+        return balance;
+    }
+    
+    /**
+     * Returns the amount which could be charged to a billing account, which is defined as the accountLimit minus account balance and minus the balance of outstanding orders
+     * When trying to figure out how much of a billing account can be used to pay for an outstanding order, use this method
+     * @param billingAccount
+     * @return
+     * @throws GenericEntityException
+     */
+    public static BigDecimal getBillingAccountAvailableBalance(GenericValue billingAccount) throws GenericEntityException {
+        if ((billingAccount != null) && (billingAccount.get("accountLimit") != null)) {
+            BigDecimal accountLimit = new BigDecimal(billingAccount.getDouble("accountLimit").doubleValue());
+            BigDecimal availableBalance = accountLimit.subtract(getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
+            return availableBalance;
+        } else {
+            return ZERO;
         }
-        
-        // finally apply any payments to the balance
-        List credits = null;
-        List exprs3 = new LinkedList();
-        exprs3.add(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId));
-        exprs3.add(new EntityExpr("invoiceId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
-
-        credits = delegator.findByAnd("PaymentApplication", exprs3);
-
-        if (credits != null) {
-            Iterator ci = credits.iterator();
-            while (ci.hasNext()) {
-                GenericValue credit = (GenericValue) ci.next();
-                BigDecimal amount = credit.getBigDecimal("amountApplied");
-                if (amount != null) {
-                    balance = balance.subtract(amount);
+    }
+    
+    /**
+     * Calculates the net balance of a billing account, which is sum of all amounts applied to invoices minus sum of all amounts applied from payments.
+     * When charging or capturing an invoice to a billing account, use this method
+     * @param delegator
+     * @param billingAccountId
+     * @return
+     * @throws GenericEntityException
+     */
+    public static BigDecimal getBillingAccountNetBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+        BigDecimal balance = ZERO;
+     
+        // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
+        List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
+        if (paymentAppls != null) {
+            for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
+                GenericValue paymentAppl = (GenericValue) pAi.next();
+                BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
+                if (paymentAppl.getString("invoiceId") != null) {
+                    // make sure the invoice has not been canceled
+                    if (!"INVOICE_CANCELED".equals(paymentAppl.getRelatedOne("Invoice").getString("statusId"))) {
+                        balance = balance.add(amountApplied);    
+                    }
+                } else {
+                    balance = balance.subtract(amountApplied);
                 }
             }
         }
+    
         balance = balance.setScale(decimals, rounding);
         return balance;
     }
@@ -185,9 +210,11 @@ public class BillingAccountWorker {
         String billingAccountId = (String) context.get("billingAccountId");
         GenericValue billingAccount = null;
         Double accountBalance = null;
+        Double netAccountBalance = null;
         try {
             billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
             accountBalance = new Double((getBillingAccountBalance(delegator, billingAccountId)).doubleValue());
+            netAccountBalance = new Double((getBillingAccountNetBalance(delegator, billingAccountId)).doubleValue());
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error getting billing account or calculating balance for billing account #" + billingAccountId);
@@ -199,6 +226,7 @@ public class BillingAccountWorker {
         
         Map result = ServiceUtil.returnSuccess();
         result.put("accountBalance", accountBalance);
+        result.put("netAccountBalance", netAccountBalance);
         result.put("billingAccount", billingAccount);
         return result;  
     }
