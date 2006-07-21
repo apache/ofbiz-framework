@@ -23,6 +23,8 @@ under the License.
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
  
+        <field name="description"><text size="60"/></field>
+ 
         <field use-when="billingAccount!=null" name="billingAccountId" title="${uiLabelMap.PartyParty}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
         <field use-when="billingAccount==null&amp;&amp;billingAccountId==null" name="billingAccountId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName"/></field>
         <field use-when="billingAccount==null&amp;&amp;billingAccountId!=null" name="billingAccountId" title="${uiLabelMap.PartyParty}" tooltip="${uiLabelMap.CommonCannotBeFound}:[${billingAccountId}]"><lookup target-form-name="LookupPartyName"/></field>
@@ -44,7 +46,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+        <field name="netBalance" widget-style="tabletext" title="${uiLabelMap.AccountingBillingNetBalance}" tooltip="${uiLabelMap.AccountingBillingNetBalanceMesage}">
+            <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}"/>
+        </field>
+        <field name="availableBalance" widget-style="tabletext" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMesage}">
+            <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountAvailableBalance(billingAccount)}"/>
+        </field>
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
