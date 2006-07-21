@@ -211,10 +211,12 @@ public class BillingAccountWorker {
         GenericValue billingAccount = null;
         Double accountBalance = null;
         Double netAccountBalance = null;
+        Double availableBalance = null;
         try {
             billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
             accountBalance = new Double((getBillingAccountBalance(delegator, billingAccountId)).doubleValue());
             netAccountBalance = new Double((getBillingAccountNetBalance(delegator, billingAccountId)).doubleValue());
+            availableBalance = new Double(getBillingAccountAvailableBalance(billingAccount).doubleValue());
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error getting billing account or calculating balance for billing account #" + billingAccountId);
@@ -227,6 +229,7 @@ public class BillingAccountWorker {
         Map result = ServiceUtil.returnSuccess();
         result.put("accountBalance", accountBalance);
         result.put("netAccountBalance", netAccountBalance);
+        result.put("availableBalance", availableBalance);
         result.put("billingAccount", billingAccount);
         return result;  
     }

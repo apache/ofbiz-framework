@@ -98,6 +98,7 @@ under the License.
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="accountBalance" type="Double" mode="OUT" optional="false"/>
         <attribute name="netAccountBalance" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableBalance" type="Double" mode="OUT" optional="false"/>
         <attribute name="billingAccount" type="GenericValue" mode="OUT" optional="false"/>
     </service>
 </services>
