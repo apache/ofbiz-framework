@@ -27,7 +27,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#if orderId?has_content>
-          ${updatePODeliveryInfoWrapper.renderFormString()}
+          ${updatePODeliveryInfoWrapper.renderFormString(context)}
         <#else>
           <div class="tabletext">${uiLabelMap.OrderNoPurchaseSpecified}</div>
         </#if>
