@@ -27,9 +27,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.transaction.xa.XAException;
 import javax.mail.internet.MimeMessage;
-import javax.mail.Address;
+import javax.transaction.xa.XAException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
