@@ -1,6 +1,4 @@
 /*
- * $Id: KeyboardReceiver.java 7565 2006-05-12 15:44:41Z les7arts $
- *
  * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
