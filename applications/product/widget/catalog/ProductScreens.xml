@@ -515,6 +515,7 @@ under the License.
                 <entity-one entity-name="Product" value-name="product"/>
                 
                 <entity-condition entity-name="ProductPaymentMethodType" list-name="productPaymentMethodTypes">
+                    <condition-expr field-name="productId" env-name="productId"/>
                     <order-by field-name="productPricePurposeId"/>
                     <order-by field-name="paymentMethodTypeId"/>
                     <order-by field-name="fromDate"/>
