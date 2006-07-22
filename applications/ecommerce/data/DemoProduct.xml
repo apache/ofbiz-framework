@@ -340,7 +340,6 @@ under the License.
 
     <ProductCategoryMember productCategoryId="100" productId="GZ-DIG" sequenceNum="4" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-NEWS-1MO" sequenceNum="5" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-KIT" sequenceNum="5" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-BASKET" sequenceNum="6" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1000" sequenceNum="10" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1001" sequenceNum="11" fromDate="2001-05-13 12:00:00.0"/>
