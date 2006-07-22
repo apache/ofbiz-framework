@@ -2026,7 +2026,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="FinAccountTrans"
-            package-name="org.ofbiz.accounting.finacount"
+            package-name="org.ofbiz.accounting.finaccount"
             title="Financial Account Transaction Entity">
       <field name="finAccountTransId" type="id-ne"></field>
       <field name="finAccountTransTypeId" type="id-ne"></field>
