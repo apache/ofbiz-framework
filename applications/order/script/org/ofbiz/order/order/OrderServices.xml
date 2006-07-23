@@ -496,5 +496,38 @@ under the License.
             <create-value value-name="adjustment"/>
         </iterate>
     </simple-method>
+
+    <simple-method method-name="createOrderTerm" short-description="Create an OrderTerm">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderTerm"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="OrderTerm"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set value="_NA_" set-if-empty="true" field="newEntity.orderItemSeqId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateOrderTerm" short-description="Update OrderTerm">
+        <check-permission permission="ORDERMGR" action="_DELETE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderTerm"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="OrderTerm" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="removeOrderTerm" short-description="Remove OrderTerm">
+        <check-permission permission="ORDERMGR" action="_DELETE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveOrderTerm"/>
+        </check-permission>
+        <check-errors/>
+
+        <entity-one entity-name="OrderTerm" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>
 

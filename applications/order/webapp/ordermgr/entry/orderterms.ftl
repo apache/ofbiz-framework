@@ -46,7 +46,7 @@ under the License.
                   <td align="right">
                     <a href="<@ofbizUrl>setOrderTerm?termIndex=${index}&createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="<@ofbizUrl>removeOrderTerm?termIndex=${index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
+                    <a href="<@ofbizUrl>removeCartOrderTerm?termIndex=${index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
                   </td>
                   </tr>
                   <#if orderTerms.size()&lt;index >

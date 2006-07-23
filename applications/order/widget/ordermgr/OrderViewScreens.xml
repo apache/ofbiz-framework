@@ -142,7 +142,7 @@ under the License.
             <actions>				
                 <set field="titleProperty" value="OrderViewEditDeliveryScheduleInfo"/>
                 <set field="headerItem" value="findorders"/>
-				<property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
@@ -219,6 +219,25 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/order/sendconfirmationemail.ftl"/></html>
                         </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListOrderTerms">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ListOrderTerms"/>
+                <set field="headerItem" value="findorders"/>
+                <entity-and entity-name="OrderTerm" list-name="orderTerms">
+                    <field-map field-name="orderId" env-name="parameters.orderId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderViewDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListOrderTerms" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                        <include-form name="AddOrderTerm" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

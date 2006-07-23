@@ -502,5 +502,25 @@ under the License.
         <description>Remove a Communication Event Order</description>
         <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- OrderTerms -->
+    <service name="createOrderTerm" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="createOrderTerm" auth="true">
+        <description>Create an Order Term</description>
+        <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="OrderTerm" include="nonpk" mode="IN" optional="true"/>
+        <override name="orderItemSeqId" optional="true"/>
+    </service>
+    <service name="updateOrderTerm" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderTerm" auth="true">
+        <description>Update an Order Term</description>
+        <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="OrderTerm" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeOrderTerm" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="removeOrderTerm" auth="true">
+        <description>Remove an Order Term</description>
+        <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
 
