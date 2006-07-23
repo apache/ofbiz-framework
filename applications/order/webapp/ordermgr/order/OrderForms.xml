@@ -21,13 +21,13 @@
     <form name="EditOrderHeader" type="single" target="updateOrderHeader" title=""
             default-title-style="tableheadtext" default-widget-style="inputBox" 
             default-tooltip-style="tabletext" >
-        <alt-target target="createOrderHeader" use-when="orderHeader==null"/>
-        <auto-fields-entity entity-name="OrderHeader" />
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="orderHeader.statusId"/>
             </entity-one>
         </actions>
+        <alt-target target="createOrderHeader" use-when="orderHeader==null"/>
+        <auto-fields-entity entity-name="OrderHeader" />
         
         <field name="orderId" use-when="orderHeader!=null" ><display/></field>
         <field name="orderId" use-when="orderHeader==null" ><ignored/></field>
@@ -81,16 +81,41 @@
     <form name="ListOrderHeaders" type="single" target="" title=""
             default-title-style="tableheadtext" default-widget-style="inputBox" 
             default-tooltip-style="tabletext" >
-        <auto-fields-entity entity-name="OrderHeader" default-field-type="display"/>
         <actions>
             <entity-and entity-name="OrderHeader">
                 <field-map field-name="orderId"/>
             </entity-and>
         </actions>
+        <auto-fields-entity entity-name="OrderHeader" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
             <hyperlink target="EditOrderHeader?orderId=${orderId}" description="[${orderId}]" />
         </field>
         <field name="statusId"> <display-entity entity-name="StatusItem"/> </field>
         <field name="productStoreId"> <display-entity entity-name="ProductStore"/> </field>
+    </form>
+    <form name="ListOrderTerms" type="list" list-name="orderTerms"
+            target="updateOrderTerm" paginate-target="ListOrderTerms" title=""
+            default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        <auto-fields-entity entity-name="OrderTerm" default-field-type="edit"/>
+        <field name="termTypeId"><display-entity also-hidden="true" entity-name="TermType"/></field>
+        <field name="orderId"><hidden/></field>
+        <field name="orderItemSeqId"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeOrderTerm?orderId=${orderId}&amp;termTypeId=${termTypeId}&amp;orderItemSeqId=${orderItemSeqId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddOrderTerm" type="single" target="createOrderTerm" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="OrderTerm" default-field-type="edit"/>
+        <field name="orderId"><hidden value="${parameters.orderId}"/></field>
+        <field name="termTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="TermType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="addButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

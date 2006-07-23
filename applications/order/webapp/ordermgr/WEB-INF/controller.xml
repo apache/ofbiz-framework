@@ -306,6 +306,30 @@
         <response name="error" type="view" value="createnewnote"/>
     </request-map>
 
+    <!-- Order Term Requests -->
+    <request-map uri="ListOrderTerms">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListOrderTerms"/>
+    </request-map>
+    <request-map uri="createOrderTerm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createOrderTerm"/>
+        <response name="success" type="view" value="ListOrderTerms"/>
+        <response name="error" type="view" value="ListOrderTerms"/>
+    </request-map>
+    <request-map uri="updateOrderTerm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateOrderTerm"/>
+        <response name="success" type="view" value="ListOrderTerms"/>
+        <response name="error" type="view" value="ListOrderTerms"/>
+    </request-map>
+    <request-map uri="removeOrderTerm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeOrderTerm"/>
+        <response name="success" type="view" value="ListOrderTerms"/>
+        <response name="error" type="view" value="ListOrderTerms"/>
+    </request-map>
+
     <!-- Order Entry Requests -->
     <request-map uri="orderentry">
         <security https="true" auth="true"/>
@@ -761,7 +785,7 @@
         <response name="success" type="view" value="orderTerm"/>
         <response name="error" type="view" value="orderTerm"/>
     </request-map>
-    <request-map uri="removeOrderTerm">
+    <request-map uri="removeCartOrderTerm">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="removeOrderTerm"/>
         <response name="success" type="view" value="orderTerm"/>
@@ -1271,6 +1295,7 @@
     <view-map name="receivepayment" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderReceivePayment"/>
     <view-map name="ordertasklist" type="screen" page="component://order/widget/ordermgr/OrderTaskScreens.xml#OrderTaskList"/>
     <view-map name="viewimage" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ViewImage"/>
+    <view-map name="ListOrderTerms" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ListOrderTerms"/>
 
     <view-map name="survey" type="screen" page="component://order/widget/ordermgr/setOrderCurrencyAgreementShipDatesCartScreens.xml#survey"/>
     <view-map name="showcart" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#ShowCart"/>
