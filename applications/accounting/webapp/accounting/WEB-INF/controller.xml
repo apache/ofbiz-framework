@@ -820,13 +820,13 @@ under the License.
     <request-map uri="EditTaxAuthorityGlAccounts"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthorityGlAccounts"/></request-map>
     <request-map uri="createTaxAuthorityGlAccount">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createTaxAuthorityCategory"/>
+        <event type="service" path="" invoke="createTaxAuthorityGlAccount"/>
         <response name="success" type="view" value="EditTaxAuthorityGlAccounts"/>
         <response name="error" type="view" value="EditTaxAuthorityGlAccounts"/>
     </request-map>
     <request-map uri="deleteTaxAuthorityGlAccount">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteTaxAuthorityCategory"/>
+        <event type="service" path="" invoke="deleteTaxAuthorityGlAccount"/>
         <response name="success" type="view" value="EditTaxAuthorityGlAccounts"/>
         <response name="error" type="view" value="EditTaxAuthorityGlAccounts"/>
     </request-map>
