@@ -22,6 +22,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.service.ServiceUtil;
 
 delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
 facilityId = request.getParameter("facilityId"); 
 purchaseOrderId = request.getParameter("purchaseOrderId");
 productId = request.getParameter("productId");
@@ -30,6 +31,12 @@ shipmentId = request.getParameter("shipmentId");
 facility = null;
 if (facilityId != null) {
     facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+}
+
+ownerAcctgPref = null;
+if (facility != null) {
+    owner = facility.getRelatedOne("OwnerParty");
+    if (owner != null) ownerAcctgPref = owner.getRelatedOne("PartyAcctgPreference");
 }
 
 purchaseOrder = null;
@@ -94,11 +101,8 @@ if (purchaseOrder != null) {
 }
 // convert the unit prices to that of the facility owner's currency
 if (purchaseOrder != null && facility != null) {
-    owner = facility.getRelatedOne("OwnerParty");
-    acctgPref = null;
-    if (owner != null) acctgPref = owner.getRelatedOne("PartyAcctgPreference");
-    if (acctgPref != null) {
-        ownerCurrencyUomId = acctgPref.get("baseCurrencyUomId");
+    if (ownerAcctgPref != null) {
+        ownerCurrencyUomId = ownerAcctgPref.get("baseCurrencyUomId");
         orderCurrencyUomId = purchaseOrder.get("currencyUom");
         if (!orderCurrencyUomId.equals(ownerCurrencyUomId)) {
             for (iter = purchaseOrderItems.iterator(); iter.hasNext(); ) {
@@ -181,7 +185,36 @@ inventoryItemTypes = delegator.findAll("InventoryItemType");
 
 // facilities
 facilities = delegator.findAll("Facility");
-    
+
+// default per unit cost for both shipment or individual product
+standardCosts = new HashMap();
+if (ownerAcctgPref != null) {
+
+    // get the unit cost of the products in a shipment
+    if (purchaseOrderItems != null) {
+        for (iter = purchaseOrderItems.iterator(); iter.hasNext(); ) {
+            orderItem = iter.next();
+            productId = orderItem.get("productId");
+            if (productId == null) continue;
+
+            result = dispatcher.runSync("getProductCost", UtilMisc.toMap("productId", productId, "currencyUomId", ownerAcctgPref.get("baseCurrencyUomId"), 
+                        "costComponentTypePrefix", "EST_STD", "userLogin", request.getAttribute("userLogin")));
+            if (!ServiceUtil.isError(result)) {
+                standardCosts.put(productId, result.get("productCost"));
+            }
+        }
+    }
+
+    // get the unit cost of a single product
+    if (productId != null) {
+        result = dispatcher.runSync("getProductCost", UtilMisc.toMap("productId", productId, "currencyUomId", ownerAcctgPref.get("baseCurrencyUomId"), 
+                    "costComponentTypePrefix", "EST_STD", "userLogin", request.getAttribute("userLogin")));
+        if (!ServiceUtil.isError(result)) {
+            standardCosts.put(productId, result.get("productCost"));
+        }
+    }
+}
+
 context.put("facilityId", facilityId);
 context.put("facility", facility);
 context.put("purchaseOrder", purchaseOrder);
@@ -195,3 +228,4 @@ context.put("salesOrderItems", salesOrderItems);
 context.put("rejectReasons", rejectReasons);
 context.put("inventoryItemTypes", inventoryItemTypes);
 context.put("facilities", facilities);
+context.put("standardCosts", standardCosts);

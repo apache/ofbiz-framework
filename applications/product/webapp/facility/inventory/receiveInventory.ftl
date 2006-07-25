@@ -75,7 +75,7 @@ under the License.
       <input type="hidden" name="facilityId_o_0" value="${requestParameters.facilityId?if_exists}"/>
       <input type="hidden" name="_rowCount" value="1"/>
       <#if purchaseOrder?has_content>
-      <#assign unitCost = firstOrderItem.unitPrice?default(0)/>
+      <#assign unitCost = firstOrderItem.unitPrice?default(standardCosts.get(firstOrderItem.productId)?default(0))/>
       <input type="hidden" name="orderId_o_0" value="${purchaseOrder.orderId}"/>
       <input type="hidden" name="orderItemSeqId_o_0" value="${firstOrderItem.orderItemSeqId}"/>
       <tr>
@@ -214,7 +214,9 @@ under the License.
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductPerUnitPrice}</div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
-          <input type="text" name="unitCost_o_0" size="10" value="${unitCost?default(0)}" class="inputBox"/>
+          <#-- get the default unit cost -->
+          <#if (!unitCost?exists || unitCost == 0.0)><#assign unitCost = standardCosts.get(product.productId)?default(0)/></#if>
+          <input type="text" name="unitCost_o_0" size="10" value="${unitCost}" class="inputBox"/>
         </td>
       </tr>
       <tr>
