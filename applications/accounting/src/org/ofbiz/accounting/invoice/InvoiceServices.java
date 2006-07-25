@@ -1855,7 +1855,7 @@ public class InvoiceServices {
                     } else {
                         quantity = invoiceItem.getBigDecimal("quantity").setScale(decimals,rounding);
                     }
-                    invoiceItemApplyAvailable = invoiceItem.getBigDecimal("amount").multiply(quantity).subtract(InvoiceWorker.getInvoiceItemAppliedBd(invoiceItem));
+                    invoiceItemApplyAvailable = invoiceItem.getBigDecimal("amount").multiply(quantity).setScale(decimals,rounding).subtract(InvoiceWorker.getInvoiceItemAppliedBd(invoiceItem));
                     // check here for too much application if a new record is added
                     // (paymentApplicationId == null)
                     if (paymentApplicationId == null && amountApplied.compareTo(invoiceItemApplyAvailable) > 0) { 
