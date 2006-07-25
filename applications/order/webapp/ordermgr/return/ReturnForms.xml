@@ -98,8 +98,10 @@
         <field name="entryDate" title="${uiLabelMap.OrderEntryDate}">
             <display/>
         </field>
-        <field name="fromPartyId" widget-style="buttontext" title="${uiLabelMap.OrderReturnFromParty}">
-            <hyperlink target-type="inter-app" description="${fromPartyId}" target="/partymgr/control/viewprofile?partyId=${fromPartyId}${externalKeyParam}"/>
+        <field name="fromPartyId" widget-style="tabletext" title="${uiLabelMap.OrderReturnFromParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName}">
+                <sub-hyperlink link-style="buttontext" target-type="inter-app" description="${fromPartyId}" target="/partymgr/control/viewprofile?partyId=${fromPartyId}${externalKeyParam}"/>
+            </display-entity>
         </field>        
         <field name="destinationFacilityId" widget-style="buttontext" title="${uiLabelMap.OrderReturnDestinationFacility}">
             <hyperlink target-type="inter-app" description="${destinationFacilityId}" target="/facility/control/EditFacility?facilityId=${destinationFacilityId}${externalKeyParam}"/>
