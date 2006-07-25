@@ -1517,12 +1517,6 @@ public class PaymentGatewayServices {
         String serviceType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
         
-        if (UtilValidate.isEmpty(payTo)) {
-            payTo = "Company";
-            Debug.logWarning("Using default value of [Company] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" + 
-                    paymentPreference.getString("orderPaymentPreferenceId") + "]", module);
-        }
-
         if (UtilValidate.isEmpty(serviceType)) {
             serviceType = CAPTURE_SERVICE_TYPE;
         }
@@ -1578,24 +1572,60 @@ public class PaymentGatewayServices {
             }
         }
 
-        // SC 20060718: I think this should be re-factored to use invoice.partyIdFrom and invoice.partyId instead of getting the IDs from the order
-        // so we can capture payments on invoices without orders correctly
-        String orderId = paymentPreference.getString("orderId");
-        List orl = null;
-        try {
-            orl = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"));
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+        // get the invoice
+        GenericValue invoice = null;
+        if (invoiceId != null) {
+            try {
+                invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+            } catch (GenericEntityException e) {
+                String message = "Failed to process capture result:  Could not find invoice ["+invoiceId+"] due to entity error: " + e.getMessage();
+                Debug.logError(e, message, module);
+                return ServiceUtil.returnError(message );
+            }
+        } 
+
+        // determine the partyIdFrom for the payment, which is who made the payment
+        String partyIdFrom = null;
+        if (invoice != null) {
+            // get the party from the invoice, which is the bill-to party (partyId)
+            partyIdFrom = invoice.getString("partyId");
+        } else {
+            // otherwise get the party from the order's OrderRole
+            String orderId = paymentPreference.getString("orderId");
+            List orl = null;
+            try {
+                orl = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (orl.size() > 0) {
+                GenericValue orderRole = EntityUtil.getFirst(orl);
+                partyIdFrom = orderRole.getString("partyId");
+            }
         }
 
-        GenericValue orderRole = EntityUtil.getFirst(orl);
+        // get the partyIdTo for the payment, which is who is receiving it
+        String partyIdTo = null;
+        if (!UtilValidate.isEmpty(payTo)) {
+            // use input pay to party
+            partyIdTo = payTo;
+        } else if (invoice != null) {
+            // ues the invoice partyIdFrom as the pay to party (which is who supplied the invoice)
+            partyIdTo = invoice.getString("partyIdFrom");
+        } else {
+            // otherwise default to Company and print a big warning about this
+            payTo = "Company";
+            Debug.logWarning("Using default value of [Company] for payTo on invoice [" + invoiceId + "] and orderPaymentPreference [" + 
+                    paymentPreference.getString("orderPaymentPreferenceId") + "]", module);
+        }
+
 
         Map paymentCtx = UtilMisc.toMap("paymentTypeId", "CUSTOMER_PAYMENT");
         paymentCtx.put("paymentMethodTypeId", paymentPreference.get("paymentMethodTypeId"));
         paymentCtx.put("paymentMethodId", paymentPreference.get("paymentMethodId"));
         paymentCtx.put("paymentGatewayResponseId", responseId);
-        paymentCtx.put("partyIdTo", payTo);
-        paymentCtx.put("partyIdFrom", orderRole.get("partyId"));
+        paymentCtx.put("partyIdTo", partyIdTo);
+        paymentCtx.put("partyIdFrom", partyIdFrom);
         paymentCtx.put("statusId", "PMNT_RECEIVED");
         paymentCtx.put("paymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
         paymentCtx.put("amount", amount);
