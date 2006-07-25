@@ -151,7 +151,7 @@ under the License.
                     <td><div class="tabletext"><a href="/facility/control/EditFacilityLocation?facilityId=${(inventoryItem.facilityId)?if_exists}&locationSeqId=${(inventoryItem.locationSeqId)?if_exists}${externalKeyParam}" class="linktext"><#if facilityLocation?exists>${facilityLocation.areaId?if_exists}:${facilityLocation.aisleId?if_exists}:${facilityLocation.sectionId?if_exists}:${facilityLocation.levelId?if_exists}:${facilityLocation.positionId?if_exists}</#if><#if facilityLocationTypeEnum?has_content> (${facilityLocationTypeEnum.get("description",locale)})</#if> [${(inventoryItem.locationSeqId)?if_exists}]</a></div></td>
                     <td><div class="tabletext">&nbsp;${(inventoryItem.lotId)?if_exists}</div></td>
                     <td><div class="tabletext">&nbsp;${(inventoryItem.binNumber)?if_exists}</div></td>
-                    <td><div class="tabletext">&nbsp;${inventoryItem.unitCost?default(0)?string("##0.00")}</div></td>
+                    <td><div class="tabletextright">&nbsp;<@ofbizCurrency amount=inventoryItem.unitCost isoCode=inventoryItem.currencyUomId/></div></td>
                     <#if inventoryItem.inventoryItemTypeId?if_exists == "NON_SERIAL_INV_ITEM">
                         <td>
                             <div class="tabletext">${(inventoryItem.availableToPromiseTotal)?default("NA")}
