@@ -178,7 +178,7 @@ under the License.
         </field>
         
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityGlAccount?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;glAccountId=${glAccountId}"
+            <hyperlink target="deleteTaxAuthorityGlAccount?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
