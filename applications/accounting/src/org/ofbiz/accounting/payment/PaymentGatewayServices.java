@@ -1070,9 +1070,10 @@ public class PaymentGatewayServices {
         Map results = ServiceUtil.returnSuccess();
         
         try {
+            // Note that the partyIdFrom of the Payment should be the partyIdTo of the invoice, since you're receiving a payment from the party you billed
             GenericValue invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
             Map paymentParams = UtilMisc.toMap("paymentTypeId", "CUSTOMER_PAYMENT", "paymentMethodTypeId", "EXT_BILLACT", 
-                    "partyIdFrom", invoice.getString("partyIdFrom"), "partyIdTo", invoice.getString("partyId"),
+                    "partyIdFrom", invoice.getString("partyId"), "partyIdTo", invoice.getString("partyIdFrom"), 
                     "statusId", "PMNT_RECEIVED", "effectiveDate", UtilDateTime.nowTimestamp());
             paymentParams.put("amount", captureAmount);
             paymentParams.put("currencyUomId", invoice.getString("currencyUomId"));
