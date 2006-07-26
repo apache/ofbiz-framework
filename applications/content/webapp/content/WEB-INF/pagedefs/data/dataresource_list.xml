@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<page>
     <template>plain</template> 
     <property name="title">Browse List </property>
     <property name="qbeExpr">new EntityExpr(&quot;dataCategoryId&quot;, EntityOperator.EQUALS, dataCategoryId)</property>
