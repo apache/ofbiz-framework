@@ -189,7 +189,7 @@ under the License.
                     </#if>
                     <#if invoiceItem.description?has_content>
                         <#assign description=invoiceItem.description>
-                    <#elseif taxRate?exists & taxRate.get("description",locale)?has_content>
+                    <#elseif taxRate?has_content & taxRate.get("description",locale)?has_content>
                         <#assign description=taxRate.get("description",locale)>
                     <#elseif itemType.get("description",locale)?has_content>
                         <#assign description=itemType.get("description",locale)>
