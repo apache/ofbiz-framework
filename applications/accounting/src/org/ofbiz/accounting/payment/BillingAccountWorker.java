@@ -116,20 +116,19 @@ public class BillingAccountWorker {
         return billingAccountList;
     }
     
-    public static BigDecimal getBillingAccountBalance(GenericValue billingAccount) throws GenericEntityException {
-        return getBillingAccountBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
-    }
-    
     /**
-     * Calculates the "available" balance of a billing account, which is net balance minus amount of pending (not canceled, rejected, or completed) orders.  When looking at
-     * using a billing account for a new order, you should use this method
+     * Calculates the "available" balance of a billing account, which is net balance minus amount of pending (not canceled, rejected, or completed) orders.  
+     * Available balance will not exceed billing account's accountLimit.  
+     * When looking at using a billing account for a new order, you should use this method.  
      * @param delegator
      * @param billingAccountId
      * @return
      * @throws GenericEntityException
      */
-    
-    public static BigDecimal getBillingAccountBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+    public static BigDecimal getBillingAccountBalance(GenericValue billingAccount) throws GenericEntityException {
+        GenericDelegator delegator = billingAccount.getDelegator();
+        String billingAccountId = billingAccount.getString("billingAccountId");
+        
         // first get the net balance of invoices - payments
         BigDecimal balance = getBillingAccountNetBalance(delegator, billingAccountId);
         
@@ -151,9 +150,22 @@ public class BillingAccountWorker {
                 balance = balance.add(orh.getOrderGrandTotalBd());
             }
         }
-        
-        balance = balance.setScale(decimals, rounding);
+
+        // set the balance to BillingAccount.accountLimit if it is greater.  This is necessary because nowhere do we track the amount of BillingAccount
+        // to be charged to an order, such as FinAccountAuth entity does for FinAccount.  As a result, we must assume that the system is doing things correctly
+        // and use the accountLimit
+        BigDecimal accountLimit = new BigDecimal(billingAccount.getDouble("accountLimit").doubleValue());
+        if (balance.compareTo(accountLimit) == 1) {
+            balance = accountLimit;
+        } else {
+            balance = balance.setScale(decimals, rounding);    
+        }
         return balance;
+    }
+    
+    public static BigDecimal getBillingAccountBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+        GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
+        return getBillingAccountBalance(billingAccount);
     }
     
     /**

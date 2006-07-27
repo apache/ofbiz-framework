@@ -844,7 +844,7 @@ public class PaymentGatewayServices {
         }
         if (billingAccountInfo != null) {
             billingAccount = (GenericValue) billingAccountInfo.get("billingAccount");
-            // use net account balance because we want to know how much we can charge to a billing account
+            // use available to capture because we want to know how much we can charge to a billing account
             Double availableToCapture = (Double) billingAccountInfo.get("availableToCapture");  
             billingAccountAvail = new BigDecimal(availableToCapture.doubleValue());
         }
