@@ -205,32 +205,42 @@ public class BillingAccountWorker {
         return balance;
     }
     
+    /**
+     * Returns the amount of the billing account which could be captured, which is BillingAccount.accountLimit - net balance
+     * @param billingAccount
+     * @return
+     * @throws GenericEntityException
+     */
+    public static BigDecimal availableToCapture(GenericValue billingAccount) throws GenericEntityException {
+        BigDecimal netBalance = getBillingAccountNetBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
+        BigDecimal accountLimit = new BigDecimal(billingAccount.getDouble("accountLimit").doubleValue());
+        
+        return accountLimit.subtract(netBalance).setScale(decimals, rounding);
+    }
+    
     public static Map calcBillingAccountBalance(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         String billingAccountId = (String) context.get("billingAccountId");
-        GenericValue billingAccount = null;
-        Double accountBalance = null;
-        Double netAccountBalance = null;
-        Double availableBalance = null;
+        Map result = ServiceUtil.returnSuccess();
+        
         try {
-            billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
-            accountBalance = new Double((getBillingAccountBalance(delegator, billingAccountId)).doubleValue());
-            netAccountBalance = new Double((getBillingAccountNetBalance(delegator, billingAccountId)).doubleValue());
-            availableBalance = new Double(getBillingAccountAvailableBalance(billingAccount).doubleValue());
+            GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
+            if (billingAccount == null) {
+                return ServiceUtil.returnError("Unable to locate billing account #" + billingAccountId);
+            }
+            
+            result.put("billingAccount", billingAccount);
+            result.put("accountBalance",  new Double((getBillingAccountBalance(delegator, billingAccountId)).doubleValue()));
+            result.put("netAccountBalance", new Double((getBillingAccountNetBalance(delegator, billingAccountId)).doubleValue()));
+            result.put("availableBalance", new Double(getBillingAccountAvailableBalance(billingAccount).doubleValue()));
+            result.put("availableToCapture", new Double(availableToCapture(billingAccount).doubleValue()));
+        
+            return result;  
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error getting billing account or calculating balance for billing account #" + billingAccountId);
         }
         
-        if (billingAccount == null) {
-            return ServiceUtil.returnError("Unable to locate billing account #" + billingAccountId);
-        }
         
-        Map result = ServiceUtil.returnSuccess();
-        result.put("accountBalance", accountBalance);
-        result.put("netAccountBalance", netAccountBalance);
-        result.put("availableBalance", availableBalance);
-        result.put("billingAccount", billingAccount);
-        return result;  
     }
 }

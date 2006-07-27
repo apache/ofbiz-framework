@@ -832,7 +832,6 @@ public class PaymentGatewayServices {
         // or at least charge up the full amount of the billing account's net balance and then try other payment methods
         // Note that this needs to run here first because orders charged to billing account alone will have no OrderPaymentPreference
         GenericValue billingAccount = null;
-        BigDecimal billingAccountBalance = null;
         BigDecimal billingAccountAvail = null;
         BigDecimal billingAccountCaptureAmount = ZERO;
         Map billingAccountInfo = null;
@@ -846,18 +845,16 @@ public class PaymentGatewayServices {
         if (billingAccountInfo != null) {
             billingAccount = (GenericValue) billingAccountInfo.get("billingAccount");
             // use net account balance because we want to know how much we can charge to a billing account
-            Double billingAccountBalanceD = (Double) billingAccountInfo.get("netAccountBalance");  
-            billingAccountBalance = new BigDecimal(billingAccountBalanceD.doubleValue());
+            Double availableToCapture = (Double) billingAccountInfo.get("availableToCapture");  
+            billingAccountAvail = new BigDecimal(availableToCapture.doubleValue());
         }
         
         // if a billing account is used to pay for an order, then charge as much as we can to it before proceeding to other payment methods.
-        if (billingAccount != null && billingAccountBalance != null) {
+        if (billingAccount != null && billingAccountAvail != null) {
             try {
-                billingAccountAvail = BillingAccountWorker.getBillingAccountAvailableBalance(billingAccount);
-            
-                // the amount to be "charged" to the billing account, which is the minimum of billing account remaining amount and amount to capture
+                // the amount to be "charged" to the billing account, which is the minimum of billing account available amount and amount to capture
                 BigDecimal captureAmountBd = new BigDecimal(captureAmount.doubleValue());
-                billingAccountCaptureAmount = billingAccountAvail.min(captureAmountBd);
+                billingAccountCaptureAmount = captureAmountBd.min(billingAccountAvail);
                 Debug.logInfo("billing account avail = [" + billingAccountAvail + "] capture amount = [" + billingAccountCaptureAmount + "]", module);
             
                 // capturing to a billing account is a matter of a creating a payment and then applying it to the invoice
@@ -878,8 +875,6 @@ public class PaymentGatewayServices {
                     result.put("processResult", "COMPLETE");
                     return result;
                 }
-            } catch (GenericEntityException ex) {
-                return ServiceUtil.returnError(ex.getMessage());
             } catch (GenericServiceException ex) {
                 return ServiceUtil.returnError(ex.getMessage());
             }
