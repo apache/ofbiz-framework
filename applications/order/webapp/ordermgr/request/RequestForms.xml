@@ -83,14 +83,14 @@
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="display"/>
         <field name="sequenceNum"></field>
-        <field name="custRequestId" widget-style="buttontext">
+        <field name="custRequestId"><hidden/></field>
+        <field name="custRequestItemSeqId" widget-style="buttontext">
             <hyperlink description="${custRequestItemSeqId}" target="requestitem?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
         </field>
         <field name="story"></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
-        <field name="custRequestItemSeqId"><hidden/></field>
         <field name="custRequestResolutionId"><hidden/></field>
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
