@@ -15,11 +15,10 @@
  */
 package org.ofbiz.pos.component;
 
-import javax.swing.JScrollPane;
 import java.util.Locale;
 
 import net.xoetrope.swing.XTable;
-import net.xoetrope.swing.XPanel;
+import net.xoetrope.swing.XScrollPane;
 import net.xoetrope.xui.data.XModel;
 
 import org.ofbiz.pos.PosTransaction;
@@ -41,17 +40,16 @@ public class Journal {
     private static int[] width = { 100, 170, 60, 80, 0};
     private Locale defaultLocale = Locale.getDefault();
 
-    protected XPanel jpanel = null;
+    protected XScrollPane jpanel = null;
     protected XTable jtable = null;
     protected String style = null;
 
     public Journal(PosScreen page) {
         this.jtable = (XTable) page.findComponent("jtable");
-        this.jpanel = (XPanel) page.findComponent("journal_panel");
+        this.jpanel = (XScrollPane) page.findComponent("journal_panel");
         this.jpanel.setVisible(false);
-
-        // set the table as selectable
-        jtable.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                
+        // set the table as selectable                
         jtable.setInteractiveTable(true);
         jtable.setFocusable(false);
 
