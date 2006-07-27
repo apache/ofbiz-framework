@@ -1250,8 +1250,14 @@
         <response name="success" type="view" value="ListOrderHeaders"/>
         <response name="error" type="view" value="ListOrderHeaders"/>
     </request-map>
-    
+    <request-map uri="updateOrderItemShipGroup">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateOrderItemShipGroup"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
 
+    
     <!-- Lookup request mappings -->
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>

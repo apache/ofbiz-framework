@@ -502,6 +502,30 @@ under the License.
         <description>Remove a Communication Event Order</description>
         <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN" optional="false"/>
     </service>
+    
+    <!-- Order Shipping and Contacts -->
+    <service name="updateOrderItemShipGroup" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderItemShipGroup" auth="true">
+        <description>Updates OrderItemShipGroup.  The shipmentMethod field is of the format ${shipmentMethodTypeId}@${carrierPartyId}</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentMethod" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+    </service>    
+    
+    <service name="createOrderContactMech" default-entity-name="OrderContactMech" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="createOrderContactMech" auth="true">
+        <description>Create Order Contact Mech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="removeOrderContactMech" default-entity-name="OrderContactMech" engine="simple"
+        location="org/ofbiz/order/order/OrderServices.xml" invoke="removeOrderContactMech" auth="true">
+        <description>Remove Order Contact Mech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 
     <!-- OrderTerms -->
     <service name="createOrderTerm" engine="simple"
