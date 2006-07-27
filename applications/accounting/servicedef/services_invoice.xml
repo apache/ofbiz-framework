@@ -142,6 +142,15 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="false"/>
         <override name="uomId" optional="true"/>
     </service>
+    <service name="createInvoiceForOrderAllItems" engine="java"
+        location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrderAllItems">
+        <description>
+            Create an invoice from existing order using all order items
+            orderId = The orderId to associate the invoice with
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
+    </service>
     <service name="createInvoiceForOrder" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrder">
         <description>
