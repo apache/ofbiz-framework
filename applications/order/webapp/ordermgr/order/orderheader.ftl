@@ -608,12 +608,17 @@ under the License.
         <#list shipGroups as shipGroup>
           <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
           <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress")?if_exists>
-        <div class="screenlet">
+          <div class="screenlet">
             <div class="screenlet-header">
-                <div class="boxhead">&nbsp;${uiLabelMap.OrderShipmentInformation} - ${shipGroup.shipGroupSeqId}</div>
+               <div class="boxhead">&nbsp;${uiLabelMap.OrderShipmentInformation} - ${shipGroup.shipGroupSeqId}</div>
             </div>
             <div class="screenlet-body">
               <table width="100%" border="0" cellpadding="1" cellspacing="0">
+                 <form name="updateOrderItemShipGroup" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
+                    <input type="hidden" name="orderId" value="${orderId?if_exists}">
+                    <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId?if_exists}">
+                    <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION">         
+                    <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId?if_exists}">         
                 <#if shipGroup.contactMechId?has_content>
                   <tr>
                     <td align="right" valign="top" width="15%">
@@ -622,7 +627,20 @@ under the License.
                     <td width="5">&nbsp;</td>
                     <td align="left" valign="top" width="80%">
                       <div class="tabletext">
-                        ${(shipGroupAddress.address1)?default("")}
+                      <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
+                         <select name="contactMechId" class="selectBox">
+                           <option value="${shipGroup.contactMechId?if_exists}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
+                            <option value="${shipGroup.contactMechId?if_exists}"></option>
+                            <#list shippingContactMechList as shippingContactMech>
+                            <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress")?if_exists>
+                               <#if shippingContactMech.contactMechId?has_content>
+                               <option value="${shippingContactMech.contactMechId?if_exists}">${(shippingPostalAddress.address1)?default("")} - ${shippingPostalAddress.city?default("")}</option>
+                               </#if>
+                            </#list>
+                         </select>
+                      <#else>
+                         ${(shipGroupAddress.address1)?default("")}
+                      </#if>   
                       </div>
                     </td>
                   </tr>
@@ -637,16 +655,45 @@ under the License.
                     <td align="left" valign="top" width="80%">
                       <#if shipGroup.carrierPartyId?has_content || shipmentMethodType?has_content>
                         <div class="tabletext">
-                          <#if shipGroup.carrierPartyId != "_NA_">
-                            ${shipGroup.carrierPartyId?if_exists}
-                          </#if>
-                          ${shipmentMethodType.get("description",locale)?default("")}
+                        <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
+                           <#-- passing the shipmentMethod value as the combination of two fields value 
+                                i.e shipmentMethodTypeId & carrierPartyId and this two field values are separated bye
+                                "@" symbol.
+                            -->
+                           <select name="shipmentMethod" class="selectBox">
+                             <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId?if_exists}"><#if shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId?if_exists}</#if>&nbsp;${shipmentMethodType.get("description",locale)?default("")}</option>
+                             <#list productStoreShipmentMethList as productStoreShipmentMethod>
+	                            <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId>
+	                            <#if productStoreShipmentMethod.partyId?has_content || productStoreShipmentMethod?has_content>
+	                               <option value="${shipmentMethodTypeAndParty?if_exists}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId?if_exists}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>
+	                            </#if>
+                             </#list>
+                           </select>  
+                        <#else>  
+                           <#if shipGroup.carrierPartyId != "_NA_">
+                             ${shipGroup.carrierPartyId?if_exists}
+                           </#if>
+                           ${shipmentMethodType.get("description",locale)?default("")}
+                        </#if>
                         </div>
                       </#if>
                     </td>
                   </tr>
                 </#if>
-
+                <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">                       
+                   <tr>
+                      <td align="right" valign="top" width="15%">
+                         <div class="tabletext">&nbsp;</div>
+                      </td>
+                      <td width="5">&nbsp;</td>
+                      <td align="left" valign="top" width="80%">
+                         <div class="tabletext">
+                            <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
+                         </div>
+                       </td>
+                   </tr>
+                </#if>
+                </form>
                 <#if !shipGroup.contactMechId?has_content && !shipGroup.shipmentMethodTypeId?has_content>
                   <#assign noShipment = "true">
                   <tr>
@@ -883,12 +930,11 @@ under the License.
                    </td>
                  </tr>
                </#if>
-
               </table>
             </div>
         </div>
       </#list>
-      </#if>
+     </#if>
       <#-- end of shipping info box -->
     </td>
   </tr>
