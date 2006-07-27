@@ -99,6 +99,7 @@ under the License.
         <attribute name="accountBalance" type="Double" mode="OUT" optional="false"/>
         <attribute name="netAccountBalance" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableBalance" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableToCapture" type="Double" mode="OUT" optional="false"/>
         <attribute name="billingAccount" type="GenericValue" mode="OUT" optional="false"/>
     </service>
 </services>
