@@ -234,7 +234,7 @@ under the License.
                 <#if cartLine.getIsPromo() || (shoppingCart.getOrderType() == "SALES_ORDER" && !security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
                   <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=currencyUomId/>
                 <#else>
-                  <input size="6" class="inputBox" type="text" name="price_${cartLineIndex}" value="${cartLine.getDisplayPrice()?string("##0.00")}"/>
+                  <input size="6" class="inputBox" type="text" name="price_${cartLineIndex}" value="${cartLine.getBasePrice()}"/>
                 </#if>
               </div>
             </td>
