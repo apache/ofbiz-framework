@@ -277,7 +277,7 @@ under the License.
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffort}">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
-                <sub-hyperlink description="${workEffortId}" target="EditCommWorkEffort?workEffortId=${workEffortId}" target-type="intra-app" link-style="buttontext"/>
+                <sub-hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary?workEffortId=${workEffortId}" target-type="inter-app" link-style="buttontext"/>
             </display-entity>
         </field>
     </form>
@@ -351,17 +351,17 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.PartyAddRole}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 	
-    <form name="listCommContent" type="list" list-name="contentDataResourceList" target="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" paginate-target="/ListCommContent" view-size="20">
+    <form name="listCommContent" type="list" list-name="contentDataResourceList" target="" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" paginate-target="/ListCommContent" view-size="20">
         <actions>
-			<entity-and entity-name="CommEventContentDataResource" list-name="contentDataResourceList">
-				<field-map field-name="communicationEventId"/>
-			</entity-and>
+            <entity-and entity-name="CommEventContentDataResource" list-name="contentDataResourceList">
+                <field-map field-name="communicationEventId"/>
+            </entity-and>
         </actions>
     
-        <field name="editContent" title="">
+        <field name="editContent" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditCommContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/> 
         </field>
-        <field name="viewContent" title="">
+        <field name="viewContent" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonView}" target="ViewSimpleContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/> 
         </field>
         <field name="contentName"><display/></field>
