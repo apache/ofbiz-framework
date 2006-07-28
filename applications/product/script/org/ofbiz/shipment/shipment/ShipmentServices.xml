@@ -44,7 +44,7 @@ under the License.
         <!-- always create the WorkEfforts, even if dates aren't specified yet; when they are they will be set in the update service... -->
 
         <!-- the Ship WorkEffort entity -->
-        <set value="Shipment #${sequencedId} Ship" field="shipWorkEffortMap.workEffortName"/>
+        <set value="Shipment #${newEntity.shipmentId} Ship" field="shipWorkEffortMap.workEffortName"/>
         <set value="EVENT" field="shipWorkEffortMap.workEffortTypeId"/>
         <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
         <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedStartDate"/>
@@ -63,7 +63,7 @@ under the License.
         </if-not-empty>
 
         <!-- the Arrival WorkEffort entity -->
-        <set value="Shipment #${sequencedId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
+        <set value="Shipment #${newEntity.shipmentId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
         <set value="EVENT" field="arrivalWorkEffortMap.workEffortTypeId"/>
         <set value="CAL_TENTATIVE" field="arrivalWorkEffortMap.currentStatusId"/>
         <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedStartDate"/>
