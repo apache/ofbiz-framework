@@ -52,7 +52,10 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="facility"/></not>
+                                        <or>
+                                            <not><if-empty field-name="facility"/></not>
+                                            <not><if-empty field-name="displayWithNoFacility"/></not>
+                                        </or>
                                     </condition>
                                     <widgets>
                                         <platform-specific>
@@ -178,7 +181,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
-
+                
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityInventoryItems.bsh"/>
             </actions>
             <widgets>
@@ -346,6 +349,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditInventoryItem"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                <set field="displayWithNoFacility" value="Y"/>
 
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/EditInventoryItem.bsh"/>
             </actions>
