@@ -297,4 +297,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="ShipmentManifest.fo">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ShipmentManifest.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://product/webapp/facility/shipment/ShipmentManifest.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>
