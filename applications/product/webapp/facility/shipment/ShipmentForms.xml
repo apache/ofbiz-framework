@@ -53,8 +53,8 @@ under the License.
         </field>
         <field name="primaryOrderId" title="${uiLabelMap.ProductPrimaryOrderId}"><text/></field>
         <field name="primaryShipGroupSeqId" title="${uiLabelMap.ProductPrimaryShipGroupSeqId}"><text/></field>
-        <field name="estimatedReadyDate" title="${uiLabelMap.ProductEstimatedReadyDate}"><text/></field>
-        <field name="estimatedShipDate" title="${uiLabelMap.ProductEstimatedShipDate}"><text/></field>
+        <field name="estimatedReadyDate" title="${uiLabelMap.ProductEstimatedReadyDate}"><date-time/></field>
+        <field name="estimatedShipDate" title="${uiLabelMap.ProductEstimatedShipDate}"><date-time/></field>
         
         <field use-when="productStoreId!=null" name="originFacilityId" title="${uiLabelMap.ProductOriginFacility} [${shipment.primaryOrderId}]" widget-style="selectBox">
             <drop-down allow-empty="true" current="first-in-list">
