@@ -32,7 +32,7 @@ under the License.
         <td><div class="tabletext">${shipmentPackage.shipmentPackageSeqId}</div></td>
         <td><div class="tabletext">${(shipmentPackage.dateCreated.toString())?if_exists}</div></td>
         <td><span class="tabletext">${uiLabelMap.ProductWeight} : ${shipmentPackage.weight?if_exists}</span></td>
-        <td><span class="tabletext">${uiLabelMap.ProductWeightUnit} :${weightUom.description?default(shipmentPackage.weightUomId?if_exists)}</span></td>
+        <td><span class="tabletext">${uiLabelMap.ProductWeightUnit} : <#if weightUom?has_content>${weightUom.get("description",locale)}<#else>${shipmentPackage.weightUomId?if_exists}</#if></span></td>
       </tr>
       <#list shipmentPackageContents as shipmentPackageContent>
         <tr>

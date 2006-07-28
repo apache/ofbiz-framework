@@ -598,6 +598,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ShipmentBarCode.pdf"/>
     </request-map>
+    <request-map uri="ShipmentManifest.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ShipmentManifest.pdf"/>
+    </request-map>    
 
     <!-- ================ Shipment Scheduling Requests ================= -->
     <request-map uri="Scheduling">
@@ -931,13 +935,7 @@ under the License.
         <response name="error" type="view" value="EditShipmentItems"/>
     </request-map>
     -->
-    <!-- ================ Shipment Manifest Report Requests ================= -->
-    <request-map uri="ShipmentManifestReport.pdf">
-        <security https="true" auth="true"/>
-        <event type="bsf" path="/shipmentreports/" invoke="ShipmentItemReportPrepare.bsh"/>
-        <response name="success" type="view" value="ShipmentManifestReport"/>
-    </request-map>
-
+    
     <!-- ================ Inventory Reports Requests ================= -->
     <request-map uri="InventoryReports">
         <security https="true" auth="true"/>
@@ -988,7 +986,8 @@ under the License.
     <view-map name="PackOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#PackOrder"/>
     <view-map name="PackingSlip.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#PackingSlip.fo"/>
     <view-map name="ShipmentBarCode.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentBarCode.fo"/>
-
+    <view-map name="ShipmentManifest.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentManifest.fo"/>
+    
     <view-map name="ScheduleShipmentRouteSegment" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ScheduleShipmentRouteSegment"/>
     <view-map name="Labels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#Labels"/>
     <view-map name="BatchPrintShippingLabels" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#BatchPrintShippingLabels"/>
@@ -1002,9 +1001,7 @@ under the License.
     <view-map name="EditShipmentRouteSegments" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentRouteSegments"/>
     <view-map name="AddItemsFromOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#AddItemsFromOrder"/>
     <view-map name="QuickShipOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#QuickShipOrder"/>
-
-    <view-map name="ShipmentManifestReport" type="jasperreportspdf" page="/shipmentreports/ShipmentManifestReport.xml" content-type="application/pdf" encoding="none"/>
-
+    
     <view-map name="InventoryReports" type="screen" page="component://product/widget/facility/ReportScreens.xml#InventoryReports"/>
     <!-- end of view mappings -->
 </site-conf>

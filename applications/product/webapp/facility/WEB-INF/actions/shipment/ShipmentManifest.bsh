@@ -1,0 +1,69 @@
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.content.report.*;
+
+shipmentId = request.getParameter("shipmentId");
+shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+
+if (shipment != null) {   
+    shipmentPackageRouteSegs = shipment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("shipmentRouteSegmentId", "shipmentPackageSeqId"));
+    shipmentPackageDatas = new LinkedList();
+    if (shipmentPackageRouteSegs != null && shipmentPackageRouteSegs.size() > 0) {
+        shipmentPackageRouteSegsIter = shipmentPackageRouteSegs.iterator();
+        while (shipmentPackageRouteSegsIter.hasNext()) {
+            shipmentPackageRouteSeg = shipmentPackageRouteSegsIter.next();
+            shipmentPackages = shipmentPackageRouteSeg.getRelated("ShipmentPackage", null, UtilMisc.toList("shipmentPackageSeqId"));
+            print("shipmentPackages"+shipmentPackages);
+            shipmentRouteSegment = shipmentPackageRouteSeg.getRelatedOne("ShipmentRouteSegment");
+            if (shipmentPackages != null && shipmentPackages.size() > 0) {
+                shipmentPackagesIter = shipmentPackages.iterator();
+                while (shipmentPackagesIter.hasNext()) {
+                    shipmentPackage = shipmentPackagesIter.next();
+                    shipmentItemsDatas = new LinkedList();
+                    shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, UtilMisc.toList("shipmentItemSeqId"));		            
+                    if (shipmentPackageContents != null && shipmentPackageContents.size() > 0) {
+                        shipmentPackageContentsIter = shipmentPackageContents.iterator();
+                        while (shipmentPackageContentsIter.hasNext()) {
+                            shipmentItemsData = new HashMap();   
+                            shipmentPackageContent = shipmentPackageContentsIter.next();
+                            packageQuantity = shipmentPackageContent.getDouble("quantity");
+                            shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem");  
+                            if (shipmentItem != null) {
+                                shippedQuantity = shipmentItem.getDouble("quantity");
+                                shipmentItemsData.put("shipmentItem", shipmentItem);
+                                shipmentItemsData.put("shippedQuantity", shippedQuantity);
+                                shipmentItemsData.put("packageQuantity", packageQuantity);
+                                shipmentItemsDatas.add(shipmentItemsData);
+                            }
+                        }
+                    }
+                    shipmentPackageData = new HashMap();
+                    shipmentPackageData.put("shipmentPackage", shipmentPackage);
+                    shipmentPackageData.put("shipmentRouteSegment", shipmentRouteSegment);
+                    shipmentPackageData.put("shipmentItemsDatas", shipmentItemsDatas);
+                    shipmentPackageDatas.add(shipmentPackageData);
+                }
+            }
+        }
+    }
+    context.put("shipmentPackageDatas", shipmentPackageDatas);
+}
+
+context.put("shipmentId", shipmentId);
+context.put("shipment", shipment);
