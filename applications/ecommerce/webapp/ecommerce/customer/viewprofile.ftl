@@ -317,7 +317,7 @@ under the License.
                       </td>
                       <td align="right" valign="top" width="1%" nowrap>
                         <#if (profiledefs.defaultPayMeth)?default("") == paymentMethod.paymentMethodId>
-                          <div class="buttontextdisabled">${uiLabelMap.EcommerceIsDefault}</span>
+                          <span class="buttontextdisabled">${uiLabelMap.EcommerceIsDefault}</span>
                         <#else>
                           <div><a href="<@ofbizUrl>setprofiledefault/viewprofile?productStoreId=${productStoreId}&defaultPayMeth=${paymentMethod.paymentMethodId}&partyId=${party.partyId}</@ofbizUrl>" class="buttontext">
                           ${uiLabelMap.EcommerceSetDefault}</a></div>
