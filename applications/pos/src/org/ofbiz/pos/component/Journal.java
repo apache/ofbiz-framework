@@ -45,7 +45,7 @@ public class Journal {
     protected String style = null;
 
     public Journal(PosScreen page) {    	
-        //The vertical bar is always visible to allow the access at the horizontal bar without shrink the journal panel
+        //The vertical bar is always visible to allow access to horizontal bar without shrink the journal panel
         this.jpanel = (XScrollPane) page.findComponent("journal_panel");
         this.jpanel.setVisible(false);
         
