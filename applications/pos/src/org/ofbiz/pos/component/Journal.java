@@ -44,12 +44,14 @@ public class Journal {
     protected XTable jtable = null;
     protected String style = null;
 
-    public Journal(PosScreen page) {
-        this.jtable = (XTable) page.findComponent("jtable");
+    public Journal(PosScreen page) {    	
+        //The vertical bar is always visible to allow the access at the horizontal bar without shrink the journal panel
         this.jpanel = (XScrollPane) page.findComponent("journal_panel");
         this.jpanel.setVisible(false);
-                
-        // set the table as selectable                
+        
+        this.jtable = (XTable) page.findComponent("jtable");
+                        
+        // set the table as selectable        
         jtable.setInteractiveTable(true);
         jtable.setFocusable(false);
 
