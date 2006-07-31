@@ -648,6 +648,7 @@ under the License.
 
         <call-object-method obj-field-name="parameters.cart" method-name="getCurrency" ret-field-name="createQuoteInMap.currencyUomId"/>
         <call-object-method obj-field-name="parameters.cart" method-name="getProductStoreId" ret-field-name="createQuoteInMap.productStoreId"/>
+        <call-object-method obj-field-name="parameters.cart" method-name="getChannelType" ret-field-name="createQuoteInMap.salesChannelEnumId"/>
         <set value="PRODUCT_QUOTE" field="createQuoteInMap.quoteTypeId"/>
         <set value="QUO_CREATED" field="createQuoteInMap.statusId"/>
         <call-service service-name="createQuote" in-map-name="createQuoteInMap">

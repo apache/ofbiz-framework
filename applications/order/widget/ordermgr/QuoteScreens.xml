@@ -55,6 +55,7 @@ under the License.
                 <entity-one entity-name="Quote" value-name="quote"/>
                 <get-related-one value-name="quote" relation-name="QuoteType" to-value-name="quoteType"/>
                 <get-related-one value-name="quote" relation-name="StatusItem" to-value-name="statusItem"/>
+                <get-related-one value-name="quote" relation-name="SalesChannelEnumeration" to-value-name="salesChannel"/>
                 <get-related-one value-name="quote" relation-name="Uom" to-value-name="currency"/>
                 <get-related-one value-name="quote" relation-name="ProductStore" to-value-name="store"/>
                 
