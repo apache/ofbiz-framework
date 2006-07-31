@@ -109,7 +109,12 @@ if (action != null) {
     while (prodsIt.hasNext()) {
         oneProd = prodsIt.next();
         contextInput = UtilMisc.toMap("productId",oneProd.getString("productId"), "facilityId", facilityId);
-        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility",contextInput);
+        GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId",oneProd.getString("productId")));
+        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+            resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
+        } else {
+            resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
+        }
         // qty
         minimumStockInt = 0;
         if (oneProd.get("minimumStock") != null) {

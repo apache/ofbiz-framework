@@ -402,43 +402,6 @@ under the License.
         <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
         <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems"/> <!-- use-cache="true" -->
         
-        <!-- first check if this item is a MARKETING_PKG_AUTO and, if so, call another service to get the results -->
-        <if-not-empty field-name="productId" map-name="parameters">
-            <!-- find components of the MARKETING_PKG_AUTO for this product -->
-            <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
-            <set value="MARKETING_PKG_AUTO" field="lookupMktgPkgParams.type"/>
-            <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
-                <result-to-field result-name="assocProducts"/>
-            </call-service>
-            <!-- if there are any MARKETING_PKG_AUTO components, then the ATP and QOH are based on the quantities of those component
-                products and found with another service -->
-            <if-not-empty field-name="assocProducts">
-                <set from-field="assocProducts" field="inventoryByAssocProductsParams.assocProducts"/>
-                <call-service service-name="getProductInventoryAvailablefromAssocProducts" in-map-name="inventoryByAssocProductsParams">
-                    <result-to-result result-name="quantityOnHandTotal"/>
-                    <result-to-result result-name="availableToPromiseTotal"/>
-                </call-service>
-                <return response-code="success"/>  <!-- all done -->
-            </if-not-empty>
-            <!-- see if the product is of type MARKETING_PKG_AUTO, this is another type of marketing package -->
-            <entity-one entity-name="Product" value-name="product"/>
-            <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
-            <set value="MANUF_COMPONENT" field="lookupMktgPkgParams.type"/>
-            <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
-                <result-to-field result-name="assocProducts"/>
-            </call-service>
-            <!-- if there are any MANUF_COMPONENT components, then the ATP and QOH are based on the quantities of those component
-                products and found with another service -->
-            <if-not-empty field-name="assocProducts">
-                <set from-field="assocProducts" field="inventoryByAssocProductsParams.assocProducts"/>
-                <call-service service-name="getProductInventoryAvailablefromAssocProducts" in-map-name="inventoryByAssocProductsParams">
-                    <result-to-result result-name="quantityOnHandTotal"/>
-                    <result-to-result result-name="availableToPromiseTotal"/>
-                </call-service>
-                <return response-code="success"/>  <!-- all done -->
-            </if-not-empty>
-        </if-not-empty>
-
         <set field="parameters.availableToPromiseTotal" value="0" type="Double"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="Double"/>
         <iterate entry-name="inventoryItem" list-name="inventoryItems">
@@ -480,6 +443,28 @@ under the License.
 
         <field-to-result field-name="availableToPromiseTotal" map-name="parameters"/>
         <field-to-result field-name="quantityOnHandTotal" map-name="parameters"/>
+    </simple-method>
+
+    <simple-method method-name="getMktgPackagesAvailable" short-description="Get Marketing Packages Available From Components In Inventory" login-required="false" use-transaction="false">
+        <set field="availableToPromiseTotal" value="0" type="Double"/>
+        <set field="quantityOnHandTotal" value="0" type="Double"/>
+        <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
+        <set value="MANUF_COMPONENT" field="lookupMktgPkgParams.type"/>
+        <call-service service-name="getAssociatedProducts" in-map-name="lookupMktgPkgParams">
+            <result-to-field result-name="assocProducts"/>
+        </call-service>
+        <!-- if there are any MANUF_COMPONENT components, then the ATP and QOH are based on the quantities of those component
+            products and found with another service -->
+        <if-not-empty field-name="assocProducts">
+            <set from-field="assocProducts" field="inventoryByAssocProductsParams.assocProducts"/>
+            <set from-field="parameters.facilityId" field="inventoryByAssocProductsParams.facilityId"/>
+            <call-service service-name="getProductInventoryAvailableFromAssocProducts" in-map-name="inventoryByAssocProductsParams">
+                <result-to-field result-name="quantityOnHandTotal"/>
+                <result-to-field result-name="availableToPromiseTotal"/>
+            </call-service>
+        </if-not-empty>
+        <field-to-result field-name="availableToPromiseTotal"/>
+        <field-to-result field-name="quantityOnHandTotal"/>
     </simple-method>
 
     <simple-method method-name="getInventoryAlerts" short-description="getInventoryAlerts" login-required="false">

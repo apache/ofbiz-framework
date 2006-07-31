@@ -102,6 +102,14 @@ under the License.
         <override name="physicalInventoryId" mode="OUT"/>
     </service>
 
+    <service name="getMktgPackagesAvailable" engine="simple"
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getMktgPackagesAvailable" auth="false">
+        <description>Get Marketing Packages Available From Components In Inventory</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
+    </service>
     <service name="getProductInventoryAvailable" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
         <description>Get Inventory Availability for a Product</description>
@@ -132,12 +140,13 @@ under the License.
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
     </service>
-    <service name="getProductInventoryAvailablefromAssocProducts" engine="java"
-                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailablefromAssocProducts" auth="false">
+    <service name="getProductInventoryAvailableFromAssocProducts" engine="java"
+                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailableFromAssocProducts" auth="false">
         <description>
             Get Inventory Availability for a product based on List of associated products,
             usually marketing package components.
         </description>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="assocProducts" type="List" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
