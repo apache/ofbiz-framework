@@ -39,6 +39,16 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="copyAgreement" default-entity-name="Agreement" engine="simple"
+                location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="copyAgreement" auth="true">
+        <description>Copy an Agreement</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <attribute name="copyAgreementTerms" type="String" mode="IN" optional="true"/>
+        <attribute name="copyAgreementProducts" type="String" mode="IN" optional="true"/>
+        <attribute name="copyAgreementParties" type="String" mode="IN" optional="true"/>
+        <!--<attribute name="agreementId" type="String" mode="OUT" optional="false"/>-->
+    </service>
+
     <!-- AgreementItem  -->
     <service name="createAgreementItem" default-entity-name="AgreementItem" engine="simple"
                 location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementItem" auth="true">
