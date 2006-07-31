@@ -90,12 +90,17 @@ under the License.
         <make-value value-name="newEntity" entity-name="AgreementItem"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <!-- create a non existing ID -->
-        <make-next-seq-id value-name="newEntity" seq-field-name="agreementItemSeqId"/>
         <field-to-field field-name="parameters.agreementId" to-field-name="newEntity.agreementId"/>
-        <env-to-field env-name="agreementItemSeqId" map-name="newEntity"/>
+        <!-- create a non existing ID -->
+        <if-empty field-name="parameters.agreementItemSeqId">
+            <make-next-seq-id value-name="newEntity" seq-field-name="agreementItemSeqId"/>
+            <set from-field="agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
+        <else>
+            <set from-field="parameters.agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
+        </else>
+        </if-empty>
         <field-to-result field-name="agreementId" result-name="agreementId"/>
-        <field-to-result field-name="agreementItemSeqId" result-name="agreementItemSeqId"/>
+        <field-to-result field-name="newEntity.agreementItemSeqId" result-name="agreementItemSeqId"/>
 
         <!-- finally create the record (should not exist already)-->
         <create-value value-name="newEntity"/>
@@ -301,4 +306,56 @@ under the License.
         <remove-value value-name="agreementPartyApplic"/>
         <check-errors/>
     </simple-method>
+    
+    <!-- copy an existing Agreement -->
+    <simple-method method-name="copyAgreement" short-description="Copy an existing Agreement">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run copyAgreement you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+        <check-errors/>
+        <set-service-fields service-name="createAgreement" to-map-name="createAgreementInMap" map-name="agreement"/>
+        <call-service service-name="createAgreement" in-map-name="createAgreementInMap">
+            <result-to-field result-name="agreementId" field-name="agreementIdTo"/>
+        </call-service>
+
+        <get-related value-name="agreement" relation-name="AgreementItem" list-name="agreementItems"/>
+        <iterate list-name="agreementItems" entry-name="agreementItem">
+            <clear-field field-name="createAgreementItemInMap"/>
+            <set-service-fields service-name="createAgreementItem" to-map-name="createAgreementItemInMap" map-name="agreementItem"/>
+            <set from-field="agreementIdTo" field="createAgreementItemInMap.agreementId"/>
+            <call-service service-name="createAgreementItem" in-map-name="createAgreementItemInMap"/>
+        </iterate>
+        <if-compare field-name="parameters.copyAgreementTerms" value="Y" operator="equals">
+            <get-related value-name="agreement" relation-name="AgreementTerm" list-name="agreementTerms"/>
+            <iterate list-name="agreementTerms" entry-name="agreementTerm">
+                <clear-field field-name="createAgreementTermInMap"/>
+                <set-service-fields service-name="createAgreementTerm" to-map-name="createAgreementTermInMap" map-name="agreementTerm"/>
+                <set from-field="agreementIdTo" field="createAgreementTermInMap.agreementId"/>
+                <call-service service-name="createAgreementTerm" in-map-name="createAgreementTermInMap"/>
+            </iterate>
+        </if-compare>
+        <if-compare field-name="parameters.copyAgreementProducts" value="Y" operator="equals">
+            <get-related value-name="agreement" relation-name="AgreementProductAppl" list-name="agreementProductAppls"/>
+            <iterate list-name="agreementProductAppls" entry-name="agreementProductAppl">
+                <clear-field field-name="createAgreementProductApplInMap"/>
+                <set-service-fields service-name="createAgreementProductAppl" to-map-name="createAgreementProductApplInMap" map-name="agreementProductAppl"/>
+                <set from-field="agreementIdTo" field="createAgreementProductApplInMap.agreementId"/>
+                <call-service service-name="createAgreementProductAppl" in-map-name="createAgreementProductApplInMap"/>
+            </iterate>
+        </if-compare>
+        <if-compare field-name="parameters.copyAgreementParties" value="Y" operator="equals">
+            <get-related value-name="agreement" relation-name="AgreementPartyApplic" list-name="agreementPartyApplic"/>
+            <iterate list-name="agreementPartyApplics" entry-name="agreementPartyApplic">
+                <clear-field field-name="createAgreementPartyApplicInMap"/>
+                <set-service-fields service-name="createAgreementPartyApplic" to-map-name="createAgreementPartyApplicInMap" map-name="agreementPartyApplic"/>
+                <set from-field="agreementIdTo" field="createAgreementPartyApplicInMap.agreementId"/>
+                <call-service service-name="createAgreementPartyApplic" in-map-name="createAgreementPartyApplicInMap"/>
+            </iterate>
+        </if-compare>
+        <field-to-result field-name="agreementIdTo" result-name="agreementId"/>
+    </simple-method>
+
 </simple-methods>

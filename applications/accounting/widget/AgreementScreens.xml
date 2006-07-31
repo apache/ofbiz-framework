@@ -88,10 +88,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditAgreement" text="[${uiLabelMap.AccountingNewAgreement}]" style="buttontext"/>
-                        </container>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="agreement"/></not>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
+                                </container>
+                            </widgets>
+                        </section>
                         <include-form name="EditAgreement" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <platform-specific>
+                            <html><html-template location="component://accounting/webapp/accounting/agreement/CopyAgreement.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

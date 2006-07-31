@@ -630,7 +630,13 @@ under the License.
         <response name="success" type="view" value="EditAgreement"/>
         <response name="error" type="view" value="EditAgreement"/>
     </request-map>
-    
+    <request-map uri="copyAgreement">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="copyAgreement"/>
+        <response name="success" type="view" value="EditAgreement"/>
+        <response name="error" type="view" value="EditAgreement"/>
+    </request-map>
+
     <request-map uri="ListAgreementItems"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItems"/></request-map>
     <request-map uri="removeAgreementItem">
         <security https="true" auth="true"/>
@@ -730,13 +736,13 @@ under the License.
     <request-map uri="createAgreementItemProduct">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createAgreementProductAppl"/>
-        <response name="success" type="view" value="EditAgreementItemProduct"/>
+        <response name="success" type="view" value="ListAgreementItemProducts"/>
         <response name="error" type="view" value="EditAgreementItemProduct"/>
     </request-map>
     <request-map uri="updateAgreementItemProduct">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateAgreementProductAppl"/>
-        <response name="success" type="view" value="EditAgreementItemProduct"/>
+        <response name="success" type="view" value="ListAgreementItemProducts"/>
         <response name="error" type="view" value="EditAgreementItemProduct"/>
     </request-map>
 
