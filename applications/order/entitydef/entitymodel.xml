@@ -1159,6 +1159,7 @@ under the License.
       <field name="statusId" type="id"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="productStoreId" type="id"></field>
+      <field name="salesChannelEnumId" type="id"></field>
       <field name="validFromDate" type="date-time"></field>
       <field name="validThruDate" type="date-time"></field>
       <field name="quoteName" type="name"></field>
@@ -1181,6 +1182,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="QUOTE_PRDS" rel-entity-name="ProductStore">
         <key-map field-name="productStoreId"/>
+      </relation>
+      <relation type="one" fk-name="QUOTE_CHANNEL" title="SalesChannel" rel-entity-name="Enumeration">
+        <key-map field-name="salesChannelEnumId" rel-field-name="enumId"/>
       </relation>
     </entity>
     <entity entity-name="QuoteAttribute"

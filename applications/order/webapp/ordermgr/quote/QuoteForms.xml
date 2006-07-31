@@ -28,6 +28,14 @@ under the License.
                 <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId"/>
             </drop-down>
         </field>
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
@@ -85,7 +93,7 @@ under the License.
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}"></field>
         <field name="validFromDate" title="${uiLabelMap.CommonValidFromDate}"></field>
         <field name="validThruDate" title="${uiLabelMap.CommonValidThruDate}"></field>
-      </form>
+    </form>
     <form name="EditQuote" type="single" target="updateQuote" title="" default-map-name="quote"
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="quote==null" target="createQuote"/>
@@ -95,6 +103,14 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId">
                     <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
+                    <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
         </field>

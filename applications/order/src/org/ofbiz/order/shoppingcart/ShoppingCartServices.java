@@ -404,6 +404,7 @@ public class ShoppingCartServices {
 
         cart.setQuoteId(quoteId);
         cart.setOrderName(quote.getString("quoteName"));
+        cart.setChannelType(quote.getString("salesChannelEnumId"));
         
         List quoteItems = null;
         List quoteAdjs = null;
