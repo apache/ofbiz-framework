@@ -77,8 +77,12 @@ if (product.getString("isVirtual") != null && product.getString("isVirtual").equ
     // are obtained (calling the "getInventoryAvailableByFacility" service)
     while (facilityIterator.hasNext()) {
         facility = facilityIterator.next();
-        contextInput = UtilMisc.toMap("productId",productId, "facilityId", facility.getString("facilityId"));
-        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility",contextInput);
+        contextInput = UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId"));
+        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+            resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
+        } else {
+            resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
+        }
         quantitySummary = new HashMap();
         quantitySummary.put("facilityId", facility.getString("facilityId"));
         quantitySummary.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));

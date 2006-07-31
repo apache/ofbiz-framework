@@ -629,11 +629,12 @@ public class InventoryServices {
      * Get Inventory Available for a Product based on the list of associated products.  The final ATP and QOH will
      * be the minimum of all the associated products' inventory divided by their ProductAssoc.quantity 
      * */
-    public static Map getProductInventoryAvailablefromAssocProducts(DispatchContext dctx, Map context) {
+    public static Map getProductInventoryAvailableFromAssocProducts(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List productAssocList = (List) context.get("assocProducts");
-                
+        String facilityId = (String)context.get("facilityId");
+        
         Double availableToPromiseTotal = new Double(0);
         Double quantityOnHandTotal = new Double(0);
         
@@ -657,7 +658,13 @@ public class InventoryServices {
                // figure out the inventory available for this associated product
                Map resultOutput = null;
                try {
-                  resultOutput = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.toMap("productId", productIdTo));
+                   Map inputMap = UtilMisc.toMap("productId", productIdTo);
+                   if (facilityId != null) {
+                       inputMap.put("facilityId", facilityId);
+                       resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", inputMap);
+                   } else {
+                       resultOutput = dispatcher.runSync("getProductInventoryAvailable", inputMap);
+                   }
                } catch (GenericServiceException e) {
                   Debug.logError(e, "Problems getting inventory available by facility", module);
                   return ServiceUtil.returnError(e.getMessage());
@@ -721,6 +728,14 @@ public class InventoryServices {
             String productId = orderItem.getString("productId");
 
             if ((productId == null) || productId.equals("")) continue;
+            
+            GenericValue product = null;
+            try {
+                product = orderItem.getRelatedOne("Product");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Couldn't get product.", module);
+                return ServiceUtil.returnError("Unable to retrive product with id [" + productId + "]");
+            }
 
             double atp = 0.0;
             double qoh = 0.0;
@@ -730,7 +745,11 @@ public class InventoryServices {
                 Map params = UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId"));
                 Map invResult = null;
                 try {
-                    invResult = dispatcher.runSync("getInventoryAvailableByFacility", params);
+                    if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+                        invResult = dispatcher.runSync("getMktgPackagesAvailable", params);
+                    } else {
+                        invResult = dispatcher.runSync("getInventoryAvailableByFacility", params);
+                    }
                 } catch (GenericServiceException e) {
                     String msg = "Could not find inventory for facility [" + facility.getString("facilityId") + "]";
                     Debug.logError(e, msg, module);

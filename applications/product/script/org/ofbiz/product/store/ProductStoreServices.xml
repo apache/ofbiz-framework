@@ -477,9 +477,16 @@ under the License.
 
             <set from-field="parameters.productId" field="callServiceMap.productId"/>
             <set from-field="productStore.inventoryFacilityId" field="callServiceMap.facilityId"/>
-            <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
-                <result-to-field result-name="availableToPromiseTotal"/>
-            </call-service>
+            <if-compare field-name="product.productTypeId" value="MARKETING_PKG_AUTO" operator="equals">
+                <call-service service-name="getMktgPackagesAvailable" in-map-name="callServiceMap">
+                    <result-to-field result-name="availableToPromiseTotal"/>
+                </call-service>
+            <else>
+                <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
+                    <result-to-field result-name="availableToPromiseTotal"/>
+                </call-service>
+            </else>
+            </if-compare>
 
             <!-- check to see if we got enough back... -->
             <if-compare-field field-name="availableToPromiseTotal" operator="greater-equals" to-field-name="parameters.quantity" type="Double">
@@ -503,9 +510,16 @@ under the License.
                     <!-- Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order. -->
                     <set from-field="parameters.productId" field="callServiceMap.productId"/>
                     <set from-field="productStoreFacility.facilityId" field="callServiceMap.facilityId"/>
-                    <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
-                        <result-to-field result-name="availableToPromiseTotal"/>
-                    </call-service>
+                    <if-compare field-name="product.productTypeId" value="MARKETING_PKG_AUTO" operator="equals">
+                        <call-service service-name="getMktgPackagesAvailable" in-map-name="callServiceMap">
+                            <result-to-field result-name="availableToPromiseTotal"/>
+                        </call-service>
+                    <else>
+                        <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
+                            <result-to-field result-name="availableToPromiseTotal"/>
+                        </call-service>
+                    </else>
+                    </if-compare>
                     <clear-field field-name="callServiceMap"/>
                     
                     <if-compare-field field-name="availableToPromiseTotal" operator="greater-equals" to-field-name="parameters.quantity" type="Double">
