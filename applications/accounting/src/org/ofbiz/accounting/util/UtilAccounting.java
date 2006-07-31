@@ -129,12 +129,12 @@ public class UtilAccounting {
 
 
     /**
-     * Checks if a payment is of a specified PaymentType.paymentTypeId. It's better to use the
-     * more specific calls like isVendorPrepay().
+     * Checks if a payment is of a specified PaymentType.paymentTypeId.  Return false if payment is null.  It's better to use the
+     * more specific calls like isTaxPayment(). 
      */
     public static boolean isPaymentType(GenericValue payment, String inputTypeId) throws GenericEntityException {
         if (payment == null) { 
-            throw new GenericEntityException("Cannot check payment type: input payment is null");
+            return false; 
         }
 
         GenericValue paymentType = payment.getRelatedOneCache("PaymentType");
@@ -184,12 +184,12 @@ public class UtilAccounting {
     }
 
     /**
-     * Checks if an account is of a specified GlAccountClass.glAccountClassId. It's better to use the
+     * Checks if an account is of a specified GlAccountClass.glAccountClassId.  Returns false if account is null.  It's better to use the
      * more specific calls like isDebitAccount().
      */
     public static boolean isAccountClass(GenericValue account, String inputClassId) throws GenericEntityException {
         if (account == null) {
-            throw new GenericEntityException("Cannot check account class: input account is null");
+            return false;
         }
 
         GenericValue accountClass = account.getRelatedOneCache("GlAccountClass");
