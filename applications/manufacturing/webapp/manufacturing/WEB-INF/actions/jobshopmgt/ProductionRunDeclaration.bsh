@@ -191,6 +191,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         ListProductionRunRoutingTasksWrapper.putInContext("issueTaskId", (issueTaskId != null? issueTaskId: "null"));
         ListProductionRunRoutingTasksWrapper.putInContext("completeTaskId", (completeTaskId != null? completeTaskId: "null"));
         context.put("ListProductionRunRoutingTasksWrapper",ListProductionRunRoutingTasksWrapper);
+        context.put("productionRunRoutingTasks", productionRunRoutingTasks);
 
         //---------------
         // Components
@@ -262,6 +263,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         ListProductionRunComponentsWrapper.putInContext("productionRunId", productionRunId);
         ListProductionRunComponentsWrapper.putInContext("productionRunComponentsData", productionRunComponentsData);
         context.put("ListProductionRunComponentsWrapper",ListProductionRunComponentsWrapper);
+        context.put("productionRunComponentsData", productionRunComponentsData);
     }
 }
 
