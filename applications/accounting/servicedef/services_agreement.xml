@@ -46,7 +46,6 @@ under the License.
         <attribute name="copyAgreementTerms" type="String" mode="IN" optional="true"/>
         <attribute name="copyAgreementProducts" type="String" mode="IN" optional="true"/>
         <attribute name="copyAgreementParties" type="String" mode="IN" optional="true"/>
-        <!--<attribute name="agreementId" type="String" mode="OUT" optional="false"/>-->
     </service>
 
     <!-- AgreementItem  -->
