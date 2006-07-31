@@ -273,7 +273,7 @@ under the License.
         </field>
         <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" tooltip="*" title-style="tabletext"><text size="10" maxlength="30"/></field>
         <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" tooltip="*" title-style="tabletext">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
                     <entity-order-by field-name="geoId"/>
