@@ -206,7 +206,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}" widget-style="selectBox">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="PURCHASE">
                 <entity-options entity-name="ProductPricePurpose" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
