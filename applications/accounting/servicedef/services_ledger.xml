@@ -265,7 +265,8 @@ under the License.
         <attribute name="debitCreditDifference" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="postAcctgTrans" default-entity-name="AcctgTrans" engine="simple"
-            location="org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="postAcctgTrans" auth="true">
+            location="org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="postAcctgTrans" auth="true"
+            transaction-timout="600">
         <description>Post a AcctgTrans and related entries.  This will make sure that the time period is not closed and that 
          the sum of the debits and credits are equal. 
         </description>
