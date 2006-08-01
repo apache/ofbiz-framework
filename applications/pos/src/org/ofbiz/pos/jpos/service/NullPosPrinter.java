@@ -27,6 +27,11 @@ import org.ofbiz.base.util.Debug;
  */
 public class NullPosPrinter extends BaseService implements jpos.services.POSPrinterService12 {
 
+    protected static final String ESC = ((char) 0x1b) + "";
+    protected static final String PAPER_CUT = ESC + "|100fP";
+
+    private StringBuffer printerBuffer = new StringBuffer();
+
     public int getDeviceServiceVersion() throws JposException {
         return 1002000;
     }
@@ -476,24 +481,32 @@ public class NullPosPrinter extends BaseService implements jpos.services.POSPrin
     public void endRemoval() throws JposException {
     }
 
+    private void printALine(String s) {
+        printerBuffer = printerBuffer.append(s);
+        if ( s.indexOf(NullPosPrinter.PAPER_CUT) > 0 ) {
+            Debug.log(printerBuffer.toString(), module);
+            printerBuffer = new StringBuffer();
+        }
+    }
+
     public void printBarCode(int i, String s, int i1, int i2, int i3, int i4, int i5) throws JposException {
-        Debug.log("Barcode:\n" + s + "\n", module);
+        printALine("Barcode:" + s + "\n");
     }
 
     public void printBitmap(int i, String s, int i1, int i2) throws JposException {
-        Debug.log("Bitmap:\n" + s + "\n", module);
+        printALine("Bitmap:" + s + "\n");
     }
 
     public void printImmediate(int i, String s) throws JposException {
-        Debug.log("Immediate:\n" + s + "\n", module);
+        printALine("Immediate:" + s + "\n");
     }
 
     public void printNormal(int i, String s) throws JposException {
-        Debug.log("Normal:\n" + s + "\n", module);
+        printALine("Normal:" + s + "\n");
     }
 
     public void printTwoNormal(int i, String s, String s1) throws JposException {
-        Debug.log("2Normal:\n" + s + "\n", module);
+        printALine("2Normal:" + s + "\n");
     }
 
     public void rotatePrint(int i, int i1) throws JposException {
@@ -506,6 +519,7 @@ public class NullPosPrinter extends BaseService implements jpos.services.POSPrin
     }
 
     public void transactionPrint(int i, int i1) throws JposException {
+      Debug.log("transactionPrint:\n\n", module);
     }
 
     public void validateData(int i, String s) throws JposException {
