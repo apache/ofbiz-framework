@@ -49,6 +49,21 @@ under the License.
                 <option key="3" description="${uiLabelMap.ManufacturingImplosion}"/>
             </drop-down>
         </field>
+        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
+                    <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
+                </entity-options>
+             </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" widget-style="selectBox">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
