@@ -29,19 +29,20 @@ under the License.
         <tr>
           <td width="10%" align="left"><div class="tableheadtext">${uiLabelMap.ManufacturingProductLevel}</div></td>
           <td width="20%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>
-          <td width="10%" align="left"><div class="tableheadtext">---</div></td>
+          <td width="10%" align="left"><div class="tableheadtext">&nbsp;</div></td>
           <td width="40%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
-          <td width="20%" align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
+          <td width="10%" align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
+          <td width="10%" align="right"><div class="tableheadtext">&nbsp;</div></td>
         </tr>
         <tr>
-          <td colspan='5'><hr class='sepbar'></td>
+          <td colspan="6"><hr class="sepbar"></td>
         </tr>
         <#if tree?has_content>
           <#assign rowClass = "viewManyTR2">
           <#list tree as node>            
-            <tr class='${rowClass}'>
+            <tr class="${rowClass}">
               <td><img src='/manufacturing/images/depth${node.depth}.gif' height='16' border='0' alt='Depth'></td>
-              <td><a href="<@ofbizUrl>EditProductBom?productId=${(node.product.productId)?if_exists}&productAssocTypeId=${(node.bomTypeId)?if_exists}</@ofbizUrl>" class="buttontext">${node.product.productId}</a></td>
+              <td>${node.product.productId}</td>
               <td>
                 <#if node.product.isVirtual?default("N") == "Y">
                     Virtual
@@ -50,6 +51,7 @@ under the License.
               </td>
               <td>${node.product.internalName?default("&nbsp;")}</td>
               <td align="right">${node.quantity}</td>
+              <td align="right"><a href="<@ofbizUrl>EditProductBom?productId=${(node.product.productId)?if_exists}&productAssocTypeId=${(node.bomTypeId)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a></td>
             </tr>
             <#-- toggle the row color -->
             <#if rowClass == "viewManyTR2">
@@ -68,20 +70,31 @@ under the License.
 <hr>
       <table border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
-          <td width="20%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>
-          <td width="40%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
-          <td width="40%" align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
+          <td width="18%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>
+          <td width="50%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
+          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
+          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.ProductQoh}</div></td>
+          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.FormFieldTitle_cost}</div></td>
+          <td width="8%" align="right"><div class="tableheadtext">${uiLabelMap.CommonTotalCost}</div></td>
         </tr>
         <tr>
-          <td colspan='3'><hr class='sepbar'></td>
+          <td colspan="6"><hr class="sepbar"></td>
         </tr>
-        <#if treeQty?has_content>
+        <#if productsData?has_content>
           <#assign rowClass = "viewManyTR2">
-          <#list treeQty as nodeQty>            
+          <#list productsData as productData>
+            <#assign node = productData.node>
             <tr class='${rowClass}'>
-              <td>${nodeQty.product.productId}</td>
-              <td>${nodeQty.product.internalName?default("&nbsp;")}</td>
-              <td align="right">${nodeQty.quantity}</td>
+              <td><a href="/catalog/control/EditProduct?productId=${node.product.productId}" class="buttontext">${node.product.productId}</a></td>
+              <td>${node.product.internalName?default("&nbsp;")}</td>
+              <td align="right">${node.quantity}</td>
+              <td align="right">${productData.qoh?if_exists}</td>
+              <#if productData.unitCost?exists && (productData.unitCost > 0)>
+              <td align="right">${productData.unitCost?if_exists}</td>
+              <#else>
+              <td align="center"><a href="/catalog/control/EditProductCosts?productId=${node.product.productId}" class="buttontext">NA</a></td>
+              </#if>
+              <td align="right">${productData.totalCost?if_exists}</td>
             </tr>
             <#-- toggle the row color -->
             <#if rowClass == "viewManyTR2">
@@ -89,11 +102,16 @@ under the License.
             <#else>
               <#assign rowClass = "viewManyTR2">
             </#if>
-          </#list>          
+          </#list>
+          <#if grandTotalCost?exists>
+          <tr>
+            <td colspan="6" align="right"><div class="tableheadtext">${grandTotalCost}</div></td>
+          </tr>
+          </#if>
         <#else>
           <tr>
-            <td colspan='4'><div class='head3'>${uiLabelMap.CommonNoElementFound}.</div></td>
-          </tr>        
+            <td colspan="6"><div class="head3">${uiLabelMap.CommonNoElementFound}.</div></td>
+          </tr>
         </#if>
       </table>
 </#if>
