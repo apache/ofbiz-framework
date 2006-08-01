@@ -298,5 +298,21 @@ under the License.
     <TermType description="Commission Term Variable" hasTable="N" parentTypeId="COMMISSION_TERM" termTypeId="FIN_COMM_VARIABLE"/>
     <TermType description="Commission Term Minimum Per Unit" hasTable="N" parentTypeId="COMMISSION_TERM" termTypeId="FIN_COMM_MIN"/>
     <TermType description="Commission Term Maximum Per Unit" hasTable="N" parentTypeId="COMMISSION_TERM" termTypeId="FIN_COMM_MAX"/>
+
+    <TermType description="Incoterm" hasTable="N" parentTypeId="" termTypeId="INCO_TERM"/>
+    <TermType description="Incoterm Ex Works" parentTypeId="INCO_TERM" termTypeId="EXW"/>
+    <TermType description="Incoterm Free Carrier" parentTypeId="INCO_TERM" termTypeId="FCA"/>
+    <TermType description="Incoterm Free Alongside Ship" parentTypeId="INCO_TERM" termTypeId="FAS"/>
+    <TermType description="Incoterm Free On Board" parentTypeId="INCO_TERM" termTypeId="FOB"/>
+    <TermType description="Incoterm Cost and Freight" parentTypeId="INCO_TERM" termTypeId="CFR"/>
+    <TermType description="Incoterm Cost, Insurance and Freight" parentTypeId="INCO_TERM" termTypeId="CIF"/>
+    <TermType description="Incoterm Carriage Paid To" parentTypeId="INCO_TERM" termTypeId="CPT"/>
+    <TermType description="Incoterm Carriage and Insurance Paid to" parentTypeId="INCO_TERM" termTypeId="CIP"/>
+    <TermType description="Incoterm Delivered At Frontier" parentTypeId="INCO_TERM" termTypeId="DAF"/>
+    <TermType description="Incoterm Delivered Ex Ship" parentTypeId="INCO_TERM" termTypeId="DES"/>
+    <TermType description="Incoterm Delivered Ex Quay" parentTypeId="INCO_TERM" termTypeId="DEQ"/>
+    <TermType description="Incoterm Delivered Duty Unpaid" parentTypeId="INCO_TERM" termTypeId="DDU"/>
+    <TermType description="Incoterm Delivered Duty Paid" parentTypeId="INCO_TERM" termTypeId="DDP"/>
+
     <TermType description="Other" hasTable="N" parentTypeId="" termTypeId="OTHER_TERM"/>
 </entity-engine-xml>
