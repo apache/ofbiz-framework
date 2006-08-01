@@ -79,7 +79,7 @@ under the License.
         <set from-field="parameters.currencyUomId" field="costsAndMap.costUomId"/>
         <!-- Route costs -->
         <set value="${parameters.costComponentTypePrefix}_ROUTE_COST" field="costsAndMap.costComponentTypeId"/>
-        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="laborCosts"/>
+        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="routeCosts"/>
         <filter-list-by-date list-name="routeCosts"/>
         <first-from-list list-name="routeCosts" entry-name="routeCost"/>
         <!-- Labor costs -->
