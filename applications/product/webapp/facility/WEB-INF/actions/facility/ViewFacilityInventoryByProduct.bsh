@@ -59,11 +59,11 @@ if (action != null) {
         prodView.addAlias("PROD", "productTypeId");
         conditionMap.put("productTypeId", productTypeId);
     }
-    if (productCategoryId != null && productCategoryId.length() > 0) {
+    if (searchInProductCategoryId != null && searchInProductCategoryId.length() > 0) {
         prodView.addMemberEntity("PRCA", "ProductCategoryMember");
         prodView.addViewLink("PRFA", "PRCA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         prodView.addAlias("PRCA", "productCategoryId");
-        conditionMap.put("productCategoryId", productCategoryId);
+        conditionMap.put("productCategoryId", searchInProductCategoryId);
     }
 
     if (productSupplierId != null && productSupplierId.length() > 0) {
