@@ -17,42 +17,46 @@ package org.ofbiz.pos;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.HashMap;
 
 import net.xoetrope.xui.data.XModel;
 import net.xoetrope.xui.helper.SwingWorker;
 
+import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.Log4jLoggerWriter;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.Log4jLoggerWriter;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.LifoSet;
-import org.ofbiz.guiapp.xui.XuiSession; 
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
-import org.ofbiz.order.shoppingcart.ShoppingCart;
-import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ItemNotFoundException;
+import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.order.shoppingcart.ShoppingCartItem;
+import org.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.device.DeviceLoader;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.pos.screen.PosScreen;
+import org.ofbiz.pos.screen.Sales;
 import org.ofbiz.product.store.ProductStoreWorker;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.accounting.payment.PaymentGatewayServices;
-import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * 
@@ -873,4 +877,83 @@ public class PosTransaction implements Serializable {
         }
         return currentTx;
     }
+    
+    public void loadSale(PosScreen pos) {
+        //ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(paymentIndex);
+
+        /*if (UtilValidate.isEmpty(shoppingListId)) {
+            // create a new shopping list
+            if (partyId == null) {
+                partyId = userLogin.getString("partyId");
+            }
+
+            Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "partyId", partyId,
+                    "productStoreId", productStoreId, "listName", "List Created From Order #" + orderId);
+
+            if (UtilValidate.isNotEmpty(shoppingListTypeId)) {
+                serviceCtx.put("shoppingListTypeId", shoppingListTypeId);
+            }
+
+            Map newListResult = null;
+            try {
+
+                newListResult = dispatcher.runSync("createShoppingList", serviceCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problems creating new ShoppingList", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToCreateNewShoppingList",locale));
+            }
+
+            // check for errors
+            if (ServiceUtil.isError(newListResult)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(newListResult));
+            }
+
+            // get the new list id
+            if (newListResult != null) {
+                shoppingListId = (String) newListResult.get("shoppingListId");
+            }
+        }*/
+
+        List shoppingList = null;
+        GenericDelegator delegator = this.session.getDelegator();
+        try {
+        	shoppingList = delegator.findAll("ShoppingList");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            ServiceUtil.returnError("Error running initLowLevelCode: " + e.getMessage());            
+        }
+
+        if (shoppingList == null) {
+        	Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
+        }
+ 
+        Hashtable salesMap = new Hashtable();
+        Iterator i = shoppingList.iterator();
+        while (i.hasNext()){
+            GenericValue v = (GenericValue) i.next();
+            salesMap.put(v.getString("shoppingListId"), v.getString("listName"));
+            }
+        
+        Sales salesDlg = new Sales(salesMap, this, pos);
+        salesDlg.openDlg();      
+        
+    }           
+
+    public boolean addListToCart(String  shoppingListId, PosScreen pos, boolean append) {        
+    	GenericDelegator delegator = session.getDelegator();
+        LocalDispatcher dispatcher = session.getDispatcher();
+        String includeChild = null; // Perhaps will be used later ...
+            String prodCatalogId =  null;
+
+            try {
+            	//(GenericDelegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, String prodCatalogId, String shoppingListId, boolean includeChild, boolean setAsListItem, boolean append) throws java.lang.IllegalArgumentException {
+            	ShoppingListEvents.addListToCart(delegator, dispatcher, cart, prodCatalogId, shoppingListId, (includeChild != null), true, append);
+            } catch (IllegalArgumentException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                pos.refresh();
+                return false;
+            }            
+            return true;
+    }    
 }

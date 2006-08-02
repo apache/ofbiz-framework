@@ -354,6 +354,17 @@ public class MenuEvents {
         pos.refresh();
     }
 
+    public static void saveSale(PosScreen pos) {
+        PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
+        pos.refresh();
+    }
+
+    public static void loadSale(PosScreen pos) {
+        PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
+        Input input = pos.getInput();
+        trans.loadSale(pos);
+    }
+
     public static String getSelectedItem(PosScreen pos) {
         Journal journal = pos.getJournal();
         return journal.getSelectedSku();

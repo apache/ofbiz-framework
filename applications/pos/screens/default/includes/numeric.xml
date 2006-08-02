@@ -53,8 +53,8 @@
             <Button name="menuSaleDisc" x="268" y="138" w="95" h="68" style="posButton" content="SALE_DISC" alignment="Center"/>
 
             <!--<Button name="" x="0" y="207" w="75" h="68" style="posButton" content="" alignment="Center"/>-->
-            <Button name="" x="76" y="207" w="95" h="68" style="posButton" content="TRANS_SAVE" alignment="Center"/>
-            <Button name="" x="172" y="207" w="95" h="68" style="posButton" content="TRANS_RET" alignment="Center"/>
+            <Button name="menuSave" x="76" y="207" w="95" h="68" style="posButton" content="TRANS_SAVE" alignment="Center"/>
+            <Button name="menuLoad" x="172" y="207" w="95" h="68" style="posButton" content="TRANS_RET" alignment="Center"/>
             <Button name="menuClrDisc" x="268" y="207" w="95" h="68" style="posButton" content="CLR_DISC" alignment="Center"/>
         </Panel>
     </Components>    
