@@ -206,6 +206,7 @@ under the License.
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="productTypeId" from-field="parameters.productTypeId"/>
+                <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
                 <set field="productSupplierId" from-field="parameters.productSupplierId"/>
                 <set field="offsetQty" from-field="parameters.offsetQty"/>
 

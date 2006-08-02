@@ -32,7 +32,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}" widget-style="selectBox">
+        <field name="searchInProductCategoryId" title="${uiLabelMap.ProductCategory}" widget-style="selectBox">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${description} [${productCategoryId}]">
                     <entity-constraint name="showInSelect"  value="N" operator="not-equals"/>
