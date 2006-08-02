@@ -91,6 +91,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         updateProductionRunWrapper.putInContext("actionForm", "updateProductionRun");
         updateProductionRunWrapper.setUseRequestParameters(false);
         context.put("updateProductionRunWrapper",updateProductionRunWrapper);
+        context.put("productionRunData", productionRunData);
 
         productionRunData.put("workEffortId",productionRunId);
         productionRunData.put("productId", productionRun.getProductProduced().getString("productId"));
@@ -107,6 +108,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         productionRunData.put("quantityToProduce", quantityToProduce);
         productionRunData.put("quantityProduced", quantityProduced);
         productionRunData.put("quantityRejected", quantityRejected);
+        productionRunData.put("quantityRemaining", new Double(quantityToProduce.doubleValue() - quantityProduced.doubleValue()));
         productionRunData.put("estimatedCompletionDate", productionRun.getEstimatedCompletionDate());
         productionRunData.put("productionRunName", productionRun.getProductionRunName());
         productionRunData.put("description", productionRun.getDescription());
