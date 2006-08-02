@@ -26,6 +26,8 @@ under the License.
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}" widget-style="selectBox">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
+                    <entity-constraint name="isPhysical"  value="Y" operator="equals"/>
+                    <entity-constraint name="parentTypeId"  value="GOOD" operator="equals"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
