@@ -927,6 +927,11 @@ public class PosTransaction implements Serializable {
         	Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
         }
  
+        if (0 == shoppingList.size()) {
+            pos.showDialog("dialog/error/nosales");
+            pos.refresh();
+            return;
+        }
         Hashtable salesMap = new Hashtable();
         Iterator i = shoppingList.iterator();
         while (i.hasNext()){
