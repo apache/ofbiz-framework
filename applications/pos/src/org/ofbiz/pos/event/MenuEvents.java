@@ -361,7 +361,6 @@ public class MenuEvents {
 
     public static void loadSale(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
-        Input input = pos.getInput();
         trans.loadSale(pos);
     }
 
