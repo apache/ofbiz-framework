@@ -17,13 +17,13 @@
 -->
 <XPage class="net.xoetrope.swing.XDialog">
     <Components>
-        <Panel name="salesPanel" x="0" y="0" w="320" h="420">
+        <Panel name="salesPanel" x="0" y="0" w="340" h="420">
             <ScrollPane name="scroolList" x="10" y="10" w="200" h="400">
                 <List name="salesList" x="0" y="0" w="200" h="400" />
             </ScrollPane>
-            <Button name="BtnCancel" x="230" y="10" w="65" h="22" content="Cancel"/>
-            <Button name="BtnAdd" x="230" y="50" w="65" h="22" content="Add"/>
-            <Button name="BtnReplace" x="230" y="80" w="65" h="22" content="Replace"/>
+            <Button name="BtnCancel" x="230" y="10" w="90" h="22" content="Cancel"/>
+            <Button name="BtnAdd" x="230" y="50" w="90" h="22" content="Add"/>
+            <Button name="BtnReplace" x="230" y="80" w="90" h="22" content="Replace"/>
         </Panel>
     </Components>
 </XPage>
