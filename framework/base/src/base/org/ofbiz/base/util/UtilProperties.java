@@ -368,8 +368,6 @@ public class UtilProperties implements java.io.Serializable {
             FileOutputStream propFile = new FileOutputStream(resource);
             properties.store(propFile, "Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)\n"
             +"#\n"
-            +"#$Id: $\n" 
-            +"#\n"
             +"#    Copyright 2001-2006 The Apache Software Foundation\n"
             +"#\n"
             +"#    Licensed under the Apache License, Version 2.0 (the \"License\"); you may not\n"
