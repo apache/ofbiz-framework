@@ -41,11 +41,26 @@ under the License.
         </if-empty>
         <field-to-result field-name="payment.paymentId" result-name="paymentId"/>
         
+        <if-not-empty field-name="parameters.paymentMethodId">
+            <if-empty field-name="parameters.paymentMethodTypeId">
+                <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+                    <field-map field-name="paymentMethodId" env-name="parameters.paymentMethodId"/>
+                </entity-one>      
+                <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>        
+            </if-empty>         
+        </if-not-empty>        
+        <if-empty field-name="parameters.paymentMethodId">
+           <if-empty field-name="parameters.paymentMethodTypeId">
+             <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingPaymentMethodIdPaymentMethodTypeIdNullError"/>
+             </add-error>               
+           </if-empty> 
+        </if-empty>  
+        
         <set-nonpk-fields map-name="parameters" value-name="payment"/>
         <if-empty field-name="payment.effectiveDate">
             <now-timestamp-to-env env-name="payment.effectiveDate"/>
         </if-empty>
-        
         <create-value value-name="payment"/>
     </simple-method>
     <simple-method method-name="updatePayment" short-description="Update a Payment">

@@ -24,11 +24,11 @@ under the License.
     <!-- Payment services -->
     <service name="createPayment" engine="simple" default-entity-name="Payment"
         location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPayment" auth="true">
-        <description>Create a Payment</description>
+        <description>Create a Payment.  If a paymentMethodId is supplied, paymentMethodTypeId is gotten from paymentMethod.  Otherwise, it must be supplied.  If no
+        paymentMethodTypeId and no paymentMethodId is supplied, then an error will be returned. </description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <override name="paymentTypeId" optional="false"/>
-        <override name="paymentMethodTypeId" optional="false"/>
         <override name="partyIdFrom" optional="false"/>
         <override name="partyIdTo" optional="false"/>
         <override name="statusId" optional="false"/>
