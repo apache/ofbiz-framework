@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2001-2006 The Apache Software Foundation
+    
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+-->
+<XPage class="net.xoetrope.swing.XDialog">
+    <Components>
+        <Panel name="salesPanel" x="0" y="0" w="340" h="420">
+            <ScrollPane name="scroolList" x="10" y="10" w="200" h="400">
+                <List name="salesList" x="0" y="0" w="200" h="400" />
+            </ScrollPane>
+            <Button name="BtnCancel" x="230" y="10" w="90" h="22" content="Cancel"/>
+            <Button name="BtnAdd" x="230" y="50" w="90" h="22" content="Add"/>
+            <Button name="BtnReplace" x="230" y="80" w="90" h="22" content="Replace"/>
+        </Panel>
+    </Components>
+</XPage>
