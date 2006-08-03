@@ -64,7 +64,7 @@ public class Sales extends XPage {
 	}
 
     public void openDlg() {
-    	XDialog dlg = (XDialog) pageMgr.loadPage(m_page.getScreenLocation() + "/dialog/sales");
+    	XDialog dlg = (XDialog) pageMgr.loadPage(m_page.getScreenLocation() + "/dialog/loadsale");
     	m_dialog = dlg;
     	dlg.setCaption(UtilProperties.getMessage("pos", "LoadASale", Locale.getDefault()));
     	m_salesList = (XList) dlg.findComponent("salesList");
