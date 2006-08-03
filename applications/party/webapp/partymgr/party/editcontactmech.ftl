@@ -172,7 +172,12 @@ under the License.
       <td width="5">&nbsp;</td>
       <td width="74%">
         <select name="countryGeoId" class="selectBox">
-          <option>${(mechMap.postalAddress.countryGeoId)?if_exists}</option>
+          <#if (mechMap.postalAddress?exists) && (mechMap.postalAddress.countryGeoId?exists)>
+          <option selected>${(mechMap.postalAddress.countryGeoId)?if_exists}</option>
+          <#else>
+           <#assign defaultCountryGeoId = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "country.geo.id.default")>
+           <option selected value="${defaultCountryGeoId}">${defaultCountryGeoId}</option>
+          </#if>
           <option></option>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
