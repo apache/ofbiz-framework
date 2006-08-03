@@ -27,6 +27,7 @@ import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
 import net.xoetrope.xui.XPage;
+import net.xoetrope.xui.XProjectManager;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
@@ -63,7 +64,7 @@ public class Sales extends XPage {
 	}
 
     public void openDlg() {
-    	XDialog dlg = (XDialog) pageMgr.loadPage("default/includes/sales");
+    	XDialog dlg = (XDialog) pageMgr.loadPage(m_page.getScreenLocation() + "/includes/sales");
     	m_dialog = dlg;
     	dlg.setCaption(UtilProperties.getMessage("pos", "LoadASale", Locale.getDefault()));
     	m_salesList = (XList) dlg.findComponent("salesList");

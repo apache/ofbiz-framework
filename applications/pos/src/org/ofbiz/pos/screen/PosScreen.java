@@ -374,7 +374,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
         }
     }
 
-    private String getScreenLocation() {
+    public String getScreenLocation() {
         if (this.scrLocation == null) {
             synchronized(this) {
                 if (this.scrLocation == null) {
