@@ -73,7 +73,7 @@ under the License.
     </service>
     <service name="calculateProductCosts" engine="simple" auth="true"
                 location="org/ofbiz/product/cost/CostServices.xml" invoke="calculateProductCosts">
-        <description>Calculates the product's costs</description>
+        <description>Calculates the product's costs.  If the product does not cost component defined, will use the BOM to calculate the cost.</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>

@@ -2348,7 +2348,8 @@ public class ProductionRunServices {
             if (issuedQuantity.doubleValue() == 0) {
                 return ServiceUtil.returnError("Error decomposing inventory item: no marketing packages found in inventory item [" + inventoryItem.getString("inventoryItemId") + "].");
             }
-            // get the package's unit cost
+            // get the package's unit cost to compute a cost coefficient ratio which is the marketing package's actual unit cost divided by its standard cost
+            // this ratio will be used to determine the cost of the marketing package components when they are returned to inventory
             serviceContext.clear();
             serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),
                                  "currencyUomId", inventoryItem.getString("currencyUomId"),
@@ -2378,7 +2379,7 @@ public class ProductionRunServices {
             Iterator componentsIt = components.iterator();
             while (componentsIt.hasNext()) {
                 Map component = (Map)componentsIt.next();
-                // get the component's unit cost
+                // get the component's standard cost
                 serviceContext.clear();
                 serviceContext = UtilMisc.toMap("productId", ((GenericValue)component.get("product")).getString("productId"),
                                      "currencyUomId", inventoryItem.getString("currencyUomId"),
@@ -2386,6 +2387,8 @@ public class ProductionRunServices {
                                      "userLogin", userLogin);
                 resultService = dispatcher.runSync("getProductCost", serviceContext);
                 Double componentCost = (Double)resultService.get("productCost");
+                
+                // return the component to inventory at its standard cost multiplied by the cost coefficient from above
                 Double componentInventoryItemCost = new Double(costCoefficient.doubleValue() * componentCost.doubleValue());
                 serviceContext.clear();
                 serviceContext = UtilMisc.toMap("productId", ((GenericValue)component.get("product")).getString("productId"),

@@ -195,6 +195,7 @@ under the License.
         <description>
             Create a decompose work effort, issue the inventory item (or part of it), and put in warehouse its components.
             It is intended to be called when a marketing package is received into warehouse (e.g. from a return).
+            The components will be returned to inventory at ((Marketing Package Actual Inventory Unit Cost) / (Marketing Package Standard Cost)) * (Component Standard Cost)
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
