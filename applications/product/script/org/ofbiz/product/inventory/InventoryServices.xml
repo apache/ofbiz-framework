@@ -151,6 +151,10 @@ under the License.
         <make-value entity-name="InventoryItem" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <if-empty field-name="lookedUpValue.ownerPartyId">
+            <get-related-one value-name="lookedUpValue" relation-name="Facility" to-value-name="oldFacility"/>
+            <set field="lookedUpValue.ownerPartyId" from-field="oldFacility.ownerPartyId"/>
+        </if-empty>
         <field-to-result field-name="lookedUpValue.ownerPartyId" result-name="oldOwnerPartyId"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
