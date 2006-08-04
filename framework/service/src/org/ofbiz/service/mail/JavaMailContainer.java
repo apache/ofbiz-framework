@@ -141,7 +141,7 @@ public class JavaMailContainer implements Container {
     public void stop() throws ContainerException {
         // stop the poller
         this.pollTimer.cancel();
-        Debug.logInfo("stop JavaMail poller", module);
+        Debug.logVerbose("stop JavaMail poller", module);
     }
 
     // java-mail methods
@@ -171,7 +171,7 @@ public class JavaMailContainer implements Container {
         // re-write the URLName including the password for this store
         if (store != null && store.getURLName() != null) {
             URLName urlName = this.updateUrlName(store.getURLName(), session.getProperties());
-            Debug.log("URLName - " + urlName.toString(), module);
+            Debug.logVerbose("URLName - " + urlName.toString(), module);
             try {
                 store = session.getStore(urlName);
             } catch (NoSuchProviderException e) {
@@ -223,7 +223,7 @@ public class JavaMailContainer implements Container {
             }
         }
 
-        Debug.logInfo("Update URL - " + protocol + "://" + userName + "@" + host + ":" + port + "!" + password + ";" + file, module);
+        Debug.logVerbose("Update URL - " + protocol + "://" + userName + "@" + host + ":" + port + "!" + password + ";" + file, module);
         return new URLName(protocol, host, port, file, userName, password);
     }
 
@@ -240,7 +240,7 @@ public class JavaMailContainer implements Container {
                     break;
             }
 
-            Debug.log("JavaMail " + typeString + event.getMessage(), module);
+            Debug.logVerbose("JavaMail " + typeString + event.getMessage(), module);
         }
     }
 

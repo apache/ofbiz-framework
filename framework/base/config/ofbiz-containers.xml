@@ -59,7 +59,7 @@ under the License.
             <property name="mail.host" value="[host]"/>
             <property name="mail.user" value="[user]"/>
             <property name="mail.pass" value="[pass]"/>
-            <property name="mail.debug" value="true"/>
+            <property name="mail.debug" value="false"/>
         </property>
     </container>
 
