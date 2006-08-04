@@ -107,11 +107,31 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator">
                     <decorator-section name="body">
+                        <container>
+                            <link target="PrintProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingPrintProductionRun}" style="buttontext"/>
+                        </container>
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunDeclaration.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProductionRunPdf">
+        <section>
+            <actions>
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="ProductionRunReport"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRun.fo.ftl"/></html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>

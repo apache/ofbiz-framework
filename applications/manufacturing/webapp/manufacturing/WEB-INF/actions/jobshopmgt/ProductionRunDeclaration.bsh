@@ -223,7 +223,7 @@ if (!UtilValidate.isEmpty(productionRunId)) {
             for (Iterator iter=productionRunComponents.iterator(); iter.hasNext();){
                 component = (GenericValue) iter.next();
                 GenericValue product = component.getRelatedOne("Product");
-                String componentName = product.getString("productName");
+                String componentName = product.getString("internalName");
                 GenericValue productionRunTask = component.getRelatedOne("WorkEffort");
                 String workEffortName = productionRunTask.getString("workEffortName");
                 Map componentData = component.getAllFields();
