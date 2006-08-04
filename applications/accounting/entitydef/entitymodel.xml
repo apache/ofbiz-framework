@@ -1165,10 +1165,12 @@ under the License.
       <alias entity-alias="ATR" name="shipmentId"/>
       <alias entity-alias="ATR" name="receiptId"/>
       <alias entity-alias="ATR" name="inventoryItemId"/>
+      <alias entity-alias="ATR" name="workEffortId"/>
       <alias entity-alias="ATR" name="physicalInventoryId"/>
       <alias entity-alias="ATE" name="acctgTransId"/>
       <alias entity-alias="ATE" name="acctgTransEntrySeqId"/>
       <alias entity-alias="ATE" name="glAccountId"/>
+      <alias entity-alias="ATE" name="productId"/>
       <alias entity-alias="ATE" name="debitCreditFlag"/>
       <alias entity-alias="ATE" name="amount"/>
       <alias entity-alias="ATE" name="currencyUomId"/>
