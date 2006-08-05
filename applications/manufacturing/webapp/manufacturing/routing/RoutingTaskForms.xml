@@ -270,7 +270,12 @@ under the License.
    <form name="ListRoutingProductLink" type="list" 
             target="EditRoutingProductLink" title="" list-name="allRoutingProductLinks"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
-        <field name="productId" title="${uiLabelMap.ProductProductName}"><display/></field>
+        <field name="productId" widget-style="buttontext">
+            <hyperlink description="${productId}" target="/catalog/control/ViewProductManufacturing?productId=${productId}" also-hidden="false" target-type="inter-app"/>
+        </field>
+        <field name="productName" entry-name="productId" title="${uiLabelMap.ProductProductName}">
+            <display-entity key-field-name="productId" entity-name="Product" description="${internalName}"/>
+        </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>

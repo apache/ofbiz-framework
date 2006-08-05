@@ -839,7 +839,7 @@ under the License.
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/>
         </field>
         <field name="workEffortId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="ViewProductManufacturing?productId=${productId}"/>
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/manufacturing/control/EditRoutingProductLink?workEffortId=${workEffortId}" target-type="inter-app"/>
         </field>
     </form>
 
