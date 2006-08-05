@@ -32,10 +32,16 @@ under the License.
               <#assign rowCount = 0>
               <table border="1" cellspacing="0" cellpadding="2">
                 <tr>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>
                     <td><div class="tableheadtext">${uiLabelMap.ProductProduct}</div></td>
                     <td><div class="tableheadtext">${uiLabelMap.ProductFromLocation}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductQoh}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductAtp}</div></td>
                     <td><div class="tableheadtext">${uiLabelMap.ProductToLocation}</div></td>
-                    <td><div class="tableheadtext">${uiLabelMap.ProductQuantity}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductQoh}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductAtp}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductMinimumStock}</div></td>
+                    <td><div class="tableheadtext">${uiLabelMap.ProductMoveQuantity}</div></td>
                     <td><div class="tableheadtext">${uiLabelMap.OrderConfirm}</div></td>
                     <td align="right">
                         <span class="tableheadtext">${uiLabelMap.ProductSelectAll}</span>&nbsp;
@@ -48,13 +54,20 @@ under the License.
                         <#assign facilityLocationFrom = moveByOisgirInfo.facilityLocationFrom>
                         <#assign facilityLocationTypeEnumFrom = (facilityLocationFrom.getRelatedOneCache("TypeEnumeration"))?if_exists>
                         <#assign facilityLocationTo = moveByOisgirInfo.facilityLocationTo>
+                        <#assign targetProductFacilityLocation = moveByOisgirInfo.targetProductFacilityLocation>
                         <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOneCache("TypeEnumeration"))?if_exists>
                         <#assign totalQuantity = moveByOisgirInfo.totalQuantity>
                         <tr>
-                            <td><div class="tabletext">${product.internalName?if_exists} [${product.productId}]</div></td>
-                            <td><div class="tabletext">${facilityLocationFrom.areaId?if_exists}:${facilityLocationFrom.aisleId?if_exists}:${facilityLocationFrom.sectionId?if_exists}:${facilityLocationFrom.levelId?if_exists}:${facilityLocationFrom.positionId?if_exists}<#if facilityLocationTypeEnumFrom?has_content>(${facilityLocationTypeEnumFrom.get("description",locale)})</#if>[${facilityLocationFrom.locationSeqId}]</div></td>
-                            <td><div class="tabletext">${facilityLocationTo.areaId?if_exists}:${facilityLocationTo.aisleId?if_exists}:${facilityLocationTo.sectionId?if_exists}:${facilityLocationTo.levelId?if_exists}:${facilityLocationTo.positionId?if_exists}<#if facilityLocationTypeEnumTo?has_content>(${facilityLocationTypeEnumTo.get("description",locale)})</#if>[${facilityLocationTo.locationSeqId}]</div></td>
-                            <td><div class="tabletext">${totalQuantity?string.number}</div></td>
+                            <td><div class="tabletext">${product.productId}</div></td>
+                            <td><div class="tabletext">${product.internalName?if_exists}</div></td>
+                            <td><div class="tabletext">${facilityLocationFrom.areaId?if_exists}:${facilityLocationFrom.aisleId?if_exists}:${facilityLocationFrom.sectionId?if_exists}:${facilityLocationFrom.levelId?if_exists}:${facilityLocationFrom.positionId?if_exists}<#if facilityLocationTypeEnumFrom?has_content>(${facilityLocationTypeEnumFrom.description})</#if>[${facilityLocationFrom.locationSeqId}]</div></td>
+                            <td><div class="tabletext">${moveByOisgirInfo.quantityOnHandTotalFrom?if_exists}</div></td>
+                            <td><div class="tabletext">${moveByOisgirInfo.availableToPromiseTotalFrom?if_exists}</div></td>
+                            <td><div class="tabletext">${facilityLocationTo.areaId?if_exists}:${facilityLocationTo.aisleId?if_exists}:${facilityLocationTo.sectionId?if_exists}:${facilityLocationTo.levelId?if_exists}:${facilityLocationTo.positionId?if_exists}<#if facilityLocationTypeEnumTo?has_content>(${facilityLocationTypeEnumTo.description})</#if>[${facilityLocationTo.locationSeqId}]</div></td>
+                            <td><div class="tabletext">${moveByOisgirInfo.quantityOnHandTotalTo?if_exists}</div></td>
+                            <td><div class="tabletext">${moveByOisgirInfo.availableToPromiseTotalTo?if_exists}</div></td>
+                            <td><div class="tabletext">${targetProductFacilityLocation.minimumStock?if_exists}</div></td>
+                            <td><div class="tabletext">${targetProductFacilityLocation.moveQuantity?if_exists}</div></td>
                             <td align="right">              
                                 <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}">
                                 <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}">
@@ -73,13 +86,20 @@ under the License.
                         <#assign facilityLocationFrom = moveByPflInfo.facilityLocationFrom>
                         <#assign facilityLocationTypeEnumFrom = (facilityLocationFrom.getRelatedOneCache("TypeEnumeration"))?if_exists>
                         <#assign facilityLocationTo = moveByPflInfo.facilityLocationTo>
+                        <#assign targetProductFacilityLocation = moveByPflInfo.targetProductFacilityLocation>
                         <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOneCache("TypeEnumeration"))?if_exists>
                         <#assign totalQuantity = moveByPflInfo.totalQuantity>
                         <tr>
-                            <td><div class="tabletext">${product.internalName?if_exists} [${product.productId}]</div></td>
-                            <td><div class="tabletext">${facilityLocationFrom.areaId?if_exists}:${facilityLocationFrom.aisleId?if_exists}:${facilityLocationFrom.sectionId?if_exists}:${facilityLocationFrom.levelId?if_exists}:${facilityLocationFrom.positionId?if_exists}<#if facilityLocationTypeEnumFrom?has_content>(${facilityLocationTypeEnumFrom.get("description",locale)})</#if>[${facilityLocationFrom.locationSeqId}]</div></td>
-                            <td><div class="tabletext">${facilityLocationTo.areaId?if_exists}:${facilityLocationTo.aisleId?if_exists}:${facilityLocationTo.sectionId?if_exists}:${facilityLocationTo.levelId?if_exists}:${facilityLocationTo.positionId?if_exists}<#if facilityLocationTypeEnumTo?has_content>(${facilityLocationTypeEnumTo.get("description",locale)})</#if>[${facilityLocationTo.locationSeqId}]</div></td>
-                            <td><div class="tabletext">${totalQuantity?string.number}</div></td>
+                            <td><div class="tabletext">${product.productId}</div></td>
+                            <td><div class="tabletext">${product.internalName?if_exists}</div></td>
+                            <td><div class="tabletext">${facilityLocationFrom.areaId?if_exists}:${facilityLocationFrom.aisleId?if_exists}:${facilityLocationFrom.sectionId?if_exists}:${facilityLocationFrom.levelId?if_exists}:${facilityLocationFrom.positionId?if_exists}<#if facilityLocationTypeEnumFrom?has_content>(${facilityLocationTypeEnumFrom.description})</#if>[${facilityLocationFrom.locationSeqId}]</div></td>
+                            <td><div class="tabletext">${moveByPflInfo.quantityOnHandTotalFrom?if_exists}</div></td>
+                            <td><div class="tabletext">${moveByPflInfo.availableToPromiseTotalFrom?if_exists}</div></td>
+                            <td><div class="tabletext">${facilityLocationTo.areaId?if_exists}:${facilityLocationTo.aisleId?if_exists}:${facilityLocationTo.sectionId?if_exists}:${facilityLocationTo.levelId?if_exists}:${facilityLocationTo.positionId?if_exists}<#if facilityLocationTypeEnumTo?has_content>(${facilityLocationTypeEnumTo.description})</#if>[${facilityLocationTo.locationSeqId}]</div></td>
+                            <td><div class="tabletext">${moveByPflInfo.quantityOnHandTotalTo?if_exists}</div></td>
+                            <td><div class="tabletext">${moveByPflInfo.availableToPromiseTotalTo?if_exists}</div></td>
+                            <td><div class="tabletext">${targetProductFacilityLocation.minimumStock?if_exists}</div></td>
+                            <td><div class="tabletext">${targetProductFacilityLocation.moveQuantity?if_exists}</div></td>
                             <td align="right">              
                                 <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}">
                                 <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}">
@@ -94,17 +114,17 @@ under the License.
                         <#assign rowCount = rowCount + 1>   
                     </#list>
                     <tr>
-                        <td colspan="6" align="right">
+                        <td colspan="13" align="right">
                             <a href="javascript:document.selectAllForm.submit();" class="buttontext">${uiLabelMap.ProductConfirmSelectedMoves}</a>
                         </td>
                     </tr>
                 <#else>
-                    <tr><td colspan="6"><div class="head3">${uiLabelMap.ProductNoStockMovesNeeded}.</div></td></tr>
+                    <tr><td colspan="13"><div class="head3">${uiLabelMap.ProductNoStockMovesNeeded}.</div></td></tr>
                 </#if>
                 <#assign messageCount = 0>
                 <#list pflWarningMessageList?if_exists as pflWarningMessage>
                     <#assign messageCount = messageCount + 1>   
-                    <tr><td colspan="6"><div class="head3">${messageCount}:${pflWarningMessage}.</div></td></tr>
+                    <tr><td colspan="13"><div class="head3">${messageCount}:${pflWarningMessage}.</div></td></tr>
                 </#list>
             </table>
             <input type="hidden" name="_rowCount" value="${rowCount}">
