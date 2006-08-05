@@ -170,6 +170,7 @@ under the License.
         <attribute name="unitCost" type="Double" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="createSerializedInventory" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="productionRunTaskReturnMaterial" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="productionRunTaskReturnMaterial" auth="true">
@@ -199,6 +200,7 @@ under the License.
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="updateProductionRunTask" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="updateProductionRunTask" auth="true">
