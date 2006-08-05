@@ -1457,7 +1457,7 @@ public class ProductionRunServices {
             ProductionRun productionRun = new ProductionRun(productionRunTaskId, delegator, dispatcher);
             facilityId = productionRun.getGenericValue().getString("facilityId");
         }
-
+        List inventoryItemIds = new ArrayList();
         if (createSerializedInventory.booleanValue()) {
             try {
                 int numOfItems = quantity.intValue();
@@ -1484,6 +1484,7 @@ public class ProductionRunServices {
                     serviceContext.put("quantityOnHandDiff", new Double(1));
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
+                    inventoryItemIds.add(inventoryItemId);
                     // Recompute reservations
                     serviceContext = new HashMap();
                     serviceContext.put("inventoryItemId", inventoryItemId);
@@ -1518,6 +1519,7 @@ public class ProductionRunServices {
                 serviceContext.put("quantityOnHandDiff", quantity);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
+                inventoryItemIds.add(inventoryItemId);
                 // Recompute reservations
                 serviceContext = new HashMap();
                 serviceContext.put("inventoryItemId", inventoryItemId);
@@ -1527,6 +1529,7 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         }
+        result.put("inventoryItemIds", inventoryItemIds);
         return result;
     }
 
@@ -2319,17 +2322,17 @@ public class ProductionRunServices {
         // Mandatory input fields
         String inventoryItemId = (String)context.get("inventoryItemId");
         Double quantity = (Double)context.get("quantity");
-
+        List inventoryItemIds = new ArrayList();
         try {
             GenericValue inventoryItem = delegator.findByPrimaryKey("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId));
             if (inventoryItem == null) {
                 return ServiceUtil.returnError("Error decomposing inventory item: inventory item with id [" + inventoryItemId + "] not found.");
             }
             // the work effort (disassemble order) is created
-            Map serviceContext = UtilMisc.toMap("workEffortTypeId", "PROD_ORDER_HEADER",
+            Map serviceContext = UtilMisc.toMap("workEffortTypeId", "TASK",
                                  "workEffortPurposeTypeId", "WEPT_PRODUCTION_RUN",
-                                 "currentStatusId", "PRUN_CREATED");
-            serviceContext.put("workEffortName", "Decompose inventory item [" + inventoryItem.getString("inventoryItemId") + "]");
+                                 "currentStatusId", "CAL_COMPLETED");
+            serviceContext.put("workEffortName", "Decomposing product [" + inventoryItem.getString("productId") + "] inventory item [" + inventoryItem.getString("inventoryItemId") + "]");
             serviceContext.put("facilityId", inventoryItem.getString("facilityId"));
             serviceContext.put("estimatedStartDate", now);
             serviceContext.put("userLogin", userLogin);
@@ -2365,7 +2368,6 @@ public class ProductionRunServices {
                 inventoryItemCost = new Double(1.0);
             }
             Double costCoefficient = new Double(inventoryItemCost.doubleValue() / packageCost.doubleValue());
-            
             // the components are retrieved
             serviceContext.clear();
             serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),
@@ -2398,6 +2400,8 @@ public class ProductionRunServices {
                                      "userLogin", userLogin);
                 serviceContext.put("workEffortId", workEffortId);
                 resultService = dispatcher.runSync("productionRunTaskProduce", serviceContext);
+                List newInventoryItemIds = (List)resultService.get("inventoryItemIds");
+                inventoryItemIds.addAll(newInventoryItemIds);
             }
             // the components are put in warehouse
         } catch (GenericEntityException e) {
@@ -2407,6 +2411,7 @@ public class ProductionRunServices {
             Debug.logError(e, "Problem calling the createWorkEffort service", module);
             return ServiceUtil.returnError(e.getMessage());
         }
+        result.put("inventoryItemIds", inventoryItemIds);
         return result;
     }
 }
