@@ -369,6 +369,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="facilityTypeId" optional="false"/>
         <override name="facilityName" optional="false"/>
+        <override name="ownerPartyId" optional="false"/>
     </service>
     <service name="updateFacility" default-entity-name="Facility" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="updateFacility" auth="true">

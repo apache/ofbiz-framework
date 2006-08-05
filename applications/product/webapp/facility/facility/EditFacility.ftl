@@ -54,21 +54,19 @@ under the License.
       </select>
     </td>
   </tr>
-<#if ownerParties?has_content>
   <tr>
     <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductFacilityOwner}</div></td>
     <td>&nbsp;</td>
     <td width="74%">
       <select name="ownerPartyId" size="1" class='selectBox'>
-        <option selected value='${facility.ownerPartyId?if_exists}'>${facility.ownerPartyId?if_exists}</option>
-        <option value='${facility.ownerPartyId?if_exists}'>----</option>
-        <#list ownerParties as party>
-          <option value='${party.partyId?if_exists}'>${party.partyId?if_exists}</option>
-        </#list>
+        <#if ownerParties?has_content>
+            <#list ownerParties as party>
+              <option value='${party.partyId?if_exists}' <#if facility.ownerPartyId?exists && party.partyId = facility.ownerPartyId>selected</#if>>${party.partyId?if_exists}</option>
+            </#list>
+        </#if>
       </select>
     </td>
   </tr>
-</#if>
   <tr>
     <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductFacilityDefaultWeightUnit}</div></td>
     <td>&nbsp;</td>
