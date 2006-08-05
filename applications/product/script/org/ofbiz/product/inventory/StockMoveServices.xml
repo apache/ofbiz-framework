@@ -42,6 +42,11 @@ under the License.
              - product
              - facilityLocationFrom
              - facilityLocationTo
+             - targetProductFacilityLocation
+             - quantityOnHandTotalFrom
+             - quantityOnHandTotalTo
+             - availableToPromiseTotalFrom
+             - availableToPromiseTotalTo
              - totalQuantity
              - orderItemShipGrpInvResInfoList (to be done later if we need it)
         -->
@@ -83,7 +88,7 @@ under the License.
                     <!-- should generally only be one pick/primary location, just choose the first... -->
                     <first-from-list entry-name="productFacilityLocationView" list-name="productFacilityLocationViewList"/>
                     <get-related-one value-name="productFacilityLocationView" relation-name="FacilityLocation" to-value-name="moveInfo.facilityLocationTo"/>
-                    <get-related-one value-name="productFacilityLocationView" relation-name="ProductFacilityLocation" to-value-name="targetProductFacilityLocation"/>
+                    <get-related-one value-name="productFacilityLocationView" relation-name="ProductFacilityLocation" to-value-name="moveInfo.targetProductFacilityLocation"/>
 
                     <!-- get totalQuantity: iterate through perProductOiirailList and add up quantity (from OrderItemShipGrpInvRes) -->
                     <calculate field-name="moveInfo.totalQuantity" type="Double"><number value="0"/></calculate>
@@ -101,60 +106,71 @@ under the License.
                     </entity-and>
 
                     <calculate field-name="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
+                    <calculate field-name="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
                     <iterate entry-name="inventoryItem" list-name="inventoryItemList">
                         <calculate field-name="totalQuantityOnHand" type="Double">
                             <calcop field-name="totalQuantityOnHand" operator="add"><calcop field-name="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
                         </calculate>
+                        <calculate field-name="totalAvailableToPromise" type="Double">
+                            <calcop field-name="totalAvailableToPromise" operator="add"><calcop field-name="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
+                        </calculate>
                     </iterate>
+                    <set from-field="totalQuantityOnHand" field="moveInfo.quantityOnHandTotalFrom"/>
+                    <set from-field="totalAvailableToPromise" field="moveInfo.availableToPromiseTotalFrom"/>
                     <if-compare-field field-name="totalQuantityOnHand" operator="less" to-field-name="moveInfo.totalQuantity" type="Double">
                         <!-- not enough on hand for move: add warning message, set moveInfo.totalQuantity to totalQuantityOnHand, and don't even bother looking for pre-emptive replenishment needs for this location right now -->
-                        <string-to-list string="Warning in stock move: for facility [${parameters.facilityId}] and product [${productId}] going from location [${productFacilityLocation.locationSeqId}] to location [${targetProductFacilityLocation.locationSeqId}] a quantity of [${moveInfo.totalQuantity}] was needed but there are only [${totalQuantityOnHand}] on hand (this will be in the pick list with the full quantity on hand, but note that this will not be enough to prepare for all orders reserved against this location)" list-name="warningMessageList"/>
+                        <string-to-list string="Warning in stock move: for facility [${parameters.facilityId}] and product [${productId}] going from location [${productFacilityLocation.locationSeqId}] to location [${moveInfo.targetProductFacilityLocation.locationSeqId}] a quantity of [${moveInfo.totalQuantity}] was needed but there are only [${totalQuantityOnHand}] on hand (this will be in the pick list with the full quantity on hand, but note that this will not be enough to prepare for all orders reserved against this location)" list-name="warningMessageList"/>
                         <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
                     <else>
                         <!-- check ProductFacilityLocation for where this is going and see if we should do a pre-emptive transfer too... -->
 
-                        <!-- get all InventoryItems and total the availableToPromise for the target location -->
-                        <get-related value-name="targetProductFacilityLocation" relation-name="InventoryItem" list-name="targetInventoryItemList"/>
+                        <!-- get all InventoryItems and total the availableToPromise (and quantityOnHand) for the target location -->
+                        <get-related value-name="moveInfo.targetProductFacilityLocation" relation-name="InventoryItem" list-name="targetInventoryItemList"/>
                         <calculate field-name="targetTotalAvailableToPromise" type="Double"><number value="0"/></calculate>
+                        <calculate field-name="targetTotalQuantityOnHand" type="Double"><number value="0"/></calculate>
                         <iterate entry-name="inventoryItem" list-name="targetInventoryItemList">
                             <calculate field-name="targetTotalAvailableToPromise" type="Double">
                                 <calcop field-name="targetTotalAvailableToPromise" operator="add"><calcop field-name="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
                             </calculate>
+                            <calculate field-name="targetTotalQuantityOnHand" type="Double">
+                                <calcop field-name="targetTotalQuantityOnHand" operator="add"><calcop field-name="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
+                            </calculate>
                         </iterate>
-
+                        <set from-field="targetTotalAvailableToPromise" field="moveInfo.availableToPromiseTotalTo"/>
+                        <set from-field="targetTotalQuantityOnHand" field="moveInfo.quantityOnHandTotalTo"/>
                         <!--
                             now if there is enough left and there is less than the minimum for the
                             ProductFacilityLocation, move the restock quantity from ProductFacilityLocation
                         -->
-                        <if-compare-field field-name="targetTotalAvailableToPromise" operator="less" to-field-name="targetProductFacilityLocation.minimumStock" type="Double">
-                            <if-empty field-name="targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}">
-                                <!-- if targetTotalAvailableToPromise is less than productFacilityLocation.minimumStock, move over the targetProductFacilityLocation.moveQuantity -->
+                        <if-compare-field field-name="targetTotalAvailableToPromise" operator="less" to-field-name="moveInfo.targetProductFacilityLocation.minimumStock" type="Double">
+                            <if-empty field-name="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}">
+                                <!-- if targetTotalAvailableToPromise is less than productFacilityLocation.minimumStock, move over the moveInfo.targetProductFacilityLocation.moveQuantity -->
 
-                                <!-- if trying to move more from the location than is there, find the difference and put it in targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId} -->
+                                <!-- if trying to move more from the location than is there, find the difference and put it in targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId} -->
                                 <calculate field-name="moveInfo.totalQuantity" type="Double">
-                                    <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="targetProductFacilityLocation.moveQuantity" operator="get"/></calcop>
+                                    <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="moveInfo.targetProductFacilityLocation.moveQuantity" operator="get"/></calcop>
                                 </calculate>
                             <else>
                                 <!--
                                     see if there is enough left for the full amount in
-                                    targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId},
+                                    targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId},
                                     if not do whatever is available and put difference back in
-                                    targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}
+                                    targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}
                                 -->
                                 <calculate field-name="moveInfo.totalQuantity" type="Double">
-                                    <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}" operator="get"/></calcop>
+                                    <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}" operator="get"/></calcop>
                                 </calculate>
                             </else>
                             </if-empty>
                             <if-compare-field field-name="totalQuantityOnHand" operator="less" to-field-name="moveInfo.totalQuantity" type="Double">
-                                <calculate field-name="targetLocationSimpleMoveQuantity.${targetProductFacilityLocation.locationSeqId}" type="Double">
+                                <calculate field-name="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}" type="Double">
                                     <calcop field-name="moveInfo.totalQuantity" operator="subtract"><calcop field-name="totalQuantityOnHand" operator="get"/></calcop>
                                 </calculate>
                                 <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
                             </if-compare-field>
 
                             <!-- add it to the stockMoveHandled Map to keep track of minimumStock based transfers already done so they are not duplicated below -->
-                            <set value="Y" field="stockMoveHandled.${targetProductFacilityLocation.locationSeqId}"/>
+                            <set value="Y" field="stockMoveHandled.${moveInfo.targetProductFacilityLocation.locationSeqId}"/>
                         </if-compare-field>
                     </else>
                     </if-compare-field>
@@ -176,7 +192,7 @@ under the License.
     <simple-method method-name="findStockMovesRecommended" short-description="Find all Stock Moves recommended to be done based on ProductFacilityLocation settings">
         <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
         <check-permission permission="FACILITY" action="_VIEW">
-            <fail-message message="Security Error: to run findStockMovesNeeded you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+            <fail-message message="Security Error: to run findStockMovesRecommended you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
         </check-permission>
         <check-errors/>
 
@@ -189,6 +205,11 @@ under the License.
              - product
              - facilityLocationFrom
              - facilityLocationTo
+             - targetProductFacilityLocation
+             - quantityOnHandTotalFrom
+             - quantityOnHandTotalTo
+             - availableToPromiseTotalFrom
+             - availableToPromiseTotalTo
              - totalQuantity
         -->
         <!-- start by finding all Xxx where locationTypeEnumId=FLT_PICKLOC and total of InventoryItems in the loc are less than minimumStock (ProductFacilityLocation, FacilityLocation, InventoryItem) -->
@@ -227,7 +248,7 @@ under the License.
                             </or>
                         </condition>
                         <then>
-                            <if-compare-field map-name="productFacilityLocationQuantityTest" field-name="productId" operator="not-equals" to-map-name="productSave">
+                            <if-compare-field field-name="productFacilityLocationQuantityTest.productId" operator="not-equals" to-field-name="productSave.productId">
                                 <get-related-one value-name="productFacilityLocationQuantityTest" relation-name="Product" to-value-name="productSave"/>
                                  <clear-field field-name="fromLocationTotalAvailableToPromise"/>
                             </if-compare-field>
@@ -245,13 +266,20 @@ under the License.
                             <else>
                                 <set from-field="productFacilityLocationQuantityTest.moveQuantity" field="targetLocationMoveQuantity"/>
                                 <!-- start by making a Map where the locationSeqId is the key and the value is a List of InventoryItemAndLocation -->
+                                <clear-field field-name="InventoryItemAndLocationByLocMap"/>
                                 <iterate entry-name="InventoryItemAndLocation" list-name="inventoryItemAndLocationList">
                                     <field-to-list field-name="InventoryItemAndLocation" list-name="InventoryItemAndLocationByLocMap.${InventoryItemAndLocation.locationSeqId}"/>
                                 </iterate>
+                                <clear-field field-name="locationSeqId"/>
+                                <clear-field field-name="perLocationInventoryItemAndLocList"/>
                                 <iterate-map key-name="locationSeqId" value-name="perLocationInventoryItemAndLocList" map-name="InventoryItemAndLocationByLocMap">
                                     <if-empty field-name="fromLocationTotalAvailableToPromise.${locationSeqId}">
+                                        <calculate field-name="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
                                         <calculate field-name="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
                                         <iterate entry-name="inventoryItem" list-name="perLocationInventoryItemAndLocList">
+                                            <calculate field-name="totalQuantityOnHand" type="Double">
+                                                <calcop field-name="totalQuantityOnHand" operator="add"><calcop field-name="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
+                                            </calculate>
                                             <calculate field-name="totalAvailableToPromise" type="Double">
                                                 <calcop field-name="totalAvailableToPromise" operator="add"><calcop field-name="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
                                             </calculate>
@@ -273,6 +301,11 @@ under the License.
                                         <set from-field="targetFacilityLocationSave" field="moveInfo.facilityLocationTo"/>
                                         <first-from-list entry-name="InventoryItemAndLocation" list-name="perLocationInventoryItemAndLocList"/>
                                         <get-related-one value-name="InventoryItemAndLocation" relation-name="FacilityLocation" to-value-name="moveInfo.facilityLocationFrom"/>
+                                        <get-related-one value-name="productFacilityLocationQuantityTest" relation-name="ProductFacilityLocation" to-value-name="moveInfo.targetProductFacilityLocation"/>
+                                        <set from-field="productFacilityLocationQuantityTest.availableToPromiseTotal" field="moveInfo.availableToPromiseTotalTo"/>
+                                        <set from-field="productFacilityLocationQuantityTest.quantityOnHandTotal" field="moveInfo.quantityOnHandTotalTo"/>
+                                        <set from-field="totalAvailableToPromise" field="moveInfo.availableToPromiseTotalFrom"/>
+                                        <set from-field="totalQuantityOnHand" field="moveInfo.quantityOnHandTotalFrom"/>
 
                                         <!--   see if there is enough left for the full amount in targetLocationMoveQuantity,
                                                  if not do whatever is available and put difference back in targetLocationMoveQuantity,
