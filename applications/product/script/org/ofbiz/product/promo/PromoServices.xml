@@ -29,14 +29,13 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductPromo" env-name="newEntity.productPromoId"/>
         <field-to-result field-name="productPromoId" map-name="newEntity"/>
 
-        <if-empty field-name="newEntity.userEntered">
-            <string-to-field string="Y" field-name="newEntity.userEntered"/>
-        </if-empty>
+        <set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
+
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-env env-name="nowTimestamp" to-env-name="newEntity.createdDate"/>
-        <env-to-env env-name="nowTimestamp" to-env-name="newEntity.lastModifiedDate"/>
-        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.lastModifiedByUserLogin"/>
-        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.createdByUserLogin"/>
+        <set from-field="nowTimestamp" field="newEntity.createdDate"/>
+        <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -45,16 +44,15 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="productPromoId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set from-field="parameters.productPromoId" field="lookupPKMap.productPromoId"/>
         <find-by-primary-key entity-name="ProductPromo" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
-        <if-empty field-name="newEntity.userEntered">
-            <string-to-field string="Y" field-name="newEntity.userEntered"/>
-        </if-empty>
+        <set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
+
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-env env-name="nowTimestamp" to-env-name="newEntity.lastModifiedDate"/>
-        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
 
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -65,7 +63,7 @@ under the License.
 
         <!-- TODO: if a force remove flag is passed, remove related info first, maybe just rules, store assocs, etc -->
 
-        <field-to-field field-name="productPromoId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set from-field="parameters.productPromoId" field="lookupPKMap.productPromoId"/>
         <find-by-primary-key entity-name="ProductPromo" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -152,10 +150,10 @@ under the License.
         <field-to-result field-name="productPromoCodeId" map-name="newEntity"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-env env-name="nowTimestamp" to-env-name="newEntity.createdDate"/>
-        <env-to-env env-name="nowTimestamp" to-env-name="newEntity.lastModifiedDate"/>
-        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.lastModifiedByUserLogin"/>
-        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.createdByUserLogin"/>
+        <set from-field="nowTimestamp" field="newEntity.createdDate"/>
+        <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -170,8 +168,8 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-env env-name="nowTimestamp" to-env-name="newEntity.lastModifiedDate"/>
-        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
 
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -348,10 +346,9 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="fromDate" map-name="newEntity">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
-        </if-empty>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set from-field="nowTimestamp.fromDate" set-if-empty="true" field="newEntity.fromDate"/>
+
 
         <create-value value-name="newEntity"/>
     </simple-method>
