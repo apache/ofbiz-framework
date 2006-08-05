@@ -171,7 +171,7 @@ public class JavaMailContainer implements Container {
         // re-write the URLName including the password for this store
         if (store != null && store.getURLName() != null) {
             URLName urlName = this.updateUrlName(store.getURLName(), session.getProperties());
-            Debug.logVerbose("URLName - " + urlName.toString(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("URLName - " + urlName.toString(), module);
             try {
                 store = session.getStore(urlName);
             } catch (NoSuchProviderException e) {
@@ -223,7 +223,7 @@ public class JavaMailContainer implements Container {
             }
         }
 
-        Debug.logVerbose("Update URL - " + protocol + "://" + userName + "@" + host + ":" + port + "!" + password + ";" + file, module);
+        if (Debug.verboseOn()) Debug.logVerbose("Update URL - " + protocol + "://" + userName + "@" + host + ":" + port + "!" + password + ";" + file, module);
         return new URLName(protocol, host, port, file, userName, password);
     }
 
@@ -240,7 +240,7 @@ public class JavaMailContainer implements Container {
                     break;
             }
 
-            Debug.logVerbose("JavaMail " + typeString + event.getMessage(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("JavaMail " + typeString + event.getMessage(), module);
         }
     }
 
@@ -309,12 +309,12 @@ public class JavaMailContainer implements Container {
                 // process each un-read message
                 if (!messages[i].isSet(Flags.Flag.SEEN)) {
                     this.processMessage(messages[i], session);
-                    Debug.logVerbose("Message from " + UtilMisc.toListArray(messages[i].getFrom()) + " with subject [" + messages[i].getSubject() + "]  has been processed." , module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(messages[i].getFrom()) + " with subject [" + messages[i].getSubject() + "]  has been processed." , module);
                     messages[i].setFlag(Flags.Flag.SEEN, true);
-                    Debug.logVerbose("Message [" + messages[i].getSubject() + "] is marked seen", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Message [" + messages[i].getSubject() + "] is marked seen", module);
                 }
                 if (deleteMail) {
-                    Debug.logVerbose("Message [" + messages[i].getSubject() + "] is being deleted", module);
+                	if (Debug.verboseOn()) Debug.logVerbose("Message [" + messages[i].getSubject() + "] is being deleted", module);
                     messages[i].setFlag(Flags.Flag.DELETED, true);
                 }
             }
