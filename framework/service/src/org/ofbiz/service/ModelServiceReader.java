@@ -666,7 +666,7 @@ public class ModelServiceReader implements Serializable {
 
             Element fail = UtilXml.firstChildElement(validate, "fail-message");
             if (fail != null) {
-                String message = fail.getAttribute("fail-message");
+                String message = fail.getAttribute("message");
                 param.addValidator(className, methodName, message);
             } else {
                 fail = UtilXml.firstChildElement(validate, "fail-property");
