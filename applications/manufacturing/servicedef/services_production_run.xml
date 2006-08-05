@@ -144,6 +144,7 @@ under the License.
         <attribute name="inventoryItem" type="GenericValue" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="quantityIssued" type="Double" mode="OUT" optional="false"/>
+        <attribute name="finishedProductId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="productionRunProduce" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="productionRunProduce" auth="true">

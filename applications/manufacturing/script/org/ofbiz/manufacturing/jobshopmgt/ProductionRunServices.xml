@@ -230,6 +230,7 @@ under the License.
 
     <simple-method method-name="issueInventoryItemToWorkEffort" short-description="Issue one InventoryItem to a WorkEffort">
         <set field="inventoryItem" from-field="parameters.inventoryItem"/>
+        <field-to-result field-name="inventoryItem.productId" result-name="finishedProductId"/>
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="inventoryItem.inventoryItemTypeId">
             <if-compare value="INV_AVAILABLE" operator="equals" field-name="inventoryItem.statusId">
                 <!-- change status on inventoryItem -->
