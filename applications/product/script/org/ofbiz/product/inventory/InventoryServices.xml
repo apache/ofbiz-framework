@@ -387,8 +387,9 @@ under the License.
         <!--
             this method can be called with some optional parameters:
                 -facilityId
+                -locationSeqId
                 -containerId
-            If the service definitions are used then only one of these two will ever be specified, or neither of them.
+            If the service definitions are used then only some of these will ever be specified, or none of them.
 
             Whatever it is called with, it will basicly get a list of InventoryItems and total the available amount.
         -->
@@ -401,6 +402,7 @@ under the License.
         <set from-field="parameters.inventoryItemId" field="lookupFieldMap.inventoryItemId"/>
         <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
         <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
+        <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
         <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
         
         <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
