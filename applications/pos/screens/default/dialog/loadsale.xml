@@ -24,6 +24,8 @@
             <Button name="BtnCancel" x="230" y="10" w="90" h="22" content="Cancel"/>
             <Button name="BtnAdd" x="230" y="50" w="90" h="22" content="Add"/>
             <Button name="BtnReplace" x="230" y="80" w="90" h="22" content="Replace"/>
+            <Button name="BtnDelete" x="230" y="110" w="90" h="22" content="Delete"/>
+            <Button name="BtnReplaceAndDelete" x="230" y="140" w="90" h="44" content="ReplaceAndDelete"/>
         </Panel>
     </Components>
 </XPage>

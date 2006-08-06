@@ -51,8 +51,9 @@ import org.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.device.DeviceLoader;
+import org.ofbiz.pos.screen.LoadSale;
 import org.ofbiz.pos.screen.PosScreen;
-import org.ofbiz.pos.screen.Sales;
+import org.ofbiz.pos.screen.SaveSale;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -879,71 +880,57 @@ public class PosTransaction implements Serializable {
     }
     
     public void loadSale(PosScreen pos) {
-        //ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(paymentIndex);
+        List shoppingLists = createShoppingLists();
+        if (!shoppingLists.isEmpty()) {
+        	Hashtable salesMap = createSalesMap(shoppingLists);
+	        if (!salesMap.isEmpty()) {
+		        LoadSale loadSale = new LoadSale(salesMap, this, pos);
+		        loadSale.openDlg();
+	        }
+	        else {
+		        pos.showDialog("dialog/error/nosales");
+	        }	        
+        } else {
+	        pos.showDialog("dialog/error/nosales");
+        }        
+    }
+    
+    public List createShoppingLists() {
+	    List shoppingLists = null;
+	    GenericDelegator delegator = this.session.getDelegator();
+	    try {
+	    	shoppingLists = delegator.findAll("ShoppingList");
+	    } catch (GenericEntityException e) {
+	        Debug.logError(e, module);
+	        ServiceUtil.returnError("Error running initLowLevelCode: " + e.getMessage());            
+	    }
+	
+	    if (shoppingLists == null) {
+	    	Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
+	    }
+	    return shoppingLists;
+    }    
 
-        /*if (UtilValidate.isEmpty(shoppingListId)) {
-            // create a new shopping list
-            if (partyId == null) {
-                partyId = userLogin.getString("partyId");
-            }
-
-            Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "partyId", partyId,
-                    "productStoreId", productStoreId, "listName", "List Created From Order #" + orderId);
-
-            if (UtilValidate.isNotEmpty(shoppingListTypeId)) {
-                serviceCtx.put("shoppingListTypeId", shoppingListTypeId);
-            }
-
-            Map newListResult = null;
-            try {
-
-                newListResult = dispatcher.runSync("createShoppingList", serviceCtx);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Problems creating new ShoppingList", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToCreateNewShoppingList",locale));
-            }
-
-            // check for errors
-            if (ServiceUtil.isError(newListResult)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(newListResult));
-            }
-
-            // get the new list id
-            if (newListResult != null) {
-                shoppingListId = (String) newListResult.get("shoppingListId");
-            }
-        }*/
-
-        List shoppingList = null;
-        GenericDelegator delegator = this.session.getDelegator();
-        try {
-        	shoppingList = delegator.findAll("ShoppingList");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            ServiceUtil.returnError("Error running initLowLevelCode: " + e.getMessage());            
-        }
-
-        if (shoppingList == null) {
-        	Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
-        }
- 
-        if (0 == shoppingList.size()) {
-            pos.showDialog("dialog/error/nosales");
-            pos.refresh();
-            return;
-        }
+    public Hashtable createSalesMap(List shoppingLists) {
         Hashtable salesMap = new Hashtable();
-        Iterator i = shoppingList.iterator();
+        Iterator i = shoppingLists.iterator();        
         while (i.hasNext()){
-            GenericValue v = (GenericValue) i.next();
-            salesMap.put(v.getString("shoppingListId"), v.getString("listName"));
+            GenericValue shoppingList = (GenericValue) i.next();            
+            List items = null;
+            try {
+                items = shoppingList.getRelated("ShoppingListItem", UtilMisc.toList("shoppingListItemSeqId"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
             }
-        
-        Sales salesDlg = new Sales(salesMap, this, pos);
-        salesDlg.openDlg();      
-        
-    }           
-
+            if (UtilValidate.isNotEmpty(items)) {
+                String listName = shoppingList.getString("listName");
+                String shoppingListId = shoppingList.getString("shoppingListId");
+                salesMap.put(shoppingListId, listName);
+            }
+        }
+        return salesMap;
+    }
+    
     public boolean addListToCart(String  shoppingListId, PosScreen pos, boolean append) {        
     	GenericDelegator delegator = session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
@@ -951,14 +938,88 @@ public class PosTransaction implements Serializable {
             String prodCatalogId =  null;
 
             try {
-            	//(GenericDelegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, String prodCatalogId, String shoppingListId, boolean includeChild, boolean setAsListItem, boolean append) throws java.lang.IllegalArgumentException {
             	ShoppingListEvents.addListToCart(delegator, dispatcher, cart, prodCatalogId, shoppingListId, (includeChild != null), true, append);
             } catch (IllegalArgumentException e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/exception", e.getMessage());
-                pos.refresh();
                 return false;
             }            
             return true;
     }    
+    
+    public boolean clearList(String shoppingListId, PosScreen pos) {
+    	GenericDelegator delegator = session.getDelegator();
+    	try {
+    	ShoppingListEvents.clearListInfo(delegator, shoppingListId);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            pos.showDialog("dialog/error/exception", e.getMessage());
+            return false;
+        }
+        return true;
+    }
+        
+
+    public void saveSale(PosScreen pos) {
+        SaveSale SaveSale = new SaveSale(this, pos);
+        SaveSale.openDlg();          	    	
+    }
+    public void saveSale(String  shoppingListName, PosScreen pos) {
+    	if (cart.size() == 0 ) {
+            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+            return;    		
+    	}
+    	GenericDelegator delegator = this.session.getDelegator();
+    	LocalDispatcher dispatcher = session.getDispatcher();
+        GenericValue userLogin = session.getUserLogin();
+        Locale locale = defaultLocale;
+        String shoppingListId = null;
+                
+        if (!UtilValidate.isEmpty(shoppingListName)) {
+            // create a new shopping list with partyId = user connected (POS clerk, etc.) and not buyer (_NA_ in POS)
+            Map serviceCtx = UtilMisc.toMap("userLogin", session.getUserLogin(), "partyId", session.getUserPartyId(),
+                    "productStoreId", productStoreId, "listName", shoppingListName);
+
+            serviceCtx.put("shoppingListTypeId", "SLT_SPEC_PURP");
+            Map newListResult = null;
+            try {
+
+                newListResult = dispatcher.runSync("createShoppingList", serviceCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problem while creating new ShoppingList", module);
+                pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+                return;
+            }
+
+            // check for errors
+            if (ServiceUtil.isError(newListResult)) {
+            	String error = ServiceUtil.getErrorMessage(newListResult);
+                Debug.logError(error, module);
+                pos.showDialog("dialog/error/exception", error);
+                return;
+            }
+            
+            // get the new list id
+            if (newListResult != null) {
+            	shoppingListId = (String) newListResult.get("shoppingListId");
+            } else {
+                Debug.logError("Problem while creating new ShoppingList", module);
+                pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+                return;            	
+            }
+        }
+        
+        String selectedCartItems[] = new String[cart.size()]; 
+        for(int i = 0; i < cart.size(); i++) {
+        	Integer integer = new Integer(i);
+        	selectedCartItems[i] = integer.toString();
+        }
+
+        try {
+        	ShoppingListEvents.addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, selectedCartItems, true, true);
+        } catch (IllegalArgumentException e) {
+            Debug.logError(e, "Problem while creating new ShoppingList", module);
+            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+        }
+    }                   
 }

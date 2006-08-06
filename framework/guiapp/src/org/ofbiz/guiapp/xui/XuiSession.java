@@ -92,6 +92,14 @@ public class XuiSession {
         }
     }
 
+    public String getUserPartyId() {
+        if (this.userLogin == null) {
+            return null;
+        } else {
+            return this.userLogin.getString("partyId");
+        }
+    }
+
     public void logout() {
         if (this.userLogin != null) {
             LoginWorker.setLoggedOut(this.userLogin.getString("userLoginId"), this.getDelegator());
