@@ -23,6 +23,9 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.base.util.UtilMisc;
 
 productId = request.getParameter("productId");
+if (productId == null) {
+    productId = "";
+}
 
 conditionList = new LinkedList();
 orConditionList = new LinkedList();
