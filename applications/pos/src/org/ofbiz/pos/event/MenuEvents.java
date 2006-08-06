@@ -356,7 +356,7 @@ public class MenuEvents {
 
     public static void saveSale(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
-        pos.refresh();
+        trans.saveSale(pos);
     }
 
     public static void loadSale(PosScreen pos) {
