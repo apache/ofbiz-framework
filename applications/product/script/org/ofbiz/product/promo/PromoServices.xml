@@ -29,9 +29,9 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductPromo" env-name="newEntity.productPromoId"/>
         <field-to-result field-name="productPromoId" map-name="newEntity"/>
 
-		<if-empty field-name="newEntity.userEntered">
-        	<set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
-		</if-empty>
+        <if-empty field-name="newEntity.userEntered">
+            <set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
+        </if-empty>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>
@@ -51,8 +51,8 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
         <if-empty field-name="newEntity.userEntered">
-	        <set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
-		</if-empty>
+            <set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
+        </if-empty>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
@@ -351,9 +351,9 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-empty field-name="fromDate" map-name="newEntity">
-	        <now-timestamp-to-env env-name="nowTimestamp"/>
-    	    <set from-field="nowTimestamp.fromDate" set-if-empty="true" field="newEntity.fromDate"/>
-		</if-empty>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set from-field="nowTimestamp.fromDate" set-if-empty="true" field="newEntity.fromDate"/>
+        </if-empty>
 
         <create-value value-name="newEntity"/>
     </simple-method>
