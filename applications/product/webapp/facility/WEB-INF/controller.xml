@@ -542,6 +542,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PickMoveStock"/>
     </request-map>
+    <request-map uri="PickMoveStockSimple">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PickMoveStockSimple"/>
+    </request-map>
     <request-map uri="processPhysicalStockMove">
         <security https="true" auth="true"/>
         <event type="service-multi" path="" invoke="processPhysicalStockMove"/>
@@ -975,6 +979,7 @@ under the License.
     <view-map name="PicklistOptions" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistOptions"/>
     <view-map name="PicklistManage" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistManage"/>
     <view-map name="PickMoveStock" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStock"/>
+    <view-map name="PickMoveStockSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStockSimple"/>
     <view-map name="PicklistReport.pdf" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PicklistReport.fo"/>
 
     <view-map name="FindFacilityGroup" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#FindFacilityGroup"/>
