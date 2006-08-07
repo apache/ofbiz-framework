@@ -1280,6 +1280,7 @@
 
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
     <request-map uri="LookupBulkAddProducts"><security https="true" auth="true"/><response name="success" type="view" value="LookupBulkAddProducts"/></request-map>
+    <request-map uri="LookupBulkAddSupplierProducts"><security https="true" auth="true"/><response name="success" type="view" value="LookupBulkAddSupplierProducts"/></request-map>
     <!-- PDFs -->
     <request-map uri="order.pdf"><security https="true" auth="true"/><response name="success" type="view" value="OrderPDF"/></request-map>
     <request-map uri="return.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ReturnPDF"/></request-map>
@@ -1421,6 +1422,7 @@
 
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupBulkAddProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddProducts"/>
+    <view-map name="LookupBulkAddSupplierProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddSupplierProducts"/>
     <!-- PDFs  -->
     <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintForms.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>

@@ -95,7 +95,11 @@ function quicklookup_popup(element) {
     obj_lookupwindow.focus();
 }
 function quicklookup(element) {
+    <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
+    window.location='LookupBulkAddSupplierProducts?productId='+element.value;
+    <#else>
     window.location='LookupBulkAddProducts?productId='+element.value;
+    </#if>
 }
 </script>
 
