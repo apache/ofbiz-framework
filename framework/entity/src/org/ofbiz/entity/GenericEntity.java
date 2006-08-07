@@ -54,6 +54,9 @@ import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
+
 import org.ofbiz.entity.util.ByteWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -73,7 +76,6 @@ import org.w3c.dom.Element;
  */
 public class GenericEntity extends Observable implements Map, LocalizedMap, Serializable, Comparable, Cloneable, Reusable {
     public static final String module = GenericEntity.class.getName();
-
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
 
@@ -662,8 +664,22 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
             fieldValue = null;
         }
         
+        // In case of view entity try to retrieve the field heading from the real entity linked to the view
+        ModelEntity modelEntityToUse = (ModelEntity) this.getModelEntity();
+        if (modelEntityToUse instanceof ModelViewEntity) {
+            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntityToUse;
+            Iterator it = modelViewEntity.getAliasesIterator();
+            while (it.hasNext()) {
+                ModelAlias modelAlias = (ModelAlias) it.next();                
+                if (modelAlias.getName().equalsIgnoreCase(name)) {
+                    modelEntityToUse = modelViewEntity.getMemberModelEntity(modelAlias.getEntityAlias());
+                    name = modelAlias.getField();
+                    break;
+                }
+            }
+        }
         if (UtilValidate.isEmpty(resource)) {
-            resource = this.getModelEntity().getDefaultResourceName();
+            resource = modelEntityToUse.getDefaultResourceName();
             // still empty? return the fieldValue
             if (UtilValidate.isEmpty(resource)) {
                 //Debug.logWarning("Tried to getResource value for field named " + name + " but no resource name was passed to the method or specified in the default-resource-name attribute of the entity definition", module);
@@ -683,12 +699,12 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
 
         StringBuffer keyBuffer = new StringBuffer();
         // start with the Entity Name
-        keyBuffer.append(this.getEntityName());
+        keyBuffer.append(modelEntityToUse.getEntityName());
         // next add the Field Name
         keyBuffer.append('.');
         keyBuffer.append(name);
         // finish off by adding the values of all PK fields
-        Iterator iter = this.getModelEntity().getPksIterator();
+        Iterator iter = modelEntityToUse.getPksIterator();
         while (iter != null && iter.hasNext()) {
             ModelField curField = (ModelField) iter.next();
             keyBuffer.append('.');
@@ -1054,7 +1070,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
                     }
                     
                     if (needsCdata) {
-                    	// use valueStr instead of the escaped value, not needed or wanted in a CDATA block
+                        // use valueStr instead of the escaped value, not needed or wanted in a CDATA block
                         cdataMap.put(name, valueStr);
                     } else {
                         writer.print(' ');
