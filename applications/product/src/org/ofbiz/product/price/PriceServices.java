@@ -70,6 +70,7 @@ public class PriceServices {
      *   <li>webSiteId
      *   <li>productStoreId
      *   <li>productStoreGroupId
+     *   <li>agreementId
      *   <li>quantity
      *   <li>currencyUomId
      *   <li>checkIncludeVat
@@ -95,6 +96,8 @@ public class PriceServices {
         String prodCatalogId = (String) context.get("prodCatalogId");
         String webSiteId = (String) context.get("webSiteId");
         String checkIncludeVat = (String) context.get("checkIncludeVat");
+
+        String agreementId = (String) context.get("agreementId");
 
         String productStoreId = (String) context.get("productStoreId");
         String productStoreGroupId = (String) context.get("productStoreGroupId");
@@ -228,6 +231,23 @@ public class PriceServices {
         GenericValue defaultPriceValue = EntityUtil.getFirst(defaultPrices);
         if (defaultPrices != null && defaultPrices.size() > 1) {
             if (Debug.infoOn()) Debug.logInfo("There is more than one DEFAULT_PRICE with the currencyUomId " + currencyUomId + " and productId " + productId + ", using the latest found with price: " + defaultPriceValue.getDouble("price"), module);
+        }
+
+        // If there is an agreement between the company and the client, and there is
+        // a price for the product in it, it will override the default price of the 
+        // ProductPrice entity.
+        if (UtilValidate.isNotEmpty(agreementId)) {
+            try {
+                List agreementPrices = delegator.findByAnd("AgreementItemAndProductAppl", UtilMisc.toMap("agreementId", agreementId, "productId", productId, "currencyUomId", currencyUomId));
+                GenericValue agreementPriceValue = EntityUtil.getFirst(agreementPrices);
+                if (agreementPriceValue != null && agreementPriceValue.get("price") != null) {
+                    defaultPriceValue = agreementPriceValue;
+                }
+            } catch (GenericEntityException e) {
+                String errMsg = "Error getting agreement info from the database while calculating price" + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
         }
 
         List competitivePrices = EntityUtil.filterByAnd(productPrices, UtilMisc.toMap("productPriceTypeId", "COMPETITIVE_PRICE"));
