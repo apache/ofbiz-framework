@@ -1917,7 +1917,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             linkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=" + (viewIndex - 1) + anchor + "\"";
 
             // make the link
-            String tmp = rh.makeLink(request, response, linkText, false, false, false);
+            String tmp = rh.makeLink(request, response, linkText);
             buffer.append(tmp);
             buffer.append(" class=\"").append(modelForm.getPaginatePreviousStyle()).append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>\n");
 
@@ -1933,7 +1933,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             linkText += queryString + "&amp;" + viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=" + (viewIndex + 1) + anchor + "\"";
 
             // make the link
-            buffer.append(rh.makeLink(request, response, linkText, false, false, false));
+            buffer.append(rh.makeLink(request, response, linkText));
             buffer.append(" class=\"").append(modelForm.getPaginatePreviousStyle()).append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>\n");
 
         }
