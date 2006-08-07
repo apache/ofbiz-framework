@@ -65,7 +65,7 @@ public class CompareCondition implements Conditional {
         Object fieldVal = getFieldVal(methodContext);
 
         List messages = new LinkedList();
-        Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader());
+        Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader(), true);
         if (messages.size() > 0) {
             messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {

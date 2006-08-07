@@ -87,7 +87,7 @@ public class EntityEcaCondition implements java.io.Serializable {
 
         // evaluate the condition & invoke the action(s)
         List messages = new LinkedList();
-        Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader());
+        Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), constant);
 
         // if any messages were returned send them out
         if (messages.size() > 0) {

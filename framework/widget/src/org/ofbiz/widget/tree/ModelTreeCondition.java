@@ -21,6 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -76,7 +78,7 @@ public class ModelTreeCondition {
     }
     
     public static List readSubConditions(ModelTree modelTree, Element conditionElement) {
-        List condList = new LinkedList();
+        List condList = FastList.newInstance();
         List subElementList = UtilXml.childElementList(conditionElement);
         Iterator subElementIter = subElementList.iterator();
         while (subElementIter.hasNext()) {
@@ -323,8 +325,8 @@ public class ModelTreeCondition {
                 fieldVal = "";
             }
 
-            List messages = new LinkedList();
-            Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null);
+            List messages = FastList.newInstance();
+            Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
 
@@ -372,8 +374,8 @@ public class ModelTreeCondition {
                 fieldVal = "";
             }
 
-            List messages = new LinkedList();
-            Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null);
+            List messages = FastList.newInstance();
+            Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null, false);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldVal.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");
 

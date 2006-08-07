@@ -38,6 +38,6 @@ public class CompareField extends BaseCompare {
         Object compareValue = inMap.get(compareName);
         Object fieldValue = inMap.get(fieldName);
 
-        doCompare(fieldValue, compareValue, messages, locale, loader);
+        doCompare(fieldValue, compareValue, messages, locale, loader, false);
     }
 }
