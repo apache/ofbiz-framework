@@ -262,10 +262,10 @@ public class StringUtil {
     
     /** Removes all spaces from a string */
     public static String removeSpaces(String str) {
-    	return removeRegex(str,"[\\ ]");
+        return removeRegex(str,"[\\ ]");
     }
 
-	public static String toHexString(byte[] bytes) {
+    public static String toHexString(byte[] bytes) {
         StringBuffer buf = new StringBuffer(bytes.length * 2);
         for (int i = 0; i < bytes.length; i++) {
             buf.append(hexChar[(bytes[i] & 0xf0) >>> 4]);
@@ -326,24 +326,24 @@ public class StringUtil {
         return digestChars;
     }
 
-	/** Removes all non-numbers from str */
-	public static String removeNonNumeric(String str) {
-		return removeRegex(str,"[\\D]");
-	}
+    /** Removes all non-numbers from str */
+    public static String removeNonNumeric(String str) {
+        return removeRegex(str,"[\\D]");
+    }
     
-	/** Removes all numbers from str */
-	public static String removeNumeric(String str) {
-		return removeRegex(str,"[\\d]");
-	}
+    /** Removes all numbers from str */
+    public static String removeNumeric(String str) {
+        return removeRegex(str,"[\\d]");
+    }
 
     /**
-	 * @param str
-	 * @param regex
-	 * Removes all matches of regex from a str
-	 */
-	private static String removeRegex(String str, String regex) {
-		Pattern pattern = Pattern.compile(regex);
-    	Matcher matcher = pattern.matcher(str);
-		return matcher.replaceAll("");
-	}
+     * @param str
+     * @param regex
+     * Removes all matches of regex from a str
+     */
+    private static String removeRegex(String str, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.replaceAll("");
+    }
 }
