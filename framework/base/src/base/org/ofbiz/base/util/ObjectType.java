@@ -469,7 +469,7 @@ public class ObjectType {
             }
             
             if ("Boolean".equals(type) || "java.lang.Boolean".equals(type)) {
-            	str = StringUtil.removeSpaces(str);
+                str = StringUtil.removeSpaces(str);
                 Boolean value = null;
                 if (str.equalsIgnoreCase("TRUE")) {
                     value = new Boolean(true);
@@ -485,7 +485,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ");    
                 }
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
-            	str = StringUtil.removeSpaces(str);
+                str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -499,7 +499,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
-            	str = StringUtil.removeSpaces(str);
+                str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -514,7 +514,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
-            	str = StringUtil.removeSpaces(str);
+                str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -529,7 +529,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
-            	str = StringUtil.removeSpaces(str);
+                str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -545,7 +545,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
-            	str = StringUtil.removeSpaces(str);
+                str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -939,10 +939,10 @@ public class ObjectType {
 
         Object convertedValue2 = null;
         if (value2 != null) {
-        	Locale value2Locale = locale;
-        	if (value2InlineConstant) {
-        		value2Locale = UtilMisc.parseLocale("en");
-        	}
+            Locale value2Locale = locale;
+            if (value2InlineConstant) {
+                value2Locale = UtilMisc.parseLocale("en");
+            }
             try {
                 convertedValue2 = ObjectType.simpleTypeConvert(value2, type, format, value2Locale);
             } catch (GeneralException e) {
