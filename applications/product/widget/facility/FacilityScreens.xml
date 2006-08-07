@@ -521,6 +521,39 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="PickMoveStockSimple">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.FacilityCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.FacilityCompanySubtitle" global="true"/>
+
+                <set field="titleProperty" value="PageTitlePickingMoveStock"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <service service-name="findStockMovesNeeded">
+                    <field-map field-name="facilityId"/>
+                </service>
+                <set field="oiirWarningMessageList" from-field="warningMessageList"/>
+                <service service-name="findStockMovesRecommended">
+                    <field-map field-name="facilityId"/>
+                    <field-map field-name="stockMoveHandled"/>
+                </service>
+                <set field="pflWarningMessageList" from-field="warningMessageList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/PickMoveStock.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
 
     <screen name="PicklistReport.fo">
         <section>
