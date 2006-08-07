@@ -150,5 +150,24 @@ under the License.
             <submit/>
         </field>
     </form>
+    <form name="LookupBulkAddSupplierProducts" type="multi" use-row-submit="true" list-name="productList" title=""
+            target="BulkAddProducts" paginate-target="BulkAddSupplierProducts" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="productId" widget-style="buttontext">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
+        </field>
+        <field name="supplierProductId" widget-style="tabletext"><display/></field>
+        <field name="supplierProductName" widget-style="tabletext"><display/></field>
+        <field name="lastPrice" widget-style="tabletext"><display/></field>
+        <field name="minimumOrderQuantity" widget-style="tabletext"><display/></field>
+        <field name="quantity" title="${uiLabelMap.OrderQuantity}">
+            <text size="5" maxlength="10"/>
+        </field>
+        <field name="itemDesiredDeliveryDate" title="${uiLabelMap.OrderDesiredDeliveryDate}">
+            <date-time/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.OrderAddToOrder}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
 
 </forms>

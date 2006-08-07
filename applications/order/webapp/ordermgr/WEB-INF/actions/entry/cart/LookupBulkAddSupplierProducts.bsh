@@ -1,0 +1,48 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFunction;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityFieldValue;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+
+productId = request.getParameter("productId");
+if (productId == null) {
+    productId = "";
+}
+
+ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);
+
+conditionList = new LinkedList();
+
+// make sure the look up is case insensitive
+conditionList.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("productId")),
+                                 EntityOperator.LIKE, productId.toUpperCase() + "%"));
+
+conditionList.add(new EntityExpr("partyId", EntityOperator.EQUALS, shoppingCart.getOrderPartyId()));
+conditionList.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()));
+conditions = new EntityConditionList(conditionList, EntityOperator.AND);
+
+productList = delegator.findByCondition("SupplierProduct", conditions, UtilMisc.toList("productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity"), UtilMisc.toList("productId"));
+productList = EntityUtil.filterByDate(productList, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
+context.put("productList", productList);

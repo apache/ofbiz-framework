@@ -159,4 +159,19 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="LookupBulkAddSupplierProducts">
+     <section>
+            <actions>
+                <set field="title" value="Bulk Add Supplier Product"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddSupplierProducts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="LookupBulkAddSupplierProducts" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
