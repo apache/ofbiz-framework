@@ -204,6 +204,9 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
+                <!-- This is the target of the search form-->
+                <set field="facilityInventoryByProductScreen" value="ViewFacilityInventoryByProduct"/>
+
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="productTypeId" from-field="parameters.productTypeId"/>
                 <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
@@ -221,7 +224,51 @@ under the License.
                             <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container>
-                            <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="[${uiLabelMap.ProductInventoryItems}]" style="buttontext"/>
+                            <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryItems}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProductSimple?facilityId=${facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                        </container>
+
+                        <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewFacilityInventoryByProductSimple">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.FacilityCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.FacilityCompanySubtitle" global="true"/>
+
+                <!-- This is the target of the search form-->
+                <set field="facilityInventoryByProductScreen" value="ViewFacilityInventoryByProductSimple"/>
+
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="productTypeId" from-field="parameters.productTypeId"/>
+                <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
+                <set field="productSupplierId" from-field="parameters.productSupplierId"/>
+                <set field="offsetQty" from-field="parameters.offsetQty"/>
+
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+
+                        <container>
+                            <label style="head1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
+                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                        </container>
+                        <container>
+                            <link target="ViewFacilityInventoryByProduct?facilityId=${facilityId}" text="${uiLabelMap.CommonBack}" style="buttontext"/>
                         </container>
 
                         <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>

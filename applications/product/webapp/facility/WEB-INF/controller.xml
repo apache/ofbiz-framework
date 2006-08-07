@@ -194,6 +194,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewFacilityInventoryByProduct"/>
     </request-map>
+    <request-map uri="ViewFacilityInventoryByProductSimple">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewFacilityInventoryByProductSimple"/>
+    </request-map>
     <request-map uri="SearchInventoryItems">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="SearchInventoryItems"/>
@@ -965,6 +969,7 @@ under the License.
     <view-map name="EditFacilityLocation" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityLocation"/>
     <view-map name="EditFacilityInventoryItems" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityInventoryItems"/>
     <view-map name="ViewFacilityInventoryByProduct" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProduct"/>
+    <view-map name="ViewFacilityInventoryByProductSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductSimple"/>
     <view-map name="EditFacilityGroups" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityGroups"/>
     <view-map name="EditFacilityRoles" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityRoles"/>
     <view-map name="ViewContactMechs" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewContactMechs"/>
