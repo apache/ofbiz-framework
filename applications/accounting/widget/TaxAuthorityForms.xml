@@ -75,7 +75,7 @@ under the License.
         <field name="taxAuthGeoId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategory}" widget-style="tabletext">
             <display-entity entity-name="ProductCategory" description="${description}">
-                <sub-hyperlink description="${productCategoryId}" target="/catalog/control/EditProductCategory?productCategoryId=${productCategoryId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink description="${productCategoryId}" target="/catalog/control/EditCategory?productCategoryId=${productCategoryId}" target-type="inter-app" link-style="buttontext"/>
             </display-entity>
         </field>
 
