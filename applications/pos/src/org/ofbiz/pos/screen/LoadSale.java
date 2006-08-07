@@ -128,8 +128,7 @@ public class LoadSale extends XPage {
 			addListToCart(sale, true);
 		}
     }
-    
-    
+        
     public synchronized void replaceSale() {
     	if (wasMouseClicked()) {
     		replaceSale_();
@@ -182,8 +181,7 @@ public class LoadSale extends XPage {
 		    }
 		}
     }
-
-    
+  
     public synchronized void replaceSaleAndDeleteShoppingList() {
     	if (wasMouseClicked()) {
     		replaceSaleAndDeleteShoppingList_();
@@ -247,4 +245,5 @@ public class LoadSale extends XPage {
     
     private void closeDlg() {
 		m_dialog.closeDlg();
-    }}
+    }
+}

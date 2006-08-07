@@ -108,7 +108,7 @@
         <font_italic value="0"/>
     </style>
     <style name="skuButtonGizmoPurple">
-        <color_back value="993399"/>
+        <color_back value="CC66CC"/>
         <color_fore value="000000"/>
         <font_face value="verdana"/>
         <font_size value="14"/>
@@ -116,7 +116,7 @@
         <font_italic value="0"/>
     </style>
     <style name="skuButtonWidget">
-        <color_back value="CC0000"/>
+        <color_back value="FF4E36"/>
         <color_fore value="000000"/>
         <font_face value="verdana"/>
         <font_size value="14"/>
