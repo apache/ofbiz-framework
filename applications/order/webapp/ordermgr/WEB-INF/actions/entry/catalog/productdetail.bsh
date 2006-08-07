@@ -170,6 +170,7 @@ if (product != null) {
         priceContext.put("webSiteId", webSiteId);
         priceContext.put("productStoreId", productStoreId);
         priceContext.put("checkIncludeVat", "Y");
+        priceContext.put("agreementId", cart.getAgreementId());
         priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
         context.put("priceMap", priceMap);
     } else {

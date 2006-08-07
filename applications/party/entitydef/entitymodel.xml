@@ -242,6 +242,7 @@ under the License.
       <field name="agreementId" type="id-ne"></field>
       <field name="agreementItemSeqId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
+      <field name="price" type="currency-precise"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
       <prim-key field="productId"/>
