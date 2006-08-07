@@ -143,4 +143,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <!-- Simple decorator for printer friendly screens (no logo and no application bar, header and footer).
+         A print button is also available at the top of the screen.
+    -->
+    <screen name="SimpleDecorator">
+        <section>
+            <actions>
+                <!-- The two default (global) stylesheets are added to the list
+                     of stylesheets to the first and second position -->
+                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+1]" value="/images/tabstyles.css" global="true"/>
+            </actions>
+            <widgets>
+                <!-- render header -->
+                <platform-specific><html><html-template location="component://common/webcommon/includes/simple.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
