@@ -17,6 +17,8 @@ package org.ofbiz.minilang.method.ifops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -91,8 +93,8 @@ public class IfCompare extends MethodOperation {
             fieldVal = "";
         }
 
-        List messages = new LinkedList();
-        Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader());
+        List messages = FastList.newInstance();
+        Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader(), true);
         if (messages.size() > 0) {
             messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {

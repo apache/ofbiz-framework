@@ -467,13 +467,15 @@ public class ObjectType {
             if (str.length() == 0) {
                 return null;
             }
-
+            
             if ("Boolean".equals(type) || "java.lang.Boolean".equals(type)) {
+            	str = StringUtil.removeSpaces(str);
                 Boolean value = null;
-                if (str.equalsIgnoreCase("TRUE"))
+                if (str.equalsIgnoreCase("TRUE")) {
                     value = new Boolean(true);
-                else
+                } else {
                     value = new Boolean(false);
+                }
                 return value;
             } else if ("Locale".equals(type) || "java.util.Locale".equals(type)) {
                 Locale loc = UtilMisc.parseLocale(str);
@@ -483,6 +485,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ");    
                 }
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
+            	str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -496,6 +499,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
+            	str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -510,6 +514,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
+            	str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -524,6 +529,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
+            	str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -539,6 +545,7 @@ public class ObjectType {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
+            	str = StringUtil.removeSpaces(str);
                 try {
                     NumberFormat nf = null;
                     if (locale == null) {
@@ -901,7 +908,7 @@ public class ObjectType {
     }
 
     public static Boolean doRealCompare(Object value1, Object value2, String operator, String type, String format,
-        List messages, Locale locale, ClassLoader loader) {
+        List messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
         boolean verboseOn = Debug.verboseOn();
 
         if (verboseOn) Debug.logVerbose("Comparing value1: \"" + value1 + "\" " + operator + " value2:\"" + value2 + "\"", module);
@@ -932,8 +939,12 @@ public class ObjectType {
 
         Object convertedValue2 = null;
         if (value2 != null) {
+        	Locale value2Locale = locale;
+        	if (value2InlineConstant) {
+        		value2Locale = UtilMisc.parseLocale("en");
+        	}
             try {
-                convertedValue2 = ObjectType.simpleTypeConvert(value2, type, format, locale);
+                convertedValue2 = ObjectType.simpleTypeConvert(value2, type, format, value2Locale);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 messages.add("Could not convert value2 for comparison: " + e.getMessage());

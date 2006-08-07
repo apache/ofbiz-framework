@@ -37,6 +37,6 @@ public class Compare extends BaseCompare {
     public void exec(Map inMap, Map results, List messages, Locale locale, ClassLoader loader) {
         Object fieldValue = inMap.get(fieldName);
 
-        doCompare(fieldValue, value, messages, locale, loader);
+        doCompare(fieldValue, value, messages, locale, loader, true);
     }
 }
