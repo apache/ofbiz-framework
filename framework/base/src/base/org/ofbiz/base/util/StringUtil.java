@@ -262,7 +262,7 @@ public class StringUtil {
     
     /** Removes all spaces from a string */
     public static String removeSpaces(String str) {
-    	return removeRegex(str,"[\\d]");
+    	return removeRegex(str,"[\\ ]");
     }
 
 	public static String toHexString(byte[] bytes) {
