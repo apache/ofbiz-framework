@@ -185,7 +185,6 @@ public class JavaMailContainer implements Container {
             store.close();
         } catch (MessagingException e) {
             Debug.logError("Unable to connect to mail store : " + store.getURLName().toString(), module);
-            return null;
         }
 
         return store;
