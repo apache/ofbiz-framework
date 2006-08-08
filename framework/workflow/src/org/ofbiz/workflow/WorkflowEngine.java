@@ -86,21 +86,13 @@ public class WorkflowEngine extends AbstractEngine {
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
     public void runAsync(String localName, ModelService modelService, Map context, GenericRequester requester, boolean persist) throws GenericServiceException {       
-        // Suspend the current transaction
-        TransactionManager tm = TransactionFactory.getTransactionManager();
-        if (tm == null) {
-            throw new GenericServiceException("Cannot get the transaction manager; cannot run persisted services.");
-        }
-
         Transaction parentTrans = null;
         boolean beganTransaction = false;
         try {
             try {
-                parentTrans = tm.suspend();                
+                parentTrans = TransactionUtil.suspend();
                 beganTransaction = TransactionUtil.begin();
                 //Debug.logInfo("Suspended transaction; began new: " + beganTransaction, module);
-            } catch (SystemException se) {
-                Debug.logError(se, "Cannot suspend transaction: " + se.getMessage(), module);
             } catch (GenericTransactionException e) {
                 Debug.logError(e, "Cannot begin nested transaction: " + e.getMessage(), module);
             }
@@ -275,12 +267,10 @@ public class WorkflowEngine extends AbstractEngine {
             // Resume the parent transaction
             if (parentTrans != null) {
                 try {
-                    tm.resume(parentTrans);
+                    TransactionUtil.resume(parentTrans);
                     //Debug.logInfo("Resumed the parent transaction.", module);
-                } catch (InvalidTransactionException ite) {
-                    throw new GenericServiceException("Cannot resume transaction", ite);
-                } catch (SystemException se) {
-                    throw new GenericServiceException("Unexpected transaction error", se);
+                } catch (GenericTransactionException e) {
+                    throw new GenericServiceException("Could not resume transaction: " + e.toString(), e);
                 }
             }
         }
