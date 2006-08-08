@@ -375,6 +375,7 @@ public class PayflowPro {
             result.put("authResult", Boolean.TRUE);
             result.put("authCode", parameters.get("AUTHCODE"));
         } else {
+            Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
             result.put("authResult", Boolean.FALSE);
         }
         result.put("cvCode", cvvCode);
