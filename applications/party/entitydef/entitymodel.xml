@@ -880,6 +880,7 @@ under the License.
       <field name="postalCodeExt" type="short-varchar"></field>
       <field name="countryGeoId" type="id"></field>
       <field name="stateProvinceGeoId" type="id"></field>
+      <field name="countyGeoId" type="id"></field>
       <field name="postalCodeGeoId" type="id"></field>
       <prim-key field="contactMechId"/>
       <relation type="one" fk-name="POST_ADDR_CMECH" rel-entity-name="ContactMech">
@@ -893,6 +894,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="POST_ADDR_SPGEO" title="StateProvince" rel-entity-name="Geo">
         <key-map field-name="stateProvinceGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_CNTG" title="County" rel-entity-name="Geo">
+        <key-map field-name="countyGeoId" rel-field-name="geoId"/>
       </relation>
       <relation type="one" fk-name="POST_ADDR_PCGEO" title="PostalCode" rel-entity-name="Geo">
         <key-map field-name="postalCodeGeoId" rel-field-name="geoId"/>

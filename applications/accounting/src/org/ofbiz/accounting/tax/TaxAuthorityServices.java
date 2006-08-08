@@ -200,6 +200,9 @@ public class TaxAuthorityServices {
             if (shippingAddress.getString("stateProvinceGeoId") != null) {
                 geoIdSet.add(shippingAddress.getString("stateProvinceGeoId"));
             }
+            if (shippingAddress.getString("countyGeoId") != null) {
+                geoIdSet.add(shippingAddress.getString("countyGeoId"));
+            }
         }
         // get the most granular, or all available, geoIds and then find parents by GeoAssoc with geoAssocTypeId="REGIONS" and geoIdTo=<granular geoId> and find the GeoAssoc.geoId
         geoIdSet = GeoWorker.expandGeoRegionDeep(geoIdSet, delegator);
