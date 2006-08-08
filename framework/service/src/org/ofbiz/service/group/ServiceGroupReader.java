@@ -99,8 +99,9 @@ public class ServiceGroupReader {
     }
 
     public static GroupModel getGroupModel(String serviceName) {
-        if (groupsCache.size() == 0)
+        if (groupsCache.size() == 0) {
             ServiceGroupReader.readConfig();
+        }
         return (GroupModel) groupsCache.get(serviceName);
     }
 }

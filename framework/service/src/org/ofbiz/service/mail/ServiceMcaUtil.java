@@ -98,25 +98,25 @@ public class ServiceMcaUtil {
         }
 
         if (Debug.importantOn()) {
-			String resourceLocation = handler.getLocation();
-			try {
-				resourceLocation = handler.getURL().toExternalForm();
-			} catch (GenericConfigException e) {
-				Debug.logError(e, "Could not get resource URL", module);
-			}
-			Debug.logImportant("Loaded " + numDefs + " Service MCA definitions from " + resourceLocation, module);
+            String resourceLocation = handler.getLocation();
+            try {
+                resourceLocation = handler.getURL().toExternalForm();
+            } catch (GenericConfigException e) {
+                Debug.logError(e, "Could not get resource URL", module);
+            }
+            Debug.logImportant("Loaded " + numDefs + " Service MCA definitions from " + resourceLocation, module);
         }
     }
 
-    public static Collection getServiceMcaRules() {
-        if (mcaCache != null) {
-            return mcaCache.values();
-        }
-        return null;
+    public static List getServiceMcaRules() {
+	if (mcaCache.size() == 0) {
+	    readConfig();
+	}
+        return mcaCache.values();
     }
 
     public static void evalRules(LocalDispatcher dispatcher, MimeMessageWrapper wrapper, GenericValue userLogin) throws GenericServiceException {
-        List rules = mcaCache.values();
+        List rules = getServiceMcaRules();
         Set actionsRun = new TreeSet();
         if (rules != null) {
             Iterator i = rules.iterator();
