@@ -162,4 +162,16 @@ under the License.
         </section>
     </screen>
 
+    <!-- Simple fo decorator for pdf reports. -->
+    <screen name="FoDecorator">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+                <!-- render header -->
+                <platform-specific><html><html-template location="component://common/webcommon/includes/simple.fo.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
