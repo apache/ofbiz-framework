@@ -29,7 +29,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyByName}"/>
                 <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
@@ -82,7 +82,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PartyLookupPartyAndUserLoginAndPerson}"/>
                 <set field="entityName" value="PartyAndUserLoginAndPerson"/>
                 <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
@@ -108,7 +108,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PartyLookupPartyGroup}"/>
                 <set field="entityName" value="PartyGroup"/>
                 <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
@@ -135,7 +135,7 @@ under the License.
 				
                 <set field="title" value="${uiLabelMap.PartyLookupPartyClassificationGroup}"/>
                 <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
