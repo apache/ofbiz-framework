@@ -1411,6 +1411,15 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String defaultOption = textFindField.getDefaultOption();
         boolean ignCase = textFindField.getIgnoreCase();
 
+        buffer.append(" <select name=\"");
+        buffer.append(modelFormField.getParameterName(context));
+        buffer.append("_op\" class=\"selectBox\">");
+        buffer.append("<option value=\"equals\"" + ("equals".equals(defaultOption)? " selected": "") + ">" + opEquals + "</option>");
+        buffer.append("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
+        buffer.append("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
+        buffer.append("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
+        buffer.append("</select>");
+        
         buffer.append("<input type=\"text\"");
 
         String className = modelFormField.getWidgetStyle();
@@ -1456,15 +1465,6 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append('"');
         }
         buffer.append('>');
-
-        buffer.append(" <select name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_op\" class=\"selectBox\">");
-        buffer.append("<option value=\"equals\"" + ("equals".equals(defaultOption)? " selected": "") + ">" + opEquals + "</option>");
-        buffer.append("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
-        buffer.append("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
-        buffer.append("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
-        buffer.append("</select>");
 
         buffer.append(" <input type=\"checkbox\" name=\"");
         buffer.append(modelFormField.getParameterName(context));
