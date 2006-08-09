@@ -48,7 +48,6 @@ under the License.
             <simple-map-processor name="newEmail">
                 <process field="emailAddress">
                     <copy/>
-                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyEmailAddressMissingError"/></not-empty>
                     <validate-method method="isEmail"><fail-property resource="EcommerceUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
                 </process>
                 <process field="emailSol"><copy to-field="allowSolicitation"/></process>
@@ -140,10 +139,12 @@ under the License.
             <call-service service-name="updatePartyEmailAddress" in-map-name="emailMap"/>
         <else>
             <!-- create the email address -->
-            <set from-field="partyId" field="emailMap.partyId"/>
-            <string-to-field field-name="contactMechPurposeTypeId" map-name="emailMap" string="PRIMARY_EMAIL"/>
-            <!-- call the create email service -->
-            <call-service service-name="createPartyEmailAddress" in-map-name="emailMap"/>
+            <if-not-empty field-name="parameters.emailAddress">
+                <set from-field="partyId" field="emailMap.partyId"/>
+                <string-to-field field-name="contactMechPurposeTypeId" map-name="emailMap" string="PRIMARY_EMAIL"/>
+                <!-- call the create email service -->
+                <call-service service-name="createPartyEmailAddress" in-map-name="emailMap"/>
+            </if-not-empty>
         </else>
         </if-not-empty>
         
