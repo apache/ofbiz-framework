@@ -229,9 +229,6 @@ public class ScreenRenderer {
 
         // ========== setup values that are specific to OFBiz webapps
 
-        // this is the object used to render forms from their definitions
-        context.put("formStringRenderer", new HtmlFormRenderer(request, response));
-
         context.put("request", request);
         context.put("response", response);
         context.put("session", session);

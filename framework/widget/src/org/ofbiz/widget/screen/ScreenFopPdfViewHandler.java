@@ -32,6 +32,7 @@ import org.apache.fop.tools.DocumentInputSource;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.webapp.view.ViewHandlerException;
+import org.ofbiz.widget.fo.FoFormRenderer;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -55,6 +56,8 @@ public class ScreenFopPdfViewHandler extends ScreenWidgetViewHandler {
         try {
             ScreenRenderer screens = new ScreenRenderer(writer, null, htmlScreenRenderer);
             screens.populateContextForRequest(request, response, servletContext);
+            // this is the object used to render forms from their definitions
+            screens.getContext().put("formStringRenderer", new FoFormRenderer(request, response));
             screens.render(page);
         } catch (Throwable t) {
             throw new ViewHandlerException("Problems with the response writer/output stream", t);
