@@ -1894,6 +1894,10 @@ public class ModelForm {
         return value != null ? value.intValue() : (getHighIndex(context) - getLowIndex(context));
     }
 
+    public List getFieldList() {
+        return fieldList;
+    }
+
     public void getListLimits(Map context, Object entryList) {
         int listSize = 0;
         int viewIndex = 0;
