@@ -42,7 +42,7 @@ under the License.
                         </#if>
                         </fo:table-cell>
                         <fo:table-cell>
-                            <fo:block font-weight="bold" space-after="0.03in"><#if titleProperty?exists>${titleProperty}<#else>${title?if_exists}</#if></fo:block>
+                            <fo:block font-weight="bold" space-after="0.03in"><#if titleProperty?exists>${uiLabelMap.get(titleProperty)}<#else>${title?if_exists}</#if></fo:block>
                             <fo:block>${uiLabelMap.CommonUsername}: <#if userLogin?exists>${userLogin.userLoginId?if_exists}</#if></fo:block>
                             <fo:block>${uiLabelMap.CommonDate}: ${nowTimestamp?if_exists}</fo:block>
                         </fo:table-cell>
