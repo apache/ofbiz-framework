@@ -119,7 +119,7 @@ under the License.
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyEmailAddress}<BR>${uiLabelMap.CommonAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" name="emailAddress" value="" size="60" maxlength="255"> *
+                  <input type="text" class="inputBox" name="emailAddress" value="" size="60" maxlength="255"> 
                   <BR>
                   <select name="emailSol" class="selectBox">
                     <option>${requestParameters.emailSol?default("Y")}</option>
