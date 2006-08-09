@@ -326,9 +326,8 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="logoImageUrl" value="http://localhost:8080/images/ofbiz_logo.jpg"/>
+            <!--<set field="logoImageUrl" value="http://localhost:8080/images/ofbiz_logo.jpg"/>-->
                 
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
