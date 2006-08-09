@@ -725,6 +725,7 @@ under the License.
     </request-map>
 
     <request-map uri="ListAgreementItemProducts"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemProducts"/></request-map>
+    <request-map uri="ListAgreementItemProductsReport"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemProductsReport"/></request-map>
     <request-map uri="removeAgreementItemProduct">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="removeAgreementProductAppl"/>
@@ -1254,6 +1255,7 @@ under the License.
     <view-map name="ListAgreementItemTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemTerms"/>
     <view-map name="EditAgreementItemTerm" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemTerm"/>
     <view-map name="ListAgreementItemProducts" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemProducts"/>
+    <view-map name="ListAgreementItemProductsReport" type="screenfop" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemProductsReport" content-type="application/pdf" encoding="none"/>
     <view-map name="EditAgreementItemProduct" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemProduct"/>
     <view-map name="ListAgreementItemParties" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemParties"/>
     <view-map name="EditAgreementItemParty" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemParty"/>
