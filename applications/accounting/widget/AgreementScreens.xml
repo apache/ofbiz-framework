@@ -320,14 +320,9 @@ under the License.
     <screen name="ListAgreementItemProductsReport">
         <section>
             <actions>
-                <set field="title" value="List Agreement Item Products"/>
-                <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
+                <set field="titleProperty" value="AccountingPageTitleAgreementPriceList"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-
-            <!--<set field="logoImageUrl" value="http://localhost:8080/images/ofbiz_logo.jpg"/>-->
                 
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
