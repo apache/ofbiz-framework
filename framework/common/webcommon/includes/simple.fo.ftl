@@ -22,9 +22,9 @@ under the License.
         <fo:simple-page-master master-name="main-page"
             margin-top="0.3in" margin-bottom="0.3in"
             margin-left="0.4in" margin-right="0.3in">
-          <fo:region-body margin-top="1in" margin-bottom="0.5in"/>  <#-- main body -->
-            <fo:region-after extent="0.5in" />  <#-- a footer -->
-            <fo:region-before extent="1in"/>  <#-- a header -->
+          <fo:region-body margin-top="1in" margin-bottom="0.5in"/>
+            <fo:region-after extent="0.5in" />
+            <fo:region-before extent="1in"/>
         </fo:simple-page-master>
     </fo:layout-master-set>
   
@@ -42,7 +42,8 @@ under the License.
                         </#if>
                         </fo:table-cell>
                         <fo:table-cell>
-                            <fo:block font-weight="bold" space-after="0.03in">${title?if_exists}</fo:block>
+                            <fo:block font-weight="bold" space-after="0.03in"><#if titleProperty?exists>${titleProperty}<#else>${title?if_exists}</#if></fo:block>
+                            <fo:block>${uiLabelMap.CommonUsername}: <#if userLogin?exists>${userLogin.userLoginId?if_exists}</#if></fo:block>
                             <fo:block>${uiLabelMap.CommonDate}: ${nowTimestamp?if_exists}</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
