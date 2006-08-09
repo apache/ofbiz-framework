@@ -1327,7 +1327,7 @@ public class ProductionRunServices {
             Map outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunId));
             BigDecimal totalCost = (BigDecimal)outputMap.get("totalCost");
             // FIXME
-            unitCost = totalCost.divide(new BigDecimal(quantity.intValue()), rounding);
+            unitCost = totalCost.divide(new BigDecimal(quantity.intValue()), decimals, rounding);
         } catch (GenericServiceException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
