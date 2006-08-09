@@ -68,21 +68,21 @@ under the License.
             <select-field field-name="totalSubRemainingAmount"/>
             <select-field field-name="totalOrders"/>
         </entity-condition>
-        
+
+        <!-- first set the required OUT fields to zero -->
+        <calculate field-name="plainDoubleZero" type="Double"><number value="0.0"/></calculate>
+        <calculate field-name="plainLongZero" type="Long"><number value="0"/></calculate>
+        <field-to-result field-name="plainDoubleZero" result-name="totalGrandAmount"/>
+        <field-to-result field-name="plainDoubleZero" result-name="totalSubRemainingAmount"/>
+        <field-to-result field-name="plainLongZero" result-name="totalOrders"/>
+
         <!-- because we specified the partyId and the roleTypeId, should only be one item in list returned -->
         <first-from-list list-name="orderInfoList" entry-name="orderInfo"/>
-        <if-empty field-name="orderInfo">
-            <calculate field-name="plainDoubleZero" type="Double"><number value="0.0"/></calculate>
-            <calculate field-name="plainLongZero" type="Long"><number value="0"/></calculate>
-            <field-to-result field-name="plainDoubleZero" result-name="totalGrandAmount"/>
-            <field-to-result field-name="plainDoubleZero" result-name="totalSubRemainingAmount"/>
-            <field-to-result field-name="plainLongZero" result-name="totalOrders"/>
-        <else>
+        <if-not-empty field-name="orderInfo">
             <field-to-result field-name="orderInfo.totalGrandAmount" result-name="totalGrandAmount"/>
             <field-to-result field-name="orderInfo.totalSubRemainingAmount" result-name="totalSubRemainingAmount"/>
             <field-to-result field-name="orderInfo.totalOrders" result-name="totalOrders"/>
-        </else>
-        </if-empty>
+        </if-not-empty>
     </simple-method>
     <simple-method method-name="createOrderShipment" short-description="Create OrderShipment">
         <set value="Create OrderShipment" field="operationName"/>
