@@ -2715,8 +2715,8 @@ public class ModelFormField {
     }
 
     public static class TextFindField extends TextField {
-        protected boolean ignoreCase = false;
-        protected String defaultOption = "equals";
+        protected boolean ignoreCase = true;
+        protected String defaultOption = "like";
 
         public TextFindField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
