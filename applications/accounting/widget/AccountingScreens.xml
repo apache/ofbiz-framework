@@ -290,6 +290,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAccounts"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="1000"/>
+                <set field="pageLayoutName" value="simple-landscape"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
