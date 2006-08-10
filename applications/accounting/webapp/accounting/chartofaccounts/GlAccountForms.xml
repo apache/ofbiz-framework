@@ -106,8 +106,8 @@ under the License.
 
         <field name="glAccountId" widget-style="selectBox">
             <drop-down>
-                <entity-options entity-name="GlAccount" description="${accountName}"> 
-                    <entity-order-by field-name="accountName"/>
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}"> 
+                    <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -139,17 +139,17 @@ under the License.
         </actions>
         
         <!--auto-fields-entity entity-name="GlAccount" default-field-type="display"/-->
-        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext" title-area-style="tableheadsmall">
             <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate?glAccountId=${glAccountId}"/>
         </field>
-        <field name="accountName"><display/></field>
+        <field name="accountName" title-area-style="tableheadwide"><display/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
         <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
-        <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"></display-entity></field>
-        <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"></display-entity></field>
-        <field name="parentGlAccountId"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]" key-field-name="glAccountId"></display-entity></field>
+        <field name="glResourceTypeId" title-area-style="tableheadsmall"><display-entity entity-name="GlResourceType"></display-entity></field>
+        <field name="glXbrlClassId" title-area-style="tableheadsmall"><display-entity entity-name="GlXbrlClass"></display-entity></field>
+        <field name="parentGlAccountId" title-area-style="tableheadwide"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]" key-field-name="glAccountId"></display-entity></field>
         <field name="accountCode"><hidden/></field>
-        <field name="postedBalance"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
+        <field name="postedBalance" widget-area-style="tabletextright" widget-style="tabletext" title-area-style="tableheadsmall"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
     </form>
 
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
