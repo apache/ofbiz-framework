@@ -429,6 +429,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindGlobalGlAccount"/>
     </request-map>
+    <request-map uri="ListGlAccountsReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListGlAccountsReport"/>
+    </request-map>
     <request-map uri="AddGlAccount">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AddGlAccount"/>
@@ -1217,6 +1221,7 @@ under the License.
     <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AddGlAccount"/>
     <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
+    <view-map name="ListGlAccountsReport" type="screenfop" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountsReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountOrganization"/>
     <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/AccountingScreens.xml#GlAccountNavigate"/>
     <view-map name="AssignGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AssignGlAccount"/>
