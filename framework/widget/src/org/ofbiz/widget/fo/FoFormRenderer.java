@@ -132,7 +132,28 @@ public class FoFormRenderer implements FormStringRenderer {
     public void renderDropDownField(StringBuffer buffer, Map context, DropDownField dropDownField) {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
-        this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context));
+        String currentValue = modelFormField.getEntry(context);
+        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator());
+        // if the current value should go first, display it
+        if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
+            String explicitDescription = dropDownField.getCurrentDescription(context);
+            if (UtilValidate.isNotEmpty(explicitDescription)) {
+                this.makeBlockString(buffer, modelFormField.getWidgetStyle(), explicitDescription);
+            } else {
+                this.makeBlockString(buffer, modelFormField.getWidgetStyle(), ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+            }
+        } else {
+            Iterator optionValueIter = allOptionValues.iterator();
+            while (optionValueIter.hasNext()) {
+                ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+                String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
+                if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
+                        (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
+                    this.makeBlockString(buffer, modelFormField.getWidgetStyle(), optionValue.getDescription());
+                    break;
+                }
+            }
+        }
         this.appendWhitespace(buffer);
     }
 
