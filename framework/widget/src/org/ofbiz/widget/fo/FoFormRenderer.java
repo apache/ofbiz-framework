@@ -84,17 +84,23 @@ public class FoFormRenderer implements FormStringRenderer {
         //buffer.append(' ');
     }
 
+    private String getFoStyle(String styleName) {
+        String value = UtilProperties.getPropertyValue("fo-styles.properties", styleName);
+        if (value.equals(styleName)) {
+            return "";
+        }
+        return value;
+    }
+
     private void makeBlockString(StringBuffer buffer, String widgetStyle, String text) {
-        buffer.append("<fo:block>");
+        buffer.append("<fo:block");
+        if (UtilValidate.isNotEmpty(widgetStyle)) {
+            buffer.append(" ");
+            buffer.append(getFoStyle(widgetStyle));
+        }
+        buffer.append(">");
         buffer.append(text);
         buffer.append("</fo:block>");
-        /*
-        if (UtilValidate.isNotEmpty(widgetStyle)) {
-            buffer.append(" class=\"");
-            buffer.append(widgetStyle);
-            buffer.append("\"");
-        }
-        */
     }
 
     public void renderDisplayField(StringBuffer buffer, Map context, DisplayField displayField) {
@@ -205,7 +211,13 @@ public class FoFormRenderer implements FormStringRenderer {
             if (childFieldType == ModelFormField.FieldInfo.HIDDEN || childFieldType == ModelFormField.FieldInfo.IGNORED) {
                 continue;
             }
-            buffer.append("<fo:table-column/>");
+            buffer.append("<fo:table-column");
+            String areaStyle = childField.getTitleAreaStyle();
+            if (UtilValidate.isNotEmpty(areaStyle)) {
+                buffer.append(" ");
+                buffer.append(getFoStyle(areaStyle));
+            }
+            buffer.append("/>");
             this.appendWhitespace(buffer);
         }
         this.appendWhitespace(buffer);
@@ -266,7 +278,13 @@ public class FoFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
-        buffer.append("<fo:table-cell border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\">");
+        buffer.append("<fo:table-cell ");
+        String areaStyle = modelFormField.getWidgetAreaStyle();
+        if (UtilValidate.isEmpty(areaStyle)) {
+            areaStyle = "tabletext";
+        }
+        buffer.append(getFoStyle(areaStyle));
+        buffer.append(">");
         this.appendWhitespace(buffer);
     }
 

@@ -37,7 +37,7 @@ under the License.
         </fo:simple-page-master>
     </fo:layout-master-set>
   
-    <fo:page-sequence master-reference="${pageLayoutName?default("simple-portrait")}" font-size="9pt">
+    <fo:page-sequence master-reference="${pageLayoutName?default("simple-portrait")}" font-size="8pt">
         <#-- Header -->
         <fo:static-content flow-name="xsl-region-before" font-size="8pt">
             <fo:table>
