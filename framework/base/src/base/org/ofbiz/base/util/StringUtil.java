@@ -346,4 +346,25 @@ public class StringUtil {
         Matcher matcher = pattern.matcher(str);
         return matcher.replaceAll("");
     }
+    
+    /**
+     * Add the number to the string, keeping (padding to min of original length)
+     * 
+     * @return
+     */
+    public static String addToNumberString(String numberString, long addAmount) {
+	if (numberString == null) return null;
+	
+	int origLength = numberString.length();
+	long number = Long.parseLong(numberString);
+	return padNumberString(new Long(number + addAmount).toString(), origLength);
+    }
+    
+    public static String padNumberString(String numberString, int targetMinLength) {
+        StringBuffer outStrBfr = new StringBuffer(numberString); 
+        while (targetMinLength > outStrBfr.length()) {
+            outStrBfr.insert(0, '0');
+        }
+        return outStrBfr.toString();
+    }
 }

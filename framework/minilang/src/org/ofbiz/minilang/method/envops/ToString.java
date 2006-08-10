@@ -95,11 +95,7 @@ public class ToString extends MethodOperation {
         }
         
         if (this.numericPadding != null) {
-            StringBuffer outStrBfr = new StringBuffer(outStr); 
-            while (this.numericPadding.intValue() > outStrBfr.length()) {
-                outStrBfr.insert(0, '0');
-            }
-            outStr = outStrBfr.toString();
+            outStr = StringUtil.padNumberString(outStr, this.numericPadding.intValue());
         }
         
         return outStr;
