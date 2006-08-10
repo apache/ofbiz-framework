@@ -19,16 +19,25 @@ under the License.
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
     <fo:layout-master-set>
-        <fo:simple-page-master master-name="main-page"
-            margin-top="0.3in" margin-bottom="0.3in"
-            margin-left="0.4in" margin-right="0.3in">
-          <fo:region-body margin-top="1in" margin-bottom="0.5in"/>
+        <fo:simple-page-master master-name="simple-portrait"
+              page-width="8.5in" page-height="11in"
+              margin-top="0.3in" margin-bottom="0.3in"
+              margin-left="0.4in" margin-right="0.3in">
+            <fo:region-body margin-top="1in" margin-bottom="0.5in"/>
+            <fo:region-after extent="0.5in" />
+            <fo:region-before extent="1in"/>
+        </fo:simple-page-master>
+        <fo:simple-page-master master-name="simple-landscape"
+              page-width="11in" page-height="8.5in"
+              margin-top="0.3in" margin-bottom="0.3in"
+              margin-left="0.4in" margin-right="0.3in">
+            <fo:region-body margin-top="1in" margin-bottom="0.5in"/>
             <fo:region-after extent="0.5in" />
             <fo:region-before extent="1in"/>
         </fo:simple-page-master>
     </fo:layout-master-set>
   
-    <fo:page-sequence master-reference="main-page" font-size="9pt">
+    <fo:page-sequence master-reference="${pageLayoutName?default("simple-portrait")}" font-size="9pt">
         <#-- Header -->
         <fo:static-content flow-name="xsl-region-before" font-size="8pt">
             <fo:table>
