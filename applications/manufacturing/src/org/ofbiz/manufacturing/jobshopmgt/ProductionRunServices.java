@@ -2360,14 +2360,19 @@ public class ProductionRunServices {
                                  "userLogin", userLogin);
             resultService = dispatcher.runSync("getProductCost", serviceContext);
             Double packageCost = (Double)resultService.get("productCost");
-            if (packageCost == null || packageCost.doubleValue() == 0) {
-                packageCost = new Double(1.0);
-            }
             Double inventoryItemCost = (Double)inventoryItem.getDouble("unitCost");
-            if (inventoryItemCost == null) {
-                inventoryItemCost = new Double(1.0);
+            Double costCoefficient = null;
+            if (packageCost == null || packageCost.doubleValue() == 0 || inventoryItemCost == null) {
+                // if the actual cost of the item (marketing package) that we are decomposing is not available, or
+                // if the standard cost of the marketing package is not available then
+                // the cost coefficient ratio is set to 1.0:
+                // this means that the unit costs of the inventory items of the components
+                // will be equal to the components' standard costs
+                costCoefficient = new Double(1.0);
+            } else {
+                costCoefficient = new Double(inventoryItemCost.doubleValue() / packageCost.doubleValue());
             }
-            Double costCoefficient = new Double(inventoryItemCost.doubleValue() / packageCost.doubleValue());
+            
             // the components are retrieved
             serviceContext.clear();
             serviceContext = UtilMisc.toMap("productId", inventoryItem.getString("productId"),
