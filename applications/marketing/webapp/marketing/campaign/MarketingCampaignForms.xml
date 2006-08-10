@@ -78,7 +78,7 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="&quot;${lastName}&quot;!=null">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" also-hidden="true">
-                <sub-hyperlink target="/partymgr/control/viewProfile?partyId=${partyId}" description="[${partyId}]" link-style="buttontext"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="[${partyId}]" link-style="buttontext" target-type="inter-app"/>
             </display-entity>
         </field>
 <!-- Currently not working for PartyGroup
