@@ -24,6 +24,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="Example"/>
     <entity-group group="org.ofbiz" entity="ExampleItem"/>
     <entity-group group="org.ofbiz" entity="ExampleStatus"/>
+    <entity-group group="org.ofbiz" entity="ExampleStatusDetail"/>
     <entity-group group="org.ofbiz" entity="ExampleType"/>
 
     <!-- ========================================================= -->
