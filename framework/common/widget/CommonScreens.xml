@@ -175,4 +175,15 @@ under the License.
         </section>
     </screen>
 
+    <!-- Simple xml decorator for widget export. -->
+    <screen name="XmlDecorator">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/simple.xml.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

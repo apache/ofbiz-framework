@@ -277,6 +277,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="ListGlAccountsReport" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                            <link target="ListGlAccountsExport" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                         </container>
                         <include-form name="ListGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
                     </decorator-section>
@@ -295,6 +296,21 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="ListGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListGlAccountsExport">
+        <section>
+            <actions>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="1000"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="XmlDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <include-form name="ListGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
                     </decorator-section>
