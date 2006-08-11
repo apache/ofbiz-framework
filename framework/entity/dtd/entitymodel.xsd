@@ -289,7 +289,7 @@
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.alias">
-        <xs:attribute type="xs:string" name="entity-alias" use="required"/>
+        <xs:attribute type="xs:string" name="entity-alias"/>
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="field"/>
         <xs:attribute type="xs:string" name="col-alias"/>

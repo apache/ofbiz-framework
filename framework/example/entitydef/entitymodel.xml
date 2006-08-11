@@ -37,9 +37,7 @@ under the License.
     <!-- org.ofbiz.example.example -->
     <!-- ========================================================= -->
     
-    <entity entity-name="Example"
-        package-name="org.ofbiz.example.example"
-        title="Example Entity">
+    <entity entity-name="Example" package-name="org.ofbiz.example.example" title="Example Entity">
         <field name="exampleId" type="id-ne"><!-- primary sequenced ID --></field>
         <field name="exampleTypeId" type="id-ne"></field>
         <field name="statusId" type="id-ne"></field>
@@ -57,9 +55,7 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="ExampleItem"
-        package-name="org.ofbiz.example.example"
-        title="Example Item Entity">
+    <entity entity-name="ExampleItem" package-name="org.ofbiz.example.example" title="Example Item Entity">
         <field name="exampleId" type="id-ne"></field>
         <field name="exampleItemSeqId" type="id-ne"><!-- secondary sequenced ID --></field>
         <field name="description" type="description"></field>
@@ -71,9 +67,7 @@ under the License.
             <key-map field-name="amountUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
-    <entity entity-name="ExampleStatus"
-        package-name="org.ofbiz.example.example"
-        title="Example Status Entity">
+    <entity entity-name="ExampleStatus" package-name="org.ofbiz.example.example" title="Example Status Entity">
         <field name="exampleId" type="id-ne"></field>
         <field name="statusDate" type="date-time"></field>
         <field name="statusId" type="id-ne"></field>
@@ -86,9 +80,25 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="ExampleType"
-        package-name="org.ofbiz.example.example"
-        title="Example Type Entity">
+    <view-entity entity-name="ExampleStatusDetail" package-name="org.ofbiz.example.example">
+        <member-entity entity-alias="EXPL" entity-name="Example"/>
+        <member-entity entity-alias="EXST" entity-name="ExampleStatus"/>
+        <alias-all entity-alias="EXPL">
+            <exclude field="statusId"/>
+        </alias-all>
+        <alias-all entity-alias="EXST"/>
+        <alias entity-alias="EXPL" name="currentStatusId" field="statusId"/>
+        <alias name="statusDelay">
+            <complex-alias operator="-">
+                <complex-alias-field entity-alias="EXST" field="statusDate"/>
+                <complex-alias-field entity-alias="EXPL" field="exampleDate"/>
+            </complex-alias>
+        </alias>
+        <view-link entity-alias="EXPL" rel-entity-alias="EXST">
+            <key-map field-name="exampleId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="ExampleType" package-name="org.ofbiz.example.example" title="Example Type Entity">
         <field name="exampleTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="description" type="description"></field>

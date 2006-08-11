@@ -24,15 +24,15 @@
 package org.ofbiz.entity.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilTimer;
@@ -45,17 +45,11 @@ import org.w3c.dom.NodeList;
 
 /**
  * This class extends ModelEntity and provides additional information appropriate to view entities
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:peterm@miraculum.com">Peter Moon</a>    
- * @version    $Rev$
- * @since      2.0
  */
 public class ModelViewEntity extends ModelEntity {
     public static final String module = ModelViewEntity.class.getName();
 
-    public static Map functionPrefixMap = new HashMap();
+    public static Map functionPrefixMap = FastMap.newInstance();
     static {
         functionPrefixMap.put("min", "MIN(");
         functionPrefixMap.put("max", "MAX(");
@@ -68,27 +62,27 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     /** Contains member-entity alias name definitions: key is alias, value is ModelMemberEntity */
-    protected Map memberModelMemberEntities = new HashMap();
+    protected Map memberModelMemberEntities = FastMap.newInstance();
 
     /** A list of all ModelMemberEntity entries; this is mainly used to preserve the original order of member entities from the XML file */
-    protected List allModelMemberEntities = new LinkedList();
+    protected List allModelMemberEntities = FastList.newInstance();
 
     /** Contains member-entity ModelEntities: key is alias, value is ModelEntity; populated with fields */
     protected Map memberModelEntities = null;
 
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
-    protected List aliasAlls = new ArrayList();
+    protected List aliasAlls = FastList.newInstance();
 
     /** List of aliases with information in addition to what is in the standard field list */
-    protected List aliases = new ArrayList();
+    protected List aliases = FastList.newInstance();
 
     /** List of view links to define how entities are connected (or "joined") */
-    protected List viewLinks = new ArrayList();
+    protected List viewLinks = FastList.newInstance();
 
     /** A List of the Field objects for the View Entity, one for each GROUP BY field */
-    protected List groupBys = new ArrayList();
+    protected List groupBys = FastList.newInstance();
 
-    protected Map conversions = new HashMap();
+    protected Map conversions = FastMap.newInstance();
 
     public ModelViewEntity(ModelReader reader, Element entityElement, UtilTimer utilTimer, ModelInfo def) {
         super(reader, entityElement, def);
@@ -189,7 +183,7 @@ public class ModelViewEntity extends ModelEntity {
 
     public ModelEntity getMemberModelEntity(String alias) {
         if (this.memberModelEntities == null) {
-            this.memberModelEntities = new HashMap();
+            this.memberModelEntities = FastMap.newInstance();
             populateFields(this.getModelReader());
         }
         return (ModelEntity) this.memberModelEntities.get(alias);
@@ -243,11 +237,15 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List getAliasesCopy() {
-        return new ArrayList(this.aliases);
+        List newList = FastList.newInstance();
+        newList.addAll(this.aliases);
+        return newList;
     }
 
     public List getGroupBysCopy() {
-        return new ArrayList(this.groupBys);
+        List newList = FastList.newInstance();
+        newList.addAll(this.groupBys);
+        return newList;
     }
 
     /** List of view links to define how entities are connected (or "joined") */
@@ -264,7 +262,9 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List getViewLinksCopy() {
-        return new ArrayList(this.viewLinks);
+        List newList = FastList.newInstance();
+        newList.addAll(this.viewLinks);
+        return newList;
     }
 
     public void addViewLink(ModelViewLink viewLink) {
@@ -336,7 +336,7 @@ public class ModelViewEntity extends ModelEntity {
     
     public void populateFieldsBasic(ModelReader modelReader) {
         if (this.memberModelEntities == null) {
-            this.memberModelEntities = new HashMap();
+            this.memberModelEntities = FastMap.newInstance();
         }
 
         Iterator meIter = memberModelMemberEntities.entrySet().iterator();
@@ -438,13 +438,14 @@ public class ModelViewEntity extends ModelEntity {
     protected ModelConversion getOrCreateModelConversion(String aliasName) {
         ModelEntity member = getMemberModelEntity(aliasName);
         if (member == null) {
-            Debug.logWarning("No member found for aliasName - " + aliasName, module);
-            throw new RuntimeException("Cannot create View Entity");
+            String errMsg = "No member found for aliasName - " + aliasName;
+            Debug.logWarning(errMsg, module);
+            throw new RuntimeException("Cannot create View Entity: " + errMsg);
         }
         
-        Map aliasConversions = (HashMap) conversions.get(member.getEntityName());
+        Map aliasConversions = (Map) conversions.get(member.getEntityName());
         if (aliasConversions == null) {
-            aliasConversions = new HashMap();
+            aliasConversions = FastMap.newInstance();
             conversions.put(member.getEntityName(), aliasConversions);
         }
         ModelConversion conversion = (ModelConversion) aliasConversions.get(aliasName);
@@ -456,18 +457,21 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public void populateReverseLinks() {
-        Map containedModelFields = new HashMap();
+        Map containedModelFields = FastMap.newInstance();
         Iterator it = getAliasesIterator();
         while (it.hasNext()) {
             ModelViewEntity.ModelAlias alias = (ModelViewEntity.ModelAlias) it.next();
-            ModelEntity member = getMemberModelEntity(alias.getEntityAlias());
-            ModelConversion conversion = getOrCreateModelConversion(alias.getEntityAlias());
-            conversion.addConversion(alias.getField(), alias.getName());
-            ModelField field = (ModelField) member.getField(alias.getField());
+            if (alias.isComplexAlias()) {
+                // TODO: conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly
+                Debug.logWarning("Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: " + alias.getName() + " of view-entity " + this.getEntityName(), module);
+            } else {
+                ModelConversion conversion = getOrCreateModelConversion(alias.getEntityAlias());
+                conversion.addConversion(alias.getField(), alias.getName());
+            }
 
-            List aliases = (List)containedModelFields.get(alias.getField());
+            List aliases = (List) containedModelFields.get(alias.getField());
             if (aliases == null) {
-                aliases = new ArrayList();
+                aliases = FastList.newInstance();
                 containedModelFields.put(alias.getField(), aliases);
             }
             aliases.add(alias.getName());
@@ -534,7 +538,7 @@ public class ModelViewEntity extends ModelEntity {
         Map foo = (Map) conversions.get(fromEntityName);
         if (foo == null) return null;
         Iterator it = foo.values().iterator();
-        List values = new ArrayList(foo.size());
+        List values = FastList.newInstance();
         while (it.hasNext()) {
             ModelConversion conversion = (ModelConversion) it.next();
             values.add(conversion.convert(data));
@@ -808,7 +812,7 @@ public class ModelViewEntity extends ModelEntity {
     }
     
     public static class ComplexAlias implements ComplexAliasMember {
-        protected List complexAliasMembers = new LinkedList();
+        protected List complexAliasMembers = FastList.newInstance();
         protected String operator;
         
         public ComplexAlias(String operator) {
@@ -908,7 +912,7 @@ public class ModelViewEntity extends ModelEntity {
         protected String entityAlias = "";
         protected String relEntityAlias = "";
         protected boolean relOptional = false;
-        protected List keyMaps = new ArrayList();
+        protected List keyMaps = FastList.newInstance();
 
         protected ModelViewLink() {}
 
@@ -961,14 +965,16 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public List getKeyMapsCopy() {
-            return new ArrayList(this.keyMaps);
+            List newList = FastList.newInstance();
+            newList.addAll(this.keyMaps);
+            return newList;
         }
     }
 
     public class ModelConversion implements Serializable {
         protected String aliasName;
         protected ModelEntity fromModelEntity;
-        protected Map fieldMap = new HashMap();
+        protected Map fieldMap = FastMap.newInstance();
         protected Set wildcards = new HashSet();
 
         public ModelConversion(String aliasName, ModelEntity fromModelEntity) {
@@ -1002,7 +1008,7 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public Map convert(Map values) {
-            Map newValues = new HashMap(fieldMap.size() + wildcards.size());
+            Map newValues = FastMap.newInstance();
             Iterator it = fieldMap.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry entry = (Map.Entry) it.next();
