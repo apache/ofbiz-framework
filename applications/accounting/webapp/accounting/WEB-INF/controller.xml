@@ -34,6 +34,7 @@ under the License.
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
+    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
         
     <preprocessor>
@@ -432,6 +433,10 @@ under the License.
     <request-map uri="ListGlAccountsReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListGlAccountsReport"/>
+    </request-map>
+    <request-map uri="ListGlAccountsExport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListGlAccountsExport"/>
     </request-map>
     <request-map uri="AddGlAccount">
         <security https="true" auth="true"/>
@@ -1222,6 +1227,7 @@ under the License.
     <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlAccountsReport" type="screenfop" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountsReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountsExport" content-type="text/xml"/>
     <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountOrganization"/>
     <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/AccountingScreens.xml#GlAccountNavigate"/>
     <view-map name="AssignGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AssignGlAccount"/>
