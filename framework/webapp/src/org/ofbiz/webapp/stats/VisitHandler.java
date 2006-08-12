@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.ModelEntity;
 
 /**
  * Handles saving and maintaining visit information
@@ -93,11 +94,14 @@ public class VisitHandler {
 
     public static void setUserLogin(HttpSession session, GenericValue userLogin, boolean userCreated) {
         if (userLogin == null) return;
+        ModelEntity modelUserLogin = userLogin.getModelEntity();
 
         GenericValue visitor = (GenericValue) session.getAttribute("visitor");
         if (visitor != null) {
             visitor.set("userLoginId", userLogin.get("userLoginId"));
-            visitor.set("partyId", userLogin.get("partyId"));
+            if (modelUserLogin.isField("partyId")) {
+                visitor.set("partyId", userLogin.get("partyId"));
+            }
             try {
                 visitor.store();
             } catch (GenericEntityException e) {
@@ -108,7 +112,9 @@ public class VisitHandler {
         GenericValue visit = getVisit(session);
         if (visit != null) {
             visit.set("userLoginId", userLogin.get("userLoginId"));
-            visit.set("partyId", userLogin.get("partyId"));
+            if (modelUserLogin.isField("partyId")) {
+                visit.set("partyId", userLogin.get("partyId"));
+            }
             visit.set("userCreated", new Boolean(userCreated));
             
             // make sure the visitorId is still in place
