@@ -78,10 +78,12 @@ under the License.
     <target name="clean">
         <subant target="clean">
             <filelist dir="." files="framework/build.xml"/>
-            <filelist dir="." files="applications/build.xml"/>
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <include name="**/build.xml"/>
             </fileset>
+        </subant>
+        <subant target="clean" failonerror="false"> <!-- use failonerror=false in case the applications directory is not there -->
+            <filelist dir="." files="applications/build.xml"/>
         </subant>
         <delete file="ofbiz.jar"/>
         <echo message="[clean] ========== Done Cleaning =========="/>
@@ -96,12 +98,16 @@ under the License.
 
         <subant inheritall="false">
             <filelist dir="." files="framework/build.xml"/>
+        </subant>
+        <subant inheritall="false" failonerror="false">
             <filelist dir="." files="applications/build.xml"/>
+        </subant>
+        <subant inheritall="false">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-
+        
         <echo message="[build] ========== Done Building (Compile) =========="/>
     </target>
 
@@ -114,12 +120,16 @@ under the License.
 
         <subant target="docs">
             <filelist dir="." files="framework/build.xml"/>
+        </subant>
+        <subant target="docs" failonerror="false">
             <filelist dir="." files="applications/build.xml"/>
+        </subant>
+        <subant target="docs">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-
+        
         <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
     </target>
 
