@@ -1906,5 +1906,28 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
     </entity>
+    <extend-entity entity-name="CustomTimePeriod">
+        <field name="organizationPartyId" type="id"></field>
+        <relation type="one" fk-name="ORG_PRD_PARTY" title="Organization" rel-entity-name="Party">
+            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        </relation>
+    </extend-entity>
+    <extend-entity entity-name="UserLogin">
+        <field name="partyId" type="id"></field>
+        <relation type="one" fk-name="USER_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Person">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyGroup">
+            <key-map field-name="partyId"/>
+        </relation>
+    </extend-entity>
+    <extend-entity entity-name="UserLoginHistory">
+        <field name="partyId" type="id"></field>
+        <relation type="one" fk-name="USER_LH_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+    </extend-entity>
 </entitymodel>
-

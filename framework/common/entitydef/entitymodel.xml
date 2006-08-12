@@ -287,7 +287,6 @@ under the License.
             title="Custom Time Period Entity">
       <field name="customTimePeriodId" type="id-ne"></field>
       <field name="parentPeriodId" type="id"></field>
-      <field name="organizationPartyId" type="id"></field>
       <field name="periodTypeId" type="id"></field>
       <field name="periodNum" type="numeric"></field>
       <field name="periodName" type="name"></field>
@@ -297,9 +296,6 @@ under the License.
       <prim-key field="customTimePeriodId"/>
       <relation type="one" fk-name="ORG_PRD_PARPER" title="Parent" rel-entity-name="CustomTimePeriod">
         <key-map field-name="parentPeriodId" rel-field-name="customTimePeriodId"/>
-      </relation>
-      <relation type="one" fk-name="ORG_PRD_PARTY" title="Organization" rel-entity-name="Party">
-        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="ORG_PRD_PERTYP" rel-entity-name="PeriodType">
         <key-map field-name="periodTypeId"/>

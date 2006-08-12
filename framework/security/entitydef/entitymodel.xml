@@ -42,7 +42,6 @@ under the License.
             package-name="org.ofbiz.security.login"
             title="User Login Entity">
       <field name="userLoginId" type="id-vlong-ne"></field>
-      <field name="partyId" type="id"></field>
       <field name="currentPassword" type="short-varchar"></field>
       <field name="passwordHint" type="description"></field>
       <field name="isSystem" type="indicator"></field>
@@ -53,15 +52,6 @@ under the License.
       <field name="disabledDateTime" type="date-time"></field>
       <field name="successiveFailedLogins" type="numeric"></field>
       <prim-key field="userLoginId"/>
-      <relation type="one" fk-name="USER_PARTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Person">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyGroup">
-        <key-map field-name="partyId"/>
-      </relation>
     </entity>
     <entity entity-name="UserLoginHistory"
             package-name="org.ofbiz.security.login"
@@ -71,16 +61,12 @@ under the License.
       <field name="visitId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="partyId" type="id"></field>
       <field name="passwordUsed" type="short-varchar" encrypt="true"></field>
       <field name="successfulLogin" type="indicator"></field>
       <prim-key field="userLoginId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="USER_LH_USER" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
-      </relation>
-      <relation type="one" fk-name="USER_LH_PARTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
       </relation>
     </entity>
     <entity entity-name="UserLoginSession"
@@ -163,4 +149,3 @@ under the License.
       </relation>
     </entity>    
 </entitymodel>
-

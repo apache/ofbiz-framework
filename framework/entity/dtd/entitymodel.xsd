@@ -36,6 +36,7 @@
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
                     <xs:element ref="entity"/>
                     <xs:element ref="view-entity"/>
+                    <xs:element ref="extend-entity"/>
                 </xs:choice>
             </xs:sequence>
         </xs:complexType>
@@ -372,5 +373,19 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:element name="extend-entity">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="relation"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.extend-entity"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.extend-entity">
+        <xs:attribute type="xs:string" name="entity-name" use="required"/>
     </xs:attributeGroup>
 </xs:schema>
