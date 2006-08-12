@@ -139,9 +139,11 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         this.populateBasicInfo(entityElement);
 
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before fields");
-        NodeList fieldList = entityElement.getElementsByTagName("field");
-        for (int i = 0; i < fieldList.getLength(); i++) {
-            ModelField field = reader.createModelField((Element) fieldList.item(i));
+        List fieldElementList = UtilXml.childElementList(entityElement, "field");
+        Iterator fieldElementIter = fieldElementList.iterator();
+        while (fieldElementIter.hasNext()) {
+            Element fieldElement = (Element) fieldElementIter.next();
+            ModelField field = reader.createModelField(fieldElement);
             if (field != null) {
                 field.setModelEntity(this);
                 this.fields.add(field);
@@ -191,15 +193,17 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         }
 
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before prim-keys");
-        NodeList pkList = entityElement.getElementsByTagName("prim-key");
-        for (int i = 0; i < pkList.getLength(); i++) {
-            ModelField field = reader.findModelField(this, ((Element) pkList.item(i)).getAttribute("field"));
+        List pkElementList = UtilXml.childElementList(entityElement, "prim-key");
+        Iterator pkElementIter = pkElementList.iterator();
+        while (pkElementIter.hasNext()) {
+            Element pkElement = (Element) pkElementIter.next();
+            ModelField field = reader.findModelField(this, pkElement.getAttribute("field"));
             if (field != null) {
                 this.pks.add(field);
                 field.isPk = true;
             } else {
                 Debug.logError("[ModelReader.createModelEntity] ERROR: Could not find field \"" +
-                    ((Element) pkList.item(i)).getAttribute("field") + "\" specified in a prim-key", module);
+                        pkElement.getAttribute("field") + "\" specified in a prim-key", module);
             }
         }
 
@@ -246,29 +250,29 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         this.autoClearCache = UtilXml.checkBoolean(entityElement.getAttribute("auto-clear-cache"), true);
     }
 
+
     protected void populateRelated(ModelReader reader, Element entityElement) {
-        NodeList relationList = entityElement.getElementsByTagName("relation");
-        for (int i = 0; i < relationList.getLength(); i++) {
-            Element relationElement = (Element) relationList.item(i);
-            if (relationElement.getParentNode() == entityElement) {
-                ModelRelation relation = reader.createRelation(this, relationElement);
-                if (relation != null) {
-                    relation.setModelEntity(this);
-                    this.relations.add(relation);
-                }
+        List relationElementList = UtilXml.childElementList(entityElement, "relation");
+        Iterator relationElementIter = relationElementList.iterator();
+        while (relationElementIter.hasNext()) {
+            Element relationElement = (Element) relationElementIter.next();
+            ModelRelation relation = reader.createRelation(this, relationElement);
+            if (relation != null) {
+                relation.setModelEntity(this);
+                this.relations.add(relation);
             }
         }
     }
 
+
     protected void populateIndexes(Element entityElement) {
-        NodeList indexList = entityElement.getElementsByTagName("index");
-        for (int i = 0; i < indexList.getLength(); i++) {
-            Element indexElement = (Element) indexList.item(i);
-            if (indexElement.getParentNode() == entityElement) {
-                ModelIndex index = new ModelIndex(this, indexElement);
-                index.setModelEntity(this);
-                this.indexes.add(index);
-            }
+        List indexElementList = UtilXml.childElementList(entityElement, "index");
+        Iterator indexElementIter = indexElementList.iterator();
+        while (indexElementIter.hasNext()) {
+            Element indexElement = (Element) indexElementIter.next();
+            ModelIndex index = new ModelIndex(this, indexElement);
+            index.setModelEntity(this);
+            this.indexes.add(index);
         }
     }
 
@@ -283,8 +287,29 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return true;
     }
 
+
+    public void addExtendEntity(ModelReader reader, Element extendEntityElement) {
+        List fieldElementList = UtilXml.childElementList(extendEntityElement, "field");
+        Iterator fieldElementIter = fieldElementList.iterator();
+        while (fieldElementIter.hasNext()) {
+            Element fieldElement = (Element) fieldElementIter.next();
+            // TODO: should we look for existing fields of the same name here? for now just add to list...
+            ModelField field = reader.createModelField(fieldElement);
+            if (field != null) {
+                field.setModelEntity(this);
+                this.fields.add(field);
+                // this will always be true for now as extend-entity fielsd are always nonpks
+                if (!field.isPk) this.nopks.add(field);
+            }
+        }
+        
+        this.populateRelated(reader, extendEntityElement);
+        this.populateIndexes(extendEntityElement);
+    }
+    
     // ===== GETTERS/SETTERS =====
 
+    
     public ModelReader getModelReader() {
         return modelReader;
     }
