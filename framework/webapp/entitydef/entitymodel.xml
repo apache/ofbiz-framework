@@ -100,7 +100,6 @@ under the License.
             title="Server Hit Bin Entity">
       <field name="serverHitBinId" type="id-ne"></field>
       <field name="contentId" type="id-vlong-ne"></field>
-      <field name="internalContentId" type="id"></field>
       <field name="hitTypeId" type="id-ne"></field>
       <field name="serverIpAddress" type="id"></field>
       <field name="serverHostName" type="long-varchar"></field>
@@ -113,9 +112,6 @@ under the License.
       <prim-key field="serverHitBinId"/>
       <relation type="one" fk-name="SERVER_HBIN_TYPE" rel-entity-name="ServerHitType">
         <key-map field-name="hitTypeId"/>
-      </relation>
-      <relation type="one" fk-name="SERVER_HBIN_CNT" rel-entity-name="Content">
-        <key-map field-name="internalContentId" rel-field-name="contentId"/>
       </relation>
     </entity>
     <entity entity-name="ServerHitType"
@@ -230,7 +226,6 @@ under the License.
             title="Web Site Entity">
       <field name="webSiteId" type="id-ne"></field>
       <field name="siteName" type="name"></field>
-      <field name="productStoreId" type="id"></field>
       <field name="allowProductStoreChange" type="indicator"></field>
       <field name="httpHost" type="long-varchar"></field>
       <field name="httpPort" type="very-short"></field>
@@ -241,9 +236,5 @@ under the License.
       <field name="secureContentPrefix" type="url"></field>
       <field name="cookieDomain" type="long-varchar"></field>
       <prim-key field="webSiteId"/>
-      <relation type="one" fk-name="WEB_SITE_PRDS" rel-entity-name="ProductStore">
-        <key-map field-name="productStoreId"/>
-      </relation>
     </entity>
 </entitymodel>
-
