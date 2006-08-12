@@ -26,9 +26,12 @@ under the License.
     if (userLogin != null) request.setAttribute("userLogin", userLogin);
 
     GenericValue person = (GenericValue) session.getAttribute("_PERSON_");
-    if (person == null) {
-        person = userLogin == null ? null : userLogin.getRelatedOne("Person");
-        if (person != null) session.setAttribute("_PERSON_", person);
+    if (person == null && userLogin != null) {
+        ModelEntity modelUserLogin = userLogin.getModelEntity();
+        if (modelUserLogin.isField("partyId")) {
+            person = userLogin.getRelatedOne("Person");
+            if (person != null) session.setAttribute("_PERSON_", person);
+        }
     }
     if (person != null) request.setAttribute("person", person);
 
