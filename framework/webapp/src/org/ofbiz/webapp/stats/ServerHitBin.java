@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.ModelEntity;
 
 /**
  * <p>Counts server hits and tracks statistics for request, events and views
@@ -621,7 +622,10 @@ public class ServerHitBin {
             serverHit.set("hitTypeId", ServerHitBin.typeIds[this.type]);
             if (userLogin != null) {
                 serverHit.set("userLoginId", userLogin.get("userLoginId"));
-                serverHit.set("partyId", userLogin.get("partyId"));
+                ModelEntity modelUserLogin = userLogin.getModelEntity();
+                if (modelUserLogin.isField("partyId")) {
+                    serverHit.set("partyId", userLogin.get("partyId"));
+                }
             }
             serverHit.set("contentId", this.id);
             serverHit.set("runningTimeMillis", new Long(runningTime));
