@@ -35,7 +35,7 @@ under the License.
 
     <!-- Events run from here for the first hit in a visit -->
     <firstvisit>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="autoLoginCheck"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="autoLoginCheck"/>
         <event type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeCookies"/>
         <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="setDefaultStoreSettings"/>
     </firstvisit>
@@ -43,7 +43,7 @@ under the License.
     <!-- Events to run on every request before security (chains exempt) -->
     <preprocessor>
         <!-- This event allows affilate/distributor entry on any page -->
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="checkExternalLoginKey"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
         <event type="java" path="org.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
         <event type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeUrlParam"/>
         <event type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkPartnerTrackingCodeUrlParam"/>
@@ -83,13 +83,13 @@ under the License.
     </request-map>
     <request-map uri="logout">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="logout"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
         <response name="success" type="request" value="checkLogin"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="autoLogout">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="autoLoginRemove"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="autoLoginRemove"/>
         <response name="success" type="request" value="checkLogin"/>
         <response name="error" type="view" value="main"/>
     </request-map>

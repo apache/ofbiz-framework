@@ -44,7 +44,7 @@ under the License.
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
         <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="checkExternalLoginKey"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
     </preprocessor>
     <postprocessor>
         <!-- Events to run on every request after all other processing (chains exempt) -->
@@ -55,19 +55,19 @@ under the License.
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="checkLogin" />
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin" />
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="login">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="login"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="logout">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="logout"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
         <response name="success" type="request" value="checkLogin"/>
         <response name="error" type="view" value="main"/>
     </request-map>
