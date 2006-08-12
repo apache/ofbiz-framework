@@ -71,6 +71,9 @@ public class JobManager {
 
     /** Creates a new JobManager object. */
     public JobManager(GenericDelegator delegator) {
+        if (delegator == null) {
+            throw new GeneralRuntimeException("ERROR: null delegator passed, cannot create JobManager");
+        }
         if (JobManager.registeredManagers.get(delegator.getDelegatorName()) != null) {
             throw new GeneralRuntimeException("JobManager for [" + delegator.getDelegatorName() + "] already running");
         }
