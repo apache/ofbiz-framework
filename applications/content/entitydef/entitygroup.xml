@@ -53,7 +53,8 @@ under the License.
     <entity-group group="org.ofbiz" entity="ContentType" />
     <entity-group group="org.ofbiz" entity="ContentTypeAttr" />
     <entity-group group="org.ofbiz" entity="SubContentDataResourceView" />
-
+    <entity-group group="org.ofbiz" entity="WebSitePublishPoint" />
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.data -->
   <!-- ========================================================= -->
