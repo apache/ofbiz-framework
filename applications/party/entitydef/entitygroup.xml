@@ -126,4 +126,5 @@ under the License.
     <entity-group group="org.ofbiz" entity="RoleTypeAndParty" />
     <entity-group group="org.ofbiz" entity="RoleTypeAttr" />
     <entity-group group="org.ofbiz" entity="Vendor" />
+    <entity-group group="org.ofbiz" entity="WebSiteRole" />
 </entitygroup>

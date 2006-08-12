@@ -40,8 +40,4 @@ under the License.
 
     <entity-group group="org.ofbiz" entity="WebPage" />
     <entity-group group="org.ofbiz" entity="WebSite" />
-    <entity-group group="org.ofbiz" entity="WebSiteRole" />
-    <entity-group group="org.ofbiz" entity="WebSitePublishPoint" />
-
 </entitygroup>
-

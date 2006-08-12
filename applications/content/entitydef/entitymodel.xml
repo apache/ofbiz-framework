@@ -664,7 +664,31 @@ under the License.
         <key-map field-name="contentId" rel-field-name="contentIdTo"/>
       </relation>
     </view-entity>
-
+    <entity entity-name="WebSitePublishPoint"
+        package-name="org.ofbiz.content.content"
+        title="Web Site Publish Point">
+        <field name="contentId" type="id-ne"></field>
+        <field name="templateTitle" type="long-varchar"></field>
+        <field name="styleSheetFile" type="long-varchar"></field>
+        <field name="logo" type="long-varchar"></field>
+        <field name="medallionLogo" type="long-varchar"></field>
+        <field name="lineLogo" type="long-varchar"></field>
+        <field name="leftBarId" type="id"></field>
+        <field name="rightBarId" type="id"></field>
+        <field name="contentDept" type="id"></field>
+        <field name="aboutContentId" type="id"></field>
+        <prim-key field="contentId"/>
+        <relation type="one" fk-name="WBSTPP_CONTENT" rel-entity-name="Content">
+            <key-map field-name="contentId" />
+        </relation>
+    </entity>
+    <extend-entity entity-name="WebPage">
+        <field name="contentId" type="id-ne"></field>
+        <relation type="one" fk-name="WEB_PAGE_CONTENT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+    </extend-entity>
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.data -->
   <!-- ========================================================= -->

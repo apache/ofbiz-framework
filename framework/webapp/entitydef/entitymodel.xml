@@ -69,16 +69,12 @@ under the License.
       <field name="contentId" type="id-vlong-ne"></field>
       <field name="hitStartDateTime" type="date-time"></field>
       <field name="hitTypeId" type="id-ne"></field>
-      <field name="internalContentId" type="id"></field>
       <field name="numOfBytes" type="numeric"></field>
       <field name="runningTimeMillis" type="numeric"></field>
       <field name="userLoginId" type="id-vlong"></field>
-      <field name="partyId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="requestUrl" type="url"></field>
       <field name="referrerUrl" type="url"></field>
-      <field name="idByIpContactMechId" type="id"></field>
-      <field name="refByWebContactMechId" type="id"></field>
       <field name="serverIpAddress" type="id"></field>
       <field name="serverHostName" type="long-varchar"></field>
       <prim-key field="visitId"/>
@@ -91,23 +87,11 @@ under the License.
       <relation type="one" fk-name="SERVER_HIT_VISIT" rel-entity-name="Visit">
         <key-map field-name="visitId"/>
       </relation>
-      <relation type="one" fk-name="SERVER_HIT_PARTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="SERVER_HIT_IDBYIP" title="IdByIp" rel-entity-name="ContactMech">
-        <key-map field-name="idByIpContactMechId" rel-field-name="contactMechId"/>
-      </relation>
-      <relation type="one" fk-name="SERVER_HIT_REFWEB" title="RefByWeb" rel-entity-name="ContactMech">
-        <key-map field-name="refByWebContactMechId" rel-field-name="contactMechId"/>
-      </relation>
       <relation type="one" fk-name="SERVER_HIT_STATUS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
       <relation type="one" fk-name="SERVER_HIT_USER" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
-      </relation>
-      <relation type="one" fk-name="SERVER_HIT_CNT" rel-entity-name="Content">
-        <key-map field-name="internalContentId" rel-field-name="contentId"/>
       </relation>
     </entity>
     <entity entity-name="ServerHitBin"
@@ -186,11 +170,8 @@ under the License.
             never-cache="true"
             title="Visit Entity">
       <field name="visitId" type="id-ne"></field>
-      <field name="contactMechId" type="id"></field>
       <field name="visitorId" type="id"></field>
       <field name="userLoginId" type="id-vlong"></field>
-      <field name="partyId" type="id"></field>
-      <field name="roleTypeId" type="id"></field>
       <field name="userCreated" type="indicator"></field>
       <field name="sessionId" type="id-vlong"></field>
       <field name="serverIpAddress" type="id"></field>
@@ -208,25 +189,12 @@ under the License.
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="visitId"/>       
-      <relation type="one" fk-name="VISIT_CONT_MECH" rel-entity-name="ContactMech">
-        <key-map field-name="contactMechId"/>
-      </relation>
       <relation type="one" fk-name="VISIT_VISITOR" rel-entity-name="Visitor">
         <key-map field-name="visitorId"/>
-      </relation>
-      <relation type="one" fk-name="VISIT_PARTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="VISIT_ROLE_TYPE" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="VISIT_USER_AGNT" rel-entity-name="UserAgent">
         <key-map field-name="userAgentId"/>
       </relation>
-      <relation type="one" fk-name="VISIT_PARTY_ROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>      
       <index name="VISIT_THRU_IDX" unique="false">
         <index-field name="thruDate"/>
       </index>
@@ -236,13 +204,9 @@ under the License.
             title="Visitor Entity">
       <field name="visitorId" type="id-ne"></field>
       <field name="userLoginId" type="id-vlong"></field>
-      <field name="partyId" type="id"></field>
       <prim-key field="visitorId"/>
       <relation type="one" fk-name="VISITOR_USRLGN" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
-      </relation>
-      <relation type="one" fk-name="VISITOR_PARTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
       </relation>
     </entity>
 
@@ -255,12 +219,8 @@ under the License.
             title="Web Page Entity">
       <field name="webPageId" type="id-ne"></field>
       <field name="pageName" type="name"></field>
-      <field name="contentId" type="id-ne"></field>
       <field name="webSiteId" type="id"></field>
       <prim-key field="webPageId"/>
-      <relation type="one" fk-name="WEB_PAGE_CONTENT" rel-entity-name="Content">
-        <key-map field-name="contentId"/>
-      </relation>
       <relation type="one" fk-name="WEB_PAGE_SITE" rel-entity-name="WebSite">
         <key-map field-name="webSiteId"/>
       </relation>
@@ -283,57 +243,6 @@ under the License.
       <prim-key field="webSiteId"/>
       <relation type="one" fk-name="WEB_SITE_PRDS" rel-entity-name="ProductStore">
         <key-map field-name="productStoreId"/>
-      </relation>
-    </entity>
-    <entity entity-name="WebSiteRole"
-            package-name="org.ofbiz.webapp.website"
-            title="WebSite Role Association Entity">
-      <field name="partyId" type="id-ne"></field>
-      <field name="roleTypeId" type="id-ne"></field>
-      <field name="webSiteId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <field name="sequenceNum" type="numeric"></field>
-      <prim-key field="partyId"/>
-      <prim-key field="roleTypeId"/>
-      <prim-key field="webSiteId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one-nofk" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="Person">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyGroup">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="WSRLE_PTYRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="WSRLE_WSITE" rel-entity-name="WebSite">
-        <key-map field-name="webSiteId"/>
-      </relation>
-    </entity>
-    <entity entity-name="WebSitePublishPoint"
-            package-name="org.ofbiz.webapp.website"
-            title="Web Site Publish Point">
-      <field name="contentId" type="id-ne"></field>
-      <field name="templateTitle" type="long-varchar"></field>
-      <field name="styleSheetFile" type="long-varchar"></field>
-      <field name="logo" type="long-varchar"></field>
-      <field name="medallionLogo" type="long-varchar"></field>
-      <field name="lineLogo" type="long-varchar"></field>
-      <field name="leftBarId" type="id"></field>
-      <field name="rightBarId" type="id"></field>
-      <field name="contentDept" type="id"></field>
-      <field name="aboutContentId" type="id"></field>
-      <prim-key field="contentId"/>
-      <relation type="one" fk-name="WBSTPP_CONTENT" rel-entity-name="Content">
-          <key-map field-name="contentId" />
       </relation>
     </entity>
 </entitymodel>
