@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package org.ofbiz.securityext.login;
+package org.ofbiz.webapp.control;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
