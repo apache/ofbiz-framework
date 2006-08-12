@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
@@ -346,13 +347,17 @@ public class LoginWorker {
         HttpSession session = request.getSession();
         session.setAttribute("userLogin", userLogin);
 
-        try {
-            GenericValue person = userLogin.getRelatedOne("Person");
-            GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup");
-            if (person != null) session.setAttribute("person", person);
-            if (partyGroup != null) session.setAttribute("partyGroup", partyGroup);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error getting person/partyGroup info for session, ignoring...", module);
+        ModelEntity modelUserLogin = userLogin.getModelEntity();
+        if (modelUserLogin.isField("partyId")) {
+            // if partyId is a field, then we should have these relations defined
+            try {
+                GenericValue person = userLogin.getRelatedOne("Person");
+                GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup");
+                if (person != null) session.setAttribute("person", person);
+                if (partyGroup != null) session.setAttribute("partyGroup", partyGroup);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error getting person/partyGroup info for session, ignoring...", module);
+            }
         }
 
         // let the visit know who the user is
