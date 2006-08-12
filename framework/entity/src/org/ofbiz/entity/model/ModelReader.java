@@ -305,7 +305,12 @@ public class ModelReader implements Serializable {
                             while (relationsIter.hasNext()) {
                                 ModelRelation modelRelation = (ModelRelation) relationsIter.next();
                                 if (("one".equals(modelRelation.getType()) || "one-nofk".equals(modelRelation.getType())) && !modelRelation.isAutoRelation()) {
-                                    ModelEntity relatedEnt = this.getModelEntity(modelRelation.getRelEntityName());
+                                    ModelEntity relatedEnt = null;
+                                    try {
+                                        relatedEnt = this.getModelEntity(modelRelation.getRelEntityName());
+                                    } catch (GenericModelException e) {
+                                        throw new GenericModelException("Error getting related entity [" + modelRelation.getRelEntityName() + "] definition from entity [" + curEntityName + "]", e);
+                                    }
                                     if (relatedEnt != null) {
                                         // don't do relationship to the same entity, unless title is "Parent", then do a "Child" automatically
                                         String targetTitle = modelRelation.getTitle();
