@@ -467,9 +467,13 @@ public class LoginWorker {
                 GenericValue person = null;
                 GenericValue group = null;
                 if (autoUserLogin != null) {
-                    person = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", autoUserLogin.getString("partyId")));
-                    group = delegator.findByPrimaryKey("PartyGroup", UtilMisc.toMap("partyId", autoUserLogin.getString("partyId")));
                     session.setAttribute("autoUserLogin", autoUserLogin);
+
+                    ModelEntity modelUserLogin = autoUserLogin.getModelEntity();
+                    if (modelUserLogin.isField("partyId")) {
+                        person = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", autoUserLogin.getString("partyId")));
+                        group = delegator.findByPrimaryKey("PartyGroup", UtilMisc.toMap("partyId", autoUserLogin.getString("partyId")));
+                    }
                 }
                 if (person != null) {
                     session.setAttribute("autoName", person.getString("firstName") + " " + person.getString("lastName"));
