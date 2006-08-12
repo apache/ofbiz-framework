@@ -81,7 +81,7 @@ under the License.
     <!-- this listener will save any abandoned cart info -->
     <listener><listener-class>org.ofbiz.order.shoppingcart.CartEventListener</listener-class></listener>
     <!-- this listener will clean up info -->
-    <listener><listener-class>org.ofbiz.securityext.login.LoginEventListener</listener-class></listener>
+    <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
   
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
