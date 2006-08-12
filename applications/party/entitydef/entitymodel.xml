@@ -1963,6 +1963,12 @@ under the License.
             <key-map field-name="internalContentId" rel-field-name="contentId"/>
         </relation>
     </extend-entity>
+    <extend-entity entity-name="ServerHitBin">
+        <field name="internalContentId" type="id"></field>
+        <relation type="one" fk-name="SERVER_HBIN_CNT" rel-entity-name="Content">
+            <key-map field-name="internalContentId" rel-field-name="contentId"/>
+        </relation>
+    </extend-entity>
     <extend-entity entity-name="Visit">
         <field name="contactMechId" type="id"></field>
         <field name="partyId" type="id"></field>
