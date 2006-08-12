@@ -26,15 +26,21 @@ if (userLogin != null) request.setAttribute("userLogin", userLogin);
 
 person = session.getAttribute("_PERSON_");
 partyGroup = session.getAttribute("_PARTY_GROUP_");
-if (person == null) {
-    person = userLogin == null ? null : userLogin.getRelatedOne("Person");
-    if (person != null) session.setAttribute("_PERSON_", person);
+if (person == null && userLogin != null) {
+    modelUserLogin = userLogin.getModelEntity();
+    if (modelUserLogin.isField("partyId")) {
+        person = userLogin.getRelatedOne("Person");
+        if (person != null) session.setAttribute("_PERSON_", person);
+    }
 }
 if (person != null) {
     request.setAttribute("person", person);
-} else if (partyGroup == null) {
-    partyGroup = userLogin == null ? null : userLogin.getRelatedOne("PartyGroup");
-    if (partyGroup != null) session.setAttribute("_PARTY_GROUP_", partyGroup);
+} else if (partyGroup == null && userLogin != null) {
+    modelUserLogin = userLogin.getModelEntity();
+    if (modelUserLogin.isField("partyId")) {
+        partyGroup = userLogin.getRelatedOne("PartyGroup");
+        if (partyGroup != null) session.setAttribute("_PARTY_GROUP_", partyGroup);
+    }
 }
 if (partyGroup != null) request.setAttribute("partyGroup", partyGroup);
 
