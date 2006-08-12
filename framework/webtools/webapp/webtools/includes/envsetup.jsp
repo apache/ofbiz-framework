@@ -14,7 +14,7 @@ License for the specific language governing permissions and limitations
 under the License.
 --%>
 <%@ page import="java.util.*, java.net.*" %>
-<%@ page import="org.ofbiz.security.*, org.ofbiz.entity.*, org.ofbiz.base.util.*, org.ofbiz.webapp.pseudotag.*, org.ofbiz.webapp.control.*, org.ofbiz.base.util.collections.*" %>
+<%@ page import="org.ofbiz.security.*, org.ofbiz.entity.*, org.ofbiz.entity.model.*, org.ofbiz.base.util.*, org.ofbiz.webapp.pseudotag.*, org.ofbiz.webapp.control.*, org.ofbiz.base.util.collections.*" %>
 <%@ page import="org.ofbiz.securityext.login.*, org.ofbiz.common.*" %>
 
 <%@ taglib uri="ofbizTags" prefix="ofbiz" %>
