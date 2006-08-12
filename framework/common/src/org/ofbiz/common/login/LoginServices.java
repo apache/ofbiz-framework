@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -265,8 +266,12 @@ public class LoginServices {
     
                                     if (createHistory) {
                                         Map ulhCreateMap = UtilMisc.toMap("userLoginId", username, "visitId", visitId,
-                                                "fromDate", UtilDateTime.nowTimestamp(),
-                                                "partyId", userLogin.get("partyId"), "successfulLogin", successfulLogin);
+                                                "fromDate", UtilDateTime.nowTimestamp(), "successfulLogin", successfulLogin);
+                                        
+                                        ModelEntity modelUserLogin = userLogin.getModelEntity();
+                                        if (modelUserLogin.isField("partyId")) {
+                                            ulhCreateMap.put("partyId", userLogin.get("partyId"));
+                                        }
     
                                         // ONLY save the password if it was incorrect
                                         if ("N".equals(successfulLogin) && !"false".equals(UtilProperties.getPropertyValue("security.properties", "store.login.history.incorrect.password"))) {
