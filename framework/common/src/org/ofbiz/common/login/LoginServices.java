@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package org.ofbiz.securityext.login;
+package org.ofbiz.common.login;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
