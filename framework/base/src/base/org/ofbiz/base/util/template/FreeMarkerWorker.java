@@ -87,7 +87,18 @@ public class FreeMarkerWorker {
             ftlTransforms.put("renderWrappedText", loader.loadClass("org.ofbiz.webapp.ftl.RenderWrappedTextTransform").newInstance());
 
             ftlTransforms.put("menuWrap", loader.loadClass("org.ofbiz.widget.menu.MenuWrapTransform").newInstance());
-            
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+        } catch (IllegalAccessException e) {
+            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+        } catch (InstantiationException e) {
+            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+        }
+
+        // do the applications ones in a separate pass so the framework ones can load even if the applications are not present
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
             ftlTransforms.put("editRenderSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.EditRenderSubContentTransform").newInstance());
             ftlTransforms.put("renderSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderSubContentTransform").newInstance());
             ftlTransforms.put("loopSubContent", loader.loadClass("org.ofbiz.content.webapp.ftl.LoopSubContentTransform").newInstance());
@@ -105,11 +116,11 @@ public class FreeMarkerWorker {
             ftlTransforms.put("renderSubContentAsText", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderSubContentAsText").newInstance());
             ftlTransforms.put("renderContentAsText", loader.loadClass("org.ofbiz.content.webapp.ftl.RenderContentAsText").newInstance());
         } catch (ClassNotFoundException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+            Debug.logError("Could not pre-initialize dynamically loaded class: " + e.toString(), module);
         } catch (IllegalAccessException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+            Debug.logError("Could not pre-initialize dynamically loaded class: " + e.toString(), module);
         } catch (InstantiationException e) {
-            Debug.logError(e, "Could not pre-initialize dynamically loaded class: ", module);
+            Debug.logError("Could not pre-initialize dynamically loaded class: " + e.toString(), module);
         }
     }
 
