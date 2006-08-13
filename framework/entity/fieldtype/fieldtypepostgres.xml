@@ -20,7 +20,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/fieldtypemodel.xsd">
   <!-- ===================== field-type-def ==================== -->
    <!-- General Types --> 
-    <field-type-def type="blob" sql-type="OID" java-type="java.lang.Object"></field-type-def>
+    <field-type-def type="blob" sql-type="BYTEA" java-type="java.lang.Object"></field-type-def>
 
     <field-type-def type="date-time" sql-type="TIMESTAMPTZ" java-type="java.sql.Timestamp"></field-type-def>
     <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"></field-type-def>

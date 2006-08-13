@@ -80,6 +80,7 @@ public class DatasourceInfo {
     public boolean aliasViews = true;
     public boolean alwaysUseConstraintKeyword = false;
     public boolean dropFkUseForeignKeyKeyword = false;
+    public boolean useBinaryTypeForBlob = false;
     public String tableType = null;
     public String characterSet = null;
     public String collate = null;
@@ -112,6 +113,7 @@ public class DatasourceInfo {
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for join-style (ansi)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for always-use-constraint-keyword (false)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for drop-fk-use-foreign-key-keyword (false)", module);
+            Debug.logWarning("datasource def not found with name " + this.name + ", using default for use-binary-type-for-blob (false)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for table-type (none)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for character-set (none)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for collate (none)", module);
@@ -159,6 +161,7 @@ public class DatasourceInfo {
             // anything but true is false
             this.alwaysUseConstraintKeyword = "true".equals(datasourceElement.getAttribute("always-use-constraint-keyword"));
             this.dropFkUseForeignKeyKeyword = "true".equals(datasourceElement.getAttribute("drop-fk-use-foreign-key-keyword"));
+            this.useBinaryTypeForBlob = "true".equals(datasourceElement.getAttribute("use-binary-type-for-blob"));
             
             this.tableType = datasourceElement.getAttribute("table-type");
             this.characterSet = datasourceElement.getAttribute("character-set");
