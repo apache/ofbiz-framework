@@ -44,7 +44,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     -->
 
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
-        <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>
+        <group-map group-name="org.ofbiz" datasource-name="localderby"/>
         <group-map group-name="org.ofbiz.odbc" datasource-name="localderbyodbc"/>
     </delegator>
     <delegator name="default-no-eca" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" entity-eca-enabled="false" distributed-cache-clear-enabled="false">
