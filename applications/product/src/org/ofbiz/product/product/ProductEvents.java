@@ -600,7 +600,7 @@ public class ProductEvents {
 
         if (!UtilValidate.isNotEmpty(productId))
             errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.product_ID_missing", UtilHttp.getLocale(request)));
-        if (!UtilValidate.isNotEmpty(productId))
+        if (!UtilValidate.isNotEmpty(attrName))
             errMsg += ("<li>" + UtilProperties.getMessage(resource,"productevents.attribute_name_missing", UtilHttp.getLocale(request)));
         if (errMsg.length() > 0) {
             errMsg += ("<b>" + UtilProperties.getMessage(resource,"productevents.following_errors_occurred", UtilHttp.getLocale(request)));
