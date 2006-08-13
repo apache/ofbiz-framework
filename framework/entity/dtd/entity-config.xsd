@@ -359,6 +359,14 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="use-binary-type-for-blob" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="table-type"/>
         <xs:attribute type="xs:string" name="character-set"/>
         <xs:attribute type="xs:string" name="collate"/>

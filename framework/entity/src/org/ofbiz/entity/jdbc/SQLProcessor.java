@@ -792,7 +792,12 @@ public class SQLProcessor {
                 throw new SQLException(ex.getMessage());
             }
         } else {
-            _ps.setNull(_ind, Types.BLOB);
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperName);
+            if (datasourceInfo.useBinaryTypeForBlob) {
+                _ps.setNull(_ind, Types.BINARY);
+            } else {
+                _ps.setNull(_ind, Types.BLOB);
+            }
         }
 
         _ind++;
