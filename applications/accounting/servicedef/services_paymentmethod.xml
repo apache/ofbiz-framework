@@ -342,6 +342,10 @@ under the License.
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
         <attribute name="authResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="resultDeclined" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="resultNsf" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="resultBadExpire" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="resultBadCardNumber" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="authCode" type="String" mode="OUT" optional="true"/>
         <attribute name="authAltRefNum" type="String" mode="OUT" optional="true"/>
         <attribute name="authRefNum" type="String" mode="OUT" optional="false"/>
@@ -464,6 +468,7 @@ under the License.
         <description>Credit Card Processing</description>
         <implements service="ccAuthInterface"/>
     </service>
+
     <service name="alwaysApproveCCProcessor" engine="java"
              location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysApproveProcessor">
         <description>Credit Card Processing</description>
@@ -474,8 +479,29 @@ under the License.
         <description>Credit Card Processing</description>
         <implements service="ccAuthInterface"/>
     </service>
+
     <service name="alwaysDeclineCCProcessor" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysDeclineProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="alwaysNsfCCProcessor" engine="java"
+        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysNsfProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="alwaysBadExpireCCProcessor" engine="java"
+        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadExpireProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="badExpireEvenCCProcessor" engine="java"
+        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="badExpireEvenProcessor">
+        <description>Credit Card Processing</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+    <service name="alwaysBadCardNumberCCProcessor" engine="java"
+        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="alwaysBadCardNumberProcessor">
         <description>Credit Card Processing</description>
         <implements service="ccAuthInterface"/>
     </service>
@@ -484,6 +510,7 @@ under the License.
         <description>Credit Card Processing</description>
         <implements service="ccAuthInterface"/>
     </service>
+
     <service name="testCCCapture" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testCapture">
         <description>Credit Card Test Capture</description>
