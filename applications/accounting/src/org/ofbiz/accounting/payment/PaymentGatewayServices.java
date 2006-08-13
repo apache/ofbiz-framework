@@ -32,6 +32,7 @@ import java.sql.Timestamp;
 import org.ofbiz.accounting.invoice.InvoiceWorker;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
@@ -307,10 +308,6 @@ public class PaymentGatewayServices {
     }
 
 
-    private static Map authPayment(LocalDispatcher dispatcher, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPref, double totalRemaining, boolean reauth) throws GeneralException {
-        return authPayment(dispatcher, userLogin, orh, paymentPref, totalRemaining, reauth, null);
-    }
-
     private static Map authPayment(LocalDispatcher dispatcher, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPreference, double totalRemaining, boolean reauth, Double overrideAmount) throws GeneralException {
         String paymentConfig = null;
         String serviceName = null;
@@ -339,21 +336,23 @@ public class PaymentGatewayServices {
 
         // get the visit record to obtain the client's IP address
         GenericValue orderHeader = orh.getOrderHeader();
-        if (orderHeader != null) {
-            String visitId = orderHeader.getString("visitId");
-            GenericValue visit = null;
-            if (visitId != null) {
-                try {
-                    visit = orderHeader.getDelegator().findByPrimaryKey("Visit", UtilMisc.toMap("visitId", visitId));
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-            }
+        //if (orderHeader == null) {}
 
-            if (visit != null && visit.get("clientIpAddress") != null) {
-                processContext.put("customerIpAddress", visit.getString("clientIpAddress"));
+        String visitId = orderHeader.getString("visitId");
+        GenericValue visit = null;
+        if (visitId != null) {
+            try {
+                visit = orderHeader.getDelegator().findByPrimaryKey("Visit", UtilMisc.toMap("visitId", visitId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
             }
         }
+
+        if (visit != null && visit.get("clientIpAddress") != null) {
+            processContext.put("customerIpAddress", visit.getString("clientIpAddress"));
+        }
+
+        GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
 
         processContext.put("userLogin", userLogin);
         processContext.put("orderId", orh.getOrderId());
@@ -399,20 +398,65 @@ public class PaymentGatewayServices {
         if (Debug.verboseOn()) Debug.logVerbose("Charging amount: " + processAmount, module);
         processContext.put("processAmount", processAmount);
 
-        // invoke the processor.
+        // invoke the processor
         Map processorResult = null;
         try {
-            // invoke the payment processor; allow 5 minute transaction timeout and require a new tx; we'll capture the error and pass back nicely.
-            processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
-        } catch (GenericServiceException gse) {
-            Debug.logError(gse, "Error occurred on: " + serviceName + " => " + processContext, module);
-            throw new GeneralException("Problems invoking payment processor! Will retry later. Order ID is: [" + orh.getOrderId() + "", gse);
+            // invoke the payment processor; allow 5 minute transaction timeout and require a new tx; we'll capture the error and pass back nicely
+            
+            GenericValue creditCard = (GenericValue) processContext.get("creditCard");
+            
+            // only try other exp dates if orderHeader.autoOrderShoppingListId is not empty, productStore.autoOrderCcTryExp=Y and this payment is a creditCard
+            boolean tryOtherExpDates = "Y".equals(productStore.getString("autoOrderCcTryExp")) && creditCard != null && UtilValidate.isNotEmpty(orderHeader.getString("autoOrderShoppingListId"));
+
+            // if we are not trying other expire dates OR if we are and the date is after today, then run the service
+            if (!tryOtherExpDates || UtilValidate.isDateAfterToday(creditCard.getString("expireDate"))) {
+                processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+            }
+            
+            // try other expire dates if the expireDate is not after today, or if we called the auth service and resultBadExpire = true 
+            if (tryOtherExpDates && (!UtilValidate.isDateAfterToday(creditCard.getString("expireDate")) || (processorResult != null && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))))) {
+                // try adding 2, 3, 4 years later with the same month
+                String expireDate = creditCard.getString("expireDate");
+                int dateSlash1 = expireDate.indexOf("/");
+                String month = expireDate.substring(0, dateSlash1);
+                String year = expireDate.substring(dateSlash1 + 1);
+                
+                // start adding 2 years, if comes back with resultBadExpire try again up to twice incrementing one year
+                year = StringUtil.addToNumberString(year, 2);
+                // note that this is set in memory only for now, not saved to the database unless successful
+                creditCard.set("expireDate", month + "/" + year);
+                // don't need to set back in the processContext, it's already there: processContext.put("creditCard", creditCard);
+                processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+
+                // note that these additional tries will only be done if the service return is not an error, in that case we let it pass through to the normal error handling
+                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))) {
+                    // okay, try one more year...
+                    year = StringUtil.addToNumberString(year, 1);
+                    creditCard.set("expireDate", month + "/" + year);
+                    processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+                }
+                
+                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))) {
+                    // okay, try one more year... and this is the last try
+                    year = StringUtil.addToNumberString(year, 1);
+                    creditCard.set("expireDate", month + "/" + year);
+                    processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
+                }
+                
+                // at this point if we have a successful result, let's save the new creditCard expireDate
+                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("authResult"))) {
+                    creditCard.store();
+                }
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Error occurred on: " + serviceName + " => " + processContext, module);
+            throw new GeneralException("Problems invoking payment processor! Will retry later. Order ID is: [" + orh.getOrderId() + "", e);
         }
 
         if (processorResult != null) {
             // check for errors from the processor implementation
             if (ServiceUtil.isError(processorResult)) {
-                Debug.logError("Processor failed; will retry later : " + processorResult.get(ModelService.ERROR_MESSAGE), module);
+                Debug.logError("Processor failed; will retry later: " + processorResult.get(ModelService.ERROR_MESSAGE), module);
                 // log the error message as a gateway response when it fails
                 saveError(dispatcher, userLogin, paymentPreference, processorResult, "PRDS_PAY_AUTH", "PGT_AUTHORIZE");
                 // this is the one place where we want to return null because the calling method will look for this
@@ -1018,7 +1062,7 @@ public class PaymentGatewayServices {
                         delegator.create(newPref);
 
                         // authorize the new preference
-                        processorResult = authPayment(dispatcher, userLogin, orh, newPref, newAmount, false);
+                        processorResult = authPayment(dispatcher, userLogin, orh, newPref, newAmount, false, null);
                         if (processorResult != null) {
                             // process the auth results
                             boolean authResult = processResult(dctx, processorResult, userLogin, newPref);
@@ -1129,7 +1173,7 @@ public class PaymentGatewayServices {
         if (!PaymentGatewayServices.checkAuthValidity(paymentPref, paymentConfig)) {
             try {
                 // re-auth required before capture
-                Map processorResult = PaymentGatewayServices.authPayment(dispatcher, userLogin, orh, paymentPref, amount, true);
+                Map processorResult = PaymentGatewayServices.authPayment(dispatcher, userLogin, orh, paymentPref, amount, true, null);
 
                 boolean authResult = false;
                 if (processorResult != null) {
@@ -1456,7 +1500,7 @@ public class PaymentGatewayServices {
             Debug.log("reauth with amount: " + amount, module);
             if (orh != null) {
                 // first lets re-auth the card
-                Map authPayRes = authPayment(dispatcher, userLogin, orh, paymentPreference, amount.doubleValue(), true);
+                Map authPayRes = authPayment(dispatcher, userLogin, orh, paymentPreference, amount.doubleValue(), true, null);
                 Debug.log("authPayRes: " + authPayRes, module);
                 if (authPayRes != null) {
                     Boolean authResp = (Boolean) authPayRes.get("authResult");
@@ -2268,7 +2312,7 @@ public class PaymentGatewayServices {
     }
 
     /**
-     * Always decline processor.
+     * Always decline processor
      */
     public static Map alwaysDeclineProcessor(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
@@ -2281,6 +2325,79 @@ public class PaymentGatewayServices {
         result.put("authRefNum", new Long(nowTime).toString());
         result.put("authAltRefNum", new Long(nowTime).toString());
         result.put("authFlag", "D");
+        result.put("authMessage", "This is a test processor; no payments were captured or authorized");
+        return result;
+    }
+
+    /**
+     * Always NSF (not sufficient funds) processor
+     */
+    public static Map alwaysNsfProcessor(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        Double processAmount = (Double) context.get("processAmount");
+        long nowTime = new Date().getTime();
+        Debug.logInfo("Test Processor NSF Credit Card", module);
+
+        result.put("authResult", Boolean.FALSE);
+        result.put("resultNsf", Boolean.TRUE);
+        result.put("processAmount", processAmount);
+        result.put("authRefNum", new Long(nowTime).toString());
+        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authFlag", "N");
+        result.put("authMessage", "This is a test processor; no payments were captured or authorized");
+        return result;
+    }
+
+    /**
+     * Always fail/bad expire date processor
+     */
+    public static Map alwaysBadExpireProcessor(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        Double processAmount = (Double) context.get("processAmount");
+        long nowTime = new Date().getTime();
+        Debug.logInfo("Test Processor Bad Expire Date Credit Card", module);
+
+        result.put("authResult", Boolean.FALSE);
+        result.put("resultBadExpire", Boolean.TRUE);
+        result.put("processAmount", processAmount);
+        result.put("authRefNum", new Long(nowTime).toString());
+        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authFlag", "E");
+        result.put("authMessage", "This is a test processor; no payments were captured or authorized");
+        return result;
+    }
+
+    /**
+     * Fail/bad expire date when year is even processor
+     */
+    public static Map badExpireEvenProcessor(DispatchContext dctx, Map context) {
+        GenericValue creditCard = (GenericValue) context.get("creditCard");
+        String expireDate = creditCard.getString("expireDate");
+        String lastNumberStr = expireDate.substring(expireDate.length() - 1);
+        int lastNumber = Integer.parseInt(lastNumberStr);
+        
+        if ((float) lastNumber / 2.0 == 0.0) {
+            return alwaysBadExpireProcessor(dctx, context);
+        } else {
+            return alwaysApproveProcessor(dctx, context);
+        }
+    }
+
+    /**
+     * Always bad card number processor
+     */
+    public static Map alwaysBadCardNumberProcessor(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        Double processAmount = (Double) context.get("processAmount");
+        long nowTime = new Date().getTime();
+        Debug.logInfo("Test Processor Bad Card Number Credit Card", module);
+
+        result.put("authResult", Boolean.FALSE);
+        result.put("resultBadCardNumber", Boolean.TRUE);
+        result.put("processAmount", processAmount);
+        result.put("authRefNum", new Long(nowTime).toString());
+        result.put("authAltRefNum", new Long(nowTime).toString());
+        result.put("authFlag", "N");
         result.put("authMessage", "This is a test processor; no payments were captured or authorized");
         return result;
     }

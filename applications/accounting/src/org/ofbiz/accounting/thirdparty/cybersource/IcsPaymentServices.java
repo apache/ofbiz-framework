@@ -549,10 +549,11 @@ public class IcsPaymentServices {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("authCode", reply.get("ccAuthReply_authorizationCode"));
-            result.put("authResult", new Boolean(true));
+            result.put("authResult", Boolean.TRUE);
         } else {
             result.put("authCode", decision);
-            result.put("authResult", new Boolean(false));
+            result.put("authResult", Boolean.FALSE);
+            // TODO: based on reasonCode populate the following flags as applicable: resultDeclined, resultNsf, resultBadExpire, resultBadCardNumber
         }
 
         if (reply.get("ccAuthReply_amount") != null) {
@@ -574,9 +575,9 @@ public class IcsPaymentServices {
     private static void processCaptureResult(Map reply, Map result) {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
-            result.put("captureResult", new Boolean(true));
+            result.put("captureResult", Boolean.TRUE);
         } else {
-            result.put("captureResult", new Boolean(false));
+            result.put("captureResult", Boolean.FALSE);
         }
 
         if (reply.get("ccCaptureReply_amount") != null) {
@@ -594,9 +595,9 @@ public class IcsPaymentServices {
     private static void processReleaseResult(Map reply, Map result) {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
-            result.put("releaseResult", new Boolean(true));
+            result.put("releaseResult", Boolean.TRUE);
         } else {
-            result.put("releaseResult", new Boolean(false));
+            result.put("releaseResult", Boolean.FALSE);
         }
 
         if (reply.get("ccAuthReversalReply_amount") != null) {
@@ -614,9 +615,9 @@ public class IcsPaymentServices {
     private static void processRefundResult(Map reply, Map result) {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
-            result.put("refundResult", new Boolean(true));
+            result.put("refundResult", Boolean.TRUE);
         } else {
-            result.put("refundResult", new Boolean(false));
+            result.put("refundResult", Boolean.FALSE);
         }
 
         if (reply.get("ccCreditReply_amount") != null) {
@@ -634,9 +635,9 @@ public class IcsPaymentServices {
     private static void processCreditResult(Map reply, Map result) {
         String decision = (String) reply.get("decision");
         if ("ACCEPT".equalsIgnoreCase(decision)) {
-            result.put("creditResult", new Boolean(true));
+            result.put("creditResult", Boolean.TRUE);
         } else {
-            result.put("creditResult", new Boolean(false));
+            result.put("creditResult", Boolean.FALSE);
         }
 
         if (reply.get("ccCreditReply_amount") != null) {
