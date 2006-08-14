@@ -29,7 +29,7 @@ under the License.
                 <set field="headerItem" value="reports"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="productTypeId" from-field=""/>
-                <set field="productCategoryId" from-field=""/>
+                <set field="searchInProductCategoryId" from-field=""/>
                 <set field="productSupplierId" from-field=""/>
                 <set field="offsetQty" from-field=""/>                
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
