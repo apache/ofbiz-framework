@@ -25,7 +25,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
 
-                <set field="title-property" value="PageTitleShoppingList"/>
+                <set field="titleProperty" value="PageTitleShoppingList"/>
                 <set field="headerItem" value="Shopping List"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/shoppinglist/editShoppingList.bsh"/>
             </actions>

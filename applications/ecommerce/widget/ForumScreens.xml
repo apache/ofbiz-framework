@@ -54,7 +54,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleForumSummary"/>
+                <set field="titleProperty" value="PageTitleForumSummary"/>
                 <entity-one entity-name="Content" value-name="forum">
                     <field-map field-name="contentId" env-name="parameters.forumId"/>
                 </entity-one>
@@ -105,7 +105,7 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
-                <set field="title-property" value="PageTitleForumArticle"/>
+                <set field="titleProperty" value="PageTitleForumArticle"/>
                 <entity-and entity-name="" list-name="">
                     <field-map field-name=""/>
                 </entity-and>
@@ -128,7 +128,7 @@ under the License.
 
                 <set field="includeHtmlArea" value="Y"/>
 
-                <set field="title-property" value="PageTitleAddContent"/>
+                <set field="titleProperty" value="PageTitleAddContent"/>
                 <set field="headerItem" value="Forum"/>
                 <set field="formDefFile" value="/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="AddContent"/>
@@ -175,7 +175,7 @@ under the License.
 
                 <set field="includeHtmlArea" value="Y"/>
 
-                <set field="title-property" value="PageTitleEditContent"/>
+                <set field="titleProperty" value="PageTitleEditContent"/>
                 <set field="headerItem" value="Forum"/>
                 <set field="formDefFile" value="/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="AddContent"/>
@@ -223,7 +223,7 @@ under the License.
 
                 <set field="includeHtmlArea" value="Y"/>
 
-                <set field="title-property" value="PageTitleForumResponse"/>
+                <set field="titleProperty" value="PageTitleForumResponse"/>
                 <set field="headerItem" value="Forum"/>
                 <set field="formDefFile" value="/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="ViewComboResponse"/>
@@ -268,7 +268,7 @@ under the License.
 
                 <set field="includeHtmlArea" value="Y"/>
 
-                <set field="title-property" value="PageTitleAddResponse"/>
+                <set field="titleProperty" value="PageTitleAddResponse"/>
                 <set field="headerItem" value="Forum"/>
                 <set field="formDefFile" value="/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="AddResponse"/>
@@ -318,7 +318,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleEditForumContentInfo"/>
+                <set field="titleProperty" value="PageTitleEditForumContentInfo"/>
                 <set field="headerItem" value="Forum"/>
                 <set field="formDefFile" value="/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="EditContentInfo"/>
@@ -360,7 +360,7 @@ under the License.
 
                 <set field="includeHtmlArea" value="Y"/>
 
-                <set field="title-property" value="PageTitleEditAddContent"/>
+                <set field="titleProperty" value="PageTitleEditAddContent"/>
                 <set field="headerItem" value="Forum"/>
                 <set field="formDefFile" value="/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="EditAddContent"/>
@@ -413,7 +413,7 @@ under the License.
 
                 <set field="includeHtmlArea" value="Y"/>
 
-                <set field="title-property" value="PageTitleEditAddImage"/>
+                <set field="titleProperty" value="PageTitleEditAddImage"/>
                 <set field="headerItem" value="Forum"/>
                 <set field="formDefFile" value="/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="EditAddImage"/>

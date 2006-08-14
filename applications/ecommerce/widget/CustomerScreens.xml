@@ -26,7 +26,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleAdditionalInfo"/>
+                <set field="titleProperty" value="PageTitleAdditionalInfo"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -41,7 +41,7 @@ under the License.
     <screen name="newcustomer">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleNewCustomer"/>
+                <set field="titleProperty" value="PageTitleNewCustomer"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/newcustomer.bsh"/>
             </actions>
             <widgets>
@@ -77,7 +77,7 @@ under the License.
     <screen name="viewprofile">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleViewProfile"/>
+                <set field="titleProperty" value="PageTitleViewProfile"/>
                 
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <entity-one entity-name="Party" value-name="party"/>
@@ -98,7 +98,7 @@ under the License.
     <screen name="editcontactmech">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleEditContactMechanism"/>
+                <set field="titleProperty" value="PageTitleEditContactMechanism"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editcontactmech.bsh"/>
             </actions>
             <widgets>
@@ -114,7 +114,7 @@ under the License.
     <screen name="editcreditcard">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleEditCreditCard"/>
+                <set field="titleProperty" value="PageTitleEditCreditCard"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
             </actions>
             <widgets>
@@ -129,7 +129,7 @@ under the License.
     <screen name="editeftaccount">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleEditEFTAccount"/>
+                <set field="titleProperty" value="PageTitleEditEFTAccount"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
             </actions>
             <widgets>
@@ -144,7 +144,7 @@ under the License.
     <screen name="editgiftcard">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleEditGiftCard"/>
+                <set field="titleProperty" value="PageTitleEditGiftCard"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
             </actions>
             <widgets>
@@ -160,7 +160,7 @@ under the License.
     <screen name="changepassword">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleChangePassword"/>
+                <set field="titleProperty" value="PageTitleChangePassword"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/changepassword.bsh"/>
             </actions>
             <widgets>
@@ -175,7 +175,7 @@ under the License.
     <screen name="editperson">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleEditPerson"/>
+                <set field="titleProperty" value="PageTitleEditPerson"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editperson.bsh"/>
             </actions>
             <widgets>
@@ -195,7 +195,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleGiftCardBalance"/>
+                <set field="titleProperty" value="PageTitleGiftCardBalance"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/giftcardbalance.bsh"/>
             </actions>
             <widgets>
@@ -214,7 +214,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleGiftCardLink"/>
+                <set field="titleProperty" value="PageTitleGiftCardLink"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/giftcardlink.bsh"/>
             </actions>
             <widgets>
@@ -230,7 +230,7 @@ under the License.
     <screen name="customersurvey">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleProfileSurvey"/>
+                <set field="titleProperty" value="PageTitleProfileSurvey"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/customersurvey.bsh"/>
             </actions>
             <widgets>
@@ -249,7 +249,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
 
-                <set field="title-property" value="PageTitleLogin"/>
+                <set field="titleProperty" value="PageTitleLogin"/>
                 <set field="pageHeader" value="Contact Us"/>
                 <set field="headerItem" value="contactus"/>
                 <set field="submitRequest" value="contactsubmit"/>
@@ -266,7 +266,7 @@ under the License.
     <screen name="messagelist">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleMessageList"/>
+                <set field="titleProperty" value="PageTitleMessageList"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -303,7 +303,7 @@ under the License.
     <screen name="messagedetail">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleMessageDetail"/>
+                <set field="titleProperty" value="PageTitleMessageDetail"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" auto-field-map="true"/>
             </actions>
             <widgets>
@@ -318,7 +318,7 @@ under the License.
     <screen name="messagecreate">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleNewMessage"/>
+                <set field="titleProperty" value="PageTitleNewMessage"/>
                 <set field="pageHeader" value="New Message"/>
                 <set field="showMessageLinks" value="true"/>
 
@@ -339,7 +339,7 @@ under the License.
     <screen name="digitalproductlist">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleDigitalProductList"/>
+                <set field="titleProperty" value="PageTitleDigitalProductList"/>
                 
                 <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
@@ -365,7 +365,7 @@ under the License.
     <screen name="digitalproductedit">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleDigitalProductEdit"/>
+                <set field="titleProperty" value="PageTitleDigitalProductEdit"/>
 
                 <set field="parameters.minimumOrderQuantity" value="1" type="Double"/>
                 <entity-one entity-name="SupplierProduct" value-name="supplierProduct" auto-field-map="false">
