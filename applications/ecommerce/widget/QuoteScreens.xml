@@ -24,7 +24,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
 
-                <set field="title-property" value="PageTitleListQuotes"/>
+                <set field="titleProperty" value="PageTitleListQuotes"/>
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <entity-condition entity-name="Quote" list-name="quoteList">
                     <condition-list combine="and">
@@ -51,7 +51,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
 
-                <set field="title-property" value="PageTitleViewQuote"/>
+                <set field="titleProperty" value="PageTitleViewQuote"/>
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-name="quote"/>

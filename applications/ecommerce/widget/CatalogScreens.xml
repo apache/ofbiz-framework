@@ -158,7 +158,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleCategoryPage"/>
+                <set field="titleProperty" value="PageTitleCategoryPage"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -212,7 +212,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleProductPage"/>
+                <set field="titleProperty" value="PageTitleProductPage"/>
                 <set field="configproductdetailScreen" value="component://ecommerce/widget/CatalogScreens.xml#configproductdetail"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/product.bsh"/>
             </actions>
@@ -272,7 +272,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleProductReview"/>
+                <set field="titleProperty" value="PageTitleProductReview"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -291,7 +291,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleLastViewProducts"/>
+                <set field="titleProperty" value="PageTitleLastViewProducts"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -334,7 +334,7 @@ under the License.
                 
                 <set field="quickaddsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#quickaddsummary"/>
 
-                <set field="title-property" value="PageTitleQuickAdd"/>
+                <set field="titleProperty" value="PageTitleQuickAdd"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/quickadd.bsh"/>
             </actions>
             <widgets>
@@ -367,7 +367,7 @@ under the License.
                 
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
 
-                <set field="title-property" value="PageTitleSearchResults"/>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/keywordsearch.bsh"/>
             </actions>
             <widgets>
@@ -387,7 +387,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleAdvancedSearch"/>
+                <set field="titleProperty" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/advancedsearchoptions.bsh"/>
             </actions>

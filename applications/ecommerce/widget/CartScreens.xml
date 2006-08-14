@@ -61,7 +61,7 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="MainColumnStyle" value="leftonly"/>
 
-                <set field="title-property" value="PageTitleShoppingCart"/>
+                <set field="titleProperty" value="PageTitleShoppingCart"/>
                 <set field="headerItem" value="Shopping Cart"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showcart.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showpromotext.bsh"/>
@@ -83,7 +83,7 @@ under the License.
                 
                 <set field="promoUseDetailsInlineScreen" value="component://ecommerce/widget/CartScreens.xml#promoUseDetailsInline"/>
 
-				<set field="title-property" value="PageTitleShowAllPromotions"/>
+				<set field="titleProperty" value="PageTitleShowAllPromotions"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showcart.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showpromotext.bsh"/>
             </actions>
@@ -105,7 +105,7 @@ under the License.
 
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
 
-				<set field="title-property" value="PageTitleShowPromotionDetails"/>
+				<set field="titleProperty" value="PageTitleShowPromotionDetails"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/showPromotionDetails.bsh"/>
             </actions>
             <widgets>

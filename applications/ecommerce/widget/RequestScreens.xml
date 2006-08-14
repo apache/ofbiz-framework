@@ -36,7 +36,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
 
-                <set field="title-property" value="PageTitleListRequests"/>
+                <set field="titleProperty" value="PageTitleListRequests"/>
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <entity-condition entity-name="CustRequest" list-name="requestList">
                     <condition-list combine="and">
@@ -63,7 +63,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
 
-                <set field="title-property" value="PageTitleViewRequest"/>
+                <set field="titleProperty" value="PageTitleViewRequest"/>
                 <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>

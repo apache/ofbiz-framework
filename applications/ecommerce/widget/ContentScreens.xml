@@ -68,7 +68,7 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="MainColumnStyle" value="leftonly"/>
 
-				<set field="title-property" value="PageTitleContentPage"/>
+				<set field="titleProperty" value="PageTitleContentPage"/>
                 <set field="headerItem" value="main"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/main.bsh"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/contentprep.bsh"/>
@@ -89,7 +89,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-				<set field="title-property" value="PageTitleViewBlog"/>
+				<set field="titleProperty" value="PageTitleViewBlog"/>
                 <set field="headerItem" value="Blog"/>
                 <set field="formDefFile" value="/BlogForms.xml"/>
                 <set field="entityName" value="Content"/>
@@ -112,7 +112,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleShoppingCart"/>
+                <set field="titleProperty" value="PageTitleShoppingCart"/>
                 <set field="headerItem" value="ContentMenu"/>
                 <set field="formDefFile" value="/content/ContentForms.xml"/>
                 <set field="entityName" value=""/>
@@ -140,7 +140,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
 
-                <set field="title-property" value="PageTitleViewContent"/>
+                <set field="titleProperty" value="PageTitleViewContent"/>
                 <set field="headerItem" value="Content"/>
                 <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
                 <set field="permissionType" value="none"/>
