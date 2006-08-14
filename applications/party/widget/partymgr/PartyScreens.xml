@@ -383,9 +383,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label text="Change UserLogin Password" style="head2"/></container>
+                        <container><label text="${uiLabelMap.PartyUserLoginChangePassword}" style="head2"/></container>
                         <include-form name="updatePassword" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                        <container><label text="Update UserLogin Security Settings" style="head2"/></container>
+                        <container><label text="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}" style="head2"/></container>
                         <include-form name="updateUserLoginSecurity" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
