@@ -32,9 +32,8 @@ under the License.
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
-
+    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
-    <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
 
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
@@ -197,6 +196,14 @@ under the License.
     <request-map uri="ViewFacilityInventoryByProductSimple">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewFacilityInventoryByProductSimple"/>
+    </request-map>
+    <request-map uri="ViewFacilityInventoryByProductReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewFacilityInventoryByProductReport"/>
+    </request-map>
+    <request-map uri="ViewFacilityInventoryByProductExport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewFacilityInventoryByProductExport"/>
     </request-map>
     <request-map uri="SearchInventoryItems">
         <security https="true" auth="true"/>
@@ -970,6 +977,8 @@ under the License.
     <view-map name="EditFacilityInventoryItems" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityInventoryItems"/>
     <view-map name="ViewFacilityInventoryByProduct" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProduct"/>
     <view-map name="ViewFacilityInventoryByProductSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductSimple"/>
+    <view-map name="ViewFacilityInventoryByProductReport" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="ViewFacilityInventoryByProductExport" type="screenxml" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductExport" content-type="text/xml"/>
     <view-map name="EditFacilityGroups" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityGroups"/>
     <view-map name="EditFacilityRoles" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityRoles"/>
     <view-map name="ViewContactMechs" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewContactMechs"/>
