@@ -150,6 +150,7 @@ under the License.
     </view-entity>
     <entity entity-name="Geo"
             package-name="org.ofbiz.common.geo"
+            default-resource-name="CommonEntityLabels"
             title="Geographic Boundary Entity">
       <field name="geoId" type="id-ne"></field>
       <field name="geoTypeId" type="id"></field>

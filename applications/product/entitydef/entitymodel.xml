@@ -3725,7 +3725,8 @@ under the License.
             <key-map field-name="webSiteId"/>
         </relation>
     </entity>
-    <entity entity-name="SubscriptionType" package-name="org.ofbiz.product.subscription" title="Subscription Type Entity">
+    <entity entity-name="SubscriptionType" package-name="org.ofbiz.product.subscription" default-resource-name="ProductEntityLabels"
+            title="Subscription Type Entity">
         <field name="subscriptionTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="hasTable" type="indicator"></field>

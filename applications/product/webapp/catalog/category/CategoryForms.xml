@@ -75,7 +75,7 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent}" widget-style="tabletext">
             <display-entity entity-name="Content" description="${description}" also-hidden="true">
-                <sub-hyperlink target="/content/control/EditContent?contentId=${contentId}" description="Content: ${contentId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink target="/content/control/EditContent?contentId=${contentId}" description="${uiLabelMap.ProductContent}: ${contentId}" target-type="inter-app" link-style="buttontext"/>
             </display-entity>
         </field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
@@ -105,7 +105,7 @@ under the License.
         <field use-when="content==null" name="contentId"><ignored/></field>
         <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="categoryContentData" widget-style="tabletext"><display/></field>
 
-        <field name="prodCatContentTypeId" title="Category Content Type" widget-style="tabletext"><display-entity entity-name="ProductCategoryContentType" also-hidden="true"/></field>
+        <field name="prodCatContentTypeId" widget-style="tabletext"><display-entity entity-name="ProductCategoryContentType" also-hidden="true"/></field>
         <field name="description" map-name="content"><text size="40"/></field>
         <field name="localeString" map-name="content"><text size="40"/></field>
         <field name="text" map-name="textDataMap" widget-style="textAreaBox"><textarea cols="80" rows="10"/></field>

@@ -31,7 +31,7 @@ under the License.
       <td width="5">:&nbsp;</td>
       <td width="74%" align="left">
         <div class="tabletext">
-          ${visit.visitorId?default("Not Found")}
+          ${visit.visitorId?default("${uiLabelMap.CommonNot} ${uiLabelMap.CommonFound}")}
         </div>
       </td>
     </tr>
@@ -166,9 +166,10 @@ under the License.
     <#-- set initial row color -->
     <#assign rowClass = "viewManyTR2">
     <#list serverHits[lowIndex..highIndex-1] as hit>
+          <#assign serverHitType = hit.getRelatedOne("ServerHitType")?if_exists>      
       <tr class="${rowClass}">
         <td><div class="tabletext">${hit.contentId?if_exists}</div></td>
-        <td><div class="tabletext">${hit.hitTypeId?if_exists}</div></td>
+        <td><div class="tabletext">${serverHitType.get("description",locale)?if_exists}</div></td>
         <td><div class="tabletext">&nbsp;&nbsp;${hit.numOfBytes?default("?")}</div></td>
         <td><div class="tabletext">${hit.hitStartDateTime?string?if_exists}</div></td>
         <td><div class="tabletext">&nbsp;&nbsp;${hit.runningTimeMillis?if_exists}</div></td>
