@@ -80,7 +80,9 @@ under the License.
 
     <target name="clean-logs">
         <delete verbose="on">
-            <fileset dir="logs" includes="*"/>
+            <fileset dir="logs" includes="*">
+                <exclude name="README"/>
+            </fileset>
         </delete>
     </target>
 
