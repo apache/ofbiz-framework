@@ -32,22 +32,25 @@ dispatcher = request.getAttribute("dispatcher");
 
 action = request.getParameter("action");
 
+String searchParameterString = "";
+searchParameterString = "action=Y&facilityId=" + facilityId;
 qty = -1;
 
 List rows = new ArrayList();
 
 if (action != null) {
+    // ------------------------------
+    DynamicViewEntity prodView = new DynamicViewEntity();
+    Map conditionMap = UtilMisc.toMap("facilityId", facilityId);
 
     if (offsetQty != null && offsetQty.length() > 0) {
         try {
             qty = Integer.parseInt(offsetQty);
+            searchParameterString = searchParameterString + "&offsetQty=" + offsetQty;
         } catch(NumberFormatException nfe) {
             qty = -1;
         }
     }
-    // ------------------------------
-    DynamicViewEntity prodView = new DynamicViewEntity();
-    Map conditionMap = UtilMisc.toMap("facilityId", facilityId);
 
     prodView.addMemberEntity("PRFA", "ProductFacility");
     prodView.addAliasAll("PRFA", null);
@@ -58,12 +61,14 @@ if (action != null) {
     if (productTypeId != null && productTypeId.length() > 0) {
         prodView.addAlias("PROD", "productTypeId");
         conditionMap.put("productTypeId", productTypeId);
+        searchParameterString = searchParameterString + "&productTypeId=" + productTypeId;
     }
     if (searchInProductCategoryId != null && searchInProductCategoryId.length() > 0) {
         prodView.addMemberEntity("PRCA", "ProductCategoryMember");
         prodView.addViewLink("PRFA", "PRCA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         prodView.addAlias("PRCA", "productCategoryId");
         conditionMap.put("productCategoryId", searchInProductCategoryId);
+        searchParameterString = searchParameterString + "&searchInProductCategoryId=" + searchInProductCategoryId;
     }
 
     if (productSupplierId != null && productSupplierId.length() > 0) {
@@ -71,6 +76,7 @@ if (action != null) {
         prodView.addViewLink("PRFA", "SPPR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         prodView.addAlias("SPPR", "partyId");
         conditionMap.put("partyId", productSupplierId);
+        searchParameterString = searchParameterString + "&productSupplierId=" + productSupplierId;
     }
 
     // set distinct on so we only get one row per product
@@ -140,3 +146,4 @@ if (action != null) {
 
 }
 context.put("inventoryByProduct", rows);
+context.put("searchParameterString", searchParameterString);
