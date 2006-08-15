@@ -75,7 +75,12 @@ under the License.
     </target>
 
     <target name="clean-data">
-        <delete verbose="on" dir="data"/>
+        <delete verbose="on" includeemptydirs="true">
+            <fileset dir="data" includes="**/*">
+                <exclude name="README"/>
+                <exclude name="derby.properties"/>
+            </fileset>
+        </delete>
     </target>
 
     <target name="clean-logs">
