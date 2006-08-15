@@ -76,6 +76,26 @@ under the License.
   <#assign readOnly = (returnHeader.statusId != "RETURN_REQUESTED")>
     
   <tr><td colspan="10"><div class="head3">${uiLabelMap.OrderItemsReturned} ${uiLabelMap.CommonIn} ${uiLabelMap.OrderOrderReturn} #${returnId}</div></td></tr>
+
+  <#-- information about orders and amount refunded/credited on past returns -->
+  <#if orh?exists>
+  <tr><td colspan="10">
+      <table border='0' width='100%' cellpadding='2' cellspacing='0'>
+        <tr>
+          <td class="tabletext" width="25%">${uiLabelMap.OrderOrderTotal}</td>
+          <td class="tabletext"><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orh.getCurrency()/></td>
+        </tr>  
+        <tr>
+          <td class="tabletext" width="25%">${uiLabelMap.OrderAmountAlreadyCredited}</td>
+          <td class="tabletext"><@ofbizCurrency amount=orh.getOrderReturnedCreditTotalBd() isoCode=orh.getCurrency()/></td>
+        </tr>  
+        <tr>
+          <td class="tabletext" width="25%">${uiLabelMap.OrderAmountAlreadyRefunded}</td>
+          <td class="tabletext"><@ofbizCurrency amount=orh.getOrderReturnedRefundTotalBd() isoCode=orh.getCurrency()/></td>
+        </tr>  
+      </table>  
+  </td></tr>
+  </#if>
   <tr><td colspan="10"><hr class="sepbar"></td></tr>
   <tr>
     <td><div class="tableheadtext">${uiLabelMap.OrderOrderItems}</div></td>

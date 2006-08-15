@@ -1456,17 +1456,26 @@ public class OrderReadHelper {
         return getOrderReturnedQuantityBd().doubleValue();
     }
 
-    public BigDecimal getOrderReturnedTotalBd() {
-        return getOrderReturnedTotalBd(false);
-    }
-
     /** @deprecated */
     public double getOrderReturnedTotal() {
         return getOrderReturnedTotalBd().doubleValue();
     }
 
-    public BigDecimal getOrderReturnedTotalBd(boolean includeAll) {
+    /** @deprecated */
+    public double getOrderReturnedTotal(boolean includeAll) {
+        return getOrderReturnedTotalBd(includeAll).doubleValue();
+    }
+
+    /** 
+     * Get the returned total by return type (credit, refund, etc.).  Specify returnTypeId = null to get sum over all
+     * return types.  Specify includeAll = true to sum up over all return statuses except cancelled.  Specify includeAll
+     * = false to sum up over RECEIVED And COMPLETED returns.
+     */
+    public BigDecimal getOrderReturnedTotalByTypeBd(String returnTypeId, boolean includeAll) {
         List returnedItemsBase = getOrderReturnItems();
+        if (returnTypeId != null) {
+            returnedItemsBase = EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("returnTypeId", returnTypeId));
+        }
         List returnedItems = new ArrayList(returnedItemsBase.size());
 
         // get only the RETURN_RECEIVED and RETURN_COMPLETED statusIds
@@ -1474,6 +1483,7 @@ public class OrderReadHelper {
             returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_RECEIVED")));
             returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
         } else {
+            // otherwise get all of them except cancelled ones
             returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase,
                     UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED"))));
         }
@@ -1503,9 +1513,27 @@ public class OrderReadHelper {
         return returnedAmount.setScale(scale, rounding);
     }
 
-    /** @deprecated */
-    public double getOrderReturnedTotal(boolean includeAll) {
-        return getOrderReturnedTotalBd(includeAll).doubleValue();
+    /** Gets the total return credit for COMPLETED and RECEIVED returns. */
+    public BigDecimal getOrderReturnedCreditTotalBd() {
+        return getOrderReturnedTotalByTypeBd("RTN_CREDIT", false);
+    }
+
+    /** Gets the total return refunded for COMPLETED and RECEIVED returns. */
+    public BigDecimal getOrderReturnedRefundTotalBd() {
+        return getOrderReturnedTotalByTypeBd("RTN_REFUND", false);
+    }
+
+    /** Gets the total return amount (all return types) for COMPLETED and RECEIVED returns. */
+    public BigDecimal getOrderReturnedTotalBd() {
+        return getOrderReturnedTotalByTypeBd(null, false);
+    }
+
+    /** 
+     * Gets the total returned over all return types.  Specify true to include all return statuses
+     * except cancelled.  Specify false to include only COMPLETED and RECEIVED returns.
+     */ 
+    public BigDecimal getOrderReturnedTotalBd(boolean includeAll) {
+        return getOrderReturnedTotalByTypeBd(null, includeAll);
     }
 
     public BigDecimal getOrderNonReturnedTaxAndShippingBd() {
