@@ -62,7 +62,7 @@ under the License.
         <key-map field-name="statusId"/>
       </relation>
       <relation type="one" fk-name="MKTGCPN_CUOM" rel-entity-name="Uom">
-        <key-map field-name="currencyUomId"/>
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
       </relation>
     </entity>
     <entity entity-name="MarketingCampaignNote"
