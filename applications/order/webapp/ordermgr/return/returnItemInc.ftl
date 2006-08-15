@@ -24,6 +24,26 @@ under the License.
                 <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${selectAllFormName}');"/>
               </td>
             </tr>
+
+            <#-- information about orders and amount refunded/credited on past returns -->
+            <#if orh?exists>
+            <tr><td colspan="10">
+                <table border='0' width='100%' cellpadding='2' cellspacing='0'>
+                  <tr>
+                    <td class="tabletext" width="25%">${uiLabelMap.OrderOrderTotal}</td>
+                    <td class="tabletext"><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orh.getCurrency()/></td>
+                  </tr>  
+                  <tr>
+                    <td class="tabletext" width="25%">${uiLabelMap.OrderAmountAlreadyCredited}</td>
+                    <td class="tabletext"><@ofbizCurrency amount=orh.getOrderReturnedCreditTotalBd() isoCode=orh.getCurrency()/></td>
+                  </tr>  
+                  <tr>
+                    <td class="tabletext" width="25%">${uiLabelMap.OrderAmountAlreadyRefunded}</td>
+                    <td class="tabletext"><@ofbizCurrency amount=orh.getOrderReturnedRefundTotalBd() isoCode=orh.getCurrency()/></td>
+                  </tr>  
+                </table>  
+            </td></tr>
+            </#if>
             <tr>
               <td><div class="tableheadtext">${uiLabelMap.CommonDescription}</div></td>
               <td><div class="tableheadtext">${uiLabelMap.OrderOrderQty}</div></td>

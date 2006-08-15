@@ -163,8 +163,7 @@ under the License.
             <option value="${currentStatus.statusId}">---</option>
           </#if>
           <#list returnStatus as status>
-		  ${status}
-            <option value="${status.statusIdTo}">${status.get("description",locale)}</option>
+            <option value="${status.statusIdTo}">${status.get("transitionName",locale)}</option>
           </#list>
         </select>
       </td>

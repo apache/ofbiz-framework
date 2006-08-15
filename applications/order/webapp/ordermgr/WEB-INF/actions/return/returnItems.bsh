@@ -62,13 +62,13 @@ while (iter.hasNext()) {
 }
 context.put("returnItemTypeMap", typeMap);
 
-orderId = request.getParameter("orderId");
 if (orderId != null) {
     order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
     Map returnRes = dispatcher.runSync("getReturnableItems", UtilMisc.toMap("orderId", orderId));
     context.put("returnableItems", returnRes.get("returnableItems"));
 
    orh = new OrderReadHelper(order);
+   context.put("orh", orh);
    context.put("orderHeaderAdjustments", orh.getAvailableOrderHeaderAdjustments());
 
     // get the order shipping amount
