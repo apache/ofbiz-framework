@@ -18,9 +18,13 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-    <form name="EditMarketingCampaign" type="single" 
+     <form name="EditMarketingCampaign" type="single"
             target="updateMarketingCampaign" title="" default-map-name="marketingCampaign"
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+        </actions>
+        <auto-fields-entity entity-name="MarketingCampaign"/>
         <alt-target use-when="marketingCampaign==null" target="createMarketingCampaign"/>
         
         <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
@@ -37,7 +41,21 @@ under the License.
         <field name="campaignSummary" title="${uiLabelMap.MarketingCampaignSummary}">
             <textarea rows="5"/>
         </field>
-        
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="StatusItem">
+                     <entity-constraint name="statusTypeId" value="MKTG_CAMP_STATUS"/>
+                     <entity-order-by field-name="sequenceId"/>
+                </entity-options>        
+            </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down allow-empty="false" current="selected" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options description="${abbreviation}" key-field-name="uomId" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="DONE_PAGE">
             <hidden value="${donePage}"/>
         </field>
