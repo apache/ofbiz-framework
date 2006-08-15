@@ -17,6 +17,19 @@ under the License.
 -->
 
 <entity-engine-xml>
+    <StatusType description="Marketing Campaign" statusTypeId="MKTG_CAMP_STATUS" hasTable="N" parentTypeId=""/>
+    <StatusItem description="Planned" sequenceId="01" statusCode="PLANNED" statusId="MKTG_CAMP_PLANNED" statusTypeId="MKTG_CAMP_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="MKTG_CAMP_APPROVED" statusTypeId="MKTG_CAMP_STATUS"/>
+    <StatusItem description="In Progress" sequenceId="03" statusCode="INPROGRESS" statusId="MKTG_CAMP_INPROGRESS" statusTypeId="MKTG_CAMP_STATUS"/>
+    <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="MKTG_CAMP_COMPLETED" statusTypeId="MKTG_CAMP_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="05" statusCode="CANCELLED" statusId="MKTG_CAMP_CANCELLED" statusTypeId="MKTG_CAMP_STATUS"/>
+    <StatusValidChange condition="" statusId="MKTG_CAMP_PLANNED" statusIdTo="MKTG_CAMP_APPROVED" transitionName="Approve Marketing Campaign"/>
+    <StatusValidChange condition="" statusId="MKTG_CAMP_APPROVED" statusIdTo="MKTG_CAMP_INPROGRESS" transitionName="Marketing Campaign In Progress"/>
+    <StatusValidChange condition="" statusId="MKTG_CAMP_INPROGRESS" statusIdTo="MKTG_CAMP_COMPLETED" transitionName="Complete Marketing Campaign"/>
+    <StatusValidChange condition="" statusId="MKTG_CAMP_PLANNED" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
+    <StatusValidChange condition="" statusId="MKTG_CAMP_APPROVED" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
+    <StatusValidChange condition="" statusId="MKTG_CAMP_INPROGRESS" statusIdTo="MKTG_CAMP_CANCELLED" transitionName="Cancel Marketing Campaign"/>
+
     <ContactListType contactListTypeId="MARKETING" description="Marketing"/>
     <ContactListType contactListTypeId="NEWSLETTER" description="Newsletter"/>
     <ContactListType contactListTypeId="ANNOUNCEMENT" description="Announcement"/>

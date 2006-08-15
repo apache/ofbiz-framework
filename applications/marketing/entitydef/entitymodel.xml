@@ -45,11 +45,24 @@ under the License.
             title="Marketing Campaign Entity">
       <field name="marketingCampaignId" type="id-ne"></field>
       <field name="parentCampaignId" type="id"></field>
+      <field name="statusId" type="id"></field>
       <field name="campaignName" type="name"></field>
       <field name="campaignSummary" type="very-long"></field>
+      <field name="budgetedCost" type="currency-amount"></field>
+      <field name="actualCost" type="currency-amount"></field>
+      <field name="estimatedCost" type="currency-amount"></field>
+      <field name="currencyUomId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
       <prim-key field="marketingCampaignId"/>
       <relation type="one" fk-name="MKTGCPN_PRNT" title="Parent" rel-entity-name="MarketingCampaign">
         <key-map field-name="parentCampaignId" rel-field-name="marketingCampaignId"/>
+      </relation>
+      <relation type="one" fk-name="MKTGCPN_STS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="MKTGCPN_CUOM" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId"/>
       </relation>
     </entity>
     <entity entity-name="MarketingCampaignNote"
