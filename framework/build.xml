@@ -122,7 +122,7 @@ under the License.
     <target name="build" depends="dir-init">
         <echo message="[build] ========== Start Building Framework (Compile) =========="/>
 
-        <!-- make sure the data and logs directories exist, since they aren't in CVS -->
+        <!-- make sure the data and logs directories exist (they should exist, because they are in svn) -->
         <mkdir dir="data"/>
         <mkdir dir="logs"/>
 
