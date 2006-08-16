@@ -140,10 +140,6 @@ under the License.
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_CANCELLED"/>
         <action service="sendReturnCancelNotification" mode="async" persist="true"/>
     </eca>
-    <eca service="updateReturnHeader" event="commit">
-        <condition-field field-name="statusId" operator="not-equals" to-field-name="currentStatusId"/>
-        <action service="updateReturnItemsStatus" mode="sync"/>
-    </eca>
 
     <eca service="updateReturnItem" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_RECEIVED"/>
