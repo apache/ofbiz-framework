@@ -90,7 +90,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removeMarketingCampaignRole" auth="true">
+            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="deleteMarketingCampaignRole" auth="true">
         <description>Remove Role from Campaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
