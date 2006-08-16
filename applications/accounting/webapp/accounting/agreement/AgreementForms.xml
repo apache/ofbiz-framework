@@ -258,6 +258,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
+        <field name="price" widget-area-style="tabletextright"><display/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="removeAgreementItemProduct?productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
         </field>
