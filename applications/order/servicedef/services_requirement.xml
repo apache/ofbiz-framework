@@ -113,5 +113,12 @@ under the License.
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
+
+    <service name="approveRequirement" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="approveRequirement" auth="true">
+        <description>Approves a requirement.</description>
+        <attribute mode="IN" name="requirementId" optional="false" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="Double"/>
+    </service>
 </services>
 

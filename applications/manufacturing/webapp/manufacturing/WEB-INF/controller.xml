@@ -431,18 +431,6 @@ under the License.
         <response name="error" type="view" value="EditProductManufacturingRules"/>
     </request-map>
  
-     <!-- Requirement request mappings -->
-    <request-map uri="ApproveRequirements">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ApproveRequirements"/>
-    </request-map>
-    <request-map uri="approveRequirements">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="approveRequirement"/>
-        <response name="success" type="view" value="ApproveRequirements"/>
-        <response name="error" type="view" value="ApproveRequirements"/>
-    </request-map>
-
     <!-- MRP request mappings -->
     <request-map uri="FindInventoryEventPlan">
         <security https="true" auth="true"/>
@@ -710,9 +698,6 @@ under the License.
     <!-- Costs view mappings -->
     <view-map name="EditCostCalcs" page="component://manufacturing/widget/manufacturing/CostScreens.xml#EditCostCalcs" type="screen"/>
 
-    <!-- MRP view mappings -->
-    <view-map name="ApproveRequirements" page="component://manufacturing/widget/manufacturing/RequirementScreens.xml#ApproveRequirements" type="screen"/>
-    
     <!-- MRP view mappings -->
     <view-map name="FindMrpPlannedEvents" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#FindMrpPlannedEvents" type="screen"/>
     <view-map name="MrpExecution" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#MrpExecution" type="screen"/>
