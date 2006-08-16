@@ -334,7 +334,9 @@ under the License.
             <widgets>
                 <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListAgreementItemProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ListAgreementItemProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

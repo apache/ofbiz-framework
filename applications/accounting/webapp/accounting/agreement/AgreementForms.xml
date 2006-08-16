@@ -263,6 +263,33 @@ under the License.
             <hyperlink target="removeAgreementItemProduct?productId=${productId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
         </field>
     </form>
+    <form name="ViewAgreementInfoForReport" type="single"
+            title="" default-map-name="agreement"
+            default-title-style="tableheadtext">
+        <field name="agreementId"><text/></field>
+        <field name="partyIdFrom"><text/></field>
+        <field name="partyIdTo">
+            <display-entity entity-name="PartyGroup" key-field-name="partyId" description="${partyId} - ${groupName}"/>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="description"><display/></field>
+    </form>
+    <form name="ViewAgreementItemInfoForReport" type="single"
+            title="" default-map-name="agreementItem"
+            default-title-style="tableheadtext">
+        <field name="agreementItemSeqId"><display/></field>
+        <field name="currencyUomId"><display/></field>
+    </form>
+    <form name="ListAgreementItemProductsForReport" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementProducts"
+            target="" title="" type="list">
+        <field name="productId" title-area-style="tableheadmedium"><display/></field>
+        <field name="internalName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+        </field>
+        <field name="price" title-area-style="tableheadmedium" widget-area-style="tabletextright"><display/></field>
+    </form>
     <form name="EditAgreementItemProduct" type="single"
             target="updateAgreementItemProduct" title="" default-map-name="agreementProductAppl"
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
