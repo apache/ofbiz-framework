@@ -47,7 +47,7 @@
         </field>
     </form>
     <form name="ListRequirements" type="list" use-row-submit="true" 
-            target="approveRequirements" title="" list-name="listIt" paginate-target="FindRequirements"
+            target="" title="" list-name="listIt" paginate-target="FindRequirements"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -127,6 +127,54 @@
         <auto-fields-entity entity-name="OrderRequirementCommitment" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}" target-type="inter-app" target="/ordermgr/control/orderview?orderId=${orderId}"/>
+        </field>
+    </form>
+    <form name="FindNotApprovedRequirements" type="single" 
+            target="ApproveRequirements" title=""
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="hideSearch"><hidden value="Y"/></field>
+        <field name="requirementId"><text-find/></field>
+        <field name="requirementTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RequirementType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
+        <field name="requirementStartDate"><date-find type="date"/></field>
+        <field name="requiredByDate"><date-find type="date"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ApproveRequirements" type="multi" use-row-submit="true" 
+            target="approveRequirements" title="" list-name="listIt" paginate-target="ApproveRequirements"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <set field="entityName" value="Requirement"/>
+            <set field="requestParameters.statusId" value="REQ_CREATED"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" env-name="entityName"/>
+            </service>
+        </actions>
+        <field name="requirementId" widget-style="buttontext">
+            <hyperlink target-type="intra-app" also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
+        </field>
+        <field name="requirementTypeId">
+            <display-entity entity-name="RequirementType" also-hidden="true"/>
+        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+        </field>
+        <field name="requirementStartDate"><display/></field>
+        <field name="requiredByDate"><display/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+          <submit/>
         </field>
     </form>
 </forms>

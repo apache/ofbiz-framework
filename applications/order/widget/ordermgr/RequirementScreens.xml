@@ -67,9 +67,36 @@ under the License.
                         </container>
                         <container>
                             <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
+                            <link target="ApproveRequirements" text="${uiLabelMap.OrderApproveRequirements}" style="buttontext"/>
                         </container>
                         <include-form name="FindRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                         <include-form name="ListRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ApproveRequirements">
+        <section>
+            <actions>
+                <set field="title" value="Find Requirements"/>
+                <set field="titleProperty" value="PageTitleFindRequirements"/>
+                <set field="headerItem" value="requirement"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.OrderApproveRequirements}</label>
+                        </container>
+                        <container>
+                            <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
+                            <link target="FindRequirements" text="${uiLabelMap.OrderRequirements}" style="buttontext"/>
+                        </container>
+                        <include-form name="FindNotApprovedRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        <include-form name="ApproveRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

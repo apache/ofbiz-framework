@@ -31,7 +31,6 @@ under the License.
     <div class="col"><a href="<@ofbizUrl>BomSimulation</@ofbizUrl>" class="${selectedLeftClassMap.bom?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingBillOfMaterials}</a></div>
     <div class="col"><a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>" class="${selectedLeftClassMap.mrp?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingMrp}</a></div>
     <div class="col"><a href="<@ofbizUrl>WorkWithShipmentPlans</@ofbizUrl>" class="${selectedLeftClassMap.ShipmentPlans?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingShipmentPlans}</a></div>
-    <div class="col"><a href="<@ofbizUrl>ApproveRequirements</@ofbizUrl>" class="${selectedLeftClassMap.requirement?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingApproveRequirements}</a></div>
     <div class="col"><a href="<@ofbizUrl>ManufacturingReports</@ofbizUrl>" class="${selectedLeftClassMap.ManufacturingReports?default(unselectedLeftClassName)}">${uiLabelMap.ManufacturingReports}</a></div>
   </#if>  
   <#if userLogin?has_content>
