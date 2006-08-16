@@ -55,13 +55,14 @@ under the License.
       if (endTime == null) {
           endTime = cancelTime;
       }
+      String serviceName = job.getString("serviceName");
   %>
   <tr>
     <td><a href="#" class="buttontext"><%=UtilFormatOut.checkNull(job.getString("jobName"),"&nbsp;")%></a></td>
     <td><div class="tabletext"><%=UtilFormatOut.checkNull(job.getString("poolId"), "&nbsp;")%></div></td>
     <td><div class="tabletext"><%=UtilFormatOut.checkNull(job.getString("runTime"),"&nbsp;")%></div></td>
     <td><div class="tabletext"><%=UtilFormatOut.checkNull(job.getString("startDateTime"),"&nbsp;")%></div></td>
-    <td><div class="tabletext"><%=UtilFormatOut.checkNull(job.getString("serviceName"),"&nbsp;")%></div></td>
+    <td><div class="tabletext"><a href="<ofbiz:url>/availableServices?sel_service_name=<%=serviceName%></ofbiz:url>" class="buttontext"><%=UtilFormatOut.checkNull(serviceName,"&nbsp;")%></a></div></td>
     <td>
       <div class="tabletext">
         <%if (endTime != null && cancelTime != null && endTime.equals(cancelTime)) {%>
