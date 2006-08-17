@@ -14,7 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-        <fo:table font-size="8pt"  font-family="sans-serif">
+        <fo:table font-size="8pt">
            <fo:table-column column-width="4.5in"/>
            <fo:table-column column-width="2in"/>
             <fo:table-body>
