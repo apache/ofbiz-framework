@@ -17,11 +17,19 @@
 package org.ofbiz.order.shoppingcart;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastMap;
-import org.apache.commons.collections.set.ListOrderedSet;
 
+import org.apache.commons.collections.set.ListOrderedSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -877,6 +885,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     priceContext.put("webSiteId", cart.getWebSiteId());
                     priceContext.put("productStoreId", cart.getProductStoreId());
                     priceContext.put("agreementId", cart.getAgreementId());
+                    priceContext.put("checkIncludeVat", "Y"); 
                     Map priceResult = dispatcher.runSync("calculateProductPrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
                         throw new CartItemModifyException("There was an error while calculating the price: " + ServiceUtil.getErrorMessage(priceResult));
