@@ -17,7 +17,8 @@
  
  // this script is used to get the company's logo header information for orders, invoices, and returns.  It can either take order, invoice, returnHeader from
  // parameters or use orderId, invoiceId, or returnId to look them up.  
-  
+ // if none of these parameters are available then fromPartyId is used or "Company" as fallback
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
@@ -32,6 +33,7 @@ shipmentId = parameters.get("shipmentId");
 returnHeader = (GenericValue) parameters.get("returnHeader");
 returnId = parameters.get("returnId");
 nowTimestamp = UtilDateTime.nowTimestamp();
+fromPartyId = parameters.get("fromPartyId");
 
 if (orderHeader == null && orderId != null) {
     orderHeader = (GenericValue) delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
@@ -77,6 +79,15 @@ if (orderHeader != null) {
 } else if (returnHeader != null) {
     if (returnHeader.getString("returnHeaderTypeId").equals("CUSTOMER_RETURN") && returnHeader.get("toPartyId") != null) {
         partyId = returnHeader.getString("toPartyId");
+    }
+}
+
+// if partyId wasn't found use fromPartyId-parameter
+if (partyId == null) {
+    if (fromPartyId != null) {
+        partyId = fromPartyId;
+    } else {
+        partyId = "Company";
     }
 }
 
