@@ -173,6 +173,26 @@ under the License.
         </if-compare-field>
     </simple-method>
 
+    <simple-method method-name="addDistinctShoppingListItem" 
+                   short-description="Adds a shopping list item if one with the same productId does not exist">
+        <log level="info" message="In addDistinctShoppingListItem" />
+        <entity-condition entity-name="ShoppingListItem" list-name="shoppingListItemList">
+            <condition-expr field-name="shoppingListId" env-name="parameters.shoppingListId" />
+        </entity-condition>
+
+        <iterate list-name="shoppingListItemList" entry-name="shoppingListItem">
+            <if-compare-field field-name="parameters.productId" operator="equals" to-field-name="shoppingListItem.productId">
+                <log level="info" message="In shopingListItem ${shoppingListItem.productId}" />
+                <field-to-result field-name="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId" />
+                <return />
+            </if-compare-field>
+        </iterate>
+        <log level="info" message="Right before createShoppingListItem" />
+        <call-service service-name="createShoppingListItem" in-map-name="parameters">
+            <result-to-result result-name="shoppingListItemSeqId" />
+        </call-service>
+    </simple-method>    
+
     <simple-method method-name="calculateShoppingListDeepTotalPrice" short-description="Calculate Deep Total Price for a ShoppingList">
         <set field="parentMethodName" value="calculateShoppingListDeepTotalPrice"/>
         <set field="permissionAction" value="VIEW"/>
@@ -259,5 +279,98 @@ under the License.
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunForAnotherParty"/></add-error>
             </then>
         </if>
+    </simple-method>
+    <simple-method method-name="addSuggestionsToShoppingList" short-description="Add suggestions to a shopping list">
+        <!-- first check the ProductStore.enableAutoSuggestionList indicator -->
+        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+        <if-empty field-name="orderHeader.productStoreId"><return/></if-empty>
+        
+        <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
+            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+        </entity-one>
+        <if-compare field-name="productStore.enableAutoSuggestionList" operator="not-equals" value="Y"><return/></if-compare>
+        
+        <entity-condition entity-name="OrderRole" list-name="orderRoleList">
+            <condition-list combine="and">
+                <condition-expr field-name="orderId" env-name="parameters.orderId" />
+                <condition-expr field-name="roleTypeId" value="PLACING_CUSTOMER" />
+            </condition-list>
+        </entity-condition>
+        <first-from-list list-name="orderRoleList" entry-name="orderRole" />
+        <log level="info" message="After orderRoleList" />
+
+        <entity-condition entity-name="ShoppingList" list-name="shoppingListList">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" env-name="orderRole.partyId" />
+                <condition-expr field-name="listName" value="Auto Suggestions" />
+            </condition-list>
+        </entity-condition>
+        <first-from-list list-name="shoppingListList" entry-name="shoppingList" />
+        <if-empty field-name="shoppingList">
+            <set field="createShoppingListInMap.partyId" from-field="orderRole.partyId" />
+            <set field="createShoppingListInMap.listName" value="Auto Suggestions" />
+            <set field="createShoppingListInMap.shoppingListTypeId" value="SLT_WISH_LIST" />
+            <call-service service-name="createShoppingList" in-map-name="createShoppingListInMap">
+                <result-to-field result-name="shoppingListId" />
+            </call-service>
+        <else>
+            <set field="shoppingListId" from-field="shoppingList.shoppingListId" />
+        </else>            
+        </if-empty>
+
+        <log level="info" message="Before iterating orderItemList" />
+        <entity-condition entity-name="OrderItem" list-name="orderItemList">
+            <condition-expr field-name="orderId" env-name="parameters.orderId" />
+            <order-by field-name="orderItemSeqId" />
+        </entity-condition>
+        <iterate list-name="orderItemList" entry-name="orderItem">
+            <if-not-empty field-name="orderItem.productId">
+                <log level="info" message="Found orderItem.productId [${orderItem.productId}]" />
+                <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" env-name="orderItem.productId" />
+                        <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
+                    </condition-list>
+                </entity-condition>
+                <log level="info" message="productAssocList = ${compProductAssocList}" />
+                <iterate list-name="compProductAssocList" entry-name="compProductAssoc">
+                    <log level="info" message="looping on assoc list" />
+                    <clear-field field-name="shoppingListParameters" />
+                    <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
+                    <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
+                    <set field="shoppingListParameters.quantity" value="1" type="Double" />
+                    <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
+                </iterate>
+                <entity-one entity-name="Product" value-name="product" auto-field-map="false" >
+                    <field-map field-name="productId" env-name="orderItem.productId" />
+                </entity-one>
+                <if-compare field-name="product.isVariant" operator="equals" value="Y">
+                    <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">
+                        <condition-list combine="and">
+                            <condition-expr field-name="productIdTo" env-name="orderItem.productId" />
+                            <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
+                        </condition-list>
+                    </entity-condition>
+                    <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc" />
+                    <if-not-empty field-name="virtualProductAssoc">
+                        <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
+                            <condition-list combine="and">
+                                <condition-expr field-name="productId" env-name="virtualProductAssoc.productId" />
+                                <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
+                            </condition-list>
+                        </entity-condition>
+                        <log level="info" message="productAssocList = ${compProductAssocList}" />
+                        <iterate list-name="compProductAssocList" entry-name="compProductAssoc">
+                            <log level="info" message="looping on assoc list #2" />
+                            <clear-field field-name="shoppingListParameters" />
+                            <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
+                            <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
+                            <set field="shoppingListParameters.quantity" value="1" type="Double" />
+                            <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
+                        </iterate>
+                    </if-not-empty>
+                </if-compare>
+            </if-not-empty>
+        </iterate>
     </simple-method>
 </simple-methods>

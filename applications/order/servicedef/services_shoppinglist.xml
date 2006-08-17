@@ -122,5 +122,18 @@ under the License.
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="addSuggestionsToShoppingList" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="addSuggestionsToShoppingList">
+        <description>Add suggestions to a shopping list</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="addDistinctShoppingListItem" engine="simple" auth="true"
+            location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="addDistinctShoppingListItem">
+        <description>Adds a shopping list item if one with the same productId does not exist</description>
+        <implements service="shoppingListItemInterface"/>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>
-

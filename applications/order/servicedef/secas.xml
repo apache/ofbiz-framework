@@ -21,6 +21,7 @@ under the License.
     <!-- order item status changes -->
     <eca service="storeOrder" event="return">
         <action service="resetGrandTotal" mode="sync"/>
+        <action service="addSuggestionsToShoppingList" mode="async" persist="true"/>
     </eca>
     <eca service="changeOrderItemStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
