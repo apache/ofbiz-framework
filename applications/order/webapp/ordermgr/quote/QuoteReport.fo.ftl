@@ -38,6 +38,7 @@ under the License.
                 <fo:table-row>
                     <#-- Top Left cell -->
                     <fo:table-cell>
+                        <#assign fromPartyId = quote.partyId?if_exists/>
                         ${screens.render("component://order/widget/ordermgr/OrderPrintForms.xml#CompanyLogo")}
                     </fo:table-cell>
                     <#-- Top Right cell -->
