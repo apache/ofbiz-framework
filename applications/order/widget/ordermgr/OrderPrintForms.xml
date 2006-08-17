@@ -29,14 +29,48 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderview.bsh"/>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/order/orderView.fo.ftl"/></html>
-                </platform-specific>                
+                <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
+                    <!-- at the top left of every page we put the logo and company information -->
+                    <decorator-section name="topLeft">
+                        <section>
+                            <widgets>
+                                <include-screen name="CompanyLogo" location="component://order/widget/ordermgr/OrderPrintForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <!-- at the top right of every page we put the order information -->
+                    <decorator-section name="topRight">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportHeaderInfo.fo.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
+                                <platform-specific>
+                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportContactMechs.fo.ftl"/></html>
+                                </platform-specific>
+                                <!-- order items and totals -->
+                                <platform-specific>
+                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportBody.fo.ftl"/></html>
+                                </platform-specific>
+                                <!-- return policies and notes are shown in the last page -->
+                                <platform-specific>
+                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportConditions.fo.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
