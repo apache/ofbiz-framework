@@ -77,7 +77,7 @@
         <field name="entryDate" title="${uiLabelMap.OrderEntryDate}">
             <date-find/>
         </field>
-
+        <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

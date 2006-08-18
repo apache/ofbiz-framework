@@ -41,6 +41,7 @@ under the License.
         <field name="description" title="${uiLabelMap.AccountingDescription}"><hidden/></field>
         <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
         <field name="thruDate" title="${uiLabelMap.AccountingThruDate}"><hidden/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
