@@ -129,8 +129,8 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         if (routingTaskId != null  && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))){
             GenericValue routingTask = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", routingTaskId));
             Map routingTaskData = routingTask.getAllFields();
-            routingTaskData.put("estimatedSetupMillis",routingTask.getDouble("estimatedSetupMillis").toString());
-            routingTaskData.put("estimatedMilliSeconds",routingTask.getDouble("estimatedMilliSeconds").toString());
+            routingTaskData.put("estimatedSetupMillis", routingTask.getDouble("estimatedSetupMillis"));
+            routingTaskData.put("estimatedMilliSeconds", routingTask.getDouble("estimatedMilliSeconds"));
             HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "EditProductionRunDeclRoutingTask", request, response);
             editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
             editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
