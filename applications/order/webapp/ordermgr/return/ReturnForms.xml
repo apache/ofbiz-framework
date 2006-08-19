@@ -18,45 +18,44 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-	<form name="EditReturn" type="single" target="updateReturnHeader" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-		<alt-target use-when="returnHeader==null" target="createReturnHeader"/>
-		<auto-fields-service service-name="updateReturnHeader"/>
-		
-		<field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
-		<field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="Could not find Return with ID [${returnId}]"><text size="20" maxlength="20"/></field>
-		<field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
-		
-		<field position="1" name="entryDate"/>
-		<field name="statusId" widget-style="selectBox">
-			<drop-down>
-				<entity-options entity-name="StatusItem" description="${description}">
-					<entity-constraint name="statusTypeId" value="ORDER_RETURN_STTS"/>
-					<entity-order-by field-name="sequenceId"/>
-				</entity-options>
-			</drop-down>
-		</field>
-		
-		<field name="destinationFacilityId">
-			<radio no-current-selected-key="">
-				<option key="" description="No Facility Specified"/>				
-				<entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
-					<entity-order-by field-name="facilityName"/>
-				</entity-options>				
-			</radio>
-		</field>
-		
-		<field service-name="updateReturnHeader" name="fromPartyId"/>
-		<field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-	</form>
-	
-	<form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-		<field name="itemDescription"><display/></field>
-		<auto-fields-service service-name="createReturnItem"/>
-		<field name="returnId"><hidden/></field>
-		<field name="orderId"><hidden/></field>
-		<field name="orderItemSeqId"><hidden/></field>
-		<field name="statusId"><ignored/></field>		
-	</form>
+    <form name="EditReturn" type="single" target="updateReturnHeader" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="returnHeader==null" target="createReturnHeader"/>
+        <auto-fields-service service-name="updateReturnHeader"/>
+        <field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
+        <field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="Could not find Return with ID [${returnId}]"><text size="20" maxlength="20"/></field>
+        <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
+        
+        <field position="1" name="entryDate"/>
+        <field name="statusId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="ORDER_RETURN_STTS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="destinationFacilityId">
+            <radio no-current-selected-key="">
+                <option key="" description="No Facility Specified"/>
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+            </radio>
+        </field>
+        
+        <field service-name="updateReturnHeader" name="fromPartyId"/>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="itemDescription"><display/></field>
+        <auto-fields-service service-name="createReturnItem"/>
+        <field name="returnId"><hidden/></field>
+        <field name="orderId"><hidden/></field>
+        <field name="orderItemSeqId"><hidden/></field>
+        <field name="statusId"><ignored/></field>
+    </form>
 
     <form name="FindReturns" type="single"  target="findreturn" title=""
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
