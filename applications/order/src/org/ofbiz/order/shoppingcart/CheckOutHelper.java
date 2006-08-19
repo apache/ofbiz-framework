@@ -1231,18 +1231,19 @@ public class CheckOutHelper {
     }
 
     /**
-     * Sets the shipping contact mechanism on the cart
+     * Sets the shipping contact mechanism for a given ship group on the cart
      *
+     * @param shipGroupIndex The index of the ship group in the cart
      * @param shippingContactMechId The identifier of the contact
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages
      */
-    public Map finalizeOrderEntryShip(String shippingContactMechId) {
+    public Map finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId) {
         Map result;
         String errMsg=null;
         //Verify the field is valid
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
-            this.cart.setShippingContactMechId(shippingContactMechId);
+            this.cart.setShippingContactMechId(shipGroupIndex, shippingContactMechId);
             result = ServiceUtil.returnSuccess();
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -1253,8 +1254,9 @@ public class CheckOutHelper {
     }
 
     /**
-     * Sets the options associated with the order
+     * Sets the options associated with the order for a given ship group
      *
+     * @param shipGroupIndex The index of the ship group in the cart
      * @param shippingMethod The shipping method indicating the carrier and
      * shipment type to use
      * @param shippingInstructions Any additional handling instructions
@@ -1265,7 +1267,7 @@ public class CheckOutHelper {
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages
      */
-    public Map finalizeOrderEntryOptions(String shippingMethod, String shippingInstructions, String maySplit,
+    public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
             String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
 
         Map result;
@@ -1281,19 +1283,19 @@ public class CheckOutHelper {
                 carrierPartyId = shippingMethod.substring(delimiterPos + 1);
             }
 
-            this.cart.setShipmentMethodTypeId(shipmentMethodTypeId);
-            this.cart.setCarrierPartyId(carrierPartyId);
+            this.cart.setShipmentMethodTypeId(shipGroupIndex, shipmentMethodTypeId);
+            this.cart.setCarrierPartyId(shipGroupIndex, carrierPartyId);
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.select_shipping_method", (cart != null ? cart.getLocale() : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
         }
 
         //Set the remaining order options
-        this.cart.setShippingInstructions(shippingInstructions);
-        this.cart.setGiftMessage(giftMessage);
-        this.cart.setMaySplit(Boolean.valueOf(maySplit));
-        this.cart.setIsGift(Boolean.valueOf(isGift));
-        this.cart.setInternalCode(internalCode);
+        this.cart.setShippingInstructions(shipGroupIndex, shippingInstructions);
+        this.cart.setGiftMessage(shipGroupIndex, giftMessage);
+        this.cart.setMaySplit(shipGroupIndex, Boolean.valueOf(maySplit));
+        this.cart.setIsGift(shipGroupIndex, Boolean.valueOf(isGift));
+        this.cart.setInternalCode(internalCode); // FIXME: the internalCode is not a ship group field and should be moved outside of this method
 
         // set ship before date
         if ((shipBeforeDate != null) && (shipBeforeDate.length() > 8)) {
@@ -1303,7 +1305,7 @@ public class CheckOutHelper {
            }
 
            try {
-               this.cart.setShipBeforeDate((Timestamp) ObjectType.simpleTypeConvert(shipBeforeDate, "Timestamp", null, null));
+               this.cart.setShipBeforeDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeConvert(shipBeforeDate, "Timestamp", null, null));
            } catch (Exception e) {
                errMsg = "Ship Before Date must be a valid date formed ";
                result = ServiceUtil.returnError(errMsg);
@@ -1318,7 +1320,7 @@ public class CheckOutHelper {
            }
 
            try {
-               this.cart.setShipAfterDate((Timestamp) ObjectType.simpleTypeConvert(shipAfterDate,"Timestamp", null, null));
+               this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeConvert(shipAfterDate,"Timestamp", null, null));
             } catch (Exception e) {
               errMsg = "Ship After Date must be a valid date formed ";
               result = ServiceUtil.returnError(errMsg);
@@ -1362,7 +1364,7 @@ public class CheckOutHelper {
      * @see CheckOutHelper#finalizeOrderEntryPayment(String, Double, boolean, boolean)
      * @see CheckOutHelper#finalizeOrderEntryShip(String)
      */
-    public Map finalizeOrderEntry(String finalizeMode, String shippingContactMechId, String shippingMethod,
+    public Map finalizeOrderEntry(String finalizeMode, int shipGroupIndex, String shippingContactMechId, String shippingMethod,
             String shippingInstructions, String maySplit, String giftMessage, String isGift, String methodType,
             String checkOutPaymentId, boolean isSingleUsePayment, boolean appendPayment, Map params,
             String internalCode, String shipBeforeDate, String shipAfterDate) {
@@ -1374,13 +1376,13 @@ public class CheckOutHelper {
 
         // set the shipping method
         if (finalizeMode != null && finalizeMode.equals("ship")) {
-            callResult = this.finalizeOrderEntryShip(shippingContactMechId);
+            callResult = this.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId);
             this.addErrors(errorMessages, errorMaps, callResult);
         }
 
         // set the options
         if (finalizeMode != null && finalizeMode.equals("options")) {
-            callResult = this.finalizeOrderEntryOptions(shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
+            callResult = this.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
             this.addErrors(errorMessages, errorMaps, callResult);
         }
 

@@ -1758,6 +1758,11 @@ public class ShoppingCart implements Serializable {
     // Ship Group Methods
     // ----------------------------------------
 
+    public int addShipInfo() {
+        shipInfo.add(new CartShipInfo());
+        return (shipInfo.size() - 1);
+    }
+
     public List getShipGroups() {
         return this.shipInfo;
     }

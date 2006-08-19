@@ -627,6 +627,7 @@ public class CheckOutEvents {
 
         Map paramMap = UtilHttp.getParameterMap(request);
         Boolean offlinePayments;
+        String shipGroupIndexPar = null;
         String shippingContactMechId = null;
         String shippingMethod = null;
         String shippingInstructions = null;
@@ -709,6 +710,16 @@ public class CheckOutEvents {
             isAnonymousCheckout = true;
         }
 
+        shipGroupIndexPar = request.getParameter("shipGroupIndex");
+        int shipGroupIndex = 0;
+        if (shipGroupIndexPar != null) {
+            try {
+                shipGroupIndex = Integer.parseInt(shipGroupIndexPar);
+            } catch(Exception exc) {
+                Debug.logWarning("Unable to parse shipGroupIndex [" + shipGroupIndexPar + "]: " + exc.getMessage(), module);
+            }
+        }
+
         // get the shipping method
         shippingContactMechId = request.getParameter("shipping_contact_mech_id");
         if (shippingContactMechId == null) {
@@ -777,7 +788,7 @@ public class CheckOutEvents {
             checkOutHelper.setCheckOutPayment(selectedPaymentMethods, null, billingAccountId, billingAccountAmt);
         }
 
-        Map callResult = checkOutHelper.finalizeOrderEntry(mode, shippingContactMechId, shippingMethod, shippingInstructions,
+        Map callResult = checkOutHelper.finalizeOrderEntry(mode, shipGroupIndex, shippingContactMechId, shippingMethod, shippingInstructions,
                 maySplit, giftMessage, isGift, methodType, checkOutPaymentId, isSingleUsePayment, doAppendPayment, paramMap,
                 internalCode, shipBeforeDate, shipAfterDate);
 
@@ -818,9 +829,9 @@ public class CheckOutEvents {
             requireAdditionalParty = requireAdditionalPartyStr == null || requireAdditionalPartyStr.equalsIgnoreCase("true");
         }
 
-        String shipContactMechId = cart.getShippingContactMechId();
         String customerPartyId = cart.getPartyId();
-        String shipmentMethodTypeId = cart.getShipmentMethodTypeId();
+        String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
+        String shipmentMethodTypeId = cart.getShipmentMethodTypeId(shipGroupIndex);
         List paymentMethodIds = cart.getPaymentMethodIds();
         List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
 
