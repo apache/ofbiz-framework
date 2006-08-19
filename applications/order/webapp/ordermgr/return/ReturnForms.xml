@@ -49,8 +49,8 @@
     </form>
     
     <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-        <field name="itemDescription"><display/></field>
         <auto-fields-service service-name="createReturnItem"/>
+        <field name="itemDescription"><display/></field>
         <field name="returnId"><hidden/></field>
         <field name="orderId"><hidden/></field>
         <field name="orderItemSeqId"><hidden/></field>
