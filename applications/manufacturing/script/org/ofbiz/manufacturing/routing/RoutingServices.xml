@@ -27,6 +27,31 @@ under the License.
         <filter-list-by-date list-name="routings"/>
         <!-- TODO: we should consider the quantity to select the best routing -->
         <first-from-list list-name="routings" entry-name="routingGS"/>
+        <!-- If there are no routings associated with our product and it's a variant, then 
+             check to see if it's virtual product has a routing -->
+        <if-empty field-name="routingGS">
+            <entity-one entity-name="Product" value-name="product" auto-field-map="false" >
+                <field-map field-name="productId" env-name="parameters.productId" />
+            </entity-one>
+            <if-compare field-name="product.isVariant" operator="equals" value="Y">
+                <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productIdTo" env-name="parameters.productId" />
+                        <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
+                    </condition-list>
+                </entity-condition>
+                <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc" />
+                <if-not-empty field-name="virtualProductAssoc">
+                    <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
+                    <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
+                    <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+                    <!-- TODO: we should consider the validity against a date passed as (optional) parameter -->
+                    <filter-list-by-date list-name="routings"/>
+                    <!-- TODO: we should consider the quantity to select the best routing -->
+                    <first-from-list list-name="routings" entry-name="routingGS"/>
+                </if-not-empty>
+            </if-compare>
+        </if-empty>
         <if-not-empty field-name="routingGS">
                 <clear-field field-name="lookupRouting"/>
                 <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
