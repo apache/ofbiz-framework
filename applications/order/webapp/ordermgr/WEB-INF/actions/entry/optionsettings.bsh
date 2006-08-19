@@ -27,6 +27,22 @@ cart = session.getAttribute("shoppingCart");
 context.put("cart", cart);
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 
+String shipGroupIndexPar = request.getParameter("shipGroupIndex");
+String createNewShipGroup = request.getParameter("createNewShipGroup");
+int shipGroupIndex = 0;
+if (createNewShipGroup != null && createNewShipGroup.equals("Y")) {
+    shipGroupIndex = cart.addShipInfo();
+} else {
+    if (shipGroupIndexPar != null) {
+        try {
+            shipGroupIndex = Integer.parseInt(shipGroupIndexPar);
+        } catch(Exception exc) {
+            Debug.logWarning("Unable to parse shipGroupIndex [" + shipGroupIndexPar + "]: " + exc.getMessage());
+        }
+    }
+}
+context.put("shipGroupIndex", shipGroupIndex);
+
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");
 
@@ -40,8 +56,8 @@ if (orderPartyIdId != null) {
 context.put("carrierShipmentMethodList", delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber")));
 context.put("emailList",  ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false));
 
-if (cart.getShipmentMethodTypeId() != null && cart.getCarrierPartyId() != null) {
-    context.put("chosenShippingMethod", cart.getShipmentMethodTypeId() + '@' + cart.getCarrierPartyId());
+if (cart.getShipmentMethodTypeId(shipGroupIndex) != null && cart.getCarrierPartyId(shipGroupIndex) != null) {
+    context.put("chosenShippingMethod", cart.getShipmentMethodTypeId(shipGroupIndex) + '@' + cart.getCarrierPartyId(shipGroupIndex));
 }    
 
 // create the beforeDate for calendar

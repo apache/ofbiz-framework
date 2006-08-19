@@ -105,15 +105,29 @@ under the License.
                 </td>
               </tr>
               <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform"> 
-                <input type="hidden" name="finalizeMode" value="ship">
-                                
+                <input type="hidden" name="finalizeMode" value="ship"/>
+                <input type="hidden" name="shipGroupIndex" value="${shipGroupIndex?if_exists}"/>
+
                 <tr><td colspan="3"><hr class='sepbar'></td></tr>
                 <#assign i = 0>
                 <#list shippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
+                  <#if currShipContactMechId?exists>
+                      <#if currShipContactMechId == shippingContactMech.contactMechId>
+                        <#assign checkedValue = "checked">
+                      <#else>
+                        <#assign checkedValue = "">
+                      </#if>
+                  <#else>
+                      <#if i == 0>
+                          <#assign checkedValue = "checked">
+                      <#else>
+                          <#assign checkedValue = "">
+                      </#if>
+                  </#if>
                   <tr>
                     <td align="left" valign="top" width="1%" nowrap>
-                      <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}" <#if i == 0>checked</#if>>        
+                      <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue}>
                     </td>
                     <td align="left" valign="top" width="99%" nowrap>
                       <div class="tabletext">

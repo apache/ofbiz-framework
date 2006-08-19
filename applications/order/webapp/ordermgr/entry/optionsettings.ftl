@@ -19,11 +19,13 @@ under the License.
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
 <tr>
     <td width='100%'>
+      <br/>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>          
             <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
-              <input type="hidden" name="finalizeMode" value="options">              
+              <input type="hidden" name="finalizeMode" value="options"/>
+              <input type="hidden" name="shipGroupIndex" value="${shipGroupIndex?if_exists}"/>
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
                <#if cart.getOrderType() != "PURCHASE_ORDER">
                 <#assign shipEstimateWrapper = Static["org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, cart, 0)>
@@ -37,7 +39,7 @@ under the License.
                   <td valign="top">                            
                     <div class='tabletext'>                                                 
                       <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
-                      <#if cart.getShippingContactMechId()?exists>
+                      <#if cart.getShippingContactMechId(shipGroupIndex)?exists>
                         <#assign shippingEst = shipEstimateWrapper.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                         <#if shippingEst?has_content>
                           &nbsp;-&nbsp;
@@ -73,7 +75,7 @@ under the License.
                 </tr>
                 <tr>
                   <td valign="top">
-                    <input type='radio' <#if cart.getMaySplit()?default("N") == "N">checked</#if> name='may_split' value='false'>
+                    <input type='radio' <#if cart.getMaySplit(shipGroupIndex)?default("N") == "N">checked</#if> name='may_split' value='false'>
                   </td>
                   <td valign="top">
                     <div class="tabletext">${uiLabelMap.FacilityWaitEntireOrderReady}</div>
@@ -81,7 +83,7 @@ under the License.
                 </tr>
                 <tr>
                   <td valign="top">
-                    <input <#if cart.getMaySplit()?default("N") == "Y">checked</#if> type='radio' name='may_split' value='true'>
+                    <input <#if cart.getMaySplit(shipGroupIndex)?default("N") == "Y">checked</#if> type='radio' name='may_split' value='true'>
                   </td>
                   <td valign="top">
                     <div class="tabletext">${uiLabelMap.FacilityShipAvailable}</div>
@@ -95,7 +97,7 @@ under the License.
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <textarea class='textAreaBox' cols="30" rows="3" name="shipping_instructions">${cart.getShippingInstructions()?if_exists}</textarea>
+                    <textarea class='textAreaBox' cols="30" rows="3" name="shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
                 <#if cart.getOrderType() != "PURCHASE_ORDER">
@@ -115,8 +117,8 @@ under the License.
                     <#else>
                     <div>
                       <span class="head2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
-                      <input type='radio' <#if cart.getIsGift()?default("Y") == "Y">checked</#if> name='is_gift' value='true'><span class='tabletext'>${uiLabelMap.CommonYes}</span>
-                      <input type='radio' <#if cart.getIsGift()?default("N") == "N">checked</#if> name='is_gift' value='false'><span class='tabletext'>${uiLabelMap.CommonNo}</span>
+                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("Y") == "Y">checked</#if> name='is_gift' value='true'><span class='tabletext'>${uiLabelMap.CommonYes}</span>
+                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("N") == "N">checked</#if> name='is_gift' value='false'><span class='tabletext'>${uiLabelMap.CommonNo}</span>
                     </div>
                     </#if>
                   </td>
@@ -130,7 +132,7 @@ under the License.
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <textarea class='textAreaBox' cols="30" rows="3" name="gift_message">${cart.getGiftMessage()?if_exists}</textarea>
+                    <textarea class='textAreaBox' cols="30" rows="3" name="gift_message">${cart.getGiftMessage(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
                  </#if>

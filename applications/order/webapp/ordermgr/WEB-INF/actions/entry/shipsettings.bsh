@@ -26,6 +26,23 @@ import javolution.util.FastList;
 
 delegator = request.getAttribute("delegator");
 cart = session.getAttribute("shoppingCart");
+
+String shipGroupIndexPar = request.getParameter("shipGroupIndex");
+String createNewShipGroup = request.getParameter("createNewShipGroup");
+int shipGroupIndex = 0;
+if (createNewShipGroup != null && createNewShipGroup.equals("Y")) {
+    shipGroupIndex = cart.addShipInfo();
+} else {
+    if (shipGroupIndexPar != null) {
+        try {
+            shipGroupIndex = Integer.parseInt(shipGroupIndexPar);
+        } catch(Exception exc) {
+            Debug.logWarning("Unable to parse shipGroupIndex [" + shipGroupIndexPar + "]: " + exc.getMessage());
+        }
+    }
+}
+context.put("shipGroupIndex", shipGroupIndex);
+
 orderPartyId = cart.getPartyId();
 context.put("cart", cart);
 
@@ -42,6 +59,8 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
             context.put("orderPerson", orderPerson);
             context.put("shippingContactMechList", shippingContactMechList);
         }
+        String currShipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
+        context.put("currShipContactMechId", currShipContactMechId);
     }
 } else {
     // Purchase order
