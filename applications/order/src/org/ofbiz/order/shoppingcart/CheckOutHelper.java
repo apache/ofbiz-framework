@@ -439,7 +439,7 @@ public class CheckOutHelper {
                     errorMessages.add(e.getMessage());
                 }
                 if (gcResult != null) {
-                    this.addErrors(errorMessages, errorMaps, gcResult);
+                    ServiceUtil.addErrors(errorMessages, errorMaps, gcResult);
 
                     if (errorMessages.size() == 0 && errorMaps.size() == 0) {
                         // set the GC payment method
@@ -1356,9 +1356,7 @@ public class CheckOutHelper {
      * This is a convenience method, primarily to match the original
      * code structure of the adapter class <code>CheckOutEvents</code>.
      * <p>
-     * I would prefer to remove this altogether and move the method
-     * {@link #addErrors(List, Map, Map) addErrors} to the utility
-     * class {@link ServiceUtil ServiceUtil}
+     * I would prefer to remove this altogether.
      *
      * @see CheckOutHelper#finalizeOrderEntryOptions(String, String, String, String, String, String, String, String)
      * @see CheckOutHelper#finalizeOrderEntryPayment(String, Double, boolean, boolean)
@@ -1377,13 +1375,13 @@ public class CheckOutHelper {
         // set the shipping method
         if (finalizeMode != null && finalizeMode.equals("ship")) {
             callResult = this.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId);
-            this.addErrors(errorMessages, errorMaps, callResult);
+            ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
         }
 
         // set the options
         if (finalizeMode != null && finalizeMode.equals("options")) {
             callResult = this.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
-            this.addErrors(errorMessages, errorMaps, callResult);
+            ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
         }
 
         // set the payment
@@ -1391,16 +1389,16 @@ public class CheckOutHelper {
             Map selectedPaymentMethods = null;
             if (checkOutPaymentId != null) {
                 callResult = this.finalizeOrderEntryPayment(checkOutPaymentId, null, isSingleUsePayment, appendPayment);
-                this.addErrors(errorMessages, errorMaps, callResult);
+                ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 selectedPaymentMethods = UtilMisc.toMap(checkOutPaymentId, null);
             }
             callResult = checkGiftCard(params, selectedPaymentMethods);
-            this.addErrors(errorMessages, errorMaps, callResult);
+            ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
             if (errorMessages.size() == 0 && errorMaps.size() == 0) {
                 String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
                 Double giftCardAmount = (Double) callResult.get("amount");
                 Map gcCallRes = this.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
-                this.addErrors(errorMessages, errorMaps, gcCallRes);
+                ServiceUtil.addErrors(errorMessages, errorMaps, gcCallRes);
             }
         }
 
@@ -1415,40 +1413,6 @@ public class CheckOutHelper {
         }
 
         return result;
-    }
-
-    /**
-     * Takes the result of an invocation and extracts any error messages
-     * and adds them to the targetList. This will handle both List and String
-     * error messags.
-     *
-     * @param targetList    The List to add the error messages to
-     * @param targetMap The Map to add any Map error messages to
-     * @param callResult The result from an invocation
-     */
-    private void addErrors(List targetList, Map targetMap, Map callResult) {
-        List newList;
-        //Map.Entry entry;
-        //Iterator mapIter;
-        Map errorMsgMap;
-        //StringBuffer outMsg;
-
-        //See if there is a single message
-        if (callResult.containsKey(ModelService.ERROR_MESSAGE)) {
-            targetList.add(callResult.get(ModelService.ERROR_MESSAGE));
-        }
-
-        //See if there is a message list
-        if (callResult.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
-            newList = (List) callResult.get(ModelService.ERROR_MESSAGE_LIST);
-            targetList.addAll(newList);
-        }
-
-        //See if there are an error message map
-        if (callResult.containsKey(ModelService.ERROR_MESSAGE_MAP)) {
-            errorMsgMap = (Map) callResult.get(ModelService.ERROR_MESSAGE_MAP);
-            targetMap.putAll(errorMsgMap);
-        }
     }
 
     public double availableAccountBalance(String billingAccountId) {
