@@ -324,6 +324,37 @@ public class ServiceUtil {
         return outMsg.toString();
     }
 
+    /**
+     * Takes the result of an invocation and extracts any error messages
+     * and adds them to the targetList or targetMap. This will handle both List and String
+     * error messags.
+     *
+     * @param targetList    The List to add the error messages to
+     * @param targetMap The Map to add any Map error messages to
+     * @param callResult The result from an invocation
+     */
+    public static void addErrors(List targetList, Map targetMap, Map callResult) {
+        List newList;
+        Map errorMsgMap;
+
+        //See if there is a single message
+        if (callResult.containsKey(ModelService.ERROR_MESSAGE)) {
+            targetList.add(callResult.get(ModelService.ERROR_MESSAGE));
+        }
+
+        //See if there is a message list
+        if (callResult.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
+            newList = (List) callResult.get(ModelService.ERROR_MESSAGE_LIST);
+            targetList.addAll(newList);
+        }
+
+        //See if there are an error message map
+        if (callResult.containsKey(ModelService.ERROR_MESSAGE_MAP)) {
+            errorMsgMap = (Map) callResult.get(ModelService.ERROR_MESSAGE_MAP);
+            targetMap.putAll(errorMsgMap);
+        }
+    }
+
     public static Map purgeOldJobs(DispatchContext dctx, Map context) {
         String sendPool = ServiceConfigUtil.getSendPool();
         int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
