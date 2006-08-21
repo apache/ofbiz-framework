@@ -1035,15 +1035,17 @@ public class OrderReturnServices {
 
                 BigDecimal amountApplied = responseAmount.multiply(invoiceTotal).divide(grandTotal, decimals, rounding).setScale(decimals, rounding);
 
-                // create a payment application for the invoice
-                Map input = UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoice.getString("invoiceId"));
-                input.put("amountApplied", new Double(amountApplied.doubleValue()));
-                input.put("userLogin", userLogin);
-                Map serviceResults = dispatcher.runSync("createPaymentApplication", input);
-                if (ServiceUtil.isError(serviceResults)) {
-                    return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                if (paymentId != null) {
+                    // create a payment application for the invoice
+                    Map input = UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoice.getString("invoiceId"));
+                    input.put("amountApplied", new Double(amountApplied.doubleValue()));
+                    input.put("userLogin", userLogin);
+                    Map serviceResults = dispatcher.runSync("createPaymentApplication", input);
+                    if (ServiceUtil.isError(serviceResults)) {
+                        return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
+                    }
+                    if (Debug.verboseOn()) { Debug.logInfo("Created PaymentApplication for response with amountApplied " + amountApplied.toString(), module); }
                 }
-                if (Debug.verboseOn()) { Debug.logInfo("Created PaymentApplication for response with amountApplied " + amountApplied.toString(), module); }
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, errorMsg + e.getMessage(), module);
