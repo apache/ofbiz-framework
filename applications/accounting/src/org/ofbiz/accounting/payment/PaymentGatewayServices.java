@@ -905,7 +905,7 @@ public class PaymentGatewayServices {
                 // capturing to a billing account if amount is greater than zero
                 if (billingAccountCaptureAmount.compareTo(ZERO) == 1) {
                     Map tmpResult = dispatcher.runSync("captureBillingAccountPayment", UtilMisc.toMap("invoiceId", invoiceId, "billingAccountId", billingAccountId,
-                            "captureAmount", new Double(billingAccountCaptureAmount.doubleValue()), "userLogin", userLogin));
+                            "captureAmount", new Double(billingAccountCaptureAmount.doubleValue()), "orderId", orderId, "userLogin", userLogin));
                     if (ServiceUtil.isError(tmpResult)) {
                         return tmpResult;
                     }
@@ -1108,6 +1108,7 @@ public class PaymentGatewayServices {
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
         Double captureAmount = (Double) context.get("captureAmount");
+        String orderId = (String) context.get("orderId");
         Map results = ServiceUtil.returnSuccess();
         
         try {
@@ -1134,6 +1135,44 @@ public class PaymentGatewayServices {
                 return ServiceUtil.returnError("No payment created for invoice [" + invoiceId + "] and billing account [" + billingAccountId + "]");
             }
             results.put("paymentId", paymentId);
+            
+            if (orderId != null && captureAmount.doubleValue() > 0) {
+                // Create a paymentGatewayResponse, if necessary
+                GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                if (order == null) {
+                    return ServiceUtil.returnError("No paymentGatewayResponse created for invoice [" + invoiceId + "] and billing account [" + billingAccountId + "]: Order with ID [" + orderId + "] not found!");
+                }
+                // See if there's an orderPaymentPreference - there should be only one OPP for EXT_BILLACT per order
+                List orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT"));
+                if (orderPaymentPreferences != null && orderPaymentPreferences.size() > 0) {
+                    GenericValue orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
+                    
+                    // Check the productStore setting to see if we need to do this explicitly
+                    GenericValue productStore = order.getRelatedOne("ProductStore");
+                    if (productStore.getString("manualAuthIsCapture") == null || (! productStore.getString("manualAuthIsCapture").equalsIgnoreCase("Y"))) {        
+                        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+                        GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse", null);
+                        pgResponse.set("paymentGatewayResponseId", responseId);
+                        pgResponse.set("paymentServiceTypeEnumId", CAPTURE_SERVICE_TYPE);
+                        pgResponse.set("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
+                        pgResponse.set("paymentMethodTypeId", "EXT_BILLACT");
+                        pgResponse.set("transCodeEnumId", "PGT_CAPTURE");
+                        pgResponse.set("amount", captureAmount);
+                        pgResponse.set("currencyUomId", invoice.getString("currencyUomId"));
+                        pgResponse.set("transactionDate", UtilDateTime.nowTimestamp());
+                        // referenceNum holds the relation to the order.
+                        // todo: Extend PaymentGatewayResponse with a billingAccountId field?
+                        pgResponse.set("referenceNum", billingAccountId);
+                        pgResponse.create();
+
+                        // Update the orderPaymentPreference
+                        orderPaymentPreference.set("statusId", "PAYMENT_SETTLED");
+                        orderPaymentPreference.store();
+                        
+                        results.put("paymentGatewayResponseId", responseId);
+                    }
+                }
+            }
         } catch (GenericEntityException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         } catch (GenericServiceException ex) {

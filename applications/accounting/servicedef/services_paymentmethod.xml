@@ -268,7 +268,9 @@ under the License.
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="captureAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="paymentGatewayResponseId" type="String" mode="OUT" optional="true"/>
     </service>
         
 
