@@ -30,6 +30,12 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -102,17 +108,27 @@ public class CommunicationEventServices {
                 } 
             } else {
                 // there's actually a contact list here, so we want to be sending to the entire contact list
-                GenericValue ContactList = communicationEvent.getRelatedOne("ContactList");
-                List sendToParties = ContactList.getRelated("ContactListParty");
+                GenericValue contactList = communicationEvent.getRelatedOne("ContactList");
+
+                // find active, ACCEPTED parties in the contact list using a list iterator (because there can be a large number)
+                EntityConditionList conditions = new EntityConditionList( UtilMisc.toList(
+                            new EntityExpr("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
+                            new EntityExpr("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
+                            new EntityExpr("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
+                            EntityUtil.getFilterByDateExpr()
+                            ), EntityOperator.AND);
+                List fieldsToSelect = UtilMisc.toList("partyId", "preferredContactMechId");
+                EntityListIterator sendToPartiesIt = delegator.findListIteratorByCondition("ContactListParty", conditions,  null, fieldsToSelect, null,
+                        new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
                 
-                for (Iterator it = sendToParties.iterator(); it.hasNext(); ) {
-                    GenericValue nextSendToParty = (GenericValue) it.next();
-                    if ((nextSendToParty != null) && (nextSendToParty.getRelatedOne("PreferredContactMech") != null)) {
-                        sendMailParams.put("sendTo", nextSendToParty.getRelatedOne("PreferredContactMech").getString("infoString"));
-                        sendMailParams.put("partyId", nextSendToParty.getString("partyId"));
-                    } else {
-                        Debug.logWarning("Cannot find a preferred contact mech for [" + nextSendToParty + "]", module);
-                    }
+                // send an email to each contact list member
+                GenericValue nextSendToParty = null;
+                while ((nextSendToParty = (GenericValue) sendToPartiesIt.next()) != null) {
+                    GenericValue email = nextSendToParty.getRelatedOne("PreferredContactMech");
+                    if (email == null) continue;
+
+                    sendMailParams.put("sendTo", email.getString("infoString"));
+                    sendMailParams.put("partyId", nextSendToParty.getString("partyId"));
                     
                     // no communicationEventId here - we want to create a communication event for each member of the contact list
             
@@ -122,6 +138,7 @@ public class CommunicationEventServices {
                         errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
                     }
                 }
+                sendToPartiesIt.close();
             }
         } catch (GenericEntityException eex) {
             ServiceUtil.returnError(eex.getMessage());
