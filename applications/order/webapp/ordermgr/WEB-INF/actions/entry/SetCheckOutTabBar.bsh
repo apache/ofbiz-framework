@@ -55,6 +55,11 @@ if ("PURCHASE_ORDER".equals(shoppingCart.getOrderType())) {
     addStep("OrderOrderTerms", "/setOrderTerm");
 }
 addStep("FacilityShipping", "/setShipping");
+/*
+if (shoppingCart.getShipGroupSize() > 1) {
+    addStep("ItemShipGroups", "/setItemShipGroups");
+}
+ */
 addStep("CommonOptions", "/setOptions");
 if ("SALES_ORDER".equals(shoppingCart.getOrderType())) {
     addStep("AccountingPayment", "/setBilling");

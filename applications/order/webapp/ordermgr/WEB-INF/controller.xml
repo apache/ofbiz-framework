@@ -672,6 +672,10 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="shipsetting"/>
     </request-map>
+    <request-map uri="EditShipAddress">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditShipAddress"/>
+    </request-map>
     <request-map uri="createPostalAddress">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyPostalAddress"/>
@@ -1337,6 +1341,7 @@
 
     <view-map name="custsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#CustSettings"/>
     <view-map name="shipsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#ShipSettings"/>
+    <view-map name="EditShipAddress" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#EditShipAddress"/>
     <view-map name="addrsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#AddrSettings"/>
     <view-map name="optionsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#OptionSettings"/>
     <view-map name="billsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#BillSettings"/>

@@ -87,16 +87,30 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
                 <set field="stepLabelId" value="FacilityShipping"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/shipsettings.bsh"/>
-                <set field="targetShipGroupUri" value="setShipping"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/entry/shipGroupTabBar.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/entry/shipsettings.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditShipAddress">
+        <section>
+            <actions>
+                <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
+                <set field="stepLabelId" value="FacilityShipping"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/shipsettings.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://order/webapp/ordermgr/entry/editShipAddress.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -134,14 +148,10 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderOptionSettings"/>
                 <set field="stepLabelId" value="CommonOptions"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/optionsettings.bsh"/>
-                <set field="targetShipGroupUri" value="setOptions"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/entry/shipGroupTabBar.ftl"/></html>
-                        </platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/entry/optionsettings.ftl"/></html>
                         </platform-specific>
