@@ -846,6 +846,7 @@ public class PaymentGatewayServices {
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
         Double captureAmount = (Double) context.get("captureAmount");
+        BigDecimal captureAmountBd = new BigDecimal(captureAmount.doubleValue());
 
         Map result = new HashMap();
 
@@ -872,9 +873,9 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError("Could not find OrderHeader with orderId: " + orderId + "; not processing payments.");
         }
 
+        OrderReadHelper orh = new OrderReadHelper(orderHeader);
+        
         // See if there is a billing account first.  If so, just charge the captureAmount to the billing account via PaymentApplication
-        // or at least charge up the full amount of the billing account's net balance and then try other payment methods
-        // Note that this needs to run here first because orders charged to billing account alone will have no OrderPaymentPreference
         GenericValue billingAccount = null;
         BigDecimal billingAccountAvail = null;
         BigDecimal billingAccountCaptureAmount = ZERO;
@@ -896,33 +897,35 @@ public class PaymentGatewayServices {
         // if a billing account is used to pay for an order, then charge as much as we can to it before proceeding to other payment methods.
         if (billingAccount != null && billingAccountAvail != null) {
             try {
-                // the amount to be "charged" to the billing account, which is the minimum of billing account available amount and amount to capture
-                BigDecimal captureAmountBd = new BigDecimal(captureAmount.doubleValue());
-                billingAccountCaptureAmount = captureAmountBd.min(billingAccountAvail);
-                Debug.logInfo("billing account avail = [" + billingAccountAvail + "] capture amount = [" + billingAccountCaptureAmount + "]", module);
-            
-                // capturing to a billing account is a matter of a creating a payment and then applying it to the invoice
-                Map tmpResult = dispatcher.runSync("captureBillingAccountPayment", UtilMisc.toMap("invoiceId", invoiceId, "billingAccountId", billingAccountId, 
-                        "captureAmount", new Double(billingAccountCaptureAmount.doubleValue()), "userLogin", userLogin));
-                if (ServiceUtil.isError(tmpResult)) {
-                    return tmpResult;
-                }
-                
-                // now, if the full amount had not been captured, then capture
-                // it from other methods, otherwise return
-                if (billingAccountCaptureAmount.compareTo(captureAmountBd) == -1) {
-                    BigDecimal outstandingAmount = captureAmountBd.subtract(billingAccountCaptureAmount).setScale(decimals, rounding);
-                    captureAmount = new Double(outstandingAmount.doubleValue());
-                } else {
-                    Debug.logInfo("Amount to capture [" + captureAmount + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
-                    result = ServiceUtil.returnSuccess();
-                    result.put("processResult", "COMPLETE");
-                    return result;
-                }
+                // the amount to be "charged" to the billing account, which is the minimum of the amount the order wants to charge to the billing account 
+                // or the amount still available for capturing from the billing account or the total amount to be captured on the order 
+                BigDecimal billingAccountMaxAmount = new BigDecimal(orh.getBillingAccountMaxAmount());
+                billingAccountCaptureAmount = billingAccountMaxAmount.min(billingAccountAvail).min(captureAmountBd);
+                Debug.logInfo("billing account avail = [" + billingAccountAvail + "] capture amount = [" + billingAccountCaptureAmount + "] maxAmount = ["+billingAccountMaxAmount+"]", module);
+                // capturing to a billing account if amount is greater than zero
+                if (billingAccountCaptureAmount.compareTo(ZERO) == 1) {
+                    Map tmpResult = dispatcher.runSync("captureBillingAccountPayment", UtilMisc.toMap("invoiceId", invoiceId, "billingAccountId", billingAccountId,
+                            "captureAmount", new Double(billingAccountCaptureAmount.doubleValue()), "userLogin", userLogin));
+                    if (ServiceUtil.isError(tmpResult)) {
+                        return tmpResult;
+                    }
+
+                    // now, if the full amount had not been captured, then capture
+                    // it from other methods, otherwise return
+                    if (billingAccountCaptureAmount.compareTo(captureAmountBd) == -1) {
+                        BigDecimal outstandingAmount = captureAmountBd.subtract(billingAccountCaptureAmount).setScale(decimals, rounding);
+                        captureAmount = new Double(outstandingAmount.doubleValue());
+                    } else {
+                        Debug.logInfo("Amount to capture [" + captureAmount + "] was fully captured in Payment [" + tmpResult.get("paymentId") + "].", module);
+                        result = ServiceUtil.returnSuccess();
+                        result.put("processResult", "COMPLETE");
+                        return result;
+                    }
+               }
             } catch (GenericServiceException ex) {
                 return ServiceUtil.returnError(ex.getMessage());
             }
-        }
+        }            
         
         // return complete if no payment prefs were found
         if (paymentPrefs == null || paymentPrefs.size() == 0) {
@@ -932,8 +935,6 @@ public class PaymentGatewayServices {
             return result;
         }
 
-        OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        
         BigDecimal orderGrandTotal = orh.getOrderGrandTotalBd();
         orderGrandTotal = orderGrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
         double orderTotal = orderGrandTotal.doubleValue();
@@ -1015,19 +1016,23 @@ public class PaymentGatewayServices {
                 Debug.logError("The amount to capture was more then what was authorized; we only captured the authorized amount : " + paymentPref, module);
                 amountThisCapture = authAmount.doubleValue();
             }
-            
+           
+            Debug.logInfo("Payment preference = [" + paymentPref + "] amount to capture = [" + amountToCapture +"] amount of this capture = [" + amountThisCapture +"] actual auth amount =[" + authAmount + "] amountToBillAccount = [" + amountToBillAccount + "]", module); 
             Map captureResult = capturePayment(dctx, userLogin, orh, paymentPref, amountThisCapture);
             if (captureResult != null) {
+                // credit card processors return captureAmount, but gift certificate processors return processAmount
                 Double amountCaptured = (Double) captureResult.get("captureAmount");
+                if (amountCaptured == null) {
+                    amountCaptured = (Double) captureResult.get("processAmount");
+                }
+                // decrease amount of next payment preference to capture
                 if (amountCaptured != null) amountToCapture -= amountCaptured.doubleValue();
                 finished.add(captureResult);
 
                 // add the invoiceId to the result for processing
                 captureResult.put("invoiceId", invoiceId);
 
-                //Debug.log("Capture result : " + captureResult, module);
-
-                // process the capture's results
+               // process the capture's results
                 try {
                     processResult(dctx, captureResult, userLogin, paymentPref);
                 } catch (GeneralException e) {
@@ -1036,10 +1041,7 @@ public class PaymentGatewayServices {
                 }
 
                 // create any splits which are needed
-                // we need to add up the amount that has been captured from both credit card and the billing account
-                // otherwise, if part of invoice was captured to billing account, the system will authorize that amount again on the credit card
                 BigDecimal totalAmountCaptured = new BigDecimal(amountThisCapture);
-                totalAmountCaptured = totalAmountCaptured.add(billingAccountCaptureAmount).setScale(decimals, rounding);
                 if (authAmount.doubleValue() > totalAmountCaptured.doubleValue()) {
                     // create a new payment preference and authorize it
                     double newAmount = authAmount.doubleValue() - totalAmountCaptured.doubleValue(); // TODO: use BigDecimal arithmetic here (and everywhere else for that matter)
