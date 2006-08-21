@@ -449,19 +449,19 @@ function toggleBillingAccount(box) {
                       <#assign availableAmount = billingAccount.accountLimit?double - billingAccount.accountBalance?double>
                       <tr>
                         <td align="left" valign="top" width="1%">
-                          <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="${billingAccount.billingAccountId}" <#if (billingAccount.billingAccountId == selectedBillingAccount?default(""))>checked="checked"</#if>/>
+                          <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="${billingAccount.billingAccountId}" <#if (billingAccount.billingAccountId == selectedBillingAccountId?default(""))>checked="checked"</#if>/>
                         </td>
                         <td align="left" valign="top" width="99%">
                           <div class="tabletext">
                            ${billingAccount.description?default("Bill Account")} [${uiLabelMap.OrderNbr}<b>${billingAccount.billingAccountId}</b>]&nbsp;(<@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId?default(shoppingCart.getCurrency())/>)<br/>
-                           <b>${uiLabelMap.OrderBillUpTo}:</b> <input type="text" size="8" class="inputBox" name="amount_${billingAccount.billingAccountId}" value="${availableAmount?double?string("##0.00")}" <#if !(billingAccount.billingAccountId == selectedBillingAccount?default(""))>disabled</#if>>
+                           <b>${uiLabelMap.OrderBillUpTo}:</b> <input type="text" size="8" class="inputBox" name="amount_${billingAccount.billingAccountId}" value="${availableAmount?double?string("##0.00")}" <#if !(billingAccount.billingAccountId == selectedBillingAccountId?default(""))>disabled</#if>>
                           </div>
                         </td>
                       </tr>
                     </#list>
                     <tr>
                       <td align="left" valign="top" width="1%">
-                        <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="_NA" <#if (selectedBillingAccount?default("") == "N")>checked="checked"</#if>/>
+                        <input type="radio" onClick="javascript:toggleBillingAccount(this);" name="billingAccountId" value="_NA_" <#if (selectedBillingAccountId?default("") == "N")>checked="checked"</#if>/>
                         <input type="hidden" name="_NA_amount" value="0.00"/>
                       </td>
                       <td align="left" valign="top" width="99%">
