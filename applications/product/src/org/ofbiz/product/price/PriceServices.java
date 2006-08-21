@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -88,14 +89,14 @@ public class PriceServices {
         Map result = new HashMap();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
-        boolean isSale = false;
-        List orderItemPriceInfos = new LinkedList();
-
         GenericValue product = (GenericValue) context.get("product");
         String productId = product.getString("productId");
         String prodCatalogId = (String) context.get("prodCatalogId");
         String webSiteId = (String) context.get("webSiteId");
         String checkIncludeVat = (String) context.get("checkIncludeVat");
+        
+        String findAllQuantityPricesStr = (String) context.get("findAllQuantityPrices");
+        boolean findAllQuantityPrices = "Y".equals(findAllQuantityPricesStr);
 
         String agreementId = (String) context.get("agreementId");
 
@@ -507,434 +508,113 @@ public class PriceServices {
             result.put("averageCost", averageCostValue != null ? averageCostValue.getDouble("price") : null);
             result.put("promoPrice", promoPriceValue != null ? promoPriceValue.getDouble("price") : null);
             result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getDouble("price") : null);
+            result.put("validPriceFound", new Boolean(validPriceFound));
+            result.put("isSale", new Boolean(false));
+            result.put("orderItemPriceInfos", FastList.newInstance());
+
+            Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 
+            	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+            if (errorResult != null) return errorResult;
         } else {
             try {
-                // get some of the base values to calculate with
-                double listPrice = listPriceDbl.doubleValue();
-                double averageCost = (averageCostValue != null && averageCostValue.get("price") != null) ? averageCostValue.getDouble("price").doubleValue() : listPrice;
-                double margin = listPrice - averageCost;
+                List allProductPriceRules = makeProducePriceRuleList(delegator, optimizeForLargeRuleSet, productId, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, currencyUomId);
 
-                // calculate running sum based on listPrice and rules found
-                double price = listPrice;
-
-                Collection productPriceRules = null;
-
-                // At this point we have two options: optimize for large ruleset, or optimize for small ruleset
-                // NOTE: This only effects the way that the rules to be evaluated are selected.
-                // For large rule sets we can do a cached pre-filter to limit the rules that need to be evaled for a specific product.
-                // Genercally I don't think that rule sets will get that big though, so the default is optimize for smaller rule set.
-                if (optimizeForLargeRuleSet) {
-                    // ========= find all rules that must be run for each input type; this is kind of like a pre-filter to slim down the rules to run =========
-                    // utilTimer.timerString("Before create rule id list", module);
-                    TreeSet productPriceRuleIds = new TreeSet();
-
-                    // ------- These are all of the conditions that DON'T depend on the current inputs -------
-
-                    // by productCategoryId
-                    // for we will always include any rules that go by category, shouldn't be too many to iterate through each time and will save on cache entries
-                    // note that we always want to put the category, quantity, etc ones that find all rules with these conditions in separate cache lists so that they can be easily cleared
-                    Collection productCategoryIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CAT_ID"));
-                    if (productCategoryIdConds != null && productCategoryIdConds.size() > 0) {
-                        Iterator productCategoryIdCondsIter = productCategoryIdConds.iterator();
-                        while (productCategoryIdCondsIter.hasNext()) {
-                            GenericValue productCategoryIdCond = (GenericValue) productCategoryIdCondsIter.next();
-                            productPriceRuleIds.add(productCategoryIdCond.getString("productPriceRuleId"));
-                        }
-                    }
-
-                    // by quantity -- should we really do this one, ie is it necessary?
-                    // we could say that all rules with quantity on them must have one of these other values
-                    // but, no we'll do it the other way, any that have a quantity will always get compared
-                    Collection quantityConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_QUANTITY"));
-                    if (quantityConds != null && quantityConds.size() > 0) {
-                        Iterator quantityCondsIter = quantityConds.iterator();
-                        while (quantityCondsIter.hasNext()) {
-                            GenericValue quantityCond = (GenericValue) quantityCondsIter.next();
-                            productPriceRuleIds.add(quantityCond.getString("productPriceRuleId"));
-                        }
-                    }
-
-                    // by roleTypeId
-                    Collection roleTypeIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_ROLE_TYPE"));
-                    if (roleTypeIdConds != null && roleTypeIdConds.size() > 0) {
-                        Iterator roleTypeIdCondsIter = roleTypeIdConds.iterator();
-                        while (roleTypeIdCondsIter.hasNext()) {
-                            GenericValue roleTypeIdCond = (GenericValue) roleTypeIdCondsIter.next();
-                            productPriceRuleIds.add(roleTypeIdCond.getString("productPriceRuleId"));
-                        }
-                    }
-
-                    // TODO, not supported yet: by groupPartyId
-                    // TODO, not supported yet: by partyClassificationGroupId
-                    // later: (by partyClassificationTypeId)
-
-                    // by listPrice
-                    Collection listPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_LIST_PRICE"));
-                    if (listPriceConds != null && listPriceConds.size() > 0) {
-                        Iterator listPriceCondsIter = listPriceConds.iterator();
-                        while (listPriceCondsIter.hasNext()) {
-                            GenericValue listPriceCond = (GenericValue) listPriceCondsIter.next();
-                            productPriceRuleIds.add(listPriceCond.getString("productPriceRuleId"));
-                        }
-                    }
-
-                    // ------- These are all of them that DO depend on the current inputs -------
-
-                    // by productId
-                    Collection productIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", productId));
-                    if (productIdConds != null && productIdConds.size() > 0) {
-                        Iterator productIdCondsIter = productIdConds.iterator();
-                        while (productIdCondsIter.hasNext()) {
-                            GenericValue productIdCond = (GenericValue) productIdCondsIter.next();
-                            productPriceRuleIds.add(productIdCond.getString("productPriceRuleId"));
-                        }
-                    }
-
-                    // by virtualProductId, if not null
-                    if (virtualProductId != null) {
-                        Collection virtualProductIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", virtualProductId));
-                        if (virtualProductIdConds != null && virtualProductIdConds.size() > 0) {
-                            Iterator virtualProductIdCondsIter = virtualProductIdConds.iterator();
-                            while (virtualProductIdCondsIter.hasNext()) {
-                                GenericValue virtualProductIdCond = (GenericValue) virtualProductIdCondsIter.next();
-                                productPriceRuleIds.add(virtualProductIdCond.getString("productPriceRuleId"));
+                List quantityProductPriceRules = null;
+                List nonQuantityProductPriceRules = null;
+                if (findAllQuantityPrices) {
+                    // split into list with quantity conditions and list without, then iterate through each quantity cond one
+                    quantityProductPriceRules = FastList.newInstance();
+                    nonQuantityProductPriceRules = FastList.newInstance();
+                    Iterator productPriceRulesIter = allProductPriceRules.iterator();
+                    while (productPriceRulesIter.hasNext()) {
+                        GenericValue productPriceRule = (GenericValue) productPriceRulesIter.next();
+                        List productPriceCondList = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRule.get("productPriceRuleId")));
+                        
+                        boolean foundQuantityInputParam = false;
+                        Iterator productPriceCondIter = productPriceCondList.iterator();
+                        while (productPriceCondIter.hasNext()) {
+                            GenericValue productPriceCond = (GenericValue) productPriceCondIter.next();
+                            if ("PRIP_QUANTITY".equals(productPriceCond.getString("inputParamEnumId"))) {
+                        	foundQuantityInputParam = true;
+                        	break;
                             }
                         }
-                    }
-
-                    // by prodCatalogId - which is optional in certain cases
-                    if (UtilValidate.isNotEmpty(prodCatalogId)) {
-                        Collection prodCatalogIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CLG_ID", "condValue", prodCatalogId));
-                        if (prodCatalogIdConds != null && prodCatalogIdConds.size() > 0) {
-                            Iterator prodCatalogIdCondsIter = prodCatalogIdConds.iterator();
-                            while (prodCatalogIdCondsIter.hasNext()) {
-                                GenericValue prodCatalogIdCond = (GenericValue) prodCatalogIdCondsIter.next();
-                                productPriceRuleIds.add(prodCatalogIdCond.getString("productPriceRuleId"));
-                            }
+                        
+                        if (foundQuantityInputParam) {
+                            quantityProductPriceRules.add(productPriceRule);
+                        } else {
+                            nonQuantityProductPriceRules.add(productPriceRule);
                         }
-                    }
+                    }                    
+                }
+                
 
-                    // by productStoreGroupId
-                    if (UtilValidate.isNotEmpty(productStoreGroupId)) {
-                        Collection storeGroupConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_SGRP_ID", "condValue", productStoreGroupId));
-                        if (storeGroupConds != null && storeGroupConds.size() > 0) {
-                            Iterator storeGroupCondsIter = storeGroupConds.iterator();
-                            while (storeGroupCondsIter.hasNext()) {
-                                GenericValue storeGroupCond = (GenericValue) storeGroupCondsIter.next();
-                                productPriceRuleIds.add(storeGroupCond.getString("productPriceRuleId"));
-                            }
-                        }
+                if (findAllQuantityPrices) {
+                    List allQuantityPrices = FastList.newInstance();
+                    
+                    // if findAllQuantityPrices then iterate through quantityProductPriceRules
+                    // foreach create an entry in the out list and eval that rule and all nonQuantityProductPriceRules rather than a single rule
+                    Iterator quantityProductPriceRuleIter = quantityProductPriceRules.iterator();
+                    while (quantityProductPriceRuleIter.hasNext()) {
+                	GenericValue quantityProductPriceRule = (GenericValue) quantityProductPriceRuleIter.next();
+                	
+                	List ruleListToUse = FastList.newInstance();
+                	ruleListToUse.add(quantityProductPriceRule);
+                	ruleListToUse.addAll(nonQuantityProductPriceRules);
+                	
+                        Map quantCalcResults = calcPriceResultFromRules(ruleListToUse, listPriceDbl.doubleValue(), defaultPrice, promoPrice, 
+                        	    wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
+                    	    averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
+                    	    webSiteId, partyId, null, currencyUomId, delegator, nowTimestamp);
+                        Map quantErrorResult = addGeneralResults(quantCalcResults, competitivePriceValue, specialPromoPriceValue, productStore, 
+                        	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                        if (quantErrorResult != null) return quantErrorResult;
+                        
+                        // also add the quantityProductPriceRule to the Map so it can be used for quantity break information
+                        quantCalcResults.put("quantityProductPriceRule", quantityProductPriceRule);
+                        
+                        allQuantityPrices.add(quantCalcResults);
                     }
+                    result.put("allQuantityPrices", allQuantityPrices);
 
-                    // by webSiteId
-                    if (UtilValidate.isNotEmpty(webSiteId)) {
-                        Collection webSiteIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_WEBSITE_ID", "condValue", webSiteId));
-                        if (webSiteIdConds != null && webSiteIdConds.size() > 0) {
-                            Iterator webSiteIdCondsIter = webSiteIdConds.iterator();
-                            while (webSiteIdCondsIter.hasNext()) {
-                                GenericValue webSiteIdCond = (GenericValue) webSiteIdCondsIter.next();
-                                productPriceRuleIds.add(webSiteIdCond.getString("productPriceRuleId"));
-                            }
-                        }
-                    }
-
-                    // by partyId
-                    if (UtilValidate.isNotEmpty(partyId)) {
-                        Collection partyIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PARTY_ID", "condValue", partyId));
-                        if (partyIdConds != null && partyIdConds.size() > 0) {
-                            Iterator partyIdCondsIter = partyIdConds.iterator();
-                            while (partyIdCondsIter.hasNext()) {
-                                GenericValue partyIdCond = (GenericValue) partyIdCondsIter.next();
-                                productPriceRuleIds.add(partyIdCond.getString("productPriceRuleId"));
-                            }
-                        }
-                    }
-
-                    // by currencyUomId
-                    Collection currencyUomIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_CURRENCY_UOMID", "condValue", currencyUomId));
-                    if (currencyUomIdConds != null && currencyUomIdConds.size() > 0) {
-                        Iterator currencyUomIdCondsIter = currencyUomIdConds.iterator();
-                        while (currencyUomIdCondsIter.hasNext()) {
-                            GenericValue currencyUomIdCond = (GenericValue) currencyUomIdCondsIter.next();
-                            productPriceRuleIds.add(currencyUomIdCond.getString("productPriceRuleId"));
-                        }
-                    }
-
-                    productPriceRules = new LinkedList();
-                    Iterator productPriceRuleIdsIter = productPriceRuleIds.iterator();
-                    while (productPriceRuleIdsIter.hasNext()) {
-                        String productPriceRuleId = (String) productPriceRuleIdsIter.next();
-                        GenericValue productPriceRule = delegator.findByPrimaryKeyCache("ProductPriceRule", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
-                        if (productPriceRule == null) continue;
-                        productPriceRules.add(productPriceRule);
-                    }
+                    // use a quantity 1 to get the main price, then fill in the quantity break prices
+                    Map calcResults = calcPriceResultFromRules(allProductPriceRules, listPriceDbl.doubleValue(), defaultPrice, promoPrice, 
+                    	    wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
+                	    averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
+                	    webSiteId, partyId, new Double(1.0), currencyUomId, delegator, nowTimestamp);
+                    result.putAll(calcResults);
+                    Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 
+                    	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                    if (errorResult != null) return errorResult;
                 } else {
-                    // this would be nice, but we can't cache this so easily...
-                    // List pprExprs = UtilMisc.toList(new EntityExpr("thruDate", EntityOperator.EQUALS, null),
-                    // new EntityExpr("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
-                    // productPriceRules = delegator.findByOr("ProductPriceRule", pprExprs);
-
-                    productPriceRules = delegator.findAllCache("ProductPriceRule");
-                    if (productPriceRules == null) productPriceRules = new LinkedList();
+                    Map calcResults = calcPriceResultFromRules(allProductPriceRules, listPriceDbl.doubleValue(), defaultPrice, promoPrice, 
+                    	    wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
+                	    averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
+                	    webSiteId, partyId, new Double(quantity), currencyUomId, delegator, nowTimestamp);
+                    result.putAll(calcResults);
+                    Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 
+                    	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                    if (errorResult != null) return errorResult;
                 }
-
-                // ========= go through each price rule by id and eval all conditions =========
-                // utilTimer.timerString("Before eval rules", module);
-                int totalConds = 0;
-                int totalActions = 0;
-                int totalRules = 0;
-
-                Iterator productPriceRulesIter = productPriceRules.iterator();
-                while (productPriceRulesIter.hasNext()) {
-                    GenericValue productPriceRule = (GenericValue) productPriceRulesIter.next();
-                    String productPriceRuleId = productPriceRule.getString("productPriceRuleId");
-
-                    // check from/thru dates
-                    java.sql.Timestamp fromDate = productPriceRule.getTimestamp("fromDate");
-                    java.sql.Timestamp thruDate = productPriceRule.getTimestamp("thruDate");
-
-                    if (fromDate != null && fromDate.after(nowTimestamp)) {
-                        // hasn't started yet
-                        continue;
-                    }
-                    if (thruDate != null && thruDate.before(nowTimestamp)) {
-                        // already expired
-                        continue;
-                    }
-
-                    // check all conditions
-                    boolean allTrue = true;
-                    StringBuffer condsDescription = new StringBuffer();
-                    Collection productPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
-                    Iterator productPriceCondsIter = UtilMisc.toIterator(productPriceConds);
-
-                    while (productPriceCondsIter != null && productPriceCondsIter.hasNext()) {
-                        GenericValue productPriceCond = (GenericValue) productPriceCondsIter.next();
-
-                        totalConds++;
-
-                        if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPrice, currencyUomId, delegator)) {
-                            // if there is a virtualProductId, try that given that this one has failed
-                            if (virtualProductId != null) {
-                                if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPrice, currencyUomId, delegator)) {
-                                    allTrue = false;
-                                    break;
-                                }
-                                // otherwise, okay, this one made it so carry on checking
-                            } else {
-                                allTrue = false;
-                                break;
-                            }
-                        }
-
-                        // add condsDescription string entry
-                        condsDescription.append("[");
-                        GenericValue inputParamEnum = productPriceCond.getRelatedOneCache("InputParamEnumeration");
-
-                        condsDescription.append(inputParamEnum.getString("enumCode"));
-                        // condsDescription.append(":");
-                        GenericValue operatorEnum = productPriceCond.getRelatedOneCache("OperatorEnumeration");
-
-                        condsDescription.append(operatorEnum.getString("description"));
-                        // condsDescription.append(":");
-                        condsDescription.append(productPriceCond.getString("condValue"));
-                        condsDescription.append("] ");
-                    }
-
-                    // add some info about the prices we are calculating from
-                    condsDescription.append("[list:");
-                    condsDescription.append(listPrice);
-                    condsDescription.append(";avgCost:");
-                    condsDescription.append(averageCost);
-                    condsDescription.append(";margin:");
-                    condsDescription.append(margin);
-                    condsDescription.append("] ");
-
-                    boolean foundFlatOverride = false;
-
-                    // if all true, perform all actions
-                    if (allTrue) {
-                        // check isSale
-                        if ("Y".equals(productPriceRule.getString("isSale"))) {
-                            isSale = true;
-                        }
-
-                        Collection productPriceActions = delegator.findByAndCache("ProductPriceAction", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
-                        Iterator productPriceActionsIter = UtilMisc.toIterator(productPriceActions);
-
-                        while (productPriceActionsIter != null && productPriceActionsIter.hasNext()) {
-                            GenericValue productPriceAction = (GenericValue) productPriceActionsIter.next();
-
-                            totalActions++;
-
-                            // yeah, finally here, perform the action, ie, modify the price
-                            double modifyAmount = 0;
-
-                            if ("PRICE_POD".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                if (productPriceAction.get("amount") != null) {
-                                    modifyAmount = defaultPrice * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
-                                }
-                            } else if ("PRICE_POL".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                if (productPriceAction.get("amount") != null) {
-                                    modifyAmount = listPrice * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
-                                }
-                            } else if ("PRICE_POAC".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                if (productPriceAction.get("amount") != null) {
-                                    modifyAmount = averageCost * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
-                                }
-                            } else if ("PRICE_POM".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                if (productPriceAction.get("amount") != null) {
-                                    modifyAmount = margin * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
-                                }
-                            } else if ("PRICE_FOL".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                if (productPriceAction.get("amount") != null) {
-                                    modifyAmount = productPriceAction.getDouble("amount").doubleValue();
-                                }
-                            } else if ("PRICE_FLAT".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                // this one is a bit different, break out of the loop because we now have our final price
-                                foundFlatOverride = true;
-                                if (productPriceAction.get("amount") != null) {
-                                    price = productPriceAction.getDouble("amount").doubleValue();
-                                } else {
-                                    Debug.logInfo("ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
-                                    price = defaultPrice;
-                                    isSale = false;                // reverse isSale flag, as this sale rule was actually not applied
-                                }
-                            } else if ("PRICE_PFLAT".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                // this one is a bit different too, break out of the loop because we now have our final price
-                                foundFlatOverride = true;
-                                price = promoPrice;
-                                if (productPriceAction.get("amount") != null) {
-                                    price += productPriceAction.getDouble("amount").doubleValue();
-                                }
-                                if (price == 0.00) {
-                                    if (defaultPrice != 0.00) {
-                                        Debug.logInfo("PromoPrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
-                                        price = defaultPrice;
-                                    } else if (listPrice != 0.00) {
-                                        Debug.logInfo("PromoPrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, module);
-                                        price = listPrice;
-                                    } else {
-                                        Debug.logError("PromoPrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, module);
-                                        price = 0.00;
-                                    }
-                                    isSale = false;                // reverse isSale flag, as this sale rule was actually not applied
-                                }
-                            } else if ("PRICE_WFLAT".equals(productPriceAction.getString("productPriceActionTypeId"))) {
-                                // same as promo price but using the wholesale price instead
-                                foundFlatOverride = true;
-                                price = wholesalePrice;
-                                if (productPriceAction.get("amount") != null) {
-                                    price += productPriceAction.getDouble("amount").doubleValue();
-                                }
-                                if (price == 0.00) {
-                                    if (defaultPrice != 0.00) {
-                                        Debug.logInfo("WholesalePrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
-                                        price = defaultPrice;
-                                    } else if (listPrice != 0.00) {
-                                        Debug.logInfo("WholesalePrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, module);
-                                        price = listPrice;
-                                    } else {
-                                        Debug.logError("WholesalePrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, module);
-                                        price = 0.00;
-                                    }
-                                    isSale = false; // reverse isSale flag, as this sale rule was actually not applied
-                                }
-                            }
-
-                            // add a orderItemPriceInfo element too, without orderId or orderItemId
-                            StringBuffer priceInfoDescription = new StringBuffer();
-
-                            priceInfoDescription.append(condsDescription.toString());
-                            priceInfoDescription.append("[type:");
-                            priceInfoDescription.append(productPriceAction.getString("productPriceActionTypeId"));
-                            priceInfoDescription.append("]");
-
-                            GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo", null);
-
-                            orderItemPriceInfo.set("productPriceRuleId", productPriceAction.get("productPriceRuleId"));
-                            orderItemPriceInfo.set("productPriceActionSeqId", productPriceAction.get("productPriceActionSeqId"));
-                            orderItemPriceInfo.set("modifyAmount", new Double(modifyAmount));
-                            // make sure description is <= than 250 chars
-                            String priceInfoDescriptionString = priceInfoDescription.toString();
-
-                            if (priceInfoDescriptionString.length() > 250) {
-                                priceInfoDescriptionString = priceInfoDescriptionString.substring(0, 250);
-                            }
-                            orderItemPriceInfo.set("description", priceInfoDescriptionString);
-                            orderItemPriceInfos.add(orderItemPriceInfo);
-
-                            if (foundFlatOverride) {
-                                break;
-                            } else {
-                                price += modifyAmount;
-                            }
-                        }
-                    }
-
-                    totalRules++;
-
-                    if (foundFlatOverride) {
-                        break;
-                    }
-                }
-
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Unchecked Calculated price: " + price, module);
-                    Debug.logVerbose("PriceInfo:", module);
-                    Iterator orderItemPriceInfosIter = orderItemPriceInfos.iterator();
-                    while (orderItemPriceInfosIter.hasNext()) {
-                        GenericValue orderItemPriceInfo = (GenericValue) orderItemPriceInfosIter.next();
-
-                        Debug.logVerbose(" --- " + orderItemPriceInfo.toString(), module);
-                    }
-                }
-
-                // if no actions were run on the list price, then use the default price
-                if (totalActions == 0) {
-                    price = defaultPrice;
-                    // here we will leave validPriceFound as it was originally set for the defaultPrice since that is what we are setting the price to...
-                } else {
-                    // at least one price rule action was found, so we will consider it valid
-                    validPriceFound = true;
-                }
-
-                // ========= ensure calculated price is not below minSalePrice or above maxSalePrice =========
-                Double maxSellPrice = maximumPriceValue != null ? maximumPriceValue.getDouble("price") : null;
-                if (maxSellPrice != null && price > maxSellPrice.doubleValue()) {
-                    price = maxSellPrice.doubleValue();
-                }
-                // min price second to override max price, safety net
-                Double minSellPrice = minimumPriceValue != null ? minimumPriceValue.getDouble("price") : null;
-                if (minSellPrice != null && price < minSellPrice.doubleValue()) {
-                    price = minSellPrice.doubleValue();
-                    // since we have found a minimum price that has overriden a the defaultPrice, even if no valid one was found, we will consider it as if one had been...
-                    validPriceFound = true;
-                }
-
-                if (Debug.verboseOn()) Debug.logVerbose("Final Calculated price: " + price + ", rules: " + totalRules + ", conds: " + totalConds + ", actions: " + totalActions, module);
-
-                result.put("basePrice", new Double(price));
-                result.put("price", new Double(price));
-                result.put("listPrice", new Double(listPrice));
-                result.put("defaultPrice", new Double(defaultPrice));
-                result.put("averageCost", new Double(averageCost));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting rules from the database while calculating price", module);
                 return ServiceUtil.returnError("Error getting rules from the database while calculating price: " + e.toString());
             }
         }
 
+        // utilTimer.timerString("Finished price calc [productId=" + productId + "]", module);
+        return result;
+    }
+    
+    public static Map addGeneralResults(Map result, GenericValue competitivePriceValue, GenericValue specialPromoPriceValue, GenericValue productStore, 
+	    String checkIncludeVat, String currencyUomId, String productId, double quantity, String partyId, LocalDispatcher dispatcher) {
         result.put("competitivePrice", competitivePriceValue != null ? competitivePriceValue.getDouble("price") : null);
         result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getDouble("price") : null);
-        result.put("orderItemPriceInfos", orderItemPriceInfos);
-        result.put("isSale", new Boolean(isSale));
-        result.put("validPriceFound", new Boolean(validPriceFound));
         result.put("currencyUsed", currencyUomId);
 
         // okay, now we have the calculated price, see if we should add in tax and if so do it
         if ("Y".equals(checkIncludeVat) && productStore != null && "Y".equals(productStore.getString("showPricesWithVatTax"))) {
-            Map calcTaxForDisplayContext = UtilMisc.toMap("productStoreId", productStoreId, 
+            Map calcTaxForDisplayContext = UtilMisc.toMap("productStoreId", productStore.get("productStoreId"), 
                     "productId", productId, "quantity", new BigDecimal(quantity), 
                     "basePrice", new BigDecimal(((Double) result.get("price")).doubleValue()));
             if (UtilValidate.isNotEmpty(partyId)) {
@@ -965,9 +645,438 @@ public class PriceServices {
                 return ServiceUtil.returnError(errMsg);
             }
         }
+        
+        return null;
+    }
+    
+    public static List makeProducePriceRuleList(GenericDelegator delegator, boolean optimizeForLargeRuleSet, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId, String webSiteId, String partyId, String currencyUomId) throws GenericEntityException {
+        List productPriceRules = null;
 
-        // utilTimer.timerString("Finished price calc [productId=" + productId + "]", module);
-        return result;
+        // At this point we have two options: optimize for large ruleset, or optimize for small ruleset
+        // NOTE: This only effects the way that the rules to be evaluated are selected.
+        // For large rule sets we can do a cached pre-filter to limit the rules that need to be evaled for a specific product.
+        // Genercally I don't think that rule sets will get that big though, so the default is optimize for smaller rule set.
+        if (optimizeForLargeRuleSet) {
+            // ========= find all rules that must be run for each input type; this is kind of like a pre-filter to slim down the rules to run =========
+            // utilTimer.timerString("Before create rule id list", module);
+            TreeSet productPriceRuleIds = new TreeSet();
+
+            // ------- These are all of the conditions that DON'T depend on the current inputs -------
+
+            // by productCategoryId
+            // for we will always include any rules that go by category, shouldn't be too many to iterate through each time and will save on cache entries
+            // note that we always want to put the category, quantity, etc ones that find all rules with these conditions in separate cache lists so that they can be easily cleared
+            Collection productCategoryIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CAT_ID"));
+            if (productCategoryIdConds != null && productCategoryIdConds.size() > 0) {
+                Iterator productCategoryIdCondsIter = productCategoryIdConds.iterator();
+                while (productCategoryIdCondsIter.hasNext()) {
+                    GenericValue productCategoryIdCond = (GenericValue) productCategoryIdCondsIter.next();
+                    productPriceRuleIds.add(productCategoryIdCond.getString("productPriceRuleId"));
+                }
+            }
+
+            // by quantity -- should we really do this one, ie is it necessary?
+            // we could say that all rules with quantity on them must have one of these other values
+            // but, no we'll do it the other way, any that have a quantity will always get compared
+            Collection quantityConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_QUANTITY"));
+            if (quantityConds != null && quantityConds.size() > 0) {
+                Iterator quantityCondsIter = quantityConds.iterator();
+                while (quantityCondsIter.hasNext()) {
+                    GenericValue quantityCond = (GenericValue) quantityCondsIter.next();
+                    productPriceRuleIds.add(quantityCond.getString("productPriceRuleId"));
+                }
+            }
+
+            // by roleTypeId
+            Collection roleTypeIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_ROLE_TYPE"));
+            if (roleTypeIdConds != null && roleTypeIdConds.size() > 0) {
+                Iterator roleTypeIdCondsIter = roleTypeIdConds.iterator();
+                while (roleTypeIdCondsIter.hasNext()) {
+                    GenericValue roleTypeIdCond = (GenericValue) roleTypeIdCondsIter.next();
+                    productPriceRuleIds.add(roleTypeIdCond.getString("productPriceRuleId"));
+                }
+            }
+
+            // TODO, not supported yet: by groupPartyId
+            // TODO, not supported yet: by partyClassificationGroupId
+            // later: (by partyClassificationTypeId)
+
+            // by listPrice
+            Collection listPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_LIST_PRICE"));
+            if (listPriceConds != null && listPriceConds.size() > 0) {
+                Iterator listPriceCondsIter = listPriceConds.iterator();
+                while (listPriceCondsIter.hasNext()) {
+                    GenericValue listPriceCond = (GenericValue) listPriceCondsIter.next();
+                    productPriceRuleIds.add(listPriceCond.getString("productPriceRuleId"));
+                }
+            }
+
+            // ------- These are all of them that DO depend on the current inputs -------
+
+            // by productId
+            Collection productIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", productId));
+            if (productIdConds != null && productIdConds.size() > 0) {
+                Iterator productIdCondsIter = productIdConds.iterator();
+                while (productIdCondsIter.hasNext()) {
+                    GenericValue productIdCond = (GenericValue) productIdCondsIter.next();
+                    productPriceRuleIds.add(productIdCond.getString("productPriceRuleId"));
+                }
+            }
+
+            // by virtualProductId, if not null
+            if (virtualProductId != null) {
+                Collection virtualProductIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", virtualProductId));
+                if (virtualProductIdConds != null && virtualProductIdConds.size() > 0) {
+                    Iterator virtualProductIdCondsIter = virtualProductIdConds.iterator();
+                    while (virtualProductIdCondsIter.hasNext()) {
+                        GenericValue virtualProductIdCond = (GenericValue) virtualProductIdCondsIter.next();
+                        productPriceRuleIds.add(virtualProductIdCond.getString("productPriceRuleId"));
+                    }
+                }
+            }
+
+            // by prodCatalogId - which is optional in certain cases
+            if (UtilValidate.isNotEmpty(prodCatalogId)) {
+                Collection prodCatalogIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CLG_ID", "condValue", prodCatalogId));
+                if (prodCatalogIdConds != null && prodCatalogIdConds.size() > 0) {
+                    Iterator prodCatalogIdCondsIter = prodCatalogIdConds.iterator();
+                    while (prodCatalogIdCondsIter.hasNext()) {
+                        GenericValue prodCatalogIdCond = (GenericValue) prodCatalogIdCondsIter.next();
+                        productPriceRuleIds.add(prodCatalogIdCond.getString("productPriceRuleId"));
+                    }
+                }
+            }
+
+            // by productStoreGroupId
+            if (UtilValidate.isNotEmpty(productStoreGroupId)) {
+                Collection storeGroupConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_SGRP_ID", "condValue", productStoreGroupId));
+                if (storeGroupConds != null && storeGroupConds.size() > 0) {
+                    Iterator storeGroupCondsIter = storeGroupConds.iterator();
+                    while (storeGroupCondsIter.hasNext()) {
+                        GenericValue storeGroupCond = (GenericValue) storeGroupCondsIter.next();
+                        productPriceRuleIds.add(storeGroupCond.getString("productPriceRuleId"));
+                    }
+                }
+            }
+
+            // by webSiteId
+            if (UtilValidate.isNotEmpty(webSiteId)) {
+                Collection webSiteIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_WEBSITE_ID", "condValue", webSiteId));
+                if (webSiteIdConds != null && webSiteIdConds.size() > 0) {
+                    Iterator webSiteIdCondsIter = webSiteIdConds.iterator();
+                    while (webSiteIdCondsIter.hasNext()) {
+                        GenericValue webSiteIdCond = (GenericValue) webSiteIdCondsIter.next();
+                        productPriceRuleIds.add(webSiteIdCond.getString("productPriceRuleId"));
+                    }
+                }
+            }
+
+            // by partyId
+            if (UtilValidate.isNotEmpty(partyId)) {
+                Collection partyIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PARTY_ID", "condValue", partyId));
+                if (partyIdConds != null && partyIdConds.size() > 0) {
+                    Iterator partyIdCondsIter = partyIdConds.iterator();
+                    while (partyIdCondsIter.hasNext()) {
+                        GenericValue partyIdCond = (GenericValue) partyIdCondsIter.next();
+                        productPriceRuleIds.add(partyIdCond.getString("productPriceRuleId"));
+                    }
+                }
+            }
+
+            // by currencyUomId
+            Collection currencyUomIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_CURRENCY_UOMID", "condValue", currencyUomId));
+            if (currencyUomIdConds != null && currencyUomIdConds.size() > 0) {
+                Iterator currencyUomIdCondsIter = currencyUomIdConds.iterator();
+                while (currencyUomIdCondsIter.hasNext()) {
+                    GenericValue currencyUomIdCond = (GenericValue) currencyUomIdCondsIter.next();
+                    productPriceRuleIds.add(currencyUomIdCond.getString("productPriceRuleId"));
+                }
+            }
+
+            productPriceRules = FastList.newInstance();
+            Iterator productPriceRuleIdsIter = productPriceRuleIds.iterator();
+            while (productPriceRuleIdsIter.hasNext()) {
+                String productPriceRuleId = (String) productPriceRuleIdsIter.next();
+                GenericValue productPriceRule = delegator.findByPrimaryKeyCache("ProductPriceRule", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
+                if (productPriceRule == null) continue;
+                productPriceRules.add(productPriceRule);
+            }
+        } else {
+            // this would be nice, but we can't cache this so easily...
+            // List pprExprs = UtilMisc.toList(new EntityExpr("thruDate", EntityOperator.EQUALS, null),
+            // new EntityExpr("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
+            // productPriceRules = delegator.findByOr("ProductPriceRule", pprExprs);
+
+            productPriceRules = delegator.findAllCache("ProductPriceRule");
+            if (productPriceRules == null) productPriceRules = new LinkedList();
+        }
+        
+        return productPriceRules;
+    }
+    
+    public static Map calcPriceResultFromRules(List productPriceRules, double listPrice, double defaultPrice, double promoPrice, 
+	    double wholesalePrice, GenericValue maximumPriceValue, GenericValue minimumPriceValue, boolean validPriceFound, 
+	    GenericValue averageCostValue, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId, 
+	    String webSiteId, String partyId, Double quantity, String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException{
+	
+	Map calcResults = FastMap.newInstance();
+
+	List orderItemPriceInfos = FastList.newInstance();
+        boolean isSale = false;
+	
+        // ========= go through each price rule by id and eval all conditions =========
+        // utilTimer.timerString("Before eval rules", module);
+        int totalConds = 0;
+        int totalActions = 0;
+        int totalRules = 0;
+
+        // get some of the base values to calculate with
+        double averageCost = (averageCostValue != null && averageCostValue.get("price") != null) ? averageCostValue.getDouble("price").doubleValue() : listPrice;
+        double margin = listPrice - averageCost;
+
+        // calculate running sum based on listPrice and rules found
+        double price = listPrice;
+        
+        Iterator productPriceRulesIter = productPriceRules.iterator();
+        while (productPriceRulesIter.hasNext()) {
+            GenericValue productPriceRule = (GenericValue) productPriceRulesIter.next();
+            String productPriceRuleId = productPriceRule.getString("productPriceRuleId");
+
+            // check from/thru dates
+            java.sql.Timestamp fromDate = productPriceRule.getTimestamp("fromDate");
+            java.sql.Timestamp thruDate = productPriceRule.getTimestamp("thruDate");
+
+            if (fromDate != null && fromDate.after(nowTimestamp)) {
+                // hasn't started yet
+                continue;
+            }
+            if (thruDate != null && thruDate.before(nowTimestamp)) {
+                // already expired
+                continue;
+            }
+
+            // check all conditions
+            boolean allTrue = true;
+            StringBuffer condsDescription = new StringBuffer();
+            List productPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
+            Iterator productPriceCondsIter = UtilMisc.toIterator(productPriceConds);
+
+            while (productPriceCondsIter != null && productPriceCondsIter.hasNext()) {
+                GenericValue productPriceCond = (GenericValue) productPriceCondsIter.next();
+
+                totalConds++;
+
+                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator)) {
+                    // if there is a virtualProductId, try that given that this one has failed
+                    if (virtualProductId != null) {
+                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator)) {
+                            allTrue = false;
+                            break;
+                        }
+                        // otherwise, okay, this one made it so carry on checking
+                    } else {
+                        allTrue = false;
+                        break;
+                    }
+                }
+
+                // add condsDescription string entry
+                condsDescription.append("[");
+                GenericValue inputParamEnum = productPriceCond.getRelatedOneCache("InputParamEnumeration");
+
+                condsDescription.append(inputParamEnum.getString("enumCode"));
+                // condsDescription.append(":");
+                GenericValue operatorEnum = productPriceCond.getRelatedOneCache("OperatorEnumeration");
+
+                condsDescription.append(operatorEnum.getString("description"));
+                // condsDescription.append(":");
+                condsDescription.append(productPriceCond.getString("condValue"));
+                condsDescription.append("] ");
+            }
+
+            // add some info about the prices we are calculating from
+            condsDescription.append("[list:");
+            condsDescription.append(listPrice);
+            condsDescription.append(";avgCost:");
+            condsDescription.append(averageCost);
+            condsDescription.append(";margin:");
+            condsDescription.append(margin);
+            condsDescription.append("] ");
+
+            boolean foundFlatOverride = false;
+
+            // if all true, perform all actions
+            if (allTrue) {
+                // check isSale
+                if ("Y".equals(productPriceRule.getString("isSale"))) {
+                    isSale = true;
+                }
+
+                Collection productPriceActions = delegator.findByAndCache("ProductPriceAction", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
+                Iterator productPriceActionsIter = UtilMisc.toIterator(productPriceActions);
+
+                while (productPriceActionsIter != null && productPriceActionsIter.hasNext()) {
+                    GenericValue productPriceAction = (GenericValue) productPriceActionsIter.next();
+
+                    totalActions++;
+
+                    // yeah, finally here, perform the action, ie, modify the price
+                    double modifyAmount = 0;
+
+                    if ("PRICE_POD".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        if (productPriceAction.get("amount") != null) {
+                            modifyAmount = defaultPrice * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
+                        }
+                    } else if ("PRICE_POL".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        if (productPriceAction.get("amount") != null) {
+                            modifyAmount = listPrice * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
+                        }
+                    } else if ("PRICE_POAC".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        if (productPriceAction.get("amount") != null) {
+                            modifyAmount = averageCost * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
+                        }
+                    } else if ("PRICE_POM".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        if (productPriceAction.get("amount") != null) {
+                            modifyAmount = margin * (productPriceAction.getDouble("amount").doubleValue() / 100.0);
+                        }
+                    } else if ("PRICE_FOL".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        if (productPriceAction.get("amount") != null) {
+                            modifyAmount = productPriceAction.getDouble("amount").doubleValue();
+                        }
+                    } else if ("PRICE_FLAT".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        // this one is a bit different, break out of the loop because we now have our final price
+                        foundFlatOverride = true;
+                        if (productPriceAction.get("amount") != null) {
+                            price = productPriceAction.getDouble("amount").doubleValue();
+                        } else {
+                            Debug.logInfo("ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
+                            price = defaultPrice;
+                            isSale = false;                // reverse isSale flag, as this sale rule was actually not applied
+                        }
+                    } else if ("PRICE_PFLAT".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        // this one is a bit different too, break out of the loop because we now have our final price
+                        foundFlatOverride = true;
+                        price = promoPrice;
+                        if (productPriceAction.get("amount") != null) {
+                            price += productPriceAction.getDouble("amount").doubleValue();
+                        }
+                        if (price == 0.00) {
+                            if (defaultPrice != 0.00) {
+                                Debug.logInfo("PromoPrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
+                                price = defaultPrice;
+                            } else if (listPrice != 0.00) {
+                                Debug.logInfo("PromoPrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, module);
+                                price = listPrice;
+                            } else {
+                                Debug.logError("PromoPrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, module);
+                                price = 0.00;
+                            }
+                            isSale = false;                // reverse isSale flag, as this sale rule was actually not applied
+                        }
+                    } else if ("PRICE_WFLAT".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        // same as promo price but using the wholesale price instead
+                        foundFlatOverride = true;
+                        price = wholesalePrice;
+                        if (productPriceAction.get("amount") != null) {
+                            price += productPriceAction.getDouble("amount").doubleValue();
+                        }
+                        if (price == 0.00) {
+                            if (defaultPrice != 0.00) {
+                                Debug.logInfo("WholesalePrice and ProductPriceAction had null amount, using default price: " + defaultPrice + " for product with id " + productId, module);
+                                price = defaultPrice;
+                            } else if (listPrice != 0.00) {
+                                Debug.logInfo("WholesalePrice and ProductPriceAction had null amount and no default price was available, using list price: " + listPrice + " for product with id " + productId, module);
+                                price = listPrice;
+                            } else {
+                                Debug.logError("WholesalePrice and ProductPriceAction had null amount and no default or list price was available, so price is set to zero for product with id " + productId, module);
+                                price = 0.00;
+                            }
+                            isSale = false; // reverse isSale flag, as this sale rule was actually not applied
+                        }
+                    }
+
+                    // add a orderItemPriceInfo element too, without orderId or orderItemId
+                    StringBuffer priceInfoDescription = new StringBuffer();
+
+                    priceInfoDescription.append(condsDescription.toString());
+                    priceInfoDescription.append("[type:");
+                    priceInfoDescription.append(productPriceAction.getString("productPriceActionTypeId"));
+                    priceInfoDescription.append("]");
+
+                    GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo", null);
+
+                    orderItemPriceInfo.set("productPriceRuleId", productPriceAction.get("productPriceRuleId"));
+                    orderItemPriceInfo.set("productPriceActionSeqId", productPriceAction.get("productPriceActionSeqId"));
+                    orderItemPriceInfo.set("modifyAmount", new Double(modifyAmount));
+                    // make sure description is <= than 250 chars
+                    String priceInfoDescriptionString = priceInfoDescription.toString();
+
+                    if (priceInfoDescriptionString.length() > 250) {
+                        priceInfoDescriptionString = priceInfoDescriptionString.substring(0, 250);
+                    }
+                    orderItemPriceInfo.set("description", priceInfoDescriptionString);
+                    orderItemPriceInfos.add(orderItemPriceInfo);
+
+                    if (foundFlatOverride) {
+                        break;
+                    } else {
+                        price += modifyAmount;
+                    }
+                }
+            }
+
+            totalRules++;
+
+            if (foundFlatOverride) {
+                break;
+            }
+        }
+
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Unchecked Calculated price: " + price, module);
+            Debug.logVerbose("PriceInfo:", module);
+            Iterator orderItemPriceInfosIter = orderItemPriceInfos.iterator();
+            while (orderItemPriceInfosIter.hasNext()) {
+                GenericValue orderItemPriceInfo = (GenericValue) orderItemPriceInfosIter.next();
+
+                Debug.logVerbose(" --- " + orderItemPriceInfo.toString(), module);
+            }
+        }
+
+        // if no actions were run on the list price, then use the default price
+        if (totalActions == 0) {
+            price = defaultPrice;
+            // here we will leave validPriceFound as it was originally set for the defaultPrice since that is what we are setting the price to...
+        } else {
+            // at least one price rule action was found, so we will consider it valid
+            validPriceFound = true;
+        }
+
+        // ========= ensure calculated price is not below minSalePrice or above maxSalePrice =========
+        Double maxSellPrice = maximumPriceValue != null ? maximumPriceValue.getDouble("price") : null;
+        if (maxSellPrice != null && price > maxSellPrice.doubleValue()) {
+            price = maxSellPrice.doubleValue();
+        }
+        // min price second to override max price, safety net
+        Double minSellPrice = minimumPriceValue != null ? minimumPriceValue.getDouble("price") : null;
+        if (minSellPrice != null && price < minSellPrice.doubleValue()) {
+            price = minSellPrice.doubleValue();
+            // since we have found a minimum price that has overriden a the defaultPrice, even if no valid one was found, we will consider it as if one had been...
+            validPriceFound = true;
+        }
+
+        if (Debug.verboseOn()) Debug.logVerbose("Final Calculated price: " + price + ", rules: " + totalRules + ", conds: " + totalConds + ", actions: " + totalActions, module);
+
+        calcResults.put("basePrice", new Double(price));
+        calcResults.put("price", new Double(price));
+        calcResults.put("listPrice", new Double(listPrice));
+        calcResults.put("defaultPrice", new Double(defaultPrice));
+        calcResults.put("averageCost", new Double(averageCost));
+        calcResults.put("orderItemPriceInfos", orderItemPriceInfos);
+        calcResults.put("isSale", new Boolean(isSale));
+        calcResults.put("validPriceFound", new Boolean(validPriceFound));
+        
+        return calcResults;
     }
 
     public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String prodCatalogId,
@@ -1110,11 +1219,9 @@ public class PriceServices {
      * Calculates the purchase price of a product
      */
     public static Map calculatePurchasePrice(DispatchContext dctx, Map context) {
-
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = new HashMap();
-        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         List orderItemPriceInfos = new LinkedList();
         boolean validPriceFound = false;

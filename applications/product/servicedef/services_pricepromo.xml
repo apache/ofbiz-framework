@@ -39,6 +39,7 @@ under the License.
         <attribute name="termUomId" type="String" mode="IN" optional="true"><!-- if specified ProductPrice records will be filtered by this, ensures for purposes like recurring prices that only the recurring term desired is taken into consideration --></attribute>
         <attribute name="autoUserLogin" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="checkIncludeVat" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N --></attribute>
+        <attribute name="findAllQuantityPrices" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N; see the allQuantityPrices attribute for more details --></attribute>
         
         <attribute name="basePrice" type="Double" mode="OUT" optional="false"><!-- will only be different from price if there is a display price adjustment, for example: checkIncludeVat=Y and a VAT amount was found --></attribute>
         <attribute name="price" type="Double" mode="OUT" optional="false"/>
@@ -52,6 +53,12 @@ under the License.
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="currencyUsed" type="String" mode="OUT" optional="false"/>
         <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
+        <attribute name="allQuantityPrices" type="java.util.List" mode="OUT" optional="true">
+            <!-- Populated when findAllQuantityPrices is Y; 
+                is a List of Map where each Map has all other return attributes normally created for a price calculation;
+                each Map in the List will also contain a field called "quantityProductPriceRule" with the GenericValue object representing the ProductPriceRule with the quantity condition that the List entry is based on
+            -->
+        </attribute>
     </service>
 
     <service name="createProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
