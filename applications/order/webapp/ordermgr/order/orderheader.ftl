@@ -275,14 +275,20 @@ under the License.
                     <#else>
                       <tr>
                         <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${paymentMethodType.get("description",locale)?if_exists}</b></div>
+                          <div class="tabletext">&nbsp;<b>${paymentMethodType.get("description",locale)?if_exists}</b>
+                          <#if orderPaymentPreference.maxAmount?has_content>
+                          <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
+                          </#if>
+                          </div>
                         </td>
                         <td width="5">&nbsp;</td>
                         <#if paymentMethodType.paymentMethodTypeId != "EXT_OFFLINE">
                           <td align="left">
                             <div class="tabletext">
-                              <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
-                              &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
+                              <#if orderPaymentPreference.maxAmount?has_content>
+                                 <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
+                              </#if>
+                              <br/>&nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                             </div>
                             <#--
                             <div class="tabletext"><@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>&nbsp;-&nbsp;${(orderPaymentPreference.authDate.toString())?if_exists}</div>
@@ -305,7 +311,11 @@ under the License.
                       </#if>
                       <tr>
                         <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b></div>
+                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b>
+                          <#if orderPaymentPreference.maxAmount?has_content>
+                             <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
+                          </#if>
+                          </div>
                         </td>
                         <td width="5">&nbsp;</td>
                         <td align="left" valign="top" width="80%">
@@ -369,7 +379,11 @@ under the License.
                       </#if>
                       <tr>
                         <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b></div>
+                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b>
+                          <#if orderPaymentPreference.maxAmount?has_content>
+                          <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
+                          </#if>
+                          </div>
                         </td>
                         <td width="5">&nbsp;</td>
                         <td align="left" valign="top" width="80%">
@@ -392,7 +406,11 @@ under the License.
                       </#if>
                       <tr>
                         <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGiftCard}</b></div>
+                          <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGiftCard}</b>
+                          <#if orderPaymentPreference.maxAmount?has_content>
+                          <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
+                          </#if>
+                          </div>
                         </td>
                         <td width="5">&nbsp;</td>
                         <td align="left" valign="top" width="80%">
@@ -457,7 +475,12 @@ under the License.
                   </#if>
                   <tr>
                     <td align="right" valign="top" width="15%">
-                      <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b></div>
+                      <#-- billing accounts require a special OrderPaymentPreference because it is skipped from above section of OPPs -->
+                      <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b>
+                          <#if billingAccountMaxAmount?has_content>
+                          <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=billingAccountMaxAmount?default(0.00) isoCode=currencyUomId/>
+                          </#if>
+                          </div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td align="left" valign="top" width="80%">

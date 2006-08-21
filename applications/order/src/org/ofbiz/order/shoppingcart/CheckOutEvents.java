@@ -200,19 +200,12 @@ public class CheckOutEvents {
             }
 
             String billingAccountId = request.getParameter("billingAccountId");
-            String billingAcctAmtStr = request.getParameter("amount_" + billingAccountId);
-            Double billingAccountAmt = null;
-            // parse the amount to a decimal
-            if (billingAcctAmtStr != null) {
-                try {
-                    billingAccountAmt = new Double(formatter.parse(billingAcctAmtStr).doubleValue());
-                } catch (ParseException e) {
-                    Debug.logError(e, module);
-                    Map messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
-                    String errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_billing_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
+            Double billingAccountAmt = determineBillingAccountAmount(request, checkOutHelper, formatter);
+            if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) {
+                Map messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
+                String errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_billing_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                return "error";
             }
 
             List singleUsePayments = new ArrayList();
@@ -360,6 +353,10 @@ public class CheckOutEvents {
         String shipAfterDate = request.getParameter("shipAfterDate");
         List singleUsePayments = new ArrayList();
 
+        // get a request map of parameters
+        Map params = UtilHttp.getParameterMap(request);
+        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+
         // if taxAuthPartyGeoIds is not empty drop that into the database
         if (UtilValidate.isNotEmpty(taxAuthPartyGeoIds)) {
             try {
@@ -378,24 +375,13 @@ public class CheckOutEvents {
         
         // get the billing account and amount
         String billingAccountId = request.getParameter("billingAccountId");
-        String billingAcctAmtStr = request.getParameter("amount_" + billingAccountId);
-        Double billingAccountAmt = null;
-        // parse the amount to a decimal
-        if (billingAcctAmtStr != null) {
-            try {
-                billingAccountAmt = new Double(formatter.parse(billingAcctAmtStr).doubleValue());
-            } catch (ParseException e) {
-                Debug.logError(e, module);
-                Map messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
-                String errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_billing_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                return "error";
-            }
+        Double billingAccountAmt = determineBillingAccountAmount(request, checkOutHelper, formatter);
+        if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) {
+            Map messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
+            String errMsg = UtilProperties.getMessage(resource, "checkevents.invalid_amount_set_for_billing_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
         }
-
-        // get a request map of parameters
-        Map params = UtilHttp.getParameterMap(request);
-        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
         // check for gift card not on file
         Map gcResult = checkOutHelper.checkGiftCard(params, selectedPaymentMethods);
@@ -794,27 +780,14 @@ public class CheckOutEvents {
             }
 
             String billingAccountId = request.getParameter("billingAccountId");
-            String billingAcctAmtStr = request.getParameter("amount_" + billingAccountId);
-            Double billingAccountAmt = null;
-
-            // parse the amount to a decimal
-            if (billingAcctAmtStr != null) {
-                Locale locale = UtilHttp.getLocale(request);
-                // get the currency format
-                String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-                DecimalFormat formatter = new DecimalFormat(currencyFormat);
-                try {
-                    billingAccountAmt = new Double(formatter.parse(billingAcctAmtStr).doubleValue());
-                } catch (ParseException e) {
-                    Debug.logError(e, module);
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), locale));
-                    return "error";
-                }
+            String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
+            DecimalFormat formatter = new DecimalFormat(currencyFormat);
+            Double billingAccountAmt = determineBillingAccountAmount(request, checkOutHelper, formatter);
+            if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) { 
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
+                return "error";
             }
-
-            // ??? FIXME
-            checkOutHelper.setCheckOutPayment(selectedPaymentMethods, null, billingAccountId, billingAccountAmt);
-            // -----------
+              
             Map selPaymentMethods = null;
             if (checkOutPaymentId != null) {
                 callResult = checkOutHelper.finalizeOrderEntryPayment(checkOutPaymentId, null, isSingleUsePayment, doAppendPayment);
@@ -947,5 +920,50 @@ public class CheckOutEvents {
         } else {
             return finalizePage;
         }
+    }
+
+    /**
+     * Determine what billing account amount to use based on the form input.
+     * This method returns the amount that will be charged to the billing account.
+     *
+     * An amount can be associated with the billingAccountId with a
+     * parameter amount_${billingAccountId}.  If no amount is specified, then
+     * the entire available ballance of the given billing account will be used.
+     * If there is an error, a null will be returned.
+     *
+     * @return  Amount to charge billing account or null if there was an error
+     */
+    private static Double determineBillingAccountAmount(HttpServletRequest request, CheckOutHelper checkOutHelper, DecimalFormat formatter) {
+        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
+        String billingAccountId = request.getParameter("billingAccountId");
+        String billingAcctAmtStr = request.getParameter("amount_" + billingAccountId);
+        Double billingAccountAmt = null;
+
+        // parse the amount to a decimal
+        if (billingAcctAmtStr != null) {
+            try {
+                billingAccountAmt = new Double(formatter.parse(billingAcctAmtStr).doubleValue());
+            } catch (ParseException e) {
+                return null;
+            }
+        }
+
+        // set the billing account amount to the minimum of billing account available balance or amount input if less than balance
+        if ((cart != null) && (billingAccountId != null) && !"_NA_".equals(billingAccountId)) {
+            double availableBalance = checkOutHelper.availableAccountBalance(billingAccountId);
+
+            // set amount to be charged to entered amount unless it exceeds the available balance
+            double chargeAmount = 0;
+            if ((billingAccountAmt != null) && (billingAccountAmt.doubleValue() < availableBalance)) {
+                chargeAmount = billingAccountAmt.doubleValue();
+            } else {
+                chargeAmount = availableBalance;
+            }
+
+            return new Double(chargeAmount);
+        } else {
+            return null;
+        }
+
     }
 }

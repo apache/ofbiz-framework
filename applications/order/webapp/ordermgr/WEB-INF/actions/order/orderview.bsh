@@ -117,6 +117,7 @@ if (orderHeader != null) {
 
     billingAccount = orderHeader.getRelatedOne("BillingAccount");
     context.put("billingAccount", billingAccount);
+    context.put("billingAccountMaxAmount", orderReadHelper.getBillingAccountMaxAmount()); 
 
     // get a list of all shipments, and a list of ItemIssuances per order item
     allShipmentsMap = new HashMap();
