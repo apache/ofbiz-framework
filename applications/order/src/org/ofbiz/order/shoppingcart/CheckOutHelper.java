@@ -849,6 +849,7 @@ public class CheckOutHelper {
                 authCtx.put("authRefNum", opp.getString("manualRefNum"));
                 authCtx.put("authResult", Boolean.TRUE);
                 authCtx.put("userLogin", userLogin);
+                authCtx.put("currencyUomId", cart.getCurrency());
 
                 Map authResp = dispatcher.runSync("processAuthResult", authCtx);
                 if (authResp != null && ServiceUtil.isError(authResp)) {
@@ -869,6 +870,7 @@ public class CheckOutHelper {
                     captCtx.put("captureAmount", opp.getDouble("maxAmount"));
                     captCtx.put("captureRefNum", opp.getString("manualRefNum"));
                     captCtx.put("userLogin", userLogin);
+                    captCtx.put("currencyUomId", cart.getCurrency());
 
                     Map capResp = dispatcher.runSync("processCaptureResult", captCtx);
                     if (capResp != null && ServiceUtil.isError(capResp)) {
