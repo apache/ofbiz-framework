@@ -30,6 +30,7 @@ under the License.
         <attribute name="toGroupIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="itemIndex" type="Integer" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="clearEmptyGroups" type="Boolean" mode="IN" optional="true"/>
     </service>
 
     <service name="setCartShippingOptions" engine="java" auth="false"

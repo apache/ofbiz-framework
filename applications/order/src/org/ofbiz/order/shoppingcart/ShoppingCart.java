@@ -1900,11 +1900,11 @@ public class ShoppingCart implements Serializable {
         return this.getItemShipGroupQty(this.findCartItem(itemIndex), idx);
     }
 
-    public void positionItemToGroup(int itemIndex, double quantity, int fromIndex, int toIndex) {
-        this.positionItemToGroup(this.findCartItem(itemIndex), quantity, fromIndex, toIndex);
+    public void positionItemToGroup(int itemIndex, double quantity, int fromIndex, int toIndex, boolean clearEmptyGroups) {
+        this.positionItemToGroup(this.findCartItem(itemIndex), quantity, fromIndex, toIndex, clearEmptyGroups);
     }
 
-    public void positionItemToGroup(ShoppingCartItem item, double quantity, int fromIndex, int toIndex) {
+    public void positionItemToGroup(ShoppingCartItem item, double quantity, int fromIndex, int toIndex, boolean clearEmptyGroups) {
         if (fromIndex == toIndex || quantity <= 0) {
             // do nothing
             return;
@@ -1935,8 +1935,10 @@ public class ShoppingCart implements Serializable {
                 this.setItemShipGroupQty(item, toQty, toIndex);
             }
 
-            // remove any empty ship groups
-            this.cleanUpShipGroups();
+            if (clearEmptyGroups) {
+                // remove any empty ship groups
+                this.cleanUpShipGroups();
+            }
         }
     }
 

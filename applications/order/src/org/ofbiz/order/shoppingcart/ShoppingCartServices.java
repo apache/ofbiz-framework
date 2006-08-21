@@ -60,7 +60,12 @@ public class ShoppingCartServices {
         Integer toGroupIndex = (Integer) context.get("toGroupIndex");
         Integer itemIndex = (Integer) context.get("itemIndex");
         Double quantity = (Double) context.get("quantity");
+        Boolean clearEmptyGroups = (Boolean) context.get("clearEmptyGroups");
         Locale locale = (Locale) context.get("locale");
+
+        if (clearEmptyGroups == null) {
+            clearEmptyGroups = new Boolean(true);
+        }
 
         Debug.log("From Group - " + fromGroupIndex + " To Group - " + toGroupIndex + "Item - " + itemIndex + "(" + quantity + ")", module);
         if (fromGroupIndex.equals(toGroupIndex)) {
@@ -69,7 +74,7 @@ public class ShoppingCartServices {
         }
 
         cart.positionItemToGroup(itemIndex.intValue(), quantity.doubleValue(),
-                fromGroupIndex.intValue(), toGroupIndex.intValue());
+                fromGroupIndex.intValue(), toGroupIndex.intValue(), clearEmptyGroups.booleanValue());
         Debug.log("Called cart.positionItemToGroup()", module);
 
         return ServiceUtil.returnSuccess();
