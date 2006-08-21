@@ -21,9 +21,10 @@ under the License.
 	<vendor>OFBiz</vendor>
 	<version>1.0</version>
 
-    <!-- Entity Import Services -->
+    <!-- Entity Import Services 
+         Transacitons are turned off for these services because they set transactions and timeouts inside the services with txTimeout parameter -->
     <service name="parseEntityXmlFile" engine="java" require-new-transaction="true"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true">
+            location="org.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true" use-transaction="false">
         <description>Parses an entity xml file or an entity xml text</description>
         <attribute name="url" type="java.net.URL" mode="IN" optional="true"/>
         <attribute name="xmltext" type="String" mode="IN" optional="true"/>
@@ -34,7 +35,7 @@ under the License.
         <attribute name="rowProcessed" type="Long" mode="OUT" optional="false"/>
     </service>
     <service name="entityImport" engine="java"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImport" auth="true">
+            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImport" auth="true" use-transaction="false">
         <description>Imports an entity xml file or text string</description>
         <attribute name="filename" type="String" mode="IN" optional="true"/>
         <attribute name="fmfilename" type="String" mode="IN" optional="true"/>
@@ -47,7 +48,7 @@ under the License.
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="entityImportDir" engine="java"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportDir" auth="true">
+            location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportDir" auth="true" use-transaction="false">
         <description>Imports all entity xml files contained in a directory</description>
         <attribute name="path" type="String" mode="IN" optional="true"/>
         <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
@@ -59,7 +60,7 @@ under the License.
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="entityExportAll" engine="java"
-            location="org.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true">
+            location="org.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true" use-transaction="false">
         <description>Exports all entities into xml files</description>
         <attribute name="outpath" type="String" mode="IN" optional="true"/>
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
