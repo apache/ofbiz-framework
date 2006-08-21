@@ -175,19 +175,16 @@ under the License.
 
     <simple-method method-name="addDistinctShoppingListItem" 
                    short-description="Adds a shopping list item if one with the same productId does not exist">
-        <log level="info" message="In addDistinctShoppingListItem" />
         <entity-condition entity-name="ShoppingListItem" list-name="shoppingListItemList">
             <condition-expr field-name="shoppingListId" env-name="parameters.shoppingListId" />
         </entity-condition>
 
         <iterate list-name="shoppingListItemList" entry-name="shoppingListItem">
             <if-compare-field field-name="parameters.productId" operator="equals" to-field-name="shoppingListItem.productId">
-                <log level="info" message="In shopingListItem ${shoppingListItem.productId}" />
                 <field-to-result field-name="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId" />
                 <return />
             </if-compare-field>
         </iterate>
-        <log level="info" message="Right before createShoppingListItem" />
         <call-service service-name="createShoppingListItem" in-map-name="parameters">
             <result-to-result result-name="shoppingListItemSeqId" />
         </call-service>
@@ -297,7 +294,6 @@ under the License.
             </condition-list>
         </entity-condition>
         <first-from-list list-name="orderRoleList" entry-name="orderRole" />
-        <log level="info" message="After orderRoleList" />
 
         <entity-condition entity-name="ShoppingList" list-name="shoppingListList">
             <condition-list combine="and">
@@ -318,23 +314,19 @@ under the License.
         </else>            
         </if-empty>
 
-        <log level="info" message="Before iterating orderItemList" />
         <entity-condition entity-name="OrderItem" list-name="orderItemList">
             <condition-expr field-name="orderId" env-name="parameters.orderId" />
             <order-by field-name="orderItemSeqId" />
         </entity-condition>
         <iterate list-name="orderItemList" entry-name="orderItem">
             <if-not-empty field-name="orderItem.productId">
-                <log level="info" message="Found orderItem.productId [${orderItem.productId}]" />
                 <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" env-name="orderItem.productId" />
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
                     </condition-list>
                 </entity-condition>
-                <log level="info" message="productAssocList = ${compProductAssocList}" />
                 <iterate list-name="compProductAssocList" entry-name="compProductAssoc">
-                    <log level="info" message="looping on assoc list" />
                     <clear-field field-name="shoppingListParameters" />
                     <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                     <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
@@ -359,9 +351,7 @@ under the License.
                                 <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
                             </condition-list>
                         </entity-condition>
-                        <log level="info" message="productAssocList = ${compProductAssocList}" />
                         <iterate list-name="compProductAssocList" entry-name="compProductAssoc">
-                            <log level="info" message="looping on assoc list #2" />
                             <clear-field field-name="shoppingListParameters" />
                             <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                             <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
