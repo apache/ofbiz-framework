@@ -246,19 +246,12 @@ public class CheckOutHelper {
             singleUsePayments = new ArrayList();
         }
 
-        // set the billing account amount
-        if (billingAccountId != null && billingAccountAmt != null && !billingAccountId.equals("_NA_")) {
-            cart.setBillingAccount(billingAccountId, billingAccountAmt.doubleValue());
-        } else {
-            cart.setBillingAccount(null, 0.00);
-        }
-
         // set the payment method option
         if (selectedPaymentMethods != null && selectedPaymentMethods.size() > 0) {
             // clear out the old payments
             cart.clearPayments();
 
-            // if we are EXT_BILLACT (billing account only) then we need to make sure we have enough credit
+            // if checkoutPaymentId == EXT_BILLACT, then we have billing account only, so make sure we have enough credit
             if (selectedPaymentMethods.containsKey("EXT_BILLACT")) {
                 double accountCredit = this.availableAccountBalance(cart.getBillingAccountId());
                 // make sure we have enough to cover; if this is selected we don't have other payment methods
@@ -267,6 +260,16 @@ public class CheckOutHelper {
                             (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
                 }
+            }
+
+            if (billingAccountId != null && billingAccountAmt != null && !billingAccountId.equals("_NA_")) {
+                // set cart billing account data and generate a payment method containing the amount we will be charging
+                cart.setBillingAccount(billingAccountId, billingAccountAmt.doubleValue());
+                selectedPaymentMethods.put("EXT_BILLACT", new Double(cart.getBillingAccountAmount()));
+            } else if ("_NA_".equals(billingAccountId)) {
+                // if _NA_ was supplied, erase all billing account data
+                cart.setBillingAccount(null, 0.0);
+                cart.clearPayment("EXT_BILLACT");
             }
 
             Set paymentMethods = selectedPaymentMethods.keySet();
@@ -1352,19 +1355,17 @@ public class CheckOutHelper {
     }
 
     public double availableAccountBalance(String billingAccountId) {
-        GenericValue billingAccount = null;
-        Double availableBalance = new Double(0.00);
-
-        if (billingAccountId != null) {
-            try {
-                Map res = dispatcher.runSync("calcBillingAccountBalance", UtilMisc.toMap("billingAccountId", billingAccountId));
-                availableBalance = (Double) res.get("availableBalance");
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
+        if (billingAccountId == null) return 0.0;
+        try {
+            Map res = dispatcher.runSync("calcBillingAccountBalance", UtilMisc.toMap("billingAccountId", billingAccountId));
+            Double availableBalance = (Double) res.get("availableBalance");
+            if (availableBalance != null) {
+                return availableBalance.doubleValue();
             }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
         }
-
-        return availableBalance.doubleValue();
+        return 0.0;
     }
 
     public Map makeBillingAccountMap(List paymentPrefs) {
@@ -1424,7 +1425,7 @@ public class CheckOutHelper {
             while (npi.hasNext()) {
                 String paymentMethodId = (String) npi.next();
                 double selectedPaymentTotal = cart.getPaymentTotal();
-                double requiredAmount = cart.getGrandTotal() - cart.getBillingAccountAmount();
+                double requiredAmount = cart.getGrandTotal();
                 double nullAmount = requiredAmount - selectedPaymentTotal;
                 boolean setOverflow = false;
 

@@ -558,6 +558,24 @@ public class OrderReadHelper {
         return billingAccount;
     }
 
+    /**
+     * Returns the OrderPaymentPreference.maxAmount for the billing account associated with the order, or 0 if there is no
+     * billing account or no max amount set
+     */
+    public double getBillingAccountMaxAmount() {
+        if (getBillingAccount() == null) {
+            return 0.0;
+        } else {
+            List paymentPreferences = getPaymentPreferences();
+            GenericValue billingAccountPaymentPreference = EntityUtil.getFirst(EntityUtil.filterByAnd(paymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "EXT_BILLACT")));
+            if ((billingAccountPaymentPreference != null) && (billingAccountPaymentPreference.getDouble("maxAmount") != null)) {
+                return billingAccountPaymentPreference.getDouble("maxAmount").doubleValue();
+            } else {
+                return 0.0;
+            }
+        }
+    }
+
     public GenericValue getBillToParty() {
         return this.getPartyFromRole("BILL_TO_CUSTOMER");
     }
