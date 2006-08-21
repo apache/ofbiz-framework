@@ -25,8 +25,20 @@ under the License.
           <td>          
             <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
               <input type="hidden" name="finalizeMode" value="options"/>
-              <input type="hidden" name="shipGroupIndex" value="${shipGroupIndex?if_exists}"/>
+<#list 1..cart.getShipGroupSize() as currIndex>
+<#assign shipGroupIndex = currIndex - 1>
+
+<#if cart.getShipmentMethodTypeId(shipGroupIndex)?exists && cart.getCarrierPartyId(shipGroupIndex)?exists>
+    <#assign chosenShippingMethod = cart.getShipmentMethodTypeId(shipGroupIndex) + '@' + cart.getCarrierPartyId(shipGroupIndex)>
+</#if>
+<hr class="sepbar"/>
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td colspan="2">
+                    <div class="head1"><b>Ship Group # ${currIndex}</b></div>
+                </td>
+              </tr>
+
                <#if cart.getOrderType() != "PURCHASE_ORDER">
                 <#assign shipEstimateWrapper = Static["org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, cart, 0)>
                 <#assign carrierShipmentMethods = shipEstimateWrapper.getShippingMethods()>
@@ -34,7 +46,7 @@ under the License.
                 <tr>
                   <td width='1%' valign="top" >
                     <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
-                    <input type='radio' name='shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>>       
+                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>>       
                   </td>
                   <td valign="top">                            
                     <div class='tabletext'>                                                 
@@ -57,7 +69,7 @@ under the License.
                 <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>                     
                 <tr>
                   <td width='1%' valign="top">
-                    <input type='radio' name='shipping_method' value="Default" checked>
+                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value="Default" checked>
                   </td>
                   <td valign="top">
                     <div class='tabletext'>${uiLabelMap.FacilityNoOtherShippingMethods}</div>
@@ -66,7 +78,7 @@ under the License.
                 </#if>
                 <tr><td colspan='2'><hr class='sepbar'></td></tr>                      
                <#else>
-                   <input type='hidden' name='shipping_method' value="NO_SHIPPING@_NA_">
+                   <input type='hidden' name='${shipGroupIndex?default("0")}_shipping_method' value="NO_SHIPPING@_NA_">
                </#if>
                 <tr>
                   <td colspan='2'>
@@ -75,7 +87,7 @@ under the License.
                 </tr>
                 <tr>
                   <td valign="top">
-                    <input type='radio' <#if cart.getMaySplit(shipGroupIndex)?default("N") == "N">checked</#if> name='may_split' value='false'>
+                    <input type='radio' <#if cart.getMaySplit(shipGroupIndex)?default("N") == "N">checked</#if> name='${shipGroupIndex?default("0")}_may_split' value='false'>
                   </td>
                   <td valign="top">
                     <div class="tabletext">${uiLabelMap.FacilityWaitEntireOrderReady}</div>
@@ -83,7 +95,7 @@ under the License.
                 </tr>
                 <tr>
                   <td valign="top">
-                    <input <#if cart.getMaySplit(shipGroupIndex)?default("N") == "Y">checked</#if> type='radio' name='may_split' value='true'>
+                    <input <#if cart.getMaySplit(shipGroupIndex)?default("N") == "Y">checked</#if> type='radio' name='${shipGroupIndex?default("0")}_may_split' value='true'>
                   </td>
                   <td valign="top">
                     <div class="tabletext">${uiLabelMap.FacilityShipAvailable}</div>
@@ -97,7 +109,7 @@ under the License.
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <textarea class='textAreaBox' cols="30" rows="3" name="shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
+                    <textarea class='textAreaBox' cols="30" rows="3" name="${shipGroupIndex?default("0")}_shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
                 <#if cart.getOrderType() != "PURCHASE_ORDER">
@@ -113,12 +125,12 @@ under the License.
                 <tr>
                   <td colspan="2">
                     <#if cart.getOrderType() = "PURCHASE_ORDER">
-                       <input type='hidden' name='is_gift' value='false'>
+                       <input type='hidden' name='${shipGroupIndex?default("0")}_is_gift' value='false'>
                     <#else>
                     <div>
                       <span class="head2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
-                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("Y") == "Y">checked</#if> name='is_gift' value='true'><span class='tabletext'>${uiLabelMap.CommonYes}</span>
-                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("N") == "N">checked</#if> name='is_gift' value='false'><span class='tabletext'>${uiLabelMap.CommonNo}</span>
+                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("Y") == "Y">checked</#if> name='${shipGroupIndex?default("0")}_is_gift' value='true'><span class='tabletext'>${uiLabelMap.CommonYes}</span>
+                      <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("N") == "N">checked</#if> name='${shipGroupIndex?default("0")}_is_gift' value='false'><span class='tabletext'>${uiLabelMap.CommonNo}</span>
                     </div>
                     </#if>
                   </td>
@@ -132,7 +144,7 @@ under the License.
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <textarea class='textAreaBox' cols="30" rows="3" name="gift_message">${cart.getGiftMessage(shipGroupIndex)?if_exists}</textarea>
+                    <textarea class='textAreaBox' cols="30" rows="3" name="${shipGroupIndex?default("0")}_gift_message">${cart.getGiftMessage(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
                  </#if>
@@ -140,6 +152,7 @@ under the License.
                       <td colspan="2"></td>
                    </tr>
               </table>
+</#list>
             </form>
           </td>
         </tr>

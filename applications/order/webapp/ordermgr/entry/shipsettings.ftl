@@ -16,30 +16,25 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session)>
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
 
-      <#-- header table for company shipping addresses -->
-
-      <br/>
-      <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td><div class="boxhead">${uiLabelMap.OrderSelectAShippingAddress}</div></td>
-          <td valign="middle" align="right">
-            <a href="javascript:document.checkoutsetupform.submit();" class="submenutextright">${uiLabelMap.CommonContinue}</a>
-          </td>
-        </tr>
-      </table>
-
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
+<#-- Purchase Orders -->
+        
+<#if facilityMaps?exists>
+            <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
+            <input type="hidden" name="finalizeMode" value="ship"/>
+      <table width='100%' border='0' cellspacing='0' cellpadding='0' class="boxboutside">
         <tr>
           <td>
-            
-            <#if facilityMaps?exists>
+
+<#list 1..cart.getShipGroupSize() as currIndex>
+<#assign shipGroupIndex = currIndex - 1>
+
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
-              <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
-                <input type="hidden" name="finalizeMode" value="ship">
+                <tr>
+                  <td colspan="4">
+                    <div class="head1">Ship Group # ${currIndex}</div>
+                  </td>
+                </tr>
                 <#assign i = 0>
                 <#list facilityMaps as facilityMap>
                 <#assign facility = facilityMap.facility>
@@ -49,7 +44,7 @@ under the License.
                     <div class="tableheadtext">${uiLabelMap.FacilityFacility}: ${facility.facilityName?if_exists} [${facility.facilityId}]</div>
                   </td>
                 </tr>
-                <tr><td colspan="4"><hr class='sepbar'></td></tr>
+                <tr><td colspan="4"><hr class='sepbar'/></td></tr>
 
                 <#-- company postal addresses -->
                 
@@ -59,7 +54,7 @@ under the License.
                   <#assign shippingAddress = shippingContactMech.postalAddress>
                   <tr>
                     <td valign="top" nowrap>
-                      <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}" <#if i == 0>checked</#if>>
+                      <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" <#if i == 0>checked</#if> />
                     </td>
                     <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td align="left" valign="top" width="100%" nowrap>
@@ -75,11 +70,11 @@ under the License.
                       </div>
                     </td>
                     <td>
-                      <div class="tabletext"><a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&contactMechId=${shippingAddress.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+                      <div class="tabletext"><a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&amp;contactMechId=${shippingAddress.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
                     </td>
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="4"><hr class='sepbar'></td></tr>
+                  <tr><td colspan="4"><hr class='sepbar'/></td></tr>
                   </#if>
                   </#if>
                   <#assign i = i + 1>
@@ -94,21 +89,39 @@ under the License.
                     </td>
                 </#if>
                 </#list>
-              </form>
             </table>
-            <#else>
-            <#if shippingContactMechList?has_content && !requestParameters.createNew?exists>
+</#list>
+          </td>
+        </tr>
+      </table>
+            </form>
+
+<#else>
+
+<#-- Sales Orders -->
+
+            <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform"> 
+            <input type="hidden" name="finalizeMode" value="ship"/>
+            <input type="hidden" name="shipGroupIndex" value="${shipGroupIndex?if_exists}"/>
+      <table width='100%' border='0' cellspacing='0' cellpadding='0' class="boxoutside">
+        <tr>
+          <td>
+<a href="<@ofbizUrl>setShipping?createNewShipGroup=Y</@ofbizUrl>" class="buttontext">Create New Ship Group</a>
+<a href="<@ofbizUrl>EditShipAddress</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
+<#list 1..cart.getShipGroupSize() as currIndex>
+<#assign shipGroupIndex = currIndex - 1>
+
+<#assign currShipContactMechId = cart.getShippingContactMechId(shipGroupIndex)?if_exists>
+
+            <hr class="sepbar"/>
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
                 <td colspan="3">
-                  <a href="<@ofbizUrl>setShipping?createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
+                    <div class="head1">Ship Group # ${currIndex}</div>
                 </td>
               </tr>
-              <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform"> 
-                <input type="hidden" name="finalizeMode" value="ship"/>
-                <input type="hidden" name="shipGroupIndex" value="${shipGroupIndex?if_exists}"/>
-
-                <tr><td colspan="3"><hr class='sepbar'></td></tr>
+            <#if shippingContactMechList?has_content>
+                <tr><td colspan="3"><hr class='sepbar'/></td></tr>
                 <#assign i = 0>
                 <#list shippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
@@ -127,7 +140,7 @@ under the License.
                   </#if>
                   <tr>
                     <td align="left" valign="top" width="1%" nowrap>
-                      <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue}>
+                      <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue} />
                     </td>
                     <td align="left" valign="top" width="99%" nowrap>
                       <div class="tabletext">
@@ -142,117 +155,25 @@ under the License.
                       </div>
                     </td>
                     <td>
-                      <div class="tabletext"><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+                      <div class="tabletext"><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
                     </td>                      
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="3"><hr class='sepbar'></td></tr>
+                  <tr><td colspan="3"><hr class='sepbar'/></td></tr>
                   </#if>
                   <#assign i = i + 1>
                 </#list>
-              </form>
+            </#if>
             </table>  
-            <#else>
-              <#if postalAddress?has_content>            
-              <form method="post" action="<@ofbizUrl>updatePostalAddressOrderEntry</@ofbizUrl>" name="checkoutsetupform">
-                <input type="hidden" name="contactMechId" value="${shipContactMechId?if_exists}">
-              <#else>
-              <form method="post" action="<@ofbizUrl>createPostalAddress</@ofbizUrl>" name="checkoutsetupform">
-                <input type="hidden" name="contactMechTypeId" value="POSTAL_ADDRESS">
-                <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION">
-              </#if>
-                <input type="hidden" name="partyId" value="${cart.getPartyId()?default("_NA_")}">
-                <input type="hidden" name="finalizeMode" value="ship">
-                <#if orderPerson?exists && orderPerson?has_content>
-                  <#assign toName = "">
-                  <#if orderPerson.personalTitle?has_content><#assign toName = orderPerson.personalTitle + " "></#if>
-                  <#assign toName = toName + orderPerson.firstName + " ">
-                  <#if orderPerson.middleName?has_content><#assign toName = toName + orderPerson.middleName + " "></#if>
-                  <#assign toName = toName + orderPerson.lastName>
-                  <#if orderPerson.suffix?has_content><#assign toName = toName + " " + orderPerson.suffix></#if>
-                <#else>
-                  <#assign toName = "">
-                </#if>
-                <table width="100%" border="0" cellpadding="1" cellspacing="0">
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonToName}</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="60" name="toName" value="${toName}">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAttentionName}</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value="">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 1</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value="">
-                    *</td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 2</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value="">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonCity}</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="city" value="">
-                    *</td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonStateProvince}</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <select name="stateProvinceGeoId" class="selectBox">
-                        <option value=""></option>                       
-                        ${screens.render("component://common/widget/CommonScreens.xml#states")}
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonZipPostalCode}</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value="">
-                    *</td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonCountry}</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <select name="countryGeoId" class="selectBox">                        
-                        ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-                      </select>
-                    *</td>
-                  </tr>
-                  <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAllowSolicitation}</div></td>
-                    <td width="5">&nbsp;</td>
-                    <td width="74%">
-                      <select name="allowSolicitation" class='selectBox'>                       
-                        <option></option><option>Y</option><option>N</option>
-                      </select>
-                    </td>
-                  </tr>                                    
-                </td>
-                </table>
-              </form>
-
-            </#if>
-            </#if>
+</#list>
           </td>
         </tr>
       </table>
+
+            </form>
+</#if>
+
+
 
       <#-- select a party id to ship to instead -->
 
@@ -270,7 +191,7 @@ under the License.
 
         <table width="100%" border="0" align="center" cellspacing='0' cellpadding='0' class='boxoutside'>
           <tr><td>
-              <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION">
+              <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
               <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
                 <tr><td colspan="4">&nbsp;</td></tr>
                 <tr>
@@ -278,10 +199,10 @@ under the License.
                 <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyPartyId}</div></td>
                 <td>&nbsp;</td>
                 <td valign='middle'>
-                  <div class='tabletext' valign='top'>
-                    <input type='text' class='inputBox' name='partyId' value='${thisPartyId?if_exists}'>
+                  <div class='tabletext'>
+                    <input type='text' class='inputBox' name='partyId' value='${thisPartyId?if_exists}'/>
                     <a href="javascript:call_fieldlookup2(document.partyshipform.partyId,'LookupPartyName');">
-                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'>
+                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
                     </a>
                   </div>
                 </td>
@@ -292,16 +213,6 @@ under the License.
         </table>
       </form>
 
-    </td>
-  </tr>
-</table>
-
-
-    </td>
-  </tr>
-</table>
-
-<br/>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

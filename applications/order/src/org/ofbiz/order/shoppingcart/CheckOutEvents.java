@@ -627,7 +627,6 @@ public class CheckOutEvents {
 
         Map paramMap = UtilHttp.getParameterMap(request);
         Boolean offlinePayments;
-        String shipGroupIndexPar = null;
         String shippingContactMechId = null;
         String shippingMethod = null;
         String shippingInstructions = null;
@@ -710,36 +709,55 @@ public class CheckOutEvents {
             isAnonymousCheckout = true;
         }
 
-        shipGroupIndexPar = request.getParameter("shipGroupIndex");
-        int shipGroupIndex = 0;
-        if (shipGroupIndexPar != null) {
-            try {
-                shipGroupIndex = Integer.parseInt(shipGroupIndexPar);
-            } catch(Exception exc) {
-                Debug.logWarning("Unable to parse shipGroupIndex [" + shipGroupIndexPar + "]: " + exc.getMessage(), module);
+        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+
+        // ====================================================================================
+        if (mode != null && (mode.equals("ship") || mode.equals("options"))) {
+            Map callResult = ServiceUtil.returnSuccess();
+            List errorMessages = new ArrayList();
+            Map errorMaps = new HashMap();
+            for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+                // set the shipping method
+                if (mode != null && mode.equals("ship")) {
+                    shippingContactMechId = request.getParameter(shipGroupIndex + "_shipping_contact_mech_id");
+                    if (shippingContactMechId == null) {
+                        shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
+                    }
+                    callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId);
+                    ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
+                }
+                // set the options
+                if (mode != null && mode.equals("options")) {
+                    shippingMethod = request.getParameter(shipGroupIndex + "_shipping_method");
+                    shippingInstructions = request.getParameter(shipGroupIndex + "_shipping_instructions");
+                    maySplit = request.getParameter(shipGroupIndex + "_may_split");
+                    giftMessage = request.getParameter(shipGroupIndex + "_gift_message");
+                    isGift = request.getParameter(shipGroupIndex + "_is_gift");
+                    internalCode = request.getParameter("internalCode"); // FIXME
+                    shipBeforeDate = request.getParameter(shipGroupIndex + "_shipBeforeDate");
+                    shipAfterDate = request.getParameter(shipGroupIndex + "_shipAfterDate");
+                    callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
+                    ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
+                }
+            }
+            //See whether we need to return an error or not
+            callResult = ServiceUtil.returnSuccess();
+            if (errorMessages.size() > 0) {
+                callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
+                callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            }
+            if (errorMaps.size() > 0) {
+                callResult.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
+                callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            }
+            // generate any messages required
+            ServiceUtil.getMessages(request, callResult, null);
+            // determine whether it was a success or not
+            if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
+                return "error";
             }
         }
-
-        // get the shipping method
-        shippingContactMechId = request.getParameter("shipping_contact_mech_id");
-        if (shippingContactMechId == null) {
-            shippingContactMechId = (String) request.getAttribute("contactMechId");
-        }
-
-        // get the options
-        shippingMethod = request.getParameter("shipping_method");
-        shippingInstructions = request.getParameter("shipping_instructions");
-        maySplit = request.getParameter("may_split");
-        giftMessage = request.getParameter("gift_message");
-        isGift = request.getParameter("is_gift");
-        internalCode = request.getParameter("internalCode");
-        shipBeforeDate = request.getParameter("shipBeforeDate");
-        shipAfterDate = request.getParameter("shipAfterDate");
-        Locale locale = UtilHttp.getLocale(request);
-
-        // payment option; if offline we skip the payment screen
-        methodType = request.getParameter("paymentMethodType");
-
+        // ###############################################################################
         // get the payment
         checkOutPaymentId = request.getParameter("checkOutPaymentId");
         if (checkOutPaymentId == null) {
@@ -747,6 +765,8 @@ public class CheckOutEvents {
         }
 
         // check for offline payment type
+        // payment option; if offline we skip the payment screen
+        methodType = request.getParameter("paymentMethodType");
         if ("offline".equals(methodType)) {
             Debug.log("Changing mode from->to: " + mode + "->payment", module);
             checkOutPaymentId = "EXT_OFFLINE";            
@@ -757,49 +777,71 @@ public class CheckOutEvents {
         boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
         boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
 
-        CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+        if (mode != null && mode.equals("payment")) {
+            Map callResult = ServiceUtil.returnSuccess();
+            List errorMessages = new ArrayList();
+            Map errorMaps = new HashMap();
 
-        // get the currency format
-        String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
-        DecimalFormat formatter = new DecimalFormat(currencyFormat);
+            // Set the payment options
+            Map selectedPaymentMethods = getSelectedPaymentMethods(request);
+            if (selectedPaymentMethods == null) {
+                return "error";
+            }
 
-        // Set the payment options
-        Map selectedPaymentMethods = getSelectedPaymentMethods(request);
-        if (selectedPaymentMethods == null) {
-            return "error";
-        }
+            String billingAccountId = request.getParameter("billingAccountId");
+            String billingAcctAmtStr = request.getParameter("amount_" + billingAccountId);
+            Double billingAccountAmt = null;
 
-        String billingAccountId = request.getParameter("billingAccountId");
-        String billingAcctAmtStr = request.getParameter("amount_" + billingAccountId);
-        Double billingAccountAmt = null;
+            // parse the amount to a decimal
+            if (billingAcctAmtStr != null) {
+                Locale locale = UtilHttp.getLocale(request);
+                // get the currency format
+                String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
+                DecimalFormat formatter = new DecimalFormat(currencyFormat);
+                try {
+                    billingAccountAmt = new Double(formatter.parse(billingAcctAmtStr).doubleValue());
+                } catch (ParseException e) {
+                    Debug.logError(e, module);
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), locale));
+                    return "error";
+                }
+            }
 
-        // parse the amount to a decimal
-        if (billingAcctAmtStr != null) {
-            try {
-                billingAccountAmt = new Double(formatter.parse(billingAcctAmtStr).doubleValue());
-            } catch (ParseException e) {
-                Debug.logError(e, module);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), locale));
+            // ??? FIXME
+            checkOutHelper.setCheckOutPayment(selectedPaymentMethods, null, billingAccountId, billingAccountAmt);
+            // -----------
+            Map selPaymentMethods = null;
+            if (checkOutPaymentId != null) {
+                callResult = checkOutHelper.finalizeOrderEntryPayment(checkOutPaymentId, null, isSingleUsePayment, doAppendPayment);
+                ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
+                selPaymentMethods = UtilMisc.toMap(checkOutPaymentId, null);
+            }
+            callResult = checkOutHelper.checkGiftCard(paramMap, selPaymentMethods);
+            ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
+            if (errorMessages.size() == 0 && errorMaps.size() == 0) {
+                String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
+                Double giftCardAmount = (Double) callResult.get("amount");
+                Map gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
+                ServiceUtil.addErrors(errorMessages, errorMaps, gcCallRes);
+            }
+            //See whether we need to return an error or not
+            callResult = ServiceUtil.returnSuccess();
+            if (errorMessages.size() > 0) {
+                callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
+                callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            }
+            if (errorMaps.size() > 0) {
+                callResult.put(ModelService.ERROR_MESSAGE_MAP, errorMaps);
+                callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            }
+            // generate any messages required
+            ServiceUtil.getMessages(request, callResult, null);
+            // determine whether it was a success or not
+            if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                 return "error";
             }
         }
 
-        if (mode != null && mode.equals("payment")) {
-            checkOutHelper.setCheckOutPayment(selectedPaymentMethods, null, billingAccountId, billingAccountAmt);
-        }
-
-        Map callResult = checkOutHelper.finalizeOrderEntry(mode, shipGroupIndex, shippingContactMechId, shippingMethod, shippingInstructions,
-                maySplit, giftMessage, isGift, methodType, checkOutPaymentId, isSingleUsePayment, doAppendPayment, paramMap,
-                internalCode, shipBeforeDate, shipAfterDate);
-
-        // generate any messages required
-        ServiceUtil.getMessages(request, callResult, null);
-
-        // determine whether it was a success or not
-        if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-            return "error";
-        }
-        
         // determine where to direct the browser
         // these are the default values
         boolean requireCustomer = true;
@@ -829,9 +871,20 @@ public class CheckOutEvents {
             requireAdditionalParty = requireAdditionalPartyStr == null || requireAdditionalPartyStr.equalsIgnoreCase("true");
         }
 
+        boolean shippingAddressSet = true;
+        boolean shippingOptionsSet = true;
+        for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+            String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
+            if (shipContactMechId == null) {
+                shippingAddressSet = false;
+            }
+            String shipmentMethodTypeId = cart.getShipmentMethodTypeId(shipGroupIndex);
+            if (shipmentMethodTypeId == null) {
+                shippingOptionsSet = false;
+            }
+        }
+        
         String customerPartyId = cart.getPartyId();
-        String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
-        String shipmentMethodTypeId = cart.getShipmentMethodTypeId(shipGroupIndex);
         List paymentMethodIds = cart.getPaymentMethodIds();
         List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
 
@@ -839,11 +892,11 @@ public class CheckOutEvents {
             return "customer";
         }
 
-        if (requireShipping && shipContactMechId == null) {
+        if (requireShipping && !shippingAddressSet) {
             return "shipping";
         }
 
-        if (requireOptions && shipmentMethodTypeId == null) {
+        if (requireOptions && !shippingOptionsSet) {
             return "options";
         }
         
