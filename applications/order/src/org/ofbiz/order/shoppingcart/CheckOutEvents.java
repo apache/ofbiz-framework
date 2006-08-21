@@ -669,6 +669,11 @@ public class CheckOutEvents {
             cart.setDefaultCheckoutOptions(dispatcher);
         }
 
+        // remove the empty ship groups
+        if (mode != null && mode.equals("removeEmptyShipGroups")) {
+            cart.cleanUpShipGroups();
+        }
+
         // set the customer info
         if (mode != null && mode.equals("cust")) {
             String partyId = (String) request.getAttribute("partyId");
@@ -847,6 +852,7 @@ public class CheckOutEvents {
         boolean requireCustomer = true;
         boolean requireShipping = true;
         boolean requireOptions = true;
+        boolean requireShipGroups = false;
         boolean requirePayment = !cart.getOrderType().equals("PURCHASE_ORDER");
         boolean requireTerm = cart.getOrderType().equals("PURCHASE_ORDER");
         boolean requireAdditionalParty = isAnonymousCheckout;
@@ -859,9 +865,11 @@ public class CheckOutEvents {
             String requirePaymentStr = request.getParameter("finalizeReqPayInfo");
             String requireTermStr = request.getParameter("finalizeReqTermInfo");
             String requireAdditionalPartyStr = request.getParameter("finalizeReqAdditionalParty");
+            String requireShipGroupsStr = request.getParameter("finalizeReqShipGroups");
             requireCustomer = requireCustomerStr == null || requireCustomerStr.equalsIgnoreCase("true");
             requireShipping = requireShippingStr == null || requireShippingStr.equalsIgnoreCase("true");
             requireOptions = requireOptionsStr == null || requireOptionsStr.equalsIgnoreCase("true");
+            requireShipGroups = requireShipGroupsStr != null && requireShipGroupsStr.equalsIgnoreCase("true");
             if (requirePayment) {
                 requirePayment = requirePaymentStr == null || requirePaymentStr.equalsIgnoreCase("true");
             }
@@ -894,6 +902,10 @@ public class CheckOutEvents {
 
         if (requireShipping && !shippingAddressSet) {
             return "shipping";
+        }
+
+        if (requireShipGroups) {
+            return "shipGroups";
         }
 
         if (requireOptions && !shippingOptionsSet) {

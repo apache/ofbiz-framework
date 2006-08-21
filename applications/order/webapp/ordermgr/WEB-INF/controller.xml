@@ -549,6 +549,7 @@
         <response name="options" type="view" value="optionsetting"/>
         <response name="payment" type="view" value="billsetting"/>
         <response name="term" type="view" value="orderTerm"/>
+        <response name="shipGroups" type="view" value="SetItemShipGroups"/>
         <response name="sales" type="request" value="calcShipping"/>
         <response name="po" type="view" value="confirm"/>
         <response name="error" type="request" value="orderentry"/>
@@ -688,6 +689,17 @@
         <response name="success" type="request" value="finalizeOrder"/>
         <response name="error" type="view" value="shipsetting"/>
     </request-map>
+    <request-map uri="SetItemShipGroups">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SetItemShipGroups"/>
+    </request-map>
+    <request-map uri="assignItemToShipGroups">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="assignItemShipGroup"/>
+        <response name="success" type="view" value="SetItemShipGroups"/>
+        <response name="error" type="view" value="SetItemShipGroups"/>
+    </request-map>
+
     <request-map uri="setOptions">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="optionsetting"/>
@@ -1343,6 +1355,7 @@
     <view-map name="shipsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#ShipSettings"/>
     <view-map name="EditShipAddress" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#EditShipAddress"/>
     <view-map name="addrsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#AddrSettings"/>
+    <view-map name="SetItemShipGroups" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#SetItemShipGroups"/>
     <view-map name="optionsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#OptionSettings"/>
     <view-map name="billsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#BillSettings"/>
     <view-map name="confirm" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#ConfirmOrder"/>

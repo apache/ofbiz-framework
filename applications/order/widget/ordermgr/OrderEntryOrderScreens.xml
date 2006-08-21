@@ -142,6 +142,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="SetItemShipGroups">
+        <section>
+            <actions>
+                <set field="stepTitleId" value="SetItemShipGroups"/>
+                <set field="stepLabelId" value="OrderShipGroups"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://order/webapp/ordermgr/entry/SetItemShipGroups.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="OptionSettings">
         <section>
             <actions>
