@@ -59,15 +59,14 @@ under the License.
                 <set field="title" value="Create a Production Run"/>
                 <set field="titleProperty" value="ManufacturingCreateProductionRun"/>
                 <set field="headerItem" value="jobshop"/>
-
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/CreateProductionRun.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://manufacturing/widget/manufacturing/CommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/CreateProductionRun.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <label style="head1" text="${uiLabelMap.ManufacturingCreateProductionRun}"/>
+                        </container>
+                        <include-form name="CreateProductionRun" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"></include-form>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
