@@ -2390,14 +2390,16 @@ public class InvoiceServices {
             if (payment == null) throw new GenericServiceException("Payment with ID [" + paymentId  + "] not found!");
 
             List paymentApplications = payment.getRelated("PaymentApplication");
-            if (paymentApplications == null) return ServiceUtil.returnSuccess();
+            if (UtilValidate.isEmpty(paymentApplications)) return ServiceUtil.returnSuccess();
 
             Iterator iter = paymentApplications.iterator();
             while (iter.hasNext()) {
                 GenericValue paymentApplication = (GenericValue) iter.next();
                 String invoiceId = paymentApplication.getString("invoiceId");
-                Map serviceResult = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.toMap("invoiceId", invoiceId, "userLogin", userLogin));
-                if (ServiceUtil.isError(serviceResult)) return serviceResult;
+                if (invoiceId != null) {
+                    Map serviceResult = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.toMap("invoiceId", invoiceId, "userLogin", userLogin));
+                    if (ServiceUtil.isError(serviceResult)) return serviceResult;
+                }
             }
             return ServiceUtil.returnSuccess();
         } catch (GenericServiceException se) {
