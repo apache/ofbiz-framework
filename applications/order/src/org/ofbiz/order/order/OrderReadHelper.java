@@ -186,37 +186,37 @@ public class OrderReadHelper {
      * Returns a Map of paymentMethodId -> amount charged (Double) based on PaymentGatewayResponse.  
      * @return
      */
-	public Map getReceivedPaymentTotalsByPaymentMethod() {
-		Map paymentMethodAmounts = new HashMap();
-		List paymentPrefs = getPaymentPreferences();
-		Iterator ppit = paymentPrefs.iterator();
-		while (ppit.hasNext()) {
-			GenericValue paymentPref = (GenericValue) ppit.next();
-			List paymentGatewayResponses = new ArrayList();
-			try {
-				paymentGatewayResponses = paymentPref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("paymentServiceTypeEnumId","PRDS_PAY_CAPTURE"));
-			} catch (GenericEntityException e) {
+    public Map getReceivedPaymentTotalsByPaymentMethod() {
+        Map paymentMethodAmounts = new HashMap();
+        List paymentPrefs = getPaymentPreferences();
+        Iterator ppit = paymentPrefs.iterator();
+        while (ppit.hasNext()) {
+            GenericValue paymentPref = (GenericValue) ppit.next();
+            List paymentGatewayResponses = new ArrayList();
+            try {
+                paymentGatewayResponses = paymentPref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("paymentServiceTypeEnumId","PRDS_PAY_CAPTURE"));
+            } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-			}
-            
-			BigDecimal chargedToPaymentPref = ZERO;
-			Iterator pgrit = paymentGatewayResponses.iterator();
-            while(pgrit.hasNext()) {
-				GenericValue paymentGatewayResponse = (GenericValue) pgrit.next();
-            	if (paymentGatewayResponse.get("amount") != null) {
-			        chargedToPaymentPref = chargedToPaymentPref.add(paymentGatewayResponse.getBigDecimal("amount")).setScale(scale+1, rounding);
-				}
             }
-            
+
+            BigDecimal chargedToPaymentPref = ZERO;
+            Iterator pgrit = paymentGatewayResponses.iterator();
+            while(pgrit.hasNext()) {
+                GenericValue paymentGatewayResponse = (GenericValue) pgrit.next();
+                if (paymentGatewayResponse.get("amount") != null) {
+                    chargedToPaymentPref = chargedToPaymentPref.add(paymentGatewayResponse.getBigDecimal("amount")).setScale(scale+1, rounding);
+                }
+            }
+
             // if chargedToPaymentPref > 0
             if (chargedToPaymentPref.compareTo(ZERO) == 1) {
                 // key of the resulting map is paymentMethodId or paymentMethodTypeId if the paymentMethodId is not available
                 String paymentMethodKey = paymentPref.getString("paymentMethodId") != null ? paymentPref.getString("paymentMethodId") : paymentPref.getString("paymentMethodTypeId");
                 paymentMethodAmounts.put(paymentMethodKey, new Double(chargedToPaymentPref.setScale(scale, rounding).doubleValue()));
             }
-		}
+        }
         return paymentMethodAmounts;
-	}
+    }
 
     /**
      * Returns a Map of paymentMethodId -> amount refunded 
@@ -224,10 +224,10 @@ public class OrderReadHelper {
      */
     public Map getReturnedTotalsByPaymentMethod() {
         Map paymentMethodAmounts = new HashMap();
-		List paymentPrefs = getPaymentPreferences();
-		Iterator ppit = paymentPrefs.iterator();
-		while (ppit.hasNext()) {
-			GenericValue paymentPref = (GenericValue) ppit.next();
+        List paymentPrefs = getPaymentPreferences();
+        Iterator ppit = paymentPrefs.iterator();
+        while (ppit.hasNext()) {
+            GenericValue paymentPref = (GenericValue) ppit.next();
             List returnItemResponses = new ArrayList();
             try {
                 returnItemResponses = orderHeader.getDelegator().findByAnd("ReturnItemResponse", UtilMisc.toMap("orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId")));
@@ -240,7 +240,7 @@ public class OrderReadHelper {
                 GenericValue returnItemResponse = (GenericValue) ririt.next();
                 refundedToPaymentPref = refundedToPaymentPref.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(scale+1, rounding);
             }
-            
+
             // if refundedToPaymentPref > 0
             if (refundedToPaymentPref.compareTo(ZERO) == 1) {
                 String paymentMethodId = paymentPref.getString("paymentMethodId") != null ? paymentPref.getString("paymentMethodId") : paymentPref.getString("paymentMethodTypeId");
@@ -249,7 +249,7 @@ public class OrderReadHelper {
         }
         return paymentMethodAmounts;
     }
-    
+
     public List getOrderPayments() {
         return getOrderPayments(null);
     }
