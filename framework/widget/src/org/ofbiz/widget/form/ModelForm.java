@@ -1753,12 +1753,74 @@ public class ModelForm {
         return field;
     }
 
+    public int getPaginateIndex(Map context) {
+        String field = this.getPaginateIndexField(context);
+        
+        int viewIndex = 0;
+        try {
+            Object value = context.get(field);
+
+            if (value == null) {
+        	// try parameters.VIEW_INDEX as that is an old OFBiz convention
+        	Map parameters = (Map) context.get("parameters");
+        	if (parameters != null) {
+        	    value = parameters.get("VIEW_INDEX");
+        	    
+        	    if (value == null) {
+        		value = parameters.get(field);
+        	    }
+        	}
+            }
+
+            if (value instanceof Integer) { 
+                viewIndex = ((Integer) value).intValue();
+            } else if (value instanceof String) { 
+                viewIndex = Integer.parseInt((String) value);
+            }
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error getting paginate view index: " + e.toString(), module);
+        }
+        
+        return viewIndex;
+    }
+
     public String getPaginateSizeField(Map context) {
         String field = this.paginateSizeField.expandString(context);
         if (UtilValidate.isEmpty(field)) {
             field = DEFAULT_PAG_SIZE_FIELD;
         }
         return field;
+    }
+
+    public int getPaginateSize(Map context) {
+        String field = this.getPaginateSizeField(context);
+        
+        int viewSize = DEFAULT_PAGE_SIZE;
+        try {
+            Object value = context.get(field);
+            
+            if (value == null) {
+        	// try parameters.VIEW_SIZE as that is an old OFBiz convention
+        	Map parameters = (Map) context.get("parameters");
+        	if (parameters != null) {
+        	    value = parameters.get("VIEW_SIZE");
+        	    
+        	    if (value == null) {
+        		value = parameters.get(field);
+        	    }
+        	}
+            }
+            
+            if (value instanceof Integer) { 
+                viewSize = ((Integer) value).intValue();
+            } else if (value instanceof String) { 
+                viewSize = Integer.parseInt((String) value);
+            }
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error getting paginate view size: " + e.toString(), module);
+        }
+        
+        return viewSize;
     }
 
     public String getPaginatePreviousLabel(Map context) {
@@ -1921,29 +1983,9 @@ public class ModelForm {
         }
         
         if (paginate) {
-            viewIndex = 0;
-            viewSize = DEFAULT_PAGE_SIZE;
-            try {
-                Object value = context.get(getPaginateIndexField(context));
-                if (value instanceof Integer) { 
-                    viewIndex = ((Integer) value).intValue();
-                } else if (value instanceof String) { 
-                    viewIndex = Integer.parseInt((String) value);
-                }
-            } catch (Exception e) {
-                Debug.logWarning(e, "Error getting paginate view index: " + e.toString(), module);
-            }
+            viewIndex = this.getPaginateIndex(context);
+            viewSize = this.getPaginateSize(context);
             
-            try {
-                Object value = context.get(getPaginateSizeField(context));
-                if (value instanceof Integer) { 
-                    viewSize = ((Integer) value).intValue();
-                } else if (value instanceof String) { 
-                    viewSize = Integer.parseInt((String) value);
-                }
-            } catch (Exception e) {
-                Debug.logWarning(e, "Error getting paginate view size: " + e.toString(), module);
-            }
             lowIndex = viewIndex * viewSize;
             highIndex = (viewIndex + 1) * viewSize;
         } else {
