@@ -213,7 +213,7 @@ public class ProposedOrder {
         parameters.put("requiredByDate", requiredByDate);
         parameters.put("requirementStartDate", requirementStartDate);
         parameters.put("quantity", new Double(quantity));
-        parameters.put("requirementTypeId", (isbuild? "MRP_PRO_PROD_ORDER" : "MRP_PRO_PURCH_ORDER"));
+        parameters.put("requirementTypeId", (isbuild? "INTERNAL_REQUIREMENT" : "PRODUCT_REQUIREMENT"));
         if (mrpName != null) {
             parameters.put("description", "MRP_" + mrpName);
         } else {

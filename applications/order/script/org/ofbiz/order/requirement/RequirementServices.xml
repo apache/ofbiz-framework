@@ -69,10 +69,7 @@ under the License.
             <condition-list>
                 <condition-object field-name="parameters.requirementConditions"/>
                 <condition-expr field-name="statusId" value="REQ_APPROVED"/>
-                <condition-list combine="or">
-                    <condition-expr field-name="requirementTypeId" value="MRP_PRO_PURCH_ORDER"/>
-                    <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
-                </condition-list>
+                <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
             </condition-list>
         </entity-condition>
         <field-to-result field-name="requirementsForSupplier" result-name="requirementsForSupplier"/>

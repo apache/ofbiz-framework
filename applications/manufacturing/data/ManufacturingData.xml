@@ -17,9 +17,6 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <RequirementType description="ProductionRun proposed by the MRP process" hasTable="N" parentTypeId="" requirementTypeId="MRP_PRO_PROD_ORDER"/>
-    <RequirementType description="Purchase Order proposed by the MRP process" hasTable="N" parentTypeId="" requirementTypeId="MRP_PRO_PURCH_ORDER"/>
-
     <InventoryEventPlannedType inventoryEventPlanTypeId="MRP_REQUIREMENT" description="Mrp requirement" inOut="-"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_RECP" description="Manufacturing Order receipt" inOut="+"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_REQ" description="Manufacturing Order requirement" inOut="-"/>
