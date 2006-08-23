@@ -45,14 +45,14 @@ under the License.
 
   String find = request.getParameter("find");
   if (find == null) find="false";
-  String curFindString = "entityName=" + entityName + "&find=" + find;
+  String curFindString = "entityName=" + entityName + "&amp;find=" + find;
   GenericEntity findByEntity = delegator.makeValue(entityName, null);
   for (int fnum=0; fnum < modelEntity.getFieldsSize(); fnum++) {
     ModelField field = modelEntity.getField(fnum);
     String fval = request.getParameter(field.getName());
     if (fval != null) {
       if (fval.length() > 0) {
-        curFindString = curFindString + "&" + field.getName() + "=" + fval;
+        curFindString = curFindString + "&amp;" + field.getName() + "=" + fval;
         findByEntity.setString(field.getName(), fval);
       }
     }
@@ -114,64 +114,96 @@ under the License.
 //--------------
   Debug.log("viewIndex=" + viewIndex + " lowIndex=" + lowIndex + " highIndex=" + highIndex + " arraySize=" + arraySize);
 %>
-<h3 style='margin:0;'>Find <%=modelEntity.getEntityName()%>s</h3>
-<%-- Note: you may use the '%' character as a wildcard for String fields. --%>
-<br/>To find ALL <%=modelEntity.getEntityName()%>s, leave all entries blank.
-<form method="post" action='<ofbiz:url>/FindGeneric?entityName=<%=entityName%></ofbiz:url>' style='margin:0;'>
-<INPUT type="hidden" name='find' value='true'>
-<table cellpadding="2" cellspacing="2" border="0">
+<div class="head1">Find Values</div>
+<div class="head2">For Entity: <%=modelEntity.getEntityName()%></div>
+<br/>
+<div>
+    <a href="<ofbiz:url>/entitymaint</ofbiz:url>" class="buttontext">Back To Entity List</a>
+</div>
+<div>
+    <a href="<ofbiz:url>/ViewRelations?entityName=<%=entityName%></ofbiz:url>" class="buttontext">View Relations</a>
+    <a href="<ofbiz:url>/FindGeneric?entityName=<%=entityName%>&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</ofbiz:url>" class="buttontext">Find All</a>
+    <%if (hasCreatePermission) {%>
+    <a href="<ofbiz:url>/ViewGeneric?entityName=<%=entityName%></ofbiz:url>" class="buttontext">Create New</a>
+    <%}%>
+</div>
+<br/>
+<div class="tabletext">To find ALL <%=modelEntity.getEntityName()%>s, leave all entries blank.</div>
+<%--<div class="tabletext">You may use the '&' character as a wildcard for String fields.</div>--%>
+<form method="post" action="<ofbiz:url>/FindGeneric?entityName=<%=entityName%></ofbiz:url>" style="margin:0;">
+<input type="hidden" name="find" value="true">
+<table border="1" cellpadding="2" cellspacing="0">
+    <tr class="viewOneTR1">
+      <td valign="top">
+        <span class="tableheadtext">Field Name</span>
+      </td>
+      <td valign="top">
+        <span class="tableheadtext">PK</span>
+      </td>
+      <td valign="top">
+        <span class="tableheadtext">Field Type</span>
+      </td>
+      <td valign="top">
+        <span class="tableheadtext"><input type="submit" value="Find" class="smallSubmit"></span>
+      </td>
+    </tr>
   <%for (int fnum=0; fnum<modelEntity.getFieldsSize(); fnum++) {%>
     <%ModelField field = modelEntity.getField(fnum);%>
     <%ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());%>
-    <%rowClassTop=(rowClassTop==rowClassTop1?rowClassTop2:rowClassTop1);%><tr class="<%=rowClassTop%>">
-      <td valign="top"><%=field.getName()%>(<%=type.getJavaType()%>,<%=type.getSqlType()%>) <%if (field.getIsPk()) {%>*<%}%>:</td>
+    <tr>
       <td valign="top">
-        <input type="text" name="<%=field.getName()%>" value="" size="40">
+        <span class="tableheadtext"><%=field.getName()%></span>
+      </td>
+      <td valign="top">
+        <span class="tabletext"><%if (field.getIsPk()) {%>*<%}%>&nbsp;</span>
+      </td>
+      <td valign="top">
+        <span class="tabletext"><%=type.getJavaType()%>,<%=type.getSqlType()%></span>
+      </td>
+      <td valign="top">
+        <input type="text" name="<%=field.getName()%>" value="<%=(request.getParameter(field.getName()) != null? request.getParameter(field.getName()): "")%>" size="40" class="inputBox">
       </td>
     </tr>
   <%}%>
-  <%rowClassTop=(rowClassTop==rowClassTop1?rowClassTop2:rowClassTop1);%><tr class="<%=rowClassTop%>">
-    <td valign="top"><input type="submit" value="Find"></td>
+    <tr>
+      <td valign="top" align="center" colspan="4"><input type="submit" value="Find" class="smallSubmit"></td>
   </tr>
 </table>
 </form>
-<i>* - Primary Key field</i><br/>
-<p>View <a href='<ofbiz:url>/ViewRelations?entityName=<%=entityName%></ofbiz:url>' class="buttonext">relations</a></p>
 
-<b><%=modelEntity.getEntityName()%>s found by: <%=findByEntity.toString()%></b><br/>
-<b><%=modelEntity.getEntityName()%>s curFindString: <%=curFindString%></b><br/>
+<br/>
 <%if (hasCreatePermission) {%>
   <a href='<ofbiz:url>/ViewGeneric?entityName=<%=entityName%></ofbiz:url>' class="buttontext">Create New <%=modelEntity.getEntityName()%></a>
 <%}%>
 <table border="0" width="100%" cellpadding="2">
 <% if (arraySize > 0) { %>
-    <tr class="<%=rowClassResultIndex%>">
+    <tr>
       <td align="left">
-        <b>
+        <span class="tableheadtext">
         <% if(viewIndex > 0) { %>
-          <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&VIEW_SIZE=<%=viewSize%>&VIEW_INDEX=<%=(viewIndex-1)%></ofbiz:url>' class="buttontext">Previous</a> |
+          <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&amp;VIEW_SIZE=<%=viewSize%>&amp;VIEW_INDEX=<%=(viewIndex-1)%></ofbiz:url>' class="buttontext">Previous</a> |
         <% } %>
         <% if(arraySize > 0) { %>
           <%=lowIndex%> - <%=highIndex%> of <%=arraySize%>
         <% } %>
         <% if(arraySize>highIndex) { %>
-          | <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&VIEW_SIZE=<%=viewSize%>&VIEW_INDEX=<%=(viewIndex+1)%></ofbiz:url>' class="buttontext">Next</a>
+          | <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&amp;VIEW_SIZE=<%=viewSize%>&amp;VIEW_INDEX=<%=(viewIndex+1)%></ofbiz:url>' class="buttontext">Next</a>
         <% } %>
-        </b>
+        </span>
       </td>
     </tr>
 <%}%>
 </table>
 
-  <table width="100%" cellpadding="2" cellspacing="2" border="0">
-    <tr class="<%=rowClassResultHeader%>">
+  <table border="1" cellpadding="2" cellspacing="0" class="calendarTable">
+    <tr class="viewOneTR1">
       <td>&nbsp;</td>
       <%if (hasDeletePermission) {%>
         <td>&nbsp;</td>
       <%}%>
     <%for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {%>
       <%ModelField field = modelEntity.getField(fnum);%>
-      <td nowrap><div class="tabletext"><b><%=field.getName()%></b></div></td>
+      <td nowrap><span class="tableheadtext"><%=field.getName()%></span></td>
     <%}%>
     </tr>
 <%
@@ -181,21 +213,22 @@ under the License.
   while (resultPartialIter.hasNext()) {
     GenericValue value = (GenericValue) resultPartialIter.next();
 %>
-    <%rowClassResult=(rowClassResult==rowClassResult1?rowClassResult2:rowClassResult1);%><tr class="<%=rowClassResult%>">
+    <%rowClassResult=(rowClassResult==rowClassResult1?rowClassResult2:rowClassResult1);%>
+    <tr>
       <td>
         <%
           String findString = "entityName=" + entityName;
           for (int pknum = 0; pknum < modelEntity.getPksSize(); pknum++) {
             ModelField pkField = modelEntity.getPk(pknum);
             ModelFieldType type = delegator.getEntityFieldType(modelEntity, pkField.getType());
-            findString += "&" + pkField.getName() + "=" + value.get(pkField.getName());
+            findString += "&amp;" + pkField.getName() + "=" + value.get(pkField.getName());
           }
         %>
         <a href='<ofbiz:url>/ViewGeneric?<%=findString%></ofbiz:url>' class="buttontext">View</a>
       </td>
       <%if (hasDeletePermission) {%>
         <td>
-          <a href='<ofbiz:url>/UpdateGeneric?<%=findString%>&UPDATE_MODE=DELETE&<%=curFindString%></ofbiz:url>' class="buttontext">Delete</a>
+          <a href='<ofbiz:url>/UpdateGeneric?<%=findString%>&amp;UPDATE_MODE=DELETE&amp;<%=curFindString%></ofbiz:url>' class="buttontext">Delete</a>
         </td>
       <%}%>
     <%for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {%>
@@ -230,9 +263,10 @@ under the License.
 <%
  } else {
 %>
-<%rowClassResult=(rowClassResult==rowClassResult1?rowClassResult2:rowClassResult1);%><tr class="<%=rowClassResult%>">
+<%rowClassResult=(rowClassResult==rowClassResult1?rowClassResult2:rowClassResult1);%>
+<tr>
 <td colspan="<%=modelEntity.getFieldsSize() + 2%>">
-<h3>No <%=modelEntity.getEntityName()%> records Found.</h3>
+<div class="head2">No <%=modelEntity.getEntityName()%> records Found.</div>
 </td>
 </tr>
 <%}%>
@@ -240,19 +274,19 @@ under the License.
 
 <table border="0" width="100%" cellpadding="2">
 <% if (arraySize > 0) { %>
-    <tr class="<%=rowClassResultIndex%>">
+    <tr>
       <td align="left">
-        <b>
+        <span class="tableheadtext">
         <% if (viewIndex > 0) { %>
-          <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&VIEW_SIZE=<%=viewSize%>&VIEW_INDEX=<%=(viewIndex-1)%></ofbiz:url>' class="buttontext">Previous</a> |
+          <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&amp;VIEW_SIZE=<%=viewSize%>&amp;VIEW_INDEX=<%=(viewIndex-1)%></ofbiz:url>' class="buttontext">Previous</a> |
         <% } %>
         <% if (arraySize > 0) { %>
           <%=lowIndex%> - <%=highIndex%> of <%=arraySize%>
         <% } %>
         <% if (arraySize>highIndex) { %>
-          | <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&VIEW_SIZE=<%=viewSize%>&VIEW_INDEX=<%=(viewIndex+1)%></ofbiz:url>' class="buttontext">Next</a>
+          | <a href='<ofbiz:url>/FindGeneric?<%=curFindString%>&amp;VIEW_SIZE=<%=viewSize%>&amp;VIEW_INDEX=<%=(viewIndex+1)%></ofbiz:url>' class="buttontext">Next</a>
         <% } %>
-        </b>
+        </span>
       </td>
     </tr>
 <%}%>
@@ -261,6 +295,6 @@ under the License.
   <a href='<ofbiz:url>/ViewGeneric?entityName=<%=entityName%></ofbiz:url>' class="buttontext">Create New <%=modelEntity.getEntityName()%></a>
 <%}%>
 <%} else {%>
-  <h3>You do not have permission to view this page (<%=modelEntity.getPlainTableName()%>_ADMIN, or <%=modelEntity.getPlainTableName()%>_VIEW needed).</h3>
+  <div class="head2">You do not have permission to view this page (<%=modelEntity.getPlainTableName()%>_ADMIN, or <%=modelEntity.getPlainTableName()%>_VIEW needed).</div>
 <%}%>
 <%} catch (Exception e) { Debug.log(e); throw e; }%>
