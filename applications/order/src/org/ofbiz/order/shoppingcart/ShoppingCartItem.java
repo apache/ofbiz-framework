@@ -549,7 +549,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.orderItemSeqId = item.getOrderItemSeqId();
         this.additionalProductFeatureAndAppls = item.getAdditionalProductFeatureAndAppls() == null ?
                 null : new HashMap(item.getAdditionalProductFeatureAndAppls());
-        this.attributes = item.getAttributes() == null ? null : new HashMap(item.getAttributes());
+        this.attributes = item.getAttributes() == null ? new HashMap() : new HashMap(item.getAttributes());
         this.contactMechIdsMap = item.getOrderItemContactMechIds() == null ? null : new HashMap(item.getOrderItemContactMechIds());
         this.orderItemPriceInfos = item.getOrderItemPriceInfos() == null ? null : new LinkedList(item.getOrderItemPriceInfos());
         this.itemAdjustments = item.getAdjustments() == null ? null : new LinkedList(item.getAdjustments());
@@ -600,7 +600,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
         this.itemGroup = itemGroup;
         this.prodCatalogId = prodCatalogId;
-        this.attributes = attributes;
+        this.attributes = (attributes == null? FastMap.newInstance(): attributes);
         this.delegator = _product.getDelegator();
         this.delegatorName = _product.getDelegator().getDelegatorName();
         this.addAllProductFeatureAndAppls(additionalProductFeatureAndAppls);
@@ -619,7 +619,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             this.setBasePrice(basePrice.doubleValue());
             this.setDisplayPrice(basePrice.doubleValue());
         }
-        this.attributes = attributes;
+        this.attributes = (attributes == null? FastMap.newInstance(): attributes);
         this.prodCatalogId = prodCatalogId;
         this.delegatorName = delegator.getDelegatorName();
         this.locale = locale;
@@ -1230,15 +1230,11 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public String getShoppingListId() {
-        if (attributes != null && attributes.containsKey("shoppingListId"))
-            return (String) attributes.get("shoppingListId");
-        return null;
+        return (String) attributes.get("shoppingListId");
     }
 
     public String getShoppingListItemSeqId() {
-        if (attributes != null && attributes.containsKey("shoppingListItemSeqId"))
-            return (String) attributes.get("shoppingListItemSeqId");
-        return null;
+        return (String) attributes.get("shoppingListItemSeqId");
     }
 
     /** Sets the requirementId. */
@@ -1715,20 +1711,16 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Removes an item attribute. */
     public void removeAttribute(String name) {
-        if (attributes != null) {
-            attributes.remove(name);
-        }
+        attributes.remove(name);
     }
 
     /** Sets an item attribute. */
     public void setAttribute(String name, Object value) {
-        if (attributes == null) attributes = FastMap.newInstance();
         attributes.put(name, value);
     }
 
     /** Return a specific attribute. */
     public Object getAttribute(String name) {
-        if (attributes == null) return null;
         return attributes.get(name);
     }
 
