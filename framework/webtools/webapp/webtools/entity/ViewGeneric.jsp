@@ -73,59 +73,64 @@ under the License.
 var numTabs=<%=entity.getRelationsSize()+2%>;
 function ShowTab(lname) {
   for(inc=1; inc <= numTabs; inc++) {
-    document.getElementById('tab' + inc).className = (lname == 'tab' + inc) ? 'ontab' : 'offtab';
-    document.getElementById('lnk' + inc).className = (lname == 'tab' + inc) ? 'onlnk' : 'offlnk';
     document.getElementById('area' + inc).className = (lname == 'tab' + inc) ? 'topcontainer' : 'topcontainerhidden';
   }
 }
 </script>
-<div style='color: white; background-color: black; padding:3;'>
-  <b>View Entity: <%=entityName%> with PK: <%=findByPK.toString()%></b>
+<div class="head1">View Value</div>
+<div class="head2">For Entity: <%=entityName%></div>
+<div class="head2">With PK: <%=findByPK.toString()%></div>
+<br/>
+<div>
+<a href='<ofbiz:url>/FindGeneric?entityName=<%=entityName%></ofbiz:url>' class="buttontext">Back To Find Screen</a>
 </div>
-
-<a href='<ofbiz:url>/FindGeneric?entityName=<%=entityName%></ofbiz:url>' class="buttontext">[Find <%=entityName%>]</a>
+<div>
 <%if (hasCreatePermission) {%>
-  <a href='<ofbiz:url>/ViewGeneric?entityName=<%=entityName%></ofbiz:url>' class="buttontext">[Create New <%=entityName%>]</a>
+<a href='<ofbiz:url>/ViewGeneric?entityName=<%=entityName%></ofbiz:url>' class="buttontext">Create New</a>
+<a href='javascript:ShowTab("tab2")' class="buttontext">Edit</a>
 <%}%>
+
 <%if (value != null) {%>
   <%if (hasDeletePermission) {%>
-    <a href='<ofbiz:url>/UpdateGeneric?UPDATE_MODE=DELETE&<%=curFindString%></ofbiz:url>' class="buttontext">[Delete this <%=entityName%>]</a>
+    <a href='<ofbiz:url>/UpdateGeneric?UPDATE_MODE=DELETE&<%=curFindString%></ofbiz:url>' class="buttontext">Delete This Value</a>
   <%}%>
 <%}%>
+</div>
 <br/>
-<br/>
-<table cellpadding='0' cellspacing='0'><tr>  
-  <td id='tab1' class='ontab'>
-    <a href='javascript:ShowTab("tab1")' id=lnk1 class=onlnk>View <%=entityName%></a>
-  </td>
-  <%if (hasUpdatePermission || hasCreatePermission) {%>
-  <td id='tab2' class='offtab'>
-    <a href='javascript:ShowTab("tab2")' id=lnk2 class=offlnk>Edit <%=entityName%></a>
-  </td>
-  <%}%>
-</tr>
 <%if (value != null) {%>
+<form name="relationForm">
+<table cellpadding='0' cellspacing='0'><tr>
 <tr>
+<td class="tableheadtext">View:</td>
+</tr>
+<tr>
+<td>
+<select name="relations" onchange='javascript:ShowTab(this.options[this.selectedIndex].value)' class="selectBox">
+    <option value="tab1"><b><%=entityName%></b></option>
   <%for(int tabIndex = 0; tabIndex < entity.getRelationsSize(); tabIndex++){%>
     <%ModelRelation relation = entity.getRelation(tabIndex);%>
     <%ModelEntity relatedEntity = reader.getModelEntity(relation.getRelEntityName());%>
     <%if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {%>
-      <td id='tab<%=tabIndex+3%>' class='offtab'>
-        <a href='javascript:ShowTab("tab<%=tabIndex+3%>")' id='lnk<%=tabIndex+3%>' class='offlnk' style='FONT-SIZE: xx-small;'>
-          <%=relation.getTitle()%><%=relation.getRelEntityName()%></a><SPAN class='tabletext' style='FONT-SIZE: xx-small;'>(<%=relation.getType()%>)</SPAN>
-      </td>
+    <option value="tab<%=tabIndex+3%>"><%=relation.getTitle()%><%=relation.getRelEntityName()%> (<%=relation.getType()%>)</option>
     <%}%>
-    <%if ((tabIndex+1)%4 == 0) {%></tr><tr><%}%>
   <%}%>
+</select>
+</td>
 </tr>
-<%}%>
 </table>
+</form>
+<%}%>
+
 <div class='topouter'>
   <DIV id='area1' class='topcontainer' width="1%">
 
 <table border="0" cellspacing="2" cellpadding="2">
 <%if (value == null) {%>
-<tr class="<%=rowClass1%>"><td><h3>Specified <%=entityName%> was not found.</h3></td></tr>
+<tr class="<%=rowClass1%>">
+  <td>
+    <h3>Specified <%=entityName%> was not found.</h3>
+  </td>
+</tr>
 <%} else {%> 
     <%for (int fnum = 0; fnum < entity.getFieldsSize(); fnum++) {%>
       <%ModelField field = entity.getField(fnum);%>
@@ -167,7 +172,7 @@ function ShowTab(lname) {
   <DIV id='area2' class='topcontainerhidden' width="1%">
 <%boolean showFields = true;%>
 <%if(value == null && (findByPK.getAllFields().size() > 0)){%>
-    <%=entity.getEntityName()%> with primary key <%=findByPK.toString()%> not found.<br/>
+    <div class="tabletext"><%=entity.getEntityName()%> with primary key <%=findByPK.toString()%> not found.</div>
 <%}%>
 <%
   String lastUpdateMode = request.getParameter("UPDATE_MODE");
@@ -182,7 +187,7 @@ function ShowTab(lname) {
 
 <%if (value == null) {%>
   <%if (hasCreatePermission) {%>
-    You may create a <%=entityName%> by entering the values you want, and clicking Update.
+    <div class="tabletext">You may create a <%=entityName%> by entering the values you want, and clicking Update.</div>
     <input type="hidden" name="UPDATE_MODE" value="CREATE"/>
     <%for (int fnum = 0; fnum < entity.getPksSize();fnum++) {%>
       <%ModelField field = entity.getPk(fnum);%>
@@ -575,9 +580,10 @@ Displaying <%=relatedLoopCount%> entities.
 </div>
 <%if ((hasUpdatePermission || hasCreatePermission) && !useValue) {%>
   <script language="JavaScript" type="text/javascript">  
-    ShowViewTab("edit");
+    ShowTab("tab2");
   </script>
 <%}%>
+
 <br/>
 <%} else {%>
   <h3>You do not have permission to view this page (<%=entity.getPlainTableName()%>_ADMIN, or <%=entity.getPlainTableName()%>_VIEW needed).</h3>
