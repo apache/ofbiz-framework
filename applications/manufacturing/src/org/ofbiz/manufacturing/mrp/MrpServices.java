@@ -105,12 +105,13 @@ public class MrpServices {
             }
         }
 
-        // MRP proposed requirements are deleted
-        // TODO: is it correct?
-        
+        // Proposed requirements are deleted
+        // TODO: is it not correct. Two actions should be done here:
+        //       1) the approved requirements should be taken into account
+        //       2) we have to find a way (a new status REQ_PROPOSED?) to recognize the requirements automatically created by the MRP process
         listResult = null;
         try{
-            listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "MRP_PRO_PURCH_ORDER", "statusId", "REQ_CREATED"));
+            listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_CREATED"));
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of InventoryEventPlanned, for more detail look at the log");
         }
@@ -123,7 +124,7 @@ public class MrpServices {
         }
         listResult = null;
         try{
-            listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "MRP_PRO_PROD_ORDER", "statusId", "REQ_CREATED"));
+            listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "INTERNAL_REQUIREMENT", "statusId", "REQ_CREATED"));
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of InventoryEventPlanned, for more detail look at the log");
         }

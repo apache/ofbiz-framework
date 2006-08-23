@@ -1772,9 +1772,7 @@ public class ProductionRunServices {
         if (requirement == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRequirementNotExists", locale));
         }
-        // TODO: fix the allowed types
-        if (!"MRP_PRO_PROD_ORDER".equals(requirement.getString("requirementTypeId")) &&
-               !"WORK_REQUIREMENT".equals(requirement.getString("requirementTypeId"))) {
+        if (!"INTERNAL_REQUIREMENT".equals(requirement.getString("requirementTypeId"))) {
             return ServiceUtil.returnSuccess();
         }
         

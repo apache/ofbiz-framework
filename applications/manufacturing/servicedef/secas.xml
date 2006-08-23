@@ -19,13 +19,13 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-eca.xsd">
     <eca service="updateRequirement" event="commit">
-        <condition field-name="requirementTypeId" operator="equals" value="MRP_PRO_PROD_ORDER"/>
+        <condition field-name="requirementTypeId" operator="equals" value="INTERNAL_REQUIREMENT"/>
         <condition field-name="statusId" operator="equals" value="REQ_APPROVED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="REQ_APPROVED"/>
         <action service="createProductionRunFromRequirement" mode="sync"/>
     </eca>
     <eca service="createRequirement" event="commit">
-        <condition field-name="requirementTypeId" operator="equals" value="MRP_PRO_PROD_ORDER"/>
+        <condition field-name="requirementTypeId" operator="equals" value="INTERNAL_REQUIREMENT"/>
         <condition field-name="statusId" operator="equals" value="REQ_APPROVED"/>
         <action service="createProductionRunFromRequirement" mode="sync"/>
     </eca>
