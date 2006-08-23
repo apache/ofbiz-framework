@@ -114,7 +114,6 @@ under the License.
     <request-map uri="AddWorkEffortAssoc"><security https="true" auth="true"/><response name="success" type="view" value="AddWorkEffortAssoc"/></request-map>
     <request-map uri="EditWorkEffortAndAssoc"><security https="true" auth="true"/><response name="success" type="view" value="EditWorkEffortAndAssoc"/></request-map>
     <request-map uri="AddWorkEffortAndAssoc"><security https="true" auth="true"/><response name="success" type="view" value="AddWorkEffortAndAssoc"/></request-map>
-    <request-map uri="EditListWorkEfforts"><security https="true" auth="true"/><response name="success" type="view" value="EditListWorkEfforts"/></request-map>
     
     <request-map uri="EditWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="EditWorkEffort"/></request-map>
     <request-map uri="createWorkEffort">
