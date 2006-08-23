@@ -146,6 +146,21 @@ public class OrderReadHelper {
         return orderHeader.getString("productStoreId");
     }
 
+    /**
+     * Returns the ProductStore of this Order or null in case of Exception
+     */ 
+    public GenericValue getProductStore() {
+        String productStoreId = orderHeader.getString("productStoreId");
+        try {
+            GenericDelegator delegator = orderHeader.getDelegator();
+            GenericValue productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            return productStore;
+        } catch (GenericEntityException ex) {
+            Debug.logError("Failed to get product store for order header [" + orderHeader + "] due to exception "+ ex.getMessage(), module);
+            return null;
+        }
+    }
+    
     public String getOrderTypeId() {
         return orderHeader.getString("orderTypeId");
     }
@@ -644,26 +659,44 @@ public class OrderReadHelper {
         }
     }
 
+    /**
+     * Returns party from OrderRole of BILL_TO_CUSTOMER
+     */
     public GenericValue getBillToParty() {
         return this.getPartyFromRole("BILL_TO_CUSTOMER");
     }
 
+    /**
+     * Returns party from OrderRole of BILL_FROM_VENDOR
+     */
     public GenericValue getBillFromParty() {
         return this.getPartyFromRole("BILL_FROM_VENDOR");
     }
 
+    /**
+     * Returns party from OrderRole of SHIP_TO_CUSTOMER
+     */
     public GenericValue getShipToParty() {
         return this.getPartyFromRole("SHIP_TO_CUSTOMER");
     }
 
+    /**
+     * Returns party from OrderRole of PLACING_CUSTOMER
+     */
     public GenericValue getPlacingParty() {
         return this.getPartyFromRole("PLACING_CUSTOMER");
     }
 
+    /**
+     * Returns party from OrderRole of END_USER_CUSTOMER
+     */
     public GenericValue getEndUserParty() {
         return this.getPartyFromRole("END_USER_CUSTOMER");
     }
 
+    /**
+     * Returns party from OrderRole of SUPPLIER_AGENT
+     */
     public GenericValue getSupplierAgent() {
         return this.getPartyFromRole("SUPPLIER_AGENT");
     }
