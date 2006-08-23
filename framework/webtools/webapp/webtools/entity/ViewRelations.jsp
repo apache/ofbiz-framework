@@ -40,8 +40,13 @@ under the License.
 <%boolean hasViewPermission = security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_VIEW", session);%>
 
 <%if(hasViewPermission){%>
-<h3>Relations</h3>
-<p>for entity <a href='<ofbiz:url>/FindGeneric?entityName=<%=entityName%>&find=true&VIEW_SIZE=50&VIEW_INDEX=0</ofbiz:url>' class="buttonext"><%=entityName%></a></p>
+<div class="head1">Relations</div>
+<div class="head2">For Entity: <%=entityName%></div>
+<br/>
+<div>
+    <a href="<ofbiz:url>/FindGeneric?entityName=<%=entityName%>&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</ofbiz:url>" class="buttontext">Back To Find Screen</a>
+</div>
+<br/>
 
 <table>
    <tr>
@@ -57,7 +62,7 @@ under the License.
     <%rowClassResult=(rowClassResult==rowClassResult1?rowClassResult2:rowClassResult1);%>
     <tr class="<%=rowClassResult%>">
        <td><%=modelRelation.getTitle()%></td>
-       <td><a href='<ofbiz:url>/FindGeneric?entityName=<%=modelRelation.getRelEntityName()%>&find=true&VIEW_SIZE=50&VIEW_INDEX=0</ofbiz:url>'><%=modelRelation.getRelEntityName()%></a></td>
+       <td><a href='<ofbiz:url>/FindGeneric?entityName=<%=modelRelation.getRelEntityName()%>&find=true&VIEW_SIZE=50&VIEW_INDEX=0</ofbiz:url>' class="buttontext"><%=modelRelation.getRelEntityName()%></a></td>
        <td> <%=modelRelation.getType()%></td>
        <td><%=modelRelation.getFkName()%></td>
        <td><% for (Iterator kit = modelRelation.getKeyMapsIterator(); kit.hasNext(); ) {
