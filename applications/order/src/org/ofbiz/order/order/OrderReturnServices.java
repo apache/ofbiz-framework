@@ -41,6 +41,9 @@ import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
@@ -782,7 +785,7 @@ public class OrderReturnServices {
         if (returnHeader != null && returnItems != null && returnItems.size() > 0) {
             Map itemsByOrder = new HashMap();
             Map totalByOrder = new HashMap();
-            
+
             // make sure total refunds on a return don't exceed amount of returned orders
             Map serviceResult = null;
             try {
@@ -794,7 +797,7 @@ public class OrderReturnServices {
             if (ServiceUtil.isError(serviceResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }                                    
-            
+
             groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId);
 
             // process each one by order
@@ -812,163 +815,203 @@ public class OrderReturnServices {
                 try {
                     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
                     // sort these desending by maxAmount
-                    orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("-maxAmount"));
+                    orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toMap("statusId", "PAYMENT_SETTLED"), UtilMisc.toList("-maxAmount"));
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot get Order details for #" + orderId, module);
                     continue;
                 }
+                OrderReadHelper orderReadHelper = new OrderReadHelper(delegator, orderId);
 
-                // get the payment prefs to use (will use them in order of amount charged)
-                List prefsToUse = new ArrayList();
-                Map prefsAmount = new HashMap();
-                double neededAmount = orderTotal.doubleValue();
-                if (orderPayPrefs != null && orderPayPrefs.size() > 0) {
-                    Iterator payPrefIter = orderPayPrefs.iterator();
-                    do {
-                        GenericValue pref = (GenericValue) payPrefIter.next();
-                        Double maxAmount = pref.getDouble("maxAmount");
-                        String statusId = pref.getString("statusId");
-                        Debug.logInfo("maxAmount:" + maxAmount +", statusId:" + statusId, module);
-                        if ("PAYMENT_SETTLED".equals(statusId)) {
-                            if (maxAmount == null || maxAmount.doubleValue() == 0.00) {
-                                prefsToUse.add(pref);
-                                prefsAmount.put(pref, orderTotal);
-                                neededAmount = 0.00;
-                            } else if (maxAmount.doubleValue() > orderTotal.doubleValue()) {
-                                prefsToUse.add(pref);
-                                prefsAmount.put(pref, orderTotal);
-                                neededAmount = 0.00;
-                            } else {
-                                prefsToUse.add(pref);
-                                if (maxAmount.doubleValue() > neededAmount) {
-                                    prefsAmount.put(pref, new Double(maxAmount.doubleValue() - neededAmount));
-                                } else {
-                                    prefsAmount.put(pref, maxAmount);
-                                }
-                                neededAmount -= maxAmount.doubleValue();
-                            }
+                // now; for all timestamps
+                Timestamp now = UtilDateTime.nowTimestamp();
+
+                // Assemble a map of orderPaymentPreferenceId -> list of maps of ( OPP and availableAmountForRefunding )
+                //     where availableAmountForRefunding = receivedAmount - alreadyRefundedAmount
+                // We break the OPPs down this way because we need to process the refunds to payment methods in a particular order
+                Map receivedPaymentTotalsByPaymentMethod = orderReadHelper.getReceivedPaymentTotalsByPaymentMethod() ;
+                Map refundedTotalsByPaymentMethod = orderReadHelper.getReturnedTotalsByPaymentMethod() ;
+
+                /*
+                 * Go through the OrderPaymentPreferences and determine how much remains to be refunded for each.
+                 * Then group these refund amounts and orderPaymentPreferences by paymentMethodTypeId.  That is,
+                 * the intent is to get the refundable amounts per orderPaymentPreference, grouped by payment method type.
+                 */
+                Map prefSplitMap = new HashMap() ;
+                Iterator oppit = orderPayPrefs.iterator();
+                while (oppit.hasNext()) {
+                    GenericValue orderPayPref = (GenericValue) oppit.next();
+                    String paymentMethodTypeId = orderPayPref.getString("paymentMethodTypeId");
+                    String orderPayPrefKey = orderPayPref.getString("paymentMethodId") != null ? orderPayPref.getString("paymentMethodId") : orderPayPref.getString("paymentMethodTypeId");
+
+                    // See how much we can refund to the payment method
+                    BigDecimal orderPayPrefReceivedTotal = ZERO ;
+                    if (receivedPaymentTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
+                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add(new BigDecimal(((Double) receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).doubleValue()).setScale(decimals, rounding));
+                    }
+                    BigDecimal orderPayPrefRefundedTotal = ZERO ;
+                    if (refundedTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
+                        orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add(new BigDecimal(((Double) refundedTotalsByPaymentMethod.get(orderPayPrefKey)).doubleValue()).setScale(decimals, rounding));
+                    }
+                    BigDecimal orderPayPrefAvailableTotal = orderPayPrefReceivedTotal.subtract(orderPayPrefRefundedTotal);
+
+                    // add the refundable amount and orderPaymentPreference to the paymentMethodTypeId map
+                    if (orderPayPrefAvailableTotal.compareTo(ZERO) == 1) {
+                        Map orderPayPrefDetails = new HashMap();
+                        orderPayPrefDetails.put("orderPaymentPreference", orderPayPref);
+                        orderPayPrefDetails.put("availableTotal", orderPayPrefAvailableTotal);
+                        if (prefSplitMap.containsKey(paymentMethodTypeId)) {
+                            ((List) prefSplitMap.get(paymentMethodTypeId)).add(orderPayPrefDetails);
+                        } else {
+                            prefSplitMap.put(paymentMethodTypeId, UtilMisc.toList(orderPayPrefDetails));
                         }
-                    } while (neededAmount > 0 && payPrefIter.hasNext());
-                }
-                if (neededAmount != 0) {
-                    Debug.logError("Was not able to find needed payment preferences for the order RTN: " + returnId + " ORD: " + orderId, module);
-                    return ServiceUtil.returnError("Unable to refund order #" + orderId + "; there are no available payment preferences.");
+                    }
                 }
 
-                Map prefSplitMap = new HashMap();
-                if (prefsToUse == null || prefsToUse.size() == 0) {
+                if (prefSplitMap == null || prefSplitMap.size() == 0) {
                     Debug.logError("We didn't find any possible payment prefs to use for RTN: " + returnId + " ORD: " + orderId, module);
                     return ServiceUtil.returnError("Unable to refund order #" + orderId + "; there are no available payment preferences.");                     
-                } else if (prefsToUse.size() > 1) {
-                    // we need to spit the items up to log which pref it was refunded to
-                    // TODO: add the split of items for multiple payment prefs
-                } else {
-                    // single payment / single refund
-                    prefSplitMap.put(prefsToUse.get(0), items);
                 }
 
-                // now process all items for each preference
-                Set prefItemSet = prefSplitMap.entrySet();
-                Iterator prefItemIt = prefItemSet.iterator();
-                while (prefItemIt.hasNext()) {
-                    Map.Entry prefItemEntry = (Map.Entry) prefItemIt.next();
-                    GenericValue orderPayPref = (GenericValue) prefItemEntry.getKey();
-                    List itemList = (List) prefItemEntry.getValue();
+                // Keep a decreasing total of the amount remaining to refund
+                BigDecimal amountLeftToRefund = new BigDecimal(orderTotal.doubleValue()).setScale(decimals, rounding);
 
-                    // Get the refund amount as a BigDecimal due to rounding issues (the createReturnItemResponse simple method will turn 203.37999999999997 into 203.37)
-                    BigDecimal thisRefundAmount = ZERO;
-                    Double thisRefundAmountDouble = (Double) prefsAmount.get(orderPayPref);
-                    if (thisRefundAmountDouble != null) thisRefundAmount = new BigDecimal(thisRefundAmountDouble.doubleValue()); 
-                    thisRefundAmount = thisRefundAmount.setScale(decimals, rounding);
+                // This can be extended to support additional electronic types
+                List electronicTypes = UtilMisc.toList("CREDIT_CARD", "EFT_ACCOUNT", "GIFT_CARD");
 
-                    String paymentId = null;
+                // This defines the ordered part of the sequence of refund processing
+                List orderedRefundPaymentMethodTypes = new ArrayList();
+                orderedRefundPaymentMethodTypes.add("EXT_BILLACT");
+                orderedRefundPaymentMethodTypes.add("GIFT_CARD");
+                orderedRefundPaymentMethodTypes.add("CREDIT_CARD");
 
-                    // this can be extended to support additional electronic types
-                    List electronicTypes = UtilMisc.toList("CREDIT_CARD", "EFT_ACCOUNT", "GIFT_CARD");
-                    //List electronicTypes = new ArrayList();
+                // Add all the other paymentMethodTypes, in no particular order
+                EntityConditionList pmtConditionList = new EntityConditionList(UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.NOT_IN, orderedRefundPaymentMethodTypes)), EntityOperator.AND);
+                List otherPaymentMethodTypes = new ArrayList();
+                try {
+                    otherPaymentMethodTypes = delegator.findByConditionCache("PaymentMethodType",pmtConditionList,null,null);
+                } catch(GenericEntityException e) {
+                    Debug.logError(e, "Cannot get PaymentMethodTypes", module);
+                    return ServiceUtil.returnError("Problems getting PaymentMethodTypes: " + e.toString());
+                }
+                orderedRefundPaymentMethodTypes.addAll(EntityUtil.getFieldListFromEntityList(otherPaymentMethodTypes, "paymentMethodTypeId", true));
 
-                    if (electronicTypes.contains(orderPayPref.getString("paymentMethodTypeId"))) {
-                        // call the refund service to refund the payment
-                        try {
-                            serviceResult = dispatcher.runSync("refundPayment", UtilMisc.toMap("orderPaymentPreference", orderPayPref, "refundAmount", new Double(thisRefundAmount.doubleValue()), "userLogin", userLogin));
-                            if (ServiceUtil.isError(serviceResult)) {
-                                return ServiceUtil.returnError("Error in refund payment", null, null, serviceResult);
+                // Iterate through the specified sequence of paymentMethodTypes, refunding to the correct OrderPaymentPreferences
+                //    as long as there's a positive amount remaining to refund
+                Iterator orpmtit = orderedRefundPaymentMethodTypes.iterator();
+                while (orpmtit.hasNext() && amountLeftToRefund.compareTo(ZERO) == 1) {
+                    String paymentMethodTypeId = (String) orpmtit.next();
+                    if (prefSplitMap.containsKey(paymentMethodTypeId)) {
+                        List paymentMethodDetails = (List) prefSplitMap.get(paymentMethodTypeId);
+
+                        // Iterate through the OrderPaymentPreferences of this type
+                        Iterator pmtppit = paymentMethodDetails.iterator();
+                        while (pmtppit.hasNext() && amountLeftToRefund.compareTo(ZERO) == 1) {
+                            Map orderPaymentPrefDetails = (Map) pmtppit.next();
+                            GenericValue orderPaymentPreference = (GenericValue) orderPaymentPrefDetails.get("orderPaymentPreference");
+                            BigDecimal orderPaymentPreferenceAvailable = (BigDecimal) orderPaymentPrefDetails.get("availableTotal");
+
+                            // Refund up to the maxAmount for the paymentPref, or whatever is left to refund if that's less than the maxAmount
+                            BigDecimal amountToRefund = orderPaymentPreferenceAvailable.min(amountLeftToRefund);
+
+                            String paymentId = null;
+
+                            // Call the refund service to refund the payment
+                            if (electronicTypes.contains(paymentMethodTypeId)) {
+                                try {
+                                    // for electronic types such as CREDIT_CARD and EFT_ACCOUNT, use refundPayment service
+                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
+                                    if (ServiceUtil.isError(serviceResult)) {
+                                        return ServiceUtil.returnError("Error in refund payment", null, null, serviceResult);
+                                    }
+                                    paymentId = (String) serviceResult.get("paymentId");
+                                } catch (GenericServiceException e) {
+                                    Debug.logError(e, "Problem running the refundPayment service", module);
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
+                                }
+                            } else if (paymentMethodTypeId.equals("EXT_BILLACT")) {
+                                try {
+                                    // for Billing Account refunds
+                                    serviceResult = dispatcher.runSync("refundBillingAccountPayment", UtilMisc.toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
+                                    if (ServiceUtil.isError(serviceResult)) {
+                                        return ServiceUtil.returnError("Error in refund payment", null, null, serviceResult);
+                                    }
+                                    paymentId = (String) serviceResult.get("paymentId");
+                                } catch (GenericServiceException e) {
+                                    Debug.logError(e, "Problem running the refundPayment service", module);
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
+                                }
+                            } else {
+                                // TODO: handle manual refunds (accounts payable)
                             }
 
-                            paymentId = (String) serviceResult.get("paymentId");
-                        } catch (GenericServiceException e) {
-                            Debug.logError(e, "Problem running the refundPayment service", module);
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
+                            // Fill out the data for the new ReturnItemResponse
+                            Map response = FastMap.newInstance();
+                            response.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
+                            response.put("responseAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()));
+                            response.put("responseDate", now);
+                            response.put("userLogin", userLogin);
+                            if (paymentId != null) {
+                                // A null payment ID means no electronic refund was available; manual refund needed
+                                response.put("paymentId", paymentId);
+                            }
+                            if (paymentMethodTypeId.equals("EXT_BILLACT")) {
+                                response.put("billingAccountId", orderReadHelper.getBillingAccount().getString("billingAccountId"));
+                            }
+                            Map serviceResults = null;
+                            try {
+                                serviceResults = dispatcher.runSync("createReturnItemResponse", response);
+                                if (ServiceUtil.isError(serviceResults)) {
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingReturnItemResponseEntity", locale), null, null, serviceResults);
+                                }
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, "Problems creating new ReturnItemResponse entity", module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingReturnItemResponseEntity", locale));
+                            }
+                            String responseId = (String) serviceResults.get("returnItemResponseId");
+
+                            // Set the response on each item
+                            Iterator itemsIter = items.iterator();
+                            while (itemsIter.hasNext()) {
+                                GenericValue item = (GenericValue) itemsIter.next();
+                                item.set("returnItemResponseId", responseId);
+                                item.set("statusId", "RETURN_COMPLETED");
+
+                                // Create the status history
+                                String returnStatusId = delegator.getNextSeqId("ReturnStatus");
+                                GenericValue returnStatus = delegator.makeValue("ReturnStatus", UtilMisc.toMap("returnStatusId", returnStatusId));
+                                returnStatus.set("statusId", item.get("statusId"));
+                                returnStatus.set("returnId", item.get("returnId"));
+                                returnStatus.set("returnItemSeqId", item.get("returnItemSeqId"));
+                                returnStatus.set("statusDatetime", now);
+
+                                //Debug.log("Updating item status", module);
+                                try {
+                                    item.store();
+                                    delegator.create(returnStatus);
+                                } catch (GenericEntityException e) {
+                                    Debug.logError("Problem updating the ReturnItem entity", module);
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale));
+                                }
+
+                                //Debug.log("Item status and return status history created", module);
+                            }
+
+                            // Create the payment applications for the return invoice
+                            try {
+                                serviceResults = dispatcher.runSync("createPaymentApplicationsFromReturnItemResponse", 
+                                        UtilMisc.toMap("returnItemResponseId", responseId, "userLogin", userLogin));
+                                if (ServiceUtil.isError(serviceResults)) {
+                                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale), null, null, serviceResults);
+                                }
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, "Problem creating PaymentApplication records for return invoice", module);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale));
+                            }
+
+                            // Update the amount necessary to refund
+                            amountLeftToRefund = amountLeftToRefund.subtract(amountToRefund);
                         }
-                    } else {
-                        // TODO: handle manual refunds (accounts payable)
-                    }
-
-                    //Debug.log("Finished handing refund payments", module);
-
-                    // now; for all timestamps
-                    Timestamp now = UtilDateTime.nowTimestamp();
-
-                    // fill out the data for the new ReturnItemResponse
-                    Map response = FastMap.newInstance();
-                    response.put("orderPaymentPreferenceId", orderPayPref.getString("orderPaymentPreferenceId"));
-                    response.put("responseAmount", new Double(thisRefundAmount.doubleValue()));
-                    response.put("responseDate", now);
-                    response.put("userLogin", userLogin);
-                    if (paymentId != null) {
-                        // a null payment ID means no electronic refund was available; manual refund needed
-                        response.put("paymentId", paymentId);
-                    }
-                    Map serviceResults = null;
-                    try {
-                        serviceResults = dispatcher.runSync("createReturnItemResponse", response);
-                        if (ServiceUtil.isError(serviceResults)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingReturnItemResponseEntity", locale), null, null, serviceResults);
-                        }
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, "Problems creating new ReturnItemResponse entity", module);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsCreatingReturnItemResponseEntity", locale));
-                    }
-                    String responseId = (String) serviceResults.get("returnItemResponseId");
-
-                    // set the response on each item
-                    Iterator itemsIter = itemList.iterator();
-                    while (itemsIter.hasNext()) {
-                        GenericValue item = (GenericValue) itemsIter.next();
-                        item.set("returnItemResponseId", responseId);
-                        item.set("statusId", "RETURN_COMPLETED");
-
-                        // create the status history
-                        String returnStatusId = delegator.getNextSeqId("ReturnStatus");
-                        GenericValue returnStatus = delegator.makeValue("ReturnStatus", UtilMisc.toMap("returnStatusId", returnStatusId));
-                        returnStatus.set("statusId", item.get("statusId"));
-                        returnStatus.set("returnId", item.get("returnId"));
-                        returnStatus.set("returnItemSeqId", item.get("returnItemSeqId"));
-                        returnStatus.set("statusDatetime", now);
-
-                        //Debug.log("Updating item status", module);
-                        try {
-                            item.store();
-                            delegator.create(returnStatus);
-                        } catch (GenericEntityException e) {
-                            Debug.logError("Problem updating the ReturnItem entity", module);
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale));
-                        }
-
-                        //Debug.log("Item status and return status history created", module);
-                    }
-
-                    // create the payment applications for the return invoice
-                    try {
-                        serviceResults = dispatcher.runSync("createPaymentApplicationsFromReturnItemResponse", 
-                                UtilMisc.toMap("returnItemResponseId", responseId, "userLogin", userLogin));
-                        if (ServiceUtil.isError(serviceResults)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale), null, null, serviceResults);
-                        }
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, "Problem creating PaymentApplication records for return invoice", module);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale));
-                    }
+                    }                    
                 }
             }
         }
@@ -976,6 +1019,80 @@ public class OrderReturnServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map refundBillingAccountPayment(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
+        Double refundAmount = (Double) context.get("refundAmount");
+
+        GenericValue orderHeader = null;
+        try {
+            orderHeader = paymentPref.getRelatedOne("OrderHeader");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot get OrderHeader from OrderPaymentPreference", module);
+            return ServiceUtil.returnError("Problems getting OrderHeader from OrderPaymentPreference: " + e.toString());
+        }
+
+        OrderReadHelper orh = new OrderReadHelper(orderHeader);
+
+        String payFromPartyId = orh.getBillFromParty().getString("partyId");
+        String payToPartyId = orh.getBillToParty().getString("partyId");
+
+        // Create the PaymentGatewayResponse record
+        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+        GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+        response.set("paymentGatewayResponseId", responseId);
+        response.set("paymentServiceTypeEnumId", "PRDS_PAY_REFUND");
+        response.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
+        response.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
+        response.set("transCodeEnumId", "PGT_REFUND");
+        response.set("amount", refundAmount);
+        response.set("transactionDate", UtilDateTime.nowTimestamp());
+        response.set("currencyUomId", orh.getCurrency());   
+        try {
+            delegator.create(response);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError("Unable to create PaymentGatewayResponse record");
+        }
+
+        // Create the Payment record (parties reversed)
+        Map paymentCtx = UtilMisc.toMap("paymentTypeId", "CUSTOMER_REFUND");
+        paymentCtx.put("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
+        paymentCtx.put("paymentGatewayResponseId", responseId);
+        paymentCtx.put("partyIdTo", payToPartyId);
+        paymentCtx.put("partyIdFrom", payFromPartyId);
+        paymentCtx.put("statusId", "PMNT_CONFIRMED");
+        paymentCtx.put("paymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
+        paymentCtx.put("currencyUomId", orh.getCurrency());   
+        paymentCtx.put("amount", refundAmount);
+        paymentCtx.put("userLogin", userLogin);
+        paymentCtx.put("comments", "Refund");
+
+        String paymentId = null;
+        try {
+            Map paymentCreationResult = dispatcher.runSync("createPayment", paymentCtx);
+            if (ModelService.RESPOND_ERROR.equals(paymentCreationResult.get(ModelService.RESPONSE_MESSAGE))) {
+                return ServiceUtil.returnError((String) paymentCreationResult.get(ModelService.ERROR_MESSAGE));
+            } else {
+                paymentId = (String) paymentCreationResult.get("paymentId");
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem creating Payment", module);
+            return ServiceUtil.returnError("Problem creating Payment");
+        }
+
+        if (paymentId == null) {
+            return ServiceUtil.returnError("Create payment failed");
+        }
+
+        Map result = ServiceUtil.returnSuccess();
+        result.put("paymentId", paymentId);
+        return result;
+    }
+    
     public static Map createPaymentApplicationsFromReturnItemResponse(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -1040,6 +1157,12 @@ public class OrderReturnServices {
                     Map input = UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoice.getString("invoiceId"));
                     input.put("amountApplied", new Double(amountApplied.doubleValue()));
                     input.put("userLogin", userLogin);
+                    if (response.get("billingAccountId") != null) {
+                        GenericValue billingAccount = response.getRelatedOne("BillingAccount");
+                        if (billingAccount != null) {
+                            input.put("billingAccountId", response.get("billingAccountId"));
+                        }
+                    }
                     Map serviceResults = dispatcher.runSync("createPaymentApplication", input);
                     if (ServiceUtil.isError(serviceResults)) {
                         return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
