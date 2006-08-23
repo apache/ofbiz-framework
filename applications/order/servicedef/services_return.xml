@@ -237,4 +237,12 @@ under the License.
         <attribute name="returnTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableReturnTotal" type="Double" mode="OUT" optional="false"/>
     </service>
+
+    <service name="refundBillingAccountPayment" engine="java"
+            location="org.ofbiz.order.order.OrderReturnServices" invoke="refundBillingAccountPayment" auth="true">
+        <description>Refunds A Billing Account Payment</description>
+        <attribute name="orderPaymentPreference" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="refundAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>
