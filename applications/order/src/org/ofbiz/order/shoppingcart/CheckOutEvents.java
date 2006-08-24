@@ -694,12 +694,6 @@ public class CheckOutEvents {
            cart.setOrderTermSet(true);
         }
 
-        // flag anoymous checkout to bypass additional party settings
-        boolean isAnonymousCheckout = false;
-        if (userLogin != null && "anonymous".equals(userLogin.getString("userLoginId"))) {
-            isAnonymousCheckout = true;
-        }
-
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
         // ====================================================================================
@@ -787,7 +781,7 @@ public class CheckOutEvents {
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                 return "error";
             }
-              
+
             Map selPaymentMethods = null;
             if (checkOutPaymentId != null) {
                 callResult = checkOutHelper.finalizeOrderEntryPayment(checkOutPaymentId, null, isSingleUsePayment, doAppendPayment);
@@ -819,6 +813,18 @@ public class CheckOutEvents {
                 return "error";
             }
         }
+        // determine where to direct the browser
+        return determineNextFinalizeStep(request, response);
+    }
+
+    public static String determineNextFinalizeStep(HttpServletRequest request, HttpServletResponse response) {
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
+        // flag anoymous checkout to bypass additional party settings
+        boolean isAnonymousCheckout = false;
+        if (userLogin != null && "anonymous".equals(userLogin.getString("userLoginId"))) {
+            isAnonymousCheckout = true;
+        }
 
         // determine where to direct the browser
         // these are the default values
@@ -829,7 +835,7 @@ public class CheckOutEvents {
         boolean requirePayment = !cart.getOrderType().equals("PURCHASE_ORDER");
         boolean requireTerm = cart.getOrderType().equals("PURCHASE_ORDER");
         boolean requireAdditionalParty = isAnonymousCheckout;
-
+        boolean isSingleUsePayment = true;
         // these options are not available to anonymous shoppers (security)
         if (userLogin != null && !"anonymous".equals(userLogin.getString("userLoginId"))) {
             String requireCustomerStr = request.getParameter("finalizeReqCustInfo");
@@ -839,6 +845,7 @@ public class CheckOutEvents {
             String requireTermStr = request.getParameter("finalizeReqTermInfo");
             String requireAdditionalPartyStr = request.getParameter("finalizeReqAdditionalParty");
             String requireShipGroupsStr = request.getParameter("finalizeReqShipGroups");
+            String singleUsePaymentStr = request.getParameter("singleUsePayment");
             requireCustomer = requireCustomerStr == null || requireCustomerStr.equalsIgnoreCase("true");
             requireShipping = requireShippingStr == null || requireShippingStr.equalsIgnoreCase("true");
             requireOptions = requireOptionsStr == null || requireOptionsStr.equalsIgnoreCase("true");
@@ -850,6 +857,7 @@ public class CheckOutEvents {
                 requireTerm = requireTermStr == null || requireTermStr.equalsIgnoreCase("true");
             }
             requireAdditionalParty = requireAdditionalPartyStr == null || requireAdditionalPartyStr.equalsIgnoreCase("true");
+            isSingleUsePayment = singleUsePaymentStr != null && "Y".equalsIgnoreCase(singleUsePaymentStr) ? true : false;
         }
 
         boolean shippingAddressSet = true;
