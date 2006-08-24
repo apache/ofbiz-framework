@@ -957,7 +957,7 @@ public class CheckOutEvents {
         }
 
         // set the billing account amount to the minimum of billing account available balance or amount input if less than balance
-        if ((cart != null) && (billingAccountId != null) && !"_NA_".equals(billingAccountId)) {
+        if ((cart != null) && (billingAccountId != null) && !("".equals(billingAccountId)) && !"_NA_".equals(billingAccountId)) {
             double availableBalance = checkOutHelper.availableAccountBalance(billingAccountId);
 
             // set amount to be charged to entered amount unless it exceeds the available balance

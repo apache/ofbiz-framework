@@ -1074,20 +1074,36 @@ public class OrderReturnServices {
         String paymentId = null;
         try {
             Map paymentCreationResult = dispatcher.runSync("createPayment", paymentCtx);
-            if (ModelService.RESPOND_ERROR.equals(paymentCreationResult.get(ModelService.RESPONSE_MESSAGE))) {
-                return ServiceUtil.returnError((String) paymentCreationResult.get(ModelService.ERROR_MESSAGE));
+            if (ServiceUtil.isError(paymentCreationResult)) {
+                return paymentCreationResult; 
             } else {
                 paymentId = (String) paymentCreationResult.get("paymentId");
             }
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Problem creating Payment", module);
-            return ServiceUtil.returnError("Problem creating Payment");
+            return ServiceUtil.returnError("Problem creating Payment " + e.getMessage());
         }
 
         if (paymentId == null) {
             return ServiceUtil.returnError("Create payment failed");
         }
 
+        // if the original order was paid with a billing account, then go find the billing account from the order and associate this refund with that billing account
+        // thus returning value to the billing account 
+        if ("EXT_BILLACT".equals(paymentPref.getString("paymentMethodTypeId"))) {
+            GenericValue billingAccount = orh.getBillingAccount();
+            if (UtilValidate.isNotEmpty(billingAccount.getString("billingAccountId"))) {
+                try {
+                    Map paymentApplResult = dispatcher.runSync("createPaymentApplication", UtilMisc.toMap("paymentId", paymentId, "billingAccountId", billingAccount.getString("billingAccountId"),
+                                "amountApplied", refundAmount, "userLogin", userLogin));
+                    if (ServiceUtil.isError(paymentApplResult)) {
+                        return paymentApplResult; 
+                    }
+                } catch (GenericServiceException e) {
+                    return ServiceUtil.returnError("Problem creating PaymentApplication: " + e.getMessage());
+                }
+            }
+        }
+        
         Map result = ServiceUtil.returnSuccess();
         result.put("paymentId", paymentId);
         return result;
