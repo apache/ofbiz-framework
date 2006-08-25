@@ -633,6 +633,12 @@ under the License.
         <response name="error" type="view" value="ScheduleShipmentRouteSegment"/>
         <response name="success" type="request" value="ScheduleShipmentsWithCarriers"/>
     </request-map>
+    <request-map uri="BatchUpdateShipmentRouteSegments">
+        <security https="true" auth="true"/>
+        <event type="service-multi" path="" invoke="updateShipmentRouteSegment"/>
+        <response name="success" type="view" value="Labels"/>
+        <response name="error" type="view" value="Labels"/>
+    </request-map>
     <request-map uri="ScheduleShipmentsWithCarriers">
         <security https="true" auth="true" direct-request="false"/>
         <event type="service-multi" path="" invoke="quickScheduleShipmentRouteSegment"/>

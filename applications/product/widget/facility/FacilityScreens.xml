@@ -764,6 +764,9 @@ under the License.
                     <decorator-section name="schedule-body">
                         <container>
                             <include-form name="Labels" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            <platform-specific>
+                                <html><html-template location="component://product/webapp/facility/facility/batchPrintMarkAsAccepted.ftl"/></html>
+                            </platform-specific>
                         </container>
                     </decorator-section>
                 </decorator-screen>
