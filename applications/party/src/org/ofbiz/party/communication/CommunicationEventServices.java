@@ -23,8 +23,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Locale;
+import java.sql.Timestamp;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericDelegator;
@@ -110,6 +112,10 @@ public class CommunicationEventServices {
                 // there's actually a contact list here, so we want to be sending to the entire contact list
                 GenericValue contactList = communicationEvent.getRelatedOne("ContactList");
 
+                // set up some variables for single use lists
+                boolean singleUse = ("Y".equals(contactList.get("singleUse")) ? true : false);
+                Timestamp now = UtilDateTime.nowTimestamp();
+
                 // find active, ACCEPTED parties in the contact list using a list iterator (because there can be a large number)
                 EntityConditionList conditions = new EntityConditionList( UtilMisc.toList(
                             new EntityExpr("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
@@ -117,7 +123,7 @@ public class CommunicationEventServices {
                             new EntityExpr("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
                             EntityUtil.getFilterByDateExpr()
                             ), EntityOperator.AND);
-                List fieldsToSelect = UtilMisc.toList("partyId", "preferredContactMechId");
+                List fieldsToSelect = UtilMisc.toList("partyId", "preferredContactMechId", "contactListId", "fromDate");
                 EntityListIterator sendToPartiesIt = delegator.findListIteratorByCondition("ContactListParty", conditions,  null, fieldsToSelect, null,
                         new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
                 
@@ -136,7 +142,16 @@ public class CommunicationEventServices {
                     Map tmpResult = dispatcher.runSync("sendMail", sendMailParams);
                     if (ServiceUtil.isError(tmpResult)) {
                         errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
+                    } else if (singleUse) {
+                        // expire the ContactListParty if the list is single use and sendEmail finishes successfully
+                        tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId", nextSendToParty.get("contactListId"),
+                                    "partyId", nextSendToParty.get("partyId"), "fromDate", nextSendToParty.get("fromDate"),
+                                    "thruDate", now, "userLogin", userLogin));
+                        if (ServiceUtil.isError(tmpResult)) {
+                            errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
+                        }
                     }
+
                 }
                 sendToPartiesIt.close();
             }
