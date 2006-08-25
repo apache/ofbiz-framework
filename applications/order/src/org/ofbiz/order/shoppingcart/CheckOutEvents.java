@@ -714,8 +714,15 @@ public class CheckOutEvents {
                 // set the options
                 if (mode != null && mode.equals("options")) {
                     shippingMethod = request.getParameter(shipGroupIndex + "_shipping_method");
+                    if (UtilValidate.isEmpty(shippingMethod)) {
+                        shippingMethod = request.getParameter("shipping_method");
+                    }
                     shippingInstructions = request.getParameter(shipGroupIndex + "_shipping_instructions");
+                    if (UtilValidate.isEmpty(shippingInstructions))
+                        shippingInstructions = request.getParameter("shipping_instructions");
                     maySplit = request.getParameter(shipGroupIndex + "_may_split");
+                    if (UtilValidate.isEmpty(maySplit))
+                        maySplit = request.getParameter("may_split");
                     giftMessage = request.getParameter(shipGroupIndex + "_gift_message");
                     isGift = request.getParameter(shipGroupIndex + "_is_gift");
                     internalCode = request.getParameter("internalCode"); // FIXME
