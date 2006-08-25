@@ -29,9 +29,9 @@ under the License.
             <#if (communicationEvent.partyIdFrom?if_exists != (userLogin.partyId)?if_exists)>
               <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="submenutext">${uiLabelMap.PartyReply}</a>
             </#if>
-            <a href="<@ofbizUrl>messagelist</@ofbizUrl>" class="submenutextright">${uiLabelMap.ViewList}</a>
+            <a href="<@ofbizUrl>messagelist</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceViewList}</a>
         </div>
-        <div class="boxhead">Read Message</div>
+        <div class="boxhead">${uiLabelMap.EcommerceReadMessage}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="1">

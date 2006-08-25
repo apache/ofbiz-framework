@@ -437,7 +437,7 @@ under the License.
             <input type="hidden" name="contentTypeId" value="DOCUMENT"/>
             <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
             <input type="file" name="uploadedFile" size="50" class="inputBox"/>
-            <input type="submit" value="Upload" class="smallSubmit"/>
+            <input type="submit" value="${uiLabelMap.CommonUpload}" class="smallSubmit"/>
           </form>
         </div>
     </div>
