@@ -34,6 +34,7 @@ height: 80px;
 voice-family: "\"}\"";
 voice-family: inherit;
 height: 80px;
+width: 100%;
 /* border:1px solid #000; */
 }
 #ecom-header #left {
@@ -195,10 +196,11 @@ background: #ffffff;
 
 
 #ecom-mainarea .center, #ecom-mainarea .leftonly, #ecom-mainarea .rightonly, #ecom-mainarea .nocolumns {
-background:#fff;
+background:#fff; 
 text-align: left;
 vertical-align: top;
 margin-top: 10px;
+width: 100%;
 }
 #ecom-mainarea .center {
 margin-left: 160px;
@@ -207,18 +209,21 @@ voice-family: "\"}\"";
 voice-family: inherit;
 margin-left: 161px;
 margin-right: 211px;
+width: 851px;
 }
 #ecom-mainarea .leftonly {
 margin-left: 160px;
 voice-family: "\"}\"";
 voice-family: inherit;
 margin-left: 161px;
+width: 1071px;
 }
 #ecom-mainarea .rightonly {
 margin-right: 210px;
 voice-family: "\"}\"";
 voice-family: inherit;
 margin-right: 211px;
+width: 1011px;
 }
 
 /* ====== eCommerce "Screenlet" Styles ====== */
@@ -230,7 +235,7 @@ margin-bottom: 10px;
 #ecom-mainarea .screenlet-header {
 background: #000099;
 padding-top: 1px;
-padding-bottom: 1px;
+padding-bottom: 3px;
 padding-right: 4px;
 padding-left: 4px;
 }
