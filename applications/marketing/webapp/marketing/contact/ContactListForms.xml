@@ -41,6 +41,11 @@ under the License.
                 <option key="Y"/><option key="N"/>
             </drop-down>
         </field>
+        <field name="singleUse" title="${uiLabelMap.ContactListIsSingleUse}">
+            <drop-down allow-empty="true">
+                <option key="Y"/><option key="N"/>
+            </drop-down>
+        </field>
         
         <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}">
             <drop-down>
@@ -86,6 +91,7 @@ under the License.
         </field>
         <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><display/></field>
         <field name="isPublic" title="${uiLabelMap.ContactListIsPublic}"><display/></field>
+        <field name="singleUse" title="${uiLabelMap.ContactListIsSingleUse}"><display/></field>
         <field name="contactListTypeId" title="${uiLabelMap.ContactListContactListTypeId}"><display-entity entity-name="ContactListType"/></field>
         
         <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}"><display-entity entity-name="ContactMechType"/></field>
