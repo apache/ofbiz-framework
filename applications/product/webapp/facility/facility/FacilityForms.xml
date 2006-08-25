@@ -125,7 +125,8 @@ under the License.
         </field>
     </form>
 
-    <!-- multi-form to print confirmed shipping labels -->
+    <!-- multi-form to print confirmed shipping labels and to mark shipment route segments as accepted 
+         (to see how this dual-action multi form works, see batchPrintMarkAsAccepted.ftl) -->
     <form name="Labels" type="multi" list-name="shipmentPackageRouteSegments" title="" target="BatchPrintShippingLabels"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
@@ -145,6 +146,8 @@ under the License.
         <field name="label" title="${uiLabelMap.ProductLabel}">
           <hyperlink target="viewShipmentPackageRouteSegLabelImage?shipmentId=${shipmentId}&amp;shipmentRouteSegmentId=${shipmentRouteSegmentId}&amp;shipmentPackageSeqId=${shipmentPackageSeqId}" description="${uiLabelMap.ProductLabel}"/>
         </field>
+        <!-- this is for multi-submitting the mark as accepted action (see batchPrintMarkAsAccepted.ftl) -->
+        <field name="carrierServiceStatusId"><hidden value="SHRSCS_ACCEPTED"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonPrint}" widget-style="smallSubmit">
             <submit/>
