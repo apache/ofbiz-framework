@@ -267,7 +267,7 @@ under the License.
             </drop-down>
         </field>
         <field name="titleTransferEnumId" title="${uiLabelMap.AccountingTitleTransfer}">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
                     <entity-constraint name="enumTypeId" value="PTSOFTTFR"/>
                     <entity-order-by field-name="sequenceId"/>
@@ -278,7 +278,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="FindTaxAuthorityParties" type="single" 
+  <form name="FindTaxAuthorityParties" type="single" 
         target="ListTaxAuthorityParties" title=""
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         
