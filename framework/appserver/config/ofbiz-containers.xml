@@ -19,5 +19,5 @@ under the License.
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/ofbiz-containers.xsd">
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
-    <container name="generate-contailer" class="org.ofbiz.appservers.GenerateContainer"/>
+    <container name="generate-container" class="org.ofbiz.appservers.GenerateContainer"/>
 </ofbiz-containers>
