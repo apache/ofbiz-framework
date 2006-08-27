@@ -351,7 +351,7 @@ function setAlternateGwp(field) {
           </td>
           <td colspan="2" align="right" valign="bottom">
             <hr size="1" class="sepbar">
-            <div class="tabletext"><b><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></b></div>
+            <div class="tabletext"><b><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></b></div>
           </td>
         </tr>
         <#if itemsFromList>

@@ -30,6 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -68,6 +69,9 @@ public class TaxAuthorityServices {
 
         if (quantity == null) quantity = ONE_BASE;
         BigDecimal amount = basePrice.multiply(quantity);
+        int salestaxFinalDecimals=UtilNumber.getBigDecimalScale("salestax.final.decimals");
+        int salestaxCalcDecimals=UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+        int salestaxRounding=UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
         
         BigDecimal taxTotal = ZERO_BASE;
         BigDecimal taxPercentage = ZERO_BASE;
@@ -108,7 +112,7 @@ public class TaxAuthorityServices {
                     taxPercentage = taxPercentage.add(taxAdjustment.getBigDecimal("sourcePercentage"));
                     BigDecimal adjAmount = taxAdjustment.getBigDecimal("amount");
                     taxTotal = taxTotal.add(adjAmount);
-                    priceWithTax = priceWithTax.add(adjAmount);
+                    priceWithTax = priceWithTax.add(adjAmount.divide(quantity,salestaxCalcDecimals,salestaxRounding));
                     Debug.logInfo("For productId [" + productId + "] added [" + adjAmount + "] of tax to price for geoId [" + taxAdjustment.getString("taxAuthGeoId") + "], new price is [" + priceWithTax + "]", module);
                 }
             }
@@ -119,8 +123,8 @@ public class TaxAuthorityServices {
         }
         
         // round to 2 decimal places for display/etc
-        taxTotal.setScale(2, BigDecimal.ROUND_CEILING);
-        priceWithTax.setScale(2, BigDecimal.ROUND_CEILING);
+        taxTotal.setScale(salestaxFinalDecimals, salestaxRounding);
+        priceWithTax.setScale(salestaxFinalDecimals, salestaxRounding);
         
         Map result = ServiceUtil.returnSuccess();
         result.put("taxTotal", taxTotal);
