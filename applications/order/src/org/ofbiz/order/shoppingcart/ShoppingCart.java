@@ -17,6 +17,7 @@
 package org.ofbiz.order.shoppingcart;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -430,7 +431,7 @@ public class ShoppingCart implements Serializable {
             }
             //} catch (GenericServiceException e) {
         } catch (Exception e) {
-        	Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), module);
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", locale) + e.getMessage(), module);
         }
         return supplierProduct;
     }
@@ -2240,12 +2241,27 @@ public class ShoppingCart implements Serializable {
     /** Returns the total from the cart, including tax/shipping. */
     public double getGrandTotal() {
         // sales tax and shipping are not stored as adjustments but rather as part of the ship group
-//    	Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal(),module);
+        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal(),module);
         return this.getSubTotal() + this.getTotalShipping() + this.getTotalSalesTax() + this.getOrderOtherAdjustmentTotal();
     }
 
+    public double getDisplaySubTotal() {
+        double itemsTotal = 0.00;
+        Iterator i = iterator();
+
+        while (i.hasNext()) {
+            itemsTotal += ((ShoppingCartItem) i.next()).getDisplayItemSubTotal();
+        }
+        return itemsTotal;
+    }
+
+    /** Returns the total from the cart, including tax/shipping. */
+    public double getDisplayGrandTotal() {
+        return this.getDisplaySubTotal() + this.getTotalShipping() + this.getTotalSalesTax() + this.getOrderOtherAdjustmentTotal();
+    }
+
     public double getOrderOtherAdjustmentTotal() {
-        return OrderReadHelper.calcOrderAdjustments(this.getAdjustments(), getSubTotal(), true, false, false);
+        return OrderReadHelper.calcOrderAdjustmentsBd(this.getAdjustments(), new BigDecimal(this.getSubTotal()), true, false, false).doubleValue();
     }
 
     /** Returns the sub-total in the cart (item-total - discount). */
