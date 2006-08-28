@@ -64,6 +64,7 @@ under the License.
     </entity>
     <entity entity-name="ProdCatalogCategory"
             package-name="org.ofbiz.product.catalog"
+            default-resource-name="ProductEntityLabels"
             title="Catalog Category Association Entity">
       <field name="prodCatalogId" type="id-ne"></field>
       <field name="productCategoryId" type="id-ne"></field>
@@ -642,6 +643,7 @@ under the License.
 
     <entity entity-name="CostComponent"
             package-name="org.ofbiz.product.cost"
+            default-resource-name="ProductEntityLabels"
             title="Cost Component Entity">
       <field name="costComponentId" type="id-ne"></field>
       <field name="costComponentTypeId" type="id"></field>
@@ -969,6 +971,7 @@ under the License.
     </entity>
     <entity entity-name="ProductFeatureIactnType"
             package-name="org.ofbiz.product.feature"
+            default-resource-name="ProductEntityLabels"
             title="Product Feature Interaction Type Entity">
       <field name="productFeatureIactnTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
@@ -2270,7 +2273,8 @@ under the License.
     </entity>
     <entity entity-name="ProductType"
             package-name="org.ofbiz.product.product"
-            title="Product Type Entity" default-resource-name="ProductEntityLabels">
+            default-resource-name="ProductEntityLabels"
+            title="Product Type Entity">
       <field name="productTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="isPhysical" type="indicator"></field>
