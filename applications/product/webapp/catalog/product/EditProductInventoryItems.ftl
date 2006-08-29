@@ -25,6 +25,8 @@ under the License.
         <td><div class="tabletext"><b>${uiLabelMap.ProductFacility}</b></div></td>
         <td><div class="tabletext"><b>${uiLabelMap.ProductAtp}</b></div></td>
         <td><div class="tabletext"><b>${uiLabelMap.ProductQoh}</b></div></td>
+        <td><div class="tabletext"><b>${uiLabelMap.ProductMarketingPackageATP}</b></div></td>
+        <td><div class="tabletext"><b>${uiLabelMap.ProductMarketingPackageQOH}</b></div></td>
         <td><div class="tabletext"><b>${uiLabelMap.ProductIncomingShipments}</b></div></td>
         <td><div class="tabletext"><b>${uiLabelMap.ProductIncomingProductionRuns}</b></div></td>
         <td><div class="tabletext"><b>${uiLabelMap.ProductOutgoingProductionRuns}</b></div></td>
@@ -36,6 +38,8 @@ under the License.
         <#assign manufacturingOutQuantitySummary = manufacturingOutQuantitySummaryByFacility.get(facilityId)?if_exists>
         <#assign totalQuantityOnHand = quantitySummary.totalQuantityOnHand?if_exists>
         <#assign totalAvailableToPromise = quantitySummary.totalAvailableToPromise?if_exists>
+        <#assign mktgPkgATP = quantitySummary.mktgPkgATP?if_exists>
+        <#assign mktgPkgQOH = quantitySummary.mktgPkgQOH?if_exists>
         <#assign incomingShipmentAndItemList = quantitySummary.incomingShipmentAndItemList?if_exists>
         <#assign incomingProductionRunList = manufacturingInQuantitySummary.incomingProductionRunList?if_exists>
         <#assign incomingQuantityTotal = manufacturingInQuantitySummary.estimatedQuantityTotal?if_exists>
@@ -46,6 +50,8 @@ under the License.
             <td><div class="tabletext">${(facility.facilityName)?if_exists} [${facilityId?default("[No Facility]")}]</div></td>
             <td><div class="tabletext"><#if totalAvailableToPromise?exists>${totalAvailableToPromise}<#else>&nbsp;</#if></div></td>
             <td><div class="tabletext"><#if totalQuantityOnHand?exists>${totalQuantityOnHand}<#else>&nbsp;</#if></div></td>
+            <td><div class="tabletext"><#if mktgPkgATP?exists>${mktgPkgATP}<#else>&nbsp;</#if></div></td>
+            <td><div class="tabletext"><#if mktgPkgQOH?exists>${mktgPkgQOH}<#else>&nbsp;</#if></div></td>
             <td>
                 <#if incomingShipmentAndItemList?has_content>
                     <#list incomingShipmentAndItemList as incomingShipmentAndItem>

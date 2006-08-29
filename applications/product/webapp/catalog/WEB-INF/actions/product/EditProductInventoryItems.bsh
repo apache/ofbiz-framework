@@ -73,20 +73,27 @@ if (product.getString("isVirtual") != null && product.getString("isVirtual").equ
     dispatcher = request.getAttribute("dispatcher");
     Map contextInput = null;
     Map resultOutput = null;
-    // For every warehouse the product's atp and qoh
+   
+    // inventory quantity summary by facility: For every warehouse the product's atp and qoh 
     // are obtained (calling the "getInventoryAvailableByFacility" service)
     while (facilityIterator.hasNext()) {
         facility = facilityIterator.next();
         contextInput = UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId"));
-        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
-            resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
-        } else {
-            resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
-        }
+        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
+        
         quantitySummary = new HashMap();
         quantitySummary.put("facilityId", facility.getString("facilityId"));
         quantitySummary.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));
         quantitySummary.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
+
+        // if the product is a MARKETING_PKG_AUTO, then also get the quantity which can be produced from components
+        if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
+            contextInput = UtilMisc.toMap("productId",productId, "facilityId", facility.getString("facilityId"));
+            resultOutput = dispatcher.runSync("getMktgPackagesAvailable", contextInput);
+            quantitySummary.put("mktgPkgQOH", resultOutput.get("quantityOnHandTotal"));
+            quantitySummary.put("mktgPkgATP", resultOutput.get("availableToPromiseTotal"));
+        }
+        
         quantitySummaryByFacility.put(facility.getString("facilityId"), quantitySummary);
     }
 
