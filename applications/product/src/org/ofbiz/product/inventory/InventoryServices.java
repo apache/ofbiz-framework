@@ -699,21 +699,19 @@ public class InventoryServices {
         result.put("quantityOnHandTotal", quantityOnHandTotal);
         return result;
     }
-    
-    /**
-     * Given a set of order items, returns a hashmap with the ATP and QOH for each product. The default method is to sum
-     * inventories over all Facilities.
-     */
+
+
     public static Map getProductInventorySummaryForItems(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List orderItems = (List) context.get("orderItems");
         Map atpMap = new HashMap();
         Map qohMap = new HashMap();
+        Map mktgPkgAtpMap = new HashMap();
+        Map mktgPkgQohMap = new HashMap();
         Map results = ServiceUtil.returnSuccess();
-        results.put("availableToPromiseMap", atpMap);
-        results.put("quantityOnHandMap", qohMap);
 
+        // get a list of all available facilities for looping
         List facilities = null;
         try {
             facilities = delegator.findAll("Facility");
@@ -722,16 +720,17 @@ public class InventoryServices {
             return ServiceUtil.returnError("Unable to locate facilities.");
         }
 
+        // loop through all the order items
         Iterator iter = orderItems.iterator();
         while (iter.hasNext()) {
             GenericValue orderItem = (GenericValue) iter.next();
             String productId = orderItem.getString("productId");
 
             if ((productId == null) || productId.equals("")) continue;
-            
+
             GenericValue product = null;
             try {
-                product = orderItem.getRelatedOne("Product");
+                product = orderItem.getRelatedOneCache("Product");
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Couldn't get product.", module);
                 return ServiceUtil.returnError("Unable to retrive product with id [" + productId + "]");
@@ -739,30 +738,53 @@ public class InventoryServices {
 
             double atp = 0.0;
             double qoh = 0.0;
+            double mktgPkgAtp = 0.0;
+            double mktgPkgQoh = 0.0;
             Iterator facilityIter = facilities.iterator();
+
+            // loop through all the facilities
             while (facilityIter.hasNext()) {
                 GenericValue facility = (GenericValue) facilityIter.next();
-                Map params = UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId"));
                 Map invResult = null;
+                Map mktgPkgInvResult = null;
+
+                // get both the real ATP/QOH available and the quantities available from marketing packages
                 try {
                     if ("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) {
-                        invResult = dispatcher.runSync("getMktgPackagesAvailable", params);
-                    } else {
-                        invResult = dispatcher.runSync("getInventoryAvailableByFacility", params);
-                    }
+                        mktgPkgInvResult = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId")));
+                    } 
+                    invResult = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facility.getString("facilityId")));
                 } catch (GenericServiceException e) {
                     String msg = "Could not find inventory for facility [" + facility.getString("facilityId") + "]";
                     Debug.logError(e, msg, module);
                     return ServiceUtil.returnError(msg);
                 }
-                Double fatp = (Double) invResult.get("availableToPromiseTotal");
-                Double fqoh = (Double) invResult.get("quantityOnHandTotal");
-                if (fatp != null) atp += fatp.doubleValue();
-                if (fqoh != null) qoh += fqoh.doubleValue();
+
+                // add the results for this facility to the ATP/QOH counter for all facilities
+                if (!ServiceUtil.isError(invResult)) {
+                    Double fatp = (Double) invResult.get("availableToPromiseTotal");
+                    Double fqoh = (Double) invResult.get("quantityOnHandTotal");
+                    if (fatp != null) atp += fatp.doubleValue();
+                    if (fqoh != null) qoh += fqoh.doubleValue();
+                }
+                if (("MARKETING_PKG_AUTO".equals(product.getString("productTypeId"))) && (!ServiceUtil.isError(mktgPkgInvResult))) {
+                    Double fatp = (Double) mktgPkgInvResult.get("availableToPromiseTotal");
+                    Double fqoh = (Double) mktgPkgInvResult.get("quantityOnHandTotal");
+                    if (fatp != null) mktgPkgAtp += fatp.doubleValue();
+                    if (fqoh != null) mktgPkgQoh += fqoh.doubleValue();
+                }
             }
+
             atpMap.put(productId, new Double(atp));
             qohMap.put(productId, new Double(qoh));
+            mktgPkgAtpMap.put(productId, new Double(mktgPkgAtp));
+            mktgPkgQohMap.put(productId, new Double(mktgPkgQoh));
         }
+
+        results.put("availableToPromiseMap", atpMap);
+        results.put("quantityOnHandMap", qohMap);
+        results.put("mktgPkgATPMap", mktgPkgAtpMap);
+        results.put("mktgPkgQOHMap", mktgPkgQohMap);
         return results;
     }
 }

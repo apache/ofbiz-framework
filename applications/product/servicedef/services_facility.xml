@@ -103,7 +103,7 @@ under the License.
     </service>
 
     <service name="getMktgPackagesAvailable" engine="simple"
-                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getMktgPackagesAvailable" auth="false">
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getMktgPackagesAvailable" auth="false" use-transaction="false">
         <description>Get Marketing Packages Available From Components In Inventory</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
@@ -111,14 +111,14 @@ under the License.
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventoryAvailable" engine="simple"
-                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="getInventoryAvailableByFacility" engine="simple"
-                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a facilityId</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -135,7 +135,7 @@ under the License.
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="getInventoryAvailableByContainer" engine="simple"
-                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a containerId</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="containerId" type="String" mode="IN" optional="false"/>
@@ -143,14 +143,14 @@ under the License.
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="getInventoryAvailableByItem" engine="simple"
-                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for an InventoryItem</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventoryAvailableFromAssocProducts" engine="java"
-                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailableFromAssocProducts" auth="false">
+             location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventoryAvailableFromAssocProducts" auth="false" use-transaction="false">
         <description>
             Get Inventory Availability for a product based on List of associated products,
             usually marketing package components.
@@ -161,11 +161,14 @@ under the License.
         <attribute name="availableToPromiseTotal" type="Double" mode="OUT" optional="false"/>
     </service>
     <service name="getProductInventorySummaryForItems" engine="java"
-                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false">
-        <description>Get Inventory Availability for a list of OrderItems.</description>
+                location="org.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false" use-transaction="false">
+        <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO, then put its quantity available from components
+            in the mktgPkgATPMap and mktgPkgQOHMap.</description>
         <attribute name="orderItems" type="List" mode="IN" optional="false"/>
         <attribute name="quantityOnHandMap" type="Map" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseMap" type="Map" mode="OUT" optional="false"/>
+        <attribute name="mktgPkgQOHMap" type="Map" mode="OUT" optional="false"/>
+        <attribute name="mktgPkgATPMap" type="Map" mode="OUT" optional="false"/>
     </service>
 
     <service name="checkInventoryAvailability" engine="java"
