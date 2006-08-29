@@ -200,7 +200,7 @@ under the License.
         <auto-fields-service service-name="createProductPrice"/>
         <field name="productId"><hidden/></field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}" widget-style="selectBox">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
                 <entity-options entity-name="ProductPriceType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
