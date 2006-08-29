@@ -118,7 +118,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submit" title="${uiLabelMap.CommonCreate}" use-when="partyAcctgPreference==null"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="partyAcctgPreference==null"><submit/></field>
         
         <!-- otherwise, we just display the fields.  there is no submit button because we shouldn't try to create it again and don't support an update option right now-->
         <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null"><display/></field>
@@ -242,7 +242,7 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="submit" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     
     <!-- forms for Purchase invoice Itemtypes to GLAccount number -->
@@ -281,7 +281,7 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="submit" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     
     <!-- forms for payment types to GLAccount type -->
@@ -319,7 +319,7 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="submit" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <!-- forms for payment method Type to GLAccounts -->
     <form name="ListPaymentMethodTypeGlAssignments" type="list" default-widget-style="tabletext"
@@ -357,7 +357,7 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="submit" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 
     <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" 
