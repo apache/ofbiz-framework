@@ -81,6 +81,9 @@ if (partyId != null) {
 inventorySummary = dispatcher.runSync("getProductInventorySummaryForItems", UtilMisc.toMap("orderItems", shoppingCart.makeOrderItems()));
 context.put("availableToPromiseMap", inventorySummary.get("availableToPromiseMap"));
 context.put("quantityOnHandMap", inventorySummary.get("quantityOnHandMap"));
+context.put("mktgPkgATPMap", inventorySummary.get("mktgPkgATPMap"));
+context.put("mktgPkgQOHMap", inventorySummary.get("mktgPkgQOHMap"));
+
 
 // get purchase order item types
 purchaseOrderItemTypeList = delegator.findByAndCache("OrderItemType", UtilMisc.toMap("parentTypeId", "PURCHASE_SPECIFIC"));
