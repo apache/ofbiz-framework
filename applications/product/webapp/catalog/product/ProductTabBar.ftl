@@ -33,7 +33,7 @@ under the License.
         <a href="<@ofbizUrl>EditProductFeatures?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductFeatures?default(unselectedClassName)}">${uiLabelMap.ProductFeatures}</a>
         <a href="<@ofbizUrl>EditProductFacilities?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductFacilities?default(unselectedClassName)}">${uiLabelMap.ProductFacilities}</a>
         <a href="<@ofbizUrl>EditProductFacilityLocations?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductFacilityLocations?default(unselectedClassName)}">${uiLabelMap.ProductLocations}</a>
-        <a href="<@ofbizUrl>EditProductInventoryItems?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductInventoryItems?default(unselectedClassName)}">${uiLabelMap.ProductInventory}</a>
+        <a href="<@ofbizUrl>EditProductInventoryItems?productId=${productId}&showAllFacilities=Y</@ofbizUrl>" class="${selectedClassMap.EditProductInventoryItems?default(unselectedClassName)}">${uiLabelMap.ProductInventory}</a>
         <a href="<@ofbizUrl>EditProductSuppliers?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditSupplierProduct?default(unselectedClassName)}">${uiLabelMap.ProductSuppliers}</a>
         <a href="<@ofbizUrl>EditProductGlAccounts?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductGlAccounts?default(unselectedClassName)}">${uiLabelMap.ProductAccounts}</a>
         <a href="<@ofbizUrl>EditProductPaymentMethodTypes?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductPaymentMethodTypes?default(unselectedClassName)}">${uiLabelMap.ProductPaymentTypes}</a>
