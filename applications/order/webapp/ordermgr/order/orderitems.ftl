@@ -80,8 +80,11 @@ under the License.
                       <#-- INVENTORY -->
                       <#if (orderHeader.statusId != "ORDER_COMPLETED") && availableToPromiseMap?exists && quantityOnHandMap?exists && availableToPromiseMap.get(productId)?exists && quantityOnHandMap.get(productId)?exists>
                       <#assign quantityToProduce = 0>
+                      <#assign product = orderItem.getRelatedOneCache("Product")>
                       <#assign atpQuantity = availableToPromiseMap.get(productId)?default(0)>
                       <#assign qohQuantity = quantityOnHandMap.get(productId)?default(0)>
+                      <#assign mktgPkgATP = mktgPkgATPMap.get(productId)?default(0)>
+                      <#assign mktgPkgQOH = mktgPkgQOHMap.get(productId)?default(0)>
                       <#assign requiredQuantity = requiredProductQuantityMap.get(productId)?default(0)>
                       <#assign onOrderQuantity = onOrderProductQuantityMap.get(productId)?default(0)>
                       <#assign inProductionQuantity = productionProductQuantityMap.get(productId)?default(0)>
@@ -96,6 +99,10 @@ under the License.
                                 <td style="padding-left: 15px; text-align: left;">${requiredQuantity}</td></tr>
                               <tr><td align="left">${uiLabelMap.ProductInInventory} ${uiLabelMap.ProductQoh}</td>
                                 <td style="padding-left: 15px; text-align: left;">${qohQuantity} (${uiLabelMap.ProductAtp}: ${atpQuantity})</a></td></tr>
+                              <#if (product != null) && (product.productTypeId != null) && (product.productTypeId == "MARKETING_PKG_AUTO")>
+                                <tr><td align="left">${uiLabelMap.ProductMarketingPackageQOH}</td>
+                                  <td style="padding-left: 15px; text-align: left;">${mktgPkgQOH} (${uiLabelMap.ProductAtp}: ${mktgPkgATP})</a></td></tr>
+                              </#if>
                               <tr><td align="left">${uiLabelMap.OrderOnOrder}</td>
                                 <td style="padding-left: 15px; text-align: left;">${onOrderQuantity}</td></tr>
                               <tr><td align="left">${uiLabelMap.OrderInProduction}</td>
