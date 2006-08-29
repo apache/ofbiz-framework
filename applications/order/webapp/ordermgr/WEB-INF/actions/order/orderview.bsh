@@ -242,6 +242,8 @@ if (orderHeader != null) {
     inventorySummary = dispatcher.runSync("getProductInventorySummaryForItems", UtilMisc.toMap("orderItems", orderItems));
     context.put("availableToPromiseMap", inventorySummary.get("availableToPromiseMap"));
     context.put("quantityOnHandMap", inventorySummary.get("quantityOnHandMap"));
+    context.put("mktgPkgATPMap", inventorySummary.get("mktgPkgATPMap"));
+    context.put("mktgPkgQOHMap", inventorySummary.get("mktgPkgQOHMap"));
 
     // get a list of facilities for purchase orders to receive against.  These facilities must be owned by the bill-to party of the purchase order.
     if ("PURCHASE_ORDER".equals(orderType)) {
