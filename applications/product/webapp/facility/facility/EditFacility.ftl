@@ -61,7 +61,7 @@ under the License.
       <select name="ownerPartyId" size="1" class='selectBox'>
         <#if ownerParties?has_content>
             <#list ownerParties as party>
-              <option value='${party.partyId?if_exists}' <#if facility.ownerPartyId?exists && party.partyId = facility.ownerPartyId>selected</#if>>${party.partyId?if_exists}</option>
+              <option value='${party.partyId?if_exists}' <#if facility.ownerPartyId?exists && party.partyId = facility.ownerPartyId>selected</#if>>${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(party)} (${party.partyId})</option>
             </#list>
         </#if>
       </select>
