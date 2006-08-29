@@ -91,12 +91,16 @@ under the License.
     <SecurityPermission description="Post general ledger accounting transactions." permissionId="ACCOUNTING_ATX_POST"/>
 
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_CREATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_CREATE"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_UPDATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_UPDATE"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_DELETE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_DELETE"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_POST"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_POST"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_POST"/>
     
     
