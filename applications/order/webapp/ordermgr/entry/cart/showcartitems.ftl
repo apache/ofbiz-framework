@@ -85,7 +85,7 @@ under the License.
                     <#-- this is a non-product item -->
                     <b>${cartLine.getItemTypeDescription()?if_exists}</b> : ${cartLine.getName()?if_exists}
                   </#if>
-                    <#-- display the item''s features -->
+                    <#-- display the item's features -->
                    <#assign features = "">
                    <#if cartLine.getFeaturesForSupplier(dispatcher,shoppingCart.getPartyId())?has_content>
                        <#assign features = cartLine.getFeaturesForSupplier(dispatcher, shoppingCart.getPartyId())>
@@ -132,11 +132,16 @@ under the License.
             </#if>
             <#-- inventory summary -->
             <#if cartLine.getProductId()?exists>
+              <#assign productId = cartLine.getProductId()>
+              <#assign product = cartLine.getProduct()>
               <tr>
                 <td colspan="2" align="left">
                   <div class="tabletext">
-                    <a href="/catalog/control/EditProductInventoryItems?productId=${cartLine.getProductId()}"><b>${uiLabelMap.ProductInventory}</b></a>: 
-                    ATP = ${availableToPromiseMap.get(cartLine.getProductId())}, QOH = ${quantityOnHandMap.get(cartLine.getProductId())}
+                    <a href="/catalog/control/EditProductInventoryItems?productId=${productId}" class="buttontext"><b>${uiLabelMap.ProductInventory}</b></a>: 
+                    ${uiLabelMap.ProductAtp} = ${availableToPromiseMap.get(productId)}, ${uiLabelMap.ProductQoh} = ${quantityOnHandMap.get(productId)}
+                    <#if product.productTypeId == "MARKETING_PKG_AUTO"> 
+                    ${uiLabelMap.ProductMarketingPackageATP} = ${mktgPkgATPMap.get(productId)}, ${uiLabelMap.ProductMarketingPackageQOH} = ${mktgPkgQOHMap.get(productId)}
+                    </#if>
                   </div>
                 </td>
               </tr>
