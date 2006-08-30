@@ -64,7 +64,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <if-empty field-name="orderHeaderList" map-name="parameters">
-            <log level="always" message="No order header list found in parameters; finding orders to pick."/>
+            <log level="info" message="No order header list found in parameters; finding orders to pick."/>
 
             <entity-condition entity-name="OrderHeader" list-name="orderHeaderList">
                 <condition-list combine="and">
@@ -83,7 +83,7 @@ under the License.
         <set field="maxNumberOfOrders" type="Long" from-field="parameters.maxNumberOfOrders" set-if-empty="true"/>
         <set field="numberSoFar" type="Long" value="0"/>
         <iterate entry-name="orderHeader" list-name="orderHeaderList">
-            <log level="always" message="Checking order #${orderHeader.orderId} to add to picklist"/>
+            <log level="info" message="Checking order #${orderHeader.orderId} to add to picklist"/>
             <!-- get all ship groups, and iterate over them for each order -->
             <entity-and entity-name="OrderItemShipGroup" list-name="orderItemShipGroupList">
                 <field-map field-name="orderId" env-name="orderHeader.orderId"/>
@@ -138,10 +138,10 @@ under the License.
                                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
                                     </condition-list>
                                 </entity-condition>
-                                <log level="always" message="Pick list ITEMS - ${picklistItemList}"/>
+                                <log level="info" message="Pick list ITEMS - ${picklistItemList}"/>
                                 <!-- if all picklistItemList are not empty, don't include order as a pick candidate; keep a flag to see -->
                                 <if-empty field-name="picklistItemList">
-                                    <log level="always" message="The pick list item list is empty!"/>
+                                    <log level="info" message="The pick list item list is empty!"/>
                                     <!-- note that this is separate because we can't really use it as a break condition, must check all of them before any useful information is to be had -->
                                     <set value="N" field="allPickStarted"/>
 
@@ -190,11 +190,11 @@ under the License.
                                 </and>
                             </condition>
                             <then>
-                                <log level="always" message="We have passed the max number of orders!"/>
+                                <log level="info" message="We have passed the max number of orders!"/>
                                 <set value="N" field="pickThisOrder"/>
                             </then>
                             <else>
-                                <log level="always" message="We have not passed the max number of orders yet..."/>
+                                <log level="info" message="We have not passed the max number of orders yet..."/>
                             </else>
                         </if>
 
@@ -236,10 +236,10 @@ under the License.
                                 <calculate field-name="numberSoFar" type="Long">
                                     <calcop field-name="numberSoFar" operator="add"><number value="1"/></calcop>
                                 </calculate>
-                                <log level="always" message="Added order #${orderHeader.orderId} to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
+                                <log level="info" message="Added order #${orderHeader.orderId} to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
                             </then>
                             <else>
-                                <log level="always" message="Order #${orderHeader.orderId} was not added to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
+                                <log level="info" message="Order #${orderHeader.orderId} was not added to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
                             </else>
                         </if>
 
@@ -247,7 +247,7 @@ under the License.
                         <clear-field field-name="orderItemShipGrpInvResInfoList"/>
                     </then>
                     <else>
-                        <log level="always" message="Order is not a member of the requested shipment method: ${parameters.shipmentMethodTypeId}"/>
+                        <log level="info" message="Order is not a member of the requested shipment method: ${parameters.shipmentMethodTypeId}"/>
                     </else>
                 </if>
             </iterate>
