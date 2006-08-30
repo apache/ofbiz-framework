@@ -2281,6 +2281,50 @@ public class ShoppingCart implements Serializable {
         return itemsTotal;
     }
 
+    /**
+     * Get the total payment amount by payment type.  Specify null to get amount
+     * over all types.
+     */
+    public double getOrderPaymentPreferenceTotalByType(String paymentMethodTypeId) {
+        double total = 0.0;
+        String thisPaymentMethodTypeId = null;
+        for (Iterator iter = paymentInfo.iterator(); iter.hasNext(); ) {
+            CartPaymentInfo payment = (CartPaymentInfo) iter.next();
+            if (payment.amount == null) continue;
+            if (payment.paymentMethodId != null) {
+                try {
+                    // need to determine the payment method type from the payment method
+                    GenericValue paymentMethod = this.getDelegator().findByPrimaryKeyCache("PaymentMethod", UtilMisc.toMap("paymentMethodId", payment.paymentMethodId));
+                    if (paymentMethod != null) {
+                        thisPaymentMethodTypeId = paymentMethod.getString("paymentMethodTypeId");
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, e.getMessage(), module);
+                }
+            } else {
+                thisPaymentMethodTypeId = payment.paymentMethodTypeId;
+            }
+
+            // add the amount according to paymentMethodType
+            if (paymentMethodTypeId == null || paymentMethodTypeId.equals(thisPaymentMethodTypeId)) {
+                total += payment.amount.doubleValue();
+            }
+        }
+        return total;
+    }
+
+    public double getCreditCardPaymentPreferenceTotal() {
+        return getOrderPaymentPreferenceTotalByType("CREDIT_CARD");
+    }
+
+    public double getBillingAccountPaymentPreferenceTotal() {
+        return getOrderPaymentPreferenceTotalByType("EXT_BILLACT");
+    }
+
+    public double getGiftCardPaymentPreferenceTotal() {
+        return getOrderPaymentPreferenceTotalByType("GIFT_CARD");
+    }
+
     /** Add a contact mech to this purpose; the contactMechPurposeTypeId is required */
     public void addContactMech(String contactMechPurposeTypeId, String contactMechId) {
         if (contactMechPurposeTypeId == null) throw new IllegalArgumentException("You must specify a contactMechPurposeTypeId to add a ContactMech");

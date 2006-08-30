@@ -87,11 +87,11 @@ under the License.
         </tr>  
         <tr>
           <td class="tabletext" width="25%">${uiLabelMap.OrderAmountAlreadyCredited}</td>
-          <td class="tabletext"><@ofbizCurrency amount=orh.getOrderReturnedCreditTotalBd() isoCode=orh.getCurrency()/></td>
+          <td class="tabletext"><@ofbizCurrency amount=orh.getReturnedCreditTotalWithBillingAccountBd() isoCode=orh.getCurrency()/></td>
         </tr>  
         <tr>
           <td class="tabletext" width="25%">${uiLabelMap.OrderAmountAlreadyRefunded}</td>
-          <td class="tabletext"><@ofbizCurrency amount=orh.getOrderReturnedRefundTotalBd() isoCode=orh.getCurrency()/></td>
+          <td class="tabletext"><@ofbizCurrency amount=orh.getReturnedRefundTotalWithBillingAccountBd() isoCode=orh.getCurrency()/></td>
         </tr>  
       </table>  
   </td></tr>

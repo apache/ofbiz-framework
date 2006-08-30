@@ -26,6 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.commons.collections.set.ListOrderedSet;
 
@@ -1052,6 +1053,73 @@ public class OrderReadHelper {
         }
         return shippableSizes;
     }
+    
+    /**
+     * Get the total payment preference amount by payment type.  Specify null to get amount
+     * for all preference types.  TODO: filter by status as well?
+     */
+    public BigDecimal getOrderPaymentPreferenceTotalByType(String paymentMethodTypeId) {
+        BigDecimal total = ZERO;
+        for (Iterator iter = getPaymentPreferences().iterator(); iter.hasNext(); ) {
+            GenericValue preference = (GenericValue) iter.next();
+            if (preference.get("maxAmount") == null) continue;
+            if (paymentMethodTypeId == null || paymentMethodTypeId.equals(preference.get("paymentMethodTypeId"))) {
+                total = total.add(preference.getBigDecimal("maxAmount")).setScale(scale, rounding);
+            }
+        }
+        return total;
+    }
+
+    public BigDecimal getCreditCardPaymentPreferenceTotal() {
+        return getOrderPaymentPreferenceTotalByType("CREDIT_CARD");
+    }
+
+    public BigDecimal getBillingAccountPaymentPreferenceTotal() {
+        return getOrderPaymentPreferenceTotalByType("EXT_BILLACT");
+    }
+
+    public BigDecimal getGiftCardPaymentPreferenceTotal() {
+        return getOrderPaymentPreferenceTotalByType("GIFT_CARD");
+    }
+
+    /**
+     * Get the total payment received amount by payment type.  Specify null to get amount
+     * over all types. This method works by going through all the PaymentAndApplications
+     * for all order Invoices that have status PMNT_RECEIVED.  
+     */
+    public BigDecimal getOrderPaymentReceivedTotalByType(String paymentMethodTypeId) {
+        BigDecimal total = ZERO;
+
+        try {
+            // get a set of invoice IDs that belong to the order
+            List orderItemBillings = orderHeader.getRelatedCache("OrderItemBilling");
+            Set invoiceIds = new HashSet();
+            for (Iterator iter = orderItemBillings.iterator(); iter.hasNext(); ) {
+                GenericValue orderItemBilling = (GenericValue) iter.next();
+                invoiceIds.add(orderItemBilling.get("invoiceId"));
+            }
+
+            // get the payments of the desired type for these invoices TODO: in models where invoices can have many orders, this needs to be refined
+            List conditions = UtilMisc.toList(
+                    new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
+                    new EntityExpr("invoiceId", EntityOperator.IN, invoiceIds)
+                    );
+            if (paymentMethodTypeId != null) {
+                conditions.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
+            }
+            EntityConditionList ecl = new EntityConditionList(conditions, EntityOperator.AND);
+            List payments = orderHeader.getDelegator().findByConditionCache("PaymentAndApplication", ecl, null, null);
+
+            for (Iterator iter = payments.iterator(); iter.hasNext(); ) {
+                GenericValue payment = (GenericValue) iter.next();
+                if (payment.get("amountApplied") == null) continue;
+                total = total.add(payment.getBigDecimal("amountApplied")).setScale(scale, rounding);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, e.getMessage(), module);
+        }
+        return total;
+    }
 
     // TODO: Might want to use BigDecimal here if precision matters
     public double getItemSize(GenericValue item) {
@@ -1731,6 +1799,56 @@ public class OrderReadHelper {
         BigDecimal orderShippingNotReturned = this.getShippingTotalBd().multiply(orderFactorNotReturned).setScale(scale, rounding);
 
         return totalTaxNotReturned.add(totalShippingNotReturned).add(orderTaxNotReturned).add(orderShippingNotReturned).setScale(scale, rounding);
+    }
+
+    /** Gets the total refunded to the order billing account by type.  Specify null to get total over all types. */
+    public BigDecimal getBillingAccountReturnedTotalByTypeBd(String returnTypeId) {
+        BigDecimal returnedAmount = ZERO;
+        List returnedItemsBase = getOrderReturnItems();
+        if (returnTypeId != null) {
+            returnedItemsBase = EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("returnTypeId", returnTypeId));
+        }
+        List returnedItems = new ArrayList(returnedItemsBase.size());
+
+        // get only the RETURN_RECEIVED and RETURN_COMPLETED statusIds
+        returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_RECEIVED")));
+        returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
+
+        // sum up the return items that have a return item response with a billing account defined
+        try {
+            for (Iterator iter = returnedItems.iterator(); iter.hasNext(); ) {
+                GenericValue returnItem = (GenericValue) iter.next();
+                GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse");
+                if (returnItemResponse == null) continue;
+                if (returnItemResponse.get("billingAccountId") == null) continue;
+
+                // we can just add the response amounts
+                returnedAmount = returnedAmount.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(scale, rounding);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, e.getMessage(), module);
+        }
+        return returnedAmount;
+    }
+
+    /** Get the total return credited to the order billing accounts */
+    public BigDecimal getBillingAccountReturnedCreditTotalBd() {
+        return getBillingAccountReturnedTotalByTypeBd("RTN_CREDIT");
+    }
+
+    /** Get the total return refunded to the order billing accounts */
+    public BigDecimal getBillingAccountReturnedRefundTotalBd() {
+        return getBillingAccountReturnedTotalByTypeBd("RTN_REFUND");
+    }
+
+    /** Gets the total return credited amount with refunds and credits to the billing account figured in */
+    public BigDecimal getReturnedCreditTotalWithBillingAccountBd() {
+        return getOrderReturnedCreditTotalBd().add(getBillingAccountReturnedRefundTotalBd()).subtract(getBillingAccountReturnedCreditTotalBd());
+    }
+
+    /** Gets the total return refund amount with refunds and credits to the billing account figured in */
+    public BigDecimal getReturnedRefundTotalWithBillingAccountBd() {
+        return getOrderReturnedRefundTotalBd().add(getBillingAccountReturnedCreditTotalBd()).subtract(getBillingAccountReturnedRefundTotalBd());
     }
 
     /** @deprecated */
