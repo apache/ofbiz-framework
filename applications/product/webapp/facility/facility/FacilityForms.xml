@@ -49,6 +49,10 @@ under the License.
             </drop-down>
         </field>
         <field name="offsetQty" title="${uiLabelMap.ProductQtyOffsetBelow}"><text/></field>
+        <field name="productsSoldThruTimestamp" title="${uiLabelMap.ProductShowProductsSoldThruTimestamp}">
+            <date-time/>
+        </field>
+        <field name="VIEW_SIZE" title="${uiLabelMap.ProductShowProductsPerPage}"><text default-value="50"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

@@ -58,6 +58,7 @@ if (action != null) {
     prodView.addMemberEntity("PROD", "Product");
     prodView.addViewLink("PROD", "PRFA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
     prodView.addAlias("PROD", "isVirtual");
+    prodView.addAlias("PROD", "salesDiscontinuationDate");
     if (productTypeId != null && productTypeId.length() > 0) {
         prodView.addAlias("PROD", "productTypeId");
         conditionMap.put("productTypeId", productTypeId);
@@ -78,14 +79,25 @@ if (action != null) {
         conditionMap.put("partyId", productSupplierId);
         searchParameterString = searchParameterString + "&productSupplierId=" + productSupplierId;
     }
-
+    
     // set distinct on so we only get one row per product
     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     EntityCondition searchCondition = new EntityFieldMap(conditionMap, EntityOperator.AND);
     EntityCondition notVirtualCondition = new EntityExpr(new EntityExpr("isVirtual", EntityOperator.EQUALS, null),
                                                          EntityOperator.OR,
                                                          new EntityExpr("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
-    EntityCondition whereCondition = new EntityConditionList(UtilMisc.toList(searchCondition, notVirtualCondition), EntityOperator.AND);
+
+    whereConditionsList = UtilMisc.toList(searchCondition, notVirtualCondition);
+    // add the discontinuation date condition
+    if (UtilValidate.isNotEmpty(productsSoldThruTimestamp)) {
+        EntityCondition discontinuationDateCondition = new EntityConditionList(UtilMisc.toList(
+                new EntityExpr("salesDiscontinuationDate", EntityOperator.EQUALS, null),
+                new EntityExpr("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
+            EntityOperator.OR);
+        whereConditionsList.add(discontinuationDateCondition);
+    }
+    
+    EntityCondition whereCondition = new EntityConditionList(whereConditionsList, EntityOperator.AND);
 
     boolean beganTransaction = false;
     List prods = null;
