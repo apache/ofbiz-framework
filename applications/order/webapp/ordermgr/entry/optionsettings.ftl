@@ -55,7 +55,7 @@ under the License.
                         <#assign shippingEst = shipEstimateWrapper.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                         <#if shippingEst?has_content>
                           &nbsp;-&nbsp;
-                          <#if (shippingEst > -1)?exists>
+                          <#if (shippingEst > -1)>
                             <@ofbizCurrency amount=shippingEst isoCode=cart.getCurrency()/>
                           <#else>
                             Calculated Offline
