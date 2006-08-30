@@ -201,7 +201,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
                 <!-- This is the target of the search form-->
@@ -212,7 +212,8 @@ under the License.
                 <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
                 <set field="productSupplierId" from-field="parameters.productSupplierId"/>
                 <set field="offsetQty" from-field="parameters.offsetQty"/>
-
+                <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
+                
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
             </actions>
             <widgets>
