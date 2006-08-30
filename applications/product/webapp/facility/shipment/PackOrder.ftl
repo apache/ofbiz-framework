@@ -186,13 +186,14 @@ under the License.
               <td><div class="tableheadtext">${uiLabelMap.ProductProductId}</td>
               <td><div class="tableheadtext">${uiLabelMap.ProductDescription}</td>
               <td align="right"><div class="tableheadtext">${uiLabelMap.ProductOrderedQuantity}</td>
+              <td align="right"><div class="tableheadtext">${uiLabelMap.ProductQuantityShipped}</td>
               <td align="right"><div class="tableheadtext">${uiLabelMap.ProductPackedQty}</td>
               <td>&nbsp;</td>
               <td align="center"><div class="tableheadtext">${uiLabelMap.ProductPackQty}</td>
               <td align="center"><div class="tableheadtext">${uiLabelMap.ProductPackage}</td>
             </tr>
             <tr>
-              <td colspan="9">
+              <td colspan="10">
                 <hr class="sepbar"/>
               </td>
             </tr>
@@ -209,10 +210,11 @@ under the License.
                 <td><div class="tabletext">${orderItem.productId?default("N/A")}</td>
                 <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
                 <td align="right"><div class="tabletext">${orderItemQuantity}</td>
+                <td align="right"><div class="tabletext">${shippedQuantity}</td>
                 <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId)}</td>
                 <td>&nbsp;&nbsp;</td>
                 <td align="center">
-                  <#assign inputQty = (orderItemQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
+                  <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
                   <input type="text" class="inputBox" size="7" name="qty_${orderItem.orderItemSeqId}" value="${inputQty}">
                 </td>
                 <td align="center">
@@ -227,9 +229,9 @@ under the License.
                 <input type="hidden" name="prd_${orderItem.orderItemSeqId}" value="${orderItem.productId?if_exists}">
               </tr>
             </#list>
-            <tr><td colspan="9">&nbsp;</td></tr>
+            <tr><td colspan="10">&nbsp;</td></tr>
             <tr>
-              <td colspan="9" align="right">
+              <td colspan="10" align="right">
                 <input type="submit" value="${uiLabelMap.ProductPackItem}">
                 &nbsp;
                 <input type="button" value="${uiLabelMap.CommonClear}" onclick="javascript:document.clearPackForm.submit();"/>
