@@ -86,9 +86,12 @@ public class AgreementServices {
         List commissions = FastList.newInstance();
         
         // either ACCOUNTING_COMM_VIEW or ACCOUNTING_MANAGER should be allowed to see commission amounts
-        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "ACCOUNTING", "_COMM_VIEW");
-        if (result.size() > 0)
+        if (!security.hasEntityPermission("ACCOUNTING", "_COMM_VIEW", userLogin)) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            errMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.no_permission_to_operation", locale) + ".";
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
             return result;
+        }
         try {
             BigDecimal amount = ((BigDecimal)context.get("amount"));
             BigDecimal quantity = (BigDecimal)context.get("quantity");
