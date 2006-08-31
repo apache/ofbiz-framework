@@ -107,7 +107,7 @@ under the License.
         
         <field use-when="workEffort==null" name="quickAssignPartyId"><lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/></field>
         <field use-when="workEffort==null" name="requirementId"><lookup target-form-name="LookupRequirement"/></field>
-        <field name="communicationEventId" map-name="context"><lookup target-form-name="LookupCommunicationEvent"/></field><!-- TODO: need to implement this -->
+        <field name="communicationEventId" map-name="context"><lookup target-form-name="LookupCommEvent"/></field>
         
         <field name="revisionNumber" use-when="workEffort!=null" widget-style="tabletext"><display/></field>
 
