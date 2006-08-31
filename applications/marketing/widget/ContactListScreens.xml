@@ -122,6 +122,11 @@ under the License.
                 <set field="tabButtonItem" value="ContactListParty"/>
                 <set field="labelTitleProperty" value="PageTitleListContactListParty"/>
 
+                <!-- parameters for pagination -->
+                <set field="queryString" value="contactListId=${parameters.contactListId}"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
             </actions>
