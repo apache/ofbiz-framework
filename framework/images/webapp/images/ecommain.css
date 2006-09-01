@@ -177,6 +177,7 @@ text-decoration: underline;
 position: relative;
 background: #FFFFFF;
 width: 100%;
+margin-top: 10px;
 }
 
 #ecom-mainarea .left {
@@ -198,7 +199,6 @@ background: #ffffff;
 background:#fff;
 text-align: left;
 vertical-align: top;
-margin-top: 10px;
 }
 #ecom-mainarea .center {
 margin-left: 160px;
@@ -226,6 +226,8 @@ margin-right: 211px;
 background: #FFFFFF;
 border: 1px solid #999999;
 margin-bottom: 10px;
+height:auto !important;
+height:1%
 }
 #ecom-mainarea .screenlet-header {
 background: #000099;
@@ -233,10 +235,14 @@ padding-top: 1px;
 padding-bottom: 3px;
 padding-right: 4px;
 padding-left: 4px;
+height:auto !important;
+height:1%
 }
 #ecom-mainarea .screenlet-body {
 background: #FFFFFF;
 padding: 4px;
+height:auto !important;
+height:1%
 }
 
 .boxhead {
@@ -835,7 +841,8 @@ text-align: right;
 }
 
 .productsummary-container {
-margin-top: 5px;
+position: relative;
+margin-top: 10px;
 margin-bottom: 5px;
 border-top: #999 solid 1px;
 }
@@ -844,9 +851,7 @@ border-top: #999 solid 1px;
 position: relative;
 padding: 5px;
 border-bottom: #999 solid 1px;
-/* using min-height as an alternative to clear: both; because that, in some browsers, will clear the top-level columns and not just in this div (Mozilla based, namely) */
-min-height: 60px;
-overflow: auto;
+height: 60px;
 }
 
 .productsummary .smallimage {
