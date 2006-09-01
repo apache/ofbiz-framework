@@ -24,6 +24,7 @@ under the License.
     <CustRequestType custRequestTypeId="RF_PROPOSAL" description="Request For Proposal" hasTable="N" parentTypeId=""/>
     <CustRequestType custRequestTypeId="RF_QUOTE" description="Request For Quote" hasTable="N" parentTypeId=""/>
     <CustRequestType custRequestTypeId="RF_SUPPORT" description="Request For Support" hasTable="N" parentTypeId=""/>
+    <CustRequestType custRequestTypeId="RF_PUR_QUOTE" description="Request For Purchase Quote" hasTable="N" parentTypeId=""/>
 
     <CustRequestResolution custRequestResolutionId="FIXED" custRequestTypeId="RF_BUGFIX" description="Fixed"/>
     <CustRequestResolution custRequestResolutionId="WORKS" custRequestTypeId="RF_BUGFIX" description="Works For Me"/>
@@ -74,6 +75,7 @@ under the License.
     <QuoteType description="Other" hasTable="N" parentTypeId="" quoteTypeId="OTHER_QUOTE"/>
     <QuoteType description="Product" hasTable="N" parentTypeId="" quoteTypeId="PRODUCT_QUOTE"/>
     <QuoteType description="Proposal" hasTable="N" parentTypeId="" quoteTypeId="PROPOSAL"/>
+    <QuoteType description="Product Purchase" hasTable="N" parentTypeId="" quoteTypeId="PURCHASE_QUOTE"/>
 
     <RequirementType description="Customer Requirement" hasTable="N" parentTypeId="" requirementTypeId="CUSTOMER_REQUIREMENT"/>
     <RequirementType description="Internal Requirement" hasTable="N" parentTypeId="" requirementTypeId="INTERNAL_REQUIREMENT"/>

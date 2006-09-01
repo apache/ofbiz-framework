@@ -725,11 +725,19 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteFromCustRequest"/>
         </check-permission>
         <check-errors/>
-
         <entity-one entity-name="CustRequest" value-name="custRequest" auto-field-map="true"/>
-        <if-compare field-name="custRequest.custRequestTypeId" operator="not-equals" value="RF_QUOTE">
-            <add-error><fail-message message="ERROR: CustRequest [${custRequest.custRequestId}] is not a request for quote."/></add-error>
-        </if-compare>
+        <!-- error if request type not equals to RF_QUOTE or RF_PUR_QUOTE -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare field-name="custRequest.custRequestTypeId" operator="not-equals" value="RF_QUOTE"/>
+                    <if-compare field-name="custRequest.custRequestTypeId" operator="not-equals" value="RF_PUR_QUOTE"/>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-message message="ERROR: CustRequest [${custRequest.custRequestId}] is not a request for quote."/></add-error>
+            </then>
+        </if>
         <check-errors/>
 
         <set field="createQuoteInMap.partyId" from-field="custRequest.fromPartyId"/>
@@ -739,10 +747,17 @@ under the License.
         <set field="createQuoteInMap.currencyUomId" from-field="custRequest.maximumAmountUomId"/>
         <set field="createQuoteInMap.statusId" value="QUO_CREATED"/>
         <set field="createQuoteInMap.quoteTypeId" from-field="parameters.quoteTypeId"/>
+        <!-- set the quoteType (product or purchase) -->
         <if-empty field-name="createQuoteInMap.quoteTypeId">
-            <set field="createQuoteInMap.quoteTypeId" value="PRODUCT_QUOTE"/>
+            <if-compare field-name="custRequest.custRequestTypeId" operator="equals" value="RF_QUOTE">
+                <set field="createQuoteInMap.quoteTypeId" value="PRODUCT_QUOTE"/>
+            <else>
+                <set field="createQuoteInMap.quoteTypeId" value="PURCHASE_QUOTE"/>
+            </else>
+            </if-compare>
         </if-empty>
-        <call-service service-name="createQuote" in-map-name="createQuoteInMap">
+        
+         <call-service service-name="createQuote" in-map-name="createQuoteInMap">
             <result-to-field result-name="quoteId" field-name="quoteId"/>
         </call-service>
         <check-errors/>

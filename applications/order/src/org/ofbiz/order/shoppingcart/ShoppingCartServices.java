@@ -399,7 +399,10 @@ public class ShoppingCartServices {
 
         // create the cart
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currency);
-
+        // set shopping cart type
+        if (quote.getString("quoteTypeId").equals("PURCHASE_QUOTE")){
+        	cart.setOrderType("PURCHASE_ORDER");
+        }
         try {
             cart.setUserLogin(userLogin, dispatcher);
         } catch (CartItemModifyException e) {
