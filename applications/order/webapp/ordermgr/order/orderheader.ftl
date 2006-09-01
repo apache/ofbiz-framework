@@ -343,10 +343,10 @@ under the License.
                               <#-- Authorize and Capture transactions -->
 		                          <div class="tabletext">
                                 <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
-                                  [<a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}">${uiLabelMap.AccountingAuthorize}</a>]
+                                  <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                                 </#if>
                                 <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
-                                  [<a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}">${uiLabelMap.AccountingCapture}</a>]
+                                  <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                                 </#if>
                               </div>
 
