@@ -1,6 +1,4 @@
 /*
- * $Id: TransactionUtil.java 6778 2006-02-20 05:13:55Z jonesde $
- *
  * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
