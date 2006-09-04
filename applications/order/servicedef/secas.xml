@@ -226,6 +226,12 @@ under the License.
         <action service="associatedRequirementWithRequestItem" mode="sync"/>
     </eca>
 
+    <eca service="createRequirement" event="commit">
+        <condition field-name="productId" operator="is-not-empty"/>
+        <condition field-name="requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT"/>
+        <action service="autoAssignRequirementToSupplier" mode="sync"/>
+    </eca>
+
     <!-- Requirement / stock level -->
     <eca service="createItemIssuance" event="invoke">
         <condition field-name="quantity" value="0" operator="greater" type="Double"/>

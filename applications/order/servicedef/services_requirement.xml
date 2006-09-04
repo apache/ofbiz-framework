@@ -120,5 +120,11 @@ under the License.
         <attribute mode="IN" name="requirementId" optional="false" type="String"/>
         <attribute mode="IN" name="quantity" optional="true" type="Double"/>
     </service>
+
+    <service name="autoAssignRequirementToSupplier" engine="simple" auth="true"
+            location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="autoAssignRequirementToSupplier">
+        <description>If the requirement is a product requirement (purchasing) try to assign it to the primary supplier</description>
+        <attribute name="requirementId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
 
