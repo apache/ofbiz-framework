@@ -672,11 +672,10 @@ under the License.
     </request-map>
     <request-map uri="cancelOrderItem">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="cancelOrderItem"/>
+        <event type="service" invoke="cancelOrderItem"/>
         <response name="success" type="view" value="orderstatus"/>
         <response name="error" type="view" value="orderstatus"/>
     </request-map>
-
     <request-map uri="downloadDigitalProduct">
         <security auth="true" https="true"/>
         <event type="java" path="org.ofbiz.order.order.OrderEvents" invoke="downloadDigitalProduct"/>
