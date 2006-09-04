@@ -451,4 +451,8 @@ under the License.
     <VarianceReason varianceReasonId="VAR_DAMAGED" description="Damaged"/>
     <VarianceReason varianceReasonId="VAR_INTEGR" description="Integration"/>  
     <VarianceReason varianceReasonId="VAR_SAMPLE" description="Sample (Giveaway)"/>
+
+    <!-- Supplier preference order for SupplierProduct entries -->
+    <SupplierPrefOrder supplierPrefOrderId="10_MAIN_SUPPL" description="Main Supplier"/>
+    <SupplierPrefOrder supplierPrefOrderId="90_ALT_SUPPL" description="Alternative Supplier"/>
 </entity-engine-xml>
