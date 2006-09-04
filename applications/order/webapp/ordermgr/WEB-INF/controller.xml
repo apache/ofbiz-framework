@@ -215,7 +215,7 @@
     </request-map>
     <request-map uri="cancelOrderItem">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="cancelOrderItem"/>
+        <event type="service" invoke="cancelOrderItem"/>
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>

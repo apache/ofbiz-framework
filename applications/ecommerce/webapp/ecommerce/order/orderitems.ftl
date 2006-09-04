@@ -157,7 +157,7 @@ under the License.
                 <#if maySelectItems?default("N") == "Y">
                   <td>&nbsp;</td>
                   <#if (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED")>
-                    <td><a href="<@ofbizUrl>cancelOrderItem?orderId=${orderItem.orderId}&item_seq=${orderItem.orderItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></td>
+                    <td><a href="<@ofbizUrl>cancelOrderItem?orderId=${orderItem.orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></td>
                   <#else>
                     <td>&nbsp;</td>
                   </#if>

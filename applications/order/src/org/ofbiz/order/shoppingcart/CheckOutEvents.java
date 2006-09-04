@@ -77,47 +77,6 @@ public class CheckOutEvents {
         }
     }
 
-    public static String cancelOrderItem(HttpServletRequest request, HttpServletResponse response) {
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        String orderId = request.getParameter("orderId");
-        String itemSeqId = request.getParameter("item_seq");
-        String groupSeqId = request.getParameter("group_seq");
-        Locale locale = UtilHttp.getLocale(request);
-
-        Map fields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", itemSeqId, "shipGroupSeqId", groupSeqId, "userLogin", userLogin);
-        Map result = null;
-        String errMsg = null;
-
-        try {
-            result = dispatcher.runSync("cancelOrderItem", fields);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            errMsg = UtilProperties.getMessage(resource, "checkevents.cannot_cancel_item", locale);
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        }
-        if (result.containsKey(ModelService.ERROR_MESSAGE)) {
-            request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
-            return "error";
-        }
- 
-        try {
-            result = dispatcher.runSync("recreateOrderAdjustments", UtilMisc.toMap("userLogin", userLogin, "orderId", orderId));
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            errMsg = UtilProperties.getMessage(resource, "checkevents.cannot_recalc_adjustments", locale);
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        }
-        if (result.containsKey(ModelService.ERROR_MESSAGE)) {
-            request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
-            return "error";
-        }
-
-        return "success";
-    }
-
     public static String setCheckOutPages(HttpServletRequest request, HttpServletResponse response) {
         if ("error".equals(CheckOutEvents.cartNotEmpty(request, response)) == true) {
             return "error";
