@@ -3286,6 +3286,16 @@ public class OrderServices {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         String productStoreId = orh.getProductStoreId();
 
+        if (cart == null) {
+            try {
+                cart = loadCartForUpdate(dispatcher, delegator, userLogin, orderId);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            if (cart == null) {
+                return ServiceUtil.returnError("ERROR: Null shopping cart object returned!");
+            }
+        }
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
         // process the payments
         if (!"PURCHASE_ORDER".equals(cart.getOrderType())) {
