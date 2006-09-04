@@ -274,7 +274,7 @@ under the License.
     <service name="processOrderPayments" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderServices" invoke="processOrderPayments">
         <description>Process payments for an order</description>
-        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
 

@@ -99,11 +99,10 @@ under the License.
         <action service="recreateOrderAdjustments" mode="sync"/>
         <action service="resetGrandTotal" mode="sync"/>
     </eca>
-    <!--
     <eca service="cancelOrderItem" event="return">
         <action service="processOrderPayments" mode="sync"/>
     </eca>
-    -->
+
     <!-- order confirmation/notification email ECAs -->
     <eca service="sendOrderConfirmation" event="commit">
         <action service="createOrderNotificationLog" mode="sync"/>
