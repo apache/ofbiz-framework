@@ -307,7 +307,7 @@ under the License.
         <field name="invoiceId" widget-style="buttontext"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
         <field name="invoiceItemSeqId" widget-style="buttontext"><hyperlink target="listInvoiceItems?invoiceId=${invoiceId}&amp;invoiceItemSeqId=${invoiceItemSeqId}" description="${invoiceItemSeqId}"/></field>
         <field name="toPaymentId" widget-style="buttontext"><hyperlink target="paymentOverview?paymentId=${toPaymentId}" description="${toPaymentId}"/></field>
-        <field name="billingAccountId" widget-style="buttontext"><hyperlink target="editBillingAccount?billingAccountId=${billingAccountId}" description="${billingAccountId}"/></field>
+        <field name="billingAccountId" widget-style="buttontext"><hyperlink target="EditBillingAccount?billingAccountId=${billingAccountId}" description="${billingAccountId}"/></field>
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"></display-entity></field>
         <field name="amountApplied"><display type="currency" currency="${payment.currencyUomId}"/></field>
     </form>
