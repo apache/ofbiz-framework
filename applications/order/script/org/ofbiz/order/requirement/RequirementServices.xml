@@ -75,4 +75,31 @@ under the License.
         <field-to-result field-name="requirementsForSupplier" result-name="requirementsForSupplier"/>
     </simple-method>
 
+    <simple-method method-name="autoAssignRequirementToSupplier" short-description="If the requirement is a product requirement (purchasing) try to assign it to the primary supplier">
+        <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
+        <check-errors/>
+        <if-compare field-name="requirement.requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT">
+            <if-not-empty field-name="requirement.productId">
+                <entity-condition entity-name="SupplierProduct" list-name="supplierProducts">
+                    <condition-list>
+                        <condition-expr field-name="productId" env-name="requirement.productId"/>
+                        <!-- TODO: compare quantity in requirement to the quantity in the SupplierProduct entity -->
+                        <!--<condition-expr field-name="supplierPrefOrderId" value="PRODUCT_REQUIREMENT"/>-->
+                    </condition-list>
+                    <order-by field-name="supplierPrefOrderId"/>
+                </entity-condition>
+                <filter-list-by-date list-name="supplierProducts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
+                <first-from-list list-name="supplierProducts" entry-name="supplierProduct"/>
+                <if-not-empty field-name="supplierProduct.partyId">
+                    <make-value value-name="requirementSupplier" entity-name="RequirementRole"/>
+                    <set field="requirementSupplier.requirementId" from-field="requirement.requirementId"/>
+                    <set field="requirementSupplier.partyId" from-field="supplierProduct.partyId"/>
+                    <set field="requirementSupplier.roleTypeId" value="SUPPLIER"/>
+                    <now-timestamp-to-env env-name="requirementSupplier.fromDate"/>
+                    <create-value value-name="requirementSupplier"/>
+                </if-not-empty>
+            </if-not-empty>
+        </if-compare>
+
+    </simple-method>
 </simple-methods>
