@@ -129,9 +129,9 @@ under the License.
                             <if-compare field-name="pickThisOrder" operator="equals" value="Y">
                                 <get-related-one value-name="orderItemShipGrpInvRes" relation-name="InventoryItem" to-value-name="inventoryItem"/>
                                 <!-- Look for other picklists which might include this order item ship group inventory reservation.  If it is on another picklist, then
-                                    we should not include it again.  We screen out picklists which are either cancelled or picked, so that we can re-pick items if 
+                                    we should not include it again.  We screen out picklists which are either cancelled or already picked or packed, so that we can re-pick items if 
                                     (1) the previous picklist was cancelled, or
-                                    (2) the previous picklist was picked, and there is still an OrderItemShipGrpInvRes, which means that some of the order item must not
+                                    (2) the previous picklist was picked or packed, and there is still an OrderItemShipGrpInvRes, which means that some of the order item must not
                                     have shipped yet.  (OrderItemShipGrpInvRes is removed when an order item has been fully shipped.
                                     We are using entity-condition instead of get-related because we want to exclude some picklists by status -->
                                 <entity-condition entity-name="PicklistAndBinAndItem" list-name="picklistItemList">
@@ -140,6 +140,7 @@ under the License.
                                         <condition-expr field-name="shipGroupSeqId" env-name="orderItemShipGrpInvRes.shipGroupSeqId"/>
                                         <condition-expr field-name="orderItemSeqId" env-name="orderItemShipGrpInvRes.orderItemSeqId"/>
                                         <condition-expr field-name="inventoryItemId" env-name="orderItemShipGrpInvRes.inventoryItemId"/>
+                                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
                                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
                                     </condition-list>
@@ -703,7 +704,7 @@ under the License.
         <entity-condition entity-name="Picklist" list-name="picklistList">
             <condition-list combine="and">
                 <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
-                <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
             </condition-list>
             <order-by field-name="picklistDate"/>
