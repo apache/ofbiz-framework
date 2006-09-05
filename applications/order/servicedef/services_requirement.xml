@@ -55,6 +55,25 @@ under the License.
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="createRequirementRole" default-entity-name="RequirementRole" engine="simple" auth="true"
+            location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="createRequirementRole">
+        <description>Creates a new party role for the requirement</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateRequirementRole" default-entity-name="RequirementRole" engine="simple"
+                location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="updateRequirementRole" auth="true">
+        <description>Update a RequirementRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeRequirementRole" engine="simple" default-entity-name="RequirementRole"
+                location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="removeRequirementRole" auth="true">
+        <description>Remove a RequirementRole</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
     <service name="associatedRequirementWithRequestItem" engine="simple"
     		location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="associateRequirementWithRequestItem">
     	<description>Creates a CustRequestItem/Requirement association</description>

@@ -36,6 +36,11 @@
                 </entity-options>
             </drop-down>
         </field>
+        <field name="facilityId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Facility" description="${facilityId}"/>
+            </drop-down>
+        </field>
         <field name="productId">
             <lookup target-form-name="LookupProduct"/>
         </field>
@@ -63,6 +68,7 @@
         <field name="requirementTypeId">
             <display-entity entity-name="RequirementType" also-hidden="true"/>
         </field>
+        <field name="facilityId"><display/></field>
         <field name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
@@ -99,7 +105,11 @@
             </drop-down>
         </field>
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
-        <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="facilityId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Facility" description="${description} [${facilityId}]"/>
+            </drop-down>
+        </field>
         <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="custRequestId" map-name="parameters"><text/></field>
         <field name="custRequestItemSeqId" map-name="parameters"><text/></field>
@@ -127,6 +137,39 @@
         <auto-fields-entity entity-name="OrderRequirementCommitment" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}" target-type="inter-app" target="/ordermgr/control/orderview?orderId=${orderId}"/>
+        </field>
+    </form>
+    <!-- lists the roles associated with a requirement -->
+    <form name="ListRequirementRoles" type="list"
+            title="" list-name="requirementRoles" paginate-target="ListRequirementRoles"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="RequirementRole" default-field-type="display"/>
+        <field name="requirementId"><hidden/></field>
+        <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEdit}">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditRequirementRole?requirementId=${requirementId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+        <field name="removeLink" widget-style="buttontext" title="${uiLabelMap.CommonRemove}">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeRequirementRole?requirementId=${requirementId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+    </form>
+    <form name="EditRequirementRole" type="single"
+            target="updateRequirementRole" title="" default-map-name="requirementRole"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="requirementRole==null" target="createRequirementRole"/>
+        <field name="requirementId"><hidden/></field>
+        <field name="partyId" use-when="requirementRole!=null"><display/></field>
+        <field name="partyId" use-when="requirementRole==null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" use-when="requirementRole!=null"><display-entity entity-name="RoleType"/></field>
+        <field name="roleTypeId" use-when="requirementRole==null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="fromDate" use-when="requirementRole!=null"><display/></field>
+        <field name="fromDate" use-when="requirementRole==null"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
         </field>
     </form>
     <form name="FindNotApprovedRequirements" type="single" 
