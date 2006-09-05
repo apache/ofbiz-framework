@@ -204,13 +204,14 @@ under the License.
               <#else>
                 <#assign orderItemQuantity = orderItem.quantity>
               </#if>
+              <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
               <tr>
                 <td><input type="checkbox" name="sel_${orderItem.orderItemSeqId}" value="Y" checked=""/></td>
                 <td><div class="tabletext">${orderItem.orderItemSeqId}</td>
                 <td><div class="tabletext">${orderItem.productId?default("N/A")}</td>
                 <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
                 <td align="right"><div class="tabletext">${orderItemQuantity}</td>
-                <td align="right"><div class="tabletext">${shippedQuantity}</td>
+                <td align="right"><div class="tabletext">${shippedQuantity?default(0)}</td>
                 <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId)}</td>
                 <td>&nbsp;&nbsp;</td>
                 <td align="center">
