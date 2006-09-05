@@ -23,5 +23,6 @@ under the License.
     <a href="<@ofbizUrl>EditRequirement?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.EditRequirement?default(unselectedClassName)}">${uiLabelMap.OrderRequirement}</a>
     <a href="<@ofbizUrl>ListRequirementCustRequests?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.ListRequirementCustRequests?default(unselectedClassName)}">${uiLabelMap.OrderRequests}</a>
     <a href="<@ofbizUrl>ListRequirementOrders?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.ListRequirementOrdersTab?default(unselectedClassName)}">${uiLabelMap.OrderOrders}</a>
+    <a href="<@ofbizUrl>ListRequirementRoles?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.ListRequirementRolesTab?default(unselectedClassName)}">${uiLabelMap.PartyRoles}</a>
 </div>
 </#if>
