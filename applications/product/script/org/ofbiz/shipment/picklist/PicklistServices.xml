@@ -703,6 +703,7 @@ under the License.
         <entity-condition entity-name="Picklist" list-name="picklistList">
             <condition-list combine="and">
                 <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
             </condition-list>
             <order-by field-name="picklistDate"/>
