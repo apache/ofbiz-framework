@@ -220,4 +220,60 @@
           <submit/>
         </field>
     </form>
+    <form name="FindApprovedProductRequirements" type="single" target="ApprovedProductRequirements" title="" default-title-style="tableheadtext" default-widget-style="tabletext"
+        default-tooltip-style="tabletext">
+        <field name="showList"><hidden value="Y"/></field>
+        <field name="requirementId"><text-find/></field>
+        <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="requirementByDate"><date-find type="date"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ApprovedProductRequirementsList" type="list" title="" list-name="requirementsForSupplier"
+        paginate-target="RequirementsForSupplier" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <service service-name="prepareFind" result-map-name="resultConditions">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" value="Requirement"/>
+            </service>
+            <service service-name="getRequirementsForSupplier" result-map-name="result" result-map-list-name="requirementsForSupplier">
+                <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
+                <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
+                <field-map field-name="partyId" env-name="parameters.partyId"/>
+            </service>
+        </actions>
+        <field name="requirementId"><display/></field>
+        <field name="productId"><hidden value="${productId}"/></field>
+        <field name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+        </field>
+        <field name="requiredByDate"><display/></field>
+        <field name="quantity"><display/></field>
+    </form>
+    <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
+        paginate-target="RequirementsForSupplier" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <service service-name="prepareFind" result-map-name="resultConditions">
+                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="entityName" value="Requirement"/>
+            </service>
+            <service service-name="getRequirementsForSupplier" result-map-name="result" result-map-list-name="requirementsForSupplier">
+                <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
+                <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
+                <field-map field-name="partyId" env-name="parameters.partyId"/>
+            </service>
+        </actions>
+        <field name="billToCustomerPartyId"><hidden value="Company"/></field>
+        <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="requirementId"><display/></field>
+        <field name="productId"><hidden value="${productId}"/></field>
+        <field name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+        </field>
+
+        <field name="requiredByDate"><display/></field>
+        <field name="quantity"><text/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.OrderInputQuickPurchaseOrder}" widget-style="smallSubmit"><submit/></field>
+    </form>
 </forms>
