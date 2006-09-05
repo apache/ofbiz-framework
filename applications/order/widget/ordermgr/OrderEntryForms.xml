@@ -18,8 +18,9 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <form name="FindRequirements" type="single" target="RequirementsForSupplier" title="" default-title-style="tableheadtext" default-widget-style="tabletext"
         default-tooltip-style="tabletext">
-        <field name="hideSearch"><hidden value="Y"/></field>
+        <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
+        <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="requirementByDate"><date-find type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -34,6 +35,7 @@ under the License.
             <service service-name="getRequirementsForSupplier" result-map-name="result" result-map-list-name="requirementsForSupplier">
                 <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
                 <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
+                <field-map field-name="partyId" env-name="parameters.partyId"/>
             </service>
         </actions>
         <field name="requirementId"><display/></field>
