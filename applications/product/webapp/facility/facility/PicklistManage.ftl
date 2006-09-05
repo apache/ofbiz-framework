@@ -93,8 +93,12 @@ under the License.
                     <div class="tabletext" style="margin-left: 15px;">
                         <b>${uiLabelMap.ProductBinNum}</b> ${picklistBinInfo.picklistBin.binLocationNumber}
                         <#if picklistBinInfo.primaryOrderHeader?exists><b>${uiLabelMap.ProductPrimaryOrderId}</b> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
-                        <#if picklistBinInfo.primaryOrderItemShipGroup?exists><b>${uiLabelMap.ProductPrimaryShipGroupSeqId}</b> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
+                        <#if picklistBinInfo.primaryOrderItemShipGroup?exists && picklistInfo.statusItem.statusId.equals("PICKLIST_PICKED")>
+                            <b>${uiLabelMap.ProductPrimaryShipGroupSeqId}</b> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}
+                            <a href="<@ofbizUrl>PackOrder?facilityId=${facilityId?if_exists}&orderId=${picklistBinInfo.primaryOrderHeader.orderId}&shipGroupSeqId=${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
+                        </#if>
                     </div>
+                    <#if picklistInfo.statusItem.statusId.equals("PICKLIST_INPUT")>
                     <div class="tabletext" style="margin-left: 30px;">
                         <b>${uiLabelMap.CommonUpdate} ${uiLabelMap.ProductBinNum}:</b>
                         <form method="post" action="<@ofbizUrl>updatePicklistBin</@ofbizUrl>" style="display: inline;">
@@ -112,6 +116,7 @@ under the License.
                             <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
                         </form>
                     </div>
+                    </#if>
                     <#list picklistBinInfo.picklistItemInfoList?if_exists as picklistItemInfo>
                         <#assign picklistItem = picklistItemInfo.picklistItem>
                         <#assign inventoryItemAndLocation = picklistItemInfo.inventoryItemAndLocation>
