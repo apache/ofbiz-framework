@@ -464,6 +464,31 @@ public class ShoppingCartEvents {
         }
     }
 
+    public static String quickInitPurchaseOrder(HttpServletRequest request, HttpServletResponse response) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        HttpSession session = request.getSession();
+        
+        ShoppingCart cart = new WebShoppingCart(request);
+        // TODO: the code below here needs some cleanups
+        cart.setBillToCustomerPartyId(request.getParameter("billToCustomerPartyId_o_0"));
+        cart.setBillFromVendorPartyId(request.getParameter("supplierPartyId_o_0"));
+        cart.setOrderPartyId(request.getParameter("supplierPartyId_o_0"));
+
+        cart.setOrderType("PURCHASE_ORDER");
+        
+        // Set the cart's default checkout options for a quick checkout
+        // TODO: the code below need to be enhanced to handle po
+        //cart.setDefaultCheckoutOptions(dispatcher);
+
+        session.setAttribute("shoppingCart", cart);
+        session.setAttribute("productStoreId", cart.getProductStoreId());
+        session.setAttribute("orderMode", cart.getOrderType());
+        session.setAttribute("orderPartyId", cart.getOrderPartyId());
+
+        return "success";
+    }
+
     /** Adds a set of requirements to the cart
      */
     public static String addToCartBulkRequirements(HttpServletRequest request, HttpServletResponse response) {
