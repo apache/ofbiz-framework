@@ -56,6 +56,7 @@ under the License.
                 <set field="entityName" value="Requirement"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -65,12 +66,19 @@ under the License.
                         </container>
                         <container>
                             <label style="head2" text="Find Requirements"/>
-                            <include-form name="FindRequirements" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
                         </container>
-                        <container>
-                            <label style="head2" text="Requirement List"/>
+                        <include-form name="FindRequirements" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="parameters.showList"/></not>
+                            </condition>
+                            <widgets>
+                            <container>
+                                <label style="head2" text="Requirement List"/>
+                            </container>
                             <include-form name="RequirementsList" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
-                        </container>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -65,13 +65,26 @@ under the License.
     
     <simple-method method-name="getRequirementsForSupplier" short-description="Get the requirements applicable to a given supplier">
         <make-value value-name="newEntity" entity-name="Requirement"/>
-        <entity-condition entity-name="Requirement" list-name="requirementsForSupplier">
-            <condition-list>
-                <condition-object field-name="parameters.requirementConditions"/>
-                <condition-expr field-name="statusId" value="REQ_APPROVED"/>
-                <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
-            </condition-list>
-        </entity-condition>
+        <if-empty field-name="parameters.partyId">
+            <entity-condition entity-name="Requirement" list-name="requirementsForSupplier">
+                <condition-list>
+                    <condition-object field-name="parameters.requirementConditions"/>
+                    <condition-expr field-name="statusId" value="REQ_APPROVED"/>
+                    <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
+                </condition-list>
+            </entity-condition>
+        <else>
+            <entity-condition entity-name="RequirementAndRole" list-name="requirementsForSupplier">
+                <condition-list>
+                    <condition-object field-name="parameters.requirementConditions"/>
+                    <condition-expr field-name="statusId" value="REQ_APPROVED"/>
+                    <condition-expr field-name="roleTypeId" value="SUPPLIER"/>
+                    <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
+                    <condition-expr field-name="partyId" env-name="parameters.partyId"/>
+                </condition-list>
+            </entity-condition>
+        </else>
+        </if-empty>
         <field-to-result field-name="requirementsForSupplier" result-name="requirementsForSupplier"/>
     </simple-method>
 

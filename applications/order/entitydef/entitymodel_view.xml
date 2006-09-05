@@ -1155,6 +1155,7 @@ under the License.
       <member-entity entity-alias="RQR" entity-name="RequirementRole"/>
       <alias entity-alias="RQ" name="requirementId"/>
       <alias entity-alias="RQ" name="requirementTypeId"/>
+      <alias entity-alias="RQ" name="statusId"/>
       <alias entity-alias="RQ" name="facilityId"/>
       <alias entity-alias="RQ" name="deliverableId"/>
       <alias entity-alias="RQ" name="fixedAssetId"/>
