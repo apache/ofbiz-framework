@@ -120,15 +120,15 @@ public class ShoppingCartServices {
                 cart.setIsGift(idx, isGift);
             }
         } else {
-        	return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",groupIndex), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",groupIndex), locale));
         }
         return ServiceUtil.returnSuccess();
     }
 
     public static Map setPaymentOptions(DispatchContext dctx, Map context) {
-    	Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
 
-    	return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderServiceNotYetImplemented",locale));
+        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderServiceNotYetImplemented",locale));
     }
 
     public static Map setOtherOptions(DispatchContext dctx, Map context) {
@@ -401,7 +401,7 @@ public class ShoppingCartServices {
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currency);
         // set shopping cart type
         if (quote.getString("quoteTypeId").equals("PURCHASE_QUOTE")){
-        	cart.setOrderType("PURCHASE_ORDER");
+            cart.setOrderType("PURCHASE_ORDER");
         }
         try {
             cart.setUserLogin(userLogin, dispatcher);
