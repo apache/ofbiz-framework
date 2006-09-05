@@ -91,12 +91,10 @@ under the License.
 	                <result-to-field result-name="convertedValue"/>
 	            </call-service>
 	            <log level="verbose" message="Custom UoM conversion returning convertedValue=${convertedValue}"/>
-	            
 	        <else>  <!-- not custom conversion -->
-	            
 	            <!-- do the conversion -->
 	            <calculate field-name="convertedValue" type="Double" decimal-scale="15">
-	                <calcop operator="multiply" decimal-scale="15">
+	                <calcop operator="multiply">
 	                    <calcop operator="get" field-name="parameters.originalValue"/>
 	                    <calcop operator="get" field-name="uomConversion.conversionFactor"/>
 	                </calcop> 
@@ -106,8 +104,7 @@ under the License.
 	        
 	        <!-- round result, if UomConversion[Dated] so specifies -->
 	        <if-not-empty field-name="uomConversion.roundingMode">
-	            <calculate field-name="roundedValue" type="Double" 
-	                       decimal-scale="${uomConversion.decimalScale}" rounding-mode="${uomConversion.roundingMode}">
+	            <calculate field-name="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${uomConversion.roundingMode}">
 	                <calcop operator="get" field-name="convertedValue"/>
 	            </calculate>
 	            <set field="convertedValue" from-field="roundedValue"/>
@@ -119,10 +116,7 @@ under the License.
         <field-to-result field-name="convertedValue"/>
         
         <log level="verbose" message="Uom conversion of [${parameters.originalValue}] from [${parameters.uomId}] to [${parameters.uomIdTo}] using conversion factor [${uomConversion.conversionFactor}], result is [${convertedValue}]"/>
-        
-    
     </simple-method>
-
 
     <!-- convertUomCustom: Dispatcher for calling Custom Method for UoM conversion -->
     <simple-method method-name="convertUomCustom" short-description="Convert UOM values using CustomMethod" login-required="false">
