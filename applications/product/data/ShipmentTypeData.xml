@@ -91,9 +91,11 @@ under the License.
     <StatusItem description="Input" sequenceId="01" statusCode="INPUT" statusId="PICKLIST_INPUT" statusTypeId="PICKLIST_STATUS"/>
     <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="PICKLIST_ASSIGNED" statusTypeId="PICKLIST_STATUS"/>
     <StatusItem description="Picked" sequenceId="03" statusCode="PICKED" statusId="PICKLIST_PICKED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Packed" sequenceId="04" statusCode="PACKED" statusId="PICKLIST_PACKED" statusTypeId="PICKLIST_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PICKLIST_CANCELLED" statusTypeId="PICKLIST_STATUS"/>
     <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_ASSIGNED" transitionName="Assign"/>
     <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange condition="" statusId="PICKLIST_PICKED" statusIdTo="PICKLIST_PACKED" transitionName="Pack"/>
     <StatusValidChange condition="" statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
     <StatusValidChange condition="" statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
