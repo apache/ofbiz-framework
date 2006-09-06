@@ -65,6 +65,13 @@ under the License.
         <description>Remove Promo from MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="signUpForContactList" engine="java" 
+            location="org.ofbiz.marketing.marketing.MarketingServices" invoke="signUpForContactList" auth="false">
+        <description>Signs an input email up for a ContactList with _NA_ party using the system userLogin.  
+            The intent is for anonymous sign ups to email lists.  Also validates email format.</description>
+        <attribute name="contactListId" type="String" mode="IN" optional="false"/>
+        <attribute name="email" type="String" mode="IN" optional="false"/>
+    </service>
 
     <!-- MarketingCampaignRole Services -->
     <service name="addRoleToMarketingCampaign" default-entity-name="MarketingCampaignRole" engine="simple"
