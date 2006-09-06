@@ -63,6 +63,7 @@ under the License.
                         <#if picklistRoleInfo.picklistRole.thruDate?exists><b>${uiLabelMap.CommonThru}</b> ${picklistRoleInfo.picklistRole.thruDate}</#if>
                     </div>
                 </#list>
+                <#if !(picklistInfo.statusItem.statusId == "PICKLIST_PICKED")>
                 <div class="tabletext" style="margin-left: 15px;">
                     <b>${uiLabelMap.ProductAssignPicker}:</b>
                     <form method="post" action="<@ofbizUrl>createPicklistRole</@ofbizUrl>" style="display: inline;">
@@ -77,6 +78,7 @@ under the License.
                         <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
                     </form>
                 </div>
+                </#if>
 
                 <#-- PicklistStatusHistory -->
                 <#list picklistInfo.picklistStatusHistoryInfoList?if_exists as picklistStatusHistoryInfo>
