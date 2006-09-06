@@ -307,6 +307,7 @@ public class EmailServices {
         bodyParameters.put("locale", locale);
         String partyId = (String) bodyParameters.get("partyId");
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
+        String contentType = (String) serviceContext.remove("contentType");
 
         StringWriter bodyWriter = new StringWriter();
 
@@ -437,7 +438,14 @@ public class EmailServices {
             } else {
                 serviceContext.put("body", bodyWriter.toString());
             }
-            serviceContext.put("contentType", "text/html");
+
+            // Only override the default contentType in case of plaintext, since other contentTypes may be multipart
+            //    and would require specific handling.
+            if (contentType != null && contentType.equalsIgnoreCase("text/plain")) {
+                serviceContext.put("contentType", "text/plain");
+            } else {
+                serviceContext.put("contentType", "text/html");
+            }
         }
         
         // also expand the subject at this point, just in case it has the FlexibleStringExpander syntax in it...
