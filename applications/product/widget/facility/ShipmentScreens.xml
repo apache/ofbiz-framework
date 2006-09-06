@@ -248,6 +248,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="ProductPackOrder"/>
+                <set field="headerItem" value="shipment"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackOrder.bsh"/>
             </actions>
             <widgets>
