@@ -25,12 +25,6 @@ under the License.
     </#if>
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="simple-right-half">
-            <a href="<@ofbizUrl>PacklistManage?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="submenutext">${uiLabelMap.ProductPacklistManage}</a>
-        </div>
-        <div class="boxhead">${uiLabelMap.ProductPacklistManage}</div>
-    </div>
     <div class="head1">${uiLabelMap.ProductPackOrder}<span class='head2'>&nbsp;in&nbsp;${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span></div>
     <#if shipmentId?has_content>
       <div class="tabletext">
