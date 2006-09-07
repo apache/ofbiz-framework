@@ -149,18 +149,23 @@ DIV.screenlet {
 background-color: #FFFFFF;
 border: 1px solid #999999;
 margin-bottom: 10px;
+height:auto !important;
+height:1%
 }
 DIV.screenlet-header {
 background-color: #000099;
-vertical-align: middle;
 padding-top: 1px;
-padding-bottom: 1px;
+padding-bottom: 3px;
 padding-right: 4px;
 padding-left: 4px;
+height:auto !important;
+height:1%
 }
 DIV.screenlet-body {
 background-color: #FFFFFF;
 padding: 4px;
+height:auto !important;
+height:1%
 }
 
 #column-container {
