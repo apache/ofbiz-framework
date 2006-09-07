@@ -618,7 +618,7 @@ public class ModelServiceReader implements Serializable {
             if (param != null) {                                                        
                 // set only modified values
                 if (attribute.getAttribute("type") != null && attribute.getAttribute("type").length() > 0) {                
-                    param.name = UtilXml.checkEmpty(attribute.getAttribute("type"));
+                    param.type = UtilXml.checkEmpty(attribute.getAttribute("type"));
                 }
                 if (attribute.getAttribute("mode") != null && attribute.getAttribute("mode").length() > 0) {                            
                     param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode"));
