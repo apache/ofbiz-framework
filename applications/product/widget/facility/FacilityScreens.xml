@@ -546,6 +546,7 @@ under the License.
                     <condition-list combine="and">
                         <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
                     </condition-list>
                     <order-by field-name="picklistDate"/>
@@ -577,14 +578,17 @@ under the License.
                 <entity-condition entity-name="PartyRoleAndPartyDetail" list-name="partyRoleAndPartyDetailList" use-cache="true">
                     <condition-expr field-name="roleTypeId" value="PICKER"/>
                 </entity-condition>
+                <!--
                 <entity-condition entity-name="Picklist" list-name="picklistActiveList">
                     <condition-list combine="and">
                         <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
                     </condition-list>
                     <order-by field-name="picklistDate"/>
                 </entity-condition>
+                -->
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator">
@@ -720,6 +724,7 @@ under the License.
                         <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
                         <condition-expr field-name="carrierServiceStatusId" operator="not-equals" value="SHRSCS_CONFIRMED"/>
+                        <condition-expr field-name="carrierServiceStatusId" operator="not-equals" value="SHRSCS_ACCEPTED"/>
                     </condition-list>
                     <order-by field-name="shipmentId DESC"/>
                 </entity-condition>
