@@ -19,22 +19,22 @@ under the License.
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
   <simple-map-processor name="assignmentMap">
-    <process field="workEffortId"><copy/><not-empty><fail-message message="Work Effort ID is missing."/></not-empty></process>
-    <process field="partyId"><copy/><not-empty><fail-message message="Party ID is missing."/></not-empty></process>
-    <process field="roleTypeId"><copy/><not-empty><fail-message message="Role Type ID is missing."/></not-empty></process>
+    <process field="workEffortId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></not-empty></process>
+    <process field="partyId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="PartyIdMissing"/></not-empty></process>
+    <process field="roleTypeId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="PartyRoleTypeIdMissing"/></not-empty></process>
     <process field="fromDate">
-        <convert type="Timestamp"><fail-message message="From Date is not a valid Date-Time."/></convert></process>
+        <convert type="Timestamp"><fail-property resource="WorkEffortUiLabels" property="WorkEffortFromDateIsNotValid"/></convert></process>
   </simple-map-processor>
   <simple-map-processor name="createWorkEffortMap">
-    <process field="workEffortTypeId"><copy/><not-empty><fail-message message="Work Effort ID is missing."/></not-empty></process>
+    <process field="workEffortTypeId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></not-empty></process>
     <process field="workEffortPurposeTypeId"><copy/></process>
     <process field="workEffortParentId"><copy/></process>
-    <process field="currentStatusId"><copy/><not-empty><fail-message message="Current Status ID is missing."/></not-empty></process>
+    <process field="currentStatusId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortStatusIdMissing"/></not-empty></process>
     <process field="universalId"><copy/></process>
     <process field="scopeEnumId"><copy/></process>
     <process field="priority"><copy/></process>
     <process field="percentComplete"><copy/></process>
-    <process field="workEffortName"><copy/><not-empty><fail-message message="Work Effort Name is missing."/></not-empty></process>
+    <process field="workEffortName"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortNameIsMissing"/></not-empty></process>
     <process field="description"><copy/></process>
     <process field="locationDesc"><copy/></process>
     <process field="fixedAssetId"><copy/></process>
@@ -63,7 +63,7 @@ under the License.
     <process field="quickAssignPartyId"><copy/></process>
   </simple-map-processor>
   <simple-map-processor name="workEffortContactMech">
-    <process field="workEffortId"><copy/><not-empty><fail-message message="WorkEffort Id is missing."/></not-empty></process>
+    <process field="workEffortId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></not-empty></process>
     <process field="contactMechId"><copy/></process> 
     <process field="comments"><copy/></process> 
   </simple-map-processor>
@@ -72,7 +72,7 @@ under the License.
     <process field="workEffortId"><copy/></process>
     <process field="emailAddress">
         <copy to-field="infoString"/>
-        <not-empty><fail-message message="Email Address is missing"/></not-empty>
-        <validate-method method="isEmail"><fail-message message="Email Address is not formatted correctly, must be like foo@bar.com"/></validate-method></process>
+        <not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortEmailAddressIsMissing"/></not-empty>
+        <validate-method method="isEmail"><fail-property resource="WorkEffortUiLabels" property="WorkEffortEmailAddressNotFormatted"/></validate-method></process>
   </simple-map-processor>  
 </simple-map-processors>

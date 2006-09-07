@@ -87,12 +87,16 @@ under the License.
             </call-map-processor>
             <if-compare value="USA" operator="equals" field-name="countryGeoId" map-name="parameters">
                 <if-empty field-name="stateProvinceGeoId" map-name="parameters">
-                    <string-to-list string="State is missing, and is required for an address in the United States." message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                    <add-error>
+                        <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
+                    </add-error>  
                 </if-empty>
             </if-compare>
             <if-compare value="CAN" operator="equals" field-name="countryGeoId" map-name="parameters">
                 <if-empty field-name="stateProvinceGeoId" map-name="parameters">
-                    <string-to-list string="State is missing, and is required for an address in the Canada." message-field-name="CUSTOMER_STATE" list-name="error_list"/>
+                    <add-error>
+                        <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
+                    </add-error>
                 </if-empty>
             </if-compare>
         </if-compare>
@@ -103,11 +107,11 @@ under the License.
                 <process field="homeCountryCode"><copy to-field="countryCode"/></process>
                 <process field="homeAreaCode">
                     <copy to-field="areaCode"/>
-                    <not-empty><fail-message message="Home Phone Area Code is missing."/></not-empty>
+                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyHomePhoneAreaCodeMissing"/></not-empty>
                 </process>
                 <process field="homeContactNumber">
                     <copy to-field="contactNumber"/>
-                    <not-empty><fail-message message="Home Phone Contact Number is missing."/></not-empty>
+                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyHomePhoneContactNumberMissing"/></not-empty>
                 </process>
                 <process field="homeExt"><copy to-field="extension"/></process>
                 <process field="homeSol"><copy to-field="allowSolicitation"/></process>
@@ -255,7 +259,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateCustomer" short-description="Update Customer" login-required="true">
-        <if-empty field-name="parameters.partyId"><add-error><fail-message message="No partyId passed, cannot Update Customer"/></add-error></if-empty>
+        <if-empty field-name="parameters.partyId"><add-error><fail-property resource="EcommerceUiLabels" property="PartyNoPartyForUpdateCustomer"/></add-error></if-empty>
         
         <call-simple-method method-name="validateCustomerInfo"/>
         
