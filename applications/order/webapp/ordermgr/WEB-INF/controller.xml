@@ -398,6 +398,12 @@
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
+    <request-map uri="quickAddRequirementsToCart">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCartBulkRequirements"/>
+        <response name="success" type="request" value="quickCheckoutOrderWithDefaultOptions"/>
+        <response name="error" type="request" value="orderentry"/>
+    </request-map>
     <request-map uri="FindQuoteForCart">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindQuoteForCart"/>
@@ -1007,8 +1013,14 @@
     <request-map uri="quickPurchaseOrderEntry">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickInitPurchaseOrder"/>
-        <response name="success" type="request" value="addRequirementsToCart"/>
+        <response name="success" type="request" value="quickAddRequirementsToCart"/>
         <response name="error" type="view" value="ApprovedProductRequirements"/>
+    </request-map>
+    <request-map uri="quickCheckoutOrderWithDefaultOptions">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickCheckoutOrderWithDefaultOptions"/>
+        <response name="success" type="request" value="confirmOrder"/>
+        <response name="error" type="view" value="orderentry"/>
     </request-map>
 
     <request-map uri="RequirementsForSupplier">

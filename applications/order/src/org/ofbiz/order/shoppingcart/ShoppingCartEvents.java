@@ -477,14 +477,20 @@ public class ShoppingCartEvents {
 
         cart.setOrderType("PURCHASE_ORDER");
         
-        // Set the cart's default checkout options for a quick checkout
-        // TODO: the code below need to be enhanced to handle po
-        //cart.setDefaultCheckoutOptions(dispatcher);
-
         session.setAttribute("shoppingCart", cart);
         session.setAttribute("productStoreId", cart.getProductStoreId());
         session.setAttribute("orderMode", cart.getOrderType());
         session.setAttribute("orderPartyId", cart.getOrderPartyId());
+
+        return "success";
+    }
+
+    public static String quickCheckoutOrderWithDefaultOptions(HttpServletRequest request, HttpServletResponse response) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        ShoppingCart cart = getCartObject(request);
+
+        // Set the cart's default checkout options for a quick checkout
+        cart.setDefaultCheckoutOptions(dispatcher);
 
         return "success";
     }
