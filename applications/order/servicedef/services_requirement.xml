@@ -95,6 +95,7 @@ under the License.
         <description>Retrieves requirements information for suppliers</description>
         <attribute mode="IN" name="requirementConditions" type="org.ofbiz.entity.condition.EntityCondition" optional="true"/>
         <attribute mode="IN" name="partyId" type="String" optional="true"/>
+        <attribute mode="IN" name="unassignedRequirements" type="String" optional="true"/>
         <attribute mode="IN" name="currencyUomId" type="String" optional="true"/>
         <attribute mode="OUT" name="requirementsForSupplier" type="java.util.List" optional="true"/>
     </service>

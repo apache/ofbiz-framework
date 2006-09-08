@@ -1172,7 +1172,7 @@ under the License.
       <alias entity-alias="RQR" name="roleTypeId"/>
       <alias entity-alias="RQR" name="fromDate"/>
       <alias entity-alias="RQR" name="thruDate"/>
-      <view-link entity-alias="RQ" rel-entity-alias="RQR">
+      <view-link entity-alias="RQ" rel-entity-alias="RQR" rel-optional="true">
         <key-map field-name="requirementId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="Requirement">
