@@ -23,6 +23,9 @@ under the License.
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
         <field name="action"><hidden value="SEARCH"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}" widget-style="inputBox">
+            <text/>
+        </field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}" widget-style="selectBox">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
@@ -48,11 +51,12 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="offsetQty" title="${uiLabelMap.ProductQtyOffsetBelow}"><text/></field>
-        <field name="productsSoldThruTimestamp" title="${uiLabelMap.ProductShowProductsSoldThruTimestamp}">
+        <field name="offsetQOHQty" title="${uiLabelMap.ProductQtyOffsetQOHBelow}" widget-style="inputBox"><text/></field>
+        <field name="offsetATPQty" title="${uiLabelMap.ProductQtyOffsetATPBelow}" widget-style="inputBox"><text/></field>
+        <field name="productsSoldThruTimestamp" title="${uiLabelMap.ProductShowProductsSoldThruTimestamp}" widget-style="inputBox">
             <date-time/>
         </field>
-        <field name="VIEW_SIZE" title="${uiLabelMap.ProductShowProductsPerPage}"><text default-value="50"/></field>
+        <field name="VIEW_SIZE" title="${uiLabelMap.ProductShowProductsPerPage}" widget-style="inputBox"><text default-value="50"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -71,7 +75,8 @@ under the License.
         <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}" widget-area-style="tabletextright"><display/></field>
         <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
         <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
-        <field name="offsetQtyAvailable" title="${uiLabelMap.ProductQtyOffset}" widget-area-style="tabletextright"><display/></field>
+        <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}" widget-area-style="tabletextright"><display/></field>
+        <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}" widget-area-style="tabletextright"><display/></field>
     </form>
 
     <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
