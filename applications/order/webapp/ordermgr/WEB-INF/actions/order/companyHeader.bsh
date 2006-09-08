@@ -23,6 +23,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.party.contact.*;
+import org.ofbiz.order.order.OrderReadHelper;
 import java.sql.Timestamp;
 
 orderHeader = (GenericValue) parameters.get("orderHeader");
@@ -36,14 +37,14 @@ nowTimestamp = UtilDateTime.nowTimestamp();
 fromPartyId = parameters.get("fromPartyId");
 
 if (orderHeader == null && orderId != null) {
-    orderHeader = (GenericValue) delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
 } else if (shipmentId != null) {
     shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
     orderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
 }
 
 if (invoice == null && invoiceId != null)	{
-    invoice = (GenericValue) delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+    invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
 }
 
 if (returnHeader == null && returnId != null) {
@@ -54,30 +55,40 @@ if (returnHeader == null && returnId != null) {
 logoImageUrl = null; // "http://localhost:8080/images/ofbiz_powered.gif";
 partyId = null;
 
+// get the logo partyId from order or invoice - note that it is better to do comparisons this way in case the there are null values
 if (orderHeader != null) {
-    GenericValue productStore = (GenericValue) orderHeader.getRelatedOne("ProductStore");
-    if (orderHeader.getString("orderTypeId").equals("SALES_ORDER")) {
-        GenericValue billFromVendor = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderRole", UtilMisc.toMap("roleTypeId", "BILL_FROM_VENDOR")));
-        if (billFromVendor != null) {
-            partyId = billFromVendor.getString("partyId");
-        } else if (productStore != null && productStore.get("payToPartyId") != null) {
-            partyId = productStore.getString("payToPartyId");
+    orh = new OrderReadHelper(orderHeader);
+    // for sales order, the logo party is the "BILL_FROM_VENDOR" of the order.  If that's not available, we'll use the OrderHeader's ProductStore's payToPartyId
+    if ("SALES_ORDER".equals(orderHeader.getString("orderTypeId"))) {
+        if (orh.getBillToParty() != null) {
+            partyId = orh.getBillFromParty().getString("partyId");
+        } else {
+            productStore = orderHeader.getRelatedOne("ProductStore");
+            if (orderHeader.getString("orderTypeId").equals("SALES_ORDER") && productStore != null && productStore.get("payToPartyId") != null) {
+                partyId = productStore.getString("payToPartyId");
+            }    
         }
-    } else if (orderHeader.getString("orderTypeId").equals("PURCHASE_ORDER")) {
+    // purchase orders - use the BILL_TO_CUSTOMER of the order
+    } else if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
+        partyId = orh.getBillToParty().getString("partyId");
         GenericValue billToCustomer = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER")));
         if (billToCustomer != null) {
             partyId = billToCustomer.getString("partyId");
         }
     }
 } else if (invoice != null) {
-    if (invoice.get("invoiceTypeId").equals("SALES_INVOICE") && invoice.get("partyIdFrom") != null) {
+    if (("SALES_INVOICE".equals(invoice.getString("invoiceTypeId"))) && 
+        (invoice.get("partyIdFrom") != null)) {
         partyId = invoice.getString("partyIdFrom");
     }
-    if (invoice.get("invoiceTypeId").equals("PURCHASE_INVOICE") && invoice.get("partyId") != null) {
+    if (("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId"))) || 
+        ("CUST_RTN_INVOICE".equals(invoice.getString("invoiceTypeId"))) && 
+        (invoice.get("partyId") != null)) {
         partyId = invoice.getString("partyId");
     }
 } else if (returnHeader != null) {
-    if (returnHeader.getString("returnHeaderTypeId").equals("CUSTOMER_RETURN") && returnHeader.get("toPartyId") != null) {
+    if (("CUSTOMER_RETURN".equals(returnHeader.getString("returnHeaderTypeId"))) && 
+        (returnHeader.get("toPartyId") != null)) {
         partyId = returnHeader.getString("toPartyId");
     }
 }
