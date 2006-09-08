@@ -161,7 +161,7 @@
         <field name="partyId" use-when="requirementRole==null"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" use-when="requirementRole!=null"><display-entity entity-name="RoleType"/></field>
         <field name="roleTypeId" use-when="requirementRole==null">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="SUPPLIER">
                 <entity-options entity-name="RoleType" description="${description}"/>
             </drop-down>
         </field>
@@ -204,7 +204,7 @@
             </service>
         </actions>
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink target-type="intra-app" also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
+            <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
         </field>
         <field name="requirementTypeId">
             <display-entity entity-name="RequirementType" also-hidden="true"/>
@@ -225,6 +225,7 @@
         <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="unassignedRequirements"><check/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="requirementByDate"><date-find type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -240,13 +241,17 @@
                 <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
                 <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
                 <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <field-map field-name="unassignedRequirements" env-name="parameters.unassignedRequirements"/>
             </service>
         </actions>
-        <field name="requirementId"><display/></field>
+        <field name="requirementId" widget-style="buttontext">
+            <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
+        </field>
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
+        <field name="partyId"><display/></field>
         <field name="requiredByDate"><display/></field>
         <field name="quantity"><display/></field>
     </form>
@@ -265,12 +270,13 @@
         </actions>
         <field name="billToCustomerPartyId"><hidden value="Company"/></field>
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
-        <field name="requirementId"><display/></field>
+        <field name="requirementId" widget-style="buttontext">
+            <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
+        </field>
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
-
         <field name="requiredByDate"><display/></field>
         <field name="quantity"><text/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
