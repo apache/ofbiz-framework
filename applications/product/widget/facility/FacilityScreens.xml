@@ -211,8 +211,10 @@ under the License.
                 <set field="productTypeId" from-field="parameters.productTypeId"/>
                 <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
                 <set field="productSupplierId" from-field="parameters.productSupplierId"/>
-                <set field="offsetQty" from-field="parameters.offsetQty"/>
+                <set field="offsetQOHQty" from-field="parameters.offsetQOHQty"/>
+                <set field="offsetATPQty" from-field="parameters.offsetATPQty"/>
                 <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
+                <set field="internalName" from-field="parameters.internalName"/>
                 
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
             </actions>

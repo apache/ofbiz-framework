@@ -34,7 +34,11 @@ action = request.getParameter("action");
 
 String searchParameterString = "";
 searchParameterString = "action=Y&facilityId=" + facilityId;
-qty = -1;
+
+offsetQOH = -1;
+offsetATP = -1;
+boolean hasOffsetQOH = false;
+boolean hasOffsetATP = false;
 
 List rows = new ArrayList();
 
@@ -43,12 +47,18 @@ if (action != null) {
     DynamicViewEntity prodView = new DynamicViewEntity();
     Map conditionMap = UtilMisc.toMap("facilityId", facilityId);
 
-    if (offsetQty != null && offsetQty.length() > 0) {
+    if (offsetQOHQty != null && offsetQOHQty.length() > 0) {
         try {
-            qty = Integer.parseInt(offsetQty);
-            searchParameterString = searchParameterString + "&offsetQty=" + offsetQty;
+            offsetQOH = Integer.parseInt(offsetQOHQty);
+            hasOffsetQOH = true;
         } catch(NumberFormatException nfe) {
-            qty = -1;
+        }
+    }
+    if (offsetATPQty != null && offsetATPQty.length() > 0) {
+        try {
+            offsetATP = Integer.parseInt(offsetATPQty);
+            hasOffsetATP = true;
+        } catch(NumberFormatException nfe) {
         }
     }
 
@@ -57,6 +67,7 @@ if (action != null) {
 
     prodView.addMemberEntity("PROD", "Product");
     prodView.addViewLink("PROD", "PRFA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+    prodView.addAlias("PROD", "internalName");
     prodView.addAlias("PROD", "isVirtual");
     prodView.addAlias("PROD", "salesDiscontinuationDate");
     if (productTypeId != null && productTypeId.length() > 0) {
@@ -96,6 +107,11 @@ if (action != null) {
             EntityOperator.OR);
         whereConditionsList.add(discontinuationDateCondition);
     }
+
+    // add search on internal name
+    if (UtilValidate.isNotEmpty(internalName)) {
+        whereConditionsList.add(new EntityExpr("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
+    }
     
     EntityCondition whereCondition = new EntityConditionList(whereConditionsList, EntityOperator.AND);
 
@@ -133,17 +149,26 @@ if (action != null) {
         } else {
             resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", contextInput);
         }
-        // qty
+
+        // filter for quantities
         minimumStockInt = 0;
         if (oneProd.get("minimumStock") != null) {
             minimumStockInt = (oneProd.getDouble("minimumStock")).intValue();
         }
+
         quantityOnHandTotalInt = 0;
         if (resultOutput.get("quantityOnHandTotal") != null) {
             quantityOnHandTotalInt = ((Double)resultOutput.get("quantityOnHandTotal")).intValue();
         }
-        offsetQtyAvailable = quantityOnHandTotalInt - minimumStockInt;
-        if (qty >= 0 && offsetQtyAvailable > qty) continue;
+        offsetQOHQtyAvailable = quantityOnHandTotalInt - minimumStockInt;
+        if (hasOffsetQOH && offsetQOHQtyAvailable > offsetQOH) continue;
+
+        availableToPromiseTotalInt = 0;
+        if (resultOutput.get("availableToPromiseTotal") != null) {
+            availableToPromiseTotalInt = ((Double)resultOutput.get("availableToPromiseTotal")).intValue();
+        }
+        offsetATPQtyAvailable = availableToPromiseTotalInt - minimumStockInt;
+        if (hasOffsetATP && offsetATPQtyAvailable > offsetATP) continue;
 
         oneInventory = new HashMap();
         oneInventory.put("productId", oneProd.getString("productId"));
@@ -152,7 +177,8 @@ if (action != null) {
         oneInventory.put("daysToShip", oneProd.getString("daysToShip"));
         oneInventory.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal"));
         oneInventory.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
-        oneInventory.put("offsetQtyAvailable", offsetQtyAvailable);
+        oneInventory.put("offsetQOHQtyAvailable", offsetQOHQtyAvailable);
+        oneInventory.put("offsetATPQtyAvailable", offsetATPQtyAvailable);
         rows.add(oneInventory);
     }
 
