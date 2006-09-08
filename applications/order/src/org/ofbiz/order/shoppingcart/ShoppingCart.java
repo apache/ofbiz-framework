@@ -49,6 +49,7 @@ import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactHelper;
+import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
@@ -2164,25 +2165,67 @@ public class ShoppingCart implements Serializable {
     public void setDefaultCheckoutOptions(LocalDispatcher dispatcher) {
         // skip the add party screen
         this.setAttribute("addpty", "Y");
-        // set as the default shipping location the first from the list of available shipping locations
-        if (this.getPartyId() != null && !this.getPartyId().equals("_NA_")) {
-            try {
-                GenericValue orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", this.getPartyId()));
-                Collection shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-                if (shippingContactMechList != null && shippingContactMechList.size() > 0) {
-                    GenericValue shippingContactMech = (GenericValue)(shippingContactMechList.iterator()).next();
-                    this.setShippingContactMechId(shippingContactMech.getString("contactMechId"));
+        if (getOrderType().equals("SALES_ORDER")) {
+            // checkout options for sales orders
+            // set as the default shipping location the first from the list of available shipping locations
+            if (this.getPartyId() != null && !this.getPartyId().equals("_NA_")) {
+                try {
+                    GenericValue orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", this.getPartyId()));
+                    Collection shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+                    if (shippingContactMechList != null && shippingContactMechList.size() > 0) {
+                        GenericValue shippingContactMech = (GenericValue)(shippingContactMechList.iterator()).next();
+                        this.setShippingContactMechId(shippingContactMech.getString("contactMechId"));
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Error setting shippingContactMechId in setDefaultCheckoutOptions() method.", module);
                 }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Error setting shippingContactMechId in setDefaultCheckoutOptions() method.", module);
             }
-        }
-        // set the default shipment method
-        ShippingEstimateWrapper shipEstimateWrapper = org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper.getWrapper(dispatcher, this, 0);
-        GenericValue carrierShipmentMethod = EntityUtil.getFirst(shipEstimateWrapper.getShippingMethods());
-        if (carrierShipmentMethod != null) {
-            this.setShipmentMethodTypeId(carrierShipmentMethod.getString("shipmentMethodTypeId"));
-            this.setCarrierPartyId(carrierShipmentMethod.getString("partyId"));
+            // set the default shipment method
+            ShippingEstimateWrapper shipEstimateWrapper = org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper.getWrapper(dispatcher, this, 0);
+            GenericValue carrierShipmentMethod = EntityUtil.getFirst(shipEstimateWrapper.getShippingMethods());
+            if (carrierShipmentMethod != null) {
+                this.setShipmentMethodTypeId(carrierShipmentMethod.getString("shipmentMethodTypeId"));
+                this.setCarrierPartyId(carrierShipmentMethod.getString("partyId"));
+            }
+        } else {
+            // checkout options for purchase orders
+            // TODO: should we select a default agreement? For now we don't do this.
+            // skip the order terms selection step
+            this.setOrderTermSet(true);
+            // set as the default shipping location the first from the list of available shipping locations
+            String companyId = this.getBillToCustomerPartyId();
+            if (companyId != null) {
+                try {
+                    List facilities = delegator.findByAndCache("Facility", UtilMisc.toMap("ownerPartyId", companyId));
+                    // TODO: improve code here to select the best ship to facility (from requirements?);
+                    //       for now, we consider the first one
+                    GenericValue facility = EntityUtil.getFirst(facilities);
+                    if (facility != null) {
+                        List facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facility.getString("facilityId"), false, null);
+                        if (facilityContactMechValueMaps != null) {
+                            Iterator facilityContactMechValueMapsIt = facilityContactMechValueMaps.iterator();
+                            while (facilityContactMechValueMapsIt.hasNext()) {
+                                Map facilityContactMechValueMap = (Map)facilityContactMechValueMapsIt.next();
+                                if (facilityContactMechValueMap.get("postalAddress") != null) {
+                                    GenericValue postalAddress = (GenericValue)facilityContactMechValueMap.get("postalAddress");
+                                    this.setShippingContactMechId(0, postalAddress.getString("contactMechId"));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Error setting shippingContactMechId in setDefaultCheckoutOptions() method.", module);
+                }
+            }
+            // shipping options
+            this.setShipmentMethodTypeId(0, "NO_SHIPPING");
+            this.setCarrierPartyId(0, "_NA_");
+            this.setShippingInstructions(0, "");
+            this.setGiftMessage(0, "");
+            this.setMaySplit(0, new Boolean(true));
+            this.setIsGift(0, new Boolean(false));
+            //this.setInternalCode(internalCode);
         }
     }
 
