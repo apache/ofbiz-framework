@@ -48,7 +48,7 @@ under the License.
         </field>
         
         <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}">
-            <drop-down>
+            <drop-down no-current-selected-key="EMAIL_ADDRESS">
                 <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -191,10 +191,11 @@ under the License.
         
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
-            <drop-down>
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
-                </entity-options>
+            <drop-down allow-empty="false" no-current-selected-key="COM_PENDING">
+                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                     <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
+                     <entity-order-by field-name="sequenceId"/>
+                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" use-when="communicationEvent!=null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
