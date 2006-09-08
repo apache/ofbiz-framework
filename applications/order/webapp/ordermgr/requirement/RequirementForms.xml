@@ -230,6 +230,13 @@
         default-tooltip-style="tabletext">
         <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
+        <field name="billToCustomerPartyId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PartyRole" key-field-name="partyId" description="${partyId}">
+                    <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="unassignedRequirements"><check/></field>
         <field name="facilityId">
@@ -282,7 +289,7 @@
                 <field-map field-name="partyId" env-name="parameters.partyId"/>
             </service>
         </actions>
-        <field name="billToCustomerPartyId"><hidden value="Company"/></field>
+        <field name="billToCustomerPartyId"><hidden value="${parameters.billToCustomerPartyId}"/></field>
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
         <field name="requirementId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
