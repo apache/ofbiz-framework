@@ -19,6 +19,25 @@ under the License.
           <fo:table-column column-width="3.75in"/>
           <fo:table-body>
             <fo:table-row>    <#-- this part could use some improvement -->
+             
+             <#-- a special purchased from address for Purchase Orders -->
+             <#if orderHeader.getString("orderTypeId") == "PURCHASE_ORDER">
+             <#if supplierGeneralContactMechValueMap?exists>
+               <#assign contactMech = supplierGeneralContactMechValueMap.contactMech>
+               <fo:table-cell>
+                 <fo:block white-space-collapse="false">
+<fo:block font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:block><#assign postalAddress = supplierGeneralContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName}</#if><#if postalAddress.attnName?has_content>
+${postalAddress.attnName}</#if>
+${postalAddress.address1}<#if postalAddress.address2?has_content>
+${postalAddress.address2}</#if>
+${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
+${postalAddress.countryGeoId?if_exists}
+</fo:block>
+               </fo:table-cell>
+             </#if>
+             </#if>
+             
+             <#-- list all postal addresses of the order.  there should be just a billing and a shipping here. -->
              <#list orderContactMechValueMaps as orderContactMechValueMap>
                <#assign contactMech = orderContactMechValueMap.contactMech>
                <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
@@ -34,20 +53,7 @@ ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${posta
                 </fo:table-cell>
                 </#if>
              </#list>
-             <#if orderHeader.getString("orderTypeId") == "PURCHASE_ORDER">
-             <#if supplierGeneralContactMechValueMap?exists>
-               <#assign contactMech = supplierGeneralContactMechValueMap.contactMech>
-               <fo:table-cell>
-                 <fo:block white-space-collapse="false">
-<fo:block font-weight="bold">${uiLabelMap.ProductSupplier}:</fo:block><#assign postalAddress = supplierGeneralContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName}</#if><#if postalAddress.attnName?has_content>
-${postalAddress.attnName}</#if>
-${postalAddress.address1}<#if postalAddress.address2?has_content>
-${postalAddress.address2}</#if>
-${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
-</fo:block>
-               </fo:table-cell>
-             </#if>
-             </#if>
+             
             </fo:table-row>
          </fo:table-body>
        </fo:table>
@@ -60,10 +66,10 @@ ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${posta
           
   <#-- payment info -->                
           <fo:table-body>
+           <#if orderPaymentPreferences?has_content>
             <fo:table-row>
                 <fo:table-cell><fo:block>${uiLabelMap.AccountingPaymentInformation}</fo:block></fo:table-cell>
                 <fo:table-cell><fo:block>
-                   <#if orderPaymentPreferences?has_content>
                       <#list orderPaymentPreferences as orderPaymentPreference>
                          <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType")?if_exists>
                          <#if ((orderPaymentPreference != null) && (orderPaymentPreference.getString("paymentMethodTypeId") == "CREDIT_CARD") && (orderPaymentPreference.getString("paymentMethodId")?has_content))>
@@ -73,10 +79,11 @@ ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${posta
                              ${paymentMethodType.get("description",locale)?if_exists}
                          </#if>
                       </#list>
-                   </#if>
-                         </fo:block>
+                      </fo:block>
                  </fo:table-cell>
             </fo:table-row>
+         </#if>
+        
         <#-- shipping method.  currently not shown for PO's because we are not recording a shipping method for PO's in order entry -->
            <#if orderHeader.getString("orderTypeId") == "SALES_ORDER">
             <fo:table-row>
