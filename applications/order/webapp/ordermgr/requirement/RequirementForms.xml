@@ -182,6 +182,11 @@
                 <entity-options entity-name="RequirementType" description="${description}"/>
             </drop-down>
         </field>
+        <field name="facilityId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Facility" description="${facilityId}"/>
+            </drop-down>
+        </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <lookup target-form-name="LookupProduct"/>
         </field>
@@ -209,6 +214,7 @@
         <field name="requirementTypeId">
             <display-entity entity-name="RequirementType" also-hidden="true"/>
         </field>
+        <field name="facilityId"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
@@ -226,6 +232,11 @@
         <field name="requirementId"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="unassignedRequirements"><check/></field>
+        <field name="facilityId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Facility" description="${facilityId}"/>
+            </drop-down>
+        </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="requirementByDate"><date-find type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -247,10 +258,13 @@
         <field name="requirementId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
         </field>
-        <field name="productId"><hidden value="${productId}"/></field>
-        <field name="productId">
-            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+        <field name="productId" widget-style="buttontext">
+            <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}"/>
         </field>
+        <field name="internalName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+        </field>
+        <field name="facilityId"><display/></field>
         <field name="partyId"><display/></field>
         <field name="requiredByDate"><display/></field>
         <field name="quantity"><display/></field>
