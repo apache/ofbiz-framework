@@ -28,10 +28,11 @@ under the License.
           <td>          
             <#list 1..shoppingCart.getShipGroupSize() as currIndex>
               <#assign shipGroupIndex = currIndex - 1>
+              <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", shoppingCart.getSupplierPartyId(shipGroupIndex)))?if_exists />
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td colspan="2">
-                    <div class="head1">${uiLabelMap.OrderShipGroup} # ${currIndex}</div>
+                    <div class="head1">${uiLabelMap.OrderShipGroup} # ${currIndex}<#if supplier?has_content> - ${supplier.description?default(supplier.partyId)}</#if></div>
                 </td>
               </tr>
               <tr>

@@ -38,6 +38,7 @@ standard order confirmation page and to be re-usable by other screens.
 
       <tr>
         <td><span class="tableheadtext">${uiLabelMap.OrderDestination}</span></td>
+        <td><span class="tableheadtext">${uiLabelMap.PartySupplier}</span></td>
         <td><span class="tableheadtext">${uiLabelMap.ProductShipmentMethod}</span></td>
         <td><span class="tableheadtext">${uiLabelMap.ProductItem}</span></td>
         <td><span class="tableheadtext">${uiLabelMap.ProductQuantity}</span></td>
@@ -55,7 +56,7 @@ standard order confirmation page and to be re-usable by other screens.
       <#if (numberOfItems > 0)>
 
       <#-- spacer goes here -->
-      <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+      <tr><td colspan="5"><hr class="sepbar"/></td></tr>
 
       <tr>
 
@@ -76,6 +77,13 @@ standard order confirmation page and to be re-usable by other screens.
             <#if address.stateProvinceGeoId?has_content>&nbsp;${address.stateProvinceGeoId}</#if>
             <#if address.postalCode?has_content>, ${address.postalCode?if_exists}</#if>
           </#if>
+        </td>
+
+        <#-- supplier id (for drop shipments) (also spans rows = number of items) -->
+
+        <td rowspan="${numberOfItems}" valign="top" class="tabletext">
+          <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", cartShipInfo.getSupplierPartyId()))?if_exists />
+          <#if supplier?has_content>${supplier.description?default(supplier.partyId)}</#if>
         </td>
 
         <#-- carrier column (also spans rows = number of items) -->
