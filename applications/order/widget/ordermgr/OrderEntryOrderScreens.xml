@@ -261,25 +261,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="OrderComplete">
-        <section>
-            <actions>
-                <set field="headerItem" value="orderentry"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/orderstatus.bsh"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                <!--<decorator-screen name="CommonOrderCheckoutDecorator">-->
-                    <decorator-section name="body">
-                      <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/entry/order/orderheader.ftl"/></html>
-                        </platform-specific>
-                      <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/entry/order/orderitems.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                  </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 </screens>
