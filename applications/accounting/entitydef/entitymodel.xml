@@ -1898,6 +1898,8 @@ under the License.
       <field name="contactMechId" type="id-ne"><description>The Billing PostalAddress</description></field>
       <field name="consecutiveFailedAuths" type="numeric"></field>
       <field name="lastFailedAuthDate" type="date-time"></field>
+      <field name="consecutiveFailedNsf" type="numeric"></field>
+      <field name="lastFailedNsfDate" type="date-time"></field>
       <prim-key field="paymentMethodId"/>
       <relation type="one" fk-name="CREDCARD_PMNTMETH" rel-entity-name="PaymentMethod">
         <key-map field-name="paymentMethodId"/>
@@ -2597,6 +2599,10 @@ under the License.
       <field name="gatewayScoreResult" type="short-varchar"></field>
       <field name="gatewayMessage" type="long-varchar"></field>
       <field name="transactionDate" type="date-time"></field>
+      <field name="resultDeclined" type="indicator"></field>
+      <field name="resultNsf" type="indicator"></field>
+      <field name="resultBadExpire" type="indicator"></field>
+      <field name="resultBadCardNumber" type="indicator"></field>
       <prim-key field="paymentGatewayResponseId"/>
       <relation type="one" fk-name="PAYGATR_PSTENUM" title="ServiceType" rel-entity-name="Enumeration">
         <key-map field-name="paymentServiceTypeEnumId" rel-field-name="enumId"/>
