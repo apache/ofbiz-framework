@@ -2023,6 +2023,20 @@ public class ShoppingCart implements Serializable {
         return null;
     }
 
+    /** Sets the supplier for the given ship group (drop shipment). */
+    public void setSupplierPartyId(int idx, String supplierPartyId) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        // TODO: before we set the value we have to verify if all the products
+        //       already in this ship group are drop shippable from the supplier
+        csi.supplierPartyId = supplierPartyId;
+    }
+
+    /** Returns the supplier for the given ship group (drop shipment). */
+    public String getSupplierPartyId(int idx) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        return csi.supplierPartyId;
+    }
+
     /** Sets the shipping instructions. */
     public void setShippingInstructions(int idx, String shippingInstructions) {
         CartShipInfo csi = this.getShipInfo(idx);
@@ -3618,6 +3632,7 @@ public class ShoppingCart implements Serializable {
         public List shipTaxAdj = new LinkedList();
         public String contactMechId = null;
         public String shipmentMethodTypeId = null;
+        public String supplierPartyId = null;
         public String carrierRoleTypeId = null;
         public String carrierPartyId = null;
         public String giftMessage = null;
@@ -3630,6 +3645,7 @@ public class ShoppingCart implements Serializable {
 
         public String getContactMechId() { return contactMechId; }
         public String getCarrierPartyId() { return carrierPartyId; }
+        public String getSupplierPartyId() { return supplierPartyId; }
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
 
         public List makeItemShipGroupAndAssoc(GenericDelegator delegator, ShoppingCart cart, long groupIndex) {
@@ -3649,6 +3665,7 @@ public class ShoppingCart implements Serializable {
             shipGroup.set("shipmentMethodTypeId", shipmentMethodTypeId);
             shipGroup.set("carrierRoleTypeId", carrierRoleTypeId);
             shipGroup.set("carrierPartyId", carrierPartyId);
+            shipGroup.set("supplierPartyId", supplierPartyId);
             shipGroup.set("shippingInstructions", shippingInstructions);
             shipGroup.set("giftMessage", giftMessage);
             shipGroup.set("contactMechId", contactMechId);

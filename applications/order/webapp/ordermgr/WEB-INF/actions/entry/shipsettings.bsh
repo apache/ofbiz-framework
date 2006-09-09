@@ -49,6 +49,9 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
             context.put("shippingContactMechList", shippingContactMechList);
         }
     }
+    // suppliers for the drop-ship select box
+    suppliers = delegator.findByAnd("PartyRole", UtilMisc.toMap("roleTypeId", "SUPPLIER"));
+    context.put("suppliers", suppliers);
 } else {
     // Purchase order
     if (orderPartyId != null && !orderPartyId.equals("_NA_")) {

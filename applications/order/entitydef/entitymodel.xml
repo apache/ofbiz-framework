@@ -674,6 +674,7 @@ under the License.
       <field name="orderId" type="id-ne"></field>
       <field name="shipGroupSeqId" type="id-ne"></field>
       <field name="shipmentMethodTypeId" type="id"></field>
+      <field name="supplierPartyId" type="id"></field>
       <field name="carrierPartyId" type="id"></field>
       <field name="carrierRoleTypeId" type="id"></field>
       <field name="contactMechId" type="id"></field>
@@ -689,6 +690,9 @@ under the License.
       <prim-key field="shipGroupSeqId"/>
       <relation type="one" fk-name="ORDER_ITSG_ORDH" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITSG_SPRTY" title="Supplier" rel-entity-name="Party">
+        <key-map field-name="supplierPartyId" rel-field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_CSHM" rel-entity-name="CarrierShipmentMethod">
         <key-map field-name="shipmentMethodTypeId"/>

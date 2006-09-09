@@ -667,7 +667,8 @@ public class CheckOutEvents {
                     if (shippingContactMechId == null) {
                         shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
                     }
-                    callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId);
+                    String supplierPartyId = request.getParameter(shipGroupIndex + "_supplierPartyId");
+                    callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
                 // set the options

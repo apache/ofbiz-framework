@@ -114,12 +114,25 @@ under the License.
 <#assign shipGroupIndex = currIndex - 1>
 
 <#assign currShipContactMechId = cart.getShippingContactMechId(shipGroupIndex)?if_exists>
-
+<#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
             <hr class="sepbar"/>
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
                 <td colspan="3">
                     <div class="head1">${uiLabelMap.OrderShipGroup} # ${currIndex}</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                    <div class="tabletext">
+                      ${uiLabelMap.PartySupplier}:
+                      <select class="selectBox" name="${shipGroupIndex?default("0")}_supplierPartyId">
+                        <option value=""></option>
+                        <#list suppliers as supplier>
+                          <option value="${supplier.partyId}"<#if supplierPartyId?exists><#if supplier.partyId == supplierPartyId> selected</#if></#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
+                        </#list>
+                      </select>
+                    </div>
                 </td>
               </tr>
             <#if shippingContactMechList?has_content>

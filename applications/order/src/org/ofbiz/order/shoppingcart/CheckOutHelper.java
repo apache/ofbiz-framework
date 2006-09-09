@@ -1243,12 +1243,13 @@ public class CheckOutHelper {
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages
      */
-    public Map finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId) {
+    public Map finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId, String supplierPartyId) {
         Map result;
         String errMsg=null;
         //Verify the field is valid
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             this.cart.setShippingContactMechId(shipGroupIndex, shippingContactMechId);
+            this.cart.setSupplierPartyId(shipGroupIndex, supplierPartyId);
             result = ServiceUtil.returnSuccess();
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
