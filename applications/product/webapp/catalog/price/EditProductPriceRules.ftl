@@ -35,6 +35,7 @@ under the License.
         <FORM method="post" action="<@ofbizUrl>updateProductPriceRule</@ofbizUrl>" name="updateProductPriceRule">
             <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
             <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}" class="inputBox">
+            <input type="text" size="15" name="description" value="${productPriceRule.description?if_exists}" class="inputBox">
             <input type="text" size="22" name="fromDate" value="${productPriceRule.fromDate?if_exists}" class="inputBox"><a href="javascript:call_cal(document.updateProductPriceRule.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
             <input type="text" size="22" name="thruDate" value="${productPriceRule.thruDate?if_exists}" class="inputBox"><a href="javascript:call_cal(document.updateProductPriceRule.thruDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
             &nbsp;&nbsp;
