@@ -209,15 +209,20 @@ under the License.
         <description>(Batch) Retries failed authorizations due to processor/connection problems</description>
         <!-- this service has no parameters IN or OUT -->
     </service>
-
     <service name="retryFailedOrderAuth" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedOrderAuth" auth="true">
-        <description>Retries failed authorizations due to processor/connection problems for an order</description>
+        <description>Retries failed authorization due to processor/connection problems, or NSF (Not Sufficient Funds) failure, for an order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="true"/>
         <attribute name="authResultMsgs" type="List" mode="OUT" optional="true"/>
     </service>
 
+    <service name="retryFailedAuthNsfs" engine="java"
+        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryNsfFailedAuths" auth="true">
+        <description>(Batch) Retries failed authorizations due to NSF (Not Sufficient Funds); these are for auto-orders</description>
+        <!-- this service has no parameters IN or OUT -->
+    </service>
+    
     <service name="authOrderPaymentPreference" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPaymentPreference" auth="true">
         <description>Process (authorizes/re-authorizes) a single payment for an order with an optional overrideAmount</description>

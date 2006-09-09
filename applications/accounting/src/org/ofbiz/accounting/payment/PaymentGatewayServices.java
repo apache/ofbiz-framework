@@ -46,6 +46,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
@@ -61,10 +62,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * PaymentGatewayServices
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PaymentGatewayServices {
 
@@ -103,8 +100,8 @@ public class PaymentGatewayServices {
 
         // validate overrideAmount if its available
         if (overrideAmount != null) {
-            if (overrideAmount.doubleValue()  < 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is negative.");
-            if (overrideAmount.doubleValue()  == 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is zero.");
+            if (overrideAmount.doubleValue() < 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is negative.");
+            if (overrideAmount.doubleValue() == 0) return ServiceUtil.returnError("Amount entered (" + overrideAmount + ") is zero.");
         }
 
         GenericValue orderHeader = null;
@@ -181,6 +178,11 @@ public class PaymentGatewayServices {
                     if (processResult) {
                         results.put("processAmount", thisAmount);
                         results.put("finished", Boolean.TRUE);
+                    } else {
+                        // if we are doing an NSF retry then also 
+                        //boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, processorResult, delegator);
+                        // TODO: what do we do with this? we need to fail the auth but still allow the order through so it can be fixed later
+                        // NOTE: this is called through a different path for auto re-orders, so it should be good to go... will leave this comment here just in case...
                     }
                 } catch (GeneralException e) {
                     String errMsg = "Error saving and processing payment authorization results: " + e.toString();
@@ -1399,6 +1401,13 @@ public class PaymentGatewayServices {
         }
 
         try {
+            String paymentMethodId = orderPaymentPreference.getString("paymentMethodId");
+            GenericValue paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+            GenericValue creditCard = null;
+            if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                creditCard = paymentMethod.getRelatedOne("CreditCard");
+            }
+
             // create the PaymentGatewayResponse
             String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
             GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
@@ -1422,7 +1431,13 @@ public class PaymentGatewayServices {
             response.set("gatewayFlag", context.get("authFlag"));
             response.set("gatewayMessage", context.get("authMessage"));
             response.set("transactionDate", UtilDateTime.nowTimestamp());
-            delegator.create(response);
+            
+            if (Boolean.TRUE.equals((Boolean) context.get("resultDeclined"))) response.set("resultDeclined", "Y");
+            if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) response.set("resultNsf", "Y");
+            if (Boolean.TRUE.equals((Boolean) context.get("resultBadExpire"))) response.set("resultBadExpire", "Y");
+            if (Boolean.TRUE.equals((Boolean) context.get("resultBadCardNumber"))) response.set("resultBadCardNumber", "Y");
+            
+            response.create();
     
             // create the internal messages
             List messages = (List) context.get("internalRespMsgs");
@@ -1452,23 +1467,48 @@ public class PaymentGatewayServices {
             } else {
                 orderPaymentPreference.set("statusId", "PAYMENT_ERROR");
             }
+            
+            boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, context, delegator);
+            if (needsNsfRetry) {
+                orderPaymentPreference.set("needsNsfRetry", "Y");
+            } else {
+                orderPaymentPreference.set("needsNsfRetry", "N");
+            }
+
             orderPaymentPreference.store();
             
             // if the payment was declined and this is a CreditCard, save that information on the CreditCard entity  
-            if (context != null && !authResult.booleanValue()) {
-                String paymentMethodId = orderPaymentPreference.getString("paymentMethodId");
-                GenericValue paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
-                if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                    GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard");
-                    
+            if (!authResult.booleanValue()) {
+                if (creditCard != null) {
                     Long consecutiveFailedAuths = creditCard.getLong("consecutiveFailedAuths");
                     if (consecutiveFailedAuths == null) {
                         creditCard.set("consecutiveFailedAuths", new Long(1));
                     } else {
                         creditCard.set("consecutiveFailedAuths", new Long(consecutiveFailedAuths.longValue() + 1));
                     }
-                    
                     creditCard.set("lastFailedAuthDate", nowTimestamp);
+                    
+                    if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) {
+                        Long consecutiveFailedNsf = creditCard.getLong("consecutiveFailedNsf");
+                        if (consecutiveFailedNsf == null) {
+                            creditCard.set("consecutiveFailedNsf", new Long(1));
+                        } else {
+                            creditCard.set("consecutiveFailedNsf", new Long(consecutiveFailedNsf.longValue() + 1));
+                        }
+                        creditCard.set("lastFailedNsfDate", nowTimestamp);
+                    }
+                    
+                    creditCard.store();
+                }
+            }
+            
+            // auth was successful, to clear out any failed auth or nsf info
+            if (authResult.booleanValue()) {
+                if ((creditCard != null) && (creditCard.get("lastFailedAuthDate") != null)) {
+                    creditCard.set("consecutiveFailedAuths", new Long(0));
+                    creditCard.set("lastFailedAuthDate", null);
+                    creditCard.set("consecutiveFailedNsf", new Long(0));
+                    creditCard.set("lastFailedNsfDate", null);
                     
                     creditCard.store();
                 }
@@ -1480,6 +1520,35 @@ public class PaymentGatewayServices {
         }
 
         return ServiceUtil.returnSuccess();
+    }
+    
+    private static boolean needsNsfRetry(GenericValue orderPaymentPreference, Map processContext, GenericDelegator delegator) throws GenericEntityException {
+        boolean needsNsfRetry = false;
+        if (Boolean.TRUE.equals((Boolean) processContext.get("resultNsf"))) {
+            // only track this for auto-orders, since we will only not fail and re-try on those
+            GenericValue orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader");
+            if (UtilValidate.isNotEmpty(orderHeader.getString("autoOrderShoppingListId"))) {
+                GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
+                if ("Y".equals(productStore.getString("autoOrderCcTryLaterNsf"))) {
+                    // one last condition: make sure there have been less than ProductStore.autoOrderCcTryLaterMax 
+                    //   PaymentGatewayResponse records with the same orderPaymentPreferenceId and paymentMethodId (just in case it has changed)
+                    //   and that have resultNsf = Y, ie only consider other NSF responses
+                    Long autoOrderCcTryLaterMax = productStore.getLong("autoOrderCcTryLaterMax");
+                    if (autoOrderCcTryLaterMax != null) {
+                        long failedTries = delegator.findCountByAnd("PaymentGatewayResponse", 
+                                UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"), 
+                                "paymentMethodId", orderPaymentPreference.get("paymentMethodId"),
+                                "resultNsf", "Y"));
+                        if (failedTries < autoOrderCcTryLaterMax.longValue()) {
+                            needsNsfRetry = true;
+                        }
+                    } else {
+                        needsNsfRetry = true;
+                    }
+                }
+            }
+        }
+        return needsNsfRetry;
     }
 
     private static GenericValue processAuthRetryResult(DispatchContext dctx, Map result, GenericValue userLogin, GenericValue paymentPreference) throws GeneralException {
@@ -1925,6 +1994,7 @@ public class PaymentGatewayServices {
         }
     }
 
+
     public static Map retryFailedOrderAuth(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -1948,6 +2018,7 @@ public class PaymentGatewayServices {
         // check the current order status
         if (!"ORDER_CREATED".equals(orderHeader.getString("statusId"))) {
             // if we are out of the created status; then we were either cancelled, rejected or approved
+            Debug.logWarning("Was re-trying a failed auth for orderId [" + orderId + "] but it is not in the ORDER_CREATED status, so skipping.", module);
             return ServiceUtil.returnSuccess();
         }
 
@@ -1975,7 +2046,6 @@ public class PaymentGatewayServices {
             if ("FAILED".equals(authResp)) {
                 // declined; update the order status
                 OrderChangeHelper.rejectOrder(dispatcher, userLogin, orderId);
-
             } else if ("APPROVED".equals(authResp)) {
                 // approved; update the order status
                 OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
@@ -1987,6 +2057,7 @@ public class PaymentGatewayServices {
 
         return result;
     }
+
 
     public static Map retryFailedAuths(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -2001,38 +2072,87 @@ public class PaymentGatewayServices {
         try {
             eli = delegator.findListIteratorByCondition("OrderPaymentPreference",
                     new EntityConditionList(exprs, EntityOperator.AND), null, UtilMisc.toList("orderId"));
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-
-        List processList = new ArrayList();
-        if (eli != null) {
-            Debug.logInfo("Processing failed order re-auth(s)", module);
-            GenericValue value;
-            while (((value = (GenericValue) eli.next()) != null)) {
-                String orderId = value.getString("orderId");
-                if (!processList.contains(orderId)) { // just try each order once
-                    try {
-                        // each re-try is independent of each other; if one fails it should not effect the others
-                        dispatcher.runAsync("retryFailedOrderAuth", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
-                        processList.add(orderId);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
+            List processList = new ArrayList();
+            if (eli != null) {
+                Debug.logInfo("Processing failed order re-auth(s)", module);
+                GenericValue value = null;
+                while (((value = (GenericValue) eli.next()) != null)) {
+                    String orderId = value.getString("orderId");
+                    if (!processList.contains(orderId)) { // just try each order once
+                        try {
+                            // each re-try is independent of each other; if one fails it should not effect the others
+                            dispatcher.runAsync("retryFailedOrderAuth", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                            processList.add(orderId);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                        }
                     }
                 }
             }
-
-            try {
-                eli.close();
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        } finally {
+            if (eli != null) {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
             }
         }
 
-        processList = null;
         return ServiceUtil.returnSuccess();
     }
+    
+    public static Map retryFailedAuthNsfs(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        // get the date/time for one week before now since we'll only retry once a week for NSFs
+        Calendar calcCal = Calendar.getInstance();
+        calcCal.setTimeInMillis(System.currentTimeMillis());
+        calcCal.add(Calendar.WEEK_OF_YEAR, -1);
+        Timestamp oneWeekAgo = new Timestamp(calcCal.getTimeInMillis());
 
+        EntityListIterator eli = null;
+        try {
+            eli = delegator.findListIteratorByCondition("OrderPaymentPreference",
+                    new EntityExpr(new EntityExpr("needsNsfRetry", EntityOperator.EQUALS, "Y"), EntityOperator.AND, new EntityExpr(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)), 
+                    null, UtilMisc.toList("orderId"));
+
+            List processList = new ArrayList();
+            if (eli != null) {
+                Debug.logInfo("Processing failed order re-auth(s)", module);
+                GenericValue value = null;
+                while (((value = (GenericValue) eli.next()) != null)) {
+                    String orderId = value.getString("orderId");
+                    if (!processList.contains(orderId)) { // just try each order once
+                        try {
+                            // each re-try is independent of each other; if one fails it should not effect the others
+                            dispatcher.runAsync("retryFailedOrderAuthNsf", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                            processList.add(orderId);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                        }
+                    }
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        } finally {
+            if (eli != null) {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+    
     public static GenericValue getCaptureTransaction(GenericValue orderPaymentPreference) {
         GenericValue capTrans = null;
         try {
@@ -2139,6 +2259,7 @@ public class PaymentGatewayServices {
     }
 
     // manual processing service
+
     public static Map processManualCcTx(DispatchContext dctx, Map context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -2254,6 +2375,7 @@ public class PaymentGatewayServices {
     // Test Services
     // ****************************************************
 
+
     /**
      * Simple test processor; declines all orders < 100.00; approves all orders > 100.00
      */
@@ -2280,6 +2402,7 @@ public class PaymentGatewayServices {
         result.put("internalRespMsgs", UtilMisc.toList("This is a test processor; no payments were captured or authorized."));
         return result;
     }
+
 
     /**
      * Simple test processor; declines all orders < 100.00; approves all orders > 100.00
@@ -2313,6 +2436,7 @@ public class PaymentGatewayServices {
         result.put("internalRespMsgs", UtilMisc.toList("This is a test processor; no payments were captured or authorized."));
         return result;
     }
+
 
     /**
      * Always approve processor.
@@ -2351,6 +2475,7 @@ public class PaymentGatewayServices {
         result.put("authMessage", "This is a test processor; no payments were captured or authorized.");
         return result;
     }
+
 
     /**
      * Always decline processor

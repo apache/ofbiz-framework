@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -20,11 +19,13 @@ under the License.
     <RecurrenceRule recurrenceRuleId="200" untilDateTime="" frequency="DAILY" intervalNumber="1" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="200" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="200" recurrenceCount="0"/>
     <RecurrenceInfo recurrenceInfoId="201" startDateTime="2000-01-01 01:00:00.000" recurrenceRuleId="200" recurrenceCount="0"/>
-    <RecurrenceInfo recurrenceInfoId="202" startDateTime="2000-01-01 03:00:00.000" recurrenceRuleId="200" recurrenceCount="0"/>
-    <RecurrenceInfo recurrenceInfoId="203" startDateTime="2000-01-01 04:00:00.000" recurrenceRuleId="200" recurrenceCount="0"/>
-
+    <RecurrenceInfo recurrenceInfoId="202" startDateTime="2000-01-01 02:00:00.000" recurrenceRuleId="200" recurrenceCount="0"/>
+    <RecurrenceInfo recurrenceInfoId="203" startDateTime="2000-01-01 03:00:00.000" recurrenceRuleId="200" recurrenceCount="0"/>
+    <RecurrenceInfo recurrenceInfoId="204" startDateTime="2000-01-01 04:00:00.000" recurrenceRuleId="200" recurrenceCount="0"/>
+    
     <JobSandbox jobId="8000" jobName="BackOrder Notification" runTime="2000-01-01 00:00:00.000" serviceName="checkInventoryAvailability" poolId="pool" runAsUser="system" recurrenceInfoId="200"/>
     <JobSandbox jobId="8001" jobName="Re-Try Failed Auths" runTime="2000-01-01 01:00:00.000" serviceName="retryFailedAuths" poolId="pool" runAsUser="system" recurrenceInfoId="201"/>
     <JobSandbox jobId="8002" jobName="Order Auto-Cancel" runTime="2000-01-01 03:00:00.000" serviceName="autoCancelOrderItems" poolId="pool" runAsUser="system" recurrenceInfoId="202"/>
     <JobSandbox jobId="8003" jobName="Run Auto-Reorders" runTime="2000-01-01 03:00:00.000" serviceName="runShoppingListAutoReorder" poolId="pool" runAsUser="system" recurrenceInfoId="203"/>
+    <JobSandbox jobId="8004" jobName="Re-Try Failed Auths NSF" runTime="2000-01-01 01:00:00.000" serviceName="retryFailedAuthNsfs" poolId="pool" runAsUser="system" recurrenceInfoId="204"/>
 </entity-engine-xml>

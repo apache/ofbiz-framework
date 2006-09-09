@@ -850,6 +850,7 @@ under the License.
       <field name="manualAuthCode" type="short-varchar"></field>
       <field name="manualRefNum" type="short-varchar"></field>
       <field name="statusId" type="id"></field>
+      <field name="needsNsfRetry" type="indicator"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <prim-key field="orderPaymentPreferenceId"/>
@@ -884,6 +885,9 @@ under the License.
       <relation type="one-nofk" rel-entity-name="GiftCard">
         <key-map field-name="paymentMethodId"/>
       </relation>
+      <index name="NSF_RETRY_CHECK">
+        <index-field name="needsNsfRetry"/>
+      </index>
     </entity>
     <entity entity-name="OrderRole"
             package-name="org.ofbiz.order.order"
