@@ -1641,6 +1641,7 @@ under the License.
             title="Product Pice Rule Entity">
       <field name="productPriceRuleId" type="id-ne"></field>
       <field name="ruleName" type="name"></field>
+      <field name="description" type="description"></field>
       <field name="isSale" type="indicator"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
