@@ -2423,44 +2423,81 @@ under the License.
         <key-map field-name="glAccountId"/>
       </relation>
     </entity>
-    <view-entity entity-name="PaymentMethodAndCreditCard"
-            package-name="org.ofbiz.accounting.payment"
-            never-cache="true"
-            title="PaymentMethod and CreditCard View Entity">
-      <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
-      <member-entity entity-alias="CC" entity-name="CreditCard"/>
-      <alias entity-alias="PM" name="paymentMethodId"/>
-      <alias entity-alias="PM" name="paymentMethodTypeId"/>
-      <alias entity-alias="PM" name="partyId"/>
-      <alias entity-alias="PM" name="glAccountId"/>
-      <alias entity-alias="PM" name="fromDate"/>
-      <alias entity-alias="PM" name="thruDate"/>
-      <alias entity-alias="CC" name="cardType"/>
-      <alias entity-alias="CC" name="cardNumber"/>
-      <alias entity-alias="CC" name="expireDate"/>
-      <alias entity-alias="CC" name="companyNameOnCard"/>
-      <alias entity-alias="CC" name="titleOnCard"/>
-      <alias entity-alias="CC" name="firstNameOnCard"/>
-      <alias entity-alias="CC" name="lastNameOnCard"/>
-      <alias entity-alias="CC" name="suffixOnCard"/>
-      <alias entity-alias="CC" name="contactMechId"/>
-      <view-link entity-alias="PM" rel-entity-alias="CC">
-        <key-map field-name="paymentMethodId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="PaymentMethod">
-        <key-map field-name="paymentMethodId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PaymentMethodType">
-        <key-map field-name="paymentMethodTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="CreditCard">
-        <key-map field-name="paymentMethodId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PostalAddress">
-        <key-map field-name="contactMechId"/>
-      </relation>
-    </view-entity>
-    <view-entity entity-name="PaymentMethodAndGiftCard"
+  <view-entity entity-name="PaymentMethodAndCreditCard"
+    package-name="org.ofbiz.accounting.payment"
+    never-cache="true"
+    title="PaymentMethod and CreditCard View Entity">
+    <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
+    <member-entity entity-alias="CC" entity-name="CreditCard"/>
+    <alias entity-alias="PM" name="paymentMethodId"/>
+    <alias entity-alias="PM" name="paymentMethodTypeId"/>
+    <alias entity-alias="PM" name="partyId"/>
+    <alias entity-alias="PM" name="glAccountId"/>
+    <alias entity-alias="PM" name="fromDate"/>
+    <alias entity-alias="PM" name="thruDate"/>
+    <alias entity-alias="CC" name="cardType"/>
+    <alias entity-alias="CC" name="cardNumber"/>
+    <alias entity-alias="CC" name="expireDate"/>
+    <alias entity-alias="CC" name="companyNameOnCard"/>
+    <alias entity-alias="CC" name="titleOnCard"/>
+    <alias entity-alias="CC" name="firstNameOnCard"/>
+    <alias entity-alias="CC" name="lastNameOnCard"/>
+    <alias entity-alias="CC" name="suffixOnCard"/>
+    <alias entity-alias="CC" name="contactMechId"/>
+    <view-link entity-alias="PM" rel-entity-alias="CC">
+      <key-map field-name="paymentMethodId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="PaymentMethod">
+      <key-map field-name="paymentMethodId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="PaymentMethodType">
+      <key-map field-name="paymentMethodTypeId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="CreditCard">
+      <key-map field-name="paymentMethodId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="PostalAddress">
+      <key-map field-name="contactMechId"/>
+    </relation>
+  </view-entity>
+  <view-entity entity-name="PaymentMethodAndEftAccount"
+    package-name="org.ofbiz.accounting.payment"
+    never-cache="true"
+    title="PaymentMethod and EftAccount View Entity">
+    <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
+    <member-entity entity-alias="EA" entity-name="EftAccount"/>
+    <alias entity-alias="PM" name="paymentMethodId"/>
+    <alias entity-alias="PM" name="paymentMethodTypeId"/>
+    <alias entity-alias="PM" name="partyId"/>
+    <alias entity-alias="PM" name="glAccountId"/>
+    <alias entity-alias="PM" name="fromDate"/>
+    <alias entity-alias="PM" name="thruDate"/>
+    <alias entity-alias="EA" name="bankName"/>
+    <alias entity-alias="EA" name="routingNumber"/><!-- also used for IBAN number -->
+    <alias entity-alias="EA" name="accountType"/>
+    <alias entity-alias="EA" name="accountNumber"/>
+    <alias entity-alias="EA" name="nameOnAccount"/>
+    <alias entity-alias="EA" name="companyNameOnAccount"/>
+    <alias entity-alias="EA" name="contactMechId"/>
+    <alias entity-alias="EA" name="yearsAtBank"/>
+    <view-link entity-alias="PM" rel-entity-alias="EA">
+      <key-map field-name="paymentMethodId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="PaymentMethod">
+      <key-map field-name="paymentMethodId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="PaymentMethodType">
+      <key-map field-name="paymentMethodTypeId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="EftAccount">
+      <key-map field-name="paymentMethodId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="PostalAddress">
+      <key-map field-name="contactMechId"/>
+    </relation>
+  </view-entity>
+  
+  <view-entity entity-name="PaymentMethodAndGiftCard"
             package-name="org.ofbiz.accounting.payment"
             never-cache="true"
             title="PaymentMethod and GiftCard View Entity">
