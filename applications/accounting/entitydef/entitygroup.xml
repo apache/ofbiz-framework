@@ -155,6 +155,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PaymentBudgetAllocation" />
     <entity-group group="org.ofbiz" entity="PaymentMethod" />
     <entity-group group="org.ofbiz" entity="PaymentMethodAndCreditCard" />
+    <entity-group group="org.ofbiz" entity="PaymentMethodAndEftAccount" />
     <entity-group group="org.ofbiz" entity="PaymentMethodAndGiftCard" />
     <entity-group group="org.ofbiz" entity="PaymentMethodType" />
     <entity-group group="org.ofbiz" entity="PaymentMethodTypeGlAccount" />
