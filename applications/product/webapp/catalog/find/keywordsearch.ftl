@@ -91,7 +91,7 @@ under the License.
           <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
         </#if>
         <#if 0 < listSize?int>
-          <span class="tabletext">${lowIndex+1} - ${highIndex} of ${listSize}</span>
+          <span class="tabletext">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
         </#if>
         <#if highIndex?int < listSize?int>
           | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
@@ -102,7 +102,7 @@ under the License.
 </table>
 
 <hr class="sepbar"/>
-<div class="tabletext"><b>NOTE:</b> The check boxes above are used only to add to and remove from the text box below, they will not limit the other actions for the forms below!</div>
+<div class="tabletext"><b>${uiLabelMap.ProductNote}:</b> ${uiLabelMap.ProductNoteKeywordSearch}</div>
 <hr class="sepbar"/>
 
 ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVirtualWithVariantsFormInclude")}
@@ -111,9 +111,9 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchRemoveFromCategory</@ofbizUrl>"
-  <b>Remove Results From </b> ${uiLabelMap.ProductCategory}:
+  <b>${uiLabelMap.ProductRemoveResultsFrom} </b> ${uiLabelMap.ProductCategory}:
     <select class="selectBox" name="SE_SEARCH_CATEGORY_ID">
-       <option value="">- Any Category -</option>
+       <option value="">- ${uiLabelMap.ProductAnyCategory} -</option>
        <#list productCategories as productCategory>
            <#assign displayDesc = productCategory.description?default("No Description")>
            <#if 28 < displayDesc?length>
@@ -123,7 +123,7 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
        </#list>
     </select>
   <input type="hidden" name="clearSearch" value="N">
-  <input type="submit" value="Remove" class="smallSubmit"><br/>
+  <input type="submit" value="${uiLabelMap.CommonRemove}" class="smallSubmit"><br/>
 </form>
 </div>
 
@@ -131,9 +131,9 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchExpireFromCategory</@ofbizUrl>" name="searchExpireFromCategory">
-  <b>Expire Results From </b> ${uiLabelMap.ProductCategory}:
+  <b>${uiLabelMap.ProductExpireResultsFrom} </b> ${uiLabelMap.ProductCategory}:
     <select class="selectBox" name="SE_SEARCH_CATEGORY_ID">
-       <option value="">- Any Category -</option>
+       <option value="">- ${uiLabelMap.ProductAnyCategory} -</option>
        <#list productCategories as productCategory>
            <#assign displayDesc = productCategory.description?default("No Description")>
            <#if 28 < displayDesc?length>
@@ -142,9 +142,9 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
            <option value="${productCategory.productCategoryId}">${displayDesc} [${productCategory.productCategoryId}]</option>
        </#list>
     </select>
-  Thru<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  ${uiLabelMap.CommonThru}<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="hidden" name="clearSearch" value="N">
-  <input type="submit" value="Expire" class="smallSubmit"><br/>
+  <input type="submit" value="${uiLabelMap.CommonExpire}" class="smallSubmit"><br/>
 </form>
 </div>
 
@@ -152,7 +152,7 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchAddToCategory</@ofbizUrl>" name="searchAddToCategory">
-  <b>Add Results to </b> ${uiLabelMap.ProductCategory}:
+  <b>${uiLabelMap.ProductAddResultsTo} </b> ${uiLabelMap.ProductCategory}:
     <select class="selectBox" name="SE_SEARCH_CATEGORY_ID">
        <#list productCategories as productCategory>
            <#assign displayDesc = productCategory.description?default("No Description")>
@@ -162,9 +162,9 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
            <option value="${productCategory.productCategoryId}">${displayDesc} [${productCategory.productCategoryId}]</option>
        </#list>
     </select>
-  From<input type="text" size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  ${uiLabelMap.CommonFrom}<input type="text" size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="hidden" name="clearSearch" value="N">
-  <input type="submit" value="Add to Category" class="smallSubmit"><br/>
+  <input type="submit" value="${uiLabelMap.ProductAddToCategory}" class="smallSubmit"><br/>
 </form>
 </div>
 
@@ -172,18 +172,18 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchAddFeature</@ofbizUrl>" name="searchAddFeature">
-  <b>Add Feature to Results:</b><br/>
-  Feature ID<input type="text" size="10" name="productFeatureId" value="" class="inputBox">
-  From<input type="tex"t size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a> 
-  Thru<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  <b>${uiLabelMap.ProductAddFeatureToResults}:</b><br/>
+  ${uiLabelMap.ProductFeatureId}<input type="text" size="10" name="productFeatureId" value="" class="inputBox">
+  ${uiLabelMap.CommonFrom}<input type="tex"t size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a> 
+  ${uiLabelMap.CommonThru}<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
   <br/>
-  Amount<input type="text" size="5" name="amount" value="" class="inputBox">
-  Sequence<input type="text" size="5" name="sequenceNum" value="" class="inputBox">
-  Application Type
+  ${uiLabelMap.CommonAmount}<input type="text" size="5" name="amount" value="" class="inputBox">
+  ${uiLabelMap.CommonSequence}<input type="text" size="5" name="sequenceNum" value="" class="inputBox">
+  ${uiLabelMap.ProductFeatureApplicationType}
     ${uiLabelMap.ProductCategoryId}:
     <select name='productFeatureApplTypeId' size='1' class='selectBox'>
        <#list applicationTypes as applicationType>
-           <#assign displayDesc = applicationType.description?default("No Description")>
+           <#assign displayDesc = applicationType.get("description", locale)?default("No Description")>
            <#if 18 < displayDesc?length>
                <#assign displayDesc = displayDesc[0..15] + "...">
            </#if>
@@ -191,7 +191,7 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
        </#list>
   </select>
   <input type="hidden" name="clearSearch" value="N">
-  <input type="submit" value="Add Feature" class="smallSubmit"><br/>
+  <input type="submit" value="${uiLabelMap.ProductAddFeature}" class="smallSubmit"><br/>
 </form>
 </div>
 
@@ -199,10 +199,10 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchRemoveFeature</@ofbizUrl>" name="searchRemoveFeature">
-  <b>Remove Feature from Results:</b><br/>
-  Feature ID<input type="text" size="10" name="productFeatureId" value="" class="inputBox">
+  <b>${uiLabelMap.ProductRemoveFeatureFromResults}:</b><br/>
+  ${uiLabelMap.ProductFeatureId}<input type="text" size="10" name="productFeatureId" value="" class="inputBox">
   <input type="hidden" name="clearSearch" value="N">
-  <input type="submit" value="Remove Feature" class="smallSubmit"><br/>
+  <input type="submit" value="${uiLabelMap.ProductRemoveFeature}" class="smallSubmit"><br/>
 </form>
 </div>
 </#if>

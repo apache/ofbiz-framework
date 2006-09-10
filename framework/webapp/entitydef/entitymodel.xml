@@ -116,6 +116,7 @@ under the License.
     </entity>
     <entity entity-name="ServerHitType"
             package-name="org.ofbiz.webapp.visit"
+                        default-resource-name="WebappEntityLabels"
             title="Server Hit Bin Entity">
       <field name="hitTypeId" type="id"></field>
       <field name="description" type="description"></field>
