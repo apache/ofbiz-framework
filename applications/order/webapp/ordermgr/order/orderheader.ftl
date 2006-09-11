@@ -883,7 +883,9 @@ under the License.
                    <td align="left" valign="top" width="80%">
                      <div class="tabletext">
                        <#if orderHeader.orderTypeId == "SALES_ORDER">
-                         <a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a>
+                         <#if !shipGroup.supplierPartyId?has_content>
+                           <a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a>
+                         </#if>
                        <#else> <#-- PURCHASE_ORDER -->
                          <#if facilities?has_content>
                          <form action="/facility/control/quickShipPurchaseOrder" method="POST">
@@ -917,8 +919,10 @@ under the License.
                    <td align="left" valign="top" width="80%">
 
                      <#if orderHeader.orderTypeId == "SALES_ORDER">
+                       <#if !shipGroup.supplierPartyId?has_content>
                        <div class="tabletext"><a href="/facility/control/PackOrder?facilityId=${storeFacilityId?if_exists}&orderId=${orderId}&shipGroupSeqId=${shipGroup.shipGroupSeqId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a></div>
                        <div class="tabletext"><a href="/facility/control/createShipment?primaryOrderId=${orderId}&primaryShipGroupSeqId=${shipGroup.shipGroupSeqId}&statusId=SHIPMENT_INPUT&originFacilityId=${storeFacilityId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a></div>
+                       </#if>
                      <#else>
                        <div class="tabletext">
                        <#if facilities?has_content>
