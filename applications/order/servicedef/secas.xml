@@ -23,6 +23,10 @@ under the License.
         <action service="resetGrandTotal" mode="sync"/>
         <action service="addSuggestionsToShoppingList" mode="async" persist="true"/>
     </eca>
+    <eca service="storeOrder" event="return">
+        <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
+        <action service="checkCreateDropShipPurchaseOrders" mode="sync"/>
+    </eca>
     <eca service="changeOrderItemStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
         <action service="cancelOrderInventoryReservation" mode="sync"/>

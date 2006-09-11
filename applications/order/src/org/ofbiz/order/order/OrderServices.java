@@ -3524,4 +3524,71 @@ public class OrderServices {
 
         return ServiceUtil.returnSuccess();
     }
+
+    public static Map checkCreateDropShipPurchaseOrders(DispatchContext ctx, Map context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        // TODO (use the "system" user)
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        String orderId = (String) context.get("orderId");
+        OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+        // TODO: skip this if there is already a purchase order associated with the sales order (ship group)
+
+        try {
+            // if sales order
+            if ("SALES_ORDER".equals(orh.getOrderTypeId())) {
+                // get the order's ship groups
+                Iterator shipGroups = orh.getOrderItemShipGroups().iterator();
+                while (shipGroups.hasNext()) {
+                    GenericValue shipGroup = (GenericValue)shipGroups.next();
+                    if (!UtilValidate.isEmpty(shipGroup.getString("supplierPartyId"))) {
+                        // This ship group is a drop shipment: we create a purchase order for it
+                        String supplierPartyId = shipGroup.getString("supplierPartyId");
+                        // create the cart
+                        ShoppingCart cart = new ShoppingCart(delegator, orh.getProductStoreId(), null, orh.getCurrency());
+                        cart.setOrderType("PURCHASE_ORDER");
+                        cart.setBillToCustomerPartyId(cart.getBillFromVendorPartyId()); //Company
+                        cart.setBillFromVendorPartyId(supplierPartyId);
+                        cart.setOrderPartyId(supplierPartyId);
+                        // Get the items associated to it and create po
+                        Iterator items = orh.getValidOrderItems(shipGroup.getString("shipGroupSeqId")).iterator();
+                        while (items.hasNext()) {
+                            GenericValue item = (GenericValue)items.next();
+                            try {
+                            cart.addOrIncreaseItem(item.getString("productId"),
+                                                   null, // amount
+                                                   item.getDouble("quantity").doubleValue(),
+                                                   null, null, null, // reserv
+                                                   item.getTimestamp("shipBeforeDate"),
+                                                   item.getTimestamp("shipAfterDate"),
+                                                   null, null, null,
+                                                   null, null, null,
+                                                   dispatcher);
+                            } catch(Exception e) {
+                                ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + e.getMessage());
+                            }
+                        }
+                        // set checkout options
+                        cart.setDefaultCheckoutOptions(dispatcher);
+                        // the shipping address is the one of the customer
+                        cart.setShippingContactMechId(shipGroup.getString("contactMechId"));
+                        // create the order
+                        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
+                        Map resultOrderMap = coh.createOrder(userLogin);
+                        String purchaseOrderId = (String)resultOrderMap.get("orderId");
+
+                        // TODO: associate the new purchase order with the sales order (ship group)
+                    }
+                }
+            }
+        } catch(Exception exc) {
+            // TODO: imporve error handling
+            ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + exc.getMessage());
+        }
+        
+        return ServiceUtil.returnSuccess();
+    }
+
 }
