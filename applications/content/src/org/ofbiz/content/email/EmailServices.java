@@ -188,7 +188,7 @@ public class EmailServices {
             MimeMessage mail = new MimeMessage(session);
             mail.setFrom(new InternetAddress(sendFrom));
             mail.setSubject(subject);
-            mail.setHeader("X-Mailer", "OFBiz, Open For Business ERP at www.ofbiz.org");
+            mail.setHeader("X-Mailer", "Apache OFBiz, The Apache Open For Business Project");
             mail.setSentDate(new Date());
             mail.addRecipients(Message.RecipientType.TO, sendTo);
 
