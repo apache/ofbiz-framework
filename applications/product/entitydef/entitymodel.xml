@@ -3831,6 +3831,7 @@ under the License.
       <field name="currencyUomId" type="id"></field>
       <field name="supplierProductName" type="name"></field>
       <field name="supplierProductId" type="id"></field>
+      <field name="canDropShip" type="indicator"></field>
       <field name="supplierCommissionPerc" type="floating-point"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="productId"/>
