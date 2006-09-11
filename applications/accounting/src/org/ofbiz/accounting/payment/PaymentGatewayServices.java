@@ -88,7 +88,9 @@ public class PaymentGatewayServices {
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
      * "errors" and "finished" which notify the user if there were any errors and if the authorizatoin was finished.
      * There is also a List "messages" for the authorization response messages and a Double, "processAmount" as the 
-     * amount processed. TODO: it might be nice to return the paymentGatewayResponseId
+     * amount processed. 
+     * 
+     * TODO: it might be nice to return the paymentGatewayResponseId
      */
     public static Map authOrderPaymentPreference(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -149,51 +151,133 @@ public class PaymentGatewayServices {
             transAmount = orderPaymentPreference.getDouble("maxAmount");
         }
 
-        // prepare the return map (always return success, default finished=false, default errors=false
-        Map results = UtilMisc.toMap(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS, "finished", Boolean.FALSE, "errors", Boolean.FALSE); 
 
         // if our transaction amount exists and is zero, there's nothing to process, so return
         if ((transAmount != null) && (transAmount.doubleValue() <= 0)) {
+            // prepare the return map (always return success, default finished=false, default errors=false
+            Map results = ServiceUtil.returnSuccess();
+            results.put("finished", Boolean.FALSE);
+            results.put("errors", Boolean.FALSE);
             return results;
         }
 
         try {
             // call the authPayment method
-            Map processorResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, overrideAmount);
+            Map authPaymentResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, overrideAmount);
 
             // handle the response
-            if (processorResult != null) {
-
+            if (authPaymentResult != null) {
                 // get the customer messages
-                if (processorResult.get("customerRespMsgs") != null) {
-                    results.put("messages", processorResult.get("customerRespMsgs"));
+                if (authPaymentResult.get("customerRespMsgs") != null) {
+                    // NOTE DEJ20060911: hmmm... was something supposed to be done here?
                 }
 
                 // not null result means either an approval or decline; null would mean error
-                Double thisAmount = (Double) processorResult.get("processAmount");
+                Double thisAmount = (Double) authPaymentResult.get("processAmount");
 
                 // process the auth results
                 try {
-                    boolean processResult = processResult(dctx, processorResult, userLogin, orderPaymentPreference);
+                    boolean processResult = processResult(dctx, authPaymentResult, userLogin, orderPaymentPreference);
                     if (processResult) {
+                        Map results = ServiceUtil.returnSuccess();
+                        results.put("messages", authPaymentResult.get("customerRespMsgs"));
                         results.put("processAmount", thisAmount);
                         results.put("finished", Boolean.TRUE);
+                        results.put("errors", Boolean.FALSE);
+                        return results;
                     } else {
-                        // if we are doing an NSF retry then also 
-                        //boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, processorResult, delegator);
-                        // TODO: what do we do with this? we need to fail the auth but still allow the order through so it can be fixed later
-                        // NOTE: this is called through a different path for auto re-orders, so it should be good to go... will leave this comment here just in case...
+                        boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, authPaymentResult, delegator);
+
+                        // if we are doing an NSF retry then also...
+                        if (needsNsfRetry) {
+                            // TODO: what do we do with this? we need to fail the auth but still allow the order through so it can be fixed later
+                            // NOTE: this is called through a different path for auto re-orders, so it should be good to go... will leave this comment here just in case...
+                        }
+                        
+                        // if we have a failure at this point and no NSF retry is needed, then try other credit cards on file, if the user has any
+                        if (!needsNsfRetry) {
+                            // is this an auto-order?
+                            if (UtilValidate.isNotEmpty(orderHeader.getString("autoOrderShoppingListId"))) {
+                                GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
+                                // according to the store should we try other cards?
+                                if ("Y".equals(productStore.getString("autoOrderCcTryOtherCards"))) {
+                                    // get other credit cards for the bill to party
+                                    List otherPaymentMethodAndCreditCardList = null;
+                                    String billToPartyId = null; 
+                                    GenericValue billToParty = orh.getBillToParty();
+                                    if (billToParty != null) {
+                                        billToPartyId = billToParty.getString("partyId");
+                                    } else {
+                                        // TODO optional: any other ways to find the bill to party? perhaps look at info from OrderPaymentPreference, ie search back from other PaymentMethod...
+                                    }
+                                    
+                                    if (UtilValidate.isNotEmpty(billToPartyId)) {
+                                        otherPaymentMethodAndCreditCardList = delegator.findByAnd("PaymentMethodAndCreditCard", 
+                                                UtilMisc.toMap("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD"));
+                                        otherPaymentMethodAndCreditCardList = EntityUtil.filterByDate(otherPaymentMethodAndCreditCardList, true);
+                                    }
+
+                                    if (otherPaymentMethodAndCreditCardList != null && otherPaymentMethodAndCreditCardList.size() > 0) {
+                                        Iterator otherPaymentMethodAndCreditCardIter = otherPaymentMethodAndCreditCardList.iterator();
+                                        while (otherPaymentMethodAndCreditCardIter.hasNext()) {
+                                            GenericValue otherPaymentMethodAndCreditCard = (GenericValue) otherPaymentMethodAndCreditCardIter.next();
+                                            
+                                            // change OrderPaymentPreference in memory only and call auth service
+                                            orderPaymentPreference.set("paymentMethodId", otherPaymentMethodAndCreditCard.getString("paymentMethodId"));
+                                            Map authRetryResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, overrideAmount);
+                                            try {
+                                                boolean processRetryResult = processResult(dctx, authPaymentResult, userLogin, orderPaymentPreference);
+                                                
+                                                if (processRetryResult) {
+                                                    // wow, we got here that means the other card was successful...
+                                                    // on success save the OrderPaymentPreference, and then return finished (which will break from loop)
+                                                    orderPaymentPreference.store();
+                                                    
+                                                    Map results = ServiceUtil.returnSuccess();
+                                                    results.put("messages", authRetryResult.get("customerRespMsgs"));
+                                                    results.put("processAmount", thisAmount);
+                                                    results.put("finished", Boolean.TRUE);
+                                                    results.put("errors", Boolean.FALSE);
+                                                    return results;
+                                                }
+                                            } catch (GeneralException e) {
+                                                String errMsg = "Error saving and processing payment authorization results: " + e.toString();
+                                                Debug.logError(e, errMsg + "; authRetryResult: " + authRetryResult, module);
+                                                Map results = ServiceUtil.returnSuccess();
+                                                results.put(ModelService.ERROR_MESSAGE, errMsg);
+                                                results.put("finished", Boolean.FALSE);
+                                                results.put("errors", Boolean.TRUE);
+                                                return results;
+                                            }
+                                            
+                                            // if no sucess, fall through to return not finished
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        Map results = ServiceUtil.returnSuccess();
+                        results.put("messages", authPaymentResult.get("customerRespMsgs"));
+                        results.put("finished", Boolean.FALSE);
+                        results.put("errors", Boolean.FALSE);
+                        return results;
                     }
                 } catch (GeneralException e) {
                     String errMsg = "Error saving and processing payment authorization results: " + e.toString();
-                    Debug.logError(e, errMsg + "; processorResult: " + processorResult, module);
+                    Debug.logError(e, errMsg + "; authPaymentResult: " + authPaymentResult, module);
+                    Map results = ServiceUtil.returnSuccess();
                     results.put(ModelService.ERROR_MESSAGE, errMsg);
+                    results.put("finished", Boolean.FALSE);
                     results.put("errors", Boolean.TRUE);
+                    return results;
                 }
             } else {
                 // error with payment processor; will try later
                 String errMsg = "Invalid Order Payment Preference: maxAmount is 0";
                 Debug.logInfo(errMsg, module);
+                Map results = ServiceUtil.returnSuccess();
+                results.put("finished", Boolean.FALSE);
                 results.put("errors", Boolean.TRUE);
                 results.put(ModelService.ERROR_MESSAGE, errMsg);
 
@@ -203,8 +287,8 @@ public class PaymentGatewayServices {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Problem setting OrderPaymentPreference status to CANCELLED", module);
                 }
+                return results;
             }
-            return results;
         } catch (GeneralException e) {
             String errMsg = "Error processing payment authorization: " + e.toString();
             Debug.logError(e, errMsg, module);
