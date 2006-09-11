@@ -193,7 +193,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="deletePartyTaxAuthInfo?partyId=${partyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;fromDate=${fromDate}"
+            <hyperlink target="deletePartyTaxAuthInfo?partyId=${partyId}&amp;taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
