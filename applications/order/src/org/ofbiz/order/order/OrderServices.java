@@ -2893,6 +2893,7 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         Map overridePriceMap = (Map) context.get("overridePriceMap");
+        Map itemDescriptionMap = (Map) context.get("itemDescriptionMap");
         Map itemPriceMap = (Map) context.get("itemPriceMap");
         Map itemQtyMap = (Map) context.get("itemQtyMap");
 
@@ -2980,6 +2981,17 @@ public class OrderServices {
                         Debug.log("Set item price: [" + itemSeqId + "] " + price, module);
                     }
 
+                }
+
+                // Update the item description
+                if (itemDescriptionMap != null && itemDescriptionMap.containsKey(itemSeqId)) {
+                    String description = (String) itemDescriptionMap.get(itemSeqId);
+                    if (UtilValidate.isNotEmpty(description)) {
+                        cartItem.setName(description);
+                        Debug.log("Set item description: [" + itemSeqId + "] " + description, module);
+                    } else {
+                        return ServiceUtil.returnError("Item description must not be empty");
+                    }
                 }
             } else {
                 Debug.logInfo("Unable to locate shopping cart item for seqId #" + itemSeqId, module);

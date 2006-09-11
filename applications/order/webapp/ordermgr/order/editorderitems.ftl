@@ -55,12 +55,23 @@ under the License.
                 <#else>
                   <td valign="top">
                     <div class="tabletext">
-                      <#if productId?exists>
-                        ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
-                      <#elseif orderItemType?exists>
-                        ${orderItemType.description} - ${orderItem.itemDescription?if_exists}
+                      <#if orderHeader.statusId = "ORDER_CANCELLED" || orderHeader.statusId = "ORDER_COMPLETED">
+                        <#if productId?exists>
+                          ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
+                        <#elseif orderItemType?exists>
+                          ${orderItemType.description} - ${orderItem.itemDescription?if_exists}
+                        <#else>
+                          ${orderItem.itemDescription?if_exists}
+                        </#if>
                       <#else>
-                        ${orderItem.itemDescription?if_exists}
+                        <#if productId?exists>
+                          <#assign orderItemName = orderItem.productId?default("N/A")/>
+                        <#elseif orderItemType?exists>
+                          <#assign orderItemName = orderItemType.description/>
+                        </#if>
+                        <p>${uiLabelMap.ProductProduct}: ${orderItemName}</p>
+                        ${uiLabelMap.CommonDescription}:<br />
+                        <input style="textBox" type="text" size="20" name="idm_${orderItem.orderItemSeqId}" value="${orderItem.itemDescription?if_exists}"/>
                       </#if>
                     </div>
                     <#if productId?exists>
