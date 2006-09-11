@@ -62,6 +62,7 @@ public class SupplierProductServices {
         String partyId = (String) context.get("partyId");
         String currencyUomId = (String) context.get("currencyUomId");
         Double quantity =(Double) context.get("quantity");
+        String canDropShip = (String) context.get("canDropShip");
         try {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
             if (product == null) {
@@ -95,7 +96,12 @@ public class SupplierProductServices {
                 //minimumOrderQuantity
                 supplierProducts = EntityUtil.filterByCondition(supplierProducts, new EntityExpr("minimumOrderQuantity", EntityOperator.LESS_THAN_EQUAL_TO, quantity));
             }
-            
+
+            // filter the list down by the canDropShip if one is provided
+            if (canDropShip != null) {
+                supplierProducts = EntityUtil.filterByAnd(supplierProducts, UtilMisc.toMap("canDropShip", canDropShip));
+            }
+
             // filter the list down again by date before returning it
             supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
             
