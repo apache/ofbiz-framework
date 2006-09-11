@@ -245,6 +245,7 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="updateApprovedOrderItems">
         <description>Update the quantities/prices for an existing order</description>
         <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="itemDescriptionMap" type="Map" mode="IN" string-map-prefix="idm_" optional="true"/>
         <attribute name="itemQtyMap" type="Map" mode="IN" string-map-prefix="iqm_" optional="false"/>
         <attribute name="itemPriceMap" type="Map" mode="IN" string-map-prefix="ipm_" optional="false"/>
         <attribute name="overridePriceMap" type="Map" mode="IN" string-map-prefix="opm_" optional="false"/>
