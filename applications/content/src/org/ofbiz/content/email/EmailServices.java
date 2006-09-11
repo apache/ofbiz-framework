@@ -32,8 +32,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Calendar;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -49,6 +47,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
+import java.util.Date;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -189,6 +188,8 @@ public class EmailServices {
             MimeMessage mail = new MimeMessage(session);
             mail.setFrom(new InternetAddress(sendFrom));
             mail.setSubject(subject);
+            mail.setHeader("X-Mailer", "OFBiz, Open For Business ERP at www.ofbiz.org");
+            mail.setSentDate(new Date());
             mail.addRecipients(Message.RecipientType.TO, sendTo);
 
             if (UtilValidate.isNotEmpty(sendCc)) {
