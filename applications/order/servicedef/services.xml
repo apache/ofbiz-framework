@@ -546,5 +546,10 @@ under the License.
         <description>Remove an Order Term</description>
         <auto-attributes entity-name="OrderTerm" include="pk" mode="IN" optional="false"/>
     </service>
-</services>
 
+    <service name="checkCreateDropShipPurchaseOrders" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="checkCreateDropShipPurchaseOrders" auth="true">
+        <description>If the order is a sales order, create purchase orders (drop shipments) for each ship group associated to a supplier</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+</services>
