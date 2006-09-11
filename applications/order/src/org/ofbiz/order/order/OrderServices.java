@@ -734,6 +734,7 @@ public class OrderServices {
         }
 
         // set the order item ship groups
+        List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
         if (orderItemShipGroupInfo != null && orderItemShipGroupInfo.size() > 0) {
             Iterator osiInfos = orderItemShipGroupInfo.iterator();
             while (osiInfos.hasNext()) {
@@ -743,6 +744,9 @@ public class OrderServices {
                     // ship group
                     if (valueObj.get("carrierRoleTypeId") == null) {
                         valueObj.set("carrierRoleTypeId", "CARRIER");
+                    }
+                    if (!UtilValidate.isEmpty(valueObj.getString("supplierPartyId"))) {
+                        dropShipGroupIds.add(valueObj.getString("shipGroupSeqId"));
                     }
                 } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
                     // shipping / tax adjustment(s)
@@ -966,7 +970,7 @@ public class OrderServices {
             // START inventory reservation
             List resErrorMessages = new LinkedList();
             try {
-                reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupInfo, itemValuesBySeqId,
+                reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupInfo, dropShipGroupIds, itemValuesBySeqId,
                         orderTypeId, productStoreId, resErrorMessages);
             } catch (GeneralException e) {
                 return ServiceUtil.returnError(e.getMessage());
@@ -986,7 +990,7 @@ public class OrderServices {
         return successResult;
     }
 
-    public static void reserveInventory(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List orderItemShipGroupInfo, Map itemValuesBySeqId, String orderTypeId, String productStoreId, List resErrorMessages) throws GeneralException {
+    public static void reserveInventory(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List orderItemShipGroupInfo, List dropShipGroupIds, Map itemValuesBySeqId, String orderTypeId, String productStoreId, List resErrorMessages) throws GeneralException {
         boolean isImmediatelyFulfilled = false;
         GenericValue productStore = null;
         if (UtilValidate.isNotEmpty(productStoreId)) {
@@ -1014,15 +1018,19 @@ public class OrderServices {
                 while (osiInfos.hasNext()) {
                     GenericValue orderItemShipGroupAssoc = (GenericValue) osiInfos.next();
                     if ("OrderItemShipGroupAssoc".equals(orderItemShipGroupAssoc.getEntityName())) {
+                        if (dropShipGroupIds != null && dropShipGroupIds.contains(orderItemShipGroupAssoc.getString("shipGroupSeqId"))) {
+                            // the items in the drop ship groups are not reserved
+                            continue;
+                        }
                         GenericValue orderItem = (GenericValue) itemValuesBySeqId.get(orderItemShipGroupAssoc.get("orderItemSeqId"));
                         String itemStatus = orderItem.getString("statusId");
                         if ("ITEM_REJECTED".equals(itemStatus) || "ITEM_CANCELLED".equals(itemStatus) || "ITEM_COMPLETED".equals(itemStatus)) {
                             Debug.logInfo("Order item [" + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + "] is not in a proper status for reservation", module);
                             continue;
                         }
-                        if (UtilValidate.isNotEmpty(orderItem.getString("productId")) && !"RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId")))
-                        { // ignore for rental
-                            // only reserve product items; ignore non-product items
+                        if (UtilValidate.isNotEmpty(orderItem.getString("productId")) && // only reserve product items, ignore non-product items
+                                !"RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId")) // ignore for rental
+                                ) {
                             try {
                                 Map reserveInput = new HashMap();
                                 reserveInput.put("productStoreId", productStoreId);
@@ -3123,6 +3131,7 @@ public class OrderServices {
         toStore.addAll(cart.makeAllOrderPaymentInfos());
 
         // set the orderId & other information on all new value objects
+        List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
         Iterator tsi = toStore.iterator();
         while (tsi.hasNext()) {
             GenericValue valueObj = (GenericValue) tsi.next();
@@ -3131,6 +3140,9 @@ public class OrderServices {
                 // ship group
                 if (valueObj.get("carrierRoleTypeId") == null) {
                     valueObj.set("carrierRoleTypeId", "CARRIER");
+                }
+                if (valueObj.get("supplierPartyId") != null) {
+                    dropShipGroupIds.add(valueObj.getString("shipGroupSeqId"));
                 }
             } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
                 // shipping / tax adjustment(s)
@@ -3264,7 +3276,7 @@ public class OrderServices {
         List resErrorMessages = new LinkedList();
         try {
             Debug.log("Calling reserve inventory...", module);
-            reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupAssoc, itemValuesBySeqId,
+            reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupAssoc, dropShipGroupIds, itemValuesBySeqId,
                     orderTypeId, productStoreId, resErrorMessages);
         } catch (GeneralException e) {
             Debug.logError(e, module);
