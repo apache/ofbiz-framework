@@ -31,11 +31,13 @@ under the License.
 <#if cart.getShipmentMethodTypeId(shipGroupIndex)?exists && cart.getCarrierPartyId(shipGroupIndex)?exists>
     <#assign chosenShippingMethod = cart.getShipmentMethodTypeId(shipGroupIndex) + '@' + cart.getCarrierPartyId(shipGroupIndex)>
 </#if>
+<#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
+<#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId))?if_exists />
 <hr class="sepbar"/>
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td colspan="2">
-                    <div class="head1"><b>${uiLabelMap.OrderShipGroup} # ${currIndex}</b></div>
+                    <div class="head1"><b>${uiLabelMap.OrderShipGroup} # ${currIndex}</b><#if supplier?has_content> - ${supplier.description?default(supplier.partyId)}</#if></div>
                 </td>
               </tr>
 

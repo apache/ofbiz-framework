@@ -893,7 +893,59 @@ public class ShoppingCartItem implements java.io.Serializable {
         // set the item ship group
         if (resetShipGroup) {
             cart.clearItemShipInfo(this);
-            cart.setItemShipGroupQty(this, quantity, 0);
+            int shipGroupIndex = -1;
+            if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
+                shipGroupIndex = 0;
+            } else {
+                if (_product != null && "PRODRQM_DS".equals(_product.getString("requirementMethodEnumId"))) {
+                    // this is a drop-ship only product: we need a ship group with supplierPartyId set
+                    Map supplierProductsResult = null;
+                    try {
+                        supplierProductsResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.toMap("productId", _product.getString("productId"),
+                                                                                                                 "quantity", new Double(quantity),
+                                                                                                                 "currencyUomId", cart.getCurrency(),
+                                                                                                                 "canDropShip", "Y",
+                                                                                                                 "userLogin", cart.getUserLogin()));
+                        List productSuppliers = (List)supplierProductsResult.get("supplierProducts");
+                        GenericValue supplierProduct = EntityUtil.getFirst(productSuppliers);
+                        if (supplierProduct != null) {
+                            String supplierPartyId = supplierProduct.getString("partyId");
+                            List shipGroups = cart.getShipGroups();
+                            for(int i = 0; i < shipGroups.size(); i++) {
+                                ShoppingCart.CartShipInfo csi = (ShoppingCart.CartShipInfo)shipGroups.get(i);
+                                if (supplierPartyId.equals(csi.getSupplierPartyId())) {
+                                    shipGroupIndex = i;
+                                    break;
+                                }
+                            }
+                            if (shipGroupIndex == -1) {
+                                // create a new ship group
+                                shipGroupIndex = cart.addShipInfo();
+                                cart.setSupplierPartyId(shipGroupIndex, supplierPartyId);
+                            }
+                        }
+                    } catch (Exception e) {
+                        Debug.logWarning("Error calling getSuppliersForProduct service, result is: " + supplierProductsResult, module);
+                    }
+                }
+                // TODO: implement auto drop-ship on low qoh
+
+                if (shipGroupIndex == -1) {
+                    List shipGroups = cart.getShipGroups();
+                    for(int i = 0; i < shipGroups.size(); i++) {
+                        ShoppingCart.CartShipInfo csi = (ShoppingCart.CartShipInfo)shipGroups.get(i);
+                        if (csi.getSupplierPartyId() == null) {
+                            shipGroupIndex = i;
+                            break;
+                        }
+                    }
+                    if (shipGroupIndex == -1) {
+                        // create a new ship group
+                        shipGroupIndex = cart.addShipInfo();
+                    }
+                }
+            }
+            cart.setItemShipGroupQty(this, quantity, shipGroupIndex);
         }
     }
 

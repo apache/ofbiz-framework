@@ -85,6 +85,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>  
+        <attribute name="canDropShip" type="String" mode="IN" optional="true"/>  
         <attribute name="supplierProducts" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="convertFeaturesForSupplier" engine="java"
