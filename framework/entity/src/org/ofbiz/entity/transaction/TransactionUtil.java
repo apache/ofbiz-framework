@@ -28,6 +28,7 @@ import javax.transaction.*;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.XAResource;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
@@ -463,6 +464,8 @@ public class TransactionUtil implements Status {
             rollback();
             num++;
         }
+        // no transaction stamps to remember anymore ;-)
+        clearTransactionStartStampStack();
         return num;
     }
     public static boolean suspendedTransactionsHeld() {
@@ -480,10 +483,14 @@ public class TransactionUtil implements Status {
             suspendedTxStack.set(tl);
         }
         tl.add(0, t);
+        // save the current transaction start stamp
+        pushTransactionStartStamp(t);
     }
     protected static Transaction popSuspendedTransaction() {
         List tl = (List) suspendedTxStack.get();
         if (tl != null && tl.size() > 0) {
+            // restore the transaction start stamp
+            popTransactionStartStamp();
             return (Transaction) tl.remove(0);
         } else {
             return null;
@@ -493,6 +500,7 @@ public class TransactionUtil implements Status {
         List tl = (List) suspendedTxStack.get();
         if (tl != null && tl.size() > 0) {
             tl.remove(t);
+            popTransactionStartStamp(t);
         }
     }
 
@@ -623,6 +631,69 @@ public class TransactionUtil implements Status {
 
     // =======================================
     // =======================================
+    
+    /**
+     * Maintain the suspended transactions together with their timestamps
+     */
+    private static ThreadLocal suspendedTxStartStamps = new ThreadLocal() {
+        public Object initialValue() {
+            return new ListOrderedMap();
+        }
+    };
+    
+    /**
+    * Put the stamp to remember later
+    * @param t transaction just suspended
+    */
+    private static void pushTransactionStartStamp(Transaction t) {
+        Map map = (Map) suspendedTxStartStamps.get();
+        Timestamp stamp = (Timestamp) transactionStartStamp.get();
+        if (stamp != null) {
+            map.put(t, stamp);
+        } else {
+            Debug.logError("Error in transaction handling - no start stamp to push.", module);
+        }
+    }
+
+
+    /**
+    * Method called when the suspended stack gets cleaned by {@link #cleanSuspendedTransactions()}.
+    */
+    private static void clearTransactionStartStampStack() {
+        ((Map) suspendedTxStartStamps.get()).clear();
+    }
+
+    /**
+    * Remove the stamp of the specified transaction from stack (when resuming)
+    * and set it as current start stamp.
+    * @param t transaction just resumed
+    */
+    private static void popTransactionStartStamp(Transaction t) {
+        Map map = (Map) suspendedTxStartStamps.get();
+        if (map.size() > 0) {
+            Timestamp stamp = (Timestamp) map.remove(t);
+            if (stamp != null) {
+                transactionStartStamp.set(stamp);
+            } else {
+                Debug.logError("Error in transaction handling - no saved start stamp found - using NOW.", module);
+                transactionStartStamp.set(UtilDateTime.nowTimestamp());
+            }
+        }
+    }
+
+    /**
+    * Remove the stamp from stack (when resuming)
+    */
+    private static void popTransactionStartStamp() {
+        ListOrderedMap map = (ListOrderedMap) suspendedTxStartStamps.get();
+        if (map.size() > 0) {
+            transactionStartStamp.set(map.remove(map.lastKey()));
+        } else {
+            Debug.logError("Error in transaction handling - no saved start stamp found - using NOW.", module);
+            transactionStartStamp.set(UtilDateTime.nowTimestamp());
+        }
+    }
+
     private static ThreadLocal transactionStartStamp = new ThreadLocal();
     private static ThreadLocal transactionLastNowStamp = new ThreadLocal();
 
