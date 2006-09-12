@@ -56,37 +56,37 @@ forumId = ContentManagementWorker.getFromSomewhere("webSitePublishPoint", paramM
 blogRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
 
 if (UtilValidate.isNotEmpty(forumId)) {
-        siteRoleMap = new HashMap();
-        for (int i=0; i < blogRoles.size; i++) {
-            roleType = blogRoles.get(i);
-            roleTypeId = roleType.getString("roleTypeId");
-            contentRoleList = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId", forumId, "roleTypeId", roleTypeId));
-            filteredRoleList = EntityUtil.filterByDate(contentRoleList);
-            cappedBlogRoleName = ModelUtil.dbNameToVarName(roleTypeId);
+    siteRoleMap = new HashMap();
+    for (int i=0; i < blogRoles.size(); i++) {
+        roleType = blogRoles.get(i);
+        roleTypeId = roleType.getString("roleTypeId");
+        contentRoleList = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId", forumId, "roleTypeId", roleTypeId));
+        filteredRoleList = EntityUtil.filterByDate(contentRoleList);
+        cappedBlogRoleName = ModelUtil.dbNameToVarName(roleTypeId);
 
-            iter = filteredRoleList.iterator();
-            while (iter.hasNext()) {
-                contentRole = iter.next();
-                partyId = contentRole.getString("partyId");
-                fromDate = contentRole.get("fromDate");
-                map = siteRoleMap.get(partyId);
-                if (map == null) {
-                    map = new HashMap();
-                    map.put("partyId", partyId);
-                    siteRoleMap.put(partyId, map);
-                }
-                map.put( cappedBlogRoleName, "Y");
-                map.put( cappedBlogRoleName + "FromDate", fromDate);
+        iter = filteredRoleList.iterator();
+        while (iter.hasNext()) {
+            contentRole = iter.next();
+            partyId = contentRole.getString("partyId");
+            fromDate = contentRole.get("fromDate");
+            map = siteRoleMap.get(partyId);
+            if (map == null) {
+                map = new HashMap();
+                map.put("partyId", partyId);
+                siteRoleMap.put(partyId, map);
             }
+            map.put( cappedBlogRoleName, "Y");
+            map.put( cappedBlogRoleName + "FromDate", fromDate);
         }
-        siteList = new ArrayList(siteRoleMap.values());
-        context.put("siteList", siteList);
-        context.put("rowCount", siteList.size());
-        blogRoleIter = blogRoles.iterator();
-        blogRoleList = new ArrayList();
-        while (blogRoleIter.hasNext()) {
-            roleType = blogRoleIter.next();
-            blogRoleList.add(roleType.get("roleTypeId"));
-        }
-        context.put("blogRoleIdList", blogRoleList);
+    }
+    siteList = new ArrayList(siteRoleMap.values());
+    context.put("siteList", siteList);
+    context.put("rowCount", siteList.size());
+    blogRoleIter = blogRoles.iterator();
+    blogRoleList = new ArrayList();
+    while (blogRoleIter.hasNext()) {
+        roleType = blogRoleIter.next();
+        blogRoleList.add(roleType.get("roleTypeId"));
+    }
+    context.put("blogRoleIdList", blogRoleList);
 }
