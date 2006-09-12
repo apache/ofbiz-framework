@@ -197,7 +197,6 @@ under the License.
         <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="postalCode" type="String" mode="IN" optional="false"/>
         <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
-        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="Double" mode="IN" optional="false"/>
         <attribute name="referenceCode" type="String" mode="IN" optional="true"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
@@ -218,7 +217,7 @@ under the License.
     </service>
 
     <service name="retryFailedAuthNsfs" engine="java"
-        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryNsfFailedAuths" auth="true">
+        location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedAuthNsfs" auth="true">
         <description>(Batch) Retries failed authorizations due to NSF (Not Sufficient Funds); these are for auto-orders</description>
         <!-- this service has no parameters IN or OUT -->
     </service>
