@@ -245,10 +245,23 @@ if (orderHeader != null) {
     context.put("mktgPkgATPMap", inventorySummary.get("mktgPkgATPMap"));
     context.put("mktgPkgQOHMap", inventorySummary.get("mktgPkgQOHMap"));
 
-    // get a list of facilities for purchase orders to receive against.  These facilities must be owned by the bill-to party of the purchase order.
+    // Get a list of facilities for purchase orders to receive against.
+    // These facilities must be owned by the bill-to party of the purchase order.
+    // For a given ship group, the allowed facilities are the ones associated
+    // to the same contact mech of the ship group.
     if ("PURCHASE_ORDER".equals(orderType)) {
-        facilities = delegator.findByAndCache("Facility", UtilMisc.toMap("ownerPartyId", orderReadHelper.getBillToParty().getString("partyId")));
-        context.put("facilities", facilities);
+        Map facilitiesForShipGroup = new HashMap();
+        String ownerPartyId = orderReadHelper.getBillToParty().getString("partyId");
+        for (int i = 0; i < shipGroups.size(); i++) {
+            GenericValue shipGroup = (GenericValue)shipGroups.get(i);
+            Map lookupMap = UtilMisc.toMap("ownerPartyId", ownerPartyId);
+            if (shipGroup.get("contactMechId") != null) {
+                lookupMap.put("contactMechId", shipGroup.getString("contactMechId"));
+            }
+            List facilities = delegator.findByAndCache("FacilityAndContactMech", lookupMap);
+            facilitiesForShipGroup.put(shipGroup.getString("shipGroupSeqId"), facilities);
+        }
+        context.put("facilitiesForShipGroup", facilitiesForShipGroup);
     }
 
     // set the type of return based on type of order

@@ -3885,4 +3885,15 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="supplierRatingTypeId"/>
     </entity>
+    <view-entity entity-name="FacilityAndContactMech"
+            package-name="org.ofbiz.product.storage"
+            title="Facility and Contact Mech View Entity">
+      <member-entity entity-alias="FA" entity-name="Facility"/>
+      <member-entity entity-alias="CM" entity-name="FacilityContactMech"/>
+      <alias-all entity-alias="FA"/>
+      <alias-all entity-alias="CM"/>
+      <view-link entity-alias="FA" rel-entity-alias="CM">
+          <key-map field-name="facilityId"/>
+      </view-link>
+    </view-entity>
 </entitymodel>

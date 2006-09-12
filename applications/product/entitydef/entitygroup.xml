@@ -208,6 +208,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="FacilityRole" />
     <entity-group group="org.ofbiz" entity="FacilityType" />
     <entity-group group="org.ofbiz" entity="FacilityTypeAttr" />
+    <entity-group group="org.ofbiz" entity="FacilityAndContactMech" />
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.store -->

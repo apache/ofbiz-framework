@@ -310,7 +310,9 @@ under the License.
             <set value="SALES_SHIPMENT" field="shipment.shipmentTypeId"/>
         </if-compare>
         <if-compare field-name="orderHeader.orderTypeId" operator="equals" value="PURCHASE_ORDER">
-            <set value="PURCHASE_SHIPMENT" field="shipment.shipmentTypeId"/>
+            <if-compare field-name="shipment.shipmentTypeId" operator="not-equals" value="DROP_SHIPMENT">
+                <set value="PURCHASE_SHIPMENT" field="shipment.shipmentTypeId"/>
+            </if-compare>
         </if-compare>
 
         <!-- set the facility if we are from a store with a single facility -->

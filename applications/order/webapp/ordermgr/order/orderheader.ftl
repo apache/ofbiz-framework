@@ -887,6 +887,7 @@ under the License.
                            <a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a>
                          </#if>
                        <#else> <#-- PURCHASE_ORDER -->
+                         <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                          <#if facilities?has_content>
                          <form action="/facility/control/quickShipPurchaseOrder" method="POST">
                            <input type="hidden" name="initialSelected" value="Y"/>
@@ -900,8 +901,6 @@ under the License.
                            </select>
                            <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}">
                          </form>
-                         <#else>
-                           ${uiLabelMap.ProductErrorNoFacilityAvailable}
                          </#if>
                        </#if>
                      </div>
@@ -925,6 +924,7 @@ under the License.
                        </#if>
                      <#else>
                        <div class="tabletext">
+                       <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                        <#if facilities?has_content>
                        <form action="/facility/control/createShipment" method="GET">
                            <input type="hidden" name="primaryOrderId" value="${orderId}"/>
@@ -941,7 +941,7 @@ under the License.
                          </div>
                        </form>
                        <#else>
-                         ${uiLabelMap.ProductErrorNoFacilityAvailable}
+                           <div class="tabletext"><a href="/facility/control/createShipment?primaryOrderId=${orderId}&amp;primaryShipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;shipmentTypeId=DROP_SHIPMENT&amp;statusId=PURCH_SHIP_CREATED&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderNewDropShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a></div>
                        </#if>
                        </div>
                      </#if>
