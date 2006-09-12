@@ -93,7 +93,7 @@ under the License.
                         <div class="tabletext" style="margin-top: 15px; margin-left: 20px;">
                             <table cellspacing="0" cellpadding="0" border="0">
                               <tr><td style="text-align: right; padding-bottom: 10px;">
-                                  <a class="buttontext" href="/catalog/control/EditProductInventoryItems?productId=${productId}&externalLoginKey=${externalLoginKey}" target="_blank">${uiLabelMap.ProductInventory}</a>
+                                  <a class="buttontext" href="/catalog/control/EditProductInventoryItems?productId=${productId}&showAllFacilities=Y&externalLoginKey=${externalLoginKey}" target="_blank">${uiLabelMap.ProductInventory}</a>
                               </td><td>&nbsp;</td></tr>
                               <tr><td align="left">${uiLabelMap.OrderRequiredForSO}</td>
                                 <td style="padding-left: 15px; text-align: left;">${requiredQuantity}</td></tr>
