@@ -260,12 +260,10 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createRequirementFromItemATP" short-description="Create a Requirement for an item based on ATP inventory quantity and minimum">
-        <!-- this permission check breaks the checkout process in ecommerce; to tighten security could do this if the logged in user is not associated with the order in an OrderRole, then it would behave like other things in ecommerce
         <check-permission permission="ORDERMGR" action="_CREATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateRequirementFromItemATP"/>
         </check-permission>
         <check-errors/>
-        -->
         
         <!-- assumes that inventoryItemId is one of the parameters and get the inventory item of the reservation -->
         <entity-one entity-name="InventoryItem" value-name="inventoryItem" auto-field-map="true"/>
