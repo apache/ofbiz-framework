@@ -30,8 +30,8 @@ under the License.
             security-credentials=""/>
 
     <jndi-server name="OpenJMS"
-            context-provider-url="rmi://127.0.0.1:1099/JndiServer"
-            initial-context-factory="org.exolab.jms.jndi.rmi.RmiJndiInitialContextFactory"/>
+            context-provider-url="rmi://127.0.0.1:1099"
+            initial-context-factory="org.exolab.jms.jndi.InitialContextFactory"/>
 
 	<!-- Note that in most cases this is not necessary or desired for Orion, the default above is easier/better -->
     <jndi-server name="localorion"
