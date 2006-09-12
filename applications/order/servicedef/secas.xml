@@ -239,15 +239,15 @@ under the License.
     <!-- Requirement / stock level -->
     <eca service="createItemIssuance" event="invoke">
         <condition field-name="quantity" value="0" operator="greater" type="Double"/>
-        <action service="checkCreateStockRequirement" mode="sync"/>
+        <action service="checkCreateStockRequirement" mode="sync" runAsUser="system"/>
     </eca>
     <eca service="updateItemIssuance" event="invoke">
         <condition field-name="quantity" value="0" operator="greater" type="Double"/>
-        <action service="checkCreateStockRequirement" mode="sync"/>
+        <action service="checkCreateStockRequirement" mode="sync" runAsUser="system"/>
     </eca>
     <eca service="reserveOrderItemInventory" event="commit">
         <condition field-name="quantity" value="0" operator="greater" type="Double"/>
-        <action service="createRequirementFromItemATP" mode="sync"/>
+        <action service="createRequirementFromItemATP" mode="sync" runAsUser="system"/>
     </eca>
     <!-- WorkEffort -->
     <eca service="createQuoteWorkEffort" event="invoke">
