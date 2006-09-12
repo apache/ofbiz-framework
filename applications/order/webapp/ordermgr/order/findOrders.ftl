@@ -131,7 +131,12 @@ function runAction() {
               <tr>
                 <td width='25%' align='right'><div class='tableheadtext'>${uiLabelMap.PartyPartyId}</div></td>
                 <td width='5%'>&nbsp;</td>
-                <td><input type='text' class='inputBox' name='partyId' value='${requestParameters.partyId?if_exists}'/></td>
+                <td>
+                  <input type='text' class='inputBox' name='partyId' value='${requestParameters.partyId?if_exists}'/>
+                  <a href="javascript:call_fieldlookup2(document.lookuporder.partyId,'LookupPartyName');">
+                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+                  </a>
+                </td>
               </tr>
               <tr>
                 <td width='25%' align='right'><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
