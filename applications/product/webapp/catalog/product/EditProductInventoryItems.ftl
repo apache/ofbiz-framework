@@ -47,7 +47,8 @@ under the License.
         <#assign outgoingQuantityTotal = manufacturingOutQuantitySummary.estimatedQuantityTotal?if_exists>
 
         <tr>
-            <td><div class="tabletext">${(facility.facilityName)?if_exists} [${facilityId?default("[No Facility]")}]</div></td>
+            <td><div class="tabletext">${(facility.facilityName)?if_exists} [${facilityId?default("[No Facility]")}] 
+            <a href="/facility/control/ReceiveInventory?facilityId=${facilityId}&productId=${productId}&externLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></div></td>
             <td><div class="tabletext"><#if totalAvailableToPromise?exists>${totalAvailableToPromise}<#else>&nbsp;</#if></div></td>
             <td><div class="tabletext"><#if totalQuantityOnHand?exists>${totalQuantityOnHand}<#else>&nbsp;</#if></div></td>
             <td><div class="tabletext"><#if mktgPkgATP?exists>${mktgPkgATP}<#else>&nbsp;</#if></div></td>
