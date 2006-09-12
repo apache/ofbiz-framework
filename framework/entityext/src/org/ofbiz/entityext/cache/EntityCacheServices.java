@@ -120,7 +120,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         }
         
         try {
-            this.dispatcher.runAsync("distributedClearCacheLineByCondition", UtilMisc.toMap("entityName", entityName, "condition", condition), false);
+            this.dispatcher.runAsync("distributedClearCacheLineByCondition", UtilMisc.toMap("entityName", entityName, "condition", condition, "userLogin", userLogin), false);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error running the distributedClearCacheLineByCondition service", module);
         }

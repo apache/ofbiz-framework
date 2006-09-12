@@ -29,7 +29,7 @@ under the License.
     <!-- Below uses Group/HTTP engine
     <service name="distributedClearAllEntityCaches" engine="group" location="distributedClearAllEntityCaches" invoke=""/>
     -->
-    <service name="clearAllEntityCaches" engine="java"
+    <service name="clearAllEntityCaches" engine="java" export="true"
             location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearAllEntityCaches" auth="true">
         <description>Clears all values from all Entity Engine caches. By default does not distribute.</description>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
@@ -42,8 +42,8 @@ under the License.
     <!-- Below uses Group/HTTP engine
     <service name="distributedClearCacheLineByValue" engine="group" location="distributedClearCacheLineByValue" invoke=""/>
     -->
-    <service name="clearCacheLineByValue" engine="java"
-            location="org.ofbiz.extentity.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+    <service name="clearCacheLineByValue" engine="java" export="true"
+            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a value (GenericValue); this is the preferred method since the all, by primary key and by and caches will be cleared. By default does not distribute.</description>
         <attribute name="value" type="GenericValue" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
@@ -56,8 +56,8 @@ under the License.
     <!-- Below uses Group/HTTP engine
     <service name="distributedClearCacheLineByDummyPK" engine="group" location="distributedClearCacheLineByDummyPK" invoke=""/>
     -->
-    <service name="clearCacheLineByDummyPK" engine="java"
-            location="org.ofbiz.extentity.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+    <service name="clearCacheLineByDummyPK" engine="java" export="true"
+            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a dummyPK (GenericEntity); clears that all cache entry and depending on whether the dummyPK is a primaryKey or not this clears the by primary key cache or the specified entry in the by and cache. By default does not distribute.</description>
         <attribute name="dummyPK" type="GenericEntity" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
@@ -71,10 +71,24 @@ under the License.
     <!-- Below uses Group/HTTP engine
     <service name="distributedClearCacheLineByPrimaryKey" engine="group" location="distributedClearCacheLineByPrimaryKey" invoke=""/>
     -->
-    <service name="clearCacheLineByPrimaryKey" engine="java"
+    <service name="clearCacheLineByPrimaryKey" engine="java" export="true"
             location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a primaryKey (GenericPK); clears the all and by primary key caches. By default does not distribute.</description>
         <attribute name="primaryKey" type="GenericPK" mode="IN" optional="false"/>
+        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
+    </service>
+
+    <service name="distributedClearCacheLineByCondition" engine="jms" location="serviceMessenger" invoke="clearCacheLineByCondition" auth="true">
+        <description>Clear Cache Line by condition for all Servers listening to the topic</description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="condition" type="org.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
+        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
+    </service>
+    <service name="clearCacheLineByCondition" engine="java" export="true"
+            location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
+        <description>Clear Cache Line with a condition; By default does not distribute.</description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="condition" type="org.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
