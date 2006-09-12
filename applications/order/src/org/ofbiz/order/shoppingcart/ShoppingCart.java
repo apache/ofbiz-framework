@@ -3427,7 +3427,6 @@ public class ShoppingCart implements Serializable {
             while (itemIter.hasNext()) {
                 ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
                 String requirementId = item.getRequirementId();
-
                 if (requirementId != null) {
                     try {
                         List commitments = getDelegator().findByAnd("OrderRequirementCommitment", UtilMisc.toMap("requirementId", requirementId));
@@ -3443,6 +3442,13 @@ public class ShoppingCart implements Serializable {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to load OrderRequirementCommitment records for requirement ID : " + requirementId, module);
                     }
+                }
+                if (item.getAssociatedOrderId() != null && item.getAssociatedOrderItemSeqId() != null) {
+                    GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssociation", null);
+                    orderItemAssociation.set("salesOrderId", item.getAssociatedOrderId());
+                    orderItemAssociation.set("soItemSeqId", item.getAssociatedOrderItemSeqId());
+                    orderItemAssociation.set("poItemSeqId", item.getOrderItemSeqId());
+                    allOrderItemAssociations.add(orderItemAssociation);
                 }
             }
         }

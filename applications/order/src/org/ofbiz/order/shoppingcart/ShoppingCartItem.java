@@ -112,6 +112,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     private String requirementId = null;
     private String quoteId = null;
     private String quoteItemSeqId = null;
+    private String associatedOrderId = null; // the order Id, if any, to which the given item is associated (typically a sales order item can be associated to a purchase order item, for example in drop shipments)
+    private String associatedOrderItemSeqId = null; // the order item Id, if any, to which the given item is associated
     private String statusId = null;
     private Map orderItemAttributes = null;
     private Map attributes = null;
@@ -566,6 +568,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.requirementId = item.getRequirementId();
         this.quoteId = item.getQuoteId();
         this.quoteItemSeqId = item.getQuoteItemSeqId();
+        this.associatedOrderId = item.getAssociatedOrderId();
+        this.associatedOrderItemSeqId = item.getAssociatedOrderItemSeqId();
         this.isPromo = item.getIsPromo();
         this.promoQuantityUsed = item.promoQuantityUsed;
         this.locale = item.locale;
@@ -1360,6 +1364,26 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Returns the quoteItemSeqId. */
     public String getQuoteItemSeqId() {
         return this.quoteItemSeqId;
+    }
+
+    /** Sets the asociatedOrderId. */
+    public void setAssociatedOrderId(String associatedOrderId) {
+        this.associatedOrderId = associatedOrderId;
+    }
+
+    /** Returns the associatedId. */
+    public String getAssociatedOrderId() {
+        return this.associatedOrderId;
+    }
+
+    /** Sets the associatedOrderItemSeqId. */
+    public void setAssociatedOrderItemSeqId(String associatedOrderItemSeqId) {
+        this.associatedOrderItemSeqId = associatedOrderItemSeqId;
+    }
+
+    /** Returns the associatedOrderItemSeqId. */
+    public String getAssociatedOrderItemSeqId() {
+        return this.associatedOrderItemSeqId;
     }
 
     public String getStatusId() {
