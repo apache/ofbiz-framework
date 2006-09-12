@@ -29,7 +29,6 @@ under the License.
     <SecurityPermission description="Permission required, in addition to other applicable permissions, to maintain product price information including prices, promotions, and price rules." permissionId="CATALOG_PRICE_MAINT"/>
 
     <SecurityGroup description="Limited Catalog Admin group, has limited catalog permissions." groupId="CATALOGADMIN_LTD"/>
-    <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>

@@ -24,27 +24,7 @@ under the License.
     <RoleType roleTypeId="BLOG_GUEST" parentTypeId="BLOG" hasTable="N" description="Blog Guest"/>
     <RoleType roleTypeId="PERMISSION_GROUP" hasTable="N" description="Permission Group"/>
     <RoleType roleTypeId="PERMISSION_GROUP_MBR" hasTable="N" description="Permission Group Member"/>
-
-    <Party partyId="BLOG_USERS" partyTypeId="PARTY_GROUP"/>
-    <Party partyId="BLOG_EDITORS" partyTypeId="PARTY_GROUP"/>
-    <Party partyId="BLOG_ADMINS" partyTypeId="PARTY_GROUP"/>
-    <Party partyId="BLOG_AUTHORS" partyTypeId="PARTY_GROUP"/>
-    <Party partyId="BLOG_PUBLISHERS" partyTypeId="PARTY_GROUP"/>
-
     <PartyRelationshipType partyRelationshipTypeId="BLOG_PERMISSION" description="Aggregates all blog users so role permissions can be set one time." partyRelationshipName="Blog Users"/>
-    <DataSource dataSourceId="BLOG_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="Blog Site"/>
-
-    <PartyRole partyId="BLOG_USERS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_USERS" roleTypeId="BLOG_USER"/>
-    <PartyRole partyId="BLOG_EDITORS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_EDITORS" roleTypeId="BLOG_EDITOR"/>
-    <PartyRole partyId="BLOG_AUTHORS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_AUTHORS" roleTypeId="BLOG_AUTHOR"/>
-    <PartyRole partyId="BLOG_ADMINS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_ADMINS" roleTypeId="BLOG_ADMIN"/>
-    <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="PERMISSION_GROUP"/>
-    <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="BLOG_ADMIN"/>
-
     <StatusType statusTypeId="PUBLISH_STATUS" description="Publish Status"/>
     <StatusItem statusId="BLOG_SUBMITTED" statusTypeId="PUBLISH_STATUS" statusCode="SUBMITTED" sequenceId="01" description="Submitted"/>
     <StatusItem statusId="BLOG_DRAFT" statusTypeId="PUBLISH_STATUS" statusCode="DRAFT" sequenceId="02" description="Draft"/>

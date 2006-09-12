@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="ltdadmin" partyTypeId="PERSON"/>
+    <Person firstName="Limited" lastName="Administrator" middleName="" partyId="ltdadmin" personalTitle="Mr."/>
+    <PartyRole partyId="ltdadmin" roleTypeId="ORDER_CLERK"/>
+    <PartyRole partyId="ltdadmin" roleTypeId="LTD_ADMIN"/>
+    <PartyRole partyId="ltdadmin" roleTypeId="_NA_"/>
+    <PartyContactMech partyId="ltdadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+
+    <Party partyId="externaluser" partyTypeId="PERSON"/>
+    <Person firstName="External" lastName="User" middleName="" partyId="externaluser" personalTitle="Mr."/>
+    <PartyRole partyId="externaluser" roleTypeId="SUPPLIER"/>
+    <PartyContactMech partyId="externaluser" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+
+    <Party partyId="bizadmin" partyTypeId="PERSON"/>
+    <Person partyId="bizadmin" firstName="Business" lastName="Administrator"/>
+    <PartyRole partyId="bizadmin" roleTypeId="BUYER"/>
+    <PartyRole partyId="bizadmin" roleTypeId="MANAGER"/>
+    <PartyRole partyId="bizadmin" roleTypeId="ORDER_CLERK"/>
+    <PartyRole partyId="bizadmin" roleTypeId="SHIPMENT_CLERK"/>
+    <PartyRole partyId="bizadmin" roleTypeId="SALES_REP"/>
+    <PartyRole partyId="bizadmin" roleTypeId="_NA_"/>
+    <PartyContactMech partyId="bizadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+
+    <UserLogin userLoginId="flexadmin" partyId="admin"/>
+    <UserLogin userLoginId="demoadmin" partyId="admin"/>
+    <UserLogin userLoginId="ltdadmin" partyId="ltdadmin"/>
+    <UserLogin userLoginId="bizadmin" partyId="bizadmin"/>
+
+    <UserLoginSecurityGroup groupId="FLEXADMIN" userLoginId="flexadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="demoadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="BIZADMIN" userLoginId="bizadmin" fromDate="2001-01-01 12:00:00.0"/>   
+    
+    <!-- passwords (comment out so that they will not be reset) -->
+    <UserLogin userLoginId="flexadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="demoadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="ltdadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="bizadmin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <!-- from the content component: UsersData.xml -->
+    <UserLogin userLoginId="blog_guest" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="blog_admin" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="blog_author" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="blog_editor" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <!-- from the ecommerce/order component: DemoOrderPeopleData.xml -->
+    <UserLogin userLoginId="DemoBuyer" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="DemoRepAll" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="DemoRepStore" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="DemoCustCompany" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="DemoCustAgent" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="DemoCustomer" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="supplier" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <!-- from the pos component: DemoRetail.xml -->
+    <UserLogin userLoginId="1" currentPassword="356a192b7913cf4c54574d18bdf24699395428d4" passwordHint="The Number One, Yeah, Literally"/>
+    <UserLogin userLoginId="2" currentPassword="a54bed37c5b3b28ee30760b5c8d1bbd735ef10cf" passwordHint="The Number Two, Yeah, Literally"/>
+    
+
+</entity-engine-xml>
