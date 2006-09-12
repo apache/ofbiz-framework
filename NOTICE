@@ -113,7 +113,6 @@ http://svn.apache.org/viewvc/incubator/ofbiz/trunk/framework/base/lib/httpunit.j
 http://svn.apache.org/viewvc/incubator/ofbiz/trunk/framework/base/lib/freemarker.jar
 http://svn.apache.org/viewvc/incubator/ofbiz/trunk/framework/base/lib/junitperf.jar
 http://svn.apache.org/viewvc/incubator/ofbiz/trunk/framework/entity/lib/jdbc/hsqldb.jar
-http://svn.apache.org/viewvc/incubator/ofbiz/trunk/applications/pos/lib/looks-1.2.2.jar
 http://svn.apache.org/viewvc/incubator/ofbiz/trunk/applications/pos/lib/looks-2.0.2.jar
 http://svn.apache.org/viewvc/incubator/ofbiz/trunk/framework/webapp/lib/MinML2.jar
 http://svn.apache.org/viewvc/incubator/ofbiz/trunk/framework/base/lib/javolution.jar

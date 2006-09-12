@@ -49,7 +49,7 @@
 	<classpathentry kind="lib" path="framework/jetty/lib/jasper-runtime.jar"/>
 	<classpathentry kind="lib" path="framework/jetty/lib/jasper-compiler.jar"/>
 	<classpathentry kind="lib" path="framework/guiapp/lib/XuiCoreSwing_v2_0_5_jdk1_4.jar"/>
-	<classpathentry kind="lib" path="applications/pos/lib/looks-1.2.2.jar"/>
+	<classpathentry kind="lib" path="applications/pos/lib/looks-2.0.2.jar"/>
 	<classpathentry kind="lib" path="applications/pos/lib/jpos18-controls.jar"/>
 	<classpathentry kind="lib" path="applications/pos/lib/jcl.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/poi.jar"/>
