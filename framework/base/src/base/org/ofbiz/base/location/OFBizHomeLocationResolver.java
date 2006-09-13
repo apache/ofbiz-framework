@@ -42,7 +42,7 @@ public class OFBizHomeLocationResolver implements LocationResolver {
         StringBuffer baseLocation = new StringBuffer(FlexibleLocation.stripLocationType(location));
         
         // if there is not a forward slash between the two, add it
-        if (baseLocation.charAt(0) != '/' && propValue.charAt(propValue.length()) != '/') {
+        if (baseLocation.charAt(0) != '/' && propValue.charAt(propValue.length() - 1) != '/') {
             baseLocation.insert(0, '/');
         }
         
