@@ -147,6 +147,8 @@ under the License.
         <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="amount" type="Double" mode="IN" optional="true"/>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentReceiptId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"

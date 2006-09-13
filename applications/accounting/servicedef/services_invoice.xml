@@ -239,4 +239,10 @@ under the License.
         <description>Checks to see if the payments applied to an invoice total up to the invoice total; if so sets to PAID</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="createInvoiceContactMech" engine="simple"
+            location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceContactMech">
+        <description>Create a ContactMech for an invoice</description>
+        <auto-attributes entity-name="InvoiceContactMech" include="pk" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
+    </service>
 </services>

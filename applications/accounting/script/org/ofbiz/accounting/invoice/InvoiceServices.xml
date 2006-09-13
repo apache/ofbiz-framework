@@ -510,4 +510,15 @@ under the License.
         </if-compare>
         <check-errors/>
     </simple-method>    
+    <simple-method method-name="createInvoiceContactMech" short-description="Create a ContactMech for an invoice">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <fail-message message="Security Error: To create an InvoiceContactMech you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/>
+        </check-permission>
+        <check-errors/>
+        
+        <make-value value-name="invoiceContactMech" entity-name="InvoiceContactMech"/>
+        <set-pk-fields map-name="parameters" value-name="invoiceContactMech"/>
+        <create-value value-name="invoiceContactMech"/>
+        <field-to-result field-name="contactMechId" map-name="invoiceContactMech"/>
+    </simple-method>
 </simple-methods>
