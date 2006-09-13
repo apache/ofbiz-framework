@@ -46,15 +46,15 @@ under the License.
     </container>
 
     <!-- JavaMail Listener Container -->
+    <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen 
+         mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them --> 
     <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
         <property name="delegator-name" value="default"/>
         <property name="dispatcher-name" value="JavaMailDispatcher"/>
         <property name="run-as-user" value="system"/>
         <property name="poll-delay" value="300000"/>
-        <!-- if set to true, will delete messages after fetching them. otherwise, will try to mark them as seen -->
         <property name="delete-mail" value="false"/>
         <property name="default-listener" value="store-listener">
-            <!-- both imap and pop3 are supported, but pop3 will not be able to mark messages as seen, so you would need to delete them --> 
             <property name="mail.store.protocol" value="imap"/>
             <property name="mail.host" value="[host]"/>
             <property name="mail.user" value="[user]"/>
