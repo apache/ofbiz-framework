@@ -30,7 +30,20 @@ under the License.
       <div class="tabletext">
         ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/PackingSlip.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a> ${uiLabelMap.CommonOr} 
         ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/ShipmentBarCode.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductBarcode}</a> ${uiLabelMap.CommonFor} ${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>/ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${shipmentId}</a>
-      </div>
+       </div>
+       <#if invoiceIds?exists && invoiceIds?has_content>
+         <div class="tabletext">
+           <p>${uiLabelMap.AccountingInvoices}:</p> 
+           <ul>
+             <#list invoiceIds as invoiceId>
+               <li>
+                 #<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">${invoiceId}</a>
+                 (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">PDF</a>)
+               </li>
+             </#list>
+           </ul>
+         </div>
+       </#if>
     </#if>
     <div>&nbsp;</div>
 
