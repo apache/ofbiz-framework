@@ -27,6 +27,7 @@ import org.ofbiz.accounting.payment.PaymentGatewayServices;
 /**
  *
  * @author Fred Forrester (foresterf@fredforester.org)
+ * @author Si Chen (sichen@opensourcestrategies.com)
  */
 public class AIMPaymentServices {
 
@@ -34,33 +35,8 @@ public class AIMPaymentServices {
 
     private static Properties AIMProperties = null;
 
-    private static void buildTestRequest(Map request, Map props) {
-        Debug.logInfo("buildTestRequest.",module);
-
-        String cardType = (String)props.get("cardtype");
-
-        //request.put("x_Amount", "1");
-        //request.put("x_Exp_Date", "0108");
-        if (cardType == null || cardType.length() == 0)
-            cardType = "MasterCard";
-        if (cardType.equals("MasterCard"))
-            request.put("x_Card_Num", "5424000000000015");
-        if (cardType.equals("Visa"))
-            request.put("x_Card_Num", "4007000000027");
-        if (cardType.equals("American Express"))
-            request.put("x_Card_Num", "370000000000002");
-        if (cardType.equals("Discover"))
-            request.put("x_Card_Num", "6011000000000012");
-        //request.put("cardType", "VISA");
-        request.put("x_Description", "Test Transaction");
-
-    }
-
     public static Map ccAuth(DispatchContext ctx, Map context) {
-        Debug.logInfo("--> Authorize.Net ccAuth Transaction Start <--",module);
-        //Debug.logInfo("Enter ccAuth " + context,module);
-        Map results = new HashMap();
-        results = ServiceUtil.returnSuccess();
+        Map results = ServiceUtil.returnSuccess();
         Map request = new HashMap();
 
         Properties props = buildAIMProperties(context);
@@ -77,8 +53,6 @@ public class AIMPaymentServices {
         if(respMsg != null) {
             if(respMsg.equals(ModelService.RESPOND_ERROR)) {
                 results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                Debug.logInfo("Missing transaction values. Aborting transaction.",module);
-                Debug.logInfo("<-- Abnormal ccAuth Transaction End -->\r\n",module);
                 return results;
             }
         }
@@ -87,16 +61,14 @@ public class AIMPaymentServices {
 
         //now we need to process the result
         processAuthTransResult(reply, results);
-        Debug.logInfo("<-- Authorize.net ccAuth Transaction End -->",module);
         return results;
     }
 
     public static Map ccCapture(DispatchContext ctx, Map context) {
-        Debug.logInfo("--> Authorize.Net ccCapture Transaction Start <--",module);
         GenericDelegator delegator = ctx.getDelegator();
-        //Debug.logInfo("Enter ccCapture " + context,module);
-        GenericValue creditCard = null;
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
+
+        GenericValue creditCard = null;
         try {
             creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
         } catch (GenericEntityException e) {
@@ -109,10 +81,8 @@ public class AIMPaymentServices {
         }
         context.put("creditCard",creditCard);
         context.put("authTransaction",authTransaction);
-        //Debug.logInfo("authTransaction " + authTransaction.toString(),module);
-        //Debug.logInfo("creditCard " + creditCard.toString(),module);
-        Map results = new HashMap();
-        results = ServiceUtil.returnSuccess();
+
+        Map results = ServiceUtil.returnSuccess();
         Map request = new HashMap();
 
         Properties props = buildAIMProperties(context);
@@ -129,8 +99,6 @@ public class AIMPaymentServices {
         if(respMsg != null) {
             if(respMsg.equals(ModelService.RESPOND_ERROR)) {
                 results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                Debug.logInfo("Missing transaction values. Aborting transaction.",module);
-                Debug.logInfo("<-- Abnormal Transaction ccCapture End -->\r\n",module);
                 return results;
             }
         }
@@ -138,10 +106,9 @@ public class AIMPaymentServices {
         Map reply = processCard(request, props);
 
         processCaptureTransResult(reply,results);
-        Debug.logInfo("<-- Authorize.net ccCapture Transaction End -->",module);
         return results;
-
     }
+
     public static Map ccRelease(DispatchContext ctx, Map context) {
         Map results = new HashMap();
         results.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
@@ -150,29 +117,25 @@ public class AIMPaymentServices {
     }
 
     public static Map ccRefund(DispatchContext ctx, Map context) {
-        Debug.logInfo("--> Authorize.Net Transaction Start <--",module);
-        //Debug.logInfo("ccRefund context " + context,module);
-        //Debug.logInfo("ccRefund ctx " + ctx,module);
         GenericDelegator delegator = ctx.getDelegator();
-        //Debug.logInfo("Enter ccCapture " + context,module);
-        GenericValue creditCard = null;
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
+        
+        GenericValue creditCard = null;
         try {
             creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Unable to obtain cc information from payment preference");
         }
+        
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
             return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Capture");
         }
+        
         context.put("creditCard",creditCard);
         context.put("authTransaction",authTransaction);
-        //Debug.logInfo("authTransaction " + authTransaction.toString(),module);
-        //Debug.logInfo("creditCard " + creditCard.toString(),module);
-        Map results = new HashMap();
-        results = ServiceUtil.returnSuccess();
+        Map results = ServiceUtil.returnSuccess();
         Map request = new HashMap();
 
         Properties props = buildAIMProperties(context);
@@ -189,8 +152,6 @@ public class AIMPaymentServices {
         if(respMsg != null) {
             if(respMsg.equals(ModelService.RESPOND_ERROR)) {
                 results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                Debug.logInfo("Missing transaction values. Aborting transaction.",module);
-                Debug.logInfo("<-- Abnormal Transaction ccCapture End -->\r\n",module);
                 return results;
             }
         }
@@ -198,12 +159,10 @@ public class AIMPaymentServices {
         Map reply = processCard(request, props);
 
         processRefundTransResult(reply,results);
-        Debug.logInfo("<-- Authorize.net ccCapture Transaction End -->",module);
         return results;
     }
 
     public static Map ccCredit(DispatchContext ctx, Map context) {
-        Debug.logInfo("--> Authorize.Net Transaction Start <--",module);
         Map results = new HashMap();
         results.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         results.put(ModelService.ERROR_MESSAGE, "Authorize.net ccCredit unsupported with version 3.0");
@@ -211,10 +170,7 @@ public class AIMPaymentServices {
     }
 
     public static Map ccAuthCapture(DispatchContext ctx, Map context) {
-        Debug.logInfo("--> Authorize.Net ccAuthCapture Transaction Start <--",module);
-        //Debug.logInfo("Enter ccAuth " + context,module);
-        Map results = new HashMap();
-        results = ServiceUtil.returnSuccess();
+        Map results = ServiceUtil.returnSuccess();
         Map request = new HashMap();
 
         Properties props = buildAIMProperties(context);
@@ -231,8 +187,6 @@ public class AIMPaymentServices {
         if(respMsg != null) {
             if(respMsg.equals(ModelService.RESPOND_ERROR)) {
                 results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                Debug.logInfo("Missing transaction values. Aborting transaction.",module);
-                Debug.logInfo("<-- Abnormal Transaction End -->\r\n",module);
                 return results;
             }
         }
@@ -241,28 +195,24 @@ public class AIMPaymentServices {
 
         //now we need to process the result
         processAuthCaptureTransResult(reply, results);
-        Debug.logInfo("<-- Authorize.net Transaction End -->",module);
         return results;
     }
 
     private static HashMap processCard(Map request, Properties props) {
-        Debug.logInfo("processCard.",module);
         HashMap result = new HashMap();
 
         String url = props.getProperty("url");
-        if(url == null || url.length() == 0) {
+        if (url == null || url.length() == 0) {
             url = "https://certification.authorize.net/gateway/transact.dll"; // test url
+            Debug.logWarning("No payment.authorizedotnet.url found.  Using a default of [" + url + "]", module);
         }
-
         if(isTestMode()) {
-            //buildTestRequest(request,props);
-            Debug.logInfo("TEST Authorize.net",module);
+            Debug.logInfo("TEST Authorize.net using url [" + url + "]", module);
             Debug.logInfo("TEST Authorize.net request string " + request.toString(),module);
             Debug.logInfo("TEST Authorize.net properties string " + props.toString(),module);
         }
 
         try {
-            Debug.logInfo("contacting Authorize.Net",module);
             HttpClient httpClient = new HttpClient(url, request);
 
             httpClient.setClientCertificateAlias("AUTHORIZE_NET");
@@ -274,12 +224,9 @@ public class AIMPaymentServices {
             String resp = ar.getResponseCode();
 
             if (resp.equals(ar.APPROVED)) {
-                //respCode = EcommerceServices.DECLINED;
                 result.put("authResult", new Boolean(true));
-                Debug.logInfo("--> TRANSACTION APPROVED <--",module);
             } else {
                 result.put("authResult", new Boolean(false));
-                Debug.logInfo("--> TRANSACTION DECLINED <--",module);
                 Debug.logInfo("responseCode:   " + ar.getResponseField(AuthorizeResponse.RESPONSE_CODE),module);
                 Debug.logInfo("responseReason: " + ar.getResponseField(AuthorizeResponse.RESPONSE_REASON_CODE),module);
                 Debug.logInfo("reasonText:     " + ar.getResponseField(AuthorizeResponse.RESPONSE_REASON_TEXT),module);
@@ -289,7 +236,7 @@ public class AIMPaymentServices {
             result.put("authorizeResponse", ar);
 
         } catch (HttpClientException e) {
-            Debug.logInfo("       Could not complete Authorize.Net transaction: " + e.toString(),module);
+            Debug.logInfo("Could not complete Authorize.Net transaction: " + e.toString(),module);
         }
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
@@ -315,7 +262,6 @@ public class AIMPaymentServices {
     }
 
     private static Properties buildAIMProperties(Map context) {
-        //Debug.logInfo("buildAIMProperties.",module);
         String configStr = (String)context.get("paymentConfig");
         if(configStr == null) {
             configStr = "payment.properties";
@@ -350,18 +296,6 @@ public class AIMPaymentServices {
             Debug.logInfo("The password property in " + configStr + " is not configured.",module);
         }
 
-        if(testReq != null) {
-            if(testReq.equals("TRUE")) {
-                Debug.logInfo("This transaction is a test transaction.",module);
-                url = "https://certification.authorize.net/gateway/transact.dll";
-            } else {
-                Debug.logInfo("This transaction is a live transaction.",module);
-            }
-        } else {
-            Debug.logInfo("This transaction is a test transaction.",module);
-            url = "https://certification.authorize.net/gateway/transact.dll";
-            testReq = "TRUE";
-        }
         if (ver.equals("3.1")) {
             if (tranKey == null && tranKey.length() <= 0) {
                 Debug.logInfo("Trankey property required for version 3.1 reverting to 3.0",module);
@@ -398,10 +332,8 @@ public class AIMPaymentServices {
     }
 
     private static void buildMerchantInfo(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildMerchantInfo.",module);
         AIMRequest.put("x_Login", props.getProperty("login"));
         String trankey = props.getProperty("trankey");
-        String version = getVersion();
         if (trankey != null && trankey.length() > 0)
             AIMRequest.put("x_Tran_Key",props.getProperty("trankey"));
         AIMRequest.put("x_Password",props.getProperty("password"));
@@ -410,18 +342,15 @@ public class AIMPaymentServices {
     }
 
     private static void buildGatewayResponeConfig(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildGatewayResponeConfig.",module);
         AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));
         AIMRequest.put("x_Delim_Char", props.getProperty("delimiter"));
         return;
     }
 
     private static void buildCustomerBillingInfo(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildCustomerBillingInfo.",module);
         GenericValue cp = (GenericValue)params.get("billToParty");
         GenericValue ba = (GenericValue)params.get("billingAddress");
 
-        // contact information
         AIMRequest.put("x_First_Name",UtilFormatOut.checkNull(cp.getString("firstName")));
         AIMRequest.put("x_Last_Name",UtilFormatOut.checkNull(cp.getString("lastName")));
         AIMRequest.put("x_Address",UtilFormatOut.checkNull(ba.getString("address1")));
@@ -433,7 +362,6 @@ public class AIMPaymentServices {
     }
 
     private static void buildEmailSettings(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildEmailSettings.",module);
         GenericValue ea = (GenericValue)params.get("billToEmail");
         AIMRequest.put("x_Email_Customer", props.getProperty("emailCustomer"));
         AIMRequest.put("x_Email_Merchant", props.getProperty("emailMerchant"));
@@ -444,17 +372,14 @@ public class AIMPaymentServices {
     }
 
     private static void buildInvoiceInfo(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildInvoiceInfo.",module);
         String description = (String) UtilFormatOut.checkNull(props.getProperty("transDescription"));
         String orderId = (String) UtilFormatOut.checkNull((String)params.get("orderId"));
-        AIMRequest.put("x_Invoice_Num","scinc-" + orderId);
-        AIMRequest.put("x_Description",description);
+        AIMRequest.put("x_Invoice_Num","Order " + orderId);
+        AIMRequest.put("x_Description", description);
         return;
     }
 
     private static void buildAuthTransaction(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildAuthTransaction.",module);
-
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((Double)params.get("processAmount")).toString();
@@ -470,7 +395,6 @@ public class AIMPaymentServices {
     }
 
     private static void buildCaptureTransaction(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildCaptureTransaction.",module);
 
         GenericValue at = (GenericValue)params.get("authTransaction");
         GenericValue cc = (GenericValue)params.get("creditCard");
@@ -478,8 +402,6 @@ public class AIMPaymentServices {
         String amount = ((Double)params.get("captureAmount")).toString();
         String number = (String) UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = (String) UtilFormatOut.checkNull(cc.getString("expireDate"));
-        String refNum = (String)at.get("referenceNum");
-        String version = (String)props.getProperty("ver");
 
         AIMRequest.put("x_Amount",amount);
         AIMRequest.put("x_Currency_Code",currency);
@@ -492,16 +414,12 @@ public class AIMPaymentServices {
     }
 
     private static void buildRefundTransaction(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("buildCaptureTransaction.",module);
-
         GenericValue at = (GenericValue)params.get("authTransaction");
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((Double)params.get("refundAmount")).toString();
         String number = (String) UtilFormatOut.checkNull(cc.getString("cardNumber"));
         String expDate = (String) UtilFormatOut.checkNull(cc.getString("expireDate"));
-        String refNum = (String)at.get("referenceNum");
-        String version = (String)props.getProperty("ver");
 
         AIMRequest.put("x_Amount",amount);
         AIMRequest.put("x_Currency_Code",currency);
@@ -516,21 +434,14 @@ public class AIMPaymentServices {
     }
 
     private static Map validateRequest(Map params, Properties props, Map AIMRequest) {
-        //Debug.logInfo("validateRequest.",module);
         Map result = new HashMap();
-        //result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-        //result.put(ModelService.ERROR_MESSAGE, "Minimum required - invalid values");
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
 
 
     private static void processAuthTransResult(Map reply, Map results) {
-        //Debug.logInfo("processAuthTransResult.",module);
-        //Debug.logInfo("Authorize net result." + results.toString(),module);
-        //Debug.logInfo("Authorize net reply." + reply.toString(),module);
         String version = getVersion();
-        //Map results = new HashMap();
         AuthorizeResponse ar = (AuthorizeResponse)reply.get("authorizeResponse");
         Boolean authResult = (Boolean)reply.get("authResult");
         results.put("authResult", new Boolean(authResult.booleanValue()));
@@ -551,16 +462,10 @@ public class AIMPaymentServices {
 
         }
 
-
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);
     }
 
     private static void processCaptureTransResult(Map reply, Map results) {
-        //Debug.logInfo("processCaptureTransResult.",module);
-        //Debug.logInfo("Authorize net result." + results.toString(),module);
-        //Debug.logInfo("Authorize net reply." + reply.toString(),module);
-        String version = getVersion();
-        //Map results = new HashMap();
         AuthorizeResponse ar = (AuthorizeResponse)reply.get("authorizeResponse");
         Boolean captureResult = (Boolean)reply.get("authResult");
         results.put("captureResult", new Boolean(captureResult.booleanValue()));
@@ -576,16 +481,10 @@ public class AIMPaymentServices {
 
         }
 
-
         Debug.logInfo("processCaptureTransResult: " + results.toString(),module);
     }
 
     private static void processRefundTransResult(Map reply, Map results) {
-        //Debug.logInfo("processCaptureTransResult.",module);
-        //Debug.logInfo("Authorize net result." + results.toString(),module);
-        //Debug.logInfo("Authorize net reply." + reply.toString(),module);
-        String version = getVersion();
-        //Map results = new HashMap();
         AuthorizeResponse ar = (AuthorizeResponse)reply.get("authorizeResponse");
         Boolean captureResult = (Boolean)reply.get("authResult");
         results.put("refundResult", new Boolean(captureResult.booleanValue()));
@@ -605,11 +504,6 @@ public class AIMPaymentServices {
     }
 
     private static void processAuthCaptureTransResult(Map reply, Map results) {
-        //Debug.logInfo("processAuthCaptureTransResult.",module);
-        //Debug.logInfo("Authorize net result." + results.toString(),module);
-        //Debug.logInfo("Authorize net reply." + reply.toString(),module);
-        String version = getVersion();
-        //Map results = new HashMap();
         AuthorizeResponse ar = (AuthorizeResponse)reply.get("authorizeResponse");
         Boolean authResult = (Boolean)reply.get("authResult");
         results.put("authResult", new Boolean(authResult.booleanValue()));
