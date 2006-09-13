@@ -102,7 +102,7 @@ under the License.
     </form>
 
     <!-- multi-form for list of packages ready to be weighted and scheduled for shipment -->
-    <form name="SchedulingList" type="multi" use-row-submit="true" list-name="shipmentRouteSegments" title="${uiLabelMap.PageTitlePackageShipmentScheduling}" target="BatchScheduleShipmentRouteSegments"
+    <form name="SchedulingList" type="multi" use-row-submit="true" list-name="shipmentRouteSegments" title="${uiLabelMap.PageTitlePackageShipmentScheduling}" target="BatchScheduleShipmentRouteSegments?facilityId=${facilityId}"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
             <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
