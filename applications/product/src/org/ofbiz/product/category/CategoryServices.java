@@ -97,7 +97,8 @@ public class CategoryServices {
 
         Collection memberCol = (Collection) values.get("categoryMembers");
         if (memberCol == null || memberCol.size() == 0) {
-            return ServiceUtil.returnError("Problem reading category member data.");
+            // this is not going to be an error condition because we don't want it to be so critical, ie rolling back the transaction and such
+            return ServiceUtil.returnSuccess("Product not found in the current category.");
         }
 
         List memberList = new ArrayList(memberCol);
