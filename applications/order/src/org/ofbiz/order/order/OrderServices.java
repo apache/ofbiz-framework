@@ -3101,14 +3101,14 @@ public class OrderServices {
     }
 
     private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId) throws GeneralException {
-        // get/set the shipping estimates
+        // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
         int shipGroups = cart.getShipGroupSize();
         for (int gi = 0; gi < shipGroups; gi++) {
             String shipmentMethodTypeId = cart.getShipmentMethodTypeId(gi);
             String carrierPartyId = cart.getCarrierPartyId(gi);
             Debug.log("Getting ship estimate for group #" + gi + " [" + shipmentMethodTypeId + " / " + carrierPartyId + "]", module);
             Map result = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, gi);
-            if (ServiceUtil.isError(result)) {
+            if (("SALES_ORDER".equals(cart.getOrderType())) && (ServiceUtil.isError(result))) {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                 throw new GeneralException(ServiceUtil.getErrorMessage(result));
             }
@@ -3119,7 +3119,7 @@ public class OrderServices {
             }
             cart.setItemShipGroupEstimate(shippingTotal.doubleValue(), gi);
         }
-
+        
         // calc the sales tax
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
         try {
