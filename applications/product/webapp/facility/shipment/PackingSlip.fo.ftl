@@ -148,6 +148,25 @@ under the License.
                 </fo:table-body>
             </fo:table>
             </fo:block>
+            <fo:block space-after.optimum="10pt" font-size="10pt">
+            <fo:table>
+                <fo:table-column column-width="450pt"/>
+                <fo:table-body>
+                    <#if shipGroup.giftMessage?exists >
+                        <fo:table-row font-weight="bold">
+                            <fo:table-cell>
+                                <fo:block>${uiLabelMap.OrderGiftMessage}</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                        <fo:table-row >
+                            <fo:table-cell>
+                                <fo:block>${shipGroup.giftMessage}</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </#if>
+                </fo:table-body>
+            </fo:table>
+            </fo:block>
         </fo:flow>
         </fo:page-sequence>
 
