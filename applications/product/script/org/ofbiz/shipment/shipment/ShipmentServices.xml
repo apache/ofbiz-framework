@@ -421,7 +421,18 @@ under the License.
             <if-not-empty field-name="destTelecomOrderContactMech">
                 <set from-field="destTelecomOrderContactMech.contactMechId" field="shipment.destinationTelecomNumberId"/>
                 <else>
-                    <log level="warning" message="Cannot find a shipping destination phone number for ${shipment.primaryOrderId}"/>
+                    <!-- use the first unexpired phone number of the shipment partyIdTo -->
+                    <entity-and entity-name="PartyAndTelecomNumber" list-name="phoneNumbers">
+                        <field-map field-name="partyId" env-name="shipment.partyIdTo"/>
+                    </entity-and>
+                    <filter-list-by-date list-name="phoneNumbers"/>
+                    <first-from-list entry-name="phoneNumber" list-name="phoneNumbers"/>
+                    <if-not-empty field-name="phoneNumber">
+                        <set from-field="phoneNumber.contactMechId" field="shipment.destinationTelecomNumberId"/>
+                        <else>
+                            <log level="warning" message="Cannot find a shipping destination phone number for ${shipment.primaryOrderId}"/>
+                        </else>
+                    </if-not-empty>
                 </else>
             </if-not-empty>
         </if-empty>
