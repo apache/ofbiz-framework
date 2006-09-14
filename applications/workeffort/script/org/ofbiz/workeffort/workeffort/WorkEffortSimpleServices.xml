@@ -21,7 +21,12 @@ under the License.
         
     <simple-method method-name="createWorkEffort" short-description="Create Work Effort">
         <make-value value-name="newEntity" entity-name="WorkEffort"/>
-        <sequenced-id-to-env sequence-name="WorkEffort" env-name="newEntity.workEffortId"/>
+        <if-empty field-name="parameters.workEffortId">
+            <sequenced-id-to-env sequence-name="WorkEffort" env-name="newEntity.workEffortId"/>
+            <else>
+                <set field="newEntity.workEffortId" from-field="parameters.workEffortId"/>
+            </else>
+        </if-empty>
         <field-to-result field-name="newEntity.workEffortId" result-name="workEffortId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         

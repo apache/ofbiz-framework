@@ -38,7 +38,7 @@ under the License.
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffort">
         <description>Create a WorkEffort Entity</description>
         <implements service="interfaceWorkEffort"/>        
-        <auto-attributes mode="OUT" include="pk" optional="false"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
