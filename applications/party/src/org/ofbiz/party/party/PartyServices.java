@@ -647,6 +647,47 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
+    public static Map getPartyFromExactEmail(DispatchContext dctx, Map context) {
+        Map result = new HashMap();
+        GenericDelegator delegator = dctx.getDelegator();
+        Collection parties = new LinkedList();
+        String email = (String) context.get("email");
+        Locale locale = (Locale) context.get("locale");
+        String errMsg = null;
+
+        if (email.length() == 0){
+            errMsg = UtilProperties.getMessage(resource,"partyservices.required_parameter_email_cannot_be_empty", locale);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        try {
+            List exprs = new LinkedList();
+
+            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.EQUALS, new EntityFunction.UPPER(email.toUpperCase())));
+            List c = EntityUtil.filterByDate(delegator.findByAnd("PartyAndContactMech", exprs, UtilMisc.toList("infoString")), true);
+
+            if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
+            if (Debug.infoOn()) Debug.logInfo("PartyFromEmail number found: " + c.size(), module);
+            if (c != null) {
+                Iterator i = c.iterator();
+
+                while (i.hasNext()) {
+                    GenericValue pacm = (GenericValue) i.next();
+                    GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", pacm.get("partyId"), "partyTypeId", pacm.get("partyTypeId")));
+
+                    parties.add(UtilMisc.toMap("party", party));
+                }
+            }
+        } catch (GenericEntityException e) {
+            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
+            return ServiceUtil.returnError(errMsg);
+        }
+        if (parties.size() > 0)
+            result.put("parties", parties);
+        return result;
+    }
+
     public static Map getPartyFromEmail(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
@@ -663,7 +704,7 @@ public class PartyServices {
         try {
             List exprs = new LinkedList();
 
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.LIKE, new EntityFunction.UPPER(email.toUpperCase())));
+            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.LIKE, new EntityFunction.UPPER(("%" + email.toUpperCase()) + "%")));
             List c = EntityUtil.filterByDate(delegator.findByAnd("PartyAndContactMech", exprs, UtilMisc.toList("infoString")), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
