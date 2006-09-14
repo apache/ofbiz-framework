@@ -663,7 +663,7 @@ public class PartyServices {
         try {
             List exprs = new LinkedList();
 
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + email.toUpperCase() + "%")));
+            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.LIKE, new EntityFunction.UPPER(email.toUpperCase())));
             List c = EntityUtil.filterByDate(delegator.findByAnd("PartyAndContactMech", exprs, UtilMisc.toList("infoString")), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
