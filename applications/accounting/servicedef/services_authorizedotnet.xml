@@ -26,32 +26,32 @@ under the License.
     <!-- Authorize.NET Implementations -->
     <service name="AIMCCAuth" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuth">
-        <description>Credit Card Payment Authorization</description>
+        <description>Authorize.NET Payment Authorization</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="AIMCCAuthCapture" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccAuthCapture">
-        <description>Credit Card Payment ? service</description>
+        <description>Authorize.NET Payment Authorize and Capture service</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="AIMCCCapture" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCapture">
-        <description>Credit Card Payment Capture Service</description>
+        <description>Authorize.NET Payment Capture Service</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="AIMCCRelease" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRelease">
-        <description>Credit Card Payment Release Service</description>
+        <description>Authorize.NET Payment Release Service - NOT IMPLEMENTED YET</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="AIMCCRefund" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccRefund">
-        <description>Credit Card Payment Refund Service</description>
+        <description>Authorize.NET Payment Refund Service</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="AIMCCCredit" engine="java"
             location="org.ofbiz.accounting.thirdparty.authorizedotnet.AIMPaymentServices" invoke="ccCredit">
-        <description>Credit Card ? Service</description>
+        <description>Authorize.NET Credit Service - NOT IMPLEMENTED YET</description>
         <implements service="ccCreditInterface"/>
     </service>
 </services>
