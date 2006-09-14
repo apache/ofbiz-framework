@@ -110,7 +110,9 @@ under the License.
         <field name="primaryOrderId" title="${uiLabelMap.ProductOrderId}">
             <hyperlink target="/ordermgr/control/orderview?orderId=${primaryOrderId}" description="${primaryOrderId}" target-type="inter-app"/>
         </field>
-        <field name="shipmentRouteSegmentId"><display/></field>
+        <field name="shipmentRouteSegmentId">
+            <hyperlink target="EditShipmentRouteSegments?shipmentId=${shipmentId}" description="${shipmentRouteSegmentId}"/>
+        </field>
         <field name="carrierPartyId" title="${uiLabelMap.ProductCarrier}">
             <display-entity description="${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
         </field>
