@@ -289,9 +289,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceAttribute"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceAttribute"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
-                    <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
-                </entity-one>
+                <set field="dataResourceId" from-field="parameters.dataResourceId"/>
+                <entity-one entity-name="DataResource" value-name="dataResource"/>
+                <entity-and entity-name="DataResourceAttribute" list-name="dataResourceAttribute">
+                    <field-map env-name="dataResourceId" field-name="dataResourceId"/>
+                </entity-and> 
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -312,9 +314,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceRole"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceRole"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
-                    <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
-                </entity-one>
+                <set field="dataResourceId" from-field="parameters.dataResourceId"/>
+                <entity-one entity-name="DataResource" value-name="dataResource"/>
+                <entity-and entity-name="DataResourceRole" list-name="dataResourceRole">
+                    <field-map env-name="dataResourceId" field-name="dataResourceId"/>
+                </entity-and>               
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -335,9 +339,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceProductFeatures"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editDataResourceProductFeatures"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
-                    <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
-                </entity-one>
+                <set field="dataResourceId" from-field="parameters.dataResourceId"/>
+                <entity-one entity-name="DataResource" value-name="dataResource"/>
+                <entity-and entity-name="ProductFeatureDataResource" list-name="productFeatureDataResource">
+                    <field-map env-name="dataResourceId" field-name="dataResourceId"/>
+                </entity-and>
             </actions>
             <widgets>
                     <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
