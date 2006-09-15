@@ -54,7 +54,7 @@ under the License.
         <field name="offsetQOHQty" title="${uiLabelMap.ProductQtyOffsetQOHBelow}" widget-style="inputBox"><text/></field>
         <field name="offsetATPQty" title="${uiLabelMap.ProductQtyOffsetATPBelow}" widget-style="inputBox"><text/></field>
         <field name="productsSoldThruTimestamp" title="${uiLabelMap.ProductShowProductsSoldThruTimestamp}" widget-style="inputBox">
-            <date-time/>
+            <date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <field name="VIEW_SIZE" title="${uiLabelMap.ProductShowProductsPerPage}" widget-style="inputBox"><text default-value="50"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
