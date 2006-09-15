@@ -1,19 +1,37 @@
 
 Welcome to Apache OFBiz!
 
-If you have a release build all you need to run OFBiz is a 1.4 or 1.5 series JDK (not just the JRE, the full J2SDK). Once that is properly setup just run the executable jar file that comes with OFBiz, which is ofbiz.jar. To do this on the command line you would run:
+If you have a release build all you need to run OFBiz is a 1.4 or 1.5 series
+JDK (not just the JRE, the full J2SDK).
+Once that is properly setup just run the executable jar file
+that comes with OFBiz, which is ofbiz.jar. To do this on the
+command line you would run:
 
 java -jar ofbiz.jar
 
-There are also start scripts for Windows and Unix-based operating systems, namely startofbiz.bat and startofbiz.sh.
+There are also start scripts for Windows and Unix-based
+operating systems, namely startofbiz.bat and startofbiz.sh.
 
-For more details about running a build, or for information on getting, building, and running the source please see the Apache OFBiz Setup Guide:
+Once OFBiz starts, you can look at the demo storefront at:
+http://localhost:8080/ecommerce/
+
+and the administration interface at:
+http://localhost:8080/webtools/
+
+You can log in with the user "admin" and password "ofbiz".
+
+For more details about running a build, or for information on
+getting, building, and running the source please see the 
+Apache OFBiz Setup Guide:
 
 http://incubator.apache.org/ofbiz/docs/setup.html
 
-Note that running with the default configuration uses an embedded Java database (Apache Derby), and embedded application server components such as Tomcat, Geronimo (transaction manager), etc.
+Note that running with the default configuration uses an
+embedded Java database (Apache Derby), and embedded application
+server components such as Tomcat, Geronimo (transaction manager), etc.
 
-To prepare OFBiz for production use the Basic Production Setup Guide is a great place to start. It is available here:
+To prepare OFBiz for production use the Basic Production Setup Guide
+is a great place to start. It is available here:
 
 http://docs.ofbiz.org/x/j
 
