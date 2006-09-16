@@ -113,6 +113,10 @@ if (action != null) {
         whereConditionsList.add(new EntityExpr("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
     }
     
+    // add search on productId 
+    if (UtilValidate.isNotEmpty(productId)) {
+        whereConditionsList.add(new EntityExpr("productId", true, EntityOperator.LIKE, productId + "%", true));
+    }
     EntityCondition whereCondition = new EntityConditionList(whereConditionsList, EntityOperator.AND);
 
     boolean beganTransaction = false;
