@@ -87,6 +87,8 @@ public class ScreenFopPdfViewHandler extends ScreenWidgetViewHandler {
         */
         // read the XSL-FO XML Document
         Document xslfo = null;
+Debug.log("DOCUMENTO");
+Debug.log("" + writer.toString());
         try {
             xslfo = UtilXml.readXmlDocument(writer.toString());
         } catch (Throwable t) {

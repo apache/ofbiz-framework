@@ -52,13 +52,16 @@ under the License.
           <td align="left" width="1%"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></td>
           </#if>       
           <td align="right" width="1%" nowrap="nowrap" <#if layoutSettings.headerRightBackgroundUrl?has_content>background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
+            <div class="insideHeaderText">
+            <#if userLogin?exists>${uiLabelMap.CommonUsername}:&nbsp;${userLogin.userLoginId?if_exists}&nbsp;</#if>
             <#if person?has_content>
-              <div class="insideHeaderText">${uiLabelMap.CommonWelcome}&nbsp;${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}!</div>
+              ${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}
             <#elseif partyGroup?has_content>
-              <div class="insideHeaderText">${uiLabelMap.CommonWelcome}&nbsp;${partyGroup.groupName?if_exists}!</div>
+              ${partyGroup.groupName?if_exists}
             <#else>
-              <div class="insideHeaderText">${uiLabelMap.CommonWelcome}!</div>
+              ${uiLabelMap.CommonWelcome}!
             </#if>
+            </div>
             <div class="insideHeaderText">&nbsp;${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</div>
             <div class="insideHeaderText">
                 <form method="post" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>" style="margin: 0;">

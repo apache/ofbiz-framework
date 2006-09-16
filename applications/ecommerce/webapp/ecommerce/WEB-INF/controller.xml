@@ -19,7 +19,7 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/site-conf.xsd">
     <description>OFBiz: eCommerce Controller Configuration File</description>
-    <owner>The Open For Business Project Copyright (c) 2001-2005</owner>
+    <owner>Copyright 2001-2006 The Apache Software Foundation</owner>
     <errorpage>/error/error.jsp</errorpage>
 
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
