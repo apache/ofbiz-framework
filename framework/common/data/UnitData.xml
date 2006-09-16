@@ -135,6 +135,7 @@ under the License.
     <UomConversion uomId="LEN_mi" uomIdTo="LEN_fur" conversionFactor="8"/>
     <UomConversion uomId="LEN_hand" uomIdTo="LEN_in" conversionFactor="4"/>
     <UomConversion uomId="LEN_in" uomIdTo="LEN_cm" conversionFactor="2.54"/>
+    <UomConversion uomId="LEN_in" uomIdTo="LEN_mm" conversionFactor="25.4"/>
 
     <UomConversion uomId="LEN_km" uomIdTo="LEN_m" conversionFactor="1000"/>
 
