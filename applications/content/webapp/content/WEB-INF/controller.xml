@@ -29,8 +29,8 @@ under the License.
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
 
     <handler name="jpublish" type="view" class="org.ofbiz.webapp.view.JPublishViewHandler"/>        
-    <handler name="fop" type="view" class="org.ofbiz.webapp.view.FopPdfViewHandler"/>
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <preprocessor>
@@ -1536,7 +1536,7 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="login" type="screen" page="component://content/widget/CommonScreens.xml#login"/>
-    <view-map name="fonts.fo" page="/fonts.fo.ftl" type="fop"/>
+    <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo"/>
     
     <view-map name="FindForumGroups" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups" type="screen"/>
     <view-map name="ForumGroupRoles" page="component://content/widget/forum/ForumScreens.xml#ForumGroupRoles" type="screen"/>
