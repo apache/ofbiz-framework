@@ -252,7 +252,7 @@ under the License.
     <simple-method method-name="updatePartyTelecomNumber" short-description="Update a TelecomNumber for party">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_UPDATE">
@@ -269,8 +269,8 @@ under the License.
         </call-service>
         
         <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
-                processor-name="updatePartyContactMech" in-map-name="parameters" out-map-name="context2"/>  
-        <field-to-field map-name="newPartyContactMech" field-name="contactMechId"  to-map-name="context2" to-field-name="newContactMechId"/>     
+                processor-name="updatePartyContactMech" in-map-name="parameters" out-map-name="context2"/>
+        <set field="context2.newContactMechId" from-field="newPartyContactMech.contactMechId"/>  
         <set field="context2.contactMechTypeId" value="TELECOM_NUMBER"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updatePartyContactMech">
@@ -283,7 +283,7 @@ under the License.
     
     <simple-method method-name="createPartyEmailAddress" short-description="Create an email address for party">
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_CREATE">
@@ -305,7 +305,7 @@ under the License.
     
     <simple-method method-name="updatePartyEmailAddress" short-description="Update an email address for party">
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_UPDATE">
