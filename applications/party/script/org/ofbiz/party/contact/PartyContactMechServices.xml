@@ -22,42 +22,39 @@ under the License.
         <make-value value-name="newValue" entity-name="PartyContactMech"/>
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
-        <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
-            <check-permission permission="PARTYMGR" action="_PCM_CREATE">
+        <if-compare-field field-name="parameters.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+                <check-permission permission="PARTYMGR" action="_PCM_CREATE">
                 <fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/>
             </check-permission>
         </if-compare-field>
         <check-errors/>
         
-        <log level="info" message="contactMechId is ${parameters.contactMechId}"/>
         <if-empty map-name="parameters" field-name="contactMechId">
             <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
                 processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
             <call-service service-name="createContactMech" in-map-name="context">
-                <default-message>Contact Mechanism successfully created.</default-message>
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
             </call-service>    
             <log level="info" message="ContactMech created"/>    
             <else>
-                <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="newValue"/>
+                <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
             </else>    
         </if-empty>   
-        <log level="info" message="Creating a PartyContactMech"/>
-        <field-to-field field-name="partyId" map-name="parameters" to-map-name="newValue"/>
+        <log level="info" message="Creating a PartyContactMech with id: ${parameters.contactMechId}"/>
+        <set field="newValue.partyId" from-field="parameters.partyId"/>
         <field-to-result field-name="contactMechId" map-name="newValue"/>
         <field-to-request field-name="contactMechId" map-name="newValue"/>
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newValue"/>
+        <now-timestamp-to-env env-name="newValue.fromDate"/>
         <create-value value-name="newValue"/>
     </simple-method>
     
     <simple-method method-name="updatePartyContactMech" short-description="Update a PartyContactMech">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_UPDATE">
@@ -93,28 +90,27 @@ under the License.
                 <result-to-field result-name="contactMechId" map-name="newPartyContactMech"/>
             </call-service>
             <else>
-                <field-to-field map-name="parameters" to-map-name="newPartyContactMech" field-name="newContactMechId" to-field-name="contactMechId"/>
+                <set field="newPartyContactMech.contactMechId" from-field="parameters.newContactMechId"/>
                 <log level="info" message="Using supplied new contact mech id: ${newPartyContactMech.contactMechId}"/>
             </else>    
         </if-empty> 
                    
         <set-nonpk-fields value-name="newPartyContactMech" map-name="parameters" set-if-null="false"/>
-        <now-timestamp-to-env env-name="now"/>
-        <env-to-field env-name="now" field-name="fromDate" map-name="newPartyContactMech"/>
-        <env-to-field env-name="now" field-name="thruDate" map-name="partyContactMech"/>
+        <now-timestamp-to-env env-name="newPartyContactMech.fromDate"/>
+        <now-timestamp-to-env env-name="partyContactMech.thruDate"/>
         <field-to-list list-name="storeList" field-name="newPartyContactMech"/>
 
         <if-compare-field field-name="contactMechId" map-name="parameters" to-map-name="newPartyContactMech" operator="not-equals">
             <get-related value-name="partyContactMech" relation-name="PartyContactMechPurpose" list-name="partyContactMechPurposes"/>   
             <iterate entry-name="partyContactMechPurposeOld" list-name="partyContactMechPurposes">
                 <clone-value value-name="partyContactMechPurposeOld" new-value-name="partyContactMechPurpose"/>
-                <set field="partyContactMechPurposeOld.thruDate" from-field="now"/>
+                <now-timestamp-to-env env-name="partyContactMechPurposeOld.thruDate"/>
                 <field-to-list field-name="partyContactMechPurposeOld" list-name="storeList"/>
 
-                <field-to-field field-name="contactMechId" map-name="newPartyContactMech" to-map-name="partyContactMechPurpose"/>
-                <field-to-field field-name="partyId" map-name="partyContactMechPurpose" to-map-name="purposeMap"/>
-                <field-to-field field-name="contactMechPurposeTypeId" map-name="partyContactMechPurpose" to-map-name="purposeMap"/>
-                <field-to-field field-name="contactMechId" map-name="partyContactMechPurpose" to-map-name="purposeMap"/>
+                <set field="partyContactMechPurpose.contactMechId" from-field="newPartyContactMech.contactMechId"/>
+                <set field="purposeMap.partyId" from-field="partyContactMechPurpose.partyId"/>
+                <set field="purposeMap.contactMechPurposeTypeId" from-field="partyContactMechPurpose.contactMechPurposeTypeId"/>
+                <set field="purposeMap.contactMechId" from-field="partyContactMechPurpose.contactMechId"/>
                 <find-by-and entity-name="PartyContactMechPurpose" list-name="purposeResult" map-name="purposeMap"/>
                     
                 <if-empty field-name="purposeResult">
@@ -134,7 +130,7 @@ under the License.
     <simple-method method-name="deletePartyContactMech" short-description="Delete a PartyContactMech">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_DELETE">
@@ -154,14 +150,13 @@ under the License.
             </add-error>
             <return/>
         </if-empty>
-        <now-timestamp-to-env env-name="now"/>
-        <env-to-field env-name="now" field-name="thruDate" map-name="partyContactMech"/>
+        <now-timestamp-to-env env-name="partyContactMech.thruDate"/>
         <store-value value-name="partyContactMech"/>     
     </simple-method>
     
     <simple-method method-name="createPartyPostalAddress" short-description="Create a PostalAddress for party">
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>        
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_CREATE">
@@ -182,7 +177,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="partyContactMech" in-map-name="parameters" out-map-name="context2"/>
         <check-errors/>
-        <field-to-field field-name="contactMechId" map-name="newPartyContactMech" to-map-name="context2"/>
+        <set field="context2.contactMechId" from-field="newPartyContactMech.contactMechId"/>
         
         <call-service in-map-name="context2" break-on-error="true" service-name="createPartyContactMech">
             <default-message>Party Contact Mechanism successfully created</default-message>
@@ -194,7 +189,7 @@ under the License.
     <simple-method method-name="updatePartyPostalAddress" short-description="Update a PostalAddress for party">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_UPDATE">
@@ -206,7 +201,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
                 processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <field-to-field field-name="partyId" map-name="parameters" to-field-name="partyId" to-map-name="context"/>
+        <set field="context.partyId" from-field="parameters.partyId"/>
         <call-service in-map-name="context" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
             <result-to-field result-name="contactMechId" map-name="newPartyContactMech" field-name="contactMechId" />             
@@ -214,8 +209,8 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="updatePartyContactMech" in-map-name="parameters" out-map-name="context2"/>
         <check-errors/>
-        <field-to-field map-name="newPartyContactMech" field-name="contactMechId"  to-map-name="context2" to-field-name="newContactMechId"/>
-        <string-to-field map-name="context2" field-name="contactMechTypeId" string="POSTAL_ADDRESS"/>
+        <set field="context2.newContactMechId" from-field="newPartyContactMech.contactMechId"/>
+        <set field="context2.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updatePartyContactMech">
             <default-message>Party Contact Mechanism successfully updated</default-message>       
@@ -226,7 +221,7 @@ under the License.
 
     <simple-method method-name="createPartyTelecomNumber" short-description="Create a TelecomNumber for party">
         <if-empty map-name="parameters" field-name="partyId">
-            <field-to-field map-name="userLogin" field-name="partyId" to-map-name="parameters"/>
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
             <check-permission permission="PARTYMGR" action="_PCM_CREATE">
@@ -243,9 +238,9 @@ under the License.
             <default-message>Telecom number successfully created</default-message>
             <result-to-field result-name="contactMechId" map-name="newPartyContactMech"/>             
         </call-service>
-        <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
-                processor-name="partyContactMech" in-map-name="parameters" out-map-name="context2"/>  
-        <field-to-field field-name="contactMechId" map-name="newPartyContactMech" to-map-name="context2"/> 
+        <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml" 
+                processor-name="partyContactMech" in-map-name="parameters" out-map-name="context2"/>
+        <set field="context2.contactMechId" from-field="newPartyContactMech.contactMechId"/>  
         <log level="info" message="Copied id to context2: ${context2.contactMechId}"/>         
         <call-service in-map-name="context2" break-on-error="true" service-name="createPartyContactMech">
             <default-message>Party Contact Mechanism successfully created</default-message>       
@@ -276,7 +271,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="updatePartyContactMech" in-map-name="parameters" out-map-name="context2"/>  
         <field-to-field map-name="newPartyContactMech" field-name="contactMechId"  to-map-name="context2" to-field-name="newContactMechId"/>     
-        <string-to-field map-name="context2" field-name="contactMechTypeId" string="TELECOM_NUMBER"/>
+        <set field="context2.contactMechTypeId" value="TELECOM_NUMBER"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updatePartyContactMech">
             <default-message>Party Contact Mechanism successfully updated</default-message>       
@@ -300,7 +295,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createPartyContactMech" in-map-name="context">
             <default-message>Party Contact Mechanism successfully created.</default-message>
             <result-to-result result-name="contactMechId"/>
@@ -322,7 +317,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updatePartyContactMech" in-map-name="context">
             <default-message>Party Contact Mechanism successfully updated.</default-message>
             <result-to-result result-name="contactMechId"/>
@@ -335,8 +330,7 @@ under the License.
 			<field-map field-name="infoString" env-name="parameters.address"/>
 		</entity-and>
 		<if-empty field-name="parameters.fromDate">
-				<now-timestamp-to-env env-name="nowTimestamp"/>
-				<set field="fromDate" from-field="nowTimestamp"/>
+				<now-timestamp-to-env env-name="fromDate"/>
 			<else>
 				<set field="fromDate" from-field="parameters.fromDate"/>
 			</else>
