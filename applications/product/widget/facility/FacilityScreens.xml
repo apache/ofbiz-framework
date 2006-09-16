@@ -215,7 +215,8 @@ under the License.
                 <set field="offsetATPQty" from-field="parameters.offsetATPQty"/>
                 <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
                 <set field="internalName" from-field="parameters.internalName"/>
-                
+                <set field="productId" from-field="parameters.productId"/>             
+   
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
             </actions>
             <widgets>
