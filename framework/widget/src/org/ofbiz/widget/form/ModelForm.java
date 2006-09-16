@@ -180,8 +180,7 @@ public class ModelForm {
         // check if there is a parent form to inherit from
         String parentResource = formElement.getAttribute("extends-resource");
         String parentForm = formElement.getAttribute("extends");
-        //TODO: Modify this to allow for extending a form with the same name but different resource
-        if (parentForm.length() > 0 && !parentForm.equals(formElement.getAttribute("name"))) {
+        if (parentForm.length() > 0) {
             ModelForm parent = null;
             // check if we have a resource name (part of the string before the ?)
             if (parentResource.length() > 0) {
@@ -190,7 +189,7 @@ public class ModelForm {
                 } catch (Exception e) {
                     Debug.logError(e, "Failed to load parent form definition '" + parentForm + "' at resource '" + parentResource + "'", module);
                 }
-            } else {
+            } else if (!parentForm.equals(formElement.getAttribute("name"))) {
                 // try to find a form definition in the same file
                 Element rootElement = formElement.getOwnerDocument().getDocumentElement();
                 List formElements = UtilXml.childElementList(rootElement, "form");
@@ -205,8 +204,10 @@ public class ModelForm {
                     }
                 }
                 if (parent == null) {
-                    Debug.logError("Failed to find parent form defenition '" + parentForm + "' in same document.", module);
+                    Debug.logError("Failed to find parent form definition '" + parentForm + "' in same document.", module);
                 }
+            } else {
+                Debug.logError("Recursive form definition found for '" + formElement.getAttribute("name") + ".'", module);
             }
 
             if (parent != null) {
