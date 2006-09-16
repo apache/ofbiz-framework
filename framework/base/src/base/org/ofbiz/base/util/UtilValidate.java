@@ -872,6 +872,48 @@ public class UtilValidate {
         }
     }
 
+    /** isDate returns true if string argument date forms a valid date and is before today. */
+    public static boolean isDateBeforeToday(String date) {
+        if (isEmpty(date)) return defaultEmptyOK;
+        int dateSlash1 = date.indexOf("/");
+        int dateSlash2 = date.lastIndexOf("/");
+
+        if (dateSlash1 <= 0) return defaultEmptyOK; // In this case an issue number has been provided (requires a javascript check in template!)
+
+        java.util.Date passed = null;
+        if (dateSlash1 == dateSlash2) {
+            // consider the day to be optional; use the first day of the following month for comparison since this is an is after test
+            String month = date.substring(0, dateSlash1);
+            String day = "28";
+            String year = date.substring(dateSlash1 + 1);
+            if (!isDate(year, month, day)) return false;
+
+            try {
+                int monthInt = Integer.parseInt(month);
+                int yearInt = Integer.parseInt(year);
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(yearInt, monthInt - 1, 0, 0, 0, 0);
+                calendar.add(Calendar.MONTH, 1);
+                passed = new java.util.Date(calendar.getTime().getTime());
+            } catch (Exception e) {
+                passed = null;
+            }
+        } else {
+            String month = date.substring(0, dateSlash1);
+            String day = date.substring(dateSlash1 + 1, dateSlash2);
+            String year = date.substring(dateSlash2 + 1);
+            if (!isDate(year, month, day)) return false;
+            passed = UtilDateTime.toDate(month, day, year, "0", "0", "0");
+        }
+
+        java.util.Date now = UtilDateTime.nowDate();
+        if (passed != null) {
+            return passed.before(now);
+        } else {
+            return false;
+        }
+    }
+    
     /** isTime returns true if string arguments hour, minute, and second form a valid time. */
     public static boolean isTime(String hour, String minute, String second) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
@@ -1093,6 +1135,53 @@ public class UtilValidate {
         return false;
     }
 
+    /** Checks to see if the cc number is a valid Switch number
+     *   @param     cc - a string representing a credit card number; Sample number: 6331100000000096(16 digits)
+     *   @return  true, if the credit card number is a valid Switch card number, false otherwise
+     */
+    public static boolean isSwitch(String cc) {
+        String first4digs = cc.substring(0, 4);
+        String first6digs = cc.substring(0, 6);
+
+        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
+            (first4digs.equals("4903") ||
+                first4digs.equals("4905") ||
+                first4digs.equals("4911") ||
+                first4digs.equals("4936") ||
+                first6digs.equals("564182") ||
+                first6digs.equals("633110") ||
+                first4digs.equals("6333") ||
+                first4digs.equals("6759")))
+            return isCreditCard(cc);
+        return false;
+    }
+
+    /** Checks to see if the cc number is a valid Solo number
+     *   @param     cc - a string representing a credit card number; Sample number: 6331100000000096 (16 digits)
+     *   @return  true, if the credit card number is a valid Solo card number, false otherwise
+     */
+    public static boolean isSolo(String cc) {
+        String first4digs = cc.substring(0, 4);
+        String first2digs = cc.substring(0, 2);
+        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) && 
+                (first2digs.equals("63") || first4digs.equals("6767")))
+            return isCreditCard(cc);
+        return false;
+    }
+
+    /** Checks to see if the cc number is a valid Visa Electron number
+     *   @param    cc - a string representing a credit card number; Sample number: 4175000000000001(16 digits)
+     *   @return  true, if the credit card number is a valid Visa Electron card number, false otherwise
+     */
+    public static boolean isVisaElectron(String cc) {
+        String first6digs = cc.substring(0, 6);
+
+        if ((cc.length() == 16) && (first6digs.equals("417500")))
+            return isCreditCard(cc);
+        return false;
+    }
+
+    
     /** Checks to see if the cc number is a valid number for any accepted credit card
      *   @param     ccPassed - a string representing a credit card number
      *   @return  true, if the credit card number is any valid credit card number for any of the accepted card types, false otherwise
@@ -1104,7 +1193,7 @@ public class UtilValidate {
 
         if (!isCreditCard(cc)) return false;
         if (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc) ||
-                isDiscover(cc) || isEnRoute(cc) || isJCB(cc))
+                isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isSwitch(cc)|| isVisaElectron(cc))
             return true;
         return false;
     }
@@ -1126,6 +1215,9 @@ public class UtilValidate {
         if (isDiscover(cc)) return "Discover";
         if (isEnRoute(cc)) return "EnRoute";
         if (isJCB(cc)) return "JCB";
+        if (isSolo(cc)) return "Solo";
+        if (isSwitch(cc)) return "Switch";
+        if (isVisaElectron(cc)) return "VisaElectron";
         return "Unknown";
     }
 
@@ -1147,6 +1239,9 @@ public class UtilValidate {
         if (((cardType.equalsIgnoreCase("DINERSCLUB")) || (cardType.equalsIgnoreCase("DINERS"))) && (isDinersClub(cardNumber))) return true;
         if ((cardType.equalsIgnoreCase("CARTEBLANCHE")) && (isCarteBlanche(cardNumber))) return true;
         if ((cardType.equalsIgnoreCase("ENROUTE")) && (isEnRoute(cardNumber))) return true;
+        if ((cardType.equalsIgnoreCase("SOLO")) && (isSolo(cardNumber))) return true;
+        if ((cardType.equalsIgnoreCase("SWITCH")) && (isSwitch(cardNumber))) return true;
+        if ((cardType.equalsIgnoreCase("VISAELECTRON")) && (isVisaElectron(cardNumber))) return true;
         return false;
     }
 
