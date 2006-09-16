@@ -17,7 +17,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <div class="tabletext">
               ${screens.render(anonymoustrailScreen)}
             </div>

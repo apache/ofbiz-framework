@@ -28,7 +28,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-header">
         <#if lookupPerson?has_content>
-            <div style="float: right;">
+            <div class="boxlink">
             <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
               <a href="<@ofbizUrl>editperson?partyId=${party.partyId}</@ofbizUrl>" class="submenutextright">
               <#if lookupPerson?has_content>${uiLabelMap.CommonUpdate}</#if></a>
@@ -38,7 +38,7 @@ under the License.
         </#if>
         <#if lookupGroup?has_content>
             <#assign lookupPartyType = party.getRelatedOneCache("PartyType")>
-            <div style="float: right;">
+            <div class="boxlink">
             <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
               <a href="<@ofbizUrl>editpartygroup?partyId=${party.partyId}</@ofbizUrl>" class="submenutextright">
               <#if lookupGroup?has_content>${uiLabelMap.CommonUpdate}</#if></a>
@@ -134,7 +134,7 @@ under the License.
 <#-- ============================================================= -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
           <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
               <a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
           </#if>
@@ -255,7 +255,7 @@ under the License.
 <#-- Payment Info ============================================================= -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
           <#if security.hasEntityPermission("PAY_INFO", "_CREATE", session)>
             <a href="<@ofbizUrl>editcreditcard?partyId=${party.partyId}</@ofbizUrl>" class="submenutext">${uiLabelMap.AccountingCreateNewCreditCard}</a>
             <a href="<@ofbizUrl>editgiftcard?partyId=${party.partyId}</@ofbizUrl>" class="submenutext">${uiLabelMap.AccountingCreateNewGiftCard}</a>
@@ -420,7 +420,7 @@ under the License.
 <#-- UserLogins -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
           <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
             <a href="<@ofbizUrl>createnewlogin?partyId=${party.partyId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
           </#if>
@@ -469,7 +469,7 @@ under the License.
 <#-- Party Attributes -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
           <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
             <a href="<@ofbizUrl>editPartyAttribute?partyId=${party.partyId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
           </#if>
@@ -502,7 +502,7 @@ under the License.
 <#-- Visits -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>showvisits?partyId=${partyId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonListAll}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.PartyLastVisit}</div>
@@ -545,7 +545,7 @@ under the License.
 <#if isCustomer?exists>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
               <#if savedCartListId?has_content>
                 <#assign listParam = "&shoppingListId=" + savedCartListId>
@@ -590,7 +590,7 @@ under the License.
 <#-- Party Notes -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
           <#if security.hasEntityPermission("PARTYMGR", "_NOTE", session)>
             <a href="<@ofbizUrl>AddPartyNote?partyId=${partyId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
           </#if>

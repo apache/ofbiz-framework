@@ -97,7 +97,7 @@ function setAlternateGwp(field) {
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <#if ((sessionAttributes.lastViewedProducts)?has_content && sessionAttributes.lastViewedProducts?size > 0)>
               <#assign continueLink = "/product?product_id=" + sessionAttributes.lastViewedProducts.get(0)>
             <#else>
@@ -134,7 +134,7 @@ function setAlternateGwp(field) {
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <div class="lightbuttontextdisabled">
               <#--<a href="<@ofbizUrl>main</@ofbizUrl>" class="lightbuttontext">[${uiLabelMap.EcommerceContinueShopping}]</a>-->
               <#if (shoppingCartSize > 0)>

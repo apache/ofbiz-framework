@@ -40,7 +40,7 @@ function refreshInfo() {
 <#assign extInfo = parameters.extInfo?default("N")>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <div class="tabletext">
               <#if parameters.hideFields?default("N") == "Y">
                 <a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonShowLookupFields}</a>

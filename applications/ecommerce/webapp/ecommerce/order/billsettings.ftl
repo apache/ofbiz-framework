@@ -31,7 +31,7 @@ function shipBillAddr() {
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <#if requestParameters.singleUsePayment?default("N") != "Y">
               <div class="tabletext">
                 ${screens.render(anonymoustrailScreen)}
