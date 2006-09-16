@@ -48,7 +48,7 @@ function clickAll(e) {
     </#if>
     
     <br/>
-    <div style="float: right;">
+    <div class="boxlink">
         <div class="tabletext"><b>${uiLabelMap.ProductVariantAdd}:</b></div>
         <form action="<@ofbizUrl>addVariantsToVirtual</@ofbizUrl>" method="post" style="margin: 0;" name="addVariantsToVirtual">
             <input type="hidden" name="productId" value="${productId}"/>

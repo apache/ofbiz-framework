@@ -24,7 +24,7 @@ under the License.
 
         <div class="screenlet">
             <div class="screenlet-header">
-                <div style="float: right;">
+                <div class="boxlink">
                     <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
                         <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&${paramString}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderApproveOrder}</a></div>
                     </#if>

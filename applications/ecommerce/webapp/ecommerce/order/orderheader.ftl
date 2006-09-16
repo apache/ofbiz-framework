@@ -26,7 +26,7 @@ under the License.
 
     <div class="screenlet">
         <div class="screenlet-header">
-            <div style="float: right;">
+            <div class="boxlink">
                 <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED">
                     <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
                 </#if>

@@ -33,7 +33,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>editforuminfo?contentId=${contentId?if_exists}&nodeTrailCsv=${nodeTrailCsv?if_exists}&contentIdTo=${contentIdTo?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.EcommerceContentInformation}</div>
@@ -49,7 +49,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>editaddimage?contentIdTo=${contentId?if_exists}&dataResourceId=${txtDataResourceId?if_exists}&mapKey=IMAGE&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.EcommerceImageInformation}</div>
@@ -65,7 +65,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId?if_exists}&dataResourceId=${txtDataResourceId?if_exists}&mapKey=SUMMARY&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.EcommerceSummaryInformation}</div>
@@ -81,7 +81,7 @@ ${summaryData?if_exists}
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId?if_exists}&dataResourceId=${txtDataResourceId?if_exists}&mapKey=ARTICLE&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.EcommerceArticleInformation}</div>

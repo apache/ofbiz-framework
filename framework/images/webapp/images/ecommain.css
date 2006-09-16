@@ -254,6 +254,10 @@ text-decoration: none;
 color: #FFFFFF;
 }
 
+.boxlink {
+	float:right;
+}
+
 A.boxheadbutton {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 margin: 0px;

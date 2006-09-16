@@ -18,7 +18,7 @@ under the License.
 <#if hasPermission>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <#if orderId?exists>
                 <a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="submenutext">[${uiLabelMap.OrderViewOrder}]</a>
             </#if>

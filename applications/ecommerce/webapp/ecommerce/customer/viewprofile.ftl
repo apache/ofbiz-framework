@@ -47,7 +47,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>editperson</@ofbizUrl>" class="submenutextright">
             <#if person?exists>${uiLabelMap.CommonUpdate}<#else>${uiLabelMap.CommonCreate}</#if></a>
         </div>
@@ -105,7 +105,7 @@ under the License.
 <#-- ============================================================= -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>editcontactmech</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.PartyContactInformation}</div>
@@ -226,7 +226,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>editcreditcard</@ofbizUrl>" class="submenutext">${uiLabelMap.PartyCreateNewCreditCard}</a><a href="<@ofbizUrl>editgiftcard</@ofbizUrl>" class="submenutext">${uiLabelMap.PartyCreateNewGiftCard}</a><a href="<@ofbizUrl>editeftaccount</@ofbizUrl>" class="submenutextright">${uiLabelMap.PartyCreateNewEftAccount}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.AccountingPaymentMethodInformation}</div>
@@ -352,7 +352,7 @@ under the License.
 <#-- ============================================================= -->
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <a href="<@ofbizUrl>changepassword</@ofbizUrl>" class="submenutextright">${uiLabelMap.PartyChangePassword}</a>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.CommonUsername} & ${uiLabelMap.CommonPassword}</div>
@@ -373,7 +373,7 @@ under the License.
 <input type="hidden" name="productStoreId" value="${productStoreId}">
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <#if profiledefs?has_content && profiledefs.defaultShipAddr?has_content && carrierShipMethods?has_content><a href="javascript:document.setdefaultshipmeth.submit();" class="submenutextright">${uiLabelMap.EcommerceSetDefault}</a></#if>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.OrderDefaultShipmentMethod}</div>

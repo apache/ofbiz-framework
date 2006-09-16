@@ -21,7 +21,7 @@ under the License.
     <#if (lastViewedProducts?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedProducts?size-1)/></#if>
     <div class="screenlet">
         <div class="screenlet-header">
-            <div style="float: right;">
+            <div class="boxlink">
                 <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
                 <#if (lastViewedProducts?size > maxToShow)>
                     <a href="<@ofbizUrl>lastviewedproducts</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>

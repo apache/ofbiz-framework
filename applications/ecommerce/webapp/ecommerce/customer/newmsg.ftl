@@ -17,7 +17,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <#if showMessageLinks?default("false")?upper_case == "TRUE">
                 <a href="<@ofbizUrl>messagelist</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceViewList}</a>
             </#if>

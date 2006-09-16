@@ -25,7 +25,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div style="float: right;">
+        <div class="boxlink">
             <#if (communicationEvent.partyIdFrom?if_exists != (userLogin.partyId)?if_exists)>
               <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="submenutext">${uiLabelMap.PartyReply}</a>
             </#if>
