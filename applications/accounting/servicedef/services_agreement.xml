@@ -124,6 +124,16 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="commissions" type="List" mode="OUT" optional="false"/>
     </service>
+    <service name="sampleInvoiceAffiliateCommission" engine="simple"
+        location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="sampleCalculateAffiliateCommission" auth="true">
+        <description>
+            A sample/example service to calculate an affiliate commission (direct relationship to customer) and create 
+            and invoice for it on behalf of the affiliate, ie an invoice from the affiliate to the company that can 
+            then be paid by the company to balance it.
+        </description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
+    </service>
     <!-- AgreementProductAppl  -->
     <service name="createAgreementProductAppl" default-entity-name="AgreementProductAppl" engine="simple"
                 location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementProductAppl" auth="true">

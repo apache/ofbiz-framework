@@ -59,7 +59,7 @@ public class ModelInfo {
     public static final ModelInfo DEFAULT = new ModelInfo() {
         public String getTitle()        { return "None"; }
         public String getAuthor()       { return "None"; }
-        public String getCopyright()    { return "Copyright (c) 2001 The Open For Business Project - www.ofbiz.org"; }
+        public String getCopyright()    { return "Copyright 2001-2006 The Apache Software Foundation"; }
         public String getVersion()      { return "1.0"; }
         public String getDescription()  { return "None"; }
     };

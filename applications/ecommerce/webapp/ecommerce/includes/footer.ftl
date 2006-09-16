@@ -1,5 +1,4 @@
 <#--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -24,8 +23,8 @@ under the License.
 </div>
 <br/>
 <div class="tabletext" align="center">
-    <div class="tabletext">Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Open For Business Project - <a href="http://www.ofbiz.org" class="tabletext" target="_blank">www.ofbiz.org</a></div>
-    <div class="tabletext">Powered By <a href="http://www.ofbiz.org" class="tabletext" target="_blank">OFBiz</a></div>
+    <div class="tabletext">Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" class="tabletext" target="_blank">www.apache.org</a></div>
+    <div class="tabletext">Powered By <a href="http://www.ofbiz.org" class="tabletext" target="_blank">Apache OFBiz</a></div>
 </div>
 <br/>
 <div class="tabletext" align="center"><a href="<@ofbizUrl>policies</@ofbizUrl>">See Store Policies Here</a></div>
