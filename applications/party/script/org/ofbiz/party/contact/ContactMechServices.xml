@@ -128,7 +128,7 @@ under the License.
             </call-service>
             <create-value value-name="newValue"/>
             <else>
-                <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="context"/>                
+                <set field="context.contactMechId" from-field="parameters.contactMechId"/>
                 <call-service service-name="updateContactMech" in-map-name="context">
                     <default-message>Contact Mechanism successfully updated.</default-message>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
@@ -181,7 +181,7 @@ under the License.
             </call-service>
             <create-value value-name="newValue"/>
             <else>
-                <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="context"/>                
+                <set field="context.contactMechId" from-field="parameters.contactMechId"/>
                 <call-service service-name="updateContactMech" in-map-name="context">
                     <default-message>Contact Mechanism successfully updated.</default-message>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
