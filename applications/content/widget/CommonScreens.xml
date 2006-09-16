@@ -257,6 +257,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    
+    <screen name="fonts.fo">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://content/webapp/content/fonts.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>
