@@ -53,11 +53,10 @@ under the License.
           </#if>       
           <td align="right" width="1%" nowrap="nowrap" <#if layoutSettings.headerRightBackgroundUrl?has_content>background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
             <div class="insideHeaderText">
-            <#if userLogin?exists>${uiLabelMap.CommonUsername}:&nbsp;${userLogin.userLoginId?if_exists}&nbsp;</#if>
             <#if person?has_content>
-              ${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}
+              ${uiLabelMap.CommonWelcome}&nbsp;${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}!
             <#elseif partyGroup?has_content>
-              ${partyGroup.groupName?if_exists}
+              ${uiLabelMap.CommonWelcome}&nbsp;${partyGroup.groupName?if_exists}!
             <#else>
               ${uiLabelMap.CommonWelcome}!
             </#if>
