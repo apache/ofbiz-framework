@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2003 The Open For Business Project - www.ofbiz.org -->
+<!-- Copyright 2001-2006 The Apache Software Foundation -->
 <#--
 Copyright 2001-2006 The Apache Software Foundation
 

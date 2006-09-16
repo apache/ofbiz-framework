@@ -1,5 +1,5 @@
 <!doctype HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- Copyright (c) 2001-2005 The Open For Business Project - www.ofbiz.org -->
+<!-- Copyright 2001-2006 The Apache Software Foundation -->
 <#--
 Copyright 2001-2006 The Apache Software Foundation
 
