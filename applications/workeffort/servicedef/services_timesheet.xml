@@ -137,14 +137,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!-- RateType Services -->
-    <service name="createRateType" default-entity-name="RateType" engine="simple" auth="true"
-        location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="createRateType">
-        <description>Creates RateType</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    
     <!-- WorkEffortAssignmentRate Services -->
     <service name="createWorkEffortAssignmentRate" default-entity-name="WorkEffortAssignmentRate" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="createWorkEffortAssignmentRate">
