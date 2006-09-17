@@ -348,7 +348,7 @@ under the License.
                     <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}"/>
                     <td width="45%">
                       <div class="tabletext">
-                        ${orderItem.orderItemSeqId}:&nbsp;<a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam?if_exists}" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${product.internalName?if_exists}</a> : ${product.description?if_exists}
+                        ${orderItem.orderItemSeqId}:&nbsp;<a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam?if_exists}" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${orderItem.itemDescription?if_exists}</a> : ${product.description?if_exists}
                       </div>
                     </td>
                   <#else>
