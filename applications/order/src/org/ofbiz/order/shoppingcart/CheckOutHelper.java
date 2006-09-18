@@ -1249,7 +1249,9 @@ public class CheckOutHelper {
         //Verify the field is valid
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             this.cart.setShippingContactMechId(shipGroupIndex, shippingContactMechId);
-            this.cart.setSupplierPartyId(shipGroupIndex, supplierPartyId);
+            if (UtilValidate.isNotEmpty(supplierPartyId)) {
+                this.cart.setSupplierPartyId(shipGroupIndex, supplierPartyId);
+            }
             result = ServiceUtil.returnSuccess();
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.enter_shipping_address", (cart != null ? cart.getLocale() : Locale.getDefault()));
