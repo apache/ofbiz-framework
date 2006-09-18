@@ -145,7 +145,7 @@ if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {
     allConditions.add(typeConditionsList);
 }
 queryConditionsList = new EntityConditionList(allConditions, EntityOperator.AND);
-orderHeaderList = delegator.findByCondition("OrderHeader", queryConditionsList, null, UtilMisc.toList("orderId DESC"));
+orderHeaderList = delegator.findByCondition("OrderHeader", queryConditionsList, null, UtilMisc.toList("orderDate DESC"));
 context.put("orderHeaderList", orderHeaderList);
 
 locale = UtilHttp.getLocale(request);
