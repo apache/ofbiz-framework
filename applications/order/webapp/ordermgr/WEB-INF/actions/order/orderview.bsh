@@ -381,14 +381,14 @@ if (workEffortId != null && assignPartyId != null && assignRoleTypeId != null &&
     }
 }
 
-// list to find all the POSTAL_ADDRESS for the shipment party. 
-orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
-shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-context.put("shippingContactMechList",shippingContactMechList);
-
-// list to find all the shipmentMethods from the view named "ProductStoreShipmentMethView".
 if (orderHeader != null) {
-productStoreId = orderHeader.getRelatedOne("ProductStore").getString("productStoreId");
-productStoreShipmentMethList = delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"));
-context.put("productStoreShipmentMethList",productStoreShipmentMethList);
+    // list to find all the POSTAL_ADDRESS for the shipment party. 
+    orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+    shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+    context.put("shippingContactMechList",shippingContactMechList);
+
+    // list to find all the shipmentMethods from the view named "ProductStoreShipmentMethView".
+    productStoreId = orderHeader.getRelatedOne("ProductStore").getString("productStoreId");
+    productStoreShipmentMethList = delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"));
+    context.put("productStoreShipmentMethList",productStoreShipmentMethList);
 }
