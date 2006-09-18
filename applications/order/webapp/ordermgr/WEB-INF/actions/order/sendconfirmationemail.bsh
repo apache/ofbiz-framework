@@ -18,6 +18,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.content.email.NotificationServices;
 
 delegator = request.getAttribute("delegator");
 
@@ -35,3 +36,15 @@ donePage = request.getParameter("DONE_PAGE");
 if (donePage == null || donePage.length() <= 0) 
     donePage="orderview?orderId=" + orderId;
 context.put("donePage", donePage);
+
+// Provide the correct order confirmation ProductStoreEmailSetting, if one exists
+orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+if (orderHeader.getString("productStoreId") != null) {
+    productStoreEmailSetting = delegator.findByPrimaryKeyCache("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", orderHeader.getString("productStoreId"), "emailType", "PRDS_ODR_CONFIRM"));    
+    if (productStoreEmailSetting != null) {
+        context.put("productStoreEmailSetting", productStoreEmailSetting);        
+    }
+}
+
+// set the baseUrl parameter, required by some email bodies
+NotificationServices.setBaseUrl(delegator, context.get("webSiteId"), context);
