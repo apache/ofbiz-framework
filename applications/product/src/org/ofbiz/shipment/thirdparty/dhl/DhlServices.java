@@ -715,6 +715,7 @@ public class DhlServices {
             inContext.put("postalCode", destPostalAddress.getString("postalCode"));  
             inContext.put("phoneNbr", destPhoneNumber);
             inContext.put("labelImageType", labelImagePreference);
+            inContext.put("shipperReference", shipment.getString("primaryOrderId") + "-" + shipment.getString("primaryShipGroupSeqId"));
             
             try {
                 Map tmpResult = ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, null, locale, "text/plain");
