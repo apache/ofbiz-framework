@@ -22,7 +22,8 @@ import org.ofbiz.order.order.*;
 
 orderHeader = context.get("orderHeader");
 
-if (orderHeader != null) {
+// if orderHeader is null in orderview.bsh then it is not null but void here!
+if ((orderHeader != null) && (orderHeader != void)) {
     // set hasPermission, must always exist if the orderHeader != null
     // hasPermission if: has ORDERMGR_VIEW, ORDERMGR_ROLE_VIEW & associated with order, or is associated in the SUPPLIER_AGENT role
     hasPermission = false;
