@@ -226,7 +226,7 @@ under the License.
     </request-map>
     <request-map uri="updateCategoryProductMember">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateProductToCategory"/>
+        <event type="service-multi" path="" invoke="updateProductToCategory"/>
         <response name="success" type="view" value="EditCategoryProducts"/>
         <response name="error" type="view" value="EditCategoryProducts"/>
     </request-map>
