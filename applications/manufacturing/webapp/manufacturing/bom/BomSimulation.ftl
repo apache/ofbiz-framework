@@ -103,7 +103,7 @@ under the License.
               <#assign rowClass = "viewManyTR2">
             </#if>
           </#list>
-          <#!--
+          <#--
           <#if grandTotalCost?exists>
           <tr>
             <td colspan="6" align="right"><div class="tableheadtext">${grandTotalCost}</div></td>
