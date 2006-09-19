@@ -498,6 +498,8 @@ public class EmailServices {
             commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
             commEventMap.put("partyIdFrom", partyIdFrom);
             commEventMap.put("partyIdTo", partyId);
+            commEventMap.put("datetimeStarted", UtilDateTime.nowTimestamp());
+            commEventMap.put("datetimeEnded", UtilDateTime.nowTimestamp());
             commEventMap.put("subject", subject);
             commEventMap.put("content", body);
             commEventMap.put("userLogin", userLogin);
