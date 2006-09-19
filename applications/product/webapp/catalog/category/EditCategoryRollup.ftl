@@ -26,12 +26,10 @@ under the License.
     <td><div class="tabletext"><b>&nbsp;</b></div></td>
   </tr>
 <#if currentProductCategoryRollups.size() != 0>
-  <#assign lineParent = 0>
   <form method="post" action="<@ofbizUrl>updateProductCategoryToCategory</@ofbizUrl>" name="updateProductCategoryForm">
-    <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
+  <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
   <#list currentProductCategoryRollups as productCategoryRollup>
-    <#assign suffix = "_o_" + lineParent>
-    <#assign lineParent = lineParent + 1>
+    <#assign suffix = "_o_" + productCategoryRollup_index>
     <#assign curCategory = productCategoryRollup.getRelatedOne("ParentProductCategory")>
     <#assign hasntStarted = false>
     <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
@@ -58,7 +56,7 @@ under the License.
   <tr valign="middle">
     <td colspan="3" align="center">
       <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
-      <input type="hidden" value="${lineParent}" name="_rowCount">
+      <input type="hidden" value="${currentProductCategoryRollups.size()}" name="_rowCount">
     </td>
   </tr>
   </form>
