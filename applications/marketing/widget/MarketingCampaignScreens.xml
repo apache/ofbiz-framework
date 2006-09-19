@@ -62,7 +62,7 @@ under the License.
                 <set field="tabButtonItem" value="MarketingCampaign"/>
                 <set field="labelTitleProperty" value="PageTitleEditMarketingCampaign"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListMarketingCampaign"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaign"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
                 <entity-one entity-name="MarketingCampaign" value-name="marketingCampaign"/>
             </actions>
@@ -96,7 +96,7 @@ under the License.
                 <set field="tabButtonItem" value="MarketingCampaign"/>
                 <set field="labelTitleProperty" value="PageTitleListMarketingCampaign"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListMarketingCampaign"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindListMarketingCampaign"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
                 <set field="entityName" value="MarketingCampaign"/>
             </actions>
@@ -118,9 +118,10 @@ under the License.
                 <set field="tabButtonItem" value="MarketingCampaignRole"/>
                 <set field="labelTitleProperty" value="PageTitleEditMarketingCampaignRole"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListMarketingCampaign"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaignRoles"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
-                <set field="roleTypeId" from-field="parameters.partyId"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 <entity-one entity-name="MarketingCampaignRole" value-name="marketingCampaignRole"/>
             </actions>
@@ -143,7 +144,7 @@ under the License.
                 <set field="tabButtonItem" value="MarketingCampaignRole"/>
                 <set field="labelTitleProperty" value="PageTitleListMarketingCampaignRole"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListMarketingCampaigns"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaign"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
             </actions>
             <widgets>
@@ -165,7 +166,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleFindMarketingCampaignRole"/>
 
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/EditMarketingCampaign?marketingCampaignId=${marketingCampaignId}"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="EditMarketingCampaign?marketingCampaignId=${marketingCampaignId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMarketingCampaignDecorator">

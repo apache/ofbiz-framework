@@ -177,6 +177,12 @@ under the License.
         <response name="success" type="view" value="EditMarketingCampaign"/>
         <response name="error" type="view" value="EditMarketingCampaign"/>
     </request-map>
+    <request-map uri="removeMarketingCampaign">
+        <security https="true" auth="true"/>       
+        <event type="service" invoke="deleteMarketingCampaign"/>
+        <response name="success" type="view" value="FindMarketingCampaign"/>
+        <response name="error" type="view" value="FindMarketingCampaign"/>
+    </request-map>
     
     <request-map uri="EditMarketingCampaignRoles"><security https="true" auth="true"/><response name="success" type="view" value="EditMarketingCampaignRoles"/></request-map>
     <request-map uri="addRoleToMarketingCampaign"><security https="true" auth="true"/>
@@ -206,8 +212,8 @@ under the License.
     <request-map uri="removeMarketingCampaignRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteMarketingCampaignRole"/>
-        <response name="success" type="view" value="ListMarketingCampaignRoles"/>
-        <response name="error" type="view" value="ListMarketingCampaignRoles"/>
+        <response name="success" type="view" value="FindMarketingCampaignRoles"/>
+        <response name="error" type="view" value="FindMarketingCampaignRoles"/>
     </request-map>
     
     <!--  SegmentGroup requests -->
