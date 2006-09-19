@@ -105,7 +105,7 @@ under the License.
             </select>
             ${uiLabelMap.PartyPartyOfTheRoleParty}
             <select name="roleTypeIdFrom" class="selectBox">
-              <#list roleTypes as roleType>
+              <#list roleTypesForCurrentParty as roleType>
                 <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)}<#-- [${roleType.roleTypeId}]--></option>
               </#list>
             </select>
@@ -132,7 +132,7 @@ under the License.
           <div class="tabletext" style="font-weight: bold;">
               ${uiLabelMap.PartyPartyCurrentInTheRoleOf}
             <select name="roleTypeIdTo" class="selectBox">
-              <#list roleTypes as roleType>
+              <#list roleTypesForCurrentParty as roleType>
                 <option <#if "_NA_" == roleType.roleTypeId>selected="selected"</#if> value="${roleType.roleTypeId}">${roleType.get("description",locale)}<#-- [${roleType.roleTypeId}]--></option>
               </#list>
             </select>
