@@ -99,6 +99,7 @@ under the License.
     </eca>
     <eca service="createShipmentReceipt" event="commit">
         <condition field-name="shipmentId" operator="is-not-empty"/>
+        <action service="checkDecomposeInventoryItem" mode="sync"/>
         <action service="updatePurchaseShipmentFromReceipt" mode="sync"/>
     </eca>
 
