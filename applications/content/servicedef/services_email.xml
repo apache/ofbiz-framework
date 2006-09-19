@@ -102,8 +102,8 @@ under the License.
     </service>
     <service name="storeEmailAsCommunication" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="storeEmailAsCommunication" auth="true">
-        <description>Store email as a communication event with the status COM_COMPLETE.  The communication event will be
-                     from the party of the userLogin to the party of the partyId parameter.  It is meant to run a SECA after
+        <description>Store email as a communication event with the status COM_COMPLETE and current timestamp as datetimeStarted and datetimeEnded.  
+                     The communication event will be from the party of the userLogin to the party of the partyId parameter.  It is meant to run a SECA after
                      a sendMail to record outgoing emails.</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
