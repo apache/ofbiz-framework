@@ -49,6 +49,13 @@ under the License.
                     <option value="${weightUomOption.uomId}">${weightUomOption.get("description",locale)} [${weightUomOption.abbreviation}]</option>
                 </#list>
             </select>
+            <span class="tabletext">${uiLabelMap.ShipmentBoxType}:</span>
+            <select name="shipmentBoxTypeId" class="selectBox">
+                <option value="">&nbsp;</option>
+                <#list boxTypes as boxType>
+                    <option value="${boxType.shipmentBoxTypeId}" <#if shipmentPackage.shipmentBoxTypeId?exists && shipmentPackage.shipmentBoxTypeId == boxType.shipmentBoxTypeId>selected</#if>>${boxType.get("description",locale)}</option>
+                </#list>
+            </select>
         </td>
         <td><a href="javascript:document.updateShipmentPackageForm${shipmentPackageData_index}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
         <td><div class="tabletext"><a href="<@ofbizUrl>deleteShipmentPackage?shipmentId=${shipmentId}&shipmentPackageSeqId=${shipmentPackage.shipmentPackageSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></div></td>
