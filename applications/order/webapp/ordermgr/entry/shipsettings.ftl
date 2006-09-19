@@ -140,7 +140,7 @@ under the License.
                 <#assign i = 0>
                 <#list shippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
-                  <#if currShipContactMechId?exists>
+                  <#if currShipContactMechId?exists && currShipContactMechId?has_content>
                       <#if currShipContactMechId == shippingContactMech.contactMechId>
                         <#assign checkedValue = "checked">
                       <#else>
