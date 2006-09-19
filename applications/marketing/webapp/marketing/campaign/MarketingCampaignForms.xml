@@ -78,7 +78,7 @@ under the License.
             <display/>
         </field>
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="deleteMarketingCampaign?marketingCampaignId=${marketingCampaignId}"
+            <hyperlink target="removeMarketingCampaign?marketingCampaignId=${marketingCampaignId}"
                 description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>
     </form>
@@ -115,7 +115,7 @@ under the License.
             <hyperlink target="EditMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="deleteMarketingCampaignGeo?marketingCampaignId=${marketingCampaignId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}"
+            <hyperlink target="removeMarketingCampaignRole?marketingCampaignId=${marketingCampaignId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}"
                 description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>
     </form>
@@ -133,7 +133,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
+        <field name="roleTypeId">
             <drop-down>
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
                 </entity-options>

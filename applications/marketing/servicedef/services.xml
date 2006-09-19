@@ -35,8 +35,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
-            location="org/ofbiz/marketing/campaign/MarketingCampaignServices.xml" invoke="removeMarketingCampaign" auth="true">
+    <service name="deleteMarketingCampaign" default-entity-name="MarketingCampaign" engine="simple"
+            location="org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="deleteMarketingCampaign" auth="true">
         <description>Remove a MarketingCampaign record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
