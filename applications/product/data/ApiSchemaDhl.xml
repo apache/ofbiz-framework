@@ -59,11 +59,11 @@ under the License.
       <Receiver> 
           <Address>
             <#if (action == "GenerateLabel")>
-                <CompanyName>${companyName?if_exists?upper_case}</CompanyName>  <!-- CDATA -->
-                <SuiteDepartmentName>${suiteDepartmentName?if_exists?upper_case}</SuiteDepartmentName> <!-- CDATA -->
-                <Street>${street?upper_case}</Street> <!-- CDATA -->
-                <StreetLine2>${streetLine2?if_exists?upper_case}</StreetLine2> <!-- CDATA -->
-                <City>${city?upper_case}</City> <!-- CDATA -->
+                <CompanyName>${companyName?if_exists?upper_case?xml}</CompanyName>  <!-- CDATA -->
+                <SuiteDepartmentName>${suiteDepartmentName?if_exists?upper_case?xml}</SuiteDepartmentName> <!-- CDATA -->
+                <Street>${street?upper_case?xml}</Street> <!-- CDATA -->
+                <StreetLine2>${streetLine2?if_exists?upper_case?xml}</StreetLine2> <!-- CDATA -->
+                <City>${city?upper_case?xml}</City> <!-- CDATA -->
             </#if>
             <State>${state}</State>
             <PostalCode>${postalCode}</PostalCode>
