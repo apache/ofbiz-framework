@@ -134,6 +134,11 @@ under the License.
                     <order-by field-name="description"/>
                     <order-by field-name="roleTypeId"/>
                 </entity-condition>
+                <entity-condition entity-name="RoleTypeAndParty" list-name="roleTypesForCurrentParty">
+                 <condition-expr field-name="partyId" env-name="partyId"/>
+                 <order-by field-name="description"/>
+                 <order-by field-name="roleTypeId"/>
+                </entity-condition>
                 <entity-condition entity-name="PartyRelationshipType" list-name="relateTypes">
                     <order-by field-name="description"/>
                     <order-by field-name="partyRelationshipTypeId"/>
