@@ -80,6 +80,7 @@ under the License.
         <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
         <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}" widget-area-style="tabletextright"><display/></field>
         <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}" widget-area-style="tabletextright"><display/></field>
+        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"  widget-area-style="tabletextright"><display/></field>
     </form>
 
     <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"

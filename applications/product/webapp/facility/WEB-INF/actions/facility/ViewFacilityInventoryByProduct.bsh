@@ -24,6 +24,7 @@ import org.ofbiz.entity.transaction.*;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.product.inventory.*;
 
 import org.ofbiz.widget.html.*;
 
@@ -173,7 +174,9 @@ if (action != null) {
         }
         offsetATPQtyAvailable = availableToPromiseTotalInt - minimumStockInt;
         if (hasOffsetATP && offsetATPQtyAvailable > offsetATP) continue;
-
+        
+        quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(oneProd.getString("productId"), delegator);
+        
         oneInventory = new HashMap();
         oneInventory.put("productId", oneProd.getString("productId"));
         oneInventory.put("minimumStock", oneProd.getString("minimumStock"));
@@ -183,6 +186,7 @@ if (action != null) {
         oneInventory.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal"));
         oneInventory.put("offsetQOHQtyAvailable", offsetQOHQtyAvailable);
         oneInventory.put("offsetATPQtyAvailable", offsetATPQtyAvailable);
+        oneInventory.put("quantityOnOrder", quantityOnOrder);
         rows.add(oneInventory);
     }
 
