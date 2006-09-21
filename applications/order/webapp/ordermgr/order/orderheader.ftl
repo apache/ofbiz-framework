@@ -253,13 +253,13 @@ under the License.
       <#-- end of order terms box -->
 
       <#-- payment box -->
-      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
-        <div class="screenlet">
-            <div class="screenlet-header">
-                <div class="boxhead">&nbsp;${uiLabelMap.AccountingPaymentInformation}</div>
-            </div>
-            <div class="screenlet-body">
-                <table width="100%" border="0" cellpadding="1" cellspacing="0">
+      <div class="screenlet">
+          <div class="screenlet-header">
+              <div class="boxhead">&nbsp;${uiLabelMap.AccountingPaymentInformation}</div>
+          </div>
+          <div class="screenlet-body">
+          <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
+             <table width="100%" border="0" cellpadding="1" cellspacing="0">
                 <#list orderPaymentPreferences as orderPaymentPreference>
                   <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem")>
                   <#if outputted?default("false") == "true">
@@ -518,9 +518,11 @@ under the License.
                   </tr>
                 </#if>
                 </table>
-            </div>
-        </div>
-      </#if>
+           <#else>
+             <div class="tabletext">${uiLabelMap.OrderNoOrderPaymentPreferences}</div>
+           </#if>
+         </div>
+      </div>
       <#-- end of payment box -->
     </td>
     <td width="1">&nbsp;&nbsp;</td>
