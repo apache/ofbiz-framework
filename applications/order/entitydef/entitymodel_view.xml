@@ -57,6 +57,7 @@ under the License.
       <alias entity-alias="OI" name="orderItemSeqId"/>
       <alias entity-alias="OI" name="productId"/>
       <alias entity-alias="OI" name="quantity"/>
+      <alias entity-alias="OI" name="cancelQuantity"/>
       <alias entity-alias="OI" name="unitPrice"/>
       <alias entity-alias="OI" name="unitListPrice"/>
       <alias entity-alias="OI" name="itemDescription"/>

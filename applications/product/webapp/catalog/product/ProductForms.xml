@@ -920,6 +920,7 @@ under the License.
         <field name="orderId"><hyperlink also-hidden="false" description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app"/></field>
         <field name="orderItemSeqId"><display/></field>
         <field name="quantity"><display/></field>
+        <field name="cancelQuantity"><display/></field>
         <field name="itemStatusId"><display/></field>
         <field name="estimatedShipDate"><display/></field>
         <field name="estimatedDeliveryDate"><display/></field>

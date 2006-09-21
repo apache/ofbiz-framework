@@ -22,6 +22,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.widget.html.*;
 import org.ofbiz.securityext.login.*;
+import org.ofbiz.product.inventory.InventoryWorker;
 
 //If product is virtual gather summary data from variants
 if (product.getString("isVirtual") != null && product.getString("isVirtual").equals("Y")) {
@@ -152,17 +153,8 @@ if (product.getString("isVirtual") != null && product.getString("isVirtual").equ
 
     showEmpty = "true".equals(request.getParameter("showEmpty"));
 
-    // Find oustanding purchase orders for this item.  The orders and the items cannot be completed, cancelled, or rejected
-    purchaseOrderConditions = UtilMisc.toList(new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-            new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
-            new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
-            new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
-    purchaseOrderConditions.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
-    purchaseOrderConditions.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
-    purchaseOrders = delegator.findByCondition("OrderHeaderAndItems", new EntityConditionList(purchaseOrderConditions, EntityOperator.AND),
-            null, UtilMisc.toList("estimatedDeliveryDate DESC", "orderDate"));
+    // Find oustanding purchase orders for this item. 
+    purchaseOrders = InventoryWorker.getOutstandingPurchaseOrders(productId, delegator);
 
     context.put("productInventoryItems", productInventoryItems);
     context.put("quantitySummaryByFacility", quantitySummaryByFacility);
