@@ -1112,7 +1112,7 @@ public class CheckOutHelper {
         Iterator i = paymentMethods.iterator();
         while (i.hasNext()) {
             GenericValue paymentMethod = (GenericValue) i.next();
-            if (paymentMethod.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
+            if ((paymentMethod != null) && ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId")))) {
                 GenericValue creditCard = null;
                 GenericValue billingAddress = null;
                 try {
