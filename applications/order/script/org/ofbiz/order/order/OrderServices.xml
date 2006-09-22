@@ -158,10 +158,20 @@ under the License.
         <entity-one entity-name="Product" auto-field-map="true" value-name="product"/>
         <set from-field="product.requirementMethodEnumId" field="requirementMethodId"/>
         <if-empty field-name="requirementMethodId">
-            <entity-one entity-name="ProductStore" value-name="productStore">
-                <field-map env-name="order.productStoreId" field-name="productStoreId"/>
-            </entity-one>
-            <set from-field="productStore.requirementMethodEnumId" field="requirementMethodId"/>
+            <if>
+                <condition>
+                    <and>
+                        <if-compare field-name="product.productTypeId" operator="not-equals" value="MARKETING_PKG_AUTO"/>
+                        <if-compare field-name="product.productTypeId" operator="not-equals" value="DIGITAL_GOOD"/>
+                    </and>
+                </condition>
+                <then>
+                    <entity-one entity-name="ProductStore" value-name="productStore">
+                        <field-map env-name="order.productStoreId" field-name="productStoreId"/>
+                    </entity-one>
+                    <set from-field="productStore.requirementMethodEnumId" field="requirementMethodId"/>
+                </then>
+            </if>
         </if-empty>
     </simple-method>
 
