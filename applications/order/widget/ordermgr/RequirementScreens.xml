@@ -131,7 +131,8 @@ under the License.
                 <set field="tabButtonItem" value="ApprovedProductRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-            </actions>
+                <set field="_rowSubmit" value="Y"/>
+        </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
                     <decorator-section name="body">
