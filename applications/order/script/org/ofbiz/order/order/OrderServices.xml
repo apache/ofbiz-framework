@@ -568,6 +568,16 @@ under the License.
         <entity-one entity-name="OrderContactMech" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="updateOrderNote" short-description="Update OrderNote">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderNote"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="OrderHeaderNote" value-name="orderHeaderNote"/>
+        <set-nonpk-fields value-name="orderHeaderNote" map-name="parameters"/>
+        <store-value value-name="orderHeaderNote"/>  
+    </simple-method>
         
     <simple-method method-name="createOrderTerm" short-description="Create an OrderTerm">
         <check-permission permission="ORDERMGR" action="_CREATE">

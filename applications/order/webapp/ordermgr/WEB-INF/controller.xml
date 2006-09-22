@@ -330,6 +330,13 @@
         <response name="error" type="view" value="ListOrderTerms"/>
     </request-map>
 
+    <request-map uri="updateOrderNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateOrderNote"/>
+        <response name="success" type="request-redirect" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+    
     <!-- Order Entry Requests -->
     <request-map uri="orderentry">
         <security https="true" auth="true"/>

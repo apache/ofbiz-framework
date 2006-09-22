@@ -47,16 +47,18 @@ under the License.
                     <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
                     <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonAt}: </b>${note.noteDateTime?string?if_exists}</div>
                   </td>
-                  <td align="left" valign="top" width="55%">
+                  <td align="left" valign="top" width="50%">
                     <div class="tabletext">${note.noteInfo?if_exists}</div>
                   </td>
-                  <td align="right" valign="top" width="10%">
-					<#if note.internalNote?if_exists == "N">
+                  <td align="right" valign="top" width="15%">
+                    <#if note.internalNote?if_exists == "N">
 	                    <div class="tabletext">${uiLabelMap.OrderPrintableNote}</div>
-	                </#if>    
-					<#if note.internalNote?if_exists == "Y">
+                      <a href="<@ofbizUrl>updateOrderNote?orderId=${orderId}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
+                    </#if>    
+                    <#if note.internalNote?if_exists == "Y">
 	                    <div class="tabletext">${uiLabelMap.OrderNotPrintableNote}</div>
-	                </#if>    
+                      <a href="<@ofbizUrl>updateOrderNote?orderId=${orderId}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
+                    </#if>    
                   </td>
                 </tr>
                 <#if note_has_next>          

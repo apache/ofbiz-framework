@@ -350,6 +350,14 @@ under the License.
         <attribute name="internalNote" type="String" mode="IN"/>
     </service>
 
+    <service name="updateOrderNote" engine="simple" default-entity-name="OrderHeaderNote"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderNote" auth="true">
+        <description>Toggle Order Note and make it either Public or Private</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="IN" optional="false"/>
+        <attribute name="internalNote" type="String" mode="IN" optional="false"/>
+    </service>
+
     <!-- Order (digital) Fulfillment Services -->
     <service name="checkDigitalItemFulfillment" engine="java"
             location="org.ofbiz.order.order.OrderServices" invoke="checkDigitalItemFulfillment" auth="true">
