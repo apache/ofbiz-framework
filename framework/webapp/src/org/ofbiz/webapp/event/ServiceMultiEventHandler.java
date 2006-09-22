@@ -164,7 +164,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         try {
             // start the transaction
             try {
-                beganTrans = TransactionUtil.begin();
+                beganTrans = TransactionUtil.begin(modelService.transactionTimeout * rowCount);
             } catch (GenericTransactionException e) {
                 throw new EventHandlerException("Problem starting transaction", e);
             }
