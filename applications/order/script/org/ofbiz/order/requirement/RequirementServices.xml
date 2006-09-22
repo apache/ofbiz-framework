@@ -96,6 +96,7 @@ under the License.
                         <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
                         <condition-expr field-name="roleTypeId" value="SUPPLIER"/>
                     </condition-list>
+                    <order-by field-name="partyId"/>
                 </entity-condition>
             </else>
             </if-not-empty>
