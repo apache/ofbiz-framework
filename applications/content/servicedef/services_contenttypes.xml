@@ -127,15 +127,15 @@ under the License.
 
     <!--CharacterSet services.-->
     <service name="createCharacterSet" engine="simple"
-        location="org/ofbiz/content/content/ContentServices.xml"
+        location="org/ofbiz/content/data/DataServices.xml"
         invoke="createCharacterSet"
         default-entity-name="CharacterSet" auth="true">
         <description>Create a CharacterSet</description>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCharacterSet" engine="simple"
-        location="org/ofbiz/content/content/ContentServices.xml"
+        location="org/ofbiz/content/data/DataServices.xml"
         invoke="updateCharacterSet"
         default-entity-name="CharacterSet" auth="true">
         <description>Update a CharacterSet</description>
@@ -143,7 +143,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCharacterSet" engine="simple"
-        location="org/ofbiz/content/content/ContentServices.xml"
+        location="org/ofbiz/content/data/DataServices.xml"
         invoke="removeCharacterSet"
         default-entity-name="CharacterSet" auth="true">
         <description>Remove CharacterSet</description>
