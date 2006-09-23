@@ -16,7 +16,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="../../../../../../../framework/minilang/dtd/simple-methods.xsd">
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="getNextInvoiceId" short-description="Get Next invoiceId">
         <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing -->
