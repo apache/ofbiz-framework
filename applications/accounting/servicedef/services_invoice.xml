@@ -185,6 +185,16 @@ under the License.
         <attribute name="amountApplied" type="Double" mode="IN" optional="false"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
+    <service name="sampleInvoiceAffiliateCommission" engine="simple"
+        location="org/ofbiz/accounting/invoice/SampleCommissionServices.xml.xml" invoke="sampleCalculateAffiliateCommission" auth="true">
+        <description>
+            A sample/example service to calculate an affiliate commission (direct relationship to customer) and create 
+            and invoice for it on behalf of the affiliate, ie an invoice from the affiliate to the company that can 
+            then be paid by the company to balance it.
+        </description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
+    </service>
     <service name="readyInvoices" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="readyInvoices">
         <description>

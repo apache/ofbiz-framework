@@ -91,4 +91,16 @@ under the License.
         <condition field-name="processResult" operator="not-equals" value="ERROR"/>
         <action service="sendOrderPayRetryNotification" mode="async" persist="true"/>
     </eca>
+
+    <!-- sample ECA rules for the sampleInvoiceAffiliateCommission service triggering
+    <eca service="createPayment" event="commit">
+        <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
+        <action service="sampleInvoiceAffiliateCommission" mode="sync"/>
+    </eca>
+    <eca service="setPaymentStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="sampleInvoiceAffiliateCommission" mode="sync"/>
+    </eca>
+    -->
 </service-eca>

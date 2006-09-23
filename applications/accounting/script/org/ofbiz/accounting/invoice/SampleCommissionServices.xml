@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="sampleCalculateAffiliateCommission" short-description="Sample Calculate Affiliate Commission">
+        <entity-one entity-name="Payment" value-name="payment"/>
+
+        <!-- find affiliate or commission partner for payment.partyIdFrom; will be relationship from CUSTOMER to AFFILIATE, type SALES_AFFILIATE -->
+        <entity-and entity-name="PartyRelationship" list-name="affiliatePartyRelationshipList" filter-by-date="true">
+            <field-map field-name="partyIdFrom" env-name="payment.partyIdFrom"/>
+            <field-map field-name="roleTypeIdFrom" value="CUSTOMER"/>
+            <field-map field-name="partyRelationshipTypeId" value="SALES_AFFILIATE"/><!-- this constraint could be optional if not being set in company data -->
+        </entity-and>
+        
+        <iterate entry-name="affiliatePartyRelationship" list-name="affiliatePartyRelationshipList">
+            <!-- calculate a commission for each commission partner, identified by affiliatePartyRelationship.partyIdTo -->
+            <if>
+                <condition><if-compare field-name="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="AFFILIATE"/></condition>
+                <then>
+                    <!-- calculate a simple commission with a base amount + a percentage of the payment -->
+                    <calculate field-name="commissionAmount" type="Double">
+                        <calcop operator="add">
+                            <number value="10.0"/><!-- base amount -->
+                            <calcop operator="multiply">
+                                <calcop operator="get" field-name="payment.amount"/>
+                                <number value="0.15"/><!-- commission percentage -->
+                            </calcop>
+                        </calcop>
+                    </calculate>
+                    
+                    <set field="commissionPartyId" from-field="affiliatePartyRelationship.partyIdTo"/>
+                </then>
+                <else-if>
+                    <!-- NOTE: this is just an example of another type of commission partner associated with a customer, doesn't really exist -->
+                    <condition><if-compare field-name="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="TIERED_COMMISSION"/></condition>
+                    <then></then>
+                </else-if>
+            </if>
+        </iterate>
+    </simple-method>
+    
+    <simple-method method-name="createCommissionInvoiceInline" short-description="Create Commission Invoice Inline">
+        <!-- should have in the context: payment, commissionAmount, commissionPartyId -->
+        <!-- this will create an invoice on behalf of the commission party, ie from the commissionPartyId to the company (payment.partyIdTo) -->
+    </simple-method>
+</simple-methods>
