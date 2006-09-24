@@ -113,13 +113,24 @@ under the License.
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="checkCreateStockRequirement" engine="simple" auth="true" default-entity-name="ItemIssuance"
-            location="org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateStockRequirement">
-        <description>Create a STOCK Requirement</description>
+    <service name="checkCreateStockRequirementQoh" engine="simple" auth="true" default-entity-name="ItemIssuance"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateStockRequirementQoh">
+        <description>Create a Product Requirement based on QOH inventory</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="issuedDateTime"/>
         </auto-attributes>
+        <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="checkCreateStockRequirementAtp" engine="simple" auth="true"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="checkCreateStockRequirementAtp">
+        <description>Create a Product Requirement based on ATP inventory</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createRequirementFromItemATP" engine="simple" auth="true"
