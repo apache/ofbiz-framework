@@ -183,7 +183,17 @@ under the License.
      
     <!-- WorkEffortPartyAssignment -->    
     <simple-method method-name="assignPartyToWorkEffort" short-description="Assign Party to Work Effort">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <!-- check if the requested party Assignment already exist -->
+        <entity-and entity-name="WorkEffortPartyAssignment" list-name="currentAssignments" filter-by-date="true">
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+            <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <field-map field-name="roleTypeId" env-name="parameters.roleTypeId"/>
+        </entity-and>
+        <if-not-empty field-name="currentAssignments">
+            <first-from-list entry-name="firstAssignment" list-name="currentAssignments"/>
+            <log level="info" message="Party: ${parameters.partyId} with role ${parameters.roleTypeId} already assigned to workEffortId ${parameters.workEffortId} startDate: ${firstAssignment.startDate}, not adding again"></log>
+            <return/>
+        </if-not-empty>
 
         <make-value value-name="newEntity" entity-name="WorkEffortPartyAssignment"/>
 
@@ -191,12 +201,12 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-empty field-name="newEntity.fromDate">
-            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         <field-to-result field-name="newEntity.fromDate" result-name="fromDate"/>
 
         <if-not-empty field-name="parameters.statusId">
-            <set from-field="nowTimestamp" field="newEntity.statusDateTime"/>
+            <now-timestamp-to-env env-name="newEntity.statusDateTime"/>
             <call-class-method class-name="org.ofbiz.workeffort.workeffort.WorkEffortPartyAssignmentServices" method-name="updateWorkflowEngine">
                 <field field-name="newEntity" type="org.ofbiz.entity.GenericValue"/>
                 <field field-name="userLogin" type="org.ofbiz.entity.GenericValue"/>
