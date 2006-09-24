@@ -16,7 +16,7 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="../../../../../framework/widget/dtd/widget-form.xsd">
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- Invoice forms -->
     <form name="FindInvoices" type="single" 
             target="findInvoices" title="Find and list invoices"
@@ -292,7 +292,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" name="description"><text size="100"/></field>
+        <field position="1" name="description"><text size="80"/></field>
         <field position="1" name="invoiceItemTypeId" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="InvoiceItemType">
