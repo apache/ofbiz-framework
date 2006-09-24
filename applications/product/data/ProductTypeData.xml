@@ -386,17 +386,19 @@ under the License.
     <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
     <!-- NONE: no requirement is created (default) -->
     <Enumeration description="No Requirement Created" enumCode="NONE" enumId="PRODRQM_NONE" sequenceId="01" enumTypeId="PROD_REQ_METHOD"/>
-    <!-- AUTO: a requirement is created every time a sales order is entered -->
+    <!-- AUTO: a requirement is created every time a sales order is entered; the requirement is then associated to the order item -->
     <!--       This is useful to implement cross-dock shipping processes -->
     <Enumeration description="Automatic For Every Sales Order" enumCode="AUTO" enumId="PRODRQM_AUTO" sequenceId="02" enumTypeId="PROD_REQ_METHOD"/>
     <!-- STOCK: a requirement is created when qoh reaches the minimum stock quantity (from ProductFacility) -->
     <Enumeration description="When QOH Reaches Minimum Stock for Product-Facility" enumCode="STOCK_QOH" enumId="PRODRQM_STOCK" sequenceId="03" enumTypeId="PROD_REQ_METHOD"/>
-    <!-- ATP: a requirement is created when atp reaches the minimum stock quantity (from ProductFacility) -->
+    <!-- STOCK_ATP: a requirement is created when atp reaches the minimum stock quantity (from ProductFacility) -->
     <Enumeration description="When ATP Reaches Minimum Stock for Product-Facility" enumCode="STOCK_ATP" enumId="PRODRQM_STOCK_ATP" sequenceId="04" enumTypeId="PROD_REQ_METHOD"/>
+    <!-- ATP: a requirement is created when atp reaches the minimum stock quantity (from ProductFacility); the requirement is then associated to the order item -->
+    <Enumeration description="Requirement for order when ATP Reaches Minimum Stock for Product-Facility" enumCode="ATP" enumId="PRODRQM_ATP" sequenceId="05" enumTypeId="PROD_REQ_METHOD"/>
     <!-- PRODRQM_DS: a drop ship group is created to trigger automatic creation of a purchase order (drop shipment) every time a sales order is created-->
-    <Enumeration description="Drop-ship only" enumCode="DROPS" enumId="PRODRQM_DS" sequenceId="05" enumTypeId="PROD_REQ_METHOD"/>
+    <Enumeration description="Drop-ship only" enumCode="DROPS" enumId="PRODRQM_DS" sequenceId="06" enumTypeId="PROD_REQ_METHOD"/>
     <!-- PRODRQM_DSQOH: auto drop ship on low quantity on hand -->
-    <Enumeration description="Auto drop-ship on low quantity" enumCode="DROPS_QOH" enumId="PRODRQM_DSQOH" sequenceId="06" enumTypeId="PROD_REQ_METHOD"/>
+    <Enumeration description="Auto drop-ship on low quantity" enumCode="DROPS_QOH" enumId="PRODRQM_DSQOH" sequenceId="07" enumTypeId="PROD_REQ_METHOD"/>
 
     <!-- inventory item status -->
     <StatusType description="Inventory Item" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_ITEM_STTS"/>
