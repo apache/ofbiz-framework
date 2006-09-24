@@ -69,6 +69,7 @@ public class EmailWorker {
 			Part part = multipart.getBodyPart(i);
 			String thisContentTypeRaw = part.getContentType();
             int idx2 = thisContentTypeRaw.indexOf(";");
+            if (idx2 == -1) idx2 = thisContentTypeRaw.length();
             String thisContentType = thisContentTypeRaw.substring(0, idx2);
 			String disposition = part.getDisposition();
 			
