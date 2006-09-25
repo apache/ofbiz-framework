@@ -18,6 +18,12 @@ under the License.
 
 <entity-engine-xml>
       
+    <!-- Task Formulae -->
+    <CustomMethod customMethodId="6000" customMethodTypeId="TASK_FORMULA" customMethodName="exampleTaskFormula" description="Example task formula (qty * estimatedMilliSeconds * 10)"/>
+    <!-- Bom Formulae -->
+    <CustomMethod customMethodId="6001" customMethodTypeId="BOM_FORMULA" customMethodName="exampleComponentFormula" description="Example bom formula (qty * k)"/>
+    <CustomMethod customMethodId="6002" customMethodTypeId="BOM_FORMULA" customMethodName="linearComponentFormula" description="Bom formula for linear components"/>
+
     <!-- ******************** -->
     <!-- Data for MRP EXAMPLE or demonstration -->
     <!-- ******************** -->
