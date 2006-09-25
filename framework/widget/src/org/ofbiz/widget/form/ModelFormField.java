@@ -1063,6 +1063,16 @@ public class ModelFormField {
     }
 
     /**
+     * Checks if field is a row submit field.
+     */
+    public boolean isRowSubmit() {
+        if (!"multi".equals(getModelForm().getType())) return false;
+        if (getFieldInfo().getFieldType() != ModelFormField.FieldInfo.CHECK) return false;
+        if (!CheckField.ROW_SUBMIT_FIELD_NAME.equals(getName())) return false;
+        return true;
+    }
+
+    /**
      * @return
      */
     public String getWidgetAreaStyle() {
@@ -2557,6 +2567,8 @@ public class ModelFormField {
     }
 
     public static class CheckField extends FieldInfo {
+        public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
+
         protected CheckField() {
             super();
         }

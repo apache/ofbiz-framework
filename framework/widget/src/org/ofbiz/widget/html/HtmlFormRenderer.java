@@ -2190,7 +2190,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
     
     /**
      * Renders a link for the column header fields when there is a header-link="" specified in the <field > tag, using
-     * style from header-link-style=""
+     * style from header-link-style="".  Also renders a selectAll checkbox in multi forms.
      * @param buffer
      * @param context
      * @param modelFormField
@@ -2207,6 +2207,11 @@ public class HtmlFormRenderer implements FormStringRenderer {
             	targetType="plain";
             }
             makeHyperlinkString(buffer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null);
+        } else if (modelFormField.isRowSubmit()) {
+            if (UtilValidate.isNotEmpty(titleText)) buffer.append(titleText).append("<br>");
+            buffer.append("<input type=\"checkbox\" name=\"selectAll\" value=\"Y\" onclick=\"javascript:toggleAll(this, '");
+            buffer.append(modelFormField.getModelForm().getName());
+            buffer.append("');\"/>");
         } else {
              buffer.append(titleText);
         }
