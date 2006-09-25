@@ -439,7 +439,7 @@ under the License.
               </table>
             </td>
             <td align="right">
-              <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="${uiLabelMap.CommonY}" onclick="javascript:checkToggle(this, 'selectAllForm');"/>
+              <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');"/>
             </td>
           </tr>
           <#assign rowCount = rowCount + 1>
