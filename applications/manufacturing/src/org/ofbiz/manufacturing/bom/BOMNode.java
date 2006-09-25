@@ -398,7 +398,6 @@ public class BOMNode {
         // Now we set the depth and quantity of the current node
         // in this breakdown.
         this.depth = depth;
-        //this.quantity = Math.floor(quantity * quantityMultiplier / scrapFactor + 0.5);
         String serviceName = null;
         if (this.productAssoc != null && this.productAssoc.getString("estimateCalcMethod") != null) {
             try {
@@ -455,7 +454,6 @@ public class BOMNode {
         // Now we set the depth and quantity of the current node
         // in this breakdown.
         this.depth = depth;
-        //this.quantity = Math.floor(quantity * quantityMultiplier / scrapFactor + 0.5);
         this.quantity = quantity * quantityMultiplier * scrapFactor;
         // First of all we visit the current node.
         if (this.getProduct().getString("shipmentBoxTypeId") != null) {
