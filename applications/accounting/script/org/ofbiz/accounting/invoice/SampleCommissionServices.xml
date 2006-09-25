@@ -45,6 +45,7 @@ under the License.
                     </calculate>
                     
                     <set field="commissionPartyId" from-field="affiliatePartyRelationship.partyIdTo"/>
+                    <call-simple-method method-name="createCommissionInvoiceInline"/>
                 </then>
                 <else-if>
                     <!-- NOTE: this is just an example of another type of commission partner associated with a customer, doesn't really exist -->
@@ -58,5 +59,20 @@ under the License.
     <simple-method method-name="createCommissionInvoiceInline" short-description="Create Commission Invoice Inline">
         <!-- should have in the context: payment, commissionAmount, commissionPartyId -->
         <!-- this will create an invoice on behalf of the commission party, ie from the commissionPartyId to the company (payment.partyIdTo) -->
+        
+        <set field="createInvoiceMap.invoiceTypeId" value="COMMISSION_INVOICE"/>
+        <set field="createInvoiceMap.statusId" value="INVOICE_RECEIVED"/>
+        <set field="createInvoiceMap.partyIdFrom" from-field="commissionPartyId"/>
+        <set field="createInvoiceMap.partyId" from-field="payment.partyIdTo"/>
+        <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
+            <result-to-field result-name="createdInvoiceId"/>
+        </call-service>
+        
+        <set field="createInvoiceItemMap.invoiceId" from-field="createdInvoiceId"/>
+        <set field="createInvoiceItemMap.invoiceItemTypeId" value="COMM_INV_ITEM"/>
+        <set field="createInvoiceItemMap.amount" from-field="commissionAmount"/>
+        <set field="createInvoiceItemMap.quantity" value="1" type="Double"/>
+        <set field="createInvoiceItemMap.description" value="Commission for Received Customer Payment [${payment.paymentId}]"/>
+        <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItemMap"/>
     </simple-method>
 </simple-methods>
