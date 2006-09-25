@@ -201,7 +201,7 @@ public class ProductionRun {
         for (Iterator iter = productionRunComponents.iterator(); iter.hasNext();){
             GenericValue component = (GenericValue) iter.next();
             componentQuantity = component.getDouble("estimatedQuantity").doubleValue();
-            component.set("estimatedQuantity", new Double(Math.floor((componentQuantity / previousQuantity * newQuantity.doubleValue() ) + 0.5)));
+            component.set("estimatedQuantity", new Double(componentQuantity / previousQuantity * newQuantity.doubleValue()));
         }
         return;
     }

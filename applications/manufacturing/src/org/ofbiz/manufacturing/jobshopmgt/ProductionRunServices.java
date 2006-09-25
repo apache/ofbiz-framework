@@ -381,8 +381,6 @@ public class ProductionRunServices {
                         serviceContext.put("fromDate", productBom.get("fromDate"));
                         // Here we use the getQuantity method to get the quantity already
                         // computed by the getManufacturingComponents service
-                        //double scrapFactor = (productBom.get("scrapFactor") != null)? productBom.getDouble("scrapFactor").doubleValue() : 0;
-                        //serviceContext.put("estimatedQuantity", new Double(Math.floor((productBom.getDouble("quantity").doubleValue() * pRQuantity.doubleValue() / (1-(scrapFactor / 100))) + 0.5)));
                         serviceContext.put("estimatedQuantity", new Double(node.getQuantity()));
                         serviceContext.put("userLogin", userLogin);
                         resultService = null;
