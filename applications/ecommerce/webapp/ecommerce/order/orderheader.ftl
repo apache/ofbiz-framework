@@ -281,7 +281,7 @@ under the License.
       </#if>
     </td>
 
-    <td bgcolor="white" width="1">&nbsp;&nbsp;</td>
+    <td width="1">&nbsp;&nbsp;</td>
     <#-- right side -->
 
     <td width="50%" valign="top" align="left">
