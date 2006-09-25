@@ -48,6 +48,9 @@ Debug.logInfo("eventDateStr =  " + fromStr, "truc");
 // get the lookup flag
 lookupFlag = request.getParameter("lookupFlag");
 
+facilityId = request.getParameter("facilityId");
+context.put("facilityId", facilityId);
+
 // blank param list
 paramList = "";
 inventoryList = null;
@@ -56,7 +59,6 @@ if (lookupFlag != null) {
     paramList = paramList + "&lookupFlag=" + lookupFlag;
     lookupErrorMessage = null;   
     andExprs = new ArrayList();
-    entityName = "InventoryEventPlanned"; 
      
     //define main condition
     mainCond = null;
@@ -76,12 +78,13 @@ if (lookupFlag != null) {
         if ( productId.length() > 0)
         andExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
     } 
+    andExprs.add(new EntityExpr("inventoryEventPlanTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
 
     mainCond = new EntityConditionList(andExprs, EntityOperator.AND); 
     
     if ( mainCond != null) {
     // do the lookup
-        inventoryList = delegator.findByCondition(entityName, mainCond, null, UtilMisc.toList("productId", "eventDate"));
+        inventoryList = delegator.findByCondition("InventoryEventPlanned", mainCond, null, UtilMisc.toList("productId", "eventDate"));
     }
     
     context.put("inventoryList", inventoryList);
@@ -93,7 +96,7 @@ viewIndex = 0;
 try {
     viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
 } catch (Exception e) {}
-viewSize = 20;
+viewSize = 100;
 try {
     viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
 } catch (Exception e) {}
@@ -114,7 +117,8 @@ context.put("highIndex", highIndex);
 context.put("lowIndex", lowIndex);
 context.put("viewSize", viewSize);
 
-//Calcul variation quantity of product in stock 
+facilities = delegator.findAll("Facility", UtilMisc.toList("facilityId"));
+context.put("facilities", facilities);
 
 if (inventoryList != null && !inventoryList.isEmpty() ){
     List numberProductList = ProductHelper.getVariationProduct(inventoryList.subList(0, highIndex), dispatcher);

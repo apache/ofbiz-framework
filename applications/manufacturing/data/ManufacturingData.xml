@@ -17,6 +17,7 @@ under the License.
 -->
 
 <entity-engine-xml>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="INITIAL_QOH" description="Initial QOH" inOut="+"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="MRP_REQUIREMENT" description="Mrp requirement" inOut="-"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_RECP" description="Manufacturing Order receipt" inOut="+"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_REQ" description="Manufacturing Order requirement" inOut="-"/>
@@ -39,9 +40,4 @@ under the License.
     <CustomMethodType customMethodTypeId="COST_FORMULA" description="Formula for calculating costs for tasks"/>
     <CustomMethodType customMethodTypeId="TASK_FORMULA" description="Formula for calculating time estimates for tasks"/>
     <CustomMethodType customMethodTypeId="BOM_FORMULA" description="Formula for calculating material estimates for boms"/>
-    <!-- Task Formulae -->
-    <CustomMethod customMethodId="6000" customMethodTypeId="TASK_FORMULA" customMethodName="exampleTaskFormula" description="Example task formula (qty * estimatedMilliSeconds * 10)"/>
-    <!-- Bom Formulae -->
-    <CustomMethod customMethodId="6001" customMethodTypeId="BOM_FORMULA" customMethodName="exampleComponentFormula" description="Example bom formula (qty * k)"/>
-    <CustomMethod customMethodId="6002" customMethodTypeId="BOM_FORMULA" customMethodName="linearComponentFormula" description="Bom formula for linear components"/>
 </entity-engine-xml>

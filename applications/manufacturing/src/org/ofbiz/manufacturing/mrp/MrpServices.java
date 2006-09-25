@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
@@ -110,13 +111,20 @@ public class MrpServices {
         //       1) the approved requirements should be taken into account
         //       2) we have to find a way (a new status REQ_PROPOSED?) to recognize the requirements automatically created by the MRP process
         listResult = null;
+        List listResultRoles = new ArrayList();
         try{
             listResult = delegator.findByAnd("Requirement", UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_CREATED"));
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find all the items of InventoryEventPlanned, for more detail look at the log");
         }
-        if(listResult != null){
+        if (listResult != null){
             try{
+                Iterator listResultIt = listResult.iterator();
+                while (listResultIt.hasNext()){
+                    GenericValue tmpRequirement = (GenericValue)listResultIt.next();
+                    listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole"));
+                }
+                delegator.removeAll(listResultRoles);
                 delegator.removeAll(listResult);
             } catch(GenericEntityException e) {
                 return ServiceUtil.returnError("Problem, we can not remove the InventoryEventPlanned items, for more detail look at the log");
@@ -341,13 +349,15 @@ public class MrpServices {
      * @param product the product for which the Quantity Available is required
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available (not yet implemented!!)
      */
-    public static double findProductMrpQoh(GenericValue product, LocalDispatcher dispatcher) {
+    public static double findProductMrpQoh(GenericValue product, String facilityId, LocalDispatcher dispatcher) {
         List orderBy = UtilMisc.toList("facilityId", "-receivedDate", "-inventoryItemId");
         Map resultMap = null;
         try{
-            resultMap = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.toMap("productId", product.getString("productId")));
-            // TODO: aggiungere facilityId come argomento ed usare il seguente
-            //resultMap = dispatcher.runSync("getProductInventoryAvailableByFacility", UtilMisc.toMap("productId", product.getString("productId"), "facilityId", facilityId));
+            if (facilityId == null) {
+                resultMap = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.toMap("productId", product.getString("productId")));
+            } else {
+                resultMap = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", product.getString("productId"), "facilityId", facilityId));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", module);
             return 0;
@@ -418,6 +428,7 @@ public class MrpServices {
         Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Timestamp now = UtilDateTime.nowTimestamp();
         
         String mrpName = (String)context.get("mrpName");
         String facilityId = (String)context.get("facilityId");
@@ -487,7 +498,14 @@ public class MrpServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem, can not find the product for a event, for more detail look at the log");
                         }
-                        stockTmp = findProductMrpQoh(product, dispatcher);
+                        stockTmp = findProductMrpQoh(product, facilityId, dispatcher);
+                        try {
+                            InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(UtilMisc.toMap("productId", product.getString("productId"), "inventoryEventPlanTypeId", "INITIAL_QOH", "eventDate", now),
+                                                                                              new Double(stockTmp),
+                                                                                              delegator);
+                        } catch (GenericEntityException e) {
+                            return ServiceUtil.returnError("Problem running createOrUpdateInventoryEventPlanned");
+                        }
                         if (productFacility != null) {
                             reorderQuantity = (productFacility.getDouble("reorderQuantity") != null? productFacility.getDouble("reorderQuantity").doubleValue(): -1);
                             minimumStock = (productFacility.getDouble("minimumStock") != null? productFacility.getDouble("minimumStock").doubleValue(): 0);

@@ -57,13 +57,24 @@ function lookupInventory() {
                 <td>
                     <input type='text' size='25' class='inputBox' name='productId' value='${requestParameters.productId?if_exists}'/>
                     <span class='tabletext'>
-                      <a href="javascript:call_fieldlookup3(document.lookupinventory.productId,document.lookupinventory.productId_description,'LookupProduct');">
+                      <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
                         <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
                       </a> 
                     </span>
                     <input type='text' size='25' readonly class='inputBox' name='productId_description' value=''/>
                  </td>
               </tr>
+              <tr>
+                <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.ProductFacility}:</div></td>
+                <td width='5%'>&nbsp;</td>
+                <td>
+                  <select name="facilityId" class="selectBox">
+                    <#list facilities as facility>
+                      <option value="${facility.facilityId}">${facility.facilityName} [${facility.facilityId}]</option>
+                    </#list>
+                  </select>
+                </td>
+              </tr>        
               <tr>
                 <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
                 <td width='5%'>&nbsp;</td>
@@ -133,45 +144,66 @@ document.lookupinventory.productId.focus();
        <table width='100%' border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
           <td align="left"><div class="tableheadtext">${uiLabelMap.CommonDescription}</div></td>
+          <td align="center">&nbsp</td>
           <td align="left"><div class="tableheadtext">${uiLabelMap.CommonEventDate}</div></td>
           <td align="center">&nbsp</td>
           <td align="right"><div class="tableheadtext">${uiLabelMap.CommonQuantity}</div></td>
           <td align="right"><div class="tableheadtext">${uiLabelMap.ManufacturingTotalQuantity}</div></td>
         </tr>
         <tr>
-          <td colspan='7'><hr class='sepbar'></td>
+          <td colspan='6'><hr class='sepbar'></td>
         </tr>
         <#assign count = lowIndex>
-        <#assign countProd = 0>
         <#assign productTmp = "">
         <#list inventoryList[lowIndex..highIndex-1] as inven>
             <#assign product = inven.getRelatedOne("Product")>
+            <#if facilityId?exists && facilityId?has_content>
+                <#assign productFacility = delegator.findByPrimaryKey("ProductFacility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId, "productId", inven.productId))?if_exists>
+            </#if>
             <#if ! product.equals( productTmp )>
+                <#assign quantityAvailableAtDate = 0>
                 <tr bgcolor="lightblue">  
-                  <td colspan='4' align="left">
-                    <div class='tabletext'><b>&nbsp&nbsp&nbsp&nbsp&nbsp[${inven.productId}]&nbsp/&nbsp${product.productName?if_exists}</b></div>
+                  <td align="left">
+                    <div class='tabletext'>
+                      <b>[${inven.productId}]</b>&nbsp;&nbsp;${product.internalName?if_exists}
+                    </div>
                   </td>
-                  <td colspan='3' align="right">
-                    <#assign qoh = qohProduct[countProd]>
-                    <#assign countProd = countProd+1>
-                    <big><b><div class='tabletext'>${qoh}</div></b></big>
+                  <td align="left">
+                    <#if productFacility?exists && productFacility?has_content>
+                      <div class='tabletext'>
+                      <b>${uiLabelMap.ProductMinimumStock}:</b>&nbsp;${productFacility.minimumStock?if_exists}
+                      </div>
+                      <div class='tabletext'>
+                      <b>${uiLabelMap.ProductReorderQuantity}:</b>&nbsp;${productFacility.reorderQuantity?if_exists}
+                      </div>
+                      <div class='tabletext'>
+                      <b>${uiLabelMap.ProductDaysToShip}:</b>&nbsp;${productFacility.daysToShip?if_exists}
+                      </div>
+                      </#if>
+                  </td>
+                  <td colspan="4" align="right">
+                    <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId)))>
+                    <#if initialQohEvent?exists && initialQohEvent.eventQuantity?has_content>
+                        <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
+                    </#if>
+                    <big><b><div class='tabletext'>${quantityAvailableAtDate}</div></b></big>
                   </td>
                 </tr>
             </#if>
+            <#assign quantityAvailableAtDate = quantityAvailableAtDate?default(0) + inven.getDouble("eventQuantity")>
             <#assign productTmp = product>
             <#assign inventoryEventPlannedType = inven.getRelatedOne("InventoryEventPlannedType")>
             <tr class="${rowClass}">
               <td><div class='tabletext'>${inventoryEventPlannedType.get("description",locale)}</div></td>
+              <td>&nbsp</td>
               <td><div class='tabletext'>${inven.getString("eventDate")}</div></td>
               <td>&nbsp</td>
               <td><div class='tabletext'align="right"> ${inven.getString("eventQuantity")}</div></td>
               <td align="right">
-              <#list numberProductList[count..count] as atpDate> 
-                <div class='tabletext'>${atpDate}&nbsp&nbsp</div>
-              </#list>
-              <#assign count=count+1>
+                <div class='tabletext'>${quantityAvailableAtDate?if_exists}</div>
               </td>
             </tr>
+            <#assign count=count+1>
            </#list>
   
        </table>
