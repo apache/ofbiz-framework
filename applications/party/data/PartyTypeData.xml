@@ -264,6 +264,7 @@ under the License.
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_RESOLVED" transitionName="Resolve"/>
     <StatusValidChange condition="" statusId="COM_COMPLETE" statusIdTo="COM_REFERRED" transitionName="Refer"/>
     <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
+    <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_ENTERED" transitionName="Corrected"/>
     <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
     
     <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
