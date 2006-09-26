@@ -1122,6 +1122,16 @@ under the License.
             <key-map field-name="contactMechId"/>
         </relation>
     </view-entity>
+    <view-entity entity-name="ContactListPartyAndContactMech"
+        package-name="org.ofbiz.party.contact">
+        <member-entity entity-alias="CLP" entity-name="ContactListParty"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <alias-all entity-alias="CLP"/>
+        <alias-all entity-alias="CM"/>
+        <view-link entity-alias="CLP" rel-entity-alias="CM">
+            <key-map field-name="preferredContactMechId" rel-field-name="contactMechId"/>
+        </view-link>
+    </view-entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.need -->
