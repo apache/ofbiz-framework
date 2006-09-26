@@ -17,12 +17,7 @@
 
 package org.ofbiz.party.communication;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Locale;
+import java.util.*;
 import java.sql.Timestamp;
 
 import org.ofbiz.base.util.Debug;
@@ -116,25 +111,42 @@ public class CommunicationEventServices {
                 boolean singleUse = ("Y".equals(contactList.get("singleUse")) ? true : false);
                 Timestamp now = UtilDateTime.nowTimestamp();
 
-                // find active, ACCEPTED parties in the contact list using a list iterator (because there can be a large number)
-                EntityConditionList conditions = new EntityConditionList( UtilMisc.toList(
+                // find a list of distinct email addresses from active, ACCEPTED parties in the contact list
+                //      using a list iterator (because there can be a large number)
+                List conditionList = UtilMisc.toList(
                             new EntityExpr("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
                             new EntityExpr("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
                             new EntityExpr("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
                             EntityUtil.getFilterByDateExpr()
-                            ), EntityOperator.AND);
-                List fieldsToSelect = UtilMisc.toList("partyId", "preferredContactMechId", "contactListId", "fromDate");
-                EntityListIterator sendToPartiesIt = delegator.findListIteratorByCondition("ContactListParty", conditions,  null, fieldsToSelect, null,
+                            );
+                EntityConditionList conditions = new EntityConditionList(conditionList, EntityOperator.AND);
+                List fieldsToSelect = UtilMisc.toList("infoString");
+                EntityListIterator sendToEmailsIt = delegator.findListIteratorByCondition("ContactListPartyAndContactMech", conditions,  null, fieldsToSelect, null,
                         new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
                 
                 // send an email to each contact list member
-                GenericValue nextSendToParty = null;
-                while ((nextSendToParty = (GenericValue) sendToPartiesIt.next()) != null) {
-                    GenericValue email = nextSendToParty.getRelatedOne("PreferredContactMech");
-                    if (email == null) continue;
+                
+                List orderBy = UtilMisc.toList("-fromDate");
+                GenericValue contactListPartyAndContactMech = null ;
+                while ((contactListPartyAndContactMech = (GenericValue) sendToEmailsIt.next()) != null) {
+                    String emailAddress = contactListPartyAndContactMech.getString("infoString");
+                    if (emailAddress == null) continue;
 
-                    sendMailParams.put("sendTo", email.getString("infoString"));
-                    sendMailParams.put("partyId", nextSendToParty.getString("partyId"));
+                    // Because we're retrieving infoString only above (so as not to pollute the distinctness), we
+                    //      need to retrieve the partyId it's related to. Since this could be multiple parties, get
+                    //      only the most recent valid one via ContactListPartyAndContactMech.
+                    List clpConditionList = new ArrayList(conditionList);
+                    clpConditionList.add(new EntityExpr("infoString", EntityOperator.EQUALS, emailAddress));
+                    EntityConditionList clpConditions = new EntityConditionList(clpConditionList, EntityOperator.AND);
+
+                    List emailCLPaCMs = delegator.findByConditionCache("ContactListPartyAndContactMech", clpConditions, null, orderBy);
+                    GenericValue lastContactListPartyACM = EntityUtil.getFirst(emailCLPaCMs);
+                    if (lastContactListPartyACM == null) continue;
+                    
+                    String partyId = lastContactListPartyACM.getString("partyId");
+                    
+                    sendMailParams.put("sendTo", emailAddress);
+                    sendMailParams.put("partyId", partyId);
                     
                     // no communicationEventId here - we want to create a communication event for each member of the contact list
             
@@ -144,8 +156,8 @@ public class CommunicationEventServices {
                         errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
                     } else if (singleUse) {
                         // expire the ContactListParty if the list is single use and sendEmail finishes successfully
-                        tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId", nextSendToParty.get("contactListId"),
-                                    "partyId", nextSendToParty.get("partyId"), "fromDate", nextSendToParty.get("fromDate"),
+                        tmpResult = dispatcher.runSync("updateContactListParty", UtilMisc.toMap("contactListId", lastContactListPartyACM.get("contactListId"),
+                                    "partyId", partyId, "fromDate", lastContactListPartyACM.get("fromDate"),
                                     "thruDate", now, "userLogin", userLogin));
                         if (ServiceUtil.isError(tmpResult)) {
                             errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
@@ -153,7 +165,7 @@ public class CommunicationEventServices {
                     }
 
                 }
-                sendToPartiesIt.close();
+                sendToEmailsIt.close();
             }
         } catch (GenericEntityException eex) {
             ServiceUtil.returnError(eex.getMessage());

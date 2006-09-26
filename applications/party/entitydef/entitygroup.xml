@@ -78,6 +78,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PartyAndContactMech" />
     <entity-group group="org.ofbiz" entity="PartyAndPostalAddress" />
     <entity-group group="org.ofbiz" entity="PartyAndTelecomNumber" />
+    <entity-group group="org.ofbiz" entity="ContactListPartyAndContactMech" />
     
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.need -->
