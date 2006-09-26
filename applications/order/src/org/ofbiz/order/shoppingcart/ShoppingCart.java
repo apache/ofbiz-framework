@@ -677,19 +677,19 @@ public class ShoppingCart implements Serializable {
         while (localIter.hasNext()) {
             ShoppingCartItem item = (ShoppingCartItem) localIter.next();
             
-            if (quantityToKeep > item.getQuantity()) {
+            if (quantityToKeep >= item.getQuantity()) {
                 // quantityToKeep sufficient to keep it all... just reduce quantityToKeep and move on  
                 quantityToKeep = quantityToKeep - item.getQuantity();
             } else {
                 // there is more in this than we want to keep, so reduce the quantity, or remove altogether...
                 if (quantityToKeep == 0) {
                     // nothing left to keep, just remove it...
-                    this.removeCartItem(item, dispatcher);
                     quantityRemoved += item.getQuantity();
+                    this.removeCartItem(item, dispatcher);
                 } else {
-                    // there is some to keep, so reduce quantity by quantityToKeep, at this point we know we'll take up all of the rest of the quantityToKeep
-                    item.setQuantity(item.getQuantity() - quantityToKeep, dispatcher, this);
-                    quantityRemoved += quantityToKeep;
+                    // there is some to keep, so reduce quantity to quantityToKeep, at this point we know we'll take up all of the rest of the quantityToKeep
+                    quantityRemoved += (item.getQuantity() - quantityToKeep);
+                    item.setQuantity(quantityToKeep, dispatcher, this);
                     quantityToKeep = 0;
                 }
             }
