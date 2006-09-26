@@ -734,6 +734,26 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="OrderItemIssuanceGroupByProduct"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Reports quantity issued per product across OrderItems">
+      <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+      <member-entity entity-alias="OI" entity-name="OrderItem"/>
+      <member-entity entity-alias="II" entity-name="ItemIssuance"/>
+      <alias entity-alias="OH" name="orderTypeId" group-by="true"/>
+      <alias entity-alias="OH" name="orderStatusId" field="statusId" group-by="false"/>
+      <alias entity-alias="OI" name="orderItemStatusId" field="statusId" group-by="false"/>
+      <alias entity-alias="OI" name="productId" group-by="true"/>
+      <alias entity-alias="II" name="quantity" function="sum"/>
+      <view-link entity-alias="OI" rel-entity-alias="OH">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <view-link entity-alias="OI" rel-entity-alias="II">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </view-link>
+    </view-entity>
     <view-entity entity-name="OrderPurchasePaymentSummary"
             package-name="org.ofbiz.order.order"
             never-cache="true"

@@ -20,7 +20,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -1555,6 +1557,15 @@ public class OrderReadHelper {
             filter.put("shipmentId", shipmentId);
         }
         return EntityUtil.filterByAnd(orderItemIssuances, filter);
+    }
+
+    /** Get a set of productIds in the order. */
+    public Collection getOrderProductIds() {
+        Set productIds = new HashSet();
+        for (Iterator iter = getOrderItems().iterator(); iter.hasNext(); ) {
+            productIds.add(((GenericValue) iter.next()).getString("productId"));
+        }
+        return productIds;
     }
 
     public List getOrderReturnItems() {
