@@ -95,11 +95,11 @@ public class UtilAccounting {
      */
     public static Double getNetBalance(GenericValue account, String debugModule) {
         try {
-            String parentClassId = account.getRelatedOne("GlAccount").getRelatedOne("GlAccountClass").getRelatedOne("ParentGlAccountClass").getString("glAccountClassId");
+            GenericValue glAccount = account.getRelatedOne("GlAccount");
             double balance = 0.0;
-            if (parentClassId.equals("DEBIT")) {
+            if (isDebitAccount(glAccount)) {
                 balance = account.getDouble("postedDebits").doubleValue() - account.getDouble("postedCredits").doubleValue();
-            } else if (parentClassId.equals("CREDIT")) {
+            } else if (isCreditAccount(glAccount)) {
                 balance = account.getDouble("postedCredits").doubleValue() - account.getDouble("postedDebits").doubleValue();
             }
             return new Double(balance);    
