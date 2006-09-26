@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Gizmos category -->
+    <DataResource dataResourceId="DR100DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR100DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR100DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR100DESCFR" textData="Gizmos fr"/>
+    <ElectronicText dataResourceId="DR100DESCIT" textData="Gizmos it"/>
+    <ElectronicText dataResourceId="DR100DESCEN" textData="Gizmos en"/>
+
+    <Content contentId="C100DESC" contentTypeId="DOCUMENT" dataResourceId="DR100DESCFR" description="DESCRIPTION FR Gizmos" localeString="fr" />
+    <Content contentId="C100DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR100DESCIT" description="DESCRIPTION IT Gizmos" localeString="it" />
+    <Content contentId="C100DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR100DESCEN" description="DESCRIPTION EN Gizmos" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="100" contentId="C100DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C100DESC" contentIdTo="C100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C100DESC" contentIdTo="C100DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Small Gizmos category -->
+    <DataResource dataResourceId="DR101DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR101DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR101DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR101DESCFR" textData="Petis Gizmos"/>
+    <ElectronicText dataResourceId="DR101DESCIT" textData="Piccolo Gizmos"/>
+    <ElectronicText dataResourceId="DR101DESCEN" textData="Small Gizmos"/>    
+
+    <Content contentId="C101DESC" contentTypeId="DOCUMENT" dataResourceId="DR101DESCFR" description="DESCRIPTION FR Petits Gizmos" localeString="fr" />
+    <Content contentId="C101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR101DESCIT" description="DESCRIPTION IT Piccolo Gizmos" localeString="it" />
+    <Content contentId="C101DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR101DESCEN" description="DESCRIPTION EN Small Gizmos" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="101" contentId="C101DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C101DESC" contentIdTo="C101DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C101DESC" contentIdTo="C101DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Large Gizmos category -->
+    <DataResource dataResourceId="DR102DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR102DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR102DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR102DESCFR" textData="Grands Gizmos"/>
+    <ElectronicText dataResourceId="DR102DESCIT" textData="Grande Gizmos"/>
+    <ElectronicText dataResourceId="DR102DESCEN" textData="Large Gizmos"/>
+
+    <Content contentId="C102DESC" contentTypeId="DOCUMENT" dataResourceId="DR102DESCFR" description="DESCRIPTION FR Grands Gizmos" localeString="fr" />
+    <Content contentId="C102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR102DESCIT" description="DESCRIPTION IT Grande Gizmos" localeString="it" />
+    <Content contentId="C102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR102DESCEN" description="DESCRIPTION IT Large Gizmos" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="102" contentId="C102DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C102DESC" contentIdTo="C102DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C102DESC" contentIdTo="C102DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Widgets category -->
+    <DataResource dataResourceId="DR200DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR200DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR200DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR200DESCFR" textData="Widgets fr"/>
+    <ElectronicText dataResourceId="DR200DESCIT" textData="Widgets it"/>
+    <ElectronicText dataResourceId="DR200DESCEN" textData="Widgets en"/>
+
+    <Content contentId="C200DESC" contentTypeId="DOCUMENT" dataResourceId="DR200DESCFR" description="DESCRIPTION FR Gizmos" localeString="fr" />
+    <Content contentId="C200DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR200DESCIT" description="DESCRIPTION IT Gizmos" localeString="it" />
+    <Content contentId="C200DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR200DESCEN" description="DESCRIPTION EN Gizmos" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="200" contentId="C200DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C200DESC" contentIdTo="C200DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C200DESC" contentIdTo="C200DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Small Widgets category -->
+    <DataResource dataResourceId="DR201DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR201DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR201DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR201DESCFR" textData="Petis Widgets"/>
+    <ElectronicText dataResourceId="DR201DESCIT" textData="Piccolo Widgets"/>
+    <ElectronicText dataResourceId="DR201DESCEN" textData="Small Widgets"/>    
+
+    <Content contentId="C201DESC" contentTypeId="DOCUMENT" dataResourceId="DR201DESCFR" description="DESCRIPTION FR Petits Widgets" localeString="fr" />
+    <Content contentId="C201DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR201DESCIT" description="DESCRIPTION IT Piccolo Widgets" localeString="it" />
+    <Content contentId="C201DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR201DESCEN" description="DESCRIPTION EN Small Widgets" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="201" contentId="C201DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C201DESC" contentIdTo="C201DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C201DESC" contentIdTo="C201DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Other Mini Widgets category -->
+    <DataResource dataResourceId="DR2012DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR2012DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR2012DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR2012DESCFR" textData="Autre Mini Widgets"/>
+    <ElectronicText dataResourceId="DR2012DESCIT" textData="Altro Mini Widgets"/>
+    <ElectronicText dataResourceId="DR2012DESCEN" textData="Other Mini Widgets"/>    
+
+    <Content contentId="C2012DESC" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCFR" description="DESCRIPTION FR Autre Mini Widgets" localeString="fr" />
+    <Content contentId="C2012DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCIT" description="DESCRIPTION IT Altro Piccolo Widgets" localeString="it" />
+    <Content contentId="C2012DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCEN" description="DESCRIPTION EN Other Mini Widgets" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="2012" contentId="C2012DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C2012DESC" contentIdTo="C2012DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C2012DESC" contentIdTo="C2012DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Mini Widgets category -->
+    <DataResource dataResourceId="DR2011DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR2011DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR2011DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR2011DESCFR" textData="Mini Widgets fr"/>
+    <ElectronicText dataResourceId="DR2011DESCIT" textData="Mini Widgets it"/>
+    <ElectronicText dataResourceId="DR2011DESCEN" textData="Mini Widgets en"/>    
+
+    <Content contentId="C2011DESC" contentTypeId="DOCUMENT" dataResourceId="DR2011DESCFR" description="DESCRIPTION FR Mini Widgets" localeString="fr" />
+    <Content contentId="C2011DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR2011DESCIT" description="DESCRIPTION IT Mini Widgets" localeString="it" />
+    <Content contentId="C2011DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR2011DESCEN" description="DESCRIPTION EN Mini Widgets" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="2011" contentId="C2011DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C2011DESC" contentIdTo="C2011DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C2011DESC" contentIdTo="C2011DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Micro Widgets category -->
+    <DataResource dataResourceId="DR20111DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR20111DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR20111DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR20111DESCFR" textData="Micro Widgets fr"/>
+    <ElectronicText dataResourceId="DR20111DESCIT" textData="Micro Widgets it"/>
+    <ElectronicText dataResourceId="DR20111DESCEN" textData="Micro Widgets en"/>    
+
+    <Content contentId="C20111DESC" contentTypeId="DOCUMENT" dataResourceId="DR20111DESCFR" description="DESCRIPTION FR Micro Widgets" localeString="fr" />
+    <Content contentId="C20111DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR20111DESCIT" description="DESCRIPTION IT Micro Widgets" localeString="it" />
+    <Content contentId="C20111DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR20111DESCEN" description="DESCRIPTION EN Micro Widgets" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="20111" contentId="C20111DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C20111DESC" contentIdTo="C20111DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C20111DESC" contentIdTo="C20111DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Large Widgets category -->
+    <DataResource dataResourceId="DR202DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DR202DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DR202DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DR202DESCFR" textData="Grands Widgets"/>
+    <ElectronicText dataResourceId="DR202DESCIT" textData="Grande Widgets"/>
+    <ElectronicText dataResourceId="DR202DESCEN" textData="Large Widgets"/>
+
+    <Content contentId="C202DESC" contentTypeId="DOCUMENT" dataResourceId="DR202DESCFR" description="DESCRIPTION FR Grands Widgets" localeString="fr" />
+    <Content contentId="C202DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR202DESCIT" description="DESCRIPTION IT Grande Widgets" localeString="it" />
+    <Content contentId="C202DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR202DESCEN" description="DESCRIPTION IT Large Widgets" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="202" contentId="C202DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="C202DESC" contentIdTo="C202DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="C202DESC" contentIdTo="C202DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Gift Cards category -->
+    <DataResource dataResourceId="DRGC-100DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DRGC-100DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DRGC-100DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DRGC-100DESCFR" textData="Cartes cadeau"/>
+    <ElectronicText dataResourceId="DRGC-100DESCIT" textData="Carte regalo"/>
+    <ElectronicText dataResourceId="DRGC-100DESCEN" textData="Gift Cards"/>
+
+    <Content contentId="CGC-100DESC" contentTypeId="DOCUMENT" dataResourceId="DRGC-100DESCFR" description="DESCRIPTION FR Cartes cadeau" localeString="fr" />
+    <Content contentId="CGC-100DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-100DESCIT" description="DESCRIPTION IT Carte regalo" localeString="it" />
+    <Content contentId="CGC-100DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-100DESCEN" description="DESCRIPTION EN Gift Cards" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="GC-100" contentId="CGC-100DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="CGC-100DESC" contentIdTo="CGC-100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="CGC-100DESC" contentIdTo="CGC-100DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Gift Cards Reload category -->
+    <DataResource dataResourceId="DRGC-101DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DRGC-101DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DRGC-101DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DRGC-101DESCFR" textData="Rechargement de carte cadeau"/>
+    <ElectronicText dataResourceId="DRGC-101DESCIT" textData="Ricaricano di carte regalo"/>
+    <ElectronicText dataResourceId="DRGC-101DESCEN" textData="Gift Cards Reload"/>    
+
+    <Content contentId="CGC-101DESC" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCFR" description="DESCRIPTION FR Rechargement de cartes cadeau" localeString="fr" />
+    <Content contentId="CGC-101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCIT" description="DESCRIPTION IT Ricaricano di carte regalo" localeString="it" />
+    <Content contentId="CGC-101DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCEN" description="DESCRIPTION EN Gift Cards Reload" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="GC-101" contentId="CGC-101DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="CGC-101DESC" contentIdTo="CGC-101DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="CGC-101DESC" contentIdTo="CGC-101DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Gift Cards Purchase category -->
+    <DataResource dataResourceId="DRGC-102DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DRGC-102DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DRGC-102DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DRGC-102DESCFR" textData="Achat de carte cadeau"/>
+    <ElectronicText dataResourceId="DRGC-102DESCIT" textData="Acquisto di carta regalo"/>
+    <ElectronicText dataResourceId="DRGC-102DESCEN" textData="Gift Cards Purchase"/>
+
+    <Content contentId="CGC-102DESC" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCFR" description="DESCRIPTION FR Achat de carte cadeau" localeString="fr" />
+    <Content contentId="CGC-102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCIT" description="DESCRIPTION IT Acquisto di carta regalo" localeString="it" />
+    <Content contentId="CGC-102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCEN" description="DESCRIPTION IT Gift Cards Purchase" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="GC-102" contentId="CGC-102DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="CGC-102DESC" contentIdTo="CGC-102DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="CGC-102DESC" contentIdTo="CGC-102DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Configurables PCs category -->
+    <DataResource dataResourceId="DRPC-100DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DRPC-100DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
+    <DataResource dataResourceId="DRPC-100DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DRPC-100DESCFR" textData="PC configurables"/>
+    <ElectronicText dataResourceId="DRPC-100DESCIT" textData="Computer configurabili"/>
+    <ElectronicText dataResourceId="DRPC-100DESCEN" textData="Configurables PCs"/>
+
+    <Content contentId="CPC-100DESC" contentTypeId="DOCUMENT" dataResourceId="DRPC-100DESCFR" description="DESCRIPTION FR PC configurables" localeString="fr" />
+    <Content contentId="CPC-100DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRPC-100DESCIT" description="DESCRIPTION IT Computer configurabili" localeString="it" />
+    <Content contentId="CPC-100DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRPC-100DESCEN" description="DESCRIPTION EN Configurables PCs" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="PC-100" contentId="CPC-100DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+
+    <ContentAssoc contentId="CPC-100DESC" contentIdTo="CPC-100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="CPC-100DESC" contentIdTo="CPC-100DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+</entity-engine-xml>

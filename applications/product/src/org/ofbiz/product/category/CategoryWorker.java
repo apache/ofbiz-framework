@@ -18,6 +18,7 @@ package org.ofbiz.product.category;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -421,5 +422,23 @@ public class CategoryWorker {
             }
         }
         return newList;
+    }
+    
+    public static HashMap getCategoryContentWrappers(HashMap catContentWrappers, Iterator catIterator, HttpServletRequest request) throws GenericEntityException {        
+        while(catIterator.hasNext()) {
+            GenericValue cat = (GenericValue) catIterator.next();
+            CategoryContentWrapper catContentWrapper = new CategoryContentWrapper(cat, request);
+            String id = (String) cat.get("productCategoryId");
+            catContentWrappers.put(id, catContentWrapper);
+            ArrayList subCat = new ArrayList();
+            subCat = getRelatedCategoriesRet(request, "subCatList", id, true);
+            if(subCat != null) {            	
+                Iterator subCatIterator = UtilMisc.toIterator(subCat);
+                if(subCatIterator != null) { 
+                    getCategoryContentWrappers(catContentWrappers, subCatIterator, request );
+                }
+            }    
+        }
+        return catContentWrappers;
     }
 }

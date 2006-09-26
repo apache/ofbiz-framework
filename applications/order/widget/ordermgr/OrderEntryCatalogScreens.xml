@@ -65,6 +65,9 @@ under the License.
     
     <screen name="breadcrumbs">
         <section>
+            <actions>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/breadcrumbs.bsh"/>
+            </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/breadcrumbs.ftl"/></html></platform-specific>
             </widgets>

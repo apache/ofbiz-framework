@@ -48,3 +48,10 @@ CategoryWorker.setTrail(request, curCategoryId);
 
 context.put("curCategoryId", curCategoryId);
 context.put("currentTopCategory", currentTopCategory);
+
+catIterator = UtilMisc.toIterator(request.getAttribute("topLevelList"));
+if(catIterator != null) {
+    catContentWrappers = new HashMap();
+    catContentWrappers = CategoryWorker.getCategoryContentWrappers(catContentWrappers, catIterator, request);            
+    context.put("catContentWrappers", catContentWrappers);
+}
