@@ -97,6 +97,9 @@ under the License.
     <td width='6%'>&nbsp;</td>
     <td width='74%'>
       <input type='text' class='inputBox' size='20' name='fromPartyId' value='${returnInfo.fromPartyId?if_exists}'>
+      <a href="javascript:call_fieldlookup2(document.returnhead.fromPartyId,'LookupPartyName');">
+        <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+      </a>
     </td>                
   </tr>
   <tr>
@@ -146,8 +149,8 @@ under the License.
           <option>${needsInventoryReceive}</option>
           <option value="${needsInventoryReceive}">---</option>
         </#if>
-        <option>N</option>
         <option>Y</option>
+        <option>N</option>
       </select>
     </td>
   </tr>
