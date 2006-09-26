@@ -2984,20 +2984,43 @@ public class ShoppingCart implements Serializable {
     }
 
     private void explodeItems(LocalDispatcher dispatcher) {
+        if (dispatcher == null) return;
         synchronized (cartLines) {
-            if (dispatcher != null) {
-                List cartLineItems = new LinkedList(cartLines);
-                Iterator itemIter = cartLineItems.iterator();
+            List cartLineItems = new LinkedList(cartLines);
+            Iterator itemIter = cartLineItems.iterator();
 
-                while (itemIter.hasNext()) {
-                    ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
+            while (itemIter.hasNext()) {
+                ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
 
-                    Debug.logInfo("Item qty: " + item.getQuantity(), module);
-                    try {
-                        item.explodeItem(this, dispatcher);
-                    } catch (CartItemModifyException e) {
-                        Debug.logError(e, "Problem exploding item! Item not exploded.", module);
-                    }
+                //Debug.logInfo("Item qty: " + item.getQuantity(), module);
+                try {
+                    item.explodeItem(this, dispatcher);
+                } catch (CartItemModifyException e) {
+                    Debug.logError(e, "Problem exploding item! Item not exploded.", module);
+                }
+            }
+        }
+    }
+
+    /**
+     * Does an "explode", or "unitize" operation on a list of cart items.
+     * Resulting state for each item with quantity X is X items of quantity 1.
+     * 
+     * @param shoppingCartItems
+     * @param dispatcher
+     */
+    public void explodeItems(List shoppingCartItems, LocalDispatcher dispatcher) {
+        if (dispatcher == null) return;
+        synchronized (cartLines) {
+            Iterator itemIter = shoppingCartItems.iterator();
+            while (itemIter.hasNext()) {
+                ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
+
+                //Debug.logInfo("Item qty: " + item.getQuantity(), module);
+                try {
+                    item.explodeItem(this, dispatcher);
+                } catch (CartItemModifyException e) {
+                    Debug.logError(e, "Problem exploding (unitizing) item! Item not exploded.", module);
                 }
             }
         }
