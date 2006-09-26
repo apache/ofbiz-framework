@@ -32,7 +32,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
-import org.ofbiz.manufacturing.techdata.ProductHelper;
 import org.ofbiz.manufacturing.techdata.TechDataServices;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
