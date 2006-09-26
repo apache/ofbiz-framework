@@ -702,8 +702,20 @@ public class EmailServices {
             Address [] addressesFrom = message.getFrom();
             Address [] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
             Address [] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
-            Address [] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);            
-        	        	
+            Address [] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
+
+            // ignore the message when the spam status = yes
+            String spamHeaderName = UtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N");
+            String configHeaderValue = UtilProperties.getPropertyValue("general.properties", "mail.spam.value");
+            //          only execute when config file has been set && header variable found
+            if (!spamHeaderName.equals("N") && message.getHeader(spamHeaderName) != null) { 
+                String msgHeaderValue = message.getHeader(spamHeaderName)[0];
+                if(msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
+                    Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);
+                    ServiceUtil.returnSuccess();
+                }
+            }
+            
             result = getParyInfoFromEmailAddress(addressesFrom, userLogin, dispatcher);
             partyIdFrom = (String)result.get("partyId");
             contactMechIdFrom = (String)result.get("contactMechId");
@@ -779,11 +791,12 @@ public class EmailServices {
         	} else {
                 // create a task to find party for email
         		commEventMap.put("statusId", "COM_UNKNOWN_PARTY");
-        		commNote = "Sent from: " + UtilMisc.toListArray(addressesFrom);
+        		commNote = "Sent from: " + UtilMisc.toListArray(addressesFrom).toString();
         	}
     		if (partyIdTo == null) {
-                commNote += "Sent to: " + UtilMisc.toListArray(addressesTo);
+                commNote += "Sent to: " + UtilMisc.toListArray(addressesTo).toString();
             }
+            
             if (!("".equals(commNote))) {
                 commEventMap.put("note", commNote);
             }
