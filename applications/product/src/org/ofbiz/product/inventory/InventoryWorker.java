@@ -16,8 +16,12 @@
 
 package org.ofbiz.product.inventory;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -89,4 +93,75 @@ public class InventoryWorker {
         return qty;
     }
 
+    /**
+     * Gets the quanitty of each product in the order that is outstanding across all orders of the given input type.
+     * First it gets the ordered quantities outstanding, then subtracts the issued quantities outstanding.
+     * This method relies on the sum view entities OrderReportGroupByProduct and OrderItemIssuanceGroupByProduct.
+     *
+     * @param   productIds  Collection of disticnt productIds in an order. Use OrderReadHelper.getOrderProductIds()
+     * @param   orderTypeId Either "SALES_ORDER" or "PURCHASE_ORDER"
+     * @param   delegator   The delegator to use
+     * @return  Map of productIds to quantities outstanding.
+     */
+    public static Map getOutstandingProductQuantities(Collection productIds, String orderTypeId, GenericDelegator delegator) {
+
+        // both queries use the same condition
+        List fieldsToSelect = UtilMisc.toList("productId", "quantity");     
+        List condList = UtilMisc.toList(
+                new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId),
+                new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+                new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
+                );     
+        if (productIds.size() > 0) {
+            condList.add(new EntityExpr("productId", EntityOperator.IN, productIds));
+        }
+        condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
+        condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+        condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+        EntityConditionList conditions = new EntityConditionList(condList, EntityOperator.AND);
+
+        Map results = FastMap.newInstance();
+        try {
+            // find the ordered products outstading and build a map of productId to quantity
+            List orderedProducts = delegator.findByCondition("OrderReportGroupByProduct", conditions, fieldsToSelect, null);
+            Map orderedProductsMap = FastMap.newInstance();
+            for (Iterator iter = orderedProducts.iterator(); iter.hasNext(); ) {
+                GenericValue value = (GenericValue) iter.next();
+                orderedProductsMap.put(value.getString("productId"), value.getDouble("quantity"));
+            }
+
+            // find the issued quantities outstanding and build a map of productId to quantity
+            List issuedProducts = delegator.findByCondition("OrderItemIssuanceGroupByProduct", conditions, fieldsToSelect, null);
+            Map issuedProductsMap = FastMap.newInstance();
+            for (Iterator iter = issuedProducts.iterator(); iter.hasNext(); ) {
+                GenericValue value = (GenericValue) iter.next();
+                issuedProductsMap.put(value.getString("productId"), value.getDouble("quantity"));
+            }
+
+            // now go through the ordered map and subtract corresponding issued quantities
+            for (Iterator iter = orderedProductsMap.keySet().iterator(); iter.hasNext(); ) {
+                String productId = (String) iter.next();
+                Double quantityOrdered = (Double) orderedProductsMap.get(productId);
+                Double quantityIssued = (Double) issuedProductsMap.get(productId);
+                double quantity = 0;
+                if (quantityOrdered != null) quantity += quantityOrdered.doubleValue();
+                if (quantityIssued != null) quantity -= quantityIssued.doubleValue();
+                results.put(productId, new Double(quantity));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return results;
+    }
+
+    /** As above, but for sales orders */
+    public static Map getOutstandingProductQuantitiesForSalesOrders(Collection productIds, GenericDelegator delegator) {
+        return getOutstandingProductQuantities(productIds, "SALES_ORDER", delegator);
+    }
+
+    /** As above, but for purhcase orders */
+    public static Map getOutstandingProductQuantitiesForPurchaseOrders(Collection productIds, GenericDelegator delegator) {
+        return getOutstandingProductQuantities(productIds, "PURCHASE_ORDER", delegator);
+    }
 }    

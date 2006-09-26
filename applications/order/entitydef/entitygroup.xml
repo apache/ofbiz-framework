@@ -62,6 +62,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="OrderItemShipGrpInvRes" />
     <entity-group group="org.ofbiz" entity="OrderItemShipGrpInvResAndItem" />
     <entity-group group="org.ofbiz" entity="OrderItemShipGrpInvResAndItemLocation" />
+    <entity-group group="org.ofbiz" entity="OrderItemIssuanceGroupByProduct" />
     <entity-group group="org.ofbiz" entity="OrderItemPriceInfo" />
     <entity-group group="org.ofbiz" entity="OrderItemRole" />
     <entity-group group="org.ofbiz" entity="OrderItemShipGroup" />

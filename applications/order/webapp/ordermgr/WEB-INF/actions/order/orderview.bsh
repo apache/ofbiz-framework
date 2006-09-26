@@ -24,6 +24,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.*;
 import org.ofbiz.order.order.*;
 import org.ofbiz.party.contact.*;
+import org.ofbiz.product.inventory.InventoryWorker;
 
 orderId = parameters.get("orderId");
 context.put("orderId", orderId);
@@ -277,10 +278,7 @@ if (orderHeader != null) {
     context.put("returnQuantityMap", orderReadHelper.getOrderItemReturnedQuantities());
 
     // INVENTORY: construct a Set of productIds in the order for use in querying for inventory, otherwise these queries can get expensive
-    productIds = new HashSet();
-    for (iter = orderItems.iterator(); iter.hasNext(); ) {
-        productIds.add(iter.next().getString("productId"));
-    }
+    productIds = orderReadHelper.getOrderProductIds();
 
     // INVENTORY: get the production quantity for each product and store the results in a map of productId -> quantity
     productionMap = new HashMap();
@@ -296,53 +294,11 @@ if (orderHeader != null) {
     context.put("productionProductQuantityMap", productionMap);
 
     // INVENTORY: find the number of products in outstanding sales orders for the same product store
-    fieldsToSelect = UtilMisc.toList("productId", "quantity");
-    condList = UtilMisc.toList(
-            new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
-            );
-    if (productIds.size() > 0) {
-        condList.add(new EntityExpr("productId", EntityOperator.IN, productIds));
-    }
-    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
-    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-    conditions = new EntityConditionList(condList, EntityOperator.AND);
-    List requiredProducts = delegator.findByCondition("OrderReportGroupByProduct", conditions, fieldsToSelect, null);
-
-    // store the results in a map of productId -> quantity
-    requiredMap = new HashMap();
-    for (iter = requiredProducts.iterator(); iter.hasNext(); ) {
-        value = iter.next();
-        requiredMap.put(value.getString("productId"), value.getDouble("quantity"));
-    }
+    requiredMap = InventoryWorker.getOutstandingProductQuantitiesForSalesOrders(productIds, delegator);
     context.put("requiredProductQuantityMap", requiredMap);
 
     // INVENTORY: find the quantity of each product in outstanding purchase orders
-    fieldsToSelect = UtilMisc.toList("productId", "quantity");
-    condList = UtilMisc.toList(
-            new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-            new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
-            );
-    if (productIds.size() > 0) {
-        condList.add(new EntityExpr("productId", EntityOperator.IN, productIds));
-    }
-    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
-    condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-    conditions = new EntityConditionList(condList, EntityOperator.AND);
-    List onOrderProducts = delegator.findByCondition("OrderReportGroupByProduct", conditions, fieldsToSelect, null);
-
-    // store the results in a map of productId -> quantity
-    onOrderMap = new HashMap();
-    for (iter = onOrderProducts.iterator(); iter.hasNext(); ) {
-        value = iter.next();
-        onOrderMap.put(value.getString("productId"), value.getDouble("quantity"));
-    }
+    onOrderMap = InventoryWorker.getOutstandingProductQuantitiesForPurchaseOrders(productIds, delegator);
     context.put("onOrderProductQuantityMap", onOrderMap);
 }
 
