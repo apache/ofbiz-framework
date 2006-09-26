@@ -68,9 +68,9 @@ public class CategoryContentWrapper {
         this.productCategory = productCategory;
         this.locale = UtilHttp.getLocale(request);
         this.mimeTypeId = "text/html";
-        System.out.println(productCategory);
-         System.out.println(locale);
-         System.out.println(mimeTypeId);
+        /*System.out.println(productCategory);
+        System.out.println(locale);
+        System.out.println(mimeTypeId);*/
     }
     
     public String get(String prodCatContentTypeId) {
