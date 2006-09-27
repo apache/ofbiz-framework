@@ -20,6 +20,7 @@ under the License.
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${(productStore.storeName)?if_exists}: ${page.title?if_exists}</title>
+    <link rel="shortcut icon" href="<@ofbizContentUrl>/images/ofbiz.ico</@ofbizContentUrl>" />    
     <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/calendar1.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
