@@ -1018,3 +1018,9 @@ margin:0 0 1% 1%;
 height:1%;
 clear: left;
 }
+
+/* ==== Styles For Form Widgets === */
+.formTableBordered {
+width: 100%;
+border: 1px solid #999999;
+}
