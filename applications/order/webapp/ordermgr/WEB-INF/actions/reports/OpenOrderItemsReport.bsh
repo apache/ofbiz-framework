@@ -44,7 +44,7 @@ if (productStoreId != null && productStoreId.length() > 0) {
     context.put("productStore", UtilMisc.toMap("storeName", "All Stores")); 
 }
 if (orderStatusId != null && orderStatusId.length() > 0) {
-    conditions.add(new EntityExpr("statusId", EntityOperator.EQUALS, orderStatusId));
+    conditions.add(new EntityExpr("orderStatusId", EntityOperator.EQUALS, orderStatusId));
 } else {
     // search all orders that are not completed, cancelled or rejected
     conditions.add( 
