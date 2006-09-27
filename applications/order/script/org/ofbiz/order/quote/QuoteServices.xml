@@ -463,6 +463,7 @@ under the License.
         <set from-field="custRequest.description" field="newQuote.description"/>
         <set from-field="custRequest.maximumAmountUomId" field="newQuote.currencyUomId"/>
         <set from-field="custRequest.productStoreId" field="newQuote.productStoreId"/>
+        <set from-field="custRequest.salesChannelEnumId" field="newQuote.salesChannelEnumId"/>
         <set from-field="custRequestItem.story" field="newQuoteItem.comments"/>
         <create-value value-name="newQuote"/>
         <create-value value-name="newQuoteItem"/>
@@ -742,6 +743,7 @@ under the License.
 
         <set field="createQuoteInMap.partyId" from-field="custRequest.fromPartyId"/>
         <set field="createQuoteInMap.productStoreId" from-field="custRequest.productStoreId"/>
+        <set field="createQuoteInMap.salesChannelEnumId" from-field="custRequest.salesChannelEnumId"/>
         <set field="createQuoteInMap.quoteName" from-field="custRequest.custRequestName"/>
         <set field="createQuoteInMap.description" from-field="custRequest.description"/>
         <set field="createQuoteInMap.currencyUomId" from-field="custRequest.maximumAmountUomId"/>
