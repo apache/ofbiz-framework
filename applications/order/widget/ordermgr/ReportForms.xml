@@ -132,7 +132,7 @@ under the License.
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
          <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
          <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
-             <hyperlink target="orderview?$orderId=${orderId}" description="${orderId}"/>
+             <hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/>
          </field>
          <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>
          <field name="quantityNet" title="${uiLabelMap.ProductQuantity}"><display/></field>
