@@ -70,7 +70,7 @@ under the License.
                                 </fo:table-cell>
                             </#if>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.internalName?xml?if_exists} (${productReport.productId?if_exists})</fo:block>
+                                <fo:block>${productReport.internalName?default("")?xml} (${productReport.productId?if_exists})</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${productReport.quantity?if_exists}</fo:block>
