@@ -99,6 +99,49 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <!-- form for generating a report of open order items -->
+    <form name="OpenOrderItemsReport" type="single" target="OpenOrderItemsReport" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="orderTypeId">
+            <drop-down allow-empty="false">
+                <option key="SALES_ORDER" description="${uiLabelMap.OrderSalesOrder}"/>
+                <option key="PURCHASE_ORDER" description="${uiLabelMap.OrderPurchaseOrder}"/>
+            </drop-down>
+        </field>
+        <field name="orderStatusId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- list open order items -->
+    <form name="OpenOrderItemsList" type="list" list-name="orderItems" 
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+         <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
+             <hyperlink target="orderview?$orderId=${orderId}" description="${orderId}"/>
+         </field>
+         <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>
+         <field name="quantityNet" title="${uiLabelMap.ProductQuantity}"><display/></field>
+         <field name="quantityIssued" title="${uiLabelMap.OrderQtyShipped}"><display/></field>
+         <field name="quantityOpen" title="${uiLabelMap.ProductOpenQuantity}"><display/></field>
+         <field name="shipAfterDate" title="${uiLabelMap.OrderShipAfterDate}"><display/></field>
+         <field name="shipBeforeDate" title="${uiLabelMap.OrderShipBeforeDate}"><display/></field>
+         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
+    </form>
+
     <!-- form for generating a report of total product purchases (quantity and value) -->
     <form name="PurchasesByOrganizationReport" type="single" target="PurchasesByOrganizationReport.pdf" title=""
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
