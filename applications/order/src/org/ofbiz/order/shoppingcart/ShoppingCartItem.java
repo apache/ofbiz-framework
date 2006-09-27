@@ -99,6 +99,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     private double quantity = 0.0;
     private double basePrice = 0.0;
     private Double displayPrice = null;
+    private Double recurringBasePrice = null;
+    private Double recurringDisplayPrice = null;
     /** comes from price calc, used for special promo price promotion action */
     private Double specialPromoPrice = null;
     /** for reservations: extra % 2nd person */
@@ -562,6 +564,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.selectedAmount = item.getSelectedAmount();
         this.setBasePrice(item.getBasePrice());
         this.setDisplayPrice(item.getDisplayPrice());
+        this.setRecurringBasePrice(item.getRecurringBasePrice());
+        this.setRecurringDisplayPrice(item.getRecurringDisplayPrice());
         this.listPrice = item.getListPrice();
         this.reserv2ndPPPerc = item.getReserv2ndPPPerc();
         this.reservNthPPPerc = item.getReservNthPPPerc();
@@ -685,6 +689,16 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Sets the display price for the item; use with caution */
     public void setDisplayPrice(double displayPrice) {
         this.displayPrice = new Double(displayPrice);
+    }
+
+    /** Sets the base price for the item; use with caution */
+    public void setRecurringBasePrice(Double recurringBasePrice) {
+        this.recurringBasePrice = recurringBasePrice;
+    }
+
+    /** Sets the display price for the item; use with caution */
+    public void setRecurringDisplayPrice(Double recurringDisplayPrice) {
+        this.recurringDisplayPrice = recurringDisplayPrice;
     }
 
     public void setSpecialPromoPrice(Double specialPromoPrice) {
@@ -955,7 +969,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     public void updatePrice(LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
         // set basePrice using the calculateProductPrice service
-        if (_product != null && isModifiedPrice==false) {
+        if (_product != null && isModifiedPrice == false) {
             try {
                 Map priceContext = FastMap.newInstance();
                 priceContext.put("currencyUomId", cart.getCurrency());
@@ -984,6 +998,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     priceContext.put("webSiteId", cart.getWebSiteId());
                     priceContext.put("productStoreId", cart.getProductStoreId());
                     priceContext.put("agreementId", cart.getAgreementId());
+                    priceContext.put("productPricePurposeId", "PURCHASE");
                     priceContext.put("checkIncludeVat", "Y"); 
                     Map priceResult = dispatcher.runSync("calculateProductPrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
@@ -991,7 +1006,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     }
 
                     Boolean validPriceFound = (Boolean) priceResult.get("validPriceFound");
-                    if (!validPriceFound.booleanValue()) {
+                    if (Boolean.FALSE.equals(validPriceFound)) {
                         throw new CartItemModifyException("Could not find a valid price for the product with ID [" + this.getProductId() + "], not adding to cart.");
                     }
 
@@ -1017,12 +1032,31 @@ public class ShoppingCartItem implements java.io.Serializable {
                         this.setBasePrice(configWrapper.getTotalPrice());
                         this.setDisplayPrice(configWrapper.getTotalPrice());
                     }
+                    
+                    // no try to do a recurring price calculation; not all products have recurring prices so may be null
+                    Map recurringPriceContext = FastMap.newInstance();
+                    recurringPriceContext.putAll(priceContext);
+                    recurringPriceContext.put("productPricePurposeId", "RECURRING_CHARGE");
+                    Map recurringPriceResult = dispatcher.runSync("calculateProductPrice", recurringPriceContext);
+                    if (ServiceUtil.isError(recurringPriceResult)) {
+                        throw new CartItemModifyException("There was an error while calculating the price: " + ServiceUtil.getErrorMessage(recurringPriceResult));
+                    }
+
+                    // for the recurring price only set the values iff validPriceFound is true
+                    Boolean validRecurringPriceFound = (Boolean) recurringPriceResult.get("validPriceFound");
+                    if (Boolean.TRUE.equals(validRecurringPriceFound)) {
+                        if (recurringPriceResult.get("basePrice") != null) {
+                            this.setRecurringBasePrice((Double) recurringPriceResult.get("basePrice"));
+                        }
+                        if (recurringPriceResult.get("price") != null) {
+                            this.setRecurringDisplayPrice((Double) recurringPriceResult.get("price"));
+                        }
+                    }
                 }
             } catch (GenericServiceException e) {
                 throw new CartItemModifyException("There was an error while calculating the price", e);
             }
         }
-
     }
 
     /** Returns the quantity. */
@@ -1657,6 +1691,28 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.specialPromoPrice;
     }
 
+    public Double getRecurringBasePrice() {
+        if (this.recurringBasePrice == null) return null;
+        
+        if (selectedAmount > 0) {
+            return new Double(this.recurringBasePrice.doubleValue() * selectedAmount);
+        } else {
+            return this.recurringBasePrice;
+        }
+    }
+    
+    public Double getRecurringDisplayPrice() {
+        if (this.recurringDisplayPrice == null) {
+            return this.getRecurringBasePrice();
+        }
+
+        if (selectedAmount > 0) {
+            return new Double(this.recurringDisplayPrice.doubleValue() * this.selectedAmount);
+        } else {
+            return this.recurringDisplayPrice;
+        }
+    }
+    
     /** Returns the list price. */
     public double getListPrice() {
         return listPrice;
@@ -1723,11 +1779,22 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public double getItemSubTotal() {
-        return this.getItemSubTotal(this.quantity);
+        return this.getItemSubTotal(this.getQuantity());
     }
 
     public double getDisplayItemSubTotal() {
-        return (getDisplayPrice() * this.quantity * getRentalAdjustment()) + getOtherAdjustments();
+        return (this.getDisplayPrice() * this.getQuantity() * getRentalAdjustment()) + getOtherAdjustments();
+    }
+    
+    public double getDisplayItemSubTotalNoAdj() {
+        return this.getDisplayPrice() * this.getQuantity();
+    }
+
+    public double getDisplayItemRecurringSubTotalNoAdj() {
+        Double curRecurringDisplayPrice = this.getRecurringDisplayPrice();
+        if (curRecurringDisplayPrice == null) return 0.0;
+        
+        return curRecurringDisplayPrice.doubleValue() * this.getQuantity();
     }
 
     public void addAllProductFeatureAndAppls(Map productFeatureAndApplsToAdd) {
