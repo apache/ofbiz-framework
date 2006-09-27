@@ -57,6 +57,7 @@ under the License.
       <field name="comments" type="comment"></field>
       <field name="description" type="description"></field>
       <field name="amount" type="currency-precise"></field>
+      <field name="recurringAmount" type="currency-precise"></field>
       <field name="productPromoId" type="id"></field>
       <field name="productPromoRuleId" type="id"></field>
       <field name="productPromoActionSeqId" type="id"></field>

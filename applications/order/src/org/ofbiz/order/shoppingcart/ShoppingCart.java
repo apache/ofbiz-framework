@@ -2315,7 +2315,7 @@ public class ShoppingCart implements Serializable {
         double itemsTotal = 0.00;
         Iterator i = iterator();
         while (i.hasNext()) {
-            itemsTotal += ((ShoppingCartItem) i.next()).getDisplayItemRecurringSubTotalNoAdj();
+            itemsTotal += ((ShoppingCartItem) i.next()).getDisplayItemRecurringSubTotal();
         }
         return itemsTotal;
     }
