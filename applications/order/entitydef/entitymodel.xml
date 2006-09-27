@@ -1469,6 +1469,7 @@ under the License.
       <field name="description" type="description"></field>
       <field name="maximumAmountUomId" type="id"></field>
       <field name="productStoreId" type="id"></field>
+      <field name="salesChannelEnumId" type="id"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
@@ -1491,6 +1492,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="CUST_REQ_PRDS" rel-entity-name="ProductStore">
         <key-map field-name="productStoreId"/>
+      </relation>
+      <relation type="one" fk-name="CUST_REQ_CHANNEL" title="SalesChannel" rel-entity-name="Enumeration">
+        <key-map field-name="salesChannelEnumId" rel-field-name="enumId"/>
       </relation>
       <relation type="many" rel-entity-name="CustRequestTypeAttr">
         <key-map field-name="custRequestTypeId"/>

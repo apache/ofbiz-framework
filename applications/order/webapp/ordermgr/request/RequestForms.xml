@@ -35,6 +35,14 @@
                 </entity-options>
             </drop-down>
         </field>
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="fromPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="custRequestCategoryId"><hidden/></field>
         <field name="priority"><hidden/></field>
@@ -127,6 +135,14 @@
         <field name="custRequestTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CustRequestType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="custRequestCategoryId">

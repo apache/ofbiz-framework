@@ -195,6 +195,7 @@ under the License.
         <set field="createCustRequestInMap.custRequestName" from-field="parameters.custRequestName"/>
         <call-object-method obj-field-name="parameters.cart" method-name="getCurrency" ret-field-name="createCustRequestInMap.maximumAmountUomId"/>
         <call-object-method obj-field-name="parameters.cart" method-name="getProductStoreId" ret-field-name="createCustRequestInMap.productStoreId"/>
+        <call-object-method obj-field-name="parameters.cart" method-name="getChannelType" ret-field-name="createCustRequestInMap.salesChannelEnumId"/>
         <call-service service-name="createCustRequest" in-map-name="createCustRequestInMap">
             <result-to-field result-name="custRequestId" field-name="custRequestId"/>
         </call-service>
