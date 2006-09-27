@@ -778,6 +778,7 @@ under the License.
       <alias entity-alias="PFA" name="thruDate"/>
       <alias entity-alias="PFA" name="sequenceNum"/>
       <alias entity-alias="PFA" name="amount"/>
+      <alias entity-alias="PFA" name="recurringAmount"/>
       <view-link entity-alias="PF" rel-entity-alias="PFA">
         <key-map field-name="productFeatureId"/>
       </view-link>

@@ -1,5 +1,4 @@
 /*
- *
  * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -16,6 +15,7 @@
  */
 package org.ofbiz.order.shoppingcart;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1741,7 +1741,12 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Returns the "other" adjustments. */
     public double getOtherAdjustments() {
-        return OrderReadHelper.calcItemAdjustments(new Double(quantity), new Double(getBasePrice()), this.getAdjustments(), true, false, false, false, false);
+        return OrderReadHelper.calcItemAdjustmentsBd(new BigDecimal(quantity), new BigDecimal(getBasePrice()), this.getAdjustments(), true, false, false, false, false).doubleValue();
+    }
+
+    /** Returns the "other" adjustments. */
+    public double getOtherAdjustmentsRecurring() {
+        return OrderReadHelper.calcItemAdjustmentsRecurringBd(new BigDecimal(quantity), new BigDecimal(getRecurringBasePrice() == null ? 0.0 : getRecurringBasePrice().doubleValue()), this.getAdjustments(), true, false, false, false, false).doubleValue();
     }
 
     /** calculates for a reservation the percentage/100 extra for more than 1 person. */
@@ -1783,11 +1788,21 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public double getDisplayItemSubTotal() {
-        return (this.getDisplayPrice() * this.getQuantity() * getRentalAdjustment()) + getOtherAdjustments();
+        return (this.getDisplayPrice() * this.getQuantity() * this.getRentalAdjustment()) + this.getOtherAdjustments();
     }
     
     public double getDisplayItemSubTotalNoAdj() {
         return this.getDisplayPrice() * this.getQuantity();
+    }
+
+    public double getDisplayItemRecurringSubTotal() {
+        Double curRecurringDisplayPrice = this.getRecurringDisplayPrice();
+        
+        if (curRecurringDisplayPrice == null) {
+            return this.getOtherAdjustmentsRecurring();
+        }
+        
+        return (curRecurringDisplayPrice.doubleValue() * this.getQuantity()) + this.getOtherAdjustmentsRecurring();
     }
 
     public double getDisplayItemRecurringSubTotalNoAdj() {
@@ -1820,6 +1835,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         orderAdjustment.set("orderAdjustmentTypeId", "ADDITIONAL_FEATURE");
         orderAdjustment.set("description", additionalProductFeatureAndAppl.get("description"));
         orderAdjustment.set("productFeatureId", additionalProductFeatureAndAppl.get("productFeatureId"));
+
         // NOTE: this is a VERY simple pricing scheme for additional features and will likely need to be extended for most real applications
         double amount = 0;
         Double amountDbl = (Double) additionalProductFeatureAndAppl.get("amount");
@@ -1827,6 +1843,13 @@ public class ShoppingCartItem implements java.io.Serializable {
             amount = amountDbl.doubleValue() * this.getQuantity();
         }
         orderAdjustment.set("amount", new Double(amount));
+
+        Double recurringAmountDbl = (Double) additionalProductFeatureAndAppl.get("recurringAmount");
+        if (recurringAmountDbl != null) {
+            double recurringAmount = recurringAmountDbl.doubleValue() * this.getQuantity();
+            orderAdjustment.set("recurringAmount", new Double(recurringAmount));
+            //Debug.logInfo("Setting recurringAmount " + recurringAmount + " for " + orderAdjustment, module);
+        }
 
         this.addAdjustment(orderAdjustment);
     }

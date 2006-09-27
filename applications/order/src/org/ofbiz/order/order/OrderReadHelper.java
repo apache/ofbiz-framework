@@ -21,17 +21,16 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.collections.set.ListOrderedSet;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
@@ -43,9 +42,9 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.security.Security;
@@ -205,7 +204,7 @@ public class OrderReadHelper {
      * @return
      */
     public Map getReceivedPaymentTotalsByPaymentMethod() {
-        Map paymentMethodAmounts = new HashMap();
+        Map paymentMethodAmounts = FastMap.newInstance();
         List paymentPrefs = getPaymentPreferences();
         Iterator ppit = paymentPrefs.iterator();
         while (ppit.hasNext()) {
@@ -241,7 +240,7 @@ public class OrderReadHelper {
      * @return
      */
     public Map getReturnedTotalsByPaymentMethod() {
-        Map paymentMethodAmounts = new HashMap();
+        Map paymentMethodAmounts = FastMap.newInstance();
         List paymentPrefs = getPaymentPreferences();
         Iterator ppit = paymentPrefs.iterator();
         while (ppit.hasNext()) {
@@ -413,7 +412,7 @@ public class OrderReadHelper {
     }
 
     public List getShippingLocations() {
-        List shippingLocations = new LinkedList();
+        List shippingLocations = FastList.newInstance();
         List shippingCms = this.getOrderContactMechs("SHIPPING_LOCATION");
         if (shippingCms != null) {
             Iterator i = shippingCms.iterator();
@@ -470,7 +469,7 @@ public class OrderReadHelper {
     }
 
     public List getBillingLocations() {
-        List billingLocations = new LinkedList();
+        List billingLocations = FastList.newInstance();
         List billingCms = this.getOrderContactMechs("BILLING_LOCATION");
         if (billingCms != null) {
             Iterator i = billingCms.iterator();
@@ -815,7 +814,7 @@ public class OrderReadHelper {
     }
 
     public Map getFeatureIdQtyMap(String shipGroupSeqId) {
-        Map featureMap = new HashMap();
+        Map featureMap = FastMap.newInstance();
         List validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
             Iterator i = validItems.iterator();
@@ -1043,7 +1042,7 @@ public class OrderReadHelper {
     }
 
     public List getShippableSizes() {
-        List shippableSizes = new LinkedList();
+        List shippableSizes = FastList.newInstance();
 
         List validItems = getValidOrderItems();
         if (validItems != null) {
@@ -1215,7 +1214,7 @@ public class OrderReadHelper {
     }
 
    public List getShippableItemInfo(String shipGroupSeqId) {
-        List shippableInfo = new LinkedList();
+        List shippableInfo = FastList.newInstance();
 
         List validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
@@ -1230,7 +1229,7 @@ public class OrderReadHelper {
     }
 
     public Map getItemInfoMap(GenericValue item) {
-        Map itemInfo = new HashMap();
+        Map itemInfo = FastMap.newInstance();
         itemInfo.put("productId", item.getString("productId"));
         itemInfo.put("quantity", getOrderItemQuantity(item));
         itemInfo.put("weight", new Double(this.getItemWeight(item)));
@@ -1592,7 +1591,7 @@ public class OrderReadHelper {
        List returnItems = getOrderReturnItems();
 
        // since we don't have a handy grouped view entity, we'll have to group the return items by hand
-       Map returnMap = new HashMap();
+       Map returnMap = FastMap.newInstance();
        for (Iterator iter = this.getValidOrderItems().iterator(); iter.hasNext(); ) {
            GenericValue orderItem = (GenericValue) iter.next();
            List group = EntityUtil.filterByAnd(returnItems,
@@ -1743,7 +1742,7 @@ public class OrderReadHelper {
         returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_RECEIVED")));
         returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
 
-        Map itemReturnedQuantities = new HashMap();
+        Map itemReturnedQuantities = FastMap.newInstance();
         Iterator i = returnedItems.iterator();
         while (i.hasNext()) {
             GenericValue returnedItem = (GenericValue) i.next();
@@ -2245,12 +2244,12 @@ public class OrderReadHelper {
         List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null));
         List contraints2 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
         List contraints3 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
-        List contraints4 = new LinkedList();
+        List contraints4 = FastList.newInstance();
         if (shipGroupSeqId != null) {
             contraints4.add(new EntityExpr("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
         }
         List toFilter = null;
-        List adj = new LinkedList();
+        List adj = FastList.newInstance();
 
         if (shipGroupSeqId != null) {
             toFilter = EntityUtil.filterByAnd(adjustments, contraints4);
@@ -2268,7 +2267,7 @@ public class OrderReadHelper {
         List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null));
         List contraints2 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
         List contraints3 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
-        List newOrderStatuses = new LinkedList();
+        List newOrderStatuses = FastList.newInstance();
 
         newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints1));
         newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints2));
@@ -2297,7 +2296,7 @@ public class OrderReadHelper {
         }
 
         if (responses == null) {
-            responses = new LinkedList();
+            responses = FastList.newInstance();
         }
         return responses;
     }
@@ -2314,7 +2313,7 @@ public class OrderReadHelper {
         }
 
         if (responses == null) {
-            responses = new LinkedList();
+            responses = FastList.newInstance();
         }
         return responses;
     }
@@ -2576,6 +2575,22 @@ public class OrderReadHelper {
         return adjTotal;
     }
 
+    public static BigDecimal calcItemAdjustmentsRecurringBd(BigDecimal quantity, BigDecimal unitPrice, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
+        BigDecimal adjTotal = ZERO;
+
+        if (adjustments != null && adjustments.size() > 0) {
+            List filteredAdjs = filterOrderAdjustments(adjustments, includeOther, includeTax, includeShipping, forTax, forShipping);
+            Iterator adjIt = filteredAdjs.iterator();
+
+            while (adjIt.hasNext()) {
+                GenericValue orderAdjustment = (GenericValue) adjIt.next();
+
+                adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustmentRecurringBd(orderAdjustment, quantity, unitPrice)).setScale(scale, rounding);
+            }
+        }
+        return adjTotal;
+    }
+
     /** @deprecated */
     public static double calcItemAdjustments(Double quantity, Double unitPrice, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
         return calcItemAdjustmentsBd(new BigDecimal(quantity.doubleValue()), new BigDecimal(unitPrice.doubleValue()), adjustments, includeOther, includeTax, includeShipping, forTax, forShipping).doubleValue();
@@ -2599,13 +2614,22 @@ public class OrderReadHelper {
         return adjustment.setScale(scale, rounding);
     }
 
+    public static BigDecimal calcItemAdjustmentRecurringBd(GenericValue itemAdjustment, BigDecimal quantity, BigDecimal unitPrice) {
+        BigDecimal adjustmentRecurring = ZERO;
+        if (itemAdjustment.get("recurringAmount") != null) {
+            adjustmentRecurring = adjustmentRecurring.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("recurringAmount")));
+        }
+        if (Debug.verboseOn()) Debug.logVerbose("calcItemAdjustmentRecurring: " + itemAdjustment + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", adjustmentRecurring=" + adjustmentRecurring, module);
+        return adjustmentRecurring.setScale(scale, rounding);
+    }
+
     /** @deprecated */
     public static double calcItemAdjustment(GenericValue itemAdjustment, Double quantity, Double unitPrice) {
         return calcItemAdjustmentBd(itemAdjustment, new BigDecimal(quantity.doubleValue()), new BigDecimal(unitPrice.doubleValue())).doubleValue();
     }
 
     public static List filterOrderAdjustments(List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        List newOrderAdjustmentsList = new LinkedList();
+        List newOrderAdjustmentsList = FastList.newInstance();
 
         if (adjustments != null && adjustments.size() > 0) {
             Iterator adjIt = adjustments.iterator();
