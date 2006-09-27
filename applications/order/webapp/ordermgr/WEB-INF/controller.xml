@@ -943,6 +943,9 @@
     <request-map uri="SalesByStoreReport.pdf"><security https="true" auth="true"/>
         <response name="success" type="view" value="SalesByStoreReport"/>
     </request-map>
+    <request-map uri="OpenOrderItemsReport"><security https="true" auth="true"/>
+        <response name="success" type="view" value="OpenOrderItemsReport"/>
+    </request-map>
     <request-map uri="PurchasesByOrganizationReport.pdf"><security https="true" auth="true"/>
         <response name="success" type="view" value="PurchasesByOrganizationReport"/>
     </request-map>
@@ -1436,6 +1439,7 @@
     <view-map name="OrderPurchaseReportPayment" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#OrderPurchaseReportPayment" content-type="application/pdf" encoding="none"/>
     <view-map name="OrderPurchaseReportProduct" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#OrderPurchaseReportProduct" content-type="application/pdf" encoding="none"/>
     <view-map name="SalesByStoreReport" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#SalesByStoreReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="OpenOrderItemsReport" type="screen" page="component://order/widget/ordermgr/ReportScreens.xml#OpenOrderItemsReport"/>
     <view-map name="PurchasesByOrganizationReport" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#PurchasesByOrganizationReport" content-type="application/pdf" encoding="none"/>
 
     <view-map name="FindRequirements" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#FindRequirements"/>

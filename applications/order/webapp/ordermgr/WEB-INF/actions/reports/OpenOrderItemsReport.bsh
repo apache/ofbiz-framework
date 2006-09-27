@@ -1,0 +1,116 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+/*
+ * Script to build the open order item report.
+ *
+ * The idea is to fetch the OrderHeaders of the search criteria,
+ * then show the open quantities of the related OrderItems that
+ * have not been completed, cancelled or rejected.
+ *
+ * @author Leon Torres (leon@opensourcestrategies.com)
+ */
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.condition.*;
+
+productStoreId = parameters.get("productStoreId");
+orderTypeId = parameters.get("orderTypeId");
+orderStatusId = parameters.get("orderStatusId");
+
+// search by orderTypeId is mandatory
+conditions = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId));
+if (productStoreId != null && productStoreId.length() > 0) {
+    conditions.add(new EntityExpr("productStoreId", EntityOperator.EQUALS, productStoreId));
+    // for generating a title (given product store)
+    context.put("productStore", delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId)));
+} else {
+    // for generating a title (all stores)  TODO: use UtilProperties to internationalize
+    context.put("productStore", UtilMisc.toMap("storeName", "All Stores")); 
+}
+if (orderStatusId != null && orderStatusId.length() > 0) {
+    conditions.add(new EntityExpr("statusId", EntityOperator.EQUALS, orderStatusId));
+} else {
+    // search all orders that are not completed, cancelled or rejected
+    conditions.add( 
+            new EntityConditionList( UtilMisc.toList(
+                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
+                    ), EntityOperator.AND)
+            );
+}
+
+// First get all orders given the conditions
+orderConditions = new EntityConditionList(conditions, EntityOperator.AND);
+orders = delegator.findByCondition("OrderHeader", orderConditions, null, null);
+orderMap = FastMap.newInstance();
+for (iter = orders.iterator(); iter.hasNext(); ) {
+    order = iter.next();
+    orderMap.put(order.get("orderId"), order);
+}
+if (orderMap.size() == 0) return;
+
+// get all related order items
+itemConditions = new EntityConditionList( UtilMisc.toList(
+            new EntityExpr("orderId", EntityOperator.IN, orderMap.keySet()),
+            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
+            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED")
+            ), EntityOperator.AND);
+orderItems = delegator.findByCondition("OrderItem", itemConditions, null, null);
+
+// build a list of orderItem maps for reporting that is a union of OrderItem, OrderHeader, and other info
+reportData = FastList.newInstance();
+for (iter = orderItems.iterator(); iter.hasNext(); ) {
+    orderItem = iter.next();
+
+    // add order item fields
+    data = FastMap.newInstance();
+    data.putAll( orderItem.getAllFields() );
+    
+    // add order header fields
+    order = orderMap.get(orderItem.get("orderId"));
+    data.put("productStoreId", order.get("productStoreId"));
+    data.put("orderDate", order.get("orderDate"));
+
+    // compute quantity
+    quantity = orderItem.getDouble("quantity");
+    cancelQuantity = orderItem.getDouble("cancelQuantity");
+    quantityNet = 0;
+    if (quantity != null) quantityNet += quantity.doubleValue();
+    if (cancelQuantity != null) quantityNet -= cancelQuantity.doubleValue();
+    data.put("quantityNet", new Double(quantityNet));
+
+    // compute issued
+    issuances = orderItem.getRelated("ItemIssuance", UtilMisc.toList("quantity"));
+    double quantityIssued = 0;
+    for (subiter = issuances.iterator(); subiter.hasNext(); ) {
+        quantityIssued += subiter.next().getDouble("quantity").doubleValue();
+    }
+    data.put("quantityIssued", new Double(quantityIssued));
+
+    // compute open
+    data.put("quantityOpen", new Double(quantityNet - quantityIssued));
+
+    reportData.add(data);
+}
+
+context.put("orderItems", reportData);

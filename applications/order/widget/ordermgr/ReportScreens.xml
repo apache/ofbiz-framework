@@ -36,6 +36,10 @@ under the License.
                             <include-form name="SalesByStoreReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
                         </container>
                         <container>
+                            <label style="head2" text="${uiLabelMap.OrderReportOpenOrderItems}"/>
+                            <include-form name="OpenOrderItemsReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                        </container>
+                        <container>
                             <label style="head2" text="${uiLabelMap.OrderReportPurchasesByOrganization}"/>
                             <include-form name="PurchasesByOrganizationReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
                         </container>
@@ -171,6 +175,25 @@ under the License.
                     <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
                     <html><html-template location="component://order/webapp/ordermgr/reports/SalesByStoreReport.fo.ftl"/></html>
                 </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- generates report of open order items -->
+    <screen name="OpenOrderItemsReport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderReportOpenOrderItems"/>
+                <set field="headerItem" value="reports"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/OpenOrderItemsReport.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="head2" text="${uiLabelMap.OrderReportOpenOrderItems} - ${productStore.storeName}"/>
+                        <include-form name="OpenOrderItemsList" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
