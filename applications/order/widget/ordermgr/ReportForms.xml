@@ -130,6 +130,7 @@ under the License.
     <!-- list open order items -->
     <form name="OpenOrderItemsList" type="list" list-name="orderItems" 
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+         <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
          <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
              <hyperlink target="orderview?$orderId=${orderId}" description="${orderId}"/>
          </field>
