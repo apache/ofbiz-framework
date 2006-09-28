@@ -62,7 +62,7 @@ under the License.
     <service name="getPartyContactMechValueMaps" engine="java"
             transaction-timeout="7200"
             location="org.ofbiz.party.contact.ContactMechServices" invoke="getPartyContactMechValueMaps" auth="true">
-        <description>Get Contact Mechs associated with party</description>
+        <description>Get Contact Mechs associated with party. It produces a list of Maps (valueMaps) which can contain a list of contactMechPurposes, a partyContactMech Map, contactMechtype Map and a contactMech Map</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="showOld" type="Boolean" mode="IN" optional="true"/>
