@@ -112,8 +112,6 @@ under the License.
         <td><div class="tabletext"><b>${uiLabelMap.ProductBinNum}</b></div></td>
         <td><div class="tabletext"><b>${uiLabelMap.ProductPerUnitPrice}</b></div></td>
         <td><div class="tabletext"><b>${uiLabelMap.ProductAtpQohSerial}</b></div></td>
-        <td><div class="tabletext">&nbsp;</div></td>
-        <td><div class="tabletext">&nbsp;</div></td>
     </tr>
     <#list productInventoryItems as inventoryItem>
        <#if showEmpty || (inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM" && inventoryItem.statusId?if_exists != "INV_DELIVERED")
@@ -171,12 +169,6 @@ under the License.
                             ${uiLabelMap.ProductAndQuantityOnHand} (${(inventoryItem.quantityOnHandTotal)?if_exists} ${uiLabelMap.CommonSpecified}</div></td>
                         <td>&nbsp;</td>
                     </#if>
-                    <td>
-                    <a href="/facility/control/EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)?if_exists}${externalKeyParam}" class="buttontext">${uiLabelMap.CommonEdit}</a>
-                    </td>
-                    <td>
-                    <a href="<@ofbizUrl>DeleteProductInventoryItem?productId=${productId}&inventoryItemId=${(inventoryItem.inventoryItemId)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
-                    </td>
                 </tr>
             </#if>
         </#if>
