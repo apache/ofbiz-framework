@@ -121,42 +121,32 @@ under the License.
         <log level="always" message="permissionStatus:${permissionStatus}"/>
 
 
-        <field-to-field map-name="parameters" field-name="contentIdTo" 
-                     to-map-name="pk" to-field-name="contentId" />
-        <field-to-field field-name="currentContent" to-map-name="context"/>
-
-        <field-to-field map-name="parameters" field-name="contentIdFrom" 
-                     to-map-name="pk" to-field-name="contentId" />
-        <field-to-field field-name="userLogin" map-name="parameters" to-map-name="context"/>
+        <set from-field="parameters.contentIdTo" field="pk.contentId"/>
+        <set from-field="currentContent" field="context.currentContent"/>
+        <set from-field="parameters.contentIdFrom" field="pk.contentId"/>
+        <set from-field="parameters.userLogin" field="context.userLogin"/>
         <find-by-primary-key value-name="currentContent" entity-name="Content" map-name="pk" />
         <find-by-primary-key value-name="fromContent" entity-name="Content" map-name="pk" />
 
         <if-compare field-name="permissionStatus" operator="equals" type="String" value="granted">
-                <make-value entity-name="ContentAssoc" value-name="newContentAssoc"/>
-                <field-to-field map-name="parameters" field-name="contentIdTo" 
-                         to-map-name="newContentAssoc" to-field-name="contentIdTo" />
-                <field-to-field map-name="parameters" field-name="contentIdFrom" 
-                         to-map-name="newContentAssoc" to-field-name="contentId" />
-                <field-to-field 
-                        map-name="parameters" field-name="contentAssocTypeId" 
-                        to-map-name="newContentAssoc" to-field-name="contentAssocTypeId" />
-                <now-timestamp-to-env env-name="nowTimestamp"/>
-                <field-to-field map-name="newUserLogin" field-name="userLoginId"
-                    to-field-name="createdByUserLogin" to-map-name="newContentAssoc"/>
-                <field-to-field map-name="newUserLogin" field-name="userLoginId"
-                    to-field-name="lastModifiedByUserLogin" to-map-name="newContentAssoc"/>
-                <env-to-field env-name="nowTimestamp" field-name="createdDate" map-name="newContentAssoc"/>
-                <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="newContentAssoc"/>
-              
-                <if-empty map-name="parameters" field-name="fromDate" >
-                    <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="parameters"/>
-                    <to-string map-name="parameters" field-name="fromDate" />
-                </if-empty>
-                <field-to-field map-name="parameters" field-name="fromDate" to-map-name="newContentAssoc"/>
-                <if-not-empty map-name="parameters" field-name="thruDate" >
-                    <field-to-field map-name="parameters" field-name="thruDate" to-map-name="newContentAssoc"/>
-                </if-not-empty>
-                <create-value value-name="newContentAssoc" />
+            <make-value entity-name="ContentAssoc" value-name="newContentAssoc"/>
+            <set from-field="parameters.contentIdTo"           field="newContentAssoc.contentIdTo"/>
+            <set from-field="parameters.contentIdFrom"         field="newContentAssoc.contentId"/>
+            <set from-field="parameters.contentAssocTypeId"    field="newContentAssoc.contentAssocTypeId"/>
+            <set from-field="newUserLogin.userLoginId"         field="newContentAssoc.createdByUserLogin"/>
+            <set from-field="newUserLogin.userLoginId"         field="newContentAssoc.lastModifiedByUserLogin"/>
+            <now-timestamp-to-env                           env-name="newContentAssoc.createdDate"/>
+            <now-timestamp-to-env                           env-name="newContentAssoc.lastModifiedDate"/>
+            
+            <if-empty map-name="parameters" field-name="fromDate" >
+                <now-timestamp-to-env env-name="parameters.fromDate"/>
+                <to-string map-name="parameters" field-name="fromDate" />
+            </if-empty>
+            <set from-field="parameters.fromDate" field="newContentAssoc.fromDate"/>
+            <if-not-empty map-name="parameters" field-name="thruDate" >
+                <set from-field="parameters.thruDate" field="newContentAssoc.thruDate"/>
+            </if-not-empty>
+            <create-value value-name="newContentAssoc" />
         </if-compare>
         <check-errors/>
     </simple-method>
@@ -244,15 +234,14 @@ under the License.
             </check-permission>
         </if-compare-field>
                 
-        <now-timestamp-to-env env-name="nowStamp"/>
         <make-value entity-name="ContentRole" value-name="lookupKeyValue"/>
-        <field-to-field field-name="contentId" map-name="parameters" to-map-name="lookupKeyValue"/>
-        <field-to-field field-name="partyId" map-name="parameters" to-map-name="lookupKeyValue"/>
-        <field-to-field field-name="roleTypeId" map-name="parameters" to-map-name="lookupKeyValue"/>
+        <set from-field="parameters.contentId" field="lookupKeyValue.contentId"/>
+        <set from-field="parameters.partyId" field="lookupKeyValue.partyId"/>
+        <set from-field="parameters.roleTypeId" field="lookupKeyValue.roleTypeId"/>
         <find-by-and entity-name="ContentRole" map-name="lookupKeyValue" list-name="roleList"/>
         <iterate entry-name="contentRoleMap" list-name="roleList">
             <make-value entity-name="ContentRole" value-name="role" map-name="contentRoleMap"/>
-            <env-to-field field-name="thruDate" map-name="role" env-name="nowStamp"/>
+            <now-timestamp-to-env env-name="role.thruDate"/>
             <store-value value-name="role"/>
         </iterate>
     </simple-method>
@@ -628,11 +617,11 @@ under the License.
 
     <!-- Util -->
     <simple-method method-name="findAssocContent" short-description="Find associated content">
-        <field-to-field field-name="contentId" map-name="parameters" to-map-name="queryMap"/>
+        <set from-field="parameters.contentId" field="queryMap.contentId"/>
         <field-to-env field-name="mapKeys" map-name="parameters"/>
         <field-to-list field-name="mapKey" list-name="mapKeys"/>
         <iterate entry-name="mapKey" list-name="mapKeys">
-            <field-to-field field-name="mapKey" to-map-name="queryMap"/>
+            <set from-field="mapKey" field="queryMap.mapKey"/>
             <find-by-and list-name="resultMap" entity-name="ContentAssoc" map-name="queryMap"/>
             <filter-list-by-date list-name="resultMap" to-list-name="validContent"/>
             <iterate entry-name="contentAssoc" list-name="validContent">
@@ -661,7 +650,7 @@ under the License.
 
         <!-- Create subject -->
         <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createSubjectContent"/>
-        <field-to-field map-name="parameters" field-name="subject" to-map-name="createSubjectEtext" to-field-name="textData"/>
+        <set from-field="parameters.subject" field="createSubjectEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createSubjectEtext">
             <result-to-field result-name="dataResourceId" map-name="createSubjectContent"/>
         </call-service>
@@ -670,7 +659,7 @@ under the License.
         </call-service>
 
         <!-- Create plain body -->
-        <field-to-field map-name="parameters" field-name="plainBody" to-map-name="createPlainBodyEtext" to-field-name="textData"/>
+        <set from-field="parameters.plainBody" field="createPlainBodyEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createPlainBodyEtext">
             <result-to-field result-name="dataResourceId" map-name="createPlainBodyContent"/>
         </call-service>
@@ -678,12 +667,12 @@ under the License.
             <result-to-field result-name="contentId" map-name="createBodyAssoc" field-name="contentIdTo"/>
         </call-service>
         <!-- Create content assoc between subject and plain body -->
-        <string-to-field string="TREE_CHILD" field-name="contentAssocTypeId" map-name="createBodyAssoc"/>
-        <string-to-field string="plainBody" field-name="mapKey" map-name="createBodyAssoc"/>
+        <set value="TREE_CHILD" field="createBodyAssoc.contentAssocTypeId"/>
+        <set value="plainBody" field="createBodyAssoc.mapKey"/>
         <call-service service-name="createContentAssoc" in-map-name="createBodyAssoc"/>
 
         <!-- Create HTML body -->
-        <field-to-field map-name="parameters"  field-name="htmlBody" to-map-name="createHtmlBodyEtext" to-field-name="textData"/>
+        <set from-field="parameters.htmlBody" field="createHtmlBodyEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createHtmlBodyEtext">
             <result-to-field result-name="dataResourceId" map-name="createHtmlBodyContent"/>
         </call-service>
@@ -691,7 +680,7 @@ under the License.
             <result-to-field result-name="contentId" map-name="createBodyAssoc" field-name="contentIdTo"/>
         </call-service>
         <!-- Create content assoc between subject and html body -->
-        <string-to-field string="htmlBody" field-name="mapKey" map-name="createBodyAssoc"/>
+        <set value="htmlBody" field="createBodyAssoc.mapKey"/>
         <call-service service-name="createContentAssoc" in-map-name="createBodyAssoc"/>
 
         <field-to-result field-name="contentId" map-name="createBodyAssoc" result-name="contentId"/>
@@ -703,18 +692,18 @@ under the License.
         <check-errors/>
 
         <if-not-empty field-name="subjectDataResourceId" map-name="parameters">
-            <field-to-field field-name="subjectDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateSubjectEt"/>
-            <field-to-field field-name="subject" map-name="parameters" to-field-name="textData" to-map-name="updateSubjectEt"/>
+            <set from-field="parameters.subjectDataResourceId" field="updateSubjectEt.dataResourceId"/>
+            <set from-field="parameters.subject" field="updateSubjectEt.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updateSubjectEt"/>
         </if-not-empty>
         <if-not-empty field-name="plainBodyDataResourceId" map-name="parameters">
-            <field-to-field field-name="plainBodyDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updatePlainBodyEt"/>
-            <field-to-field field-name="plainBody" map-name="parameters" to-field-name="textData" to-map-name="updatePlainBodyEt"/>
+            <set from-field="parameters.plainBodyDataResourceId" field="updatePlainBodyEt.dataResourceId"/>
+            <set from-field="parameters.plainBody" field="updatePlainBodyEt.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updatePlainBodyEt"/>
         </if-not-empty>
         <if-not-empty field-name="htmlBodyDataResourceId" map-name="parameters">
-            <field-to-field field-name="htmlBodyDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateHtmlBodyEt"/>
-            <field-to-field field-name="htmlBody" map-name="parameters" to-field-name="textData" to-map-name="updateHtmlBodyEt"/>
+            <set from-field="parameters.htmlBodyDataResourceId"  field="updateHtmlBodyEt.dataResourceId"/>
+            <set from-field="parameters.htmlBody" field="updateHtmlBodyEt.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updateHtmlBodyEt"/>
         </if-not-empty>
     </simple-method>
@@ -726,7 +715,7 @@ under the License.
         <check-errors/>
 
         <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createDownloadContent"/>
-        <field-to-field map-name="parameters" field-name="file" to-map-name="createDownload" to-field-name="dataResourceContent"/>
+        <set from-field="parameters.file" field="createDownload.dataResourceContent"/>
         <call-service service-name="createOtherDataResource" in-map-name="createDownload">
             <result-to-field result-name="dataResourceId" map-name="createDownloadContent"/>
         </call-service>
@@ -741,8 +730,8 @@ under the License.
         <check-errors/>
 
         <if-not-empty field-name="fileDataResourceId" map-name="parameters">
-            <field-to-field field-name="fileDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateFile"/>
-            <field-to-field field-name="file" map-name="parameters" to-field-name="dataResourceContent" to-map-name="updateFile"/>
+            <set from-field="parameters.fileDataResourceId" field="updateFile.dataResourceId"/>
+            <set from-field="parameters.file" field="updateFile.dataResourceContent"/>
             <call-service service-name="updateOtherDataResource" in-map-name="updateFile"/>
         </if-not-empty>
     </simple-method>
@@ -754,13 +743,13 @@ under the License.
         <check-errors/>
 
         <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createSimpleTextContent"/>
-        <string-to-field string="DOCUMENT" field-name="contentTypeId" map-name="createSimpleTextContent"/>
+        <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>
 
-        <field-to-field map-name="parameters" field-name="text" to-map-name="createSimpleText" to-field-name="textData"/>
+        <set from-field="parameters.text" field="createSimpleText.textData"/>
         
         <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="createSimpleTextDataResource"/>
-        <string-to-field string="ELECTRONIC_TEXT" field-name="dataResourceTypeId" map-name="createSimpleTextDataResource"/>
-        <string-to-field string="FTL" field-name="dataTemplateTypeId" map-name="createSimpleTextDataResource"/>
+        <set value="ELECTRONIC_TEXT" field="createSimpleTextDataResource.dataResourceTypeId"/>
+        <set value="FTL" field="createSimpleTextDataResource.dataTemplateTypeId"/>
         
         <call-service service-name="createDataResource" in-map-name="createSimpleTextDataResource">
             <result-to-field result-name="dataResourceId" map-name="createSimpleText"/>
@@ -780,23 +769,22 @@ under the License.
         <check-errors/>
 
         <if-not-empty field-name="textDataResourceId" map-name="parameters">
-            <field-to-field field-name="textDataResourceId" map-name="parameters" to-field-name="dataResourceId" to-map-name="updateSimpleText"/>
-            <field-to-field field-name="text" map-name="parameters" to-field-name="textData" to-map-name="updateSimpleText"/>
+            <set from-field="parameters.textDataResourceId" field="updateSimpleText.dataResourceId"/>
+            <set from-field="parameters.text" field="updateSimpleText.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updateSimpleText"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createTopic" short-description="Create TOPIC type Content">
         <make-value value-name="content" entity-name="Content" />
-        <field-to-field map-name="parameters" field-name="newTopicId" to-map-name="content" to-field-name="contentId" />
-        <field-to-field map-name="parameters" field-name="newTopicId" to-map-name="content" to-field-name="contentName" />
-        <field-to-field map-name="parameters" field-name="newTopicDescription" to-map-name="content" to-field-name="description" />
-        <string-to-field string="TOPIC" map-name="content" field-name="contentTypeId" />
+        <set from-field="parameters.newTopicId" field="content.contentId" />
+        <set from-field="parameters.newTopicId" field="content.contentName" />
+        <set from-field="parameters.newTopicDescription" field="content.description" />
+        <set value="TOPIC" field="content.contentTypeId" />
         
-        <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="content"/>
-        <env-to-field env-name="nowTimestamp" field-name="createdDate" map-name="content"/>
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="content"/>
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="createdByUserLogin" to-map-name="content"/>
+        <now-timestamp-to-env env-name="content.lastModifiedDate"/>
+        <now-timestamp-to-env env-name="content.createdDate"/>
+        <set from-field="parameters.userLogin.userLoginId" field="content.lastModifiedByUserLogin"/>
+        <set from-field="parameters.userLogin.userLoginId" field="content.createdByUserLogin"/>
 
         <create-value value-name="content"/>
     </simple-method>
