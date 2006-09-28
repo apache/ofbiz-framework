@@ -580,6 +580,8 @@ public class EmailServices {
     	InternetAddress emailAddress = null;
     	Map map = null;
     	Map result = null;
+        
+        if (addresses == null) return null;
     	
     	if (addresses.length > 0) {
     		Address addr = addresses[0];
@@ -698,7 +700,9 @@ public class EmailServices {
         try {
             String contentTypeRaw = message.getContentType();
             int idx = contentTypeRaw.indexOf(";");
+            if (idx == -1) idx = contentTypeRaw.length();
             contentType = contentTypeRaw.substring(0, idx);
+            if (contentType == null || contentType.equals("")) contentType = "text/html";
             Address [] addressesFrom = message.getFrom();
             Address [] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
             Address [] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
@@ -714,6 +718,12 @@ public class EmailServices {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);
                     ServiceUtil.returnSuccess();
                 }
+            }
+
+            // if no 'from' addresses specified ignore the message
+            if (addressesFrom == null) {
+                Debug.logInfo("Incoming Email message ignored, had not 'from' email address", module);
+                ServiceUtil.returnSuccess();
             }
             
             result = getParyInfoFromEmailAddress(addressesFrom, userLogin, dispatcher);
@@ -749,15 +759,17 @@ public class EmailServices {
     		if (contentType.startsWith("text")) {
     			content = (String)message.getContent();
         		commEventMap.put("contentMimeTypeId", contentType);
-    		} else if (contentType.startsWith("multipart")) {
+    		} else if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
     			multipart = (Multipart)message.getContent();
     			int multipartCount = multipart.getCount();
     			for (int i=0; i < multipartCount; i++) {
     				Part part = multipart.getBodyPart(i);
     				String thisContentTypeRaw = part.getContentType();
     	            int idx2 = thisContentTypeRaw.indexOf(";");
+                    if (idx2 == -1) idx2 = thisContentTypeRaw.length();
     	            String thisContentType = thisContentTypeRaw.substring(0, idx2);
-    				String disposition = part.getDisposition();
+                    if (thisContentType == null || thisContentType.equals("")) thisContentType = "text/html";
+                    String disposition = part.getDisposition();
     				
     				// See this case where the disposition of the inline text is null
     				if ((disposition == null) && (i == 0) && thisContentType.startsWith("text")) 
@@ -788,13 +800,12 @@ public class EmailServices {
         		commEventMap.put("contactMechIdFrom", contactMechIdFrom);
         		commEventMap.put("contactMechIdTo", contactMechIdTo);
         		commEventMap.put("statusId", "COM_ENTERED");
-        	} else {
-                // create a task to find party for email
-        		commEventMap.put("statusId", "COM_UNKNOWN_PARTY");
-        		commNote = "Sent from: " + UtilMisc.toListArray(addressesFrom).toString();
-        	}
+            } else {
+                commEventMap.put("statusId", "COM_UNKNOWN_PARTY");
+                commNote += "Sent from: " + ((InternetAddress)addressesFrom[0]).getAddress();
+            }
     		if (partyIdTo == null) {
-                commNote += "Sent to: " + UtilMisc.toListArray(addressesTo).toString();
+                commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress();
             }
             
             if (!("".equals(commNote))) {
@@ -804,7 +815,15 @@ public class EmailServices {
     		commEventMap.put("userLogin", userLogin);
     		result = dispatcher.runSync("createCommunicationEvent", commEventMap);
     		communicationEventId = (String)result.get("communicationEventId");
-    		if (contentType.startsWith("multipart")) {
+            
+    		// 'system' Id has no partyId but needed for prefix generation of the creation of related contentId and dataresourceId.
+    		if (userLogin.get("partyId") == null) { 
+    		    int ch = 0;
+    		    for (ch=communicationEventId.length(); ch > 0 && Character.isDigit(communicationEventId.charAt(ch-1)); ch--);
+    		    userLogin.put("partyId", communicationEventId.substring(0,ch)); //allow services to be called to have prefix
+    		}
+            
+    		if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
     			int attachmentCount = EmailWorker.addAttachmentsToCommEvent(message, communicationEventId, contentIndex, dispatcher, userLogin);
     			if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
     		}
