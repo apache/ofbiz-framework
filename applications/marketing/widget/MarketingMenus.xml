@@ -24,7 +24,7 @@ under the License.
         <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="FindMarketingCampaign"/></menu-item>
         <menu-item name="Tracking" title="${uiLabelMap.Tracking}"><link target="FindTrackingCode"/></menu-item>
         <menu-item name="Segment" title="${uiLabelMap.Segment}"><link target="FindSegmentGroup"/></menu-item>
-        <menu-item name="ContactList" title="${uiLabelMap.ContactList}"><link target="ListContactLists"/></menu-item>
+        <menu-item name="ContactList" title="${uiLabelMap.ContactList}"><link target="FindContactLists"/></menu-item>
 
         <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>

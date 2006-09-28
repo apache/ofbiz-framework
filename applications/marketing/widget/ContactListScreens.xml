@@ -18,6 +18,27 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+   <screen name="FindContactLists">
+       <section>
+           <actions>
+               <set field="titleProperty" value="PageTitleFindContactLists"/>
+               <set field="tabButtonItem" value="ContactList"/>
+               <set field="labelTitleProperty" value="PageTitleFindContactLists"/>
+               <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/FindContactList"/>
+           </actions>
+           <widgets>
+               <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
+                   <decorator-section name="body">
+                       <container><label style="head1">${uiLabelMap.ContactListFindContactLists}</label></container>
+                       <container><link  text="${uiLabelMap.ContactListCreate}" target="EditContactList?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                       <include-form name="FindContactLists" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                   </decorator-section>
+               </decorator-screen>
+           </widgets>
+       </section>
+   </screen>
+
    <screen name="EditContactList">
         <section>
             <actions>
@@ -58,6 +79,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleListContactList"/>
                 <set field="tabButtonItem" value="ContactList"/>
                 <set field="labelTitleProperty" value="PageTitleListContactList"/>
+
+                <!-- parameters for pagination -->
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
@@ -123,7 +148,6 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListContactListParty"/>
 
                 <!-- parameters for pagination -->
-                <set field="queryString" value="contactListId=${parameters.contactListId}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
 
@@ -195,6 +219,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleListContactListCommEvent"/>
                 <set field="tabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitleListContactListCommEvent"/>
+
+                <!-- parameters for pagination -->
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
