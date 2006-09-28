@@ -1831,6 +1831,7 @@ under the License.
       <field name="occupation" type="name"></field>
       <field name="yearsWithEmployer" type="numeric"></field>
       <field name="monthsWithEmployer" type="numeric"></field>
+      <field name="existingCustomer" type="indicator"></field>
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PERSON_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
