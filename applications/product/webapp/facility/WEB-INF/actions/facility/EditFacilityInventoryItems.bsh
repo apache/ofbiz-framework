@@ -24,13 +24,20 @@ import org.ofbiz.widget.html.*;
 delegator = request.getAttribute("delegator");
 
 String facilityId = request.getParameter("facilityId");
+String productId = request.getParameter("productId");
+
 if (facilityId != null) context.put("facilityId", facilityId);
 
 GenericValue facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
 if (facility != null) context.put("facility", facility);
 
+findParams = UtilMisc.toMap("facilityId", facilityId); 
+if (!UtilValidate.isEmpty(productId)) {
+    findParams.put("productId", productId);
+}
+
 Collection facilityInventoryItems = delegator.findByAnd("InventoryItem", 
-        UtilMisc.toMap("facilityId", facilityId), 
+        findParams,
         UtilMisc.toList("statusId", "quantityOnHandTotal", "serialNumber"));
 if (facilityInventoryItems != null) context.put("facilityInventoryItems", facilityInventoryItems);
 

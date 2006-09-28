@@ -67,20 +67,22 @@ under the License.
     <form name="ListFacilityInventoryByProduct" type="list" 
             target="" title="" list-name="inventoryByProduct" paginate-target="ViewFacilityInventoryByProduct"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
-        <field name="editLink" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" />
+        <field name="items" widget-style="buttontext">
+            <hyperlink target="EditFacilityInventoryItems?productId=${productId}&amp;facilityId=${facilityId}" description="${productId}" link-style="buttontext"/>     
         </field>
-        <field name="productId" title="${uiLabelMap.CommonDescription}" title-area-style="tableheadwide">
-            <display-entity entity-name="Product" description="${internalName}"/>
+        <field name="productId" title="${uiLabelMap.CommonDescription}" widget-area-style="tabletext">
+            <display-entity entity-name="Product" description="${internalName}">
+                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${uiLabelMap.ProductCatalog}" link-style="buttontext"/>
+            </display-entity>
         </field>
+        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
+        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
+        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"  widget-area-style="tabletextright"><display/></field>
         <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}" widget-area-style="tabletextright"><display/></field>
         <field name="reorderQuantity" title="${uiLabelMap.ProductReorderQuantity}" widget-area-style="tabletextright"><display/></field>
         <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}" widget-area-style="tabletextright"><display/></field>
-        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
-        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
         <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}" widget-area-style="tabletextright"><display/></field>
         <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}" widget-area-style="tabletextright"><display/></field>
-        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"  widget-area-style="tabletextright"><display/></field>
     </form>
 
     <form name="SearchInventoryItemsParams" type="single" target="SearchInventoryItems"
