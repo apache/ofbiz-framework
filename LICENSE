@@ -1,11 +1,99 @@
 ==========================================================================
-The source code that makes of The Apache Open For Business Project
+The source code that makes up The Apache Open For Business Project
 (Apache OFBiz) and the majority of the libraries distributed with it are
 licensed under the Apache License Version 2.0.
 
 Other licenses used by libraries distributed with Apache OFBiz are listed
-below. For a list of all libraries distributed with Apache OFBiz and the
-license used for each, please see the NOTICE file.
+below. This file includes a list of all libraries distributed with Apache 
+OFBiz and the full text of the license used for each.
+
+For additional details, see the NOTICE file and:
+http://docs.ofbiz.org/display/OFBADMIN/Libraries+Included+in+OFBiz
+==========================================================================
+The following libraries are licensed under the Apache License Version 2.0:
+ofbiz/trunk/framework/base/lib/ant-launcher.jar
+ofbiz/trunk/framework/base/lib/ant.jar
+ofbiz/trunk/framework/base/lib/avalon-framework-4.1.5.jar
+ofbiz/trunk/framework/base/lib/avalon-util-exception-1.0.0.jar
+ofbiz/trunk/framework/base/lib/jakarta-regexp.jar
+ofbiz/trunk/framework/base/lib/log4j.jar
+ofbiz/trunk/framework/base/lib/mail.jar
+ofbiz/trunk/framework/base/lib/mx4j-3.0.1.jar
+ofbiz/trunk/framework/base/lib/mx4j-remote-3.0.1.jar
+ofbiz/trunk/framework/base/lib/resolver.jar
+ofbiz/trunk/framework/base/lib/xercesImpl-2.6.2.jar
+ofbiz/trunk/framework/base/lib/xmlParserAPIs-2.2.1.jar
+ofbiz/trunk/framework/base/lib/commons/commons-beanutils.jar
+ofbiz/trunk/framework/base/lib/commons/commons-cli.jar
+ofbiz/trunk/framework/base/lib/commons/commons-codec.jar
+ofbiz/trunk/framework/base/lib/commons/commons-collections.jar
+ofbiz/trunk/framework/base/lib/commons/commons-dbcp.jar
+ofbiz/trunk/framework/base/lib/commons/commons-digester-1.7.jar
+ofbiz/trunk/framework/base/lib/commons/commons-discovery.jar
+ofbiz/trunk/framework/base/lib/commons/commons-el.jar
+ofbiz/trunk/framework/base/lib/commons/commons-fileupload.jar
+ofbiz/trunk/framework/base/lib/commons/commons-lang-2.1.jar
+ofbiz/trunk/framework/base/lib/commons/commons-logging.jar
+ofbiz/trunk/framework/base/lib/commons/commons-modeler.jar
+ofbiz/trunk/framework/base/lib/commons/commons-net-1.4.1.jar
+ofbiz/trunk/framework/base/lib/commons/commons-pool.jar
+ofbiz/trunk/framework/base/lib/commons/commons-primitives.jar
+ofbiz/trunk/framework/base/lib/commons/commons-vfs-providers.jar
+ofbiz/trunk/framework/base/lib/commons/commons-vfs.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-activation_1.0.2_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-j2ee-connector_1.5_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jaxr_1.0_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jaxrpc_1.1_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jsp_2.0_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-jta_1.0.1B_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/j2eespecs/geronimo-servlet_2.4_spec-1.0.jar
+ofbiz/trunk/framework/base/lib/scripting/bsf.jar
+ofbiz/trunk/framework/base/lib/scripting/oro.jar
+ofbiz/trunk/framework/catalina/lib/catalina-cluster.jar
+ofbiz/trunk/framework/catalina/lib/catalina-optional.jar
+ofbiz/trunk/framework/catalina/lib/catalina.jar
+ofbiz/trunk/framework/catalina/lib/jmx.jar
+ofbiz/trunk/framework/catalina/lib/naming-factory.jar
+ofbiz/trunk/framework/catalina/lib/naming-resources.jar
+ofbiz/trunk/framework/catalina/lib/servlets-default.jar
+ofbiz/trunk/framework/catalina/lib/servlets-invoker.jar
+ofbiz/trunk/framework/catalina/lib/servlets-webdav.jar
+ofbiz/trunk/framework/catalina/lib/tomcat-ajp.jar
+ofbiz/trunk/framework/catalina/lib/tomcat-coyote.jar
+ofbiz/trunk/framework/catalina/lib/tomcat-http.jar
+ofbiz/trunk/framework/catalina/lib/tomcat-util.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derby.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_de_DE.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_es.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_fr.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_it.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_ja_JP.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_ko_KR.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_pt_BR.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_zh_CN.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyLocale_zh_TW.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyTesting.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbyclient.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbynet.jar
+ofbiz/trunk/framework/entity/lib/jdbc/derbytools.jar
+ofbiz/trunk/framework/entity/lib/jdbc/p6spy.jar
+ofbiz/trunk/framework/jetty/lib/ant.jar
+ofbiz/trunk/framework/jetty/lib/org.mortbay.jetty.jar
+ofbiz/trunk/framework/jetty/lib/org.mortbay.jmx.jar
+ofbiz/trunk/framework/service/lib/axis-ant.jar
+ofbiz/trunk/framework/service/lib/axis.jar
+ofbiz/trunk/framework/webapp/lib/barcode4j-fop-ext-0.20.5-complete.jar
+ofbiz/trunk/framework/webapp/lib/batik.jar
+ofbiz/trunk/framework/webapp/lib/fop.jar
+ofbiz/trunk/framework/webapp/lib/velocity-1.3.jar
+ofbiz/trunk/framework/webapp/lib/velocity-dep-1.3.jar
+ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-1.0.jar
+ofbiz/trunk/framework/geronimo/lib/jencks-1.1.3.jar
+ofbiz/trunk/applications/content/lib/lucene.jar
+ofbiz/trunk/applications/content/lib/poi.jar
 ==========================================================================
                                  Apache License
                            Version 2.0, January 2004
@@ -210,8 +298,16 @@ license used for each, please see the NOTICE file.
    limitations under the License.
    
 =========================================================================
-Some libraries distrubted with Apache OFBiz are licensed under the Apache
-Software License. For details on which, please see the NOTICE file.
+The following libraries distrubted with Apache OFBiz are licensed under the 
+Apache Software License:
+ofbiz/trunk/framework/catalina/lib/jasper-compiler-jdt.jar
+ofbiz/trunk/framework/catalina/lib/jasper-compiler.jar
+ofbiz/trunk/framework/jetty/lib/jasper-compiler.jar
+ofbiz/trunk/framework/catalina/lib/jasper-runtime.jar
+ofbiz/trunk/framework/jetty/lib/jasper-runtime.jar
+ofbiz/trunk/framework/webapp/lib/DataVision.jar
+ofbiz/trunk/framework/webapp/lib/EdenLib.jar
+ofbiz/trunk/framework/webapp/lib/JPublish.jar
 =========================================================================
 Apache Software License
 
@@ -266,8 +362,15 @@ written at the National Center for Supercomputing Applications, University of
 Illinois, Urbana-Champaign.
 
 =========================================================================
-Some libraries distrubted with Apache OFBiz are licensed under the BSD 
-License. For details on which, please see the NOTICE file.
+The following libraries distrubted with Apache OFBiz are licensed under the 
+BSD License:
+ofbiz/trunk/framework/base/lib/httpunit.jar
+ofbiz/trunk/framework/base/lib/freemarker.jar
+ofbiz/trunk/framework/base/lib/junitperf.jar
+ofbiz/trunk/framework/entity/lib/jdbc/hsqldb.jar
+ofbiz/trunk/applications/pos/lib/looks-2.0.2.jar
+ofbiz/trunk/framework/webapp/lib/MinML2.jar
+ofbiz/trunk/framework/base/lib/javolution.jar
 =========================================================================
 The BSD License
 
@@ -321,9 +424,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =========================================================================
-Some libraries distrubted with Apache OFBiz are licensed under the 
-Mozilla Public License Version 1.1. For details on which, please see the 
-NOTICE file.
+The following libraries distrubted with Apache OFBiz are licensed under the 
+Mozilla Public License Version 1.1:
+ofbiz/trunk/framework/guiapp/lib/XuiCoreSwing_v2_0_5_jdk1_4.jar
+ofbiz/trunk/framework/webapp/lib/itext-1.3.6.jar
 =========================================================================
                           MOZILLA PUBLIC LICENSE
                                 Version 1.1
@@ -796,8 +900,12 @@ EXHIBIT A -Mozilla Public License.
      Original Code Source Code for Your Modifications.]
 
 =========================================================================
-Some libraries distrubted with Apache OFBiz are licensed under the 
-Common Public License. For details on which, please see the NOTICE file.
+The following libraries distrubted with Apache OFBiz are licensed under the 
+Common Public License:
+ofbiz/trunk/applications/pos/lib/jcl.jar
+ofbiz/trunk/applications/pos/lib/jpos18-controls.jar
+ofbiz/trunk/framework/service/lib/wsdl4j.jar
+ofbiz/trunk/framework/base/lib/junit.jar
 =========================================================================
 Common Public License Version 1.0
 
@@ -1014,8 +1122,11 @@ after the cause of action arose. Each party waives its rights to a jury trial in
 any resulting litigation.
 
 =========================================================================
-Some libraries distrubted with Apache OFBiz are licensed under the 
-MIT/X License. For details on which, please see the NOTICE file.
+The following libraries distrubted with Apache OFBiz are licensed under the 
+MIT/X License:
+ofbiz/trunk/framework/base/lib/icu4j_3_4.jar
+ofbiz/trunk/framework/entity/lib/ofbiz-minerva.jar
+ofbiz/trunk/framework/entity/lib/oswego-concurrent.jar
 =========================================================================
 The MIT License
 
@@ -1040,8 +1151,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =========================================================================
-Some libraries distrubted with Apache OFBiz are licensed under the 
-W3C License. For details on which, please see the NOTICE file.
+The following libraries distrubted with Apache OFBiz are licensed under the 
+W3C License:
+ofbiz/trunk/framework/base/lib/Tidy.jar
 =========================================================================
 W3C¨ SOFTWARE NOTICE AND LICENSE
 
@@ -1092,8 +1204,9 @@ W3C¨ SOFTWARE NOTICE AND LICENSE
  documentation will at all times remain with copyright holders.
 
 =========================================================================
-Some libraries distrubted with Apache OFBiz are licensed under the 
-Sun Public License. For details on which, please see the NOTICE file.
+The following libraries distrubted with Apache OFBiz are licensed under the 
+Sun Public License:
+ofbiz/trunk/framework/base/lib/scripting/bsh.jar
 =========================================================================
 SUN PUBLIC LICENSE Version 1.0
 
@@ -1569,6 +1682,7 @@ Exhibit A -Sun Public License Notice.
 
 =========================================================================
 The Jython library is licensed under the BeOpen/CNRI as follows.
+ofbiz/trunk/framework/base/lib/scripting/jython-nooro.jar
 =========================================================================
 Jython changes Software License.
 ================================
@@ -1693,6 +1807,7 @@ JPython version 1.1.x
 =========================================================================
 The JDBM library is licensed under the JDBM LICENSE v1.00 as follows.
 This license is nearly equivalent to the BSD License.
+ofbiz/trunk/framework/base/lib/jdbm.jar
 =========================================================================
 /**
  * JDBM LICENSE v1.00
