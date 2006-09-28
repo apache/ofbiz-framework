@@ -77,6 +77,19 @@ under the License.
         <!-- if necessary create new status entry, and set lastStatusUpdate date -->
         <if-not-empty field-name="parameters.currentStatusId">
             <if-compare-field field-name="parameters.currentStatusId" operator="not-equals" to-field-name="lookedUpValue.currentStatusId">
+                
+                <!-- check if the status change is a valid change -->
+                <entity-and entity-name="StatusValidChange" list-name="validChange">
+                    <field-map field-name="statusId" env-name="lookedUpValue.currentStatusId"/>
+                    <field-map field-name="statusIdTo" env-name="parameters.currentStatusId"/>
+                </entity-and>
+                
+                <if-empty field-name="validChange">
+                    <add-error><fail-message message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/></add-error>
+                    <log level="error" message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/>
+                    <check-errors/>
+                </if-empty>
+                
                 <set from-field="nowTimestamp" field="lookedUpValue.lastStatusUpdate"/>
                 <make-value value-name="newWorkEffortStatus" entity-name="WorkEffortStatus"/>
                 <set from-field="lookedUpValue.workEffortId" field="newWorkEffortStatus.workEffortId"/>
