@@ -303,6 +303,7 @@ under the License.
     </request-map>
     
     <!--  ContactList request mappings -->
+    <request-map uri="FindContactLists"><security https="true" auth="true"/><response name="success" type="view" value="FindContactLists"/></request-map>
     <request-map uri="ListContactLists"><security https="true" auth="true"/><response name="success" type="view" value="ListContactLists"/></request-map>
     <request-map uri="EditContactList"><security https="true" auth="true"/><response name="success" type="view" value="EditContactList"/></request-map>
     <request-map uri="LookupContactList"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactList"/></request-map>
@@ -425,17 +426,11 @@ under the License.
     <view-map name="listSegmentGroupGeo" type="screen" page="component://marketing/widget/SegmentScreens.xml#listSegmentGroupGeo"/>
     <view-map name="listSegmentGroupRole" type="screen" page="component://marketing/widget/SegmentScreens.xml#listSegmentGroupRole"/>
 
+    <view-map name="FindContactLists" type="screen" page="component://marketing/widget/ContactListScreens.xml#FindContactLists"/>
     <view-map name="ListContactLists" type="screen" page="component://marketing/widget/ContactListScreens.xml#ListContactLists"/>
     <view-map name="EditContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#EditContactList"/>
-    <view-map name="ListContactListParties" type="screen" page="component://marketing/widget/ContactListScreens.xml#ListContactListParties"/>
-    <view-map name="EditContactListParty" type="screen" page="component://marketing/widget/ContactListScreens.xml#EditContactListParty"/>
-    <view-map name="FindContactListParties" type="screen" page="component://marketing/widget/ContactListScreens.xml#FindContactListParties"/>
-    <view-map name="ListContactListCommEvents" type="screen" page="component://marketing/widget/ContactListScreens.xml#ListContactListCommEvents"/>
-    <view-map name="EditContactListCommEvent" type="screen" page="component://marketing/widget/ContactListScreens.xml#EditContactListCommEvent"/>
-    <view-map name="FindContactListCommEvents" type="screen" page="component://marketing/widget/ContactListScreens.xml#FindContactListCommEvents"/>
 
-    <view-map name="ListContactLists" type="screen" page="component://marketing/widget/ContactListScreens.xml#ListContactLists"/>
-    <view-map name="EditContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#EditContactList"/>
+    <view-map name="ListContactListParties" type="screen" page="component://marketing/widget/ContactListScreens.xml#ListContactListParties"/>
     <view-map name="ListContactListParty" type="screen" page="component://marketing/widget/ContactListScreens.xml#ListContactListParties"/>
     <view-map name="EditContactListParty" type="screen" page="component://marketing/widget/ContactListScreens.xml#EditContactListParty"/>
     <view-map name="FindContactListParties" type="screen" page="component://marketing/widget/ContactListScreens.xml#FindContactListParties"/>

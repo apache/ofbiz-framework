@@ -80,11 +80,45 @@ under the License.
         <!-- <field name="cancelLink" title="" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field> -->
     </form>
 
+    <form name="FindContactLists" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="inputBox"
+            target="ListContactLists" title="" type="single">
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text size="20" maxlength="20"/></field>
+        <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text-find/></field>
+        <field name="contactListTypeId" title="${uiLabelMap.ContactListContactListTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ContactListType" key-field-name="contactListTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="MarketingCampaign" description="${campaignName}">
+                    <entity-order-by field-name="campaignName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
+    </form>
+
     <form name="ListContactLists" default-title-style="tableheadtext"
             default-tooltip-style="tabletext" default-widget-style="tabletext"
-            target="ListContactLists" title="" type="list">
+            target="ListContactLists" title="" type="list" list-name="listIt">
         <actions>
-            <entity-condition entity-name="ContactList"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="orderBy" value="contactListId"/>
+                <field-map field-name="entityName" value="ContactList"/>
+            </service>
         </actions>
         <field name="contactListId"  widget-style="buttontext" title="${uiLabelMap.ContactListContactListId}">
             <hyperlink target="EditContactList?contactListId=${contactListId}" description="${contactListId}" also-hidden="false"/>
@@ -270,11 +304,18 @@ under the License.
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text/></field>
         <field name="commEventId" title="${uiLabelMap.ContactListCommEventId}"><lookup target-form-name="LookupCommEvent"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListContactListCommEvents" list-name="listIt" title="" type="list"
+    <form name="ListContactListCommEvents" list-name="listIt" title="" type="list" paginate-target="ListContactListCommEvents"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
