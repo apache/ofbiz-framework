@@ -44,4 +44,4 @@ SPL(Sun) (http://www.beanshell.org/license.html)
 *******************************************
 JDBM LICENSE v1.00 (BSD)
 *******************************************
-Apache OFBiz uses and includes the JDBM library from the JDBM Project (http://jdbm.sourceforge.net/).
+This software uses and includes the JDBM library from the JDBM Project (http://jdbm.sourceforge.net/).
