@@ -17,11 +17,11 @@
 -->
 <XPage class="net.xoetrope.swing.XDialog">
     <Components>
-        <Panel name="salePanel" x="0" y="0" w="340" h="160">
-            <Edit name="saleName"  x="10" y="10" w="200" h="22" />
-            <Button name="BtnCancel" x="230" y="10" w="90" h="22" content="Cancel"/>
-            <Button name="BtnSave" x="230" y="50" w="90" h="22" content="Save"/>
-            <Button name="BtnSaveAndClear" x="230" y="80" w="90" h="66" content="SaveAndClear"/>
+        <Panel name="salePanel" x="0" y="0" w="680" h="320" style="menu">
+            <Edit name="saleName"  x="20" y="20" w="400" h="44" style="editAndList"/>
+            <Button name="BtnCancel" x="460" y="20" w="180" h="44" content="Cancel" style="dialogButton"/>
+            <Button name="BtnSave" x="460" y="80" w="180" h="44" content="Save" style="dialogButton"/>
+            <Button name="BtnSaveAndClear" x="460" y="140" w="180" h="132" content="SaveAndClear" style="dialogButton"/>
         </Panel>
     </Components>
 </XPage>

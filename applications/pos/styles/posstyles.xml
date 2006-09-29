@@ -89,6 +89,14 @@
         <font_weight value="0"/>
         <font_italic value="0"/>
     </style>
+    <style name="editAndList">
+        <color_back value="ffffff"/>
+        <color_fore value="000000"/>
+        <font_face value="verdana"/>
+        <font_size value="12"/>
+        <font_weight value="1"/>
+        <font_italic value="0"/>
+    </style>
 
     <!-- dynamic button styles -->
     <style name="numButton">
@@ -136,6 +144,14 @@
         <color_fore value="990000"/>
         <font_face value="verdana"/>
         <font_size value="14"/>
+        <font_weight value="1"/>
+        <font_italic value="0"/>
+    </style>
+    <style name="dialogButton">
+        <color_back value="cccccc"/>
+        <color_fore value="000000"/>
+        <font_face value="verdana"/>
+        <font_size value="12"/>
         <font_weight value="1"/>
         <font_italic value="0"/>
     </style>
