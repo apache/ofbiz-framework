@@ -543,7 +543,7 @@ public class TransactionUtil implements Status {
         Exception e = (Exception) transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning("WARNING: In clearTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e2, "WARNING: In clearTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
             return null;
         } else {
             transactionBeginStack.set(null);
@@ -551,11 +551,12 @@ public class TransactionUtil implements Status {
         }
     }
     public static Exception getTransactionBeginStack() {
-        if (transactionBeginStack.get() == null) {
+        Exception e = (Exception) transactionBeginStack.get();
+        if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning("WARNING: In getTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e2, "WARNING: In getTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
         }
-        return (Exception) transactionBeginStack.get();
+        return e;
     }
 
     // =======================================
