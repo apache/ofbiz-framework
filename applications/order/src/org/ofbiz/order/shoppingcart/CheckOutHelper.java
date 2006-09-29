@@ -557,13 +557,13 @@ public class CheckOutHelper {
         Iterator orderItems = ((List)context.get("orderItems")).iterator();
         int counter = 0;
         while (orderItems.hasNext()) {
-            GenericValue orderItem = (GenericValue)orderItems.next();
+            GenericValue orderItem = (GenericValue) orderItems.next();
             String productId = orderItem.getString("productId");
             if (productId != null) {
                 try {
-                    // do something tricky here: run as a different user 
+                    // do something tricky here: run as the "system" user 
                     // that can actually create and run a production run
-                    GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+                    GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
                     GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
                     GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
                     if ("AGGREGATED".equals(product.getString("productTypeId"))) {
