@@ -356,7 +356,7 @@ under the License.
                           </div>
                           <#if gatewayResponses?has_content>
                             <div class="tabletext">
-                              <hr />
+                              <hr class="sepbar"/>
                               <#list gatewayResponses as gatewayResponse>
                                 <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
                                 ${(transactionCode.get("description",locale))?default("Unknown")}:
@@ -366,7 +366,7 @@ under the License.
                                 <b>${uiLabelMap.OrderAvs}:</b> ${gatewayResponse.gatewayAvsResult?default("N/A")}
                                 <b>${uiLabelMap.OrderScore}:</b> ${gatewayResponse.gatewayScoreResult?default("N/A")})
                                 <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
-                                <#if gatewayResponse_has_next><hr /></#if>
+                                <#if gatewayResponse_has_next><hr class="sepbar"/></#if>
                               </#list>
                             </div>
                           </#if>
@@ -522,10 +522,54 @@ under the License.
              <td colspan="7" align="center" class="tabletext">${uiLabelMap.OrderNoOrderPaymentPreferences}</td>
             </tr>
            </#if>
-           <!-- TODO: Add new payment method here -->
-           </table>
-         </div>
+           <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED")) && (paymentMethodValueMaps?has_content)>
+           <tr><td colspan="7"><hr class="sepbar"></td></tr>                      
+           <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">           
+           <input type="hidden" name="orderId" value="${orderId?if_exists}">
+           <tr>
+              <td width="15%" align="right" nowrap><div class="tableheadtext">${uiLabelMap.AccountingPaymentMethod} </div></td>
+              <td width="5">&nbsp;</td>
+              <td nowrap>
+                 <select name="paymentMethodId" class="selectBox">
+                 <#list paymentMethodValueMaps as paymentMethodValueMap>
+                 <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
+                 <option value="${paymentMethod.get("paymentMethodId")?if_exists}">
+                 <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
+                    <#assign creditCard = paymentMethodValueMap.creditCard/>
+                    ${creditCard.cardType?if_exists} ${creditCard.cardNumber?if_exists} ${creditCard.expireDate?if_exists}                    
+                 <#else>
+                    ${paymentMethod.paymentMethodTypeId?if_exists} 
+                    <#if paymentMethod.description?exists>${paymentMethod.description}</#if>
+                    (${paymentMethod.paymentMethodId})
+                 </#if> 
+                 </option>
+                 </#list>
+                 </select>
+              </td>
+           </tr>                    
+           <tr>
+              <td width="20%" align="right"><div class="tableheadtext">${uiLabelMap.AccountingAmount} </div></td>
+              <td width="2%">&nbsp;</td>
+              <td nowrap>
+                 <input type="text" class="inputBox" name="maxAmount"/>
+              </td>
+           </tr>
+           <tr>
+              <td align="right" valign="top" width="15%">
+                 <div class="tabletext">&nbsp;</div>
+              </td>
+              <td width="5">&nbsp;</td>
+              <td align="left" valign="top" width="80%">
+                 <div class="tabletext">
+                    <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
+                 </div>
+              </td>
+           </tr>
+        </form>     
+       </#if>
+       </table>
       </div>
+     </div>
       <#-- end of payment box -->
     </td>
     <td width="1">&nbsp;&nbsp;</td>
