@@ -707,6 +707,7 @@ public class EmailServices {
             Address [] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
             Address [] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
             Address [] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
+            Debug.logInfo("Processing Incoming Email message from: " + addressesFrom[0].toString() + " to: " + addressesTo[0].toString(), module);
 
             // ignore the message when the spam status = yes
             String spamHeaderName = UtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N");
@@ -716,14 +717,14 @@ public class EmailServices {
                 String msgHeaderValue = message.getHeader(spamHeaderName)[0];
                 if(msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);
-                    ServiceUtil.returnSuccess();
+                    return ServiceUtil.returnSuccess(" Message Ignored: detected by external spam checker");
                 }
             }
 
             // if no 'from' addresses specified ignore the message
             if (addressesFrom == null) {
                 Debug.logInfo("Incoming Email message ignored, had not 'from' email address", module);
-                ServiceUtil.returnSuccess();
+                return ServiceUtil.returnSuccess(" Message Ignored: no 'From' address specified");
             }
             
             result = getParyInfoFromEmailAddress(addressesFrom, userLogin, dispatcher);
@@ -736,7 +737,6 @@ public class EmailServices {
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
             if ((allResults != null) && (allResults.size() > 0)) {
                 Map firstAddressTo = (Map) itr.next();
-                
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }           
@@ -744,7 +744,6 @@ public class EmailServices {
             Map commEventMap = new HashMap();
     	    commEventMap.put("communicationEventTypeId", "AUTO_EMAIL_COMM");
     	    commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
-    	    commEventMap.put("partyIdTo", partyIdTo);
     	    String subject = message.getSubject();
     	    commEventMap.put("subject", subject);
     		
@@ -797,15 +796,22 @@ public class EmailServices {
             String commNote = "";
             if (partyIdFrom != null) {
         		commEventMap.put("partyIdFrom", partyIdFrom);        		
-        		commEventMap.put("contactMechIdFrom", contactMechIdFrom);
         		commEventMap.put("contactMechIdTo", contactMechIdTo);
-        		commEventMap.put("statusId", "COM_ENTERED");
+            } else {
+                commNote += "Sent from: " +  ((InternetAddress)addressesFrom[0]).getAddress() + "; ";
+            }
+
+            if (partyIdTo != null) {
+                commEventMap.put("partyIdTo", partyIdTo);               
+                commEventMap.put("contactMechIdTo", contactMechIdTo);
+            } else {
+                commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
+            }
+
+            if (partyIdTo != null && partyIdFrom != null) {
+                commEventMap.put("statusId", "COM_ENTERED");
             } else {
                 commEventMap.put("statusId", "COM_UNKNOWN_PARTY");
-                commNote += "Sent from: " + ((InternetAddress)addressesFrom[0]).getAddress();
-            }
-    		if (partyIdTo == null) {
-                commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress();
             }
             
             if (!("".equals(commNote))) {

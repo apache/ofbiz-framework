@@ -79,7 +79,7 @@ public class EmailWorker {
 					 && (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
 				     && (i != bodyContentIndex)) )
 		    {
-				commEventMap.put("contentName", subject + "-" + i);
+				commEventMap.put("contentName", subject + "-" + i + " " + part.getFileName());
         		commEventMap.put("drMimeTypeId", thisContentType);
         		if (thisContentType.startsWith("text")) {
         			String content = (String)part.getContent();
@@ -96,6 +96,7 @@ public class EmailWorker {
     				ByteWrapper imageData = new ByteWrapper(baos.toByteArray());
     				int len = imageData.getLength();
     				if (Debug.infoOn()) Debug.logInfo("imageData length: " + len, module);
+                    commEventMap.put("drDataResourceName", part.getFileName());
     				commEventMap.put("imageData", imageData);
     				commEventMap.put("drDataResourceTypeId", "IMAGE_OBJECT");
             		commEventMap.put("_imageData_contentType", thisContentType);
