@@ -278,7 +278,9 @@ under the License.
     </service>
     <service name="createProductionRunForMktgPkg" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunForMktgPkg" auth="true">
-        <description>Creates a production run for a marketing package.</description>
+        <description>Creates a production run for a marketing package when the ordered item is out of stock (ATP quantity less than zero.)  
+                The quantity produced is either the quantity ordered or to bring total ATP quantity of the product back up to zero,
+                whichever is less.</description>
         <attribute mode="IN" name="orderId" optional="false" type="String"/>
         <attribute mode="IN" name="orderItemSeqId" optional="false" type="String"/>
         <attribute mode="IN" name="facilityId" optional="false" type="String"/>
