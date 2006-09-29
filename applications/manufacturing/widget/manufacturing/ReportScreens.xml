@@ -49,6 +49,9 @@ under the License.
         <section>
             <actions>
                 <set field="title" value="Cutting List Report"/>
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                
                 <script location="component://manufacturing/widget/manufacturing/CuttingListReport.bsh"/>
             </actions>
             <widgets>
@@ -255,6 +258,60 @@ under the License.
                 <platform-specific>
                     <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
                     <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsInfoAndOrder.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ShipmentPlanStockReport">
+        <section>
+            <actions>
+                <set field="title" value="ShipmentPlanStockReport"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentPlanStockReport.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>                    
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentPlanStockReport.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ShipmentLabel">
+        <section>
+            <actions>
+                <set field="title" value="ShipmentLabel"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentLabel.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>                    
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentLabel.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>    
+    
+    <screen name="ShipmentWorkEffortTasks">
+        <section>
+            <actions>
+                <set field="title" value="ShipmentWorkEffortTasks"/>
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentWorkEffortTasks.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific>                    
+                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentWorkEffortTasks.fo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

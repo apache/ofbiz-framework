@@ -442,7 +442,7 @@ under the License.
         <field name="totPlannedQuantity"><display/></field>
         <!-- total issued quantity -->
         <field name="totIssuedQuantity"><display/></field>
-        <field name="productionRuns" title="Production Run"><display/></field>
+        <field name="productionRuns"><display/></field>
     </form>
 
     <form name="listShipmentPlans" type="list" 

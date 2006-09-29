@@ -24,12 +24,12 @@ delegator = request.getAttribute("delegator");
 dispatcher = request.getAttribute("dispatcher");
 userLogin = request.getSession().getAttribute("userLogin");
 
-jrParameters = new HashMap();
 shipmentId = request.getParameter("shipmentId");
 shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
 
-jrParameters.put("shipmentIdPar", shipment.getString("shipmentId"));
-jrParameters.put("date", new Date());
+context.put("shipmentIdPar", shipment.getString("shipmentId"));
+context.put("date", new Date());
+Double fixedAssetTime = new Double(0);
 
 if (shipment != null) {
     shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
@@ -65,14 +65,20 @@ if (shipment != null) {
                     record.put("taskEstimatedTime", task.getDouble("estimatedMilliSeconds"));
                     record.put("taskEstimatedSetup", task.getDouble("estimatedSetupMillis"));
                     records.add(record);
+                    fixedAssetTime = fixedAssetTime + task.getDouble("estimatedMilliSeconds");
                 }
             }
         }
     }
-
-    jrDataSource = new JRMapCollectionDataSource(records);
-    request.setAttribute("jrDataSource", jrDataSource);
-    request.setAttribute("jrParameters", jrParameters);
+    context.put("fixedAssetTime", fixedAssetTime);
+    context.put("records", records);
+    
+    // check permission
+    hasPermission = false;
+    if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+        hasPermission = true;
+    } 
+    context.put("hasPermission", hasPermission);
 }
 
 return "success";

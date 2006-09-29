@@ -33,7 +33,6 @@ under the License.
     <!-- view handlers -->
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
-    <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
 
     <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
@@ -608,17 +607,14 @@ under the License.
     </request-map>
     <request-map uri="ShipmentPlanStockReport.pdf">
         <security https="true" auth="true"/>
-        <event type="bsf" path="/jobshopmgt/" invoke="ShipmentPlanStockReportPrepare.bsh"/>
         <response name="success" type="view" value="ShipmentPlanStockReport"/>
     </request-map>
     <request-map uri="ShipmentLabel.pdf">
         <security https="true" auth="true"/>
-        <event type="bsf" path="/jobshopmgt/" invoke="ShipmentLabelPrepare.bsh"/>
         <response name="success" type="view" value="ShipmentLabel"/>
     </request-map>
     <request-map uri="ShipmentWorkEffortTasks.pdf">
         <security https="true" auth="true"/>
-        <event type="bsf" path="/jobshopmgt/" invoke="ShipmentWorkEffortTasksPrepare.bsh"/>
         <response name="success" type="view" value="ShipmentWorkEffortTasks"/>
     </request-map>
     <request-map uri="MRPPRunsProductsByFeature.pdf">
@@ -714,9 +710,9 @@ under the License.
     <view-map name="WorkWithShipmentPlans" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans" type="screen"/>
     
     <!-- Report view mappings -->
-    <view-map name="ShipmentPlanStockReport" type="jasperreportspdf" page="/jobshopmgt/ShipmentPlanStockReport.xml" content-type="application/pdf" encoding="none"/>
-    <view-map name="ShipmentLabel" type="jasperreportspdf" page="/jobshopmgt/ShipmentLabel.xml" content-type="application/pdf" encoding="none"/>
-    <view-map name="ShipmentWorkEffortTasks" type="jasperreportspdf" page="/jobshopmgt/ShipmentWorkEffortTasks.xml" content-type="application/pdf" encoding="none"/>
+    <view-map name="ShipmentPlanStockReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentPlanStockReport" content-type="application/pdf" encoding="none"/>    
+    <view-map name="ShipmentLabel" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentLabel" content-type="application/pdf" encoding="none"/>
+    <view-map name="ShipmentWorkEffortTasks" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentWorkEffortTasks" content-type="application/pdf" encoding="none"/>
     <view-map name="CuttingListReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#CuttingListReport" content-type="application/pdf" encoding="none"/>
     <view-map name="PackageContentsAndOrder" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#PackageContentsAndOrder" content-type="application/pdf" encoding="none"/>
     <view-map name="PRunsProductsStacks" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#PRunsProductsStacks" content-type="application/pdf" encoding="none"/>
