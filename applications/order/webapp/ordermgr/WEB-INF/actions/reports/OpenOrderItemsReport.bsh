@@ -16,10 +16,8 @@
  */
 
 /*
- * Script to build the open order item report.
- * Uses OrderHeaderAndItem, then computes the quantities
- * to display.
- *
+ * Script to build the open order item report using
+ * the OrderItemQuantityReportGroupByItem view.
  * @author Leon Torres (leon@opensourcestrategies.com)
  */
 
@@ -28,6 +26,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
 
 productStoreId = parameters.get("productStoreId");
 orderTypeId = parameters.get("orderTypeId");
@@ -57,43 +56,18 @@ if (orderStatusId != null && orderStatusId.length() > 0) {
 }
 
 // item conditions
-conditions.add(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-conditions.add(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-conditions.add(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+conditions.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
+conditions.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+conditions.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
 
-// get the orderHeaderAndItems
+// get the results as an entity list iterator
 allConditions = new EntityConditionList( conditions, EntityOperator.AND );
-orderHeaderAndItems = delegator.findByCondition("OrderHeaderAndItems", allConditions, null, UtilMisc.toList("orderDate DESC"));
+fieldsToSelect = UtilMisc.toList("orderId","orderDate","productId","quantityOrdered","quantityIssued","quantityOpen");
+fieldsToSelect.add("shipBeforeDate");
+fieldsToSelect.add("shipAfterDate");
+fieldsToSelect.add("itemDescription");
+findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+listIt = delegator.findListIteratorByCondition("OrderItemQuantityReportGroupByItem", allConditions, null, fieldsToSelect, UtilMisc.toList("orderDate DESC"), findOptions);
+context.put("listIt", listIt);
 
-// make a Map for each orderHeaderAndItem that includes the quantities for the report
-reportData = FastList.newInstance();
-for (iter = orderHeaderAndItems.iterator(); iter.hasNext(); ) {
-    orderItem = iter.next();
 
-    // add all fields
-    data = FastMap.newInstance();
-    data.putAll( orderItem.getAllFields() );
-    
-    // compute quantity
-    quantity = orderItem.getDouble("quantity");
-    cancelQuantity = orderItem.getDouble("cancelQuantity");
-    quantityNet = 0;
-    if (quantity != null) quantityNet += quantity.doubleValue();
-    if (cancelQuantity != null) quantityNet -= cancelQuantity.doubleValue();
-    data.put("quantityNet", new Double(quantityNet));
-
-    // compute issued
-    issuances = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId")), UtilMisc.toList("quantity"));
-    double quantityIssued = 0;
-    for (subiter = issuances.iterator(); subiter.hasNext(); ) {
-        quantityIssued += subiter.next().getDouble("quantity").doubleValue();
-    }
-    data.put("quantityIssued", new Double(quantityIssued));
-
-    // compute open
-    data.put("quantityOpen", new Double(quantityNet - quantityIssued));
-
-    reportData.add(data);
-}
-
-context.put("orderItems", reportData);

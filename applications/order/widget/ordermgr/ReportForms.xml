@@ -128,14 +128,16 @@ under the License.
     </form>
 
     <!-- list open order items -->
-    <form name="OpenOrderItemsList" type="list" list-name="orderItems" 
+    <form name="OpenOrderItemsList" type="list" list-name="listIt"
+            paginate-target="OpenOrderItemsReport"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
          <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
          <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
              <hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/>
          </field>
          <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>
-         <field name="quantityNet" title="${uiLabelMap.ProductQuantity}"><display/></field>
+         <field name="itemDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
+         <field name="quantityOrdered" title="${uiLabelMap.ProductQuantity}"><display/></field>
          <field name="quantityIssued" title="${uiLabelMap.OrderQtyShipped}"><display/></field>
          <field name="quantityOpen" title="${uiLabelMap.ProductOpenQuantity}"><display/></field>
          <field name="shipAfterDate" title="${uiLabelMap.OrderShipAfterDate}"><display/></field>
