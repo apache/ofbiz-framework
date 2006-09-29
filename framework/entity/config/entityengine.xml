@@ -416,6 +416,22 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <tyrex-dataSource dataSource-name="firebird" isolation-level="ReadCommitted"/>  -->
     </datasource>
 
+    <!-- 
+     The following has been tested with SQL Server 2005 + MS SQL Server JDBC Driver 1.1
+     Tips:
+      1. Make sure your SQL Server has mixed mode authentication as per this post:
+       http://aspadvice.com/blogs/plitwin/archive/2006/09/10/Login-failed-_2E002E002E00_-not-associated-with-a-trusted-SQL-server-connection.aspx
+      2. Make sure you have copied JDBC driver jar to entity/lib/jdbc
+      3. Make sure you have installed JDBC Driver XA support as per MSSQL_JDBC_HOME/enu/xa/xa_install.sql
+      4. Make sure that you have created and authorized the ofbiz database and login
+      5. Make sure that schema-name, jdbc-username, jdbc-password and databaseName are all correct!
+     
+     Notes:
+     a. The reason for putting SelectMethod=cursor property in URL is explained here:
+      http://forum.java.sun.com/thread.jspa?forumID=48&threadID=184797
+     b. If using an old version of the driver, beware of this resource leak:
+      http://support.microsoft.com/kb/820773/
+    --> 
     <datasource name="localmssql"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="dbo"
@@ -428,8 +444,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
-                jdbc-driver="com.microsoft.jdbc.sqlserver.SQLServerDriver"
-                jdbc-uri="jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=ofbiz;SelectMethod=Cursor"
+                jdbc-driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                jdbc-uri="jdbc:sqlserver://localhost:1791;databaseName=ofbiz;SelectMethod=cursor;"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
