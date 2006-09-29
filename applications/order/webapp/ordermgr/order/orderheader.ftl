@@ -300,6 +300,13 @@ under the License.
                             <a valign="top" href="<@ofbizUrl>receivepayment?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingReceivePayment}</a>
                           </td>
                         </#if>
+                        <td>
+                           <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                           <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                              <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;
+                           </#if>
+                           </#if>
+                        </td>
                       </tr>
                     </#if>
                   <#else>
@@ -371,6 +378,13 @@ under the License.
                             </div>
                           </#if>
                         </td>
+                        <td>
+                           <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                           <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                              <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;
+                           </#if>
+                           </#if>
+                        </td>
                       </tr>
                     <#elseif paymentMethod.paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
                       <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
@@ -397,6 +411,13 @@ under the License.
                               ${uiLabelMap.CommonInformation} ${uiLabelMap.CommonNot} ${uiLabelMap.CommonAvailable}
                             </#if>
                           </div>
+                        </td>
+                        <td>
+                           <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                           <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                              <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;
+                           </#if>
+                           </#if>
                         </td>
                       </tr>
                     <#elseif paymentMethod.paymentMethodTypeId?if_exists == "GIFT_CARD">
@@ -442,6 +463,13 @@ under the License.
                               ${uiLabelMap.CommonInformation} ${uiLabelMap.CommonNot} ${uiLabelMap.CommonAvailable}
                             </#if>
                           </div>
+                        </td>
+                        <td>
+                           <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                           <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                              <a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>&nbsp;
+                           </#if>
+                           </#if>
                         </td>
                       </tr>
                     </#if>
