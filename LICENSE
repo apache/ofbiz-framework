@@ -902,6 +902,7 @@ EXHIBIT A -Mozilla Public License.
 =========================================================================
 The following libraries distrubted with Apache OFBiz are licensed under the 
 Common Public License:
+ofbiz/trunk/applications/pos/dtd/jcl.dtd
 ofbiz/trunk/applications/pos/lib/jcl.jar
 ofbiz/trunk/applications/pos/lib/jpos18-controls.jar
 ofbiz/trunk/framework/service/lib/wsdl4j.jar
