@@ -563,4 +563,14 @@ under the License.
         <description>If the order is a sales order, create purchase orders (drop shipments) for each ship group associated to a supplier</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <service name="addPaymentMethodToOrder" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="addPaymentMethodToOrder" auth="true">
+        <description>Add Payment Method to Order.From this servicewe will call the createOrderPaymentPreference service to create OrderPaymentPreference</description>
+        <attribute type="String" mode="IN" name="orderId" optional="false"/>
+        <attribute type="String" mode="IN" name="paymentMethodId" optional="false"/>
+        <attribute type="Double" mode="IN" name="maxAmount"/>
+        <attribute type="String" mode="OUT" name="orderPaymentPreferenceId"/>
+    </service>
+    
 </services>

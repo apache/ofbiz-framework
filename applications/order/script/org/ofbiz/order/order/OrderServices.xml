@@ -631,5 +631,25 @@ under the License.
         <entity-one entity-name="OrderTerm" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="addPaymentMethodToOrder" short-description="Create an PaymentMethodToOrder">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAddPaymentMethodToOrder"/>
+        </check-permission>
+        <check-errors/>
+        <set field="inputMap.paymentMethodId" from-field="parameters.paymentMethodId"/>
+        <set field="inputMap.maxAmount" from-field="parameters.maxAmount"/>
+        <set field="inputMap.orderId" from-field="parameters.orderId"/>
+        <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+            <field-map field-name="paymentMethodId" env-name="parameters.paymentMethodId"/>
+        </entity-one>
+        <set field="inputMap.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+        <!--In this method we calls createOrderPaymentPreference and returns orderPaymentPreferenceId field to authOrderPaymentPreference -->       
+        <call-service service-name="createOrderPaymentPreference" in-map-name="inputMap" include-user-login="true">
+           <result-to-field field-name="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/> 
+        </call-service>   
+        <field-to-result field-name="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/>
+    </simple-method>
+    
 </simple-methods>
 

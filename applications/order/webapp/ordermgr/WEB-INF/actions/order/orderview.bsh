@@ -25,6 +25,7 @@ import org.ofbiz.base.util.collections.*;
 import org.ofbiz.order.order.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.inventory.InventoryWorker;
+import org.ofbiz.accounting.payment.*;
 
 orderId = parameters.get("orderId");
 context.put("orderId", orderId);
@@ -348,3 +349,6 @@ if (orderHeader != null) {
     productStoreShipmentMethList = delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"));
     context.put("productStoreShipmentMethList",productStoreShipmentMethList);
 }
+
+List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, false);
+context.put("paymentMethodValueMaps", paymentMethodValueMaps);
