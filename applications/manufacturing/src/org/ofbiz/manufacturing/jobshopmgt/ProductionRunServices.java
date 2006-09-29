@@ -1938,43 +1938,69 @@ public class ProductionRunServices {
         if (orderItem == null) {
             return ServiceUtil.returnError("Error creating a production run for marketing package for order [" + orderId + " " + orderItemSeqId + "]: order item not found.");
         }
-        Map serviceContext = new HashMap();
-        serviceContext.put("productId", orderItem.getString("productId"));
-        serviceContext.put("pRQuantity", orderItem.getDouble("quantity"));
-        serviceContext.put("startDate", UtilDateTime.nowTimestamp());
-        serviceContext.put("facilityId", facilityId);
-        //serviceContext.put("workEffortName", "");
-        serviceContext.put("userLogin", userLogin);
-        Map resultService = null;
-        try {
-            resultService = dispatcher.runSync("createProductionRun", serviceContext);
-        } catch (GenericServiceException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
+        if (orderItem.get("quantity") == null) {
+            Debug.logWarning("No quantity found for orderItem [" + orderItem +"], skipping production run of this marketing package", module);
+            return ServiceUtil.returnSuccess();
         }
-        String productionRunId = (String)resultService.get("productionRunId");
-        result.put("productionRunId", productionRunId);
 
         try {
-            delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
-        } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Error creating a production run for marketing package for order [" + orderId + " " + orderItemSeqId + "]: " + e.getMessage());
-        }
-        try {
-            serviceContext.clear();
-            serviceContext.put("productionRunId", productionRunId);
-            serviceContext.put("statusId", "PRUN_COMPLETED");
-            serviceContext.put("userLogin", userLogin);
-            resultService = dispatcher.runSync("quickChangeProductionRunStatus", serviceContext);
-            serviceContext.clear();
-            serviceContext.put("workEffortId", productionRunId);
-            serviceContext.put("userLogin", userLogin);
-            resultService = dispatcher.runSync("productionRunProduce", serviceContext);
+            // first figure out how much of this product we already have in stock (ATP)
+            double existingAtp = 0.0; 
+            Map tmpResults = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", orderItem.getString("productId"), "facilityId", facilityId, "userLogin", userLogin));
+            if (tmpResults.get("availableToPromiseTotal") != null) {
+                existingAtp = ((Double) tmpResults.get("availableToPromiseTotal")).doubleValue();
+            }
+
+            if (Debug.verboseOn()) { Debug.logVerbose("Order item [" + orderItem + "] Existing ATP = [" + existingAtp + "]", module); } 
+            // we only need to produce more marketing packages if it is out of stock.  note that the ATP quantity already includes this order item
+            if (existingAtp < 0.0) {
+                // how much should we produce?  If there already is some inventory, then just produce enough to bring ATP back up to zero, which may be less than the quantity ordered.
+                // Otherwise, the ATP might be more negative due to previous orders, so just produce the quantity on this order
+                double qtyToProduce = Math.min((0 - existingAtp), orderItem.getDouble("quantity").doubleValue());
+                if (Debug.verboseOn()) { Debug.logVerbose("Order quantity = [" + orderItem.getDouble("quantity").doubleValue() + "] quantity to produce = [" + qtyToProduce + "]", module); }
+
+                Map serviceContext = new HashMap();
+                serviceContext.put("productId", orderItem.getString("productId"));
+                serviceContext.put("pRQuantity", new Double(qtyToProduce));
+                serviceContext.put("startDate", UtilDateTime.nowTimestamp());
+                serviceContext.put("facilityId", facilityId);
+                //serviceContext.put("workEffortName", "");
+                serviceContext.put("userLogin", userLogin);
+                
+                Map resultService = dispatcher.runSync("createProductionRun", serviceContext);
+            
+                String productionRunId = (String)resultService.get("productionRunId");
+                result.put("productionRunId", productionRunId);
+
+                try {
+                    delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                } catch (GenericEntityException e) {
+                    return ServiceUtil.returnError("Error creating a production run for marketing package for order [" + orderId + " " + orderItemSeqId + "]: " + e.getMessage());
+                }
+                try {
+                    serviceContext.clear();
+                    serviceContext.put("productionRunId", productionRunId);
+                    serviceContext.put("statusId", "PRUN_COMPLETED");
+                    serviceContext.put("userLogin", userLogin);
+                    resultService = dispatcher.runSync("quickChangeProductionRunStatus", serviceContext);
+                    serviceContext.clear();
+                    serviceContext.put("workEffortId", productionRunId);
+                    serviceContext.put("userLogin", userLogin);
+                    resultService = dispatcher.runSync("productionRunProduce", serviceContext);
+                } catch (GenericServiceException e) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
+                }
+
+                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
+                return result;
+
+            } else {
+                if (Debug.verboseOn()) { Debug.logVerbose("Order item [" + orderItem + "] does not need to be produced - ATP is [" + existingAtp + "]", module); }
+                return ServiceUtil.returnSuccess();
+            }
         } catch (GenericServiceException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
         }
-        
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
-        return result;
     }
 
     public static Map createProductionRunsForOrder(DispatchContext dctx, Map context) {
