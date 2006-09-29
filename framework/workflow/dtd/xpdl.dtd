@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="us-ascii"?>
+<!--
+This document is provided by the Workflow Management Coalition (www.wfmc.org).
+It is part of a public standard with no restrictions on use or distribution.
+-->
 <!ENTITY % ComplexType "RecordType 
 	| UnionType 
 	| EnumerationType 
