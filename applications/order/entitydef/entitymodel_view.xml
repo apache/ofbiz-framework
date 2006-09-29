@@ -734,10 +734,50 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </relation>
     </view-entity>
-    <view-entity entity-name="OrderItemIssuanceGroupByProduct"
+    <view-entity entity-name="OrderItemQuantityReportGroupByItem"
             package-name="org.ofbiz.order.order"
             never-cache="true"
-            title="Reports quantity issued per product across OrderItems">
+            title="Reports quantity ordered, issued and open by item for OrderItems.">
+      <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+      <member-entity entity-alias="OI" entity-name="OrderItem"/>
+      <member-entity entity-alias="II" entity-name="ItemIssuance"/>
+      <alias entity-alias="OH" name="productStoreId" group-by="false"/>
+      <alias entity-alias="OH" name="orderId" group-by="true"/>
+      <alias entity-alias="OH" name="orderTypeId" group-by="false"/>
+      <alias entity-alias="OH" name="orderStatusId" field="statusId" group-by="false"/>
+      <alias entity-alias="OH" name="orderDate" group-by="true"/>
+      <alias entity-alias="OI" name="orderItemSeqId" group-by="true"/>
+      <alias entity-alias="OI" name="orderItemStatusId" field="statusId" group-by="false"/>
+      <alias entity-alias="OI" name="productId" group-by="true"/>
+      <alias entity-alias="OI" name="itemDescription" group-by="true"/>
+      <alias entity-alias="OI" name="shipBeforeDate" group-by="true"/>
+      <alias entity-alias="OI" name="shipAfterDate" group-by="true"/>
+      <alias entity-alias="OI" name="quantityOrdered" function="sum">
+          <complex-alias operator="-">
+              <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
+          </complex-alias>
+      </alias>
+      <alias entity-alias="II" name="quantityIssued" field="quantity" function="sum"/>
+      <alias entity-alias="OI" name="quantityOpen" function="sum">
+          <complex-alias operator="-">
+              <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
+              <complex-alias-field entity-alias="II" field="quantity" default-value="0"/>
+          </complex-alias>
+      </alias>
+      <view-link entity-alias="OI" rel-entity-alias="OH">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <view-link entity-alias="OI" rel-entity-alias="II" rel-optional="true">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="OrderItemQuantityReportGroupByProduct"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Reports quantity ordered, issued and open by product for OrderItems.">
       <member-entity entity-alias="OH" entity-name="OrderHeader"/>
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
       <member-entity entity-alias="II" entity-name="ItemIssuance"/>
@@ -745,11 +785,24 @@ under the License.
       <alias entity-alias="OH" name="orderStatusId" field="statusId" group-by="false"/>
       <alias entity-alias="OI" name="orderItemStatusId" field="statusId" group-by="false"/>
       <alias entity-alias="OI" name="productId" group-by="true"/>
-      <alias entity-alias="II" name="quantity" function="sum"/>
+      <alias entity-alias="OI" name="quantityOrdered" function="sum">
+          <complex-alias operator="-">
+              <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
+          </complex-alias>
+      </alias>
+      <alias entity-alias="II" name="quantityIssued" field="quantity" function="sum"/>
+      <alias entity-alias="OI" name="quantityOpen" function="sum">
+          <complex-alias operator="-">
+              <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
+              <complex-alias-field entity-alias="II" field="quantity" default-value="0"/>
+          </complex-alias>
+      </alias>
       <view-link entity-alias="OI" rel-entity-alias="OH">
         <key-map field-name="orderId"/>
       </view-link>
-      <view-link entity-alias="OI" rel-entity-alias="II">
+      <view-link entity-alias="OI" rel-entity-alias="II" rel-optional="true">
         <key-map field-name="orderId"/>
         <key-map field-name="orderItemSeqId"/>
       </view-link>

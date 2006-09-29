@@ -95,8 +95,7 @@ public class InventoryWorker {
 
     /**
      * Gets the quanitty of each product in the order that is outstanding across all orders of the given input type.
-     * First it gets the ordered quantities outstanding, then subtracts the issued quantities outstanding.
-     * This method relies on the sum view entities OrderReportGroupByProduct and OrderItemIssuanceGroupByProduct.
+     * Uses the OrderItemQuantityReportGroupByProduct view entity.
      *
      * @param   productIds  Collection of disticnt productIds in an order. Use OrderReadHelper.getOrderProductIds()
      * @param   orderTypeId Either "SALES_ORDER" or "PURCHASE_ORDER"
@@ -104,9 +103,7 @@ public class InventoryWorker {
      * @return  Map of productIds to quantities outstanding.
      */
     public static Map getOutstandingProductQuantities(Collection productIds, String orderTypeId, GenericDelegator delegator) {
-
-        // both queries use the same condition
-        List fieldsToSelect = UtilMisc.toList("productId", "quantity");     
+        List fieldsToSelect = UtilMisc.toList("productId", "quantityOpen");
         List condList = UtilMisc.toList(
                 new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId),
                 new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
@@ -123,31 +120,10 @@ public class InventoryWorker {
 
         Map results = FastMap.newInstance();
         try {
-            // find the ordered products outstading and build a map of productId to quantity
-            List orderedProducts = delegator.findByCondition("OrderReportGroupByProduct", conditions, fieldsToSelect, null);
-            Map orderedProductsMap = FastMap.newInstance();
+            List orderedProducts = delegator.findByCondition("OrderItemQuantityReportGroupByProduct", conditions, fieldsToSelect, null);
             for (Iterator iter = orderedProducts.iterator(); iter.hasNext(); ) {
                 GenericValue value = (GenericValue) iter.next();
-                orderedProductsMap.put(value.getString("productId"), value.getDouble("quantity"));
-            }
-
-            // find the issued quantities outstanding and build a map of productId to quantity
-            List issuedProducts = delegator.findByCondition("OrderItemIssuanceGroupByProduct", conditions, fieldsToSelect, null);
-            Map issuedProductsMap = FastMap.newInstance();
-            for (Iterator iter = issuedProducts.iterator(); iter.hasNext(); ) {
-                GenericValue value = (GenericValue) iter.next();
-                issuedProductsMap.put(value.getString("productId"), value.getDouble("quantity"));
-            }
-
-            // now go through the ordered map and subtract corresponding issued quantities
-            for (Iterator iter = orderedProductsMap.keySet().iterator(); iter.hasNext(); ) {
-                String productId = (String) iter.next();
-                Double quantityOrdered = (Double) orderedProductsMap.get(productId);
-                Double quantityIssued = (Double) issuedProductsMap.get(productId);
-                double quantity = 0;
-                if (quantityOrdered != null) quantity += quantityOrdered.doubleValue();
-                if (quantityIssued != null) quantity -= quantityIssued.doubleValue();
-                results.put(productId, new Double(quantity));
+                results.put(value.getString("productId"), value.getDouble("quantityOpen"));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

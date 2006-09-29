@@ -185,6 +185,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderReportOpenOrderItems"/>
                 <set field="headerItem" value="reports"/>
+                <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="20" type="Integer"/>
+                <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/OpenOrderItemsReport.bsh"/>
             </actions>
             <widgets>
