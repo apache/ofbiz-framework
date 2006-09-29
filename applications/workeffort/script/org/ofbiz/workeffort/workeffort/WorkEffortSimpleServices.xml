@@ -519,7 +519,12 @@ under the License.
         <sequenced-id-to-env sequence-name="NoteData" env-name="newEntity.noteId"/>
         <field-to-result field-name="newEntity.noteId" result-name="noteId"/>
         <set from-field="parameters.noteInfo" field="newEntity.noteInfo"/>
-        <set from-field="parameters.noteParty" field="newEntity.noteParty"/>
+        <if-not-empty field-name="parameters.noteParty">
+           <set from-field="parameters.noteParty" field="newEntity.noteParty"/>
+        <else>
+            <set field="newEntity.noteParty" from-field="parameters.userLogin.userLoginId"></set>
+        </else>    
+        </if-not-empty>
         <set from-field="parameters.noteName" field="newEntity.noteName"/>
         <now-timestamp-to-env env-name="newEntity.noteDateTime"/>
         <create-value value-name="newEntity"/>

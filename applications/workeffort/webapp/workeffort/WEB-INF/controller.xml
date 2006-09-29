@@ -432,6 +432,19 @@ under the License.
         <response name="error" type="view" value="EditTimesheetEntries"/>
     </request-map>
     
+    <!-- WorkEffort Note Requests -->
+    <request-map uri="EditWorkEffortNotes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWorkEffortNotes"/>
+    </request-map>
+    
+    <request-map uri="createWorkEffortNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortNote"/>
+        <response name="success" type="view" value="EditWorkEffortNotes"/>
+        <response name="error" type="view" value="EditWorkEffortNotes"/>
+    </request-map>
+    
     <!-- Lookup request mappings -->
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
     <request-map uri="LookupTimesheet"><security https="true" auth="true"/><response name="success" type="view" value="LookupTimesheet"/></request-map>
@@ -502,6 +515,8 @@ under the License.
     <view-map name="EditTimesheet" type="screen" page="component://workeffort/widget/TimesheetScreens.xml#EditTimesheet"/>
     <view-map name="EditTimesheetRoles" type="screen" page="component://workeffort/widget/TimesheetScreens.xml#EditTimesheetRoles"/>
     <view-map name="EditTimesheetEntries" type="screen" page="component://workeffort/widget/TimesheetScreens.xml#EditTimesheetEntries"/>
+    
+    <view-map name="EditWorkEffortNotes" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortNotes"/>
     
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupTimesheet" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupTimesheet"/>
