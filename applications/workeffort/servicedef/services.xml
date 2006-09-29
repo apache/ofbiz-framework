@@ -106,7 +106,7 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createWorkEffortNote" engine="simple"
-            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortNote">
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortNote" auth="true">
         <description>Create a WorkEffort Note</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="false"/>

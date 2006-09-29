@@ -483,4 +483,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="EditWorkEffortNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortNotes"/>
+                <set field="tabButtonItem" value="WorkEffortNotes"/>
+                <set field="labelTitleProperty" value="PageTitleListWorkEffortNotes"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortNotes}</label></container>
+                        <include-form name="ListWorkEffortNotes" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortNotes}</label></container>
+                        <include-form name="AddWorkEffortNote" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

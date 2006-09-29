@@ -740,4 +740,33 @@ under the License.
         <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
         <field name="submitButton" title="${uiLabelMap.PageTitleAddWorkEffortTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
+    <!-- WorkEffort Note -->
+    <form name="ListWorkEffortNotes" type="list" list-name="workEffortNotes"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="WorkEffortNoteAndData">
+                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <order-by field-name="noteId"/>
+            </entity-condition>
+        </actions>
+        <field name="noteId" widget-style="tabletext"><display/></field>
+        <field name="workEffortId" entity-name="WorkEffort" widget-style="buttontext">
+           <hyperlink target="EditWorkEffort?workEffortId=${workEffortId}" also-hidden="false" description="${workEffortId}"/> 
+        </field>
+        <field name="noteInfo" title="${uiLabelMap.CommonNote}" widget-style="tabletext"><display/></field>
+        <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
+    </form>
+    
+    <form name="AddWorkEffortNote" type="single" target="createWorkEffortNote" title=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createWorkEffortNote"/>
+        <field name="noteId"><ignored/><!-- don't pass, will be sequenced --></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="noteInfo" title="${uiLabelMap.OrderNote}"><textarea cols="70" rows="5" /></field>
+        <field name="noteParty"><hidden/></field>
+        <field name="noteName"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
 </forms>

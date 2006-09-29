@@ -77,5 +77,8 @@ under the License.
         <menu-item name="WorkEffortTimeEntries" title="${uiLabelMap.TimesheetTimeEntries}">
             <link target="EditWorkEffortTimeEntries?workEffortId=${workEffortId}"/>
         </menu-item>
+        <menu-item name="WorkEffortNotes" title="${uiLabelMap.WorkEffortNotes}">
+            <link target="EditWorkEffortNotes?workEffortId=${workEffortId}"/>
+        </menu-item>
     </menu>
 </menus>
