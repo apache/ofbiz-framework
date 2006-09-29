@@ -25,13 +25,12 @@ delegator = request.getAttribute("delegator");
 dispatcher = request.getAttribute("dispatcher");
 userLogin = request.getSession().getAttribute("userLogin");
 
-jrParameters = new HashMap();
 shipmentId = request.getParameter("shipmentId");
 shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
 
-jrParameters.put("shipmentIdPar", shipment.getString("shipmentId"));
+context.put("shipmentIdPar", shipment.getString("shipmentId"));
 
-if (shipment != null) {
+if (shipment != null) {    
     shipmentPackages = delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId));
     shipmentPackagesIt = shipmentPackages.iterator();
     records = new ArrayList();
@@ -47,9 +46,13 @@ if (shipment != null) {
             shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem");
             orderShipments = shipmentItem.getRelated("OrderShipment");
             orderShipment = EntityUtil.getFirst(orderShipments);
-
+            
             String orderId = null;
-            if (orderShipment != null) orderId = orderShipment.getString("orderId");
+            String orderItemSeqId = null;
+            if (orderShipment != null) {            
+                orderId = orderShipment.getString("orderId");
+                orderItemSeqId = orderShipment.getString("orderItemSeqId");
+            }
 
             record = new HashMap();
             if (shipmentPackageComponent.get("subProductId") != null) {
@@ -61,6 +64,7 @@ if (shipment != null) {
             }
             record.put("shipmentPackageSeqId", shipmentPackageComponent.getString("shipmentPackageSeqId"));
             record.put("orderId", orderId);
+            record.put("orderItemSeqId", orderItemSeqId);            
             product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", (String)record.get("productId")));
             record.put("productName", product.getString("internalName"));
             record.put("shipDate", shipment.getString("estimatedShipDate"));
@@ -83,9 +87,14 @@ if (shipment != null) {
             records.add(record);
         }
     }
-    jrDataSource = new JRMapCollectionDataSource(records);
-    request.setAttribute("jrDataSource", jrDataSource);
-    request.setAttribute("jrParameters", jrParameters);
+    context.put("records", records);
+    
+    // check permission
+    hasPermission = false;
+    if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+        hasPermission = true;
+    } 
+    context.put("hasPermission", hasPermission);    
 }
 
 return "success";

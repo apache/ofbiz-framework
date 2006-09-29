@@ -20,17 +20,17 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.content.report.*;
 
 delegator = request.getAttribute("delegator");
+security = request.getAttribute("security");
 dispatcher = request.getAttribute("dispatcher");
 userLogin = request.getSession().getAttribute("userLogin");
 
-jrParameters = new HashMap();
 inventoryStock = new HashMap();
 shipmentId = request.getParameter("shipmentId");
 shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
 
-jrParameters.put("shipmentIdPar", shipment.getString("shipmentId"));
-jrParameters.put("estimatedReadyDatePar", shipment.getString("estimatedReadyDate"));
-jrParameters.put("estimatedShipDatePar", shipment.getString("estimatedShipDate"));
+context.put("shipmentIdPar", shipment.getString("shipmentId"));
+context.put("estimatedReadyDatePar", shipment.getString("estimatedReadyDate"));
+context.put("estimatedShipDatePar", shipment.getString("estimatedShipDate"));
 
 if (shipment != null) {
     shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
@@ -40,7 +40,6 @@ if (shipment != null) {
     while(shipmentPlansIt.hasNext()) {
         shipmentPlan = shipmentPlansIt.next();
         orderLine = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId")));
-        //recordGroup = new HashMap(shipmentPlan);
         recordGroup = new HashMap();
         recordGroup.put("ORDER_ID", shipmentPlan.getString("orderId"));
         recordGroup.put("ORDER_ITEM_SEQ_ID", shipmentPlan.getString("orderItemSeqId"));
@@ -51,12 +50,14 @@ if (shipment != null) {
         recordGroup.put("QUANTITY", shipmentPlan.getDouble("quantity"));
         product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", orderLine.getString("productId")));
         recordGroup.put("PRODUCT_NAME", product.getString("internalName"));
-        Map context = UtilMisc.toMap("productId", orderLine.getString("productId"),
+     
+        Map inputPar = UtilMisc.toMap("productId", orderLine.getString("productId"),
                                      "quantity", shipmentPlan.getDouble("quantity"),
                                      "fromDate", "" + new Date(),
                                      "userLogin", userLogin);
+                            
         Map result = null;
-        result = dispatcher.runSync("getNotAssembledComponents",context);
+        result = dispatcher.runSync("getNotAssembledComponents",inputPar);
         if (result != null)
             components = (List)result.get("notAssembledComponents");
         componentsIt = components.iterator();
@@ -81,18 +82,23 @@ if (shipment != null) {
                 inventoryStock.put(oneComponent.getProduct().getString("productId"), new Double(qty));
             }
             record.put("componentOnHand", new Float(qty));
-            // Now we get the product's qty already reserved by production runs
-            serviceInput = UtilMisc.toMap("productId", oneComponent.getProduct().getString("productId"));
+            // Now we get the products qty already reserved by production runs
+            serviceInput = UtilMisc.toMap("productId", oneComponent.getProduct().getString("productId"),
+                                          "userLogin", userLogin);
             serviceOutput = dispatcher.runSync("getProductionRunTotResQty", serviceInput);
             resQty = serviceOutput.get("reservedQuantity");
-            record.put("reservedQuantity", new Double(resQty));
-
+            record.put("reservedQuantity", resQty);
             records.add(record);
         }
     }
-    jrDataSource = new JRMapCollectionDataSource(records);
-    request.setAttribute("jrDataSource", jrDataSource);
-    request.setAttribute("jrParameters", jrParameters);
+    context.put("records", records);
+
+    // check permission
+    hasPermission = false;
+    if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+        hasPermission = true;
+    } 
+    context.put("hasPermission", hasPermission);
 }
 
 return "success";
