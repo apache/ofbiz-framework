@@ -1,6 +1,19 @@
+@rem ####################################################################
+@rem Copyright 2001-2006 The Apache Software Foundation
+@rem
+@rem Licensed under the Apache License, Version 2.0 (the "License"); you may not
+@rem use this file except in compliance with the License. You may obtain a copy of
+@rem the License at
+@rem
+@rem http://www.apache.org/licenses/LICENSE-2.0
+@rem
+@rem Unless required by applicable law or agreed to in writing, software
+@rem distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+@rem WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+@rem License for the specific language governing permissions and limitations
+@rem under the License.
 @rem *************************************************************************
-@rem This script is used to start WebLogic Server for the purpose of running 
-@rem the code examples. 
+@rem This script is used to start WebLogic Server.
 @rem
 @rem To create your own start script for your domain, you can initialize the 
 @rem environment by calling %WL_HOME%/common/bin/commEnv.cmd. 
