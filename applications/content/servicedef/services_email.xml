@@ -103,10 +103,10 @@ under the License.
     <service name="storeEmailAsCommunication" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="storeEmailAsCommunication" auth="true">
         <description>Store email as a communication event with the status COM_COMPLETE and current timestamp as datetimeStarted and datetimeEnded.  
-                     The communication event will be from the party of the userLogin to the party of the partyId parameter.  It is meant to run a SECA after
-                     a sendMail to record outgoing emails.</description>
+                     The communication event will be from the party of the userLogin to the party of the partyId parameter.
+                     It is meant to run a SECA after a sendMail to record outgoing emails.</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="subject" type="String" mode="IN" optional="false"/>
         <attribute name="body" type="String" mode="IN" optional="false"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
@@ -117,9 +117,10 @@ under the License.
             Process incoming email. Try to determine partyIdFrom from the first SendFrom email address. datetimeStarted and datetimeEnded are the
             sent and received dates respectively, partyIdTo is from the first SendTo email address. If the parties are not found,
             the email addresses are stored in CommunicationEvent.note
+            If however it is detected as spam (external) or when the 'from' email address is missing, the service will not return a communicationEventId  
         </description>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
-        <attribute name="communicationEventId" type="String" mode="OUT" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="storeForwardedEmail" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="storeForwardedEmail" auth="true">
