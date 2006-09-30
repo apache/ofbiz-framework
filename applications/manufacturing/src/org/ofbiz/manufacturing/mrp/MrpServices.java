@@ -45,11 +45,6 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
-// TODO: 
-//  Verificare il metodo: ProductHelper.isBuild(product)
-//  Verificare il metodo ProposedOrder.calculateQuantityToSupply()
-//  il metodo findProductMrpQoh() deve richiamare internamente un servizio
-//  
 /**
  * Services for running MRP
  *

@@ -25,7 +25,6 @@ import org.ofbiz.entity.*;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.manufacturing.mrp.MrpServices;
-import org.ofbiz.manufacturing.techdata.ProductHelper;
 import org.ofbiz.base.util.Debug;
 
 GenericDelegator delegator = request.getAttribute("delegator");
@@ -119,23 +118,3 @@ context.put("viewSize", viewSize);
 
 facilities = delegator.findAll("Facility", UtilMisc.toList("facilityId"));
 context.put("facilities", facilities);
-
-if (inventoryList != null && !inventoryList.isEmpty() ){
-    List numberProductList = ProductHelper.getVariationProduct(inventoryList.subList(0, highIndex), dispatcher);
-    context.put("numberProductList", numberProductList);
-
-
-    //Map productQoh
-    List qohProduct = new LinkedList();
-    String productTmp = new String("");
-    GenericValue inventoryTmp;
-    for( Iterator iter = inventoryList.iterator(); iter.hasNext(); ){
-    inventoryTmp = iter.next();
-    productId = inventoryTmp.getString("productId");
-    if( ! productId.equals( productTmp ) ){
-        qohProduct.add( MrpServices.findProductMrpQoh(inventoryTmp.getRelatedOneCache("Product"), dispatcher) );
-        productTmp = productId;
-    }
-    }
-    context.put("qohProduct", qohProduct );
-}
