@@ -1164,4 +1164,48 @@ under the License.
         
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListPurchaseAgreements" type="list" list-name="purchaseAgreements"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        <field name="agreementId" widget-style="buttontext">
+            <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
+                description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.ProductSupplier}"><display/></field>
+        <field name="agreementText"><display/></field>
+        <field name="description"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="currencyUomId"><display/></field>
+        <field name="price"><display/></field>
+    </form>
+    <form name="ListSalesAgreements" type="list" list-name="salesAgreements"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        <field name="agreementId" widget-style="buttontext">
+            <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
+                description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
+        </field>
+        <field name="partyIdFrom" title="${uiLabelMap.PartyCustomer}"><display/></field>
+        <field name="agreementText"><display/></field>
+        <field name="description"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="currencyUomId"><display/></field>
+        <field name="price"><display/></field>
+    </form>
+    <form name="ListProductAgreements" type="list" list-name="productAgreements"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        <field name="agreementId" widget-style="buttontext">
+            <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
+                description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
+        </field>
+        <field name="partyIdTo"><display/></field>
+        <field name="agreementText"><display/></field>
+        <field name="description"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="currencyUomId"><display/></field>
+        <field name="price"><display/></field>
+    </form>
+
 </forms>

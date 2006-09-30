@@ -758,6 +758,12 @@ under the License.
         <response name="success" type="view" value="ViewProductManufacturing"/>
     </request-map>
 
+    <!-- ================ Product Agreements Requests ================= -->
+    <request-map uri="ViewProductAgreements">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewProductAgreements"/>
+    </request-map>
+
     <!-- ================ Product Costs Requests ================= -->
     <request-map uri="EditProductCosts"><security https="true" auth="true"/><response name="success" type="view" value="EditProductCosts"/></request-map>
     <request-map uri="createCostComponent">
@@ -2200,6 +2206,7 @@ under the License.
     <view-map name="EditProductKeyword" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductKeyword"/>
     <view-map name="EditProductAssoc" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductAssoc"/>
     <view-map name="ViewProductManufacturing" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ViewProductManufacturing"/>
+    <view-map name="ViewProductAgreements" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ViewProductAgreements"/>
     <view-map name="EditProductCosts" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductCosts"/>
 
     <view-map name="EditProductAttributes" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductAttributes"/>
