@@ -73,6 +73,45 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ViewProductAgreements">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewProductAgreements"/>
+                <set field="tabButtonItem" value="ViewProductAgreements"/>
+                <set field="labelTitleProperty" value="ProductAgreements"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <entity-and entity-name="AgreementItemAndProductAppl" list-name="purchaseAgreements">
+                    <field-map field-name="productId"/>
+                    <field-map field-name="agreementTypeId" value="PURCHASE_AGREEMENT"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+                <entity-and entity-name="AgreementItemAndProductAppl" list-name="salesAgreements">
+                    <field-map field-name="productId"/>
+                    <field-map field-name="agreementTypeId" value="SALES_AGREEMENT"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+                <entity-and entity-name="AgreementItemAndProductAppl" list-name="productAgreements">
+                    <field-map field-name="productId"/>
+                    <field-map field-name="agreementTypeId" value="PRODUCT_AGREEMENT"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head2">${uiLabelMap.ProductPurchases}</label></container>
+                        <include-form name="ListPurchaseAgreements" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductSales}</label></container>
+                        <include-form name="ListSalesAgreements" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <container><label style="head2">${uiLabelMap.ProductCommissions}</label></container>
+                        <include-form name="ListProductAgreements" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditProductCategories">
         <section>
             <actions>
@@ -225,7 +264,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <!--<include-form name="UpdateProductPrice" location="component://product/webapp/catalog/product/ProductForms.xml"/>-->
-                        <container><label style="head2">${uiLabelMap.ProductRoutings}</label></container>    
+                        <container><label style="head2">${uiLabelMap.ProductRoutings}</label></container>
                         <include-form name="ListProductRoutings" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                         <container><label style="head2">${uiLabelMap.ProductLowLevelCode}: ${product.billOfMaterialLevel}</label></container>
                         <container><label style="head2">${uiLabelMap.ProductComponents}</label></container>    
