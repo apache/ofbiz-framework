@@ -536,8 +536,10 @@ under the License.
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <alt-target use-when="supplierProduct==null" target="createSupplierProduct"/>
         <auto-fields-service service-name="updateSupplierProduct" map-name=""/>
+        <!-- productId, partyId, and availableFromDate are primary keys of SupplierProduct and should not be updatable, so we use use-when to change the behavior of the form
+        if there is a SupplierProduct value available.  productId is always hidden (assuming it exists) so this is not an issue -->
         <field name="productId"><hidden value="${productId}"/></field>
-        <field name="partyId" title="${uiLabelMap.ProductSupplier}">
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}" use-when="supplierProduct==null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${groupName} ${firstName} ${lastName} [${partyId}]">
                     <entity-constraint name="roleTypeId" value="SUPPLIER"/>
@@ -559,6 +561,15 @@ under the License.
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}" use-when="supplierProduct!=null" widget-style="tabletext">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
+        </field>
+        <field name="availableFromDate" use-when="supplierProduct==null">
+            <date-time/>
+        </field>
+        <field name="availableFromDate" use-when="supplierProduct!=null" widget-style="tabletext">
+            <display/>
         </field>
         <field name="quantityUomId" title="${uiLabelMap.ProductQuantityUomId}">
             <drop-down allow-empty="true">
