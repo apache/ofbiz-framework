@@ -51,6 +51,8 @@ under the License.
       <field name="inventoryItemId" type="id"></field>
       <field name="shipmentId" type="id"></field>
       <field name="shipmentItemSeqId" type="id"></field>
+      <field name="fixedAssetId" type="id"></field>
+      <field name="maintHistSeqId" type="id"></field>
       <field name="issuedDateTime" type="date-time"></field>
       <field name="issuedByUserLoginId" type="id-vlong"></field>
       <field name="quantity" type="floating-point"></field>
@@ -70,6 +72,10 @@ under the License.
       <relation type="one" fk-name="ITEM_ISS_SHITM" rel-entity-name="ShipmentItem">
         <key-map field-name="shipmentId"/>
         <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="ITEM_ISS_FAMNT" rel-entity-name="FixedAssetMaint">
+        <key-map field-name="fixedAssetId"/>
+        <key-map field-name="maintHistSeqId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>

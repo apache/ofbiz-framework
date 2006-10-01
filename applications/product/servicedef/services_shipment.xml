@@ -353,7 +353,15 @@ under the License.
         <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
-
+    <service name="issueInventoryItemToFixedAssetMaint" engine="simple"
+        location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="issueInventoryItemToFixedAssetMaint" auth="true">
+        <description>Issue an InventoryItem to a FixedAssetMaint - for conversion to use as supples/parts</description>
+        <auto-attributes entity-name="InventoryItem" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="FixedAssetMaint" include="pk" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+    </service>
+    
     <!-- Pack Order Services -->
     <service name="packSingleItem" engine="java"
             location="org.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">

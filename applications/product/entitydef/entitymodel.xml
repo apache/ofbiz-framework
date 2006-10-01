@@ -1126,6 +1126,8 @@ under the License.
       <field name="shipmentId" type="id"></field>
       <field name="shipmentItemSeqId" type="id"></field>
       <field name="workEffortId" type="id"></field>
+      <field name="fixedAssetId" type="id"></field>
+      <field name="maintHistSeqId" type="id"></field>
       <field name="itemIssuanceId" type="id"></field>
       <field name="receiptId" type="id"></field>
       <field name="physicalInventoryId" type="id"></field>
@@ -1142,6 +1144,10 @@ under the License.
         <key-map field-name="orderItemSeqId"/>
         <key-map field-name="shipGroupSeqId"/>
         <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one" fk-name="INV_ITDTL_FAMNT" rel-entity-name="FixedAssetMaint">
+        <key-map field-name="fixedAssetId"/>
+        <key-map field-name="maintHistSeqId"/>
       </relation>
       <relation type="one" fk-name="INV_ITDTL_ITMIS" rel-entity-name="ItemIssuance">
         <key-map field-name="itemIssuanceId"/>
