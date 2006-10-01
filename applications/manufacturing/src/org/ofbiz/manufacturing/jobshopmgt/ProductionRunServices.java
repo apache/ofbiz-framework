@@ -284,7 +284,8 @@ public class ProductionRunServices {
         boolean first = true;
         while (rt.hasNext()) {
             GenericValue routingTaskAssoc = (GenericValue) rt.next();
-            if (TechDataServices.routingTaskAssocIsValid(routingTaskAssoc, startDate)) {
+            
+            if (EntityUtil.isValueActive(routingTaskAssoc, startDate)) {
                 GenericValue routingTask = null;
                 try {
                     routingTask = routingTaskAssoc.getRelatedOne("ToWorkEffort");

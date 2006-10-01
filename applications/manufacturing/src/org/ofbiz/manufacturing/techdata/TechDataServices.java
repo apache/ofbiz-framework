@@ -148,48 +148,7 @@ public class TechDataServices {
         result.put("sequenceNumNotOk", sequenceNumNotOk);
         return result;
     }
-    /**
-     * Used to check if the routingtaskAssoc is valid for the testDate
-     *
-     * @param routingTaskAssoc     the routingTaskAssoc to test
-     * @param testDate                       a date
-     * @return true                               if the routingTAskAssoc is valid
-     */
-    public static boolean routingTaskAssocIsValid(GenericValue routingTaskAssoc, Timestamp  testDate) {
-        if (routingTaskAssoc.getTimestamp("fromDate") != null)
-            if (routingTaskAssoc.getTimestamp("thruDate") != null)
-                if (testDate.after(routingTaskAssoc.getTimestamp("fromDate")) && testDate.before(routingTaskAssoc.getTimestamp("thruDate"))) return true;
-                else return false;
-            else
-                if (testDate.after(routingTaskAssoc.getTimestamp("fromDate"))) return true;
-                else return false;
-        else
-            if (routingTaskAssoc.getTimestamp("thruDate") != null)
-                if (testDate.before(routingTaskAssoc.getTimestamp("thruDate"))) return true;
-                else return false;
-            else return true;
-    }
-    /**
-     * Used to check if the productBom is valid for the testDate, currently only tested on date but in futur, maybe there will be the option {valid until stock=0>}
-     *
-     * @param productBom    the productBom to test
-     * @param testDate          a date
-     * @return true if the productBom is valid
-     */
-    public static boolean productBomIsValid(GenericValue productBom,  Timestamp  testDate) {
-        if (productBom.getTimestamp("fromDate") != null)
-            if (productBom.getTimestamp("thruDate") != null)
-                if (testDate.after(productBom.getTimestamp("fromDate")) && testDate.before(productBom.getTimestamp("thruDate"))) return true;
-                else return false;
-            else
-                if (testDate.after(productBom.getTimestamp("fromDate"))) return true;
-                else return false;
-        else
-            if (productBom.getTimestamp("thruDate") != null)
-                if (testDate.before(productBom.getTimestamp("thruDate"))) return true;
-                else return false;
-            else return true;
-    }
+
     /**
      * Used to get the techDataCalendar for a routingTask, if there is a entity exception
      * or routingTask associated with no MachineGroup the DEFAULT TechDataCalendar is return.
