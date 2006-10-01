@@ -857,31 +857,29 @@ public class ModelViewEntity extends ModelEntity {
     public static class ComplexAliasField implements ComplexAliasMember {
         protected String entityAlias = "";
         protected String field = "";
+        protected String defaultValue = null;
         protected String function = null;
         
-        public ComplexAliasField(String entityAlias , String field) {
-            this.entityAlias = entityAlias;
-            this.field = field;
-        }
-
-        public ComplexAliasField(String entityAlias , String field, String function) {
-            this.entityAlias = entityAlias;
-            this.field = field;
-            this.function = function;
-        }
-
         public ComplexAliasField(Element complexAliasFieldElement) {
             this.entityAlias = complexAliasFieldElement.getAttribute("entity-alias");
             this.field = complexAliasFieldElement.getAttribute("field");
+            this.defaultValue = complexAliasFieldElement.getAttribute("default-value");
             this.function = complexAliasFieldElement.getAttribute("function");
         }
 
+        /**
+         * Make the alias as follows: function(coalesce(entityAlias.field, defaultValue))
+         */
         public void makeAliasColName(StringBuffer colNameBuffer, StringBuffer fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             ModelEntity modelEntity = modelViewEntity.getAliasedEntity(entityAlias, modelReader);
             ModelField modelField = modelViewEntity.getAliasedField(modelEntity, field, modelReader);
             
             String colName = entityAlias + "." + modelField.getColName();
             
+            if (UtilValidate.isNotEmpty(defaultValue)) {
+                colName = "COALESCE(" + colName + "," + defaultValue + ")";
+            }
+
             if (UtilValidate.isNotEmpty(function)) {
                 String prefix = (String) functionPrefixMap.get(function);
                 if (prefix == null) {
