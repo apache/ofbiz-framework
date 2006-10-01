@@ -312,8 +312,7 @@ public class TechDataServices {
         if (moveDay != 0) return 0;
         Time startTime = (Time) position.get("startTime");
         Double capacity = (Double) position.get("capacity");
-        // TODO after test (01:00:00).getTime() = 0 and not 3600000 so currently we add this value to be correct but it's needed to find why (maybe GMT pb)
-        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + 3600000);
+        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateFrom.before(startAvailablePeriod) ) return 0;
         Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime()+capacity.longValue());
         if (dateFrom.after(endAvailablePeriod)) return 0;
@@ -345,8 +344,7 @@ public class TechDataServices {
         Time startTime = (Time) position.get("startTime");
         int moveDay = ((Integer) position.get("moveDay")).intValue();
         dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom,moveDay);
-        // TODO after test (01:00:00).getTime() = 0 and not 3600000 so currently we add this value to be correct but it's needed to find why (maybe GMT pb)
-        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + 3600000);
+        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.before(startAvailablePeriod) ) {
             dateTo = startAvailablePeriod;
         }
@@ -357,7 +355,7 @@ public class TechDataServices {
             startTime = (Time) position.get("startTime");
             moveDay = ((Integer) position.get("moveDay")).intValue();
             if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
-            dateTo.setTime(dateTo.getTime() + startTime.getTime() + 3600000);
+            dateTo.setTime(dateTo.getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
         result.put("dateTo",dateTo);
         result.put("nextCapacity",position.get("capacity"));
@@ -469,8 +467,7 @@ public class TechDataServices {
         if (moveDay != 0) return 0;
         Time startTime = (Time) position.get("startTime");
         Double capacity = (Double) position.get("capacity");
-        //TODO after test (01:00:00).getTime() = 0 and not 3600000 so currently we add this value to be correct but it's needed to find why (maybe GMT pb)
-        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + 3600000);
+        Timestamp startAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateFrom).getTime() + startTime.getTime() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateFrom.before(startAvailablePeriod) ) return 0;
         Timestamp endAvailablePeriod = new Timestamp(startAvailablePeriod.getTime()+capacity.longValue());
         if (dateFrom.after(endAvailablePeriod)) return 0;
@@ -502,8 +499,7 @@ public class TechDataServices {
         int moveDay = ((Integer) position.get("moveDay")).intValue();
         Double capacity = (Double) position.get("capacity");
         dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayEnd(dateFrom,moveDay);
-        //TODO after test (01:00:00).getTime() = 0 and not 3600000 so currently we add this value to be correct but it's needed to find why (maybe GMT pb)
-        Timestamp endAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + 3600000 + capacity.longValue());
+        Timestamp endAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.after(endAvailablePeriod) ) {
             dateTo = endAvailablePeriod;
         }
@@ -515,7 +511,7 @@ public class TechDataServices {
             moveDay = ((Integer) position.get("moveDay")).intValue();
             capacity = (Double) position.get("capacity");
             if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo,moveDay);
-            dateTo.setTime(dateTo.getTime() + startTime.getTime() + 3600000 + capacity.longValue());
+            dateTo.setTime(dateTo.getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         }
         result.put("dateTo",dateTo);
         result.put("previousCapacity",position.get("capacity"));
