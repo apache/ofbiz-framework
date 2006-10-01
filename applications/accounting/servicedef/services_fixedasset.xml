@@ -145,19 +145,19 @@ under the License.
     <service name="createFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetStdCost" auth="true">
         <description>Create a FixedAssetStdCost</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetStdCost" auth="true">
         <description>Update a FixedAssetStdCost</description>
-        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="cancelFixedAssetStdCost" default-entity-name="FixedAssetStdCost" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="cancelFixedAssetStdCost" auth="true">
         <description>Cancel a FixedAssetStdCost</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
