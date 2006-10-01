@@ -36,31 +36,14 @@ under the License.
     </target>
 
     <target name="clean-all">
-        <antcall target="clean-data"/>
-        <antcall target="clean-logs"/>
         <antcall target="clean-xtra"/>
-        <antcall target="clean-catalina"/>
         <antcall target="clean"/>
-    </target>
-
-    <target name="clean-data">
-        <delete verbose="on" dir="data"/>
-    </target>
-
-    <target name="clean-logs">
-        <delete verbose="on">
-            <fileset dir="logs" includes="*"/>
-        </delete>
     </target>
 
     <target name="clean-xtra" depends="">
         <delete verbose="on">
             <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
         </delete>
-    </target>
-
-    <target name="clean-catalina" depends="">
-        <delete dir="framework/catalina/work"/>
     </target>
 
     <target name="tests">
