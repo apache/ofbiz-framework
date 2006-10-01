@@ -146,7 +146,7 @@ under the License.
 
         <!-- make sure specified quantity is not empty -->
         <if-empty field-name="parameters.quantity">
-            <string-to-list string="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue is empty for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]" list-name="error_list"/>
+            <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue is empty for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-empty>
         <if-empty field-name="orderItemShipGrpInvRes.quantity">
             <log level="info" message="Order item reservation amount is null! PK lookup: ${OrderItemShipGrpInvResLookupPk}"/>
@@ -154,11 +154,11 @@ under the License.
 
         <!-- make sure specified quantity is not less than or equal to 0 -->
         <if-compare field-name="parameters.quantity" operator="less-equals" value="0" type="Double">
-            <string-to-list string="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]" list-name="error_list"/>
+            <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-compare>
         <!-- make sure specified quantity is not greater than reserved quantity left to be issued, ie orderItemShipGrpInvRes.quantity -->
         <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="orderItemShipGrpInvRes.quantity" type="Double">
-            <string-to-list string="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue [${orderItemShipGrpInvRes.quantity}] for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]" list-name="error_list"/>
+            <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue [${orderItemShipGrpInvRes.quantity}] for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-compare-field>
 
         <check-errors/>
@@ -313,7 +313,7 @@ under the License.
         </if-not-empty>
 
         <set from-field="userLogin.userLoginId" field="itemIssuanceCreate.issuedByUserLoginId"/>
-        <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate" >
+        <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
             <result-to-field result-name="itemIssuanceId"/>
         </call-service>
         <field-to-result field-name="itemIssuanceId"/>
@@ -333,5 +333,45 @@ under the License.
         <set from-field="userLogin.partyId" field="itemIssuanceRoleCreate.partyId"/>
         <set value="PACKER" field="itemIssuanceRoleCreate.roleTypeId"/>
         <call-service service-name="createItemIssuanceRole" in-map-name="itemIssuanceRoleCreate"/>
+    </simple-method>
+    
+    <simple-method method-name="issueInventoryItemToFixedAssetMaint" short-description="Issue InventoryItem To FixedAssetMaint">
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+
+        <!-- make sure specified quantity is not less than or equal to 0 -->
+        <if-compare field-name="parameters.quantity" operator="less-equals" value="0" type="Double">
+            <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for inventoryItem [${inventoryItem.inventoryItemId}]"/></add-error>
+        </if-compare>
+        <!-- make sure specified quantity is not greater than available quantity left to be issued, ie intentoryItem.availableToPromiseTotal -->
+        <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="intentoryItem.availableToPromiseTotal" type="Double">
+            <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue (ie the ATP or Available To Promise) [${intentoryItem.availableToPromiseTotal}] for inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
+        </if-compare-field>
+        
+        <check-errors/>
+        
+        <!-- create the ItemIssuance -->
+        <set from-field="parameters.quantity" field="itemIssuanceCreate.quantity"/>
+        <set from-field="fixedAssetMaint.fixedAssetId" field="itemIssuanceCreate.fixedAssetId"/>
+        <set from-field="fixedAssetMaint.maintHistSeqId" field="itemIssuanceCreate.maintHistSeqId"/>
+        <set from-field="userLogin.userLoginId" field="itemIssuanceCreate.issuedByUserLoginId"/>
+        <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
+            <result-to-field result-name="itemIssuanceId"/>
+        </call-service>
+        <field-to-result field-name="itemIssuanceId"/>
+
+        <!-- Decrement InventoryItem quantityOnHand AND availableToPromise since there was no reservation -->
+        <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+        <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+        <set from-field="fixedAssetMaint.fixedAssetId" field="createDetailMap.fixedAssetId"/>
+        <set from-field="fixedAssetMaint.maintHistSeqId" field="createDetailMap.maintHistSeqId"/>
+        <set from-field="itemIssuanceId" field="createDetailMap.itemIssuanceId"/>
+        <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+            <calcop field-name="parameters.quantity" operator="negative"/>
+        </calculate>
+        <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+            <calcop field-name="parameters.quantity" operator="negative"/>
+        </calculate>
+        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
     </simple-method>
 </simple-methods>
