@@ -80,6 +80,11 @@ under the License.
         <entity-one entity-name="Person" value-name="person"/>
         <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
 
+        <!-- fill compare date with todays date if not provided -->
+        <if-empty field-name="parameters.compareDate">
+            <now-timestamp-to-env env-name="parameters.compareDate"/>
+        </if-empty>
+        
         <!-- go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate -->        
         <iterate entry-name="partyNameHistory" list-name="partyNameHistoryList">
             <if-compare-field field-name="partyNameHistory.changeDate" operator="greater" to-field-name="parameters.compareDate">
