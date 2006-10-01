@@ -342,6 +342,8 @@ under the License.
         <field name="dateAcquired" type="date-time"></field>
         <field name="dateLastServiced" type="date-time"></field>
         <field name="dateNextService" type="date-time"></field>
+        <field name="expectedEndOfLife" type="date"></field>
+        <field name="actualEndOfLife" type="date"></field>
         <field name="productionCapacity" type="floating-point"></field>
         <field name="calendarId" type="id-ne"></field>
         <field name="serialNumber" type="long-varchar"></field>
