@@ -56,7 +56,7 @@ under the License.
     </service>
     <service name="getProductCost" engine="simple" auth="true"
                 location="org/ofbiz/product/cost/CostServices.xml" invoke="getProductCost">
-        <description>Gets the product's costs (from CostComponent or ProductPrice)</description>
+        <description>Gets the product's costs from CostComponent entries</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="currencyUomId" optional="false" type="String"/>
         <attribute mode="IN" name="costComponentTypePrefix" optional="false" type="String"/>
