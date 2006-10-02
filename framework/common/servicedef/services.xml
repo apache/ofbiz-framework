@@ -228,6 +228,18 @@ under the License.
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
+
+    <service name="performFindItem" auth="false" engine="java" invoke="performFindItem" location="org.ofbiz.common.FindServices">
+        <description>Generic service to return an single GenericValue.  set filterByDate to Y to exclude expired records.</description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
+        <attribute name="orderBy" type="String" mode="IN" optional="true"/>
+        <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
+        <attribute name="item" type="GenericValue" mode="OUT" optional="true"/>
+        <attribute name="queryString" type="String" mode="OUT" optional="true"/>
+        <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    
     
     <!-- Keyword Thesaurus services -->
     <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
