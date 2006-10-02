@@ -19,7 +19,6 @@ package org.ofbiz.accounting.finaccount;
 import java.sql.Timestamp;
 import java.util.Map;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;

@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,13 +26,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilJ2eeCompat;
-import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
-import org.ofbiz.widget.html.HtmlFormRenderer;
 import org.xml.sax.SAXException;
 
-import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.screen.ScreenWidgetViewHandler;
 import org.ofbiz.widget.xml.XmlFormRenderer;
 

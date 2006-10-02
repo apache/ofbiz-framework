@@ -16,7 +16,6 @@
  */
 package org.ofbiz.shipment.thirdparty.dhl;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;

@@ -17,31 +17,17 @@ package org.ofbiz.widget.xml;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.HashSet;
-import java.util.Calendar;
-import java.sql.Timestamp;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
 import org.ofbiz.widget.form.ModelFormField.CheckField;
 import org.ofbiz.widget.form.ModelFormField.DateFindField;
 import org.ofbiz.widget.form.ModelFormField.DateTimeField;
-import org.ofbiz.widget.form.ModelFormField.DisplayEntityField;
 import org.ofbiz.widget.form.ModelFormField.DisplayField;
 import org.ofbiz.widget.form.ModelFormField.DropDownField;
 import org.ofbiz.widget.form.ModelFormField.FileField;

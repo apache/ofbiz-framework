@@ -17,7 +17,6 @@ package org.ofbiz.testtools;
 
 import org.w3c.dom.Element;
 
-import junit.framework.TestCase;
 import junit.framework.TestResult;
 
 /**

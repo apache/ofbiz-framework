@@ -15,26 +15,18 @@
  */
 package org.ofbiz.content.email;
 
-import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.ByteArrayOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.InternetAddress;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
