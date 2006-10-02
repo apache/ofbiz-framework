@@ -230,6 +230,7 @@ public class FreeMarkerWorker {
                     Configuration config = new Configuration();            
                     config.setObjectWrapper(BeansWrapper.getDefaultInstance());
                     config.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
+                    config.setSetting("number_format", "0.##########");
                     defaultOfbizConfig = config;
                 }
             }
@@ -241,6 +242,7 @@ public class FreeMarkerWorker {
         Configuration config = new Configuration();            
         config.setObjectWrapper(BeansWrapper.getDefaultInstance());
         config.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
+        config.setSetting("number_format", "0.##########");
         if (locationDir != null) {
             File locationDirFile = new File(locationDir);
             if (locationDirFile != null) {

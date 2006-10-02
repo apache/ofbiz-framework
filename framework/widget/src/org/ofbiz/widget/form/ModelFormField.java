@@ -660,7 +660,9 @@ public class ModelFormField {
             if (retVal != null) {
                 // format number based on the user's locale
                 if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
-                    return NumberFormat.getInstance(locale).format(retVal);
+                    NumberFormat nf = NumberFormat.getInstance(locale);
+                    nf.setMaximumFractionDigits(10);
+                    return nf.format(retVal);
                 } else {
                     return retVal.toString();
                 }
