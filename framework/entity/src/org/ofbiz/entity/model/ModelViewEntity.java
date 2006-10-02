@@ -867,6 +867,13 @@ public class ModelViewEntity extends ModelEntity {
             this.function = complexAliasFieldElement.getAttribute("function");
         }
 
+        public ComplexAliasField(String entityAlias, String field, String defaultValue, String function) {
+            this.entityAlias = entityAlias;
+            this.field = field;
+            this.defaultValue = defaultValue;
+            this.function = function;
+        }
+
         /**
          * Make the alias as follows: function(coalesce(entityAlias.field, defaultValue))
          */

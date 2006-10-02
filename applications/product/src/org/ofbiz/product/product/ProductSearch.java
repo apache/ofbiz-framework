@@ -267,7 +267,7 @@ public class ProductSearch {
                     entityConditionList.add(new EntityExpr(prefix + "Keyword", EntityOperator.LIKE, keyword));
 
                     //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
-                    relevancyComplexAlias.addComplexAliasMember(new ComplexAliasField(entityAlias, "relevancyWeight"));
+                    relevancyComplexAlias.addComplexAliasMember(new ComplexAliasField(entityAlias, "relevancyWeight", null, null));
                 }
 
                 //TODO: find out why Oracle and other dbs don't like the query resulting from this and fix: productIdGroupBy = true;
@@ -299,7 +299,7 @@ public class ProductSearch {
                     productIdGroupBy = true;
 
                     if (doingBothAndOr) {
-                        relevancyComplexAlias.addComplexAliasMember(new ComplexAliasField(entityAlias, "relevancyWeight", "sum"));
+                        relevancyComplexAlias.addComplexAliasMember(new ComplexAliasField(entityAlias, "relevancyWeight", null, "sum"));
                     } else {
                         dynamicViewEntity.addAlias(entityAlias, "totalRelevancy", "relevancyWeight", null, null, null, "sum");
                     }
