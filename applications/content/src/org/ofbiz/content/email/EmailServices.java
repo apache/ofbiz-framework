@@ -792,11 +792,11 @@ public class EmailServices {
     		}
     		commEventMap.put("content", content);
     		
-            // store a note when the to/from emails are not associated with any parties in the system
+            // store from/to parties, but when not found make a note of the email to/from address in the workEffort Note Section.
             String commNote = "";
             if (partyIdFrom != null) {
         		commEventMap.put("partyIdFrom", partyIdFrom);        		
-        		commEventMap.put("contactMechIdTo", contactMechIdTo);
+        		commEventMap.put("contactMechIdFrom", contactMechIdFrom);
             } else {
                 commNote += "Sent from: " +  ((InternetAddress)addressesFrom[0]).getAddress() + "; ";
             }
