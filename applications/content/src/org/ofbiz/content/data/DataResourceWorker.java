@@ -57,7 +57,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;

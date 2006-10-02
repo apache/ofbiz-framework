@@ -17,10 +17,8 @@ package org.ofbiz.base.util;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
-import java.util.Currency;
 
 /**
  * General output formatting functions - mainly for helping in JSPs

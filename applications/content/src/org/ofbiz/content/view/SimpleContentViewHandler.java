@@ -15,31 +15,22 @@
  */
 package org.ofbiz.content.view;
 
-import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-import java.util.List;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.webapp.control.RequestHandlerException;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.base.util.GeneralException;

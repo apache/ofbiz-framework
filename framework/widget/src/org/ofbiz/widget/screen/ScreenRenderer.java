@@ -48,7 +48,6 @@ import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.LoginWorker;
-import org.ofbiz.widget.html.HtmlFormRenderer;
 import org.xml.sax.SAXException;
 
 import freemarker.ext.beans.BeansWrapper;

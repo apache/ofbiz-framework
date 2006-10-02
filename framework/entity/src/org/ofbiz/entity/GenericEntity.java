@@ -18,7 +18,6 @@ package org.ofbiz.entity;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;

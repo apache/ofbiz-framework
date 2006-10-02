@@ -19,8 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Collection;
-
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;

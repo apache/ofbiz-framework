@@ -17,7 +17,6 @@
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -38,7 +37,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilParse;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;

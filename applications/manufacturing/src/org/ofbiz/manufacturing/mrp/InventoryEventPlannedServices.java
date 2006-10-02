@@ -16,7 +16,6 @@
  */
 package org.ofbiz.manufacturing.mrp;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;

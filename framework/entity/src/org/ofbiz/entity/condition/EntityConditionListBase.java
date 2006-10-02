@@ -19,12 +19,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
 
 /**
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified

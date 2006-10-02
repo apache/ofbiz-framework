@@ -16,17 +16,12 @@
 
 package org.ofbiz.accounting.util;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
 import org.ofbiz.accounting.AccountingException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.ServiceUtil;
 
 public class UtilAccounting {
 

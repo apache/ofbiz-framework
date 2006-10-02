@@ -20,7 +20,6 @@ package org.ofbiz.party.communication;
 import java.util.*;
 import java.sql.Timestamp;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;

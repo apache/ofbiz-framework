@@ -33,7 +33,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;

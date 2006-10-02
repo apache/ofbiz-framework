@@ -16,8 +16,6 @@
 package org.ofbiz.pos.component;
 
 import net.xoetrope.swing.XEdit;
-import net.xoetrope.xui.XProjectManager;
-
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.base.util.UtilProperties;

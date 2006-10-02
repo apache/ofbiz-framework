@@ -20,7 +20,6 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.datafile.*;
 
 /**
  *
