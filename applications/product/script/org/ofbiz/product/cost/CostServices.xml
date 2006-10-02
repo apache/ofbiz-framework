@@ -99,7 +99,7 @@ under the License.
         <first-from-list list-name="otherCosts" entry-name="otherCost"/>
         
         <set field="productCost" value="0" type="Double" />
-        <calculate field-name="productCost">
+        <calculate field-name="productCost" type="Double" decimal-scale="6">
             <calcop field-name="laborCost.cost" operator="add">
                 <calcop field-name="materialsCost.cost" operator="get"/>
                 <calcop field-name="routeCost.cost" operator="get"/>
@@ -148,7 +148,7 @@ under the License.
             <result-to-field result-name="setupTime"/>
         </call-service>
 
-        <calculate field-name="estimatedTaskTime" type="Double">
+        <calculate field-name="estimatedTaskTime" type="Double" decimal-scale="6">
             <calcop field-name="estimatedTaskTime" operator="subtract">
                 <calcop field-name="setupTime" operator="get"/>
             </calcop>
@@ -168,7 +168,7 @@ under the License.
             <filter-list-by-date list-name="usageCosts"/>
             <first-from-list list-name="usageCosts" entry-name="usageCost"/>
         </if-not-empty>
-        <calculate field-name="taskCost" type="Double">
+        <calculate field-name="taskCost" type="Double" decimal-scale="6">
             <calcop operator="add">
                 <calcop field-name="estimatedTaskTime" operator="multiply">
                     <calcop field-name="usageCost.amount" operator="get"/>
@@ -180,7 +180,7 @@ under the License.
         </calculate>
 
         <!-- Time is converted from milliseconds to hours -->
-        <calculate field-name="taskCost" type="Double">
+        <calculate field-name="taskCost" type="Double" decimal-scale="6">
             <calcop field-name="taskCost" operator="divide">
                 <number value="3600000"/>
             </calcop>
@@ -224,7 +224,7 @@ under the License.
                 <call-service service-name="getProductCost" in-map-name="inputMap">
                     <result-to-field result-name="productCost"/>
                 </call-service>
-                <calculate field-name="totalProductsCost">
+                <calculate field-name="totalProductsCost" type="Double" decimal-scale="6">
                     <calcop field-name="totalProductsCost" operator="add">
                         <calcop field-name="componentMap.quantity" operator="multiply">
                             <calcop field-name="productCost" operator="get"/>
@@ -240,7 +240,7 @@ under the License.
                 <call-service service-name="getProductCost" in-map-name="inputMap">
                     <result-to-field result-name="productCost"/>
                 </call-service>
-                <calculate field-name="totalProductsCost">
+                <calculate field-name="totalProductsCost" type="Double" decimal-scale="6">
                     <calcop field-name="productCost" operator="get"/>
                 </calculate>
             </else>
@@ -260,14 +260,14 @@ under the License.
             <call-service service-name="getTaskCost" in-map-name="callSvcMap">
                 <result-to-field result-name="taskCost" field-name="taskCost"/>
             </call-service>
-            <calculate field-name="totalTaskCost">
+            <calculate field-name="totalTaskCost" type="Double" decimal-scale="6">
                 <calcop field-name="totalTaskCost" operator="add">
                     <calcop field-name="taskCost" operator="get"/>
                 </calcop>
             </calculate>
         </iterate>
         
-        <calculate field-name="totalCost">
+        <calculate field-name="totalCost" type="Double" decimal-scale="6">
             <calcop field-name="totalTaskCost" operator="add">
                 <calcop field-name="totalProductsCost" operator="get"/>
             </calcop>
