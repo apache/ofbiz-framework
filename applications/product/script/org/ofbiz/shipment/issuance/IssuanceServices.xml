@@ -344,7 +344,7 @@ under the License.
             <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for inventoryItem [${inventoryItem.inventoryItemId}]"/></add-error>
         </if-compare>
         <!-- make sure specified quantity is not greater than available quantity left to be issued, ie intentoryItem.availableToPromiseTotal -->
-        <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="intentoryItem.availableToPromiseTotal" type="Double">
+        <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
             <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue (ie the ATP or Available To Promise) [${intentoryItem.availableToPromiseTotal}] for inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-compare-field>
         
@@ -352,6 +352,7 @@ under the License.
         
         <!-- create the ItemIssuance -->
         <set from-field="parameters.quantity" field="itemIssuanceCreate.quantity"/>
+        <set from-field="parameters.inventoryItemId" field="itemIssuanceCreate.inventoryItemId"/>
         <set from-field="fixedAssetMaint.fixedAssetId" field="itemIssuanceCreate.fixedAssetId"/>
         <set from-field="fixedAssetMaint.maintHistSeqId" field="itemIssuanceCreate.maintHistSeqId"/>
         <set from-field="userLogin.userLoginId" field="itemIssuanceCreate.issuedByUserLoginId"/>
