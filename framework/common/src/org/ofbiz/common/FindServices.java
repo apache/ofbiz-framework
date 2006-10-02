@@ -623,4 +623,32 @@ public class FindServices {
         }
         return normalizedFields;
     }
+    /**
+     * Returns the first generic item of the service 'performFind'
+     * Same parameters as performFind service but returns a single GenericValue
+     * 
+     * @param dctx
+     * @param context
+     * @return
+     */
+    public static Map performFindItem(DispatchContext dctx, Map context) {
+        Map result = org.ofbiz.common.FindServices.performFind(dctx,context);
+        
+        List list = null;
+        GenericValue item= null;
+        try{
+            EntityListIterator it = (EntityListIterator) result.get("listIt");
+            list = it.getPartialList(1, 1); // list starts at '1'
+            if (list != null && list.size() > 0 ) {
+                item = (GenericValue) list.get(0);
+            }
+            it.close();
+        } catch (Exception e) {
+            Debug.logInfo("Problem getting list Item" + e,module);
+        }
+        
+        result.put("item",item);
+        result.remove("listIt");
+        return result;
+    }
 }
