@@ -866,7 +866,7 @@ under the License.
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <auto-fields-entity entity-name="CostComponent" default-field-type="display"/>
         <field name="cost">
-            <display type="currency" currency="${costUomId}"/>
+            <display/>
         </field>
         <field name="costComponentId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${costComponentId}" target="EditProductCosts?productId=${productId}&amp;productCostComponentId=${costComponentId}"/>
