@@ -143,6 +143,13 @@ under the License.
         <field-to-result field-name="debitCreditDifference"/>
     </simple-method>
     <simple-method method-name="postAcctgTrans" short-description="Post a AcctgTrans">
+        <!-- make sure the AcctgTrans has not already been posted -->
+        <entity-one entity-name="AcctgTrans" value-name="acctgTrans" auto-field-map="true"/>
+        <if-compare field-name="acctgTrans.isPosted" operator="equals" value="Y">
+            <add-error><fail-message message="AcctgTrans [${parameters.acctgTransId}] has already been posted.  Not posting again"/></add-error>
+        </if-compare>
+        <check-errors/>
+
         <!-- check trial balance -->
         <set from-field="parameters.acctgTransId" field="trialBalanceCallMap.acctgTransId"/>
         <call-service service-name="calculateAcctgTransTrialBalance" in-map-name="trialBalanceCallMap">
@@ -154,8 +161,8 @@ under the License.
         <if-compare field-name="trialBalanceResultMap.debitCreditDifference" operator="less-equals" value="-0.01" type="Double">
             <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
         </if-compare>
+        <check-errors/>
             
-        <entity-one entity-name="AcctgTrans" value-name="acctgTrans" auto-field-map="true"/>
         <entity-condition entity-name="AcctgTransEntry" list-name="acctgTransEntryList">
             <condition-expr field-name="acctgTransId" env-name="parameters.acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
