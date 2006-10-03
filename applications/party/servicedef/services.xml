@@ -593,6 +593,7 @@ under the License.
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">
         <description>Delete a Communication Event</description>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
+        <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCommunicationEventPurpose" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventPurpose" auth="true">

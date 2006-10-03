@@ -82,6 +82,31 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="CommunicationEvent" value-name="event"/>
+        <!-- remove related links to content -->
+        <get-related value-name="event" relation-name="CommEventContentAssoc" list-name="contentAssocs"/>
+        <if-not-empty field-name="contentAssocs">
+            <iterate entry-name="contentAssoc" list-name="contentAssocs">
+                <remove-value value-name="contentAssoc"/>
+                <!-- delete content and dataresource too if requested -->
+                <if-compare field-name="parameters.delContentDataResource" value="Y" operator="equals">
+                    <get-related value-name="contentAssoc" relation-name="FromContent" list-name="contents"/>
+                    <if-not-empty field-name="contents">
+                        <iterate entry-name="content" list-name="contents">
+                            <remove-value value-name="content"/>
+                            <get-related-one value-name="content" relation-name="DataResource" to-value-name="dataResource"/>
+                            <if-not-empty field-name="dataResource">
+                                <get-related-one value-name="dataResource" relation-name="ImageDataResource" to-value-name="imageDataResource"/>
+                                <if-not-empty field-name="imageDataResource">
+                                    <remove-value value-name="imageDataResource"/>
+                                </if-not-empty>
+                                <remove-value value-name="dataResource"/>
+                            </if-not-empty>
+                        </iterate>
+                    </if-not-empty>
+                </if-compare>  
+            </iterate>
+        </if-not-empty>
+        <!-- delete the event itself -->
         <remove-value value-name="event"/>
     </simple-method>
     <!-- since these ancillary operations on communication event cause them to be updated,
