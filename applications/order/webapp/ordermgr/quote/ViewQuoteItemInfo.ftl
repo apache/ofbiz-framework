@@ -18,7 +18,7 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
             <#if maySelectItems?default("N") == "Y">
-                <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.EcommerceAddAlltoCart}</a>
+                <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.EcommerceAddAlltoCart}</a>
             </#if>
         </div>
         <div class="boxhead">&nbsp; ${uiLabelMap.OrderOrderQuoteItems}</div>

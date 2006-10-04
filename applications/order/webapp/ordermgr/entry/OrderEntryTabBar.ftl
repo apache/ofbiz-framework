@@ -17,29 +17,29 @@ under the License.
 
 <div class="boxtop">
     <div class="boxhead-right" align="right">
-        <a href="<@ofbizUrl>emptycart</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderClearOrder}</a>
+        <a href="<@ofbizUrl>emptycart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearOrder}</a>
         <#if (shoppingCart.size() > 0)>
-        <a href="javascript:document.cartform.submit()" class="submenutext">${uiLabelMap.OrderRecalculateOrder}</a>
-        <a href="javascript:removeSelected();" class="submenutext">${uiLabelMap.OrderRemoveSelected}</a>
+        <a href="javascript:document.cartform.submit()" class="buttontext">${uiLabelMap.OrderRecalculateOrder}</a>
+        <a href="javascript:removeSelected();" class="buttontext">${uiLabelMap.OrderRemoveSelected}</a>
         <#else>
-        <span class="submenutextdisabled">${uiLabelMap.OrderRecalculateOrder}</span>
-        <span class="submenutextdisabled">${uiLabelMap.OrderRemoveSelected}</span>
+        <span class="buttontextdisabled">${uiLabelMap.OrderRecalculateOrder}</span>
+        <span class="buttontextdisabled">${uiLabelMap.OrderRemoveSelected}</span>
         </#if>
         <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
             <#if shoppingCart.getOrderPartyId() == "_NA_" || (shoppingCart.size() = 0)>
-                <span class="submenutextrightdisabled">${uiLabelMap.OrderFinalizeOrder}</span>
+                <span class="buttontextdisabled">${uiLabelMap.OrderFinalizeOrder}</span>
             <#else>
-                <a href="<@ofbizUrl>finalizeOrder?finalizeMode=purchase&finalizeReqCustInfo=false&finalizeReqShipInfo=false&finalizeReqOptions=false&finalizeReqPayInfo=false</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderFinalizeOrder}</a>
+                <a href="<@ofbizUrl>finalizeOrder?finalizeMode=purchase&finalizeReqCustInfo=false&finalizeReqShipInfo=false&finalizeReqOptions=false&finalizeReqPayInfo=false</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderFinalizeOrder}</a>
             </#if>
         <#else>
             <#if shoppingCart.size() = 0>
-            <span class="submenutextdisabled">${uiLabelMap.OrderQuickFinalizeOrder}</span>
-            <span class="submenutextdisabled">${uiLabelMap.OrderFinalizeOrderDefault}</span>
-            <span class="submenutextrightdisabled">${uiLabelMap.OrderFinalizeOrder}</span>
+            <span class="buttontextdisabled">${uiLabelMap.OrderQuickFinalizeOrder}</span>
+            <span class="buttontextdisabled">${uiLabelMap.OrderFinalizeOrderDefault}</span>
+            <span class="buttontextdisabled">${uiLabelMap.OrderFinalizeOrder}</span>
             <#else>
-            <a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderQuickFinalizeOrder}</a>
-            <a href="<@ofbizUrl>finalizeOrder?finalizeMode=default</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderFinalizeOrderDefault}</a>
-            <a href="<@ofbizUrl>finalizeOrder?finalizeMode=init</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderFinalizeOrder}</a>
+            <a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickFinalizeOrder}</a>
+            <a href="<@ofbizUrl>finalizeOrder?finalizeMode=default</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderFinalizeOrderDefault}</a>
+            <a href="<@ofbizUrl>finalizeOrder?finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderFinalizeOrder}</a>
             </#if>
         </#if>
     </div>

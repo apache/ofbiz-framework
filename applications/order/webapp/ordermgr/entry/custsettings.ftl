@@ -26,10 +26,10 @@ under the License.
           </td> 
           <td nowrap align="right">
             <div class="tabletext">
-              <a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderOrderItems}</a>
+              <a href="<@ofbizUrl>orderentry</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOrderItems}</a>
 
-              <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonRefresh}</a>
-              <a href="javascript:document.checkoutsetupform.submit();" class="submenutextright">${uiLabelMap.CommonContinue}</a>
+              <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefresh}</a>
+              <a href="javascript:document.checkoutsetupform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
             </div>
           </td>         
         </tr>
