@@ -17,6 +17,7 @@ under the License.
  *@author     Si Chen (sichen@opensourcestrategies.com)
 -->
 <?xml version="1.0" encoding="UTF-8" ?>
+<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
     <#-- master layout specifies the overall layout of the pages and its different sections. -->
     <fo:layout-master-set>
@@ -257,3 +258,4 @@ under the License.
        </fo:flow>
     </fo:page-sequence>
 </fo:root>
+</#escape>
