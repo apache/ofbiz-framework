@@ -1,9 +1,10 @@
 
-DESCRIPTION: This file contains information about libraries that are supported by code in OFBiz but that are left out of SVN because of licesning issues. What is below is a list of jar files and where to put them, and the file(s) to change to include them in the OFBiz build and/or run-time configuration.
+DESCRIPTION: This file contains information about libraries that are supported by code in OFBiz but that are left out of SVN because of licesning issues. 
+What is below is a list of jar files and where to put them, and the file(s) to change to include them in the OFBiz build and/or run-time configuration.
 
 NOTE: While these aren't included in the main SVN repository they are available on the old Undersun SVN server in the specialized/libraries component directory.
 
--=- Workflow
+-=- Workflow __________________________________________________________________________________________________________________________________________________
 
 -Shark (LGPL):
   http://www.enhydra.org/workflow/shark/
@@ -47,7 +48,7 @@ NOTE: While these aren't included in the main SVN repository they are available 
   TO DEPLOY: once the build is done the Shark container must be setup in the ofbiz-containers.xml
     file or other containers file being used. The shark-container container should be un-commented.
 
--=- Scripting:
+-=- Scripting: ________________________________________________________________________________________________________________________________________________
 
 -JavaScript/Rhino (NPL 1.1):
   http://www.mozilla.org/js
@@ -60,7 +61,7 @@ NOTE: While these aren't included in the main SVN repository they are available 
      You may also find it in the old Undersun SVN server in the specialized/libraries component directory.
   TO BUILD: Copy plugin.jar in framework/base/lib
 
--=- Reporting:
+-=- Reporting: ________________________________________________________________________________________________________________________________________________
 
 -JasperReports (LGPL):
   http://sourceforge.net/projects/jasperreports
@@ -68,7 +69,14 @@ NOTE: While these aren't included in the main SVN repository they are available 
     framework/webapp/build.xml:org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java,org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java
     applications/content/build.xml:org/ofbiz/content/report/JREntityListIteratorDataSource.java,org/ofbiz/content/report/JRMapCollectionDataSource.java
 
--=- POS
+- JIMI (used by FOP ):
+  http://java.sun.com/products/jimi
+	FOP may require a library called JIMI to print certain graphical formats such as GIFs.  Jimi is a Sun library which cannot
+	be included in OFBIZ due to licensing incompatibility, but you can download it yourself at: http://java.sun.com/products/jimi/
+	and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time 
+	is ${ofbiz.home}/framework/webapp/lib/
+
+-=- POS _______________________________________________________________________________________________________________________________________________________
 
 -GTK Swing (LGPL):
   http://sourceforge.net/projects/gtkswing/
@@ -86,7 +94,7 @@ NOTE: While these aren't included in the main SVN repository they are available 
      starjavapos.jar   
   
 
--=- Office (Word, etc) File Handling
+-=- Office (Word, etc) File Handling __________________________________________________________________________________________________________________________
 
 -OpenOffice UNO (LGPL)
   http://udk.openoffice.org/
@@ -106,7 +114,7 @@ NOTE: While these aren't included in the main SVN repository they are available 
     unoil.jar
   TO BUILD comment out exclude: applications/content/build.xml:org/ofbiz/content/openoffice/*
 
--=- Accounting: Payment Processing
+-=- Accounting: Payment Processing ____________________________________________________________________________________________________________________________
 
 -CyberSource
   applications/accounting/lib/cybersource:
@@ -133,8 +141,3 @@ NOTE: While these aren't included in the main SVN repository they are available 
     select.jar
     select.properties
   TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/worldpay/**
-
--=- FOP: JIMI image library
-  NOTE: Required by FOP for certain graphical formats (e.g. GIF). Download ZIP file from http://java.sun.com/products/jimi/ and rename JimiProClasses.zip that comes with it to jimi-1.0.jar
-  framework/webapp/lib:
-    jimi-1.0.jar
