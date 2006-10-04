@@ -571,11 +571,6 @@ under the License.
         <response name="success" type="view" value="ordercomplete"/>
     </request-map>
 
-    <request-map uri="confirmorder">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="confirmorder"/>
-    </request-map>
-
     <request-map uri="catalog">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="catalog"/>
@@ -1261,7 +1256,6 @@ under the License.
     <view-map name="shipsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#shipsettings"/>
     <view-map name="billsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#billsettings"/>
     <view-map name="optionsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#optionsettings"/>
-    <view-map name="confirm" type="screen" page="component://ecommerce/widget/OrderScreens.xml#confirmorder"/>
 
     <view-map name="quickcheckout" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutoptions"/>
     <view-map name="checkoutshippingaddress" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutshippingaddress"/>
@@ -1271,7 +1265,6 @@ under the License.
 
     <view-map name="checkoutreview" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutreview"/>
     <view-map name="ordercomplete" type="screen" page="component://ecommerce/widget/OrderScreens.xml#ordercomplete"/>
-    <view-map name="confirmorder" type="screen" page="component://ecommerce/widget/OrderScreens.xml#confirmorder"/> <!-- DEJ20050112 is this used? -->
 
     <view-map name="orderhistory" type="screen" page="component://ecommerce/widget/OrderScreens.xml#orderhistory"/>
     <view-map name="orderstatus" type="screen" page="component://ecommerce/widget/OrderScreens.xml#orderstatus"/>

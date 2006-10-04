@@ -102,16 +102,14 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="center"/>
-
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
-
-				<set field="titleProperty" value="PageTitleShowPromotionDetails"/>
+                <set field="titleProperty" value="PageTitleShowPromotionDetails"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/showPromotionDetails.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showPromotionDetails.ftl"/></html></platform-specific>
+                        <include-screen name="promotion" location="component://order/widget/ordermgr/OrderEntryCartScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

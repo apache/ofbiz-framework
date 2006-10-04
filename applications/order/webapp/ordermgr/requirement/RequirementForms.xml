@@ -281,7 +281,7 @@
         <field name="facilityId"><display/></field>
         <field name="partyId"><display/></field>
         <field name="requiredByDate"><display/></field>
-        <field name="quantity"><display/></field>
+        <field name="quantity" widget-area-style="tabletextright"><display/></field>
     </form>
     <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
         paginate-target="RequirementsForSupplier" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
