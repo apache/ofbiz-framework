@@ -19,16 +19,16 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
-                <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&${paramString}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderApproveOrder}</a></div>
+                <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderApproveOrder}</a></div>
             </#if>
             <#if setOrderCompleteOption>
-                  <div class="tabletext"><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderCompleteOrder}</a></div>
+                  <div class="tabletext"><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCompleteOrder}</a></div>
             </#if>
         </div>
         <#if orderHeader.externalId?has_content>
           <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
         </#if>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrder} #${orderId} ${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" class="submenutextright" target="_blank">PDF</a> ]</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrder} #${orderId} ${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" class="buttontext" target="_blank">PDF</a> ]</div>
     </div>
     <div class="screenlet-body">
           <table width="100%" border="0" cellpadding="1" cellspacing="0">

@@ -20,7 +20,7 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
             <#if orderId?exists>
-                <a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="submenutext">[${uiLabelMap.OrderViewOrder}]</a>
+                <a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.OrderViewOrder}]</a>
             </#if>
         </div>
         <div class="boxhead">${uiLabelMap.OrderScheduleDelivery}</div>

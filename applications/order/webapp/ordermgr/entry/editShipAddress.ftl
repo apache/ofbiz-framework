@@ -28,7 +28,7 @@ under the License.
         <tr>
           <td><div class="boxhead">${uiLabelMap.OrderSelectAShippingAddress}</div></td>
           <td valign="middle" align="right">
-            <a href="javascript:document.checkoutsetupform.submit();" class="submenutextright">${uiLabelMap.CommonContinue}</a>
+            <a href="javascript:document.checkoutsetupform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
           </td>
         </tr>
       </table>

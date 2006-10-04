@@ -72,11 +72,11 @@ function runAction() {
           <td align='right'>
             <div class="tabletext">
               <#if requestParameters.hideFields?default("N") == "Y">
-                <a href="<@ofbizUrl>findorders?hideFields=N${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonShowLookupFields}</a>
+                <a href="<@ofbizUrl>findorders?hideFields=N${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonShowLookupFields}</a>
               <#else>
-                <#if orderHeaderList?exists><a href="<@ofbizUrl>findorders?hideFields=Y${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonHideFields}</a></#if>
-                <a href="javascript:lookupOrders(true);" class="submenutext">${uiLabelMap.OrderLookupOrder}</a>
-                <a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="submenutextright">${uiLabelMap.PartyLookupParty}</a>
+                <#if orderHeaderList?exists><a href="<@ofbizUrl>findorders?hideFields=Y${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonHideFields}</a></#if>
+                <a href="javascript:lookupOrders(true);" class="buttontext">${uiLabelMap.OrderLookupOrder}</a>
+                <a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.PartyLookupParty}</a>
               </#if>
             </div>
           </td>
@@ -312,17 +312,17 @@ document.lookuporder.orderId.focus();
             <div class="boxhead" align="right">
               <#if 0 < orderHeaderList?size>
                 <#if (viewIndex > 1)>
-                  <a href="<@ofbizUrl>findorders?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a>
+                  <a href="<@ofbizUrl>findorders?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
                 <#else>
-                  <span class="submenutextdisabled">${uiLabelMap.CommonPrevious}</span>
+                  <span class="buttontextdisabled">${uiLabelMap.CommonPrevious}</span>
                 </#if>
                 <#if (orderHeaderListSize > 0)>
                   <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${orderHeaderListSize}</span>
                 </#if>
                 <#if (orderHeaderListSize > highIndex)>
-                  <a href="<@ofbizUrl>findorders?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
+                  <a href="<@ofbizUrl>findorders?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
                 <#else>
-                  <span class="submenutextrightdisabled">${uiLabelMap.CommonNext}</span>
+                  <span class="buttontextdisabled">${uiLabelMap.CommonNext}</span>
                 </#if>
               </#if>
               &nbsp;

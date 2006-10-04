@@ -42,8 +42,8 @@ under the License.
             </div>
           </td>
           <td valign="middle" align="right">
-            <a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}" class="submenutext">${uiLabelMap.PartyFindParty}</a>
-            <a href="javascript:document.salesentryform.submit();" class="submenutextright">${uiLabelMap.CommonContinue}</a>
+            <a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.PartyFindParty}</a>
+            <a href="javascript:document.salesentryform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
           </td>
         </tr>
       </table>
@@ -139,8 +139,8 @@ under the License.
             </div>
           </td>
           <td valign="middle" align="right">
-            <a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}" class="submenutext">${uiLabelMap.PartyFindParty}</a>
-            <a href="javascript:document.poentryform.submit();" class="submenutextright">${uiLabelMap.CommonContinue}</a>
+            <a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.PartyFindParty}</a>
+            <a href="javascript:document.poentryform.submit();" class="buttontext">${uiLabelMap.CommonContinue}</a>
           </td>
         </tr>
       </table>

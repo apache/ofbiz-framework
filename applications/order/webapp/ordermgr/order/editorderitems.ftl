@@ -21,7 +21,7 @@ under the License.
         <div class="boxlink">
             <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
                 <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED">
-                    <div class="tabletext"><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCancelAllItems}</a><a href="<@ofbizUrl>orderview?${paramString}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderViewOrder}</a></div>
+                    <div class="tabletext"><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCancelAllItems}</a><a href="<@ofbizUrl>orderview?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewOrder}</a></div>
                 </#if>
             </#if>
         </div>
