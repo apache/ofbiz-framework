@@ -30,7 +30,8 @@ ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 #DEBUG="-Dsun.rmi.server.exceptionTrace=true"
 #RMIIF="-Djava.rmi.server.hostname=<set your IP address here>"
 MEMIF="-Xms128M -Xmx256M"
-VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN"
+LANGUAGE="-Duser.language=en"
+VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN $LANGUAGE"
 
 # Worldpay Config
 #VMARGS="-Xbootclasspath/p:applications/accounting/lib/cryptix.jar $VMARGS"
