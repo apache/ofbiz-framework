@@ -242,7 +242,7 @@ under the License.
           <div class="head3">${uiLabelMap.ProductSelectShipmentReceive}</div>
         </td>
       </tr>
-      <#list shipments as shipment>
+      <#list shipments?if_exists as shipment>
         <#assign originFacility = shipment.getRelatedOneCache("OriginFacility")?if_exists/>
         <#assign destinationFacility = shipment.getRelatedOneCache("DestinationFacility")?if_exists/>
         <#assign statusItem = shipment.getRelatedOneCache("StatusItem")/>
