@@ -56,6 +56,32 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!--
+        The following screen renders a generic link (implemented by an hidden form)
+        that can be included in other screens in the following way:
+        ...
+        <section>
+            <actions>
+                <set field="genericLinkName" value="formName"/> The name of the hidden form (mandatory)
+                <set field="genericLinkText" value="Link message"/> The link text (mandatory)
+                <set field="genericLinkTarget" value="ApprovedProductRequirementsReport"/> The request name (mandatory)
+                <set field="genericLinkStyle" value="buttontext"/> The style of the link (optional)
+                <set field="genericLinkWindow" value="newWindow"/> The target window (optional): if set, a new browser window is created
+                <set field="excludeParameters" value="N"/> If not set to Y, the requestParameters are included in the form as hidden fields (optional, defaults to N)
+            </actions>
+            <widgets>
+                <include-screen name="genericLink" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+        ...
+    -->
+    <screen name="genericLink">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/genericLink.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 
     <!-- Global decorator for General Screens/Pages -->
     <screen name="GlobalDecorator">
