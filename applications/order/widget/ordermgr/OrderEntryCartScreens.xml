@@ -135,10 +135,25 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/showPromotionDetails.ftl"/></html></platform-specific>
+                        <include-screen name="promotion"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
+        </section>
+    </screen>
+    <screen name="promotion">
+        <section>
+            <condition>
+                <not><if-empty field-name="productPromo"/></not>
+            </condition>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotiondetails.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotioncategories.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotionproducts.ftl"/></html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="${uiLabelMap.EcommerceErrorNoPromotionFoundWithID} [${productPromoId?if_exists}]" style="head2"/>
+            </fail-widgets>
         </section>
     </screen>
     <screen name="LookupBulkAddProducts">

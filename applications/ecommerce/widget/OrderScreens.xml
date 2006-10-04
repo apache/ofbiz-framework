@@ -132,24 +132,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="confirmorder">
-        <section>
-            <actions>
-                <set field="rightbarScreenName" value="rightbar"/>
-                <set field="MainColumnStyle" value="rightonly"/>
-
-                <set field="titleProperty" value="PageTitleOrderConfirmation"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/confirmorder.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 
     <screen name="checkoutoptions">
         <section>

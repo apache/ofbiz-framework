@@ -1020,6 +1020,10 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ApprovedProductRequirements"/>
     </request-map>
+    <request-map uri="ApprovedProductRequirementsReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ApprovedProductRequirementsReport"/>
+    </request-map>
     <request-map uri="quickPurchaseOrderEntry">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickInitPurchaseOrder"/>
@@ -1468,6 +1472,7 @@
     <view-map name="EditRequirementRole" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#EditRequirementRole"/>
     <view-map name="ApproveRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApproveRequirements" type="screen"/>
     <view-map name="ApprovedProductRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirements" type="screen"/>
+    <view-map name="ApprovedProductRequirementsReport" type="screenfop" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsReport" content-type="application/pdf" encoding="none"/>
     <view-map name="RequirementsForSupplier" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#RequirementsForSupplier"/>
     <view-map name="FindQuoteForCart" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#FindQuoteForCart"/>
 

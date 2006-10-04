@@ -42,12 +42,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/orderheader.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/orderitems.ftl"/></html>
-                        </platform-specific>
+                        <include-screen name="orderHeader"/>
+                        <container style="leftclear">
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/order/orderitems.ftl"/></html>
+                            </platform-specific>
+                        </container>
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/order/ordernotes.ftl"/></html>
                         </platform-specific>
@@ -56,6 +56,72 @@ under the License.
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="orderHeader">
+        <section>
+            <condition>
+                <not><if-empty field-name="orderHeader"/></not>
+            </condition>
+            <widgets>
+                <container style="lefthalf">
+                    <include-screen name="orderinfo"/>
+                    <include-screen name="orderterms"/>
+                    <include-screen name="orderpaymentinfo"/>
+                </container>
+                <container style="righthalf">
+                    <include-screen name="ordercontactinfo"/>
+                    <include-screen name="ordershippinginfo"/>
+                </container>
+            </widgets>
+            <fail-widgets>
+                <label style="head2" text="${uiLabelMap.OrderNoOrderFound} ${uiLabelMap.CommonWith} ${uiLabelMap.CommonId}: [${orderId?if_exists}]"></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="orderinfo">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://order/webapp/ordermgr/order/orderinfo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="orderterms">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://order/webapp/ordermgr/order/orderterms.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="orderpaymentinfo">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://order/webapp/ordermgr/order/orderpaymentinfo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ordercontactinfo">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://order/webapp/ordermgr/order/ordercontactinfo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ordershippinginfo">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://order/webapp/ordermgr/order/ordershippinginfo.ftl"/></html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>
@@ -87,12 +153,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/orderheader.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/order/editorderitems.ftl"/></html>
-                        </platform-specific>
+                        <include-screen name="orderHeader"/>
+                        <container style="leftclear">
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/order/editorderitems.ftl"/></html>
+                            </platform-specific>
+                        </container>
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/order/appendorderitem.ftl"/></html>
                         </platform-specific>
@@ -139,7 +205,7 @@ under the License.
     </screen>
     <screen name="OrderDeliveryScheduleInfo">
         <section>
-            <actions>				
+            <actions>
                 <set field="titleProperty" value="OrderViewEditDeliveryScheduleInfo"/>
                 <set field="headerItem" value="findorders"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>

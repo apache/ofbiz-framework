@@ -15,6 +15,12 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-${pages.get("/entry/order/orderheader.ftl")}
-<br/>
-${pages.get("/entry/order/orderitems.ftl")}
+<div class="screenlet">
+    <div class="screenlet-header">
+        <div class="boxhead">&nbsp;${uiLabelMap.EcommercePromotionDetails}:</div>
+    </div>
+    <div class="screenlet-body">
+        <div class="tabletext">${productPromo.promoText?if_exists}</div>
+        <div class="tabletext">Generated Description: ${promoAutoDescription?if_exists}</div>
+    </div>
+</div>
