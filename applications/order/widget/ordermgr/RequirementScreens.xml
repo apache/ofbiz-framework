@@ -138,6 +138,18 @@ under the License.
                     <decorator-section name="body">
                         <include-form name="FindApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                         <section>
+                            <actions>
+                                <set field="genericLinkName" value="print"/>
+                                <set field="genericLinkText" value="${uiLabelMap.CommonPrint}"/>
+                                <set field="genericLinkTarget" value="ApprovedProductRequirementsReport"/>
+                                <set field="genericLinkStyle" value="buttontext"/>
+                                <set field="genericLinkWindow" value="reportWindow"/>
+                            </actions>
+                            <widgets>
+                                <include-screen name="genericLink" location="component://common/widget/CommonScreens.xml"/>
+                            </widgets>
+                        </section>
+                        <section>
                             <condition>
                                 <not><if-empty field-name="parameters.partyId"/></not>
                             </condition>
@@ -151,6 +163,25 @@ under the License.
                                 <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                             </fail-widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ApprovedProductRequirementsReport">
+        <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="pageLayoutName" value="simple-landscape"/>
+                <set field="titleProperty" value="PageTitleApprovedProductRequirements"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
