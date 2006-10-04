@@ -133,3 +133,8 @@ NOTE: While these aren't included in the main SVN repository they are available 
     select.jar
     select.properties
   TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/worldpay/**
+
+-=- FOP: JIMI image library
+  NOTE: Required by FOP for certain graphical formats (e.g. GIF). Download ZIP file from http://java.sun.com/products/jimi/ and rename JimiProClasses.zip that comes with it to jimi-1.0.jar
+  framework/webapp/lib:
+    jimi-1.0.jar
