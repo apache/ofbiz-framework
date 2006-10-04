@@ -173,11 +173,15 @@ under the License.
       <td width="74%">
         <select name="countryGeoId" class="selectBox">
           <#if (mechMap.postalAddress?exists) && (mechMap.postalAddress.countryGeoId?exists)>
-          <option selected>${(mechMap.postalAddress.countryGeoId)?if_exists}</option>
+          <#assign defaultCountryGeoId = (mechMap.postalAddress.countryGeoId)>
+          <option selected value="${defaultCountryGeoId}">
           <#else>
            <#assign defaultCountryGeoId = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "country.geo.id.default")>
-           <option selected value="${defaultCountryGeoId}">${defaultCountryGeoId}</option>
+           <option selected value="${defaultCountryGeoId}">
           </#if>
+          <#assign countryGeo = delegator.findByPrimaryKey("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId))>
+          ${countryGeo.get("geoName",locale)}
+          </option>
           <option></option>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
