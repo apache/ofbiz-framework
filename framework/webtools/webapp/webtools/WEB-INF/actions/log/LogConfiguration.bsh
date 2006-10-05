@@ -1,0 +1,63 @@
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerRepository;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.util.EntityUtil;
+
+
+Logger rootLogger = Logger.getRootLogger();
+LoggerRepository loggerRepository = rootLogger.getLoggerRepository();
+
+List loggerList = UtilMisc.toListArray(new Object[0]);
+for (Enumeration enumeration = loggerRepository.getCurrentLoggers(); enumeration.hasMoreElements() ;) {
+    Logger logger = (Logger) enumeration.nextElement();
+    
+    if (logger.getLevel() != null) {
+        Map loggerMap = UtilMisc.toMap("name", logger.getName(), "level", logger.getLevel(), "additivity", logger.getAdditivity() ? "Y" : "N", "logger", logger);
+        loggerList.add(loggerMap);
+    }
+}
+
+Collections.sort(loggerList, new Comparator() {
+    int compare(Object l1, Object l2) {
+    Map loggerMap1 = (Map) l1;
+    Map loggerMap2 = (Map) l2;
+    String name1 = (String)l1.get("name");
+    String name2 = (String)l2.get("name");
+    return name1.compareTo(name2);
+    }
+});
+
+loggerList.add(0, UtilMisc.toMap("name", rootLogger.getName(), "level", rootLogger.getLevel(), "additivity", rootLogger.getAdditivity() ? "Y" : "N", "logger", rootLogger));
+context.put("loggerList", loggerList);
+
+context.put("defaultLogger", UtilMisc.toMap("name", "org.ofbiz.", "level", "INFO", "additivity", "Y"));
+context.put("activeDebugLevel", UtilMisc.toMap(new String[] {"fatal", Debug.fatalOn() ? "Y" : "N",
+                                                         "error", Debug.errorOn() ? "Y" : "N",
+                                                         "warning", Debug.warningOn() ? "Y" : "N",
+                                                         "important", Debug.importantOn() ? "Y" : "N",
+                                                         "info", Debug.infoOn() ? "Y" : "N",
+                                                         "timing", Debug.timingOn() ? "Y" : "N",
+                                                         "verbose", Debug.verboseOn() ? "Y" : "N"}));
