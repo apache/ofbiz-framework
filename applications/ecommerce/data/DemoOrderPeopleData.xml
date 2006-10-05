@@ -40,11 +40,11 @@ under the License.
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/><Party partyId="" partyTypeId=""/>
     
     <!-- Commission Agreements -->
-    <Agreement agreementId="9000" partyIdFrom="Company" partyIdTo="DemoRepAll" agreementTypeId="PRODUCT_AGREEMENT" description="Commission Agreement with DemoRepAll"/>
+    <Agreement agreementId="9000" partyIdFrom="Company" partyIdTo="DemoRepAll" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoRepAll"/>
     <AgreementItem agreementId="9000" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_COMMISSION" agreementText="Commission in USD"/>
-    <AgreementTerm agreementTermId="9000" invoiceItemTypeId="INV_FPROD_ITEM" termTypeId="FIN_COMM_FIXED" agreementId="9000" agreementItemSeqId="0001" termValue="1" termDays="0"/> <!-- $1 commission on every item no matter what price, pay immediately -->
-    <AgreementTerm agreementTermId="9001" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_VARIABLE" agreementId="9000" agreementItemSeqId="0001" termValue="3" termDays="0"/> <!-- 3% commission on the price of every item -->
-    <AgreementTerm agreementTermId="9002" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_MIN" agreementId="9000" agreementItemSeqId="0001" termValue="0" termDays="0"/> <!-- No negative commission per unit (returns would still be negative) -->
+    <AgreementTerm agreementTermId="9000" invoiceItemTypeId="INV_FPROD_ITEM" termTypeId="FIN_COMM_FIXED" agreementId="9000" agreementItemSeqId="0001" termValue="1" termDays="30"/> <!-- $1 commission on every item no matter what price, pay in 30 days -->
+    <AgreementTerm agreementTermId="9001" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_VARIABLE" agreementId="9000" agreementItemSeqId="0001" termValue="3" termDays="30"/> <!-- 3% commission on the price of every item -->
+    <AgreementTerm agreementTermId="9002" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_MIN" agreementId="9000" agreementItemSeqId="0001" termValue="0" termDays="30"/> <!-- No negative commission per unit (returns would still be negative) -->
     <!-- shows a virtual product can be used to model commission for all variants -->
     <AgreementProductAppl agreementId="9000" agreementItemSeqId="0001" productId="WG-9943"/>
     
