@@ -492,7 +492,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="screen" page="component://webtools/widget/CommonScreens.xml#main"/>
-    <view-map name="login" type="jpublish" page="/login.ftl"/>
+    <view-map name="login" type="screen" page="component://webtools/widget/CommonScreens.xml#login"/>
     <view-map name="ping" type="ftl" page="/ping.ftl"/>
 
     <view-map name="install" type="region"/>

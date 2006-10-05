@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-$Id: CommonScreens.xml 7773 2006-06-12 08:41:23Z jonesde $
 
 Copyright 2004-2006 The Apache Software Foundation
 
@@ -25,7 +24,7 @@ under the License.
                 <!-- base/top/specific map first, then more common map added for shared labels --> 
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-				<set field="layoutSettings.companyName" from-field="uiLabelMap.WebtoolsCompanyName" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.WebtoolsCompanyName" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.WebtoolsCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.WebtoolsCompanySubtitle" global="true"/>
                 <set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
@@ -55,6 +54,19 @@ under the License.
                 <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/main.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="login">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/webcommon/login.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
