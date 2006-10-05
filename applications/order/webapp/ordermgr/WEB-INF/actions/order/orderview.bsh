@@ -348,6 +348,14 @@ if (orderHeader != null) {
     productStoreId = orderHeader.getRelatedOne("ProductStore").getString("productStoreId");
     productStoreShipmentMethList = delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"));
     context.put("productStoreShipmentMethList",productStoreShipmentMethList);
+
+    // Get a map of returnable items
+    returnableItems = new HashMap();
+    returnableItemServiceMap = dispatcher.runSync("getReturnableItems", UtilMisc.toMap("orderId", orderId));
+    if (returnableItemServiceMap.get("returnableItems") != null) {
+        returnableItems = returnableItemServiceMap.get("returnableItems");
+    }
+    context.put("returnableItems", returnableItems);
 }
 
 List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, false);

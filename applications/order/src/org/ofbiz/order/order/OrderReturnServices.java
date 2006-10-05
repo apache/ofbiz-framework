@@ -334,7 +334,7 @@ public class OrderReturnServices {
 
         // get the returnable quantity
         double returnableQuantity = 0.00;
-        if (returnable && itemStatus.equals("ITEM_COMPLETED")) {
+        if (returnable && (itemStatus.equals("ITEM_APPROVED") || itemStatus.equals("ITEM_COMPLETED"))) {
             List returnedItems = null;
             try {
                 returnedItems = orderItem.getRelated("ReturnItem");
@@ -392,17 +392,33 @@ public class OrderReturnServices {
 
         Map returnable = new HashMap();
         if (orderHeader != null) {
-            List orderItems = null;
+
+            // OrderItems which have been issued may be returned.
+            EntityConditionList whereConditions = new EntityConditionList(UtilMisc.toList(
+                    new EntityExpr("orderId", EntityOperator.EQUALS, orderHeader.getString("orderId")),
+                    new EntityExpr("orderItemStatusId", EntityOperator.IN, UtilMisc.toList("ITEM_APPROVED", "ITEM_COMPLETED"))
+                ), EntityOperator.AND); 
+            EntityConditionList havingConditions = new EntityConditionList(UtilMisc.toList(
+                    new EntityExpr("quantityIssued", EntityOperator.GREATER_THAN, new Double(0))
+                ), EntityOperator.AND); 
+            List orderItemQuantitiesIssued = null;
             try {
-                orderItems = orderHeader.getRelatedByAnd("OrderItem", UtilMisc.toMap("statusId", "ITEM_COMPLETED"));
+                orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, havingConditions, UtilMisc.toList("orderId", "orderItemSeqId"), UtilMisc.toList("orderItemSeqId"), null);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetReturnHeaderFromItem", locale));
             }
-            if (orderItems != null) {
-                Iterator i = orderItems.iterator();
+            if (orderItemQuantitiesIssued != null) {
+                Iterator i = orderItemQuantitiesIssued.iterator();
                 while (i.hasNext()) {
-                    GenericValue item = (GenericValue) i.next();
+                    GenericValue orderItemQuantityIssued = (GenericValue) i.next();
+                    GenericValue item = null;
+                    try {
+                        item = orderItemQuantityIssued.getRelatedOne("OrderItem");
+                    } catch( GenericEntityException e ) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderItemInformation", locale));
+                    }
                     Map serviceResult = null;
                     try {
                         serviceResult = dispatcher.runSync("getReturnableQuantity", UtilMisc.toMap("orderItem", item));
@@ -413,6 +429,11 @@ public class OrderReturnServices {
                     if (serviceResult.containsKey(ModelService.ERROR_MESSAGE)) {
                         return ServiceUtil.returnError((String) serviceResult.get(ModelService.ERROR_MESSAGE));
                     } else {
+
+                        // Don't add the OrderItem to the map of returnable OrderItems if there isn't any returnable quantity.
+                        if (((Double) serviceResult.get("returnableQuantity")).doubleValue() == 0 ) {
+                            continue;
+                        }
                         Map returnInfo = new HashMap();
                         // first the return info (quantity/price)
                         returnInfo.put("returnableQuantity", serviceResult.get("returnableQuantity"));
