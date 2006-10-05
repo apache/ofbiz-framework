@@ -30,6 +30,8 @@ import java.util.TreeSet;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.xa.XAException;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -172,45 +174,33 @@ public class CommonServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map setDebugLevels(DispatchContext dctx, Map context) {
-        Boolean verbose = (Boolean) context.get("verbose");
-        Boolean timing = (Boolean) context.get("timing");
-        Boolean info = (Boolean) context.get("info");
-        Boolean important = (Boolean) context.get("important");
-        Boolean warning = (Boolean) context.get("warning");
-        Boolean error = (Boolean) context.get("error");
-        Boolean fatal = (Boolean) context.get("fatal");
+    public static Map adjustDebugingLevels(DispatchContext dctc, Map context) {
+	Debug.set(Debug.FATAL, "Y".equalsIgnoreCase((String) context.get("fatal")));
+	Debug.set(Debug.ERROR, "Y".equalsIgnoreCase((String) context.get("error")));
+	Debug.set(Debug.WARNING, "Y".equalsIgnoreCase((String) context.get("warning")));
+	Debug.set(Debug.IMPORTANT, "Y".equalsIgnoreCase((String) context.get("important")));
+	Debug.set(Debug.INFO, "Y".equalsIgnoreCase((String) context.get("info")));
+	Debug.set(Debug.TIMING, "Y".equalsIgnoreCase((String) context.get("timing")));
+	Debug.set(Debug.VERBOSE, "Y".equalsIgnoreCase((String) context.get("verbose")));
+	
+	return ServiceUtil.returnSuccess();
+    }
 
-        if (verbose != null)
-            Debug.set(Debug.VERBOSE, verbose.booleanValue());
-        else
-            Debug.set(Debug.VERBOSE, false);
-        if (timing != null)
-            Debug.set(Debug.TIMING, timing.booleanValue());
-        else
-            Debug.set(Debug.TIMING, false);
-        if (info != null)
-            Debug.set(Debug.INFO, info.booleanValue());
-        else
-            Debug.set(Debug.INFO, false);
-        if (important != null)
-            Debug.set(Debug.IMPORTANT, important.booleanValue());
-        else
-            Debug.set(Debug.IMPORTANT, false);
-        if (warning != null)
-            Debug.set(Debug.WARNING, warning.booleanValue());
-        else
-            Debug.set(Debug.WARNING, false);
-        if (error != null)
-            Debug.set(Debug.ERROR, error.booleanValue());
-        else
-            Debug.set(Debug.ERROR, false);
-        if (fatal != null)
-            Debug.set(Debug.FATAL, fatal.booleanValue());
-        else
-            Debug.set(Debug.FATAL, false);
-
-        return ServiceUtil.returnSuccess();
+    public static Map addOrUpdateLogger(DispatchContext dctc, Map context) {
+	String name = (String) context.get("name");
+	String level = (String) context.get("level");
+	boolean additivity = "Y".equalsIgnoreCase((String) context.get("additivity"));
+	
+	Logger logger = null;
+	if ("root".equals(name)) {
+	    logger = Logger.getRootLogger();
+	} else {
+	    logger = Logger.getLogger(name);
+	}
+	logger.setLevel(Level.toLevel(level));
+	logger.setAdditivity(additivity);
+	
+	return ServiceUtil.returnSuccess();
     }
 
     public static Map forceGc(DispatchContext dctx, Map context) {
@@ -473,4 +463,5 @@ public class CommonServices {
         }
     }
 }
+
 

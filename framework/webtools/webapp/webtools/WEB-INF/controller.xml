@@ -24,6 +24,7 @@ under the License.
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
     <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
 
     <handler name="jpublish" type="view" class="org.ofbiz.webapp.view.JPublishViewHandler"/>
@@ -290,15 +291,24 @@ under the License.
         <response name="success" type="view" value="StatBinsHistory"/>
     </request-map>
 
-    <request-map uri="debuglevels">
-      <security https="true" auth="true"/>
-      <response name="success" type="view" value="debuglevels"/>
-    </request-map>
-    <request-map uri="updateDebugLevel">
+    <request-map uri="LogConfiguration">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateDebugLevel"/>
-        <response name="success" type="view" value="debuglevels"/>
-        <response name="error" type="view" value="debuglevels"/>
+        <response name="success" type="view" value="LogConfiguration"/>
+    </request-map>
+    <request-map uri="AddLogger">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addOrUpdateLogger"/>
+        <response name="success" type="view" value="LogConfiguration"/>
+    </request-map>
+    <request-map uri="UpdateLogger">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="addOrUpdateLogger"/>
+        <response name="success" type="view" value="LogConfiguration"/>
+    </request-map>
+    <request-map uri="AdjustDebugingLevels">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="adjustDebugingLevels"/>
+        <response name="success" type="view" value="LogConfiguration"/>
     </request-map>
 
     <request-map uri="serviceList">
@@ -518,7 +528,7 @@ under the License.
     <view-map name="logikus" type="region"/>
     <view-map name="readxpdl" type="region"/>
     <view-map name="workflowMonitor" type="region"/>
-    <view-map name="debuglevels" type="region"/>
+    <view-map name="LogConfiguration" type="screen" page="component://webtools/widget/LogScreens.xml#LogConfiguration"/>
 
     <view-map name="StatsSinceStart" type="region"/>
     <view-map name="StatBinsHistory" type="region"/>

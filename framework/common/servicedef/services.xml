@@ -48,16 +48,23 @@ under the License.
         <attribute name="noteId" type="String" mode="OUT"/>
     </service>
 
-    <service name="updateDebugLevel" engine="java"
-            location="org.ofbiz.common.CommonServices" invoke="setDebugLevels">
+    <service name="adjustDebugingLevels" engine="java"
+             location="org.ofbiz.common.CommonServices" invoke="adjustDebugingLevels" auth="true">
         <description>Sets/Updates cached debugging levels</description>
-        <attribute name="verbose" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="timing" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="info" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="important" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="warning" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="error" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="fatal" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="fatal" type="String" mode="IN" optional="true"/>
+        <attribute name="error" type="String" mode="IN" optional="true"/>
+        <attribute name="warning" type="String" mode="IN" optional="true"/>
+        <attribute name="important" type="String" mode="IN" optional="true"/>
+        <attribute name="info" type="String" mode="IN" optional="true"/>
+        <attribute name="timing" type="String" mode="IN" optional="true"/>
+        <attribute name="verbose" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="addOrUpdateLogger" engine="java"
+             location="org.ofbiz.common.CommonServices" invoke="addOrUpdateLogger" auth="true">
+        <description>Add/Update logger in logging system</description>
+        <attribute name="name" type="String" mode="IN" optional="false"/>
+        <attribute name="level" type="String" mode="IN" optional="false"/>
+        <attribute name="additivity" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="displayXaDebugInfo" engine="java"

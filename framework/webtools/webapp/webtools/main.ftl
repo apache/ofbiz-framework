@@ -48,7 +48,7 @@ under the License.
                 <li><div class="tabletext">Cache &amp; Debug Tools</div>
                 <ul>
                     <li><a href="<@ofbizUrl>/FindUtilCache</@ofbizUrl>" class="linktext">Cache Maintenance</a>
-                    <li><a href="<@ofbizUrl>/debuglevels</@ofbizUrl>" class="linktext">Adjust Debugging Levels</a>
+                    <li><a href="<@ofbizUrl>/LogConfiguration</@ofbizUrl>" class="linktext">Adjust Debugging Levels</a>
                 </ul>
               <#if security.hasPermission("ENTITY_MAINT", session)>
                 <li><div class="tabletext">Entity Engine Tools</div>
