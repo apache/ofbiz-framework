@@ -89,6 +89,6 @@ under the License.
 </table>
 
 <%}else{%>
-  <hr>
+  <hr/>
   <div>You do not have permission to use this page.</div>
 <%}%>

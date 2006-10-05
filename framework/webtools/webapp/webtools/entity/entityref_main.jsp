@@ -83,7 +83,7 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
   while (piter.hasNext()) {
     String pName = (String) piter.next();
     TreeSet entities = (TreeSet) packages.get(pName);
-%><A name='<%=pName%>'></A><HR><DIV class='packagetext'><%=pName%></DIV><HR><%
+%><A name='<%=pName%>'></A><hr/><DIV class='packagetext'><%=pName%></DIV><hr/><%
     Iterator i = entities.iterator();
     while (i.hasNext()) {
       String entityName = (String)i.next();
@@ -137,7 +137,7 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
 			if (entity.getRelationsSize() > 0) {
 %>
 	<tr bgcolor="#FFCCCC">
-	  <td colspan="5"><hr></td>
+	  <td colspan="5"><hr/></td>
 	</tr>
     <tr class='headertext'> 
       <td align="center">Relation</td>

@@ -184,7 +184,7 @@ under the License.
 %>   
     <div class="head1">XML Export from DataSource(s)</div>
     <div class="tabletext">This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</div>
-    <hr>
+    <hr/>
     <%if(security.hasPermission("ENTITY_MAINT", session)) {%>
         <a href="<ofbiz:url>/xmldsrawdump</ofbiz:url>" class="buttontext" target="_blank">Click Here to Get Data (or save to file)</a>
     <%} else {%>

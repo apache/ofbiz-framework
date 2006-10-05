@@ -237,13 +237,13 @@ A.listtext:hover {color:red;}
   </SELECT>
   <INPUT type=SUBMIT value='Edit Specified Entity'>
 </FORM>
-<hr>
+<hr/>
 <FORM method="post" action='<ofbiz:url>/view/EditEntity?event=addEntity</ofbiz:url>' style='margin: 0;'>
   Entity Name (Java style): <INPUT type=TEXT class='inputBox' size='60' name='entityName'><br/>
   Entity Group: <INPUT type=TEXT size='60' class='inputBox' name='entityGroup' value='org.ofbiz'>
   <INPUT type=SUBMIT value='Create Entity'>
 </FORM>
-<hr>
+<hr/>
 <%if (entity == null) {%>
   <H4>Entity not found with name "<%=UtilFormatOut.checkNull(entityName)%>"</H4>
 <%}else{%>
@@ -325,7 +325,7 @@ A.listtext:hover {color:red;}
   <INPUT type="submit" value='Update Entity'>
 </FORM>
 
-<HR>
+<hr/>
 <%if (modelViewEntity == null) {%>
 <B>FIELDS</B>
   <TABLE border='1' cellpadding='2' cellspacing='0'>
@@ -395,10 +395,10 @@ A.listtext:hover {color:red;}
   <INPUT type="submit" value='Add'>
 </FORM>
 
-<HR>
+<hr/>
 <B>VIEW ALIASES</B>
 
-<HR>
+<hr/>
 <B>VIEW LINKS</B>
 
 <div>NOTE: Editing not yet completed for view entities, try again later (or just edit the XML by hand, and not at the same time you are editing here...)</div>
@@ -423,7 +423,7 @@ A.listtext:hover {color:red;}
 --%>
 
 <%}%>
-<HR>
+<hr/>
 
 <B>RELATIONSHIPS</B>
   <TABLE border='1' cellpadding='2' cellspacing='0'>

@@ -62,7 +62,7 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
 <a href="<%=response.encodeURL(controlPath + "/main")%>" target='main' class='listtext'>Pop up WebTools main</A><BR>
 <a href="<%=response.encodeURL(controlPath + "/view/entityref_main")%>" target="entityFrame" class='listtext'>Entity Reference Main Page</A><BR>
 <a href="<%=response.encodeURL(controlPath + "/view/checkdb")%>" target="entityFrame" class='listtext'>Check/Update Database</A>
-<HR>
+<hr/>
 <!-- want to leave these out because they are only working so-so, and cause people more problems that they solve, IMHO
 <a href="<%=response.encodeURL(controlPath + "/ModelWriter")%>" target='_blank' class='listtext'>Generate Entity Model XML (all in one)</A><BR>
 <a href="<%=response.encodeURL(controlPath + "/ModelWriter?savetofile=true")%>" target='_blank' class='listtext'>Save Entity Model XML to Files</A><BR>
@@ -72,7 +72,7 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
 <a href="<%=response.encodeURL(controlPath + "/ModelGroupWriter?savetofile=true")%>" target='_blank' class='listtext'>Save Entity Group XML to File</A><BR>
 -->
 <a href="<%=response.encodeURL(controlPath + "/view/ModelInduceFromDb")%>" target='_blank' class='listtext'>Induce Model XML from Database</A><BR>
-<HR>
+<hr/>
 <%}%>
 
 <%
@@ -86,7 +86,7 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
     <%}%>
 <%}%>
 
-<HR>
+<hr/>
 
 <%
 	Iterator i = entities.iterator();

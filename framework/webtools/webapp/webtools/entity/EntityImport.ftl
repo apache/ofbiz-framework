@@ -16,7 +16,7 @@ under the License.
 
 <div class="head1">${uiLabelMap.WebtoolsImportToDataSource}</div>
 <div>${uiLabelMap.WebtoolsMessage5}.</div>
-<hr>
+<hr/>
   <div class="head2">${uiLabelMap.WebtoolsImport}:</div>
 
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
@@ -36,7 +36,7 @@ under the License.
     <textarea class="textAreaBox" rows="20" cols="85" name="fulltext">${fulltext?if_exists}</textarea>
     <br/><input type="submit" value="${uiLabelMap.WebtoolsImportText}"/>
   </form>
-  <hr>
+  <hr/>
   <#if messages?exists>
       <h3>${uiLabelMap.WebtoolsResults}:</h3>
       <#list messages as message>

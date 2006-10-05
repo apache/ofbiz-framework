@@ -77,7 +77,7 @@ under the License.
 %>
 <div class="head1">Work With Data Files</div>
 <div class="tabletext">This page is used to view and export data from data files parsed by the configurable data file parser.</div>
-<hr>
+<hr/>
 <%if(security.hasPermission("DATAFILE_MAINT", session)) {%>
   <form method="post" action="<ofbiz:url>/viewdatafile</ofbiz:url>">
     <div class="tabletext">Definition Filename or URL: <input name="DEFINITION_LOCATION" class="inputBox" type="text" size="60" value="<%=UtilFormatOut.checkNull(definitionLoc)%>"> Is URL?:<INPUT type="checkbox" name="DEFINITION_IS_URL" <%=definitionIsUrl?"checked":""%>></div>
@@ -101,7 +101,7 @@ under the License.
     <div><input type="submit" value="Run"></div>
   </form>
 
-  <hr>
+  <hr/>
 
   <%if (messages.size() > 0) {%>
     <div class="head1">The following occurred:</div>
@@ -142,6 +142,6 @@ under the License.
   <%}%>
 
 <%}else{%>
-  <hr>
+  <hr/>
   <div class="tabletext">You do not have permission to use this page (DATAFILE_MAINT needed)</div>
 <%}%>
