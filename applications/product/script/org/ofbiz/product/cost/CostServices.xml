@@ -197,6 +197,7 @@ under the License.
             <order-by field-name="-billOfMaterialLevel"/>
         </entity-condition>
         <set from-field="parameters.currencyUomId" field="inMap.currencyUomId"/>
+        <set from-field="parameters.costComponentTypePrefix" field="inMap.costComponentTypePrefix"/>
         <iterate list-name="products" entry-name="product">
             <set from-field="product.productId" field="inMap.productId"/>
             <call-service service-name="calculateProductCosts" in-map-name="inMap"/>
