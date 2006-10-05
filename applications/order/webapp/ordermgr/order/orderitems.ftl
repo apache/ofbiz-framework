@@ -20,12 +20,17 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
             <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
-                <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED">
+                <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
                     <div class="tabletext">
-                      <#--
-                      <a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCancelAllItems}</a>
-                      -->
-                      <a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderEditItems}</a>
+                      <#if orderHeader.statusId != "ORDER_COMPLETED">
+                        <#--
+                        <a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="submenutext">${uiLabelMap.OrderCancelAllItems}</a>
+                        -->
+                        <a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderEditItems}</a>
+                      </#if>
+                      <#if returnableItems?has_content>
+                        <a href="<@ofbizUrl>quickreturn?orderId=${orderId}&party_id=${partyId?if_exists}&returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>"  class="submenutextright">${uiLabelMap.OrderCreateReturn}</a>
+                      </#if>
                     </div>
                 </#if>
             </#if>
