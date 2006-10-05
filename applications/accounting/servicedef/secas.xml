@@ -26,10 +26,14 @@ under the License.
         <action service="checkInvoicePaymentApplications" mode="sync"/>
         <action service="createCommissionInvoices" mode="sync"/>
     </eca>
+    
+    <!--  Uncomment this if you want commission invoices to be set to READY automatically, which means they are official 
     <eca service="createCommissionInvoices" event="commit">
         <condition field-name="invoicesCreated" operator="is-not-empty"/>
         <action service="readyInvoices" mode="sync"/>
     </eca>
+    -->
+    
     <eca service="createPartyPostalAddress" event="commit">
         <condition field-name="paymentMethodId" operator="is-not-empty"/>
         <action service="setPaymentMethodAddress" mode="sync"/>
