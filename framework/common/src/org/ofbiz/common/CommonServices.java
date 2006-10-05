@@ -174,33 +174,33 @@ public class CommonServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map adjustDebugingLevels(DispatchContext dctc, Map context) {
-	Debug.set(Debug.FATAL, "Y".equalsIgnoreCase((String) context.get("fatal")));
-	Debug.set(Debug.ERROR, "Y".equalsIgnoreCase((String) context.get("error")));
-	Debug.set(Debug.WARNING, "Y".equalsIgnoreCase((String) context.get("warning")));
-	Debug.set(Debug.IMPORTANT, "Y".equalsIgnoreCase((String) context.get("important")));
-	Debug.set(Debug.INFO, "Y".equalsIgnoreCase((String) context.get("info")));
-	Debug.set(Debug.TIMING, "Y".equalsIgnoreCase((String) context.get("timing")));
-	Debug.set(Debug.VERBOSE, "Y".equalsIgnoreCase((String) context.get("verbose")));
-	
-	return ServiceUtil.returnSuccess();
+    public static Map adjustDebugLevels(DispatchContext dctc, Map context) {
+        Debug.set(Debug.FATAL, "Y".equalsIgnoreCase((String) context.get("fatal")));
+        Debug.set(Debug.ERROR, "Y".equalsIgnoreCase((String) context.get("error")));
+        Debug.set(Debug.WARNING, "Y".equalsIgnoreCase((String) context.get("warning")));
+        Debug.set(Debug.IMPORTANT, "Y".equalsIgnoreCase((String) context.get("important")));
+        Debug.set(Debug.INFO, "Y".equalsIgnoreCase((String) context.get("info")));
+        Debug.set(Debug.TIMING, "Y".equalsIgnoreCase((String) context.get("timing")));
+        Debug.set(Debug.VERBOSE, "Y".equalsIgnoreCase((String) context.get("verbose")));
+    
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map addOrUpdateLogger(DispatchContext dctc, Map context) {
-	String name = (String) context.get("name");
-	String level = (String) context.get("level");
-	boolean additivity = "Y".equalsIgnoreCase((String) context.get("additivity"));
-	
-	Logger logger = null;
-	if ("root".equals(name)) {
-	    logger = Logger.getRootLogger();
-	} else {
-	    logger = Logger.getLogger(name);
-	}
-	logger.setLevel(Level.toLevel(level));
-	logger.setAdditivity(additivity);
-	
-	return ServiceUtil.returnSuccess();
+        String name = (String) context.get("name");
+        String level = (String) context.get("level");
+        boolean additivity = "Y".equalsIgnoreCase((String) context.get("additivity"));
+    
+        Logger logger = null;
+        if ("root".equals(name)) {
+            logger = Logger.getRootLogger();
+        } else {
+            logger = Logger.getLogger(name);
+        }
+        logger.setLevel(Level.toLevel(level));
+        logger.setAdditivity(additivity);
+    
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map forceGc(DispatchContext dctx, Map context) {

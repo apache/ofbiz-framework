@@ -305,9 +305,9 @@ under the License.
         <event type="service-multi" invoke="addOrUpdateLogger"/>
         <response name="success" type="view" value="LogConfiguration"/>
     </request-map>
-    <request-map uri="AdjustDebugingLevels">
+    <request-map uri="AdjustDebugLevels">
         <security https="true" auth="true"/>
-        <event type="service" invoke="adjustDebugingLevels"/>
+        <event type="service" invoke="adjustDebugLevels"/>
         <response name="success" type="view" value="LogConfiguration"/>
     </request-map>
 
