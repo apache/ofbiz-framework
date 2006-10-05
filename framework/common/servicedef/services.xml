@@ -48,8 +48,8 @@ under the License.
         <attribute name="noteId" type="String" mode="OUT"/>
     </service>
 
-    <service name="adjustDebugingLevels" engine="java"
-             location="org.ofbiz.common.CommonServices" invoke="adjustDebugingLevels" auth="true">
+    <service name="adjustDebugLevels" engine="java"
+             location="org.ofbiz.common.CommonServices" invoke="adjustDebugLevels" auth="true">
         <description>Sets/Updates cached debugging levels</description>
         <attribute name="fatal" type="String" mode="IN" optional="true"/>
         <attribute name="error" type="String" mode="IN" optional="true"/>
