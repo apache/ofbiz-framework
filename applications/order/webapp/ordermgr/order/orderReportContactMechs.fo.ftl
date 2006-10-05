@@ -34,6 +34,14 @@ ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${posta
 ${postalAddress.countryGeoId?if_exists}
 </fo:block>
                </fo:table-cell>
+             <#else>
+               <#-- here we just display the name of the vendor, since there is no address -->
+               <fo:table-cell>
+                 <#assign vendorParty = orderReadHelper.getBillFromParty()>
+                 <fo:block white-space-collapse="false">
+<fo:block font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:block>${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(vendorParty)}
+                 </fo:block>
+               </fo:table-cell> 
              </#if>
              </#if>
              
@@ -44,7 +52,7 @@ ${postalAddress.countryGeoId?if_exists}
                <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
                <fo:table-cell>
                  <fo:block white-space-collapse="false">
-<fo:block font-weight="bold">${contactMechPurpose.get("description",locale)} : </fo:block><#assign postalAddress = orderContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName}</#if><#if postalAddress.attnName?has_content>
+<fo:block font-weight="bold">${contactMechPurpose.get("description",locale)}: </fo:block><#assign postalAddress = orderContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName}</#if><#if postalAddress.attnName?has_content>
 ${postalAddress.attnName}</#if>
 ${postalAddress.address1}<#if postalAddress.address2?has_content>
 ${postalAddress.address2}</#if>

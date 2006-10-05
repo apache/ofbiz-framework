@@ -18,10 +18,10 @@ under the License.
 <#if orderHeader.getString("orderTypeId") == "SALES_ORDER">
   <fo:block font-size="14pt" font-weight="bold" text-align="center">THANK YOU FOR YOUR PATRONAGE!</fo:block>
   <fo:block font-size="8pt">
-    Here is a good place to put policies and return information.
+    <#--    Here is a good place to put policies and return information. -->
   </fo:block>
 <#elseif orderHeader.getString("orderTypeId") == "PURCHASE_ORDER">
   <fo:block font-size="8pt">
-    Here is a good place to put boilerplate terms and conditions for a purchase order.
+    <#-- Here is a good place to put boilerplate terms and conditions for a purchase order. -->
   </fo:block>
 </#if>
