@@ -121,6 +121,6 @@ under the License.
 </ofbiz:if>
 
 <%}else{%>
-  <hr>
+  <hr/>
   <div>You do not have permission to use this page (WORKFLOW_MAINT needed)</div>
 <%}%>

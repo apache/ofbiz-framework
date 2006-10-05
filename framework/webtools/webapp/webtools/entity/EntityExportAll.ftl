@@ -20,7 +20,7 @@ under the License.
     ${uiLabelMap.WebtoolsMessage2}.
     ${uiLabelMap.WebtoolsMessage3}.
 </div>
-<hr>
+<hr/>
     
 <div class="head2">${uiLabelMap.WebtoolsResults}:</div>
 
@@ -30,7 +30,7 @@ under the License.
     </#list>
 </#if>
 
-<hr>
+<hr/>
 
 <div class="head2">${uiLabelMap.WebtoolsExport}:</div>
 <form method="post" action="<@ofbizUrl>entityExportAll</@ofbizUrl>">

@@ -216,7 +216,7 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
   <input type="submit" value="Update"/>
 </form>
 
-<hr>
+<hr/>
 <ul>
 <%while (miter != null && miter.hasNext()) {%>
   <%String message = (String) miter.next();%>

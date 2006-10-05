@@ -144,7 +144,7 @@ under the License.
 <%}%>
 	
 <%}else{%>
-  <hr>
+  <hr/>
   <div>You do not have permission to use this page.</div>
 <%}%>	
 	

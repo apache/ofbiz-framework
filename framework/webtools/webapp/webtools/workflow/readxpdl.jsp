@@ -61,7 +61,7 @@ under the License.
     Import/Update to DB?:<INPUT type="checkbox" name='XPDL_IMPORT'> <INPUT type="submit" class=smallSubmit value='View'>
   </FORM>
 
-  <hr>
+  <hr/>
 
   <%if(messages.size() > 0) {%>
     <H4>The following occurred:</H4>
@@ -71,7 +71,7 @@ under the License.
       <LI><%=errMsgIter.next()%>
     <%}%>
     </UL>
-    <HR>
+    <hr/>
   <%}%>
 
     <%Iterator viter = UtilMisc.toIterator(toBeStored);%>
@@ -87,6 +87,6 @@ under the License.
     
     
 <%}else{%>
-  <hr>
+  <hr/>
   <div>You do not have permission to use this page (WORKFLOW_MAINT needed)</div>
 <%}%>

@@ -16,7 +16,7 @@ under the License.
 
 <div class="head1">${uiLabelMap.WebtoolsImportToDataSource}</div>
 <div class="tabletext">${uiLabelMap.WebtoolsMessage5}.</div>
-<hr>
+<hr/>
   <div class="head2">${uiLabelMap.WebtoolsImport}:</div>
 
   <form method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
@@ -30,7 +30,7 @@ under the License.
     <div class="tabletext">${uiLabelMap.WebtoolsPause}:<input type="text" size="6" value="${filePauseStr?default("0")}" name="filePause"/></div>
     <div><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
   </form>
-  <hr>
+  <hr/>
   <#if messages?exists>
     <div class="head1">${uiLabelMap.WebtoolsResults}:</div>
     <#list messages as message>
