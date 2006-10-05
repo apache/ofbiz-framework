@@ -21,13 +21,14 @@ under the License.
     <AgreementItemType agreementItemTypeId="AGREEMENT_EXHIBIT" description="Exhibit" hasTable="N" parentTypeId=""/>
     <AgreementItemType agreementItemTypeId="AGREEMENT_PRICING_PR" description="Pricing" hasTable="N" parentTypeId=""/>
     <AgreementItemType agreementItemTypeId="AGREEMENT_SECTION" description="Section" hasTable="N" parentTypeId=""/>
-    <AgreementItemType agreementItemTypeId="AGREEMENT_COMMISSION" description="Section" hasTable="N" parentTypeId=""/>
+    <AgreementItemType agreementItemTypeId="AGREEMENT_COMMISSION" description="Commission Rate" hasTable="N" parentTypeId=""/>
 
     <AgreementType agreementTypeId="PRODUCT_AGREEMENT" description="Product" hasTable="N" parentTypeId=""/>
     <AgreementType agreementTypeId="PURCHASE_AGREEMENT" description="Purchase" hasTable="N" parentTypeId="PRODUCT_AGREEMENT"/>
     <AgreementType agreementTypeId="SALES_AGREEMENT" description="Sales" hasTable="N" parentTypeId="PRODUCT_AGREEMENT"/>
     <AgreementType agreementTypeId="EMPLOYMENT_AGREEMENT" description="Employment" hasTable="N" parentTypeId=""/>
     <AgreementType agreementTypeId="OTHER_AGREEMENT" description="Other" hasTable="N" parentTypeId=""/>
+    <AgreementType agreementTypeId="COMMISSION_AGREEMENT" description="Commission" hasTable="N" parentTypeId=""/>
 
     <CommunicationEventPrpTyp communicationEventPrpTypId="ACTIVITY_REQUEST" description="Activity Request" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="CONFERENCE" description="Conference" hasTable="N" parentTypeId=""/>
