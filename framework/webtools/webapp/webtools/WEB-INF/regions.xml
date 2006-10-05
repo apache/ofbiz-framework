@@ -123,11 +123,6 @@ under the License.
         <put section="content" content="/period/EditCustomTimePeriod.jsp"/>
     </define>
 
-    <define id="debuglevels" region="MAIN_REGION">
-        <put section="title">Debugging Levels</put>
-        <put section="content" content="/debug.jsp"/>
-    </define>
-
     <define id="threadList" region="MAIN_REGION">
     	<put section="title">Thread List</put>
     	<put section="content" content="/service/threads.jsp"/>
