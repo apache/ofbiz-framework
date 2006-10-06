@@ -760,6 +760,25 @@ public class UtilHttp {
     }
 
     /**
+     * Returns a new map containing all the parameters from the input map except for the
+     * multi form parameters (usually named according to the ${param}_o_N notation).
+     */
+    public static Map removeMultiFormParameters(Map parameters) {
+        FastMap filteredParameters = new FastMap();
+        Iterator keys = parameters.keySet().iterator();
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
+
+            if (key != null && (key.indexOf(MULTI_ROW_DELIMITER) != -1 || key.indexOf("_useRowSubmit") != -1 || key.indexOf("_rowCount") != -1)) {
+                continue;
+            }
+
+            filteredParameters.put(key, parameters.get(key));
+        }
+        return filteredParameters;
+    }
+
+    /**
      * Utility to make a composite parameter from the given prefix and suffix.
      * The prefix should be a regular paramter name such as meetingDate. The
      * suffix is the composite field, such as the hour of the meeting. The
