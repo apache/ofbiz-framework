@@ -441,8 +441,8 @@ public class ProductWorker {
         if (orderAdjustment.get("amount") != null) {
             adjustment += orderAdjustment.getDouble("amount").doubleValue();
         }
-        if (orderAdjustment.get("percentage") != null) {
-            adjustment += (orderAdjustment.getDouble("percentage").doubleValue() * orderSubTotal);
+        else if (orderAdjustment.get("sourcePercentage") != null) {
+            adjustment += (orderAdjustment.getDouble("sourcePercentage").doubleValue() * orderSubTotal);
         }
         return adjustment;
     }    
