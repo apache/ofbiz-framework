@@ -20,6 +20,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.*;
 import org.ofbiz.accounting.invoice.*;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
  
 // delegator = parameters.get("delegator");
 invoiceId = parameters.get("invoiceId");
@@ -51,7 +52,30 @@ if (invoice != null) {
     context.put("billingParty", billingParty);
     sendingParty = InvoiceWorker.getSendFromParty(invoice);
     context.put("sendingParty", sendingParty);
-    
+
+   sendingTaxInfos=sendingParty.getRelated("PartyTaxAuthInfo");
+   billingTaxInfos=billingParty.getRelated("PartyTaxAuthInfo");
+   sendingPartyTaxId=null;
+   billingPartyTaxId=null;
+
+   if (billingAddress != null) {
+       for (Iterator i=sendingTaxInfos.iterator();i.hasNext();) {
+           if (i.next().get("taxAuthGeoId").equals(billingAddress.get("countryGeoId"))) {
+                sendingPartyTaxId=sendingTaxInfos.get(i.previousIndex()).get("partyTaxId");
+           }
+       }
+       for (i=billingTaxInfos.iterator(); i.hasNext(); ) {
+           if (i.next().get("taxAuthGeoId").equals(billingAddress.get("countryGeoId"))) {
+                billingPartyTaxId=billingTaxInfos.get(i.previousIndex()).get("partyTaxId");
+           }
+       }
+   }
+   if (sendingPartyTaxId != null ) {
+       context.put("sendingPartyTaxId",sendingPartyTaxId);
+   }
+   if (billingPartyTaxId != null ) {
+       context.put("billingPartyTaxId",billingPartyTaxId);
+   }
     terms = invoice.getRelated("InvoiceTerm");
     context.put("terms", terms);
     

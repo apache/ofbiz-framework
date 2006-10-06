@@ -45,6 +45,13 @@ under the License.
                     <fo:table-column column-width="15mm"/>
                     <fo:table-column column-width="25mm"/>
                     <fo:table-body>
+
+                    <#if sendingPartyTaxId?exists>
+                    <fo:table-row>
+                      <fo:table-cell><fo:block>Tax ID:</fo:block></fo:table-cell>
+                      <fo:table-cell><fo:block>${sendingPartyTaxId}</fo:block></fo:table-cell>
+                    </fo:table-row>
+                    </#if>
                                   
                     <#if phone?exists>
                     <fo:table-row>
