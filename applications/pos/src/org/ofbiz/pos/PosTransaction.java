@@ -393,7 +393,7 @@ public class PosTransaction implements Serializable {
         GenericValue adjustment = session.getDelegator().makeValue("OrderAdjustment", null);
         adjustment.set("orderAdjustmentTypeId", "DISCOUNT_ADJUSTMENT");
         if (percent) {
-            adjustment.set("percentage", new Double(discount));
+            adjustment.set("sourcePercentage", new Double(discount * 100));
         } else {
             adjustment.set("amount", new Double(discount));
         }
@@ -405,7 +405,7 @@ public class PosTransaction implements Serializable {
             if (itemAdj != null) {
                 item.removeAdjustment(itemAdj.intValue());
             }
-            int idx = item.addAdjustment(adjustment);
+           	int idx = item.addAdjustment(adjustment);    
             skuDiscounts.put(productId, new Integer(idx));
         } else {
             trace("add sale adjustment");

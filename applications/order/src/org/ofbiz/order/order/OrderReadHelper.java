@@ -73,7 +73,8 @@ public class OrderReadHelper {
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalRoundingMode("salestax.final.decimals");
     public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
-    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(scale, rounding);
+    public static final BigDecimal ZERO = (new BigDecimal("0")).setScale(scale, rounding);    
+    public static final BigDecimal percentage = (new BigDecimal("0.01")).setScale(scale, rounding);    
 
     protected GenericValue orderHeader = null;
     protected List orderItemAndShipGrp = null;
@@ -2349,6 +2350,12 @@ public class OrderReadHelper {
             BigDecimal amount = orderAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding); 
             adjustment = adjustment.add(amount);
         }
+        else if (orderAdjustment.get("sourcePercentage") != null) {
+            // round amount to best precision (taxCalcScale) because db value of 0.825 is pulled as 0.8249999...
+            BigDecimal percent = orderAdjustment.getBigDecimal("sourcePercentage").setScale(taxCalcScale,taxRounding);
+            BigDecimal amount = orderSubTotal.multiply(percent).multiply(percentage).setScale(taxCalcScale, taxRounding);
+            adjustment = adjustment.add(amount);
+        }        
         return adjustment.setScale(scale, rounding);
     }
 
@@ -2609,6 +2616,9 @@ public class OrderReadHelper {
         BigDecimal adjustment = ZERO;
         if (itemAdjustment.get("amount") != null) {
             adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("amount")));
+        }
+        else if (itemAdjustment.get("sourcePercentage") != null) {
+            adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("sourcePercentage").multiply(quantity).multiply(unitPrice).multiply(percentage)));
         }
         if (Debug.verboseOn()) Debug.logVerbose("calcItemAdjustment: " + itemAdjustment + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", adjustment=" + adjustment, module);
         return adjustment.setScale(scale, rounding);

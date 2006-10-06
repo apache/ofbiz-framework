@@ -105,6 +105,7 @@ public class InvoiceServices {
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     private static int taxDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     private static int taxRounding = UtilNumber.getBigDecimalScale("salestax.rounding");
+    public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
 
     public static final String resource = "AccountingUiLabels";
 
@@ -477,61 +478,73 @@ public class InvoiceServices {
                     Iterator itemAdjIter = itemAdjustments.iterator();
                     while (itemAdjIter.hasNext()) {
                         GenericValue adj = (GenericValue) itemAdjIter.next();
-                        if (adj.get("amount") != null) {
+                        
+                        BigDecimal amount = new BigDecimal(0);
+                        if (adj.get("amount") != null) { 
                             // pro-rate the amount
-
                             // set decimals = 100 means we don't round this intermediate value, which is very important
-                            BigDecimal amount = adj.getBigDecimal("amount").divide(orderItem.getBigDecimal("quantity"), 100, rounding);
+                            amount = adj.getBigDecimal("amount").divide(orderItem.getBigDecimal("quantity"), 100, rounding);
                             amount = amount.multiply(billingQuantity);
                             amount = amount.setScale(decimals, rounding);
-
-                            Map createInvoiceItemAdjContext = FastMap.newInstance();
-                            createInvoiceItemAdjContext.put("invoiceId", invoiceId);
-                            createInvoiceItemAdjContext.put("invoiceItemSeqId", invoiceItemSeqId);
-                            createInvoiceItemAdjContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, adj.getString("orderAdjustmentTypeId"), null, invoiceType, "INVOICE_ITM_ADJ"));
-                            createInvoiceItemAdjContext.put("description", adj.get("description"));
-                            createInvoiceItemAdjContext.put("quantity", new Double(1));
-                            createInvoiceItemAdjContext.put("amount", new Double(amount.doubleValue()));
-                            createInvoiceItemAdjContext.put("productId", orderItem.get("productId"));
-                            createInvoiceItemAdjContext.put("productFeatureId", orderItem.get("productFeatureId"));
-                            createInvoiceItemAdjContext.put("overrideGlAccountId", adj.get("overrideGlAccountId"));
-                            createInvoiceItemAdjContext.put("parentInvoiceId", invoiceId);
-                            createInvoiceItemAdjContext.put("parentInvoiceItemSeqId", parentInvoiceItemSeqId);
-                            //createInvoiceItemAdjContext.put("uomId", "");
-                            createInvoiceItemAdjContext.put("userLogin", userLogin);
-                            createInvoiceItemAdjContext.put("taxAuthPartyId", adj.get("taxAuthPartyId"));
-                            createInvoiceItemAdjContext.put("taxAuthGeoId", adj.get("taxAuthGeoId"));
-                            createInvoiceItemAdjContext.put("taxAuthorityRateSeqId", adj.get("taxAuthorityRateSeqId"));
-        
-                            // invoice items for sales tax are not taxable themselves
-                            // TODO: This is not an ideal solution. Instead, we need to use OrderAdjustment.includeInTax when it is implemented
-                            if (!(adj.getString("orderAdjustmentTypeId").equals("SALES_TAX"))) {
-                                createInvoiceItemAdjContext.put("taxableFlag", product.get("taxable"));    
-                            }
-        
-                            Map createInvoiceItemAdjResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemAdjContext);
-                            if (ServiceUtil.isError(createInvoiceItemAdjResult)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceItemFromOrder",locale), null, null, createInvoiceItemAdjResult);
-                            }
-
-                            // this adjustment amount
-                            BigDecimal thisAdjAmount = new BigDecimal(amount.doubleValue()).setScale(decimals, rounding);
-
-                            // adjustments only apply to totals when they are not tax or shipping adjustments
-                            if (!"SALES_TAX".equals(adj.getString("orderAdjustmentTypeId")) &&
-                                    !"SHIPPING_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
-                                // increment the invoice subtotal
-                                invoiceSubTotal = invoiceSubTotal.add(thisAdjAmount).setScale(decimals, rounding);
-
-                                // add to the ship amount only if it applies to this item
-                                if (shippingApplies) {
-                                    invoiceShipProRateAmount = invoiceShipProRateAmount.add(thisAdjAmount).setScale(decimals, rounding);
-                                }
-                            }
-
-                            // increment the counter
-                            invoiceItemSeqNum++;
-                            invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                        }
+                        else if (adj.get("sourcePercentage") != null) { 
+                            // pro-rate the amount
+                            // set decimals = 100 means we don't round this intermediate value, which is very important
+                            BigDecimal percent = adj.getBigDecimal("sourcePercentage");
+                            percent = percent.divide(new BigDecimal(100), 100, rounding);
+                            amount = billingAmount.multiply(percent); 
+                            amount = amount.divide(orderItem.getBigDecimal("quantity"), 100, rounding);
+                            amount = amount.multiply(billingQuantity);
+                            amount = amount.setScale(decimals, rounding);
+                        }
+                        if (amount.signum() != 0) {                      
+	                        Map createInvoiceItemAdjContext = FastMap.newInstance();
+	                        createInvoiceItemAdjContext.put("invoiceId", invoiceId);
+	                        createInvoiceItemAdjContext.put("invoiceItemSeqId", invoiceItemSeqId);
+	                        createInvoiceItemAdjContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, adj.getString("orderAdjustmentTypeId"), null, invoiceType, "INVOICE_ITM_ADJ"));
+	                        createInvoiceItemAdjContext.put("description", adj.get("description"));
+	                        createInvoiceItemAdjContext.put("quantity", new Double(1));
+	                        createInvoiceItemAdjContext.put("amount", new Double(amount.doubleValue()));
+	                        createInvoiceItemAdjContext.put("productId", orderItem.get("productId"));
+	                        createInvoiceItemAdjContext.put("productFeatureId", orderItem.get("productFeatureId"));
+	                        createInvoiceItemAdjContext.put("overrideGlAccountId", adj.get("overrideGlAccountId"));
+	                        createInvoiceItemAdjContext.put("parentInvoiceId", invoiceId);
+	                        createInvoiceItemAdjContext.put("parentInvoiceItemSeqId", parentInvoiceItemSeqId);
+	                        //createInvoiceItemAdjContext.put("uomId", "");
+	                        createInvoiceItemAdjContext.put("userLogin", userLogin);
+	                        createInvoiceItemAdjContext.put("taxAuthPartyId", adj.get("taxAuthPartyId"));
+	                        createInvoiceItemAdjContext.put("taxAuthGeoId", adj.get("taxAuthGeoId"));
+	                        createInvoiceItemAdjContext.put("taxAuthorityRateSeqId", adj.get("taxAuthorityRateSeqId"));
+	    
+	                        // invoice items for sales tax are not taxable themselves
+	                        // TODO: This is not an ideal solution. Instead, we need to use OrderAdjustment.includeInTax when it is implemented
+	                        if (!(adj.getString("orderAdjustmentTypeId").equals("SALES_TAX"))) {
+	                            createInvoiceItemAdjContext.put("taxableFlag", product.get("taxable"));    
+	                        }
+	    
+	                        Map createInvoiceItemAdjResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemAdjContext);
+	                        if (ServiceUtil.isError(createInvoiceItemAdjResult)) {
+	                            return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceItemFromOrder",locale), null, null, createInvoiceItemAdjResult);
+	                        }
+	
+	                        // this adjustment amount
+	                        BigDecimal thisAdjAmount = new BigDecimal(amount.doubleValue()).setScale(decimals, rounding);
+	
+	                        // adjustments only apply to totals when they are not tax or shipping adjustments
+	                        if (!"SALES_TAX".equals(adj.getString("orderAdjustmentTypeId")) &&
+	                                !"SHIPPING_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
+	                            // increment the invoice subtotal
+	                            invoiceSubTotal = invoiceSubTotal.add(thisAdjAmount).setScale(decimals, rounding);
+	
+	                            // add to the ship amount only if it applies to this item
+	                            if (shippingApplies) {
+	                                invoiceShipProRateAmount = invoiceShipProRateAmount.add(thisAdjAmount).setScale(decimals, rounding);
+	                            }
+	                        }
+	
+	                        // increment the counter
+	                        invoiceItemSeqNum++;
+	                        invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
                         }
                     }
                 }
@@ -605,7 +618,7 @@ public class InvoiceServices {
                 BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
                         orderSubTotal, invoiceSubTotal, invoiceQuantity, taxDecimals, taxRounding, userLogin, dispatcher, locale);
                 // this doesn't really effect anything; but just for our totals
-                invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(decimals, rounding);
+                invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(decimals, rounding);                
             }
 
             // check for previous order payments
@@ -1495,6 +1508,49 @@ public class InvoiceServices {
             if (divisor.signum() != 0) {
                 // multiply first then divide to avoid rounding errors
                 amount = baseAdjAmount.multiply(multiplier).divide(divisor, decimals, rounding);
+            }
+            if (amount.signum() != 0) {
+                Map createInvoiceItemContext = FastMap.newInstance();
+                createInvoiceItemContext.put("invoiceId", invoiceId);
+                createInvoiceItemContext.put("invoiceItemSeqId", invoiceItemSeqId);
+                createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, adj.getString("orderAdjustmentTypeId"), null, invoiceTypeId, "INVOICE_ADJ"));
+                createInvoiceItemContext.put("description", adj.get("description"));
+                createInvoiceItemContext.put("quantity", new Double(1));
+                createInvoiceItemContext.put("amount", new Double(amount.doubleValue()));
+                createInvoiceItemContext.put("overrideGlAccountId", adj.get("overrideGlAccountId"));
+                //createInvoiceItemContext.put("productId", orderItem.get("productId"));
+                //createInvoiceItemContext.put("productFeatureId", orderItem.get("productFeatureId"));
+                //createInvoiceItemContext.put("uomId", "");
+                //createInvoiceItemContext.put("taxableFlag", product.get("taxable"));
+                createInvoiceItemContext.put("taxAuthPartyId", adj.get("taxAuthPartyId"));
+                createInvoiceItemContext.put("taxAuthGeoId", adj.get("taxAuthGeoId"));
+                createInvoiceItemContext.put("taxAuthorityRateSeqId", adj.get("taxAuthorityRateSeqId"));
+                createInvoiceItemContext.put("userLogin", userLogin);
+
+                Map createInvoiceItemResult = null;
+                try {
+                    createInvoiceItemResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemContext);
+                } catch( GenericServiceException e ) {
+                    String errMsg = UtilProperties.getMessage(resource,"AccountingServiceErrorCreatingInvoiceItemFromOrder",locale) + ": " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    ServiceUtil.returnError(errMsg);
+                }
+                if (ServiceUtil.isError(createInvoiceItemResult)) {
+                    ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceItemFromOrder",locale), null, null, createInvoiceItemResult);
+                }
+            }
+            amount.setScale(decimals, rounding);
+            adjAmount = amount;
+        }
+        else if (adj.get("sourcePercentage") != null) {
+            // pro-rate the amount
+            BigDecimal percent = adj.getBigDecimal("sourcePercentage");
+            percent = percent.divide(new BigDecimal(100), 100, rounding);        	
+            BigDecimal amount = ZERO;
+            // make sure the divisor is not 0 to avoid NaN problems; just leave the amount as 0 and skip it in essense
+            if (divisor.signum() != 0) {
+                // multiply first then divide to avoid rounding errors
+                amount = percent.multiply(divisor);
             }
             if (amount.signum() != 0) {
                 Map createInvoiceItemContext = FastMap.newInstance();
