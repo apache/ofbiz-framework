@@ -1114,6 +1114,10 @@ public class HtmlFormRenderer implements FormStringRenderer {
             queryString = (String)context.get("queryString");
         } else {
             Map inputFields = (Map)context.get("requestParameters");
+            // strip out any multi form fields if the form is of type multi
+            if (modelForm.getType().equals("multi")) {
+                inputFields = UtilHttp.removeMultiFormParameters(inputFields);
+            }
             queryString = UtilHttp.urlEncodeArgs(inputFields);
         }
         context.put("_QBESTRING_", queryString);
