@@ -53,29 +53,34 @@ if (invoice != null) {
     sendingParty = InvoiceWorker.getSendFromParty(invoice);
     context.put("sendingParty", sendingParty);
 
-   sendingTaxInfos=sendingParty.getRelated("PartyTaxAuthInfo");
-   billingTaxInfos=billingParty.getRelated("PartyTaxAuthInfo");
-   sendingPartyTaxId=null;
-   billingPartyTaxId=null;
+                /*________________this snippet was added for adding Tax ID in invoice header if needed _________________
+                
+               sendingTaxInfos=sendingParty.getRelated("PartyTaxAuthInfo");
+               billingTaxInfos=billingParty.getRelated("PartyTaxAuthInfo");
+               sendingPartyTaxId=null;
+               billingPartyTaxId=null;
+            
+               if (billingAddress != null) {
+                   for (Iterator i=sendingTaxInfos.iterator();i.hasNext();) {
+                       if (i.next().get("taxAuthGeoId").equals(billingAddress.get("countryGeoId"))) {
+                            sendingPartyTaxId=sendingTaxInfos.get(i.previousIndex()).get("partyTaxId");
+                       }
+                   }
+                   for (i=billingTaxInfos.iterator(); i.hasNext(); ) {
+                       if (i.next().get("taxAuthGeoId").equals(billingAddress.get("countryGeoId"))) {
+                            billingPartyTaxId=billingTaxInfos.get(i.previousIndex()).get("partyTaxId");
+                       }
+                   }
+               }
+               if (sendingPartyTaxId != null ) {
+                   context.put("sendingPartyTaxId",sendingPartyTaxId);
+               }
+               if (billingPartyTaxId != null ) {
+                   context.put("billingPartyTaxId",billingPartyTaxId);
+               }
+               ________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
+   
 
-   if (billingAddress != null) {
-       for (Iterator i=sendingTaxInfos.iterator();i.hasNext();) {
-           if (i.next().get("taxAuthGeoId").equals(billingAddress.get("countryGeoId"))) {
-                sendingPartyTaxId=sendingTaxInfos.get(i.previousIndex()).get("partyTaxId");
-           }
-       }
-       for (i=billingTaxInfos.iterator(); i.hasNext(); ) {
-           if (i.next().get("taxAuthGeoId").equals(billingAddress.get("countryGeoId"))) {
-                billingPartyTaxId=billingTaxInfos.get(i.previousIndex()).get("partyTaxId");
-           }
-       }
-   }
-   if (sendingPartyTaxId != null ) {
-       context.put("sendingPartyTaxId",sendingPartyTaxId);
-   }
-   if (billingPartyTaxId != null ) {
-       context.put("billingPartyTaxId",billingPartyTaxId);
-   }
     terms = invoice.getRelated("InvoiceTerm");
     context.put("terms", terms);
     
