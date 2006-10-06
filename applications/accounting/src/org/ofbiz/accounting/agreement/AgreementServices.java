@@ -131,7 +131,9 @@ public class AgreementServices {
                     BigDecimal commission = ZERO;
                     BigDecimal min = new BigDecimal("-1e12");   // Limit to 1 trillion commission
                     BigDecimal max = new BigDecimal("1e12");
-                    long days = 0;
+                   
+                    // number of days due for commission, which will be the lowest termDays of all the AgreementTerms
+                    long days = -1;
                     Iterator itt = terms.iterator();
                     while (itt.hasNext()) {
                         GenericValue elem = (GenericValue) itt.next();
@@ -150,9 +152,17 @@ public class AgreementServices {
                             }
                             // TODO: Add other type of terms and handling here
                         }
+
+                        // see if we need to update the number of days for paying commission
                         Long termDays = elem.getLong("termDays");
                         if (termDays != null) {
-                            days = Math.min(days, termDays.longValue());
+                            // if days is greater than zero, then it has been set with another value, so we use the lowest term days
+                            // if days is less than zero, then it has not been set yet.
+                            if (days > 0) {
+                                days = Math.min(days, termDays.longValue());
+                            } else {
+                                days = termDays.longValue();
+                            }
                         }
                     }
                     if (commission.compareTo(min) < 0)
@@ -161,14 +171,17 @@ public class AgreementServices {
                         commission = max;
                     commission = negative ? commission.negate() : commission;
                     commission = commission.setScale(decimals, rounding);
-                    days = Math.max(0, days);
-                    commissions.add(UtilMisc.toMap(
+                    
+                    Map partyCommissionResult = UtilMisc.toMap(
                             "partyIdFrom", agreementItem.getString("partyIdFrom"),
                             "partyIdTo", agreementItem.getString("partyIdTo"),
                             "commission", commission,
-                            "days", new Long(days),
                             "currencyUomId", agreementItem.getString("currencyUomId"),
-                            "productId", productId));
+                            "productId", productId);
+                    if (days >= 0) {
+                        partyCommissionResult.put("days", new Long(days));
+                    }
+                    commissions.add(partyCommissionResult);
                 }
             }
         } catch (GenericEntityException e) {

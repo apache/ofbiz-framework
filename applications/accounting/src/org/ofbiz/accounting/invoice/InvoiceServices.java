@@ -777,14 +777,14 @@ public class InvoiceServices {
                 List toStore = FastList.newInstance();
                 List commList = (List)pair.getValue();
                 // get the billing parties
-                // From and To are reversed between commission and invoice
-                if (commList == null || commList.size() == 0)
+                if (UtilValidate.isEmpty(commList)) {
                     continue;
+                }
+               
+                // From and To are reversed between commission and invoice
                 String partyIdBillTo = (String) ((Map)commList.get(0)).get("partyIdFrom");
                 String partyIdBillFrom = (String) ((Map)commList.get(0)).get("partyIdTo");
-                Long termDays = (Long) ((Map)commList.get(0)).get("termDays");
-                termDays = termDays == null ? new Long(0) : termDays;
-                Timestamp dueDate = UtilDateTime.getDayEnd(now, termDays.intValue());
+                Long days = (Long) ((Map)commList.get(0)).get("days");
                 
                 // create the invoice record
                 // To and From are in commission's sense, opposite for invoice
@@ -792,7 +792,10 @@ public class InvoiceServices {
                 createInvoiceContext.put("partyId", partyIdBillTo);
                 createInvoiceContext.put("partyIdFrom", partyIdBillFrom);
                 createInvoiceContext.put("invoiceDate", now);
-                createInvoiceContext.put("dueDate", dueDate);
+                // if there were days associated with the commission agreement, then set a dueDate for the invoice.
+                if (days != null) {
+                    createInvoiceContext.put("dueDate", UtilDateTime.getDayEnd(now, days.intValue()));
+                }
                 createInvoiceContext.put("invoiceTypeId", invoiceType);
                 // start with INVOICE_IN_PROCESS, in the INVOICE_READY we can't change the invoice (or shouldn't be able to...)
                 createInvoiceContext.put("statusId", "INVOICE_IN_PROCESS");
