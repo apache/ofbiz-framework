@@ -84,7 +84,7 @@ under the License.
   <input type="submit" value="${uiLabelMap.CommonAdd}">
 </form>
 <br/>
-<hr>
+<hr/>
 <br/>
 
 <p class="head2">${uiLabelMap.ProductCategoryRollupChildCategories}</p>

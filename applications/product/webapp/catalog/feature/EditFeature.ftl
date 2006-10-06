@@ -15,7 +15,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<hr>
+<hr/>
 <div class="head1">${uiLabelMap.ProductSupplierSpecificFeatureInformation}</div>
 <#if editSupplierFeaturesForm?has_content>
 ${editSupplierFeaturesForm.renderFormString()}

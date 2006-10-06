@@ -18,13 +18,13 @@ under the License.
 <#if requestParameters.lookupFlag?default("N") == "Y">
 
 <#if selectedFeatures?has_content>
-<hr>
+<hr/>
 <div class="tableheadtext">${uiLabelMap.ManufacturingSelectedFeatures}</div>
 <#list selectedFeatures as selectedFeature>
     <div class="tabletext">${selectedFeature.productFeatureTypeId} = ${selectedFeature.description?if_exists} [${selectedFeature.productFeatureId}]</div>
 </#list>
 </#if>
-<hr>
+<hr/>
       <table border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
           <td width="10%" align="left"><div class="tableheadtext">${uiLabelMap.ManufacturingProductLevel}</div></td>
@@ -66,8 +66,8 @@ under the License.
           </tr>        
         </#if>
       </table>
-<hr>
-<hr>
+<hr/>
+<hr/>
       <table border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
         <tr>
           <td width="18%" align="left"><div class="tableheadtext">${uiLabelMap.ProductProductId}</div></td>

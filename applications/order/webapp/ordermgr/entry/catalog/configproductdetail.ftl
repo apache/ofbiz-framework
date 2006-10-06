@@ -416,7 +416,7 @@ ${virtualJavaScript?if_exists}
                 </div>
             </td>
           </tr>
-          <tr><td><hr></td></tr>
+          <tr><td><hr/></td></tr>
           <#assign counter = 0>
           <#assign questions = configwrapper.questions>
           <#list questions as question>
@@ -520,7 +520,7 @@ ${virtualJavaScript?if_exists}
             </#if>
             </td>
           </tr>
-          <tr><td><hr></td></tr>
+          <tr><td><hr/></td></tr>
           <#assign counter = counter + 1>
         </#list>
         </table>
