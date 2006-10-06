@@ -707,7 +707,9 @@ public class EmailServices {
             Address [] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
             Address [] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
             Address [] addressesBCC = message.getRecipients(MimeMessage.RecipientType.BCC);
-            Debug.logInfo("Processing Incoming Email message from: " + addressesFrom[0].toString() + " to: " + addressesTo[0].toString(), module);
+            Debug.logInfo("Processing Incoming Email message from: " + 
+            		(addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + " to: " + 
+            				(addressesTo[0] == null? "not found" : addressesTo[0].toString()), module);
 
             // ignore the message when the spam status = yes
             String spamHeaderName = UtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N");
@@ -739,8 +741,21 @@ public class EmailServices {
                 Map firstAddressTo = (Map) itr.next();
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
-            }           
+            }
             
+            // if partyIdTo not found try to find the "to" address using the delivered-to header
+            String deliveredTo = message.getHeader("Delivered-To")[0];
+            // check if started with the domain name if yes remove including the dash.
+            String dn = deliveredTo.substring(deliveredTo.indexOf("@")+1, deliveredTo.length());
+            if (deliveredTo.startsWith(dn)) {
+                deliveredTo = deliveredTo.substring(dn.length()+1, deliveredTo.length());
+            }
+            if (partyIdTo == null) {
+                result = dispatcher.runSync("findPartyFromEmailAddress", UtilMisc.toMap("address", deliveredTo, "userLogin", userLogin));          
+                partyIdTo = (String)result.get("partyId");
+                contactMechIdTo = (String)result.get("contactMechId");
+            }
+
             Map commEventMap = new HashMap();
     	    commEventMap.put("communicationEventTypeId", "AUTO_EMAIL_COMM");
     	    commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
@@ -753,13 +768,14 @@ public class EmailServices {
 	        commEventMap.put("datetimeStarted", UtilDateTime.toTimestamp(message.getSentDate()));
 	        commEventMap.put("datetimeEnded", UtilDateTime.toTimestamp(message.getReceivedDate()));
 
+            // get the content(type) part
     		int contentIndex = -1;
 			Multipart multipart = null;
     		if (contentType.startsWith("text")) {
     			content = (String)message.getContent();
         		commEventMap.put("contentMimeTypeId", contentType);
     		} else if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
-    			multipart = (Multipart)message.getContent();
+    			multipart = (Multipart) message.getContent();
     			int multipartCount = multipart.getCount();
     			for (int i=0; i < multipartCount; i++) {
     				Part part = multipart.getBodyPart(i);
@@ -771,8 +787,7 @@ public class EmailServices {
                     String disposition = part.getDisposition();
     				
     				// See this case where the disposition of the inline text is null
-    				if ((disposition == null) && (i == 0) && thisContentType.startsWith("text")) 
-    				{
+    				if ((disposition == null) && (i == 0) && thisContentType.startsWith("text")) {
     					content = (String)part.getContent();
     					if (UtilValidate.isNotEmpty(content)) {
     						contentIndex = i;
@@ -781,8 +796,7 @@ public class EmailServices {
     					}
    			    	} else if ((disposition != null)
    						 && (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
-   					     && thisContentType.startsWith("text")) 
-   			    	{
+   					     && thisContentType.startsWith("text")) {
    			    		content = (String)part.getContent();
    			    		contentIndex = i;
    			    		commEventMap.put("contentMimeTypeId", thisContentType);
@@ -806,6 +820,7 @@ public class EmailServices {
                 commEventMap.put("contactMechIdTo", contactMechIdTo);
             } else {
                 commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
+                commNote += "Delivered-To: " + deliveredTo + "; ";
             }
 
             if (partyIdTo != null && partyIdFrom != null) {
@@ -829,6 +844,7 @@ public class EmailServices {
     		    userLogin.put("partyId", communicationEventId.substring(0,ch)); //allow services to be called to have prefix
     		}
             
+            // store attachements
     		if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
     			int attachmentCount = EmailWorker.addAttachmentsToCommEvent(message, communicationEventId, contentIndex, dispatcher, userLogin);
     			if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
