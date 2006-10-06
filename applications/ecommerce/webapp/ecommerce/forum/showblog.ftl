@@ -30,7 +30,7 @@ under the License.
         <#assign pair=trailList[trailList?size - 1]/>
         <#assign pair0 = pair[0]?if_exists>
         <#assign pair1 = pair[1]?if_exists>
-        <hr>
+        <hr/>
         <div class="head1">${uiLabelMap.EcommerceContentFor} ${pair1?if_exists}[${pair0?if_exists}]:</div><br/>
     </#if>
 <#else>
