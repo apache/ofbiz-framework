@@ -21,9 +21,3 @@ under the License.
 <div class="tabletext">${uiLabelMap.CommonTotalCostMult}:&nbsp;${costMult}</div>
 <div class="tabletext">${uiLabelMap.CommonTotalCostToPriceMult}:&nbsp;${costToPriceMult}</div>
 <br/>
-
-<form action="" method="post" style="margin: 0;">
-    <div class="tableheadtext">
-        ${uiLabelMap.CommonSelectAll}&nbsp;<input type="checkbox" class="checkBox" name="selectAll" value="Y" onClick="javascript:toggleAll(this, 'ManageQuotePrices');"/>
-    </div>
-</form>
