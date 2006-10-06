@@ -49,7 +49,7 @@ under the License.
                     <#if phone?exists>
                     <fo:table-row>
                       <fo:table-cell><fo:block>${uiLabelMap.CommonTelephoneAbbr}:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block>${phone.countryCode?if_exists}-${phone.areaCode?if_exists}-${phone.contactNumber?if_exists}</fo:block></fo:table-cell>
+                      <fo:table-cell><fo:block><#if phone.countryCode?exists>${phone.countryCode}-</#if><#if phone.areaCode?exists>${phone.areaCode}-</#if>${phone.contactNumber?if_exists}</fo:block></fo:table-cell>
                     </fo:table-row>
                     </#if>
 
