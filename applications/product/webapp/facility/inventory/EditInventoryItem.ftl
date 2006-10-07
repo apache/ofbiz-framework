@@ -19,6 +19,7 @@ under the License.
 <a href="<@ofbizUrl>EditInventoryItem<#if facilityId?exists>?facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductNewInventoryItem}]</a>
 <#if inventoryItemId?exists>
     <a href="<@ofbizUrl>TransferInventoryItem?inventoryItemId=${inventoryItemId}<#if facilityId?exists>&facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductTransferItem}]</a>
+    <a href="<@ofbizUrl>ViewInventoryItemDetail?inventoryItemId=${inventoryItemId}<#if facilityId?exists>&facilityId=${facilityId}</#if></@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductInventoryDetails}]</a>
 </#if>
 
 <#if inventoryItem?exists>

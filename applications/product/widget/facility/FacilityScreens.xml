@@ -484,6 +484,39 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ViewInventoryItemDetail">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditInventoryItem"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                
+                <set field="inventoryItemId" from-field="parameters.inventoryItemId" />
+                <set field="facilityId" from-field="parameters.facilityId" />
+                
+                <entity-condition entity-name="InventoryItemDetail" list-name="inventoryItemDetails">
+                    <condition-list combine="and">
+                        <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
+                    </condition-list>
+                    <order-by field-name="inventoryItemDetailSeqId DESC"/>
+                </entity-condition>
+
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} ${inventoryItemId}</label>
+                         </container>
+                        <container>
+                            <link target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" text="${uiLabelMap.CommonView} ${uiLabelMap.ProductInventoryItem} ${inventoryItemId}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListInventoryItemDetail" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="TransferInventoryItem">
         <section>
             <actions>

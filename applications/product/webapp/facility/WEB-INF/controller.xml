@@ -444,6 +444,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditInventoryItem"/>
     </request-map>
+    <request-map uri="ViewInventoryItemDetail">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewInventoryItemDetail"/>
+    </request-map>
     <request-map uri="CreateInventoryItem">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createInventoryItem"/>
@@ -992,6 +996,7 @@ under the License.
     <view-map name="SearchInventoryItems" type="screen" page="component://product/widget/facility/FacilityScreens.xml#SearchInventoryItems"/>
 
     <view-map name="EditInventoryItem" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditInventoryItem"/>
+    <view-map name="ViewInventoryItemDetail" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewInventoryItemDetail"/>
     <view-map name="TransferInventoryItem" type="screen" page="component://product/widget/facility/FacilityScreens.xml#TransferInventoryItem"/>
     <view-map name="ReceiveInventory" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReceiveInventory"/>
     <view-map name="ReceiveReturn" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReceiveReturn"/>
