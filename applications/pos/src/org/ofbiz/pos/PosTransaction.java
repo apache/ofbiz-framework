@@ -711,7 +711,7 @@ public class PosTransaction implements Serializable {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "", "");
                     Journal.appendNode(promo, "td", "sku", "");
-                    Journal.appendNode(promo, "td", "desc", "(adjustment)");
+                    Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage("pos","Grand_Total",defaultLocale));
                     Journal.appendNode(promo, "td", "qty", "-");
                     Journal.appendNode(promo, "td", "price", UtilFormatOut.formatPrice(adjustment));
                 }
