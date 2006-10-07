@@ -45,4 +45,20 @@ under the License.
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
         <field name="varianceReasonId"><display description="${varianceReason.description}"/></field>
     </form>    
+
+    <form name="ListInventoryItemDetail" type="list"
+        target="" title="" list-name="inventoryItemDetails"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>
+        <field name="inventoryItemId"><hidden/></field> <!-- this field is redundant -->
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" />
+        </field>
+        <field name="shipmentId" widget-style="buttontext">
+            <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}" />
+        </field>
+        <!-- workEffortId - not sure if it's better to show manufacturing or workeffort app
+        itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->
+    </form>
+
 </forms>
