@@ -48,7 +48,6 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * Services for running MRP
  *
- * @author     <a href=mailto:thierry.grauss@etu.univ-tours.fr">Thierry GRAUSS</a>
  */
 public class MrpServices {
     
@@ -102,7 +101,7 @@ public class MrpServices {
         }
 
         // Proposed requirements are deleted
-        // TODO: is it not correct. Two actions should be done here:
+        // TODO: This is not correct. Two actions should be done here:
         //       1) the approved requirements should be taken into account
         //       2) we have to find a way (a new status REQ_PROPOSED?) to recognize the requirements automatically created by the MRP process
         listResult = null;
@@ -191,7 +190,7 @@ public class MrpServices {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
             Double eventQuantityTmp = new Double(genericResult.getDouble("quantity").doubleValue());
-            Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedShipDate");
+            Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedDeliveryDate"); // TODO: verify if this field is correct
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
             }

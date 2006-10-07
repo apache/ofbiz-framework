@@ -34,7 +34,6 @@ import org.ofbiz.product.store.ProductStoreWorker;
     /** It represents an (in-memory) bill of materials (in which each
      * component is an BOMNode)
      * Useful for tree traversal (breakdown, explosion, implosion).
-     * @author <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
      */    
  
 public class BOMTree {

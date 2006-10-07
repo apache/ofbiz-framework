@@ -43,7 +43,6 @@ import org.ofbiz.service.ServiceUtil;
 /** Bills of Materials' services implementation.
  * These services are useful when dealing with product's
  * bills of materials.
- * @author <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
  */
 public class BOMServices {
 

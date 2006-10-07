@@ -35,7 +35,6 @@ import org.ofbiz.security.Security;
 /** Helper class containing static method useful when dealing
  * with product's bills of materials.
  * These methods are also available as services (see {@link BOMServices}).
- * @author <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
  */
 public class BOMHelper {
     

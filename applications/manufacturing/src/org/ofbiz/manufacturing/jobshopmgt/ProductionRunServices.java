@@ -54,7 +54,6 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * Services for Production Run maintenance
  *
- * @author     <a href="mailto:olivier.heintz@nereide.biz">Olivier Heintz</a>
  */
 public class ProductionRunServices {
     
