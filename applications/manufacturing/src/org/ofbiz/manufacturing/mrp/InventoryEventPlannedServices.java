@@ -29,7 +29,6 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * InventoryEventPlannedServices - InventoryEventPlanned related Services
  *
- * @author     <a href="mailto:olivier.heintz@nereide.biz">Olivier Heintz</a>
  */
 public class InventoryEventPlannedServices {
     

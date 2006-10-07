@@ -32,7 +32,6 @@ import org.ofbiz.service.LocalDispatcher;
 /**
  * Helper for Production Run maintenance
  *
- * @author     <a href="mailto:olivier.heintz@nereide.biz">Olivier Heintz</a>
  */
 public class ProductionRunHelper {
     

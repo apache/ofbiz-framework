@@ -36,7 +36,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 
 /** An ItemCoinfigurationNode represents a component in a bill of materials.
- * @author <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
  */
 
 public class BOMNode {

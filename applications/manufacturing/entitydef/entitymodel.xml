@@ -42,8 +42,7 @@ under the License.
 
     <entity entity-name="ProductManufacturingRule"
             package-name="org.ofbiz.manufacturing.bom"
-            title="Product To Part Rule Entity"
-            author="Jacopo Cappellato">
+            title="Product To Part Rule Entity">
       <field name="ruleId" type="id-ne"></field>
       <field name="productId" type="id"></field>
       <field name="productIdFor" type="id"></field>
@@ -81,8 +80,7 @@ under the License.
     <entity entity-name="TechDataCalendar"
             package-name="org.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
-            title="Calendar entity"
-            author="Olivier Heintz">
+            title="Calendar entity">
       <description>Used to defined the availability of the machines, this entity define the Id and the week definition.
       The Id is used in the exception calendar table as reference
       </description>
@@ -96,8 +94,7 @@ under the License.
     </entity>
     <entity entity-name="TechDataCalendarExcDay"
             package-name="org.ofbiz.manufacturing.techdata"
-            title="Calendar Exception Day entity"
-            author="Olivier Heintz">
+            title="Calendar Exception Day entity">
       <description>Used to defined some days which differ from the normal day definition in the weekId associated in the calendar.
       </description>
       <field name="calendarId" type="id-ne"></field>
@@ -113,8 +110,7 @@ under the License.
     </entity>
     <entity entity-name="TechDataCalendarExcWeek"
             package-name="org.ofbiz.manufacturing.techdata"
-            title="Calendar Exception Week entity"
-            author="Olivier Heintz">
+            title="Calendar Exception Week entity">
       <description>Used to defined some weeks which differ from the normal week defined in the calendar.</description>
       <field name="calendarId" type="id-ne"></field>
       <field name="exceptionDateStart" type="date"></field>
@@ -132,8 +128,7 @@ under the License.
     <entity entity-name="TechDataCalendarWeek"
             package-name="org.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
-            title="Week definition entity"
-            author="Olivier Heintz">
+            title="Week definition entity">
       <description>Used to defined the week definition disponibility for machine</description>
       <field name="calendarWeekId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -160,8 +155,7 @@ under the License.
 
     <entity entity-name="InventoryEventPlanned"
             package-name="org.ofbiz.manufacturing.mrp"
-            title="Inventory event planned"
-            author="Olivier Heintz">
+            title="Inventory event planned">
       <description>
         Contains all the planned InventoryEvent by ProductId to be able to check the product availability 
         and if necessary generate some requirements
@@ -183,8 +177,7 @@ under the License.
     <entity entity-name="InventoryEventPlannedType"
             package-name="org.ofbiz.manufacturing.mrp"
             default-resource-name="ManufacturingEntityLabels"
-            title="Inventory  event Planned type"
-            author="Olivier Heintz">
+            title="Inventory  event Planned type">
       <description>Used to describe the InventoryEventPlanned and give the information if it's an in or out event</description>
       <field name="inventoryEventPlanTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -192,7 +185,7 @@ under the License.
       <prim-key field="inventoryEventPlanTypeId"/>
     </entity>
     <view-entity entity-name="MrpInventoryEventPlanned" package-name="org.ofbiz.manufacturing.mrp" 
-        title="Inventory Event Planned view for MRP process" author="Olivier Heintz">
+        title="Inventory Event Planned view for MRP process">
       <description>Uses for the MRP process to be able to read the InventoryEventPlanned By billOfMaterialLevel and by eventDate</description>
       <member-entity entity-alias="IEP" entity-name="InventoryEventPlanned"></member-entity>
       <member-entity entity-alias="IEPT" entity-name="InventoryEventPlannedType"></member-entity>

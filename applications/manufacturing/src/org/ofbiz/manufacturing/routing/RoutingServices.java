@@ -33,7 +33,6 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 /**
  * Routing related services
  *
- * @author     <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
  */
 public class RoutingServices {
     
