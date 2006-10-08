@@ -33,10 +33,6 @@ import org.ofbiz.entity.condition.EntityOperator;
 
 /**
  * WorkEffortWorker - Worker class to reduce code in JSPs & make it more reusable
- *
- * @author     <a href="mailto:dustin@dscv.org">Dustin Caldwell</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ProjectWorker {
     

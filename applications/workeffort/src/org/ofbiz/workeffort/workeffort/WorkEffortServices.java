@@ -47,11 +47,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * WorkEffortServices - WorkEffort related Services
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:johan@ibibi.com">Johan Isacsson</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class WorkEffortServices {
     
