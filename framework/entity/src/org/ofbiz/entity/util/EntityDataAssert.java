@@ -28,9 +28,6 @@ import org.ofbiz.entity.model.ModelEntity;
 /**
  * Some utility routines for loading seed data.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.3
  */
 public class EntityDataAssert {
 

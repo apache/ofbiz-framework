@@ -40,9 +40,6 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  * </ul>
  * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class EntityConditionBase implements Serializable {
 

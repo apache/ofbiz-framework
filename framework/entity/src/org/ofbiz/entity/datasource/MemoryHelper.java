@@ -44,7 +44,6 @@ import org.ofbiz.entity.util.EntityListIterator;
  * to be used for simple unit testing (can't do anything beyond searches
  * for primary keys, findByOr and findByAnd).
  *
- * @author <a href="mailto:plightbo@.com">Pat Lightbody</a>
  */
 public class MemoryHelper implements GenericHelper {
 

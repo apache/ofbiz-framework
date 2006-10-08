@@ -23,10 +23,6 @@ import org.ofbiz.entity.condition.EntityCondition;
 
 /**
  * Distributed Cache Clear interface definition
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public interface DistributedCacheClear {
 

@@ -42,14 +42,6 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:sichen@opensourcestrategies.com">Si Chen</a>
- * @author     <a href="mailto:m.meyer@wanadoo.fr">Manuel Meyer</a>
- * @version    $Rev$
- * @since      Apr 16, 2005
- */
 public class EntityTestSuite extends TestCase {
 
     public static final String module = EntityTestSuite.class.getName();

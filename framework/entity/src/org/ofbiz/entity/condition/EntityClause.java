@@ -24,11 +24,6 @@ import org.ofbiz.entity.model.ModelReader;
 
 /**
  * Generic Entity Clause - Used to string together entities to make a find clause
- *
- *@author     <a href='mailto:chris_maurer@altavista.com'>Chris Maurer</a>
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@created    Mon Nov 5, 2001
- *@version    1.0
  */
 public class EntityClause {
 

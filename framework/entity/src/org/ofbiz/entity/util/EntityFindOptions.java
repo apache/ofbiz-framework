@@ -19,11 +19,6 @@ import java.sql.ResultSet;
 
 /**
  * Contains a number of variables used to select certain advanced finding options.
- *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- *@version    $Rev$
- *@since      2.0
  */
 public class EntityFindOptions implements java.io.Serializable {
 

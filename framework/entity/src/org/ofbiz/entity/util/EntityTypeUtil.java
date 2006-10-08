@@ -27,10 +27,6 @@ import org.ofbiz.entity.GenericValue;
 /**
  * Makes it easier to deal with entities that follow the
  * extensibility pattern and that can be of various types as identified in the database.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class EntityTypeUtil {
     

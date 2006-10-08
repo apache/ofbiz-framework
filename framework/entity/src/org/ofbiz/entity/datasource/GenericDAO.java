@@ -54,14 +54,6 @@ import org.ofbiz.entity.util.EntityListIterator;
 /**
  * Generic Entity Data Access Object - Handles persisntence for any defined entity.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:chris_maurer@altavista.com">Chris Maurer</a>
- * @author     <a href="mailto:jdonnerstag@eds.de">Juergen Donnerstag</a>
- * @author     <a href="mailto:gielen@aixcept.de">Rene Gielen</a>
- * @author     <a href="mailto:john_nutting@telluridetechnologies.com">John Nutting</a>
- * @version    $Rev$
- * @since      1.0
  */
 public class GenericDAO {
 

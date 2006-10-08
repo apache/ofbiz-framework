@@ -60,10 +60,6 @@ import org.w3c.dom.Element;
  * the <code>notifyObservers()</code> method, and through that to the <code>update()</code> method of each
  * <code>Observer</code>.
  *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- *@version    $Rev$
- *@since      2.0
  */
 public class GenericEntity extends Observable implements Map, LocalizedMap, Serializable, Comparable, Cloneable, Reusable {
     public static final String module = GenericEntity.class.getName();

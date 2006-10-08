@@ -31,9 +31,6 @@ import org.ofbiz.entity.GenericEntityException;
 /**
  * Generic Entity - Entity Definition Checker
  * 
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones </a>
- * @version $Rev$
- * @since 3.1
  */
 public class ModelEntityChecker {
 

@@ -25,10 +25,6 @@ import org.w3c.dom.Element;
 /**
  * Misc. utility method for dealing with the entityengine.xml file
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a> 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.0
  */
 public class DatasourceInfo {
     public static final String module = DatasourceInfo.class.getName();

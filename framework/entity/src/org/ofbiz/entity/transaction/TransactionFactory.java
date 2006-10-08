@@ -28,10 +28,6 @@ import org.ofbiz.entity.jdbc.CursorConnection;
 
 /**
  * TransactionFactory - central source for JTA objects
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class TransactionFactory {
 

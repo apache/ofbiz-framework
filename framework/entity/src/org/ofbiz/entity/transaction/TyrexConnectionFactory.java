@@ -30,10 +30,6 @@ package org.ofbiz.entity.transaction;
 
 /**
  * Tyrex ConnectionFactory - central source for JDBC connections from Tyrex
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class TyrexConnectionFactory {
     public static final String module = TyrexConnectionFactory.class.getName();

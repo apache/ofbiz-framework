@@ -18,9 +18,6 @@ package org.ofbiz.entity;
 /**
  * GenericDuplicateKeyException.java
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class GenericDuplicateKeyException extends GenericEntityException {
 

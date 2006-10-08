@@ -20,10 +20,6 @@ import java.io.Serializable;
 /**
  * Generic Entity - Entity model class
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@jflow.net">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class ModelChild implements Serializable {
 

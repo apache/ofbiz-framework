@@ -26,9 +26,6 @@ import org.ofbiz.entity.model.ModelEntity;
 /**
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class EntityConditionListBase extends EntityCondition {
     public static final String module = EntityConditionListBase.class.getName();
