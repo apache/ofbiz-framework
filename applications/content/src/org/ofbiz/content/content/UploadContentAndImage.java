@@ -55,10 +55,6 @@ import org.apache.commons.fileupload.FileUploadException;
 /**
  * UploadContentAndImage Class
  *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      2.2
- *
  * Services for granting operation permissions on Content entities in a data-driven manner.
  */
 public class UploadContentAndImage {

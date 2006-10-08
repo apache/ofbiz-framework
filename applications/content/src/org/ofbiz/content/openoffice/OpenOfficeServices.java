@@ -52,7 +52,6 @@ import com.sun.star.uno.XComponentContext;
 
 /**
  * OpenOfficeServices Class
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
  */
 public class OpenOfficeServices {
     public static final String module = OpenOfficeServices.class.getName();

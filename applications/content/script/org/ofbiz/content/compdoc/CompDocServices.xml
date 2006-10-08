@@ -14,11 +14,6 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-<!--
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @author <a href="mailto:jabster@juno.com">Jim Byers</a>
- * Created on Jan 2, 2006
- -->
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
     <simple-method method-name="genCompDocInstance" short-description="Create CompDoc">
         <entity-one entity-name="Content" value-name="rootTemplateContent">

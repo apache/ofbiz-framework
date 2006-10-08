@@ -47,8 +47,6 @@ import com.sun.star.uri.ExternalUriReferenceTranslator;
  * 
  * Note that for this to work you must start OpenOffice with a command such as the following: 
  *   <code>soffice -accept=socket,host=localhost,port=8100;urp;</code>
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
  */
 public class OpenOfficeWorker{
 

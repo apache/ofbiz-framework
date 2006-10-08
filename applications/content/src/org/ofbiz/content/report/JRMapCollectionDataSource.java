@@ -26,9 +26,6 @@ import net.sf.jasperreports.engine.JRField;
 
 /**
  * <code>JRMapCollectionDataSource</code>
- * 
- * @author <a href="mailto:gielen@aixcept.de">Rene Gielen</a>
- * @version $Rev$
  */
 public class JRMapCollectionDataSource implements JRDataSource {
 

@@ -29,12 +29,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * SearchServices Class
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a> Hacked from Lucene demo file
- * @version $Rev$
- * @since 3.1
- * 
- *  
  */
 public class SearchServices {
 

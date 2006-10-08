@@ -13,13 +13,6 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
- */
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -14,11 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * This script breaks out the generic list pagination code so that it can be
  * used with different query scripts.
  * It expects, first, an EntityListIterator in the request attr, "listIt",

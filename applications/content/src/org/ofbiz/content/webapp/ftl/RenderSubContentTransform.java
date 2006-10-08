@@ -40,11 +40,6 @@ import freemarker.template.TemplateTransformModel;
 
 /**
  * RenderSubContentTransform - Freemarker Transform for Content rendering
- *
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version $Rev$
- * @since 3.0
- *
  * This transform cannot be called recursively (at this time).
  */
 public class RenderSubContentTransform implements TemplateTransformModel {

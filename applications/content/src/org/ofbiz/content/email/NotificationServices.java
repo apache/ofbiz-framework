@@ -92,11 +92,6 @@ import org.ofbiz.service.ServiceUtil;
  * or {@link #sendNotification(DispatchContext, Map) sendNotification(DispatchContext, Map)} 
  * methods directly to generate or generate and send the notification respectively.
  * 
- *
- * @author     <a href="mailto:tristana@twibble.org">Tristan Austin</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.2
  */
 public class NotificationServices {
 

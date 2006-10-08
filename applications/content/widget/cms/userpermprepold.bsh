@@ -41,15 +41,8 @@ import freemarker.template.SimpleSequence;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Revision$
- * @since      2.1
 
- */
-
-dispatcher      = (LocalDispatcher)request.getAttribute("dispatcher");
+dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
 delegator = (GenericDelegator) request.getAttribute("delegator");
 paramMap = UtilHttp.getParameterMap(request);
 

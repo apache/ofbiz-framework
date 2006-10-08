@@ -14,11 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      2.1
-
  * Calls performFind service to return an EntityListIterator of the
  * entities found from the parameter map selection criteria.
  * Also builds a query form wrapper.

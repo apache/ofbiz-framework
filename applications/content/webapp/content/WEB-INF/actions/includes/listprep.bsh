@@ -36,11 +36,6 @@ import org.ofbiz.entity.model.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      2.1
-
  * This is a crude general script to find entity data based on the primary key.
  * It only works on entities with one primary key field and it relies on that being
  * in the pagedef config file.

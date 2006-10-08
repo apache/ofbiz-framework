@@ -16,10 +16,6 @@
 
 /**
  *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * A commonly called script to find the "current" entity (either Content or DataResource
  * usually) from either a cached key or overridden by current values in the parameter map
  * or request attributes.

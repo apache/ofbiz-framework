@@ -14,13 +14,6 @@
  * under the License.
  */
 
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Revision$
- * @since      3.0
-
- */
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;

@@ -14,11 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * Builds a list of most recently used EntityValues from a session-kept cache
  * for the "current" entity. It also builds a listFormWrapper.
  * This is used in popup lookup pages.

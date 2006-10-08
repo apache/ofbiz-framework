@@ -14,11 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * Does either a "simple" (does entity perm check) or complex
  * (uses EntityPurpose/Operation/etc. tables) to check by roles.
  */

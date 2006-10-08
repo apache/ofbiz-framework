@@ -43,10 +43,6 @@ import freemarker.template.TransformControl;
 
 /**
  * TraverseSubContentTransform - Freemarker Transform for URLs (links)
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version $Rev$
- * @since 3.0
  */
 public class TraverseSubContentTransform implements TemplateTransformModel {
 
