@@ -87,13 +87,6 @@ import org.ofbiz.service.ServiceUtil;
  * Instead, use .compareTo() or .signum(), which handles scale correctly.
  *
  * For reference, check the official Sun Javadoc on java.math.BigDecimal.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:sichen@opensourcestrategies.com">Si Chen</a> 
- * @author     <a href="mailto:leon@opensourcestrategies.com">Leon Torres</a> 
- * @author     <a href="mailto:h.bakker@antwebsystems.com">Hans Bakker</a> 
- * @version    $Rev$
- * @since      2.2
  */
 public class InvoiceServices {
 
@@ -1633,8 +1626,6 @@ public class InvoiceServices {
      * have been paid/received. For invoice processing, this service works on
      * the invoice level when 'invoiceProcessing' parameter is set to "Y" else
      * it works on the invoice item level.
-     * 
-     * @author <a href="mailto:h.bakker@antwebsystems.com">Hans Bakker</a>
      */
     public static Map updatePaymentApplication(DispatchContext dctx, Map context) {
         Double amountApplied = (Double) context.get("amountApplied");
@@ -1656,8 +1647,6 @@ public class InvoiceServices {
      * it works on the invoice item level.
      * 
      * This version will apply as much as possible when no amountApplied is provided. 
-     * 
-     * @author <a href="mailto:h.bakker@antwebsystems.com">Hans Bakker</a>
      */
     public static Map updatePaymentApplicationDef(DispatchContext dctx, Map context) {
         if (!context.containsKey("useHighestAmount")) {

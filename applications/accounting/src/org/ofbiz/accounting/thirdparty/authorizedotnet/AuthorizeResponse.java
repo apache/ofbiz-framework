@@ -14,10 +14,6 @@
  * under the License.
  */
 
-/**
- *
- * @author Fred Forrester (foresterf@fredforester.org)
- */
 package org.ofbiz.accounting.thirdparty.authorizedotnet;
 
 import java.util.*;

@@ -27,12 +27,7 @@ import org.ofbiz.base.util.ObjectType;
 import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.map.LinkedMap;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
+
 public class RitaApi {
 
     public static final String module = RitaApi.class.getName();

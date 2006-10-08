@@ -24,11 +24,7 @@ import org.ofbiz.service.*;
 
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 
-/**
- *
- * @author Fred Forrester (foresterf@fredforester.org)
- * @author Si Chen (sichen@opensourcestrategies.com)
- */
+
 public class AIMPaymentServices {
 
     public static final String module = AIMPaymentServices.class.getName();

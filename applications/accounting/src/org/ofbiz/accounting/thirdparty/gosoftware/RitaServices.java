@@ -39,12 +39,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
+
 public class RitaServices {
 
     public static final String module = RitaServices.class.getName();

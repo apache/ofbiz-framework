@@ -45,10 +45,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Tax Authority tax calculation and other misc services
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 
 public class TaxAuthorityServices {

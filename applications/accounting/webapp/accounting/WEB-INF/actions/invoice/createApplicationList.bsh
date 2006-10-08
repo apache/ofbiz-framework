@@ -14,10 +14,6 @@
  * under the License.
  */
 
-/*
- *@author     Hans Bakker h.bakker@antwebsystems.com
- */
- 
 import java.util.*;
 import java.math.BigDecimal;
 import org.ofbiz.entity.*;

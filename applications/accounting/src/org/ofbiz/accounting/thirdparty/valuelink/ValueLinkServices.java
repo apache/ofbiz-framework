@@ -46,10 +46,6 @@ import org.ofbiz.service.ServiceXaWrapper;
 
 /**
  * ValueLinkServices - Integration with ValueLink Gift Cards
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ValueLinkServices {
 
