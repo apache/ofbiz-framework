@@ -39,10 +39,6 @@ import org.ofbiz.product.category.CategoryWorker;
 
 /**
  * Events used for maintaining TrackingCode related information
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class TrackingCodeEvents {
 
