@@ -40,10 +40,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  *  Does indexing in preparation for a keyword search.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class KeywordIndex {
     

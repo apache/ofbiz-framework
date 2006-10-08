@@ -29,7 +29,6 @@ under the License.
      Also note that for layout purposes, the submit button in the form widget can be converted and moved here so that all 
      the buttons can be arranged as desired.
 
-     @author  Leon Torres (leon@opensourcestrategies.com)
 -->
      
 

@@ -17,10 +17,6 @@
 
 package org.ofbiz.product.config;
 
-/**
- *
- * @author  jacopo
- */
 public class ProductConfigWrapperException extends Exception {
     
     /** Creates a new instance of ProductConfigWrapperException */

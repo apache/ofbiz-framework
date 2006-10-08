@@ -41,10 +41,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Product Content Worker: gets product content to display
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ProductContentWrapper {
     

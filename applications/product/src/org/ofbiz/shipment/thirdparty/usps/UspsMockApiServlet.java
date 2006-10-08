@@ -43,10 +43,6 @@ import org.xml.sax.SAXException;
 
 /**
  * USPS Webtools API Mock API Servlet
- * 
- * @author     <a href="mailto:eckardjf@pobox.com">J. Eckard</a>
- * @version    $Rev$
- * @since      3.2
  */
 public class UspsMockApiServlet extends HttpServlet {
 

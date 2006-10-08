@@ -50,11 +50,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * PriceServices - Workers and Services class for product price related functionality
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PriceServices {
 

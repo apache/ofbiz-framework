@@ -36,10 +36,6 @@ import org.ofbiz.entity.GenericValue;
 /**
  *  Does a product search by keyword using the PRODUCT_KEYWORD table.
  *  <br/>Special thanks to Glen Thorne and the Weblogic Commerce Server for ideas.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class KeywordSearch {
 

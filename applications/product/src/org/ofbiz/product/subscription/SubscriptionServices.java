@@ -39,8 +39,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Subscription Services
- *
- * @author <a href="mailto:jonesde@undersunconsulting.com">David E. Jones</a>
  */
 public class SubscriptionServices {
 

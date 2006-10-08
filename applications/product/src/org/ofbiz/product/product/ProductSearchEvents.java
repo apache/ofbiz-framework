@@ -43,10 +43,6 @@ import org.ofbiz.product.product.ProductSearch.ResultSortOrder;
 
 /**
  * Product Search Related Events
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ProductSearchEvents {
 

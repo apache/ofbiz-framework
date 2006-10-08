@@ -40,12 +40,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Inventory Services 
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class InventoryServices {
     

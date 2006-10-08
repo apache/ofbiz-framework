@@ -39,10 +39,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Promotions Services
- * 
- * @author Nathan De Graw
- * @version $Rev$
- * @since 3.0
  */
 public class PromoServices {
 

@@ -36,9 +36,6 @@ import org.ofbiz.service.LocalDispatcher;
 
 /**
  * Product Config Wrapper: gets product config to display
- *
- * @author  <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
- *
  */
 
 public class ProductConfigWrapper implements Serializable {

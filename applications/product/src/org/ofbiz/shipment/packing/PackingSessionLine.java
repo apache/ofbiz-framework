@@ -26,12 +26,6 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
 import javolution.util.FastMap;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      Sep 1, 2005
- */
 public class PackingSessionLine implements java.io.Serializable {
 
     public final String module = PackingSessionLine.class.getName();

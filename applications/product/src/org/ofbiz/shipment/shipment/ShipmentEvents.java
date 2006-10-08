@@ -30,10 +30,6 @@ import org.ofbiz.entity.GenericValue;
 
 /**
  * ShippingEvents - Events used for processing shipping fees
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.2
  */
 public class ShipmentEvents {
     

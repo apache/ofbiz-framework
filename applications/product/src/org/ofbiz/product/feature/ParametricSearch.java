@@ -39,9 +39,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  *  Utilities for parametric search based on features.
- *
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      2.1
  */
 public class ParametricSearch {
     
