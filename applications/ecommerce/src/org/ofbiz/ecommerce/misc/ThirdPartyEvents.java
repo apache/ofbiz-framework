@@ -36,13 +36,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 
 
-/**
- * Third Party Events (Affiliate/Distributor)
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
- */
 public class ThirdPartyEvents {
     
     public static final String module = ThirdPartyEvents.class.getName();
