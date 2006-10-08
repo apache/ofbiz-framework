@@ -38,13 +38,6 @@ import org.ofbiz.content.content.ContentWorker;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
- */
 
 delegator = (GenericDelegator) request.getAttribute("delegator");
 
