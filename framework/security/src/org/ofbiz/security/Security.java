@@ -26,12 +26,6 @@ import org.ofbiz.entity.GenericValue;
 
 /**
  * Security handler: This class is an abstract implementation for all commononly used security aspects.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:hermanns@aixcept.de">Rainer Hermanns</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class Security {
 
