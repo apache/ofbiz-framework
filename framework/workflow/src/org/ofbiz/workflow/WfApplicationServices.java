@@ -43,10 +43,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Workflow Application Services - 'Services' and 'Workers' for interaction with Workflow Application API
- *
- * @author     Manuel Soto & Oswin Ondarza
- * @version    $Rev$
- * @since      2.0
  */
 public class WfApplicationServices {
 

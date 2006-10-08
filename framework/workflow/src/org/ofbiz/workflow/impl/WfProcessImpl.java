@@ -56,11 +56,6 @@ import org.ofbiz.workflow.client.StartActivityJob;
 
 /**
  * WfProcessImpl - Workflow Process Object implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     David Ostrovsky (d.ostrovsky@gmx.de) 
- * @version    $Rev$
- * @since      2.0
  */
 public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
 

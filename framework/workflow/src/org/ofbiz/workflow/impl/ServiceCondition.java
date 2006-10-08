@@ -31,10 +31,6 @@ import org.ofbiz.workflow.TransitionCondition;
  * 
  * To call a service set a Transition ExtendedAttribute named 'serviceName', services are required
  * to return a Boolean OUT parameter named 'evaluationResult'
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.1
  */
 public class ServiceCondition implements TransitionCondition {
 

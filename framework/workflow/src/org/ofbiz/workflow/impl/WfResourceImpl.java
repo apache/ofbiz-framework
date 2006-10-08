@@ -34,10 +34,6 @@ import org.ofbiz.workflow.WfResource;
 
 /**
  * WfResourceImpl - Workflow Resource Object implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class WfResourceImpl implements WfResource {
 
