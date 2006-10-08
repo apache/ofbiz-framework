@@ -35,10 +35,6 @@ import org.ofbiz.pos.adaptor.KeyboardReceiver;
  * 2) Send barcode id as prefix
  * 3) Termination char CR
  * 4) Do NOT send ETX Postamble
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
  */
 public class ScannerKybService extends BaseService implements jpos.services.ScannerService17, KeyboardReceiver {
 

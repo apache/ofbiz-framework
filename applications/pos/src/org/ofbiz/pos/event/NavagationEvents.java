@@ -18,12 +18,6 @@ package org.ofbiz.pos.event;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.screen.PosScreen;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class NavagationEvents {
 
     public static void showPosScreen(PosScreen pos) {

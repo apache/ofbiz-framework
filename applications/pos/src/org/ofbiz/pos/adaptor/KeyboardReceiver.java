@@ -19,9 +19,6 @@ package org.ofbiz.pos.adaptor;
 /**
  * KeyboardReceiver - Interface for receiving keyboard data
  * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
  */
 public interface KeyboardReceiver {
 

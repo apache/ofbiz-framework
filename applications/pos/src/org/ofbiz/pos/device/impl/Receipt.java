@@ -42,12 +42,6 @@ import org.ofbiz.pos.screen.PosScreen;
 
 import org.apache.commons.collections.map.LinkedMap;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class Receipt extends GenericDevice implements DialogCallback {
 
     public static final String module = Receipt.class.getName();

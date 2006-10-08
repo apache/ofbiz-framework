@@ -20,12 +20,6 @@ import jpos.JposException;
 
 import org.ofbiz.pos.device.GenericDevice;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class PinPad extends GenericDevice {
 
     public static final String module = PinPad.class.getName();

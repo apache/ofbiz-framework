@@ -26,12 +26,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.event.SecurityEvents;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
- */
 public class SyncCallbackAdaptor implements GenericServiceCallback {
 
     public static final String module = SyncCallbackAdaptor.class.getName();

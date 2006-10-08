@@ -27,12 +27,7 @@ import jpos.loader.JposServiceInstanceFactory;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.pos.jpos.service.BaseService;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
+
 public class OfbizJposServiceFactory extends Object implements JposServiceInstanceFactory {
 
     public static final String module = OfbizJposServiceFactory.class.getName();

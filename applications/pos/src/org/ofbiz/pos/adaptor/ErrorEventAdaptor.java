@@ -17,12 +17,6 @@ package org.ofbiz.pos.adaptor;
 
 import jpos.events.ErrorEvent;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class ErrorEventAdaptor implements jpos.events.ErrorListener {
 
     public void errorOccurred(ErrorEvent event) {

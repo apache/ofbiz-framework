@@ -22,12 +22,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.pos.event.MenuEvents;
 import org.ofbiz.pos.screen.PosScreen;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public abstract class GenericDevice implements JposDevice {
 
     public static final String module = GenericDevice.class.getName();

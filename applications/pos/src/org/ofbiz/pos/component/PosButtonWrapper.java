@@ -27,12 +27,6 @@ import net.xoetrope.xui.style.XStyle;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class PosButtonWrapper {
 
     public static final String module = PosButtonWrapper.class.getName();

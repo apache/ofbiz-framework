@@ -27,12 +27,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.entity.GenericValue;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class SecurityEvents {
 
     public static final String module = SecurityEvents.class.getName();

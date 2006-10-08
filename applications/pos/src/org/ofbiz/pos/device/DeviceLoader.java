@@ -33,12 +33,6 @@ import org.ofbiz.pos.device.impl.PinPad;
 import org.ofbiz.pos.device.impl.Receipt;
 import org.ofbiz.pos.device.impl.Scanner;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class DeviceLoader {
 
     public static final String module = DeviceLoader.class.getName();

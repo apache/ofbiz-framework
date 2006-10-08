@@ -24,12 +24,6 @@ import jpos.events.ErrorEvent;
 import org.ofbiz.pos.adaptor.KeyboardAdaptor;
 import org.ofbiz.pos.adaptor.KeyboardReceiver;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class MsrKybService extends BaseService implements jpos.services.MSRService17, KeyboardReceiver {
 
     public static final String module = MsrKybService.class.getName();

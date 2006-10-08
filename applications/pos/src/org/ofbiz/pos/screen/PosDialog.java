@@ -41,12 +41,6 @@ import net.xoetrope.xui.XProjectManager;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class PosDialog {
 
     public static final String module = PosDialog.class.getName();

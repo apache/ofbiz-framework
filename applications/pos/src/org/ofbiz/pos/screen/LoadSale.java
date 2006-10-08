@@ -32,12 +32,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;
 
-/**
- * 
- * @author     <a href="mailto:jleroux@apache.org">Jacques Le Roux</a>
- * @version    $Rev$
- * @since      3.2
- */
 
 public class LoadSale extends XPage {
 
