@@ -33,8 +33,6 @@ import org.ofbiz.service.*;
  * MarketingServices contains static service methods for Marketing Campaigns and Contact Lists.
  * See the documentation in marketing/servicedef/services.xml and use the service reference in
  * webtools.  Comments in this file are implemntation notes and technical details.
- *
- * @author     <a href="mailto:leon@opensourcestrategies.com">Leon Torres</a>
  */
 public class MarketingServices {
 

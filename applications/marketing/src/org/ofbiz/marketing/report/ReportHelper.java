@@ -23,11 +23,6 @@ import java.util.*;
 
 /**
  * Marketing Report Helper
- *
- * @author <a href="mailto:mujinsong@gmail.com">Mu Jinsong</a>
- * @author <a href="mailto:sichen@opensourcestrategies.com">Si Chen</a>
- * @version $Rev:  6395
- * @since 3.2
  */
 public class ReportHelper {
 
