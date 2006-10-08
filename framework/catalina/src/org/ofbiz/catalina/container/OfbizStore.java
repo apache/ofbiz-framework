@@ -39,12 +39,6 @@ import org.apache.catalina.Loader;
 import org.apache.catalina.Container;
 import org.apache.catalina.util.CustomObjectInputStream;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      Jul 4, 2004
- */
 public class OfbizStore extends StoreBase implements Store {
 
     public static final String module = OfbizStore.class.getName();
