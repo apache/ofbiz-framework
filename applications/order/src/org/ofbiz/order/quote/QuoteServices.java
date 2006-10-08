@@ -32,12 +32,6 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
-/**
- * Quote Services
- *
- * @author     <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- */
 
 public class QuoteServices {
 

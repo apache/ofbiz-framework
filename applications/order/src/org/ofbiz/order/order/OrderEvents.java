@@ -36,8 +36,6 @@ import org.ofbiz.entity.GenericValue;
 
 /**
  * Order Events
- *
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public class OrderEvents {
 

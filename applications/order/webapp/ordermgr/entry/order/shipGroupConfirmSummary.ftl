@@ -20,8 +20,6 @@ Ship group summary for order confirmation.  Lists each ship group, its
 destination address, products and quantities associated with it,
 and similar information.  This is designed to be tacked on to the 
 standard order confirmation page and to be re-usable by other screens.
-
-@author Leon Torres (leon@opensourcestrategies.com) 
 -->
 
 <#if !(cart?exists)><#assign cart = shoppingCart?if_exists/></#if>

@@ -40,9 +40,7 @@ import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
 
-/**
- * @author ajzeneski
- */
+
 public class ProductDisplayWorker {
     
     public static final String module = ProductDisplayWorker.class.getName();

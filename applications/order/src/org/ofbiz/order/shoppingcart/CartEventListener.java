@@ -32,10 +32,6 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * HttpSessionListener that saves information about abandoned carts
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CartEventListener implements HttpSessionListener {
 

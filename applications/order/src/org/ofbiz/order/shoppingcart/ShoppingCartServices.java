@@ -43,10 +43,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Shopping Cart Services
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
  */
 public class ShoppingCartServices {
 

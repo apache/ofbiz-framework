@@ -55,13 +55,6 @@ import org.ofbiz.security.Security;
  * <p>NOTE: in the current scheme order adjustments are never included in tax or shipping,
  * but order item adjustments ARE included in tax and shipping calcs unless they are
  * tax or shipping adjustments or the includeInTax or includeInShipping are set to N.</p>
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     Eric Pabst
- * @author     <a href="mailto:ray.barlow@whatsthe-point.com">Ray Barlow</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class OrderReadHelper {
 
