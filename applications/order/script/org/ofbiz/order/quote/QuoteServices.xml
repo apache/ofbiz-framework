@@ -558,7 +558,7 @@ under the License.
                 <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
                     <field field-name="quoteItemSeqId" type="String"/>
                 </call-object-method>
-            <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="newOrderItemSeqId"/>
+                <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="newOrderItemSeqId"/>
             </if-empty>
         </iterate>
         <!-- set the quoteUnitPrice from the item basePrice -->

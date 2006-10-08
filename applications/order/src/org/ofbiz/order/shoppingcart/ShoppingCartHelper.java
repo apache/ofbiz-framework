@@ -43,11 +43,6 @@ import org.ofbiz.service.ServiceUtil;
  * {@link org.ofbiz.order.shoppingcart.ShoppingCart ShoppingCart}
  * providing catalog and product services to simplify the interaction
  * with the cart directly. 
- *
- * @author     <a href="mailto:tristana@twibble.org">Tristan Austin</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ShoppingCartHelper {
 

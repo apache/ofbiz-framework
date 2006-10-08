@@ -33,10 +33,6 @@ import org.ofbiz.product.store.ProductStoreWorker;
 
 /**
  * ProductStoreWorker - Worker class for store related functionality
- *
- * @author     <a href="mailto:jaz@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.5
  */
 public class ProductStoreCartAwareEvents {
 

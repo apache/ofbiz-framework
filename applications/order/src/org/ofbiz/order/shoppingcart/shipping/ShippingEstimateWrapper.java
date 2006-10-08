@@ -28,12 +28,6 @@ import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class ShippingEstimateWrapper {
 
     public static final String module = ShippingEstimateWrapper.class.getName();

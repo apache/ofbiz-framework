@@ -61,11 +61,6 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * <p><b>Title:</b> ShoppingCartItem.java
  * <p><b>Description:</b> Shopping cart item object.
- *
- * @author     <a href="mailto:jaz@ofbiz.org.com">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ShoppingCartItem implements java.io.Serializable {
 

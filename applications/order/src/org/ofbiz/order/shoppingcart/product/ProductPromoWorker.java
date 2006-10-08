@@ -58,11 +58,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * ProductPromoWorker - Worker class for catalog/product promotion related functionality
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ProductPromoWorker {
 

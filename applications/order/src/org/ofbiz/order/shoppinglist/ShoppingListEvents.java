@@ -54,10 +54,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Shopping cart events.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.2
  */
 public class ShoppingListEvents {
     

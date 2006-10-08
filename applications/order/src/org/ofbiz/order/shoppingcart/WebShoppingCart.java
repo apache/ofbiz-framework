@@ -33,12 +33,6 @@ import org.ofbiz.webapp.website.WebSiteWorker;
  * Extension of {@link org.ofbiz.order.shoppingcart.ShoppingCart ShoppingCart}
  * class which provides web presentation layer specific functionality
  * related specifically to user session information. 
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:tristana@twibble.org">Tristan Austin</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class WebShoppingCart extends ShoppingCart {
     public WebShoppingCart(HttpServletRequest request, Locale locale, String currencyUom) {

@@ -18,12 +18,6 @@ package org.ofbiz.order.shoppingcart;
 
 import org.ofbiz.base.util.GeneralException;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class ItemNotFoundException extends GeneralException {
 
     public ItemNotFoundException() {

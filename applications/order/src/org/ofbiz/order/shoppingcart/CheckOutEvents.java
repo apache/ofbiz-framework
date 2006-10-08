@@ -49,13 +49,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Events used for processing checkout and orders.
- *
- * @author <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author <a href="mailto:cnelson@einnovation.com">Chris Nelson</a>
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author <a href="mailto:tristana@twibble.org">Tristan Austin</a>
- * @version $Rev$
- * @since 2.0
  */
 public class CheckOutEvents {
 

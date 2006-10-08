@@ -50,13 +50,6 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * A facade over the ShoppingCart to simplify the relatively complex
  * processing required to create an order in the system.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:cnelson@einnovation.com">Chris Nelson</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:tristana@twibble.org">Tristan Austin</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CheckOutHelper {
 
