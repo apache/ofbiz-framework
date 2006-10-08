@@ -44,10 +44,6 @@ import org.ofbiz.service.GenericServiceException;
 
 /**
  * Services for Contact Mechanism maintenance
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ContactMechServices {
 

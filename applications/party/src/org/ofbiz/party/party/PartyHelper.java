@@ -27,10 +27,6 @@ import org.ofbiz.entity.model.ModelEntity;
 
 /**
  * PartyHelper
- *
- * @author     <a href="mailto:epabst@bigfoot.com">Eric Pabst</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PartyHelper {
     

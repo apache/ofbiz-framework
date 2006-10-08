@@ -32,11 +32,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Services for Party Relationship maintenance
- *
- * @author     <a href="mailto:cworley@chris-n-april.com">Christopher Worley</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PartyRelationshipServices {
 
