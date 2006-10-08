@@ -34,8 +34,6 @@ import org.w3c.dom.Element;
 
 /**
  * Use this class in a JUnit test runner to bootstrap the Test Suite runner. 
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public class ModelTestSuite {
 

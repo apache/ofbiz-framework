@@ -31,8 +31,6 @@ import org.w3c.dom.Element;
 
 /**
  * Use this class in a JUnit test runner to prepare the TestSuite. 
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public class JunitSuiteWrapper {
 

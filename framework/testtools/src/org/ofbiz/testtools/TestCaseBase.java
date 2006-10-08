@@ -19,8 +19,6 @@ import junit.framework.Test;
 
 /**
  * Base class for OFBiz Test Tools test case implementations.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public abstract class TestCaseBase implements Test {
 

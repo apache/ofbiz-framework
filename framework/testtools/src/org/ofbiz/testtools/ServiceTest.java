@@ -19,10 +19,6 @@ import junit.framework.TestResult;
 
 import org.w3c.dom.Element;
 
-/**
- * @author jonesde
- *
- */
 public class ServiceTest extends TestCaseBase {
 
     public static final String module = ServiceTest.class.getName();

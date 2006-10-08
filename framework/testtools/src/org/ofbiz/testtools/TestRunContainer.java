@@ -26,8 +26,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public class TestRunContainer implements Container {
 
