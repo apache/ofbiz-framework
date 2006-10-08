@@ -38,10 +38,6 @@ import org.ofbiz.widget.html.HtmlScreenRenderer;
 
 /**
  * FoPrintServerEvents
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      May 18, 2006
  */
 
 public class FoPrintServerEvents {
