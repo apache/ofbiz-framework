@@ -17,10 +17,6 @@ package org.ofbiz.workflow;
 
 /**
  * CannotStart Workflow Exception
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public final class CannotStart extends WfException {
 

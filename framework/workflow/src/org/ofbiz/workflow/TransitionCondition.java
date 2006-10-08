@@ -21,10 +21,6 @@ import org.ofbiz.service.DispatchContext;
 
 /**
  * TransitionCondition - Interface for implementing transition conditions
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.1
  */
 public interface TransitionCondition {
     

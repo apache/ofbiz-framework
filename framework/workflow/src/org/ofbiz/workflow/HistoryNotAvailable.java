@@ -17,10 +17,6 @@ package org.ofbiz.workflow;
 
 /**
  * HistoryNotAvailable Workflow Exception
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public final class HistoryNotAvailable extends WfException {
 

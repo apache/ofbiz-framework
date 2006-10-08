@@ -25,10 +25,6 @@ import org.ofbiz.workflow.WfActivity;
 
 /**
  * Workflow Client API - Start Activity Async-Job
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.0
  */
 public class StartActivityJob extends AbstractJob {
     

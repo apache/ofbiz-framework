@@ -23,10 +23,6 @@ import org.ofbiz.service.GenericRequester;
 
 /**
  * WfRequester - Workflow Requester Interface
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public interface WfRequester {
 

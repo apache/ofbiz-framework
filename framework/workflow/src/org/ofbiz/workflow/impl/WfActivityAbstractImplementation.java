@@ -29,11 +29,6 @@ import org.ofbiz.workflow.WfException;
 
 /**
  * WfActivityAbstractImplementation.java
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @author     Oswin Ondarza and Manuel Soto 
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class WfActivityAbstractImplementation {
 

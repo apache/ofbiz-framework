@@ -20,10 +20,6 @@ import java.util.List;
 
 /**
  * WfResource - Workflow Resource Interface
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public interface WfResource {
 

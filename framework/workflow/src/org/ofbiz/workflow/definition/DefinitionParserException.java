@@ -17,10 +17,6 @@ package org.ofbiz.workflow.definition;
 
 /**
  * Workflow Definition Parser Exception
- *
- * @author     <a href='mailto:jonesde@ofbiz.org'>David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public final class DefinitionParserException extends org.ofbiz.base.util.GeneralException {
 

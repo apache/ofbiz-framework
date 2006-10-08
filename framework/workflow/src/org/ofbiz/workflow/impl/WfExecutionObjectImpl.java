@@ -59,11 +59,6 @@ import org.ofbiz.workflow.WfUtil;
 
 /**
  * WfExecutionObjectImpl - Workflow Execution Object implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     David Ostrovsky (d.ostrovsky@gmx.de) 
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class WfExecutionObjectImpl implements WfExecutionObject {
 
