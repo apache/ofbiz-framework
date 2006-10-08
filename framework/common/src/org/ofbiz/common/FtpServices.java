@@ -37,7 +37,6 @@ import org.apache.commons.net.ftp.FTPReply;
 /**
  *  FTP Services
  *
- *@author     <a href="mailto:eckardjf@gmail.com">J. Eckard</a>
  */
 public class FtpServices {
 

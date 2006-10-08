@@ -51,10 +51,6 @@ import org.ofbiz.service.mail.MimeMessageWrapper;
 
 /**
  * Common Services
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CommonServices {
 

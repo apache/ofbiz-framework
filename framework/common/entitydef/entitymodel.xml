@@ -105,8 +105,7 @@ under the License.
     <entity entity-name="CountryCapital"
             package-name="org.ofbiz.common.geo"
             dependent-on="CountryCode"
-            title="Country Capital Entity"
-            author="Andy Zeneski (jaz@ofbiz.org)">
+            title="Country Capital Entity">
       <field name="countryCode" type="id-ne"></field>
       <field name="countryCapital" type="description"></field>
       <prim-key field="countryCode"/>
@@ -116,8 +115,7 @@ under the License.
     </entity>
     <entity entity-name="CountryCode"
             package-name="org.ofbiz.common.geo"
-            title="ISO Country Code Entity"
-            author="Andy Zeneski (jaz@ofbiz.org)">
+            title="ISO Country Code Entity">
       <field name="countryCode" type="id-ne"></field>
       <field name="countryAbbr" type="short-varchar"></field>
       <field name="countryNumber" type="short-varchar"></field>
@@ -127,8 +125,7 @@ under the License.
     <entity entity-name="CountryTeleCode"
             package-name="org.ofbiz.common.geo"
             dependent-on="CountryCode"
-            title="Telephone Country Code Entity"
-            author="Andy Zeneski (jaz@ofbiz.org)">
+            title="Telephone Country Code Entity">
       <field name="countryCode" type="id-ne"></field>
       <field name="teleCode" type="short-varchar"></field>
       <prim-key field="countryCode"/>

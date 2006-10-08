@@ -18,10 +18,6 @@
 
 /**
  * Data Model Constants
- *
- * @author     <a href="mailto:epabst@bigfoot.com">Eric Pabst</a>
- * @version    $Rev$
- * @since      2.0
  */
 public final class DataModelConstants {
 
