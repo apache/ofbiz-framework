@@ -35,9 +35,6 @@ import org.ofbiz.base.component.ComponentConfig;
  * ** This container requires StartInfoLoader to be loaded at startup.
  * ** This container requires the ComponentContainer to be loaded first.
  * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class GenerateContainer implements Container {
 
