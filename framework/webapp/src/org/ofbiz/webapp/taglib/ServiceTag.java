@@ -27,10 +27,6 @@ import org.ofbiz.service.LocalDispatcher;
 
 /**
  * ServiceTag - Service invocation tag.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ServiceTag extends AbstractParameterTag {
 

@@ -31,10 +31,6 @@ import org.w3c.dom.Element;
 
 /**
  * A class to manage the region cache and read a region XML file
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class RegionManager {
     

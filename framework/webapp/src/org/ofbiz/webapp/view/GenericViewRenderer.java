@@ -47,10 +47,6 @@ import org.jpublish.view.ViewRenderer;
 
 /**
  * Generic JPublish View Renderer - This is in testing; for use in wrapping other renderers
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class GenericViewRenderer implements ViewRenderer {
         

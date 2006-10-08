@@ -29,12 +29,6 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
 /**
  * I18nMessageTag - JSP tag to use a resource bundle to internationalize
  * content in a web page.
- *
- * @author     <a href="mailto:k3ysss@yahoo.com">Jian He</a>
- * @author     <a href="mailto:">Quake Wang</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class I18nMessageTag extends BodyTagSupport {
     

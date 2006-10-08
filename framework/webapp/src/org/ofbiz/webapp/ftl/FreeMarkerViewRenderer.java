@@ -39,11 +39,6 @@ import org.jpublish.view.ViewRenderException;
 
 /**
  * JPublish View Renderer For Freemarker Template Engine
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class FreeMarkerViewRenderer extends org.jpublish.view.freemarker.FreeMarkerViewRenderer {
 

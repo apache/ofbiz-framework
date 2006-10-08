@@ -17,10 +17,6 @@ package org.ofbiz.webapp.view;
 
 /**
  * ViewHandlerException - View Handler Exception
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ViewHandlerException extends org.ofbiz.base.util.GeneralException {
 

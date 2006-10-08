@@ -51,12 +51,6 @@ import org.w3c.dom.Document;
 
 /**
  * SOAPEventHandler - SOAP Event Handler implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @author     <a href="mailto:">Andy Chen</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class SOAPEventHandler implements EventHandler {
 

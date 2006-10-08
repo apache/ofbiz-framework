@@ -44,10 +44,6 @@ import freemarker.template.WrappingTemplateModel;
 
 /**
  * FreemarkerViewHandler - Freemarker Template Engine View Handler
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class FreeMarkerViewHandler implements ViewHandler {
     

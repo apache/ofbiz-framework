@@ -46,10 +46,6 @@ import org.ofbiz.service.calendar.RecurrenceRule;
 
 /**
  * CoreEvents - WebApp Events Related To Framework pieces
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CoreEvents {
     

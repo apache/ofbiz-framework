@@ -43,11 +43,6 @@ import org.ofbiz.webapp.stats.ServerHitBin;
 
 /**
  * ControlServlet.java - Master servlet for the web application.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ControlServlet extends HttpServlet {
 

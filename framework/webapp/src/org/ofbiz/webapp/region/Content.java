@@ -24,11 +24,6 @@ import javax.servlet.jsp.PageContext;
 /**
  * Abstract base class for Section and Region
  * <br/>Subclasses of Content must implement render(PageContext)
- *
- *@author     David M. Geary in the book "Advanced Java Server Pages"
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@created    February 26, 2002
- *@version    1.0
  */
 public abstract class Content implements java.io.Serializable {
     protected final String content;

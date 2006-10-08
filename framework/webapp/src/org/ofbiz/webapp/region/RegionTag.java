@@ -21,11 +21,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Base tag for other region tags, uses "/WEB-INF/regions.xml" file
- *
- * @author     David M. Geary in the book "Advanced Java Server Pages"
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class RegionTag extends TagSupport {
     protected Region regionObj = null;

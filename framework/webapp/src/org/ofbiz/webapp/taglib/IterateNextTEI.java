@@ -19,12 +19,6 @@ import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
 
-/**
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    1.0
- * @created    August 4, 2001
- */
-
 public class IterateNextTEI extends TagExtraInfo {
 
     public IterateNextTEI() {

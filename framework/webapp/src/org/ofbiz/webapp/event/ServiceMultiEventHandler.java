@@ -47,10 +47,6 @@ import org.ofbiz.service.ServiceValidationException;
 
 /**
  * ServiceMultiEventHandler - Event handler for running a service multiple times; for bulk forms
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.2
  */
 public class ServiceMultiEventHandler implements EventHandler {
 

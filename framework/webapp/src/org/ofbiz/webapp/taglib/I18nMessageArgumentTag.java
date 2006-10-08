@@ -24,10 +24,6 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
 /**
  * I18nMessageArgumentTag - JSP tag that used inside a MessageTag to create an
  * ordered list of arguments to use with java.text.MessageFormat.
- *
- * @author  <a href="mailto:k3ysss@yahoo.com">Jian He</a>
- * @version 1.0
- * @created April 16, 2002
  */
 public class I18nMessageArgumentTag extends TagSupport {
     

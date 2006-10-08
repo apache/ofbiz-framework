@@ -33,10 +33,6 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * HttpSessionListener that gathers and tracks various information and statistics
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ControlEventListener implements HttpSessionListener {
     // Debug module name

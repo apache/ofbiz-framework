@@ -51,10 +51,6 @@ import org.ofbiz.service.WebAppDispatcher;
 
 /**
  * ContextFilter - Restricts access to raw files and configures servlet objects.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.2
  */
 public class ContextFilter implements Filter {
 

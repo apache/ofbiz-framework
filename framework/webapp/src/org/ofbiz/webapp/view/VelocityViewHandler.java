@@ -39,10 +39,6 @@ import org.apache.velocity.util.SimplePool;
 
 /**
  * VelocityViewHandler - Velocity Template Engine View Handler
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class VelocityViewHandler implements ViewHandler {
 

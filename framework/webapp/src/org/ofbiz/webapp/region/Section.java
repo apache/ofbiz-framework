@@ -38,11 +38,6 @@ import org.ofbiz.webapp.view.ViewHandlerException;
  *
  * <p>Note that a section's content can also be a region;if so,
  * Region.render is called from Section.Render().</p>
- *
- * @author     David M. Geary in the book "Advanced Java Server Pages"
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class Section extends Content {
 

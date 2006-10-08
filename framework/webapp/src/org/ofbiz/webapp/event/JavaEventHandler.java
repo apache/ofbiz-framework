@@ -26,11 +26,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * JavaEventHandler - Static Method Java Event Handler
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class JavaEventHandler implements EventHandler {
 

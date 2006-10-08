@@ -31,11 +31,6 @@ import org.ofbiz.webapp.region.RegionStack;
 
 /**
  * Handles Region type view rendering
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class RegionViewHandler implements ViewHandler {
     

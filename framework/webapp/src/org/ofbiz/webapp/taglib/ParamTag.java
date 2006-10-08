@@ -21,10 +21,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * ParamTag - Defines a parameter for the service tag.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ParamTag extends TagSupport {
 

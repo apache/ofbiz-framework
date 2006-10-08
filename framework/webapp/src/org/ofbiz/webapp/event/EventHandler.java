@@ -21,11 +21,6 @@ import javax.servlet.ServletContext;
 
 /**
  * EventHandler - Event Handler Interface
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 
 public interface EventHandler {

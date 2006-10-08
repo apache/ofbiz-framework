@@ -35,10 +35,6 @@ import org.ofbiz.entity.model.ModelEntity;
 
 /**
  * Handles saving and maintaining visit information
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class VisitHandler {
     // Debug module name

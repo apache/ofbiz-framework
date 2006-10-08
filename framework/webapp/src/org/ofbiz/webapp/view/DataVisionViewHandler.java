@@ -31,10 +31,6 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 /**
  * Handles DataVision type view rendering
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class DataVisionViewHandler implements ViewHandler {
     

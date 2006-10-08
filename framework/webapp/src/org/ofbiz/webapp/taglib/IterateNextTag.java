@@ -25,11 +25,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * IterateNextTag - JSP Tag to get the next element of the IteratorTag.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    1.0
- * @created    August 4, 2001
  */
 public class IterateNextTag extends BodyTagSupport {
 

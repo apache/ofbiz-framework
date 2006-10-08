@@ -22,10 +22,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * AbstractParameterTag - Tag which support child parameter tags.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    1.0
- * @created    March 27, 2002
  */
 public abstract class AbstractParameterTag extends TagSupport {
 

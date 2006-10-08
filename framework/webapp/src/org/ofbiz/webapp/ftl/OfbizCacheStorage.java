@@ -21,10 +21,6 @@ import org.ofbiz.base.util.cache.UtilCache;
 
 /**
  * A custom cache wrapper for caching FreeMarker templates
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class OfbizCacheStorage implements CacheStorage {
     //can't have global cache because names/keys are relative to the webapp
