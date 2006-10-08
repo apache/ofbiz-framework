@@ -34,12 +34,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.party.contact.ContactHelper;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
- */
 public class TruitionCoReg {
 
     public static final String module =  TruitionCoReg.class.getName();
