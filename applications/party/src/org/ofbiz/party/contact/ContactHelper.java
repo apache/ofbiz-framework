@@ -29,10 +29,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Accessors for Contact Mechanisms
- * 
- * @author     <a href="mailto:epabst@bigfoot.com">Eric Pabst</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ContactHelper {
     

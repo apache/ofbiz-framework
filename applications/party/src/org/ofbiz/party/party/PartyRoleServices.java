@@ -34,10 +34,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Services for Party Role maintenance
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PartyRoleServices {
     
