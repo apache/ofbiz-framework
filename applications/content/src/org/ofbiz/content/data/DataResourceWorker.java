@@ -71,12 +71,6 @@ import freemarker.template.TemplateException;
 
 /**
  * DataResourceWorker Class
- *
- * @author      <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @author      <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author      <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version     $Rev$
- * @since       3.0
  */
 public class DataResourceWorker {
 

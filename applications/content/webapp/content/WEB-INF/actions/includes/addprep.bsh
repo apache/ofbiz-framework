@@ -35,13 +35,6 @@ import org.ofbiz.widget.form.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      2.2
-
- */
 
 security			= request.getAttribute("security");
 // Get permission from pagedef config file

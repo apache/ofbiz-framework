@@ -29,30 +29,23 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import java.sql.Timestamp;
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      2.2
 
- */
-
-LocalDispatcher dispatcher	= (LocalDispatcher)request.getAttribute("dispatcher");
+LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
 GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 
 // Get permission from pagedef config file
-String permission		= page.getProperty("permission");
-String entityName		= page.getProperty("entityName");
-String currentEntityName	= page.getProperty("currentEntityName");
-String formDefFile	= page.getProperty("formDefFile");
-String defaultMapName		= page.getProperty("defaultMapName");
-if( defaultMapName == null) defaultMapName	= "valueObject";
+String permission = page.getProperty("permission");
+String entityName = page.getProperty("entityName");
+String currentEntityName = page.getProperty("currentEntityName");
+String formDefFile = page.getProperty("formDefFile");
+String defaultMapName = page.getProperty("defaultMapName");
+if( defaultMapName == null) defaultMapName = "valueObject";
 
-security			= request.getAttribute("security");
+security = request.getAttribute("security");
 if(security.hasEntityPermission(permission, "_VIEW", session)) {
-    	context.put("hasPermission", Boolean.TRUE);
+    context.put("hasPermission", Boolean.TRUE);
 } else {
-    	context.put("hasPermission", Boolean.FALSE);
+    context.put("hasPermission", Boolean.FALSE);
 }
 
 HtmlFormWrapper editWrapper	= null;

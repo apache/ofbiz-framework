@@ -54,9 +54,6 @@ import com.lowagie.text.pdf.PdfReader;
 
 /**
  * CompDocEvents Class
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 
 public class CompDocServices {

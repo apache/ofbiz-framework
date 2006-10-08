@@ -55,10 +55,6 @@ import freemarker.template.TemplateException;
 
 /**
  * Survey Wrapper - Class to render survey forms
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class SurveyWrapper {
 

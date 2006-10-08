@@ -61,11 +61,6 @@ import com.lowagie.text.pdf.PdfWriter;
 
 /**
  * PdfSurveyServices Class
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version $Rev$
- * @since 3.2
  */
 
 public class PdfSurveyServices {

@@ -37,11 +37,6 @@ import org.ofbiz.widget.form.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * A special "formprep"-like script for ContentAssoc which has two (from/to)
  * lists to retrieve.
  */

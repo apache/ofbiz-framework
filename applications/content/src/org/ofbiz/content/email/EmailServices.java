@@ -84,12 +84,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Email Services
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:h.bakker@antwebsystems.com">Hans Bakker</a>
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.0
  */
 public class EmailServices {
 

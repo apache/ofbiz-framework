@@ -14,11 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * This is a hack of includes/pagelistprep.bsh, whose only change is to 
  * add the "contentIdTo" field/value to the passed structures.
  */

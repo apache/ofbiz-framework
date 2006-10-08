@@ -42,10 +42,6 @@ import freemarker.template.TransformControl;
 
 /**
  * LoopSubContentTransform - Freemarker Transform for URLs (links)
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version $Rev$
- * @since 3.0
  */
 public class LoopSubContentTransform implements TemplateTransformModel {
 

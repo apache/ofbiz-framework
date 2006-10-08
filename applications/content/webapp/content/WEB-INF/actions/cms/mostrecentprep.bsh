@@ -46,14 +46,6 @@ import freemarker.template.SimpleSequence;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
- */
-
 
 Debug.logInfo("in mostrecentprep(1):","");
 delegator = request.getAttribute("delegator");

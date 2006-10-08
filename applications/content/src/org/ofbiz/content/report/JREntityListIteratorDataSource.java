@@ -27,10 +27,6 @@ import org.ofbiz.entity.util.EntityListIterator;
 
 /**
  * <code>JREntityListIteratorDataSource</code>
- * 
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author <a href="mailto:gielen@aixcept.de">Rene Gielen</a>
- * @version $Rev$
  */
 public class JREntityListIteratorDataSource implements JRDataSource {
     

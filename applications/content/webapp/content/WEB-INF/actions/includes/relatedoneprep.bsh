@@ -14,10 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      2.2
  * Finds the one-to-one related entity (such as ElectronicText or ImageDataResource)
  * that is associated with the current entity (such as Content or DataResource).
  * If it exists, an editFormWrapper is created and populated, else an addFromWrapper.

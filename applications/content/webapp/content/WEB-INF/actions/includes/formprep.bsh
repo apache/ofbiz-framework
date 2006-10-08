@@ -14,11 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
- *
  * Builds an edit or add single form wrapper and puts the "currentValue"
  * (usually generated in currentvalprep.bsh) entity into.
  */

@@ -53,10 +53,6 @@ import org.ofbiz.security.Security;
 
 /**
  * ContentManagementWorker Class
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ContentManagementWorker {
 

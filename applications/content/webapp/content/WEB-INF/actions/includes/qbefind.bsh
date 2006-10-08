@@ -14,11 +14,6 @@
  * under the License.
  */
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * Does a dynamic "find" using an EntityCondition obtained by doing an "eval"
  * on the contents of the "qbeExpr" property in the pagedef config file.
  * Generates an EntityListIterator object, "listIt", to be used by pagelistprep.bsh.

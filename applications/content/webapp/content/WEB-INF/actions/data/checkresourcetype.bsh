@@ -37,11 +37,6 @@ import org.ofbiz.content.data.DataResourceWorker;
 import javax.servlet.*;
 import javax.servlet.http.*;
 /**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
-
  * Depending on the dataResourceType (electronic text or image), some pages in the
  * DataResource Manager are not appropriate. 
  * This scripts checks for that appropriateness.

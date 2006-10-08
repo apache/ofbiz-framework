@@ -48,9 +48,6 @@ import org.ofbiz.webapp.event.CoreEvents;
 
 /**
  * CompDocEvents Class
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public class CompDocEvents {
     public static final String module = CompDocEvents.class.getName();

@@ -25,12 +25,6 @@ import com.sun.star.io.NotConnectedException;
 
 /**
  * OpenOfficeByteArrayOutputStream Class
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version $Rev$
- * @since 3.2
- * 
- *  
  */
 
 public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream implements XOutputStream {

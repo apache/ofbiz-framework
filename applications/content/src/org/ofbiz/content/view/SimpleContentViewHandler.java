@@ -38,10 +38,6 @@ import org.ofbiz.base.util.GeneralException;
 /**
  * Uses XSL-FO formatted templates to generate PDF views
  * This handler will use JPublish to generate the XSL-FO
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class SimpleContentViewHandler implements ViewHandler {
     

@@ -39,12 +39,6 @@ import org.apache.lucene.document.Field;
 
 /**
  * ContentDocument Class
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version $Rev$
- * @since 3.1
- * 
- *  
  */
 
 public class ContentDocument {

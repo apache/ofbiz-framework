@@ -31,10 +31,6 @@ import java.util.Map;
 
 /**
  * Control Applet - Client applet for page pushing and (future) chat
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ControlApplet extends Applet implements Runnable {
     

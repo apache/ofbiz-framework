@@ -40,10 +40,6 @@ import freemarker.template.TemplateTransformModel;
  * EditRenderSubContentTransform - Freemarker Transform for URLs (links)
  * 
  * This is an interactive FreeMarker tranform that allows the user to modify the contents that are placed within it.
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version $Rev$
- * @since 3.0
  */
 public class EditRenderSubContentTransform implements TemplateTransformModel {
 

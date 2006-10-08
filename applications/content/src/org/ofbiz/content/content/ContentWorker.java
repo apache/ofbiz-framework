@@ -62,12 +62,6 @@ import freemarker.ext.dom.NodeModel;
 
 /**
  * ContentWorker Class
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version $Rev$
- * @since 2.2
- * 
- *  
  */
 public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 

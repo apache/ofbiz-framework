@@ -35,12 +35,6 @@ import org.ofbiz.entity.model.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-/**
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      2.2
- */
 
 LocalDispatcher dispatcher	= (LocalDispatcher)request.getAttribute("dispatcher");
 GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
