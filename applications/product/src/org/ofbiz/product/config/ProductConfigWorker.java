@@ -29,11 +29,6 @@ import org.ofbiz.base.util.cache.UtilCache;
 
 /**
  * Product Config Worker class to reduce code in templates.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
- *
  */
 public class ProductConfigWorker {
     

@@ -38,12 +38,6 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.product.product.ProductWorker;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      Sep 1, 2005
- */
 public class PackingSession implements java.io.Serializable {
 
     public static final String module = PackingSession.class.getName();

@@ -34,10 +34,6 @@ import org.ofbiz.service.ModelService;
  * Tests for USPS Webtools API services
  *
  * These were created for simple validation only.
- *
- * @author     <a href="mailto:eckardjf@pobox.com">J. Eckard</a>
- * @version    $Rev$
- * @since      3.2
  */
 public class UspsServicesTests extends TestCase {
 

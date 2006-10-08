@@ -36,10 +36,6 @@ import netscape.javascript.JSObject;
 
 /**
  * ShipmentScaleApplet - Applet for reading weight from a scale and input into the browser
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      3.0
  */
 public class ShipmentScaleApplet extends Applet implements SerialPortEventListener, CommPortOwnershipListener {
     

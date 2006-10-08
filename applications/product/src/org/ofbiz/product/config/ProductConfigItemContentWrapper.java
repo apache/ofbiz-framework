@@ -40,9 +40,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Product Config Item Content Worker: gets product content to display
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
  */
 public class ProductConfigItemContentWrapper implements java.io.Serializable {
     

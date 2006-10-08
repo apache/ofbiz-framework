@@ -41,11 +41,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Product Services
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ProductServices {
 

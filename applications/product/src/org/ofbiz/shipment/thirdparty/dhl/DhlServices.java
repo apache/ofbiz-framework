@@ -68,10 +68,6 @@ import org.xml.sax.SAXException;
  * </ul>
  * 
  * TODO: International
- * 
- * @author <a href="mailto:leon@opensourcestrategies.com">Leon Torres </a>
- * @author <a href="mailto:sichen@hotmail.com">Si Chen </a>
- * @author <a href="mailto:timchen_sh@hotmail.com">Tim Chen </a>
  */
 public class DhlServices {
 

@@ -56,10 +56,6 @@ import org.ofbiz.service.LocalDispatcher;
 
 /**
  * Product Information Related Events
- *
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version $Rev$
- * @since 2.0
  */
 public class ProductEvents {
 

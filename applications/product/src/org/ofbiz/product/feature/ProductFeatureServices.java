@@ -40,10 +40,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Services for product features
- *
- * @author     <a href="mailto:schen@graciousstyle.com">Si Chen</a>
- * @version    $Revision$
- * @since      3.0
  */
 
 public class ProductFeatureServices {

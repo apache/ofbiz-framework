@@ -32,12 +32,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.5
- */
 public class PickListServices {
 
     public static final String module = PickListServices.class.getName();

@@ -40,11 +40,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Category Content Worker: gets category content to display
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:arukala@gmx.de">Arukala</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class CategoryContentWrapper {
     

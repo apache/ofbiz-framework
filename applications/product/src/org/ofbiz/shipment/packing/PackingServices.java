@@ -25,12 +25,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      Sep 1, 2005
- */
 public class PackingServices {
 
     public static final String module = PackingServices.class.getName();

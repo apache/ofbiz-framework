@@ -53,10 +53,6 @@ import org.ofbiz.party.party.PartyHelper;
 
 /**
  *  Utilities for product search based on various constraints including categories, features and keywords.
- *
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ProductSearch {
 

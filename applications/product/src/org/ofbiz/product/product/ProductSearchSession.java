@@ -55,10 +55,6 @@ import org.ofbiz.product.store.ProductStoreWorker;
 
 /**
  *  Utility class with methods to prepare and perform ProductSearch operations in the content of an HttpSession
- *
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ProductSearchSession {
 

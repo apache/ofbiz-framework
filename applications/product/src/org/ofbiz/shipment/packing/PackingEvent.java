@@ -15,12 +15,7 @@
  * under the License.
  */
 package org.ofbiz.shipment.packing;
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      Sep 2, 2005
- */
+
 public interface PackingEvent extends java.io.Serializable {
 
     public static final int EVENT_CODE_ADD = 1;

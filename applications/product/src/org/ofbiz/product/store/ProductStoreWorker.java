@@ -48,10 +48,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * ProductStoreWorker - Worker class for store related functionality
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ProductStoreWorker {
 
