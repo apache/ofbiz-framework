@@ -35,10 +35,6 @@ import org.w3c.dom.Element;
 
 /**
  * EntityEcaAction
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      2.1
  */
 public class EntityEcaAction implements java.io.Serializable {
     public static final String module = EntityEcaAction.class.getName();

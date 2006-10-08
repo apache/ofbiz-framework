@@ -36,9 +36,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Entity Engine Cache Services
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a> 
- * @since      2.0
  */
 public class EntityCacheServices implements DistributedCacheClear {
     
