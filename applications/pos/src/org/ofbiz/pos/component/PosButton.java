@@ -31,12 +31,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.config.ButtonEventConfig;
 import org.ofbiz.pos.screen.PosScreen;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class PosButton {
 
     public static final String module = PosButton.class.getName();

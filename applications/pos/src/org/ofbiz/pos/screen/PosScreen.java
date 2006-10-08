@@ -43,12 +43,6 @@ import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.component.PosButton;
 import org.ofbiz.pos.device.DeviceLoader;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class PosScreen extends NavigationHelper implements Runnable, DialogCallback, FocusListener {
 
     public static final String module = PosScreen.class.getName();

@@ -24,12 +24,6 @@ import org.ofbiz.pos.device.GenericDevice;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.event.MenuEvents;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class Scanner extends GenericDevice {
 
     public static final String module = Scanner.class.getName();

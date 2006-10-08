@@ -23,12 +23,6 @@ import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.screen.DialogCallback;
 import org.ofbiz.pos.screen.PosDialog;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class CashDrawer extends GenericDevice implements Runnable, DialogCallback {
 
     public static final String module = CashDrawer.class.getName();

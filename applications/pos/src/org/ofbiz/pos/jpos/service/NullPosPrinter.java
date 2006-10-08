@@ -19,12 +19,6 @@ import jpos.JposException;
 
 import org.ofbiz.base.util.Debug;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class NullPosPrinter extends BaseService implements jpos.services.POSPrinterService12 {
 
     protected static final String ESC = ((char) 0x1b) + "";

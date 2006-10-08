@@ -33,12 +33,6 @@ import org.ofbiz.pos.adaptor.KeyboardAdaptor;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class KeyboardService extends BaseService implements jpos.services.POSKeyboardService17, KeyboardReceiver, KeyListener {
 
     public static final String module = KeyboardService.class.getName();

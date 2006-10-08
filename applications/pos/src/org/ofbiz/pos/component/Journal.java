@@ -25,12 +25,6 @@ import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.base.util.UtilProperties;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class Journal {
 
     public static final String module = Journal.class.getName();

@@ -15,14 +15,6 @@
  */
 package org.ofbiz.pos.device;
 
-
-
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public interface JposDevice {
 
     public void open() throws jpos.JposException;

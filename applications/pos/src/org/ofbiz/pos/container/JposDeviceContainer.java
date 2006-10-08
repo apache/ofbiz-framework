@@ -24,12 +24,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.pos.device.DeviceLoader;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
+
 public class JposDeviceContainer implements Container {
 
     public static final String module = JposDeviceContainer.class.getName();

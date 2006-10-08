@@ -24,12 +24,6 @@ import org.ofbiz.pos.adaptor.ErrorEventAdaptor;
 import org.ofbiz.pos.device.GenericDevice;
 import org.ofbiz.pos.screen.PosScreen;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class Msr extends GenericDevice {
 
     public static final String module = Msr.class.getName();

@@ -15,12 +15,6 @@
  */
 package org.ofbiz.pos.screen;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev:%
- * @since      3.2
- */
 public interface DialogCallback {
 
     public void receiveDialogCb(PosDialog dialog);

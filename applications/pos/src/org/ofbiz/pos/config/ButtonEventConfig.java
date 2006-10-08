@@ -35,12 +35,6 @@ import org.ofbiz.pos.screen.PosScreen;
 
 import org.w3c.dom.Element;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class ButtonEventConfig implements java.io.Serializable {
 
     public static final String module = ButtonEventConfig.class.getName();

@@ -35,12 +35,6 @@ import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilProperties;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      Aug 24, 2004
- */
 public class Operator {
 
     public static final String module = Operator.class.getName();

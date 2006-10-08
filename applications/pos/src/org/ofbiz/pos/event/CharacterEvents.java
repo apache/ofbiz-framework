@@ -18,12 +18,6 @@ package org.ofbiz.pos.event;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.component.Input;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class CharacterEvents {
 
     public static boolean capsLockSet = false;

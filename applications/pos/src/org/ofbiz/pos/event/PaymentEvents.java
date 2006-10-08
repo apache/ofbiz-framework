@@ -26,13 +26,6 @@ import org.ofbiz.base.util.UtilProperties;
 
 import java.util.Locale;
 
-
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class PaymentEvents {
 
     public static final String module = PaymentEvents.class.getName();

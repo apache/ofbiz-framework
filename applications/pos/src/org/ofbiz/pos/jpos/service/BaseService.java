@@ -29,13 +29,6 @@ import jpos.events.OutputCompleteEvent;
 import jpos.events.StatusUpdateEvent;
 import jpos.config.JposEntry;
 
-/**
- * JPOS BaseService Implementation for Keyboard Wedge Services
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class BaseService implements jpos.services.BaseService, jpos.loader.JposServiceInstance {
 
     public static final String module = BaseService.class.getName();
