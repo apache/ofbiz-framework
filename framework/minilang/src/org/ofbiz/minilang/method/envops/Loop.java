@@ -28,10 +28,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * Loop
- *
- * @author      <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version     $Rev$
- * @since       3.5
  */
 public class Loop extends MethodOperation {
 

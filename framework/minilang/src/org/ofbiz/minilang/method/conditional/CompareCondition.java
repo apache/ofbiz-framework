@@ -25,10 +25,6 @@ import org.ofbiz.minilang.operation.*;
 
 /**
  * Implements compare to a constant condition.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class CompareCondition implements Conditional {
     

@@ -24,10 +24,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * Validates the current field using a regular expression
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class Regexp extends SimpleMapOperation {
     

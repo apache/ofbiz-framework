@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Adds the fail-message or fail-property value to the error-list.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class AddError extends MethodOperation {
     String message = null;

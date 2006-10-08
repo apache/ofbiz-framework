@@ -22,10 +22,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * Checks to see if the current field is empty (null or zero length)
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class NotEmpty extends SimpleMapOperation {
     

@@ -17,10 +17,6 @@ package org.ofbiz.minilang;
 
 /**
  * MiniLangException
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class MiniLangException extends org.ofbiz.base.util.GeneralException {
 

@@ -25,10 +25,6 @@ import org.ofbiz.minilang.method.*;
 /**
  * Uses the delegator to clear elements from the cache; intelligently looks at
  *  the map passed to see if it is a byPrimaryKey, and byAnd, or an all.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ClearCacheLine extends MethodOperation {
     

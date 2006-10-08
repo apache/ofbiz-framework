@@ -24,10 +24,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * A string operation that calls a validation method
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ValidateMethod extends SimpleMapOperation {
     

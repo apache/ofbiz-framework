@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies a Servlet request parameter values to a list
- *
- * @author     <a href="mailto:quake.sh@ofbizchina.com">Quake Wang</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class RequestParametersToList extends MethodOperation {
 

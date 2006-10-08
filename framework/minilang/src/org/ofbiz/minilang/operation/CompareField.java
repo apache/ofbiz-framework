@@ -20,10 +20,6 @@ import org.w3c.dom.*;
 
 /**
  * Compares the current field to another field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CompareField extends BaseCompare {
     

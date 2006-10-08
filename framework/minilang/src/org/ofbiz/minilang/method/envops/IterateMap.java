@@ -29,10 +29,6 @@ import org.w3c.dom.Element;
 
 /**
  * Process sub-operations for each entry in the map
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class IterateMap extends MethodOperation {
     

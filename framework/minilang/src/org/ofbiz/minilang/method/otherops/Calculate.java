@@ -33,10 +33,6 @@ import org.w3c.dom.Element;
 
 /**
  * Calculates a result based on nested calcops.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class Calculate extends MethodOperation {
     

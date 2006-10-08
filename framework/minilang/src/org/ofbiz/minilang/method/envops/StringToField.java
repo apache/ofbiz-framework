@@ -26,10 +26,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies the specified String to a field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class StringToField extends MethodOperation {
     

@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Look at existing values for a sub-entity with a sequenced secondary ID, and get the highest plus 1
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class MakeNextSeqId extends MethodOperation {
 

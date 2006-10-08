@@ -25,10 +25,6 @@ import org.ofbiz.service.engine.GenericAsyncEngine;
 
 /**
  * Standard Java Static Method Service Engine
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public final class SimpleServiceEngine extends GenericAsyncEngine {
 

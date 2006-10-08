@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies a map field to a Service result entry
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FieldToResult extends MethodOperation {
     

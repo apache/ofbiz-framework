@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Represents the top-level element and only mounted operation for the more flexible if structure.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class MasterIf extends MethodOperation {
 

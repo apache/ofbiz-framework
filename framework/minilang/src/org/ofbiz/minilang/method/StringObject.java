@@ -22,10 +22,6 @@ import org.ofbiz.minilang.*;
 
 /**
  * A type of MethodObject that represents a String constant value to be used as an Object
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class StringObject extends MethodObject {
     

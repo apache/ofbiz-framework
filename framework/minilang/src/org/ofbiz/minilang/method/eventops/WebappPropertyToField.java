@@ -26,10 +26,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies a property value from a properties file in a ServletContext resource to a field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class WebappPropertyToField extends MethodOperation {
     

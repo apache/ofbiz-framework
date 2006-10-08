@@ -22,10 +22,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Clears all Entity Engine Caches
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ClearEntityCaches extends MethodOperation {
 

@@ -28,10 +28,6 @@ import org.w3c.dom.Element;
 
 /**
  * A general set operation to set a field from another field or from a value. Also supports a default-value, and type conversion.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.5
  */
 public class SetOperation extends MethodOperation {
     public static final String module = SetOperation.class.getName();

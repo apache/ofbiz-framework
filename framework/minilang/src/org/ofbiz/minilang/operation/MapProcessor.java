@@ -22,10 +22,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * Map Processor Main Class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class MapProcessor {
     

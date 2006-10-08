@@ -26,10 +26,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Calls a Java object method using the given fields as parameters
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CallObjectMethod extends MethodOperation {
     

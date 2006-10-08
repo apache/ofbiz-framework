@@ -36,10 +36,6 @@ import org.w3c.dom.Element;
 
 /**
  * Implements compare to a constant condition.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class RegexpCondition implements Conditional {
     

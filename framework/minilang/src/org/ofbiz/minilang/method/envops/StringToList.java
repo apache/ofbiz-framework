@@ -26,10 +26,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Appends the specified String to a List
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class StringToList extends MethodOperation {
     

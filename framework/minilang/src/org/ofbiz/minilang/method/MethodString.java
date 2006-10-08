@@ -20,10 +20,6 @@ import org.ofbiz.minilang.*;
 
 /**
  * A single String value, generally meant to be combined with others
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class MethodString {
     

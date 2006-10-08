@@ -34,8 +34,6 @@ import com.ibm.bsf.util.BSFEngineImpl;
  * applications to use SimpleMethod as a scripting language.
  * 
  * <P>There should only be ONE simple-method in the XML file and it will be run as an event.
- *
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public class SimpleMethodBsfEngine extends BSFEngineImpl {
     

@@ -23,10 +23,6 @@ import org.w3c.dom.Element;
 
 /**
  * Copies an environment field to a map field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class EnvToEnv extends MethodOperation {
     

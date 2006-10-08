@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Rolls back a transaction if beganTransaction is true, otherwise tries to do a setRollbackOnly.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class TransactionRollback extends MethodOperation {
     

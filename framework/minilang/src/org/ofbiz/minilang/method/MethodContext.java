@@ -35,11 +35,6 @@ import org.ofbiz.service.LocalDispatcher;
 
 /**
  * A single operation, does the specified operation on the given field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.0
  */
 public class MethodContext {
     

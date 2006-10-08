@@ -22,10 +22,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * A MakeInStringOperation that insert the value of a property from a properties file
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PropertyOper extends MakeInStringOperation {
     

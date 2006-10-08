@@ -28,10 +28,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies an environment field to a list
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class OrderMapList extends MethodOperation {
     

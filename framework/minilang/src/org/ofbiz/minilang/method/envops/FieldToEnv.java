@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies a map field to an environment field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FieldToEnv extends MethodOperation {
     

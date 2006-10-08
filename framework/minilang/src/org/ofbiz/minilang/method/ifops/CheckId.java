@@ -25,10 +25,6 @@ import org.ofbiz.minilang.method.*;
 /**
  * Iff the given ID field is not valid the fail-message 
  * or fail-property sub-elements are used to add a message to the error-list.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CheckId extends MethodOperation {
     

@@ -20,10 +20,6 @@ import org.ofbiz.minilang.*;
 
 /**
  * A single Object value to be used as a parameter or whatever
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class MethodObject {
     

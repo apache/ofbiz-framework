@@ -27,10 +27,6 @@ import bsh.*;
 
 /**
  * Simple class to wrap messages that come either from a straight string or a properties file
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CallBsh extends MethodOperation {
     

@@ -30,10 +30,6 @@ import org.w3c.dom.Element;
 
 /**
  * Operation used to check each sub-condition independently and for each one that fails (does not evaluate to true), adds an error to the error message list.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.3
  */
 public class Assert extends MethodOperation {
 
