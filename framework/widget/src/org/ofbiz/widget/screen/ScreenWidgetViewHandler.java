@@ -35,9 +35,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Handles view rendering for the Screen Widget
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public class ScreenWidgetViewHandler implements ViewHandler {
 

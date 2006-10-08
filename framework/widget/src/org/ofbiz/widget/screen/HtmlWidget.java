@@ -35,9 +35,6 @@ import freemarker.template.TemplateException;
 
 /**
  * Widget Library - Screen model HTML class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public class HtmlWidget extends ModelScreenWidget {
     public static final String module = HtmlWidget.class.getName();

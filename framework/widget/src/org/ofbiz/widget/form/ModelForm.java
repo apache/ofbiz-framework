@@ -50,10 +50,6 @@ import org.w3c.dom.Element;
 
 /**
  * Widget Library - Form model class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.2
  */
 public class ModelForm {
 

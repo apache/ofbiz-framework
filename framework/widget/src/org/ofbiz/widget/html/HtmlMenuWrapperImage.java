@@ -35,9 +35,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Widget Library - HTML Menu Wrapper class - makes it easy to do the setup and render of a menu
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      3.0
  */
 public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
     

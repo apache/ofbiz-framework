@@ -35,9 +35,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Widget Library - HTML Form Wrapper class - makes it easy to do the setup and render of a form
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      2.2
  */
 public class HtmlFormWrapper {
     

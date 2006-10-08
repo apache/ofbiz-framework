@@ -29,9 +29,6 @@ import org.ofbiz.entity.GenericValue;
 
 /**
  * Widget Library - HTML Menu Renderer implementation
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.2
  */
 
 public class HtmlMenuRendererImage extends HtmlMenuRenderer {

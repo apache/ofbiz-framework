@@ -19,8 +19,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * WidgetContentWorker Class
- * 
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public class WidgetContentWorker {
     public static final String module = WidgetContentWorker.class.getName();

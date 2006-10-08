@@ -19,10 +19,6 @@ import java.util.Map;
 
 /**
  * Widget Library - Form String Renderer interface
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.2
  */
 public interface FormStringRenderer {
     public void renderDisplayField(StringBuffer buffer, Map context, ModelFormField.DisplayField displayField);

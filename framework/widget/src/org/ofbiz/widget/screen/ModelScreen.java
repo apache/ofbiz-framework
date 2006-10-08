@@ -33,9 +33,6 @@ import org.w3c.dom.Element;
 
 /**
  * Widget Library - Screen model class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public class ModelScreen implements Serializable {
 

@@ -42,9 +42,6 @@ import org.w3c.dom.Element;
 
 /**
  * Widget Library - Screen model HTML class
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      3.1
  */
 public class IterateSectionWidget extends ModelScreenWidget {
     public static final String module = IterateSectionWidget.class.getName();

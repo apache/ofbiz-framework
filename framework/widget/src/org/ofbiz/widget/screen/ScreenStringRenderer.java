@@ -22,9 +22,6 @@ import java.util.Map;
 
 /**
  * Widget Library - Screen String Renderer interface
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public interface ScreenStringRenderer {
     public void renderSectionBegin(Writer writer, Map context, ModelScreenWidget.Section section) throws IOException;

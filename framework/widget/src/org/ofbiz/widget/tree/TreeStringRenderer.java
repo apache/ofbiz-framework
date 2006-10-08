@@ -23,9 +23,6 @@ import org.ofbiz.widget.screen.ScreenStringRenderer;
 
 /**
  * Widget Library - Tree String Renderer interface
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.2
  */
 public interface TreeStringRenderer {
 
