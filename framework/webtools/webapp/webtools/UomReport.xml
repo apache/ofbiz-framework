@@ -15,8 +15,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<report dtd-version="0.3" name="UOM" title="UOM Information"
-	author="David E. Jones">
+<report dtd-version="0.3" name="UOM" title="UOM Information">
 
     <description><![CDATA[Simple list of UOMs.]]></description>
 

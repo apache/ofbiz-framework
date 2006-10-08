@@ -39,10 +39,6 @@ import org.ofbiz.security.Security;
 
 /**
  * Web Event for doing updates on Generic Entities
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class GenericWebEvent {
     

@@ -25,10 +25,6 @@ import org.ofbiz.security.Security;
 
 /**
  * Contains events for the UtilCache class; must be external to access security resources
- * 
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class UtilCacheEvents {
 
