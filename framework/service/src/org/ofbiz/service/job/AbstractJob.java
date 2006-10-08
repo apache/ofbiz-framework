@@ -17,10 +17,6 @@ package org.ofbiz.service.job;
 
 /**
  * Abstract Service Job - Invokes a service
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class AbstractJob implements Job {
 

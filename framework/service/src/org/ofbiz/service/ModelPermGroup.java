@@ -25,10 +25,6 @@ import java.io.Serializable;
 
 /**
  * Service Permission Group Model Class
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ModelPermGroup implements Serializable {
 

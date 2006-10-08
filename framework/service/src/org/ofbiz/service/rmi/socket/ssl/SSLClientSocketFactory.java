@@ -28,10 +28,6 @@ import org.ofbiz.base.util.SSLUtil;
 
 /**
  * RMI SSL Client Socket Factory
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
  */
 public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializable {
 

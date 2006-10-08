@@ -33,10 +33,6 @@ import org.ofbiz.base.util.JNDIContextFactory;
 
 /**
  * JmsQueueListener - Queue (P2P) Message Listener.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class JmsQueueListener extends AbstractJmsListener {
 

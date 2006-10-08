@@ -32,10 +32,6 @@ import com.ibm.bsf.BSFManager;
 
 /**
  * BSF Service Engine
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.1
  */
 public class BSFEngine extends GenericAsyncEngine {
     

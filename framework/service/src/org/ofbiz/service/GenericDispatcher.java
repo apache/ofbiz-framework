@@ -22,10 +22,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * Generic Services Local Dispatcher
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class GenericDispatcher extends GenericAbstractDispatcher {
 

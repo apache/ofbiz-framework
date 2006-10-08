@@ -34,10 +34,6 @@ import org.ofbiz.base.util.UtilProperties;
 
 /**
  * RMI SSL Server Socket Factory
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
  */
 public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializable {
 

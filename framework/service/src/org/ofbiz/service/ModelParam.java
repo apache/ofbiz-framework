@@ -29,11 +29,6 @@ import org.ofbiz.base.util.ObjectType;
 
 /**
  * Generic Service Model Parameter
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jon</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ModelParam implements Serializable {
 

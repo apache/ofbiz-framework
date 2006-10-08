@@ -51,11 +51,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Generic Service - Service Definition Reader
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 
 public class ModelServiceReader implements Serializable {

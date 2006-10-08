@@ -24,12 +24,6 @@ import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      May 4, 2004
- */
 public class ServiceEngineTests extends TestCase {
 
     public static final String DELEGATOR_NAME = "test";

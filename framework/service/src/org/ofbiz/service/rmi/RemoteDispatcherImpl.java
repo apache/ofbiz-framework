@@ -29,10 +29,6 @@ import org.ofbiz.service.ModelService;
 
 /**
  * Generic Services Remote Dispatcher Implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteDispatcher {
 

@@ -28,10 +28,6 @@ import java.io.Serializable;
 
 /**
  * Service Permission Model Class
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ModelPermission implements Serializable {
 

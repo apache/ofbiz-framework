@@ -39,9 +39,6 @@ import org.ofbiz.service.GenericServiceException;
  * javolution.jar
  * jdbm.jar
  * log4j.jar
- * 
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
  */
 public class ExampleRemoteClient {
 
