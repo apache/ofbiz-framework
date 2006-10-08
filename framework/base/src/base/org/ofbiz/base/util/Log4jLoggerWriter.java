@@ -25,9 +25,6 @@ import org.apache.log4j.Priority;
 /**
  * Writer implementation for writing to a log4j logger.
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class Log4jLoggerWriter extends PrintWriter {
 

@@ -38,11 +38,6 @@ import bsh.ParseException;
 /**
  * BshUtil - BeanShell Utilities
  *
- *@author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@author     Oswin Ondarza and Manuel Soto
- *@created    Oct 22, 2002
- *@version    $Rev$
  */
 public final class BshUtil {
 

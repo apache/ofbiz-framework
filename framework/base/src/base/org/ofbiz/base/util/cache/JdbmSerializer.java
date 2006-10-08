@@ -23,9 +23,6 @@ import org.ofbiz.base.util.UtilObject;
  * JDBC Serializer which uses OFBiz internal serialization
  * (needed do to the fact that we do dynamic class loading)
  * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
  */
 public class JdbmSerializer implements jdbm.helper.Serializer {
 

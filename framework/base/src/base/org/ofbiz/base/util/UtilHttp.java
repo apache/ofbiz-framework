@@ -50,11 +50,6 @@ import javolution.util.FastMap;
 
 /**
  * HttpUtil - Misc TTP Utility Functions
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class UtilHttp {
 

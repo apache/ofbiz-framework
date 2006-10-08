@@ -31,9 +31,6 @@ import org.ofbiz.base.util.UtilMisc;
  * accessing sub-map values and the "[]" (square bracket) syntax for accessing
  * list elements. See individual Map operations for more information.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class FlexibleMapAccessor implements Serializable {
     public static final String module = FlexibleMapAccessor.class.getName();

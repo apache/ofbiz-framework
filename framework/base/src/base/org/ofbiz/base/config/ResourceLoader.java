@@ -28,9 +28,6 @@ import org.w3c.dom.Element;
 /**
  * Loads resources using dynamically specified resource loader classes
  *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@version    $Rev$
- *@since      2.0
  */
 public abstract class ResourceLoader {
     

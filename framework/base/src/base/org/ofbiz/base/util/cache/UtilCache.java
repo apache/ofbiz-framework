@@ -43,10 +43,6 @@ import org.ofbiz.base.util.UtilValidate;
  *   <li>Counts misses and hits
  * </ul>
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class UtilCache implements Serializable {
 

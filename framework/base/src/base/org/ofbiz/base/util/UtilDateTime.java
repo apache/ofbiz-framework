@@ -26,12 +26,6 @@ import java.util.Map;
 
 /**
  * Utility class for handling java.util.Date, the java.sql data/time classes and related
- *
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author <a href="mailto:johan@ibibi.com">Johan Isacsson</a>
- * @version $Rev$
- * @since 2.0
  */
 public class UtilDateTime {
     public static final String[] months = {// // to be translated over CommonMonthName, see example in accounting

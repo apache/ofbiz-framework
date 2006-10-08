@@ -24,12 +24,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class JunitContainer implements Container {
 
     public static final String module = JunitContainer.class.getName();

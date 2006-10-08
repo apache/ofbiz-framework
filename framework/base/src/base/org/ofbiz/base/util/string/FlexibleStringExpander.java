@@ -39,9 +39,6 @@ import bsh.EvalError;
  * '?currency(XXX)' to format the output according the current locale
  * and specified (XXX) currency
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:h.bakker@antwebsystems.com">Hans Bakker</a>  added currency=(xxx) suffix
- * @since      2.2
  */
 public class FlexibleStringExpander implements Serializable {
     

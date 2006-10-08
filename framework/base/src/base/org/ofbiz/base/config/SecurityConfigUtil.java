@@ -28,8 +28,6 @@ import org.ofbiz.base.util.*;
  *
  * The setup of custom security implementations can be customized in the security.xml file.
  *
- * @author     <a href="mailto:hermanns@aixcept.de">Rainer Hermanns</a>
- * @version    $Rev$
  */
 public class SecurityConfigUtil {
     

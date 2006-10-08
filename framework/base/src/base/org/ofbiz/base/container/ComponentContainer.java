@@ -37,10 +37,6 @@ import org.ofbiz.base.util.UtilValidate;
  * <pre>
  *   <container name="component-container" class="org.ofbiz.base.component.ComponentContainer"/>
  * </pre>
- *
- * @author <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version $Rev$
- * @since 3.0
  */
 public class ComponentContainer implements Container {
 

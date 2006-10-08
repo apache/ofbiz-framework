@@ -24,9 +24,6 @@ import javax.net.ssl.*;
 /**
  * KeyStoreUtil - Utilities for setting up SSL connections with specific client certificates
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class SSLUtil {
 

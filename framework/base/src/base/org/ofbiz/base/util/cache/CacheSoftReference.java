@@ -21,12 +21,6 @@ import java.io.Serializable;
 
 import org.ofbiz.base.util.Debug;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class CacheSoftReference extends SoftReference implements Serializable {
 
     public static final String module = CacheSoftReference.class.getName();

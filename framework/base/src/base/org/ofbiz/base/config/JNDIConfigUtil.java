@@ -23,9 +23,6 @@ import org.ofbiz.base.util.*;
 /**
  * JNDIConfigUtil
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class JNDIConfigUtil {
     

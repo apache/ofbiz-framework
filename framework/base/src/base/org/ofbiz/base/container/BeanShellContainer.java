@@ -23,9 +23,6 @@ import org.ofbiz.base.util.Debug;
 /**
  * BeanShellContainer - Container implementation for BeanShell
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
-  *@version    $Rev$
- * @since      3.0
  */
 public class BeanShellContainer implements Container {
 

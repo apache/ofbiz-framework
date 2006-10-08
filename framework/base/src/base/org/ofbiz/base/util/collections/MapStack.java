@@ -35,9 +35,6 @@ import org.ofbiz.base.util.Debug;
 /**
  * Map Stack
  * 
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class MapStack implements Map, Reusable, LocalizedMap {
 

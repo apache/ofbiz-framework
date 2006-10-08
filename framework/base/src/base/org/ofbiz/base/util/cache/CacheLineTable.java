@@ -32,12 +32,7 @@ import org.apache.commons.collections.map.LRUMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
+
 public class CacheLineTable implements Serializable {
 
     public static final String module = CacheLineTable.class.getName();

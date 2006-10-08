@@ -24,9 +24,6 @@ import java.util.Map;
 /**
  * UtilName
  *
- * @author      <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version     $Rev$
- * @since       Mar 1, 2006
  */
 public class UtilName {
 

@@ -24,9 +24,6 @@ import java.io.InputStream;
 /**
  * UtilObject
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class UtilObject {
 

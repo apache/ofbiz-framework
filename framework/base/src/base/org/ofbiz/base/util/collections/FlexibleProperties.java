@@ -30,9 +30,6 @@ import org.ofbiz.base.util.Debug;
 /**
  * Simple Class for flexibly working with properties files
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Revision
- * @since      1.0
  */
 public class FlexibleProperties extends Properties implements Serializable {
 

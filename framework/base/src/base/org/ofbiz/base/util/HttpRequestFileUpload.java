@@ -31,8 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * HttpRequestFileUpload - Receive a file upload through an HttpServletRequest
  *
- * @author    Dustin Caldwell
- * @version   1.0
  */
 public class HttpRequestFileUpload {
 

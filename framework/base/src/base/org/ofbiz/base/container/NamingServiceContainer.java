@@ -24,9 +24,6 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  * NamingServiceContainer
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.5
  */
 
 public class NamingServiceContainer implements Container {

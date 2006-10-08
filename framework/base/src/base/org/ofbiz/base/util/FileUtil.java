@@ -27,9 +27,6 @@ import java.io.BufferedReader;
 /**
  * File Utilities
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.5
  */
 public class FileUtil {
 

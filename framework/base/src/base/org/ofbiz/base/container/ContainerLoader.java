@@ -28,9 +28,6 @@ import org.ofbiz.base.util.Debug;
 /**
  * ContainerLoader - StartupLoader for the container
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
-  *@version    $Rev$
- * @since      3.0
  */
 public class ContainerLoader implements StartupLoader {
     

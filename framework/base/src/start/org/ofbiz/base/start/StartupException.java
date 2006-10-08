@@ -21,9 +21,6 @@ import java.io.PrintWriter;
 /**
  * StartupException
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.2
  */
 public class StartupException extends Exception {
     

@@ -34,9 +34,6 @@ import org.ofbiz.base.util.GeneralException;
 /**
  * Utility class for doing DESded (3DES) Two-Way Encryption
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
  */
 public class DesCrypt {
 
