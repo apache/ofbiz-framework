@@ -34,10 +34,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * InvoiceWorker - Worker methods of invoices
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.1
  */
 public class InvoiceWorker {
     

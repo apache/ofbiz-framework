@@ -2533,7 +2533,7 @@ under the License.
     </view-entity>    
     <entity entity-name="PaymentMethodType"
             package-name="org.ofbiz.accounting.payment"
-            title="PaymentMethodType Entity" default-resource-name="AccountingEntityLabels"> <!-- /* @author     <a href="mailto:jlr@les7arts.com">Jacques Le Roux</a> */ -->
+            title="PaymentMethodType Entity" default-resource-name="AccountingEntityLabels">
       <field name="paymentMethodTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <field name="defaultGlAccountId" type="id"></field>

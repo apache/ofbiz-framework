@@ -52,10 +52,6 @@ import com.worldpay.select.merchant.SelectServletResponse;
 
 /**
  * WorldPay Select Pro Response Servlet
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class SelectRespServlet extends SelectServlet implements SelectDefs {
     

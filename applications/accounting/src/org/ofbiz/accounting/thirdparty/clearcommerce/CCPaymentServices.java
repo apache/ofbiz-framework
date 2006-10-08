@@ -41,9 +41,6 @@ import org.apache.xml.serialize.OutputFormat;
 
 /**
  * ClearCommerce Payment Services (CCE 5.4)
- *
- * @author     <a href="mailto:eckardjf@pobox.com">J. Eckard</a>
- * @version    $Rev$
  */
 public class CCPaymentServices {
 

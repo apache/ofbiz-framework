@@ -54,13 +54,7 @@ import org.ofbiz.service.LocalDispatcher;
 
 import org.apache.commons.collections.map.LinkedMap;
 
-/**
- * PayPal Events
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
- */
+
 public class PayPalEvents {
     
     public static final String module = PayPalEvents.class.getName();

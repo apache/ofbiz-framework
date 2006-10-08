@@ -39,8 +39,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * Services for Agreement (Accounting)
- * @author     Vinay Agarwal
- * @version    1.0
  */
 
 public class AgreementServices {

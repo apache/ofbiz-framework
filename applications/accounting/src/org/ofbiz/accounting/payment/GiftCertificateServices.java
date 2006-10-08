@@ -43,13 +43,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:sichen@opensourcestrategies.com">Si Chen</a>
- * @version    $Rev$
- * @since      3.3
- */
+
 public class GiftCertificateServices {
 
     public static final String module = GiftCertificateServices.class.getName();

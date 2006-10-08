@@ -48,10 +48,6 @@ import com.worldpay.util.CurrencyAmount;
 
 /**
  * WorldPay Select Pro Events/Services
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class WorldPayEvents {
     

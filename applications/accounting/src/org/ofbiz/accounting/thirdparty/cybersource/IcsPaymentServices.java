@@ -40,10 +40,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * CyberSource WS Integration Services
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class IcsPaymentServices {
 

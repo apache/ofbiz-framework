@@ -32,12 +32,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
+
 public class PcChargeServices {
 
     public static final String module = PcChargeServices.class.getName();

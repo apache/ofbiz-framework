@@ -37,10 +37,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Worker methods for Payments
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      2.0
  */
 public class PaymentWorker {
     

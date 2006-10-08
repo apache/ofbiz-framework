@@ -15,8 +15,6 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- @author Fred Forrester (foresterf@fredforester.org) -->
-
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
     <description>Accounting Services</description>
