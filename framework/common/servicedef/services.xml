@@ -327,6 +327,7 @@ under the License.
         location="org.ofbiz.common.login.LoginServices" invoke="createUserLogin">
         <description>Create a UserLogin</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="enabled" type="String" mode="IN" optional="true"/>
         <attribute name="currentPassword" type="String" mode="IN" optional="false"/>
         <attribute name="currentPasswordVerify" type="String" mode="IN" optional="false"/>
         <attribute name="passwordHint" type="String" mode="IN" optional="true"/>

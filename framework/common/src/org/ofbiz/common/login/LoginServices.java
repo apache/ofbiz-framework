@@ -365,6 +365,7 @@ public class LoginServices {
         String partyId = (String) context.get("partyId");
         String currentPassword = (String) context.get("currentPassword");
         String currentPasswordVerify = (String) context.get("currentPasswordVerify");
+        String enabled = (String) context.get("enabled");
         String passwordHint = (String) context.get("passwordHint");
         String errMsg = null;
 
@@ -400,6 +401,7 @@ public class LoginServices {
 
         GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
         userLoginToCreate.set("passwordHint", passwordHint);
+        userLoginToCreate.set("enabled", enabled);
         userLoginToCreate.set("partyId", partyId);
         userLoginToCreate.set("currentPassword", useEncryption ? getPasswordHash(currentPassword) : currentPassword);
 
