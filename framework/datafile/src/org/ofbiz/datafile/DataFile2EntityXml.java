@@ -21,10 +21,6 @@ import java.net.*;
 import java.io.*;
 import org.ofbiz.base.util.*;
 
-/**
- *
- * @author  jacopo
- */
 public class DataFile2EntityXml {
     
     /** Creates a new instance of DataFile2EntityXml */
