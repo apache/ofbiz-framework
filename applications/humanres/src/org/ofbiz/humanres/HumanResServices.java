@@ -33,8 +33,6 @@ import javolution.util.FastMap;
 
 /**
  * Services for Human Resources
- * @author     Vinay Agarwal
- * @version    1.0
  */
 
 public class HumanResServices {
