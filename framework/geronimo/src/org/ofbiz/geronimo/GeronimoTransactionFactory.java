@@ -40,9 +40,6 @@ import org.ofbiz.entity.transaction.TransactionFactoryInterface;
 
 /**
  * GeronimoTransactionFactory
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.5
  */
 public class GeronimoTransactionFactory implements TransactionFactoryInterface {
 

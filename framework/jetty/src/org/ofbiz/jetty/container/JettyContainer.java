@@ -50,10 +50,6 @@ import org.ofbiz.base.container.ContainerConfig;
 /**
  * JettyContainer - Container implementation for Jetty
  * This container depends on the ComponentContainer as well.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class JettyContainer implements Container {
 

@@ -30,12 +30,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class XuiSession {
 
     public static final String module = XuiSession.class.getName();
