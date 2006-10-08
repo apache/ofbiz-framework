@@ -13,10 +13,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-<#--
- *@author     David E. Jones (jonesde@ofbiz.org)
- *@since      3.5
--->
+
 <#assign unselectedLeftClassName = "headerButtonLeft">
 <#assign unselectedRightClassName = "headerButtonRight">
 <#assign selectedLeftClassMap = {headerItem?default("void") : "headerButtonLeftSelected"}>

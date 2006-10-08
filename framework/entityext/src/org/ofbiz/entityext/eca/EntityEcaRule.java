@@ -31,10 +31,6 @@ import org.w3c.dom.Element;
 
 /**
  * EntityEcaRule
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      2.1
  */
 public class EntityEcaRule implements java.io.Serializable {
 

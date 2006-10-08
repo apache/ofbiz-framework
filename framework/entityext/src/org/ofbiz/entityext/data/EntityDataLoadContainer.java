@@ -40,10 +40,6 @@ import org.ofbiz.service.ServiceDispatcher;
 
 /**
  * Some utility routines for loading seed data.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class EntityDataLoadContainer implements Container {
 

@@ -41,8 +41,6 @@ import java.net.URISyntaxException;
 /**
  * Entity Data Import/Export Services
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      2.1
  */
 public class EntityDataServices {
 
