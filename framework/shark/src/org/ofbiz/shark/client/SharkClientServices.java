@@ -17,9 +17,6 @@ package org.ofbiz.shark.client;
 
 /**
  * Shark Workflow Engine Client Services
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class SharkClientServices {
 

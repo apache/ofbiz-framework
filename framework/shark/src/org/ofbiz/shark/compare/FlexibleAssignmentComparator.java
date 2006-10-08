@@ -23,9 +23,6 @@ import org.enhydra.shark.api.client.wfbase.BaseException;
 
 /**
  * Flexible WfAssignment Comparator - Sorting assignments by common fields
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class FlexibleAssignmentComparator implements Comparator, Serializable {
 

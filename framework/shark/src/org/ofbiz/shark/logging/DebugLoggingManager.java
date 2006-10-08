@@ -21,11 +21,6 @@ import org.enhydra.shark.api.internal.logging.LoggingManager;
 import org.enhydra.shark.api.internal.working.CallbackUtilities;
 import org.enhydra.shark.api.RootException;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
- */
 public class DebugLoggingManager implements LoggingManager {
 
     public static final String module = DebugLoggingManager.class.getName();

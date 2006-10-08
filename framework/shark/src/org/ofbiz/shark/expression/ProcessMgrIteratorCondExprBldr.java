@@ -19,11 +19,6 @@ import org.enhydra.shark.api.common.ProcessMgrIteratorExpressionBuilder;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 public class ProcessMgrIteratorCondExprBldr extends BaseEntityCondExprBldr implements ProcessMgrIteratorExpressionBuilder {
 
     public ProcessMgrIteratorCondExprBldr() {

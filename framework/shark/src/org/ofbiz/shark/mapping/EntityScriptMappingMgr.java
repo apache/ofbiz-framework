@@ -23,9 +23,6 @@ import org.enhydra.shark.api.TransactionException;
 
 /**
  * Shark Script Mappings Implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class EntityScriptMappingMgr implements ScriptMappingManager {
 

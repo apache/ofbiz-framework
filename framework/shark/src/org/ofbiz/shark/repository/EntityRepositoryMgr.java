@@ -42,11 +42,6 @@ import org.enhydra.shark.api.RootException;
 import org.enhydra.shark.api.RepositoryTransaction;
 import org.enhydra.shark.api.TransactionException;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
- */
 public class EntityRepositoryMgr implements RepositoryPersistenceManager {
 
     public static final String module = EntityRepositoryMgr.class.getName();

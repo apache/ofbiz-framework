@@ -52,10 +52,6 @@ import org.enhydra.shark.xpdl.elements.ActualParameter;
 import org.enhydra.shark.xpdl.XMLComplexChoice;
 import org.enhydra.shark.xpdl.XMLComplexElement;
 
-/**
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.2
- */
 public class ThreadedToolAgentManager implements ToolAgentManager {
 
     private final static String TOOL_AGENT_PREFIX = "ToolAgent.";

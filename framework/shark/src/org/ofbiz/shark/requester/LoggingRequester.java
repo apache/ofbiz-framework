@@ -25,9 +25,6 @@ import org.enhydra.shark.api.client.wfmodel.WfEventAudit;
 
 /**
  * OFBiz -> Shark Logging Requester
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class LoggingRequester extends AbstractRequester {
 

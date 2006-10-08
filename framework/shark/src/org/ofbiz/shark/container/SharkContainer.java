@@ -45,9 +45,6 @@ import org.enhydra.shark.api.TransactionException;
 
 /**
  * Shark Workflow Engine Container
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class SharkContainer implements Container, Runnable {
 

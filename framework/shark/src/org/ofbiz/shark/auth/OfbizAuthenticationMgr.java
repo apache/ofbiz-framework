@@ -32,9 +32,6 @@ import org.enhydra.shark.api.UserTransaction;
 
 /**
  * Shark OFBiz Authentication Manager - Uses the OFBiz Entities
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class OfbizAuthenticationMgr implements AuthenticationManager {
 
