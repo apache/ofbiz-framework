@@ -19,10 +19,6 @@ import org.ofbiz.base.util.GeneralException;
 
 /**
  * <code>SecurityConfigurationException</code>
- *
- * @author     <a href="mailto:hermanns@aixcept.de">Rainer Hermanns</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class SecurityConfigurationException extends GeneralException {
 
