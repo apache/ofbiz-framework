@@ -19,10 +19,6 @@ import org.w3c.dom.Element;
 
 import junit.framework.TestResult;
 
-/**
- * @author jonesde
- *
- */
 public class JythonTest extends TestCaseBase {
 
     public static final String module = JythonTest.class.getName();
