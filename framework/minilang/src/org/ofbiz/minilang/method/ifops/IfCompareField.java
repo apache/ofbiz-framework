@@ -26,10 +26,6 @@ import org.ofbiz.minilang.operation.*;
 
 /**
  * Iff the comparison between the specified field and the other field is true process sub-operations
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class IfCompareField extends MethodOperation {
     

@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Implements the else-if alternate execution element.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class ElseIf {
 

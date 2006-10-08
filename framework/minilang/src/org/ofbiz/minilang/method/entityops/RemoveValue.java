@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to remove the specified value object entity from the datasource
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class RemoveValue extends MethodOperation {
     

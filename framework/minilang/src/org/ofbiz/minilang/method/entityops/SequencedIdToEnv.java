@@ -24,10 +24,6 @@ import org.w3c.dom.Element;
 
 /**
  * Gets a sequenced ID from the delegator and puts it in the env
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class SequencedIdToEnv extends MethodOperation {
     

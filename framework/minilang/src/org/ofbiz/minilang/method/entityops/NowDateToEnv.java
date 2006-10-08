@@ -22,10 +22,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Creates a java.sql.Date with the current date and puts it in the env
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class NowDateToEnv extends MethodOperation {
     

@@ -22,10 +22,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * An event operation that returns the given response code
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class Return extends MethodOperation {
     

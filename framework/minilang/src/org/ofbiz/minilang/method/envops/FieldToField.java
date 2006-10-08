@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies a map field to a map field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FieldToField extends MethodOperation {
     

@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Commits a transaction if beganTransaction is true, otherwise does nothing.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class TransactionCommit extends MethodOperation {
     

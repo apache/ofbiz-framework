@@ -32,10 +32,6 @@ import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to find an entity value by its primary key
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FindByPrimaryKey extends MethodOperation {
     

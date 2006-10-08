@@ -21,10 +21,6 @@ import org.ofbiz.minilang.*;
 
 /**
  * Creates Conditional objects according to the element that is passed.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class ConditionalFactory {
     

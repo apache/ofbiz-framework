@@ -29,12 +29,6 @@ import org.ofbiz.base.util.UtilXml;
 
 import org.w3c.dom.Element;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class IfInstanceOf extends MethodOperation {
 
     public static final String module = IfInstanceOf.class.getName();

@@ -20,10 +20,6 @@ import org.w3c.dom.*;
 
 /**
  * Abstract class defining the interface to a MakeInString operation
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class MakeInStringOperation {
     

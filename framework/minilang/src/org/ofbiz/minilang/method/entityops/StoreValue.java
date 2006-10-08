@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to store the specified value object entity in the datasource
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class StoreValue extends MethodOperation {
     

@@ -20,10 +20,6 @@ import org.w3c.dom.*;
 
 /**
  * Copies a field in the in-map to the out-map
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class Copy extends SimpleMapOperation {
     

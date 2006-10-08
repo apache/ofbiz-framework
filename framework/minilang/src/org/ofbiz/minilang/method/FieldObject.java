@@ -23,10 +23,6 @@ import org.ofbiz.minilang.*;
 
 /**
  * A type of MethodObject that represents an Object value in a certain location
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FieldObject extends MethodObject {
     

@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to refresh the specified value object entity from the datasource
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class RefreshValue extends MethodOperation {
     

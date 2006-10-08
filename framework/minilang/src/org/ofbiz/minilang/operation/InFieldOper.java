@@ -22,10 +22,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * A MakeInStringOperation that inserts the value of an in-field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class InFieldOper extends MakeInStringOperation {
     

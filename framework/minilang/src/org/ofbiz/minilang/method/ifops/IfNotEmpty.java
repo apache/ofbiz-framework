@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Iff the specified field is not empty process sub-operations
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class IfNotEmpty extends MethodOperation {
     

@@ -35,10 +35,6 @@ import org.w3c.dom.Element;
 
 /**
  * Sets all Service parameters/attributes in the to-map using the map as a source
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a> 
- * @version    $Rev$
- * @since      2.2
  */
 public class SetServiceFields extends MethodOperation {
     

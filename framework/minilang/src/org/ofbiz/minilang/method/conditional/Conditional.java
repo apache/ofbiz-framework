@@ -20,10 +20,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Interface for all conditional elements under the master if element or and else-if element.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public interface Conditional {
     public boolean checkCondition(MethodContext methodContext);

@@ -21,10 +21,6 @@ import org.ofbiz.minilang.*;
 
 /**
  * A type of MethodString that represents a String constant value
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class StringString extends MethodString {
     

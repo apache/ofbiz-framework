@@ -29,10 +29,6 @@ import org.w3c.dom.Element;
 
 /**
  * Gets a list of related entity instance according to the specified relation-name
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class GetRelated extends MethodOperation {
     

@@ -24,10 +24,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * An operation that calls a simple method in the same, or from another, file
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CallSimpleMethod extends MethodOperation {
     

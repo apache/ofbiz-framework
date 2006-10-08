@@ -27,10 +27,6 @@ import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to find entity values by anding the map fields
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FilterListByAnd extends MethodOperation {
     

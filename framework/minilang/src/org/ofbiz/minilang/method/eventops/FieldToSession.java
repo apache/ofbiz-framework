@@ -27,10 +27,6 @@ import org.w3c.dom.Element;
 
 /**
  * Copies a map field to a Servlet session attribute
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FieldToSession extends MethodOperation {
     

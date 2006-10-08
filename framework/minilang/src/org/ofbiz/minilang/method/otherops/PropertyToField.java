@@ -25,10 +25,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Copies an properties file property value to a field
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PropertyToField extends MethodOperation {
     

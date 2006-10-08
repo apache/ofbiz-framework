@@ -34,10 +34,6 @@ import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to find entity values by a primary key
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class EntityData extends MethodOperation {
     

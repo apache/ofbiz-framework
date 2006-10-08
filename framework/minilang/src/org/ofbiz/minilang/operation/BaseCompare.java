@@ -22,10 +22,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * Abstract class providing functionality for the compare SimpleMapOperations
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public abstract class BaseCompare extends SimpleMapOperation {
     String operator;

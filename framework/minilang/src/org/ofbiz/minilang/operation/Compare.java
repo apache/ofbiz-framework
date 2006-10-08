@@ -20,10 +20,6 @@ import org.w3c.dom.*;
 
 /**
  * Compares an in-field to the specified value
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class Compare extends BaseCompare {
     

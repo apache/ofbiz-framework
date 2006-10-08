@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Order the given list of GenericValue objects
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class OrderValueList extends MethodOperation {
     

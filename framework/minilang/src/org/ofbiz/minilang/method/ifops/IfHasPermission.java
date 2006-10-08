@@ -30,10 +30,6 @@ import org.w3c.dom.Element;
 /**
  * Iff the user has the specified permission, process the sub-operations. Otherwise
  * process else operations if specified.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class IfHasPermission extends MethodOperation {
 

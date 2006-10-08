@@ -26,10 +26,6 @@ import org.w3c.dom.Element;
 
 /**
  * Convert the current field from the in-map and place it in the out-map
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class Convert extends SimpleMapOperation {
     public static final String module = Convert.class.getName();

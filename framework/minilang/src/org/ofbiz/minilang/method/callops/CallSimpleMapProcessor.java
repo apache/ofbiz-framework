@@ -25,10 +25,6 @@ import org.ofbiz.minilang.operation.*;
 
 /**
  * An event operation that calls a simple map processor inlined or from a separate file
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class CallSimpleMapProcessor extends MethodOperation {
     

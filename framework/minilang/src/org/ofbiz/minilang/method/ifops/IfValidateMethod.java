@@ -25,10 +25,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Iff the validate method returns true with the specified field process sub-operations
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class IfValidateMethod extends MethodOperation {
     

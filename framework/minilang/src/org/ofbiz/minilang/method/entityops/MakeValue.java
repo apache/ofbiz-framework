@@ -23,10 +23,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Uses the delegator to find entity values by anding the map fields
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class MakeValue extends MethodOperation {
     

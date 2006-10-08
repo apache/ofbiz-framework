@@ -23,10 +23,6 @@ import org.ofbiz.minilang.method.*;
 
 /**
  * Implements validate method condition.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class ValidateMethodCondition implements Conditional {
     

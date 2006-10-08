@@ -22,10 +22,6 @@ import org.ofbiz.base.util.*;
 
 /**
  * <p><b>Title:</b> A MakeInStringOperation that appends the specified constant string
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ConstantOper extends MakeInStringOperation {
     
