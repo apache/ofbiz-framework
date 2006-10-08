@@ -19,13 +19,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 
-/**
- * @author jonesde
- *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@version    $Rev$
- *@since      3.2
- */
 public class OutputStreamByteCount extends OutputStream {
 
     protected long byteCount = 0;

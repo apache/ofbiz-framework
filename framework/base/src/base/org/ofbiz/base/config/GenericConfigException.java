@@ -20,9 +20,6 @@ import org.ofbiz.base.util.*;
 /**
  * GenericConfigException
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class GenericConfigException extends GeneralException {
 

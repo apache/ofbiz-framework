@@ -36,9 +36,6 @@ import java.util.Properties;
 /**
  * Start - OFBiz Container(s) Startup Class
  *
- * @author <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version $Rev$
- * @since 2.1
  */
 public class Start implements Runnable {
 

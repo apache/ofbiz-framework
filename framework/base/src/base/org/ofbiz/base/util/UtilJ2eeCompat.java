@@ -20,9 +20,6 @@ import javax.servlet.ServletContext;
 /**
  * Misc J2EE Compatibility Utility Functions
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class UtilJ2eeCompat {
     

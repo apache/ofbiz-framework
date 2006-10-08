@@ -21,9 +21,6 @@ import java.io.*;
 /**
  * Loads resources from a URL
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class UrlLoader extends ResourceLoader implements java.io.Serializable {
     

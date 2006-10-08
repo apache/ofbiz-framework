@@ -24,10 +24,6 @@ import java.util.EmptyStackException;
 /**
  * LifoSet - Set interface wrapper around a LinkedList
  *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class LifoSet extends AbstractSet implements Serializable {
 

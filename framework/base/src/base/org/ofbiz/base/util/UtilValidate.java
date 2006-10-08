@@ -23,11 +23,6 @@ import java.util.Collection;
  * Utility methods for validating data, especially input.
  * See detailed description below.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      1.0
- *
- *
  * <br/> SUMMARY
  * <br/>
  * <br/> This is a set of meethods for validating input. Functions are provided to validate:

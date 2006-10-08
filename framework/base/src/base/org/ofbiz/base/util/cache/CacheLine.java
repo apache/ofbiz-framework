@@ -19,12 +19,6 @@ import java.io.Serializable;
 
 import org.ofbiz.base.util.UtilObject;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class CacheLine implements Serializable {
 
     public static final String module = CacheLine.class.getName();

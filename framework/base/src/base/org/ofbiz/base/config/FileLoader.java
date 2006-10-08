@@ -22,9 +22,6 @@ import org.ofbiz.base.util.*;
 /**
  * Loads resources from the file system
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class FileLoader extends ResourceLoader implements java.io.Serializable {
 

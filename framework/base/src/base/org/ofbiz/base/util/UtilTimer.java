@@ -24,9 +24,6 @@ import java.util.HashMap;
  * Steps are labelled, and the time between each label (or message) 
  * and the time since the start are reported in each call to timerString.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class UtilTimer {
     

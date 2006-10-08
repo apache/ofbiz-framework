@@ -24,9 +24,6 @@ import java.util.List;
 /**
  * OrderedSet - Set interface wrapper around a LinkedList
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class OrderedSet extends AbstractSet {
 

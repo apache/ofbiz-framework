@@ -23,9 +23,6 @@ import java.lang.reflect.Proxy;
 /**
  * ObjectInputStream
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class ObjectInputStream extends java.io.ObjectInputStream {
 

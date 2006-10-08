@@ -25,10 +25,6 @@ import org.ofbiz.base.util.Debug;
 /**
  * MapComparator.java
  * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class MapComparator implements Comparator {
     

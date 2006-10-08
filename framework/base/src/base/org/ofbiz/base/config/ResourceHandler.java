@@ -24,9 +24,6 @@ import org.w3c.dom.Document;
 /**
  * Contains resource information and provides for loading data
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public interface ResourceHandler extends Serializable {
     

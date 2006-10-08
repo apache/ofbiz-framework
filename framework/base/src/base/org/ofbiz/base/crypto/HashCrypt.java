@@ -23,10 +23,6 @@ import org.ofbiz.base.util.StringUtil;
 /**
  * Utility class for doing SHA-1/MD5 One-Way Hash Encryption
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.2
  */
 public class HashCrypt {
 

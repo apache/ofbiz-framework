@@ -50,8 +50,6 @@ import org.ofbiz.base.util.cache.UtilCache;
  * the usefullness of the compileXXX() style methods - provided by the base
  * utility class).
  *
- * @author Pat Niemeyer
- * @author David E. Jones
  */
 public class OfbizBshBsfEngine extends BSFEngineImpl {
     

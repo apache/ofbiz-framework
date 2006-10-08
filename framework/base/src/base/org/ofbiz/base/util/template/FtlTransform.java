@@ -45,9 +45,6 @@ import freemarker.template.Configuration;
  * and runs the template and writes to the writer that was passed.
  * It keeps its own cache for storing the fetched template.
  * 
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.2
  */
 public final class FtlTransform {
 

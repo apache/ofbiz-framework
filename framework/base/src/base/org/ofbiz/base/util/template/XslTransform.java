@@ -52,9 +52,6 @@ import javax.xml.transform.stream.StreamSource;
  * - a URL to the doc, the doc in string form and the doc in DOM Document form.
  * It keeps its own cache for storing the compiled transforms.
  *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.2
  */
 public final class XslTransform {
 

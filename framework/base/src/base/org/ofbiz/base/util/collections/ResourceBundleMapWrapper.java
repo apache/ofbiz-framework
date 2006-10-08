@@ -30,9 +30,6 @@ import org.ofbiz.base.util.UtilProperties;
 /**
  * Generic ResourceBundle Map Wrapper, given ResourceBundle allows it to be used as a Map
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class ResourceBundleMapWrapper implements Map, Serializable {
     

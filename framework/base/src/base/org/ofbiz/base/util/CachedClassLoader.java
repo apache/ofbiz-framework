@@ -24,9 +24,6 @@ import java.util.Map;
 /**
  * Caching Class Loader
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class CachedClassLoader extends URLClassLoader {
     

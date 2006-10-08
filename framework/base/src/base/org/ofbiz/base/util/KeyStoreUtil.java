@@ -45,9 +45,6 @@ import javax.crypto.spec.DHParameterSpec;
 /**
  * KeyStoreUtil - Utilities for getting KeyManagers and TrustManagers
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class KeyStoreUtil {
 

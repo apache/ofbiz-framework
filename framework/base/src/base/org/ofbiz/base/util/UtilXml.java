@@ -49,9 +49,6 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * Utilities methods to simplify dealing with JAXP & DOM XML parsing
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class UtilXml {
 

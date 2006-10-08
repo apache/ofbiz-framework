@@ -21,12 +21,6 @@ import org.ofbiz.base.start.Start;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
- */
 public class SplashLoader implements StartupLoader, Runnable {
 
     public static final String module = SplashLoader.class.getName();

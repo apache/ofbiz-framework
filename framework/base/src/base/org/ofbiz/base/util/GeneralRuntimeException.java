@@ -21,9 +21,6 @@ import java.io.PrintWriter;
 /**
  * Base OFBiz Runtime Exception, provides nested exceptions, etc
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      1.0
  */
 public class GeneralRuntimeException extends RuntimeException {
 

@@ -24,9 +24,6 @@ import java.net.URL;
 /**
  * ClassLoader Container; Created a CachedClassLoader for use by all following containers
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class ClassLoaderContainer implements Container {
 

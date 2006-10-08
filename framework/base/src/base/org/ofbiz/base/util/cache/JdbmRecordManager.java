@@ -20,9 +20,6 @@ import java.io.IOException;
 /**
  * Customer JDBM Record Manager
  * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
  */
 public class JdbmRecordManager extends jdbm.recman.BaseRecordManager {
 

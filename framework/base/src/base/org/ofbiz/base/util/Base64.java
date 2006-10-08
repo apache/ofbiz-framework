@@ -18,10 +18,6 @@ package org.ofbiz.base.util;
 /**
  * Base64 implements Base64 encoding and Base 64 decoding.
  *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@author     UPS XPCI Sample Code
- *@version    $Rev$
- *@since      2.2
  */
 
 public class Base64 {

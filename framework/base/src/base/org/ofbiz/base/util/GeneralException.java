@@ -22,9 +22,6 @@ import java.util.List;
 /**
  * Base OFBiz Exception, provides nested exceptions, etc
  *
- *@author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- *@version    $Rev$
- *@since      1.0
  */
 public class GeneralException extends Exception {
 

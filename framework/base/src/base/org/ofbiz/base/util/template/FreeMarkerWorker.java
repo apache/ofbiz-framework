@@ -58,9 +58,6 @@ import freemarker.template.TemplateModelException;
 /**
  * FreemarkerViewHandler - Freemarker Template Engine Util
  *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class FreeMarkerWorker {
     
