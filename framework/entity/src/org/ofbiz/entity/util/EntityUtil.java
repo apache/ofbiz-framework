@@ -44,10 +44,6 @@ import org.ofbiz.entity.model.ModelField;
 
 /**
  * Helper methods when dealing with Entities, especially ones that follow certain conventions
- *
- *@author     Eric Pabst
- *@version    $ Revision: $
- *@since      1.0
  */
 public class EntityUtil {
 

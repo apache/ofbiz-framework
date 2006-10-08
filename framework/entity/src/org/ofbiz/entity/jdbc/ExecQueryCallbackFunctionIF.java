@@ -15,12 +15,6 @@
  */
 package org.ofbiz.entity.jdbc;
 
-/**
- *
- * @author     <a href="mailto:jdonnerstag@eds.de">Juergen Donnerstag</a>
- * @version    $Rev$
- * @since      3.0
- */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

@@ -44,10 +44,6 @@ import org.ofbiz.entity.jdbc.DatabaseUtil;
 /**
  * Generic Entity - Entity model class
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ModelEntity extends ModelInfo implements Comparable, Serializable {
 

@@ -36,10 +36,6 @@ import org.ofbiz.base.util.UtilValidate;
 /**
  * <p>Transaction Utility to help with some common transaction tasks
  * <p>Provides a wrapper around the transaction objects to allow for changes in underlying implementations in the future.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class TransactionUtil implements Status {
     // Debug module name

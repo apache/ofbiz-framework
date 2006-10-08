@@ -24,9 +24,6 @@ import org.ofbiz.base.util.*;
 /**
  * Generic Entity - FieldType model class
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a> 
- * @version    $Rev$
- * @since      2.0
  */
 public class ModelFieldType implements Serializable {
 

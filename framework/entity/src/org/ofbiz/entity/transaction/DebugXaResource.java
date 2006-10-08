@@ -20,12 +20,6 @@ import javax.transaction.xa.XAException;
 
 import org.ofbiz.base.util.Debug;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public class DebugXaResource extends GenericXaResource {
 
     public static final String module = DebugXaResource.class.getName();

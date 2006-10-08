@@ -66,11 +66,6 @@ import org.ofbiz.entity.util.SequenceUtil;
 /**
  * Generic Data Source Delegator Class
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:chris_maurer@altavista.com">Chris Maurer</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a
- * @version    $Rev$
- * @since      1.0
  */
 public class GenericDelegator implements DelegatorInterface {
 

@@ -35,11 +35,6 @@ import org.ofbiz.entity.model.ModelField;
 
 /**
  * Encapsulates operations between entities and entity fields. This is a immutable class.
- *
- * @author     <a href="mailto:adam@doogie.org">Adam Heath</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class EntityComparisonOperator extends EntityOperator {
     

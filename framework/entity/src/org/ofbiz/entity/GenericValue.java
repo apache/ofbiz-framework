@@ -37,10 +37,6 @@ import org.ofbiz.entity.util.EntityUtil;
 /**
  * Generic Entity Value Object - Handles persisntence for any defined entity.
  *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@author     Eric Pabst
- *@version    $Rev$
- *@since      1.0
  */
 public class GenericValue extends GenericEntity implements Reusable {
 

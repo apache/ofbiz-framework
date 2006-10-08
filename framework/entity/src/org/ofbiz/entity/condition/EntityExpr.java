@@ -30,9 +30,6 @@ import org.ofbiz.entity.model.ModelField;
 /**
  * Encapsulates simple expressions used for specifying queries
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class EntityExpr extends EntityCondition {
     public static final String module = EntityExpr.class.getName();

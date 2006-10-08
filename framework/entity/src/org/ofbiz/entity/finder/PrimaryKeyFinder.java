@@ -36,9 +36,6 @@ import org.w3c.dom.Element;
 /**
  * Uses the delegator to find entity values by a condition
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class PrimaryKeyFinder implements Serializable {
     public static final String module = PrimaryKeyFinder.class.getName();         

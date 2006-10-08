@@ -57,9 +57,6 @@ import org.xml.sax.SAXException;
  * <p><b>Title:</b> XmlSerializer
  * <p><b>Description:</b> Simple XML serialization/deserialization routines with embedded type information
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a> 
- * @version    $Rev$
- * @since      2.0
  */
 public class XmlSerializer {
     public static final String module = XmlSerializer.class.getName();

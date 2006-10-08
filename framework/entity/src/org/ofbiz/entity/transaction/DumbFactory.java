@@ -37,11 +37,6 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 /**
  * A dumb, non-working transaction manager.
- * 
- * @author     <a href="mailto:plightbo@hotmail.com">Pat Lightbody</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class DumbFactory implements TransactionFactoryInterface {
     

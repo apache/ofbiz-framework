@@ -39,10 +39,6 @@ import org.ofbiz.entity.model.ModelFieldTypeReader;
 
 /**
  * Generic Entity Cursor List Iterator for Handling Cursored DB Results
- *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@version    $Rev$
- *@since      2.0
  */
 public class EntityListIterator implements ListIterator {
 

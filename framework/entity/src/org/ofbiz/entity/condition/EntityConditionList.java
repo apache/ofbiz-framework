@@ -21,9 +21,6 @@ import java.util.List;
 /**
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class EntityConditionList extends EntityConditionListBase {
     public static final String module = EntityConditionList.class.getName();

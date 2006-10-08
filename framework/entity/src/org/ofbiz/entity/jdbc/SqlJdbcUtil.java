@@ -57,13 +57,6 @@ import org.ofbiz.entity.model.ModelViewEntity;
 /**
  * GenericDAO Utility methods for general tasks
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:chris_maurer@altavista.com">Chris Maurer</a>
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jdonnerstag@eds.de">Juergen Donnerstag</a>
- * @author     <a href="mailto:peterm@miraculum.com">Peter Moon</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class SqlJdbcUtil {
     public static final String module = GenericDAO.class.getName();

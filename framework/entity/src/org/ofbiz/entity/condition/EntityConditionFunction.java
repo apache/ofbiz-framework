@@ -26,11 +26,6 @@ import org.ofbiz.entity.model.ModelEntity;
 /**
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
- *@author     <a href='mailto:chris_maurer@altavista.com'>Chris Maurer</a>
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@author     <a href="mailto:jaz@jflow.net">Andy Zeneski</a>
- *@created    Nov 5, 2001
- *@version    1.0
  */
 public abstract class EntityConditionFunction extends EntityCondition {
 

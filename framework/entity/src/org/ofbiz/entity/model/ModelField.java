@@ -24,9 +24,6 @@ import org.ofbiz.base.util.*;
 /**
  * Generic Entity - Field model class
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a> 
- * @version    $Rev$
- * @since      2.0
  */
 public class ModelField extends ModelChild {
 

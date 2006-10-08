@@ -22,10 +22,6 @@ import org.ofbiz.entity.*;
 
 /**
  * TransactionFactory - central source for JTA objects
- *
- *@author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- *@version    1.0
- *@created    July 1, 2001, 5:03 PM
  */
 public interface TransactionFactoryInterface {
 

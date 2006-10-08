@@ -18,9 +18,6 @@ package org.ofbiz.entity;
 /**
  * GenericConfigException
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class GenericEntityConfException extends GenericEntityException {
 

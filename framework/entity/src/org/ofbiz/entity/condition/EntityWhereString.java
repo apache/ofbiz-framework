@@ -33,9 +33,6 @@ import org.ofbiz.entity.model.ModelEntity;
  *  EntityExpr, EntityConditionList and EntityFieldMap objects which more cleanly
  *  encapsulate where conditions and don't require you to directly write SQL.</p>
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class EntityWhereString extends EntityCondition {
 

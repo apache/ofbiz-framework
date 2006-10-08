@@ -32,9 +32,6 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelViewLink;
  * A special method exists on the GenericDelegator to accept a DynamicViewEntity instead
  * of an entity-name.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class DynamicViewEntity {
     public static final String module = DynamicViewEntity.class.getName();
