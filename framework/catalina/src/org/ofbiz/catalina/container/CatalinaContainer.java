@@ -119,9 +119,6 @@ import org.xml.sax.SAXException;
 /**
  * CatalinaContainer -  Tomcat 5
  *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
  */
 public class CatalinaContainer implements Container {
 
