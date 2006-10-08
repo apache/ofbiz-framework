@@ -32,10 +32,6 @@ import org.ofbiz.service.ServiceUtil;
 
 /**
  * StatusServices
- *
- * @author     <a href="mailto:johan@ibibi.com">Johan Isacsson</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class StatusServices {
     
