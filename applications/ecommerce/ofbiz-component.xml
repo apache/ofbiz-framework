@@ -24,7 +24,7 @@ under the License.
     <classpath type="dir" location="config"/>
     <classpath type="dir" location="script"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoMerchant.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>    
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductImages.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoSurvey.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalShipping.xml"/>
@@ -44,6 +44,7 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStandardCosting.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPurchasing.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStoreGiftCertificateSettings.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductCategoriesI18nData.xml"/>    
     <webapp name="ecommerce"
         title="ECommerce"
         server="default-server"

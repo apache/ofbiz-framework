@@ -110,7 +110,7 @@ under the License.
     <DataResource dataResourceId="DR2012DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
     <DataResource dataResourceId="DR2012DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="DR2012DESCFR" textData="Autre Mini Widgets"/>
+    <ElectronicText dataResourceId="DR2012DESCFR" textData="Autres Mini Widgets"/>
     <ElectronicText dataResourceId="DR2012DESCIT" textData="Altro Mini Widgets"/>
     <ElectronicText dataResourceId="DR2012DESCEN" textData="Other Mini Widgets"/>    
 
