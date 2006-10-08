@@ -15,11 +15,6 @@
  */
 package org.ofbiz.shark.requester;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 public class MailRequester {
 
     public static final String module = MailRequester.class.getName();

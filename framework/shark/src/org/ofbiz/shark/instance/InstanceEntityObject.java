@@ -18,11 +18,6 @@ package org.ofbiz.shark.instance;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericDelegator;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 public abstract class InstanceEntityObject {
 
     protected transient GenericDelegator delegator = null;

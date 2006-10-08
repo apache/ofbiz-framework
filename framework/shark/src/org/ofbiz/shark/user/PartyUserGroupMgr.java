@@ -30,11 +30,6 @@ import org.enhydra.shark.api.internal.working.CallbackUtilities;
 import org.enhydra.shark.api.RootException;
 import org.enhydra.shark.api.UserTransaction;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 public class PartyUserGroupMgr implements UserGroupManager {
 
     public static final String module = PartyUserGroupMgr.class.getName();

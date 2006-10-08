@@ -23,9 +23,6 @@ import org.enhydra.shark.api.UserTransaction;
 /**
  * Shark No Authentication Manager
  * Used for testing, always returns true
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class NoAuthenticationMgr implements AuthenticationManager {
 

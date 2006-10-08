@@ -45,9 +45,6 @@ import org.enhydra.shark.WfProcessIteratorWrapper;
 
 /**
  * Shark Workflow Abstract Requester
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public abstract class AbstractRequester implements WfRequester, Serializable {
 

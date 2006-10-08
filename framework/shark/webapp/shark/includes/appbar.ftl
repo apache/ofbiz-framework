@@ -13,10 +13,6 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-<#--
- *@author     Andy Zeneski (jaz@ofbiz.org)
- *@since      3.1
--->
 
 <#assign security = requestAttributes.security>
 <#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists>

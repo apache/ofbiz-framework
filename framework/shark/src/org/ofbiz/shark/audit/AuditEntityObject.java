@@ -18,11 +18,6 @@ package org.ofbiz.shark.audit;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 
 public abstract class AuditEntityObject {
 

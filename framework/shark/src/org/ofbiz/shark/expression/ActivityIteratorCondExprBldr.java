@@ -23,11 +23,6 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelKeyMap;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 public class ActivityIteratorCondExprBldr extends BaseEntityCondExprBldr implements ActivityIteratorExpressionBuilder {
 
     protected boolean addedProcess = false;

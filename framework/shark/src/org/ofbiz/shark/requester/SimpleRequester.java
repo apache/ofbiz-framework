@@ -26,11 +26,6 @@ import org.enhydra.shark.api.client.wfbase.BaseException;
 import org.enhydra.shark.api.client.wfmodel.InvalidPerformer;
 import org.enhydra.shark.api.client.wfmodel.WfEventAudit;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 public class SimpleRequester extends AbstractRequester {
 
     public static final String module = SimpleRequester.class.getName();

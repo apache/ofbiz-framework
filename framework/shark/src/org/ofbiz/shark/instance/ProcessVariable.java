@@ -27,9 +27,6 @@ import org.ofbiz.shark.container.SharkContainer;
 
 /**
  * Persistance Object
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class ProcessVariable extends InstanceEntityObject implements ProcessVariablePersistenceInterface {
 

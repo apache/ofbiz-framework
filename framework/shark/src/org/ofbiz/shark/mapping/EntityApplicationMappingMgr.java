@@ -34,9 +34,6 @@ import org.enhydra.shark.api.internal.working.CallbackUtilities;
 
 /**
  * Shark Application Mappings Implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class EntityApplicationMappingMgr implements ApplicationMappingManager {
 

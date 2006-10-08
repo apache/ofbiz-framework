@@ -36,11 +36,6 @@ import org.enhydra.shark.api.internal.eventaudit.EventAuditManagerInterface;
 import org.enhydra.shark.api.internal.eventaudit.StateEventAuditPersistenceInterface;
 import org.enhydra.shark.api.internal.working.CallbackUtilities;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
- */
 public class EntityAuditMgr implements EventAuditManagerInterface {
 
     public static final String module = EntityAuditMgr.class.getName();

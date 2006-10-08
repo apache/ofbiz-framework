@@ -34,9 +34,6 @@ import org.enhydra.shark.api.internal.working.WfResourceInternal;
 
 /**
  * Shark JTA Transaction Implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class JtaTransaction implements SharkInternalTransaction, UserTransaction,
         ApplicationMappingTransaction, ParticipantMappingTransaction, RepositoryTransaction {

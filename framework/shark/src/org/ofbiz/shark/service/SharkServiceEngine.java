@@ -45,9 +45,6 @@ import org.enhydra.shark.api.client.wfservice.NotConnected;
 
 /**
  * Shark Service Engine
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class SharkServiceEngine extends AbstractEngine {
 

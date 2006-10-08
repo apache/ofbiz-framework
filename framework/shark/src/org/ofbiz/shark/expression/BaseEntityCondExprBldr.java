@@ -36,11 +36,6 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.shark.container.SharkContainer;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      Apr 17, 2005
- */
 public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Serializable {
 
     public static final String module = BaseEntityCondExprBldr.class.getName();

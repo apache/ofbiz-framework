@@ -35,9 +35,6 @@ import org.enhydra.shark.api.TransactionException;
 
 /**
  * Shark Participant Mappings Implementation
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class EntityParticipantMappingMgr implements ParticipantMappingManager {
 

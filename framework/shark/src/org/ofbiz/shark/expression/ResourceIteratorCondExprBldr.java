@@ -17,11 +17,6 @@ package org.ofbiz.shark.expression;
 
 import org.enhydra.shark.api.common.ResourceIteratorExpressionBuilder;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.3
- */
 public class ResourceIteratorCondExprBldr extends BaseEntityCondExprBldr implements ResourceIteratorExpressionBuilder {
 
     public ResourceIteratorExpressionBuilder and() {

@@ -25,9 +25,6 @@ import org.enhydra.shark.api.internal.eventaudit.CreateProcessEventAuditPersiste
 
 /**
  * Persistance Object
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class CreateProcessEventAudit extends EventAudit implements CreateProcessEventAuditPersistenceInterface {
 

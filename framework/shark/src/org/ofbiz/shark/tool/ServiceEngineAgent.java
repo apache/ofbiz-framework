@@ -35,9 +35,6 @@ import org.enhydra.shark.xpdl.elements.ExtendedAttributes;
 
 /**
  * Shark Service Engine Agent Tool API
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
  */
 public class ServiceEngineAgent extends AbstractToolAgent {
 
