@@ -35,10 +35,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Widget Library - Form model class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.2
  */
 public class ModelMenuItem {
 

@@ -62,10 +62,6 @@ import org.ofbiz.widget.form.ModelFormField.TextareaField;
 
 /**
  * Widget Library - HTML Form Renderer implementation
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.2
  */
 public class HtmlFormRenderer implements FormStringRenderer {
 

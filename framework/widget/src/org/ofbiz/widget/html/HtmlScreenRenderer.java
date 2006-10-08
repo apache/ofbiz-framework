@@ -42,9 +42,6 @@ import org.ofbiz.widget.screen.ScreenStringRenderer;
 
 /**
  * Widget Library - HTML Form Renderer implementation
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public class HtmlScreenRenderer implements ScreenStringRenderer {
 

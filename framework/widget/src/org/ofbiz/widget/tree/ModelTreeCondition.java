@@ -43,9 +43,6 @@ import org.w3c.dom.Element;
 
 /**
  * Widget Library - Screen model condition class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public class ModelTreeCondition {
     public static final String module = ModelTreeCondition.class.getName();

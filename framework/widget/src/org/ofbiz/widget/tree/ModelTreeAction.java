@@ -44,9 +44,6 @@ import org.w3c.dom.Element;
 
 /**
  * Widget Library - Tree model class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public abstract class ModelTreeAction {
     public static final String module = ModelTreeAction.class.getName();

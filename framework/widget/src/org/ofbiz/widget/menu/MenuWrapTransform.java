@@ -45,9 +45,6 @@ import freemarker.template.TransformControl;
  * MenuWrapTransform - Freemarker Transform for URLs (links)
  * 
  * This is an interactive FreeMarker tranform that allows the user to modify the contents that are placed within it.
- * 
- * @author <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since 3.0
  */
 public class MenuWrapTransform implements TemplateTransformModel {
 

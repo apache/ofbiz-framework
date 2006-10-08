@@ -39,9 +39,6 @@ import org.xml.sax.InputSource;
 /**
  * Uses XSL-FO formatted templates to generate PDF views
  * This handler will use JPublish to generate the XSL-FO
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.0
  */
 public class ScreenFopPdfViewHandler extends ScreenWidgetViewHandler {
     

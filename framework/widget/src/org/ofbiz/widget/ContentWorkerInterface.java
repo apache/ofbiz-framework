@@ -29,8 +29,6 @@ import org.ofbiz.entity.GenericValue;
 
 /**
  * ContentWorkerInterface
- * 
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
  */
 public interface ContentWorkerInterface {
 

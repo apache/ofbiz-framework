@@ -38,9 +38,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Widget Library - Screen factory class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public class ScreenFactory {
     

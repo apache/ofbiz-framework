@@ -46,9 +46,6 @@ import javax.servlet.http.*;
 
 /**
  * Widget Library - Screen model class
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.1
  */
 public abstract class ModelMenuAction {
     public static final String module = ModelMenuAction.class.getName();

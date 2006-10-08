@@ -37,9 +37,6 @@ import org.ofbiz.widget.tree.TreeStringRenderer;
 
 /**
  * Widget Library - HTML Form Renderer implementation
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      3.1
  */
 public class HtmlTreeRenderer implements TreeStringRenderer {
 

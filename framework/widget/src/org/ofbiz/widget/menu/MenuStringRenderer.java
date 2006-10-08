@@ -20,9 +20,6 @@ import java.util.Map;
 
 /**
  * Widget Library - Form String Renderer interface
- *
- * @author     <a href="mailto:byersa@automationgroups.com">Al Byers</a>
- * @since      2.2
  */
 public interface MenuStringRenderer {
     public void renderMenuItem(StringBuffer buffer, Map context, ModelMenuItem menuItem);
