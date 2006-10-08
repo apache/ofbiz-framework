@@ -26,9 +26,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * Geronimo Container
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @since      3.5
  */
 public class GeronimoContainer implements Container {
 

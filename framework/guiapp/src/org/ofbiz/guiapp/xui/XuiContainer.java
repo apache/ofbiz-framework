@@ -32,12 +32,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilProperties;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
- */
 public abstract class XuiContainer implements Container {
 
     public static final String module = XuiContainer.class.getName();
