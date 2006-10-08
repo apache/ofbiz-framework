@@ -27,10 +27,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * Standard Java Static Method Service Engine
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public final class StandardJavaEngine extends GenericAsyncEngine {
 

@@ -44,12 +44,6 @@ import org.ofbiz.base.util.UtilValidate;
 
 /**
  * Generic Service SOAP Interface
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:">Andy Chen</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public final class SOAPClientEngine extends GenericAsyncEngine {
     

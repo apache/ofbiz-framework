@@ -34,10 +34,6 @@ import org.w3c.dom.Element;
 
 /**
  * Abstract Service Engine
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.1
  */
 public abstract class AbstractEngine implements GenericEngine {
 

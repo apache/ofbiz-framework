@@ -21,10 +21,6 @@ import org.ofbiz.entity.GenericDelegator;
 
 /**
  * Generic Services Local WebDispatcher
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      2.0
  */
 public class WebAppDispatcher extends GenericDispatcher {
 

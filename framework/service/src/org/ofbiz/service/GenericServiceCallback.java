@@ -17,12 +17,6 @@ package org.ofbiz.service;
 
 import java.util.Map;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
- */
 public interface GenericServiceCallback {
 
     public boolean isEnabled();

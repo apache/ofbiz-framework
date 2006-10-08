@@ -21,10 +21,6 @@ import java.util.Iterator;
 
 /**
  * ServiceValidationException
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ServiceValidationException extends GenericServiceException {
 

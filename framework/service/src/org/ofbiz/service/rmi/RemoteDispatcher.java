@@ -25,10 +25,6 @@ import org.ofbiz.service.GenericServiceException;
 
 /**
  * Generic Services Remote Dispatcher
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a> 
- * @version    $Rev$
- * @since      3.0
  */
 public interface RemoteDispatcher extends Remote {
     

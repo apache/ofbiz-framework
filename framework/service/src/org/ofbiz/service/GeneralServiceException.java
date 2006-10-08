@@ -23,10 +23,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * General Service Exception - base Exception for in-Service Errors
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.2
  */
 public class GeneralServiceException extends org.ofbiz.base.util.GeneralException {
 

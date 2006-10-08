@@ -24,10 +24,6 @@ import org.ofbiz.service.job.JobManager;
 
 /**
  * Generic Services Local Dispatcher
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public interface LocalDispatcher {
 

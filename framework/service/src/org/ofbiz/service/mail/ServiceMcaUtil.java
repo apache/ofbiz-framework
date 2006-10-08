@@ -33,12 +33,6 @@ import org.ofbiz.entity.GenericValue;
 
 import org.w3c.dom.Element;
 
-/**
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
- */
 public class ServiceMcaUtil {
 
     public static final String module = ServiceMcaUtil.class.getName();

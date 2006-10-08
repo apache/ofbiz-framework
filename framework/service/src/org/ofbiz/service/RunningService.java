@@ -19,12 +19,6 @@ import java.sql.Timestamp;
 
 import org.ofbiz.base.util.UtilDateTime;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.3
- */
 public class RunningService {
 
     protected ModelService model;

@@ -32,10 +32,6 @@ import org.w3c.dom.Element;
 
 /**
  * ServiceEcaCondition
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ServiceEcaCondition implements java.io.Serializable {
     

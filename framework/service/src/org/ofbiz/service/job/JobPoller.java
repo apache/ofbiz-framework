@@ -22,11 +22,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * JobPoller - Polls for persisted jobs to run.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:">Magnus Rosenquist</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class JobPoller implements Runnable {
 
