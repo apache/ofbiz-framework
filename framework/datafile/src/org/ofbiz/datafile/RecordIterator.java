@@ -27,9 +27,6 @@ import java.util.Stack;
 /**
  *  Record Iterator for reading large files
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      3.0
  */
 
 public class RecordIterator {
