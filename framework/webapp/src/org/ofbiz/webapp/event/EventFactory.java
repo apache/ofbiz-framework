@@ -31,10 +31,6 @@ import org.ofbiz.webapp.control.RequestManager;
 
 /**
  * EventFactory - Event Handler Factory
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class EventFactory {
 

@@ -36,10 +36,6 @@ import org.ofbiz.base.util.UtilHttp;
 
 /**
  * OfbizAmountTransform - Freemarker Transform for content links
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:tiz@sastau.it">Jacopo Cappellato</a>
- * @version    $Rev$
  */
 public class OfbizAmountTransform implements TemplateTransformModel {
 

@@ -35,11 +35,6 @@ import org.w3c.dom.Element;
 
 /**
  * ConfigXMLReader.java - Reads and parses the XML site config files.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ConfigXMLReader {
 

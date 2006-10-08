@@ -36,11 +36,6 @@ import org.ofbiz.base.util.UtilHttp;
 
 /**
  * OfbizCurrencyTransform - Freemarker Transform for content links
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:ray.barlow@makeyour-point.com">Ray Barlow</a>
- * @version    $Rev$
- * @since      3.0
  */
 public class OfbizCurrencyTransform implements TemplateTransformModel {
 

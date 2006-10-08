@@ -49,10 +49,6 @@ import org.jpublish.util.URLUtilities;
 
 /**
  * JPublishWrapper - Used for calling pages through JPublish
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.2
  */
 public class JPublishWrapper {
     
@@ -335,8 +331,6 @@ public class JPublishWrapper {
      * access to all loaded Java classes.
      *  
      * <p>Note: This functionality is untested.</p>
-     *   
-     *  @author Anthony Eden
      */
     class SetClassPathAction implements PrivilegedAction {
         private String classPath;

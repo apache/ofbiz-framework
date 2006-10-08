@@ -22,11 +22,6 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * Tag to render a region
- *
- * @author     David M. Geary in the book "Advanced Java Server Pages"
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class RenderTag extends RegionTag {
     

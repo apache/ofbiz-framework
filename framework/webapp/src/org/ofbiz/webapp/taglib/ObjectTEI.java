@@ -21,10 +21,6 @@ import javax.servlet.jsp.tagext.VariableInfo;
 
 /**
  * ObjectTEI
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    1.0
- * @created    August 4, 2001
  */
 public class ObjectTEI extends TagExtraInfo {
 

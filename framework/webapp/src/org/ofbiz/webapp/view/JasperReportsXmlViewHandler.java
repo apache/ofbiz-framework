@@ -39,10 +39,6 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 /**
  * Handles JasperReports PDF view rendering
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class JasperReportsXmlViewHandler implements ViewHandler {
     

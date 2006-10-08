@@ -28,10 +28,6 @@ import org.ofbiz.webapp.pseudotag.InputValue;
  *     a request parameter. Decides which to use by checking to see if the entityattr exist and
  *     using the specified field if it does. If the Boolean object referred to by the tryentityattr
  *     attribute is false, always tries to use the request parameter and ignores the entity field.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class InputValueTag extends TagSupport {
     

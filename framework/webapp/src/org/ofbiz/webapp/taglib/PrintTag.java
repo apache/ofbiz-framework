@@ -25,10 +25,6 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
 
 /**
  * <p><b>Title:</b> PrintTag - Prints an attribute from the PageContext.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class PrintTag extends TagSupport {
     

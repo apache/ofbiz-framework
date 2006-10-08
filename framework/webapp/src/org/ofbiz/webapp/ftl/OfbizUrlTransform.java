@@ -33,10 +33,6 @@ import org.ofbiz.webapp.control.RequestHandler;
 
 /**
  * OfbizUrlTransform - Freemarker Transform for URLs (links)
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class OfbizUrlTransform implements TemplateTransformModel {
     

@@ -29,10 +29,6 @@ import org.ofbiz.webapp.control.RequestHandler;
 
 /**
  * UrlTag - Creates a URL string prepending the current control path.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class UrlTag extends BodyTagSupport {
 

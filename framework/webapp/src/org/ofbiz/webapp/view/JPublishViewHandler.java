@@ -28,10 +28,6 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
 
 /**
  * Handles JPublish type view rendering
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      2.1
  */
 public class JPublishViewHandler implements ViewHandler {
 

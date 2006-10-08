@@ -24,10 +24,6 @@ import org.ofbiz.webapp.control.LoginWorker;
 
 /**
  * HttpSessionListener that finalizes login information
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class LoginEventListener implements HttpSessionListener {
     // Debug module name

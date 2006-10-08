@@ -37,10 +37,6 @@ import org.ofbiz.entity.model.ModelEntity;
  * <p>Counts server hits and tracks statistics for request, events and views
  * <p>Handles total stats since the server started and binned 
  *  stats according to settings in the serverstats.properties file.
- *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    $Rev$
- * @since      2.0
  */
 public class ServerHitBin {
     // Debug module name

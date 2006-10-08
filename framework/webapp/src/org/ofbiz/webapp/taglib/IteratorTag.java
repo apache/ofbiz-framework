@@ -34,11 +34,6 @@ import org.ofbiz.base.util.ObjectType;
 
 /**
  * IterateTag - JSP Tag to iterate over a Collection or any object with an iterator() method.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @version    1.0
- * @created    August 4, 2001
  */
 public class IteratorTag extends BodyTagSupport {
 

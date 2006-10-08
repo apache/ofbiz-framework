@@ -24,10 +24,6 @@ import org.ofbiz.base.util.UtilValidate;
 
 /**
  * ObjectTag - Loads an object from the PageContext.
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    1.0
- * @created    August 4, 2001
  */
 public class ObjectTag extends TagSupport {
     

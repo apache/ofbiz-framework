@@ -32,12 +32,6 @@ import org.ofbiz.base.util.cache.UtilCache;
 
 import org.jpublish.RepositoryWrapper;
 
-/**
- * 
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @version    $Rev$
- * @since      3.2
- */
 public class JpCacheIncludeTransform implements TemplateTransformModel {
 
     public static final String module = JpCacheIncludeTransform.class.getName();
