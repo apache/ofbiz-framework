@@ -20,11 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @version    $Rev$
- * @since      3.1
- */
+
 public class CursorResultSet extends AbstractCursorHandler {
 
     protected ResultSet rs;

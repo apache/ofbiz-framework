@@ -24,11 +24,7 @@ import java.sql.Statement;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
-/**
- *
- * @version    $Rev$
- * @since      3.1
- */
+
 public class CursorStatement extends AbstractCursorHandler {
     
     protected ResultSet currentResultSet;
