@@ -807,6 +807,7 @@ public class EmailServices {
         		commEventMap.put("contactMechIdFrom", contactMechIdFrom);
             } else {
                 commNote += "Sent from: " +  ((InternetAddress)addressesFrom[0]).getAddress() + "; ";
+                commNote += "Sent Name from: " + ((InternetAddress)addressesFrom[0]).getPersonal() + "; ";
             }
 
             if (partyIdTo != null) {
