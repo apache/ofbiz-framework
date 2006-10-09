@@ -277,12 +277,21 @@ public class LoginServices {
                                     }
                                 }
                             } catch (GenericEntityException e) {
+                                String geeErrMsg = "Error saving UserLoginHistory";
+                                if (doStore) {
+                                    geeErrMsg += " and updating login status to reset hasLoggedOut, unsuccessful login count, etc.";
+                                }
+                                geeErrMsg += ": " + e.toString();
                                 try {
-                                    TransactionUtil.rollback(beganTransaction, "Error saving UserLoginHistory", e);
+                                    TransactionUtil.rollback(beganTransaction, geeErrMsg, e);
                                 } catch (GenericTransactionException e2) {
                                     Debug.logError(e2, "Could not rollback nested transaction: " + e2.getMessage(), module);
                                 }
                                 
+                                // if doStore is true then this error should not be ignored and we shouldn't consider it a successful login if this happens as there is something very wrong lower down that will bite us again later
+                                if (doStore) {
+                                    return ServiceUtil.returnError(geeErrMsg);
+                                }
                             } finally {
                                 try {
                                     TransactionUtil.commit(beganTransaction);

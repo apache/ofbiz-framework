@@ -235,6 +235,9 @@ public class LoginWorker {
                 Debug.logInfo("reqParams Map: " + reqParams, module);
                 Debug.logInfo("queryString: " + queryString, module);
 
+                // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria (like not checkout the hasLoggedOut field) passes; this is not a normal circumstance but can happen with custom code or in funny error situations when the userLogin service gets the userLogin object but runs into another problem and fails to return an error 
+                request.removeAttribute("_LOGIN_PASSED_");
+
                 session.setAttribute("_PREVIOUS_REQUEST_", request.getPathInfo());
                 if (queryString != null && queryString.length() > 0) {
                     session.setAttribute("_PREVIOUS_PARAMS_", queryString);
