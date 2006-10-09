@@ -101,9 +101,7 @@ public class MrpServices {
         }
 
         // Proposed requirements are deleted
-        // TODO: This is not correct. Two actions should be done here:
-        //       1) the approved requirements should be taken into account
-        //       2) we have to find a way (a new status REQ_PROPOSED?) to recognize the requirements automatically created by the MRP process
+        // TODO: we have to find a way (a new status REQ_PROPOSED?) to recognize the requirements automatically created by the MRP process
         listResult = null;
         List listResultRoles = new ArrayList();
         try{
@@ -171,6 +169,37 @@ public class MrpServices {
                 return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (SALE_ORDER_SHIP)");
             }
         }
+        // ----------------------------------------
+        // Loads all the approved product requirements (po requirements)
+        // ----------------------------------------
+        resultList = null;
+        iteratorResult = null;
+        parameters = UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_APPROVED");
+        try{
+            resultList = delegator.findByAnd("Requirement", parameters);
+        } catch(GenericEntityException e) {
+            return ServiceUtil.returnError("Problem, we can not find all the items of InventoryEventPlanned, for more detail look at the log");
+        }
+        iteratorResult = resultList.iterator();
+        while(iteratorResult.hasNext()){
+            genericResult = (GenericValue) iteratorResult.next();
+            String productId =  genericResult.getString("productId");
+            Double eventQuantityTmp = genericResult.getDouble("quantity");
+            if (productId == null || eventQuantityTmp == null) {
+                continue;
+            }
+            Timestamp estimatedShipDate = genericResult.getTimestamp("requiredByDate");
+            if (estimatedShipDate == null) {
+                estimatedShipDate = now;
+            }
+            
+            parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "PUR_ORDER_RECP");
+            try {
+                InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, delegator);
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (PUR_ORDER_RECP)");
+            }
+        }
         
         // ----------------------------------------
         // Loads all the approved purchase order items
@@ -202,6 +231,7 @@ public class MrpServices {
                 return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (PUR_ORDER_RECP)");
             }
         }
+
         // ----------------------------------------
         // PRODUCTION Run: components
         // ----------------------------------------
@@ -414,8 +444,8 @@ public class MrpServices {
      * @param context Map containing the input parameters, productId routingId, quantity, startDate.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map runningMrp(DispatchContext ctx, Map context) {
-        Debug.logInfo("runningMrp called", module);
+    public static Map executeMrp(DispatchContext ctx, Map context) {
+        Debug.logInfo("executeMrp called", module);
         //Context
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
@@ -602,7 +632,7 @@ public class MrpServices {
         List msgResult = new LinkedList();
         result.put("msgResult",msgResult);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        Debug.logInfo("return from runningMrp", module);
+        Debug.logInfo("return from executeMrp", module);
         return result;
     }
 }

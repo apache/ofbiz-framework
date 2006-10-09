@@ -441,7 +441,7 @@ under the License.
     </request-map>
     <request-map uri="runMrpGo">
         <security https="true" auth="true"/>
-        <event type="service" invoke="runningMrp"/>
+        <event type="service" invoke="executeMrp"/>
         <response name="success" type="view" value="MrpExecution"/>
         <response name="error" type="view" value="MrpExecution"/>
     </request-map>
