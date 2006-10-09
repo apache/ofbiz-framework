@@ -23,8 +23,8 @@ under the License.
     <version>1.0</version>
 
     <!-- MRP services -->
-    <service name="runningMrp" engine="java"
-            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="runningMrp" auth="true" use-transaction="false">
+    <service name="executeMrp" engine="java"
+            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true" use-transaction="false">
         <description>Performs a run of Mrp</description>
         <attribute name="facilityId" type="String" form-display="true" form-label="Facility" mode="IN" optional="false"/>
         <attribute name="mrpName" type="String" form-display="true" form-label="Mrp Name" mode="IN" optional="true"/>

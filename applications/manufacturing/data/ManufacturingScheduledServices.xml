@@ -22,7 +22,7 @@ under the License.
     <RecurrenceInfo recurrenceInfoId="301" startDateTime="2000-01-01 23:00:00.000" recurrenceRuleId="300" recurrenceCount="0"/>
     <!--
       The initLowLevelCode service is used to properly initialize the products' low level codes (Product.billOfMaterialsLevel field).
-      This information is needed by the MRP algorithm (runningMRP service) and by the standard cost algorithm (calculateAllProductsCosts service).
+      This information is needed by the MRP algorithm (executeMrp service) and by the standard cost algorithm (calculateAllProductsCosts service).
     -->
     <JobSandbox jobId="8400" jobName="Init BOM Low Level Codes" runTime="2000-01-01 00:00:00.000" serviceName="initLowLevelCode" poolId="pool" runAsUser="system" recurrenceInfoId="300"/>
     <!--
