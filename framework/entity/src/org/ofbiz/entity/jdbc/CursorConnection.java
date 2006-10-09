@@ -20,11 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
-/**
- *
- * @version    $Rev$
- * @since      3.1
- */
+
 public class CursorConnection extends AbstractCursorHandler {
 
     public static Connection newCursorConnection(Connection con, String cursorName, int pageSize) throws Exception {

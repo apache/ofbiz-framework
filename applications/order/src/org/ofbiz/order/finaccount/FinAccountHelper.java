@@ -39,7 +39,6 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * A package of methods for improving efficiency of financial accounts services
- * @author sichen
  *
  */
 public class FinAccountHelper {
