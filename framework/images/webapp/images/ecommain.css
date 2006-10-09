@@ -938,3 +938,7 @@ margin:0 0 1% 1%;
 height:1%;
 clear: left;
 }
+.bothclear{
+height:1%;
+clear: both;
+}
