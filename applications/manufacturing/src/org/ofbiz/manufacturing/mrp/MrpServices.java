@@ -147,7 +147,7 @@ public class MrpServices {
         iteratorResult = null;
         parameters = UtilMisc.toMap("orderTypeId", "SALES_ORDER", "itemStatusId", "ITEM_APPROVED");
         try {
-            resultList = delegator.findByAnd("OrderHeaderAndItems", parameters);
+            resultList = delegator.findByAnd("OrderHeaderAndItems", parameters, UtilMisc.toList("orderId"));
         } catch(GenericEntityException e) {
             Debug.logError(e, "Error : delegator.findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
@@ -193,11 +193,11 @@ public class MrpServices {
                 estimatedShipDate = now;
             }
             
-            parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "PUR_ORDER_RECP");
+            parameters = UtilMisc.toMap("productId", productId, "eventDate", estimatedShipDate, "inventoryEventPlanTypeId", "PROD_REQ_RECP");
             try {
                 InventoryEventPlannedServices.createOrUpdateInventoryEventPlanned(parameters, eventQuantityTmp, delegator);
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (PUR_ORDER_RECP)");
+                return ServiceUtil.returnError("Problem initializing the InventoryEventPlanned entity (PROD_REQ_RECP)");
             }
         }
         
@@ -206,9 +206,11 @@ public class MrpServices {
         // ----------------------------------------
         resultList = null;
         iteratorResult = null;
+        String orderId = null;
+        GenericValue orderDeliverySchedule = null;
         parameters = UtilMisc.toMap("orderTypeId", "PURCHASE_ORDER", "itemStatusId", "ITEM_APPROVED");
         try {
-            resultList = delegator.findByAnd("OrderHeaderAndItems", parameters);
+            resultList = delegator.findByAnd("OrderHeaderAndItems", parameters, UtilMisc.toList("orderId"));
         } catch(GenericEntityException e) {
             Debug.logError(e, "Error : delegator.findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
@@ -217,9 +219,30 @@ public class MrpServices {
         iteratorResult = resultList.iterator();
         while(iteratorResult.hasNext()){
             genericResult = (GenericValue) iteratorResult.next();
+            String newOrderId =  genericResult.getString("orderId");
+            if (!newOrderId.equals(orderId)) {
+                orderDeliverySchedule = null;
+                orderId = newOrderId;
+                try {
+                    orderDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
+                } catch (GenericEntityException e) {
+                }
+            }
             String productId =  genericResult.getString("productId");
             Double eventQuantityTmp = new Double(genericResult.getDouble("quantity").doubleValue());
-            Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedDeliveryDate"); // TODO: verify if this field is correct
+            GenericValue orderItemDeliverySchedule = null;
+            try {
+                orderItemDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")));
+            } catch (GenericEntityException e) {
+            }
+            Timestamp estimatedShipDate = null;
+            if (orderItemDeliverySchedule != null && orderItemDeliverySchedule.get("estimatedReadyDate") != null) {
+                estimatedShipDate = orderItemDeliverySchedule.getTimestamp("estimatedReadyDate");
+            } else if (orderDeliverySchedule != null && orderDeliverySchedule.get("estimatedReadyDate") != null) {
+                estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
+            } else {
+                estimatedShipDate = genericResult.getTimestamp("estimatedDeliveryDate");
+            }
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
             }

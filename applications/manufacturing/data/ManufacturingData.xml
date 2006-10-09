@@ -23,6 +23,7 @@ under the License.
     <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_REQ" description="Manufacturing Order requirement" inOut="-"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="PROP_MANUF_O_RECP" description="Proposed Manufacturing Order receipt" inOut="+"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="PUR_ORDER_RECP" description="Purchase Order receipt" inOut="+"/>
+    <InventoryEventPlannedType inventoryEventPlanTypeId="PROD_REQ_RECP" description="Product Requirement Receipt" inOut="+"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="PROP_PUR_O_RECP" description="Proposed Purchase Order receipt" inOut="+"/>
     <InventoryEventPlannedType inventoryEventPlanTypeId="SALE_ORDER_SHIP" description="Sales order shipment" inOut="-"/>
     <TechDataCalendarWeek calendarWeekId="SUPPLIER" description="8hours/days, currently the Re-Order Process convert day to mms with 8h/days" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
