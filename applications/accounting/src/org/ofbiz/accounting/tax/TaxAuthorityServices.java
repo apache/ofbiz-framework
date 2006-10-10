@@ -109,7 +109,7 @@ public class TaxAuthorityServices {
                     BigDecimal adjAmount = taxAdjustment.getBigDecimal("amount");
                     taxTotal = taxTotal.add(adjAmount);
                     priceWithTax = priceWithTax.add(adjAmount.divide(quantity,salestaxCalcDecimals,salestaxRounding));
-                    Debug.logInfo("For productId [" + productId + "] added [" + adjAmount + "] of tax to price for geoId [" + taxAdjustment.getString("taxAuthGeoId") + "], new price is [" + priceWithTax + "]", module);
+                    Debug.logInfo("For productId [" + productId + "] added [" + adjAmount.divide(quantity,salestaxCalcDecimals,salestaxRounding) + "] of tax to price for geoId [" + taxAdjustment.getString("taxAuthGeoId") + "], new price is [" + priceWithTax + "]", module);
                 }
             }
         } catch (GenericEntityException e) {
