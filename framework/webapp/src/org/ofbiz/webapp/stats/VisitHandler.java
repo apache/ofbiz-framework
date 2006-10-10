@@ -144,13 +144,20 @@ public class VisitHandler {
 
             if (visit == null) {
                 GenericDelegator delegator = null;
+                
+                // first try the session attribute delegatorName
                 String delegatorName = (String) session.getAttribute("delegatorName");
-
                 if (UtilValidate.isNotEmpty(delegatorName)) {
                     delegator = GenericDelegator.getGenericDelegator(delegatorName);
                 }
+                
+                // then try the ServletContext attribute delegator, should always be there...
                 if (delegator == null) {
-                    Debug.logError("Could not find delegator with delegatorName [" + delegatorName + "] in session, not creating Visit entity", module);
+                    delegator = (GenericDelegator) session.getServletContext().getAttribute("delegator");
+                }
+                
+                if (delegator == null) {
+                    Debug.logError("Could not find delegator with delegatorName [" + delegatorName + "] in session, or a delegator attribute in the ServletContext, not creating Visit entity", module);
                 } else {
                     visit = delegator.makeValue("Visit", null);
                     visit.set("visitId", delegator.getNextSeqId("Visit"));
