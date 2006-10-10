@@ -605,6 +605,21 @@ public class ShoppingCartEvents {
     public static String clearCart(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
         cart.clear();
+
+        // if this was an anonymous checkout process, go ahead and clear the session and such now that the order is placed; we don't want this to mess up additional orders and such
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        if ("anonymous".equals(userLogin.get("userLoginId"))) {
+            // here we want to do a full logout, but not using the normal logout stuff because it saves things in the UserLogin record that we don't want changed for the anonymous user
+            session.invalidate();
+            session = request.getSession(true);
+            
+            // to allow the display of the order confirmation page put the userLogin in the request, but leave it out of the session
+            request.setAttribute("temporaryAnonymousUserLogin", userLogin);
+            
+            Debug.logInfo("Doing clearCart for anonymous user, so logging out but put anonymous userLogin in userLogin request attribute", module);
+        }
+        
         return "success";
     }
 
