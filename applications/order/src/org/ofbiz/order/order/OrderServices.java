@@ -2358,6 +2358,7 @@ public class OrderServices {
     public static Map createOrderNote(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String noteString = (String) context.get("note");
         String orderId = (String) context.get("orderId");
@@ -2365,20 +2366,20 @@ public class OrderServices {
         Map noteCtx = UtilMisc.toMap("note", noteString, "userLogin", userLogin);
         Locale locale = (Locale) context.get("locale");
 
-        // Store the note.
-        Map noteRes = org.ofbiz.common.CommonServices.createNote(dctx, noteCtx);
-
-        if (noteRes.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))
-            return noteRes;
-
-        String noteId = (String) noteRes.get("noteId");
-
-        if (noteId == null || noteId.length() == 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingTheNoteNoNoteIdReturned", locale));
-        }
-
-        // Set the order info
         try {
+            // Store the note.
+            Map noteRes = dispatcher.runSync("createNote", noteCtx);
+
+            if (ServiceUtil.isError(noteRes))
+                return noteRes;
+
+            String noteId = (String) noteRes.get("noteId");
+
+            if (noteId == null || noteId.length() == 0) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingTheNoteNoNoteIdReturned", locale));
+            }
+
+            // Set the order info
             Map fields = UtilMisc.toMap("orderId", orderId, "noteId", noteId, "internalNote", internalNote);
             GenericValue v = delegator.makeValue("OrderHeaderNote", fields);
 
@@ -2387,8 +2388,12 @@ public class OrderServices {
             Debug.logError(ee, module);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, "Problem associating note with order (" + ee.getMessage() + ").");
+        } catch (GenericServiceException se) {
+            Debug.logError(se, module);
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            result.put(ModelService.ERROR_MESSAGE, "Problem associating note with order (" + se.getMessage() + ").");
         }
-
+                
         return result;
     }
 
