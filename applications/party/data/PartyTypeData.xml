@@ -55,6 +55,7 @@ under the License.
     <ContactMechPurposeType contactMechPurposeTypeId="GENERAL_LOCATION" description="General Correspondence Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PUR_RET_LOCATION" description="Purchase Return Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_LOCATION" description="Primary Address"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PREVIOUS_LOCATION" description="Previous Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIPPING" description="Shipping Destination Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIP_ORIG" description="Shipping Origin Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_BILLING" description="Billing (AP) Phone Number"/>
@@ -91,6 +92,7 @@ under the License.
     <ContactMechTypePurpose contactMechPurposeTypeId="GENERAL_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PUR_RET_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="PREVIOUS_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="FAX_NUMBER" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="FAX_NUMBER_SEC" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_HOME" contactMechTypeId="TELECOM_NUMBER"/>

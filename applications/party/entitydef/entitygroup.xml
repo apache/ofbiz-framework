@@ -68,6 +68,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ContactMechType" />
     <entity-group group="org.ofbiz" entity="ContactMechTypeAttr" />
     <entity-group group="org.ofbiz" entity="ContactMechTypePurpose" />
+    <entity-group group="org.ofbiz" entity="PartyContactDetailByPurpose" />
     <entity-group group="org.ofbiz" entity="PartyContactMech" />
     <entity-group group="org.ofbiz" entity="PartyContactMechPurpose" />
     <entity-group group="org.ofbiz" entity="PostalAddress" />

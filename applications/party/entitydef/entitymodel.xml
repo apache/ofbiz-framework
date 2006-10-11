@@ -782,6 +782,51 @@ under the License.
         <key-map field-name="contactMechPurposeTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="PartyContactDetailByPurpose"
+        package-name="org.ofbiz.party.contact"
+        title="Party Contact Purpose View Entity">
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="PCMP" entity-name="PartyContactMechPurpose"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <member-entity entity-alias="STTG" entity-name="Geo"/>
+        <member-entity entity-alias="CTYG" entity-name="Geo"/>
+        <member-entity entity-alias="CTRYG" entity-name="Geo"/>
+        <alias-all entity-alias="PCM"/>
+        <alias-all entity-alias="PA"/>
+        <alias-all entity-alias="TN"/>
+        <alias-all entity-alias="STTG" prefix="state"/>
+        <alias-all entity-alias="CTYG" prefix="county"/>
+        <alias-all entity-alias="CTRYG" prefix="country"/>
+        <alias entity-alias="PCMP" name="contactMechPurposeTypeId"/>
+        <alias entity-alias="PCMP" name="purposeFromDate" field="fromDate"/>
+        <alias entity-alias="PCMP" name="purposeThruDate" field="thruDate"/>
+        <alias entity-alias="CM" name="contactMechTypeId"/>
+        <alias entity-alias="CM" name="infoString"/>
+        <view-link entity-alias="PCM" rel-entity-alias="CM">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="PCMP">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="CM" rel-entity-alias="PA" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="CM" rel-entity-alias="TN" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PA" rel-entity-alias="STTG" rel-optional="true">
+            <key-map field-name="stateProvinceGeoId" rel-field-name="geoId"/>
+        </view-link>
+        <view-link entity-alias="PA" rel-entity-alias="CTYG" rel-optional="true">
+            <key-map field-name="countyGeoId" rel-field-name="geoId"/>
+        </view-link>
+        <view-link entity-alias="PA" rel-entity-alias="CTRYG" rel-optional="true">
+            <key-map field-name="countryGeoId" rel-field-name="geoId"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="PartyContactMech"
             package-name="org.ofbiz.party.contact"
             title="Party Contact Mechanism Entity">
@@ -1398,30 +1443,30 @@ under the License.
     <view-entity entity-name="PartyContactWithPurpose"
             package-name="org.ofbiz.party.party"
             title="Party Contact Purpose View Entity">
-      <member-entity entity-alias="PR" entity-name="PartyContactMechPurpose"/>
+      <member-entity entity-alias="PCMP" entity-name="PartyContactMechPurpose"/>
       <member-entity entity-alias="CM" entity-name="ContactMech"/>
-      <member-entity entity-alias="PC" entity-name="PartyContactMech"/>
+      <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
       <member-entity entity-alias="PT" entity-name="ContactMechPurposeType"/>
       <alias entity-alias="CM" name="contactMechId"/>
-      <alias entity-alias="PC" name="partyId"/>
-      <alias entity-alias="PR" name="contactMechPurposeTypeId"/>
-      <alias entity-alias="PC" name="contactFromDate" field="fromDate"/>
-      <alias entity-alias="PR" name="purposeFromDate" field="fromDate"/>
-      <alias entity-alias="PR" name="purposeThruDate" field="thruDate"/>
-      <alias entity-alias="PC" name="contactThruDate" field="thruDate"/>
+      <alias entity-alias="PCM" name="partyId"/>
+      <alias entity-alias="PCMP" name="contactMechPurposeTypeId"/>
+      <alias entity-alias="PCM" name="contactFromDate" field="fromDate"/>
+      <alias entity-alias="PCM" name="contactThruDate" field="thruDate"/>
+      <alias entity-alias="PCMP" name="purposeFromDate" field="fromDate"/>
+      <alias entity-alias="PCMP" name="purposeThruDate" field="thruDate"/>
       <alias entity-alias="CM" name="contactMechTypeId"/>
       <alias entity-alias="CM" name="infoString"/>
-      <alias entity-alias="PC" name="comments"/>
-      <alias entity-alias="PC" name="extension"/>
-      <alias entity-alias="PC" name="allowSolicitation"/>
+      <alias entity-alias="PCM" name="comments"/>
+      <alias entity-alias="PCM" name="extension"/>
+      <alias entity-alias="PCM" name="allowSolicitation"/>
       <alias entity-alias="PT" name="purposeDescription" field="description"/>
-      <view-link entity-alias="PR" rel-entity-alias="CM">
+      <view-link entity-alias="PCMP" rel-entity-alias="CM">
         <key-map field-name="contactMechId"/>
       </view-link>
-      <view-link entity-alias="CM" rel-entity-alias="PC">
+      <view-link entity-alias="CM" rel-entity-alias="PCM">
         <key-map field-name="contactMechId"/>
       </view-link>
-      <view-link entity-alias="PR" rel-entity-alias="PT">
+      <view-link entity-alias="PCMP" rel-entity-alias="PT">
         <key-map field-name="contactMechPurposeTypeId"/>
       </view-link>
       <relation type="many" rel-entity-name="PartyContactMech">
