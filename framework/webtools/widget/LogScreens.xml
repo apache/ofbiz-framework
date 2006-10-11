@@ -78,6 +78,7 @@ under the License.
             </container>
             <container>
                 <link target="LogConfiguration" text="Adjust Debugging Levels" style="buttontext"/>
+                <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext"/>
             </container>
             <container>
                 <label style="tableheadtext">Log File Name:</label>
