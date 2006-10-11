@@ -78,6 +78,9 @@ under the License.
                         <copy/>
                         <not-empty><fail-property resource="EcommerceUiLabels" property="PartyZipCodeMissing"/></not-empty>
                     </process>
+                    <process field="countyGeoId">
+                        <copy/>
+                    </process>
                     <process field="countryGeoId">
                         <copy/>
                         <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/></not-empty>
