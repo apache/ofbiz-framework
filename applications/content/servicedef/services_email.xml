@@ -106,7 +106,7 @@ under the License.
                      The communication event will be from the party of the userLogin to the party of the partyId parameter.
                      It is meant to run a SECA after a sendMail to record outgoing emails.</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="false"/>
         <attribute name="body" type="String" mode="IN" optional="false"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
