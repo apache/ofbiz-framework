@@ -375,6 +375,11 @@ public class RequestHandler implements Serializable {
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect.", module);
                 nextView = nextView.substring(17);
                 callRedirect(makeLinkWithQueryString(request, response, "/" + nextView), response, request);
+            } else if (nextView != null && nextView.startsWith("request-redirect-noparam:")) {
+                // check for a Request redirect
+                Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect with no parameters.", module);
+                nextView = nextView.substring(25);
+                callRedirect(makeLink(request, response, nextView), response, request);
             } else if (nextView != null && nextView.startsWith("view:")) {
                 // check for a View
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a view.", module);
