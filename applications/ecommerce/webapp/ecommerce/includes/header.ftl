@@ -19,7 +19,7 @@ under the License.
 <#-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> <html> -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${(productStore.storeName)?if_exists}: ${page.title?if_exists}</title>
+    <title>${(productStore.storeName)?if_exists}: <#if page.title?has_content>${page.title}<#elseif page.titleProperty?has_content>${uiLabelMap.get(page.titleProperty)}</#if></title>
     <link rel="shortcut icon" href="<@ofbizContentUrl>/images/ofbiz.ico</@ofbizContentUrl>" />    
     <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/calendar1.js</@ofbizContentUrl>" type="text/javascript"></script>
