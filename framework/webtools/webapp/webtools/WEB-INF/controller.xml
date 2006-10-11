@@ -310,6 +310,10 @@ under the License.
         <event type="service" invoke="adjustDebugLevels"/>
         <response name="success" type="view" value="LogConfiguration"/>
     </request-map>
+    <request-map uri="LogView">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LogView"/>
+    </request-map>
 
     <request-map uri="serviceList">
         <security https="true" auth="true"/>
@@ -529,6 +533,7 @@ under the License.
     <view-map name="readxpdl" type="region"/>
     <view-map name="workflowMonitor" type="region"/>
     <view-map name="LogConfiguration" type="screen" page="component://webtools/widget/LogScreens.xml#LogConfiguration"/>
+    <view-map name="LogView" type="screen" page="component://webtools/widget/LogScreens.xml#LogView"/>
 
     <view-map name="StatsSinceStart" type="region"/>
     <view-map name="StatBinsHistory" type="region"/>
