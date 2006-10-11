@@ -25,12 +25,11 @@ under the License.
         <if-compare field-name="parameters.showPricesWithVatTax" operator="equals" value="Y">                 
             <if-empty field-name="parameters.vatTaxAuthGeoId" >
                 <add-error><fail-property property="VatTaxAuthGeoNotSet" resource="CommonUiLabels"/></add-error>
-                <check-errors/>
             </if-empty>
             <if-empty field-name="parameters.vatTaxAuthPartyId" >
                 <add-error><fail-property property="VatTaxAuthPartyNotSet" resource="CommonUiLabels"/></add-error>
-                <check-errors/>
             </if-empty>
+            <check-errors/>
         </if-compare>  
 
         <make-value value-name="newEntity" entity-name="ProductStore"/>
@@ -57,21 +56,21 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStore you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <if-compare field-name="parameters.showPricesWithVatTax" operator="equals" value="Y">                 
-            <if-empty field-name="parameters.vatTaxAuthGeoId" >
-                <add-error><fail-property property="VatTaxAuthGeoNotSet" resource="CommonUiLabels"/></add-error>
-                <check-errors/>
-            </if-empty>
-            <if-empty field-name="parameters.vatTaxAuthPartyId" >
-                <add-error><fail-property property="VatTaxAuthPartyNotSet" resource="CommonUiLabels"/></add-error>
-                <check-errors/>
-            </if-empty>
-        </if-compare>  
-        
         <set from-field="parameters.productStoreId" field="lookupPKMap.productStoreId"/>
         <find-by-primary-key entity-name="ProductStore" map-name="lookupPKMap" value-name="store"/>
         <set from-field="store.inventoryFacilityId" field="oldFacilityId"/>
         <set-nonpk-fields map-name="parameters" value-name="store"/>
+
+        <if-compare field-name="store.showPricesWithVatTax" operator="equals" value="Y">                 
+            <if-empty field-name="store.vatTaxAuthGeoId" >
+                <add-error><fail-property property="VatTaxAuthGeoNotSet" resource="CommonUiLabels"/></add-error>
+            </if-empty>
+            <if-empty field-name="store.vatTaxAuthPartyId" >
+                <add-error><fail-property property="VatTaxAuthPartyNotSet" resource="CommonUiLabels"/></add-error>
+            </if-empty>
+            <check-errors/>
+        </if-compare>
+
         <store-value value-name="store"/>
 
         <!-- update the ProductStoreFacility record -->
