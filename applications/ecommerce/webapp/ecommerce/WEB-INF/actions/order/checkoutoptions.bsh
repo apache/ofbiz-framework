@@ -31,7 +31,11 @@ productStore = ProductStoreWorker.getProductStore(request);
 
 shippingEstWpr = null;
 if (shoppingCart != null) {
-    shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0);
+    try {
+       shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0);
+    } catch (Exception ex) {
+        print("exception: " + ex.getMessage());
+    }
     context.put("shippingEstWpr", shippingEstWpr);
     context.put("carrierShipmentMethodList", shippingEstWpr.getShippingMethods());
 }
