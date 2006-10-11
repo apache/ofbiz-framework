@@ -27,7 +27,6 @@ under the License.
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
 
-    <handler name="jpublish" type="view" class="org.ofbiz.webapp.view.JPublishViewHandler"/>
     <handler name="region" type="view" class="org.ofbiz.webapp.view.RegionViewHandler"/>   
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
 
@@ -36,8 +35,6 @@ under the License.
     
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
     <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
-    <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
-    <handler name="jasperreportsxml" type="view" class="org.ofbiz.webapp.view.JasperReportsXmlViewHandler"/>
 
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
@@ -553,8 +550,6 @@ under the License.
     <view-map name="printDone" type="screen" page="component://webtools/widget/CommonScreens.xml#printDone"/>
 
     <view-map name="UomReport" page="/UomReport.xml" type="datavision" info="Uom"/>
-    <view-map name="JasperDemoPdf" page="/JasperDemo.xml" type="jasperreportspdf" info="Uom"/>
-    <view-map name="JasperDemoXml" page="/JasperDemo.xml" type="jasperreportsxml" info="Uom"/>
 
     <view-map name="EntitySyncStatus" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus" type="screen"/>
     <view-map name="EntitySQLProcessor" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor" type="screen"/>
