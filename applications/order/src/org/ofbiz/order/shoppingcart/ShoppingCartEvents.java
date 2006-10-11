@@ -1289,6 +1289,8 @@ public class ShoppingCartEvents {
         String itemDesiredDeliveryDateStr = null;
         double quantity = 0;
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
+        String itemType = null;
+        String itemDescription = "";
 
         String rowCountField = null;
         int rowCount = 0;            // number of rows of products to add
@@ -1362,15 +1364,23 @@ public class ShoppingCartEvents {
                 if (paramMap.containsKey("itemDesiredDeliveryDate" + thisSuffix)) {
                     itemDesiredDeliveryDateStr = (String) paramMap.remove("itemDesiredDeliveryDate" + thisSuffix);
                 }
+                // get the item type
+                if (paramMap.containsKey("itemType" + thisSuffix)){
+                    itemType = (String) paramMap.remove("itemType" + thisSuffix);
+                }
+
+                if (paramMap.containsKey("itemDescription" + thisSuffix)){
+                    itemDescription = (String) paramMap.remove("itemDescription" + thisSuffix);
+                }
 
                 Map itemAttributes = UtilMisc.toMap("itemDesiredDeliveryDate", itemDesiredDeliveryDateStr);
 
                 if (quantity > 0) {
                     Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
-                            " and quantity = " + quantity, module);
+                            ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
                     result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
-                            null, "", null, amount, quantity, null, null, null, null, null, null, itemGroupNumber, itemAttributes);
-                    // no values for itemType, itemDescription, price, and paramMap (a context for adding attributes)
+                                                  itemType, itemDescription, null, amount, quantity, null, null, null, null, null, null, itemGroupNumber, itemAttributes);
+                    // no values for price and paramMap (a context for adding attributes)
                     controlDirective = processResult(result, request);
                     if (controlDirective.equals(ERROR)){    // if the add to cart failed, then get out of this loop right away
                         return "error";
