@@ -21,6 +21,17 @@ under the License.
     <simple-method method-name="createProductStore" short-description="Create a Product Store">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStore you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
+        
+        <if-compare field-name="parameters.showPricesWithVatTax" operator="equals" value="Y">                 
+            <if-empty field-name="parameters.vatTaxAuthGeoId" >
+                <add-error><fail-property property="VatTaxAuthGeoNotSet" resource="CommonUiLabels"/></add-error>
+                <check-errors/>
+            </if-empty>
+            <if-empty field-name="parameters.vatTaxAuthPartyId" >
+                <add-error><fail-property property="VatTaxAuthPartyNotSet" resource="CommonUiLabels"/></add-error>
+                <check-errors/>
+            </if-empty>
+        </if-compare>  
 
         <make-value value-name="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -46,6 +57,17 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStore you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
+        <if-compare field-name="parameters.showPricesWithVatTax" operator="equals" value="Y">                 
+            <if-empty field-name="parameters.vatTaxAuthGeoId" >
+                <add-error><fail-property property="VatTaxAuthGeoNotSet" resource="CommonUiLabels"/></add-error>
+                <check-errors/>
+            </if-empty>
+            <if-empty field-name="parameters.vatTaxAuthPartyId" >
+                <add-error><fail-property property="VatTaxAuthPartyNotSet" resource="CommonUiLabels"/></add-error>
+                <check-errors/>
+            </if-empty>
+        </if-compare>  
+        
         <set from-field="parameters.productStoreId" field="lookupPKMap.productStoreId"/>
         <find-by-primary-key entity-name="ProductStore" map-name="lookupPKMap" value-name="store"/>
         <set from-field="store.inventoryFacilityId" field="oldFacilityId"/>
