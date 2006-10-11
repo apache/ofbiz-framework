@@ -172,6 +172,7 @@ under the License.
                     <xs:enumeration value="view"/>
                     <xs:enumeration value="request"/>
                     <xs:enumeration value="request-redirect"/>
+                    <xs:enumeration value="request-redirect-noparam"/>
                     <xs:enumeration value="url"/>
                 </xs:restriction>
             </xs:simpleType>
