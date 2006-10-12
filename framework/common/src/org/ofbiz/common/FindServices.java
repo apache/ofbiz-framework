@@ -394,6 +394,7 @@ public class FindServices {
         String orderBy = (String) context.get("orderBy");
         Map inputFields = (Map) context.get("inputFields"); // Input
         String noConditionFind = (String) context.get("noConditionFind");
+        GenericValue userLogin = (GenericValue) context.get("userLogin"); 
         if (UtilValidate.isEmpty(noConditionFind)) {
             // try finding in inputFields Map
             noConditionFind = (String) inputFields.get("noConditionFind");
@@ -408,7 +409,7 @@ public class FindServices {
 
         Map prepareResult = null;
         try {
-            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, "inputFields", inputFields, "filterByDate", filterByDate));
+            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, "inputFields", inputFields, "filterByDate", filterByDate, "userLogin", userLogin));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error preparing conditions: " + gse.getMessage());
         }
