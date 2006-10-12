@@ -161,14 +161,14 @@ under the License.
     </service>
     <service name="updateOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
         location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="updateOrderAdjustment">
-        <description>Update an order adjustment record</description>
+        <description>Update an order adjustment record and reset the order grand total</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="orderId" optional="false"/>
     </service>
     <service name="deleteOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
         location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="deleteOrderAdjustment">
-        <description>Delete an order adjustment record</description>
+        <description>Delete an order adjustment record and reset the order grand total</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     
