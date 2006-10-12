@@ -25,7 +25,8 @@ under the License.
     <!-- UPS Rate API Services -->
     <service name="upsRateEstimate" engine="java"
             location="org.ofbiz.shipment.thirdparty.ups.UpsServices" invoke="upsRateInquire" auth="false">
-        <description>UPS On-Line rate inquire tool</description>
+            <description>UPS On-Line rate inquire tool.  Also supports rate shopping by setting upsRateInquireMode to 'Shop', and upsRateCodeMap
+                will return a Map of serviceCode -> rate</description>
         <implements service="calcShipmentEstimateInterface"/>
         <attribute name="upsRateInquireMode" type="String" mode="IN" optional="true"/>
         <attribute name="upsRateCodeMap" type="Map" mode="OUT" optional="false"/>

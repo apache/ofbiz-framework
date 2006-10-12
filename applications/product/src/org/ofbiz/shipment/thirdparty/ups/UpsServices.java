@@ -1365,6 +1365,7 @@ public class UpsServices {
         }
         if (upsRateInquireMode == null || !"Shop".equals(upsRateInquireMode)) {
             // can be either Rate || Shop
+            Debug.logWarning("No upsRateInquireMode set, defaulting to 'Rate'", module);
             upsRateInquireMode = "Rate";
         }
 
@@ -1442,8 +1443,8 @@ public class UpsServices {
         UtilXml.addChildElementValue(transactionReferenceElement, "CustomerContext", "Rating and Service", rateRequestDoc);
         UtilXml.addChildElementValue(transactionReferenceElement, "XpciVersion", "1.0001", rateRequestDoc);
 
-        // set to Rate or Shop mode
-        UtilXml.addChildElementValue(requestElement, "RequestAction", upsRateInquireMode, rateRequestDoc);
+        // RequestAction is always Rate, but RequestOption can be Rate to get a single rate or Shop for all shipping methods
+        UtilXml.addChildElementValue(requestElement, "RequestAction", "Rate", rateRequestDoc);
         UtilXml.addChildElementValue(requestElement, "RequestOption", upsRateInquireMode, rateRequestDoc);
 
         // set the pickup type
