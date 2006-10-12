@@ -206,14 +206,15 @@ under the License.
             </tr>
 
             <#list itemInfos as orderItem>
+              <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
               <#if orderItem.cancelQuantity?exists>
                 <#assign orderItemQuantity = orderItem.quantity - orderItem.cancelQuantity>
               <#else>
                 <#assign orderItemQuantity = orderItem.quantity>
               </#if>
-              <#assign shippedQuantity = orderReadHelper.getItemShippedQuantityBd(orderItem)?if_exists>
+              <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
               <tr>
-                <td><input type="checkbox" name="sel_${orderItem.orderItemSeqId}" value="Y" checked=""/></td>
+                <td><input type="checkbox" name="sel_${orderItem.orderItemSeqId}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
                 <td><div class="tabletext">${orderItem.orderItemSeqId}</td>
                 <td><div class="tabletext">${orderItem.productId?default("N/A")}</td>
                 <td><div class="tabletext">${orderItem.itemDescription?if_exists}</td>
@@ -222,7 +223,6 @@ under the License.
                 <td align="right"><div class="tabletext">${packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId)}</td>
                 <td>&nbsp;&nbsp;</td>
                 <td align="center">
-                  <#assign inputQty = (orderItemQuantity - shippedQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId))>
                   <input type="text" class="inputBox" size="7" name="qty_${orderItem.orderItemSeqId}" value="${inputQty}">
                 </td>
                 <td align="center">
