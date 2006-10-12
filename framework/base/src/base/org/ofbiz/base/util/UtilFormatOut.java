@@ -69,11 +69,15 @@ public class UtilFormatOut {
      * @param price The price double to be formatted
      * @param isoCode the currency ISO code
      * @param locale The Locale used to format the number
+     * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale is used
      * @return A String with the formatted price
      */
-    public static String formatCurrency(double price, String isoCode, Locale locale) {
+    public static String formatCurrency(double price, String isoCode, Locale locale, int maximumFractionDigits) {
         //Debug.logInfo("formatting currency: " + price + ", isoCode: " + isoCode + ", locale: " + locale, module);
         com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getCurrencyInstance(locale);
+        if (maximumFractionDigits >= 0) {
+            nf.setMaximumFractionDigits(maximumFractionDigits);
+        }
         if (isoCode != null && isoCode.length() > 1) {
             nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
         } else {
@@ -83,13 +87,34 @@ public class UtilFormatOut {
     }
 
     /** Formats a double into a properly formatted currency string based on isoCode and Locale
+     * @param price The price double to be formatted
+     * @param isoCode the currency ISO code
+     * @param locale The Locale used to format the number
+     * @return A String with the formatted price
+     */
+    public static String formatCurrency(double price, String isoCode, Locale locale) {
+        return formatCurrency(price, isoCode, locale, -1);
+    }
+
+    /** Formats a double into a properly formatted currency string based on isoCode and Locale
+     * @param price The price Double to be formatted
+     * @param isoCode the currency ISO code
+     * @param locale The Locale used to format the number
+     * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale is used
+     * @return A String with the formatted price
+     */
+    public static String formatCurrency(Double price, String isoCode, Locale locale, int maximumFractionDigits) {
+        return formatCurrency(price.doubleValue(), isoCode, locale, maximumFractionDigits);
+    }
+
+    /** Formats a double into a properly formatted currency string based on isoCode and Locale
      * @param price The price Double to be formatted
      * @param isoCode the currency ISO code
      * @param locale The Locale used to format the number
      * @return A String with the formatted price
      */
     public static String formatCurrency(Double price, String isoCode, Locale locale) {
-        return formatCurrency(price.doubleValue(), isoCode, locale);
+        return formatCurrency(price.doubleValue(), isoCode, locale, -1);
     }
 
     /** Formats a Double into a properly spelled out number string based on Locale
