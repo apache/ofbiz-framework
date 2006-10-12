@@ -38,12 +38,20 @@ under the License.
         <entity-one entity-name="OrderAdjustment" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
+        
+        <!-- now reset the order grand total -->
+        <set from-field="lookedUpValue.orderId" field="params.orderId"/>
+        <call-service service-name="resetGrandTotal" in-map-name="params"/>
     </simple-method>
     <simple-method method-name="deleteOrderAdjustment" short-description="Delete an OrderAdjustment">
         <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunDeleteOrderAdjustement"/></check-permission>
         <check-errors/>
         <entity-one entity-name="OrderAdjustment" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
+     
+        <!-- now reset the order grand total -->
+        <set from-field="lookedUpValue.orderId" field="params.orderId"/>
+        <call-service service-name="resetGrandTotal" in-map-name="params"/>
     </simple-method>
     
     <simple-method method-name="createOrderItemBilling" short-description="Create an OrderItemBilling">
