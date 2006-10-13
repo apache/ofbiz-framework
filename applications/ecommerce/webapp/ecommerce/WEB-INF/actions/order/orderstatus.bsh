@@ -29,7 +29,7 @@ orderId = parameters.get("orderId");
 
 // we have a special case here where for an anonymous order the user will already be logged out, but the userLogin will be in the request so we can still do a security check here
 if (userLogin == null) {
-    userLogin = request.getAttribute("temporaryAnonymousUserLogin");
+    userLogin = parameters.get("temporaryAnonymousUserLogin");
     context.put("userLogin", userLogin);
 }
 
