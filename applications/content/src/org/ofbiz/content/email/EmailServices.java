@@ -587,7 +587,6 @@ public class EmailServices {
     	if (!UtilValidate.isEmpty(emailAddress)) {
     		map = new HashMap();
     		map.put("address", emailAddress.getAddress());
-    		map.put("personal", emailAddress.getPersonal());
     		map.put("userLogin", userLogin);
     		result = dispatcher.runSync("findPartyFromEmailAddress", map);    		
     	}    	
@@ -615,7 +614,6 @@ public class EmailServices {
                     if (!UtilValidate.isEmpty(emailAddress)) {
                         map = new HashMap();
                         map.put("address", emailAddress.getAddress());
-                        map.put("personal", emailAddress.getPersonal());
                         map.put("userLogin", userLogin);
                         result = dispatcher.runSync("findPartyFromEmailAddress", map);
                         
