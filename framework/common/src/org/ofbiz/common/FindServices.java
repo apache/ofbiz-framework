@@ -404,12 +404,13 @@ public class FindServices {
             // try finding in inputFields Map
             filterByDate = (String) inputFields.get("filterByDate");
         }
+        Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         Map prepareResult = null;
         try {
-            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, "inputFields", inputFields, "filterByDate", filterByDate, "userLogin", userLogin));
+            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, "inputFields", inputFields, "filterByDate", filterByDate,"filterByDateValue", filterByDateValue, "userLogin", userLogin));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error preparing conditions: " + gse.getMessage());
         }
@@ -454,6 +455,7 @@ public class FindServices {
             // try finding in inputFields Map
             filterByDate = (String) inputFields.get("filterByDate");
         }
+        Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
 
         // parameters run thru UtilHttp.getParameterMap
         Map queryStringMap = new HashMap();
@@ -476,8 +478,13 @@ public class FindServices {
          */
         if ((tmpList.size() > 0) || ((noConditionFind != null) && (noConditionFind.equals("Y")))) {
             if (!UtilValidate.isEmpty(filterByDate) && "Y".equals(filterByDate)) {
-                EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
-                tmpList.add(filterByDateCondition);
+            	if (!UtilValidate.isEmpty(filterByDateValue)) {
+            		EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
+            		tmpList.add(filterByDateCondition);
+            	} else {
+            		EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(filterByDateValue);
+            		tmpList.add(filterByDateCondition);
+            	}
             }
         }
 
@@ -495,6 +502,7 @@ public class FindServices {
         Map reducedQueryStringMap = buildReducedQueryString(inputFields, entityName, delegator);
         reducedQueryStringMap.put("noConditionFind", noConditionFind);
         reducedQueryStringMap.put("filterByDate", filterByDate);
+        reducedQueryStringMap.put("filterByDateValue", filterByDateValue);
         String queryString = UtilHttp.urlEncodeArgs(reducedQueryStringMap);
         results.put("queryString", queryString);
         results.put("queryStringMap", reducedQueryStringMap);
@@ -644,7 +652,9 @@ public class FindServices {
             Debug.logInfo("Problem getting list Item" + e,module);
         }
         
-        result.put("item",item);
+        if (!UtilValidate.isEmpty(item)) {
+        	result.put("item",item);
+        }
         result.remove("listIt");
         return result;
     }
