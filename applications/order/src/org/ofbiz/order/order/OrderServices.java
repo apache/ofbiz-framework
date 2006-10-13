@@ -1437,10 +1437,11 @@ public class OrderServices {
 
                 List errorMessageList = (List) shippingEstMap.get(ModelService.ERROR_MESSAGE_LIST);
                 if (errorMessageList != null) {
-                    return ServiceUtil.returnError(errorMessageList);
+                    Debug.logWarning("Problem finding shipping estimates for [" + orderId + "/ " + shipGroupSeqId + "] = " + errorMessageList, module);
+                    continue;
                 }
 
-                if (shippingTotal.doubleValue() != currentShipping) {
+                if ((shippingTotal != null) && (shippingTotal.doubleValue() != currentShipping)) {
                     // place the difference as a new shipping adjustment
                     Double adjustmentAmount = new Double(shippingTotal.doubleValue() - currentShipping);
                     String adjSeqId = delegator.getNextSeqId("OrderAdjustment").toString();
