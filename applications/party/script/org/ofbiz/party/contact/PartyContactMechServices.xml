@@ -16,8 +16,8 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../../../../../../framework/minilang/dtd/simple-methods.xsd">
     <simple-method method-name="createPartyContactMech" short-description="Create a PartyContactMech">
         <make-value value-name="newValue" entity-name="PartyContactMech"/>
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
@@ -326,30 +326,26 @@ under the License.
     </simple-method>
 	
     <simple-method method-name="findPartyFromEmailAddress" short-description="Find partyId from email address">
-		<entity-and entity-name="ContactMech" list-name="contactMechs">
-			<field-map field-name="infoString" env-name="parameters.address"/>
-		</entity-and>
-		<if-empty field-name="parameters.fromDate">
-				<now-timestamp-to-env env-name="fromDate"/>
-			<else>
-				<set field="fromDate" from-field="parameters.fromDate"/>
-			</else>
-		</if-empty>
-		<iterate list-name="contactMechs" entry-name="contactMech">
-			<entity-condition entity-name="PartyContactMech" list-name="partyContactMechs" >
-				<condition-list>
-					<condition-expr field-name="contactMechId" env-name="contactMech.contactMechId"/>
-					<condition-expr field-name="fromDate"  operator="less-equals" env-name="fromDate"/>
-					<condition-list combine="or">
-						<condition-expr field-name="thruDate"  operator="equals" />
-						<condition-expr field-name="thruDate"  operator="greater" env-name="fromDate"/>
-					</condition-list>
-				</condition-list>
-			</entity-condition>
-			<if-not-empty field-name="partyContactMechs">
-				<field-to-result field-name="partyContactMechs[0].partyId" result-name="partyId"/>
-				<field-to-result field-name="partyContactMechs[0].contactMechId" result-name="contactMechId"/>
-			</if-not-empty>
-		</iterate>
+
+        <set field="input.entityName" value="PartyAndContactMech"/>
+        <set field="input.filterByDate" value="Y"/>
+        <set field="input.inputFields.infoString" from-field="parameters.address"/>
+        
+        <if-empty field-name="parameters.fromDate">
+            <now-timestamp-to-env env-name="input.filterByDateValue"/>
+            <else>
+                <set field="input.filterByDateValue" from-field="parameters.fromDate"/>
+            </else>
+        </if-empty>
+        
+        <call-service service-name="performFindItem" in-map-name="input">
+            <results-to-map map-name="results"/>
+        </call-service>
+        
+        <if-not-empty field-name="results.item">
+            <field-to-result field-name="results.item.partyId" result-name="partyId"/>
+            <field-to-result field-name="results.item.contactMechId" result-name="contactMechId"/>
+        </if-not-empty>
+        
     </simple-method>
 </simple-methods>
