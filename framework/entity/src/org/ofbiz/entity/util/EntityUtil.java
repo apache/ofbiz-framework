@@ -51,7 +51,7 @@ public class EntityUtil {
 
     public static GenericValue getFirst(List values) {
         if ((values != null) && (values.size() > 0)) {
-            return (GenericValue) values.iterator().next();
+            return (GenericValue) values.get(0);
         } else {
             return null;
         }
@@ -63,7 +63,7 @@ public class EntityUtil {
                 return null;
             }
             if (values.size() == 1) {
-                return (GenericValue) values.iterator().next();
+                return (GenericValue) values.get(0);
             } else {
                 throw new IllegalArgumentException("Passed List had more than one value.");
             }
