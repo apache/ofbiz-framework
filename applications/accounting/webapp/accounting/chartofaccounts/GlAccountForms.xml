@@ -16,7 +16,7 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="../../../../../framework/widget/dtd/widget-form.xsd">
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     
     <form name="EditGlJournalEntry" type="single"
             target="createGlJournalEntry" title="" default-map-name="journal"
