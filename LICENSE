@@ -298,7 +298,7 @@ ofbiz/trunk/applications/content/lib/poi.jar
    limitations under the License.
    
 =========================================================================
-The following libraries distrubted with Apache OFBiz are licensed under the 
+The following libraries distributed with Apache OFBiz are licensed under the 
 Apache Software License:
 ofbiz/trunk/framework/catalina/lib/jasper-compiler-jdt.jar
 ofbiz/trunk/framework/catalina/lib/jasper-compiler.jar
@@ -362,7 +362,7 @@ written at the National Center for Supercomputing Applications, University of
 Illinois, Urbana-Champaign.
 
 =========================================================================
-The following libraries distrubted with Apache OFBiz are licensed under the 
+The following libraries distributed with Apache OFBiz are licensed under the 
 BSD License:
 ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/freemarker.jar
@@ -424,7 +424,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =========================================================================
-The following libraries distrubted with Apache OFBiz are licensed under the 
+The following libraries distributed with Apache OFBiz are licensed under the 
 Mozilla Public License Version 1.1:
 ofbiz/trunk/framework/guiapp/lib/XuiCoreSwing_v2_0_5_jdk1_4.jar
 ofbiz/trunk/framework/webapp/lib/itext-1.3.6.jar
@@ -900,7 +900,7 @@ EXHIBIT A -Mozilla Public License.
      Original Code Source Code for Your Modifications.]
 
 =========================================================================
-The following libraries distrubted with Apache OFBiz are licensed under the 
+The following libraries distributed with Apache OFBiz are licensed under the 
 Common Public License:
 ofbiz/trunk/applications/pos/dtd/jcl.dtd
 ofbiz/trunk/applications/pos/lib/jcl.jar
@@ -1123,7 +1123,7 @@ after the cause of action arose. Each party waives its rights to a jury trial in
 any resulting litigation.
 
 =========================================================================
-The following libraries distrubted with Apache OFBiz are licensed under the 
+The following libraries distributed with Apache OFBiz are licensed under the 
 MIT/X License:
 ofbiz/trunk/framework/base/lib/icu4j_3_4.jar
 ofbiz/trunk/framework/entity/lib/ofbiz-minerva.jar
@@ -1152,7 +1152,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =========================================================================
-The following libraries distrubted with Apache OFBiz are licensed under the 
+The following libraries distributed with Apache OFBiz are licensed under the 
 W3C License:
 ofbiz/trunk/framework/base/lib/Tidy.jar
 =========================================================================
@@ -1205,7 +1205,7 @@ W3C¨ SOFTWARE NOTICE AND LICENSE
  documentation will at all times remain with copyright holders.
 
 =========================================================================
-The following libraries distrubted with Apache OFBiz are licensed under the 
+The following libraries distributed with Apache OFBiz are licensed under the 
 Sun Public License:
 ofbiz/trunk/framework/base/lib/scripting/bsh.jar
 =========================================================================
