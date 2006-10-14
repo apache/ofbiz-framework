@@ -358,5 +358,7 @@ if (orderHeader != null) {
     context.put("returnableItems", returnableItems);
 }
 
-List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, false);
-context.put("paymentMethodValueMaps", paymentMethodValueMaps);
+if (displayParty != null) { 
+    List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, assignPartyId, false);
+    context.put("paymentMethodValueMaps", paymentMethodValueMaps);
+}
