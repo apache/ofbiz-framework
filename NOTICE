@@ -1,13 +1,55 @@
-This product includes software developed by The Apache Software Foundation (http://www.apache.org/).
+=========================================================================
+==  NOTICE file corresponding to section 4(d) of the Apache License,   ==
+==  Version 2.0.                                                       ==
+=========================================================================
 
-External libraries (jars) included in the OFBiz distribution and license information.
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
 
-For additional details, see the LICENSE file and:
-http://docs.ofbiz.org/display/OFBADMIN/Libraries+Included+in+OFBiz
+=========================================================================
+==  JDBM Notice                                                        ==
+=========================================================================
 
-This file contains notice information and credit as required in certain 
-licenses of the many excellent libraries used in Apache OFBiz from other
-open source projects.
+This product includes software developed by the JDBM Project 
+(http://jdbm.sourceforge.net/).
+
+=========================================================================
+==  WFMC Notice                                                        ==
+=========================================================================
+
+This product includes documents (dtds) provided by
+the Workflow Management Coalition (www.wfmc.org):
+
+framework\shark\dtd\TC-1025_schema_10_xpdl.xsd
+framework\workflow\dtd\xpdl-1.0-schema.xsd
+framework\workflow\dtd\xpdl.dtd
+
+=========================================================================
+==  Tigra Calendar Notice                                              ==
+=========================================================================
+
+This product includes files developed by
+Softcomplex (www.softcomplex.com):
+
+framework\images\webapp\images\calendar.html
+framework\images\webapp\images\calendar1.js
+
+=========================================================================
+==  Derby Notice                                                       ==
+=========================================================================
+
+Portions of Derby were orginally developed by
+International Business Machines Corporation and are
+licensed to the Apache Software Foundation under the
+"Software Grant and Corporate Contribution License Agreement",
+informally known as the "Derby CLA".
+
+The portion of the functionTests under 'nist' was originally 
+developed by the National Institute of Standards and Technology (NIST), 
+an agency of the United States Department of Commerce, and adapted by
+International Business Machines Corporation in accordance with the NIST
+Software Acknowledgment and Redistribution document at
+http://www.itl.nist.gov/div897/ctg/sql_form.htm
 
 *******************************************
 Apache 2.0
@@ -44,4 +86,3 @@ SPL(Sun) (http://www.beanshell.org/license.html)
 *******************************************
 JDBM LICENSE v1.00 (BSD)
 *******************************************
-This software uses and includes the JDBM library from the JDBM Project (http://jdbm.sourceforge.net/).
