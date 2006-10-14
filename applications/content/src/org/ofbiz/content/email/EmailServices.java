@@ -720,21 +720,16 @@ public class EmailServices {
                 Debug.logInfo("Incoming Email message ignored, had not 'from' email address", module);
                 return ServiceUtil.returnSuccess(" Message Ignored: no 'From' address specified");
             }
-            
-            result = getParyInfoFromEmailAddress(addressesFrom, userLogin, dispatcher);
-            partyIdFrom = (String)result.get("partyId");
-            contactMechIdFrom = (String)result.get("contactMechId");
-            
+
+            // get the 'To' partyId
             List allResults = getListOfParyInfoFromEmailAddresses(addressesTo, addressesCC, addressesBCC, userLogin, dispatcher);
             Iterator itr = allResults.iterator();
-            
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
             if ((allResults != null) && (allResults.size() > 0)) {
                 Map firstAddressTo = (Map) itr.next();
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }
-            
             // if partyIdTo not found try to find the "to" address using the delivered-to header
             String deliveredTo = message.getHeader("Delivered-To")[0];
             // check if started with the domain name if yes remove including the dash.
@@ -747,7 +742,17 @@ public class EmailServices {
                 partyIdTo = (String)result.get("partyId");
                 contactMechIdTo = (String)result.get("contactMechId");
             }
-
+    		if (userLogin.get("partyId") == null && partyIdTo != null) { 
+    		    int ch = 0;
+    		    for (ch=partyIdTo.length(); ch > 0 && Character.isDigit(partyIdTo.charAt(ch-1)); ch--);
+    		    userLogin.put("partyId", partyIdTo.substring(0,ch)); //allow services to be called to have prefix
+    		}
+            
+            // get the 'from' partyId
+            result = getParyInfoFromEmailAddress(addressesFrom, userLogin, dispatcher);
+            partyIdFrom = (String)result.get("partyId");
+            contactMechIdFrom = (String)result.get("contactMechId");
+            
             Map commEventMap = new HashMap();
     	    commEventMap.put("communicationEventTypeId", "AUTO_EMAIL_COMM");
     	    commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
@@ -831,12 +836,6 @@ public class EmailServices {
     		communicationEventId = (String)result.get("communicationEventId");
             
     		// 'system' Id has no partyId but needed for prefix generation of the creation of related contentId and dataresourceId.
-    		if (userLogin.get("partyId") == null) { 
-    		    int ch = 0;
-    		    for (ch=communicationEventId.length(); ch > 0 && Character.isDigit(communicationEventId.charAt(ch-1)); ch--);
-    		    userLogin.put("partyId", communicationEventId.substring(0,ch)); //allow services to be called to have prefix
-    		}
-            
             // store attachements
     		if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
     			int attachmentCount = EmailWorker.addAttachmentsToCommEvent(message, communicationEventId, contentIndex, dispatcher, userLogin);
