@@ -478,7 +478,7 @@ public class FindServices {
          */
         if ((tmpList.size() > 0) || ((noConditionFind != null) && (noConditionFind.equals("Y")))) {
             if (!UtilValidate.isEmpty(filterByDate) && "Y".equals(filterByDate)) {
-            	if (!UtilValidate.isEmpty(filterByDateValue)) {
+            	if (UtilValidate.isEmpty(filterByDateValue)) {
             		EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
             		tmpList.add(filterByDateCondition);
             	} else {
