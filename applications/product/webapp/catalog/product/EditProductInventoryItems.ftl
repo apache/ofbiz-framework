@@ -32,59 +32,59 @@ under the License.
         <td><div class="tabletext"><b>${uiLabelMap.ProductOutgoingProductionRuns}</b></div></td>
     </tr>
     <#list quantitySummaryByFacility.values() as quantitySummary>
-    	<#if quantitySummary.facilityId?exists>
-	        <#assign facilityId = quantitySummary.facilityId>
-	        <#assign facility = delegator.findByPrimaryKey("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId))>
-	        <#assign manufacturingInQuantitySummary = manufacturingInQuantitySummaryByFacility.get(facilityId)?if_exists>
-	        <#assign manufacturingOutQuantitySummary = manufacturingOutQuantitySummaryByFacility.get(facilityId)?if_exists>
-	        <#assign totalQuantityOnHand = quantitySummary.totalQuantityOnHand?if_exists>
-	        <#assign totalAvailableToPromise = quantitySummary.totalAvailableToPromise?if_exists>
-	        <#assign mktgPkgATP = quantitySummary.mktgPkgATP?if_exists>
-	        <#assign mktgPkgQOH = quantitySummary.mktgPkgQOH?if_exists>
-	        <#assign incomingShipmentAndItemList = quantitySummary.incomingShipmentAndItemList?if_exists>
-	        <#assign incomingProductionRunList = manufacturingInQuantitySummary.incomingProductionRunList?if_exists>
-	        <#assign incomingQuantityTotal = manufacturingInQuantitySummary.estimatedQuantityTotal?if_exists>
-	        <#assign outgoingProductionRunList = manufacturingOutQuantitySummary.outgoingProductionRunList?if_exists>
-	        <#assign outgoingQuantityTotal = manufacturingOutQuantitySummary.estimatedQuantityTotal?if_exists>
-	
-	        <tr>
-	            <td><div class="tabletext">${(facility.facilityName)?if_exists} [${facilityId?default("[No Facility]")}] 
-	            <a href="/facility/control/ReceiveInventory?facilityId=${facilityId}&productId=${productId}&externLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></div></td>
-	            <td><div class="tabletext"><#if totalAvailableToPromise?exists>${totalAvailableToPromise}<#else>&nbsp;</#if></div></td>
-	            <td><div class="tabletext"><#if totalQuantityOnHand?exists>${totalQuantityOnHand}<#else>&nbsp;</#if></div></td>
-	            <td><div class="tabletext"><#if mktgPkgATP?exists>${mktgPkgATP}<#else>&nbsp;</#if></div></td>
-	            <td><div class="tabletext"><#if mktgPkgQOH?exists>${mktgPkgQOH}<#else>&nbsp;</#if></div></td>
-	            <td>
-	                <#if incomingShipmentAndItemList?has_content>
-	                    <#list incomingShipmentAndItemList as incomingShipmentAndItem>
-	                        <div class="tabletext">${incomingShipmentAndItem.shipmentId}:${incomingShipmentAndItem.shipmentItemSeqId}-${(incomingShipmentAndItem.estimatedArrivalDate.toString())?if_exists}-<#if incomingShipmentAndItem.quantity?exists>${incomingShipmentAndItem.quantity?string.number}<#else>[${uiLabelMap.ProductQuantityNotSet}]</#if></div>
-	                    </#list>
-	                <#else>
-	                    <div class="tabletext">&nbsp;</div>
-	                </#if>
-	            </td>
-	            <td>
-	                <#if incomingProductionRunList?has_content>
-	                    <#list incomingProductionRunList as incomingProductionRun>
-	                        <div class="tabletext">${incomingProductionRun.workEffortId}-${(incomingProductionRun.estimatedCompletionDate.toString())?if_exists}-<#if incomingProductionRun.estimatedQuantity?exists>${incomingProductionRun.estimatedQuantity?string.number}<#else>[${uiLabelMap.ProductQuantityNotSet}]</#if></div>
-	                    </#list>
-	                    <div class="tabletext"><b>${uiLabelMap.CommonTotal}:&nbsp;${incomingQuantityTotal?if_exists}</b></div>
-	                <#else>
-	                    <div class="tabletext">&nbsp;</div>
-	                </#if>
-	            </td>
-	            <td>
-	                <#if outgoingProductionRunList?has_content>
-	                    <#list outgoingProductionRunList as outgoingProductionRun>
-	                        <div class="tabletext">${outgoingProductionRun.workEffortParentId}:${outgoingProductionRun.workEffortId}-${(outgoingProductionRun.estimatedStartDate.toString())?if_exists}-<#if outgoingProductionRun.estimatedQuantity?exists>${outgoingProductionRun.estimatedQuantity?string.number}<#else>[${uiLabelMap.ProductQuantityNotSet}]</#if></div>
-	                    </#list>
-	                    <div class="tabletext"><b>${uiLabelMap.CommonTotal}:&nbsp;${outgoingQuantityTotal?if_exists}</b></div>
-	                <#else>
-	                    <div class="tabletext">&nbsp;</div>
-	                </#if>
-	            </td>
-	        </tr>
-		</#if>
+        <#if quantitySummary.facilityId?exists>
+            <#assign facilityId = quantitySummary.facilityId>
+            <#assign facility = delegator.findByPrimaryKey("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId))>
+            <#assign manufacturingInQuantitySummary = manufacturingInQuantitySummaryByFacility.get(facilityId)?if_exists>
+            <#assign manufacturingOutQuantitySummary = manufacturingOutQuantitySummaryByFacility.get(facilityId)?if_exists>
+            <#assign totalQuantityOnHand = quantitySummary.totalQuantityOnHand?if_exists>
+            <#assign totalAvailableToPromise = quantitySummary.totalAvailableToPromise?if_exists>
+            <#assign mktgPkgATP = quantitySummary.mktgPkgATP?if_exists>
+            <#assign mktgPkgQOH = quantitySummary.mktgPkgQOH?if_exists>
+            <#assign incomingShipmentAndItemList = quantitySummary.incomingShipmentAndItemList?if_exists>
+            <#assign incomingProductionRunList = manufacturingInQuantitySummary.incomingProductionRunList?if_exists>
+            <#assign incomingQuantityTotal = manufacturingInQuantitySummary.estimatedQuantityTotal?if_exists>
+            <#assign outgoingProductionRunList = manufacturingOutQuantitySummary.outgoingProductionRunList?if_exists>
+            <#assign outgoingQuantityTotal = manufacturingOutQuantitySummary.estimatedQuantityTotal?if_exists>
+    
+            <tr>
+                <td><div class="tabletext">${(facility.facilityName)?if_exists} [${facilityId?default("[No Facility]")}] 
+                <a href="/facility/control/ReceiveInventory?facilityId=${facilityId}&productId=${productId}&externLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></div></td>
+                <td><div class="tabletext"><#if totalAvailableToPromise?exists>${totalAvailableToPromise}<#else>&nbsp;</#if></div></td>
+                <td><div class="tabletext"><#if totalQuantityOnHand?exists>${totalQuantityOnHand}<#else>&nbsp;</#if></div></td>
+                <td><div class="tabletext"><#if mktgPkgATP?exists>${mktgPkgATP}<#else>&nbsp;</#if></div></td>
+                <td><div class="tabletext"><#if mktgPkgQOH?exists>${mktgPkgQOH}<#else>&nbsp;</#if></div></td>
+                <td>
+                    <#if incomingShipmentAndItemList?has_content>
+                        <#list incomingShipmentAndItemList as incomingShipmentAndItem>
+                            <div class="tabletext">${incomingShipmentAndItem.shipmentId}:${incomingShipmentAndItem.shipmentItemSeqId}-${(incomingShipmentAndItem.estimatedArrivalDate.toString())?if_exists}-<#if incomingShipmentAndItem.quantity?exists>${incomingShipmentAndItem.quantity?string.number}<#else>[${uiLabelMap.ProductQuantityNotSet}]</#if></div>
+                        </#list>
+                    <#else>
+                        <div class="tabletext">&nbsp;</div>
+                    </#if>
+                </td>
+                <td>
+                    <#if incomingProductionRunList?has_content>
+                        <#list incomingProductionRunList as incomingProductionRun>
+                            <div class="tabletext">${incomingProductionRun.workEffortId}-${(incomingProductionRun.estimatedCompletionDate.toString())?if_exists}-<#if incomingProductionRun.estimatedQuantity?exists>${incomingProductionRun.estimatedQuantity?string.number}<#else>[${uiLabelMap.ProductQuantityNotSet}]</#if></div>
+                        </#list>
+                        <div class="tabletext"><b>${uiLabelMap.CommonTotal}:&nbsp;${incomingQuantityTotal?if_exists}</b></div>
+                    <#else>
+                        <div class="tabletext">&nbsp;</div>
+                    </#if>
+                </td>
+                <td>
+                    <#if outgoingProductionRunList?has_content>
+                        <#list outgoingProductionRunList as outgoingProductionRun>
+                            <div class="tabletext">${outgoingProductionRun.workEffortParentId}:${outgoingProductionRun.workEffortId}-${(outgoingProductionRun.estimatedStartDate.toString())?if_exists}-<#if outgoingProductionRun.estimatedQuantity?exists>${outgoingProductionRun.estimatedQuantity?string.number}<#else>[${uiLabelMap.ProductQuantityNotSet}]</#if></div>
+                        </#list>
+                        <div class="tabletext"><b>${uiLabelMap.CommonTotal}:&nbsp;${outgoingQuantityTotal?if_exists}</b></div>
+                    <#else>
+                        <div class="tabletext">&nbsp;</div>
+                    </#if>
+                </td>
+            </tr>
+        </#if>
     </#list>
 </table>
 
@@ -175,5 +175,5 @@ under the License.
             </#if>
         </#if>
     </#list>
-    </table>
+  </table>
 </#if>
