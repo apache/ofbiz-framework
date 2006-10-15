@@ -232,6 +232,7 @@ under the License.
     	<attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
     	<attribute name="fromStatusId" type="String" mode="IN" optional="true"/>
     	<attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusDateTime" type="Timestamp" mode="IN" optional="true"/>
     </service>
 
     <service name="cancelOrderItem" engine="java" auth="true"
