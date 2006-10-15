@@ -22,59 +22,90 @@ under the License.
     <simple-method method-name="getProductRouting" short-description="Get the product's routing and routing tasks">
         <set from-field="parameters.productId" field="lookupRouting.productId"/>
         <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
-        <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
-        <!-- TODO: we should consider the validity against a date passed as (optional) parameter -->
-        <filter-list-by-date list-name="routings"/>
-        <!-- TODO: we should consider the quantity to select the best routing -->
-        <first-from-list list-name="routings" entry-name="routingGS"/>
-        <!-- If there are no routings associated with our product and it's a variant, then 
-             check to see if it's virtual product has a routing -->
-        <if-empty field-name="routingGS">
-            <entity-one entity-name="Product" value-name="product" auto-field-map="false" >
-                <field-map field-name="productId" env-name="parameters.productId" />
-            </entity-one>
-            <if-compare field-name="product.isVariant" operator="equals" value="Y">
-                <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">
+        <!-- If applicableDate has been passed use the value with all filter-by-date calls-->
+        <if-not-empty field-name="applicableDate" map-name="parameters">
+                <set from-field="parameters.applicableDate" field="filterDate"/>
+            <else>
+                <now-timestamp-to-env env-name="filterDate"/>
+            </else>
+        </if-not-empty>
+        <!-- If a workEffortId has been passed, use it to look up the desired routing-->
+        <if-not-empty field-name="workEffortId" map-name="parameters">
+            <set from-field="parameters.workEffortId" field="lookupRouting.workEffortId"/>
+            <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+            <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
+            <first-from-list list-name="routings" entry-name="routingGS"/>
+            <!-- If the routing is not associated with our product and it's a variant, then 
+                 check to see if it's virtual product has the routing -->
+            <if-empty field-name="routingGS">
+                <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList">
                     <condition-list combine="and">
                         <condition-expr field-name="productIdTo" env-name="parameters.productId" />
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
                     </condition-list>
                 </entity-condition>
-                <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc" />
+                <filter-list-by-date list-name="virtualProductAssocList" valid-date-name="filterDate"/>
+                <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc"/>
                 <if-not-empty field-name="virtualProductAssoc">
                     <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
-                    <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
                     <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
-                    <!-- TODO: we should consider the validity against a date passed as (optional) parameter -->
-                    <filter-list-by-date list-name="routings"/>
-                    <!-- TODO: we should consider the quantity to select the best routing -->
+                    <!-- Consider the validity against a date passed as (optional) parameter -->
+                    <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
                     <first-from-list list-name="routings" entry-name="routingGS"/>
                 </if-not-empty>
-            </if-compare>
-        </if-empty>
-        <if-not-empty field-name="routingGS">
-                <clear-field field-name="lookupRouting"/>
-                <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
-                <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
+            </if-empty>
+            <!-- No workEffortId has been passed, so retrieve the first routing found for this product-->
             <else>
-                <!-- The default routing is used when no explicit routing is associated to the product 
-                     and the ignoreDefaultRouting is not equals to Y -->
-                <if>
-                    <condition>
-                    <or>
-                        <if-empty field-name="parameters.ignoreDefaultRouting"/>
-                        <if-compare field-name="parameters.ignoreDefaultRouting" operator="equals" value="N"/>
-                    </or>
-                    </condition>
-                    <then>
-                        <clear-field field-name="lookupRouting"/>
-                        <set value="DEFAULT_ROUTING" field="lookupRouting.workEffortId"/>
-                        <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
-                    </then>
-                </if>
+                <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+                <!-- Consider the validity against a date passed as (optional) parameter -->
+                <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
+                <!-- TODO: we should consider the quantity to select the best routing -->
+                <first-from-list list-name="routings" entry-name="routingGS"/>
+                <!-- If there are no routings associated with our product and it's a variant, then 
+                     check to see if it's virtual product has a routing -->
+                <if-empty field-name="routingGS">
+                    <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList">
+                        <condition-list combine="and">
+                            <condition-expr field-name="productIdTo" env-name="parameters.productId" />
+                            <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
+                        </condition-list>
+                    </entity-condition>
+                    <filter-list-by-date list-name="virtualProductAssocList" valid-date-name="filterDate"/>
+                    <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc"/>
+                    <if-not-empty field-name="virtualProductAssoc">
+                        <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
+                        <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
+                        <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+                        <!-- Consider the validity against a date passed as (optional) parameter -->
+                        <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
+                        <!-- TODO: we should consider the quantity to select the best routing -->
+                        <first-from-list list-name="routings" entry-name="routingGS"/>
+                    </if-not-empty>
+                </if-empty>
             </else>
         </if-not-empty>
-
+        <if-not-empty field-name="routingGS">
+                <clear-field field-name="lookupRouting"/>
+                    <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
+                    <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
+                <else>
+                    <!-- The default routing is used when no explicit routing is associated to the product 
+                         and the ignoreDefaultRouting is not equals to Y -->
+                    <if>
+                        <condition>
+                        <or>
+                            <if-empty field-name="parameters.ignoreDefaultRouting"/>
+                            <if-compare field-name="parameters.ignoreDefaultRouting" operator="equals" value="N"/>
+                        </or>
+                        </condition>
+                        <then>
+                            <clear-field field-name="lookupRouting"/>
+                            <set value="DEFAULT_ROUTING" field="lookupRouting.workEffortId"/>
+                            <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
+                        </then>
+                    </if>
+                </else>
+            </if-not-empty>
         <if-not-empty field-name="routing">
             <set from-field="routing.workEffortId" field="lookupTasks.workEffortIdFrom"/>
             <string-to-list string="sequenceNum" list-name="tasksOrder"/>

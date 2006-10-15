@@ -43,6 +43,8 @@ under the License.
                 location="org/ofbiz/manufacturing/routing/RoutingServices.xml" invoke="getProductRouting">
         <description>Get the product's routing and routing tasks</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
+        <attribute mode="IN" name="applicableDate" optional="true" type="java.sql.Timestamp"/>
         <attribute mode="IN" name="ignoreDefaultRouting" optional="true" type="String"/><!-- If this is set to Y, the default routing is not returned -->
         <attribute mode="OUT" name="routing" type="GenericValue" optional="true"/>
         <attribute mode="OUT" name="tasks" type="java.util.List" optional="true"/>

@@ -191,7 +191,30 @@ public class ProductionRunServices {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
+        // -------------------
+        // Routing and routing tasks
+        // -------------------
+        // Select the product's routing
+        try {
+            Map routingInMap = UtilMisc.toMap("productId", productId, "applicableDate", startDate, "userLogin", userLogin);
+            if (workEffortId != null) {
+                routingInMap.put("workEffortId", workEffortId);
+            }
+            Map routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
+            routing = (GenericValue)routingOutMap.get("routing");
+            routingTaskAssocs = (List)routingOutMap.get("tasks");
+        } catch(GenericServiceException gse) {
+            Debug.logWarning(gse.getMessage(), module);
+        }
+        // =================================
+        if (routing == null) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductRoutingNotExist", locale));
+        }
+        if (routingTaskAssocs == null || routingTaskAssocs.size()==0) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingHasNoRoutingTask", locale));
+        }
+
         // -------------------
         // Components
         // -------------------
@@ -206,34 +229,11 @@ public class ProductionRunServices {
         try {
             resultService = dispatcher.runSync("getManufacturingComponents", serviceContext);
             components = (List)resultService.get("components"); // a list of objects representing the product's components
-            if (workEffortId == null) {
-                workEffortId = (String)resultService.get("workEffortId"); // the product routing id
-            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
-        // -------------------
-        // Routing and routing tasks
-        // -------------------
-        // Select the product's routing
-        try {
-            Map routingInMap = UtilMisc.toMap("productId", productId, "userLogin", userLogin);
-            Map routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
-            routing = (GenericValue)routingOutMap.get("routing");
-            routingTaskAssocs = (List)routingOutMap.get("tasks");
-        } catch(GenericServiceException gse) {
-            Debug.logWarning(gse.getMessage(), module);
-        }
-        // =================================
-        if (routing == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductRoutingNotExist", locale));
-        }
-        if (routingTaskAssocs == null || routingTaskAssocs.size()==0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingHasNoRoutingTask", locale));
-        }
-        
+
         // ProductionRun header creation,
         if (workEffortName == null) {
             String prdName = UtilValidate.isNotEmpty(product.getString("productName"))? product.getString("productName"): product.getString("productId");
