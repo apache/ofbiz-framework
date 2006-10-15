@@ -74,7 +74,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ListPartyCommEvents?partyId=${partyId}"/>
             </actions>
             <widgets>
-                <decorator-screen location="component://party/widget/partymgr/CommonScreens.xml" name="main-decorator">
+                <decorator-screen name="CommonCommunicationEventDecorator">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -82,22 +82,6 @@ under the License.
                                 <if-has-permission action="_VIEW" permission="PARTYMGR"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="partyId"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="communicationEventId"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommEventTabBar"/>
-                                    </widgets>
-                                </section>
                                 <container><label style="head1" text="${uiLabelMap.PartyFoundCommunicationEvents}"/></container>
                                 <container><link style="buttontext" target="EditCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPartyCommEvents"/>
@@ -238,6 +222,33 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
+                                        <container>
+                                           <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
+                                              text="${uiLabelMap.AccountingBillingAccount}" style="buttontext"/>
+                                           <section>
+                                              <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
+                                              <widgets>
+                                                 <link target="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}" url-mode="inter-app" 
+                                                    text="${uiLabelMap.OrderOrders}" style="buttontext"/>
+                                              </widgets>
+                                           </section>
+                                           <section>
+                                              <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
+                                              <widgets>
+                                                 <link target="/ordermgr/control/checkinits?partyId=${partyId}" url-mode="inter-app" 
+                                                    text="${uiLabelMap.OrderNewOrder}" style="buttontext"/>
+                                              </widgets>
+                                           </section>
+                                           <section>
+                                              <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
+                                              <widgets>
+                                                 <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}" url-mode="inter-app" 
+                                                    text="${uiLabelMap.AccountingPaymentsSent}" style="buttontext"/>
+                                                 <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}" url-mode="inter-app" 
+                                                    text="${uiLabelMap.AccountingPaymentsReceived}" style="buttontext"/>
+                                              </widgets>
+                                           </section>
+                                        </container>
                                     </widgets>
                                 </section>
                                 <section>

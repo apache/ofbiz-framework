@@ -29,7 +29,7 @@ under the License.
         <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="[${groupId}]" target="EditSecurityGroup?groupId=${groupId}"/>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" widget-style="tabletext"><display/></field>
     </form>
     <form name="EditSecurityGroup" type="single" 
             target="updateSecurityGroup" title="" default-map-name="securityGroup"
