@@ -197,6 +197,26 @@ under the License.
                 </table>
             </td>
         </#if>
+        <#-- Fixed Asset assign sub-screen  Update or Add  -->
+        <#if fixedAssetId?has_content || actionForm=="AddFixedAsset">
+            <td> &nbsp; </td>
+            <td>
+                <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
+                    <tr><td>
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
+                        	<tr>
+                        	<#if fixedAssetId?has_content> <#-- Fixed Asset Assign Update  -->
+                            	<td><div class="boxhead">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ManufacturingProductionRunFixedAssetAssign}</div></td>
+                        	<#else> <#-- Fixed Asset Assign Add -->
+                            	<td><div class="boxhead">${uiLabelMap.ManufacturingAddProductionRunFixedAssetAssign}</div></td>
+                        	</#if>
+                        	</tr>
+                    	</table>
+                    	${editProdRunFixedAssetWrapper.renderFormString(context)}
+                    </td></tr>
+                </table>
+            </td>
+        </#if>
         </tr>
     </table>
     <br/>
@@ -235,6 +255,22 @@ under the License.
             </tr>
         </table>
         ${ListProductionRunComponentsWrapper.renderFormString(context)}
+      </td></tr>
+    </table>
+
+    <#-- List of ProductionRun Fixed Assets sub-screen -->
+    <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
+      <tr><td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
+            <tr>
+                <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}</div></td>
+                <td align="right"><div class="tabletext">
+                    <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${productionRunId}&amp;actionForm=AddFixedAsset</@ofbizUrl>" class="submenutextright">
+                                    ${uiLabelMap.ManufacturingAddProductionRunFixedAssetAssign}</a>
+                </td>
+            </tr>
+        </table>
+        ${ListProductionRunFixedAssetsWrapper.renderFormString(context)}
       </td></tr>
     </table>
 <#else>

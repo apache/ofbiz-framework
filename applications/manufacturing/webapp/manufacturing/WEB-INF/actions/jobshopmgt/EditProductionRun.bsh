@@ -193,6 +193,51 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         ListProductionRunComponentsWrapper.putInContext("productionRunId", productionRunId);
         ListProductionRunComponentsWrapper.putInContext("productionRunComponentsData", productionRunComponentsData);
         context.put("ListProductionRunComponentsWrapper",ListProductionRunComponentsWrapper);
+        
+        //------------------------
+        // Machines (fixed assets)
+        //------------------------
+        // Fixed asset add sub-screen
+        if (actionForm.equals("AddFixedAsset")) {
+        	Map fixedAssetData = UtilMisc.toMap("productionRunId", productionRunId);
+        	HtmlFormWrapper editProdRunFixedAssetWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "EditProductionRunTaskFixedAsset", request, response);
+        	editProdRunFixedAssetWrapper.putInContext("fixedAssetData", fixedAssetData);
+        	editProdRunFixedAssetWrapper.putInContext("actionForm", "addFixedAsset");
+        	editProdRunFixedAssetWrapper.putInContext("actionIsAdd", "Y");
+            // the declarationScreen variable tells us whether we are in the EditProductionRun screen
+            // or in the ProductionRunDeclaration screen
+        	editProdRunFixedAssetWrapper.putInContext("declarationScreen", "N");
+        	context.put("editProdRunFixedAssetWrapper", editProdRunFixedAssetWrapper);
+        }
+        // Fixed asset update sub-screen
+        workEffortId = request.getParameter("workEffortId");
+        fixedAssetId = request.getParameter("fixedAssetId");
+        fromDate = request.getParameter("fromDate");
+        if (workEffortId != null && fixedAssetId != null && fromDate!= null && actionForm.equals("UpdateFixedAsset")) {
+        	GenericValue fixedAsset = delegator.findByPrimaryKey("WorkEffortFixedAssetAssign", 
+        								UtilMisc.toMap("workEffortId", workEffortId, "fixedAssetId", fixedAssetId, "fromDate", fromDate));
+        	Map fixedAssetData = fixedAsset.getAllFields();
+        	fixedAssetData.put("productionRunId", productionRunId);
+        	HtmlFormWrapper editProdRunFixedAssetWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "EditProductionRunTaskFixedAsset", request, response);
+        	editProdRunFixedAssetWrapper.putInContext("fixedAssetData", fixedAssetData);
+        	editProdRunFixedAssetWrapper.putInContext("actionForm", "updateFixedAsset");
+        	editProdRunFixedAssetWrapper.putInContext("actionIsAdd", "null");
+        	editProdRunFixedAssetWrapper.putInContext("declarationScreen", "N");
+        	context.put("editProdRunFixedAssetWrapper", editProdRunFixedAssetWrapper);
+        	context.put("fixedAssetId", fixedAssetId);
+        }
+        // Fixed assets list
+        List productionRunFixedAssetsData = new LinkedList();
+        for (Iterator tasksIt = productionRunRoutingTasks.iterator(); tasksIt.hasNext();) {
+        	GenericValue prodRunTask = (GenericValue)tasksIt.next();
+        	List taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
+        	productionRunFixedAssetsData.addAll(taskFixedAssets);
+        }
+        HtmlFormWrapper ListProductionRunFixedAssetsWrapper = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "ListProductionRunTaskFixedAssets", request, response);
+		ListProductionRunFixedAssetsWrapper.putInContext("productionRunId", productionRunId);
+        ListProductionRunFixedAssetsWrapper.putInContext("productionRunFixedAssetsData", productionRunFixedAssetsData);
+        ListProductionRunFixedAssetsWrapper.putInContext("declarationScreen", "N");
+        context.put("ListProductionRunFixedAssetsWrapper", ListProductionRunFixedAssetsWrapper);
     }
 }
 

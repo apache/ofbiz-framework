@@ -58,4 +58,29 @@ under the License.
         <attribute mode="OUT" name="setupTime" type="Double" optional="true"/>
         <attribute mode="OUT" name="taskUnitTime" type="Double" optional="true"/>
     </service>
+    <service name="createWorkEffortFixedAssetStd" engine="simple" auth="true"
+            default-entity-name="WorkEffortFixedAssetStd"
+            location="org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" 
+            invoke="createWorkEffortFixedAssetStd">
+        <description>Creates a WorkEffortFixedAssetStd entry to associate a routing task 
+            with a fixed asset (type)</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWorkEffortFixedAssetStd" engine="simple" auth="true"
+            default-entity-name="WorkEffortFixedAssetStd"
+            location="org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" 
+            invoke="updateWorkEffortFixedAssetStd">
+        <description>Updates an existing WorkEffortFixedAssetStd entry</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeWorkEffortFixedAssetStd" engine="simple" auth="true" 
+            default-entity-name="WorkEffortFixedAssetStd"
+            location="org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml"
+            invoke="removeWorkEffortFixedAssetStd">
+        <description>Removes a WorkEffortFixedAssetStd, thus removing the association between a routing task
+            and a fixed asset (type)</description>
+        <auto-attributes include="pk" mode="IN" optional="false" />
+    </service>
 </services>

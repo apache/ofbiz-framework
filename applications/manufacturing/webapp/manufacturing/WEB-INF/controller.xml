@@ -362,6 +362,28 @@ under the License.
         <response name="success" type="view" value="EditRoutingTaskCosts"/>
         <response name="error" type="view" value="EditRoutingTaskCosts"/>
     </request-map>
+    <request-map uri="EditRoutingTaskFixedAssets">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRoutingTaskFixedAssets"/>
+    </request-map>
+    <request-map uri="createRoutingTaskFixedAsset">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortFixedAssetStd"/>
+        <response name="success" type="view" value="EditRoutingTaskFixedAssets"/>
+        <response name="error" type="view" value="EditRoutingTaskFixedAssets"/>
+    </request-map>
+    <request-map uri="updateRoutingTaskFixedAsset">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortFixedAssetStd"/>
+        <response name="success" type="view" value="EditRoutingTaskFixedAssets"/>
+        <response name="error" type="view" value="EditRoutingTaskFixedAssets"/>
+    </request-map>
+    <request-map uri="removeRoutingTaskFixedAsset">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortFixedAssetStd"/>
+        <response name="success" type="view" value="EditRoutingTaskFixedAssets"/>
+        <response name="error" type="view" value="EditRoutingTaskFixedAssets"/>
+    </request-map>
     <!-- CostCalc mappings -->
     <request-map uri="EditCostCalcs">
         <security https="true" auth="true"/>
@@ -516,6 +538,13 @@ under the License.
         <event type="service" invoke="removeWorkEffortGoodStandard"/>
         <response name="success" type="view" value="EditProductionRun"/>
         <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
+    <request-map uri="removeProductionRunFixedAsset">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="removeProductionRunFixedAsset" />
+        <response name="docs_not_printed" type="view" value="EditProductionRun" />
+        <response name="docs_printed" type="view" value="ProductionRunDeclaration" />
+        <response name="error" type="view" value="EditProductionRun" />
     </request-map>
     <!-- Production Run Declaration -->
     <request-map uri="changeProductionRunStatusToPrinted">
@@ -677,7 +706,7 @@ under the License.
     <view-map name="EditRouting" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRouting" type="screen"/>
     <view-map name="EditRoutingTaskAssoc" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskAssoc" type="screen"/>
     <view-map name="EditRoutingProductLink" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingProductLink" type="screen"/>
-    
+    <view-map name="EditRoutingTaskFixedAssets" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskFixedAssets" type="screen"/>
     <!-- Lookup view mappings -->
     <view-map name="LookupProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct" type="screen"/>
     <view-map name="LookupVariantProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct" type="screen"/>
