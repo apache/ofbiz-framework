@@ -420,6 +420,77 @@ under the License.
             <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
         </field>
     </form>
+    <form name="ListProductionRunTaskFixedAssets" type="list" target="EditProductionRun"
+            title="" list-name="productionRunFixedAssetsData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration" />
+        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="display" />
+        <field name="workEffortId">
+            <display-entity entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}" />
+        </field>
+        <field name="fixedAssetId">
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName}" />
+        </field>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" />
+        </field>
+        <field name="editLink" title="" widget-style="smallSubmit" 
+                use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
+            <hyperlink description="${uiLabelMap.CommonEdit}" also-hidden="false"
+                target="EditProductionRun?actionForm=UpdateFixedAsset&amp;workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
+        </field>
+        <field name="editLink" title="" widget-style="smallSubmit" 
+                use-when="&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
+            <hyperlink description="${uiLabelMap.CommonEdit}" also-hidden="false"
+                target="ProductionRunDeclaration?actionForm=UpdateFixedAsset&amp;workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
+        </field>
+        <field name="deleteLink" title="" widget-style="smallSubmit">
+            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false"
+                target="removeProductionRunFixedAsset?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
+        </field>
+    </form>
+    <form name="EditProductionRunTaskFixedAsset" type="single" target="EditProductionRun"
+            title="" default-map-name="fixedAssetData"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration" />
+        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" />
+        <field name="actionForm"><hidden value="${actionForm}" /></field>
+        <field name="productionRunId"><hidden /></field>
+        <field name="workEffortId" use-when="${actionIsAdd}!=null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}">
+                    <entity-constraint name="workEffortParentId" value="${productionRunId}" />
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortId" use-when="${actionIsAdd}==null">
+            <display-entity entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}" />
+        </field>
+        <field name="fixedAssetId" use-when="${actionIsAdd}!=null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="FixedAsset" description="${fixedAssetName}" />
+            </drop-down>
+        </field>
+        <field name="fixedAssetId" use-when="${actionIsAdd}==null">
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName}" />
+        </field>
+        <field name="fromDate" use-when="${actionIsAdd}==null">
+            <display />
+        </field>
+        <field name="statusId">
+            <!-- Statuses are not yet defined for the WorkEffortFixedAssetAssign entity
+                so this field will be hidden meanwhile
+            <drop-down>
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS" />
+                </entity-options>
+            </drop-down> -->
+            <hidden />
+        </field>
+        <field name="submitButton" title="${uiLabelButton}" widget-style="smallSubmit">
+            <submit button-type="button" />
+        </field>
+    </form>
     <!-- ******************* -->
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->

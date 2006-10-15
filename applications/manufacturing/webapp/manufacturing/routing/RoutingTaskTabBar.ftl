@@ -24,5 +24,6 @@ under the License.
     <a href="<@ofbizUrl>EditRoutingTaskCosts?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.editRoutingTaskCosts?default(unselectedClassName)}">${uiLabelMap.ManufacturingRoutingTaskCosts}</a>
     <a href="<@ofbizUrl>ListRoutingTaskRoutings?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.listRoutingTaskRoutings?default(unselectedClassName)}">${uiLabelMap.ManufacturingListRoutings}</a>
     <a href="<@ofbizUrl>ListRoutingTaskProducts?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.listRoutingTaskProducts?default(unselectedClassName)}">${uiLabelMap.ManufacturingListProducts}</a>
+    <a href="<@ofbizUrl>EditRoutingTaskFixedAssets?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.editRoutingTaskFixedAssets?default(unselectedClassName)}">${uiLabelMap.ManufacturingRoutingTaskFixedAssets}</a>
 </div>
 </#if>

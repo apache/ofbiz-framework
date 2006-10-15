@@ -321,5 +321,35 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-
+    
+    <!-- RoutingTask-FixedAsset association (WorkEffortFixedAssetStd) -->
+    <form name="ListRoutingTaskFixedAssets" type="list" title="" 
+            target="updateRoutingTaskFixedAsset" list-name="allFixedAssets"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="WorkEffortFixedAssetStd" />
+        <field name="workEffortId"><hidden/></field>
+        <field name="fixedAssetTypeId">
+            <display-entity entity-name="FixedAssetType" />
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button" />
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeRoutingTaskFixedAsset?workEffortId=${workEffortId}&amp;fixedAssetTypeId=${fixedAssetTypeId}" 
+                    description="${uiLabelMap.CommonDelete}" also-hidden="false" />
+        </field>
+    </form>
+    <form name="EditRoutingTaskFixedAsset" type="single" title="" target="createRoutingTaskFixedAsset"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <auto-fields-entity entity-name="WorkEffortFixedAssetStd" default-field-type="edit" />
+        <field name="workEffortId"><hidden /></field>
+        <field name="fixedAssetTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="FixedAssetType" description="${description}" />
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button" />
+        </field>
+    </form>
 </forms>

@@ -360,6 +360,33 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditRoutingTaskFixedAssets">
+        <section>
+            <actions>
+                <set field="title" value="Edit a Routing Task-Fixed Asset association" />
+                <set field="titleProperty" value="PageTitleEditRoutingTaskFixedAsset" />
+                <set field="tabButtonItem" value="editRoutingTaskFixedAssets" />
+                <set field="headerItem" value="routing" />
+                <set field="workEffortId" from-field="parameters.workEffortId" />
+                <entity-and entity-name="WorkEffortFixedAssetStd" list-name="allFixedAssets">
+                    <field-map field-name="workEffortId" env-name="workEffortId" />
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRoutingTaskDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListRoutingTaskFixedAssets" 
+                                location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml" />
+                        <container>
+                            <label style="head2">${uiLabelMap.CommonAdd}</label>
+                        </container>
+                        <include-form name="EditRoutingTaskFixedAsset" 
+                                location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>
 
