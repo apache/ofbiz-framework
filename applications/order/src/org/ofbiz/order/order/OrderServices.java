@@ -1698,6 +1698,7 @@ public class OrderServices {
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String fromStatusId = (String) context.get("fromStatusId");
         String statusId = (String) context.get("statusId");
+        Timestamp statusDateTime = (Timestamp) context.get("statusDateTime");
         Locale locale = (Locale) context.get("locale");
 
         // check and make sure we have permission to change the order
@@ -1757,14 +1758,16 @@ public class OrderServices {
 
                 orderItem.set("statusId", statusId);
                 toBeStored.add(orderItem);
-
+                if (statusDateTime == null){
+                    statusDateTime = UtilDateTime.nowTimestamp();
+                }
                 // now create a status change
                 Map changeFields = new HashMap();
                 changeFields.put("orderStatusId", delegator.getNextSeqId("OrderStatus").toString());
                 changeFields.put("statusId", statusId);
                 changeFields.put("orderId", orderId);
                 changeFields.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
-                changeFields.put("statusDatetime", UtilDateTime.nowTimestamp());
+                changeFields.put("statusDatetime", statusDateTime);
                 changeFields.put("statusUserLogin", userLogin.getString("userLoginId"));
                 GenericValue orderStatus = delegator.makeValue("OrderStatus", changeFields);
                 toBeStored.add(orderStatus);
