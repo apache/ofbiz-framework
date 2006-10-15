@@ -15,25 +15,37 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-        <fo:table border-spacing="3pt">
-            <fo:table-column column-width="1.5in"/>
-            <fo:table-column column-width="3.75in"/>
-            <fo:table-body>
-                <fo:table-row>
-                    <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderQuoteType}</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block font-weight="bold">${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}</fo:block></fo:table-cell>
-                </fo:table-row>
-                <fo:table-row>
-                    <fo:table-cell><fo:block>${uiLabelMap.OrderOrderQuoteIssueDate}</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block>${(quote.issueDate.toString())?if_exists}</fo:block></fo:table-cell>
-                </fo:table-row>
-                <fo:table-row>
-                    <fo:table-cell><fo:block>${uiLabelMap.OrderOrderQuoteId}</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block>${quote.quoteId}</fo:block></fo:table-cell>
-                </fo:table-row>
-                <fo:table-row>
-                    <fo:table-cell><fo:block>${uiLabelMap.CommonStatus}</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block font-weight="bold">${(statusItem.get("description", locale))?default(quote.statusId?if_exists)}</fo:block></fo:table-cell>
-                </fo:table-row>
-            </fo:table-body>
-        </fo:table>
+<fo:list-block provisional-distance-between-starts="35mm" font-size="10pt">
+    <fo:list-item>
+        <fo:list-item-label>
+            <fo:block font-weight="bold">${uiLabelMap.OrderQuoteType}</fo:block>
+        </fo:list-item-label>
+        <fo:list-item-body start-indent="body-start()">
+            <fo:block font-weight="bold">${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}</fo:block>
+        </fo:list-item-body>
+    </fo:list-item>
+    <fo:list-item>
+        <fo:list-item-label>
+            <fo:block>${uiLabelMap.OrderOrderQuoteIssueDate}</fo:block>
+        </fo:list-item-label>
+        <fo:list-item-body start-indent="body-start()">
+            <fo:block>${(quote.issueDate.toString())?if_exists}</fo:block>
+        </fo:list-item-body>
+    </fo:list-item>
+    <fo:list-item>
+        <fo:list-item-label>
+            <fo:block>${uiLabelMap.OrderOrderQuoteId}</fo:block>
+        </fo:list-item-label>
+        <fo:list-item-body start-indent="body-start()">
+            <fo:block>${quote.quoteId}</fo:block>
+        </fo:list-item-body>
+    </fo:list-item>
+    <fo:list-item>
+        <fo:list-item-label>
+            <fo:block>${uiLabelMap.CommonStatus}</fo:block>
+        </fo:list-item-label>
+        <fo:list-item-body start-indent="body-start()">
+            <fo:block font-weight="bold">${(statusItem.get("description", locale))?default(quote.statusId?if_exists)}</fo:block>
+        </fo:list-item-body>
+    </fo:list-item>
+</fo:list-block>
