@@ -236,7 +236,14 @@ under the License.
     <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="PRUN_COMPLETED" statusTypeId="PRODUCTION_RUN"/>
     <StatusItem description="Closed" sequenceId="05" statusCode="CLOSED" statusId="PRUN_CLOSED" statusTypeId="PRODUCTION_RUN"/>
     <StatusItem description="Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PRUN_CANCELLED" statusTypeId="PRODUCTION_RUN"/>
-    
+
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_DOC_PRINTED" transitionName="Confirm"/>
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
+    <StatusValidChange statusId="PRUN_DOC_PRINTED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
+    <StatusValidChange statusId="PRUN_RUNNING" statusIdTo="PRUN_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange statusId="PRUN_COMPLETED" statusIdTo="PRUN_CLOSED" transitionName="Close"/>
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_CANCELLED" transitionName="Cancel"/>
+
     <!-- ProductionRun Inventory assignement status -->
     <WorkEffortGoodStandardType workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" description="Product and Routing Association" hasTable="N" parentTypeId=""/>
     <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUN_PROD_DELIV" description="Production Run and Product to Deliver Association" hasTable="N" parentTypeId=""/>
