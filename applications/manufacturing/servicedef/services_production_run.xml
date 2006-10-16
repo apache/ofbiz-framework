@@ -300,30 +300,4 @@ under the License.
         <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
         <attribute mode="OUT" name="totalCost" optional="false" type="BigDecimal"/>
     </service>
-    <service name="createWorkEffortFixedAssetAssign" engine="simple" auth="true"
-            default-entity-name="WorkEffortFixedAssetAssign"
-            location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" 
-            invoke="createWorkEffortFixedAssetAssign">
-        <description>Create a WorkEffortFixedAssetAssign entry to associate a fixed asset
-            with a production run task</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
-        <auto-attributes include="nonpk" mode="IN" optional="true" />
-        <override name="fromDate" optional="true" />
-    </service>
-    <service name="updateWorkEffortFixedAssetAssign" engine="simple" auth="true" 
-            default-entity-name="WorkEffortFixedAssetAssign"
-            location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" 
-            invoke="updateWorkEffortFixedAssetAssign">
-        <description>Update an existing WorkEffortFixedAssetAssign entry</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
-        <auto-attributes include="nonpk" mode="IN" optional="true" />
-    </service>
-    <service name="removeWorkEffortFixedAssetAssign" engine="simple" auth="true" 
-            default-entity-name="WorkEffortFixedAssetAssign"
-            location="org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" 
-            invoke="removeWorkEffortFixedAssetAssign">
-        <description>Remove a WorkEffortFixedAssign entry, which removes the association between a fixed asset
-            and a production run task</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
-    </service>
 </services>

@@ -798,4 +798,94 @@ under the License.
         <set from-field="workEffort.estimatedCompletionDate" field="newEntity.thruDate"/>
         <create-value value-name="newEntity"/>
     </simple-method>
+
+    <!-- WorkEffort-FixedAsset -->
+    <simple-method method-name="createWorkEffortFixedAssetStd" 
+            short-description="Create a WorkEffort FixedAsset Standard">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortFixedAssetStd" value-name="lookedUpValue" />
+        <if-not-empty field-name="lookedUpValue">
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortFixedAssetAlreadyExist"/>
+            </add-error>
+            <check-errors />
+        <else>
+            <make-value entity-name="WorkEffortFixedAssetStd" value-name="newWEFixedAssetStd" />
+            <set-pk-fields map-name="parameters" value-name="newWEFixedAssetStd" />
+            <set-nonpk-fields map-name="parameters" value-name="newWEFixedAssetStd" />
+            <create-value value-name="newWEFixedAssetStd" />            
+        </else>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="updateWorkEffortFixedAssetStd" 
+            short-description="Update an existing WorkEffort FixedAsset Standard">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionERror"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortFixedAssetStd" value-name="lookedUpValue" />
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue" />
+        <store-value value-name="lookedUpValue" />
+    </simple-method>
+    <simple-method method-name="removeWorkEffortFixedAssetStd" 
+            short-description="Delete a WorkEffort FixedAsset Standard">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortFixedAssetStd" value-name="lookedUpValue" />
+        <remove-value value-name="lookedUpValue" />
+    </simple-method>
+    <simple-method method-name="createWorkEffortFixedAssetAssign" 
+            short-description="Create a WorkEffort FixedAsset Assign">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
+        <if-not-empty field-name="lookedUpValue">
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortFixedAssetAsgAlreadyExist"/>
+            </add-error>
+        <else>
+            <make-value entity-name="WorkEffortFixedAssetAssign" value-name="newWEFixedAssetAssign" />
+            <set-pk-fields map-name="parameters" value-name="newWEFixedAssetAssign" />
+            <set-nonpk-fields map-name="parameters" value-name="newWEFixedAssetAssign" />
+            <!-- if the user hasn't specified a fromDate, set it from the actual start date of the task
+                if there is no actual start date, default to now (to the current date and time) -->
+            <if-empty map-name="parameters" field-name="fromDate">
+                <entity-one entity-name="WorkEffort" value-name="prodRunTask" />
+                <if-not-empty map-name="prodRunTask" field-name="actualStartDate">                    
+                    <set field="newWEFixedAssetAssign.fromDate" from-field="prodRunTask.actualStartDate" />
+                <else>
+                    <now-timestamp-to-env env-name="newWEFixedAssetAssign.fromDate"/>
+                </else>
+                </if-not-empty>
+            </if-empty>
+            <create-value value-name="newWEFixedAssetAssign" />
+        </else>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="updateWorkEffortFixedAssetAssign" 
+            short-description="Update an existing WorkEffort FixedAsset Assign">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue" />
+        <store-value value-name="lookedUpValue" />
+    </simple-method>
+    <simple-method method-name="removeWorkEffortFixedAssetAssign" 
+            short-description="Remove a WorkEffort FixedAsset Assign">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
+        <remove-value value-name="lookedUpValue" />
+    </simple-method>
 </simple-methods>
