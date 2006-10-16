@@ -294,56 +294,6 @@ under the License.
             </else>
         </if>
     </simple-method>
-    <simple-method method-name="createWorkEffortFixedAssetAssign" 
-            short-description="Create a WorkEffort FixedAsset Assign">
-        <check-permission permission="MANUFACTURING" action="_CREATE">
-            <fail-property resource="ManufacturingUiLabels" property="ManufacturingCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
-        <if-not-empty field-name="lookedUpValue">
-            <add-error>
-                <fail-property resource="ManufacturingUiLabels" 
-                    property="ManufacturingWorkEffortFixedAssetAsgAlreadyExist"/>
-            </add-error>
-        <else>
-            <make-value entity-name="WorkEffortFixedAssetAssign" value-name="newWEFixedAssetAssign" />
-            <set-pk-fields map-name="parameters" value-name="newWEFixedAssetAssign" />
-            <set-nonpk-fields map-name="parameters" value-name="newWEFixedAssetAssign" />
-            <!-- if the user hasn't specified a fromDate, set it from the actual start date of the task
-                if there is no actual start date, default to now (to the current date and time) -->
-            <if-empty map-name="parameters" field-name="fromDate">
-                <entity-one entity-name="WorkEffort" value-name="prodRunTask" />
-                <if-not-empty map-name="prodRunTask" field-name="actualStartDate">                    
-                    <set field="newWEFixedAssetAssign.fromDate" from-field="prodRunTask.actualStartDate" />
-                <else>
-                    <now-timestamp-to-env env-name="newWEFixedAssetAssign.fromDate"/>
-                </else>
-                </if-not-empty>
-            </if-empty>
-            <create-value value-name="newWEFixedAssetAssign" />
-        </else>
-        </if-not-empty>
-    </simple-method>
-    <simple-method method-name="updateWorkEffortFixedAssetAssign" 
-            short-description="Update an existing WorkEffort FixedAsset Assign">
-        <check-permission permission="MANUFACTURING" action="_UPDATE">
-            <fail-property resource="ManufacturingUiLabels" property="ManufacturingUpdatePermissionError"/>
-        </check-permission>
-        <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue" />
-        <store-value value-name="lookedUpValue" />
-    </simple-method>
-    <simple-method method-name="removeWorkEffortFixedAssetAssign" 
-            short-description="Remove a WorkEffort FixedAsset Assign">
-        <check-permission permission="MANUFACTURING" action="_DELETE">
-            <fail-property resource="ManufacturingUiLabels" property="ManufacturingDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
-        <remove-value value-name="lookedUpValue" />
-    </simple-method>
     
 </simple-methods>
 
