@@ -28,10 +28,6 @@ under the License.
     </define>
 
     <!-- ====== Start View Specific Regions ====== -->
-    <define id="main" region="MAIN_REGION">
-        <put section="title">Main Page</put>
-        <put section="content" content="/main.jsp"/>
-    </define>
 
     <define id="install" region="MAIN_REGION">
         <put section="title">Install Page</put>
