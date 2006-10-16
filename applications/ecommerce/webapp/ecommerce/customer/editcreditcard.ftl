@@ -16,7 +16,7 @@ under the License.
 
 <#if canNotView>
   <p><h3>${uiLabelMap.AccountingCardInfoNotBelongToYou}.</h3></p>
-&nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonBack}]</a>
+&nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBack}</a>
 <#else>
     <#if !creditCard?exists>
       <p class="head1">${uiLabelMap.AccountingAddNewCreditCard}</p>
@@ -26,8 +26,8 @@ under the License.
       <form method="post" action="<@ofbizUrl>updateCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
         <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
     </#if>
-      &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonCancelDone}]</a>
-      &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
+      &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancelDone}</a>
+      &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
 
     <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <tr>
@@ -254,7 +254,7 @@ under the License.
   </table>
   </form>
 
-  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonCancelDone}]</a>
-  &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
+  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancelDone}</a>
+  &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
 </#if>
 

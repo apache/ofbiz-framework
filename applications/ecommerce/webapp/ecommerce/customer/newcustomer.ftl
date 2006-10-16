@@ -332,8 +332,8 @@ under the License.
 <div class="tabletext">${uiLabelMap.CommonFieldsMarkedAreRequired}</div>
 
 <div>
-&nbsp;&nbsp;<a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="buttontextbig">[${uiLabelMap.CommonBack}]</a>
-&nbsp;&nbsp;<a href="javascript:document.newuserform.submit()" class="buttontextbig">[${uiLabelMap.CommonSave}]</a>
+&nbsp;&nbsp;<a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.CommonBack}</a>
+&nbsp;&nbsp;<a href="javascript:document.newuserform.submit()" class="buttontextbig">${uiLabelMap.CommonSave}</a>
 </div>
 
 <br/>
