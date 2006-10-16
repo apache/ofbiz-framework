@@ -32,10 +32,6 @@ under the License.
         <put section="title">Main Page</put>
         <put section="content" content="/main.jsp"/>
     </define>
-    <define id="login" region="MAIN_REGION">
-        <put section="title">Login Page</put>
-        <put section="content" content="/login.jsp"/>
-    </define>
 
     <define id="install" region="MAIN_REGION">
         <put section="title">Install Page</put>
