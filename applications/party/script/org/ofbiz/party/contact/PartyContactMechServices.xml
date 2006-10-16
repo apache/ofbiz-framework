@@ -19,8 +19,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
     <simple-method method-name="createPartyContactMech" short-description="Create a PartyContactMech">
-        <log level="always" message="In createPartyContactMech parameters: ${parameters}"/>
-        
         <make-value entity-name="PartyContactMech" value-name="newValue"/>
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/><!-- DEJ20061016: is this really needed? doesn't seem to be used... -->
         <if-empty map-name="parameters" field-name="partyId">
@@ -34,9 +32,8 @@ under the License.
         <check-errors/>
         
         <if-empty map-name="parameters" field-name="contactMechId">
-            <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
-            <call-service service-name="createContactMech" in-map-name="context">
+            <set-service-fields service-name="createContactMech" map-name="parameters" to-map-name="createContactMechMap"/>
+            <call-service service-name="createContactMech" in-map-name="createContactMechMap">
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
             </call-service>    
             <log level="info" message="ContactMech created"/>    
@@ -54,8 +51,6 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updatePartyContactMech" short-description="Update a PartyContactMech">
-        <log level="always" message="In updatePartyContactMech parameters: ${parameters}"/>
-        
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
         <if-empty map-name="parameters" field-name="partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
@@ -80,12 +75,8 @@ under the License.
         
         <!-- If we already have a new contactMechId don't update ContactMech -->
         <if-empty map-name="parameters" field-name="newContactMechId">                
-            <log level="info" message="Calling map procs"/>
-            <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                processor-name="updateContactMech" in-map-name="parameters" out-map-name="context"/>
-            <to-string field-name="contactMechId" map-name="context"/>
-            <log level="info" message="Calling generic updateContactMech method"/>
-            <call-service service-name="updateContactMech" in-map-name="context">
+            <set-service-fields service-name="updateContactMech" map-name="parameters" to-map-name="updateContactMechMap"/>
+            <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
                 <default-message>Contact Mechanism successfully updated.</default-message>
                 <result-to-field result-name="contactMechId" map-name="newPartyContactMech"/>
             </call-service>
@@ -164,12 +155,8 @@ under the License.
         </if-compare-field>
         <check-errors/>
 
-        <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
-        <check-errors/>
-
-        <call-service in-map-name="context" service-name="createPostalAddress">
+        <set-service-fields service-name="createPostalAddress" map-name="parameters" to-map-name="createPostalAddressMap"/>
+        <call-service in-map-name="createPostalAddressMap" service-name="createPostalAddress">
             <default-message>Postal Address successfully created</default-message>
             <result-to-field result-name="contactMechId" map-name="newPartyContactMech"/>
         </call-service>
@@ -198,11 +185,8 @@ under the License.
         </if-compare-field>
         <check-errors/>
         
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
-        <check-errors/>
-        <set field="context.partyId" from-field="parameters.partyId"/>
-        <call-service in-map-name="context" service-name="updatePostalAddress">
+        <set-service-fields service-name="updatePostalAddress" map-name="parameters" to-map-name="updatePostalAddressMap"/>
+        <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
             <result-to-field result-name="contactMechId" map-name="newPartyContactMech" field-name="contactMechId" />             
         </call-service>
@@ -229,11 +213,9 @@ under the License.
         </if-compare-field>
         <check-errors/>
                 
-        <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
         <log level="info" message="Creating telecom number"/>
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>           
-        <call-service in-map-name="context" service-name="createTelecomNumber">
+        <set-service-fields service-name="createTelecomNumber" map-name="parameters" to-map-name="createTelecomNumberMap"/>           
+        <call-service in-map-name="createTelecomNumberMap" service-name="createTelecomNumber">
             <default-message>Telecom number successfully created</default-message>
             <result-to-field result-name="contactMechId" map-name="newPartyContactMech"/>             
         </call-service>
@@ -261,9 +243,8 @@ under the License.
         </if-compare-field>
         <check-errors/>
         
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>          
-        <call-service in-map-name="context" service-name="updateTelecomNumber">
+        <set-service-fields service-name="updateTelecomNumber" map-name="parameters" to-map-name="updateTelecomNumberMap"/>          
+        <call-service service-name="updateTelecomNumber" in-map-name="updateTelecomNumberMap">
             <default-message>Telecom Number successfully updated</default-message>
             <result-to-field result-name="contactMechId" map-name="newPartyContactMech" field-name="contactMechId" />             
         </call-service>
@@ -290,13 +271,16 @@ under the License.
                 <fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/>
             </check-permission>
         </if-compare-field>
+
+        <if-validate-method field-name="parameters.emailAddress" method="isEmail">
+            <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
+        </if-validate-method>
         <check-errors/>
                 
-        <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
-            processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
-        <check-errors/>
-        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <call-service service-name="createPartyContactMech" in-map-name="context">
+        <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="createPartyContactMechMap"/>
+        <set field="createPartyContactMechMap.infoString" from-field="parameters.emailAddress"/>
+        <set field="createPartyContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
+        <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap">
             <default-message>Party Contact Mechanism successfully created.</default-message>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
@@ -312,13 +296,16 @@ under the License.
                 <fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/>
             </check-permission>
         </if-compare-field>
+
+        <if-validate-method field-name="parameters.emailAddress" method="isEmail">
+            <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
+        </if-validate-method>
         <check-errors/>
                
-        <call-map-processor xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
-            processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
-        <check-errors/>
-        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <call-service service-name="updatePartyContactMech" in-map-name="context">
+        <set-service-fields service-name="updatePartyContactMech" map-name="parameters" to-map-name="updatePartyContactMechMap"/>
+        <set field="updatePartyContactMechMap.infoString" from-field="parameters.emailAddress"/>
+        <set field="updatePartyContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
+        <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechMap">
             <default-message>Party Contact Mechanism successfully updated.</default-message>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
@@ -326,7 +313,6 @@ under the License.
     </simple-method>
 	
     <simple-method method-name="findPartyFromEmailAddress" short-description="Find partyId from email address">
-
         <set field="input.entityName" value="PartyAndContactMech"/>
         <set field="input.filterByDate" value="Y"/>
         <set field="input.inputFields.infoString" from-field="parameters.address"/>

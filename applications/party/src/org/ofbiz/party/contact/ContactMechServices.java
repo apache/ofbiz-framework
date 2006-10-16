@@ -790,6 +790,7 @@ public class ContactMechServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map createPartyContactMechPurpose(DispatchContext ctx, Map context) {
+        //Debug.logInfo(new Exception(), "In createPartyContactMechPurpose context: " + context, module);
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
@@ -799,17 +800,19 @@ public class ContactMechServices {
         String errMsg = null;
         Locale locale = (Locale) context.get("locale");
 
-        if (result.size() > 0)
+        if (result.size() > 0) {
             return result;
+        }
 
         // required parameters
         String contactMechId = (String) context.get("contactMechId");
         String contactMechPurposeTypeId = (String) context.get("contactMechPurposeTypeId");
 
         GenericValue tempVal = null;
-
         try {
-            List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null), true);
+            Map pcmpFindMap = UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId);
+            //Debug.logInfo("pcmpFindMap = " + pcmpFindMap, module);
+            List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", pcmpFindMap), true);
 
             tempVal = EntityUtil.getFirst(allPCMPs);
         } catch (GenericEntityException e) {
@@ -821,7 +824,8 @@ public class ContactMechServices {
 
         if (tempVal != null) {
             // exists already with valid date, show warning
-            errMsg = UtilProperties.getMessage(resource,"contactmechservices.could_not_create_new_purpose_already_exists", locale);
+            errMsg = UtilProperties.getMessage(resource, "contactmechservices.could_not_create_new_purpose_already_exists", locale);
+            errMsg += ": " + tempVal.getPrimaryKey().toString();
             return ServiceUtil.returnError(errMsg);
         } else {
             // no entry with a valid date range exists, create new with open thruDate

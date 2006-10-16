@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -48,16 +47,6 @@ under the License.
         <process field="allowSolicitation"><copy/></process>
     </simple-map-processor>
 
-    <simple-map-processor name="emailAddress">
-    	<process field="contactMechId"><copy set-if-null="false"/></process>
-        <process field="partyId"><copy/></process>
-        <process field="emailAddress">
-            <copy to-field="infoString"/>
-            <not-empty><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissing"/></not-empty>
-            <validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method></process>
-        <process field="allowSolicitation"><copy/></process>
-    </simple-map-processor>
-
     <!-- PartyContactMechPurpose map procs -->
     <simple-map-processor name="createPartyContactMechPurpose">
         <process field="partyId"><copy/></process>
@@ -72,6 +61,4 @@ under the License.
             <not-empty><fail-property resource="PartyUiLabels" property="CommonFromDateMissing"/></not-empty>
             <convert type="Timestamp"><fail-property resource="PartyUiLabels" property="CommonFromDateNotValidDateTime"/></convert></process>
     </simple-map-processor>
-  
-   <!-- PartyContactMech -->
 </simple-map-processors>
