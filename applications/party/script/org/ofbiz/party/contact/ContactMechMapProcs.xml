@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -18,53 +17,46 @@ under the License.
 
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
-  <!-- ContactMech map procs -->
-  <simple-map-processor name="contactMech">
-    <process field="contactMechTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechTypeIdMissing"/>
-		</not-empty></process>
-    <process field="infoString"><copy/></process>
-  </simple-map-processor>
-  <simple-map-processor name="updateContactMech">
-    <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/>
-    	</not-empty></process>
-	<process field="contactMechTypeId"><copy/></process>
-    <process field="infoString"><copy/></process> 
-  </simple-map-processor>
+    <!-- ContactMech map procs -->
+    <simple-map-processor name="contactMech">
+        <process field="contactMechTypeId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechTypeIdMissing"/></not-empty></process>
+        <process field="infoString"><copy/></process>
+    </simple-map-processor>
+    <simple-map-processor name="updateContactMech">
+        <process field="contactMechId"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+        <process field="contactMechTypeId"><copy/></process>
+        <process field="infoString"><copy/></process> 
+    </simple-map-processor>
 
-  <simple-map-processor name="postalAddress">
-  	<process field="contactMechId"><copy set-if-null="false"/></process>	
-    <process field="toName"><copy/></process>
-    <process field="attnName"><copy/></process>
-    <process field="address1"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/>
-    	</not-empty></process>
-    <process field="address2"><copy/></process>
-    <process field="directions"><copy/></process>
-    <process field="city"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/>
-    	</not-empty></process>
-    <process field="stateProvinceGeoId"><copy/></process>
-    <process field="postalCode"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/>
-    	</not-empty></process>
-    <process field="postalCodeExt"><copy/></process>
-    <process field="countryGeoId"><copy/></process>
-    <process field="postalCodeGeoId"><copy/></process>
-  </simple-map-processor>
+    <simple-map-processor name="postalAddress">
+        <process field="contactMechId"><copy set-if-null="false"/></process>
+        <process field="toName"><copy/></process>
+        <process field="attnName"><copy/></process>
+        <process field="address1"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
+        <process field="address2"><copy/></process>
+        <process field="directions"><copy/></process>
+        <process field="city"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
+        <process field="stateProvinceGeoId"><copy/></process>
+        <process field="postalCode"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/></not-empty></process>
+        <process field="postalCodeExt"><copy/></process>
+        <process field="countryGeoId"><copy/></process>
+        <process field="postalCodeGeoId"><copy/></process>
+    </simple-map-processor>
 
-  <simple-map-processor name="telecomNumber">
-  	<process field="contactMechId"><copy set-if-null="false"/></process>	  	
-    <process field="countryCode"><copy/></process>
-    <process field="areaCode"><copy/></process>
-    <process field="askForName"><copy/></process>
-    <process field="contactNumber"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactNumberMissing"/>
-    	</not-empty></process>
-  </simple-map-processor>
+    <simple-map-processor name="telecomNumber">
+        <process field="contactMechId"><copy set-if-null="false"/></process>
+        <process field="countryCode"><copy/></process>
+        <process field="areaCode"><copy/></process>
+        <process field="askForName"><copy/></process>
+        <process field="contactNumber"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactNumberMissing"/></not-empty></process>
+    </simple-map-processor>
 
-  <simple-map-processor name="emailAddress">
-  	<process field="contactMechId"><copy set-if-null="false"/></process>
-    <process field="emailAddress">
-        <copy to-field="infoString"/>
-        <not-empty><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissing"/></not-empty>
-        <validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
-        </validate-method>
-     </process>
-  </simple-map-processor>
+    <simple-map-processor name="emailAddress">
+        <process field="contactMechId"><copy set-if-null="false"/></process>
+        <process field="emailAddress">
+            <copy to-field="infoString"/>
+            <not-empty><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissing"/></not-empty>
+            <validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
+         </process>
+    </simple-map-processor>
 </simple-map-processors>
