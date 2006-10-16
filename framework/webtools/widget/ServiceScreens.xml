@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2004-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    
+    <screen name="CommonServiceDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="services"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for WEBTOOLS, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://webtools/webapp/webtools/service/serviceTabBar.ftl"/></html>
+                                </platform-specific>
+                                
+                                <decorator-section-include name="body"/>
+                                
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ServiceList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleServiceList"/>
+                <set field="headerItem" value="services"/>
+                <set field="tabButtonItem" value="ServiceList"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/services.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/service/services.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="JobList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleJobList"/>
+                <set field="headerItem" value="services"/>
+                <set field="tabButtonItem" value="JobList"/>
+                <entity-condition entity-name="JobSandbox" list-name="jobs">
+                    <order-by field-name="-runTime"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/service/jobs.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ThreadList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleThreadList"/>
+                <set field="headerItem" value="services"/>
+                <set field="tabButtonItem" value="ThreadList"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/threads.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/service/threads.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>
+

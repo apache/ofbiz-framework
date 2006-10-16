@@ -316,6 +316,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="serviceList"/>
     </request-map>
+
     <request-map uri="threadList">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="threadList"/>
@@ -539,10 +540,11 @@ under the License.
 
     <view-map name="EditCustomTimePeriod" type="region"/>
 
-    <view-map name="serviceList" type="region"/>
-    <view-map name="threadList" type="region"/>
-    <view-map name="jobList" type="region"/>
     <view-map name="scheduleJob" type="region"/>
+
+    <view-map name="serviceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
+    <view-map name="jobList" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobList"/>
+    <view-map name="threadList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ThreadList"/>
     <view-map name="availableServices" type="screen" page="component://webtools/widget/AvailableServicesScreens.xml#AvailableServicesList"/>
     <view-map name="serviceEcaDetail" type="screen" page="component://webtools/widget/AvailableServicesScreens.xml#ServiceEcaDetail"/>
 
