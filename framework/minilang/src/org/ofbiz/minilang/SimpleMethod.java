@@ -261,6 +261,7 @@ public class SimpleMethod {
 
     // event fields
     protected String eventRequestName;
+    protected String eventSessionName;
     protected String eventResponseName;
     protected String eventResponseCodeName;
     protected String eventErrorMessageName;
@@ -308,6 +309,10 @@ public class SimpleMethod {
         eventRequestName = simpleMethodElement.getAttribute("event-request-object-name");
         if (eventRequestName == null || eventRequestName.length() == 0) {
             eventRequestName = "request";
+        }
+        eventSessionName = simpleMethodElement.getAttribute("event-session-object-name");
+        if (eventSessionName == null || eventSessionName.length() == 0) {
+            eventSessionName = "session";
         }
         eventResponseName = simpleMethodElement.getAttribute("event-response-object-name");
         if (eventResponseName == null || eventResponseName.length() == 0) {
@@ -420,6 +425,10 @@ public class SimpleMethod {
         return this.eventRequestName;
     }
 
+    public String getEventSessionName() {
+        return this.eventSessionName;
+    }
+
     public String getEventResponseCodeName() {
         return this.eventResponseCodeName;
     }
@@ -497,6 +506,7 @@ public class SimpleMethod {
 
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             methodContext.putEnv(eventRequestName, methodContext.getRequest());
+            methodContext.putEnv(eventSessionName, methodContext.getRequest().getSession());
             methodContext.putEnv(eventResponseName, methodContext.getResponse());
         }
         
