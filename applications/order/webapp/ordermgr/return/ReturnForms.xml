@@ -89,6 +89,7 @@
             <service service-name="performFind"  result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
                 <field-map field-name="entityName" value="ReturnHeader"/>
+                <field-map field-name="orderBy" value="entryDate DESC"/>
             </service>
         </actions>
         <field name="returnId"  widget-style="buttontext" title="${uiLabelMap.OrderReturnId}">
