@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -34,13 +33,11 @@ under the License.
         <make-value value-name="newEntity" entity-name="ProductCategory"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="newEntity"/>
-        <if-empty field-name="productCategoryId" map-name="newEntity">
-            <sequenced-id-to-env sequence-name="ProductCategory" env-name="productCategoryId"/>
-            <to-string field-name="productCategoryId"/>
-            <env-to-field env-name="productCategoryId" map-name="newEntity"/>
+        <if-empty field-name="parameters.productCategoryId">
+            <sequenced-id-to-env sequence-name="ProductCategory" env-name="newEntity.productCategoryId"/>
         <else>
-            <check-id field-name="productCategoryId" map-name="newEntity"/>
+            <set field="newEntity.productCategoryId" from-field="parameters.productCategoryId"/>
+            <check-id field-name="newEntity.productCategoryId"/>
             <check-errors/>
         </else>
         </if-empty>
@@ -61,23 +58,23 @@ under the License.
 
         <!-- if the user has the role limited position, add this category to the limit category/ies -->
         <if-has-permission permission="CATALOG_ROLE" action="_CREATE">
-            <field-to-field field-name="partyId" map-name="userLogin" to-map-name="lookupCategoryRolesMap"/>
-            <string-to-field string="LTD_ADMIN" field-name="roleTypeId" map-name="lookupCategoryRolesMap"/>
-            <find-by-and entity-name="ProductCategoryRole" map-name="lookupCategoryRolesMap" list-name="productCategoryRoles"/>
-            <filter-list-by-date list-name="productCategoryRoles" valid-date-name="nowTimestamp"/>
+            <entity-and entity-name="ProductCategoryRole" list-name="productCategoryRoles" filter-by-date="true">
+                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
+            </entity-and>
             <iterate entry-name="productCategoryRole" list-name="productCategoryRoles">
                 <!-- add this new product to the category -->
                 <make-value value-name="newLimitRollup" entity-name="ProductCategoryRollup"/>
-                <field-to-field field-name="productCategoryId" map-name="newEntity" to-map-name="newLimitRollup"/>
-                <field-to-field field-name="productCategoryId" map-name="productCategoryRole" to-field-name="parentProductCategoryId" to-map-name="newLimitRollup"/>
-                <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newLimitRollup"/>
+                <set field="newLimitRollup.productCategoryId" from-field="newEntity.productCategoryId"/>
+                <set field="newLimitRollup.parentProductCategoryId" from-field="productCategoryRole.productCategoryId"/>
+                <set field="newLimitRollup.fromDate" from-field="nowTimestamp"/>
                 <create-value value-name="newLimitRollup"/>
             </iterate>
         </if-has-permission>
     </simple-method>
     <simple-method method-name="updateProductCategory" short-description="Update an ProductCategory">
-        <string-to-field string="updateProductCategory" field-name="callingMethodName"/>
-        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <set field="callingMethodName" value="updateProductCategory"/>
+        <set field="checkAction" value="UPDATE"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -109,8 +106,8 @@ under the License.
     <simple-method method-name="addProductToCategory" short-description="Add Product to Category">
         <!-- note that the security semantics require the user to have the general admin permission,
             or the role limited permission and association with the category, not the product -->
-        <string-to-field string="addProductToCategory" field-name="callingMethodName"/>
-        <string-to-field string="CREATE" field-name="checkAction"/>
+        <set value="addProductToCategory" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -130,14 +127,14 @@ under the License.
             <iterate entry-name="category" list-name="parameters.categories">
                 <!-- note that the security semantics require the user to have the general admin permission,
                     or the role limited permission and association with the category, not the product -->
-                <field-to-field field-name="category" to-field-name="productCategoryIdToCheck"/>
-                <string-to-field string="addProductToCategories" field-name="callingMethodName"/>
-                <string-to-field string="CREATE" field-name="checkAction"/>
+                <set field="productCategoryIdToCheck" from-field="category"/>
+                <set field="callingMethodName" value="addProductToCategories"/>
+                <set field="checkAction" value="CREATE"/>
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
                 <make-value value-name="newEntity" entity-name="ProductCategoryMember"/>
-                <field-to-field field-name="category" to-field-name="productCategoryId" to-map-name="newEntity"/>
+                <set field="newEntity.productCategoryId" from-field="category"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -150,20 +147,19 @@ under the License.
             <else>
                 <!-- note that the security semantics require the user to have the general admin permission,
                     or the role limited permission and association with the category, not the product -->
-                <field-to-field field-name="parameters.categories" to-field-name="productCategoryIdToCheck"/>
-                <string-to-field string="addProductToCategories" field-name="callingMethodName"/>
-                <string-to-field string="CREATE" field-name="checkAction"/>
+                <set from-field="parameters.categories" field="productCategoryIdToCheck"/>
+                <set field="callingMethodName" value="addProductToCategories"/>
+                <set field="checkAction" value="CREATE"/>
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
                 <make-value value-name="newEntity" entity-name="ProductCategoryMember"/>
-                <field-to-field field-name="parameters.categories" to-field-name="productCategoryId" to-map-name="newEntity"/>
+                <set field="newEntity.productCategoryId" from-field="parameters.categories"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-                <if-empty field-name="fromDate" map-name="newEntity">
-                    <now-timestamp-to-env env-name="nowTimestamp"/>
-                    <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+                <if-empty field-name="newEntity.fromDate">
+                    <now-timestamp-to-env env-name="newEntity.fromDate"/>
                 </if-empty>
 
                 <create-value value-name="newEntity"/>
@@ -174,8 +170,8 @@ under the License.
     <simple-method method-name="updateProductToCategory" short-description="Update Product to Category Application">
         <!-- note that the security semantics require the user to have the general admin permission,
             or the role limited permission and association with the category, not the product -->
-        <string-to-field string="updateProductToCategory" field-name="callingMethodName"/>
-        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <set value="updateProductToCategory" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -188,8 +184,8 @@ under the License.
     <simple-method method-name="removeProductFromCategory" short-description="Remove Product From Category">
         <!-- note that the security semantics require the user to have the general admin permission,
             or the role limited permission and association with the category, not the product -->
-        <string-to-field string="removeProductFromCategory" field-name="callingMethodName"/>
-        <string-to-field string="DELETE" field-name="checkAction"/>
+        <set value="removeProductFromCategory" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -211,8 +207,8 @@ under the License.
     <!-- ================================================================ -->
 
     <simple-method method-name="addPartyToCategory" short-description="Add Party to Category">
-        <string-to-field string="addPartyToCategory" field-name="callingMethodName"/>
-        <string-to-field string="CREATE" field-name="checkAction"/>
+        <set value="addPartyToCategory" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -220,16 +216,15 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="fromDate" map-name="newEntity">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        <if-empty field-name="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyToCategory" short-description="Update Party to Category Application">
-        <string-to-field string="updatePartyToCategory" field-name="callingMethodName"/>
-        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <set value="updatePartyToCategory" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -240,8 +235,8 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removePartyFromCategory" short-description="Remove Party From Category">
-        <string-to-field string="removePartyFromCategory" field-name="callingMethodName"/>
-        <string-to-field string="DELETE" field-name="checkAction"/>
+        <set value="removePartyFromCategory" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -256,10 +251,10 @@ under the License.
     <!-- ================================================================ -->
 
     <simple-method method-name="addProductCategoryToCategory" short-description="Add ProductCategory to Category">
-        <string-to-field string="addProductCategoryToCategory" field-name="callingMethodName"/>
-        <string-to-field string="CREATE" field-name="checkAction"/>
+        <set value="addProductCategoryToCategory" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
         <!-- note the the user must be associated with the parent category with the role limited permission -->
-        <string-to-field string="parentProductCategoryId" field-name="productCategoryIdName"/>
+        <set value="parentProductCategoryId" field="productCategoryIdName"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -267,9 +262,8 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="fromDate" map-name="newEntity">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        <if-empty field-name="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-name="newEntity"/>
@@ -277,41 +271,39 @@ under the License.
     <simple-method method-name="addProductCategoryToCategories" short-description="Add ProductCategory to Categories">
         <if-instance-of field-name="parameters.categories" class="java.util.List">
             <iterate entry-name="category" list-name="parameters.categories">
-                <string-to-field string="addProductCategoryToCategories" field-name="callingMethodName"/>
-                <string-to-field string="CREATE" field-name="checkAction"/>
+                <set field="callingMethodName" value="addProductCategoryToCategories"/>
+                <set field="checkAction" value="CREATE"/>
                 <!-- note the the user must be associated with the parent category with the role limited permission -->
-                <field-to-field field-name="category" to-field-name="productCategoryIdToCheck"/>
+                <set field="productCategoryIdToCheck" from-field="category"/>
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
                 <make-value value-name="newEntity" entity-name="ProductCategoryRollup"/>
-                <field-to-field field-name="category" to-field-name="parentProductCategoryId" to-map-name="newEntity"/>
+                <set field="newEntity.parentProductCategoryId" from-field="category"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-                <if-empty field-name="fromDate" map-name="newEntity">
-                    <now-timestamp-to-env env-name="nowTimestamp"/>
-                    <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+                <if-empty field-name="newEntity.fromDate">
+                    <now-timestamp-to-env env-name="newEntity.fromDate"/>
                 </if-empty>
 
                 <create-value value-name="newEntity"/>
             </iterate>
             <else>
-                <string-to-field string="addProductCategoryToCategories" field-name="callingMethodName"/>
-                <string-to-field string="CREATE" field-name="checkAction"/>
+                <set value="addProductCategoryToCategories" field="callingMethodName"/>
+                <set value="CREATE" field="checkAction"/>
                 <!-- note the the user must be associated with the parent category with the role limited permission -->
-                <field-to-field field-name="parameters.categories" to-field-name="productCategoryIdToCheck"/>                
+                <set field="productCategoryIdToCheck" from-field="parameters.categories"/>                
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
                 <make-value value-name="newEntity" entity-name="ProductCategoryRollup"/>
-                <field-to-field field-name="parameters.categories" to-field-name="parentProductCategoryId" to-map-name="newEntity"/>
+                <set field="newEntity.parentProductCategoryId" from-field="parameters.categories"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-                <if-empty field-name="fromDate" map-name="newEntity">
-                    <now-timestamp-to-env env-name="nowTimestamp"/>
-                    <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+                <if-empty field-name="newEntity.fromDate">
+                    <now-timestamp-to-env env-name="newEntity.fromDate"/>
                 </if-empty>
 
                 <create-value value-name="newEntity"/>
@@ -319,10 +311,10 @@ under the License.
         </if-instance-of>
     </simple-method>
     <simple-method method-name="updateProductCategoryToCategory" short-description="Update ProductCategory to Category Application">
-        <string-to-field string="updateProductCategoryToCategory" field-name="callingMethodName"/>
-        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <set value="updateProductCategoryToCategory" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
         <!-- note the the user must be associated with the parent category with the role limited permission -->
-        <string-to-field string="parentProductCategoryId" field-name="productCategoryIdName"/>
+        <set value="parentProductCategoryId" field="productCategoryIdName"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -333,10 +325,10 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductCategoryFromCategory" short-description="Remove ProductCategory From Category">
-        <string-to-field string="removeProductCategoryFromCategory" field-name="callingMethodName"/>
-        <string-to-field string="DELETE" field-name="checkAction"/>
+        <set value="removeProductCategoryFromCategory" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
         <!-- note the the user must be associated with the parent category with the role limited permission -->
-        <string-to-field string="parentProductCategoryId" field-name="productCategoryIdName"/>
+        <set value="parentProductCategoryId" field="productCategoryIdName"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
@@ -351,17 +343,18 @@ under the License.
     <!-- ================================================================ -->
 
     <simple-method method-name="copyCategoryProductMembers" short-description="copy CategoryProduct Members to a CategoryProductTo">
-        <string-to-field string="copyCategoryProductMembers" field-name="callingMethodName"/>
-        <string-to-field string="CREATE" field-name="checkAction"/>
+        <set value="copyCategoryProductMembers" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
         <!-- note the the user must be associated with the target category with the role limited permission -->
-        <string-to-field string="productCategoryIdTo" field-name="productCategoryIdName"/>
+        <set value="productCategoryIdTo" field="productCategoryIdName"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="lookupMap"/>
-        <find-by-and entity-name="ProductCategoryMember" map-name="lookupMap" list-name="productCategoryMembers"/>
+        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+            <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
+        </entity-and>
 
-        <field-to-env field-name="validDate" map-name="parameters" env-name="validDate"/>
+        <set field="validDate" from-field="parameters.validDate"/>
         <if-not-empty field-name="validDate">
             <filter-list-by-date list-name="productCategoryMembers" valid-date-name="validDate"/>
         </if-not-empty>
@@ -369,14 +362,14 @@ under the License.
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
         <iterate entry-name="productCategoryMember" list-name="productCategoryMembers">
             <clone-value value-name="productCategoryMember" new-value-name="newProductCategoryMember"/>
-            <field-to-field field-name="productCategoryIdTo" map-name="parameters" to-field-name="productCategoryId" to-map-name="newProductCategoryMember"/>
+            <set field="newProductCategoryMember.productCategoryId" from-field="parameters.productCategoryIdTo"/>
             <field-to-list field-name="newProductCategoryMember" list-name="pcmsToStore"/>
         </iterate>
         <store-list list-name="pcmsToStore"/>
 
         <if-compare field-name="recurse" map-name="parameters" operator="equals" value="Y">
             <!-- call this service for each sub-category in the rollup with the same productCategoryIdTo -->
-            <field-to-field field-name="productCategoryId" map-name="parameters" to-field-name="parentProductCategoryId" to-map-name="lookupChildrenMap"/>
+            <set field="lookupChildrenMap.parentProductCategoryId" from-field="parameters.productCategoryId"/>
             <find-by-and entity-name="ProductCategoryRollup" map-name="lookupChildrenMap" list-name="productCategoryRollups"/>
 
             <if-not-empty field-name="validDate">
@@ -384,35 +377,35 @@ under the License.
             </if-not-empty>
 
             <iterate entry-name="productCategoryRollup" list-name="productCategoryRollups">
-                <field-to-field field-name="productCategoryId" map-name="productCategoryRollup" to-map-name="callServiceMap"/>
-                <field-to-field field-name="productCategoryIdTo" map-name="parameters" to-map-name="callServiceMap"/>
-                <field-to-field field-name="validDate" map-name="parameters" to-map-name="callServiceMap"/>
-                <field-to-field field-name="recurse" map-name="parameters" to-map-name="callServiceMap"/>
+                <set field="callServiceMap.productCategoryId" from-field="productCategoryRollup.productCategoryId"/>
+                <set field="callServiceMap.productCategoryIdTo" from-field="parameters.productCategoryIdTo"/>
+                <set field="callServiceMap.validDate" from-field="parameters.validDate"/>
+                <set field="callServiceMap.recurse" from-field="parameters.recurse"/>
                 <call-service service-name="copyCategoryProductMembers" in-map-name="callServiceMap"/>
             </iterate>
         </if-compare>
     </simple-method>
 
     <simple-method method-name="duplicateCategoryEntities" short-description="a service wrapper for copyCategoryEntities">
-            <string-to-field string="duplicateCategoryEntities" field-name="callingMethodName"/>
+        <set value="duplicateCategoryEntities" field="callingMethodName"/>
         <check-permission permission="CATALOG" action="_CREATE">
             <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
             <fail-message message="Security Error: to run createProductCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
         </check-permission>
         <check-errors/>
 
-            <field-to-env field-name="entityName" map-name="parameters" env-name="entityName"/>
-            <field-to-env field-name="productCategoryId" map-name="parameters" env-name="productCategoryId"/>
-            <field-to-env field-name="productCategoryIdTo" map-name="parameters" env-name="productCategoryIdTo"/>
-        <field-to-env field-name="validDate" map-name="parameters" env-name="validDate"/>
-
-            <call-simple-method method-name="copyCategoryEntities"/>
+        <set field="entityName" from-field="parameters.entityName"/>
+        <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+        <set field="productCategoryIdTo" from-field="parameters.productCategoryIdTo"/>
+        <set field="validDate" from-field="parameters.validDate"/>
+        <call-simple-method method-name="copyCategoryEntities"/>
     </simple-method>
 
     <simple-method method-name="copyCategoryEntities" short-description="copies all entities of entityName with a productCategoryId to a new entity with a productCategoryIdTo, 
             filtering them by a timestamp passed in to validDate if necessary">
-        <env-to-field env-name="productCategoryId" field-name="productCategoryId" map-name="lookupMap"/>
-        <find-by-and entity-name="${entityName}" map-name="lookupMap" list-name="categoryEntities"/>
+        <entity-and entity-name="${entityName}" list-name="categoryEntities">
+            <field-map field-name="productCategoryId" env-name="productCategoryId"/>
+        </entity-and>
 
         <if-not-empty field-name="validDate">
             <filter-list-by-date list-name="categoryEntities" valid-date-name="validDate"/>
@@ -421,48 +414,50 @@ under the License.
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
         <iterate entry-name="categoryEntity" list-name="categoryEntities">
             <clone-value value-name="categoryEntity" new-value-name="newCategoryEntity"/>
-            <env-to-field env-name="productCategoryIdTo" field-name="productCategoryId" map-name="newCategoryEntity"/>
+            <set field="newCategoryEntity.productCategoryId" from-field="productCategoryIdTo"/>
             <field-to-list field-name="newCategoryEntity" list-name="entitiesToStore"/>
         </iterate>
         <store-list list-name="entitiesToStore"/>
       </simple-method>
 
     <simple-method method-name="expireAllCategoryProductMembers" short-description="Remove ProductCategory From Category">
-        <string-to-field string="expireAllCategoryProductMembers" field-name="callingMethodName"/>
-        <string-to-field string="UPDATE" field-name="checkAction"/>
+        <set value="expireAllCategoryProductMembers" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <if-not-empty field-name="thruDate" map-name="parameters">
-            <field-to-env field-name="thruDate" map-name="parameters" env-name="expireTimestamp"/>
+        <if-not-empty field-name="parameters.thruDate">
+            <set field="expireTimestamp" from-field="parameters.thruDate"/>
             <else>
                 <now-timestamp-to-env env-name="expireTimestamp"/>
             </else>
         </if-not-empty>
 
-        <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="lookupMap"/>
-        <find-by-and entity-name="ProductCategoryMember" map-name="lookupMap" list-name="productCategoryMembers"/>
+        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+            <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
+        </entity-and>
 
         <iterate entry-name="productCategoryMember" list-name="productCategoryMembers">
-            <env-to-field env-name="expireTimestamp" field-name="thruDate" map-name="productCategoryMember"/>
+            <set field="productCategoryMember.thruDate" from-field="expireTimestamp"/>
             <store-value value-name="productCategoryMember"/>
         </iterate>
     </simple-method>
     <simple-method method-name="removeExpiredCategoryProductMembers" short-description="Remove ProductCategory From Category">
-        <string-to-field string="removeExpiredCategoryProductMembers" field-name="callingMethodName"/>
-        <string-to-field string="DELETE" field-name="checkAction"/>
+        <set value="removeExpiredCategoryProductMembers" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <if-not-empty field-name="validDate" map-name="parameters">
-            <field-to-env field-name="validDate" map-name="parameters" env-name="expireTimestamp"/>
+        <if-not-empty field-name="parameters.validDate">
+            <set field="expireTimestamp" from-field="parameters.validDate"/>
             <else>
                 <now-timestamp-to-env env-name="expireTimestamp"/>
             </else>
         </if-not-empty>
 
-        <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="lookupMap"/>
-        <find-by-and entity-name="ProductCategoryMember" map-name="lookupMap" list-name="productCategoryMembers"/>
+        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+            <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
+        </entity-and>
 
         <iterate entry-name="productCategoryMember" list-name="productCategoryMembers">
             <if-compare-field field-name="thruDate" map-name="productCategoryMember" operator="less" to-field-name="expireTimestamp" type="Timestamp">
@@ -475,20 +470,20 @@ under the License.
     <!-- Special Category Related Create Services -->
     <!-- ================================================================ -->
     <simple-method method-name="createProductInCategory" short-description="Create a Product in a Category along with special information such as features">
-        <string-to-field string="createProductInCategory" field-name="callingMethodName"/>
-        <string-to-field string="CREATE" field-name="checkAction"/>
+        <set value="createProductInCategory" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <if-empty field-name="currencyUomId" map-name="parameters">
+        <if-empty field-name="parameters.currencyUomId">
             <!-- default to USD for lack of a better alternative, for now anyway... -->
-            <string-to-field string="USD" field-name="currencyUomId" map-name="parameters"/>
+            <set field="parameters.currencyUomId" value="USD"/>
         </if-empty>
 
         <!-- create Product -->
         <set-service-fields service-name="createProduct" map-name="parameters" to-map-name="callCreateProductMap"/>
-        <if-empty field-name="productTypeId" map-name="callCreateProductMap">
-            <string-to-field string="FINISHED_GOOD" field-name="productTypeId" map-name="callCreateProductMap"/>
+        <if-empty field-name="callCreateProductMap.productTypeId">
+            <set field="callCreateProductMap.productTypeId" value="FINISHED_GOOD"/>
         </if-empty>
         <call-service service-name="createProduct" in-map-name="callCreateProductMap">
             <result-to-field result-name="productId"/>
@@ -496,42 +491,42 @@ under the License.
         <field-to-result field-name="productId"/>
 
         <!-- create ProductCategoryMember -->
-        <env-to-field env-name="productId" map-name="callCreateProductCategoryMemberMap"/>
-        <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="callCreateProductCategoryMemberMap"/>
+        <set field="callCreateProductCategoryMemberMap.productId" from-field="productId"/>
+        <set field="callCreateProductCategoryMemberMap.productCategoryId" from-field="parameters.productCategoryId"/>
         <call-service service-name="addProductToCategory" in-map-name="callCreateProductCategoryMemberMap"/>
 
         <!-- create defaultPrice and averageCost ProductPrice -->
         <if-not-empty field-name="parameters.defaultPrice">
-            <env-to-field env-name="productId" map-name="createDefaultPriceMap"/>
-            <field-to-field field-name="currencyUomId" map-name="parameters" to-map-name="createDefaultPriceMap"/>
-            <env-to-env env-name="parameters.defaultPrice" to-env-name="createDefaultPriceMap.price"/>
-            <string-to-field string="_NA_" field-name="createDefaultPriceMap.productStoreGroupId"/>
-            <string-to-field string="DEFAULT_PRICE" field-name="createDefaultPriceMap.productPriceTypeId"/>
+            <set field="createDefaultPriceMap.productId" from-field="productId"/>
+            <set field="createDefaultPriceMap.currencyUomId" from-field="parameters.currencyUomId"/>
+            <set field="createDefaultPriceMap.price" from-field="parameters.defaultPrice"/>
+            <set field="createDefaultPriceMap.productStoreGroupId" value="_NA_"/>
+            <set field="createDefaultPriceMap.productPriceTypeId" value="DEFAULT_PRICE"/>
             <set field="createDefaultPriceMap.productPricePurposeId" value="PURCHASE"/>
             <call-service service-name="createProductPrice" in-map-name="createDefaultPriceMap"/>
         </if-not-empty>
 
         <if-not-empty field-name="parameters.averageCost">
-            <env-to-field env-name="productId" map-name="createAverageCostMap"/>
-            <field-to-field field-name="currencyUomId" map-name="parameters" to-map-name="createAverageCostMap"/>
-            <env-to-env env-name="parameters.averageCost" to-env-name="createAverageCostMap.price"/>
-            <string-to-field string="_NA_" field-name="createAverageCostMap.productStoreGroupId"/>
-            <string-to-field string="AVERAGE_COST" field-name="createAverageCostMap.productPriceTypeId"/>
+            <set field="createAverageCostMap.productId" from-field="productId"/>
+            <set field="createAverageCostMap.currencyUomId" from-field="parameters.currencyUomId"/>
+            <set field="createAverageCostMap.price" from-field="parameters.averageCost"/>
+            <set field="createAverageCostMap.productStoreGroupId" value="_NA_"/>
+            <set field="createAverageCostMap.productPriceTypeId" value="AVERAGE_COST"/>
             <set field="createAverageCostMap.productPricePurposeId" value="PURCHASE"/>
             <call-service service-name="createProductPrice" in-map-name="createAverageCostMap"/>
         </if-not-empty>
 
         <!-- create ProductFeatureAppl(s) -->
-        <string-to-field string="N" field-name="hasSelectableFeatures"/>
+        <set field="hasSelectableFeatures" value="N"/>
         <iterate-map map-name="parameters.productFeatureIdByType" key-name="productFeatureTypeId" value-name="productFeatureId">
             <log level="info" message="Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]"/>
-            <env-to-field env-name="productId" map-name="createPfaMap"/>
-            <env-to-field env-name="productFeatureId" map-name="createPfaMap"/>
+            <set field="createPfaMap.productId" from-field="productId"/>
+            <set field="createPfaMap.productFeatureId" from-field="productFeatureId"/>
             <if-compare field-name="${productFeatureTypeId}" map-name="parameters.productFeatureSelectableByType" operator="equals" value="Y">
-                <string-to-field string="SELECTABLE_FEATURE" field-name="productFeatureApplTypeId" map-name="createPfaMap"/>
-                <string-to-field string="Y" field-name="hasSelectableFeatures"/>
+                <set field="createPfaMap.productFeatureApplTypeId" value="SELECTABLE_FEATURE"/>
+                <set field="hasSelectableFeatures" value="Y"/>
             <else>
-                <string-to-field string="STANDARD_FEATURE" field-name="productFeatureApplTypeId" map-name="createPfaMap"/>
+                <set field="createPfaMap.productFeatureApplTypeId" value="STANDARD_FEATURE"/>
             </else>
             </if-compare>
             <call-service service-name="applyFeatureToProduct" in-map-name="createPfaMap"/>
@@ -540,9 +535,8 @@ under the License.
 
         <!-- set isVirtual based on hasSelectableFeatures -->
         <if-compare field-name="hasSelectableFeatures" operator="equals" value="Y">
-            <env-to-field env-name="productId" map-name="findProductMap"/>
-            <find-by-primary-key entity-name="Product" map-name="findProductMap" value-name="newProduct"/>
-            <string-to-field string="Y" field-name="isVirtual" map-name="newProduct"/>
+            <entity-one entity-name="Product" value-name="newProduct"/>
+            <set field="newProduct.isVirtual" value="Y"/>
             <store-value value-name="newProduct"/>
         </if-compare>
     </simple-method>
@@ -551,16 +545,16 @@ under the License.
         call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
     <simple-method method-name="checkCategoryRelatedPermission" short-description="Check Product Category Related Permission">
         <if-empty field-name="callingMethodName">
-            <string-to-field string="this operation" field-name="callingMethodName"/>
+            <set field="callingMethodName" value="this operation"/>
         </if-empty>
         <if-empty field-name="checkAction">
-            <string-to-field string="UPDATE" field-name="checkAction"/>
+            <set field="checkAction" value="UPDATE"/>
         </if-empty>
         <if-empty field-name="productCategoryIdName">
-            <string-to-field string="productCategoryId" field-name="productCategoryIdName"/>
+            <set field="productCategoryIdName" value="productCategoryId"/>
         </if-empty>
         <if-empty field-name="productCategoryIdToCheck">
-            <field-to-field field-name="${productCategoryIdName}" map-name="parameters" to-field-name="productCategoryIdToCheck"/>
+            <set field="productCategoryIdToCheck" from-field="parameters.${productCategoryIdName}"/>
         </if-empty>
 
         <!-- find all role-categories that this category is a member of -->
@@ -569,15 +563,16 @@ under the License.
                 <not><if-has-permission permission="CATALOG" action="_${checkAction}"/></not>
             </condition>
             <then>
-                <field-to-field field-name="productCategoryIdToCheck" to-field-name="productCategoryId" to-map-name="lookupRoleCategoriesMap"/>
-                <field-to-field field-name="partyId" map-name="userLogin" to-map-name="lookupRoleCategoriesMap"/>
-                <string-to-field string="LTD_ADMIN" field-name="roleTypeId" map-name="lookupRoleCategoriesMap"/>
-                <find-by-and entity-name="ProductCategoryRollupAndRole" map-name="lookupRoleCategoriesMap" list-name="roleCategories"/>
+                <entity-and entity-name="ProductCategoryRollupAndRole" list-name="roleCategories">
+                    <field-map field-name="productCategoryId" env-name="productCategoryIdToCheck"/>
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
+                </entity-and>
                 <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp"/>
                 <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
             </then>
         </if>
-        <log level="verbose" message="Checking category permission, roleCategories=${roleCategories}"/>
+        <log level="info" message="Checking category permission, roleCategories=${roleCategories}"/>
         <if>
             <condition>
                 <not>
@@ -598,7 +593,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="duplicateProductCategory" short-description="Duplicate a ProductCategory">
-        <string-to-field string="duplicateProductCategory" field-name="callingMethodName"/>
+        <set value="duplicateProductCategory" field="callingMethodName"/>
         <check-permission permission="CATALOG" action="_CREATE">
             <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
             <fail-message message="Security Error: to run createProductCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
@@ -606,42 +601,41 @@ under the License.
         <check-errors/>
 
         <!-- look up the old product category and clone it -->
-        <field-to-field field-name="oldProductCategoryId" map-name="parameters" to-field-name="productCategoryId" to-map-name="categoryFindContext"/>
-        <find-by-primary-key entity-name="ProductCategory" map-name="categoryFindContext" value-name="oldCategory"/>
+        <entity-one entity-name="ProductCategory" value-name="oldCategory">
+            <field-map field-name="productCategoryId" env-name="parameters.oldProductCategoryId"/>
+        </entity-one>
         <clone-value value-name="oldCategory" new-value-name="newCategory"/>
 
         <!-- set the new product category id, and write it to the datasource -->
-        <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="newCategory"/>
+        <set field="newCategory.productCategoryId" from-field="parameters.productCategoryId"/>
         <create-value value-name="newCategory"/>
-        <field-to-env env-name="productCategoryId" field-name="oldProductCategoryId" map-name="parameters"/>
-        <field-to-env env-name="productCategoryIdTo" field-name="productCategoryId" map-name="parameters"/>
+        <set field="productCategoryId" from-field="parameters.oldProductCategoryId"/>
+        <set field="productCategoryIdTo" from-field="parameters.productCategoryId"/>
 
         <!-- if requested, duplicate related data as well -->
-
-        
         <if-not-empty field-name="duplicateMembers" map-name="parameters">
-          <string-to-field field-name="entityName" string="ProductCategoryMember"/>
-                <call-simple-method method-name="copyCategoryEntities"/>
+            <set field="entityName" value="ProductCategoryMember"/>
+            <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
         <if-not-empty field-name="duplicateContent" map-name="parameters">
-            <string-to-field field-name="entityName" string="ProductCategoryContent"/>
-                <call-simple-method method-name="copyCategoryEntities"/>
+            <set field="entityName" value="ProductCategoryContent"/>
+            <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
         <if-not-empty field-name="duplicateRoles" map-name="parameters">
-            <string-to-field field-name="entityName" string="ProductCategoryRole"/>
-                <call-simple-method method-name="copyCategoryEntities"/>
+            <set field="entityName" value="ProductCategoryRole"/>
+            <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
         <if-not-empty field-name="duplicateAttributes" map-name="parameters">
-            <string-to-field field-name="entityName" string="ProductCategoryAttribute"/>
-                <call-simple-method method-name="copyCategoryEntities"/>
+            <set field="entityName" value="ProductCategoryAttribute"/>
+            <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
         <if-not-empty field-name="duplicateFeatures" map-name="parameters">
-            <string-to-field field-name="entityName" string="ProductFeatureCategoryAppl"/>
-                <call-simple-method method-name="copyCategoryEntities"/>
+            <set field="entityName" value="ProductFeatureCategoryAppl"/>
+            <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
         <if-not-empty field-name="duplicateCatalogs" map-name="parameters">
-            <string-to-field field-name="entityName" string="ProdCatalogCategory"/>
-                <call-simple-method method-name="copyCategoryEntities"/>
+            <set field="entityName" value="ProdCatalogCategory"/>
+            <call-simple-method method-name="copyCategoryEntities"/>
         </if-not-empty>
  
           <!-- parent rollups are where oldProductCategoryId = ProductCategoryRollup.productCategoryId, but the
@@ -651,16 +645,17 @@ under the License.
             <find-by-and entity-name="ProductCategoryRollup" map-name="categoryFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="newTempValue"/>
+                <set field="newTempValue.productCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
         <if-not-empty field-name="duplicateChildRollup" map-name="parameters">
-            <field-to-field field-name="oldProductCategoryId" map-name="parameters" to-field-name="parentProductCategoryId" to-map-name="childCategoryFindContext"/>
-            <find-by-and entity-name="ProductCategoryRollup" map-name="childCategoryFindContext" list-name="foundValues"/>
+            <entity-and entity-name="ProductCategoryRollup" list-name="foundValues">
+                <field-map field-name="parentProductCategoryId" env-name="parameters.oldProductCategoryId"/>
+            </entity-and>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <field-to-field field-name="productCategoryId" map-name="parameters" to-map-name="newTempValue" to-field-name="parentProductCategoryId"/>
+                <set field="newTempValue.parentProductCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -708,6 +703,4 @@ under the License.
         <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-name="ProductCategoryAttributeInstance"/>
         <remove-value value-name="ProductCategoryAttributeInstance"/>
     </simple-method>
-    
-
 </simple-methods>

@@ -73,13 +73,13 @@ under the License.
     <simple-method method-name="updatePaymentMethodAddress" short-description="Update payment method addresses" use-transaction="false">
         <!-- find all CreditCard and EftAccount instances that use the current oldContactMechId and update them
             through the updateCreditCard or updateEftAccount services to use the new contactMechId -->
-        <field-to-field field-name="oldContactMechId" map-name="parameters" to-map-name="lookupMap" to-field-name="contactMechId"/>
+        <set field="lookupMap.contactMechId" from-field="parameters.oldContactMechId"/>
         
         <find-by-and entity-name="CreditCard" map-name="lookupMap" list-name="creditCards"/>
         <iterate entry-name="creditCard" list-name="creditCards">
             <set-service-fields service-name="updateCreditCard" map-name="creditCard" to-map-name="uccMap"/>
-            <field-to-field field-name="contactMechId" map-name="parameters" to-field-name="contactMechId" to-map-name="uccMap"/>
-            <field-to-field field-name="partyId" map-name="parameters" to-field-name="partyId" to-map-name="uccMap"/>
+            <set field="uccMap.contactMechId" from-field="parameters.contactMechId"/>
+            <set field="uccMap.partyId" from-field="parameters.partyId"/>
             <!-- use the service so it will expire the old card and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
             <call-service service-name="updateCreditCard" in-map-name="uccMap" break-on-error="false"/>
         </iterate>
@@ -87,8 +87,8 @@ under the License.
         <find-by-and entity-name="EftAccount" map-name="lookupMap" list-name="eftAccounts"/>
         <iterate entry-name="eftAccount" list-name="eftAccounts">
             <set-service-fields service-name="updateEftAccount" map-name="eftAccount" to-map-name="ueaMap"/>
-            <field-to-field field-name="contactMechId" map-name="parameters" to-field-name="contactMechId" to-map-name="ueaMap"/>
-            <field-to-field field-name="partyId" map-name="parameters" to-field-name="partyId" to-map-name="ueaMap"/>
+            <set field="ueaMap.contactMechId" from-field="parameters.contactMechId"/>
+            <set field="ueaMap.partyId" from-field="parameters.partyId"/>
             <!-- use the service so it will expire the old account and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
             <call-service service-name="updateEftAccount" in-map-name="ueaMap" break-on-error="false"/>
         </iterate>
