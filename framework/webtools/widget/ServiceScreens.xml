@@ -109,6 +109,43 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ScheduleJob">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleScheduleJob"/>
+                <set field="headerItem" value="services"/>
+                <set field="tabButtonItem" value="ScheduleJob"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator">
+                    <decorator-section name="body">
+                        <label style="head1">Step 1: Service And Recurrence Information</label>
+                        <include-form name="scheduleJob" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="setServiceParameters">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleScheduleJob"/>
+                <set field="headerItem" value="services"/>
+                <set field="tabButtonItem" value="ScheduleJob"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator">
+                    <decorator-section name="body">
+                        <label style="head1">Step 2: Service Parameters</label>
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameter.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>
-

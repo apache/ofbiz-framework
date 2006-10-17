@@ -114,9 +114,4 @@ under the License.
         <put section="title">Edit CustomTimePeriod</put>
         <put section="content" content="/period/EditCustomTimePeriod.jsp"/>
     </define>
-
-    <define id="scheduleJob" region="MAIN_REGION">
-    	<put section="title">Schedule Job</put>
-    	<put section="content" content="/service/schedulejob.jsp"/>
-    </define>    
 </regions>

@@ -42,7 +42,7 @@ under the License.
     </td>
     <td align="center">
       <#if !(job.startDateTime?exists) && !(job.finishDateTime?exists) && !(job.cancelDateTime?exists)>
-      <a href="<@ofbizUrl>cancelJob?jobId=${job.jobId}</@ofbizUrl>" class="buttontext">Cancel Job.</a>
+      <a href="<@ofbizUrl>cancelJob?jobId=${job.jobId}</@ofbizUrl>" class="buttontext">Cancel Job</a>
       </#if>
       &nbsp;
     </td>
