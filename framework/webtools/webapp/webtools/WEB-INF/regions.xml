@@ -82,11 +82,6 @@ under the License.
         <put section="content" content="/datafile/viewdatafile.jsp"/>
     </define>
 
-    <define id="logikus" region="MAIN_REGION">
-        <put section="title">Run Logikus Rulesets</put>
-        <put section="content" content="/rules/logikus.jsp"/>
-    </define>
-
     <define id="readxpdl" region="MAIN_REGION">
         <put section="title">Import XPDL File to Workflow Repository</put>
         <put section="content" content="/workflow/readxpdl.jsp"/>

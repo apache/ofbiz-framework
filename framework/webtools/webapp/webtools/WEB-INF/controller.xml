@@ -265,11 +265,6 @@ under the License.
         <response name="success" type="view" value="viewdatafile"/>
     </request-map>
 
-    <request-map uri="logikus">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="logikus"/>
-    </request-map>
-
     <request-map uri="readxpdl">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="readxpdl"/>
@@ -531,7 +526,6 @@ under the License.
     <view-map name="FindUtilCacheElements" type="region"/>
 
     <view-map name="viewdatafile" type="region"/>
-    <view-map name="logikus" type="region"/>
     <view-map name="readxpdl" type="region"/>
     <view-map name="workflowMonitor" type="region"/>
     <view-map name="LogConfiguration" type="screen" page="component://webtools/widget/LogScreens.xml#LogConfiguration"/>
