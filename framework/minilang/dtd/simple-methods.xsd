@@ -535,17 +535,6 @@ under the License.
         <xs:attribute type="xs:string" name="map-name" use="required"/>
         <xs:attribute type="xs:string" name="to-map-name"/>
     </xs:attributeGroup>
-    <xs:element name="field-to-field" substitutionGroup="EnvOperations">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.field-to-field"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.field-to-field">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-map-name"/>
-        <xs:attribute type="xs:string" name="to-field-name"/>
-    </xs:attributeGroup>
     <xs:element name="field-to-list" substitutionGroup="EnvOperations">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.field-to-list"/>
@@ -622,35 +611,6 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="env-to-env" substitutionGroup="EnvOperations">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.env-to-env"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.env-to-env">
-        <xs:attribute type="xs:string" name="env-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-env-name" use="required"/>
-    </xs:attributeGroup>
-    <xs:element name="env-to-field" substitutionGroup="EnvOperations">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.env-to-field"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.env-to-field">
-        <xs:attribute type="xs:string" name="env-name" use="required"/>
-        <xs:attribute type="xs:string" name="field-name"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-    </xs:attributeGroup>
-    <xs:element name="field-to-env" substitutionGroup="EnvOperations">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.field-to-env"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.field-to-env">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="env-name"/>
-    </xs:attributeGroup>
     <xs:element name="string-append" substitutionGroup="EnvOperations">
         <xs:annotation><xs:documentation>NOTE: the prefix and suffix will only be used IFF the current string and the string to be appended are both not empty</xs:documentation></xs:annotation>
         <xs:complexType>
@@ -664,18 +624,6 @@ under the License.
         <xs:attribute type="xs:string" name="arg-list-name"/>
         <xs:attribute type="xs:string" name="prefix"/>
         <xs:attribute type="xs:string" name="suffix"/>
-    </xs:attributeGroup>
-    <xs:element name="string-to-field" substitutionGroup="EnvOperations">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.string-to-field"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.string-to-field">
-        <xs:attribute type="xs:string" name="string" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="arg-list-name"/>
-        <xs:attribute type="xs:string" name="message-field-name"/>
     </xs:attributeGroup>
     <xs:element name="string-to-list" substitutionGroup="EnvOperations">
         <xs:complexType>
