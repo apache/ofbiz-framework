@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -32,8 +31,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProdCatalog you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="prodCatalogId" map-name="parameters" to-map-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProdCatalog" map-name="lookupPKMap" value-name="prodCatalog"/>
+        <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
         <set-nonpk-fields map-name="parameters" value-name="prodCatalog"/>
         <store-value value-name="prodCatalog"/>
     </simple-method>
@@ -41,8 +39,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProdCatalog you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="prodCatalogId" map-name="parameters" to-map-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProdCatalog" map-name="lookupPKMap" value-name="prodCatalog"/>
+        <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
         <remove-value value-name="prodCatalog"/>
     </simple-method>
 
@@ -56,7 +53,7 @@ under the License.
         
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
         
         <create-value value-name="newEntity"/>
@@ -93,9 +90,8 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
-        <if-empty field-name="fromDate" map-name="newEntity">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        <if-empty field-name="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
         <create-value value-name="newEntity"/>

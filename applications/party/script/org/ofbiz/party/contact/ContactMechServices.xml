@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -84,7 +83,7 @@ under the License.
         <make-value entity-name="PostalAddress" value-name="newValue"/>
         <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="POSTAL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message>Contact Mechanism successfully created.</default-message>
             <result-to-field result-name="contactMechId" map-name="newValue"/>
@@ -118,7 +117,7 @@ under the License.
           
         <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="POSTAL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         
         <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
             <log level="info" message="Postal address need updating"/>
@@ -151,7 +150,7 @@ under the License.
         <make-value entity-name="TelecomNumber" value-name="newValue"/>
         <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="TELECOM_NUMBER"/>
+        <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message>Contact Mechanism successfully created.</default-message>
             <result-to-field result-name="contactMechId" map-name="newValue"/>
@@ -171,7 +170,7 @@ under the License.
         
         <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="TELECOM_NUMBER"/>
+        <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         
         <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
             <log level="info" message="Telecom number needs updating"/>
@@ -203,7 +202,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message>Contact Mechanism successfully created.</default-message>
             <result-to-result result-name="contactMechId"/>
@@ -214,7 +213,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updateContactMech" in-map-name="context">
             <default-message>Contact Mechanism successfully updated.</default-message>
             <result-to-result result-name="contactMechId"/>
