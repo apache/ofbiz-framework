@@ -404,7 +404,7 @@ public class CoreEvents {
         }
 
         String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_scheduled", locale);
-        request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+        request.setAttribute("_EVENT_MESSAGE_", errMsg);
         return "success";
     }
 
