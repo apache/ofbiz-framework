@@ -17,6 +17,7 @@
 package org.ofbiz.order.order;
 
 import java.math.BigDecimal;
+import org.ofbiz.base.util.UtilDateTime;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -1359,6 +1361,60 @@ public class OrderReadHelper {
                 new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
                 new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
         return EntityUtil.filterByAnd(getOrderItems(), exprs);
+    }
+
+    public boolean getPastEtaOrderItems() {
+        List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
+        List itemsApproved = EntityUtil.filterByAnd(getOrderItems(), exprs);
+        Iterator i = itemsApproved.iterator();
+        while (i.hasNext()) {
+            GenericValue item = (GenericValue) i.next();
+            Timestamp estimatedDeliveryDate = (Timestamp) item.get("estimatedDeliveryDate");
+            if (estimatedDeliveryDate != null && UtilDateTime.nowTimestamp().after(estimatedDeliveryDate)) {
+        	return true;
+            }            
+        }
+        return false;
+    }
+
+    public boolean getRejectedOrderItems() {
+    	List items = getOrderItems();	
+        Iterator i = items.iterator();
+        while (i.hasNext()) {
+            GenericValue item = (GenericValue) i.next();
+            List receipts = null;                  
+            try {
+        	receipts = item.getRelated("ShipmentReceipt");
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+            }                         
+            if (receipts != null && receipts.size() > 0) {
+                Iterator recIter = receipts.iterator();
+                while (recIter.hasNext()) {
+                    GenericValue rec = (GenericValue) recIter.next();
+                    Double rejected = rec.getDouble("quantityRejected");
+                    if (rejected != null) {
+                	return true;
+                    }
+                }            
+            }
+        }
+        return false;
+    }
+
+    public boolean getPartiallyReceivedItems() {	
+        List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
+        List itemsApproved = EntityUtil.filterByAnd(getOrderItems(), exprs);
+        Iterator i = itemsApproved.iterator();
+        while (i.hasNext()) {
+            GenericValue item = (GenericValue) i.next();            
+            int shippedQuantity = (int) getItemShippedQuantity(item);            
+            Double orderedQuantity = (Double) item.get("quantity");            
+            if (shippedQuantity != orderedQuantity.intValue() && shippedQuantity > 0) {
+        	return true;
+            }            
+        }
+        return false;
     }
 
     public List getValidOrderItems(String shipGroupSeqId) {

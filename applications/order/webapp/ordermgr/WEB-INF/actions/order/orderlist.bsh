@@ -40,6 +40,7 @@ viewall = request.getParameter("viewall");
 view_SALES_ORDER = request.getParameter("view_SALES_ORDER");
 view_PURCHASE_ORDER = request.getParameter("view_PURCHASE_ORDER");
 
+
 // if no status is selected, view created, processing, and approved orders by default 
 if ((viewcompleted == null) && (viewcancelled == null) && (viewrejected == null) && (viewapproved == null) && (viewcreated == null) && (viewprocessing == null) && (viewsent == null)) {
     viewcreated = "Y";

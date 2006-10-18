@@ -33,7 +33,6 @@ under the License.
 	
 </script>
 
-
 <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
   <tr>
     <td width="100%">
@@ -70,6 +69,20 @@ under the License.
                     ${descr_PURCHASE_ORDER}
                 </div>
             </td>            
+          </tr>
+          <tr>
+            <td><div class="tableheadtext">${uiLabelMap.CommonFilter}:</div></td>
+            <td>&nbsp;&nbsp;</td>
+            <td nowrap>
+                <div class="tabletext">
+                    <input type="checkbox" name="filterInventoryProblems" value="Y"
+                        <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if>/>
+                        ${uiLabelMap.OrderfilterInventoryProblems}
+                    <input type="checkbox" name="filterAuthProblems" value="Y"
+                        <#if requestParameters.filterAuthProblems?default("N") == "Y">checked="checked"</#if>/>
+                        ${uiLabelMap.OrderfilterAuthProblems}
+                </div>
+            </td>
           </tr>
         </table>
         <br/>&nbsp;
