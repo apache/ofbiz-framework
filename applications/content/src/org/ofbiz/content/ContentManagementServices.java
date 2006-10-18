@@ -158,6 +158,7 @@ public class ContentManagementServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         
+        Debug.logInfo("=========== type:" + (String)context.get("dataresourceTypeId") , module);
         // Knowing why a request fails permission check is one of the more difficult
         // aspects of content management. Setting "displayFailCond" to true will
         // put an html table in result.errorMessage that will show what tests were performed
@@ -541,6 +542,9 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           if (UtilValidate.isNotEmpty(permissionStatus) && permissionStatus.equalsIgnoreCase("granted")) {
               result = persistDataResourceAndDataMethod(dctx, context);
           }
+          else {
+        	return ServiceUtil.returnError("no access to upload image");  
+          }
       } catch (GenericServiceException e) {
           return ServiceUtil.returnError(e.getMessage());
       } catch (GenericEntityException e) {
@@ -668,11 +672,12 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           return ServiceUtil.returnError(errorMsg);
       }
       //Map thisResult = DataServices.updateDataResourceMethod(dctx, context);
-      if (Debug.infoOn()) Debug.logInfo("in persist... thisResult.permissionStatus(0):" + thisResult.get("permissionStatus"), null);
+      if (Debug.infoOn()) Debug.logInfo("====in persist... thisResult.permissionStatus(0):" + thisResult.get("permissionStatus"), null);
           //thisResult = DataServices.updateElectronicTextMethod(dctx, context);
       Map fileContext = new HashMap();
       fileContext.put("userLogin", userLogin);
       String forceElectronicText = (String)context.get("forceElectronicText");
+      Debug.logInfo("====dataResourceType" + dataResourceTypeId , module);
       if (dataResourceTypeId.indexOf("_FILE") >=0) {
           boolean hasData = false;
           if (textData != null) {
@@ -697,13 +702,14 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           if (byteWrapper != null || "true".equalsIgnoreCase(forceElectronicText)) {
               fileContext.put("dataResourceId", dataResourceId);
               fileContext.put("imageData", byteWrapper);
+              Debug.logInfo("====trying to update image", module);
               thisResult = dispatcher.runSync("updateImage", fileContext);
               errorMsg = ServiceUtil.getErrorMessage(thisResult);
               if (UtilValidate.isNotEmpty(errorMsg)) {
                   return ServiceUtil.returnError(errorMsg);
               }
           } else {
-              //return ServiceUtil.returnError("'byteWrapper' empty when trying to create database image.");
+              return ServiceUtil.returnError("'byteWrapper' empty when trying to create database image.");
           }
       } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
       } else if (dataResourceTypeId.startsWith("SURVEY")) {
