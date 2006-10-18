@@ -296,7 +296,7 @@ under the License.
                 <set field="pageLayoutName" value="simple-landscape"/>
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="200"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="productTypeId" from-field="parameters.productTypeId"/>
@@ -328,7 +328,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="200"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="productTypeId" from-field="parameters.productTypeId"/>
