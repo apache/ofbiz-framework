@@ -52,6 +52,7 @@ if (action != null) {
         try {
             offsetQOH = Integer.parseInt(offsetQOHQty);
             hasOffsetQOH = true;
+            searchParameterString = searchParameterString + "&offsetQOHQty=" + offsetQOH;
         } catch(NumberFormatException nfe) {
         }
     }
@@ -59,6 +60,7 @@ if (action != null) {
         try {
             offsetATP = Integer.parseInt(offsetATPQty);
             hasOffsetATP = true;
+            searchParameterString = searchParameterString + "&offsetATPQty=" + offsetATP;
         } catch(NumberFormatException nfe) {
         }
     }
