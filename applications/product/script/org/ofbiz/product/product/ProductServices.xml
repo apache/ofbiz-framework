@@ -555,6 +555,7 @@ under the License.
         <create-value value-name="newEntity"/>
 
         <set from-field="newEntity.productId" field="productId"/>
+        <property-to-field resource="ProductUiLabels" property="ProductCreateProductReviewSuccess" field-name="successMessage"/>
         <call-simple-method method-name="updateProductWithReviewRatingAvg"/>
     </simple-method>
     <simple-method method-name="updateProductReview" short-description="Update ProductReview">

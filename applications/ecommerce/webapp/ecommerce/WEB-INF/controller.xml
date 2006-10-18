@@ -619,7 +619,7 @@ under the License.
         <security https="false" auth="true"/>
         <event type="service" invoke="createProductReview"/>
         <response name="success" type="view" value="product"/>
-        <response name="error" type="view" value="product"/>
+        <response name="error" type="view" value="productReview"/>
     </request-map>
 
     <request-map uri="advancedsearch">
