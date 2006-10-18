@@ -3154,7 +3154,7 @@ public class OrderServices {
                 if (valueObj.get("carrierRoleTypeId") == null) {
                     valueObj.set("carrierRoleTypeId", "CARRIER");
                 }
-                if (valueObj.get("supplierPartyId") != null) {
+                if (!UtilValidate.isEmpty(valueObj.get("supplierPartyId"))) {
                     dropShipGroupIds.add(valueObj.getString("shipGroupSeqId"));
                 }
             } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
