@@ -130,6 +130,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="orderlist"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderlist.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/filterorderlist.bsh"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">

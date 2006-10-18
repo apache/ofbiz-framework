@@ -271,6 +271,22 @@ function runAction() {
                   </table>
                 </td>
               </tr>
+              <tr>
+                <td width='25%' align='right'>
+                  <div class='tableheadtext'>${uiLabelMap.OrderFilterOnInventoryProblems}</div>
+                </td>
+                <td width='5%'>&nbsp;</td>
+                <td>
+                  <table border='0' cellspacing='0' cellpadding='0'>
+                    <tr>
+                      <td nowrap>
+                    	<input type="checkbox" name="filterInventoryProblems" value="Y"
+                        	<#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if> />                    
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>                            
               <tr><td colspan="3"><hr class="sepbar"/></td></tr>
               <tr>
                 <td width='25%' align='right'>&nbsp;</td>

@@ -17,12 +17,15 @@
 
 import java.util.*;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.transaction.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.product.product.*;
+import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.product.store.ProductStoreWorker;
 
 module = "findOrders.bsh";
 
@@ -369,6 +372,42 @@ if (lookupFlag != null) {
     if (!security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session)) {
         orderHeaderList = EntityUtil.filterOutByCondition(orderHeaderList, new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
     }
+    
+    productStore = ProductStoreWorker.getProductStore(request);
+
+    if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+
+        List filteredList = new ArrayList();
+        for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
+            orderHeader = (GenericValue) ohi.next();
+            facilityId = orderHeader.getString("originFacilityId");
+            if (facilityId == null) {
+    		facilityId = productStore.getString("inventoryFacilityId");
+            }
+            orderReadHelper = OrderReadHelper.getHelper(orderHeader);
+            backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
+            if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
+                filteredList.add(orderHeader);
+                continue;
+            }
+            if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
+                if (orderReadHelper.getRejectedOrderItems()) {
+                    filteredList.add(orderHeader);
+                    continue;
+                }
+                if (orderReadHelper.getPastEtaOrderItems()) {
+                    filteredList.add(orderHeader);
+                    continue;
+                }
+                if (orderReadHelper.getPartiallyReceivedItems()) {
+                    filteredList.add(orderHeader);
+                    continue;
+                }            
+            }
+        }
+        orderHeaderList = filteredList;
+    }
+    
     context.put("orderHeaderList", orderHeaderList);
     context.put("orderHeaderListSize", orderHeaderListSize);
 
