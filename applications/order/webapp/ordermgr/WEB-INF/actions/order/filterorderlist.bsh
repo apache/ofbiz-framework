@@ -1,0 +1,64 @@
+/* $Id: filterorderlist.bsh 9964 2006-08-30 03:34:19Z je $ */
+
+import java.math.BigDecimal;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.product.store.ProductStoreWorker;
+
+
+orderHeaderList = context.remove("orderHeaderList");
+productStore = ProductStoreWorker.getProductStore(request);
+
+if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+
+    List filteredList = new ArrayList();
+    for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
+        orderHeader = (GenericValue) ohi.next();
+        facilityId = orderHeader.getString("originFacilityId");
+        if (facilityId == null) {
+		facilityId = productStore.getString("inventoryFacilityId");
+        }
+        orderReadHelper = OrderReadHelper.getHelper(orderHeader);
+        backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
+        if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
+            filteredList.add(orderHeader);
+            continue;
+        }
+        if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
+            if (orderReadHelper.getRejectedOrderItems()) {
+                filteredList.add(orderHeader);
+                continue;
+            }
+            if (orderReadHelper.getPastEtaOrderItems()) {
+                filteredList.add(orderHeader);
+                continue;
+            }
+            if (orderReadHelper.getPartiallyReceivedItems()) {
+                filteredList.add(orderHeader);
+                continue;
+            }            
+        }
+    }
+    orderHeaderList = filteredList;
+}
+
+if ("Y".equals(requestParameters.get("filterAuthProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+
+    List filteredList = new ArrayList();
+    for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
+        orderHeader = (GenericValue) ohi.next();
+
+        orderReadHelper = OrderReadHelper.getHelper(orderHeader);
+        List paymentPrefList = orderReadHelper.getPaymentPreferences();
+        for (Iterator ppi = paymentPrefList.iterator(); ppi.hasNext();) {
+            paymentPref = (GenericValue) ppi.next();
+            if ("PAYMENT_NOT_AUTH".equals(paymentPref.getString("statusId"))) {
+                filteredList.add(orderHeader);
+            }
+        }
+    }
+    orderHeaderList = filteredList;
+}
+
+context.put("orderHeaderList", orderHeaderList);
