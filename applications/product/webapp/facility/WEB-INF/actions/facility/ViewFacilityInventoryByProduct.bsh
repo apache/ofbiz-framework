@@ -107,16 +107,19 @@ if (action != null) {
                 new EntityExpr("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
             EntityOperator.OR);
         whereConditionsList.add(discontinuationDateCondition);
+        searchParameterString = searchParameterString + "&productsSoldThruTimestamp=" + productsSoldThruTimestamp;
     }
 
     // add search on internal name
     if (UtilValidate.isNotEmpty(internalName)) {
         whereConditionsList.add(new EntityExpr("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
+        searchParameterString = searchParameterString + "&internalName=" + internalName;
     }
     
     // add search on productId 
     if (UtilValidate.isNotEmpty(productId)) {
         whereConditionsList.add(new EntityExpr("productId", true, EntityOperator.LIKE, productId + "%", true));
+        searchParameterString = searchParameterString + "&productId=" + productId;
     }
     EntityCondition whereCondition = new EntityConditionList(whereConditionsList, EntityOperator.AND);
 
