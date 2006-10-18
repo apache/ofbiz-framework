@@ -36,10 +36,19 @@ if (userLogin == null) {
 partyId = null;
 if (userLogin != null) partyId = userLogin.getString("partyId");
 
+// can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen 
+allowAnonymousView = context.get("allowAnonymousView");
+
 orderHeader = null;
+boolean isDemoStore = true;
 if (orderId != null && orderId.length() > 0) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-    if (orderHeader != null) {
+    productStore = orderHeader.getRelatedOneCache("ProductStore");
+    if (productStore != null) isDemoStore = !"N".equals(productStore.getString("isDemoStore"));
+    
+    // check OrderRole to make sure the user can view this order.  This check must be done for any order which is not anonymously placed and
+    // any anonymous order when the allowAnonymousView security flag (see above) is not set to Y, to prevent peeking
+    if ((orderHeader != null) && (!("anonymous".equals(orderHeader.getString("createdBy"))) || ("anonymous".equals(orderHeader.getString("createdBy")) && !"Y".equals(allowAnonymousView)))) {
         orderRole = delegator.findByPrimaryKey("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", "PLACING_CUSTOMER"));
         if (userLogin == null || orderRole == null) {
             context.remove("orderHeader");
@@ -93,10 +102,6 @@ if (orderHeader != null) {
         webSiteId = CatalogWorker.getWebSiteId(request);
     }
 
-    productStore = orderHeader.getRelatedOne("ProductStore");
-    boolean isDemoStore = true;
-    if (productStore != null) isDemoStore = !"N".equals(productStore.getString("isDemoStore"));
-    
     payToPartyId = productStore.getString("payToPartyId");
     paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);    
     if (paymentAddress != null) context.put("paymentAddress", paymentAddress);  
