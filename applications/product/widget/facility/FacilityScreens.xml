@@ -254,7 +254,7 @@ under the License.
                 <set field="facilityInventoryByProductScreen" value="ViewFacilityInventoryByProductSimple"/>
 
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
@@ -295,7 +295,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="pageLayoutName" value="simple-landscape"/>
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
@@ -327,7 +327,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
