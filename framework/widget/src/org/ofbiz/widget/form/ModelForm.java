@@ -98,6 +98,7 @@ public class ModelForm {
     protected boolean skipStart = false;
     protected boolean skipEnd = false;
     protected boolean hideHeader = false;
+    protected boolean overridenFormListSize = false;
 
     protected List altTargets = new LinkedList();
     protected List autoFieldsServices = new LinkedList();
@@ -1107,12 +1108,18 @@ public class ModelForm {
         // set low and high index
         getListLimits(context, obj);
 
-        //int listSize = ((Integer) context.get("listSize")).intValue();
+        int listSize = ((Integer) context.get("listSize")).intValue();
         //int viewIndex = ((Integer) context.get("viewIndex")).intValue();
         //int viewSize = ((Integer) context.get("viewSize")).intValue();
         int lowIndex = ((Integer) context.get("lowIndex")).intValue();
         int highIndex = ((Integer) context.get("highIndex")).intValue();
-        
+
+        // we're passed a subset of the list, so use (0, viewSize) range
+        if (isOverridenFormListSize()) {
+            lowIndex = 0;
+            highIndex = ((Integer) context.get("viewSize")).intValue();
+        }
+
         if (iter != null) {
             // render item rows
             int itemIndex = -1;
@@ -1266,10 +1273,12 @@ public class ModelForm {
                 // render row formatting close
                 formStringRenderer.renderFormatItemRowClose(buffer, localContext, this);
             }
-            
+
+            // reduce the highIndex if number of items falls short
             if ((itemIndex + 1) < highIndex) {
                 highIndex = itemIndex + 1;
-                context.put("highIndex", new Integer(highIndex));
+                // if list size is overridden, use full listSize
+                context.put("highIndex", new Integer(isOverridenFormListSize() ? listSize : highIndex));
             }
             context.put("actualPageSize", new Integer(highIndex - lowIndex));
             
@@ -1869,7 +1878,11 @@ public class ModelForm {
     public boolean getSkipEnd() {
         return this.skipEnd;
     }
-    
+
+    public boolean isOverridenFormListSize() {
+        return this.overridenFormListSize;
+    }
+
     public void setSkipStart(boolean val) {
         this.skipStart = val;
     }
@@ -1885,7 +1898,11 @@ public class ModelForm {
     public void setPaginate(boolean val) {
         paginate = val;
     }
-    
+
+    public void setOverridenFormListSize(boolean overridenFormListSize) {
+        this.overridenFormListSize = overridenFormListSize;
+    }
+
     /**
      * @param string
      */
@@ -1956,14 +1973,36 @@ public class ModelForm {
         return fieldList;
     }
 
+    private int getOverrideFormListSize(Map context) {
+        int listSize = 0;
+        Object overrideFormListSize = context.get("overrideFormListSize");
+        if (overrideFormListSize != null) {
+            if (overrideFormListSize instanceof Number) {
+                listSize = ((Number) overrideFormListSize).intValue();
+            } else if (overrideFormListSize instanceof String) {
+                try {
+                    listSize = Integer.parseInt((String) overrideFormListSize);
+                } catch (NumberFormatException e) {
+                    Debug.logError(e, "Error getting override list size", module);
+                }
+            } else {
+                Debug.logError("Error getting override list size: Unable to determine size from input [" + overrideFormListSize + "]", module);
+            }
+        }
+        return listSize;
+    }
+
     public void getListLimits(Map context, Object entryList) {
         int listSize = 0;
         int viewIndex = 0;
         int viewSize = 0;
         int lowIndex = 0;
         int highIndex = 0;
-        
-        if (entryList instanceof EntityListIterator) {
+
+        listSize = getOverrideFormListSize(context);
+        if (listSize > 0) {
+            setOverridenFormListSize(true);
+        } else if (entryList instanceof EntityListIterator) {
             EntityListIterator iter = (EntityListIterator) entryList;   
             try {
                 iter.last();
