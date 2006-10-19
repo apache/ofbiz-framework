@@ -222,7 +222,7 @@
     <request-map uri="createOrderAdjustment">
         <security https="true" auth="true"/>
         <event type="service" invoke="createOrderAdjustment"/>
-        <response name="success" type="view" value="editorderitems"/>
+        <response name="success" type="request" value="recalcTax"/>
         <response name="error" type="view" value="editorderitems"/>
     </request-map>
     <request-map uri="updateOrderAdjustment">
@@ -234,6 +234,12 @@
     <request-map uri="deleteOrderAdjustment">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteOrderAdjustment"/>
+        <response name="success" type="view" value="editorderitems"/>
+        <response name="error" type="view" value="editorderitems"/>
+    </request-map>
+    <request-map uri="recalcTax">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="recalcTaxTotal"/>
         <response name="success" type="view" value="editorderitems"/>
         <response name="error" type="view" value="editorderitems"/>
     </request-map>
