@@ -225,7 +225,7 @@ public class PosTransaction implements Serializable {
         itemInfo.put("basePrice", UtilFormatOut.formatPrice(item.getBasePrice()));
         itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
         itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
-        itemInfo.put("adjustments", item.getOtherAdjustments() > 0 ?
+        itemInfo.put("adjustments", item.getOtherAdjustments() != 0 ?
                 UtilFormatOut.formatPrice(item.getOtherAdjustments()) : "");
 
         return itemInfo;
