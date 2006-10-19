@@ -362,3 +362,10 @@ if (displayParty != null) {
     List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, assignPartyId, false);
     context.put("paymentMethodValueMaps", paymentMethodValueMaps);
 }
+
+if (orderHeader != null) {
+   // list to find all the POSTAL_ADDRESS for the party. 
+   orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+   postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false);
+   context.put("postalContactMechList",postalContactMechList);
+}
