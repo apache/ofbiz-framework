@@ -533,6 +533,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <service name="updateOrderContactMech" engine="simple"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="updateOrderContactMech" auth="true" default-entity-name="OrderContactMech">
+        <description>Update Order Contact Mech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
+    </service>    
+    
     <service name="removeOrderContactMech" default-entity-name="OrderContactMech" engine="simple"
         location="org/ofbiz/order/order/OrderServices.xml" invoke="removeOrderContactMech" auth="true">
         <description>Remove Order Contact Mech</description>

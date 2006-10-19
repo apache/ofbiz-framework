@@ -15,6 +15,22 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
+<#macro partyPostalAddress postalContactMechList contactMechPurposeTypeId contactPostalAddress>
+   <select name="contactMechId" class="selectBox">
+      <option value="${contactPostalAddress.contactMechId}">${(contactPostalAddress.address1)?default("")} - ${contactPostalAddress.city?default("")}</option>
+      <option value="${contactPostalAddress.contactMechId}"></option>
+      <#list postalContactMechList as postalContactMech>
+         <#assign postalAddress = postalContactMech.getRelatedOne("PostalAddress")?if_exists>
+         <#assign partyContactPurposes = postalAddress.getRelated("PartyContactMechPurpose")?if_exists>
+         <#list partyContactPurposes as partyContactPurpose>
+         <#if postalContactMech.contactMechId?has_content && partyContactPurpose.contactMechPurposeTypeId == contactMechPurposeTypeId>
+            <option value="${postalContactMech.contactMechId?if_exists}">${(postalAddress.address1)?default("")} - ${postalAddress.city?default("")}</option>
+         </#if>
+         </#list>
+      </#list>
+   </select>
+</#macro>    
+
 <#if displayParty?has_content || orderContactMechValueMaps?has_content>
 <div class="screenlet">
     <div class="screenlet-header">
@@ -74,6 +90,15 @@ under the License.
                       </#if>
                     </#if>
                   </div>
+                  <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                  <form name="updateOrderContactMech" method="post" action="<@ofbizUrl>updateOrderContactMech</@ofbizUrl>">
+                     <input type="hidden" name="orderId" value="${orderId?if_exists}">
+                     <input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurpose.contactMechPurposeTypeId?if_exists}">         
+                     <input type="hidden" name="oldContactMechId" value="${contactMech.contactMechId?if_exists}">         
+                     <hr class="sepbar">      
+                     <div><@partyPostalAddress postalContactMechList = postalContactMechList?if_exists contactMechPurposeTypeId = contactMechPurpose.contactMechPurposeTypeId?if_exists contactPostalAddress=postalAddress?if_exists/><input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/></div>
+                  </form> 
+                  </#if>
                 </#if>
               <#elseif contactMech.contactMechTypeId == "TELECOM_NUMBER">
                 <#assign telecomNumber = orderContactMechValueMap.telecomNumber>

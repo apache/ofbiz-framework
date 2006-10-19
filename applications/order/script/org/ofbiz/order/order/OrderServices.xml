@@ -525,6 +525,50 @@ under the License.
         </iterate>
     </simple-method>
     
+    <!--UpdateOrderContactMech-->
+    
+     <simple-method method-name="updateOrderContactMech" short-description="Update OrderContactMech">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
+           <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderContactMech"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-name="orderContactMechMap" entity-name="OrderContactMech"/>
+        <set-pk-fields map-name="parameters" value-name="orderContactMechMap"/>
+        <set from-field="parameters.orderId" field="inputMap.orderId"/>
+        <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
+        <set from-field="parameters.contactMechId" field="inputMap.contactMechId"/>
+        <if-compare value="SHIPPING_LOCATION" field-name="parameters.contactMechPurposeTypeId" operator="equals">
+           <if-compare value="parameters.oldContactMechId" field-name="parameters.contactMechId" operator="not-equals">
+           <set field="orderItemShipGroupMap.orderId" from-field="parameters.orderId"/>
+           <set field="orderItemShipGroupMap.contactMechId" from-field="parameters.oldContactMechId"/>    
+           <find-by-and entity-name="OrderItemShipGroup" list-name="shipGroupList" map-name="orderItemShipGroupMap"/>
+           <if-not-empty field-name="shipGroupList">
+              <iterate list-name="shipGroupList" entry-name="shipGroup">
+                 <set field="inputMap.shipGroupSeqId" from-field="shipGroup.shipGroupSeqId"/>  
+                 <set field="inputMap.shipmentMethod" value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId}"/>
+                 <set field="inputMap.oldContactMechId" from-field="parameters.oldContactMechId"/>
+                 <set-service-fields to-map-name="orderItemShipGroupMap" service-name="updateOrderItemShipGroup" map-name="inputMap"/>
+                 <call-service service-name="updateOrderItemShipGroup" in-map-name="orderItemShipGroupMap" include-user-login="true"/>
+              </iterate>
+           </if-not-empty>
+           </if-compare> 
+        <else>
+        <find-by-and entity-name="OrderContactMech" map-name="inputMap" list-name="orderContactMechList"/>
+        <!-- If orderContactMechList value is null then create new entry in OrderContactMech entity-->
+        <if-empty field-name="orderContactMechList">
+            <set-service-fields service-name="createOrderContactMech" map-name="parameters" to-map-name="createOrderContactMechMap"/>
+            <call-service service-name="createOrderContactMech" in-map-name="createOrderContactMechMap" include-user-login="true"/>
+            <set from-field="parameters.orderId" field="orderContactMechLookupMap.orderId"/>
+            <set from-field="parameters.oldContactMechId" field="orderContactMechLookupMap.contactMechId"/>
+            <set from-field="parameters.contactMechPurposeTypeId" field="orderContactMechLookupMap.contactMechPurposeTypeId"/>
+            <set-service-fields service-name="removeOrderContactMech" map-name="orderContactMechLookupMap" to-map-name="removeOrderContactMechMap"/>
+            <call-service service-name="removeOrderContactMech" in-map-name="removeOrderContactMechMap" include-user-login="true"/>
+        </if-empty>    
+        <store-value value-name="orderContactMechMap"/>
+        </else>         
+        </if-compare>     
+     </simple-method>
+    
     <!-- OrderItemShipGroup -->
     <simple-method method-name="updateOrderItemShipGroup" short-description="Update OrderItemShipGroup">
         <check-permission permission="ORDERMGR" action="_UPDATE">

@@ -633,6 +633,14 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="custsetting"/>
     </request-map>
+    
+    <request-map uri="updateOrderContactMech">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateOrderContactMech"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+    
 
     <!-- ================================================================= -->
     <!-- ==================  MultiParty Modifs =========================== -->
