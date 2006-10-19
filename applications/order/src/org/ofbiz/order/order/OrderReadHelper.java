@@ -1393,7 +1393,7 @@ public class OrderReadHelper {
                 while (recIter.hasNext()) {
                     GenericValue rec = (GenericValue) recIter.next();
                     Double rejected = rec.getDouble("quantityRejected");
-                    if (rejected.doubleValue() > 0) {
+                    if (rejected != null && rejected.doubleValue() > 0) {
                 	return true;
                     }
                 }            
