@@ -252,6 +252,12 @@ under the License.
                          <option value="${type.orderAdjustmentTypeId}">${type.get("description",locale)?default(type.orderAdjustmentTypeId)}</option>
                     </#list>
                   </select>
+                  <select name="shipGroupSeqId" class="selectBox">
+                    <option value="_NA_"></option>
+                    <#list shipGroups as shipGroup>
+                    <option value="${shipGroup.shipGroupSeqId}">${uiLabelMap.OrderShipGroup} ${shipGroup.shipGroupSeqId}</option>
+                    </#list>
+                  </select>
                 </td>
                 <td align="left"><div class="tabletext"><input type="text" name="description" value="" size="30" maxlength="60" class="inputBox"></div></td>
                 <td  align="left">
