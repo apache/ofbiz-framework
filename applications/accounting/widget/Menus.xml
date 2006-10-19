@@ -16,7 +16,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+ xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
     
     <menu name="InvoiceTabBar" default-menu-item-name="overview"> 
         <menu-item name="find" title="${uiLabelMap.CommonFind}" >
