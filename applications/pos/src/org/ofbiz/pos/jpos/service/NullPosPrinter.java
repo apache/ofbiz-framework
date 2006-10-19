@@ -484,23 +484,23 @@ public class NullPosPrinter extends BaseService implements jpos.services.POSPrin
     }
 
     public void printBarCode(int i, String s, int i1, int i2, int i3, int i4, int i5) throws JposException {
-        printALine("Barcode:" + s + "\n");
+        printALine("Barcode:" + s);
     }
 
     public void printBitmap(int i, String s, int i1, int i2) throws JposException {
-        printALine("Bitmap:" + s + "\n");
+        printALine("Bitmap:" + s);
     }
 
     public void printImmediate(int i, String s) throws JposException {
-        printALine("Immediate:" + s + "\n");
+        printALine("Immediate:" + s);
     }
 
     public void printNormal(int i, String s) throws JposException {
-        printALine("Normal:" + s + "\n");
+        printALine("Normal:" + s);
     }
 
     public void printTwoNormal(int i, String s, String s1) throws JposException {
-        printALine("2Normal:" + s + "\n");
+        printALine("2Normal:" + s);
     }
 
     public void rotatePrint(int i, int i1) throws JposException {
