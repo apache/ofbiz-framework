@@ -59,9 +59,9 @@ under the License.
 <#if orderItemDatas?exists>
     <#assign rowCount = 0>
     <#if isSalesOrder>
-        <form action="<@ofbizUrl>issueOrderItemShipGrpInvResToShipment</@ofbizUrl>" name="selectAllForm">
+        <form action="<@ofbizUrl>issueOrderItemShipGrpInvResToShipment</@ofbizUrl>" method="post" name="selectAllForm">
     <#else>
-        <form action="<@ofbizUrl>issueOrderItemToShipment</@ofbizUrl>" name="selectAllForm">
+        <form action="<@ofbizUrl>issueOrderItemToShipment</@ofbizUrl>" method="post" name="selectAllForm">
     </#if>
     <input type="hidden" name="shipmentId" value="${shipmentId}">
     <input type="hidden" name="_useRowSubmit" value="Y">
