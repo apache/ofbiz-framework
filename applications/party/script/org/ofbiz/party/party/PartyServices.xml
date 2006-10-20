@@ -80,15 +80,10 @@ under the License.
         </entity-and>
         <entity-one entity-name="Person" value-name="person"/>
         <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
-		<if-empty field-name="parameters.compareDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
-			<set field="parameters.compareDate" from-field="nowTimestamp"/>
-		</if-empty>
-        <!-- fill compare date with todays date if not provided -->
         <if-empty field-name="parameters.compareDate">
-            <now-timestamp-to-env env-name="parameters.compareDate"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="parameters.compareDate" from-field="nowTimestamp"/>
         </if-empty>
-        
         <!-- go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate -->        
         <iterate entry-name="partyNameHistory" list-name="partyNameHistoryList">
             <if-compare-field field-name="partyNameHistory.changeDate" operator="greater" to-field-name="parameters.compareDate">
@@ -100,14 +95,14 @@ under the License.
             <if-not-empty field-name="person">
                 <field-to-result field-name="person.firstName" result-name="firstName"/>
                 <if-not-empty field-name="person.middleName">
-                <field-to-result field-name="person.middleName" result-name="middleName"/>
+                    <field-to-result field-name="person.middleName" result-name="middleName"/>
                 </if-not-empty>
                 <field-to-result field-name="person.lastName" result-name="lastName"/>
                 <if-not-empty field-name="person.personalTitle">
-                <field-to-result field-name="person.personalTitle" result-name="personalTitle"/>
+                    <field-to-result field-name="person.personalTitle" result-name="personalTitle"/>
                 </if-not-empty>
                 <if-not-empty field-name="person.suffix">
-                <field-to-result field-name="person.suffix" result-name="suffix"/>
+                    <field-to-result field-name="person.suffix" result-name="suffix"/>
                 </if-not-empty>
 
 
@@ -131,16 +126,16 @@ under the License.
                 <if-not-empty field-name="person">
                     <field-to-result field-name="partyNameHistoryCurrent.firstName" result-name="firstName"/>
                     <if-not-empty field-name="partyNameHistoryCurrent.middleName">
-                    <field-to-result field-name="partyNameHistoryCurrent.middleName" result-name="middleName"/>
+                        <field-to-result field-name="partyNameHistoryCurrent.middleName" result-name="middleName"/>
                     </if-not-empty>
                     <field-to-result field-name="partyNameHistoryCurrent.lastName" result-name="lastName"/>
                     <if-not-empty field-name="partyNameHistoryCurrent.personalTitle">
-                    <field-to-result field-name="partyNameHistoryCurrent.personalTitle" result-name="personalTitle"/>
+                        <field-to-result field-name="partyNameHistoryCurrent.personalTitle" result-name="personalTitle"/>
                     </if-not-empty>
                     <if-not-empty field-name="partyNameHistoryCurrent.suffix">
-                    <field-to-result field-name="partyNameHistoryCurrent.suffix" result-name="suffix"/>
+                        <field-to-result field-name="partyNameHistoryCurrent.suffix" result-name="suffix"/>
                     </if-not-empty>
-                    
+
                     
                     <if-compare field-name="parameters.lastNameFirst" operator="equals" value="Y">
                         <set field="fullName" value="${partyNameHistoryCurrent.personalTitle} ${partyNameHistoryCurrent.lastName}, ${partyNameHistoryCurrent.firstName} ${partyNameHistoryCurrent.middleName} ${partyNameHistoryCurrent.suffix}"/>
