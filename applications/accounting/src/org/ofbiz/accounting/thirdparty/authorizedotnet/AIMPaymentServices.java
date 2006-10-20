@@ -84,7 +84,9 @@ public class AIMPaymentServices {
         Properties props = buildAIMProperties(context);
         buildMerchantInfo(context,props,request);
         buildGatewayResponeConfig(context,props,request);
+        buildCustomerBillingInfo(context,props,request);
         buildEmailSettings(context,props,request);
+        request.put("x_Invoice_Num","Order " + orderPaymentPreference.getString("orderId"));
         //props.put("transType","PRIOR_AUTH_CAPTURE");
         props.put("transType","CAPTURE_ONLY");
         props.put("cardtype", (String)creditCard.get("cardType"));
@@ -344,17 +346,45 @@ public class AIMPaymentServices {
     }
 
     private static void buildCustomerBillingInfo(Map params, Properties props, Map AIMRequest) {
-        GenericValue cp = (GenericValue)params.get("billToParty");
-        GenericValue ba = (GenericValue)params.get("billingAddress");
+        try {
+            // this would be used in the case of a capture, where one of the parameters is an OrderPaymentPreference
+            if (params.get("orderPaymentPreference") != null) {
+                GenericValue opp = (GenericValue) params.get("orderPaymentPreference");
+                if ("CREDIT_CARD".equals(opp.getString("paymentMethodTypeId"))) {
+                    GenericValue creditCard = opp.getRelatedOne("CreditCard");
+                    AIMRequest.put("x_First_Name",UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard")));
+                    AIMRequest.put("x_Last_Name",UtilFormatOut.checkNull(creditCard.getString("lastNameOnCard")));
+                    AIMRequest.put("x_Company",UtilFormatOut.checkNull(creditCard.getString("companyNameOnCard")));
+                    if (UtilValidate.isNotEmpty(creditCard.getString("contactMechId"))) {
+                        GenericValue address = creditCard.getRelatedOne("PostalAddress");
+                        AIMRequest.put("x_Address",UtilFormatOut.checkNull(address.getString("address1")));
+                        AIMRequest.put("x_City",UtilFormatOut.checkNull(address.getString("city")));
+                        AIMRequest.put("x_State",UtilFormatOut.checkNull(address.getString("stateProvinceGeoId")));
+                        AIMRequest.put("x_Zip",UtilFormatOut.checkNull(address.getString("postalCode")));
+                        AIMRequest.put("x_Country",UtilFormatOut.checkNull(address.getString("countryGeoId")));
+                    }
+                } else {
+                    Debug.logWarning("Payment preference " + opp + " is not a credit card", module);
+                }
+            } else {
+                // this would be the case for an authorization
+                GenericValue cp = (GenericValue)params.get("billToParty");
+                GenericValue ba = (GenericValue)params.get("billingAddress");
 
-        AIMRequest.put("x_First_Name",UtilFormatOut.checkNull(cp.getString("firstName")));
-        AIMRequest.put("x_Last_Name",UtilFormatOut.checkNull(cp.getString("lastName")));
-        AIMRequest.put("x_Address",UtilFormatOut.checkNull(ba.getString("address1")));
-        AIMRequest.put("x_City",UtilFormatOut.checkNull(ba.getString("city")));
-        AIMRequest.put("x_State",UtilFormatOut.checkNull(ba.getString("stateProvinceGeoId")));
-        AIMRequest.put("x_Zip",UtilFormatOut.checkNull(ba.getString("postalCode")));
-        AIMRequest.put("x_Country",UtilFormatOut.checkNull(ba.getString("countryGeoId")));
-        return;
+                AIMRequest.put("x_First_Name",UtilFormatOut.checkNull(cp.getString("firstName")));
+                AIMRequest.put("x_Last_Name",UtilFormatOut.checkNull(cp.getString("lastName")));
+                AIMRequest.put("x_Address",UtilFormatOut.checkNull(ba.getString("address1")));
+                AIMRequest.put("x_City",UtilFormatOut.checkNull(ba.getString("city")));
+                AIMRequest.put("x_State",UtilFormatOut.checkNull(ba.getString("stateProvinceGeoId")));
+                AIMRequest.put("x_Zip",UtilFormatOut.checkNull(ba.getString("postalCode")));
+                AIMRequest.put("x_Country",UtilFormatOut.checkNull(ba.getString("countryGeoId")));
+            }
+            return;
+    
+        } catch (GenericEntityException ex) {
+            Debug.logError("Cannot build customer information for " + params + " due to error: " + ex.getMessage(), module);
+            return;
+        } 
     }
 
     private static void buildEmailSettings(Map params, Properties props, Map AIMRequest) {
