@@ -239,6 +239,7 @@ under the License.
 		        <set field="forumId" from-field="parameters.contentId"/>
 		        <set field="defaultSiteId" value="WebStoreFORUM"/>
 		        <script location="component://content/widget/cms/userpermprep.bsh"/>
+                        <script location="component://content/widget/cms/mostrecentprep.bsh"/>
 		    </actions>
 		    <widgets>
 		        <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
