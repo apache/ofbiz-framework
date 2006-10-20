@@ -21,6 +21,7 @@ under the License.
         <section>
             <actions>
                 <set field="appButtonItem" value="service"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/availableservices.bsh"/>
             </actions>
             <widgets>

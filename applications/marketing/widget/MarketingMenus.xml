@@ -34,7 +34,7 @@ under the License.
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
         </menu-item>
-        <menu-item name="Reports" title="${uiLabelMap.Reports}" align-style="col-right" widget-style="headerButtonRight"><link target="MarketingReport"/></menu-item>
+        <menu-item name="Reports" title="${uiLabelMap.MarketingReports}" align-style="col-right" widget-style="headerButtonRight"><link target="MarketingReport"/></menu-item>
 
     </menu>
 </menus>

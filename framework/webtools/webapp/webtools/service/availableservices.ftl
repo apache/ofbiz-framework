@@ -24,11 +24,11 @@ under the License.
     <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
             <td align='left'><div class='boxhead'>
-                Service: ${selectedServiceMap.serviceName}</div>
+                ${uiLabelMap.WebtoolsService}: ${selectedServiceMap.serviceName}</div>
             </td>
             <td align='right'>
-                <a href='<@ofbizUrl>/scheduleJob?SERVICE_NAME=${selectedServiceMap.serviceName}</@ofbizUrl>' class='submenutext'>Schedule</a>
-                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='submenutextright'>List All</a>
+                <a href='<@ofbizUrl>/scheduleJob?SERVICE_NAME=${selectedServiceMap.serviceName}</@ofbizUrl>' class='submenutext'>${uiLabelMap.WebtoolsSchedule}</a>
+                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='submenutextright'>${uiLabelMap.CommonListAll}</a>
             </td>
         </tr>
     </table>
@@ -37,7 +37,7 @@ under the License.
 	    <br>
 		<table border='0' width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
             <tr>
-                <td><div class='boxhead'>WSDL Service definition</div></td>
+                <td><div class='boxhead'>${uiLabelMap.WebtoolsServiceWSDL}</div></td>
             </tr>
         </table>
         <table border=0 width='100%' cellspacing='0' cellpadding='5' class='boxoutside'>
@@ -45,7 +45,7 @@ under the License.
                <td align="center"><form><textarea class="textAreaBox" rows="20" cols="85" name="wsdloutput">${selectedServiceMap.wsdl}</textarea></form></td>
             </tr>
             <tr>
-               <td align="center"><a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}</@ofbizUrl>' class='linktext'>Back</a></td>
+               <td align="center"><a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}</@ofbizUrl>' class='linktext'>${uiLabelMap.CommonBack}</a></td>
             </tr>
         </table>
     <#else>
@@ -55,18 +55,18 @@ under the License.
         <tr>
             <td width='10%'>&nbsp;</td>
             <td align='left' valign='top'><br>
-                <b>Service Name:</b>&nbsp;${selectedServiceMap.serviceName}<br>
-                <b>Description:</b>&nbsp;${selectedServiceMap.description}<br>
-                <b>Exportable:</b>&nbsp;${selectedServiceMap.export}<#if selectedServiceMap.export = "True">&nbsp;(<a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}&show_wsdl=true</@ofbizUrl>' class='linktext'>Show wsdl</a>)</#if><br>
+                <b>${uiLabelMap.WebtoolsServiceName}:</b>&nbsp;${selectedServiceMap.serviceName}<br>
+                <b>${uiLabelMap.CommonDescription}:</b>&nbsp;${selectedServiceMap.description}<br>
+                <b>${uiLabelMap.WebtoolsExportable}:</b>&nbsp;${selectedServiceMap.export}<#if selectedServiceMap.export = "True">&nbsp;(<a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}&show_wsdl=true</@ofbizUrl>' class='linktext'>${uiLabelMap.WebtoolsShowShowWSDL}</a>)</#if><br>
             <td width='10' align='left'>&nbsp;</td>
             <td align='left' valign='top'><br>
-                <b>Engine Name:</b>&nbsp;<a href='<@ofbizUrl>${url}?constraint=engine_name@${selectedServiceMap.engineName}</@ofbizUrl>' class='linktext'>${selectedServiceMap.engineName}</a><br>
-                <b>Invoke:</b>&nbsp;${selectedServiceMap.invoke}<br>
-                <b>Location:</b>&nbsp;</b><a href='<@ofbizUrl>${url}?constraint=location@${selectedServiceMap.location}</@ofbizUrl>' class='linktext'>${selectedServiceMap.location}</a><br>
-                <b>Default Entity Name:</b>&nbsp;<a href='<@ofbizUrl>${url}?constraint=default_entity_name@${selectedServiceMap.defaultEntityName}</@ofbizUrl>' class='linktext'>${selectedServiceMap.defaultEntityName}</a><br>
-                <b>Require new transaction:</b>&nbsp;${selectedServiceMap.requireNewTransaction}<br>
-                <b>Use transaction:</b>&nbsp;${selectedServiceMap.useTrans}<br>
-                <b>Max retries:</b>&nbsp;${selectedServiceMap.maxRetry}
+                <b>${uiLabelMap.WebtoolsEngineName}:</b>&nbsp;<a href='<@ofbizUrl>${url}?constraint=engine_name@${selectedServiceMap.engineName}</@ofbizUrl>' class='linktext'>${selectedServiceMap.engineName}</a><br>
+                <b>${uiLabelMap.WebtoolsInvoke}:</b>&nbsp;${selectedServiceMap.invoke}<br>
+                <b>${uiLabelMap.WebtoolsLocation}:</b>&nbsp;</b><a href='<@ofbizUrl>${url}?constraint=location@${selectedServiceMap.location}</@ofbizUrl>' class='linktext'>${selectedServiceMap.location}</a><br>
+                <b>${uiLabelMap.WebtoolsDefaultEntityName}:</b>&nbsp;<a href='<@ofbizUrl>${url}?constraint=default_entity_name@${selectedServiceMap.defaultEntityName}</@ofbizUrl>' class='linktext'>${selectedServiceMap.defaultEntityName}</a><br>
+                <b>${uiLabelMap.WebtoolsRequireNewTransaction}:</b>&nbsp;${selectedServiceMap.requireNewTransaction}<br>
+                <b>${uiLabelMap.WebtoolsUseTransaction}:</b>&nbsp;${selectedServiceMap.useTrans}<br>
+                <b>${uiLabelMap.WebtoolsMaxRetries}:</b>&nbsp;${selectedServiceMap.maxRetry}
             </td>
         </tr>
     </table>
@@ -77,7 +77,7 @@ under the License.
             <td valign='top' width='50%'>
                 <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
                     <tr>
-                        <td class='tabletext'><div class='boxhead'>Permission Groups</div></td>
+                        <td class='tabletext'><div class='boxhead'>${uiLabelMap.PartySecurityGroups}</div></td>
                     </tr>
                 </table>
                 <table border=0 width='100%' cellspacing='5' cellpadding='1' class='boxoutside'>
@@ -86,9 +86,9 @@ under the License.
                         <#if selectedServiceMap.permissionGroups!='NA'>
                         <table border=0 width='100%' cellspacing='5' cellpadding='1'>
                             <tr>
-                                <td class='tableheadtext'>Name or Role</td>
-                                <td class='tableheadtext'>Permission Type</td>
-                                <td class='tableheadtext'>Action</td>
+                                <td class='tableheadtext'>${uiLabelMap.WebtoolsNameOrRole}</td>
+                                <td class='tableheadtext'>${uiLabelMap.WebtoolsPermissionType}</td>
+                                <td class='tableheadtext'>${uiLabelMap.WebtoolsAction}</td>
                             </tr>
                             <tr>
                                 <td class='sepbar' colspan='3'><hr class='sepbar'></td>
@@ -112,7 +112,7 @@ under the License.
             <td valign='top' width='50%'>
                 <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
                     <tr>
-                        <td class='tabletext'><div class='boxhead'>Implemented Services</div></td>
+                        <td class='tabletext'><div class='boxhead'>${uiLabelMap.WebtoolsImplementedServices}</div></td>
                     </tr>
                 </table>
                 <table border=0 width='100%' cellspacing='5' cellpadding='1' class='boxoutside'>
@@ -145,7 +145,7 @@ under the License.
         </script>
         <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
             <tr>
-                <td><div class='boxhead'>Service ECA's</div></td>
+                <td><div class='boxhead'>${uiLabelMap.WebtoolsServiceECA}</div></td>
             </tr>
         </table>
         <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
@@ -153,11 +153,11 @@ under the License.
                 <td width='50%' align='left'>
                     <table border=0 width='100%' cellspacing='0' cellpadding='2'>
                         <tr>
-                            <td align='left' valign='top'><div class='tableheadtext'>Event name</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>Run on error</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>Run on failure</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>Actions</div></td>
-                            <td align='left' valign='top'><div class='tableheadtext'>Conditions</div></td>
+                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsEventName}</div></td>
+                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsRunOnError}</div></td>
+                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsRunOnFailure}</div></td>
+                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsActions}</div></td>
+                            <td align='left' valign='top'><div class='tableheadtext'>${uiLabelMap.WebtoolsConditions}</div></td>
                         </tr>
                         <tr><td colspan='5'><hr class='sepbar'></td></tr>
                         <#list ecaMapList as ecaMap>
@@ -170,7 +170,7 @@ under the License.
                                         <#list ecaMap.actions as action>
                                             <a href='<@ofbizUrl>${url}?sel_service_name=${action.serviceName}</@ofbizUrl>' class='linktext'>${action.serviceName?default("NA")}</a>
                                             <a href='javascript:detailsPopup("<@ofbizUrl>${popupUrl}?detail_type=action&prt_srv=${selectedServiceMap.serviceName}<#if ecaMap.eventName?exists>&prt_evt_name=${ecaMap.eventName}</#if><#if ecaMap.runOnError?exists>&prt_run_on_err=${ecaMap.runOnError}</#if><#if ecaMap.runOnFailure?exists>&prt_run_on_fail=${ecaMap.runOnFailure}</#if>&acx_srv=${action.serviceName}<#if action.eventName?exists>&acx_evt_name=${action.eventName}</#if><#if action.ignoreError?exists>&acx_ig_err=${action.ignoreError}</#if><#if action.ignoreFailure?exists>&acx_ig_fail=${action.ignoreFailure}</#if><#if action.persist?exists>&acx_pers=${action.persist}</#if><#if action.resultToContext?exists>&acx_res_to_ctx=${action.resultToContext}</#if><#if action.serviceMode?exists>&acx_srv_mode=${action.serviceMode}</#if><#if action.resultMapName?exists>&acx_res_map_name=${action.resultMapName}</#if></@ofbizUrl>")' class='linktext'>
-                                                [Details]
+                                                [${uiLabelMap.CommonDetail}]
                                             </a>
                                         </#list>
                                     </#if>
@@ -181,10 +181,10 @@ under the License.
                                             <table class='boxoutside' width='100%'>
                                                 <tr>
                                                     <td class='tabletext'>
-                                                        <b>Compare type:</b> ${condition.compareType?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsCompareType}:</b> ${condition.compareType?default("NA")}
                                                     </td>
                                                     <td class='tabletext'>
-                                                        <b>Condition service:</b> 
+                                                        <b>${uiLabelMap.WebtoolsConditionService}:</b> 
                                                         <#if condition.conditionService?exists && condition.conditionService?has_content>
                                                             <a href='<@ofbizUrl>${url}?sel_service_name=${condition.conditionService}</@ofbizUrl>' class='linktext'>${condition.conditionService?default("NA")}</a>
                                                         <#else>
@@ -192,35 +192,35 @@ under the License.
                                                         </#if>
                                                     </td>
                                                     <td class='tabletext'>
-                                                        <b>Format:</b> ${condition.format?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsFormat}:</b> ${condition.format?default("NA")}
                                                     </td>
                                                 </tr>
                                                 <tr>                                                    
                                                     <td class='tabletext'>
-                                                        <b>Is service:</b> ${condition.isService?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsIsService}:</b> ${condition.isService?default("NA")}
                                                     </td>
                                                     <td class='tabletext'>
-                                                        <b>Is constant:</b> ${condition.isConstant?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsIsConstant}:</b> ${condition.isConstant?default("NA")}
                                                     </td>
                                                     <td class='tabletext'>
-                                                        <b>Operator:</b> ${condition.operator?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsOperator}:</b> ${condition.operator?default("NA")}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class='tabletext'>
-                                                        <b>LHS map name:</b> ${condition.lhsMapName?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsLHSMapName}:</b> ${condition.lhsMapName?default("NA")}
                                                     </td>
                                                     <td class='tabletext'>
-                                                        <b>LHS value name:</b> ${condition.lhsValueName?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsLHSValueName}:</b> ${condition.lhsValueName?default("NA")}
                                                     </td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class='tabletext'>
-                                                        <b>RHS map name:</b> ${condition.rhsMapName?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsRHSMapName}:</b> ${condition.rhsMapName?default("NA")}
                                                     </td>
                                                     <td class='tabletext'>
-                                                        <b>RHS value name:</b> ${condition.rhsValueName?default("NA")}
+                                                        <b>${uiLabelMap.WebtoolsRHSValueName}:</b> ${condition.rhsValueName?default("NA")}
                                                     </td>
                                                     <td></td>
                                                 </tr>
@@ -251,13 +251,13 @@ under the License.
                     <table border=0 width='100%' cellspacing='0' cellpadding='2'>
                         <#if paramList.paramList?exists && paramList.paramList?has_content>
                             <tr>
-                                <td align='left'><div class='tableheadtext'>Parameter Name</div></td>
-                                <td align='left'><div class='tableheadtext'>Optional</div></td>
-                                <td align='left'><div class='tableheadtext'>Type</div></td>
-                                <td align='left'><div class='tableheadtext'>Mode</div></td>
-                                <td align='left'><div class='tableheadtext'>Is set internally</div></td>
-                                <td align='left'><div class='tableheadtext'>Entity Name</div></td>
-                                <td align='left'><div class='tableheadtext'>Field Name</div></td>
+                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsParameterName}</div></td>
+                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsOptional}</div></td>
+                                <td align='left'><div class='tableheadtext'>${uiLabelMap.CommonType}</div></td>
+                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsMode}</div></td>
+                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsIsSetInternally}</div></td>
+                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsEntityName}</div></td>
+                                <td align='left'><div class='tableheadtext'>${uiLabelMap.WebtoolsFieldName}</div></td>
                             <tr>
                             <tr>
                                 <td align='left' colspan='7'><hr class='sepbar'></td>
@@ -278,7 +278,7 @@ under the License.
                                 </tr>
                             </#list>
                         <#else>
-                            No parameters defined
+                            ${uiLabelMap.WebtoolsNoParametersDefined}
                         </#if>
                     </table>
                 </td>
@@ -319,7 +319,7 @@ under the License.
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <#if dispArrList?exists && dispArrList?has_content>                        
                             <select id='sd' name='selDisp' onChange='submitDispForm();' class='selectBox'>
-                                <option value='' selected>Select dispatcher</option>
+                                <option value='' selected>${uiLabelMap.WebtoolsSelectDispatcher}</option>
                                 <option value='' ></option>
                                 <#list dispArrList as disp>
                                     <option value='${disp}'>${disp}</option>
@@ -337,10 +337,10 @@ under the License.
     <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
             <td align='left'><div class='boxhead'>
-                Services list for ${dispatcherName?default("NA")}(${servicesFoundCount} found)</div>
+                ${uiLabelMap.WebtoolsServicesListFor} ${dispatcherName?default("NA")}(${servicesFoundCount} ${uiLabelMap.CommonFound})</div>
             </td>
             <td align='right'>
-                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='submenutextright'>List All</a>&nbsp;&nbsp;
+                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='submenutextright'>${uiLabelMap.CommonListAll}</a>&nbsp;&nbsp;
             </td>
         </tr>
     </table>
@@ -349,23 +349,23 @@ under the License.
     <table border=0 width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
         <tr>
             <td align='left'><div class='tableheadtext'>
-                Service Name</div>
+                ${uiLabelMap.WebtoolsServiceName}</div>
             </td>
             <td>&nbsp;&nbsp;</td>
             <td align='left'><div class='tableheadtext'>
-                Engine Name</div>
+                ${uiLabelMap.WebtoolsEngineName}</div>
             </td>
             <td>&nbsp;&nbsp;</td>
             <td align='left'><div class='tableheadtext'>
-                DefaultEntityName</div>
+                ${uiLabelMap.WebtoolsDefaultEntityName}</div>
             </td>
             <td>&nbsp;&nbsp;</td>
             <td align='left'><div class='tableheadtext'>
-                Invoke</div>
+                ${uiLabelMap.WebtoolsInvoke}</div>
             </td>
             <td>&nbsp;&nbsp;</td>
             <td align='left'><div class='tableheadtext'>
-                Location</div>
+                ${uiLabelMap.WebtoolsLocation}</div>
             </td>
         </tr>
 
@@ -408,10 +408,10 @@ under the License.
     <table border=0 width='100%' cellspacing='2' cellpadding='5' class='boxoutside'>
         <tr>
             <td align='left' class='tableheadtext'>
-                No services found...
+                ${uiLabelMap.WebtoolsNoServicesFound}...
             <td>
             <td align='right'>
-                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='linktext'>List All</a>&nbsp;&nbsp;
+                <a href='<@ofbizUrl>${url}</@ofbizUrl>' class='linktext'>${uiLabelMap.CommonListAll}</a>&nbsp;&nbsp;
             </td>
         </tr>    
     </table>

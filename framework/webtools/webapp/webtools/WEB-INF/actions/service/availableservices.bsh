@@ -22,6 +22,8 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.ofbiz.service.ModelPermGroup;
 import org.ofbiz.service.ModelPermission;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilProperties;
 
 getEcaListForService(String selectedService){
     ecaMap = org.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService);
@@ -304,6 +306,11 @@ dispArrList.add("community");
 Collections.sort(dispArrList);
 context.put("dispArrList", dispArrList);
 
+locale = UtilHttp.getLocale(request);
+request.setAttribute("locale",locale);
+uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
+uiLabelMap.addBottomResourceBundle("CommonUiLabels");
+
 selDisp = request.getParameter("selDisp");
 selDisp = selDisp == null || selDisp.length() == 0 ? request.getAttribute("selDisp") : selDisp;
 //default disptacher is partymgr
@@ -330,11 +337,11 @@ if(selectedService != null && selectedService.length() > 0){
 
         engineName = curServiceModel.engineName;
         defaultEntityName = curServiceModel.defaultEntityName;
-        export = curServiceModel.export ? "True" : "False";
+        export = curServiceModel.export ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse");
         permissionGroups = curServiceModel.permissionGroups;
         implServices = curServiceModel.implServices;
         overrideParameters = curServiceModel.overrideParameters;
-        useTrans = curServiceModel.useTransaction ? "True" : "False";
+        useTrans = curServiceModel.useTransaction ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse");
         maxRetry = curServiceModel.maxRetry;
 
         //Test for ECA's
@@ -346,7 +353,7 @@ if(selectedService != null && selectedService.length() > 0){
 
         invoke = curServiceModel.invoke;
         location = curServiceModel.location;
-        requireNewTransaction = curServiceModel.requireNewTransaction ? "True" : "False";
+        requireNewTransaction = curServiceModel.requireNewTransaction ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse");
         engineName = engineName != null && engineName.length() > 0 ? engineName : "NA";
         defaultEntityName = defaultEntityName != null && defaultEntityName.length() > 0 ? defaultEntityName : "NA";
         invoke = invoke != null && invoke.length() > 0 ? invoke : "NA";
@@ -404,15 +411,15 @@ if(selectedService != null && selectedService.length() > 0){
                 curInParam = new HashMap();
                 curInParam.put("entityName", curParam.entityName);
                 curInParam.put("fieldName", curParam.fieldName);
-                curInParam.put("internal", curParam.internal ? "True" : "False");
+                curInParam.put("internal", curParam.internal ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse"));
                 curInParam.put("mode", curParam.mode);
                 curInParam.put("name", curParam.name);
-                curInParam.put("optional", curParam.optional ? "True" : "False");
+                curInParam.put("optional", curParam.optional ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse"));
                 curInParam.put("type", curParam.type);
                 inParamsList.add(curInParam);
             }
             inParamMap = new HashMap();
-            inParamMap.put("title", "In parameters");
+            inParamMap.put("title", uiLabelMap.get("WebtoolsInParameters"));
             inParamMap.put("paramList", inParamsList);
             allParamsList.add(inParamMap);
         }
@@ -426,15 +433,15 @@ if(selectedService != null && selectedService.length() > 0){
                 curOutParam = new HashMap();
                 curOutParam.put("entityName", curParam.entityName);
                 curOutParam.put("fieldName", curParam.fieldName);
-                curOutParam.put("internal", curParam.internal ? "True" : "False");
+                curOutParam.put("internal", curParam.internal ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse"));
                 curOutParam.put("mode", curParam.mode);
                 curOutParam.put("name", curParam.name);
-                curOutParam.put("optional", curParam.optional ? "True" : "False");
+                curOutParam.put("optional", curParam.optional ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse"));
                 curOutParam.put("type", curParam.type);
                 outParamsList.add(curOutParam);
             }
             outParamMap = new HashMap();
-            outParamMap.put("title", "Out parameters");
+            outParamMap.put("title", uiLabelMap.get("WebtoolsOutParameters"));
             outParamMap.put("paramList", outParamsList);
             allParamsList.add(outParamMap);
         }
@@ -447,10 +454,10 @@ if(selectedService != null && selectedService.length() > 0){
                 curOvrPrm = new HashMap();
                 curOvrPrm.put("entityName", curParam.entityName);
                 curOvrPrm.put("fieldName", curParam.fieldName);
-                curOvrPrm.put("internal", curParam.internal ? "True" : "False");
+                curOvrPrm.put("internal", curParam.internal ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse"));
                 curOvrPrm.put("mode", curParam.mode);
                 curOvrPrm.put("name", curParam.name);
-                curOvrPrm.put("optional", curParam.optional ? "True" : "False");
+                curOvrPrm.put("optional", curParam.optional ? uiLabelMap.get("CommonTrue") : uiLabelMap.get("CommonFalse"));
                 curOvrPrm.put("type", curParam.type);
                 ovrPrmList.add(curOvrPrm);
             }

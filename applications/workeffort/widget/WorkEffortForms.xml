@@ -163,15 +163,15 @@ under the License.
 
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[General] ${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortGeneral}] ${description}">
                     <entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[Task] ${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortTask}] ${description}">
                     <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[Event] ${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortEvent}] ${description}">
                     <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

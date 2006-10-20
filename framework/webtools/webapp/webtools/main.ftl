@@ -33,32 +33,28 @@ under the License.
         <tr>
           <td>
             <#if !userLogin?has_content>
-              <div class="tabletext">For something interesting make sure you are logged in, try username:admin, password:ofbiz.</div>
+              <div class="tabletext">${uiLabelMap.WebtoolsMessage14}.</div>
               <br/>
             </#if>
-            <div class="tabletext">The purpose of this Web Tools administration package is to contain all of the 
-            administration tools that directly relate to the various Core Tool Components. The Core Tool Component layer is
-            defined in the architecture documents as the container of all entity definitions shared by the vertical applications that
-            are built on top of these entity definitions and the tools surrounding them such as the entity, workflow, and rule engines,
-            content and knowledge management, data analysis, and so forth.</div>
+            <div class="tabletext">${uiLabelMap.WebtoolsTitle1} ${uiLabelMap.WebtoolsTitle2} ${uiLabelMap.WebtoolsTitle3} ${uiLabelMap.WebtoolsTitle4} ${uiLabelMap.WebtoolsTitle5} ${uiLabelMap.WebtoolsTitle6}.</div>
             <br/>
-            <div class="tabletext">This application is primarily intended for developers and system administrators.</div>
+            <div class="tabletext">${uiLabelMap.WebtoolsMessage13}.</div>
             <#if userLogin?has_content>
             <ul>
-                <li><div class="tabletext">Cache &amp; Debug Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsCachDebugTools}</div>
                 <ul>
-                    <li><a href="<@ofbizUrl>/FindUtilCache</@ofbizUrl>" class="linktext">Cache Maintenance</a>
-                    <li><a href="<@ofbizUrl>/LogConfiguration</@ofbizUrl>" class="linktext">Adjust Debugging Levels</a>
+                    <li><a href="<@ofbizUrl>/FindUtilCache</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsCacheMaintenance}</a>
+                    <li><a href="<@ofbizUrl>/LogConfiguration</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsAdjustDebuggingLevels}</a>
                 </ul>
               <#if security.hasPermission("ENTITY_MAINT", session)>
-                <li><div class="tabletext">Entity Engine Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsEntityEngineTools}</div>
                 <ul>
-                  <li><a href="<@ofbizUrl>/entitymaint</@ofbizUrl>" class="linktext">Entity Data Maintenance</a>
-                  <li><a href="<@ofbizUrl>/view/entityref</@ofbizUrl>" class="linktext" target="_blank">Entity Reference</a>&nbsp;<a href="<@ofbizUrl>/view/entityref?forstatic=true</@ofbizUrl>" class="linktext" target="_blank">[Static Version]</a>
-                  <li><a href="<@ofbizUrl>/EntitySQLProcessor</@ofbizUrl>" class="linktext">Entity SQL Processor</a>
-                  <li><a href="<@ofbizUrl>/EntitySyncStatus</@ofbizUrl>" class="linktext">Entity Sync Status</a>
-                  <li><a href="<@ofbizUrl>/view/ModelInduceFromDb</@ofbizUrl>" target="_blank" class="linktext">Induce Model XML from Database</a><br/>
-                  <li><a href="<@ofbizUrl>/view/checkdb</@ofbizUrl>" class="linktext">Check/Update Database</a>
+                  <li><a href="<@ofbizUrl>/entitymaint</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntityDataMaintenance}</a>
+                  <li><a href="<@ofbizUrl>/view/entityref</@ofbizUrl>" class="linktext" target="_blank">${uiLabelMap.WebtoolsServiceReference}</a>&nbsp;<a href="<@ofbizUrl>/view/entityref?forstatic=true</@ofbizUrl>" class="linktext" target="_blank">[Static Version]</a>
+                  <li><a href="<@ofbizUrl>/EntitySQLProcessor</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntitySQLProcessor}</a>
+                  <li><a href="<@ofbizUrl>/EntitySyncStatus</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntitySyncStatus}</a>
+                  <li><a href="<@ofbizUrl>/view/ModelInduceFromDb</@ofbizUrl>" target="_blank" class="linktext">${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</a><br/>
+                  <li><a href="<@ofbizUrl>/view/checkdb</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsCheckUpdateDatabase}</a>
 
                   <!-- want to leave these out because they are only working so-so, and cause people more problems that they solve, IMHO
                   <ul>
@@ -76,41 +72,41 @@ under the License.
                   <li><a href="<@ofbizUrl>/view/dataMySql</@ofbizUrl>" class="linktext">MySQL Auto Data SQL</a>
                   -->
                 </ul>
-                <li><div class="tabletext">Entity XML Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsEntityXMLTools}</div>
                 <ul>
-                  <li><a href="<@ofbizUrl>/xmldsdump</@ofbizUrl>" class="linktext">XML Data Export</a>
-                  <li><a href="<@ofbizUrl>/EntityExportAll</@ofbizUrl>" class="linktext">XML Data Export All</a>
-                  <li><a href="<@ofbizUrl>/EntityImport</@ofbizUrl>" class="linktext">XML Data Import</a>
-                  <li><a href="<@ofbizUrl>/EntityImportDir</@ofbizUrl>" class="linktext">XML Data Import Dir</a>
+                  <li><a href="<@ofbizUrl>/xmldsdump</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityExport}</a>
+                  <li><a href="<@ofbizUrl>/EntityExportAll</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityExportAll}</a>
+                  <li><a href="<@ofbizUrl>/EntityImport</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityImport}</a>
+                  <li><a href="<@ofbizUrl>/EntityImportDir</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntityImportDir}</a>
                 </ul>
               </#if>
               <#if security.hasPermission("SERVICE_MAINT", session)>
-                <li><div class="tabletext">Service Engine Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsServiceEngineTools}</div>
                 <ul>
-                  <li><a href="<@ofbizUrl>/availableServices</@ofbizUrl>" class="linktext">Service Reference</a>
-                  <li><a href="<@ofbizUrl>/scheduleJob</@ofbizUrl>" class="linktext">Schedule Job</a>
-                  <li><a href="<@ofbizUrl>/jobList</@ofbizUrl>" class="linktext">Job List</a>
-                  <li><a href="<@ofbizUrl>/threadList</@ofbizUrl>" class="linktext">Thread List</a>
-                  <li><a href="<@ofbizUrl>/serviceList</@ofbizUrl>" class="linktext">Service Log</a>
+                  <li><a href="<@ofbizUrl>/availableServices</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsServiceReference}</a>
+                  <li><a href="<@ofbizUrl>/scheduleJob</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleScheduleJob}</a>
+                  <li><a href="<@ofbizUrl>/jobList</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleJobList}</a>
+                  <li><a href="<@ofbizUrl>/threadList</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleThreadList}</a>
+                  <li><a href="<@ofbizUrl>/serviceList</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsServiceLog}</a>
                 </ul>
               </#if>
               <#if security.hasPermission("WORKFLOW_MAINT", session)>
-                <li><div class="tabletext">Workflow Engine Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsWorkflowEngineTools}</div>
                 <ul>
-                  <li><a href="<@ofbizUrl>/workflowMonitor</@ofbizUrl>" class="linktext">Workflow Monitor</a>
-                  <li><a href="<@ofbizUrl>/readxpdl</@ofbizUrl>" class="linktext">Read XPDL File</a>
+                  <li><a href="<@ofbizUrl>/workflowMonitor</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsWorkflowMonitor}</a>
+                  <li><a href="<@ofbizUrl>/readxpdl</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsReadXPDLFile}</a>
                 </ul>
               </#if>
               <#if security.hasPermission("DATAFILE_MAINT", session)>
-                <li><div class="tabletext">Data File Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsDataFileTools}</div>
                 <ul>
-                  <li><a href="<@ofbizUrl>/viewdatafile</@ofbizUrl>" class="linktext">Work With Data Files</a>
+                  <li><a href="<@ofbizUrl>/viewdatafile</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsWorkWithDataFiles}</a>
                 </ul>
               </#if>
-                <li><div class="tabletext">Misc. Setup Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsMiscSetupTools}</div>
                 <ul>
                   <#if security.hasPermission("PERIOD_MAINT", session)>
-                    <li><a href="<@ofbizUrl>/EditCustomTimePeriod</@ofbizUrl>" class="linktext">Edit Custom Time Periods</a>
+                    <li><a href="<@ofbizUrl>/EditCustomTimePeriod</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEditCustomTimePeriods}</a>
                   </#if>
                   <#if security.hasPermission("ENUM_STATUS_MAINT", session)>
                   <!--
@@ -119,20 +115,20 @@ under the License.
                   -->
                   </#if>
                 </ul>
-                <li><div class="tabletext">Performance Tests</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsPerformanceTests}</div>
                 <ul>
-                  <li><a href="<@ofbizUrl>/EntityPerformanceTest</@ofbizUrl>" class="linktext">Entity Engine</a>
+                  <li><a href="<@ofbizUrl>/EntityPerformanceTest</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntityEngine}</a>
                 </ul>
               <#if security.hasPermission("SERVER_STATS_VIEW", session)>
-                <li><div class="tabletext">Server Hit Statistics Tools</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsServerHitStatisticsTools}</div>
                 <ul>
-                  <li><a href="<@ofbizUrl>/StatsSinceStart</@ofbizUrl>" class="linktext">Stats Since Server Start</a>
+                  <li><a href="<@ofbizUrl>/StatsSinceStart</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsStatsSinceServerStart}</a>
                 </ul>
               </#if>
             </ul>
             </#if>
 
-            <div class="tabletext">NOTE: If you have not already run the installation data loading script, from the ofbiz home directory run "ant run-install" or "java -jar ofbiz.jar install"</div>
+            <div class="tabletext">${uiLabelMap.WebtoolsNote1}</div>
           </td>
         </tr>
       </table>

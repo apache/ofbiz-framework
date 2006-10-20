@@ -17,8 +17,8 @@ under the License.
 <#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
 
 <div class="tabContainer">
-  <a href="<@ofbizUrl>serviceList</@ofbizUrl>" class="${selectedClassMap.ServiceList?default(unselectedClassName)}">Service List</a>
-  <a href="<@ofbizUrl>jobList</@ofbizUrl>" class="${selectedClassMap.JobList?default(unselectedClassName)}">Job List</a>
-  <a href="<@ofbizUrl>threadList</@ofbizUrl>" class="${selectedClassMap.ThreadList?default(unselectedClassName)}">Thread List</a>
-  <a href="<@ofbizUrl>scheduleJob</@ofbizUrl>" class="${selectedClassMap.ScheduleJob?default(unselectedClassName)}">Schedule Job</a>
+  <a href="<@ofbizUrl>serviceList</@ofbizUrl>" class="${selectedClassMap.ServiceList?default(unselectedClassName)}">${uiLabelMap.WebtoolsServiceList}</a>
+  <a href="<@ofbizUrl>jobList</@ofbizUrl>" class="${selectedClassMap.JobList?default(unselectedClassName)}">${uiLabelMap.WebtoolsJobList}</a>
+  <a href="<@ofbizUrl>threadList</@ofbizUrl>" class="${selectedClassMap.ThreadList?default(unselectedClassName)}">${uiLabelMap.WebtoolsThreadList}</a>
+  <a href="<@ofbizUrl>scheduleJob</@ofbizUrl>" class="${selectedClassMap.ScheduleJob?default(unselectedClassName)}">${uiLabelMap.WebtoolsScheduleJob}</a>
 </div>

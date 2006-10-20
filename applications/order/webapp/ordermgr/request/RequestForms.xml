@@ -212,7 +212,7 @@
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="custRequestResolutionId"><hidden/></field>
-        <field use-when="custRequestItem==null" name="statusId" title="Status" widget-style="selectBox">
+        <field use-when="custRequestItem==null" name="statusId" widget-style="selectBox">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
@@ -220,7 +220,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="custRequestItem!=null" name="statusId" title="Status" widget-style="selectBox">
+        <field use-when="custRequestItem!=null" name="statusId" widget-style="selectBox">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${custRequestItem.statusId}"/>

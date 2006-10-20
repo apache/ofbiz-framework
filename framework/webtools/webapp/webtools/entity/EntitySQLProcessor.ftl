@@ -13,13 +13,13 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-<span class="head1">SQL Processor</span>
+<span class="head1">${uiLabelMap.WebtoolsSqlProcessor}</span>
 
 <form method="post" action="EntitySQLProcessor" name="EntitySQLCommand" style="margin: 0;">
 <table border="0" cellpadding="2" cellspacing="0">
     <tr>
         <td width="20%" align="right">
-            <span class="tableheadtext">Group</span>
+            <span class="tableheadtext">${uiLabelMap.CommonGroup}</span>
         </td>
         <td>&nbsp;</td>
         <td width="80%" align="left">
@@ -32,7 +32,7 @@ under the License.
     </tr>
     <tr>
         <td width="20%" align="right">
-            <span class="tableheadtext">SQL Command</span>
+            <span class="tableheadtext">${uiLabelMap.WebtoolsSqlCommand}</span>
         </td>
         <td>&nbsp;</td>
         <td width="80%" align="left">
@@ -41,7 +41,7 @@ under the License.
     </tr>
     <tr>
         <td width="20%" align="right">
-            <span class="tableheadtext">Limit Rows To</span>
+            <span class="tableheadtext">${uiLabelMap.WebtoolsLimitRowsTo}</span>
         </td>
         <td>&nbsp;</td>
         <td width="80%" align="left">
@@ -52,13 +52,13 @@ under the License.
         <td width="20%" align="right">&nbsp;</td>
         <td>&nbsp;</td>
         <td width="80%" align="left" colspan="4">
-            <input type="submit" class="smallSubmit" name="submitButton" value="Submit"/>
+            <input type="submit" class="smallSubmit" name="submitButton" value="${uiLabelMap.CommonSubmit}"/>
         </td>
     </tr>
 </table>
 </form>
 
-<span class="head1">Results</span>
+<span class="head1">${uiLabelMap.WebtoolsResults}</span>
 
 <br/>
 ${resultMessage?if_exists}
