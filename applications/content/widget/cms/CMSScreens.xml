@@ -18,96 +18,96 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
 
-	<screen name="CMSContentFind">
-		<section>
-			<condition>
-				<if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-			</condition>
-		<actions>
-            <set field="title" value="CMS Content Find Page"/>
-            <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
-            <service service-name="urlEncodeArgs" result-map-name="result">
-                <field-map env-name="requestParameters" field-name="mapIn"/>
-            </service>
-            <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer" default-value="0"/>
-            <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
-            <set field="currentCMSMenuItemName" value="contentfind" to-scope="user"/>
-		</actions>
-                  <widgets>
-                       <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                         <decorator-section name="body">
-                           <include-form name="findContent" location="component://content/webapp/content/cms/CMSForms.xml" />
-                           <include-form name="listFindContent" location="component://content/webapp/content/cms/CMSForms.xml" />
-                          </decorator-section>
-                        </decorator-screen>
-                  </widgets>
-		</section>
-	</screen>
+    <screen name="CMSContentFind">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="title" value="CMS Content Find Page"/>
+                <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
+                <service service-name="urlEncodeArgs" result-map-name="result">
+                    <field-map env-name="requestParameters" field-name="mapIn"/>
+                </service>
+                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="currentCMSMenuItemName" value="contentfind" to-scope="user"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="findContent" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <include-form name="listFindContent" location="component://content/webapp/content/cms/CMSForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
-	<screen name="CMSContentEdit">
-		<section>
-			<condition>
-				<if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-			</condition>
-		<actions>
-		    <script location="component://content/widget/getMenuContext.bsh"/>
-                    <set field="title" value="CMS Content Edit Page"/>
-                    <set field="titleProperty" value="PageTitleEditContent"/>
-			<entity-one entity-name="Content" value-name="currentValue">
-				<field-map field-name="contentId" env-name="parameters.contentId"/>
-			</entity-one>
-			<entity-one entity-name="ElectronicText" value-name="electronicText">
-				<field-map field-name="dataResourceId" env-name="parameters.drDataResourceId"/>
-			</entity-one>
-			<set field="textData" from-field="electronicText.textData"/>
-			<set field="contentId" from-field="currentValue.contentId"/>
-			<set field="dataResourceId" from-field="parameters.drDataResourceId"/>
-            <set field="rootForumId" value="WebStoreFORUM" />
-            <set field="rootForumId2" value="WebStoreCONTENT" />
-		    <script location="component://content/widget/cms/featureprep.bsh"/>
-            <set field="menuContext.contentTarget" value="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${dataResourceId}"/>
-		</actions>
-                  <widgets>
-                       <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                         <decorator-section name="body">
-                    		<platform-specific>
-                         		<html>
-                             		<html-template location="component://content/webapp/content/cms/CMSContentEdit.ftl"/>
-                         		</html>
-                    		</platform-specific>
-                          </decorator-section>
-                        </decorator-screen>
-                  </widgets>
-		</section>
-	</screen>
-	
-	<screen name="CMSContentAdd">
-		<section>
-			<condition>
-				<if-has-permission permission="CONTENTMGR" action="CREATE"/>
-			</condition>
-		<actions>
-		    <script location="component://content/widget/getMenuContext.bsh"/>
-                    <set field="title" value="CMS Content Edit Page"/>
-                    <set field="titleProperty" value="PageTitleEditContent"/>
-		</actions>
-                  <widgets>
-                       <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                         <decorator-section name="body">
-                           <include-form name="AddContent" location="component://content/webapp/content/cms/CMSForms.xml" />
-                          </decorator-section>
-                        </decorator-screen>
-                  </widgets>
-		</section>
-	</screen>
-	
-	<screen name="EditAddContent">
-		<section>
-			<condition>
-				<if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-			</condition>
-			<actions>
-            	<set field="title" value="CMS Content Edit Page"/>
+    <screen name="CMSContentEdit">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>
+                <set field="title" value="CMS Content Edit Page"/>
+                <set field="titleProperty" value="PageTitleEditContent"/>
+                <entity-one entity-name="Content" value-name="currentValue">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+                <entity-one entity-name="ElectronicText" value-name="electronicText">
+                    <field-map field-name="dataResourceId" env-name="parameters.drDataResourceId"/>
+                </entity-one>
+                <set field="textData" from-field="electronicText.textData"/>
+                <set field="contentId" from-field="currentValue.contentId"/>
+                <set field="dataResourceId" from-field="parameters.drDataResourceId"/>
+                <set field="rootForumId" value="WebStoreFORUM" />
+                <set field="rootForumId2" value="WebStoreCONTENT" />
+                <script location="component://content/widget/cms/featureprep.bsh"/>
+                <set field="menuContext.contentTarget" value="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${dataResourceId}"/>
+            </actions>
+            <widgets>
+               <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                 <decorator-section name="body">
+                    <platform-specific>
+                         <html>
+                             <html-template location="component://content/webapp/content/cms/CMSContentEdit.ftl"/>
+                         </html>
+                    </platform-specific>
+                  </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CMSContentAdd">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>
+                <set field="title" value="CMS Content Edit Page"/>
+                <set field="titleProperty" value="PageTitleEditContent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="AddContent" location="component://content/webapp/content/cms/CMSForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditAddContent">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="title" value="CMS Content Edit Page"/>
                 <set field="entityOperation" value="_UPDATE"/>
                 <set field="targetOperation" value="CONTENT_UPDATE|CONTENT_CREATE|CONTENT_CREATE_SUB"/>
                 <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
@@ -127,29 +127,29 @@ under the License.
                 <set field="caFromDate" from-field="MASTER_caFromDate" />
                 
                 
-			    <script location="component://content/widget/cms/cmseditaddprep.bsh"/>
+                <script location="component://content/widget/cms/cmseditaddprep.bsh"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
                 <set field="enableEdit" value="true" />
-			</actions>
-	    	<widgets>
-                       <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-                         <decorator-section name="body">
-                           <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-                           <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
-                           <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
-                          </decorator-section>
-                        </decorator-screen>
-	    	</widgets>
-		</section>
-	</screen>
-	
-	<screen name="EditAddSubContent">
-		<section>
-			<condition>
-				<if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-			</condition>
-			<actions>
-            	<set field="title" value="CMS Content Edit Page"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
+                        <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditAddSubContent">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="title" value="CMS Content Edit Page"/>
                 <set field="entityOperation" value="_UPDATE"/>
                 <set field="targetOperation" value="CONTENT_UPDATE|CONTENT_CREATE|CONTENT_CREATE_SUB"/>
                 <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
@@ -164,139 +164,139 @@ under the License.
                 <set field="caContentIdTo" from-field="parameters.contentId"/>
                 <set field="caMapKey" from-field="parameters.mapKey"/>
                 
-			    <script location="component://content/widget/cms/cmseditaddprep.bsh"/>
+                <script location="component://content/widget/cms/cmseditaddprep.bsh"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
-			</actions>
-	    	<widgets>
-	    	    <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-	    	        <decorator-section name="body">
-	    	            <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-	    	            <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
-	    	        </decorator-section>
-	    	    </decorator-screen>
-	    	</widgets>
-		</section>
-	</screen>
-	
-	<screen name="AdminSearch">
-		<section>
-			<condition>
-				<if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-			</condition>
-		<actions>
-		    <script location="component://content/widget/getMenuContext.bsh"/>
-		    <script location="component://content/widget/cms/advancedsearchprep.bsh"/>
-		    <script location="component://content/widget/cms/search.bsh"/>
-		    <set field="title" value="CMS Search Page"/>
-		    <set field="titleProperty" value="PageTitleSearchContent"/>
-		</actions>
-		    <widgets>
-		        <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-		            <decorator-section name="body">
-		                <platform-specific>
-		                    <html>
-		                        <html-template location="component://content/webapp/content/cms/AdminSearch.ftl"/>
-		                    </html>
-		                </platform-specific>
-		                <include-form name="searchList" location="component://content/webapp/content/cms/CMSForms.xml" />
-		            </decorator-section>
-		        </decorator-screen>
-		    </widgets>
-		</section>
-	</screen>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
+                        <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="AdminSearch">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>
+                <script location="component://content/widget/cms/advancedsearchprep.bsh"/>
+                <script location="component://content/widget/cms/search.bsh"/>
+                <set field="title" value="CMS Search Page"/>
+                <set field="titleProperty" value="PageTitleSearchContent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/cms/AdminSearch.ftl"/>
+                            </html>
+                        </platform-specific>
+                        <include-form name="searchList" location="component://content/webapp/content/cms/CMSForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
-	
-	<screen name="AdminIndex">
-		<section>
-		    <condition>
-		        <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-		    </condition>
-		    <actions>
-		        <script location="component://content/widget/getMenuContext.bsh"/>
-		        <set field="title" value="CMS Search Page"/>
-		        <set field="titleProperty" value="PageTitleSearchContent"/>
-		    </actions>
-		    <widgets>
-		        <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-		            <decorator-section name="body">
-		                <include-form name="AdminIndex" location="component://content/webapp/content/cms/CMSForms.xml" />
-		                <include-form name="AdminIndexAll" location="component://content/webapp/content/cms/CMSForms.xml" />
-		            </decorator-section>
-		        </decorator-screen>
-		    </widgets>
-		</section>
-	</screen>
-	
-	<screen name="CMSSites">
-		<section>
-		    <condition>
-		        <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-		    </condition>
-		    <actions>
-		        <script location="component://content/widget/getMenuContext.bsh"/>
-		        <set field="title" value="CMS Search Page"/>
-		        <set field="titleProperty" value="PageTitleSearchContent"/>
-		        <set field="forumId" from-field="parameters.contentId"/>
-		        <set field="defaultSiteId" value="WebStoreFORUM"/>
-		        <script location="component://content/widget/cms/userpermprep.bsh"/>
+    
+    <screen name="AdminIndex">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>
+                <set field="title" value="CMS Search Page"/>
+                <set field="titleProperty" value="PageTitleSearchContent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="AdminIndex" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <include-form name="AdminIndexAll" location="component://content/webapp/content/cms/CMSForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CMSSites">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>
+                <set field="title" value="CMS Search Page"/>
+                <set field="titleProperty" value="PageTitleSearchContent"/>
+                <set field="forumId" from-field="parameters.contentId"/>
+                <set field="defaultSiteId" value="WebStoreFORUM"/>
+                <script location="component://content/widget/cms/userpermprep.bsh"/>
                         <script location="component://content/widget/cms/mostrecentprep.bsh"/>
-		    </actions>
-		    <widgets>
-		        <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-		            <decorator-section name="body">
-		                <platform-specific>
-		                    <html>
-		                        <html-template location="component://content/webapp/content/cms/CMSSites.ftl"/>
-		                    </html>
-		                </platform-specific>
-		            </decorator-section>
-		        </decorator-screen>
-		    </widgets>
-		</section>
-	</screen>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/cms/CMSSites.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 
-	<screen name="addSubSite">
-		<section>
-		    <condition>
-		        <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-		    </condition>
-		    <actions>
-		        <script location="component://content/widget/getMenuContext.bsh"/>
-		        <set field="title" value="Add SubSite"/>
-		        <set field="titleProperty" value="PageTitleSearchContent"/>
-		    </actions>
-		    <widgets>
-		        <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-		            <decorator-section name="body">
-		                <platform-specific>
-		                    <html>
-		                        <html-template location="component://content/webapp/content/cms/addSubSite.ftl"/>
-		                    </html>
-		                </platform-specific>
-		            </decorator-section>
-		        </decorator-screen>
-		    </widgets>
-		</section>
-	</screen>
-	<screen name="TestPermission">
-		<section>
-		    <condition>
-		        <if-has-permission permission="CONTENTMGR" action="ADMIN"/>
-		    </condition>
-		    <actions>
-		        <script location="component://content/widget/getMenuContext.bsh"/>
-		        <set field="title" value="Test Permission"/>
-		        <set field="titleProperty" value="Test Permission"/>
-		    </actions>
-		    <widgets>
-		        <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
-		            <decorator-section name="body">
-		                <include-form name="TestPermission" location="component://content/webapp/content/cms/CMSForms.xml" />
-		            </decorator-section>
-		        </decorator-screen>
-		    </widgets>
-		</section>
-	</screen>
+    <screen name="addSubSite">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>
+                <set field="title" value="Add SubSite"/>
+                <set field="titleProperty" value="PageTitleSearchContent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/cms/addSubSite.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TestPermission">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="ADMIN"/>
+            </condition>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>
+                <set field="title" value="Test Permission"/>
+                <set field="titleProperty" value="Test Permission"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="TestPermission" location="component://content/webapp/content/cms/CMSForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
 
