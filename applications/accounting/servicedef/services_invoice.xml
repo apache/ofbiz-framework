@@ -139,8 +139,7 @@ under the License.
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceTerm">
         <description>Create Invoice (Item) Term Record</description>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="false"/>
-        <override name="uomId" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="createInvoiceForOrderAllItems" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createInvoiceForOrderAllItems">

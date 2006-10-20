@@ -1603,7 +1603,7 @@ public class InvoiceServices {
                 createInvoiceTermContext.put("termTypeId", term.get("termTypeId"));
                 createInvoiceTermContext.put("termValue", term.get("termValue"));
                 createInvoiceTermContext.put("termDays", term.get("termDays"));
-                createInvoiceTermContext.put("uomId", term.get("termDays"));
+                createInvoiceTermContext.put("uomId", term.get("uomId"));
                 createInvoiceTermContext.put("userLogin", userLogin);
 
                 Map createInvoiceTermResult = null;
