@@ -16,12 +16,12 @@ under the License.
 
 <table cellpadding="2" cellspacing="0" border="1" width="100%">
   <tr>
-    <td><div class="tableheadtext">Job</div></td>
-    <td><div class="tableheadtext">Pool</div></td>
-    <td><div class="tableheadtext">Run Time</div></td>
-    <td><div class="tableheadtext">Start Time</div></td>
-    <td><div class="tableheadtext">Service</div></td>
-    <td><div class="tableheadtext">Finish Time</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsJob}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsPool}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsRunTime}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.CommonStartDateTime}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsService}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.CommonEndDateTime}</div></td>
     <td>&nbsp;</td>
   </tr>
   <#list jobs as job>
@@ -42,7 +42,7 @@ under the License.
     </td>
     <td align="center">
       <#if !(job.startDateTime?exists) && !(job.finishDateTime?exists) && !(job.cancelDateTime?exists)>
-      <a href="<@ofbizUrl>cancelJob?jobId=${job.jobId}</@ofbizUrl>" class="buttontext">Cancel Job</a>
+      <a href="<@ofbizUrl>cancelJob?jobId=${job.jobId}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsCancelJob}</a>
       </#if>
       &nbsp;
     </td>

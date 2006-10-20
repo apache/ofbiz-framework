@@ -120,7 +120,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
                     <decorator-section name="body">
-                        <label style="head1">Step 1: Service And Recurrence Information</label>
+                        <label style="head1">${uiLabelMap.WebtoolsMessage11}</label>
                         <include-form name="scheduleJob" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -138,7 +138,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
                     <decorator-section name="body">
-                        <label style="head1">Step 2: Service Parameters</label>
+                        <label style="head1">${uiLabelMap.WebtoolsMessage12}</label>
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameter.ftl"/></html>
                         </platform-specific>

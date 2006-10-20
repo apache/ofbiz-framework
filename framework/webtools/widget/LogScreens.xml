@@ -28,7 +28,7 @@ under the License.
         <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
               <container>
-                  <link target="LogView" text="View Log" style="buttontext"/>
+                  <link target="LogView" text="${uiLabelMap.WebtoolsViewLog}" style="buttontext"/>
               </container>
               <container style="boxoutside">
                 <container style="boxtop">
@@ -74,14 +74,14 @@ under the License.
         <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
             <container>
-                <label style="head1">Log View</label>
+                <label style="head1">${uiLabelMap.WebtoolsViewLog}</label>
             </container>
             <container>
-                <link target="LogConfiguration" text="Adjust Debugging Levels" style="buttontext"/>
+                <link target="LogConfiguration" text="${uiLabelMap.WebtoolsAdjustDebuggingLevels}" style="buttontext"/>
                 <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext"/>
             </container>
             <container>
-                <label style="tableheadtext">Log File Name:</label>
+                <label style="tableheadtext">${uiLabelMap.WebtoolsLogFileName}:</label>
                 <label style="tabletext">${logFileName}</label>
             </container>
             <container>

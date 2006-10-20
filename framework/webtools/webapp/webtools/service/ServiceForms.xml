@@ -19,25 +19,25 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
     <form name="scheduleJob" type="single" target="setServiceParameters" title="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-        <field name="SERVICE_NAME" title="Service"><text/></field>
-        <field name="POOL_NAME" title="Pool Name"><text/></field>
-        <field name="SERVICE_TIME" title="Start Date/Time"><date-time/></field>
-        <field name="SERVICE_END_TIME" title="Finish Date/Time"><date-time/></field>
-        <field name="SERVICE_FREQUENCY" title="Frequency">
+        <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
+        <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
+        <field name="SERVICE_TIME" title="${uiLabelMap.CommonStartDateTime}"><date-time/></field>
+        <field name="SERVICE_END_TIME" title="${uiLabelMap.CommonEndDateTime}"><date-time/></field>
+        <field name="SERVICE_FREQUENCY" title="${uiLabelMap.WebtoolsFrequency}">
             <drop-down>
-                <option key="" description="None"/>
-                <option key="4" description="Daily"/>
-                <option key="5" description="Weekly"/>
-                <option key="6" description="Monthly"/>
-                <option key="7" description="Yearly"/>
-                <option key="3" description="Hourly"/>
-                <option key="2" description="Minutely"/>
-                <option key="1" description="Secondly"/>
+                <option key="" description="${uiLabelMap.CommonNone}"/>
+                <option key="4" description="${uiLabelMap.CommonDaily}"/>
+                <option key="5" description="${uiLabelMap.CommonWeekly}"/>
+                <option key="6" description="${uiLabelMap.CommonMonthly}"/>
+                <option key="7" description="${uiLabelMap.CommonYearly}"/>
+                <option key="3" description="${uiLabelMap.CommonHourly}"/>
+                <option key="2" description="${uiLabelMap.CommonMinutely}"/>
+                <option key="1" description="${uiLabelMap.CommonSecondly}"/>
             </drop-down>
         </field>
-        <field name="SERVICE_INTERVAL" title="Interval" tooltip="for use with frequency"><text/></field>
-        <field name="SERVICE_COUNT" title="Count" tooltip="number of time the job will run; use -1 for no limit i.e. forever"><text default-value="1"/></field>
-        <field name="SERVICE_MAXRETRY" title="Max Retry" tooltip="number of time the job will retry on error; use -1 for no limit or leave empty for service default"><text/></field>
+        <field name="SERVICE_INTERVAL" title="${uiLabelMap.WebtoolsInterval}" tooltip="${uiLabelMap.WebtoolsMessage8}"><text/></field>
+        <field name="SERVICE_COUNT" title="${uiLabelMap.WebtoolsCount}" tooltip="${uiLabelMap.WebtoolsMessage9}"><text default-value="1"/></field>
+        <field name="SERVICE_MAXRETRY" title="${uiLabelMap.WebtoolsMaxRetry}" tooltip="${uiLabelMap.WebtoolsMessage10}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field> 
     </form>
 </forms>

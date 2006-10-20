@@ -354,11 +354,11 @@ under the License.
         <field name="partyId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${partyId}" target="EditAgreementItemParty?partyId=${partyId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
         </field>
-        <field name="partyName" entry-name="partyId">
+        <field name="partyName" title="${uiLabelMap.PartyName}" entry-name="partyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName}"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="removeAgreementItemParty?partyId=${partyId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonRemove}]" also-hidden="false"/>
+            <hyperlink target="removeAgreementItemParty?partyId=${partyId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>
     </form>
     <form name="EditAgreementItemParty" type="single"

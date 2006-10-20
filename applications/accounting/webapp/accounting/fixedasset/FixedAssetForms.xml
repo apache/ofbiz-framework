@@ -347,11 +347,11 @@ under the License.
         <field name="intervalQuantity" title="${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}"><text size="10"/></field>        
         <field name="intervalUomId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalUom}">
             <drop-down allow-empty="true">
-                <entity-options description="Time: ${description}" entity-name="Uom" key-field-name="uomId">
+                <entity-options description="${uiLabelMap.CommonTime}: ${description}" entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options description="Distance: ${description}" entity-name="Uom" key-field-name="uomId">
+                <entity-options description="${uiLabelMap.CommonDistance}: ${description}" entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="LENGTH_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

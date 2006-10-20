@@ -24,6 +24,13 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.RunningService;
 import org.ofbiz.service.engine.GenericEngine;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilProperties;
+
+locale = UtilHttp.getLocale(request);
+request.setAttribute("locale",locale);
+uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
+uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
 Map log = ServiceDispatcher.getServiceLogMap();
 List serviceList = new ArrayList();
@@ -37,7 +44,7 @@ if (log != null) {
         service.put("localName", rs.getLocalName());
         service.put("startTime", rs.getStartStamp());
         service.put("endTime", rs.getEndStamp());
-        service.put("modeStr", (rs.getMode() == GenericEngine.SYNC_MODE? "SYNC": "ASYNC"));
+        service.put("modeStr", (rs.getMode() == GenericEngine.SYNC_MODE? uiLabelMap.get("WebtoolsSync") : uiLabelMap.get("WebtoolsAsync")));
 
         serviceList.add(service);
     }

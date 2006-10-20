@@ -16,18 +16,18 @@ under the License.
 
 <table cellpadding="2" cellspacing="0" border="1" width="100%">
   <tr>
-    <td><div class="tableheadtext">Thread</div></td>
-    <td><div class="tableheadtext">Status</div></td>
-    <td><div class="tableheadtext">Job</div></td>
-    <td><div class="tableheadtext">Service</div></td>
-    <td><div class="tableheadtext">Time (ms)</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsThread}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsJob}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsService}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.CommonTime} (ms)</div></td>
   </tr>
   <#list threads as thread>
   <tr>
     <td><div class="tabletext">${thread.threadName?if_exists}&nbsp;</div></td>
     <td><div class="tabletext">${thread.status?if_exists}&nbsp;</div></td>
-    <td><div class="tabletext">${thread.jobName?default("[none]")}</div></td>
-    <td><div class="tabletext">${thread.serviceName?default("[none]")}</div></td>
+    <td><div class="tabletext">${thread.jobName?default("[${uiLabelMap.CommonNone}]")}</div></td>
+    <td><div class="tabletext">${thread.serviceName?default("[${uiLabelMap.CommonNone}]")}</div></td>
     <td><div class="tabletext">${thread.runTime?if_exists}&nbsp;</div></td>
   </tr>
   </#list>

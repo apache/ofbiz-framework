@@ -20,45 +20,45 @@ under the License.
        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
 
     <form name="TrackingCodeReportOptions" type="single" target="TrackingCodeReport"
-        title="Tracking Code Report" default-title-style="tableheadtext">
-        <field name="fromDate" title="From Date (Date&gt;=)">
+        title="${uiLabelMap.MarketingTrackingCodeReportTitle}" default-title-style="tableheadtext">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.CommonDate}&gt;=)">
             <date-time type="timestamp"/>
         </field>
-        <field name="thruDate" title="Thru Date (Date&lt;)">
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.CommonDate}&lt;)">
             <date-time type="timestamp"/>
         </field>
 
-        <field name="trackingCodeId" title="Tracking Code">
+        <field name="trackingCodeId" title="${uiLabelMap.TrackingCode}">
             <drop-down allow-empty="true">
-                <option key="" description="- Any -"/>
+                <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="TrackingCode" description="${trackingCodeId}">
                 </entity-options>
             </drop-down>
         </field>
 
-        <field name="submitButton" title="Run TrackingCode Report" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonRun} ${uiLabelMap.MarketingTrackingCodeReportTitle}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
 
     <form name="MarketingCampaignOptions" type="single" target="MarketingCampaignReport"
         title="Marketing Campaign Report" default-title-style="tableheadtext">
-        <field name="fromDate" title="From Date (Date&gt;=)">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.CommonDate}&gt;=)">
             <date-time type="timestamp"/>
         </field>
-        <field name="thruDate" title="Thru Date (Date&lt;)">
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.CommonDate}&lt;)">
             <date-time type="timestamp"/>
         </field>
 
-         <field name="marketingCampaignId" title="Marketing Campaign">
+         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaign}">
             <drop-down allow-empty="true">
-                <option key="" description="- Any -"/>
+                <option key="" description="- ${uiLabelMap.CommonAny} -"/>
                 <entity-options entity-name="MarketingCampaign" description="${campaignName}">
                 </entity-options>
             </drop-down>
         </field>
 
-        <field name="submitButton" title="Run Marketing Campaign Report" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonRun} ${uiLabelMap.MarketingCampaignReportTitle}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>

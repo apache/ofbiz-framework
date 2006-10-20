@@ -16,11 +16,11 @@ under the License.
 
 <table cellpadding="2" cellspacing="0" border="1" width="100%">
   <tr>
-    <td><div class="tableheadtext">Service Name</div></td>
-    <td><div class="tableheadtext">Dispatcher Name</div></td>
-    <td><div class="tableheadtext">Mode</div></td>
-    <td><div class="tableheadtext">Start Time</div></td>
-    <td><div class="tableheadtext">End Time</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsServiceName}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsDispatcherName}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.WebtoolsMode}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.CommonStartDateTime}</div></td>
+    <td><div class="tableheadtext">${uiLabelMap.CommonEndDateTime}</div></td>
   </tr>
   <#list services as service>
   <tr>

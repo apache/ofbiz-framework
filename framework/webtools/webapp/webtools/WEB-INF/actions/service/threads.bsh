@@ -25,6 +25,13 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.RunningService;
 import org.ofbiz.service.engine.GenericEngine;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilProperties;
+
+locale = UtilHttp.getLocale(request);
+request.setAttribute("locale",locale);
+uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
+uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
 List threads = new ArrayList();
 List jobs = dispatcher.getJobManager().processList();
@@ -32,13 +39,13 @@ if (jobs != null) {
     Iterator i = jobs.iterator();
     while (i.hasNext()) {
         Map job = (Map) i.next();
-        String status = "Invalid Status";
+        String status = uiLabelMap.get("WebtoolsStatusInvalid");
         int state = ((Integer) job.get("status")).intValue();
         switch (state) {
-            case 0 : status = "Sleeping"; break;
-            case 1 : status = "Running"; break;
-            case -1: status = "Shutting down"; break;
-            default: status = "Invalid Status"; break;
+            case 0 : status = uiLabelMap.get("WebtoolsStatusSleeping"); break;
+            case 1 : status = uiLabelMap.get("WebtoolsStatusRunning"); break;
+            case -1: status = uiLabelMap.get("WebtoolsStatusShuttingDown"); break;
+            default: status = uiLabelMap.get("WebtoolsStatusInvalid"); break;
         }
         threads.add(UtilMisc.toMap("serviceName", job.get("serviceName"), "threadName", job.get("threadName"), "jobName", job.get("jobName"), "status", status));
     }

@@ -50,15 +50,15 @@ under the License.
                 <decorator-screen name="CommonMarketReportDecorator">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1" text="Market Reports"/>
+                            <label style="head1" text="${uiLabelMap.MarketingReports}"/>
                         </container>
                         <container>
-                            <label style="head2" text="Tracking Code Report"/>
+                            <label style="head2" text="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
                             <include-form name="TrackingCodeReportOptions"
                                           location="component://marketing/widget/ReportForms.xml"/>
                         </container>
                         <container>
-                            <label style="head2" text="Marketing Campaign Report"/>
+                            <label style="head2" text="${uiLabelMap.MarketingCampaignReportTitle}"/>
                             <include-form name="MarketingCampaignOptions"
                                           location="component://marketing/widget/ReportForms.xml"/>
                         </container>
@@ -71,7 +71,7 @@ under the License.
     <screen name="TrackingCodeReport">
         <section>
             <actions>
-                <set field="title" value="Tracking Code Report"/>
+                <set field="title" value="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/TrackingCodeReport.bsh"/>
@@ -91,7 +91,7 @@ under the License.
     <screen name="MarketingCampaignReport">
         <section>
             <actions>
-                <set field="title" value="Marketing Campaign Report"/>
+                <set field="title" value="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/MarketingCampaignReport.bsh"/>
