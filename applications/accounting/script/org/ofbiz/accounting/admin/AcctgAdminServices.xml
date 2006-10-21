@@ -22,8 +22,8 @@ under the License.
         <!-- permission checking is done in the services definition file (services_other.xml) -->
         
         <!-- check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole -->
-        <field-to-field field-name="partyId" map-name="parameters" to-map-name="lookupParams"/>
-        <string-to-field string="INTERNAL_ORGANIZATIO" field-name="roleTypeId" map-name="lookupParams"/>
+        <set from-field="parameters.partyId" field="lookupParams.partyId"/>
+        <set value="INTERNAL_ORGANIZATIO" field="lookupParams.roleTypeId"/>
         <find-by-primary-key use-cache="true" entity-name="PartyRole" value-name="partyRole" map-name="lookupParams"/>
         <if-empty field-name="partyRole">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingPartyMustBeInternalOrganization"/></add-error>
@@ -44,7 +44,7 @@ under the License.
         <if-empty field-name="parameters.asOfTimestamp">
             <now-timestamp-to-env env-name="nowTimestamp"/>
         <else>
-            <field-to-env field-name="parameters.asOfTimestamp" env-name="nowTimestamp"/>  
+            <set from-field="parameters.asOfTimestamp" field="nowTimestamp"/>  
         </else>            
         </if-empty>
         
@@ -57,13 +57,13 @@ under the License.
         
         <!-- expire all of them -->
         <iterate list-name="uomConversions" entry-name="uomConversion">
-            <env-to-field env-name="nowTimestamp" field-name="thruDate" map-name="uomConversion"/>
+            <set from-field="nowTimestamp" field="uomConversion.thruDate"/>
         </iterate>
         <store-list list-name="uomConversions"/>
         
         <!-- now create a new conversion relationship -->
         <set-service-fields to-map-name="createParams" service-name="createUomConversionDated" map-name="parameters"/>
-        <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="createParams"/>
+        <set from-field="nowTimestamp" field="createParams.fromDate"/>
         <call-service service-name="createUomConversionDated" in-map-name="createParams"/>
     </simple-method>
 

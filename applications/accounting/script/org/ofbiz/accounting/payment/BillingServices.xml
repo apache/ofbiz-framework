@@ -26,12 +26,12 @@ under the License.
         
         <sequenced-id-to-env sequence-name="BillingAccount" env-name="billingAccountId"/>
         <to-string field-name="billingAccountId"/>
-        <env-to-field env-name="billingAccountId" map-name="newEntity"/>
+        <set from-field="billingAccountId" field="newEntity.billingAccountId"/>
         <field-to-result field-name="billingAccountId" result-name="billingAccountId"/>  
                       
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>      
                   
         <create-value value-name="newEntity"/>
@@ -55,7 +55,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>             
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -87,7 +87,7 @@ under the License.
         
         <sequenced-id-to-env sequence-name="BillingAccountTerm" env-name="billingAccountTermId"/>
         <to-string field-name="billingAccountTermId"/>
-        <env-to-field env-name="billingAccountTermId" map-name="newEntity"/>
+        <set from-field="billingAccountTermId" field="newEntity.billingAccountTermId"/>
         <field-to-result field-name="billingAccountTermId" result-name="billingAccountTermId"/>          
         
         <create-value value-name="newEntity"/>

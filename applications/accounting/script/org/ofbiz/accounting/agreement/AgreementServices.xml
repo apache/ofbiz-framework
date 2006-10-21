@@ -36,12 +36,12 @@ under the License.
 
         <!-- create a non existing ID -->
         <sequenced-id-to-env sequence-name="Agreement" env-name="agreementId"/>
-        <env-to-field env-name="agreementId" map-name="newEntity"/>
+        <set from-field="agreementId" field="newEntity.agreementId"/>
         <field-to-result field-name="agreementId" result-name="agreementId"/>
 
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
         <!-- finally create the record (should not exist already)-->
@@ -73,7 +73,7 @@ under the License.
         <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
         <check-errors/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="thruDate" map-name="agreement"/>
+        <set from-field="nowTimestamp" field="agreement.thruDate"/>
         <store-value value-name="agreement"/>
         <check-errors/>
     </simple-method>
@@ -90,7 +90,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="AgreementItem"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <field-to-field field-name="parameters.agreementId" to-field-name="newEntity.agreementId"/>
+        <set from-field="parameters.agreementId" field="newEntity.agreementId"/>
         <!-- create a non existing ID -->
         <if-empty field-name="parameters.agreementItemSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="agreementItemSeqId"/>
@@ -147,9 +147,9 @@ under the License.
 
         <!-- create a non existing ID -->
         <sequenced-id-to-env sequence-name="AgreementTerm" env-name="agreementTermId"/>
-        <field-to-field field-name="parameters.agreementId" to-field-name="newEntity.agreementId"/>
-        <field-to-field field-name="parameters.agreementItemSeqId" to-field-name="newEntity.agreementItemSeqId"/>
-        <env-to-field env-name="agreementTermId" map-name="newEntity"/>
+        <set from-field="parameters.agreementId" field="newEntity.agreementId"/>
+        <set from-field="parameters.agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
+        <set from-field="agreementTermId" field="newEntity.agreementTermId"/>
         <field-to-result field-name="agreementTermId" result-name="agreementTermId"/>
 
         <!-- finally create the record (should not exist already)-->
