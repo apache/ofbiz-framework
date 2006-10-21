@@ -31,9 +31,8 @@ under the License.
         <check-errors/>
         <call-service service-name="updatePassword" in-map-name="context">
             <default-message resource="SecurityextUiLabels" property="loginmapprocs.password_successfully_updated"/>
-            <result-to-field result-name="updatedUserLogin" map-name="dummyServiceResultMap"/>
+            <result-to-field result-name="updatedUserLogin" field-name="updatedUserLogin"/>
         </call-service>
-        <field-to-env env-name="updatedUserLogin" map-name="dummyServiceResultMap"/>
         <session-to-field field-name="userLogin"/>
         <if-compare-field map-name="userLogin" field-name="userLoginId" operator="equals" to-map-name="updatedUserLogin" to-field-name="userLoginId">
             <field-to-session field-name="updatedUserLogin" session-name="userLogin"/>
