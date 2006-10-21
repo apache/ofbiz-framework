@@ -20,20 +20,20 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
     <simple-method method-name="lookupParty" short-description="Lookup a party">
         <if-not-empty field-name="firstName" map-name="parameters">
-            <field-to-field field-name="firstName" map-name="parameters" to-map-name="LookupMap"/>
+            <set from-field="parameters.firstName" field="LookupMap.firstName"/>
         </if-not-empty>
         <if-not-empty field-name="lastName" map-name="parameters">
-            <field-to-field field-name="lastName" map-name="parameters" to-map-name="LookupMap"/>
+            <set from-field="parameters.lastName" field="LookupMap.lastName"/>
         </if-not-empty>               
         <find-by-and entity-name="Person" map-name="LookupMap" list-name="parties" /> 
         <iterate entry-name="party" list-name="parties">
-        	<field-to-field field-name="firstName" map-name="party" to-field-name="label" to-map-name="resultEntry"/>
-        	<field-to-field field-name="partyId" map-name="party" to-field-name="value" to-map-name="resultEntry"/>
+        	<set from-field="party.firstName" field="resultEntry.label"/>
+        	<set from-field="party.partyId" field="resultEntry.value"/>
         	<field-to-list field-name="resultEntry" list-name="lookupResult"/>
         </iterate>
         <if-empty field-name="parties">
-        	<string-to-field string="No match" field-name="label" map-name="resultEntry"/>
-        	<string-to-field string="" field-name="value" map-name="resultEntry"/>
+        	<set value="No match" field="resultEntry.label"/>
+        	<set value="" field="resultEntry.value"/>
         	<field-to-list field-name="resultEntry" list-name="lookupResult"/>
         </if-empty>
         <field-to-result field-name="lookupResult"/>    
