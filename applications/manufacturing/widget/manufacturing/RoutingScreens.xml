@@ -366,7 +366,7 @@ under the License.
                 <set field="title" value="Edit a Routing Task-Fixed Asset association" />
                 <set field="titleProperty" value="PageTitleEditRoutingTaskFixedAsset" />
                 <set field="tabButtonItem" value="editRoutingTaskFixedAssets" />
-                <set field="headerItem" value="routing" />
+                <set field="headerItem" value="routingTask" />
                 <set field="workEffortId" from-field="parameters.workEffortId" />
                 <entity-and entity-name="WorkEffortFixedAssetStd" list-name="allFixedAssets">
                     <field-map field-name="workEffortId" env-name="workEffortId" />
