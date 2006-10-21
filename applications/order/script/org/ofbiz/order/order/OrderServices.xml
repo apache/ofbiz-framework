@@ -225,14 +225,14 @@ under the License.
                     </calculate>
                     <!-- If this new issuance will cause the quantityOnHandTotal to go below the minimumStock, create a new requirement -->
                     <if-compare-field field-name="newQuantityOnHand" to-field-name="productFacility.minimumStock" operator="less" type="Double">
-                        <field-to-field field-name="inventoryItem.productId" to-map-name="inputMap" to-field-name="productId"/>
+                        <set from-field="inventoryItem.productId" field="inputMap.productId"/>
                         <if-not-empty field-name="productFacility.reorderQuantity">
-                            <field-to-field field-name="productFacility.reorderQuantity" to-map-name="inputMap" to-field-name="quantity"/>
+                            <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
                         <else>
-                            <field-to-field field-name="parameters.quantity" to-map-name="inputMap" to-field-name="quantity"/>
+                            <set from-field="parameters.quantity" field="inputMap.quantity"/>
                         </else>
                         </if-not-empty>
-                        <string-to-field string="PRODUCT_REQUIREMENT" map-name="inputMap" field-name="requirementTypeId"/>
+                        <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
                         <call-service service-name="createRequirement" in-map-name="inputMap">
                             <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
                         </call-service>
@@ -271,14 +271,14 @@ under the License.
                     </calculate>
                     <!-- If before this reservation the availableToPromiseTotal was over minimumStock, create a new requirement -->
                     <if-compare-field field-name="oldAvailableToPromise" to-field-name="productFacility.minimumStock" operator="greater-equals" type="Double">
-                        <field-to-field field-name="inventoryItem.productId" to-map-name="inputMap" to-field-name="productId"/>
+                        <set from-field="inventoryItem.productId" field="inputMap.productId"/>
                         <if-not-empty field-name="productFacility.reorderQuantity">
-                            <field-to-field field-name="productFacility.reorderQuantity" to-map-name="inputMap" to-field-name="quantity"/>
+                            <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
                         <else>
-                            <field-to-field field-name="parameters.quantity" to-map-name="inputMap" to-field-name="quantity"/>
+                            <set from-field="parameters.quantity" field="inputMap.quantity"/>
                         </else>
                         </if-not-empty>
-                        <string-to-field string="PRODUCT_REQUIREMENT" map-name="inputMap" field-name="requirementTypeId"/>
+                        <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
                         <call-service service-name="createRequirement" in-map-name="inputMap">
                             <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
                         </call-service>

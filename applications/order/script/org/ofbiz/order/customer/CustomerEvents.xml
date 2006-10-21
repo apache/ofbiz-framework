@@ -148,7 +148,7 @@ under the License.
             <!-- create the email address -->
             <if-not-empty field-name="parameters.emailAddress">
                 <set from-field="partyId" field="emailMap.partyId"/>
-                <string-to-field field-name="contactMechPurposeTypeId" map-name="emailMap" string="PRIMARY_EMAIL"/>
+                <set field="emailMap.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
                 <!-- call the create email service -->
                 <call-service service-name="createPartyEmailAddress" in-map-name="emailMap"/>
             </if-not-empty>
@@ -166,7 +166,7 @@ under the License.
             <!-- create home phone -->
             <if-not-empty field-name="homeContactNumber" map-name="parameters">
                 <set from-field="partyId" field="homePhoneMap.partyId"/>
-                <string-to-field field-name="contactMechPurposeTypeId" map-name="homePhoneMap" string="PHONE_HOME"/>
+                <set field="homePhoneMap.contactMechPurposeTypeId" value="PHONE_HOME"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneMap"/>
             </if-not-empty>
@@ -183,7 +183,7 @@ under the License.
             <!-- create work phone -->
             <if-not-empty field-name="workContactNumber" map-name="parameters">
                 <set from-field="partyId" field="workPhoneMap.partyId"/>
-                <string-to-field field-name="contactMechPurposeTypeId" map-name="workPhoneMap" string="PHONE_WORK"/>
+                <set field="workPhoneMap.contactMechPurposeTypeId" value="PHONE_WORK"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneMap"/>
             </if-not-empty>
@@ -206,12 +206,12 @@ under the License.
                     <result-to-field result-name="contactMechId" map-name="addressPurposeContext"/>
                     <result-to-request result-name="contactMechId"/>
                 </call-service>
-                <field-to-field field-name="partyId" map-name="tempMap" to-map-name="addressPurposeContext"/>
+                <set from-field="tempMap.partyId" field="addressPurposeContext.partyId"/>
                 <!-- create the shipping location -->
-                <string-to-field string="SHIPPING_LOCATION" field-name="contactMechPurposeTypeId" map-name="addressPurposeContext"/>
+                <set value="SHIPPING_LOCATION" field="addressPurposeContext.contactMechPurposeTypeId"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
                 <!-- also consider this address the general correspondence address -->
-                <string-to-field string="GENERAL_LOCATION" field-name="contactMechPurposeTypeId" map-name="addressPurposeContext"/>
+                <set value="GENERAL_LOCATION" field="addressPurposeContext.contactMechPurposeTypeId"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
             </if-compare>
         </else>

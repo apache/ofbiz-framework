@@ -605,20 +605,20 @@ under the License.
 
         <!-- create the return items -->
         <iterate entry-name="orderItem" list-name="orderItems">
-            <field-to-field field-name="returnId" to-map-name="newItemCtx"/>
-            <field-to-field field-name="returnReasonId" map-name="parameters" to-map-name="newItemCtx"/>
-            <field-to-field field-name="returnTypeId" map-name="parameters" to-map-name="newItemCtx"/>
+            <set from-field="returnId" field="newItemCtx.returnId"/>
+            <set from-field="parameters.returnReasonId" field="newItemCtx.returnReasonId"/>
+            <set from-field="parameters.returnTypeId" field="newItemCtx.returnTypeId"/>
 
             <if-not-empty field-name="orderItem.productId">
-                <env-to-field env-name="orderItem.productId" field-name="productId"  map-name="newItemCtx"/>
+                <set from-field="orderItem.productId" field="newItemCtx.productId"/>
             </if-not-empty>
 
-            <env-to-field env-name="orderItem.orderId" field-name="orderId" map-name="newItemCtx"/>
-            <env-to-field env-name="orderItem.orderItemSeqId" field-name="orderItemSeqId" map-name="newItemCtx"/>
-            <env-to-field env-name="orderItem.itemDescription" field-name="description" map-name="newItemCtx"/>
+            <set from-field="orderItem.orderId" field="newItemCtx.orderId"/>
+            <set from-field="orderItem.orderItemSeqId" field="newItemCtx.orderItemSeqId"/>
+            <set from-field="orderItem.itemDescription" field="newItemCtx.description"/>
 
             <!-- get the returnable price and quantity -->
-            <field-to-field field-name="orderItem" to-map-name="itemCheckMap"/>
+            <set from-field="orderItem" field="itemCheckMap.orderItem"/>
             <call-service service-name="getReturnableQuantity" in-map-name="itemCheckMap">
                 <result-to-field result-name="returnableQuantity" field-name="returnQuantity" map-name="newItemCtx"/>
                 <result-to-field result-name="returnablePrice" field-name="returnPrice" map-name="newItemCtx"/>
@@ -697,10 +697,10 @@ under the License.
 
         <!-- create a manual balance adjustment based on the difference between order total and return total -->
         <if-compare field-name="availableReturnTotal" operator="not-equals" value="0.00" type="Double">
-            <string-to-field string="Balance Adjustment" field-name="description" map-name="balanceItemCtx"/>
-            <string-to-field string="RET_MAN_ADJ" field-name="returnAdjustmentTypeId" map-name="balanceItemCtx"/>
+            <set value="Balance Adjustment" field="balanceItemCtx.description"/>
+            <set value="RET_MAN_ADJ" field="balanceItemCtx.returnAdjustmentTypeId"/>
 
-            <field-to-field field-name="returnId" to-map-name="balanceItemCtx"/>
+            <set from-field="returnId" field="balanceItemCtx.returnId"/>
             <set field="balanceItemCtx.returnItemSeqId" value="_NA_"/>
             <set from-field="availableReturnTotal" field="balanceItemCtx.amount" />
             <log level="warning" message="Creating a balance adjustment of [${availableReturnTotal}] for return [${returnId}]"/>
@@ -710,13 +710,13 @@ under the License.
         </if-compare>
 
         <!-- update the header status -->
-        <string-to-field string="RETURN_ACCEPTED" field-name="statusId" map-name="updateHeaderCtx"/>
-        <field-to-field field-name="returnId" to-map-name="updateHeaderCtx"/>
+        <set value="RETURN_ACCEPTED" field="updateHeaderCtx.statusId"/>
+        <set from-field="returnId" field="updateHeaderCtx.returnId"/>
         <call-service service-name="updateReturnHeader" in-map-name="updateHeaderCtx" include-user-login="true"/>
 
         <!-- auto-receive this return if we passed in the flag -->
         <if-compare field-name="receiveReturn" map-name="parameters" operator="equals" value="true" type="Boolean">
-            <field-to-field field-name="returnId" to-map-name="receiveCtx"/>
+            <set from-field="returnId" field="receiveCtx.returnId"/>
             <call-service service-name="quickReceiveReturn" in-map-name="receiveCtx"/>
         <else>
             <!-- update the header status -->
