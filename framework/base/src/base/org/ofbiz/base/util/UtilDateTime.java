@@ -706,21 +706,23 @@ public class UtilDateTime {
      * @return A int containing the week number
      */
     public static int weekNumber(Timestamp input) {
-        Timestamp yearStart = UtilDateTime.getYearStart(input);
-        Timestamp weekStart = UtilDateTime.getWeekStart(yearStart);
-
-        int days = 0;
-        for (days = 0; UtilDateTime.getDayStart(weekStart, days).compareTo(yearStart) == 0; days++) ;
-
-        // the splitted week belongs to the year where there are the most days (ISO)
-        Timestamp week1Start = weekStart;
-        if (days < 4)
-            week1Start = UtilDateTime.getWeekStart(weekStart, 7);
-
-        int weeks = 0;
-        for (weeks = 0; UtilDateTime.getDayStart(week1Start, weeks * 7).compareTo(input) < 0; weeks++) ;
-
-        return ++weeks; // start at 1
+        Calendar calendar = Calendar.getInstance();
+        return weekNumber(input, calendar.getFirstDayOfWeek());
+    }
+    
+    public static int weekNumber(Timestamp input, int startOfWeek) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(startOfWeek);
+        
+        if(startOfWeek == Calendar.MONDAY) {
+           calendar.setMinimalDaysInFirstWeek(4);
+        } else if(startOfWeek == Calendar.SUNDAY) { 
+           calendar.setMinimalDaysInFirstWeek(3);
+        }
+        
+        calendar.setTime(new java.util.Date(input.getTime()));
+        return calendar.get(Calendar.WEEK_OF_YEAR);
     }
 }
+
 
