@@ -27,9 +27,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- MarketingCampaign uses a sequenced id, so get the next one now and set it... -->        
-        <sequenced-id-to-env sequence-name="MarketingCampaign" env-name="newSequencedId"/>
-        <to-string field-name="newSequencedId"/>
-        <env-to-field env-name="newSequencedId" field-name="marketingCampaignId" map-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="MarketingCampaign" env-name="newEntity.marketingCampaignId"/>
         
         <create-value value-name="newEntity"/>
         

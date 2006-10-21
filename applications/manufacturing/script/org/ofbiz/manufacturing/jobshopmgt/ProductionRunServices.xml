@@ -35,9 +35,9 @@ under the License.
                     <if-not-empty field-name="component.productId">
                         <clear-field field-name="callSvcMap"/>
                         <set-service-fields to-map-name="callSvcMap" service-name="issueProductionRunTaskComponent" map-name="component"/>
-                        <env-to-env env-name="workEffort" to-env-name="callSvcMap.workEffort"/>
-                        <env-to-env env-name="component" to-env-name="callSvcMap.workEffortGoodStandard"/>
-                        <env-to-env env-name="reserveOrderEnumId" to-env-name="callSvcMap.reserveOrderEnumId"/>
+                        <set from-field="workEffort" field="callSvcMap.workEffort"/>
+                        <set from-field="component" field="callSvcMap.workEffortGoodStandard"/>
+                        <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <call-service service-name="issueProductionRunTaskComponent" in-map-name="callSvcMap"/>
                     </if-not-empty>
                 </iterate>
@@ -50,7 +50,7 @@ under the License.
             <set field="parameters.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
             <entity-one entity-name="WorkEffortGoodStandard" value-name="workEffortGoodStandard"/>
         <else>
-            <env-to-env env-name="parameters.workEffortGoodStandard" to-env-name="workEffortGoodStandard"/>
+            <set from-field="parameters.workEffortGoodStandard" field="workEffortGoodStandard"/>
         </else>
         </if-empty>
 
@@ -62,7 +62,7 @@ under the License.
             <if-empty field-name="parameters.workEffort">
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
             <else>
-                <env-to-env env-name="parameters.workEffort" to-env-name="workEffort"/>
+                <set from-field="parameters.workEffort" field="workEffort"/>
             </else>
             </if-empty>
             
@@ -86,11 +86,11 @@ under the License.
             </else>
             </if-compare>
             <field-to-list field-name="orderByString" list-name="orderByList"/>
-            <env-to-env env-name="workEffortGoodStandard.productId" to-env-name="lookupFieldMap.productId"/>
-            <env-to-env env-name="workEffort.facilityId" to-env-name="lookupFieldMap.facilityId"/>
+            <set from-field="workEffortGoodStandard.productId" field="lookupFieldMap.productId"/>
+            <set from-field="workEffort.facilityId" field="lookupFieldMap.facilityId"/>
             <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItemList" order-by-list-name="orderByList"/>
     
-            <env-to-env env-name="workEffortGoodStandard.estimatedQuantity" to-env-name="parameters.quantityNotIssued"/>
+            <set from-field="workEffortGoodStandard.estimatedQuantity" field="parameters.quantityNotIssued"/>
 
             <iterate entry-name="inventoryItem" list-name="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -103,14 +103,14 @@ under the License.
                     <!-- create ItemIssuance record -->
                     <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
                     <set from-field="lastNonSerInventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
-                    <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
+                    <set from-field="parameters.quantityNotIssued" field="issuanceCreateMap.quantity"/>
                     <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
                     </call-service>
 
                     <!-- subtract from quantityNotIssued from the availableToPromise and quantityOnHand of existing inventory item -->
                     <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                    <env-to-env env-name="lastNonSerInventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
-                    <env-to-env env-name="parameters.workEffortId" to-env-name="createDetailMap.workEffortId"/>
+                    <set from-field="lastNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+                    <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                     <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -199,8 +199,8 @@ under the License.
                         </call-service>
 
                         <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                        <env-to-env env-name="inventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
-                        <env-to-env env-name="parameters.workEffortId" to-env-name="createDetailMap.workEffortId"/>
+                        <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+                        <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                         <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
                         <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                             <calcop field-name="parameters.deductAmount" operator="negative"/>
@@ -223,7 +223,7 @@ under the License.
 
                 <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
                 <!-- use env variable named lastNonSerInventoryItem -->
-                <env-to-env env-name="inventoryItem" to-env-name="lastNonSerInventoryItem"/>
+                <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
             </if-compare>
         </if-compare>
     </simple-method>

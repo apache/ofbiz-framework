@@ -30,10 +30,10 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
         <!-- set the history/audit info -->
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="createdByUserLogin" to-map-name="newEntity"/>
-        <env-to-field env-name="nowStamp" field-name="createdDate" map-name="newEntity"/>
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="newEntity"/>
-        <env-to-field env-name="lastModifiedDate" field-name="createdDate" map-name="newEntity"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
+        <set from-field="nowStamp" field="newEntity.createdDate"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -49,8 +49,8 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
         <!-- set the history/audit info -->
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="newEntity"/>
-        <env-to-field env-name="lastModifiedDate" field-name="createdDate" map-name="newEntity"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
         
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -75,8 +75,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
         <!-- set the history/audit info -->
-        <env-to-field env-name="nowStamp" field-name="createdStamp" map-name="newEntity"/>
-        <env-to-field env-name="lastModifiedDate" field-name="createdStamp" map-name="newEntity"/>
+        <set from-field="nowStamp" field="newEntity.createdStamp"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -90,9 +89,6 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
-        
-        <!-- set the history/audit info -->
-        <env-to-field env-name="lastModifiedDate" field-name="createdStamp" map-name="newEntity"/>
         
         <store-value value-name="lookedUpValue"/>
     </simple-method>
