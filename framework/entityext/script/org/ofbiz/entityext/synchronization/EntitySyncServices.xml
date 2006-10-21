@@ -67,7 +67,7 @@ under the License.
         
         <!-- also set the lastHistoryStartDate on the EntitySync -->
         <entity-one entity-name="EntitySync" value-name="entitySync"/>
-        <env-to-env env-name="newEntity.startDate" to-env-name="entitySync.lastHistoryStartDate"/>
+        <set from-field="newEntity.startDate" field="entitySync.lastHistoryStartDate"/>
         <store-value value-name="entitySync"/>
     </simple-method>
     <simple-method method-name="updateEntitySyncHistory" short-description="Update EntitySyncHistory">
