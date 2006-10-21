@@ -166,7 +166,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <now-timestamp-to-env env-name="newEntity.statusDate"/>
-        <env-to-env env-name="userLogin.userLoginId" to-env-name="newEntity.setByUserLoginId"/>
+        <set from-field="userLogin.userLoginId" field="newEntity.setByUserLoginId"/>
         
         <!-- if statusId is CLPT_PENDING, set optInVerifyCode; else if statusId is CLPT_ACCEPTED, make sure optInVerifyCode is the same as the last CLPT_PENDING -->
         <if>
@@ -252,16 +252,16 @@ under the License.
                 <!-- TODO: if preferredContactMech is empty, should we try to find the ContactMech we want based on the Party? -->
                 
                 <!-- TODO: this could really use some more work to be more flexible, or easier to maintain, like perhaps a general EmailSendSettings entity or something -->
-                <env-to-env env-name="preferredContactMech.infoString" to-env-name="sendMailFromScreenMap.sendTo"/>
-                <env-to-env env-name="contactList.verifyEmailFrom" to-env-name="sendMailFromScreenMap.sendFrom"/>
-                <env-to-env env-name="contactList.verifyEmailSubject" to-env-name="sendMailFromScreenMap.subject"/>
-                <env-to-env env-name="contactList.verifyEmailScreen" to-env-name="sendMailFromScreenMap.bodyScreenUri"/>
-                <env-to-env env-name="contactList.verifyEmailWebSiteId" to-env-name="sendMailFromScreenMap.webSiteId"/>
-                <string-to-field string="text/html" field-name="sendMailFromScreenMap.contentType"/>
+                <set from-field="preferredContactMech.infoString" field="sendMailFromScreenMap.sendTo"/>
+                <set from-field="contactList.verifyEmailFrom" field="sendMailFromScreenMap.sendFrom"/>
+                <set from-field="contactList.verifyEmailSubject" field="sendMailFromScreenMap.subject"/>
+                <set from-field="contactList.verifyEmailScreen" field="sendMailFromScreenMap.bodyScreenUri"/>
+                <set from-field="contactList.verifyEmailWebSiteId" field="sendMailFromScreenMap.webSiteId"/>
+                <set value="text/html" field="sendMailFromScreenMap.contentType"/>
                 
-                <env-to-env env-name="contactList" to-env-name="sendMailFromScreenMap.bodyParameters.contactList"/>
-                <env-to-env env-name="contactListParty" to-env-name="sendMailFromScreenMap.bodyParameters.contactListParty"/>
-                <env-to-env env-name="contactListPartyStatus" to-env-name="sendMailFromScreenMap.bodyParameters.contactListPartyStatus"/>
+                <set from-field="contactList" field="sendMailFromScreenMap.bodyParameters.contactList"/>
+                <set from-field="contactListParty" field="sendMailFromScreenMap.bodyParameters.contactListParty"/>
+                <set from-field="contactListPartyStatus" field="sendMailFromScreenMap.bodyParameters.contactListPartyStatus"/>
                 
                 <call-service service-name="sendMailFromScreen" in-map-name="sendMailFromScreenMap"/>
             </then>
