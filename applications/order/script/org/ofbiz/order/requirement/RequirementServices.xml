@@ -22,13 +22,13 @@ under the License.
         <make-value value-name="newEntity" entity-name="Requirement"/>
         <sequenced-id-to-env sequence-name="Requirement" env-name="requirementId"/>
         <to-string field-name="requirementId"/>
-        <env-to-field env-name="requirementId" map-name="newEntity"/>
+        <set from-field="requirementId" field="newEntity.requirementId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field-name="statusId" map-name="parameters">
-            <string-to-field string="REQ_CREATED" field-name="statusId" map-name="newEntity"/>
+            <set value="REQ_CREATED" field="newEntity.statusId"/>
         </if-empty>
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="createdDate" map-name="newEntity"/>
+        <set from-field="nowTimestamp" field="newEntity.createdDate"/>
         <create-value value-name="newEntity"/>
         <field-to-result field-name="requirementId" result-name="requirementId"/>
     </simple-method>
