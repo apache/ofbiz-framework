@@ -26,10 +26,10 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="fromDate"/>
-            <env-to-field env-name="fromDate" map-name="newEntity" field-name="fromDate"/>
+            <set from-field="fromDate" field="newEntity.fromDate"/>
         </if-empty>
         <if-empty field-name="taxCategory" map-name="newEntity">
-            <string-to-field string="_NA_" map-name="newEntity" field-name="taxCategory"/>
+            <set value="_NA_" field="newEntity.taxCategory"/>
         </if-empty>
 
         <create-value value-name="newEntity"/>

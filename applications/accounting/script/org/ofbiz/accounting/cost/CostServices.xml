@@ -23,7 +23,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="CostComponentCalc" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="CostComponentCalc" env-name="costComponentCalcId"/>
-        <env-to-field env-name="costComponentCalcId" map-name="newEntity"/>
+        <set from-field="costComponentCalcId" field="newEntity.costComponentCalcId"/>
         <field-to-result field-name="costComponentCalcId" result-name="costComponentCalcId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>

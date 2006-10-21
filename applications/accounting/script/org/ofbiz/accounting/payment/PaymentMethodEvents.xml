@@ -36,9 +36,9 @@ under the License.
             <result-to-request result-name="paymentMethodId"/>
         </call-service>
         <if-compare map-name="parameters" field-name="contactMechId" operator="equals" value="_NEW_">
-            <string-to-field string="address" field-name="_response_code_"/>
-            <string-to-field string="POSTAL_ADDRESS" field-name="preContactMechTypeId"/>
-            <string-to-field string="BILLING_LOCATION" field-name="contactMechPurposeTypeId"/>
+            <set value="address" field="_response_code_"/>
+            <set value="POSTAL_ADDRESS" field="preContactMechTypeId"/>
+            <set value="BILLING_LOCATION" field="contactMechPurposeTypeId"/>
             <field-to-request field-name="DONE_PAGE"/>
             <field-to-request field-name="preContactMechTypeId"/>
             <field-to-request field-name="contactMechPurposeTypeId"/>
@@ -56,9 +56,9 @@ under the License.
             <result-to-request result-name="paymentMethodId" request-name="paymentMethodId"/>
         </call-service>
         <if-compare map-name="parameters" field-name="contactMechId" operator="equals" value="_NEW_">
-            <string-to-field string="address" field-name="_response_code_"/>
-            <string-to-field string="POSTAL_ADDRESS" field-name="preContactMechTypeId"/>
-            <string-to-field string="BILLING_LOCATION" field-name="contactMechPurposeTypeId"/>
+            <set value="address" field="_response_code_"/>
+            <set value="POSTAL_ADDRESS" field="preContactMechTypeId"/>
+            <set value="BILLING_LOCATION" field="contactMechPurposeTypeId"/>
             <field-to-request field-name="DONE_PAGE"/>
             <field-to-request field-name="preContactMechTypeId"/>
             <field-to-request field-name="contactMechPurposeTypeId"/>
