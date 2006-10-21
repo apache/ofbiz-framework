@@ -37,7 +37,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
                 processor-name="routingTaskAssoc" in-map-name="parameters" out-map-name="context1"/>
         <check-errors/>
-        <string-to-field string="Y" field-name="create" map-name="context1"/>
+        <set value="Y" field="context1.create"/>
         <call-service service-name="checkRoutingTaskAssoc" in-map-name="context1">
             <result-to-field result-name="sequenceNumNotOk"  field-name="sequenceNumNotOk"/>
         </call-service>

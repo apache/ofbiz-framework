@@ -25,8 +25,8 @@ under the License.
 
         <if-not-empty field-name="workEffort">
             <if-compare value="PRUN_CANCELLED" operator="not-equals" field-name="currentStatusId" map-name="workEffort">
-                <field-to-field field-name="parameters.workEffortId" to-field-name="lookupComponentsMap.workEffortId"/>
-                <string-to-field string="WEGS_CREATED" field-name="lookupComponentsMap.statusId"/>
+                <set from-field="parameters.workEffortId" field="lookupComponentsMap.workEffortId"/>
+                <set value="WEGS_CREATED" field="lookupComponentsMap.statusId"/>
                 <set field="lookupComponentsMap.workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
 
                 <find-by-and entity-name="WorkEffortGoodStandard" list-name="components" map-name="lookupComponentsMap" />
@@ -68,17 +68,17 @@ under the License.
             
             <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
             <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                <string-to-field string="+expireDate" field-name="orderByString"/>
+                <set value="+expireDate" field="orderByString"/>
             <else>
                 <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                    <string-to-field string="-expireDate" field-name="orderByString"/>
+                    <set value="-expireDate" field="orderByString"/>
                 <else>
                     <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                        <string-to-field string="+datetimeReceived" field-name="orderByString"/>
+                        <set value="+datetimeReceived" field="orderByString"/>
                     <else>
                         <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
-                        <string-to-field string="-datetimeReceived" field-name="orderByString"/>
-                        <string-to-field string="INVRO_FIFO_REC" field-name="reserveOrderEnumId" map-name="parameters"/>
+                        <set value="-datetimeReceived" field="orderByString"/>
+                        <set value="INVRO_FIFO_REC" field="parameters.reserveOrderEnumId"/>
                     </else>
                     </if-compare>
                 </else>
@@ -101,8 +101,8 @@ under the License.
             <if-compare field-name="parameters.quantityNotIssued" operator="not-equals" value="0" type="Double">
                 <if-not-empty field-name="lastNonSerInventoryItem">
                     <!-- create ItemIssuance record -->
-                    <field-to-field field-name="workEffortId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                    <field-to-field field-name="inventoryItemId" map-name="lastNonSerInventoryItem" to-map-name="issuanceCreateMap"/>
+                    <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
+                    <set from-field="lastNonSerInventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
                     <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
                     <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
                     </call-service>
@@ -155,7 +155,7 @@ under the License.
 
                 <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
             </if-compare>
-            <string-to-field string="WEGS_COMPLETED" field-name="workEffortGoodStandard.statusId"/>
+            <set value="WEGS_COMPLETED" field="workEffortGoodStandard.statusId"/>
             <store-value value-name="workEffortGoodStandard"/>
         </if-not-empty>
     </simple-method>
@@ -165,12 +165,12 @@ under the License.
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="inventoryItemTypeId" map-name="inventoryItem">
                 <if-compare value="INV_AVAILABLE" operator="equals" field-name="statusId" map-name="inventoryItem">
                     <!-- change status on inventoryItem -->
-                    <string-to-field string="INV_DELIVERED" field-name="inventoryItem.statusId"/>
+                    <set value="INV_DELIVERED" field="inventoryItem.statusId"/>
                     <store-value value-name="inventoryItem"/>
 
                     <!-- create ItemIssuance record -->
-                    <field-to-field field-name="workEffortId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                    <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
+                    <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
+                    <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
                     <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
                     <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
                     <clear-field field-name="issuanceCreateMap"/>
@@ -185,16 +185,16 @@ under the License.
                     <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
                     <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
                         <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
-                            <field-to-field field-name="availableToPromiseTotal" map-name="inventoryItem" to-field-name="deductAmount" to-map-name="parameters"/>
+                            <set from-field="inventoryItem.availableToPromiseTotal" field="parameters.deductAmount"/>
                         <else>
-                            <field-to-field field-name="quantityNotIssued" map-name="parameters" to-field-name="deductAmount" to-map-name="parameters"/>
+                            <set from-field="parameters.quantityNotIssued" field="parameters.deductAmount"/>
                         </else>
                         </if-compare-field>
                         
                         <!-- create WorkEffortInventoryAssign record -->
-                        <field-to-field field-name="workEffortId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                        <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
-                        <field-to-field field-name="deductAmount" map-name="parameters" to-field-name="quantity" to-map-name="issuanceCreateMap"/>
+                        <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
+                        <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
+                        <set from-field="parameters.deductAmount" field="issuanceCreateMap.quantity"/>
                         <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
                         </call-service>
 
