@@ -27,7 +27,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <sequenced-id-to-env sequence-name="CustomTimePeriod" env-name="customTimePeriodId"/>
-        <env-to-field env-name="customTimePeriodId" map-name="newEntity"/>
+        <set from-field="customTimePeriodId" field="newEntity.customTimePeriodId"/>
         <field-to-result field-name="customTimePeriodId" result-name="customTimePeriodId"/>
         
         <create-value value-name="newEntity"/>
@@ -55,7 +55,7 @@ under the License.
     <simple-method method-name="findCustomTimePeriods" short-description="Find a CustomTimePeriod">
         <if-not-empty field-name="parameters.organizationPartyId">
             <!-- walk up the tree and find all party groups that this is a member of, and include the periods for all of them -->
-            <env-to-env env-name="parameters.organizationPartyId" to-env-name="getParentOrganizationsCallMap.organizationPartyId"/>
+            <set from-field="parameters.organizationPartyId" field="getParentOrganizationsCallMap.organizationPartyId"/>
             <call-service service-name="getParentOrganizations" in-map-name="getParentOrganizationsCallMap">
                 <result-to-field result-name="parentOrganizationPartyIdList"/>
             </call-service>
