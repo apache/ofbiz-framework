@@ -98,7 +98,7 @@ under the License.
         
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
         
         <create-value value-name="newEntity"/>
