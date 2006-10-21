@@ -14,6 +14,12 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#-- I'm not quite sure why these should be "en". But I'm sure it works with it and don't without. 
+I assume it's because we calculate date before in this locale (set from command line) - JLR 21/10/2006
+Please see https://issues.apache.org/jira/browse/OFBIZ-392-->
+<#setting locale="en"> 
+<#assign locale="en"> 
+
 <table border='0' width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <tr> 
     <td width='100%'> 
