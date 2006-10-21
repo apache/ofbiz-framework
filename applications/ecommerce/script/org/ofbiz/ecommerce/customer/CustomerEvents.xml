@@ -270,7 +270,7 @@ under the License.
         <!-- create the PartyDataSource entry to track where this info came from... -->
         <make-value entity-name="PartyDataSource" value-name="partyDataSource"/>
         <set value="ECOMMERCE_SITE" field="partyDataSource.dataSourceId"/>
-        <env-to-field env-name="nowStamp" field-name="partyDataSource.fromDate"/>
+        <set from-field="nowStamp" field="partyDataSource.fromDate"/>
         <set value="Y" field="partyDataSource.isCreate"/>
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field-name="visit"/>
@@ -406,8 +406,8 @@ under the License.
             <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
                 <!-- prepare the email context -->
                 <get-related-one value-name="createdUserLogin" relation-name="Person" to-value-name="personObj"/>
-                <env-to-field env-name="createdUserLogin" field-name="userLogin" map-name="emailCtx"/>
-                <env-to-field env-name="personObj" field-name="person" map-name="emailCtx"/>
+                <set from-field="createdUserLogin" field="emailCtx.userLogin"/>
+                <set from-field="personObj" field="emailCtx.person"/>
                 <!-- prepare the notification service context -->
                 <set from-field="emailContext.emailAddress" field="notifyCtx.sendTo"/>
                 <set from-field="storeEmail.subject" field="notifyCtx.subject"/>
@@ -416,7 +416,7 @@ under the License.
                 <set from-field="storeEmail.bccAddress" field="notifyCtx.sendBcc"/>
                 <set from-field="storeEmail.contentType" field="notifyCtx.contentType"/>
                 <set from-field="storeEmail.bodyScreenLocation" field="notifyCtx.templateName"/>
-                <env-to-field env-name="emailCtx" field-name="notifyCtx.templateData"/>
+                <set from-field="emailCtx" field="notifyCtx.templateData"/>
                 <!-- call the service async -->
                 <call-service-asynch service-name="sendGenericNotificationEmail" in-map-name="notifyCtx" include-user-login="true"/>
             </if-not-empty>

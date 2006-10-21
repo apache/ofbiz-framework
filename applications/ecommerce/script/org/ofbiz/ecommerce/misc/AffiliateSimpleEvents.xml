@@ -27,10 +27,10 @@ under the License.
                 processor-name="newAffilUser" in-map-name="parameters" out-map-name="ul_context"/>
         <check-errors/>
         <call-service service-name="createUserLogin" in-map-name="ul_context"/>
-        <field-to-field field-name="userLoginId" map-name="ul_context" to-map-name="newUserLoginMap"/>
-        <field-to-field field-name="currentPassword" map-name="ul_context" to-map-name="newUserLoginMap"/>
-        <field-to-field field-name="passwordHint" map-name="ul_context" to-map-name="newUserLoginMap"/>
-        <field-to-field field-name="partyId" map-name="ul_context" to-map-name="newUserLoginMap"/>
+        <set from-field="ul_context.userLoginId" field="newUserLoginMap.userLoginId"/>
+        <set from-field="ul_context.currentPassword" field="newUserLoginMap.currentPassword"/>
+        <set from-field="ul_context.passwordHint" field="newUserLoginMap.passwordHint"/>
+        <set from-field="ul_context.partyId" field="newUserLoginMap.partyId"/>
         <make-value entity-name="UserLogin" map-name="newUserLoginMap" value-name="newUserLogin"/>
         <set-current-user-login value-name="newUserLogin"/>
 
