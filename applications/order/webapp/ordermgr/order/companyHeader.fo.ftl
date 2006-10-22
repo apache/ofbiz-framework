@@ -21,9 +21,9 @@ under the License.
               <fo:table-row>
                 <fo:table-cell>
                    <fo:block text-align="left">
-	            <#if logoImageUrl?has_content>
-                    <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/>
-                </#if>
+                     <#if logoImageUrl?has_content>
+                       <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/>
+                     </#if>
                   </fo:block>
                 </fo:table-cell>
               </fo:table-row>
@@ -31,15 +31,14 @@ under the License.
                 <fo:table-cell>
                   <fo:block>${companyName}</fo:block>
                   <#if postalAddress?exists>
-                  <#if postalAddress?has_content>
-                    <fo:block>${postalAddress.address1?if_exists}</fo:block>
-                    <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
-                    <fo:block>${postalAddress.city?if_exists}, ${stateProvinceAbbrv?if_exists} ${postalAddress.postalCode?if_exists}, ${countryName?if_exists}</fo:block>
-                  </#if>
-                  
-				  <#else>
-                  <fo:block>${uiLabelMap.CommonNoPostalAddress}</fo:block>
-                  <fo:block>${uiLabelMap.CommonFor}: ${companyName}</fo:block>
+                    <#if postalAddress?has_content>
+                      <fo:block>${postalAddress.address1?if_exists}</fo:block>
+                      <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
+                      <fo:block>${postalAddress.city?if_exists}, ${stateProvinceAbbrv?if_exists} ${postalAddress.postalCode?if_exists}, ${countryName?if_exists}</fo:block>
+                    </#if>
+                  <#else>
+                    <fo:block>${uiLabelMap.CommonNoPostalAddress}</fo:block>
+                    <fo:block>${uiLabelMap.CommonFor}: ${companyName}</fo:block>
                   </#if>
                   <fo:table>
                     <fo:table-column column-width="15mm"/>
