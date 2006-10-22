@@ -39,10 +39,15 @@ under the License.
   
     <fo:page-sequence master-reference="${pageLayoutName?default("simple-portrait")}" font-size="8pt">
         <#-- Header -->
+        <#-- The elements it it are positioned using a table composed by one row
+             composed by two cells (each 50% of the total table that is 100% of the page):
+             in the left side cell we put the logo
+             in the right side cell we put the title, username and date
+        -->
         <fo:static-content flow-name="xsl-region-before" font-size="8pt">
             <fo:table>
-                <fo:table-column column-width="4.5in"/>
-                <fo:table-column column-width="2in"/>
+                <fo:table-column column-number="1" column-width="proportional-column-width(50)"/>
+                <fo:table-column column-number="2" column-width="proportional-column-width(50)"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell>
@@ -51,19 +56,38 @@ under the License.
                         </#if>
                         </fo:table-cell>
                         <fo:table-cell>
-                            <fo:block font-weight="bold" space-after="0.03in"><#if titleProperty?exists>${uiLabelMap.get(titleProperty)}<#else>${title?if_exists}</#if></fo:block>
-                            <fo:block>${uiLabelMap.CommonUsername}: <#if userLogin?exists>${userLogin.userLoginId?if_exists}</#if></fo:block>
-                            <fo:block>${uiLabelMap.CommonDate}: ${nowTimestamp?if_exists}</fo:block>
+                            <#-- The title of the report -->
+                            <fo:block font-weight="bold" text-decoration="underline" space-after="0.03in">
+                                <#if titleProperty?exists>${uiLabelMap.get(titleProperty)}<#else>${title?if_exists}</#if>
+                            </fo:block>
+                            <#-- Username and date -->
+                            <fo:list-block provisional-distance-between-starts="1in">
+                                <fo:list-item>
+                                    <fo:list-item-label>
+                                        <fo:block font-weight="bold">${uiLabelMap.CommonUsername}</fo:block>
+                                    </fo:list-item-label>
+                                    <fo:list-item-body start-indent="body-start()">
+                                        <fo:block><#if userLogin?exists>${userLogin.userLoginId?if_exists}</#if></fo:block>
+                                    </fo:list-item-body>
+                                </fo:list-item>
+                                <fo:list-item>
+                                    <fo:list-item-label>
+                                        <fo:block font-weight="bold">${uiLabelMap.CommonDate}</fo:block>
+                                    </fo:list-item-label>
+                                    <fo:list-item-body start-indent="body-start()">
+                                        <fo:block>${nowTimestamp?if_exists}</fo:block>
+                                    </fo:list-item-body>
+                                </fo:list-item>
+                            </fo:list-block>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-            <fo:block white-space-collapse="false"> </fo:block> 
         </fo:static-content>
          
         <#-- Footer -->
         <fo:static-content flow-name="xsl-region-after" font-size="8pt">
-            <fo:block text-align="center" border-top="thin solid black" padding="3pt">Page <fo:page-number/> of <fo:page-number-citation ref-id="theEnd"/></fo:block>
+            <fo:block text-align="center" border-top="thin solid black" padding="3pt">${uiLabelMap.CommonPage} <fo:page-number/> ${uiLabelMap.CommonOf} <fo:page-number-citation ref-id="theEnd"/></fo:block>
         </fo:static-content>
        
         <#-- Body -->
