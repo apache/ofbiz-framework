@@ -14,84 +14,90 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-        <fo:table font-size="8pt">
-           <fo:table-column column-width="4.5in"/>
-           <fo:table-column column-width="2in"/>
-            <fo:table-body>
-              <fo:table-row>
-                <fo:table-cell>
-                   <fo:block text-align="left">
-                     <#if logoImageUrl?has_content>
-                       <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/>
-                     </#if>
-                  </fo:block>
-                </fo:table-cell>
-              </fo:table-row>
-              <fo:table-row>
-                <fo:table-cell>
-                  <fo:block>${companyName}</fo:block>
-                  <#if postalAddress?exists>
-                    <#if postalAddress?has_content>
-                      <fo:block>${postalAddress.address1?if_exists}</fo:block>
-                      <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
-                      <fo:block>${postalAddress.city?if_exists}, ${stateProvinceAbbrv?if_exists} ${postalAddress.postalCode?if_exists}, ${countryName?if_exists}</fo:block>
-                    </#if>
-                  <#else>
-                    <fo:block>${uiLabelMap.CommonNoPostalAddress}</fo:block>
-                    <fo:block>${uiLabelMap.CommonFor}: ${companyName}</fo:block>
-                  </#if>
-                  <fo:table>
-                    <fo:table-column column-width="15mm"/>
-                    <fo:table-column column-width="25mm"/>
-                    <fo:table-body>
 
-                    <#if sendingPartyTaxId?exists>
-                    <fo:table-row>
-                      <fo:table-cell><fo:block>Tax ID:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block>${sendingPartyTaxId}</fo:block></fo:table-cell>
-                    </fo:table-row>
-                    </#if>
-                                  
-                    <#if phone?exists>
-                    <fo:table-row>
-                      <fo:table-cell><fo:block>${uiLabelMap.CommonTelephoneAbbr}:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block><#if phone.countryCode?exists>${phone.countryCode}-</#if><#if phone.areaCode?exists>${phone.areaCode}-</#if>${phone.contactNumber?if_exists}</fo:block></fo:table-cell>
-                    </fo:table-row>
-                    </#if>
+<fo:block text-align="left">
+    <#if logoImageUrl?has_content><fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/></#if>
+</fo:block>
 
-                    <#if email?exists>
-                    <fo:table-row>
-                      <fo:table-cell><fo:block>${uiLabelMap.CommonEmail}:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block>${email.infoString}</fo:block></fo:table-cell>
-                    </fo:table-row>
-                    </#if>
-
-                    <#if website?exists>
-                    <fo:table-row>
-                      <fo:table-cell><fo:block>${uiLabelMap.CommonWebsite}:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block>${website.infoString?if_exists}</fo:block></fo:table-cell>
-                    </fo:table-row>
-                    </#if>
-
-                    <#if eftAccount?exists>
-                    <fo:table-row>
-                      <fo:table-cell><fo:block>${uiLabelMap.CommonFinBankName}:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block>${eftAccount.bankName?if_exists}</fo:block></fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                      <fo:table-cell><fo:block>${uiLabelMap.CommonRouting}:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block>${eftAccount.routingNumber?if_exists}</fo:block></fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                      <fo:table-cell><fo:block>${uiLabelMap.CommonBankAccntNrAbbr}:</fo:block></fo:table-cell>
-                      <fo:table-cell><fo:block>${eftAccount.accountNumber?if_exists}</fo:block></fo:table-cell>
-                    </fo:table-row>
-                    </#if>
-
-                  </fo:table-body>
-                </fo:table>             
-                </fo:table-cell>
-            </fo:table-row>
-          </fo:table-body>
-        </fo:table>
- 
+<fo:block font-size="8pt">
+    <fo:block>${companyName}</fo:block>
+    <#if postalAddress?exists>
+        <#if postalAddress?has_content>
+            <fo:block>${postalAddress.address1?if_exists}</fo:block>
+            <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
+            <fo:block>${postalAddress.city?if_exists}, ${stateProvinceAbbrv?if_exists} ${postalAddress.postalCode?if_exists}, ${countryName?if_exists}</fo:block>
+        </#if>
+    <#else>
+        <fo:block>${uiLabelMap.CommonNoPostalAddress}</fo:block>
+        <fo:block>${uiLabelMap.CommonFor}: ${companyName}</fo:block>
+    </#if>
+  
+    <fo:list-block provisional-distance-between-starts="1in">
+        <#if sendingPartyTaxId?exists>
+        <fo:list-item>
+            <fo:list-item-label>
+                <fo:block>Tax ID:</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block>${sendingPartyTaxId}</fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+        </#if>
+        <#if phone?exists>
+        <fo:list-item>
+            <fo:list-item-label>
+                <fo:block>${uiLabelMap.CommonTelephoneAbbr}:</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block><#if phone.countryCode?exists>${phone.countryCode}-</#if><#if phone.areaCode?exists>${phone.areaCode}-</#if>${phone.contactNumber?if_exists}</fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+        </#if>
+        <#if email?exists>
+        <fo:list-item>
+            <fo:list-item-label>
+                <fo:block>${uiLabelMap.CommonEmail}:</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block>${email.infoString?if_exists}</fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+        </#if>
+        <#if website?exists>
+        <fo:list-item>
+            <fo:list-item-label>
+                <fo:block>${uiLabelMap.CommonWebsite}:</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block>${website.infoString?if_exists}</fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+        </#if>
+        <#if eftAccount?exists>
+        <fo:list-item>
+            <fo:list-item-label>
+                <fo:block>${uiLabelMap.CommonFinBankName}:</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block>${eftAccount.bankName?if_exists}</fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+        <fo:list-item>
+            <fo:list-item-label>
+                <fo:block>${uiLabelMap.CommonRouting}:</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block>${eftAccount.routingNumber?if_exists}</fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+        <fo:list-item>
+            <fo:list-item-label>
+                <fo:block>${uiLabelMap.CommonBankAccntNrAbbr}:</fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <fo:block>${eftAccount.accountNumber?if_exists}</fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+        </#if>
+    </fo:list-block>
+</fo:block>
