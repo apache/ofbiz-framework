@@ -33,11 +33,16 @@ under the License.
   
     <fo:page-sequence master-reference="main-page">
 
-        <#-- the header -->
+        <#-- Header -->
+        <#-- The elements it it are positioned using a table composed by one row
+             composed by two cells (each 50% of the total table that is 100% of the page):
+             in the left side cell the "topLeft" template is included
+             in the right side cell the "topRight" template is included
+        -->
         <fo:static-content flow-name="xsl-region-before">
             <fo:table>
-                <fo:table-column column-width="3.5in"/>
-                <fo:table-column column-width="3in"/>
+                <fo:table-column column-number="1" column-width="proportional-column-width(50)"/>
+                <fo:table-column column-number="2" column-width="proportional-column-width(50)"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell>
@@ -54,7 +59,7 @@ ${sections.render("topRight")}
         <#-- the footer -->
         <fo:static-content flow-name="xsl-region-after">
             <fo:block font-size="10pt" text-align="center" space-before="10pt">
-                Page <fo:page-number/> of <fo:page-number-citation ref-id="theEnd"/>
+                ${uiLabelMap.CommonPage} <fo:page-number/> ${uiLabelMap.CommonOf} <fo:page-number-citation ref-id="theEnd"/>
             </fo:block>
         </fo:static-content>
 
