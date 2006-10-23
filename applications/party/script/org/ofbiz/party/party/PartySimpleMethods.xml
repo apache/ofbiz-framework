@@ -43,14 +43,14 @@ under the License.
 
     <simple-method method-name="ensureNaPartyRole" short-description="Ensure Party is in _NA_ or the specified Role" login-required="false">
         <!-- must have a partyId, partyIdFrom, or partyIdTo in the parameters map, should be called through different service defs for each one -->
-        <if-not-empty field-name="partyId" map-name="parameters">
-            <field-to-field field-name="partyId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <if-not-empty field-name="parameters.partyId">
+            <set field="lookupPKMap.partyId" from-field="parameters.partyId"/>
             <else>
-                <if-not-empty field-name="partyIdFrom" map-name="parameters">
-                    <field-to-field field-name="partyIdFrom" map-name="parameters" to-field-name="partyId" to-map-name="lookupPKMap"/>
+                <if-not-empty field-name="parameters.partyIdFrom">
+                    <set field="lookupPKMap.partyId" from-field="parameters.partyIdFrom"/>
                     <else>
-                        <if-not-empty field-name="partyIdTo" map-name="parameters">
-                            <field-to-field field-name="partyIdTo" map-name="parameters" to-field-name="partyId" to-map-name="lookupPKMap"/>
+                        <if-not-empty field-name="parameters.partyIdTo">
+                            <set field="lookupPKMap.partyId" from-field="parameters.partyIdTo"/>
                         </if-not-empty>
                     </else>
                 </if-not-empty>
@@ -58,9 +58,9 @@ under the License.
         </if-not-empty>
 
         <if-empty field-name="parameters.roleTypeId">
-            <string-to-field string="_NA_" field-name="lookupPKMap.roleTypeId"/>
+            <set field="lookupPKMap.roleTypeId" value="_NA_"/>
         <else>
-            <env-to-env env-name="parameters.roleTypeId" to-env-name="lookupPKMap.roleTypeId"/>
+            <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         </else>
         </if-empty>
         <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
