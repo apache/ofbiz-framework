@@ -3,48 +3,51 @@
 ==  Version 2.0.                                                       ==
 =========================================================================
 
+The Apache Open For Business Project (Apache OFBiz)
+Copyright 2001-2006 The Apache Software Foundation
+
+=========================================================================
+==  Apache General Notice (Covers OFBiz and all ASF libraries)         ==
+=========================================================================
+
 This product includes software developed by
 The Apache Software Foundation (http://www.apache.org/).
 
 =========================================================================
-==  JDBM Notice                                                        ==
+==  Apache Ant Notice                                                  ==
 =========================================================================
 
-This product includes software developed by the JDBM Project 
-(http://jdbm.sourceforge.net/).
+This product includes also software developed by :
+  - the W3C consortium (http://www.w3c.org) ,
+  - the SAX project (http://www.saxproject.org)
+
+The <sync> task is based on code Copyright (c) 2002, Landmark
+Graphics Corp that has been kindly donated to the Apache Software
+Foundation.
 
 =========================================================================
-==  WFMC Notice                                                        ==
+==  Apache Avalon Notice                                               ==
 =========================================================================
 
-This product includes documents (dtds) provided by
-the Workflow Management Coalition (www.wfmc.org):
+This product is developed by the Apache Avalon Project.
+http://avalon.apache.org
 
-framework\shark\dtd\TC-1025_schema_10_xpdl.xsd
-framework\workflow\dtd\xpdl-1.0-schema.xsd
-framework\workflow\dtd\xpdl.dtd
-
-=========================================================================
-==  Tigra Calendar Notice                                              ==
-=========================================================================
-
-This product includes files developed by
-Softcomplex (www.softcomplex.com):
-
-framework\images\webapp\images\calendar.html
-framework\images\webapp\images\calendar1.js
+The names "Avalon" and "Merlin" must not be used to endorse or promote 
+products derived from this software without prior written permission. 
+For written permission, please contact pmc@avalon.apache.org.
 
 =========================================================================
-==  PNG Behavior Notice                                                ==
+==  Apache Batik Notice                                                ==
 =========================================================================
 
-This product includes software developed by
-WebFX (webfx.eae.net):
+This software contains code from the World Wide Web Consortium (W3C) for the 
+Document Object Model API (DOM API) and SVG Document Type Definition (DTD).
 
-framework/images/webapp/images/pngbehavior.htc
+This software contains code from the International Organisation for Standardization
+for the definition of character entities used in the software's documentation.
 
 =========================================================================
-==  Derby Notice                                                       ==
+==  Apache Derby Notice                                                ==
 =========================================================================
 
 Portions of Derby were orginally developed by
@@ -59,4 +62,117 @@ an agency of the United States Department of Commerce, and adapted by
 International Business Machines Corporation in accordance with the NIST
 Software Acknowledgment and Redistribution document at
 http://www.itl.nist.gov/div897/ctg/sql_form.htm
+
+=========================================================================
+==  Apache FOP Notice                                                  ==
+=========================================================================
+
+This software consists of voluntary contributions made by many individuals
+on behalf of The Apache Software Foundation and was originally created by
+James Tauber <jtauber@jtauber.com>.
+
+=========================================================================
+==  Apache Geronimo Notice                                             ==
+=========================================================================
+
+Portions of the Web Console were orginally developed by
+International Business Machines Corporation and are
+licensed to the Apache Software Foundation under the
+"Software Grant and Corporate Contribution License Agreement",
+informally known as the "IBM Console CLA".
+
+The following copyright notice(s) were affixed to portions of the code
+with which this file is now or was at one time distributed
+and are placed here unaltered.
+
+(C) Copyright 2004, 2005 International Business Machines Corporation.  All rights reserved.
+
+=========================================================================
+==  Apache Log4J Notice                                                ==
+=========================================================================
+
+This product includes source code based on Sun
+Microsystems' book titled "Java Nativer Interface:
+Programmer's Guide and Specification" and freely available
+to the public at http://java.sun.com/docs/books/jni.
+
+=========================================================================
+==  Apache Xerces Java Notice                                          ==
+=========================================================================
+
+Portions of this software were originally based on the following:
+  - software copyright (c) 1999, IBM Corporation., http://www.ibm.com.
+  - software copyright (c) 1999, Sun Microsystems., http://www.sun.com.
+  - voluntary contributions made by Paul Eng on behalf of the 
+    Apache Software Foundation that were originally developed at iClick, Inc.,
+    software copyright (c) 1999.
+       
+=========================================================================
+==  JDBM Notice                                                        ==
+=========================================================================
+
+This product includes software developed by the JDBM Project 
+(http://jdbm.sourceforge.net/).
+
+=========================================================================
+==  Jetty Notice                                                        ==
+=========================================================================
+
+==============================================================
+ Jetty Web Container 
+ Copyright 1995-2006 Mort Bay Consulting Pty Ltd
+==============================================================
+
+This product includes software developed at The Apache Software Foundation
+(http://www.apache.org/).
+
+The UnixCrypt.java code ~Implements the one way cryptography used by
+Unix systems for simple password protection.  Copyright 1996 Aki Yoshida,
+modified April 2001  by Iris Van den Broeke, Daniel Deville.
+
+The default JSP implementation is provided by the Glassfish JSP engine
+from project Glassfish http://glassfish.dev.java.net.  Copyright 2005
+Sun Microsystems, Inc. and portions Copyright Apache Software Foundation.
+
+Some portions of the code are Copyright:
+  2006 Tim Vernum 
+  1999 Jason Gilbert.
+
+=========================================================================
+==  MX4J Notice                                                        ==
+=========================================================================
+
+This software consists of voluntary contributions made by many
+individuals on behalf of the MX4J project.  For more information on
+MX4J, please see <http://mx4j.sourceforge.net>
+
+=========================================================================
+==  PNG Behavior Notice                                                ==
+=========================================================================
+
+This product includes software developed by
+WebFX (webfx.eae.net):
+
+framework/images/webapp/images/pngbehavior.htc
+
+=========================================================================
+==  Tigra Calendar Notice                                              ==
+=========================================================================
+
+This product includes files developed by
+Softcomplex (www.softcomplex.com):
+
+framework\images\webapp\images\calendar.html
+framework\images\webapp\images\calendar1.js
+
+=========================================================================
+==  WfMC Notice                                                        ==
+=========================================================================
+
+This product includes documents (dtds) provided by
+the Workflow Management Coalition (www.wfmc.org):
+
+framework\shark\dtd\TC-1025_schema_10_xpdl.xsd
+framework\workflow\dtd\xpdl-1.0-schema.xsd
+framework\workflow\dtd\xpdl.dtd
 
