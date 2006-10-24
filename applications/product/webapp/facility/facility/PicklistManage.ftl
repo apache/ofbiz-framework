@@ -110,7 +110,7 @@ under the License.
                             <input type"text" size="2" name="binLocationNumber" value="${picklistBinInfo.picklistBin.binLocationNumber}"/>
                             ${uiLabelMap.PageTitlePickList}:
                             <select name="picklistId" class="smallSelect">
-                                <#list picklistActiveList as picklistActive>
+                                <#list picklistActiveList?if_exists as picklistActive>
                                     <#assign picklistActiveStatusItem = picklistActive.getRelatedOneCache("StatusItem")>
                                     <option value="${picklistActive.picklistId}"<#if picklistActive.picklistId == picklist.picklistId> selected</#if>>${picklistActive.picklistId} [${uiLabelMap.CommonDate}:${picklistActive.picklistDate},${uiLabelMap.CommonStatus}:${picklistActiveStatusItem.get("description",locale)}]</option>
                                 </#list>
