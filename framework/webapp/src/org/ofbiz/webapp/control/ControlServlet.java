@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Enumeration;
 
-import com.ibm.bsf.BSFManager;
+import org.apache.bsf.BSFManager;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
