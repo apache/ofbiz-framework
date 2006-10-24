@@ -22,9 +22,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ibm.bsf.BSFException;
-import com.ibm.bsf.BSFManager;
-import com.ibm.bsf.util.IOUtils;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
+import org.apache.bsf.util.IOUtils;
 
 import org.ofbiz.base.util.cache.UtilCache;
 

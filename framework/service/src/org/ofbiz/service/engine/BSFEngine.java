@@ -27,8 +27,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 
-import com.ibm.bsf.BSFException;
-import com.ibm.bsf.BSFManager;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 
 /**
  * BSF Service Engine
@@ -87,11 +87,11 @@ public class BSFEngine extends GenericAsyncEngine {
         mgr.registerBean("context", context);
         
         // pre-load the engine to make sure we were called right
-        com.ibm.bsf.BSFEngine bsfEngine = null;        
+        org.apache.bsf.BSFEngine bsfEngine = null;        
         try {
             bsfEngine = mgr.loadScriptingEngine(modelService.engineName);
         } catch (BSFException e) {
-            throw new GenericServiceException("Problems loading com.ibm.bsf.BSFEngine: " + modelService.engineName, e);
+            throw new GenericServiceException("Problems loading org.apache.bsf.BSFEngine: " + modelService.engineName, e);
         }
         
         // source the script into a string
