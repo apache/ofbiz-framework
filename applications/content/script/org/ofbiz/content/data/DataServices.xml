@@ -569,7 +569,7 @@ under the License.
         
         <if-empty field-name="currentContent">
             <if-not-empty field-name="contentId" map-name="parameters">
-                <field-to-field field-name="contentId" map-name="parameters" to-map-name="contextA"/>
+                <set field="contextA.contentId" from-field="parameters.contentId" />
                 <find-by-primary-key value-name="currentContent" entity-name="Content"
                          map-name="contextA" use-cache="true" />
             </if-not-empty>
@@ -587,7 +587,7 @@ under the License.
         </if-empty>
         <check-errors/>
         <field-to-result field-name="currentContent.dataResourceId" result-name="dataResourceId"/>    
-        <field-to-field field-name="dataResourceId" map-name="currentContent" to-map-name="contextB"/>
+        <set field="contextB.dataResourceId" from-field="currentContent.dataResourceId" />
         <find-by-primary-key value-name="eText" entity-name="ElectronicText"
                          map-name="contextB" use-cache="true" />
         <if-empty field-name="eText" >

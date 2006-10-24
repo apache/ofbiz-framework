@@ -122,9 +122,9 @@ under the License.
             <if-compare field-name="parameters.quantityNotIssued" operator="not-equals" value="0" type="Double">
                 <if-not-empty field-name="lastNonSerInventoryItem">
                     <!-- create ItemIssuance record -->
-                    <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                    <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                    <field-to-field field-name="inventoryItemId" map-name="lastNonSerInventoryItem" to-map-name="issuanceCreateMap"/>
+                    <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
+                    <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
+                    <set field="issuanceCreateMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId" />
                     <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
                         <result-to-field result-name="itemIssuanceId"/>
@@ -158,8 +158,8 @@ under the License.
                     </call-service>
 
                     <!-- create ItemIssuance record -->
-                    <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                    <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
+                    <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
+                    <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
                     <set field="issuanceCreateMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
                     <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
@@ -198,9 +198,9 @@ under the License.
                     <store-value value-name="inventoryItem"/>
 
                     <!-- create ItemIssuance record -->
-                    <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                    <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                    <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
+                    <set field="issuanceCreateMap.orderId" from-field="parameters.orderId"/>
+                    <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>                    
+                    <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>                    
                     <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap"/>
                     <clear-field field-name="issuanceCreateMap"/>
@@ -215,17 +215,17 @@ under the License.
                     <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
                     <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
                         <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
-                            <field-to-field field-name="availableToPromiseTotal" map-name="inventoryItem" to-field-name="deductAmount" to-map-name="parameters"/>
+                            <set field="parameters.deductAmount" from-field="inventoryItem.availableToPromiseTotal" />
                         <else>
-                            <field-to-field field-name="quantityNotIssued" map-name="parameters" to-field-name="deductAmount" to-map-name="parameters"/>
+                            <set field="parameters.deductAmount" from-field="parameters.quantityNotIssued" />
                         </else>
                         </if-compare-field>
                         
                         <!-- create ItemIssuance record -->
-                        <field-to-field field-name="orderId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                        <field-to-field field-name="orderItemSeqId" map-name="parameters" to-map-name="issuanceCreateMap"/>
-                        <field-to-field field-name="inventoryItemId" map-name="inventoryItem" to-map-name="issuanceCreateMap"/>
-                        <field-to-field field-name="deductAmount" map-name="parameters" to-field-name="quantity" to-map-name="issuanceCreateMap"/>
+                        <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
+                        <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
+                        <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId" />                                                
+                        <set field="issuanceCreateMap.quantity" from-field="parameters.deductAmount" />                                                                        
                         <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
                             <result-to-field result-name="itemIssuanceId"/>
                         </call-service>
