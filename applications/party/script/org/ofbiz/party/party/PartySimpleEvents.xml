@@ -42,7 +42,7 @@ under the License.
         </call-service>
     </simple-method>
     <simple-method method-name="updatePerson" short-description="Update Person">
-        <field-to-field map-name="parameters" field-name="partyId" to-map-name="context"/>
+        <set field="context.partyId" from-field="parameters.partyId" />
         <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
@@ -62,7 +62,7 @@ under the License.
         </call-service>
     </simple-method>
     <simple-method method-name="updatePartyGroup" short-description="Update Party Group">
-        <field-to-field map-name="parameters" field-name="partyId" to-map-name="context"/>
+        <set field="context.partyId" from-field="parameters.partyId" />
         <call-map-processor xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="partyGroup" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>

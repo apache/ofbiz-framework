@@ -14,8 +14,9 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-<simple-methods>
-    <simple-method login-required="false" method-name="createContentAndPurpose">
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method login-required="false" method-name="createContentAndPurpose" short-description="Create Content And Purpose">
         <make-value entity-name="Content" value-name="currentContent"/>
         <set-pk-fields map-name="parameters" value-name="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
@@ -28,10 +29,10 @@ under the License.
         <field-to-list field-name="contentPurposeTypeId"
             list-name="contentPurposeList" map-name="parameters"/>
         <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
-        <field-to-field field-name="currentContent" to-map-name="context"/>
-        <field-to-field field-name="contentPurposeList" to-map-name="context"/>
-        <field-to-field field-name="targetOperationList" to-map-name="context"/>
-        <field-to-field field-name="currentContent" to-map-name="context"/>
+        <set field="context.currentContent" from-field="currentContent" />
+        <set field="context.contentPurposeList" from-field="contentPurposeList" />
+        <set field="context.targetOperationList" from-field="targetOperationList" />
+        <set field="context.currentContent" from-field="currentContent" />
         <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
         <call-service in-map-name="context" service-name="checkContentPermission">
             <result-to-field field-name="permissionStatus" result-name="permissionStatus"/>
@@ -49,9 +50,8 @@ under the License.
             <create-value value-name="currentContent"/>
             <if-not-empty field-name="contentPurposeTypeId" map-name="parameters">
                 <make-value entity-name="ContentPurpose" value-name="newContentPurpose"/>
-                <field-to-field field-name="contentPurposeTypeId"
-                    map-name="parameters" to-map-name="newContentPurpose"/>
-                <field-to-field field-name="contentId" map-name="currentContent" to-map-name="newContentPurpose"/>
+                <set field="newContentPurpose.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId" />
+                <set field="newContentPurpose.contentId" from-field="currentContent.contentId" />
                 <create-value value-name="newContentPurpose"/>
             </if-not-empty>
         </if-compare>

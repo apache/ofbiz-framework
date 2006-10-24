@@ -36,8 +36,7 @@ under the License.
     <simple-method method-name="updateFacility" short-description="Update a Facility">
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="Security Error: to run updateFacility you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
-
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" /> 
         <find-by-primary-key entity-name="Facility" map-name="lookupPKMap" value-name="facility"/>
         <set-nonpk-fields map-name="parameters" value-name="facility"/>
         <store-value value-name="facility"/>
@@ -46,7 +45,7 @@ under the License.
         <check-permission permission="FACILITY" action="_DELETE"><fail-message message="Security Error: to run deleteFacility you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
         <find-by-primary-key entity-name="Facility" map-name="lookupPKMap" value-name="facility"/>
         <remove-value value-name="facility"/>
     </simple-method>
@@ -64,8 +63,8 @@ under the License.
         <check-permission permission="FACILITY" action="_DELETE"><fail-message message="Security Error: to run removeContactMechFromFacility you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="lookupPKMap"/>
-        <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
+        <set field="lookupPKMap.contactMechId" from-field="parameters.contactMechId" />
         <find-by-primary-key entity-name="FacilityContactMech" map-name="lookupPKMap" value-name="facilityContactMech"/>
         <remove-value value-name="facilityContactMech"/>
     </simple-method>
@@ -77,18 +76,18 @@ under the License.
 
         <make-value value-name="newEntity" entity-name="FacilityLocation"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="newEntity"/>
+        <set field="newEntity.facilityId" from-field="parameters.facilityId" />
         
         <string-to-field string="${parameters.areaId}${parameters.aisleId}${parameters.sectionId}${parameters.levelId}${parameters.positionId}" field-name="locationSeqId"/>
         <!-- check to see if it exists already, if so try a simple suffix, then give up and use a sequenced id -->
         <if-not-empty field-name="locationSeqId">
             <env-to-field env-name="locationSeqId" map-name="checkLocationSeqIdMap"/>
-            <field-to-field field-name="facilityId" map-name="parameters" to-map-name="checkLocationSeqIdMap"/>
+            <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
             <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
             <if-not-empty field-name="checkLocationSeqIdValue">
                 <string-to-field string="${locationSeqId}_2" field-name="locationSeqId"/>
                 <env-to-field env-name="locationSeqId" map-name="checkLocationSeqIdMap"/>
-                <field-to-field field-name="facilityId" map-name="parameters" to-map-name="checkLocationSeqIdMap"/>
+                <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
                 <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
                 <if-not-empty field-name="checkLocationSeqIdValue">
                     <string-to-field string="" field-name="locationSeqId"/>
@@ -110,9 +109,8 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="Security Error: to run updateFacilityLocation you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="lookupPKMap"/>
-        <field-to-field field-name="locationSeqId" map-name="parameters" to-map-name="lookupPKMap"/>
-        
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
+        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId" />
         <find-by-primary-key entity-name="FacilityLocation" map-name="lookupPKMap" value-name="facilityLocation"/>
         <set-nonpk-fields map-name="parameters" value-name="facilityLocation"/>
         <store-value value-name="facilityLocation"/>
@@ -121,8 +119,8 @@ under the License.
         <check-permission permission="FACILITY" action="_DELETE"><fail-message message="Security Error: to run deleteFacilityLocation you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="lookupPKMap"/>
-        <field-to-field field-name="locationSeqId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
+        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId" />
         <find-by-primary-key entity-name="FacilityLocation" map-name="lookupPKMap" value-name="facilityLocation"/>
         <remove-value value-name="facilityLocation"/>
     </simple-method>    
@@ -146,7 +144,7 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="Security Error: to run updateFacilityGroup you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="facilityGroupId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
         <find-by-primary-key entity-name="FacilityGroup" map-name="lookupPKMap" value-name="facilityGroup"/>
         <set-nonpk-fields map-name="parameters" value-name="facilityGroup"/>
         <store-value value-name="facilityGroup"/>
@@ -155,7 +153,7 @@ under the License.
         <check-permission permission="FACILITY" action="_DELETE"><fail-message message="Security Error: to run deleteFacilityGroup you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <field-to-field field-name="facilityGroupId" map-name="parameters" to-map-name="lookupPKMap"/>
+        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
         <find-by-primary-key entity-name="FacilityGroup" map-name="lookupPKMap" value-name="facilityGroup"/>
         <remove-value value-name="facilityGroup"/>
     </simple-method>    

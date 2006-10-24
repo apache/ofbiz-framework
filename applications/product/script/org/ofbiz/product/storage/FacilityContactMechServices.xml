@@ -34,12 +34,12 @@ under the License.
             </call-service>
             <log level="info" message="ContactMech created"/>
             <else>
-                <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="newValue"/>
+                <set field="newValue.contactMechId" from-field="parameters.contactMechId" />
             </else>
         </if-empty>
 
         <log level="info" message="Creating a FacilityContactMech"/>
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="newValue"/>
+        <set field="newValue.facilityId" from-field="parameters.facilityId" />
         <field-to-result field-name="contactMechId" map-name="newValue"/>
         <field-to-request field-name="contactMechId" map-name="newValue"/>
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
@@ -80,7 +80,7 @@ under the License.
                 <result-to-field result-name="contactMechId" map-name="newFacilityContactMech"/>
             </call-service>
             <else>
-                <field-to-field map-name="parameters" to-map-name="newFacilityContactMech" field-name="newContactMechId" to-field-name="contactMechId"/>
+                <set field="newFacilityContactMech.contactMechId" from-field="parameters.newContactMechId" />
                 <log level="info" message="Using supplied new contact mech id: ${newFacilityContactMech.contactMechId}"/>
             </else>
         </if-empty> 
@@ -94,7 +94,7 @@ under the License.
         <if-compare-field field-name="contactMechId" map-name="parameters" to-map-name="newFacilityContactMech" operator="not-equals">
             <get-related value-name="facilityContactMech" relation-name="FacilityContactMechPurpose" list-name="facilityContactMechPurposes"/>   
             <iterate entry-name="facilityContactMechPurpose" list-name="facilityContactMechPurposes">
-                <field-to-field field-name="contactMechId" map-name="newFacilityContactMech" to-map-name="facilityContactMechPurpose"/>
+                <set field="facilityContactMechPurpose.contactMechId" from-field="newFacilityContactMech.contactMechId" />
                 <field-to-list field-name="facilityContactMechPurpose" list-name="storeList"/>
             </iterate>
         </if-compare-field>
@@ -139,7 +139,7 @@ under the License.
         <log level="info" message="ContactMech for postal address was ${newFacilityContactMech.contactMechId}, now creating facility contact mech"/>
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
                 processor-name="facilityContactMech" in-map-name="parameters" out-map-name="context2"/>  
-        <field-to-field field-name="contactMechId" map-name="newFacilityContactMech" to-map-name="context2"/> 
+        <set field="context2.contactMechId" from-field="newFacilityContactMech.contactMechId" />
         <log level="info" message="Copied id to context2: ${context2.contactMechId}"/>
         <call-service in-map-name="context2" break-on-error="true" service-name="createFacilityContactMech">
             <default-message>Facility Contact Mechanism successfully created</default-message>       
@@ -163,7 +163,7 @@ under the License.
         </call-service>
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
                 processor-name="updateFacilityContactMech" in-map-name="parameters" out-map-name="context2"/>  
-        <field-to-field map-name="newFacilityContactMech" field-name="contactMechId"  to-map-name="context2" to-field-name="newContactMechId"/>
+        <set field="context2.newContactMechId" from-field="newFacilityContactMech.contactMechId" />
         <string-to-field map-name="context2" field-name="contactMechTypeId" string="POSTAL_ADDRESS"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateFacilityContactMech">
@@ -187,7 +187,7 @@ under the License.
         </call-service>
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
                 processor-name="facilityContactMech" in-map-name="parameters" out-map-name="context2"/>  
-        <field-to-field field-name="contactMechId" map-name="newFacilityContactMech" to-map-name="context2"/> 
+        <set field="context2.contactMechId" from-field="newFacilityContactMech.contactMechId" />
         <log level="info" message="Copied id to context2: ${context2.contactMechId}"/>
         <call-service in-map-name="context2" break-on-error="true" service-name="createFacilityContactMech">
             <default-message>Facility Contact Mechanism successfully created</default-message>       
@@ -209,8 +209,8 @@ under the License.
         </call-service>
         
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
-                processor-name="updateFacilityContactMech" in-map-name="parameters" out-map-name="context2"/>  
-        <field-to-field map-name="newFacilityContactMech" field-name="contactMechId"  to-map-name="context2" to-field-name="newContactMechId"/>
+                processor-name="updateFacilityContactMech" in-map-name="parameters" out-map-name="context2"/>
+        <set field="context2.newContactMechId" from-field="newFacilityContactMech.contactMechId" />  
         <string-to-field map-name="context2" field-name="contactMechTypeId" string="TELECOM_NUMBER"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateFacilityContactMech">
@@ -256,9 +256,9 @@ under the License.
         <check-errors/>
 
         <make-value value-name="lookUpMap" entity-name="FacilityContactMechPurpose"/>
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="lookUpMap"/>
-        <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="lookUpMap"/>
-        <field-to-field field-name="contactMechPurposeTypeId" map-name="parameters" to-map-name="lookUpMap"/>
+        <set field="lookUpMap.facilityId" from-field="parameters.facilityId" />
+        <set field="lookUpMap.contactMechId" from-field="parameters.contactMechId" />
+        <set field="lookUpMap.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
         <find-by-and entity-name="FacilityContactMechPurpose" map-name="lookUpMap" list-name="purposeList"/>
         <filter-list-by-date list-name="purposeList"/>
         
@@ -269,9 +269,9 @@ under the License.
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <make-value value-name="newEntity" entity-name="FacilityContactMechPurpose"/>
-        <field-to-field field-name="facilityId" map-name="parameters" to-map-name="newEntity"/>
-        <field-to-field field-name="contactMechId" map-name="parameters" to-map-name="newEntity"/>
-        <field-to-field field-name="contactMechPurposeTypeId" map-name="parameters" to-map-name="newEntity"/>
+        <set field="newEntity.facilityId" from-field="parameters.facilityId" />
+        <set field="newEntity.contactMechId" from-field="parameters.contactMechId" />
+        <set field="newEntity.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
         <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
         <create-value value-name="newEntity"/>
         

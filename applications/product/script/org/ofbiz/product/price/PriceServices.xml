@@ -39,8 +39,8 @@ under the License.
 
         <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="newEntity"/>
         <env-to-field env-name="nowTimestamp" field-name="createdDate" map-name="newEntity"/>
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="newEntity"/>
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="createdByUserLogin" to-map-name="newEntity"/>
+        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
+        <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId" />
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -60,7 +60,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="lookedUpValue"/>
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="lastModifiedByUserLogin" to-map-name="lookedUpValue"/>
+        <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
 
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -101,7 +101,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <env-to-field env-name="nowTimestamp" field-name="changedDate" map-name="newEntity"/>
-        <field-to-field field-name="userLoginId" map-name="userLogin" to-field-name="changedByUserLogin" to-map-name="newEntity"/>
+        <set field="newEntity.changedByUserLogin" from-field="userLogin.userLoginId" />
 
         <create-value value-name="newEntity"/>
     </simple-method>
