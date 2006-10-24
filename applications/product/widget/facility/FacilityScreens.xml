@@ -626,7 +626,6 @@ under the License.
                 <entity-condition entity-name="PartyRoleAndPartyDetail" list-name="partyRoleAndPartyDetailList" use-cache="true">
                     <condition-expr field-name="roleTypeId" value="PICKER"/>
                 </entity-condition>
-                <!--
                 <entity-condition entity-name="Picklist" list-name="picklistActiveList">
                     <condition-list combine="and">
                         <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
@@ -636,7 +635,6 @@ under the License.
                     </condition-list>
                     <order-by field-name="picklistDate"/>
                 </entity-condition>
-                -->
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator">
