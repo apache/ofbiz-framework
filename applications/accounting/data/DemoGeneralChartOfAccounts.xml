@@ -714,10 +714,10 @@ according to which type of entity.
 
     
   <GlAccount parentGlAccountId="500000" glAccountId="510000" accountCode="510000" 
-    glAccountClassId="REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"  
+    glAccountClassId="COGS_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="FREIGHT IN" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="510000" glAccountId="510200" accountCode="510200" 
-    glAccountClassId="REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"  
+    glAccountClassId="COGS_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="FREIGHT IN - CATEGORY 2" description="" postedBalance="0.0"/>
     
   <GlAccount parentGlAccountId="510000" glAccountId="511000" accountCode="511000" 
