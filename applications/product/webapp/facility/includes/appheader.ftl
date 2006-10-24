@@ -32,7 +32,7 @@ under the License.
     <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='${selectedRightClassMap.login?default(unselectedRightClassName)}'>${uiLabelMap.CommonLogin}</a></div>
   </#if>
   <#if facilityId?has_content>
-    <div class="col-right"><a href="<@ofbizUrl>InventoryReports?facilityId=${facilityId}&action=SEARCH</@ofbizUrl>" class="${selectedRightClassMap.reports?default(unselectedRightClassName)}">${uiLabelMap.CommonReports}</a></div>  
+    <div class="col-right"><a href="<@ofbizUrl>InventoryReports?facilityId=${facilityId}</@ofbizUrl>" class="${selectedRightClassMap.reports?default(unselectedRightClassName)}">${uiLabelMap.CommonReports}</a></div>  
   </#if>
   <div class="col-fill">&nbsp;</div>
 </div>

@@ -23,17 +23,27 @@ under the License.
     <screen name="InventoryReports">
         <section>
             <actions>
-                <set field="titleProperty" value="ProductViewInventoryByProduct"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>                
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="headerItem" value="reports"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <!-- This is the target of the search form-->
+                <set field="facilityInventoryByProductScreen" value="InventoryReports"/>
+
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                <set field="productTypeId" from-field=""/>
-                <set field="searchInProductCategoryId" from-field=""/>
-                <set field="productSupplierId" from-field=""/>
-                <set field="offsetQty" from-field=""/>                
+                <set field="productTypeId" from-field="parameters.productTypeId"/>
+                <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
+                <set field="productSupplierId" from-field="parameters.productSupplierId"/>
+                <set field="offsetQOHQty" from-field="parameters.offsetQOHQty"/>
+                <set field="offsetATPQty" from-field="parameters.offsetATPQty"/>
+                <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
+                <set field="internalName" from-field="parameters.internalName"/>
+                <set field="productId" from-field="parameters.productId"/>
+   
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
-                <entity-one entity-name="Facility" value-name="facility" use-chase="true"/>
+                <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
@@ -42,8 +52,12 @@ under the License.
                             <label style="head2" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
                         </container>
                         <container>
-                            <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                         </container>
+
+                        <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
