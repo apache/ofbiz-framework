@@ -1,0 +1,271 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+// This script counts the inventory in the facility using a complex and
+// pretty efficient dynamic view entity.
+// However, since the quantities are not computed using the inventory
+// services (getInventoryAvailableByFacility and getMktgPackagesAvailable)
+// there are some limitations: the virtual inventory of marketing packages
+// is not computed; you can use the ViewFacilityInventoryByProduct.bsh if you
+// need it (but it is slower than this one).
+
+import java.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.transaction.*;
+import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias;
+import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasField;
+import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasMember;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.product.inventory.*;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+delegator = request.getAttribute("delegator");
+dispatcher = request.getAttribute("dispatcher");
+
+action = request.getParameter("action");
+
+String searchParameterString = "";
+searchParameterString = "action=Y&facilityId=" + facilityId;
+
+offsetQOH = -1;
+offsetATP = -1;
+boolean hasOffsetQOH = false;
+boolean hasOffsetATP = false;
+
+EntityListIterator prodsEli = null;
+List rows = new ArrayList();
+
+if (action != null) {
+    // ------------------------------
+    DynamicViewEntity prodView = new DynamicViewEntity();
+    ComplexAlias atpDiffComplexAlias = new ComplexAlias("-");
+
+    Map conditionMap = UtilMisc.toMap("facilityId", facilityId);
+
+    if (offsetQOHQty != null && offsetQOHQty.length() > 0) {
+        try {
+            offsetQOH = Integer.parseInt(offsetQOHQty);
+            hasOffsetQOH = true;
+            searchParameterString = searchParameterString + "&offsetQOHQty=" + offsetQOH;
+        } catch(NumberFormatException nfe) {
+        }
+    }
+    if (offsetATPQty != null && offsetATPQty.length() > 0) {
+        try {
+            offsetATP = Integer.parseInt(offsetATPQty);
+            hasOffsetATP = true;
+            searchParameterString = searchParameterString + "&offsetATPQty=" + offsetATP;
+        } catch(NumberFormatException nfe) {
+        }
+    }
+
+    prodView.addMemberEntity("PRFA", "ProductFacility");
+    prodView.addAlias("PRFA", "productId", null, null, null, Boolean.TRUE, null);
+    prodView.addAlias("PRFA", "minimumStock", null, null, null, Boolean.TRUE, null);
+    prodView.addAlias("PRFA", "reorderQuantity", null, null, null, Boolean.TRUE, null);
+    prodView.addAlias("PRFA", "daysToShip", null, null, null, Boolean.TRUE, null);
+    prodView.addAlias("PRFA", "facilityId", null, null, null, Boolean.TRUE, null);
+
+    prodView.addMemberEntity("PROD", "Product");
+    prodView.addViewLink("PROD", "PRFA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+    prodView.addAlias("PROD", "internalName", null, null, null, Boolean.TRUE, null);
+    prodView.addAlias("PROD", "isVirtual", null, null, null, Boolean.TRUE, null);
+    prodView.addAlias("PROD", "salesDiscontinuationDate", null, null, null, Boolean.TRUE, null);
+    if (productTypeId != null && productTypeId.length() > 0) {
+        prodView.addAlias("PROD", "productTypeId", null, null, null, Boolean.TRUE, null);
+        conditionMap.put("productTypeId", productTypeId);
+        searchParameterString = searchParameterString + "&productTypeId=" + productTypeId;
+    }
+    
+    prodView.addMemberEntity("IITE", "InventoryItem");
+    prodView.addViewLink("PRFA", "IITE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId", "productId", "facilityId", "facilityId"));
+    prodView.addAlias("IITE", "totalQuantityOnHandTotal", "quantityOnHandTotal", null, null, null, "sum");
+    prodView.addAlias("IITE", "totalAvailableToPromiseTotal", "availableToPromiseTotal", null, null, null, "sum");
+    ComplexAlias qohDiffComplexAlias = new ComplexAlias("-");
+    qohDiffComplexAlias.addComplexAliasMember(new ComplexAliasField("IITE", "quantityOnHandTotal", null, "sum"));
+    qohDiffComplexAlias.addComplexAliasMember(new ComplexAliasField("PRFA", "minimumStock", null, null));
+    prodView.addAlias(null, "offsetQOHQtyAvailable", null, null, null, null, null, qohDiffComplexAlias);
+    ComplexAlias atpDiffComplexAlias = new ComplexAlias("-");
+    atpDiffComplexAlias.addComplexAliasMember(new ComplexAliasField("IITE", "availableToPromiseTotal", null, "sum"));
+    atpDiffComplexAlias.addComplexAliasMember(new ComplexAliasField("PRFA", "minimumStock", null, null));
+    prodView.addAlias(null, "offsetATPQtyAvailable", null, null, null, null, null, atpDiffComplexAlias);
+
+    if (searchInProductCategoryId != null && searchInProductCategoryId.length() > 0) {
+        prodView.addMemberEntity("PRCA", "ProductCategoryMember");
+        prodView.addViewLink("PRFA", "PRCA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+        prodView.addAlias("PRCA", "productCategoryId", null, null, null, Boolean.TRUE, null);
+        conditionMap.put("productCategoryId", searchInProductCategoryId);
+        searchParameterString = searchParameterString + "&searchInProductCategoryId=" + searchInProductCategoryId;
+    }
+
+    if (productSupplierId != null && productSupplierId.length() > 0) {
+        prodView.addMemberEntity("SPPR", "SupplierProduct");
+        prodView.addViewLink("PRFA", "SPPR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+        prodView.addAlias("SPPR", "partyId", null, null, null, Boolean.TRUE, null);
+        conditionMap.put("partyId", productSupplierId);
+        searchParameterString = searchParameterString + "&productSupplierId=" + productSupplierId;
+    }
+    
+    // set distinct on so we only get one row per product
+    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+    EntityCondition searchCondition = new EntityFieldMap(conditionMap, EntityOperator.AND);
+    EntityCondition notVirtualCondition = new EntityExpr(new EntityExpr("isVirtual", EntityOperator.EQUALS, null),
+                                                         EntityOperator.OR,
+                                                         new EntityExpr("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
+
+    whereConditionsList = UtilMisc.toList(searchCondition, notVirtualCondition);
+    // add the discontinuation date condition
+    if (UtilValidate.isNotEmpty(productsSoldThruTimestamp)) {
+        EntityCondition discontinuationDateCondition = new EntityConditionList(UtilMisc.toList(
+                new EntityExpr("salesDiscontinuationDate", EntityOperator.EQUALS, null),
+                new EntityExpr("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
+            EntityOperator.OR);
+        whereConditionsList.add(discontinuationDateCondition);
+        searchParameterString = searchParameterString + "&productsSoldThruTimestamp=" + productsSoldThruTimestamp;
+    }
+
+    // add search on internal name
+    if (UtilValidate.isNotEmpty(internalName)) {
+        whereConditionsList.add(new EntityExpr("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
+        searchParameterString = searchParameterString + "&internalName=" + internalName;
+    }
+    
+    // add search on productId 
+    if (UtilValidate.isNotEmpty(productId)) {
+        whereConditionsList.add(new EntityExpr("productId", true, EntityOperator.LIKE, productId + "%", true));
+        searchParameterString = searchParameterString + "&productId=" + productId;
+    }
+
+    List orderBy = FastList.newInstance();
+    if (hasOffsetATP) {
+        orderBy.add("offsetATPQtyAvailable");
+    }
+    if (hasOffsetQOH) {
+        orderBy.add("offsetQOHQtyAvailable");
+    }
+    orderBy.add("productId");
+
+    EntityCondition whereCondition = new EntityConditionList(whereConditionsList, EntityOperator.AND);
+
+    boolean beganTransaction = false;
+    List prods = null;
+    try {
+        beganTransaction = TransactionUtil.begin();
+        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, orderBy, findOpts);
+
+        // get the indexes for the partial list
+        lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1);
+        highIndex = (viewIndex.intValue() + 1) * viewSize.intValue();
+
+        // get the partial list for this page
+        prods = prodsEli.getPartialList(lowIndex, highIndex);
+        Iterator prodsIt = prods.iterator();
+
+        while (prodsIt.hasNext()) {
+            GenericValue oneProd = prodsIt.next();
+
+            Double offsetQOHQtyAvailable = oneProd.getDouble("offsetQOHQtyAvailable");
+            Double offsetATPQtyAvailable = oneProd.getDouble("offsetATPQtyAvailable");
+            if (hasOffsetATP) {
+                if (offsetATPQtyAvailable != null && offsetATPQtyAvailable.doubleValue() > offsetATP) {
+                    break;
+                }
+            }
+            if (hasOffsetQOH) {
+                if (offsetQOHQtyAvailable != null && offsetQOHQtyAvailable.doubleValue() > offsetQOH) {
+                    break;
+                }
+            }
+
+            Map oneInventory = FastMap.newInstance();
+            oneInventory.put("productId", oneProd.getString("productId"));
+            oneInventory.put("minimumStock", oneProd.getString("minimumStock"));
+            oneInventory.put("reorderQuantity", oneProd.getString("reorderQuantity"));
+            oneInventory.put("daysToShip", oneProd.getString("daysToShip"));
+            oneInventory.put("totalQuantityOnHand", oneProd.get("totalQuantityOnHandTotal"));
+            oneInventory.put("totalAvailableToPromise", oneProd.get("totalAvailableToPromiseTotal"));
+            oneInventory.put("offsetQOHQtyAvailable", offsetQOHQtyAvailable);
+            oneInventory.put("offsetATPQtyAvailable", offsetATPQtyAvailable);
+            oneInventory.put("quantityOnOrder", InventoryWorker.getOutstandingPurchasedQuantity(oneProd.getString("productId"), delegator));
+            rows.add(oneInventory);
+        }
+        if (rows.size() < viewSize.intValue()) {
+            productListSize = lowIndex + rows.size() - 1;
+        } else {
+            // attempt to get the full size
+            if (hasOffsetQOH || hasOffsetATP) {
+                GenericValue nextValue = null;
+                int rowProcessed = 0;
+                while ((nextValue = prodsEli.next()) != null) {
+                    Double offsetQOHQtyAvailable = nextValue.getDouble("offsetQOHQtyAvailable");
+                    Double offsetATPQtyAvailable = nextValue.getDouble("offsetATPQtyAvailable");
+                    if (hasOffsetATP) {
+                        if (offsetATPQtyAvailable != null && offsetATPQtyAvailable.doubleValue() > offsetATP) {
+                            break;
+                        }
+                    }
+                    if (hasOffsetQOH) {
+                        if (offsetQOHQtyAvailable != null && offsetQOHQtyAvailable.doubleValue() > offsetQOH) {
+                            break;
+                        }
+                    }
+                    rowProcessed++;
+                }
+                productListSize = lowIndex + rows.size() + rowProcessed - 1;
+            } else {
+                prodsEli.last();
+                productListSize = prodsEli.currentIndex();
+            }
+        }
+        prodsEli.close();
+        if (highIndex > productListSize) {
+            highIndex = productListSize;
+        }
+        context.put("overrideFormListSize", productListSize); 
+        context.put("highIndex", highIndex);
+        context.put("lowIndex", lowIndex);
+
+    } catch (GenericEntityException e) {
+        String errMsg = "Failure in operation, rolling back transaction";
+        Debug.logError(e, errMsg, "ViewFacilityInventoryByProduct");
+        try {
+            // only rollback the transaction if we started one...
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+        } catch (GenericEntityException e2) {
+            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "ViewFacilityInventoryByProduct");
+        }
+        // after rolling back, rethrow the exception
+        throw e;
+    } finally {
+        if (prodsEli != null) {
+            try {
+                prodsEli.close();
+            } catch (Exception exc) {}
+        }
+        // only commit the transaction if we started one... this will throw an exception if it fails
+        TransactionUtil.commit(beganTransaction);
+    }
+}
+context.put("inventoryByProduct", rows);
+context.put("searchParameterString", searchParameterString);

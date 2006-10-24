@@ -130,31 +130,8 @@ if (action != null) {
     try {
         beganTransaction = TransactionUtil.begin();
         prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, UtilMisc.toList("productId"), findOpts);
-
-        // get the indexes for the partial list
-        lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1);
-        highIndex = (viewIndex.intValue() + 1) * viewSize.intValue();
-
-        // attempt to get the full size
-        prodsEli.last();
-        productListSize = prodsEli.currentIndex();
-
-        if (highIndex > productListSize) {
-            highIndex = productListSize;
-        }
-
-        // get the partial list for this page
-        prodsEli.beforeFirst();
-        if (productListSize > 0) {
-            prods = prodsEli.getPartialList(lowIndex, highIndex);
-        } else {
-            prods = new ArrayList();
-        }
+        prods = prodsEli.getCompleteList();
         prodsEli.close();
-        context.put("overrideFormListSize", productListSize); 
-        context.put("highIndex", highIndex);
-        context.put("lowIndex", lowIndex);
-
     } catch (GenericEntityException e) {
         String errMsg = "Failure in operation, rolling back transaction";
         Debug.logError(e, errMsg, "ViewFacilityInventoryByProduct");
