@@ -47,14 +47,21 @@ context.put("scheduleOptions", scheduleOptions);
 
 if (UtilValidate.isNotEmpty(serviceName)) {
     DispatchContext dctx = dispatcher.getDispatchContext();
-    ModelService model = dctx.getModelService(serviceName);
-    Iterator params = model.getInParamNames().iterator();
-    while (params.hasNext()) {
-        ModelParam par = model.getParam((String)params.next());
-        if (par.internal) {
-            continue;
+    ModelService model = null;
+    try {
+        model = dctx.getModelService(serviceName);
+    } catch(Exception exc) {
+        context.put("errorMessageList", UtilMisc.toList(exc.getMessage()));
+    }
+    if (model != null) {
+        Iterator params = model.getInParamNames().iterator();
+        while (params.hasNext()) {
+            ModelParam par = model.getParam((String)params.next());
+            if (par.internal) {
+                continue;
+            }
+            serviceParameters.add(UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N")));
         }
-        serviceParameters.add(UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N")));
     }
 }
 context.put("serviceParameters", serviceParameters);
