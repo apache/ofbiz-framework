@@ -87,8 +87,10 @@ public class AIMPaymentServices {
         buildCustomerBillingInfo(context,props,request);
         buildEmailSettings(context,props,request);
         request.put("x_Invoice_Num","Order " + orderPaymentPreference.getString("orderId"));
-        //props.put("transType","PRIOR_AUTH_CAPTURE");
-        props.put("transType","CAPTURE_ONLY");
+        // PRIOR_AUTH_CAPTURE is the right one to use, since we already have an authorization from the authTransaction.
+        // CAPTURE_ONLY is a "force" transaction to be used if there is no prior authorization 
+        props.put("transType","PRIOR_AUTH_CAPTURE");
+        //props.put("transType","CAPTURE_ONLY");
         props.put("cardtype", (String)creditCard.get("cardType"));
         buildCaptureTransaction(context,props,request);
 
