@@ -164,7 +164,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
                 processor-name="updateFacilityContactMech" in-map-name="parameters" out-map-name="context2"/>  
         <set field="context2.newContactMechId" from-field="newFacilityContactMech.contactMechId" />
-        <string-to-field map-name="context2" field-name="contactMechTypeId" string="POSTAL_ADDRESS"/>
+        <set field="context2.contactMechTypeId" value="POSTAL_ADDRESS" />
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateFacilityContactMech">
             <default-message>Facility Contact Mechanism successfully updated</default-message>       
@@ -211,7 +211,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
                 processor-name="updateFacilityContactMech" in-map-name="parameters" out-map-name="context2"/>
         <set field="context2.newContactMechId" from-field="newFacilityContactMech.contactMechId" />  
-        <string-to-field map-name="context2" field-name="contactMechTypeId" string="TELECOM_NUMBER"/>
+        <set field="context2.contactMechTypeId" value="TELECOM_NUMBER" />
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateFacilityContactMech">
             <default-message>Facility Contact Mechanism successfully updated</default-message>       
@@ -228,7 +228,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS" />
         <call-service service-name="createFacilityContactMech" in-map-name="context">
             <default-message>Facility Contact Mechanism successfully created.</default-message>
             <result-to-result result-name="contactMechId"/>
@@ -243,7 +243,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/product/storage/FacilityContactMechMapProcs.xml"
             processor-name="emailAddress" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
-        <string-to-field map-name="context" field-name="contactMechTypeId" string="EMAIL_ADDRESS"/>
+        <set field="context.contactMechTypeId" value="EMAIL_ADDRESS" />
         <call-service service-name="updateFacilityContactMech" in-map-name="context">
             <default-message>Facility Contact Mechanism successfully updated.</default-message>
             <result-to-result result-name="contactMechId"/>

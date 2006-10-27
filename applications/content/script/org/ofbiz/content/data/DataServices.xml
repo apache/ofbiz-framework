@@ -525,7 +525,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field-name="dataResourceId" map-name="newEntity">
-            <string-to-field string="OTHER_OBJECT" field-name="dataResourceTypeId" map-name="serviceCtx"/>
+            <set field="serviceCtx.dataResourceTypeId" value="OTHER_OBJECT"/>
             <call-service service-name="createDataResource" in-map-name="serviceCtx">
                 <result-to-field result-name="dataResourceId" map-name="newEntity"/>
             </call-service>
