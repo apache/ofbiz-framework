@@ -182,14 +182,35 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityInventoryItems.bsh"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <entity-one entity-name="Facility" value-name="facility"/>
+                <entity-condition entity-name="InventoryItemAndLocation" list-name="inventoryItems">
+                    <condition-list>
+                        <condition-expr field-name="facilityId" env-name="parameters.facilityId"/>
+                        <condition-expr field-name="productId" env-name="parameters.productId" ignore-if-empty="true"/>
+                    </condition-list>
+                    <order-by field-name="statusId"/>
+                    <order-by field-name="quantityOnHandTotal"/>
+                    <order-by field-name="serialNumber"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/EditFacilityInventoryItems.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductInventoryItemsFor}</label>
+                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                        </container>
+                        <container>
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                            <link target="EditInventoryItem?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductCreateNewInventoryItemFacility}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProduct?facilityId=${parameters.facilityId}" text="${uiLabelMap.CommonView} ${uiLabelMap.ProductInventoryByProduct}" style="buttontext"/>
+                            <link target="SearchInventoryItems?facilityId=${parameters.facilityId}" text="${uiLabelMap.PageTitleSearchInventoryItems}" style="buttontext"/>
+                        </container>
+
+                        <include-form name="ListFacilityInventoryItems" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
