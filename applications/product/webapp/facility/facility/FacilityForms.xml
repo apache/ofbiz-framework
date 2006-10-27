@@ -18,6 +18,37 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="ListFacilityInventoryItems" type="list" 
+            target="" title="" list-name="inventoryItems" paginate-target="EditFacilityInventoryItems"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="inventoryItemId" widget-style="buttontext">
+            <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
+        </field>
+        <field name="inventoryItemTypeId">
+            <display-entity entity-name="InventoryItemType"/>
+        </field>
+        <field name="statusId"><display/></field>
+        <field name="datetimeReceived"><display/></field>
+        <field name="expireDate"><display/></field>
+        <field name="productId" widget-area-style="tabletext">
+            <display-entity entity-name="Product" description="${internalName}">
+                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="locationSeqId" widget-style="buttontext">
+            <hyperlink target="EditFacilityLocation?facilityId=${facilityId}&amp;locationSeqId=${locationSeqId}" description="${areaId}:${aisleId}:${sectionId}:${levelId}:${positionId} [${locationSeqId}]"/>
+        </field>
+        <field name="enumId" entry-name="locationTypeEnumId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="Enumeration"/>
+        </field>
+        <field name="lotId"><display/></field>
+        <field name="binNumber"><display/></field>
+        <field name="serialNumber"><display/></field>
+        <field name="quantityOnHandTotal"><display description="${availableToPromiseTotal} / ${quantityOnHandTotal}"/></field>
+        <field name="transfer" entry-name="inventoryItemId" widget-style="buttontext">
+            <hyperlink target="TransferInventoryItem?facilityId=${facilityId}&amp;inventoryItemId=${inventoryItemId}" description="${uiLabelMap.ProductTransfer}"/>
+        </field>
+    </form>
     <form name="FindFacilityInventoryByProduct" type="single" 
             target="${facilityInventoryByProductScreen}" title="" 
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
