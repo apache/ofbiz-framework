@@ -92,7 +92,7 @@ under the License.
 
     <!-- AcctgTrans Trial Balance and Post routines -->
     <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run calculateAcctgTransTrialBalance you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-permission permission="ACCOUNTING" action="_ATX_CREATE"><fail-message message="Security Error: to run calculateAcctgTransTrialBalance you must have the ACCOUNTING_ATX_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
         <check-errors/>
         
         <!-- get all AcctgTransEntry for this trans, for each if debit add to debits total if credit add to credits total -->
