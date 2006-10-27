@@ -205,6 +205,7 @@ public class InvoiceServices {
             BigDecimal shippableAmount = orh.getShippableTotalBd(null);
             BigDecimal orderSubTotal = orh.getOrderItemsSubTotalBd();
 
+            // these variables are for pro-rating order amounts across invoices, so they should not be rounded off for maximum accuracy
             BigDecimal invoiceShipProRateAmount = ZERO;
             BigDecimal invoiceSubTotal = ZERO;
             BigDecimal invoiceQuantity = ZERO;
@@ -437,7 +438,7 @@ public class InvoiceServices {
                     }
 
                     // increment the invoice subtotal
-                    invoiceSubTotal = invoiceSubTotal.add(thisAmount).setScale(decimals, rounding);
+                    invoiceSubTotal = invoiceSubTotal.add(thisAmount).setScale(100, rounding);
 
                     // increment the invoice quantity
                     invoiceQuantity = invoiceQuantity.add(billingQuantity).setScale(decimals, rounding);
@@ -527,7 +528,7 @@ public class InvoiceServices {
 	                        if (!"SALES_TAX".equals(adj.getString("orderAdjustmentTypeId")) &&
 	                                !"SHIPPING_ADJUSTMENT".equals(adj.getString("orderAdjustmentTypeId"))) {
 	                            // increment the invoice subtotal
-	                            invoiceSubTotal = invoiceSubTotal.add(thisAdjAmount).setScale(decimals, rounding);
+	                            invoiceSubTotal = invoiceSubTotal.add(thisAdjAmount).setScale(100, rounding);
 	
 	                            // add to the ship amount only if it applies to this item
 	                            if (shippingApplies) {
@@ -570,7 +571,8 @@ public class InvoiceServices {
                 }
             }
 
-            // next do the shipping adjustments
+            // next do the shipping adjustments.  Note that we do not want to add these to the invoiceSubTotal or orderSubTotal for pro-rating tax later, as that would cause
+            // numerator/denominator problems when the shipping is not pro-rated but rather charged all on the first invoice
             Iterator shipAdjIter = shipAdjustments.iterator();
             while (shipAdjIter.hasNext()) {
                 GenericValue adj = (GenericValue) shipAdjIter.next();
@@ -582,10 +584,6 @@ public class InvoiceServices {
                         // this is the first invoice; bill it all now
                         BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
                                 new BigDecimal("1"), new BigDecimal("1"), totalItemsInOrder, decimals, rounding, userLogin, dispatcher, locale);
-                        // should shipping effect the tax pro-rate? here we do, and we also update order sub total for this adjustment's value
-                        invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(decimals, rounding);
-                        orderSubTotal = orderSubTotal.add(adj.getBigDecimal("amount")).setScale(decimals, rounding);
-
                         // increment the counter
                         invoiceItemSeqNum++;
                         invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
@@ -594,10 +592,6 @@ public class InvoiceServices {
                     // pro-rate the shipping amount based on shippable information
                     BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
                             shippableAmount, invoiceShipProRateAmount, invoiceQuantity, decimals, rounding, userLogin, dispatcher, locale);
-                    // should shipping effect the tax pro-rate? here we do, and we also update order sub total for this adjustment's value
-                    invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(decimals, rounding);
-                    orderSubTotal = orderSubTotal.add(adj.getBigDecimal("amount")).setScale(decimals, rounding);
-
                     // increment the counter
                     invoiceItemSeqNum++;
                     invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
@@ -608,9 +602,11 @@ public class InvoiceServices {
             Iterator taxAdjIter = taxAdjustments.iterator();
             while (taxAdjIter.hasNext()) {
                 GenericValue adj = (GenericValue) taxAdjIter.next();
+                // note this should use invoice decimals & rounding instead of taxDecimals and taxRounding, because it will be added to the invoice 
                 BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                        orderSubTotal, invoiceSubTotal, invoiceQuantity, taxDecimals, taxRounding, userLogin, dispatcher, locale);
+                        orderSubTotal, invoiceSubTotal, invoiceQuantity, decimals, rounding, userLogin, dispatcher, locale);
                 // this doesn't really effect anything; but just for our totals
+                // since it will no longer be used in pro-rating, we can just round off now
                 invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(decimals, rounding);                
             }
 
@@ -1582,11 +1578,9 @@ public class InvoiceServices {
             adjAmount = amount;
         }
 
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("adjAmount: " + adjAmount + ", divisor: " + divisor + ", multiplier: " + multiplier + 
+        Debug.logInfo("adjAmount: " + adjAmount + ", divisor: " + divisor + ", multiplier: " + multiplier + 
                 ", invoiceTypeId: " + invoiceTypeId + ", invoiceId: " + invoiceId + ", itemSeqId: " + invoiceItemSeqId + 
                 ", decimals: " + decimals + ", rounding: " + rounding + ", adj: " + adj, module);
-        }
         return adjAmount;
     }
 
