@@ -287,7 +287,7 @@ function setAssocFields(select) {
             <select name="fromGeo" class="selectBox">
               <option value="">${uiLabelMap.CommonAll}</option>
               <#list geoList as geo>
-                <option value="${geo.geoId}">${geo.geoName}</option>
+                <option value="${geo.geoId?if_exists}">${geo.geoName?if_exists}</option>
               </#list>
             </select>
           </td>
@@ -299,7 +299,7 @@ function setAssocFields(select) {
             <select name="toGeo" class="selectBox">
               <option value="">${uiLabelMap.CommonAll}</option>
               <#list geoList as geo>
-                <option value="${geo.geoId}">${geo.geoName}</option>
+                <option value="${geo.geoId?if_exists}">${geo.geoName?if_exists}</option>
               </#list>
             </select>
           </td>
