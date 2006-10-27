@@ -132,14 +132,14 @@ under the License.
             OR
             SegmentGroup -> SegmentGroupClassification -> PartyClassificationGroup -> PartyClassification -> Party
          -->
-        <string-to-field string="_VIEW" field-name="securityAction"/>
+        <set field="securityAction" value="_VIEW" />
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
     </simple-method>
     <simple-method method-name="findSegmentGroupsOfParty" short-description="Find SegmentGroups Of a Party (that a Party is In)">
         <!-- Follows same path as findPartiesInSegmentGroup, but in reverse... -->
-        <string-to-field string="_VIEW" field-name="securityAction"/>
+        <set field="securityAction" value="_VIEW" />
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
@@ -154,7 +154,7 @@ under the License.
             OR
             Party -> SegmentGroupRole -> SegmentGroup -> SegmentGroupClassification -> PartyClassificationGroup -> PartyClassification -> Party
         -->
-        <string-to-field string="_VIEW" field-name="securityAction"/>
+        <set field="securityAction" value="_VIEW" />
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
@@ -189,11 +189,11 @@ under the License.
                 </and>
             </condition>
             <then>
-                <string-to-field string="N" field-name="areRelated"/>
+                <set field="areRelated" value="N" />
                 <field-to-result field-name="areRelated"/>
             </then>
             <else>
-                <string-to-field string="Y" field-name="areRelated"/>
+                <set field="areRelated" value="Y"/>
                 <field-to-result field-name="areRelated"/>
             </else>
         </if>

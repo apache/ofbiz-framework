@@ -78,7 +78,7 @@ under the License.
                 </and>
             </condition>
             <then>
-                <string-to-field string="CLPT_ACCEPTED" field-name="parameters.statusId"/>
+                <set field="parameters.statusId" value="CLPT_ACCEPTED" />
             </then>
         </if>
     </simple-method>

@@ -48,7 +48,7 @@ under the License.
                         </if-not-empty>
                     </iterate>
                     <!-- now that the issuance is done, set the needsInventoryIssuance=N -->
-                    <string-to-field string="N" field-name="orderHeader.needsInventoryIssuance"/>
+                    <set field="orderHeader.needsInventoryIssuance" value="N" />
                     <store-value value-name="orderHeader"/>
                     <log level="info" message="Issued inventory for orderId ${orderHeader.orderId}."/>
                 <else>
@@ -90,16 +90,16 @@ under the License.
             
             <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
             <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="productStore.reserveOrderEnumId">
-                <string-to-field string="+expireDate" field-name="orderByString"/>
+                <set field="orderByString" value="+expireDate" />
             <else>
                 <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="productStore.reserveOrderEnumId">
-                    <string-to-field string="-expireDate" field-name="orderByString"/>
+                    <set field="orderByString" value="-expireDate" />
                 <else>
                     <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="productStore.reserveOrderEnumId">
-                        <string-to-field string="+datetimeReceived" field-name="orderByString"/>
+                        <set field="orderByString" value="+datetimeReceived" />
                     <else>
                         <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
-                        <string-to-field string="-datetimeReceived" field-name="orderByString"/>
+                        <set field="orderByString" value="-datetimeReceived" />
                     </else>
                     </if-compare>
                 </else>
@@ -194,7 +194,7 @@ under the License.
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="inventoryItemTypeId" map-name="inventoryItem">
                 <if-compare value="INV_AVAILABLE" operator="equals" field-name="statusId" map-name="inventoryItem">
                     <!-- change status on inventoryItem -->
-                    <string-to-field string="INV_DELIVERED" field-name="inventoryItem.statusId"/>
+                    <set field="inventoryItem.statusId" value="INV_DELIVERED" />
                     <store-value value-name="inventoryItem"/>
 
                     <!-- create ItemIssuance record -->

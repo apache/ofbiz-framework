@@ -30,7 +30,7 @@ under the License.
       <env-to-field env-name="targetOperationList"  map-name="context" field-name="targetOperationList" />
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
       <set field="context.objectInfo" from-field="parameters.drObjectInfo" />  
-      <string-to-field string="LOCAL_FILE" map-name="context" field-name="dataResourceTypeId" />
+      <set field="context.dataResourceTypeId" value="LOCAL_FILE" />  
       <call-service in-map-name="context" service-name="persistContentAndAssoc">
         <result-to-field field-name="contentId" result-name="contentId"/>
         <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
@@ -101,10 +101,10 @@ under the License.
       <set field="context.contentIdTo" from-field="parameters.contentIdTo" />  
       <set field="context.textData" from-field="parameters.textData" />  
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
-      <string-to-field string="ELECTRONIC_TEXT" map-name="context" field-name="dataResourceTypeId" />
-      <string-to-field string="text/plain" map-name="context" field-name="mimeTypeId" />
-      <string-to-field string="SUB_CONTENT" map-name="context" field-name="contentAssocTypeId" />
-      <string-to-field string="DOCUMENT" map-name="context" field-name="contentTypeId" />
+      <set field="context.dataResourceTypeId" value="ELECTRONIC_TEXT" />  
+      <set field="context.mimeTypeId" value="text/plain" />          
+      <set field="context.contentAssocTypeId" value="SUB_CONTENT" />  
+      <set field="context.contentTypeId" value="DOCUMENT" />      
       <call-service in-map-name="context" service-name="persistContentAndAssoc">
         <result-to-field map-name="context2" field-name="activeContentId" result-name="contentId"/>
         <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
@@ -114,7 +114,7 @@ under the License.
       <check-errors/>
       <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId" />
       <field-to-request field-name="dataResourceId" request-name="drDataResourceId" />
-      <string-to-field string="SubContentDataResourceView" field-name="currentEntityName" />
+      <set field="currentEntityName" value="SubContentDataResourceView" />  
       <field-to-request field-name="currentEntityName" request-name="currentEntityName" />
 
       <set field="context2.contentIdTo" from-field="parameters.contentIdTo" />  
@@ -196,10 +196,10 @@ under the License.
       <set field="context.contentPurposeTypeId" from-field="formInput.contentPurposeTypeId" />  
       <set field="context.contentIdTo" from-field="formInput.contentIdTo" />  
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
-      <string-to-field string="IMAGE_OBJECT" map-name="context" field-name="dataResourceTypeId" />
-      <string-to-field string="text/plain" map-name="context" field-name="mimeTypeId" />
-      <string-to-field string="SUB_CONTENT" map-name="context" field-name="contentAssocTypeId" />
-      <string-to-field string="DOCUMENT" map-name="context" field-name="contentTypeId" />
+      <set field="context.dataResourceTypeId" value="IMAGE_OBJECT" />  
+      <set field="context.mimeTypeId" value="text/plain" />  
+      <set field="context.contentAssocTypeId" value="SUB_CONTENT" />  
+      <set field="context.contentTypeId" value="DOCUMENT" />  
       <call-service in-map-name="context" service-name="persistContentAndAssoc">
         <result-to-field map-name="context2" field-name="activeContentId" result-name="contentId"/>
         <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
@@ -210,7 +210,7 @@ under the License.
 
       <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId" />
       <field-to-request field-name="dataResourceId" request-name="drDataResourceId" />
-      <string-to-field string="SubContentDataResourceView" field-name="currentEntityName" />
+      <set field="currentEntityName" value="SubContentDataResourceView" />  
       <field-to-request field-name="currentEntityName" request-name="currentEntityName" />
 
       <set field="context2.contentIdTo" from-field="formInput.contentIdTo" />  
@@ -252,10 +252,10 @@ under the License.
       <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId" /> 
       <set field="context.contentIdTo" from-field="parameters.contentIdTo" />  
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
-      <string-to-field string="URL_RESOURCE" map-name="context" field-name="dataResourceTypeId" />
-      <string-to-field string="text/plain" map-name="context" field-name="mimeTypeId" />
-      <string-to-field string="SUB_CONTENT" map-name="context" field-name="contentAssocTypeId" />
-      <string-to-field string="DOCUMENT" map-name="context" field-name="contentTypeId" />
+      <set field="context.dataResourceTypeId" value="URL_RESOURCE" />  
+      <set field="context.mimeTypeId" value="text/plain" />  
+      <set field="context.contentAssocTypeId" value="SUB_CONTENT" />  
+      <set field="context.contentTypeId" value="DOCUMENT" />        
       <call-service in-map-name="context" service-name="persistContentAndAssoc">
         <result-to-field map-name="context2" field-name="activeContentId" result-name="contentId"/>
         <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
@@ -265,7 +265,7 @@ under the License.
       <check-errors/>
       <field-to-request map-name="context2" field-name="activeContentId" request-name="contentId" />
       <field-to-request field-name="dataResourceId" request-name="drDataResourceId" />
-      <string-to-field string="SubContentDataResourceView" field-name="currentEntityName" />
+      <set field="currentEntityName" value="SubContentDataResourceView" />  
       <field-to-request field-name="currentEntityName" request-name="currentEntityName" />
 
       <set field="context2.contentIdTo" from-field="parameters.contentIdTo" />  
