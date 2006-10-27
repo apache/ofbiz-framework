@@ -78,19 +78,19 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set field="newEntity.facilityId" from-field="parameters.facilityId" />
         
-        <string-to-field string="${parameters.areaId}${parameters.aisleId}${parameters.sectionId}${parameters.levelId}${parameters.positionId}" field-name="locationSeqId"/>
+        <set field="locationSeqId" value="${parameters.areaId}${parameters.aisleId}${parameters.sectionId}${parameters.levelId}${parameters.positionId}"/>
         <!-- check to see if it exists already, if so try a simple suffix, then give up and use a sequenced id -->
         <if-not-empty field-name="locationSeqId">
             <env-to-field env-name="locationSeqId" map-name="checkLocationSeqIdMap"/>
             <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
             <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
             <if-not-empty field-name="checkLocationSeqIdValue">
-                <string-to-field string="${locationSeqId}_2" field-name="locationSeqId"/>
+                <set field="locationSeqId" value="${locationSeqId}_2" />
                 <env-to-field env-name="locationSeqId" map-name="checkLocationSeqIdMap"/>
                 <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
                 <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
                 <if-not-empty field-name="checkLocationSeqIdValue">
-                    <string-to-field string="" field-name="locationSeqId"/>
+                    <set field="locationSeqId" value="" />
                 </if-not-empty>
             </if-not-empty>
         </if-not-empty>

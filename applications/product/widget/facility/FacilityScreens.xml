@@ -181,7 +181,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
-                
+
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityInventoryItems.bsh"/>
             </actions>
             <widgets>
