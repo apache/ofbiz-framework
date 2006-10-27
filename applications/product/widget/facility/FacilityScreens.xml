@@ -201,7 +201,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ProductInventoryItemsFor}</label>
-                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
