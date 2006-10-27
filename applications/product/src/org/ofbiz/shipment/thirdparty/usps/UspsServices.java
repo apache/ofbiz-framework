@@ -64,6 +64,7 @@ public class UspsServices {
         Double shippableWeight = (Double) context.get("shippableWeight");
         if (shippableWeight.doubleValue() == 0) {
             // TODO: should we return an error, or $0.00 ?
+            return ServiceUtil.returnError("shippableWeight must be greater than 0");
         }
 
         // get the origination ZIP
