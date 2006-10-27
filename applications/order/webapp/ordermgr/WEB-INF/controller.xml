@@ -38,7 +38,6 @@
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
 
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
-    <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
 
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
@@ -931,20 +930,6 @@
         <response name="error" type="view" value="paysetup"/>
     </request-map>
 
-    <!-- Order Reports Requests -->
-    <request-map uri="orderreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.bsh"/>
-        <response name="success" type="view" value="orderreportjasper"/>
-    </request-map>
-    <request-map uri="orderitemreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.bsh"/>
-        <response name="success" type="view" value="orderitemreportjasper"/>
-    </request-map>
-    <request-map uri="orderreportlist">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="orderreportlist"/>
-    </request-map>
-
     <request-map uri="OrderPurchaseReportOptions"><security https="true" auth="true"/>
         <response name="success" type="view" value="OrderPurchaseReportOptions"/>
     </request-map>
@@ -1403,6 +1388,29 @@
     <request-map uri="order.pdf"><security https="true" auth="true"/><response name="success" type="view" value="OrderPDF"/></request-map>
     <request-map uri="return.pdf"><security https="true" auth="true"/><response name="success" type="view" value="ReturnPDF"/></request-map>
 
+    <!--
+        These are just examples of reports developed using JasperReport and not really
+        useful reports. In order to run them you'll have to follow the notes in the 
+        OPTIONAL_LIBRARIES files, add the following entry:
+        <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
+        to the handler section of this file and uncomment the following lines:
+    <request-map uri="orderreportjasper.pdf"><security https="true" auth="true"/>
+        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.bsh"/>
+        <response name="success" type="view" value="orderreportjasper"/>
+    </request-map>
+    <request-map uri="orderitemreportjasper.pdf"><security https="true" auth="true"/>
+        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.bsh"/>
+        <response name="success" type="view" value="orderitemreportjasper"/>
+    </request-map>
+    <request-map uri="orderreportlist">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="orderreportlist"/>
+    </request-map>
+    <view-map name="orderreportlist" type="screen" page="component://order/widget/ordermgr/OrderReportScreens.xml#OrderReportList"/>
+    <view-map name="orderreportjasper" type="jasperreportspdf" page="/reports/orderreport.xml" content-type="application/pdf" encoding="none"/>
+    <view-map name="orderitemreportjasper" type="jasperreportspdf" page="/reports/orderitemreport.xml" content-type="application/pdf" encoding="none"/>
+    -->
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1466,10 +1474,6 @@
     <view-map name="quickReturn" type="screen" page="component://order/widget/ordermgr/OrderReturnScreens.xml#OrderQuickReturn"/>
 
     <view-map name="paysetup" type="screen" page="component://order/widget/ordermgr/OrderSetupScreens.xml#OrderPaymentSetup"/>
-
-    <view-map name="orderreportlist" type="screen" page="component://order/widget/ordermgr/OrderReportScreens.xml#OrderReportList"/>
-    <view-map name="orderreportjasper" type="jasperreportspdf" page="/reports/orderreport.xml" content-type="application/pdf" encoding="none"/>
-    <view-map name="orderitemreportjasper" type="jasperreportspdf" page="/reports/orderitemreport.xml" content-type="application/pdf" encoding="none"/>
 
     <view-map name="OrderPurchaseReportOptions" type="screen" page="component://order/widget/ordermgr/ReportScreens.xml#OrderPurchaseReportOptions"/>
     <view-map name="OrderPurchaseReportPayment" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#OrderPurchaseReportPayment" content-type="application/pdf" encoding="none"/>
