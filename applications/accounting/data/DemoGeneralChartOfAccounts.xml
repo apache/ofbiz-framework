@@ -126,16 +126,16 @@ under the License.
     accountName="A/R MISCELLANEOUS" description="" postedBalance="0.0"/>
 
   <GlAccount parentGlAccountId="100000" glAccountId="140000" accountCode="140000" 
-    glAccountClassId="CURRENT_ASSET" glAccountTypeId="INVENTORY_ACCOUNT" glResourceTypeId="MONEY"
+    glAccountClassId="INVENTORY_ASSET" glAccountTypeId="INVENTORY_ACCOUNT" glResourceTypeId="MONEY"
     accountName="INVENTORY" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="140000" glAccountId="141000" accountCode="141000" 
-    glAccountClassId="CURRENT_ASSET" glAccountTypeId="RAWMAT_INVENTORY" glResourceTypeId="MONEY"
+    glAccountClassId="INVENTORY_ASSET" glAccountTypeId="RAWMAT_INVENTORY" glResourceTypeId="MONEY"
     accountName="RAW MATERIALS INVENTORY" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="140000" glAccountId="142000" accountCode="142000" 
-    glAccountClassId="CURRENT_ASSET" glAccountTypeId="WIP_INVENTORY" glResourceTypeId="MONEY"
+    glAccountClassId="INVENTORY_ASSET" glAccountTypeId="WIP_INVENTORY" glResourceTypeId="MONEY"
     accountName="WORK IN PROGRESS INVENTORY" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="140000" glAccountId="149000" accountCode="149000" 
-    glAccountClassId="CURRENT_ASSET" glAccountTypeId="INV_ADJ_AVG_COST" glResourceTypeId="MONEY"
+    glAccountClassId="INVENTORY_ASSET" glAccountTypeId="INV_ADJ_AVG_COST" glResourceTypeId="MONEY"
     accountName="INVENTORY - AVERAGE COST VALUATION ADJUSTMENT" description="" postedBalance="0.0"/>
     
   <GlAccount parentGlAccountId="100000" glAccountId="150000" accountCode="150000" 

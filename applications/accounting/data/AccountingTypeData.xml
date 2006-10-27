@@ -120,6 +120,7 @@ under the License.
     <GlAccountClass description="Asset" glAccountClassId="ASSET" parentClassId="DEBIT"/>
     <GlAccountClass description="Current Asset" glAccountClassId="CURRENT_ASSET" parentClassId="ASSET"/>
     <GlAccountClass description="Cash and Equivalent" glAccountClassId="CASH_EQUIVALENT" parentClassId="CURRENT_ASSET"/>
+    <GlAccountClass description="Inventory Asset" glAccountClassId="INVENTORY_ASSET" parentClassId="CURRENT_ASSET"/>
     <GlAccountClass description="Long Term Asset" glAccountClassId="LONGTERM_ASSET" parentClassId="ASSET"/>
     <GlAccountClass description="Liability" glAccountClassId="LIABILITY" parentClassId="CREDIT"/>
     <GlAccountClass description="Current Liability" glAccountClassId="CURRENT_LIABILITY" parentClassId="LIABILITY"/>
