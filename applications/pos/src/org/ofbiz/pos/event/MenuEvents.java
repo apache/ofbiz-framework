@@ -16,6 +16,7 @@
 package org.ofbiz.pos.event;
 
 import java.util.List;
+import java.util.ListIterator;
 import java.awt.AWTEvent;
 
 import org.ofbiz.base.util.UtilValidate;
@@ -143,11 +144,21 @@ public class MenuEvents {
             String productId = null;
             try {
                 List items = trans.lookupItem(value);
-                if (items != null && items.size() == 1) {
-                    GenericValue product = EntityUtil.getFirst(items);
-                    productId = product.getString("productId");
-                } else if (items != null && items.size() > 0) {
-                    Debug.logInfo("Multiple products found; need to select one from the list", module);
+                if (items != null) {
+                    ListIterator it = items.listIterator();
+                    if (it.hasNext()) {
+                        GenericValue product = (GenericValue) it.next();
+                        productId = product.getString("productId");
+                    
+                        while (it.hasNext()) {
+                            product = (GenericValue) it.next();
+                            if (!productId.equals(product.getString("productId"))) {
+                                productId = null;
+                                Debug.logInfo("Multiple products found; need to select one from the list", module);
+                                break;
+                            }
+                        }
+                    }
                 }
             } catch (GeneralException e) {
                 Debug.logError(e, module);
