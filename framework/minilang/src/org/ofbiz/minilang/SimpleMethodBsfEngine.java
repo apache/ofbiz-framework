@@ -23,10 +23,10 @@ import java.util.Vector;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.minilang.method.MethodContext;
 
-import org.apache.bsf.BSFDeclaredBean;
-import org.apache.bsf.BSFException;
-import org.apache.bsf.BSFManager;
-import org.apache.bsf.util.BSFEngineImpl;
+import com.ibm.bsf.BSFDeclaredBean;
+import com.ibm.bsf.BSFException;
+import com.ibm.bsf.BSFManager;
+import com.ibm.bsf.util.BSFEngineImpl;
 
 /**
  * <P>This is the OFBiz MiniLang SimpleMethod adapter for IBM's Bean Scripting Famework.
