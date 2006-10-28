@@ -195,41 +195,41 @@ under the License.
     <ContentAssoc contentId="CGC-100DESC" contentIdTo="CGC-100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CGC-100DESC" contentIdTo="CGC-100DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
 
-    <!-- Gift Cards Reload category -->
+    <!-- Gift Cards Purchase category -->
     <DataResource dataResourceId="DRGC-101DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
     <DataResource dataResourceId="DRGC-101DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
     <DataResource dataResourceId="DRGC-101DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="DRGC-101DESCFR" textData="Rechargement de carte cadeau"/>
-    <ElectronicText dataResourceId="DRGC-101DESCIT" textData="Ricaricano di carte regalo"/>
-    <ElectronicText dataResourceId="DRGC-101DESCEN" textData="Gift Cards Reload"/>    
+    <ElectronicText dataResourceId="DRGC-101DESCFR" textData="Achat de carte cadeau"/>
+    <ElectronicText dataResourceId="DRGC-101DESCIT" textData="Acquisto di carta regalo"/>
+    <ElectronicText dataResourceId="DRGC-101DESCEN" textData="Gift Cards Purchase"/>
 
-    <Content contentId="CGC-101DESC" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCFR" description="DESCRIPTION FR Rechargement de cartes cadeau" localeString="fr" />
-    <Content contentId="CGC-101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCIT" description="DESCRIPTION IT Ricaricano di carte regalo" localeString="it" />
-    <Content contentId="CGC-101DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCEN" description="DESCRIPTION EN Gift Cards Reload" localeString="en"/>
+    <Content contentId="CGC-101DESC" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCFR" description="DESCRIPTION FR Achat de carte cadeau" localeString="fr" />
+    <Content contentId="CGC-101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCIT" description="DESCRIPTION IT Acquisto di carta regalo" localeString="it" />
+    <Content contentId="CGC-101DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCEN" description="DESCRIPTION IT Gift Cards Purchase" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="GC-101" contentId="CGC-101DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
 
-    <ContentAssoc contentId="CGC-101DESC" contentIdTo="CGC-101DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CGC-101DESC" contentIdTo="CGC-101DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="CGC-101DESC" contentIdTo="CGC-101DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
 
-    <!-- Gift Cards Purchase category -->
+    <!-- Gift Cards Reload category -->
     <DataResource dataResourceId="DRGC-102DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
     <DataResource dataResourceId="DRGC-102DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
     <DataResource dataResourceId="DRGC-102DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="DRGC-102DESCFR" textData="Achat de carte cadeau"/>
-    <ElectronicText dataResourceId="DRGC-102DESCIT" textData="Acquisto di carta regalo"/>
-    <ElectronicText dataResourceId="DRGC-102DESCEN" textData="Gift Cards Purchase"/>
+    <ElectronicText dataResourceId="DRGC-102DESCFR" textData="Rechargement de carte cadeau"/>
+    <ElectronicText dataResourceId="DRGC-102DESCIT" textData="Ricaricano di carte regalo"/>
+    <ElectronicText dataResourceId="DRGC-102DESCEN" textData="Gift Cards Reload"/>    
 
-    <Content contentId="CGC-102DESC" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCFR" description="DESCRIPTION FR Achat de carte cadeau" localeString="fr" />
-    <Content contentId="CGC-102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCIT" description="DESCRIPTION IT Acquisto di carta regalo" localeString="it" />
-    <Content contentId="CGC-102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCEN" description="DESCRIPTION IT Gift Cards Purchase" localeString="en"/>
+    <Content contentId="CGC-102DESC" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCFR" description="DESCRIPTION FR Rechargement de cartes cadeau" localeString="fr" />
+    <Content contentId="CGC-102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCIT" description="DESCRIPTION IT Ricaricano di carte regalo" localeString="it" />
+    <Content contentId="CGC-102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCEN" description="DESCRIPTION EN Gift Cards Reload" localeString="en"/>
 
     <ProductCategoryContent productCategoryId="GC-102" contentId="CGC-102DESC" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
 
-    <ContentAssoc contentId="CGC-102DESC" contentIdTo="CGC-102DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CGC-102DESC" contentIdTo="CGC-102DESCEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+    <ContentAssoc contentId="CGC-102DESC" contentIdTo="CGC-102DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
 
     <!-- Configurables PCs category -->
     <DataResource dataResourceId="DRPC-100DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
