@@ -33,10 +33,10 @@ import bsh.Interpreter;
 import bsh.InterpreterError;
 import bsh.TargetError;
 
-import org.apache.bsf.BSFDeclaredBean;
-import org.apache.bsf.BSFException;
-import org.apache.bsf.BSFManager;
-import org.apache.bsf.util.BSFEngineImpl;
+import com.ibm.bsf.BSFDeclaredBean;
+import com.ibm.bsf.BSFException;
+import com.ibm.bsf.BSFManager;
+import com.ibm.bsf.util.BSFEngineImpl;
 
 import org.ofbiz.base.util.cache.UtilCache;
 
