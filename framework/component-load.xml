@@ -32,7 +32,7 @@ under the License.
     <load-component component-location="${ofbiz.home}/framework/widget"/>
     <load-component component-location="${ofbiz.home}/framework/appserver"/>
     <load-component component-location="${ofbiz.home}/framework/workflow"/>
-    <load-component component-location="${ofbiz.home}/framework/shark"/>
+    <!-- <load-component component-location="${ofbiz.home}/framework/shark"/> -->
     <load-component component-location="${ofbiz.home}/framework/testtools"/>
     <load-component component-location="${ofbiz.home}/framework/webtools"/>
     <load-component component-location="${ofbiz.home}/framework/images"/>

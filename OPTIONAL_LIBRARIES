@@ -47,6 +47,8 @@ NOTE: While these aren't included in the main SVN repository they are available 
     you can add it to the build list in the ofbiz/build.xml file in the framework-builds file list.
   TO DEPLOY: once the build is done the Shark container must be setup in the ofbiz-containers.xml
     file or other containers file being used. The shark-container container should be un-commented.
+  TO DEPLOY, PART 2: to get the component to load on startup, and get the webapp in place and such
+    the shark component needs to be uncommented in the framework/component-load.xml file.
 
 -=- Scripting: ________________________________________________________________________________________________________________________________________________
 
