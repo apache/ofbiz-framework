@@ -133,8 +133,7 @@ under the License.
         <key-map field-name="countryCode"/>
       </relation>
     </entity>
-    <view-entity entity-name="CountryTeleCodeAndName"
-        package-name="org.ofbiz.common.geo"
+    <view-entity entity-name="CountryTeleCodeAndName" package-name="org.ofbiz.common.geo"
         title="Telephone country code and country name">
         <member-entity entity-alias="CC" entity-name="CountryCode"/>
         <member-entity entity-alias="CT" entity-name="CountryTeleCode"/>
@@ -145,10 +144,8 @@ under the License.
             <key-map field-name="countryCode"/>
         </view-link>
     </view-entity>
-    <entity entity-name="Geo"
-            package-name="org.ofbiz.common.geo"
-            default-resource-name="CommonEntityLabels"
-            title="Geographic Boundary Entity">
+    <entity entity-name="Geo" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
+        title="Geographic Boundary Entity">
       <field name="geoId" type="id-ne"></field>
       <field name="geoTypeId" type="id"></field>
       <field name="geoName" type="name"></field>
@@ -160,9 +157,8 @@ under the License.
         <key-map field-name="geoTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="GeoAssoc"
-            package-name="org.ofbiz.common.geo"
-            title="Geographic Boundary Association Entity">
+    <entity entity-name="GeoAssoc" package-name="org.ofbiz.common.geo"
+        title="Geographic Boundary Association Entity">
       <field name="geoId" type="id-ne"></field>
       <field name="geoIdTo" type="id-ne"></field>
       <field name="geoAssocTypeId" type="id"></field>
@@ -178,17 +174,24 @@ under the License.
         <key-map field-name="geoAssocTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="GeoAssocType"
-            package-name="org.ofbiz.common.geo"
-            title="Geographic Boundary Association Entity">
+    <view-entity entity-name="GeoAssocAndGeoTo" package-name="org.ofbiz.common.geo">
+        <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
+        <member-entity entity-alias="GTO" entity-name="Geo"/>
+        <alias-all entity-alias="GTO"/>
+        <alias entity-alias="GA" name="geoIdFrom" field="geoId"/>
+        <alias entity-alias="GA" name="geoAssocTypeId"/>
+        <view-link entity-alias="GA" rel-entity-alias="GTO">
+            <key-map field-name="geoIdTo" rel-field-name="geoId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="GeoAssocType" package-name="org.ofbiz.common.geo" 
+        title="Geographic Boundary Association Entity">
       <field name="geoAssocTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="geoAssocTypeId"/>
     </entity>
-    <entity entity-name="GeoType"
-            package-name="org.ofbiz.common.geo"
-			default-resource-name="CommonEntityLabels"
-            title="Geographic Boundary Type Entity">
+    <entity entity-name="GeoType" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
+        title="Geographic Boundary Type Entity">
       <field name="geoTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id-ne"></field>
       <field name="hasTable" type="indicator"></field>
