@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -41,7 +40,9 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PeriodData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_test.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_cdyne.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups_test.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_test.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas_cdyne.xml"/>
     <service-resource type="mca" loader="main" location="servicedef/smcas_test.xml"/>
 </ofbiz-component>

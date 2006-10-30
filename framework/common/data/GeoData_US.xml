@@ -261,5 +261,11 @@ under the License.
     <GeoAssoc geoId="USA" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
     <GeoAssoc geoId="MEX" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
     <GeoAssoc geoId="CAN" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+    
+    <!-- Some county info for testing -->
+    <Geo abbreviation="UTAH" geoCode="UTAH" geoId="UT-UTAH" geoName="Utah" geoTypeId="COUNTY"/>
+    <GeoAssoc geoId="UT" geoIdTo="UT-UTAH" geoAssocTypeId="REGIONS"/>
+    <Geo abbreviation="SANPETE" geoCode="SANPETE" geoId="UT-SANPETE" geoName="Sanpete" geoTypeId="COUNTY"/>
+    <GeoAssoc geoId="UT" geoIdTo="UT-SANPETE" geoAssocTypeId="REGIONS"/>
 </entity-engine-xml>
 

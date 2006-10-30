@@ -43,9 +43,10 @@ under the License.
     <entity-group group="org.ofbiz" entity="CountryTeleCodeAndName" />
     <entity-group group="org.ofbiz" entity="Geo" />
     <entity-group group="org.ofbiz" entity="GeoAssoc" />
+    <entity-group group="org.ofbiz" entity="GeoAssocAndGeoTo" />
     <entity-group group="org.ofbiz" entity="GeoAssocType" />
     <entity-group group="org.ofbiz" entity="GeoType" />
-
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.keyword -->
   <!-- ========================================================= -->
