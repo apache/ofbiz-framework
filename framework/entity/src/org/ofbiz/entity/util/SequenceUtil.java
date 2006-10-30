@@ -191,7 +191,7 @@ public class SequenceUtil {
                             rs = stmt.executeQuery(sql);
                             boolean gotVal1 = false;
                             if (rs.next()) {
-                                val1 = rs.getInt(parentUtil.idColName);
+                                val1 = rs.getLong(parentUtil.idColName);
                                 gotVal1 = true;
                             }
                             rs.close();
@@ -214,7 +214,7 @@ public class SequenceUtil {
                             rs = stmt.executeQuery(sql);
                             boolean gotVal2 = false;
                             if (rs.next()) {
-                                val2 = rs.getInt(parentUtil.idColName);
+                                val2 = rs.getLong(parentUtil.idColName);
                                 gotVal2 = true;
                             }
 
