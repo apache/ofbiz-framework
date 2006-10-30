@@ -157,6 +157,7 @@ public class EntityFinderUtil {
         protected FlexibleStringExpander valueExdr;
         protected boolean ignoreIfNull;
         protected boolean ignoreIfEmpty;
+        protected boolean ignoreCase;
         
         public ConditionExpr(Element conditionExprElement) {
             this.fieldNameExdr = new FlexibleStringExpander(conditionExprElement.getAttribute("field-name"));
@@ -170,6 +171,7 @@ public class EntityFinderUtil {
             this.valueExdr = new FlexibleStringExpander(conditionExprElement.getAttribute("value"));
             this.ignoreIfNull = "true".equals(conditionExprElement.getAttribute("ignore-if-null"));
             this.ignoreIfEmpty = "true".equals(conditionExprElement.getAttribute("ignore-if-empty"));
+            this.ignoreCase = "true".equals(conditionExprElement.getAttribute("ignore-case"));
         }
         
         public EntityCondition createCondition(Map context, String entityName, GenericDelegator delegator) {
@@ -227,15 +229,28 @@ public class EntityFinderUtil {
             if (operator == EntityOperator.NOT_EQUAL && value != null) {
                 // since some databases don't consider nulls in != comparisons, explicitly include them
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
-                return new EntityExpr(
-                        new EntityExpr(fieldName, (EntityComparisonOperator) operator, value), 
-                        EntityOperator.OR, 
-                        new EntityExpr(fieldName, EntityOperator.EQUALS, null));
+                if (ignoreCase) {
+                    return new EntityExpr(
+                            new EntityExpr(fieldName, true, (EntityComparisonOperator) operator, value, true), 
+                            EntityOperator.OR,
+                            new EntityExpr(fieldName, EntityOperator.EQUALS, null));
+                } else {
+                    return new EntityExpr(
+                            new EntityExpr(fieldName, (EntityComparisonOperator) operator, value), 
+                            EntityOperator.OR,
+                            new EntityExpr(fieldName, EntityOperator.EQUALS, null));
+                }
             } else {
-                return new EntityExpr(fieldName, (EntityComparisonOperator) operator, value);
+                if (ignoreCase) {
+                    // use the stuff to upper case both sides
+                    return new EntityExpr(fieldName, true, (EntityComparisonOperator) operator, value, true);
+                } else {
+                    return new EntityExpr(fieldName, (EntityComparisonOperator) operator, value);
+                }
             }
         }
     }
+    
     public static class ConditionList implements Condition {
         List conditionList = new LinkedList();
         FlexibleStringExpander combineExdr;
