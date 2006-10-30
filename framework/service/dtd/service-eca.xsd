@@ -18,7 +18,7 @@ under the License.
     <xs:element name="service-eca">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="eca"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="eca"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
