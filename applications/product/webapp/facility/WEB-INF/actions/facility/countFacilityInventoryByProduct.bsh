@@ -242,7 +242,7 @@ if (action != null) {
         if (highIndex > productListSize) {
             highIndex = productListSize;
         }
-        context.put("overrideFormListSize", productListSize); 
+        context.put("overrideListSize", productListSize); 
         context.put("highIndex", highIndex);
         context.put("lowIndex", lowIndex);
 
