@@ -95,8 +95,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListFacilityInventoryByProduct" type="list" 
-            target="" title="" list-name="inventoryByProduct" paginate-target="${facilityInventoryByProductScreen}"
+    <form name="ListFacilityInventoryByProduct" type="list" target="" title="" override-list-size="${overrideListSize}"
+            list-name="inventoryByProduct" paginate-target="${facilityInventoryByProductScreen}"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink target="EditFacilityInventoryItems?productId=${productId}&amp;facilityId=${facilityId}" description="${productId}"/>     

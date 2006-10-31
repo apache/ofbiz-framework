@@ -81,6 +81,7 @@ public class ModelForm {
     protected FlexibleStringExpander paginateTarget;
     protected FlexibleStringExpander paginateIndexField;
     protected FlexibleStringExpander paginateSizeField;
+    protected FlexibleStringExpander overrideListSize;
     protected FlexibleStringExpander paginatePreviousLabel;
     protected FlexibleStringExpander paginateNextLabel;
     protected String paginateTargetAnchor;
@@ -98,7 +99,7 @@ public class ModelForm {
     protected boolean skipStart = false;
     protected boolean skipEnd = false;
     protected boolean hideHeader = false;
-    protected boolean overridenFormListSize = false;
+    protected boolean overridenListSize = false;
 
     protected List altTargets = new LinkedList();
     protected List autoFieldsServices = new LinkedList();
@@ -341,6 +342,9 @@ public class ModelForm {
         }
         if (this.paginateSizeField == null || formElement.hasAttribute("paginate-size-field")) {
             setPaginateSizeField(formElement.getAttribute("paginate-size-field"));
+        }
+        if (this.overrideListSize == null || formElement.hasAttribute("override-list-size")) {
+            this.overrideListSize = new FlexibleStringExpander(formElement.getAttribute("override-list-size"));
         }
         if (this.paginatePreviousLabel == null || formElement.hasAttribute("paginate-previous-label")) {
             this.paginatePreviousLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-previous-label"));
@@ -1115,7 +1119,7 @@ public class ModelForm {
         int highIndex = ((Integer) context.get("highIndex")).intValue();
 
         // we're passed a subset of the list, so use (0, viewSize) range
-        if (isOverridenFormListSize()) {
+        if (isOverridenListSize()) {
             lowIndex = 0;
             highIndex = ((Integer) context.get("viewSize")).intValue();
         }
@@ -1278,7 +1282,7 @@ public class ModelForm {
             if ((itemIndex + 1) < highIndex) {
                 highIndex = itemIndex + 1;
                 // if list size is overridden, use full listSize
-                context.put("highIndex", new Integer(isOverridenFormListSize() ? listSize : highIndex));
+                context.put("highIndex", new Integer(isOverridenListSize() ? listSize : highIndex));
             }
             context.put("actualPageSize", new Integer(highIndex - lowIndex));
             
@@ -1879,8 +1883,8 @@ public class ModelForm {
         return this.skipEnd;
     }
 
-    public boolean isOverridenFormListSize() {
-        return this.overridenFormListSize;
+    public boolean isOverridenListSize() {
+        return this.overridenListSize;
     }
 
     public void setSkipStart(boolean val) {
@@ -1899,8 +1903,8 @@ public class ModelForm {
         paginate = val;
     }
 
-    public void setOverridenFormListSize(boolean overridenFormListSize) {
-        this.overridenFormListSize = overridenFormListSize;
+    public void setOverridenListSize(boolean overridenListSize) {
+        this.overridenListSize = overridenListSize;
     }
 
     /**
@@ -1973,20 +1977,14 @@ public class ModelForm {
         return fieldList;
     }
 
-    private int getOverrideFormListSize(Map context) {
+    private int getOverrideListSize(Map context) {
         int listSize = 0;
-        Object overrideFormListSize = context.get("overrideFormListSize");
-        if (overrideFormListSize != null) {
-            if (overrideFormListSize instanceof Number) {
-                listSize = ((Number) overrideFormListSize).intValue();
-            } else if (overrideFormListSize instanceof String) {
-                try {
-                    listSize = Integer.parseInt((String) overrideFormListSize);
-                } catch (NumberFormatException e) {
-                    Debug.logError(e, "Error getting override list size", module);
-                }
-            } else {
-                Debug.logError("Error getting override list size: Unable to determine size from input [" + overrideFormListSize + "]", module);
+        String size = this.overrideListSize.expandString(context);
+        if (!UtilValidate.isEmpty(size)) {
+            try {
+                listSize = Integer.parseInt(size);
+            } catch (NumberFormatException e) {
+                Debug.logError(e, "Error getting override list size from value " + size, module);
             }
         }
         return listSize;
@@ -1999,9 +1997,9 @@ public class ModelForm {
         int lowIndex = 0;
         int highIndex = 0;
 
-        listSize = getOverrideFormListSize(context);
+        listSize = getOverrideListSize(context);
         if (listSize > 0) {
-            setOverridenFormListSize(true);
+            setOverridenListSize(true);
         } else if (entryList instanceof EntityListIterator) {
             EntityListIterator iter = (EntityListIterator) entryList;   
             try {
