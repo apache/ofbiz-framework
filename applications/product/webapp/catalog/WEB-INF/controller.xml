@@ -1467,6 +1467,17 @@ under the License.
         <response name="error" type="view" value="EditSubscriptionResourceProducts"/>
     </request-map>
     
+    <!-- ================ Subscription Attributes ================= -->
+    <request-map uri="EditSubscriptionAttributes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSubscriptionAttributes"/>
+    </request-map>
+    <request-map uri="UpdateSubscriptionAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateSubscriptionAttribute"/>
+        <response name="success" type="view" value="EditSubscriptionAttributes"/>
+    </request-map>
+    
     <!-- ================ ProductPromo Rules Requests ================= -->
     <request-map uri="EditProductPromoRules">
         <security https="true" auth="true"/>
@@ -2230,6 +2241,7 @@ under the License.
 
     <view-map name="FindSubscription" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#FindSubscription"/>
     <view-map name="EditSubscription" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscription"/>
+    <view-map name="EditSubscriptionAttributes" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionAttributes"/>
     <view-map name="FindSubscriptionResource" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#FindSubscriptionResource"/>
     <view-map name="EditSubscriptionResource" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionResource"/>
     <view-map name="EditSubscriptionResourceProducts" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionResourceProducts"/>

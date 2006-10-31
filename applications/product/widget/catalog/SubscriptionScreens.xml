@@ -108,7 +108,28 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="EditSubscriptionAttributes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSubscriptionAttributes"/>
+                <set field="tabButtonItem" value="EditSubscriptionAttributes"/>
+                
+                <set field="subscriptionId" from-field="parameters.subscriptionId"/>
+                <entity-and entity-name="SubscriptionAttribute" use-cache="false" list-name="subscriptionAttributes">
+                    <field-map field-name="subscriptionId"/>
+                    <order-by field-name="attrName"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSubscriptionDecorator">
+                    <decorator-section name="body">
+                        <include-form name="EditSubscriptionAttributes" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 
     <!-- SubscriptionResource Screens -->
     <screen name="FindSubscriptionResource">

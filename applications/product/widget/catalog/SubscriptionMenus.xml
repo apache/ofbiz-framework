@@ -25,6 +25,9 @@ under the License.
         <menu-item name="EditSubscription" title="${uiLabelMap.ProductSubscription}">
             <link target="EditSubscription?subscriptionId=${subscriptionId}"/>
         </menu-item>
+        <menu-item name="EditSubscriptionAttributes" title="${uiLabelMap.ProductSubscriptionAttributes}">
+            <link target="EditSubscriptionAttributes?subscriptionId=${subscriptionId}"/>
+        </menu-item>
     </menu>
     <menu name="EditSubscriptionResource" default-title-style="tabButton" default-selected-style="tabButtonSelected"
             default-tooltip-style="tabletext" default-widget-style="tabButton"

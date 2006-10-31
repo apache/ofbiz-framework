@@ -177,6 +177,19 @@ under the License.
             </drop-down>
         </field>
         
+        <field name="partyNeedId">
+            <lookup target-form-name="LookupPartyName">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${subscription.partyNeedId}" target-type="inter-app" description="${subscription.partyId}" link-style="buttontext"/>
+            </lookup>
+        </field>
+        <field name="needTypeId" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="NeedType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
         <field name="orderId">
             <lookup target-form-name="LookupOrderHeader">
                 <sub-hyperlink target="/ordermgr/control/orderview?orderId=${subscription.orderId}" target-type="inter-app" description="${subscription.orderId}" link-style="buttontext"/>
@@ -197,10 +210,7 @@ under the License.
                 <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent?communicationEventId=${subscription.communicationEventId}" target-type="inter-app" description="${subscription.communicationEventId}" link-style="buttontext"/>
             </lookup>
         </field>
-        
-        <field name="partyNeedId"><ignored/></field>
-        <field name="needTypeId"><ignored/></field>
-        
+               
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -316,5 +326,12 @@ under the License.
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditSubscriptionAttributes" type="list"  list-name="subscriptionAttributes"  target="UpdateSubscriptionAttribute"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateSubscriptionAttribute"/>
+        
+        <field name="subscriptionId"><hidden/></field>
+        <field name="updateButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
