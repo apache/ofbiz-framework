@@ -110,4 +110,11 @@ under the License.
         <description>Creates or updates Subscription record</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="updateSubscriptionAttribute" default-entity-name="SubscriptionAttribute" auth="true" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionAttribute">
+        <description>Create (when not exist) or update (when exist) a Subscription attribute</description>
+        <attribute name="subscriptionId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="attrName" type="String" mode="IN" optional="false"/>
+        <attribute name="attrValue" type="String" mode="IN" optional="true"/>
+    </service>
 </services>

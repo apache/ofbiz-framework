@@ -126,4 +126,21 @@ under the License.
         <entity-one entity-name="ProductSubscriptionResource" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="updateSubscriptionAttribute" short-description="Create (when not exist) or update (when exist) a Subscription attribute">
+        <set value="_UPDATE" field="securityAction"/>
+        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
+        <check-errors/>
+        <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
+        <entity-one entity-name="SubscriptionAttribute" value-name="lookedUpValue"/>
+        <if-empty field-name="lookedUpValue">
+            <make-value entity-name="SubscriptionAttribute" value-name="newEntity"/>
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <create-value value-name="newEntity"/>
+            <else>
+                <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+                <store-value value-name="lookedUpValue"/>
+            </else>
+        </if-empty>
+    </simple-method>
 </simple-methods>
