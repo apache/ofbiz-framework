@@ -136,6 +136,7 @@ under the License.
     <UomConversion uomId="LEN_hand" uomIdTo="LEN_in" conversionFactor="4"/>
     <UomConversion uomId="LEN_in" uomIdTo="LEN_cm" conversionFactor="2.54"/>
     <UomConversion uomId="LEN_in" uomIdTo="LEN_mm" conversionFactor="25.4"/>
+    <UomConversion uomId="LEN_in" uomIdTo="LEN_u" conversionFactor="25400"/>
 
     <UomConversion uomId="LEN_km" uomIdTo="LEN_m" conversionFactor="1000"/>
 
@@ -145,6 +146,7 @@ under the License.
 
     <UomConversion uomId="LEN_m" uomIdTo="LEN_in" conversionFactor="39.37"/>
     <UomConversion uomId="LEN_u" uomIdTo="LEN_mm" conversionFactor="0.001"/>
+    <UomConversion uomId="LEN_mm" uomIdTo="LEN_u" conversionFactor="1000"/>
 
     <UomConversion uomId="LEN_mi" uomIdTo="LEN_km" conversionFactor="1.609"/>
     <UomConversion uomId="LEN_mi" uomIdTo="LEN_ft" conversionFactor="5280"/>
