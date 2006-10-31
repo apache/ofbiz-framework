@@ -113,6 +113,9 @@ under the License.
         <xs:attribute type="xs:string" name="paginate-index-field">
             <xs:annotation><xs:documentation>The name of the parameter that specifies what the current page is in a list form with multiple pages. The default is VIEW_INDEX Accepts ${} notation.</xs:documentation></xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:string" name="override-list-size">
+            <xs:annotation><xs:documentation>The total number of rows in the original list (used for pagination). If not specified, the size of the list will be used. Accepts ${} notation.</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="paginate-previous-label">
             <xs:annotation><xs:documentation>Text to display for the [Previous] button in a form with pagination. Defaults to "Previous". Accepts ${} notation.</xs:documentation></xs:annotation>
         </xs:attribute>
