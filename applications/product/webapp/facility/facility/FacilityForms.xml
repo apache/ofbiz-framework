@@ -168,7 +168,7 @@ under the License.
             </drop-down>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.ProductSchedule}" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.ProductScheduleTheseRouteSegments}" widget-style="smallSubmit">
             <submit/>
         </field>
     </form>
