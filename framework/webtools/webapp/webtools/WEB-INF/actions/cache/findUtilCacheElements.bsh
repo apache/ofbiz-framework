@@ -35,15 +35,15 @@ long totalSize = 0;
 
 List cacheElementsList = new ArrayList();
 if (cacheName != null) {
-	UtilCache utilCache = (UtilCache)UtilCache.utilCacheTable.get(cacheName);
+    UtilCache utilCache = (UtilCache)UtilCache.utilCacheTable.get(cacheName);
     if (utilCache != null) {
-    	Iterator iter = utilCache.cacheLineTable.keySet().iterator();
+        Iterator iter = utilCache.cacheLineTable.keySet().iterator();
         if(iter != null && iter.hasNext()) {
-        	int keyNum = 0;
-        	while(iter.hasNext()) {
-        	    Map cacheElement = new HashMap();
-        		Object key = iter.next();
-        		CacheLine line = (CacheLine) utilCache.cacheLineTable.get(key);
+            int keyNum = 0;
+            while(iter.hasNext()) {
+                Map cacheElement = new HashMap();
+                Object key = iter.next();
+                CacheLine line = (CacheLine) utilCache.cacheLineTable.get(key);
                 String expireTime = "";
                 if(line != null && line.loadTime > 0) {
                     expireTime = (new Date(line.loadTime + utilCache.getExpireTime())).toString();
@@ -52,10 +52,10 @@ if (cacheName != null) {
                 totalSize += lineSize;
                 
                 cacheElement.put("elementKey", key);
-		        cacheElement.put("expireTime", expireTime);
-		        cacheElement.put("lineSize", UtilFormatOut.formatQuantity(lineSize));
-		        cacheElement.put("keyNum", keyNum);
-		        
+                cacheElement.put("expireTime", expireTime);
+                cacheElement.put("lineSize", UtilFormatOut.formatQuantity(lineSize));
+                cacheElement.put("keyNum", keyNum);
+                
                 cacheElementsList.add(cacheElement);
                 
                 keyNum++;
