@@ -28,7 +28,6 @@ under the License.
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
 
     <!-- view handlers -->
-    <handler name="jpublish" type="view" class="org.ofbiz.webapp.view.JPublishViewHandler"/>        
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
 
     <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
@@ -121,14 +120,14 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
-    <view-map name="main" type="jpublish" page="/main.ftl"/>
-    <view-map name="login" type="jpublish" page="/login.ftl"/>
+    <view-map name="main" type="screen" page="component://shark/widget/CommonScreens.xml#main"/>
+    <view-map name="login" type="screen" page="component://shark/widget/CommonScreens.xml#login"/>
 
-    <view-map name="repository" type="jpublish" page="/repository/showRepository.ftl"/>
-    <view-map name="processList" type="jpublish" page="/process/processList.ftl"/>
-    <view-map name="processDetailList" type="jpublish" page="/process/processDetailList.ftl"/>
-    <view-map name="processHistory" type="jpublish" page="/process/processHistory.ftl"/>
-    <view-map name="processSteps" type="jpublish" page="/process/processSteps.ftl"/>
-    <view-map name="worklist" type="jpublish" page="/tasklist/worklist.ftl"/>
+    <view-map name="repository" type="screen" page="component://shark/widget/RepositoryScreens.xml#showRepository"/>
+    <view-map name="processList" type="screen" page="component://shark/widget/ProcessScreens.xml#processList"/>
+    <view-map name="processDetailList" type="screen" page="component://shark/widget/ProcessScreens.xml#processDetailList"/>
+    <view-map name="processHistory" type="screen" page="component://shark/widget/ProcessScreens.xml#processHistory"/>
+    <view-map name="processSteps" type="screen" page="component://shark/widget/ProcessScreens.xml#processSteps"/>
+    <view-map name="worklist" type="screen" page="component://shark/widget/TaskListScreens.xml#worklist"/>
     <!-- end of view mappings -->
 </site-conf>
