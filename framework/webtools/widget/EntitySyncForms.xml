@@ -28,21 +28,21 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="EntitySync" default-field-type="display"/>
         
-        <field name="runStatusId" title="Run Status">
+        <field name="runStatusId">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
 
         <field use-when="&quot;ESR_RUNNING&quot;.equals(runStatusId)" name="resetStatus" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="Reset Run Status" target="resetEntitySyncStatusToNotStarted?entitySyncId=${entitySyncId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncResetRunStatus}" target="resetEntitySyncStatusToNotStarted?entitySyncId=${entitySyncId}"/>
         </field>
         <field use-when="&quot;ESR_NOT_STARTED&quot;.equals(runStatusId) || &quot;ESR_COMPLETE&quot;.equals(runStatusId)" name="runOfflineSync" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="Run Offline Sync" target="runOfflineEntitySync?entitySyncId=${entitySyncId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncRunOffline}" target="runOfflineEntitySync?entitySyncId=${entitySyncId}"/>
         </field>
         <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="acceptOffline" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="Accept Offline Sync" target="updateOfflineEntitySync?entitySyncId=${entitySyncId}&amp;updateType=ACCEPT"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncAcceptOffline}" target="updateOfflineEntitySync?entitySyncId=${entitySyncId}&amp;updateType=ACCEPT"/>
         </field>
         <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="rejectOffline" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="Reject Offline Sync" target="updateOfflineEntitySync?entitySyncId=${entitySyncId}&amp;updateType=REJECT"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncRejectOffline}" target="updateOfflineEntitySync?entitySyncId=${entitySyncId}&amp;updateType=REJECT"/>
         </field>
     </form>
 

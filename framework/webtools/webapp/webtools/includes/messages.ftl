@@ -16,6 +16,7 @@ under the License.
 <#if requestAttributes.errorMessageList?has_content><#assign errorMessageList=requestAttributes.errorMessageList></#if>
 <#if requestAttributes.eventMessageList?has_content><#assign eventMessageList=requestAttributes.eventMessageList></#if>
 <#if requestAttributes.serviceValidationException?exists><#assign serviceValidationException = requestAttributes.serviceValidationException></#if>
+<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 
 <#-- special error message override -->
 <#if serviceValidationException?exists>
@@ -26,7 +27,7 @@ under the License.
   <#--  need if statement for EACH service (see the controller.xml file for service names) -->
   <#if serviceName?has_content && serviceName == "createPartyContactMechPurpose">
     <#-- create the inital message prefix -->
-    <#assign message = "The following required fields where found empty:">
+    <#assign message = "${uiLabelMap.CommonErrorMessage1}:">
 
     <#-- loop through all the missing fields -->
     <#list missingList as missing>
@@ -38,13 +39,13 @@ under the License.
        -->
 
       <#if missing == "partyId">
-        <#assign message = message + "<li>Party ID</li>">
+        <#assign message = message + "<li>${uiLabelMap.CommonPartyID}</li>">
       </#if>
       <#if missing == "contactMechId">
-        <#assign message = message + "<li>ContactMech ID</li>">
+        <#assign message = message + "<li>${uiLabelMap.CommonContactMechID}</li>">
       </#if>
       <#if missing == "contactMechPurposeTypeId">
-        <#assign message = message + "<li>Contact Purpose</li>">
+        <#assign message = message + "<li>${uiLabelMap.CommonContactPurpose}</li>">
       </#if>
     </#list>
 
@@ -55,7 +56,7 @@ under the License.
 
 <#-- display the error messages -->
 <#if errorMessageList?has_content>
-<div class="errorMessage">The following errors occurred:</div><br/>
+<div class="errorMessage">${uiLabelMap.CommonErrorMessage2}:</div><br/>
 <ul>
   <#list errorMessageList as errorMsg>
     <li class="errorMessage">${errorMsg}</li>
@@ -64,7 +65,7 @@ under the License.
 <br/>
 </#if>
 <#if eventMessageList?has_content>
-<div class="eventMessage">The following occurred:</div><br/>
+<div class="eventMessage">${uiLabelMap.CommonErrorMessage3}:</div><br/>
 <ul>
   <#list eventMessageList as eventMsg>
     <li class="eventMessage">${eventMsg}</li>

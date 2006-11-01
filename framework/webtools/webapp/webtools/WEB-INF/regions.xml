@@ -29,11 +29,6 @@ under the License.
 
     <!-- ====== Start View Specific Regions ====== -->
 
-    <define id="install" region="MAIN_REGION">
-        <put section="title">Install Page</put>
-        <put section="content" content="/install.jsp"/>
-    </define>
-
     <define id="entitymaint" region="MAIN_REGION">
         <put section="title">Entity Data Maintenance</put>
         <put section="content" content="/entity/entitymaint.jsp"/>
@@ -62,19 +57,6 @@ under the License.
     <define id="xmldsdump" region="MAIN_REGION">
         <put section="title">XML Entity Data Export</put>
         <put section="content" content="/entity/xmldsdump.jsp"/>
-    </define>
-
-    <define id="EditUtilCache" region="MAIN_REGION">
-        <put section="title">Edit Cache Parameters</put>
-        <put section="content" content="/cache/EditUtilCache.jsp"/>
-    </define>
-    <define id="FindUtilCache" region="MAIN_REGION">
-        <put section="title">Cache List</put>
-        <put section="content" content="/cache/FindUtilCache.jsp"/>
-    </define>
-    <define id="FindUtilCacheElements" region="MAIN_REGION">
-        <put section="title">Cache Element List</put>
-        <put section="content" content="/cache/FindUtilCacheElements.jsp"/>
     </define>
 
     <define id="viewdatafile" region="MAIN_REGION">
