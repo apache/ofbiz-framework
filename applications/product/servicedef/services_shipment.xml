@@ -467,6 +467,25 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="receiveInventoryProduct" engine="simple"
+            location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="receiveInventoryProduct" auth="true">
+        <description>Receive Inventory In Warehouse</description>
+        <auto-attributes entity-name="InventoryItem" include="nonpk" mode="IN" optional="true">
+            <exclude field-name="availableToPromiseTotal"/>
+            <exclude field-name="quantityOnHandTotal"/>
+        </auto-attributes>
+        <auto-attributes entity-name="InventoryItemDetail" include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="ShipmentReceipt" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
+        <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
+        <override name="quantityAccepted" optional="false"/>
+        <override name="quantityRejected" optional="false"/>
+        <override name="inventoryItemTypeId" optional="false"/>
+        <override name="productId" optional="false"/>
+        <override name="facilityId" optional="false"/>
+    </service>
+
     <service name="prepareInventoryReceipt" engine="simple"
             location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="prepareInventoryReceipt" auth="true">
         <description>Prepare Receipt Form for Inventory Item</description>
@@ -474,13 +493,6 @@ under the License.
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandDiff" type="Double" mode="OUT" optional="true"/>
         <attribute name="availableToPromiseDiff" type="Double" mode="OUT" optional="true"/>
-    </service>
-    <service name="receiveInventoryProduct" engine="group" location="receiveInventoryProduct" invoke="" auth="true">
-        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="availableToPromiseDiff" type="Double" mode="INOUT" optional="true"/>
-        <attribute name="quantityOnHandDiff" type="Double" mode="INOUT" optional="true"/>
-        <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
-        <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="quickReceiveReturn" engine="simple"
             location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="quickReceiveReturn" auth="true">

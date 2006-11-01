@@ -69,6 +69,47 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>   
     
+    <simple-method method-name="receiveInventoryProduct" short-description="Receive Inventory in new Inventory Item(s)">
+        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run receiveInventoryProduct you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
+        <check-errors/>
+        <set field="loops" value="1" type="Double"/>
+        <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
+            <set field="loops" from-field="parameters.quantityAccepted"/>
+            <set field="parameters.quantityAccepted" value="1" type="Double"/>
+        </if-compare>
+        <loop count="${loops}" field="currentLoop">
+            <log level="info" message="Looping and creating inventory info - ${currentLoop}"/>
+            <clear-field field-name="serviceInMap"/>
+            <set-service-fields service-name="prepareInventoryReceipt" map-name="parameters" to-map-name="serviceInMap"/>
+            <call-service service-name="prepareInventoryReceipt" in-map-name="serviceInMap">
+                <result-to-field result-name="quantityOnHandDiff" field-name="parameters.quantityOnHandDiff"/>
+                <result-to-field result-name="availableToPromiseDiff" field-name="parameters.availableToPromiseDiff"/>
+            </call-service>
+            <check-errors/>
+            <clear-field field-name="serviceInMap"/>
+            <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
+            <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
+                <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
+            </call-service>
+            <check-errors/>
+            <clear-field field-name="serviceInMap"/>
+            <set-service-fields service-name="createInventoryItemDetail" map-name="parameters" to-map-name="serviceInMap"/>
+            <call-service service-name="createInventoryItemDetail" in-map-name="serviceInMap">
+                <result-to-field result-name="inventoryItemDetailSeqId" field-name="parameters.inventoryItemDetailSeqId"/>
+            </call-service>
+            <check-errors/>
+            <clear-field field-name="serviceInMap"/>
+            <set-service-fields service-name="createShipmentReceipt" map-name="parameters" to-map-name="serviceInMap"/>
+            <call-service service-name="createShipmentReceipt" in-map-name="serviceInMap"/>
+            <check-errors/>
+            <clear-field field-name="serviceInMap"/>
+            <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
+            <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
+            <check-errors/>
+            <set value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${parameters.inventoryItemId}" field="successMessageList[]"/>
+        </loop>
+    </simple-method>
+
     <simple-method method-name="prepareInventoryReceipt" short-description="Prepare Inventory Receipt">
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run prepareInventoryReceipt you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
@@ -152,39 +193,32 @@ under the License.
                         <if-compare field-name="destinationFacility.defaultInventoryItemTypeId" value="NON_SERIAL_INV_ITEM" operator="equals">
                             <if-compare field-name="serializedItemCount" value="0" operator="equals">                                
                                 <set field="parameters.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
-                                <set field="loops" value="1"/>
                                 <set field="setNonSerial" value="true"/>
                             </if-compare>
                         </if-compare>                                               
                         <if-compare field-name="setNonSerial" value="false" operator="equals">
-                             <set field="parameters.inventoryItemTypeId" value="SERIALIZED_INV_ITEM"/>
-                            <set field="loops" from-field="returnItem.returnQuantity"/>
-                            <!-- this should be 1.0: each receive of a serialized inventory is for one unit -->
+                            <set field="parameters.inventoryItemTypeId" value="SERIALIZED_INV_ITEM"/>
                             <set field="returnItem.returnQuantity" value="1" type="Double"/>
                         </if-compare>
                                                 
-                        <!-- loop through to create each serialized one at a time -->
-                        <loop count="${loops}" field="currentLoop">
-                            <log level="info" message="Looping and creating inventory info - ${currentLoop}"/>
-                            <set from-field="parameters.inventoryItemTypeId" field="receiveCtx.inventoryItemTypeId"/>
-                            <set from-field="returnItem.expectedItemStatus" field="receiveCtx.statusId"/>
-                            <set from-field="returnItem.productId" field="receiveCtx.productId"/>
-                            <set from-field="returnItem.returnItemSeqId" field="receiveCtx.returnItemSeqId"/>
-                            <set from-field="returnItem.returnId" field="receiveCtx.returnId"/>                            
-                            <set from-field="returnItem.returnQuantity" field="receiveCtx.quantityAccepted"/>
-                            <set from-field="returnHeader.destinationFacilityId" field="receiveCtx.facilityId"/>
-                            <!-- important: associate ShipmentReceipt with return shipment created -->
-                            <set from-field="shipmentId" field="receiveCtx.shipmentId"/>  
+                        <set from-field="parameters.inventoryItemTypeId" field="receiveCtx.inventoryItemTypeId"/>
+                        <set from-field="returnItem.expectedItemStatus" field="receiveCtx.statusId"/>
+                        <set from-field="returnItem.productId" field="receiveCtx.productId"/>
+                        <set from-field="returnItem.returnItemSeqId" field="receiveCtx.returnItemSeqId"/>
+                        <set from-field="returnItem.returnId" field="receiveCtx.returnId"/>                            
+                        <set from-field="returnItem.returnQuantity" field="receiveCtx.quantityAccepted"/>
+                        <set from-field="returnHeader.destinationFacilityId" field="receiveCtx.facilityId"/>
+                        <!-- important: associate ShipmentReceipt with return shipment created -->
+                        <set from-field="shipmentId" field="receiveCtx.shipmentId"/>  
 
-                            <set value="Returned Item RA# ${returnItem.returnId}" field="receiveCtx.comments"/>
-                            <set from-field="nowTimestamp" field="receiveCtx.datetimeReceived"/>
+                        <set value="Returned Item RA# ${returnItem.returnId}" field="receiveCtx.comments"/>
+                        <set from-field="nowTimestamp" field="receiveCtx.datetimeReceived"/>
 
-                            <calculate field-name="quantityRejected" map-name="receiveCtx" type="Double">
-                                <number value="0"/>
-                            </calculate>
+                        <calculate field-name="quantityRejected" map-name="receiveCtx" type="Double">
+                            <number value="0"/>
+                        </calculate>
 
-                            <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx"/>
-                        </loop>
+                        <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx"/>
                     <else>
                         <calculate field-name="nonProductItems" type="Long">
                             <calcop operator="add">

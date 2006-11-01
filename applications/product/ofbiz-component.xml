@@ -53,7 +53,6 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_uom.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_shipment.xml"/>
-    <service-resource type="group" loader="main" location="servicedef/groups_shipment.xml"/>
 
     <webapp name="catalog" title="Catalog" server="default-server" location="webapp/catalog"
         base-permission="OFBTOOLS,CATALOG" mount-point="/catalog"/>
