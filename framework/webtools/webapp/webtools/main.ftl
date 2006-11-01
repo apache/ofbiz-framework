@@ -41,7 +41,7 @@ under the License.
             <div class="tabletext">${uiLabelMap.WebtoolsMessage13}.</div>
             <#if userLogin?has_content>
             <ul>
-                <li><div class="tabletext">${uiLabelMap.WebtoolsCachDebugTools}</div>
+                <li><div class="tabletext">${uiLabelMap.WebtoolsCacheDebugTools}</div>
                 <ul>
                     <li><a href="<@ofbizUrl>/FindUtilCache</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsCacheMaintenance}</a>
                     <li><a href="<@ofbizUrl>/LogConfiguration</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsAdjustDebuggingLevels}</a>

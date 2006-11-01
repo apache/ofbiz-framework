@@ -32,7 +32,7 @@ under the License.
                                     <label style="head1">${uiLabelMap.${labelTitleProperty}}</label>
                                 </container>
                                 <container>
-                                    <link target="EntitySyncStatus" style="buttontext" text="Refresh"/>
+                                    <link target="EntitySyncStatus" style="buttontext" text="${uiLabelMap.CommonRefresh}"/>
                                 </container>
 
 								<!-- Now call the SimpleScreen form -->
@@ -59,7 +59,7 @@ under the License.
                 <decorator-screen name="GenericDecorator">
                     <decorator-section name="body">
                         <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
-                        <label style="head1">Load Offline Data</label>
+                        <label style="head1">${uiLabelMap.WebtoolsLoadOfflineData}</label>
                         <include-form name="EntitySyncLoadOffline" location="component://webtools/widget/EntitySyncForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

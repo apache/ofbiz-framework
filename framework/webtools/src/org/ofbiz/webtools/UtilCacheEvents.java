@@ -16,10 +16,14 @@
 package org.ofbiz.webtools;
 
 import java.util.Iterator;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.security.Security;
 
@@ -28,27 +32,35 @@ import org.ofbiz.security.Security;
  */
 public class UtilCacheEvents {
 
+    public static final String err_resource = "WebtoolsErrorUiLabels";
+
     /** An HTTP WebEvent handler the specified element from the specified cache
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return
      */
     public static String removeElementEvent(HttpServletRequest request, HttpServletResponse response) {
+        String errMsg = "";
+        Locale locale = UtilHttp.getLocale(request);
+
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to perform this operation, UTIL_CACHE_EDIT required.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         String name = request.getParameter("UTIL_CACHE_NAME");
         if (name == null) {
-            request.setAttribute("_ERROR_MESSAGE_", "Could not remove cache line/element, no cache name specified.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.noCacheNameSpecified", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         String numString = request.getParameter("UTIL_CACHE_ELEMENT_NUMBER");
 
         if (numString == null) {
-            request.setAttribute("_ERROR_MESSAGE_", "Could not remove cache line/element, no element number specified.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.noElementNumberSpecified", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", "");
             return "error";
         }
         int number;
@@ -86,13 +98,16 @@ public class UtilCacheEvents {
 
             if (key != null) {
                 utilCache.remove(key);
-                request.setAttribute("_EVENT_MESSAGE_", "Removed element from cache with key: " + key.toString());
+                errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.removeElementWithKey", UtilMisc.toMap("key", key.toString()), locale) + ".";
+                request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } else {
-                request.setAttribute("_ERROR_MESSAGE_", "Could not remove cache element, element not found with cache name: " + name + ", element number: " + numString);
+                errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.couldNotRemoveElementNumber", UtilMisc.toMap("name", name, "numString", numString), locale) + ".";
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
         } else {
-            request.setAttribute("_ERROR_MESSAGE_", "Could not remove cache element, cache not found with name: " + name);
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.couldNotRemoveElement", UtilMisc.toMap("name", name), locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         return "success";
@@ -104,25 +119,32 @@ public class UtilCacheEvents {
      * @return
      */
     public static String clearEvent(HttpServletRequest request, HttpServletResponse response) {
+        String errMsg = "";
+        Locale locale = UtilHttp.getLocale(request);
+
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to perform this operation, UTIL_CACHE_EDIT required.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         String name = request.getParameter("UTIL_CACHE_NAME");
 
         if (name == null) {
-            request.setAttribute("_ERROR_MESSAGE_", "Could not clear cache, no name specified.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.couldNotClearCache", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         UtilCache utilCache = (UtilCache) UtilCache.utilCacheTable.get(name);
 
         if (utilCache != null) {
             utilCache.clear();
-            request.setAttribute("_EVENT_MESSAGE_", "Cleared cache with name: " + name);
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
+            request.setAttribute("_EVENT_MESSAGE_", errMsg);
         } else {
-            request.setAttribute("_ERROR_MESSAGE_", "Could not clear cache, cache not found with name: " + name);
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         return "success";
@@ -134,14 +156,19 @@ public class UtilCacheEvents {
      * @return
      */
     public static String clearAllEvent(HttpServletRequest request, HttpServletResponse response) {
+        String errMsg = "";
+        Locale locale = UtilHttp.getLocale(request);
+
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to perform this operation, UTIL_CACHE_EDIT required.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         UtilCache.clearAllCaches();
-        request.setAttribute("_EVENT_MESSAGE_", "Cleared all caches.");
+        errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.clearAllCaches", locale) + ".";
+        request.setAttribute("_EVENT_MESSAGE_", errMsg);
         return "success";
     }
 
@@ -151,14 +178,19 @@ public class UtilCacheEvents {
      * @return
      */
     public static String clearAllExpiredEvent(HttpServletRequest request, HttpServletResponse response) {
+        String errMsg = "";
+        Locale locale = UtilHttp.getLocale(request);
+
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to perform this operation, UTIL_CACHE_EDIT required.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
         UtilCache.clearExpiredFromAllCaches();
-        request.setAttribute("_EVENT_MESSAGE_", "Cleared all expried elements from all caches.");
+        errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.clearAllExpiredElements", locale) + ".";
+        request.setAttribute("_EVENT_MESSAGE_", errMsg);
         return "success";
     }
 
@@ -168,16 +200,21 @@ public class UtilCacheEvents {
      * @return
      */
     public static String updateEvent(HttpServletRequest request, HttpServletResponse response) {
+        String errMsg = "";
+        Locale locale = UtilHttp.getLocale(request);
+
         Security security = (Security) request.getAttribute("security");
         if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to perform this operation, UTIL_CACHE_EDIT required.");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
+            request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "error";
         }
 
         String name = request.getParameter("UTIL_CACHE_NAME");
 
         if (name == null) {
-            request.setAttribute("_ERROR_MESSAGE_", "Could not update cache settings, no name specified");
+            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.couldNotUpdateCacheSetting", locale) + ".";
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         String maxSizeStr = request.getParameter("UTIL_CACHE_MAX_SIZE");
