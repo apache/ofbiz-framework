@@ -185,7 +185,11 @@ under the License.
             </div></td>
         <td><div class="tabletext">
           <#if readOnly>
-              ${status.get("description",locale)?default("N/A")}
+              <#if status?has_content>
+              ${status.get("description",locale)}
+              <#else>
+              N/A
+              </#if>
           <#else>
               <select name="expectedItemStatus_o_${rowCount}"  class='selectBox'>
                   <#if (status?has_content)>
