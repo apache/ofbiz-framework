@@ -36,12 +36,12 @@ List cacheList = new ArrayList();
 TreeSet names = new TreeSet(UtilCache.utilCacheTable.keySet());
 Iterator nameIter = names.iterator();
 if(nameIter != null && nameIter.hasNext()) {
-	while(nameIter.hasNext()) {
-		String cacheName = (String)nameIter.next();
-		UtilCache utilCache = (UtilCache)UtilCache.utilCacheTable.get(cacheName);
-		Map cache = new HashMap();
-		
-		cache.put("cacheName", utilCache.getName());
+    while(nameIter.hasNext()) {
+        String cacheName = (String)nameIter.next();
+        UtilCache utilCache = (UtilCache)UtilCache.utilCacheTable.get(cacheName);
+        Map cache = new HashMap();
+        
+        cache.put("cacheName", utilCache.getName());
         cache.put("cacheSize", UtilFormatOut.formatQuantity(utilCache.size()));
         cache.put("hitCount", UtilFormatOut.formatQuantity(utilCache.getHitCount()));
         cache.put("missCountTot", UtilFormatOut.formatQuantity(utilCache.getMissCountTotal()));
@@ -55,7 +55,7 @@ if(nameIter != null && nameIter.hasNext()) {
         cache.put("useSoftReference", (new Boolean(utilCache.getUseSoftReference())).toString());
         cache.put("useFileSystemStore", (new Boolean(utilCache.getUseFileSystemStore())).toString());
         
-		cacheList.add(cache);
-	}
+        cacheList.add(cache);
+    }
 }
 context.put("cacheList", cacheList);

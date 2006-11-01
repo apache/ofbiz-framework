@@ -26,23 +26,23 @@ under the License.
       </actions>
       <widgets>
         <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
-	      <decorator-section name="body">
-	        <section>
-	          <!-- do check for UTIL_CACHE, _VIEW permission -->
-	          <condition>
-	            <if-has-permission permission="UTIL_CACHE" action="_VIEW"/>
-	          </condition>
-	          <widgets>
-	            <platform-specific>
-	              <html><html-template location="component://webtools/webapp/webtools/cache/findUtilCache.ftl"/></html>
-	            </platform-specific>
-	            <decorator-section-include name="body"/>
-	          </widgets>
-	          <fail-widgets>
-	            <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
-	          </fail-widgets>
-	        </section>                    
-	      </decorator-section>
+          <decorator-section name="body">
+            <section>
+              <!-- do check for UTIL_CACHE, _VIEW permission -->
+              <condition>
+                <if-has-permission permission="UTIL_CACHE" action="_VIEW"/>
+              </condition>
+              <widgets>
+                <platform-specific>
+                  <html><html-template location="component://webtools/webapp/webtools/cache/findUtilCache.ftl"/></html>
+                </platform-specific>
+                <decorator-section-include name="body"/>
+              </widgets>
+              <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+              </fail-widgets>
+            </section>                    
+          </decorator-section>
         </decorator-screen>
       </widgets>
     </section>
@@ -56,23 +56,23 @@ under the License.
       </actions>
       <widgets>
         <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
-	      <decorator-section name="body">
-	        <section>
-	          <!-- do check for UTIL_CACHE, _VIEW permission -->
-	          <condition>
-	            <if-has-permission permission="UTIL_CACHE" action="_VIEW"/>
-	          </condition>
-	          <widgets>
-	            <platform-specific>
-	              <html><html-template location="component://webtools/webapp/webtools/cache/findUtilCacheElements.ftl"/></html>
-	            </platform-specific>
-	            <decorator-section-include name="body"/>
-	          </widgets>
-	          <fail-widgets>
-	            <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
-	          </fail-widgets>
-	        </section>                    
-	      </decorator-section>
+          <decorator-section name="body">
+            <section>
+              <!-- do check for UTIL_CACHE, _VIEW permission -->
+              <condition>
+                <if-has-permission permission="UTIL_CACHE" action="_VIEW"/>
+              </condition>
+              <widgets>
+                <platform-specific>
+                  <html><html-template location="component://webtools/webapp/webtools/cache/findUtilCacheElements.ftl"/></html>
+                </platform-specific>
+                <decorator-section-include name="body"/>
+              </widgets>
+              <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+              </fail-widgets>
+            </section>                    
+          </decorator-section>
         </decorator-screen>
       </widgets>
     </section>
@@ -86,23 +86,23 @@ under the License.
       </actions>
       <widgets>
         <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
-	      <decorator-section name="body">
-	        <section>
-	          <!-- do check for UTIL_CACHE, _EDIT permission -->
-	          <condition>
-	            <if-has-permission permission="UTIL_CACHE" action="_EDIT"/>
-	          </condition>
-	          <widgets>
-	            <platform-specific>
-	              <html><html-template location="component://webtools/webapp/webtools/cache/editUtilCache.ftl"/></html>
-	            </platform-specific>
-	            <decorator-section-include name="body"/>
-	          </widgets>
-	          <fail-widgets>
-	            <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
-	          </fail-widgets>
-	        </section>                    
-	      </decorator-section>
+          <decorator-section name="body">
+            <section>
+              <!-- do check for UTIL_CACHE, _EDIT permission -->
+              <condition>
+                <if-has-permission permission="UTIL_CACHE" action="_EDIT"/>
+              </condition>
+              <widgets>
+                <platform-specific>
+                  <html><html-template location="component://webtools/webapp/webtools/cache/editUtilCache.ftl"/></html>
+                </platform-specific>
+                <decorator-section-include name="body"/>
+              </widgets>
+              <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+              </fail-widgets>
+            </section>                    
+          </decorator-section>
         </decorator-screen>
       </widgets>
     </section>

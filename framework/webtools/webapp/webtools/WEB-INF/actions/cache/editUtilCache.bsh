@@ -22,11 +22,11 @@ String cacheName = request.getParameter("UTIL_CACHE_NAME");
 context.put("cacheName", cacheName);
 
 if (cacheName != null) {
-	UtilCache utilCache = (UtilCache)UtilCache.utilCacheTable.get(cacheName);
+    UtilCache utilCache = (UtilCache)UtilCache.utilCacheTable.get(cacheName);
     if (utilCache != null) {
-    	Map cache = new HashMap();
-		
-		cache.put("cacheName", utilCache.getName());
+        Map cache = new HashMap();
+        
+        cache.put("cacheName", utilCache.getName());
         cache.put("cacheSize", UtilFormatOut.formatQuantity(utilCache.size()));
         cache.put("hitCount", UtilFormatOut.formatQuantity(utilCache.getHitCount()));
         cache.put("missCountTot", UtilFormatOut.formatQuantity(utilCache.getMissCountTotal()));
