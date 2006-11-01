@@ -150,8 +150,9 @@ public class ServiceMultiEventHandler implements EventHandler {
         String messagePrefixStr = UtilProperties.getMessage("DefaultMessages", "service.message.prefix", locale);
         String messageSuffixStr = UtilProperties.getMessage("DefaultMessages", "service.message.suffix", locale);
 
-        // prepare the error message list
+        // prepare the error message and success message lists
         List errorMessages = FastList.newInstance();
+        List successMessages = FastList.newInstance();
 
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;
@@ -296,7 +297,23 @@ public class ServiceMultiEventHandler implements EventHandler {
                 if (UtilValidate.isNotEmpty(errorMessage)) {
                     errorMessages.add(errorMessage);
                 }
-                
+
+                // get the success messages
+                if (!UtilValidate.isEmpty((String)result.get(ModelService.SUCCESS_MESSAGE))) {
+                    String newSuccessMessage = (String)result.get(ModelService.SUCCESS_MESSAGE);
+                    if (!successMessages.contains(newSuccessMessage)) {
+                        successMessages.add(newSuccessMessage);
+                    }
+                }
+                if (!UtilValidate.isEmpty((List)result.get(ModelService.SUCCESS_MESSAGE_LIST))) {
+                    List newSuccessMessages = (List)result.get(ModelService.SUCCESS_MESSAGE_LIST);
+                    for (int j = 0; j < newSuccessMessages.size(); j++) {
+                        String newSuccessMessage = (String)newSuccessMessages.get(j);
+                        if (!successMessages.contains(newSuccessMessage)) {
+                            successMessages.add(newSuccessMessage);
+                        }
+                    }
+                }
                 // set the results in the request
                 if ((result != null) && (result.entrySet() != null)) {
                     Iterator rmei = result.entrySet().iterator();
@@ -338,6 +355,9 @@ public class ServiceMultiEventHandler implements EventHandler {
                 } catch (GenericTransactionException e) {
                     Debug.logError(e, "Could not commit transaction", module);
                     throw new EventHandlerException("Commit transaction failed");
+                }
+                if (successMessages.size() > 0) {
+                    request.setAttribute("_EVENT_MESSAGE_LIST_", successMessages);
                 }
                 returnString = "success";
             }
