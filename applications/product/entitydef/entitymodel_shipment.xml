@@ -516,6 +516,7 @@ under the License.
       <field name="destinationTelecomNumberId" type="id"></field>
       <field name="partyIdTo" type="id"></field>
       <field name="partyIdFrom" type="id"></field>
+      <field name="additionalShippingCharge" type="currency-amount"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
