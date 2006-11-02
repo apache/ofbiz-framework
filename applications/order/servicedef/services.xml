@@ -172,6 +172,15 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     
+    <service name="createOrderAdjustmentBilling" engine="simple"
+            location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderAdjustmentBilling">
+        <description>Create a new order adjustment billing record</description>
+        <attribute name="orderAdjustmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="Double" mode="IN" optional="true"/>
+    </service>
+
     <service name="createPaymentFromPreference" engine="java"
             location="org.ofbiz.order.order.OrderServices" invoke="createPaymentFromPreference">
         <description>Creates a payment using the order payment preference</description>

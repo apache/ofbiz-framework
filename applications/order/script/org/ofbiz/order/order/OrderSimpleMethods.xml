@@ -54,6 +54,13 @@ under the License.
         <call-service service-name="resetGrandTotal" in-map-name="params"/>
     </simple-method>
     
+    <simple-method method-name="createOrderAdjustmentBilling" short-description="Create an OrderAdjustmentBilling">
+        <make-value entity-name="OrderAdjustmentBilling" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+
     <simple-method method-name="createOrderItemBilling" short-description="Create an OrderItemBilling">
         <make-value entity-name="OrderItemBilling" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
