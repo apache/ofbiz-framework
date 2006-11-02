@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityExpr;
@@ -473,6 +474,23 @@ public class InvoiceServices {
                     while (itemAdjIter.hasNext()) {
                         GenericValue adj = (GenericValue) itemAdjIter.next();
                         
+                        // Check against OrderAdjustmentBilling to see how much of this adjustment has already been invoiced
+                        BigDecimal adjAlreadyInvoicedAmount = null;
+                        try {
+                            Map checkResult = dispatcher.runSync("calculateInvoicedAdjustmentTotal", UtilMisc.toMap("orderAdjustment", adj));
+                            adjAlreadyInvoicedAmount = (BigDecimal) checkResult.get("invoicedTotal");
+                        } catch (GenericServiceException e) {
+                            String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale);
+                            Debug.logError(e, errMsg, module);
+                            return ServiceUtil.returnError(errMsg);
+                        }
+        
+                        // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced,
+                        //  so skip this adjustment
+                        if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(decimals, rounding).abs()) > 0) {
+                            continue;
+                        }
+        
                         BigDecimal amount = new BigDecimal(0);
                         if (adj.get("amount") != null) { 
                             // pro-rate the amount
@@ -520,7 +538,20 @@ public class InvoiceServices {
 	                        if (ServiceUtil.isError(createInvoiceItemAdjResult)) {
 	                            return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceItemFromOrder",locale), null, null, createInvoiceItemAdjResult);
 	                        }
-	
+
+                            // Create the OrderAdjustmentBilling record
+                            Map createOrderAdjustmentBillingContext = FastMap.newInstance();
+                            createOrderAdjustmentBillingContext.put("orderAdjustmentId", adj.getString("orderAdjustmentId"));
+                            createOrderAdjustmentBillingContext.put("invoiceId", invoiceId);
+                            createOrderAdjustmentBillingContext.put("invoiceItemSeqId", invoiceItemSeqId);
+                            createOrderAdjustmentBillingContext.put("amount", new Double(amount.doubleValue()));
+                            createOrderAdjustmentBillingContext.put("userLogin", userLogin);
+
+                            Map createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                            if (ServiceUtil.isError(createOrderAdjustmentBillingResult)) {
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderAdjustmentBillingFromOrder",locale), null, null, createOrderAdjustmentBillingContext);
+                            }
+
 	                        // this adjustment amount
 	                        BigDecimal thisAdjAmount = new BigDecimal(amount.doubleValue()).setScale(decimals, rounding);
 	
@@ -545,22 +576,40 @@ public class InvoiceServices {
             }
 
             // create header adjustments as line items -- always to tax/shipping last
-            List shipAdjustments = new ArrayList();
-            List taxAdjustments = new ArrayList();
+            Map shipAdjustments = new HashMap();
+            Map taxAdjustments = new HashMap();
 
             List headerAdjustments = orh.getOrderHeaderAdjustments();
             Iterator headerAdjIter = headerAdjustments.iterator();
             while (headerAdjIter.hasNext()) {
                 GenericValue adj = (GenericValue) headerAdjIter.next();
+
+                // Check against OrderAdjustmentBilling to see how much of this adjustment has already been invoiced
+                BigDecimal adjAlreadyInvoicedAmount = null;
+                try {
+                    Map checkResult = dispatcher.runSync("calculateInvoicedAdjustmentTotal", UtilMisc.toMap("orderAdjustment", adj));
+                    adjAlreadyInvoicedAmount = ((BigDecimal) checkResult.get("invoicedTotal")).setScale(decimals, rounding);
+                } catch (GenericServiceException e) {
+                    String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService", locale);
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+
+                // If the absolute invoiced amount >= the abs of the adjustment amount, the full amount has already been invoiced,
+                //  so skip this adjustment
+                if (adjAlreadyInvoicedAmount.abs().compareTo(adj.getBigDecimal("amount").setScale(decimals, rounding).abs()) > 0) {
+                    continue;
+                }
+
                 if ("SHIPPING_CHARGES".equals(adj.getString("orderAdjustmentTypeId"))) {
-                    shipAdjustments.add(adj);
+                    shipAdjustments.put(adj, adjAlreadyInvoicedAmount);
                 } else if ("SALES_TAX".equals(adj.getString("orderAdjustmentTypeId"))) {
-                    taxAdjustments.add(adj);
+                    taxAdjustments.put(adj, adjAlreadyInvoicedAmount);
                 } else {
                     // these will effect the shipping pro-rate (unless commented)
                     // other adjustment type
                     BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                            orderSubTotal, invoiceSubTotal, invoiceQuantity, decimals, rounding, userLogin, dispatcher, locale);
+                            orderSubTotal, invoiceSubTotal, adj.getBigDecimal("amount").setScale(decimals, rounding), decimals, rounding, userLogin, dispatcher, locale);
                     // invoiceShipProRateAmount += adjAmount;
                     // do adjustments compound or are they based off subtotal? Here we will (unless commented)
                     // invoiceSubTotal += adjAmount;
@@ -573,41 +622,79 @@ public class InvoiceServices {
 
             // next do the shipping adjustments.  Note that we do not want to add these to the invoiceSubTotal or orderSubTotal for pro-rating tax later, as that would cause
             // numerator/denominator problems when the shipping is not pro-rated but rather charged all on the first invoice
-            Iterator shipAdjIter = shipAdjustments.iterator();
+            Iterator shipAdjIter = shipAdjustments.keySet().iterator();
             while (shipAdjIter.hasNext()) {
                 GenericValue adj = (GenericValue) shipAdjIter.next();
+                BigDecimal adjAlreadyInvoicedAmount = (BigDecimal) shipAdjustments.get(adj);
+                
                 if ("N".equalsIgnoreCase(prorateShipping)) {
-                    if (previousInvoiceFound) {
-                        Debug.logInfo("Previous invoice found for this order [" + orderId + "]; shipping already billed", module);
-                        continue;
-                    } else {
-                        // this is the first invoice; bill it all now
-                        BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                                new BigDecimal("1"), new BigDecimal("1"), totalItemsInOrder, decimals, rounding, userLogin, dispatcher, locale);
-                        // increment the counter
-                        invoiceItemSeqNum++;
-                        invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
-                    }
-                } else {
-                    // pro-rate the shipping amount based on shippable information
+
+                    // Set the divisor and multiplier to 1 to avoid prorating
+                    BigDecimal divisor = new BigDecimal("1");
+                    BigDecimal multiplier = new BigDecimal("1");
+                    
+                    // The base amount in this case is the adjustment amount minus the total already invoiced for that adjustment, since
+                    //  it won't be prorated
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding).subtract(adjAlreadyInvoicedAmount);
                     BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                            shippableAmount, invoiceShipProRateAmount, invoiceQuantity, decimals, rounding, userLogin, dispatcher, locale);
-                    // increment the counter
-                    invoiceItemSeqNum++;
-                    invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
+                            divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
+                } else {
+
+                    // Pro-rate the shipping amount based on shippable information
+                    BigDecimal divisor = shippableAmount;
+                    BigDecimal multiplier = invoiceShipProRateAmount;
+                    
+                    // The base amount in this case is the adjustment amount, since we want to prorate based on the full amount
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding);
+                    BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
+                            divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
                 }
+
+                // Increment the counter
+                invoiceItemSeqNum++;
+                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
             }
 
             // last do the tax adjustments
-            Iterator taxAdjIter = taxAdjustments.iterator();
+            String prorateTaxes = productStore.getString("prorateTaxes");
+            if (prorateTaxes == null) {
+                prorateTaxes = "Y";
+            }            
+            Iterator taxAdjIter = taxAdjustments.keySet().iterator();
             while (taxAdjIter.hasNext()) {
                 GenericValue adj = (GenericValue) taxAdjIter.next();
-                // note this should use invoice decimals & rounding instead of taxDecimals and taxRounding, because it will be added to the invoice 
-                BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
-                        orderSubTotal, invoiceSubTotal, invoiceQuantity, decimals, rounding, userLogin, dispatcher, locale);
-                // this doesn't really effect anything; but just for our totals
-                // since it will no longer be used in pro-rating, we can just round off now
+                BigDecimal adjAlreadyInvoicedAmount = (BigDecimal) taxAdjustments.get(adj);
+                BigDecimal adjAmount = null;
+                
+                if ("N".equalsIgnoreCase(prorateTaxes)) {
+
+                    // Set the divisor and multiplier to 1 to avoid prorating
+                    BigDecimal divisor = new BigDecimal("1");
+                    BigDecimal multiplier = new BigDecimal("1");
+                    
+                    // The base amount in this case is the adjustment amount minus the total already invoiced for that adjustment, since
+                    //  it won't be prorated
+                    //  Note this should use invoice decimals & rounding instead of taxDecimals and taxRounding for tax adjustments, because it will be added to the invoice 
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding).subtract(adjAlreadyInvoicedAmount);
+                    adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
+                             divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
+                } else {
+
+                    // Pro-rate the tax amount based on shippable information
+                    BigDecimal divisor = orderSubTotal;
+                    BigDecimal multiplier = invoiceSubTotal;
+                    
+                    // The base amount in this case is the adjustment amount, since we want to prorate based on the full amount
+                    //  Note this should use invoice decimals & rounding instead of taxDecimals and taxRounding for tax adjustments, because it will be added to the invoice 
+                    BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(decimals, rounding);
+                    adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, 
+                            divisor, multiplier, baseAmount, decimals, rounding, userLogin, dispatcher, locale);
+                }
                 invoiceSubTotal = invoiceSubTotal.add(adjAmount).setScale(decimals, rounding);                
+
+                // Increment the counter
+                invoiceItemSeqNum++;
+                invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, 2);
             }
 
             // check for previous order payments
@@ -889,8 +976,8 @@ public class InvoiceServices {
             Map result = dispatcher.runSync("createInvoicesFromShipments", serviceContext);
             invoicesCreated = (List) result.get("invoicesCreated");
         } catch (GenericServiceException e) {
-            Debug.logError(e, "Trouble calling createInvoicesFromShipments service; invoice not created for shipment [" + shipmentId + "]", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingTroubleCreateInvoicesFromShipmentsService",UtilMisc.toMap("shipmentId",shipmentId),locale));
+            Debug.logError(e, "Trouble calling createInvoicesFromShipment service; invoice not created for shipment [" + shipmentId + "]", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingTroubleCallingCreateInvoicesFromShipmentService",UtilMisc.toMap("shipmentId",shipmentId),locale));
         }
         Map response = ServiceUtil.returnSuccess();
         response.put("invoicesCreated", invoicesCreated);
@@ -1064,6 +1151,180 @@ public class InvoiceServices {
 
                 // update the available to bill quantity for the next pass
                 itemQtyAvail.put(issue.getString("orderItemSeqId"), billAvail);
+            }
+
+            OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+            GenericValue productStore = orh.getProductStore();
+
+            // If shipping charges are not prorated, the shipments need to be examined for additional shipping charges
+            if (productStore.getString("prorateShipping").equals("N")) {
+    
+                // Get the set of filtered shipments
+                List invoiceableShipmentIds = EntityUtil.getFieldListFromEntityList(toBillItems, "shipmentId", true);
+                List invoiceableShipments = null;
+                try {
+                    invoiceableShipments = delegator.findByCondition("Shipment", new EntityExpr("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null);
+                } catch( GenericEntityException e ) {
+                    String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentsService", locale);
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+                
+                // Total the additional shipping charges for the shipments
+                Map additionalShippingCharges = new HashMap();
+                BigDecimal totalAdditionalShippingCharges = ZERO;
+                Iterator isit = invoiceableShipments.iterator();
+                while(isit.hasNext()) {
+                    GenericValue shipment = (GenericValue) isit.next();
+                    if (shipment.get("additionalShippingCharge") == null) continue;
+                    BigDecimal shipmentAdditionalShippingCharges = shipment.getBigDecimal("additionalShippingCharge").setScale(decimals, rounding);
+                    additionalShippingCharges.put(shipment, shipmentAdditionalShippingCharges);
+                    totalAdditionalShippingCharges = totalAdditionalShippingCharges.add(shipmentAdditionalShippingCharges);
+                }
+                
+                // If the additional shipping charges are greater than zero, process them
+                if (totalAdditionalShippingCharges.signum() == 1) {
+
+                    // Add an OrderAdjustment to the order for each additional shipping charge
+                    Iterator ascit = additionalShippingCharges.keySet().iterator();
+                    while (ascit.hasNext()) {
+                        GenericValue shipment = (GenericValue) ascit.next();
+                        String shipmentId = shipment.getString("shipmentId");
+                        BigDecimal additionalShippingCharge = (BigDecimal) additionalShippingCharges.get(shipment);
+                        Map createOrderAdjustmentContext = new HashMap();
+                        createOrderAdjustmentContext.put("orderId", orderId);
+                        createOrderAdjustmentContext.put("orderAdjustmentTypeId", "SHIPPING_CHARGES");
+                        createOrderAdjustmentContext.put("description", UtilProperties.getMessage(resource, "AccountingAdditionalShippingChargeForShipment", locale) + " #" + shipmentId);
+                        createOrderAdjustmentContext.put("sourceReferenceId", shipmentId);
+                        createOrderAdjustmentContext.put("amount", new Double(additionalShippingCharge.doubleValue()));
+                        createOrderAdjustmentContext.put("userLogin", context.get("userLogin"));
+                        String shippingOrderAdjustmentId = null;
+                        try {
+                            Map createOrderAdjustmentResult = dispatcher.runSync("createOrderAdjustment", createOrderAdjustmentContext);
+                            shippingOrderAdjustmentId = (String) createOrderAdjustmentResult.get("orderAdjustmentId");
+                        } catch (GenericServiceException e) {
+                            String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateOrderAdjustmentService", locale);
+                            Debug.logError(e, errMsg, module);
+                            return ServiceUtil.returnError(errMsg);
+                        }
+
+                        // Obtain a list of OrderAdjustments due to tax on the shipping charges, if any
+                        GenericValue billToParty = orh.getBillToParty();
+                        GenericValue payToParty = orh.getBillFromParty();
+                        GenericValue destinationContactMech = null;
+                        try {
+                            destinationContactMech = shipment.getRelatedOne("DestinationPostalAddress");
+                        } catch( GenericEntityException e ) {
+                            String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateInvoicesFromShipmentService", locale);
+                            Debug.logError(e, errMsg, module);
+                            return ServiceUtil.returnError(errMsg);
+                        }
+                        
+                        List emptyList = new ArrayList();
+                        Map calcTaxContext = new HashMap();
+                        calcTaxContext.put("productStoreId", orh.getProductStoreId());
+                        calcTaxContext.put("payToPartyId", payToParty.getString("partyId"));
+                        calcTaxContext.put("billToPartyId", billToParty.getString("partyId"));
+                        calcTaxContext.put("orderShippingAmount", totalAdditionalShippingCharges);
+                        calcTaxContext.put("shippingAddress", destinationContactMech);
+
+                        // These parameters don't matter if we're only worried about adjustments on the shipping charges
+                        calcTaxContext.put("itemProductList", emptyList);
+                        calcTaxContext.put("itemAmountList", emptyList);
+                        calcTaxContext.put("itemPriceList", emptyList);
+                        calcTaxContext.put("itemShippingList", emptyList);
+
+                        List orderAdjustments = null;
+                        Map calcTaxResult = null;
+                        try {
+                            calcTaxResult = dispatcher.runSync("calcTax", calcTaxContext);
+                        } catch (GenericServiceException e) {
+                            String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCalcTaxService", locale);
+                            Debug.logError(e, errMsg, module);
+                            return ServiceUtil.returnError(errMsg);
+                        }
+                        orderAdjustments = (List) calcTaxResult.get("orderAdjustments");
+
+                        // If we have any OrderAdjustments due to tax on shipping, store them and add them to the total
+                        if (calcTaxResult != null && orderAdjustments != null) {
+                            Iterator oait = orderAdjustments.iterator();
+                            while (oait.hasNext()) {
+                                GenericValue orderAdjustment = (GenericValue) oait.next();
+                                totalAdditionalShippingCharges = totalAdditionalShippingCharges.add(orderAdjustment.getBigDecimal("amount").setScale(decimals, rounding));
+                                orderAdjustment.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
+                                orderAdjustment.set("orderId", orderId);
+                                orderAdjustment.set("orderItemSeqId", "_NA_");
+                                orderAdjustment.set("shipGroupSeqId", shipment.getString("primaryShipGroupSeqId"));
+                                orderAdjustment.set("originalAdjustmentId", shippingOrderAdjustmentId);                                
+                            }
+                            try {
+                                delegator.storeAll(orderAdjustments);
+                            } catch( GenericEntityException e ) {
+                                String errMsg = UtilProperties.getMessage(resource, "AccountingProblemStoringOrderAdjustments", UtilMisc.toMap("orderAdjustments", orderAdjustments), locale);
+                                Debug.logError(e, errMsg, module);
+                                return ServiceUtil.returnError(errMsg);
+                            }
+                        }
+
+                        // If part of the order was paid via credit card, try to charge it for the additional shipping
+                        List orderPaymentPreferences = new ArrayList();
+                        try {
+                            orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
+                        } catch( GenericEntityException e ) {
+                            String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingOrderPaymentPreferences", locale);
+                            Debug.logError(e, errMsg, module);
+                            return ServiceUtil.returnError(errMsg);
+                        }
+
+                        //  Use the first credit card we find, for the sake of simplicity
+                        String paymentMethodId = null;
+                        Iterator oppit = orderPaymentPreferences.iterator();
+                        while (oppit.hasNext()) {
+                            GenericValue orderPaymentPreference = (GenericValue) oppit.next();
+                            if (orderPaymentPreference.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
+                                paymentMethodId = orderPaymentPreference.getString("paymentMethodId");
+                                break;
+                            }
+                        }
+                        
+                        if (paymentMethodId != null ) {
+                            
+                            // Create a new OrderPaymentPreference for the order to handle the additional charge. Don't
+                            //  set the maxAmount so that it doesn't interfere with other authorizations
+                            Map serviceContext = UtilMisc.toMap("orderId", orderId, "paymentMethodId", paymentMethodId, "paymentMethodTypeId", "CREDIT_CARD", "userLogin", context.get("userLogin"));
+                            String orderPaymentPreferenceId = null;
+                            try {
+                                Map result = dispatcher.runSync("createOrderPaymentPreference", serviceContext);
+                                orderPaymentPreferenceId = (String) result.get("orderPaymentPreferenceId");
+                            } catch (GenericServiceException e) {
+                                String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCreateOrderPaymentPreferenceService", locale);
+                                Debug.logError(e, errMsg, module);
+                                return ServiceUtil.returnError(errMsg);
+                            }
+
+                            // Attempt to authorize the new orderPaymentPreference
+                            Map authResult = null;
+                            try {
+
+                                // Use an overrideAmount because the maxAmount wasn't set on the OrderPaymentPreference
+                                authResult = dispatcher.runSync("authOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId, "overrideAmount", new Double(totalAdditionalShippingCharges.doubleValue()), "userLogin", context.get("userLogin")));
+                            } catch (GenericServiceException e) {
+                                String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingAuthOrderPaymentPreferenceService", locale);
+                                Debug.logError(e, errMsg, module);
+                                return ServiceUtil.returnError(errMsg);
+                            }
+
+                            // If the authorization fails, create the invoice anyway, but make a note of it
+                            boolean authFinished = ( (Boolean) authResult.get("finished") ).booleanValue();
+                            boolean authErrors = ( (Boolean) authResult.get("errors") ).booleanValue();
+                            if (authErrors || ! authFinished) {
+                                String errMsg = UtilProperties.getMessage(resource, "AccountingUnableToAuthAdditionalShipCharges", UtilMisc.toMap("shipmentId", shipmentId, "paymentMethodId", paymentMethodId, "orderPaymentPreferenceId", orderPaymentPreferenceId), locale);
+                                Debug.logError(errMsg, module);
+                            }
+                            
+                        } 
+                    } 
+                }
             }
 
             // call the createInvoiceForOrder service for each order
@@ -1490,16 +1751,16 @@ public class InvoiceServices {
     }
 
     private static BigDecimal calcHeaderAdj(GenericDelegator delegator, GenericValue adj, String invoiceTypeId, String invoiceId, String invoiceItemSeqId, 
-            BigDecimal divisor, BigDecimal multiplier, BigDecimal invoiceQuantity, int decimals, int rounding, GenericValue userLogin, LocalDispatcher dispatcher, Locale locale) {
+            BigDecimal divisor, BigDecimal multiplier, BigDecimal baseAmount, int decimals, int rounding, GenericValue userLogin, LocalDispatcher dispatcher, Locale locale) {
         BigDecimal adjAmount = ZERO;
         if (adj.get("amount") != null) {
+
             // pro-rate the amount
-            BigDecimal baseAdjAmount = adj.getBigDecimal("amount");
             BigDecimal amount = ZERO;
             // make sure the divisor is not 0 to avoid NaN problems; just leave the amount as 0 and skip it in essense
             if (divisor.signum() != 0) {
                 // multiply first then divide to avoid rounding errors
-                amount = baseAdjAmount.multiply(multiplier).divide(divisor, decimals, rounding);
+                amount = baseAmount.multiply(multiplier).divide(divisor, decimals, rounding);
             }
             if (amount.signum() != 0) {
                 Map createInvoiceItemContext = FastMap.newInstance();
@@ -1530,6 +1791,21 @@ public class InvoiceServices {
                 if (ServiceUtil.isError(createInvoiceItemResult)) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceItemFromOrder",locale), null, null, createInvoiceItemResult);
                 }
+
+                // Create the OrderAdjustmentBilling record
+                Map createOrderAdjustmentBillingContext = FastMap.newInstance();
+                createOrderAdjustmentBillingContext.put("orderAdjustmentId", adj.getString("orderAdjustmentId"));
+                createOrderAdjustmentBillingContext.put("invoiceId", invoiceId);
+                createOrderAdjustmentBillingContext.put("invoiceItemSeqId", invoiceItemSeqId);
+                createOrderAdjustmentBillingContext.put("amount", new Double(amount.doubleValue()));
+                createOrderAdjustmentBillingContext.put("userLogin", userLogin);
+
+                try {
+                    Map createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                } catch( GenericServiceException e ) {
+                    ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderAdjustmentBillingFromOrder",locale), null, null, createOrderAdjustmentBillingContext);
+                }
+
             }
             amount.setScale(decimals, rounding);
             adjAmount = amount;
@@ -1573,6 +1849,21 @@ public class InvoiceServices {
                 if (ServiceUtil.isError(createInvoiceItemResult)) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceItemFromOrder",locale), null, null, createInvoiceItemResult);
                 }
+
+                // Create the OrderAdjustmentBilling record
+                Map createOrderAdjustmentBillingContext = FastMap.newInstance();
+                createOrderAdjustmentBillingContext.put("orderAdjustmentId", adj.getString("orderAdjustmentId"));
+                createOrderAdjustmentBillingContext.put("invoiceId", invoiceId);
+                createOrderAdjustmentBillingContext.put("invoiceItemSeqId", invoiceItemSeqId);
+                createOrderAdjustmentBillingContext.put("amount", new Double(amount.doubleValue()));
+                createOrderAdjustmentBillingContext.put("userLogin", userLogin);
+
+                try {
+                    Map createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                } catch( GenericServiceException e ) {
+                    ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingOrderAdjustmentBillingFromOrder",locale), null, null, createOrderAdjustmentBillingContext);
+                }
+
             }
             amount.setScale(decimals, rounding);
             adjAmount = amount;
@@ -2381,6 +2672,30 @@ public class InvoiceServices {
         errorMessageList.add("??unsuitable parameters passed...?? This message.... should never be shown\n");
         errorMessageList.add("--Input parameters...InvoiceId:" + invoiceId + " invoiceItemSeqId:" + invoiceItemSeqId + " PaymentId:" + paymentId + " toPaymentId:" + toPaymentId + "\n  paymentApplicationId:" + paymentApplicationId + " amountApplied:" + amountApplied);
         return ServiceUtil.returnError(errorMessageList);
+    }
+
+    public static Map calculateInvoicedAdjustmentTotalBd(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue orderAdjustment = (GenericValue) context.get("orderAdjustment");
+        Map result = ServiceUtil.returnSuccess();
+        
+        BigDecimal invoicedTotal = ZERO;
+        List invoicedAdjustments = null;
+        try {
+            invoicedAdjustments = delegator.findByAnd("OrderAdjustmentBilling", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.getString("orderAdjustmentId")));
+        } catch( GenericEntityException e ) {
+            String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingCalculateInvoicedAdjustmentTotalService" + ": " + e.getMessage(), locale);
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+        Iterator iait = invoicedAdjustments.iterator();
+        while (iait.hasNext()) {
+            GenericValue invoicedAdjustment = (GenericValue) iait.next();
+            invoicedTotal = invoicedTotal.add(invoicedAdjustment.getBigDecimal("amount").setScale(decimals, rounding));
+        }
+        result.put("invoicedTotal", invoicedTotal);
+        return result;
     }
 
     /**

@@ -254,4 +254,10 @@ under the License.
         <auto-attributes entity-name="InvoiceContactMech" include="pk" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
+    <service name="calculateInvoicedAdjustmentTotal" engine="java"
+            location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="calculateInvoicedAdjustmentTotalBd">
+        <description>Calculate the previously invoiced amount for an OrderAdjustment</description>
+        <attribute name="orderAdjustment" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="invoicedTotal" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
 </services>
