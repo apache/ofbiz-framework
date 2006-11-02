@@ -110,6 +110,8 @@ under the License.
 
         <field name="partyIdTo" title="${uiLabelMap.ProductToParty}" tooltip="${toPerson.firstName} ${toPerson.middleName} ${toPerson.lastName} ${toPartyGroup.groupName}" tooltip-style="tabletext"/>
         <field name="partyIdFrom" title="${uiLabelMap.ProductFromParty}" tooltip="${fromPerson.firstName} ${fromPerson.middleName} ${fromPerson.lastName} ${fromPartyGroup.groupName}" tooltip-style="tabletext"/>
+
+        <field name="additionalShippingCharge" title="${uiLabelMap.ProductAdditionalShippingCharge}"><text/></field>
         
         <field use-when="shipment!=null" name="createdDate" title="${uiLabelMap.ProductCreatedDate}" widget-style="tabletext"><display also-hidden="false" description="${shipment.createdDate}"/></field>
         <field use-when="shipment!=null" name="createdByUserLogin" title="${uiLabelMap.ProductCreatedByUserLogin}" widget-style="tabletext"><display also-hidden="false" description="${shipment.createdByUserLogin}"/></field>
