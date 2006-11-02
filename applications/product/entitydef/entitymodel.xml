@@ -3032,6 +3032,7 @@ under the License.
       <field name="daysToCancelNonPay" type="numeric"></field>
       <field name="manualAuthIsCapture" type="indicator"></field>
       <field name="prorateShipping" type="indicator"></field>
+      <field name="prorateTaxes" type="indicator"></field>
       <field name="viewCartOnAdd" type="indicator"></field>
       <field name="autoSaveCart" type="indicator"></field>
       <field name="autoApproveReviews" type="indicator"></field>
