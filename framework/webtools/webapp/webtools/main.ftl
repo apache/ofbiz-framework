@@ -50,7 +50,7 @@ under the License.
                 <li><div class="tabletext">${uiLabelMap.WebtoolsEntityEngineTools}</div>
                 <ul>
                   <li><a href="<@ofbizUrl>/entitymaint</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntityDataMaintenance}</a>
-                  <li><a href="<@ofbizUrl>/view/entityref</@ofbizUrl>" class="linktext" target="_blank">${uiLabelMap.WebtoolsServiceReference}</a>&nbsp;<a href="<@ofbizUrl>/view/entityref?forstatic=true</@ofbizUrl>" class="linktext" target="_blank">[Static Version]</a>
+                  <li><a href="<@ofbizUrl>/view/entityref</@ofbizUrl>" class="linktext" target="_blank">${uiLabelMap.WebtoolsEntityReference}</a>&nbsp;<a href="<@ofbizUrl>/view/entityref?forstatic=true</@ofbizUrl>" class="linktext" target="_blank">[Static Version]</a>
                   <li><a href="<@ofbizUrl>/EntitySQLProcessor</@ofbizUrl>" class="linktext">${uiLabelMap.PageTitleEntitySQLProcessor}</a>
                   <li><a href="<@ofbizUrl>/EntitySyncStatus</@ofbizUrl>" class="linktext">${uiLabelMap.WebtoolsEntitySyncStatus}</a>
                   <li><a href="<@ofbizUrl>/view/ModelInduceFromDb</@ofbizUrl>" target="_blank" class="linktext">${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</a><br/>
