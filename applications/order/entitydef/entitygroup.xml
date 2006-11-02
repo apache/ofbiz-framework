@@ -31,6 +31,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="OldOrderShipmentPreference" />
     <entity-group group="org.ofbiz" entity="OrderAdjustment" />
     <entity-group group="org.ofbiz" entity="OrderAdjustmentAttribute" />
+    <entity-group group="org.ofbiz" entity="OrderAdjustmentBilling" />
     <entity-group group="org.ofbiz" entity="OrderAdjustmentType" />
     <entity-group group="org.ofbiz" entity="OrderAdjustmentTypeAttr" />
     <entity-group group="org.ofbiz" entity="OrderAttribute" />

@@ -91,6 +91,9 @@ under the License.
       <field name="includeInShipping" type="indicator"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
+      <field name="originalAdjustmentId" type="id">
+          <description>specifies relation to source OrderAdjustment - eg. for tax on shipping charges</description>
+      </field>
       <!-- old fields, deprecated -->
         <field name="oldAmountPerQuantity" col-name="AMOUNT_PER_QUANTITY" type="currency-amount"></field>
         <field name="oldPercentage" col-name="PERCENTAGE" type="floating-point"></field>
@@ -148,6 +151,9 @@ under the License.
       <relation type="one" fk-name="ORDER_ADJ_TARP" rel-entity-name="TaxAuthorityRateProduct">
         <key-map field-name="taxAuthorityRateSeqId"/>
       </relation>
+      <relation type="one-nofk" fk-name="ORDER_ADJ_OA" rel-entity-name="OrderAdjustment">
+        <key-map field-name="originalAdjustmentId" rel-field-name="orderAdjustmentId"/>
+      </relation>
     </entity>
     <entity entity-name="OrderAdjustmentAttribute"
             package-name="org.ofbiz.order.order"
@@ -175,6 +181,28 @@ under the License.
       <prim-key field="orderAdjustmentTypeId"/>
       <relation type="one" fk-name="ORDER_ADJ_TYPPAR" title="Parent" rel-entity-name="OrderAdjustmentType">
         <key-map field-name="parentTypeId" rel-field-name="orderAdjustmentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="OrderAdjustmentBilling"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Order Adjustment Billing Entity">
+      <field name="orderAdjustmentId" type="id-ne"></field>
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="invoiceItemSeqId" type="id-ne"></field>
+      <field name="amount" type="currency-amount"></field>
+      <prim-key field="orderAdjustmentId"/>
+      <prim-key field="invoiceId"/>
+      <prim-key field="invoiceItemSeqId"/>
+      <relation type="one" fk-name="ORDER_ADJBLNG_OA" rel-entity-name="OrderAdjustment">
+        <key-map field-name="orderAdjustmentId"/>
+      </relation>
+      <relation type="one-nofk" fk-name="ORDER_ADJBLNG_INV" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ADJBLNG_IITM" rel-entity-name="InvoiceItem">
+        <key-map field-name="invoiceId"/>
+        <key-map field-name="invoiceItemSeqId"/>
       </relation>
     </entity>
     <entity entity-name="OrderAdjustmentTypeAttr"
