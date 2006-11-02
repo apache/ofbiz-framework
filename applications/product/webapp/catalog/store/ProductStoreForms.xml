@@ -51,6 +51,9 @@ under the License.
 		<field name="prorateShipping" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>		
+        <field name="prorateTaxes" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
         <field name="viewCartOnAdd" widget-style="selectBox">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
