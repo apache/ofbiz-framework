@@ -563,8 +563,8 @@ under the License.
     -->
 
     <simple-method method-name="getElectronicText" short-description="Get Electronic Text" login-required="false">
-        <field-to-env field-name="userLogin" map-name="parameters" env-name="userLogin"/>
-        <field-to-env field-name="content" map-name="parameters" env-name="currentContent"/>
+        <set field="userLogin" from-field="parameters.userLogin" />
+        <set field="currentContent" from-field="parameters.content" />
         <log level="always" message="GETELECTRONICTEXT, currentContent:${currentContent}"/>
         
         <if-empty field-name="currentContent">
