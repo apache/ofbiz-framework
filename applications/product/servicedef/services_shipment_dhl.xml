@@ -33,9 +33,9 @@ under the License.
     <implements service="calcShipmentEstimateInterface"/>
     <attribute name="dhlRateCodeMap" type="Map" mode="OUT" optional="false"/>
   </service>
-  <!-- DHL Lable API Services for testing-->
+  <!-- DHL Lable API Services -->
   <service name="dhlShipmentConfirm" engine="java"
-        location="org.ofbiz.shipment.thirdparty.dhl.DhlServices" invoke="dhlShipmentConfirm" auth="true">
+      location="org.ofbiz.shipment.thirdparty.dhl.DhlServices" invoke="dhlShipmentConfirm" auth="true" max-retry="3">
     <description>DHL Shipment Confirm</description>
     <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
   </service>
