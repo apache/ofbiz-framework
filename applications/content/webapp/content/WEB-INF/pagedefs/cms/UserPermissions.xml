@@ -33,7 +33,7 @@ under the License.
     <page-action name="/menu/currentmenuval.bsh"/>
     <page-action name="/menu/storecurrentmenuval.bsh"/>
     <page-action name="/menu/setcurrentmenuitem.bsh"/>
-
+    <!--
     <content-action name="/menu/userpermprep.bsh" />
-
+    -->
 </page>
