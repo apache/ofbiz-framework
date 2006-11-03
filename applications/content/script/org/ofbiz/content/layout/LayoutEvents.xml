@@ -27,7 +27,7 @@ under the License.
       <log level="always" message="context: ${context}"/>
       <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId" />   
       <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
-      <env-to-field env-name="targetOperationList"  map-name="context" field-name="targetOperationList" />
+      <set field="context.targetOperationList" from-field="targetOperationList" />  
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
       <set field="context.objectInfo" from-field="parameters.drObjectInfo" />  
       <set field="context.dataResourceTypeId" value="LOCAL_FILE" />  
@@ -55,8 +55,7 @@ under the License.
       <set field="context.currentContent" from-field="currentContent" />  
       <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId" />  
       <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
-      <env-to-field env-name="targetOperationList" map-name="context" 
-               field-name="targetOperationList" />
+      <set field="context.targetOperationList" from-field="targetOperationList" />  
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
       <call-service in-map-name="context" service-name="checkContentPermission">
         <result-to-field field-name="permissionStatus" result-name="permissionStatus"/>
