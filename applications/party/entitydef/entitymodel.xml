@@ -1176,6 +1176,11 @@ under the License.
         <view-link entity-alias="CLP" rel-entity-alias="CM">
             <key-map field-name="preferredContactMechId" rel-field-name="contactMechId"/>
         </view-link>
+        <relation type="one-nofk" rel-entity-name="ContactListParty">
+            <key-map field-name="contactListId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
     </view-entity>
 
   <!-- ========================================================= -->
