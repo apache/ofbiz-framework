@@ -57,6 +57,13 @@ under the License.
         <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
         <auto-fields-service service-name="updateProductPromoCode" map-name=""/>
 
+        <field name="productPromoId" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="ProductPromo" description="[${productPromoId}] ${promoName}">
+                    <entity-order-by field-name="productPromoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field use-when="productPromoCode!=null" name="productPromoCodeId" tooltip=""><display/></field>
         <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId!=null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductCouldNotFindProductPromoCode} [${productPromoCodeId}]"><display/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
