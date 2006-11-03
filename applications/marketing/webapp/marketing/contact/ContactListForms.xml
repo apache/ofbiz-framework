@@ -216,7 +216,7 @@ under the License.
         <alt-target target="createContactListCommEvent" use-when="communicationEvent==null"/>
         <field name="communicationEventId" use-when="communicationEvent!=null" title="${uiLabelMap.ContactListCommEventId}"><display/></field>
         <field name="communicationEventTypeId" title="${uiLabelMap.ContactListCommEventTypeId}">
-            <drop-down>
+            <drop-down no-current-selected-key="EMAIL_COMMUNICATION">
                 <entity-options entity-name="CommunicationEventType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -289,7 +289,7 @@ under the License.
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-time/></field>
         <field name="subject" title="${uiLabelMap.PartySubject}"><text size="30"/></field>
         <field name="contentMimeTypeId">
-            <drop-down no-current-selected-key="_NA_" allow-empty="false">
+            <drop-down no-current-selected-key="text/html" allow-empty="false">
                 <entity-options description="${mimeTypeId}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
                 </entity-options>
