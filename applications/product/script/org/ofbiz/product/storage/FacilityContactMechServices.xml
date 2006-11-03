@@ -44,7 +44,7 @@ under the License.
         <field-to-request field-name="contactMechId" map-name="newValue"/>
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newValue"/>
+        <set field="newValue.fromDate" from-field="nowTimestamp" />
         <create-value value-name="newValue"/>
     </simple-method>
     
@@ -87,8 +87,8 @@ under the License.
 
         <set-nonpk-fields value-name="newFacilityContactMech" map-name="parameters" set-if-null="false"/>
         <now-timestamp-to-env env-name="now"/>
-        <env-to-field env-name="now" field-name="fromDate" map-name="newFacilityContactMech"/>
-        <env-to-field env-name="now" field-name="thruDate" map-name="facilityContactMech"/>
+        <set field="newFacilityContactMech.fromDate" from-field="now" />
+        <set field="facilityContactMech.thruDate" from-field="now" />
         <field-to-list list-name="storeList" field-name="newFacilityContactMech"/>
         
         <if-compare-field field-name="contactMechId" map-name="parameters" to-map-name="newFacilityContactMech" operator="not-equals">
@@ -120,7 +120,7 @@ under the License.
             <return/>
         </if-empty>
         <now-timestamp-to-env env-name="now"/>
-        <env-to-field env-name="now" field-name="thruDate" map-name="facilityContactMech"/>
+        <set field="facilityContactMech.thruDate" from-field="now" />
         <store-value value-name="facilityContactMech"/>
     </simple-method>
     
@@ -272,7 +272,7 @@ under the License.
         <set field="newEntity.facilityId" from-field="parameters.facilityId" />
         <set field="newEntity.contactMechId" from-field="parameters.contactMechId" />
         <set field="newEntity.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
-        <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+        <set field="newEntity.fromDate" from-field="nowTimestamp" />
         <create-value value-name="newEntity"/>
         
         <field-to-result field-name="fromDate" map-name="newEntity" result-name="fromDate"/>
@@ -292,7 +292,7 @@ under the License.
         </if-empty>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="thruDate" map-name="purposeEntity"/>
+        <set field="purposeEntity.thruDate" from-field="nowTimestamp" />
         <store-value value-name="purposeEntity"/>                
     </simple-method>    
 </simple-methods>

@@ -41,7 +41,7 @@ under the License.
       <log level="always" message="context: ${context}"/>
       <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId" />  
       <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
-      <env-to-field env-name="targetOperationList" map-name="context" field-name="targetOperationList" />  
+      <set field="context.targetOperationList" from-field="targetOperationList" />  
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
       <call-service in-map-name="context" service-name="createContent">
         <result-to-field field-name="contentId" result-name="contentId"/>
@@ -59,10 +59,9 @@ under the License.
           <set field="currentEntityMap" from-field="entityMap"/>
       </if-not-empty>
       <make-value entity-name="Content" value-name="contentPK"/>
-      <env-to-field env-name="contentId" 
-                map-name="contentPK" field-name="contentId"/>
+      <set field="contentPK.contentId" from-field="contentId" />  
       <log level="always" message="contentPK: ${contentPK}"/>
-      <env-to-field env-name="contentPK" map-name="currentEntityMap" field-name="Content" />
+      <set field="currentEntityMap.Content" from-field="contentPK" />  
       <log level="always" message="currentEntityMap: ${currentEntityMap}"/>
       <field-to-session session-name="currentEntityMap" field-name="currentEntityMap" />
 
@@ -101,9 +100,9 @@ under the License.
       <map-to-map map-name="currentContent" to-map-name="context" />
       <get-related value-name="currentContent" relation-name="ContentPurpose"
                   list-name="contentPurposeList" />
-      <env-to-field env-name="contentPurposeList" map-name="context" field-name="contentPurposeList" />  
+      <set field="context.contentPurposeList" from-field="contentPurposeList" />  
       <string-to-list list-name="targetOperationList" string="CONTENT_UPDATE"/>
-      <env-to-field env-name="targetOperationList" map-name="context" field-name="targetOperationList" />  
+      <set field="context.targetOperationList" from-field="targetOperationList" />          
       <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
       <call-service in-map-name="context" service-name="updateContent">
         <result-to-field field-name="contentId" result-name="contentId"/>

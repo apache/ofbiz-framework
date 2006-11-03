@@ -28,7 +28,7 @@ under the License.
         
         <sequenced-id-to-env sequence-name="Facility" env-name="facilityId"/>
         <to-string field-name="facilityId"/>
-        <env-to-field env-name="facilityId" map-name="newEntity"/>
+        <set field="newEntity.facilityId" from-field="facilityId" />
         <field-to-result field-name="facilityId" result-name="facilityId"/>
         
         <create-value value-name="newEntity"/>
@@ -81,12 +81,12 @@ under the License.
         <set field="locationSeqId" value="${parameters.areaId}${parameters.aisleId}${parameters.sectionId}${parameters.levelId}${parameters.positionId}"/>
         <!-- check to see if it exists already, if so try a simple suffix, then give up and use a sequenced id -->
         <if-not-empty field-name="locationSeqId">
-            <env-to-field env-name="locationSeqId" map-name="checkLocationSeqIdMap"/>
+            <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
             <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
             <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
             <if-not-empty field-name="checkLocationSeqIdValue">
                 <set field="locationSeqId" value="${locationSeqId}_2" />
-                <env-to-field env-name="locationSeqId" map-name="checkLocationSeqIdMap"/>
+                <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
                 <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
                 <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
                 <if-not-empty field-name="checkLocationSeqIdValue">
@@ -99,8 +99,7 @@ under the License.
             <sequenced-id-to-env sequence-name="FacilityLocation" env-name="locationSeqId"/>
             <to-string field-name="locationSeqId"/>
         </if-empty>
-        
-        <env-to-field env-name="locationSeqId" map-name="newEntity"/>
+        <set field="newEntity.locationSeqId" from-field="locationSeqId" />
         <field-to-result field-name="locationSeqId" result-name="locationSeqId"/>
         
         <create-value value-name="newEntity"/>
@@ -135,7 +134,7 @@ under the License.
         
         <sequenced-id-to-env sequence-name="FacilityGroup" env-name="facilityGroupId"/>
         <to-string field-name="facilityGroupId"/>
-        <env-to-field env-name="facilityGroupId" map-name="newEntity"/>
+        <set field="newEntity.facilityGroupId" from-field="facilityGroupId" />
         <field-to-result field-name="facilityGroupId" result-name="facilityGroupId"/>
         
         <create-value value-name="newEntity"/>
@@ -169,7 +168,7 @@ under the License.
         
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
         <create-value value-name="newEntity"/>
@@ -205,7 +204,7 @@ under the License.
         
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
         <create-value value-name="newEntity"/>

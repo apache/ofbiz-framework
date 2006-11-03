@@ -33,12 +33,12 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <if-empty field-name="fromDate" map-name="newEntity">
-            <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newEntity"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         <field-to-result field-name="fromDate" map-name="newEntity"/>
 
-        <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="newEntity"/>
-        <env-to-field env-name="nowTimestamp" field-name="createdDate" map-name="newEntity"/>
+        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp" />
+        <set field="newEntity.createdDate" from-field="nowTimestamp" />
         <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
         <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId" />
 
@@ -59,7 +59,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="lastModifiedDate" map-name="lookedUpValue"/>
+        <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp" />
         <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
 
         <store-value value-name="lookedUpValue"/>
@@ -97,10 +97,9 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <sequenced-id-to-env sequence-name="ProductPriceChange" env-name="productPriceChangeId"/>
-        <env-to-field env-name="productPriceChangeId" map-name="newEntity"/>
-
+        <set field="newEntity.productPriceChangeId" from-field="productPriceChangeId" />    
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <env-to-field env-name="nowTimestamp" field-name="changedDate" map-name="newEntity"/>
+        <set field="newEntity.changedDate" from-field="nowTimestamp" />
         <set field="newEntity.changedByUserLogin" from-field="userLogin.userLoginId" />
 
         <create-value value-name="newEntity"/>

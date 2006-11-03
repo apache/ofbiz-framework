@@ -64,8 +64,8 @@ under the License.
         <now-timestamp-to-env env-name="nowStamp"/>
 
         <if-compare field-name="create_allow_password" operator="not-equals" value="true">
-            <env-to-field env-name="default_user_password" field-name="PASSWORD" map-name="parameters"/>
-            <env-to-field env-name="default_user_password" field-name="CONFIRM_PASSWORD" map-name="parameters"/>
+            <set field="parameters.PASSWORD" from-field="default_user_password" />
+            <set field="parameters.CONFIRM_PASSWORD" from-field="default_user_password" />
             <set field="parameters.PASSWORD_HINT" value="No hint set, accout not yet enabled" />
         </if-compare>
 
@@ -283,7 +283,7 @@ under the License.
         <!-- create the PartyDataSource entry to track where this info came from... -->
         <make-value entity-name="PartyDataSource" value-name="partyDataSource"/>
         <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE" />
-        <env-to-field env-name="nowStamp" field-name="fromDate" map-name="partyDataSource"/>
+        <set field="partyDataSource.fromDate" from-field="nowStamp" />
         <set field="partyDataSource.isCreate" value="Y" />
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field-name="visit"/>

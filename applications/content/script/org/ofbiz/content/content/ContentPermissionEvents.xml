@@ -23,7 +23,7 @@ under the License.
         <if-empty field-name="contentId" map-name="currentContent">
             <make-next-seq-id seq-field-name="contentId" value-name="currentContent"/>
             <sequenced-id-to-env env-name="id" sequence-name="Content"/>
-            <env-to-field env-name="id" field-name="contentId" map-name="currentContent"/>
+            <set field="currentContent.contentId" from-field="id" />
         </if-empty>
         <log level="always" message="currentContent: ${currentContent}"/>
         <field-to-list field-name="contentPurposeTypeId"
