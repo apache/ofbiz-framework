@@ -230,7 +230,7 @@ under the License.
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
                         <container>
-                            <link target="EditProductPromoCode" text="[${uiLabelMap.ProductNewPromotionCode}]" style="buttontext"/>
+                            <link target="EditProductPromoCode?productPromoId=${productPromoId}" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext"/>
                         </container>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/FindProductPromoCode.ftl"/></html>
