@@ -56,7 +56,7 @@ under the License.
 
       <session-to-field session-name="currentEntityMap" field-name="entityMap" />
       <if-not-empty field-name="entityMap" >
-          <env-to-env env-name="entityMap" to-env-name="currentEntityMap" />
+          <set field="currentEntityMap" from-field="entityMap"/>
       </if-not-empty>
       <make-value entity-name="Content" value-name="contentPK"/>
       <env-to-field env-name="contentId" 

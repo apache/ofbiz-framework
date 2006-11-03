@@ -618,7 +618,7 @@ under the License.
     <!-- Util -->
     <simple-method method-name="findAssocContent" short-description="Find associated content">
         <set from-field="parameters.contentId" field="queryMap.contentId"/>
-        <field-to-env field-name="mapKeys" map-name="parameters"/>
+        <set field="mapKeys" from-field="parameters.mapKeys" />
         <field-to-list field-name="mapKey" list-name="mapKeys"/>
         <iterate entry-name="mapKey" list-name="mapKeys">
             <set from-field="mapKey" field="queryMap.mapKey"/>

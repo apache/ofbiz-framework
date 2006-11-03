@@ -41,9 +41,9 @@ under the License.
                         <if-not-empty field-name="orderItem.productId">
                             <clear-field field-name="callSvcMap"/>
                             <set-service-fields to-map-name="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map-name="orderItem"/>
-                            <env-to-env env-name="orderHeader" to-env-name="callSvcMap.orderHeader"/>
-                            <env-to-env env-name="orderItem" to-env-name="callSvcMap.orderItem"/>
-                            <env-to-env env-name="productStore" to-env-name="callSvcMap.productStore"/>
+                            <set field="callSvcMap.orderHeader" from-field="orderHeader" />
+                            <set field="callSvcMap.orderItem" from-field="orderItem" />
+                            <set field="callSvcMap.productStore" from-field="productStore" />
                             <call-service service-name="issueImmediatelyFulfilledOrderItem" in-map-name="callSvcMap"/>
                         </if-not-empty>
                     </iterate>
@@ -62,7 +62,7 @@ under the License.
         <if-empty field-name="parameters.orderItem">
             <entity-one entity-name="OrderItem" value-name="orderItem"/>
         <else>
-            <env-to-env env-name="parameters.orderItem" to-env-name="orderItem"/>
+            <set field="orderItem" from-field="parameters.orderItem" />
         </else>
         </if-empty>
 
@@ -74,7 +74,7 @@ under the License.
             <if-empty field-name="parameters.orderHeader">
                 <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
             <else>
-                <env-to-env env-name="parameters.orderHeader" to-env-name="orderHeader"/>
+                <set field="orderHeader" from-field="parameters.orderHeader" />
             </else>
             </if-empty>
             
@@ -84,7 +84,7 @@ under the License.
                     <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
                 </entity-one>
             <else>
-                <env-to-env env-name="parameters.productStore" to-env-name="productStore"/>
+                <set field="productStore" from-field="parameters.productStore" />
             </else>
             </if-empty>
             
@@ -107,11 +107,11 @@ under the License.
             </else>
             </if-compare>
             <field-to-list field-name="orderByString" list-name="orderByList"/>
-            <env-to-env env-name="orderItem.productId" to-env-name="lookupFieldMap.productId"/>
-            <env-to-env env-name="orderHeader.originFacilityId" to-env-name="lookupFieldMap.facilityId"/>
+            <set field="lookupFieldMap.productId" from-field="orderItem.productId" />
+            <set field="lookupFieldMap.facilityId" from-field="orderHeader.originFacilityId" />            
             <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItemList" order-by-list-name="orderByList"/>
     
-            <env-to-env env-name="orderItem.quantity" to-env-name="parameters.quantityNotIssued"/>
+            <set field="parameters.quantityNotIssued" from-field="orderItem.quantity" />
 
             <iterate entry-name="inventoryItem" list-name="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -125,17 +125,17 @@ under the License.
                     <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
                     <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
                     <set field="issuanceCreateMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId" />
-                    <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
+                    <set field="issuanceCreateMap.quantity" from-field="parameters.quantityNotIssued" />
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
                         <result-to-field result-name="itemIssuanceId"/>
                     </call-service>
 
                     <!-- subtract from quantityNotIssued from the availableToPromise and quantityOnHand of existing inventory item -->
                     <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                    <env-to-env env-name="lastNonSerInventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
-                    <env-to-env env-name="parameters.orderId" to-env-name="createDetailMap.orderId"/>
-                    <env-to-env env-name="parameters.orderItemSeqId" to-env-name="createDetailMap.orderItemSeqId"/>
-                    <env-to-env env-name="itemIssuanceId" to-env-name="createDetailMap.itemIssuanceId"/>
+                    <set field="createDetailMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId" />
+                    <set field="createDetailMap.orderId" from-field="parameters.orderId" />
+                    <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />                                        
+                    <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId" />                    
                     <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -161,16 +161,16 @@ under the License.
                     <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
                     <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
                     <set field="issuanceCreateMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
-                    <env-to-env env-name="parameters.quantityNotIssued" to-env-name="issuanceCreateMap.quantity"/>
+                    <set field="issuanceCreateMap.quantity" from-field="parameters.quantityNotIssued" />
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
                         <result-to-field result-name="itemIssuanceId"/>
                     </call-service>
 
                     <!-- also create a detail record with the quantities -->
                     <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
-                    <env-to-env env-name="parameters.orderId" to-env-name="createDetailMap.orderId"/>
-                    <env-to-env env-name="parameters.orderItemSeqId" to-env-name="createDetailMap.orderItemSeqId"/>
-                    <env-to-env env-name="itemIssuanceId" to-env-name="createDetailMap.itemIssuanceId"/>
+                    <set field="createDetailMap.orderId" from-field="parameters.orderId" />
+                    <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
+                    <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId" />
                     <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -231,10 +231,10 @@ under the License.
                         </call-service>
 
                         <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                        <env-to-env env-name="inventoryItem.inventoryItemId" to-env-name="createDetailMap.inventoryItemId"/>
-                        <env-to-env env-name="parameters.orderId" to-env-name="createDetailMap.orderId"/>
-                        <env-to-env env-name="parameters.orderItemSeqId" to-env-name="createDetailMap.orderItemSeqId"/>
-                        <env-to-env env-name="itemIssuanceId" to-env-name="createDetailMap.itemIssuanceId"/>
+                        <set field="createDetailMap.inventoryItemId" from-field="inventoryItem.inventoryItemId" />
+                        <set field="createDetailMap.orderId" from-field="parameters.orderId" />
+                        <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
+                        <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId" />
                         <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
                         <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                             <calcop field-name="parameters.deductAmount" operator="negative"/>
@@ -258,7 +258,7 @@ under the License.
 
                 <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
                 <!-- use env variable named lastNonSerInventoryItem -->
-                <env-to-env env-name="inventoryItem" to-env-name="lastNonSerInventoryItem"/>
+                <set field="lastNonSerInventoryItem" from-field="inventoryItem" />
             </if-compare>
         </if-compare>
     </simple-method>
