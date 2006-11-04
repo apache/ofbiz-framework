@@ -48,9 +48,9 @@ under the License.
             <actions>
                 <set field="headerItem" value="orderentry"/>
                 <set field="title-property" value="PageTitleCheckoutOptions"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutpayment.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutoptions.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/storepaymentoptions.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkoutpayment.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkoutoptions.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/storepaymentoptions.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -58,7 +58,7 @@ under the License.
                         <container>
                             <label style="head1" text="${uiLabelMap.OrderQuickFinalizeOrder}"/>
                         </container>
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/checkoutoptions.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/checkoutoptions.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
