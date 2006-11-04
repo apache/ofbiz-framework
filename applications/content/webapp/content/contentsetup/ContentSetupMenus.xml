@@ -17,7 +17,9 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-    <menu name="contentsetup" default-title-style="tabButton"
+    <menu name="contentsetup" 
+        selected-menuitem-context-field-name="currentMenuItemName"
+        default-title-style="tabButton"
         default-selected-style="tabButtonSelected"
         default-menu-item-name="content"
         orientation="horizontal"
@@ -28,7 +30,6 @@ under the License.
 
         <menu-item name="contentPurposeOp" title="${uiLabelMap.PageTitleEditContentPurposeOperation}" >
             <link target="EditContentPurposeOperation" target-window="_top" style="tabButton" />
-       
         </menu-item>
 
         <menu-item name="contentOp" title="${uiLabelMap.PageTitleEditContentOperation}" >

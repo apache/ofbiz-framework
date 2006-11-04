@@ -1114,11 +1114,11 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://content/webapp/content/dummy.ftl"/>
-                                    </html>
-                                </platform-specific>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/dummy.ftl"/>
+                            </html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
