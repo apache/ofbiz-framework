@@ -2015,13 +2015,12 @@ public class OrderServices {
         String note = (String) context.get("note");
         String screenUri = (String) context.get("screenUri");
         
+        GenericValue temporaryAnonymousUserLogin = (GenericValue) context.get("temporaryAnonymousUserLogin");
         if (userLogin == null) {
             // this may happen during anonymous checkout, try to the special case user
-            GenericValue temporaryAnonymousUserLogin = (GenericValue) context.get("temporaryAnonymousUserLogin");
             userLogin = temporaryAnonymousUserLogin;
         }
         
-
         // prepare the order information
         Map sendMap = FastMap.newInstance();
 
@@ -2079,6 +2078,12 @@ public class OrderServices {
         if (locale == null && placingParty != null) {
             locale = PartyWorker.findPartyLastLocale(placingParty.getString("partyId"), delegator);
         }
+
+        // for anonymous orders, use the temporaryAnonymousUserLogin as the placingUserLogin will be null
+        if (placingUserLogin == null) {
+            placingUserLogin = temporaryAnonymousUserLogin;
+        }
+        
         GenericValue productStore = OrderReadHelper.getProductStoreFromOrder(orderHeader);
         if (locale == null && productStore != null) {
             String localeString = productStore.getString("defaultLocaleString");
