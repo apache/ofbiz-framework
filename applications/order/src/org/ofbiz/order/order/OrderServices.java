@@ -2014,6 +2014,13 @@ public class OrderServices {
         String sendCc = (String) context.get("sendCc");
         String note = (String) context.get("note");
         String screenUri = (String) context.get("screenUri");
+        
+        if (userLogin == null) {
+            // this may happen during anonymous checkout, try to the special case user
+            GenericValue temporaryAnonymousUserLogin = (GenericValue) context.get("temporaryAnonymousUserLogin");
+            userLogin = temporaryAnonymousUserLogin;
+        }
+        
 
         // prepare the order information
         Map sendMap = FastMap.newInstance();
