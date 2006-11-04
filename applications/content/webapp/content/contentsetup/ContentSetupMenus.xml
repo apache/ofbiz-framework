@@ -40,7 +40,7 @@ under the License.
             <link target="EditContentAssocPredicate" target-window="_top" style="tabButton" />
         </menu-item>
 
-        <menu-item name="typeAttr" title="${uiLabelMap.PageTitleEditContentAttribute}" >
+        <menu-item name="typeAttr" title="${uiLabelMap.PageTitleEditContentTypeAttribute}" >
             <link target="EditContentTypeAttr" target-window="_top" style="tabButton" />
         </menu-item>
 
