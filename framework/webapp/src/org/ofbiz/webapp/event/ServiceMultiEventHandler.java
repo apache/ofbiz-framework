@@ -199,20 +199,22 @@ public class ServiceMultiEventHandler implements EventHandler {
                         List paramList = UtilHttp.makeParamListWithSuffix(request, modelParam.stringListSuffix, null);
                         value = paramList;
                     } else {
+                        // check attributes; do this before parameters so that attribute which can be changed by code can override parameters which can't
+                        value = request.getAttribute(paramName + curSuffix);
+
                         // first check for request parameters
-                        String[] paramArr = request.getParameterValues(paramName + curSuffix);
-                        if (paramArr != null) {
-                            if (paramArr.length > 1) {
-                                value = Arrays.asList(paramArr);
-                            } else {
-                                value = paramArr[0];
+                        if (value == null) {
+                            String[] paramArr = request.getParameterValues(paramName + curSuffix);
+                            if (paramArr != null) {
+                                if (paramArr.length > 1) {
+                                    value = Arrays.asList(paramArr);
+                                } else {
+                                    value = paramArr[0];
+                                }
                             }
                         }
 
-                        // if the parameter wasn't passed and no other value found, don't pass on the null
-                        if (value == null) {
-                            value = request.getAttribute(paramName + curSuffix);
-                        }
+                        // if the parameter wasn't passed and no other value found, check the session
                         if (value == null) {
                             value = session.getAttribute(paramName + curSuffix);
                         }
