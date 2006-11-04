@@ -22,8 +22,8 @@ under the License.
   <!-- org.ofbiz.content.commevent -->
   <!-- ========================================================= -->
 
-	<entity-group group="org.ofbiz" entity="CommEventContentAssoc" />
-	<entity-group group="org.ofbiz" entity="CommContentAssocType" />
+    <entity-group group="org.ofbiz" entity="CommEventContentAssoc" />
+    <entity-group group="org.ofbiz" entity="CommContentAssocType" />
     <entity-group group="org.ofbiz" entity="CommEventContentDataResource" />
 
   <!-- ========================================================= -->
