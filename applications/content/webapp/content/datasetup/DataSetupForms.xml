@@ -34,15 +34,18 @@ under the License.
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         list-name="contentList" 
         target="updateDataResourceType" title="" type="list">
+        <actions>
+          <entity-condition entity-name="DataResourceType" use-cache="false"/>
+        </actions>
         <auto-fields-service service-name="updateDataResourceType"/>
-        <field name="dataResourceTypeId" widget-style="buttontext">
+        <field name="dataResourceTypeId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeDataResourceType?dataResourceTypeId=${dataResourceTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceType?dataResourceTypeId=${dataResourceTypeId}"/>
         </field>
     </form>
     
@@ -67,18 +70,21 @@ under the License.
     <form
         name="UpdateDataResourceTypeAttr"
         default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         list-name="contentList" 
         target="updateDataResourceTypeAttr" title="" type="list">
+        <actions>
+          <entity-condition entity-name="DataResourceTypeAttr" use-cache="false"/>
+        </actions>
         <auto-fields-service service-name="createDataResourceTypeAttr"/>
-        <field name="dataResourceTypeId" widget-style="buttontext">
+        <field name="dataResourceTypeId">
             <display/>
         </field>
-        <field name="attrName" title="Attribute Name" widget-style="buttontext">
+        <field name="attrName" title="Attribute Name">
             <display/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeDataResourceTypeAttr?dataResourceTypeId=${dataResourceTypeId}&amp;attrName=${attrName}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceTypeAttr?dataResourceTypeId=${dataResourceTypeId}&amp;attrName=${attrName}"/>
         </field>
     </form>
     
@@ -99,15 +105,18 @@ under the License.
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         list-name="contentList" 
         target="updateCharacterSet" title="" type="list">
+        <actions>
+          <entity-condition entity-name="CharacterSet" use-cache="false"/>
+        </actions>
         <auto-fields-service service-name="updateCharacterSet"/>
-        <field name="characterSetId" widget-style="buttontext">
+        <field name="characterSetId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeCharacterSet?characterSetId=${characterSetId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCharacterSet?characterSetId=${characterSetId}"/>
         </field>
     </form>
     
@@ -136,7 +145,7 @@ under the License.
         list-name="contentList" 
         target="updateDataCategory" title="" type="list">
         <auto-fields-service service-name="updateDataCategory"/>
-        <field name="dataCategoryId" widget-style="buttontext">
+        <field name="dataCategoryId" widget-style="tabletext">
             <display/>
         </field>
         <field name="parentCategoryId">
@@ -150,7 +159,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeDataCategory?dataCategoryId=${dataCategoryId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataCategory?dataCategoryId=${dataCategoryId}"/>
         </field>
     </form>
     
@@ -177,8 +186,11 @@ under the License.
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         list-name="contentList" 
         target="updateFileExtension" title="" type="list">
+        <actions>
+          <entity-condition entity-name="FileExtension" use-cache="false"/>
+        </actions>
         <auto-fields-service service-name="updateFileExtension"/>
-        <field name="fileExtensionId" widget-style="buttontext">
+        <field name="fileExtensionId" widget-style="tabletext">
             <display/>
         </field>
         <field name="mimeTypeId" title="" >
@@ -191,7 +203,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeFileExtension?fileExtensionId=${fileExtensionId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeFileExtension?fileExtensionId=${fileExtensionId}"/>
         </field>
     </form>
     
@@ -212,15 +224,18 @@ under the License.
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         list-name="contentList" 
         target="updateMetaDataPredicate" title="" type="list">
+        <actions>
+          <entity-condition entity-name="MetaDataPredicate" use-cache="false"/>
+        </actions>
         <auto-fields-service service-name="updateMetaDataPredicate"/>
-        <field name="metaDataPredicateId" widget-style="buttontext">
+        <field name="metaDataPredicateId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeMetaDataPredicate?metaDataPredicateId=${metaDataPredicateId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMetaDataPredicate?metaDataPredicateId=${metaDataPredicateId}"/>
         </field>
     </form>
     
@@ -241,15 +256,18 @@ under the License.
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         list-name="contentList" 
         target="updateMimeType" title="" type="list">
+        <actions>
+          <entity-condition entity-name="MimeType" use-cache="false"/>
+        </actions>
         <auto-fields-service service-name="updateMimeType"/>
-        <field name="mimeTypeId" widget-style="buttontext">
+        <field name="mimeTypeId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeMimeType?mimeTypeId=${mimeTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeType?mimeTypeId=${mimeTypeId}"/>
         </field>
     </form>
 </forms>

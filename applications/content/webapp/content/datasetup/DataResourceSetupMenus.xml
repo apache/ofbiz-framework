@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
+    <menu name="dataresourcesetup" 
+        default-title-style="tabButton"
+        default-selected-style="tabButtonSelected"
+        default-menu-item-name="content"
+        orientation="horizontal"
+        menu-width="100%"
+        default-tooltip-style="tabletext" default-widget-style="tabButton"
+        default-associated-content-id="${userLogin.userLoginId}"
+        title="" type="simple">
+
+        <menu-item name="EditDataResourceType" title="${uiLabelMap.CommonType}" >
+            <link target="EditDataResourceType" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="EditCharacterSet" title="${uiLabelMap.ContentCharacterSet}" >
+            <link target="EditCharacterSet" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="EditDataCategory" title="${uiLabelMap.ContentCategory}" >
+            <link target="EditDataCategory" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="EditDataResourceTypeAttr" title="${uiLabelMap.ContentTypeAttr}" >
+            <link target="EditDataResourceTypeAttr" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="EditFileExtension" title="${uiLabelMap.ContentFileExt}" >
+            <link target="EditFileExtension" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="EditMetaDataPredicate" title="${uiLabelMap.ContentMetaDataPred}" >
+            <link target="EditMetaDataPredicate" target-window="_top" style="tabButton" />
+        </menu-item>
+        <menu-item name="EditMimeType" title="${uiLabelMap.ContentMimeType}" >
+            <link target="EditMimeType" target-window="_top" style="tabButton" />
+        </menu-item>
+    </menu>
+</menus>
