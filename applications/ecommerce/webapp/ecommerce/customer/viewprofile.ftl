@@ -343,7 +343,7 @@ under the License.
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>createCustomerTaxAuthInfo</@ofbizUrl>" name="createCustTaxAuthInfoForm">
             <input type="hidden" name="partyId" value="${party.partyId}"/>
-            ${screens.render("component://ecommerce/widget/CustomerScreens.xml#customertaxinfo")}
+            ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
             <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
         </form>
     </div>

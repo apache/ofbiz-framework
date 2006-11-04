@@ -99,7 +99,7 @@ function toggleBillingAccount(box) {
              </table>
             <#-- Party Tax Info -->
             <div class="tableheadtext">&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
-            ${screens.render("component://ecommerce/widget/CustomerScreens.xml#customertaxinfo")}
+            ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
         </div>
     </div>
 </form>
