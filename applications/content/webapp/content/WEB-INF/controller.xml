@@ -1595,13 +1595,13 @@ under the License.
 
     <view-map name="BrowseDataResource" page="/content/BrowseDataResource.ftl" type="jpublish"/>
  
-    <view-map name="EditDataResourceType" page="/datasetup/EditDataResourceType.ftl" type="jpublish"/>
-    <view-map name="EditDataResourceTypeAttr" page="/datasetup/EditDataResourceTypeAttr.ftl" type="jpublish"/>
+    <view-map name="EditDataResourceType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceType" type="screen"/>
+    <view-map name="EditDataResourceTypeAttr" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceTypeAttr" type="screen"/>
     <view-map name="EditDataCategory" page="/datasetup/EditDataCategory.ftl" type="jpublish"/>
-    <view-map name="EditMetaDataPredicate" page="/datasetup/EditMetaDataPredicate.ftl" type="jpublish"/>
-    <view-map name="EditCharacterSet" page="/datasetup/EditCharacterSet.ftl" type="jpublish"/>
-    <view-map name="EditFileExtension" page="/datasetup/EditFileExtension.ftl" type="jpublish"/>
-    <view-map name="EditMimeType" page="/datasetup/EditMimeType.ftl" type="jpublish"/>
+    <view-map name="EditMetaDataPredicate" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMetaDataPredicate" type="screen"/>
+    <view-map name="EditCharacterSet" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditCharacterSet" type="screen"/>
+    <view-map name="EditFileExtension" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditFileExtension" type="screen"/>
+    <view-map name="EditMimeType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeType" type="screen"/>
 
     <view-map name="ListLayout" page="/layout/ListLayout.ftl" type="jpublish"/>
     <view-map name="FindLayout" page="/layout/FindLayout.ftl" type="jpublish"/>
