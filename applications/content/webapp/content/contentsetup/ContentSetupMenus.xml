@@ -44,11 +44,11 @@ under the License.
             <link target="EditContentTypeAttr" target-window="_top" style="tabButton" />
         </menu-item>
 
-        <menu-item name="purposeType" title="${uiLabelMap.PageTitleEditContentPurpose}" >
+        <menu-item name="purposeType" title="${uiLabelMap.PageTitleEditContentPurposeType}" >
             <link target="EditContentPurposeType" target-window="_top" style="tabButton" />
         </menu-item>
 
-        <menu-item name="assocType" title="${uiLabelMap.PageTitleEditContentAssoc}" >
+        <menu-item name="assocType" title="${uiLabelMap.PageTitleEditContentAssocType}" >
             <link target="EditContentAssocType" target-window="_top" style="tabButton" />
         </menu-item>
 
