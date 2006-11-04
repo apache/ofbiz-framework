@@ -301,4 +301,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="customertaxinfo">
+        <!-- meant to be included, generally through a screens.render type of thing -->
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <entity-condition entity-name="PartyTaxAuthInfoAndDetail" list-name="partyTaxAuthInfoAndDetailList">
+                    <condition-expr field-name="partyId" env-name="partyId"/>
+                    <order-by field-name="geoCode"/>
+                    <order-by field-name="groupName"/>
+                </entity-condition>
+                <entity-condition entity-name="TaxAuthorityAndDetail" list-name="taxAuthorityAndDetailList">
+                    <order-by field-name="geoCode"/>
+                    <order-by field-name="groupName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/customertaxinfo.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>
