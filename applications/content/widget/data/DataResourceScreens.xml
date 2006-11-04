@@ -127,7 +127,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!--screen name="AddDataResource">
+    <!--
+    <screen name="AddDataResource">
         <section>
             <condition>
                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
