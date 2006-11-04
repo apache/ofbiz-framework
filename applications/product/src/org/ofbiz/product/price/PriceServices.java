@@ -1129,7 +1129,8 @@ public class PriceServices {
         } else if ("PRIP_QUANTITY".equals(productPriceCond.getString("inputParamEnumId"))) {
             if (quantity == null) {
                 // if no quantity is passed in, assume all quantity conditions pass
-                compare = 0;
+                // NOTE: setting compare = 0 won't do the trick here because the condition won't always be or include and equal
+                return true;
             } else {
                 compare = quantity.compareTo(Double.valueOf(productPriceCond.getString("condValue")));
             }
