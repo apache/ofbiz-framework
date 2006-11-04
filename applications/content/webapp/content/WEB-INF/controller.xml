@@ -724,7 +724,6 @@ under the License.
     </request-map>
 
     <!-- DataResource requests -->
-    <request-map uri="BrowseDataResource"><security auth="true" https="true"/><response name="success" type="view" value="BrowseDataResource"/></request-map>
     <request-map uri="editDataResource">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="EditDataResource"/>
@@ -1592,8 +1591,6 @@ under the License.
     <view-map name="EditDataResourceProductFeatures"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceProductFeatures" type="screen"/>
     <view-map name="EditHtmlText"  page="component://content/widget/content/DataResourceScreens.xml#EditHtmlText" type="screen"/>
 
-    <view-map name="BrowseDataResource" page="/content/BrowseDataResource.ftl" type="jpublish"/>
- 
     <view-map name="EditDataResourceType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceType" type="screen"/>
     <view-map name="EditDataResourceTypeAttr" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceTypeAttr" type="screen"/>
     <view-map name="EditDataCategory" page="/datasetup/EditDataCategory.ftl" type="jpublish"/>
