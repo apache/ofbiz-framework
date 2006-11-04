@@ -617,7 +617,7 @@ public class ShoppingCartEvents {
             // to allow the display of the order confirmation page put the userLogin in the request, but leave it out of the session
             request.setAttribute("temporaryAnonymousUserLogin", userLogin);
             
-            Debug.logInfo("Doing clearCart for anonymous user, so logging out but put anonymous userLogin in userLogin request attribute", module);
+            Debug.logInfo("Doing clearCart for anonymous user, so logging out but put anonymous userLogin in temporaryAnonymousUserLogin request attribute", module);
         }
         
         return "success";
