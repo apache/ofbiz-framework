@@ -19,7 +19,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
     <!-- ContentType forms -->
     <form 
-	    name="AddContentType" 
+        name="AddContentType" 
         default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         target="addContentType" title="" type="single">
@@ -29,7 +29,7 @@ under the License.
         </field>
     </form>
     <form 
-	    name="UpdateContentType"
+        name="UpdateContentType"
         default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         list-name="contentList" 
@@ -38,14 +38,14 @@ under the License.
           <entity-condition entity-name="ContentType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentType"/>
-        <field name="contentTypeId" widget-style="buttontext">
+        <field name="contentTypeId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentType?contentTypeId=${contentTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentType?contentTypeId=${contentTypeId}"/>
         </field>
     </form>
     
@@ -69,21 +69,21 @@ under the License.
     <form
         name="UpdateContentTypeAttr"
         default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         list-name="contentList" 
         target="updateContentTypeAttr" title="" type="list">
         <actions>
         <entity-condition entity-name="ContentTypeAttr" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="createContentTypeAttr"/>
-        <field name="contentTypeId" widget-style="buttontext">
+        <field name="contentTypeId">
             <display/>
         </field>
-        <field name="attrName" widget-style="buttontext">
+        <field name="attrName">
             <display/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentTypeAttr?contentTypeId=${contentTypeId}&amp;attrName=${attrName}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentTypeAttr?contentTypeId=${contentTypeId}&amp;attrName=${attrName}"/>
         </field>
     </form>
     
@@ -108,14 +108,14 @@ under the License.
             <entity-condition entity-name="ContentAssocType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentAssocType"/>
-        <field name="contentAssocTypeId" widget-style="buttontext">
+        <field name="contentAssocTypeId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentAssocType?contentAssocTypeId=${contentAssocTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssocType?contentAssocTypeId=${contentAssocTypeId}"/>
         </field>
     </form>
     
@@ -140,14 +140,14 @@ under the License.
             <entity-condition entity-name="ContentPurposeType" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentPurposeType"/>
-        <field name="contentPurposeTypeId" widget-style="buttontext">
+        <field name="contentPurposeTypeId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentPurposeType?contentPurposeTypeId=${contentPurposeTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeType?contentPurposeTypeId=${contentPurposeTypeId}"/>
         </field>
     </form>
     
@@ -172,7 +172,7 @@ under the License.
             <entity-condition entity-name="ContentAssocPredicate" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentAssocPredicate"/>
-        <field name="contentAssocPredicateId" widget-style="buttontext">
+        <field name="contentAssocPredicateId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -204,14 +204,14 @@ under the License.
             <entity-condition entity-name="ContentOperation" use-cache="false"/>
         </actions>
         <auto-fields-service service-name="updateContentOperation"/>
-        <field name="contentOperationId" widget-style="buttontext">
+        <field name="contentOperationId" widget-style="tabletext">
             <display/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentOperation?contentOperationId=${contentOperationId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentOperation?contentOperationId=${contentOperationId}"/>
         </field>
     </form>
     <!-- ContentPurposeOperation forms -->
@@ -246,7 +246,7 @@ under the License.
     <form
         name="UpdateContentPurposeOperation"
         default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         list-name="contentList" 
         target="" title="" type="list">
         <actions>
@@ -254,7 +254,7 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentPurposeOperation?contentPurposeTypeId=${contentPurposeTypeId}&amp;contentOperationId=${contentOperationId}&amp;roleTypeId=${roleTypeId}&amp;statusId=${statusId}&amp;privilegeEnumId=${privilegeEnumId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation?contentPurposeTypeId=${contentPurposeTypeId}&amp;contentOperationId=${contentOperationId}&amp;roleTypeId=${roleTypeId}&amp;statusId=${statusId}&amp;privilegeEnumId=${privilegeEnumId}"/>
         </field>
     </form>
 </forms>
