@@ -508,7 +508,7 @@ public class PriceServices {
             result.put("orderItemPriceInfos", FastList.newInstance());
 
             Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 
-            	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
             if (errorResult != null) return errorResult;
         } else {
             try {
@@ -526,23 +526,35 @@ public class PriceServices {
                         List productPriceCondList = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRule.get("productPriceRuleId")));
                         
                         boolean foundQuantityInputParam = false;
+                        // only consider a rule if all conditions except the quantity condition are true
+                        boolean allExceptQuantTrue = true;
                         Iterator productPriceCondIter = productPriceCondList.iterator();
                         while (productPriceCondIter.hasNext()) {
                             GenericValue productPriceCond = (GenericValue) productPriceCondIter.next();
                             if ("PRIP_QUANTITY".equals(productPriceCond.getString("inputParamEnumId"))) {
-                        	foundQuantityInputParam = true;
-                        	break;
+                                foundQuantityInputParam = true;
+                            } else {
+                                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator)) {
+                                    // if there is a virtualProductId, try that given that this one has failed
+                                    if (virtualProductId != null) {
+                                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator)) {
+                                            allExceptQuantTrue = false;
+                                        }
+                                        // otherwise, okay, this one made it so carry on checking
+                                    } else {
+                                        allExceptQuantTrue = false;
+                                    }
+                                }
                             }
                         }
                         
-                        if (foundQuantityInputParam) {
+                        if (foundQuantityInputParam && allExceptQuantTrue) {
                             quantityProductPriceRules.add(productPriceRule);
                         } else {
                             nonQuantityProductPriceRules.add(productPriceRule);
                         }
                     }                    
                 }
-                
 
                 if (findAllQuantityPrices) {
                     List allQuantityPrices = FastList.newInstance();
@@ -551,18 +563,18 @@ public class PriceServices {
                     // foreach create an entry in the out list and eval that rule and all nonQuantityProductPriceRules rather than a single rule
                     Iterator quantityProductPriceRuleIter = quantityProductPriceRules.iterator();
                     while (quantityProductPriceRuleIter.hasNext()) {
-                	GenericValue quantityProductPriceRule = (GenericValue) quantityProductPriceRuleIter.next();
-                	
-                	List ruleListToUse = FastList.newInstance();
-                	ruleListToUse.add(quantityProductPriceRule);
-                	ruleListToUse.addAll(nonQuantityProductPriceRules);
-                	
+                        GenericValue quantityProductPriceRule = (GenericValue) quantityProductPriceRuleIter.next();
+                    
+                        List ruleListToUse = FastList.newInstance();
+                        ruleListToUse.add(quantityProductPriceRule);
+                        ruleListToUse.addAll(nonQuantityProductPriceRules);
+                    
                         Map quantCalcResults = calcPriceResultFromRules(ruleListToUse, listPriceDbl.doubleValue(), defaultPrice, promoPrice, 
-                        	    wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
-                    	    averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
-                    	    webSiteId, partyId, null, currencyUomId, delegator, nowTimestamp);
+                            wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
+                            averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
+                            webSiteId, partyId, null, currencyUomId, delegator, nowTimestamp);
                         Map quantErrorResult = addGeneralResults(quantCalcResults, competitivePriceValue, specialPromoPriceValue, productStore, 
-                        	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                            checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
                         if (quantErrorResult != null) return quantErrorResult;
                         
                         // also add the quantityProductPriceRule to the Map so it can be used for quantity break information
@@ -574,21 +586,21 @@ public class PriceServices {
 
                     // use a quantity 1 to get the main price, then fill in the quantity break prices
                     Map calcResults = calcPriceResultFromRules(allProductPriceRules, listPriceDbl.doubleValue(), defaultPrice, promoPrice, 
-                    	    wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
-                	    averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
-                	    webSiteId, partyId, new Double(1.0), currencyUomId, delegator, nowTimestamp);
+                        wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
+                        averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
+                        webSiteId, partyId, new Double(1.0), currencyUomId, delegator, nowTimestamp);
                     result.putAll(calcResults);
                     Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 
-                    	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                            checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
                     if (errorResult != null) return errorResult;
                 } else {
                     Map calcResults = calcPriceResultFromRules(allProductPriceRules, listPriceDbl.doubleValue(), defaultPrice, promoPrice, 
-                    	    wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
-                	    averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
-                	    webSiteId, partyId, new Double(quantity), currencyUomId, delegator, nowTimestamp);
+                        wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound, 
+                        averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId, 
+                        webSiteId, partyId, new Double(quantity), currencyUomId, delegator, nowTimestamp);
                     result.putAll(calcResults);
                     Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 
-                    	    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                        checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
                     if (errorResult != null) return errorResult;
                 }
             } catch (GenericEntityException e) {
@@ -602,7 +614,7 @@ public class PriceServices {
     }
     
     public static Map addGeneralResults(Map result, GenericValue competitivePriceValue, GenericValue specialPromoPriceValue, GenericValue productStore, 
-	    String checkIncludeVat, String currencyUomId, String productId, double quantity, String partyId, LocalDispatcher dispatcher) {
+        String checkIncludeVat, String currencyUomId, String productId, double quantity, String partyId, LocalDispatcher dispatcher) {
         result.put("competitivePrice", competitivePriceValue != null ? competitivePriceValue.getDouble("price") : null);
         result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getDouble("price") : null);
         result.put("currencyUsed", currencyUomId);
@@ -810,15 +822,15 @@ public class PriceServices {
     }
     
     public static Map calcPriceResultFromRules(List productPriceRules, double listPrice, double defaultPrice, double promoPrice, 
-	    double wholesalePrice, GenericValue maximumPriceValue, GenericValue minimumPriceValue, boolean validPriceFound, 
-	    GenericValue averageCostValue, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId, 
-	    String webSiteId, String partyId, Double quantity, String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException{
-	
-	Map calcResults = FastMap.newInstance();
+        double wholesalePrice, GenericValue maximumPriceValue, GenericValue minimumPriceValue, boolean validPriceFound, 
+        GenericValue averageCostValue, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId, 
+        String webSiteId, String partyId, Double quantity, String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+    
+        Map calcResults = FastMap.newInstance();
 
-	List orderItemPriceInfos = FastList.newInstance();
+        List orderItemPriceInfos = FastList.newInstance();
         boolean isSale = false;
-	
+    
         // ========= go through each price rule by id and eval all conditions =========
         // utilTimer.timerString("Before eval rules", module);
         int totalConds = 0;
