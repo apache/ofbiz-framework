@@ -27,11 +27,11 @@ import org.ofbiz.product.store.*;
 cart = session.getAttribute("shoppingCart");
 context.put("cart", cart);
 
-orderAdjustments = cart.makeAllAdjustments();
-context.put("orderAdjustments", orderAdjustments);
-
 orderItems = cart.makeOrderItems();
 context.put("orderItems", orderItems);
+
+orderAdjustments = cart.makeAllAdjustments();
+context.put("orderAdjustments", orderAdjustments);
 
 workEfforts = cart.makeWorkEfforts();   // if required make workefforts for rental fixed assets too.
 context.put("workEfforts", workEfforts);
