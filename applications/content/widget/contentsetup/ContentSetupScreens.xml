@@ -18,7 +18,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
-
+<!--
     <screen name="ContentSetupMenu">
         <section>
             <actions>
@@ -37,7 +37,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+-->
     <screen name="EditContentType">
         <section>
             <condition>
@@ -204,26 +204,6 @@ under the License.
                     <decorator-section name="body">
                         <include-form name="UpdateContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                         <include-form name="AddContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="EditContentPurpose">
-        <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
-            <actions>
-                <set field="headerItem" value="ContentSetupMenu"/>
-                <set field="currentMenuItemName" to-scope="user" value="contentPurposeOp"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="UpdateContentPurpose" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                        <include-form name="AddContentPurpose" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
