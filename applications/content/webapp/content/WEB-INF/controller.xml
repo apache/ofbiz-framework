@@ -655,9 +655,6 @@ under the License.
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
 
-    <request-map uri="ClipBoardDataResource"><security auth="true" https="true"/><response name="success" type="view" value="ClipBoardDataResource"/></request-map>
-    <request-map uri="ClipBoardContent"><security auth="true" https="true"/><response name="success" type="view" value="ClipBoardContent"/></request-map>
-    
     <!-- ================ Redirect Content Requests ================= -->
     <request-map uri="findContent">
         <security auth="true" https="true"/>
@@ -1562,8 +1559,6 @@ under the License.
     <view-map name="EditContent" page="component://content/widget/content/ContentScreens.xml#EditContent" type="screen"/>
     <view-map name="EditContentAssoc" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc" type="screen"/>
     <view-map name="AddContent" page="component://content/widget/content/ContentScreens.xml#AddContent" type="screen"/>
-    <view-map name="ClipBoardContent" page="/content/ClipBoardContent.ftl" type="jpublish"/>
-    <view-map name="ClipBoardDataResource" page="/data/ClipBoardDataResource.ftl" type="jpublish"/>
 
     <view-map name="EditContentAttribute" page="component://content/widget/content/ContentScreens.xml#EditContentAttribute" type="screen"/>
     <view-map name="EditContentMetaData" page="component://content/widget/content/ContentScreens.xml#EditContentMetaData" type="screen"/>
