@@ -662,7 +662,7 @@ under the License.
     </request-map>
     <request-map uri="ContentSetupMenu"><security auth="true" https="true"/><response name="success" type="view" value="EditContentType"/></request-map>
     <request-map uri="DataSetupMenu"><security auth="true" https="true"/><response name="success" type="view" value="EditDataResourceType"/></request-map>
-    <request-map uri="LayoutMenu"><security auth="true" https="true"/><response name="success" type="view" value="EditLayout"/></request-map>
+    <request-map uri="LayoutMenu"><security auth="true" https="true"/><response name="success" type="view" value="ListLayout"/></request-map>
 
     <!-- Content requests -->
     <request-map uri="EditContent">
@@ -1292,7 +1292,7 @@ under the License.
     </request-map>
     <request-map uri="FindLayout"><security auth="true" https="true"/><response name="success" type="view" value="FindLayout"/></request-map>
     <request-map uri="EditLayout"><security auth="true" https="true"/><response name="success" type="view" value="EditLayout"/></request-map>
-    <request-map uri="AddLayout"><security auth="true" https="true"/><response name="success" type="view" value="EditLayoutTemplate"/></request-map>
+    <request-map uri="AddLayout"><security auth="true" https="true"/><response name="success" type="view" value="AddLayout"/></request-map>
     <request-map uri="createLayout">
         <security auth="true" https="true"/>
         <event invoke="createLayout" path="org/ofbiz/content/layout/LayoutEvents.xml" type="simple"/>
@@ -1594,8 +1594,8 @@ under the License.
     <view-map name="EditFileExtension" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditFileExtension" type="screen"/>
     <view-map name="EditMimeType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeType" type="screen"/>
 
-    <view-map name="ListLayout" page="/layout/ListLayout.ftl" type="jpublish"/>
-    <view-map name="FindLayout" page="/layout/FindLayout.ftl" type="jpublish"/>
+    <view-map name="ListLayout" page="component://content/widget/layout/LayoutScreens.xml#ListLayout" type="screen"/>
+    <view-map name="FindLayout" page="component://content/widget/layout/LayoutScreens.xml#FindLayout" type="screen"/>
     <view-map name="EditLayout" page="/layout/EditLayout.ftl" type="jpublish"/>
     <view-map name="AddLayout" page="/layout/AddLayout.ftl" type="jpublish"/>
     <view-map name="EditLayoutSubContent" page="/layout/EditLayoutSubContent.ftl" type="jpublish"/>
