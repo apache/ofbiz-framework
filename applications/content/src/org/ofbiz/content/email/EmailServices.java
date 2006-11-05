@@ -816,10 +816,10 @@ public class EmailServices {
             if (partyIdTo != null) {
                 commEventMap.put("partyIdTo", partyIdTo);               
                 commEventMap.put("contactMechIdTo", contactMechIdTo);
-            } else {
-                commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
-                commNote += "Delivered-To: " + deliveredTo + "; ";
             }
+            
+            commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
+            commNote += "Delivered-To: " + deliveredTo + "; ";
 
             if (partyIdTo != null && partyIdFrom != null) {
                 commEventMap.put("statusId", "COM_ENTERED");
