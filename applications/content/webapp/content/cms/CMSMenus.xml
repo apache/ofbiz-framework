@@ -31,7 +31,7 @@ under the License.
 
 
         <menu-item name="contentfind" title="${uiLabelMap.ContentContent}" >
-            <link id="contentfind" target="${menuContext.contentTarget}"/>
+            <link id="contentfind" target="CMSContentFind"/>
         </menu-item>
         <menu-item name="subsites" title="${uiLabelMap.ContentSubSites}" >
             <link id="dflt" target="CMSSites?forumId=${subsites.forumId}"/>

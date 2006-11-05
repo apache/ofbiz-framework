@@ -189,6 +189,7 @@ under the License.
                 <script location="component://content/widget/cms/search.bsh"/>
                 <set field="title" value="CMS Search Page"/>
                 <set field="titleProperty" value="PageTitleSearchContent"/>
+                <set field="currentCMSMenuItemName" value="search" to-scope="user"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -215,6 +216,7 @@ under the License.
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <set field="title" value="CMS Search Page"/>
                 <set field="titleProperty" value="PageTitleSearchContent"/>
+                <set field="currentCMSMenuItemName" value="index" to-scope="user"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -238,8 +240,9 @@ under the License.
                 <set field="titleProperty" value="PageTitleSearchContent"/>
                 <set field="forumId" from-field="parameters.contentId"/>
                 <set field="defaultSiteId" value="WebStoreFORUM"/>
+                <set field="currentCMSMenuItemName" value="subsites" to-scope="user"/>
                 <script location="component://content/widget/cms/userpermprep.bsh"/>
-                        <script location="component://content/widget/cms/mostrecentprep.bsh"/>
+                <script location="component://content/widget/cms/mostrecentprep.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
