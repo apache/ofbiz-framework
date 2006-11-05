@@ -98,7 +98,7 @@ under the License.
     <form name="EditLayout" 
         default-title-style="tableheadtext"
         default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         default-map-name="currentValue"
         extends="LayoutSubContentMaster"
         target="updateLayoutSubContent"
@@ -202,7 +202,7 @@ under the License.
 
     <form name="listFindLayout" 
         default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="display"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         default-entity-name="ContentDataResourceView"
         list-name="listIt" target="" paginate-target="FindLayout" title="" type="list">
       	<actions>
@@ -222,13 +222,13 @@ under the License.
         <field name="description"><display/></field>
         <field name="drObjectInfo" title="Template File"><display/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContent?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContent?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
 
     <form name="listListLayout" 
         default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="display"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         default-entity-name="ContentAssocDataResourceViewFrom"
         list-name="layoutList" target="" paginate-target="FindLayout" title="" type="list">
         <field name="contentId" widget-style="buttontext">
@@ -244,7 +244,7 @@ under the License.
 
     <form name="lookupListLayout" 
         default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="display"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         default-entity-name="ContentAssocDataResourceViewFrom"
         list-name="entityList" target="" paginate-target="FindLayout" title="" type="list">
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
@@ -260,7 +260,7 @@ under the License.
         name="listLookupDataResourceContent" 
         default-entity-name="DataResourceContentView"
         default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="display"
+        default-tooltip-style="tabletext" default-widget-style="tabletext"
         list-name="mruList" 
         target="" title="" type="list">
         <field name="replace" title="Replace" widget-style="buttontext" >
