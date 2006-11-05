@@ -99,6 +99,10 @@ under the License.
                                 <if-not-empty field-name="imageDataResource">
                                     <remove-value value-name="imageDataResource"/>
                                 </if-not-empty>
+                                <get-related-one value-name="dataResource" relation-name="ElectronicText" to-value-name="electronicText"/>
+                                <if-not-empty field-name="electronicText">
+                                    <remove-value value-name="electronicText"/>
+                                </if-not-empty>
                                 <remove-value value-name="dataResource"/>
                             </if-not-empty>
                         </iterate>
