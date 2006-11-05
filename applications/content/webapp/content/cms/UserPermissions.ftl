@@ -83,7 +83,7 @@ ${menuWrapper.renderMenuString()}
           </td>
           <td valign="middle" align="left">
             <div class="boxhead"><#if partyAndUserLoginAndPerson?has_content>${partyAndUserLoginAndPerson.firstName?if_exists}&nbsp;${partyAndUserLoginAndPerson.lastName?if_exists}[${partyAndUserLoginAndPerson.partyId?if_exists}]<#else>(No current user)</#if>
-<a href="javascript:call_fieldlookup3('<@ofbizUrl>LookupPartyAndUserLoginAndPerson</@ofbizUrl>')"><img src="<@ofbizContentUrl>/content/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"></a></div>
+<a href="javascript:call_fieldlookup3('<@ofbizUrl>LookupPartyAndUserLoginAndPerson</@ofbizUrl>')"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"></a></div>
           </td>
         </tr>
       </table>
