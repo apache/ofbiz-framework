@@ -24,6 +24,9 @@ under the License.
         default-tooltip-style="tabletext" default-widget-style="inputBox"
         target="FindLayout" title="" type="single">
         <!--<auto-fields-entity entity-name="Content" default-field-type="find" />-->
+        <field name="contentTypeId">
+            <hidden value="DOCUMENT"/>
+        </field>
         <field name="contentId">
             <text-find/>
         </field>
@@ -47,10 +50,6 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
-        </field>
-        <field name="createLink" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  
-             target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
         </field>
     </form>
     <form name="lookupDataResourceContent" 
@@ -205,7 +204,14 @@ under the License.
         default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="display"
         default-entity-name="ContentDataResourceView"
-        list-name="entityList" target="" paginate-target="FindLayout" title="" type="list">
+        list-name="listIt" target="" paginate-target="FindLayout" title="" type="list">
+      	<actions>
+            <set field="requestParameters.contentTypeId" value="DOCUMENT"/>
+      	    <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+      	        <field-map field-name="inputFields" env-name="parameters"/>
+      	        <field-map field-name="entityName" value="ContentDataResourceView"/>
+      	    </service>
+      	</actions>
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
         </field>
@@ -224,7 +230,7 @@ under the License.
         default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="display"
         default-entity-name="ContentAssocDataResourceViewFrom"
-        list-name="entityList" target="" paginate-target="FindLayout" title="" type="list">
+        list-name="layoutList" target="" paginate-target="FindLayout" title="" type="list">
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
         </field>

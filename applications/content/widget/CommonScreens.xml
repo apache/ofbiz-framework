@@ -206,7 +206,23 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
+    <screen name="commonLayoutDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItem" from-field="tabButtonItem" from-scope="user"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-menu name="layout" location="component://content/webapp/content/layout/LayoutMenus.xml"/>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="main">
         <section>
             <widgets>
