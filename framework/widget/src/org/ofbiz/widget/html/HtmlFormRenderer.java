@@ -432,7 +432,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString)));
             buffer.append("');\">");
             buffer.append("<img src=\"");
-            this.appendContentUrl(buffer, "/content/images/cal.gif");
+            this.appendContentUrl(buffer, "/images/cal.gif");
             buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Calendar\"/></a>");
         }
 
@@ -1674,7 +1674,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
         buffer.append("');\">");
         buffer.append("<img src=\"");
-        this.appendContentUrl(buffer, "/content/images/cal.gif");
+        this.appendContentUrl(buffer, "/images/cal.gif");
         buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Calendar\"/></a>");
 
         buffer.append(" <span");
@@ -1741,7 +1741,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
         buffer.append("');\">");
         buffer.append("<img src=\"");
-        this.appendContentUrl(buffer, "/content/images/cal.gif");
+        this.appendContentUrl(buffer, "/images/cal.gif");
         buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Calendar\"/></a>");
 
         buffer.append(" <span");
@@ -1846,7 +1846,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
         buffer.append(");\">");
         buffer.append("<img src=\"");
-        this.appendContentUrl(buffer, "/content/images/fieldlookup.gif");
+        this.appendContentUrl(buffer, "/images/fieldlookup.gif");
         buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Lookup\"/></a>");
 
         this.makeHyperlinkString(buffer, lookupField.getSubHyperlink(), context);
