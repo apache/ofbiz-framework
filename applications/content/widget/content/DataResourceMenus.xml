@@ -72,7 +72,6 @@ under the License.
         </menu-item>
     </menu>
     <menu name="dataresource">
-        
         <menu-item name="editDataResource" title="${uiLabelMap.ContentDataResource}" >
             <condition>
                 <not><if-empty field-name="currentValue.dataResourceId"/></not>
