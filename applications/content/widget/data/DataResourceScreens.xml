@@ -19,14 +19,14 @@ under the License.
         <section>
             <actions>
                 <set field="currentMenuItemName" from-field="currentMenuItemName"/>
-				<set field="menuName" from-field="menuName" default-value="dataresource"/>
+                <set field="menuName" from-field="menuName" default-value="dataresource"/>
             </actions>
             <widgets>
                 <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-						<container>
-							<label style="head1" text="${title}"/>
-						</container>
+                        <container>
+                            <label style="head1" text="${title}"/>
+                        </container>
                         <include-menu name="${menuName}" location="component://content/widget/data/DataResourceMenus.xml"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
@@ -43,12 +43,12 @@ under the License.
                 <set field="headerItem" value="DataResource"/>
                 <set field="menuName" value="empty"/>
                 <set field="title" value="${UiLabelMap.PageTitleFindDataResource}"/>
-				<set field="titleProperty" value="PageTitleFindDataResource"/>	
+                <set field="titleProperty" value="PageTitleFindDataResource"/>    
             </actions>
             <widgets>
                 <decorator-screen name="common-decorator">
                     <decorator-section name="body">
-						<container><link target="AddDataResource" text="${uiLabelMap.PageTitleAddDataResource}" style="buttontext"/></container>
+                        <container><link target="AddDataResource" text="${uiLabelMap.PageTitleAddDataResource}" style="buttontext"/></container>
                         <include-form name="findDataResource" location="component://content/widget/data/DataResourceForms.xml"/>
                         <include-form name="listFindDataResource" location="component://content/widget/data/DataResourceForms.xml"/>
                     </decorator-section>
@@ -86,15 +86,15 @@ under the License.
                 <set field="menuName" value="dataresource"/>
                 <set field="title" value="Upload Image, dataResourceId: ${parameters.dataResourceId}"/>
                 <set field="currentMenuItemName" value="uploadimage"/>
-				<entity-one entity-name="DataResource" value-name="dataResource" />
-				<set field="dataResourceId" from-field="dataResource.dataResourceId" default-value="${parameters.dataResourceId}"/>
+                <entity-one entity-name="DataResource" value-name="dataResource" />
+                <set field="dataResourceId" from-field="dataResource.dataResourceId" default-value="${parameters.dataResourceId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="common-decorator">
                     <decorator-section name="body">
                         <include-form name="ImageUpload" location="component://content/widget/data/DataResourceForms.xml"/>
-						<label text="View Image" style="head1"/>
-						<content dataresource-id="${dataResource.dataResourceId}"/>
+                        <label text="View Image" style="head1"/>
+                        <content dataresource-id="${dataResource.dataResourceId}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -116,7 +116,7 @@ under the License.
                 </entity-one>
                 <set field="menuName" value="dataresource"/>
                 <set field="title" value="Edit Data Resource: ${dataResourceId}"/>
-				<set field="currentMenuItemName" to-scope="user" value="editdataresource"/>
+                <set field="currentMenuItemName" to-scope="user" value="editdataresource"/>
             </actions>
             <widgets>
                 <decorator-screen name="common-decorator">
