@@ -14,7 +14,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.CommonFind} ${page.getProperty("entityName")}</div>
+<div class="head1"> ${page.getProperty("entityName")}</div>
 <br/>
 ${mruWrapper.renderFormString()}
 <br/>
