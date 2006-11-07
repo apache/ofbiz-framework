@@ -1280,8 +1280,6 @@ under the License.
         <response name="error" type="view" value="EditSurveyResponse"/>
     </request-map>
 
-    <request-map uri="subcontent"><security auth="true" https="true"/><response name="success" type="view" value="subcontent"/></request-map>
-
     <!-- ================ Layout Requests ================= -->
     <request-map uri="ListLayout"><security auth="true" https="true"/><response name="success" type="view" value="ListLayout"/></request-map>
     <request-map uri="clipFindLayout">
@@ -1605,7 +1603,6 @@ under the License.
     <view-map name="EditLayoutUrl" page="/layout/EditLayoutUrl.ftl" type="jpublish"/>
 
     <view-map name="FindContent"  page="component://content/widget/content/ContentScreens.xml#FindContent" type="screen"/>
-    <view-map name="subcontent" page="/subcontent.ftl" type="jpublish"/>
 
     <view-map name="FindSurvey" page="component://content/widget/SurveyScreens.xml#FindSurvey" type="screen"/>
     <view-map name="EditSurvey" page="component://content/widget/SurveyScreens.xml#EditSurvey" type="screen"/>
