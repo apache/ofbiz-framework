@@ -59,7 +59,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartyProfile"/>
                 <set field="tabButtonItem" value="viewprofile"/>
-
+                <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.bsh"/>
@@ -126,7 +126,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditPartyRelationships"/>
                 <set field="tabButtonItem" value="EditPartyRelationships"/>
                 <set field="labelTitleProperty" value="PartyRelationships"/>
-
+                <set field="headerItem" value="find"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-name="party"/>
 
@@ -338,6 +338,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditPersonalInformation"/>
                 <set field="tabButtonItem" value="viewprofile"/>
+                <set field="headerItem" value="create"/>
                 <set field="labelTitleProperty" value="PageTitleEditPersonalInformation"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
@@ -358,6 +359,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditGroupInformation"/>
                 <set field="tabButtonItem" value="viewprofile"/>
+                <set field="headerItem" value="create"/>                
                 <set field="labelTitleProperty" value="PageTitleEditGroupInformation"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
