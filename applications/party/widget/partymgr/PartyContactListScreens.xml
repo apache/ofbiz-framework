@@ -21,7 +21,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListContactList"/>
-                <set field="headerItem" value="contactlist"/>
+                <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="ContactList"/>
                 <set field="partyId" value="${parameters.partyId}"/>
                  <set field="entityName" value="ContactListParty"/>
