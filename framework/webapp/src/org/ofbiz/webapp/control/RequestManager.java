@@ -152,6 +152,21 @@ public class RequestManager implements Serializable {
         }
     }
 
+    /** Gets the event global-transaction from the requestMap */
+    public boolean getEventGlobalTransaction(String uriStr) {
+        Map uri = getRequestMapMap(uriStr);
+
+        if (uri != null) {
+            return new Boolean((String) uri.get(ConfigXMLReader.EVENT_GLOBAL_TRANSACTION)).booleanValue();
+        } else {
+            if (Debug.verboseOn()) {
+                Debug.logWarning("[RequestManager.getEventGlobalTransaction] Global-transaction of event for request \"" +
+                    uriStr + "\" not found, defaulting to true", module);
+            }
+            return false;
+        }
+    }
+
     /** Gets the view name from the requestMap */
     public String getViewName(String uriStr) {
         Map uri = getRequestMapMap(uriStr);
