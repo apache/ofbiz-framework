@@ -1586,7 +1586,7 @@ under the License.
 
     <view-map name="EditDataResourceType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceType" type="screen"/>
     <view-map name="EditDataResourceTypeAttr" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceTypeAttr" type="screen"/>
-    <view-map name="EditDataCategory" page="/datasetup/EditDataCategory.ftl" type="jpublish"/>
+    <view-map name="EditDataCategory" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataCategory" type="screen"/>
     <view-map name="EditMetaDataPredicate" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMetaDataPredicate" type="screen"/>
     <view-map name="EditCharacterSet" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditCharacterSet" type="screen"/>
     <view-map name="EditFileExtension" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditFileExtension" type="screen"/>

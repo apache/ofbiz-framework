@@ -142,7 +142,7 @@ under the License.
         name="UpdateDataCategory"
         default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="inputBox"
-        list-name="contentList" 
+        list-name="dataCategoryList" 
         target="updateDataCategory" title="" type="list">
         <auto-fields-service service-name="updateDataCategory"/>
         <field name="dataCategoryId" widget-style="tabletext">

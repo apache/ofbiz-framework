@@ -137,4 +137,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditDataCategory">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditMimeType"/>
+                <set field="headerItem" value="DataResourceSetupMenu"/>
+                <set field="tabButtonItem" to-scope="user" value="EditDataCategory"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/datasetup/datacategoryprep.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="UpdateDataCategory" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="AddDataCategory" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
