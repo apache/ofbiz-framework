@@ -49,6 +49,7 @@ under the License.
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>            
           </tr>
         
         <%int colSize = entities.size()/3 + 1;%>
@@ -58,7 +59,7 @@ under the License.
               <td><div class='tabletext' style='FONT-SIZE: xx-small;'><%=entity.getEntityName()%></div></td>
               <%if (entity instanceof ModelViewEntity) {%>
                   <%if (security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(entity.getPlainTableName(), "_VIEW", session)) {%>
-                    <td colspan='2' align="center"><div class='tabletext' style='FONT-SIZE: xx-small;'>View Entity</div></td>
+                    <td colspan='3' align="center"><div class='tabletext' style='FONT-SIZE: xx-small;'>View Entity</div></td>
                     <td><a href='<ofbiz:url>/FindGeneric?entityName=<%=entity.getEntityName()%>&find=true&VIEW_SIZE=50&VIEW_INDEX=0</ofbiz:url>' class="buttontext" style='FONT-SIZE: xx-small;'>All</a></td>
                   <%} else {%>
                     <td colspan='3' align="center"><div class='tabletext' style='FONT-SIZE: xx-small;'>View Entity</div></td>
@@ -70,6 +71,7 @@ under the License.
                     <td><div class='tabletext' style='FONT-SIZE: xx-small;'>NP</div></td>
                   <%}%>
                   <%if (security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(entity.getPlainTableName(), "_VIEW", session)) {%>
+                    <td><a href='<ofbiz:url>/ViewRelations?entityName=<%=entity.getEntityName()%></ofbiz:url>' class="buttontext" style='FONT-SIZE: xx-small;'>Reln</a></td>                  
                     <td><a href='<ofbiz:url>/FindGeneric?entityName=<%=entity.getEntityName()%></ofbiz:url>' class="buttontext" style='FONT-SIZE: xx-small;'>Fnd</a></td>
                     <td><a href='<ofbiz:url>/FindGeneric?entityName=<%=entity.getEntityName()%>&find=true&VIEW_SIZE=50&VIEW_INDEX=0</ofbiz:url>' class="buttontext" style='FONT-SIZE: xx-small;'>All</a></td>
                   <%} else {%>
@@ -92,6 +94,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
+                <td>&nbsp;</td>                
               </tr>
             <%}%>
         <%}%>
@@ -99,6 +102,24 @@ under the License.
         </table>
     </td>
   </tr>
+  <tr>
+     <td>&nbsp;</td>
+  </tr>   
+  <tr>
+     <td class="tableheadtext">Note : </td>
+  </tr>   
+  <tr>
+     <td class="tabletext">Crt :- Create New</td>
+  </tr>   
+  <tr>
+     <td class="tabletext">Reln :- View Relation</td>
+  </tr>   
+  <tr>
+     <td class="tabletext">Fnd :- Find Record</td>
+  </tr>   
+  <tr>
+     <td class="tabletext">All :- Find All Records</td>
+  </tr>   
 </table>
 <%}else{%>
   <h3>You do not have permission to view this page (ENTITY_MAINT needed).</h3>
