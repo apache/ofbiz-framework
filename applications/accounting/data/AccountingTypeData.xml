@@ -190,11 +190,24 @@ under the License.
     <GlAccountType description="Uninvoiced Shipment Receipts" glAccountTypeId="UNINVOICED_SHIP_RCPT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
     <GlAccountType description="Purchase Price Variance" glAccountTypeId="PURCHASE_PRICE_VAR" hasTable="N" parentTypeId="EXPENSE"/>
     <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
+    
+    <GlAccountType description="Interest Income Receivables" glAccountTypeId="INTRSTINC_RECEIVABLE" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
+    <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
 
     <GlAccountType description="Receivable from Inventory Transferred Out" glAccountTypeId="INVENTORY_XFER_OUT" hasTable="N" parentTypeId="CURRENT_ASSET"/>
     <GlAccountType description="Payable from Inventory Transferred In" glAccountTypeId="INVENTORY_XFER_IN" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
 
+    <GlAccountType description="Commissions Payables" glAccountTypeId="COMMISSIONS_PAYABLE" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Write Off" glAccountTypeId="WRITEOFF" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
+    <GlAccountType description="Accounts Receivables Write Off" glAccountTypeId="ACCTRECV_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
+    <GlAccountType description="Accounts Payables Write Off" glAccountTypeId="ACCTPAY_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
+    <GlAccountType description="Commissions Payables Write Off" glAccountTypeId="COMMISSIONS_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
+    <GlAccountType description="Interest Income Write Off" glAccountTypeId="INTRSTINC_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
 
+    <GlAccountType description="Foreign Exchange Gain/Loss" glAccountTypeId="FX_GAIN_LOSS_ACCT" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
+    <GlAccountType description="Foreign Exchange Gain" glAccountTypeId="FX_GAIN_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
+    <GlAccountType description="Foreign Exchange Loss" glAccountTypeId="FX_LOSS_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
+   
     <GlResourceType description="Money" glResourceTypeId="MONEY"/>
     <GlResourceType description="Raw Materials" glResourceTypeId="RAW_MATERIALS"/>
     <GlResourceType description="Labor" glResourceTypeId="LABOR"/>

@@ -77,6 +77,9 @@ under the License.
   <GlAccount parentGlAccountId="121000" glAccountId="121200" accountCode="121200" 
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="ACCOUNTS_RECEIVABLE" glResourceTypeId="MONEY"
     accountName="ACCOUNTS RECEIVABLE - NON-SUFFICIENT FUNDS RETURNED CHECKS" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="121000" glAccountId="121800" accountCode="121800" 
+    glAccountClassId="CURRENT_ASSET" glAccountTypeId="INTRSTINC_RECEIVABLE" glResourceTypeId="MONEY"
+    accountName="ACCOUNTS RECEIVABLE TRADE - INTEREST RECEIVABLE" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="121000" glAccountId="121900" accountCode="121900" 
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="ACCOUNTS_RECEIVABLE" glResourceTypeId="MONEY"
     accountName="ACCOUNTS RECEIVABLE TRADE - ALLOWANCE FOR BAD DEBT" description="" postedBalance="0.0"/>
@@ -306,8 +309,9 @@ under the License.
   <GlAccount parentGlAccountId="213000" glAccountId="213400" accountCode="213400" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="MAIL ORDER DEPOSITS" description="" postedBalance="0.0"/>
+  <!-- this must not be a current liability or it will show up in cashflow statement incorrectly --> 
   <GlAccount parentGlAccountId="210000" glAccountId="214000" accountCode="214000" 
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
+    glAccountClassId="LIABILITY" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="UNINVOICED ITEM RECEIPTS" description="" postedBalance="0.0"/>
       
   <GlAccount parentGlAccountId="210000" glAccountId="215000" accountCode="215000" 
@@ -320,6 +324,9 @@ under the License.
   <GlAccount parentGlAccountId="220000" glAccountId="221000" accountCode="221000" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="ACCRUED PAYROLL" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="220000" glAccountId="222000" accountCode="222000" 
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="COMMISSIONS_PAYABLE" glResourceTypeId="MONEY"  
+    accountName="ACCRUED COMMISSIONS DUE" description="" postedBalance="0.0"/>
   
   <GlAccount parentGlAccountId="220000" glAccountId="222000" accountCode="222000" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
@@ -774,7 +781,36 @@ according to which type of entity.
   <GlAccount parentGlAccountId="516000" glAccountId="516100" accountCode="516100" 
     glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="PURCHASE ORDER ADJUSTMENTS" description="" postedBalance="0.0"/>
-        
+
+<!-- Non-cash expenses involved in write offs.  Writeoffs of accounts payable and commissions invoices are not expenses,
+but they are grouped here for convenience purposes -->      
+  <GlAccount parentGlAccountId="510000" glAccountId="517000" accountCode="517000" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="WRITEOFF" glResourceTypeId="MONEY"  
+    accountName="NON CASH WRITE OFF" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="517000" glAccountId="517100" accountCode="517100" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="ACCTRECV_WRITEOFF" glResourceTypeId="MONEY"  
+    accountName="ACCOUNTS RECEIVABLE WRITE OFF" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="517000" glAccountId="517200" accountCode="517200" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="ACCTPAY_WRITEOFF" glResourceTypeId="MONEY"  
+    accountName="ACCOUNTS PAYABLE WRITE OFF" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="517000" glAccountId="517300" accountCode="517300" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="COMMISSIONS_WRITEOFF" glResourceTypeId="MONEY"  
+    accountName="COMMISSIONS PAYABLE WRITE OFF" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="517000" glAccountId="517400" accountCode="517400" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="INTRSTINC_WRITEOFF" glResourceTypeId="MONEY"  
+    accountName="INTEREST INCOME WRITE OFF" description="" postedBalance="0.0"/>
+
+<!-- foreign exchange gain and loss expenses -->
+  <GlAccount parentGlAccountId="510000" glAccountId="518000" accountCode="518000" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="FX_GAIN_LOSS_ACCT" glResourceTypeId="MONEY"  
+    accountName="FOREIGN EXCHANGE GAIN/LOSS" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="518000" glAccountId="518100" accountCode="518100" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="FX_GAIN_ACCOUNT" glResourceTypeId="MONEY"  
+    accountName="FOREIGN EXCHANGE GAIN" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="518000" glAccountId="518200" accountCode="518200" 
+    glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="FX_LOSS_ACCOUNT" glResourceTypeId="MONEY"  
+    accountName="FOREIGN EXCHANGE LOSS" description="" postedBalance="0.0"/>
+
   <GlAccount parentGlAccountId="510000" glAccountId="519000" accountCode="519000" 
     glAccountClassId="NON_CASH_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="INVENTORY ADJUSTMENT" description="" postedBalance="0.0"/>  
