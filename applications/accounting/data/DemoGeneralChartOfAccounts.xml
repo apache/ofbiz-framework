@@ -309,9 +309,8 @@ under the License.
   <GlAccount parentGlAccountId="213000" glAccountId="213400" accountCode="213400" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="MAIL ORDER DEPOSITS" description="" postedBalance="0.0"/>
-  <!-- this must not be a current liability or it will show up in cashflow statement incorrectly --> 
   <GlAccount parentGlAccountId="210000" glAccountId="214000" accountCode="214000" 
-    glAccountClassId="LIABILITY" glAccountTypeId="" glResourceTypeId="MONEY"  
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="UNINVOICED ITEM RECEIPTS" description="" postedBalance="0.0"/>
       
   <GlAccount parentGlAccountId="210000" glAccountId="215000" accountCode="215000" 
