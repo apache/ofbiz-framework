@@ -21,15 +21,23 @@ orderPaymentPreferenceId = context.get("orderPaymentPreferenceId");
 
 if ((orderId == null) || (orderPaymentPreferenceId == null)) return;
 
-orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-context.put("orderHeader", orderHeader);
+if(orderId != null){
+   orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+   context.put("orderHeader", orderHeader);
+}
 
-orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
-context.put("orderPaymentPreference", orderPaymentPreference);
+if(orderPaymentPreferenceId != null){
+   orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
+   context.put("orderPaymentPreference", orderPaymentPreference);
+}
 
-paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
-context.put("paymentMethodType", paymentMethodType);
+if(orderPaymentPreference != null){
+   paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
+   context.put("paymentMethodType", paymentMethodType);
+}
 
-orh = new OrderReadHelper(orderHeader);
-context.put("orh", orh);
-context.put("overrideAmount", new Double(orh.getOrderGrandTotal()));
+if(orderHeader != null){
+   orh = new OrderReadHelper(orderHeader);
+   context.put("orh", orh);
+   context.put("overrideAmount", new Double(orh.getOrderGrandTotal()));
+}
