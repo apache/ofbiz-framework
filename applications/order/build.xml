@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -26,6 +25,7 @@ under the License.
         <property environment="env"/>
         <property name="desc" value="Order Component"/>
         <property name="name" value="ofbiz-order"/>
+        <property name="ofbiz.home.dir" value="../.."/>
         <property name="src.dir" value="src"/>
         <property name="dtd.dir" value="dtd"/>
         <property name="lib.dir" value="lib"/>
@@ -100,6 +100,11 @@ under the License.
             <!--<fileset dir="${dtd.dir}" includes="*.dtd"/>-->
             <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
+        
+        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+        <copy todir="${build.dir}/classes/META-INF">
+            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
+        </copy>        
     </target>
 
     <target name="jar" depends="classes">
