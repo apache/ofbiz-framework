@@ -17,17 +17,20 @@ under the License.
 <page>
     <template>main</template> 
     <property name="title">Edit LayoutImage</property>
+    <property name="subMenu">/layout/layout_menu.ftl</property>    
+    <property name="headerItem">Layout</property>    
+
     <property name="formDefFile">/layout/LayoutForms.xml</property>    
     <property name="singleFormName">EditLayoutImage</property>    
     <property name="addFormName">AddLayoutImage</property>    
     <property name="editFormName">EditLayoutImage</property>    
     <property name="listFormName">listFindLayout</property>    
-    <property name="subMenu">/layout/layout_menu.ftl</property>    
-    <property name="headerItem">Layout</property>    
     <property name="entityName">SubContentDataResourceView</property>    
+    
     <property name="permission">CONTENTMGR</property>    
     <property name="entityOperation">_UPDATE</property>    
     <property name="permissionType">simple</property>    
+    
     <page-action name="/includes/permprep.bsh"/>
     <content-action name="/includes/currentvalprep.bsh"/>
     <content-action name="/layout/editimageprep.bsh"/>
