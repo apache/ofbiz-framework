@@ -109,6 +109,7 @@ public class ConfigXMLReader {
     public static final String EVENT_PATH = "path";
     public static final String EVENT_TYPE = "type";
     public static final String EVENT_METHOD = "invoke";
+    public static final String EVENT_GLOBAL_TRANSACTION = "global-transaction";
 
     public static final String RESPONSE = "response";
     public static final String RESPONSE_NAME = "name";
@@ -234,6 +235,9 @@ public class ConfigXMLReader {
                 uriMap.put(EVENT_TYPE, type);
                 uriMap.put(EVENT_PATH, path);
                 uriMap.put(EVENT_METHOD, invoke);
+                
+                // Check for a global-transaction attribute - default to true
+                uriMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
             }
 
             // Check for a description.
@@ -438,6 +442,9 @@ public class ConfigXMLReader {
                     eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                     eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                     eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+                
+                    // Check for a global-transaction attribute - default to true
+                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
                     eventList.add(eventMap);
                 }
                 map.put(FIRSTVISIT, eventList);
@@ -455,6 +462,9 @@ public class ConfigXMLReader {
                     eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                     eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                     eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+                
+                    // Check for a global-transaction attribute - default to true
+                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
                     eventList.add(eventMap);
                 }
                 map.put(PREPROCESSOR, eventList);
@@ -472,6 +482,9 @@ public class ConfigXMLReader {
                     eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                     eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                     eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+                
+                    // Check for a global-transaction attribute - default to true
+                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
                     eventList.add(eventMap);
                 }
                 map.put(POSTPROCESSOR, eventList);
@@ -489,6 +502,9 @@ public class ConfigXMLReader {
                     eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                     eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                     eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+                
+                    // Check for a global-transaction attribute - default to true
+                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
                     eventList.add(eventMap);
                 }
                 map.put("after-login", eventList);
@@ -506,6 +522,9 @@ public class ConfigXMLReader {
                     eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                     eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                     eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+                
+                    // Check for a global-transaction attribute - default to true
+                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
                     eventList.add(eventMap);
                 }
                 map.put("before-logout", eventList);

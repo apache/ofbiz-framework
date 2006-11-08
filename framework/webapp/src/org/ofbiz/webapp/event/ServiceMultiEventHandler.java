@@ -44,6 +44,8 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.ServiceValidationException;
+import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.control.RequestManager;
 
 /**
  * ServiceMultiEventHandler - Event handler for running a service multiple times; for bulk forms
@@ -54,11 +56,15 @@ public class ServiceMultiEventHandler implements EventHandler {
 
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
+    private RequestManager requestManager;
 
     /**
      * @see org.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
      */
     public void init(ServletContext context) throws EventHandlerException {
+
+        // Provide a means to check the controller for event tag attributes at execution time
+        this.requestManager = new RequestManager(context);
     }
 
     /**
@@ -154,15 +160,23 @@ public class ServiceMultiEventHandler implements EventHandler {
         List errorMessages = FastList.newInstance();
         List successMessages = FastList.newInstance();
 
+        // Check the global-transaction attribute of the event from the controller to see if the
+        //  event should be wrapped in a transaction
+        String requestUri = RequestHandler.getRequestUri(request.getPathInfo());
+        boolean eventGlobalTransaction = requestManager.getEventGlobalTransaction(requestUri);
+
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;
         String returnString = null;
         try {
-            // start the transaction
-            try {
-                beganTrans = TransactionUtil.begin(modelService.transactionTimeout * rowCount);
-            } catch (GenericTransactionException e) {
-                throw new EventHandlerException("Problem starting transaction", e);
+
+            if (eventGlobalTransaction) {
+                // start the global transaction
+                try {
+                    beganTrans = TransactionUtil.begin(modelService.transactionTimeout * rowCount);
+                } catch (GenericTransactionException e) {
+                    throw new EventHandlerException("Problem starting multi-service global transaction", e);
+                }
             }
 
             // now loop throw the rows and prepare/invoke the service for each
@@ -334,11 +348,13 @@ public class ServiceMultiEventHandler implements EventHandler {
             }
         } finally {
             if (errorMessages.size() > 0) {
-                // rollback the transaction
-                try {
-                    TransactionUtil.rollback(beganTrans, "Error in multi-service event handling: " + errorMessages.toString(), null);
-                } catch (GenericTransactionException e) {
-                    Debug.logError(e, "Could not rollback transaction", module);
+                if (eventGlobalTransaction) {
+                    // rollback the global transaction
+                    try {
+                        TransactionUtil.rollback(beganTrans, "Error in multi-service event handling: " + errorMessages.toString(), null);
+                    } catch (GenericTransactionException e) {
+                        Debug.logError(e, "Could not rollback multi-service global transaction", module);
+                    }
                 }
                 errorMessages.add(0, errorPrefixStr);
                 errorMessages.add(errorSuffixStr);
@@ -351,12 +367,14 @@ public class ServiceMultiEventHandler implements EventHandler {
                 request.setAttribute("_ERROR_MESSAGE_", errorBuf.toString());
                 returnString = "error";
             } else {
-                // commit the transaction
-                try {
-                    TransactionUtil.commit(beganTrans);
-                } catch (GenericTransactionException e) {
-                    Debug.logError(e, "Could not commit transaction", module);
-                    throw new EventHandlerException("Commit transaction failed");
+                if (eventGlobalTransaction) {
+                    // commit the global transaction
+                    try {
+                        TransactionUtil.commit(beganTrans);
+                    } catch (GenericTransactionException e) {
+                        Debug.logError(e, "Could not commit multi-service global transaction", module);
+                        throw new EventHandlerException("Commit multi-service global transaction failed");
+                    }
                 }
                 if (successMessages.size() > 0) {
                     request.setAttribute("_EVENT_MESSAGE_LIST_", successMessages);
