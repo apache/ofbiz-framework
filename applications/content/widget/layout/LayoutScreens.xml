@@ -69,4 +69,31 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditLayout">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="VIEW"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditLayout"/>
+                <set field="headerItem" value="Layout"/>
+                <set field="tabButtonItem" to-scope="user" value="EditLayout"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <entity-and entity-name="ContentDataResourceView" list-name="layoutList">
+                    <field-map field-name="caContentIdTo" value="TEMPLATE_MASTER"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                        </container>
+                        <include-form name="listListLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
