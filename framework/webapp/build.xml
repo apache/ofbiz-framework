@@ -25,6 +25,7 @@ under the License.
         <property environment="env"/>
         <property name="desc" value="Web App Component"/>
         <property name="name" value="ofbiz-webapp"/>
+        <property name="ofbiz.home.dir" value="../.."/>
         <property name="src.dir" value="src"/>
         <property name="dtd.dir" value="dtd"/>
         <property name="lib.dir" value="lib"/>
@@ -90,6 +91,11 @@ under the License.
             <!-- don't put the DTDs in the jar file... -->
             <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
+        
+        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+        <copy todir="${build.dir}/classes/META-INF">
+            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
+        </copy>        
     </target>
 
     <target name="jar" depends="classes">

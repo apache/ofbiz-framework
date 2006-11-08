@@ -26,6 +26,7 @@ under the License.
         <property environment="env"/>
         <property name="desc" value="Common Component"/>
         <property name="name" value="ofbiz-common"/>
+        <property name="ofbiz.home.dir" value="../.."/>
         <property name="src.dir" value="src"/>
         <property name="dtd.dir" value="dtd"/>
         <property name="lib.dir" value="lib"/>
@@ -88,6 +89,11 @@ under the License.
             <!--<fileset dir="${dtd.dir}" includes="*.dtd"/>-->
             <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
+        
+        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+        <copy todir="${build.dir}/classes/META-INF">
+            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
+        </copy>        
     </target>
 
     <target name="jar" depends="classes">
