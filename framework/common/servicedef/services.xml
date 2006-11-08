@@ -283,6 +283,7 @@ under the License.
             location="org/ofbiz/common/CommonServices.xml" invoke="convertUom" auth="false">
         <description>Make a unit of measure conversion, first using UomConversion, then with UomConversionDated</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
         <attribute name="originalValue" mode="IN" type="Double" optional="false"/>
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="Double" optional="false"/>
