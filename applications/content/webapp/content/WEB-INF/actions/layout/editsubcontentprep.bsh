@@ -91,11 +91,6 @@ if (currentValue == null || (mode != null && mode.equalsIgnoreCase("add"))) {
     singleWrapper.putInContext("currentValue", currentMap);
 }
 
-//if (!contentIdTo.equals("TEMPLATE_MASTER")) {
-//Debug.logInfo("in editsubcontentprep(2), contentIdTo:" + contentIdTo, "");
-    //context.put("dynamicPrimaryHTMLField", "textData");
-//}
-
 singleWrapper.putInContext("contentIdTo", contentIdTo);
 mapKey = (String)paramMap.get("mapKey");
 Debug.logInfo("in editsubcontentprep, mapKey:" + mapKey, "");

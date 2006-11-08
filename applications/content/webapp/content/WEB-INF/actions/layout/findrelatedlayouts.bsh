@@ -28,21 +28,17 @@ import javax.servlet.http.*;
 
 
 LocalDispatcher dispatcher	= (LocalDispatcher)request.getAttribute("dispatcher");
-GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-
-formDefFile		= page.getProperty("formDefFile");
-listFormName		= page.getProperty("listFormName");
 
 currentValue = (GenericValue)request.getAttribute("currentValue");
 if (currentValue != null) {
     contentId = (String)currentValue.get("contentId");
-    HashMap inMap    		= new HashMap();
+    HashMap inMap = new HashMap();
     inMap.put("assocTypes", UtilMisc.toList("SUB_CONTENT"));
     inMap.put("contentId", contentId);
     inMap.put("direction", "TO");
     
     Debug.logInfo("in findrelatedlayouts, inMap:" + inMap,"");
-    Map result    		= null;
+    Map result = null;
     try {
                result = dispatcher.runSync("getAssocAndContentAndDataResource", inMap    );
     } catch (GenericServiceException e) {

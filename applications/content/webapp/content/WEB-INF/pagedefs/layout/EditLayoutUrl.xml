@@ -26,7 +26,6 @@ under the License.
     <property name="headerItem">Layout</property>    
     <property name="entityName">SubContentDataResourceView</property>    
     <property name="permission">CONTENTMGR</property>    
-    <property name="priKeyName">contentId</property>    
     <property name="entityOperation">_UPDATE</property>    
     <property name="permissionType">simple</property>    
     <page-action name="/includes/permprep.bsh"/>

@@ -23,10 +23,8 @@ under the License.
     <property name="headerItem">Layout</property>    
     <property name="entityName">ContentDataResourceView</property>    
     <property name="permission">CONTENTMGR</property>    
-    <property name="priKeyName">contentId</property>    
     <property name="entityOperation">_UPDATE</property>    
     <property name="permissionType">simple</property>    
-    <property name="primaryHTMLField">textData</property>    
     <page-action name="/includes/permprep.bsh"/>
     <content-action name="/layout/layoutprep.bsh"/>
     <content-action name="/includes/currentvalprep.bsh"/>
