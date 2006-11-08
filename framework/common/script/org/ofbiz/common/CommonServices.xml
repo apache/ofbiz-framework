@@ -59,6 +59,14 @@ under the License.
             <return/>
         </if-compare-field>
 
+        <if-empty field-name="parameters.asOfDate">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="asOfDate" from-field="nowTimestamp"/>
+            <else>
+                <set field="asOfDate" from-field="parameters.asOfDate"/>
+            </else>
+        </if-empty>
+        
         <!-- first try the regular UomConversion entity (no dates) -->
         <entity-one entity-name="UomConversion" value-name="uomConversion" auto-field-map="true" use-cache="true"/>
         
@@ -68,11 +76,15 @@ under the License.
                 <condition-list combine="and">
                     <condition-expr field-name="uomId" env-name="parameters.uomId"/>
                     <condition-expr field-name="uomIdTo" env-name="parameters.uomIdTo"/>
+                    <condition-expr field-name="fromDate" operator="less-equals" env-name="asOfDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="thruDate" operator="greater-equals" env-name="asOfDate"/>
+                        <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
+                    </condition-list>
                 </condition-list>
                     <!-- sort by descending fromDate to get newest (biggest) first -->
                 <order-by field-name="-fromDate"/>
             </entity-condition>
-            <filter-list-by-date list-name="uomConversions"/>
             <first-from-list list-name="uomConversions" entry-name="uomConversion"/>
         </if-empty>
         <log level="verbose" message="using conversion factor=${uomConversion.conversionFactor}"/>
