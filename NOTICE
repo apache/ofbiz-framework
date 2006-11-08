@@ -184,15 +184,3 @@ Softcomplex (www.softcomplex.com):
 
 framework\images\webapp\images\calendar.html
 framework\images\webapp\images\calendar1.js
-
-=========================================================================
-==  WfMC Notice                                                        ==
-=========================================================================
-
-This product includes documents (dtds) provided by
-the Workflow Management Coalition (www.wfmc.org):
-
-framework\shark\dtd\TC-1025_schema_10_xpdl.xsd
-framework\workflow\dtd\xpdl-1.0-schema.xsd
-framework\workflow\dtd\xpdl.dtd
-
