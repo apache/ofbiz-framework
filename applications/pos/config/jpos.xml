@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE JposEntries PUBLIC "-//JavaPOS//DTD//EN" "jpos/res/jcl.dtd">
+<!DOCTYPE JposEntries PUBLIC "-//JavaPOS//DTD//EN" "http://jposloader.cvs.sourceforge.net/*checkout*/jposloader/jcl/src/jpos/res/jcl.dtd?revision=1.2">
+<!-- original DOCTYPE: <!DOCTYPE JposEntries PUBLIC "-//JavaPOS//DTD//EN" "jpos/res/jcl.dtd"> -->
 <!--
 Copyright 2001-2006 The Apache Software Foundation
 
