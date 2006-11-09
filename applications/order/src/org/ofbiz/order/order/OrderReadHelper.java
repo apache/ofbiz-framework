@@ -1363,8 +1363,8 @@ public class OrderReadHelper {
         return EntityUtil.filterByAnd(getOrderItems(), exprs);
     }
 
-    public boolean getPastEtaOrderItems() {
-        List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
+    public boolean getPastEtaOrderItems(String orderId) {
+        /*List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
         List itemsApproved = EntityUtil.filterByAnd(getOrderItems(), exprs);
         Iterator i = itemsApproved.iterator();
         while (i.hasNext()) {
@@ -1373,6 +1373,21 @@ public class OrderReadHelper {
             if (estimatedDeliveryDate != null && UtilDateTime.nowTimestamp().after(estimatedDeliveryDate)) {
         	return true;
             }            
+        }
+        return false;
+    }*/
+	GenericDelegator delegator = orderHeader.getDelegator();
+        GenericValue orderDeliverySchedule = null;
+        try {
+            orderDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
+        } catch (GenericEntityException e) {
+        }
+        Timestamp estimatedShipDate = null;
+        if (orderDeliverySchedule != null && orderDeliverySchedule.get("estimatedReadyDate") != null) {
+            estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
+        }
+        if (estimatedShipDate != null && UtilDateTime.nowTimestamp().after(estimatedShipDate)) {
+    		return true;
         }
         return false;
     }
@@ -1403,7 +1418,7 @@ public class OrderReadHelper {
     }
 
     public boolean getPartiallyReceivedItems() {	
-        List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
+        /*List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
         List itemsApproved = EntityUtil.filterByAnd(getOrderItems(), exprs);
         Iterator i = itemsApproved.iterator();
         while (i.hasNext()) {
@@ -1413,6 +1428,30 @@ public class OrderReadHelper {
             if (shippedQuantity != orderedQuantity.intValue() && shippedQuantity > 0) {
         	return true;
             }            
+        }
+        return false;
+    }*/
+    	List items = getOrderItems();	
+        Iterator i = items.iterator();
+        while (i.hasNext()) {
+            GenericValue item = (GenericValue) i.next();
+            List receipts = null;                  
+            try {
+        	receipts = item.getRelated("ShipmentReceipt");
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+            }                         
+            if (receipts != null && receipts.size() > 0) {
+                Iterator recIter = receipts.iterator();
+                while (recIter.hasNext()) {
+                    GenericValue rec = (GenericValue) recIter.next();
+                    Double acceptedQuantity = rec.getDouble("quantityAccepted");
+                    Double orderedQuantity = (Double) item.get("quantity");            
+                    if (acceptedQuantity.intValue() != orderedQuantity.intValue() && acceptedQuantity.intValue()  > 0) {
+                	return true;                    
+                    }
+                }            
+            }
         }
         return false;
     }

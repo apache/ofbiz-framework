@@ -77,10 +77,27 @@ under the License.
                 <div class="tabletext">
                     <input type="checkbox" name="filterInventoryProblems" value="Y"
                         <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if>/>
-                        ${uiLabelMap.OrderfilterInventoryProblems}
+                        ${uiLabelMap.OrderFilterInventoryProblems}
                     <input type="checkbox" name="filterAuthProblems" value="Y"
                         <#if requestParameters.filterAuthProblems?default("N") == "Y">checked="checked"</#if>/>
-                        ${uiLabelMap.OrderfilterAuthProblems}
+                        ${uiLabelMap.OrderFilterAuthProblems}
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="tableheadtext">${uiLabelMap.CommonFilter} (${uiLabelMap.OrderFilterPOs}):</div></td>
+            <td>&nbsp;&nbsp;</td>
+            <td nowrap>
+                <div class="tabletext">
+                    <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
+                        <#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if>/>
+                        ${uiLabelMap.OrderFilterPartiallyReceivedPOs}
+                    <input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
+                        <#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if>/>
+                        ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}
+                    <input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
+                        <#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if>/>
+                        ${uiLabelMap.OrderFilterPOsWithRejectedItems}
                 </div>
             </td>
           </tr>

@@ -21,13 +21,26 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 
-
 orderHeaderList = context.remove("orderHeaderList");
 productStore = ProductStoreWorker.getProductStore(request);
+List filteredList = new ArrayList();
+
 
 if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+    for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
+        orderHeader = (GenericValue) ohi.next();
+        orderReadHelper = OrderReadHelper.getHelper(orderHeader);
+        backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
+        if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
+            filteredList.add(orderHeader);
+        }
+    }
+}
 
-    List filteredList = new ArrayList();
+if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
+    	"Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
+    	"Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) &&
+    	UtilValidate.isNotEmpty(orderHeaderList)) {    
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
         orderHeader = (GenericValue) ohi.next();
         facilityId = orderHeader.getString("originFacilityId");
@@ -35,35 +48,29 @@ if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate
 		facilityId = productStore.getString("inventoryFacilityId");
         }
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
-        backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
-        if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
-            filteredList.add(orderHeader);
-            continue;
-        }
         if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
-            if (orderReadHelper.getRejectedOrderItems()) {
+            if (orderReadHelper.getRejectedOrderItems() &&
+                    "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) {
                 filteredList.add(orderHeader);
                 continue;
             }
-            if (orderReadHelper.getPastEtaOrderItems()) {
+            if (orderReadHelper.getPastEtaOrderItems(orderHeader.get("orderId")) &&
+                    "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA"))) {
                 filteredList.add(orderHeader);
                 continue;
             }
-            if (orderReadHelper.getPartiallyReceivedItems()) {
+            if (orderReadHelper.getPartiallyReceivedItems() &&
+                    "Y".equals(requestParameters.get("filterPartiallyReceivedPOs"))) {
                 filteredList.add(orderHeader);
                 continue;
             }            
         }
     }
-    orderHeaderList = filteredList;
 }
 
 if ("Y".equals(requestParameters.get("filterAuthProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
-
-    List filteredList = new ArrayList();
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
         orderHeader = (GenericValue) ohi.next();
-
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
         List paymentPrefList = orderReadHelper.getPaymentPreferences();
         for (Iterator ppi = paymentPrefList.iterator(); ppi.hasNext();) {
@@ -73,6 +80,13 @@ if ("Y".equals(requestParameters.get("filterAuthProblems")) && UtilValidate.isNo
             }
         }
     }
+}
+
+if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
+    	"Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
+    	"Y".equals(requestParameters.get("filterPOsWithRejectedItems")) ||
+    	"Y".equals(requestParameters.get("filterAuthProblems")) ||
+    	"Y".equals(requestParameters.get("filterInventoryProblems")))) {    	
     orderHeaderList = filteredList;
 }
 
