@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -37,15 +36,16 @@ under the License.
     <Enumeration description="Product" enumCode="PRODUCT_ID" enumId="PRIP_PRODUCT_ID" sequenceId="01" enumTypeId="PROD_PRICE_IN_PARAM"/>
     <Enumeration description="Product Category" enumCode="PRODUCT_CATEGORY_ID" enumId="PRIP_PROD_CAT_ID" sequenceId="02" enumTypeId="PROD_PRICE_IN_PARAM"/>
     <Enumeration description="Product Catalog" enumCode="PROD_CATALOG_ID" enumId="PRIP_PROD_CLG_ID" sequenceId="03" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Product Store Group" enumCode="PROD_STORE_GRP_ID" enumId="PRIP_PROD_SGRP_ID" sequenceId="04" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Website" enumCode="WEBSITE_ID" enumId="PRIP_WEBSITE_ID" sequenceId="05" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Quantity" enumCode="QUANTITY" enumId="PRIP_QUANTITY" sequenceId="06" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Party" enumCode="PARTY_ID" enumId="PRIP_PARTY_ID" sequenceId="07" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Party Group Member" enumCode="PARTY_GROUP_MEMBER" enumId="PRIP_PARTY_GRP_MEM" sequenceId="08" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Party Classification" enumCode="PARTY_CLASS" enumId="PRIP_PARTY_CLASS" sequenceId="09" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Role Type" enumCode="ROLE_TYPE" enumId="PRIP_ROLE_TYPE" sequenceId="10" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="List Price" enumCode="LIST_PRICE" enumId="PRIP_LIST_PRICE" sequenceId="11" enumTypeId="PROD_PRICE_IN_PARAM"/>
-    <Enumeration description="Currency UomId" enumCode="CURRENCY_UOMID" enumId="PRIP_CURRENCY_UOMID" sequenceId="12" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Product Feature" enumCode="PRODUCT_FEATURE_ID" enumId="PRIP_PROD_FEAT_ID" sequenceId="04" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Product Store Group" enumCode="PROD_STORE_GRP_ID" enumId="PRIP_PROD_SGRP_ID" sequenceId="05" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Website" enumCode="WEBSITE_ID" enumId="PRIP_WEBSITE_ID" sequenceId="06" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Quantity" enumCode="QUANTITY" enumId="PRIP_QUANTITY" sequenceId="07" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Party" enumCode="PARTY_ID" enumId="PRIP_PARTY_ID" sequenceId="08" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Party Group Member" enumCode="PARTY_GROUP_MEMBER" enumId="PRIP_PARTY_GRP_MEM" sequenceId="09" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Party Classification" enumCode="PARTY_CLASS" enumId="PRIP_PARTY_CLASS" sequenceId="10" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Role Type" enumCode="ROLE_TYPE" enumId="PRIP_ROLE_TYPE" sequenceId="11" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="List Price" enumCode="LIST_PRICE" enumId="PRIP_LIST_PRICE" sequenceId="12" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Currency UomId" enumCode="CURRENCY_UOMID" enumId="PRIP_CURRENCY_UOMID" sequenceId="13" enumTypeId="PROD_PRICE_IN_PARAM"/>
 
     <!-- old style; very technical ...
     <Enumeration description="==" enumCode="EQ" enumId="PRC_EQ" sequenceId="01" enumTypeId="PROD_PRICE_COND"/>

@@ -1705,6 +1705,19 @@ under the License.
         <key-map field-name="securityGroupId" rel-field-name="groupId"/>
       </relation>
     </entity>
+    <view-entity entity-name="PartyRelationshipToFrom" package-name="org.ofbiz.party.party">
+        <description>
+            Links two PartyRelationships together to be used to get a member of a group that is a member of a group, so links the to party of the first to the from party of the second.
+            To query the group ID would go on onePartyIdFrom and the member ID would go in twoPartyIdTo. 
+        </description>
+        <member-entity entity-alias="PR1" entity-name="PartyRelationship"/>
+        <member-entity entity-alias="PR2" entity-name="PartyRelationship"/>
+        <alias-all entity-alias="PR1" prefix="one"/>
+        <alias-all entity-alias="PR2" prefix="two"/>
+        <view-link entity-alias="PR1" rel-entity-alias="PR2">
+            <key-map field-name="partyIdTo" rel-field-name="partyIdFrom"/>
+        </view-link>
+    </view-entity>
     <entity entity-name="PartyRelationshipType"
             package-name="org.ofbiz.party.party"
             default-resource-name="PartyEntityLabels"
