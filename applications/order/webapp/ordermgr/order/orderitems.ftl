@@ -93,7 +93,7 @@ under the License.
                       <#assign requiredQuantity = requiredProductQuantityMap.get(productId)?default(0)>
                       <#assign onOrderQuantity = onOrderProductQuantityMap.get(productId)?default(0)>
                       <#assign inProductionQuantity = productionProductQuantityMap.get(productId)?default(0)>
-                      <#assign unplannedQuantity = requiredQuantity - qohQuantity - inProductionQuantity - onOrderQuantity>
+                      <#assign unplannedQuantity = requiredQuantity - qohQuantity - inProductionQuantity - onOrderQuantity - mktgPkgQOH>
                       <#if unplannedQuantity < 0><#assign unplannedQuantity = 0></#if>
                         <div class="tabletext" style="margin-top: 15px; margin-left: 20px;">
                             <table cellspacing="0" cellpadding="0" border="0">
