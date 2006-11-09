@@ -273,7 +273,7 @@ function runAction() {
               </tr>
               <tr>
                 <td width='25%' align='right'>
-                  <div class='tableheadtext'>${uiLabelMap.OrderFilterOnInventoryProblems}</div>
+                  <div class='tableheadtext'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterInventoryProblems}</div>
                 </td>
                 <td width='5%'>&nbsp;</td>
                 <td>
@@ -282,6 +282,53 @@ function runAction() {
                       <td nowrap>
                     	<input type="checkbox" name="filterInventoryProblems" value="Y"
                         	<#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if> />                    
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>                            
+                <td width='25%' align='right'>
+                  <div class='tableheadtext'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</div>
+                </td>
+                <td width='5%'>&nbsp;</td>
+                <td>
+                  <table border='0' cellspacing='0' cellpadding='0'>
+                    <tr>
+                      <td nowrap>
+                    	<input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
+                        	<#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if> />                    
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>                            
+              <tr>
+                <td width='25%' align='right'>
+                  <div class='tableheadtext'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}</div>
+                </td>
+                <td width='5%'>&nbsp;</td>
+                <td>
+                  <table border='0' cellspacing='0' cellpadding='0'>
+                    <tr>
+                      <td nowrap>
+                    	<input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
+                        	<#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if> />                    
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>                            
+              <tr>
+                <td width='25%' align='right'>
+                  <div class='tableheadtext'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsWithRejectedItems}</div>
+                </td>
+                <td width='5%'>&nbsp;</td>
+                <td>
+                  <table border='0' cellspacing='0' cellpadding='0'>
+                    <tr>
+                      <td nowrap>
+                    	<input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
+                        	<#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if> />                    
                       </td>
                     </tr>
                   </table>

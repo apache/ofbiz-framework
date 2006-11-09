@@ -202,12 +202,21 @@ if (lookupFlag != null) {
     }
 
     hasBackOrders = request.getParameter("hasBackOrders");
-    if (hasBackOrders != null && "Y".equals(hasBackOrders)) {
-        paramList = paramList + "&amp;hasBackOrders=Y";
+    if (hasBackOrders != null){
+        paramList = paramList + "&amp;hasBackOrders=" + hasBackOrders;
+        if ("Y".equals(hasBackOrders)) {
+            // Y = only show backorders
         entityName = "OrderHeaderItemAndInvRoles";
         andExprs.add(new EntityExpr("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
         andExprs.add(new EntityExpr("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0)));
+        } else if ("N".equals(hasBackOrders)) {
+            // N = exclude backorders... we might also need to include and OR condition: qty not available == 0
+            entityName = "OrderHeaderItemAndInvRoles";
+            andExprs.add(new EntityExpr("quantityNotAvailable", EntityOperator.EQUALS, null));
     }
+    }
+
+    
 
     // define the main condition
     mainCond = null;
@@ -374,10 +383,23 @@ if (lookupFlag != null) {
     }
     
     productStore = ProductStoreWorker.getProductStore(request);
+    List filteredList = new ArrayList();
 
     if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+	    for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
+	        orderHeader = (GenericValue) ohi.next();
+	        orderReadHelper = OrderReadHelper.getHelper(orderHeader);
+	        backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
+	        if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
+	            filteredList.add(orderHeader);
+	        }
+	    }
+	}
 
-        List filteredList = new ArrayList();
+    if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
+        	"Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
+        	"Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) &&
+        	UtilValidate.isNotEmpty(orderHeaderList)) {    
         for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
             orderHeader = (GenericValue) ohi.next();
             facilityId = orderHeader.getString("originFacilityId");
@@ -385,31 +407,35 @@ if (lookupFlag != null) {
     		facilityId = productStore.getString("inventoryFacilityId");
             }
             orderReadHelper = OrderReadHelper.getHelper(orderHeader);
-            backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
-            if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
+            if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
+                if (orderReadHelper.getRejectedOrderItems() &&
+                        "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) {
                 filteredList.add(orderHeader);
                 continue;
             }
-            if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
-                if (orderReadHelper.getRejectedOrderItems()) {
+                if (orderReadHelper.getPastEtaOrderItems(orderHeader.get("orderId")) &&
+                        "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA"))) {                    
                     filteredList.add(orderHeader);
                     continue;
                 }
-                if (orderReadHelper.getPastEtaOrderItems()) {
+                if (orderReadHelper.getPartiallyReceivedItems() &&
+                        "Y".equals(requestParameters.get("filterPartiallyReceivedPOs"))) {
                     filteredList.add(orderHeader);
                     continue;
                 }
-                if (orderReadHelper.getPartiallyReceivedItems()) {
-                    filteredList.add(orderHeader);
-                    continue;
                 }            
             }
         }
+    
+    if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
+	    	"Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
+	    	"Y".equals(requestParameters.get("filterPOsWithRejectedItems")) ||
+	    	"Y".equals(requestParameters.get("filterInventoryProblems")))) {    	
         orderHeaderList = filteredList;
     }
     
     context.put("orderHeaderList", orderHeaderList);
-    context.put("orderHeaderListSize", orderHeaderListSize);
+    context.put("orderHeaderListSize", orderHeaderListSize); // TODO : orderHeaderListSize here is not reactualized. Date from "if user doesn't have it, only SALES_ORDER" comment above... 
 
     if (lookupErrorMessage != null) {
         context.put("lookupErrorMessage", lookupErrorMessage);
