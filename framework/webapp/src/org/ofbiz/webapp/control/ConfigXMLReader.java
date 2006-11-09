@@ -273,7 +273,7 @@ public class ConfigXMLReader {
                 FastMap thisURI = (FastMap) debugMap.get(o);
 
 
-                StringBuffer verboseMessageBuffer = verboseMessageBuffer = new StringBuffer();
+                StringBuffer verboseMessageBuffer = new StringBuffer();
 
                 Iterator debugIter = ((Set) thisURI.keySet()).iterator();
                 while (debugIter.hasNext()) {
@@ -382,7 +382,7 @@ public class ConfigXMLReader {
                 String request = (String) o;
                 FastMap thisURI = (FastMap) debugMap.get(o);
     
-                StringBuffer verboseMessageBuffer = verboseMessageBuffer = new StringBuffer();
+                StringBuffer verboseMessageBuffer = new StringBuffer();
     
                 Iterator debugIter = ((Set) thisURI.keySet()).iterator();
                 while (debugIter.hasNext()) {

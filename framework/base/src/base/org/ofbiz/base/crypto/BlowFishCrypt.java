@@ -127,7 +127,7 @@ public class BlowFishCrypt {
     }
     
     public static byte[] generateKey() throws NoSuchAlgorithmException {        
-        KeyGenerator keyGen = keyGen = KeyGenerator.getInstance("Blowfish");               
+        KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");               
         keyGen.init(448);
         
         SecretKey secretKey = keyGen.generateKey();        
