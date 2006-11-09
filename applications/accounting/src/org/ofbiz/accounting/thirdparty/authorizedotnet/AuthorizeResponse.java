@@ -135,7 +135,7 @@ public class AuthorizeResponse {
 
         if (this.version.equals("3.0"))
         {
-            if (posNum == this.CID_RESPONSE_CODE)
+            if (posNum == CID_RESPONSE_CODE)
                 return "M";
         }
         if(posNum < 1 || posNum > maxPos) {

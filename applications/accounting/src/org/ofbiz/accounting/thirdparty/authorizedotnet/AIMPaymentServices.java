@@ -223,7 +223,7 @@ public class AIMPaymentServices {
             AuthorizeResponse ar = new AuthorizeResponse(httpResponse);
             String resp = ar.getResponseCode();
 
-            if (resp.equals(ar.APPROVED)) {
+            if (resp.equals(AuthorizeResponse.APPROVED)) {
                 result.put("authResult", new Boolean(true));
             } else {
                 result.put("authResult", new Boolean(false));
