@@ -317,7 +317,7 @@ public class UtilHttp {
 
     public static Locale getLocale(HttpServletRequest request, HttpSession session, Object appDefaultLocale) {
         // check session first, should override all if anything set there 
-        Object localeObject = localeObject = session != null ? session.getAttribute("locale") : null;
+        Object localeObject = session != null ? session.getAttribute("locale") : null;
 
         // next see if the userLogin has a value
         if (localeObject == null) {

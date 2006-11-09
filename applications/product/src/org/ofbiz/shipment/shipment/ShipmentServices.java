@@ -852,7 +852,7 @@ public class ShipmentServices {
 
         // get the carrierPartyId
         try {
-            GenericValue shipmentRouteSegment = shipmentRouteSegment = delegator.findByPrimaryKeyCache("ShipmentRouteSegment", 
+            GenericValue shipmentRouteSegment = delegator.findByPrimaryKeyCache("ShipmentRouteSegment", 
                     UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
             carrierPartyId = shipmentRouteSegment.getString("carrierPartyId");
         } catch (GenericEntityException e) {

@@ -1363,7 +1363,7 @@ public class ProductionRunServices {
                     serviceContext = new HashMap();
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     serviceContext.put("userLogin", userLogin);
-                    resultService = resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
+                    resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
                 }
             } catch(Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
@@ -1401,7 +1401,7 @@ public class ProductionRunServices {
                     serviceContext.put("priorityOrderId", orderItem.getString("orderId"));
                     serviceContext.put("priorityOrderItemSeqId", orderItem.getString("orderItemSeqId"));
                 }
-                resultService = resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
+                resultService = dispatcher.runSync("balanceInventoryItems", serviceContext);
             } catch(Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
@@ -1714,7 +1714,7 @@ public class ProductionRunServices {
             serviceContext.put("quantityProduced", new Double(totalQuantityProduced));
             serviceContext.put("quantityRejected", new Double(totalQuantityRejected));
             serviceContext.put("userLogin", userLogin);
-            Map resultService = resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
+            Map resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
         } catch(Exception exc) {
             return ServiceUtil.returnError(exc.getMessage());
         }
