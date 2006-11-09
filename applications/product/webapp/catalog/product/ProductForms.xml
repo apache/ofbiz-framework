@@ -327,7 +327,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" ></field>
         <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>
         <field name="quantity" title="${uiLabelMap.ProductQuantity}" ></field>
-        <field name="comments" ><ignored/></field>
+        <field name="comments" ><textarea/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductCategoryMemeber" type="list"
@@ -343,7 +343,9 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
-        <field name="comments" title="${uiLabelMap.ProductComments}" ><ignored/></field>
+        <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>
+        <field name="quantity" title="${uiLabelMap.ProductQuantity}" ></field>
+        <field name="comments" title="${uiLabelMap.ProductComments}" ><textarea/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="removeProductFromCategory?productId=${productId}&amp;productCategoryId=${productCategoryId}&amp;fromDate=${fromDate}"

@@ -44,7 +44,7 @@ under the License.
         <tr>
             <td><div class="tabletext"><b>${uiLabelMap.ProductProductNameId}</b></div></td>
             <td><div class="tabletext"><b>${uiLabelMap.CommonFromDateTime}</b></div></td>
-            <td align="center"><div class="tabletext"><b>${uiLabelMap.ProductThruDateTimeSequenceQuantity}</b></div></td>
+            <td align="center"><div class="tabletext"><b>${uiLabelMap.ProductThruDateTimeSequenceQuantity}<br/>${uiLabelMap.CommonComments}</b></div></td>
             <td><div class="tabletext"><b>&nbsp;</b></div></td>
         </tr>
         <#if (listSize > 0)>
@@ -69,6 +69,8 @@ under the License.
                     <a href="javascript:call_cal(document.updateCategoryProductForm.thruDate${suffix}, '${(productCategoryMember.thruDate)?default(nowTimestamp?string)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
                     <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}" class="inputBox">
                     <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}" class="inputBox">
+                    <br/>
+                    <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>        
                 </td>
                 <td align="center">
                 <a href="<@ofbizUrl>removeCategoryProductMember?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex}&productId=${(productCategoryMember.productId)?if_exists}&productCategoryId=${(productCategoryMember.productCategoryId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue((productCategoryMember.getTimestamp("fromDate").toString()))}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="buttontext">
@@ -116,7 +118,9 @@ under the License.
             <a href="javascript:call_fieldlookup2(document.addProductCategoryMemberForm.productId, 'LookupProduct');"><img src="/content/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"></a>
             ${uiLabelMap.CommonFromDate}: <input type="text" size="22" name="fromDate" class="inputBox">
             <a href="javascript:call_cal(document.addProductCategoryMemberForm.fromDate, '${nowTimestamp?string}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
-            <input type="submit" value="${uiLabelMap.CommonAdd}">
+              <br/>
+              ${uiLabelMap.CommonComments}: <textarea name="comments" rows="2" cols="40"></textarea>        
+              <input type="submit" value="${uiLabelMap.CommonAdd}">
         </div>
         </form>
         
