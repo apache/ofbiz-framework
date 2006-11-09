@@ -1478,6 +1478,26 @@ under the License.
         <response name="success" type="view" value="EditSubscriptionAttributes"/>
     </request-map>
     
+    <!-- ================ Subscription Communication Event ================= -->
+    <request-map uri="EditSubscriptionCommEvent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSubscriptionCommEvent"/>
+        <response name="error" type="view" value="EditSubscriptionCommEvent"/>
+    </request-map>
+    
+    <request-map uri="createSubscriptionCommEvent">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createSubscriptionCommEvent"/>
+        <response name="success" type="view" value="EditSubscriptionCommEvent"/>
+        <response name="error" type="view" value="EditSubscriptionCommEvent"/>
+    </request-map>
+    <request-map uri="removeSubscriptionCommEvent">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeSubscriptionCommEvent"/>
+        <response name="success" type="view" value="EditSubscriptionCommEvent"/>
+        <response name="error" type="view" value="EditSubscriptionCommEvent"/>
+    </request-map>
+    
     <!-- ================ ProductPromo Rules Requests ================= -->
     <request-map uri="EditProductPromoRules">
         <security https="true" auth="true"/>
@@ -2177,6 +2197,7 @@ under the License.
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupProductStore"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductStore"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
+   
 
     <!-- end of request mappings -->
 
@@ -2245,6 +2266,7 @@ under the License.
     <view-map name="FindSubscriptionResource" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#FindSubscriptionResource"/>
     <view-map name="EditSubscriptionResource" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionResource"/>
     <view-map name="EditSubscriptionResourceProducts" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionResourceProducts"/>
+    <view-map name="EditSubscriptionCommEvent" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionCommEvent"/>
     
     <view-map name="EditFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeature"/>
     <view-map name="EditFeatureCategories" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureCategories"/>
@@ -2311,5 +2333,6 @@ under the License.
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
     <view-map name="LookupProductStore" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductStore"/>
     <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
+
     <!-- end of view mappings -->
 </site-conf>

@@ -247,6 +247,9 @@ under the License.
     <entity-group group="org.ofbiz" entity="SubscriptionType" />
     <entity-group group="org.ofbiz" entity="SubscriptionTypeAttr" />
     
+    <entity-group group="org.ofbiz" entity="SubscriptionCommEvent" />
+    <entity-group group="org.ofbiz" entity="SubscriptionAndCommEvent" />
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.supplier -->
   <!-- ========================================================= -->

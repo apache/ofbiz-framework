@@ -237,4 +237,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditSubscriptionCommEvent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSubscriptionCommEvent" />
+                <set field="tabButtonItem" value="EditSubscriptionCommEvent" />
+                <set field="subscriptionId" from-field="parameters.subscriptionId" />
+                <entity-and entity-name="SubscriptionAndCommEvent" use-cache="false" list-name="subscriptionCommEvent">
+                    <field-map field-name="subscriptionId" />
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSubscriptionDecorator">
+                    <decorator-section name="body">
+                        <include-form name="listSubscriptionCommEvent"
+                            location="component://product/widget/catalog/SubscriptionForms.xml" />
+                        <include-form name="createSubscriptionCommEvent"
+                            location="component://product/widget/catalog/SubscriptionForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

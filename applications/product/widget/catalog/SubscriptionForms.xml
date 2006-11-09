@@ -60,7 +60,6 @@ under the License.
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
-        <field name="communicationEventId"><lookup target-form-name="LookupCommEvent"/></field>
         
         <field name="partyNeedId"><ignored/></field>
         <field name="needTypeId"><ignored/></field>
@@ -112,11 +111,6 @@ under the License.
         <field name="productCategoryId">
             <display-entity entity-name="ProductCategory" description="${categoryName}">
                 <sub-hyperlink target="/catalog/control/EditProductCategory?productCategoryId=${productCategoryId}" target-type="inter-app" description="${productCategoryId}" link-style="buttontext"/>
-            </display-entity>
-        </field>
-        <field name="communicationEventId">
-            <display-entity entity-name="CommunicationEvent" description="${subject}">
-                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app" description="${communicationEventId}" link-style="buttontext"/>
             </display-entity>
         </field>
         
@@ -203,11 +197,6 @@ under the License.
         <field name="productCategoryId">
             <lookup target-form-name="LookupProductCategory">
                 <sub-hyperlink target="/catalog/control/EditProductCategory?productCategoryId=${subscription.productCategoryId}" target-type="inter-app" description="${subscription.productCategoryId}" link-style="buttontext"/>
-            </lookup>
-        </field>
-        <field name="communicationEventId">
-            <lookup target-form-name="LookupCommEvent">
-                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent?communicationEventId=${subscription.communicationEventId}" target-type="inter-app" description="${subscription.communicationEventId}" link-style="buttontext"/>
             </lookup>
         </field>
                
@@ -333,5 +322,48 @@ under the License.
         
         <field name="subscriptionId"><hidden/></field>
         <field name="updateButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <!-- Subscription Communication Event  -->
+    <form name="listSubscriptionCommEvent" type="list"  list-name="subscriptionCommEvent"  target="ListSubscriptionCommEvent"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="SubscriptionAndCommEvent">
+                <condition-expr field-name="subscriptionId" env-name="subscriptionId"/>
+                <order-by field-name="communicationEventId"/>
+            </entity-condition>
+        </actions>     
+        <field name="subscriptionId"><hidden/></field>
+        <field name="communicationEventId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${communicationEventId}" target="../../partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}"/>
+        </field>
+		<field name="partyIdFrom" title="${uiLabelMap.CommonParty} ${uiLabelMap.CommonFrom}">
+            <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.CommonParty} ${uiLabelMap.CommonTo}">
+            <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
+        </field>
+        <field name="communicationEventTypeId" ><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+        <field name="statusId" title="${uiLabelMap.Status}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
+        <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
+        <field name="deleteLink" title="Delete" widget-style="buttontext">
+            <hyperlink target="removeSubscriptionCommEvent?subscriptionId=${subscriptionId}&amp;communicationEventId=${communicationEventId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="createSubscriptionCommEvent" type="single" target="createSubscriptionCommEvent" title=""
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createSubscriptionCommEvent"/>
+        <field name="subscriptionId"><hidden value="${parameters.subscriptionId}"/></field>
+        <field name="communicationEventId">
+            <lookup target-form-name="LookupCommEvent">
+                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent?communicationEventId=${subscription.communicationEventId}" target-type="inter-app" description="${subscription.communicationEventId}" link-style="buttontext"/>
+            </lookup>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
