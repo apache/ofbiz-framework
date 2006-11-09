@@ -143,4 +143,21 @@ under the License.
             </else>
         </if-empty>
     </simple-method>
+    
+    <simple-method method-name="createSubscriptionCommEvent" short-description="Create a Subscription Communication Event">
+        <set value="_CREATE" field="securityAction"/>
+        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="SubscriptionCommEvent"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>    
+    </simple-method>
+    <simple-method method-name="removeSubscriptionCommEvent" short-description="Remove a Subscription Communication Event">
+        <set value="_CREATE" field="securityAction"/>
+        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
+        <check-errors/>
+        <entity-one entity-name="SubscriptionCommEvent" value-name="eventSubscription"/>
+        <remove-value value-name="eventSubscription"/>
+    </simple-method>
 </simple-methods>

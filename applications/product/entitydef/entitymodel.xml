@@ -3616,7 +3616,7 @@ under the License.
     <entity entity-name="Subscription" package-name="org.ofbiz.product.subscription" title="Subscription Entity">
         <field name="subscriptionId" type="id-ne"></field>
         <field name="subscriptionResourceId" type="id"></field>
-        <field name="communicationEventId" type="id"></field>
+        <!--field name="communicationEventId" type="id"></field--><!-- now replaced by entity: SubscriptionCommEvent -->
         <field name="contactMechId" type="id"></field>
         <field name="originatedFromPartyId" type="id"></field>
         <field name="originatedFromRoleTypeId" type="id"></field>
@@ -3635,9 +3635,6 @@ under the License.
         <prim-key field="subscriptionId"/>
         <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
             <key-map field-name="subscriptionResourceId"/>
-        </relation>
-        <relation type="one" fk-name="SUBSC_COM_EVENT" rel-entity-name="CommunicationEvent">
-            <key-map field-name="communicationEventId"/>
         </relation>
         <relation type="one" fk-name="SUBSC_CONT_MECH" rel-entity-name="ContactMech">
             <key-map field-name="contactMechId"/>
@@ -3766,6 +3763,28 @@ under the License.
             <key-map field-name="subscriptionTypeId"/>
         </relation>
     </entity>
+    
+    <entity entity-name="SubscriptionCommEvent" package-name="org.ofbiz.product.subscription" title="Subscription Communication Event  Entity">
+      <field name="subscriptionId" type="id-ne"></field>
+      <field name="communicationEventId" type="id-ne"></field>
+      <prim-key field="subscriptionId"/>
+      <prim-key field="communicationEventId"/>
+      <relation type="one" fk-name="SUBSC_COM_EVENT" rel-entity-name="CommunicationEvent">
+            <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one" fk-name="SUBSC_SUBSC" rel-entity-name="Subscription">
+        <key-map field-name="subscriptionId"/>
+      </relation>
+    </entity>
+    <view-entity entity-name="SubscriptionAndCommEvent" package-name="org.ofbiz.product.subscription" title="Subscription And Communication Event   View Entity">
+      <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
+      <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+      <alias-all entity-alias="SC"/>
+      <alias-all entity-alias="CE"/>
+      <view-link entity-alias="SC" rel-entity-alias="CE">
+        <key-map field-name="communicationEventId"/>
+      </view-link>
+    </view-entity>
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.supplier -->

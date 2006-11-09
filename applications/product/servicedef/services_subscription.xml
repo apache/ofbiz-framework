@@ -117,4 +117,15 @@ under the License.
         <attribute name="attrName" type="String" mode="IN" optional="false"/>
         <attribute name="attrValue" type="String" mode="IN" optional="true"/>
     </service>
+    
+    <service name="createSubscriptionCommEvent" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscriptionCommEvent" auth="true">
+        <description>Create a Subscription Communication Event </description>
+        <auto-attributes entity-name="SubscriptionCommEvent" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="removeSubscriptionCommEvent" engine="simple"
+        location="org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="removeSubscriptionCommEvent" auth="true">
+        <description>Remove a Subscription Communication Event </description>
+        <auto-attributes entity-name="SubscriptionCommEvent" include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
