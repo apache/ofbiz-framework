@@ -335,7 +335,7 @@ under the License.
         </actions>     
         <field name="subscriptionId"><hidden/></field>
         <field name="communicationEventId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${communicationEventId}" target="../../partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}"/>
+            <hyperlink also-hidden="false" description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
         </field>
 		<field name="partyIdFrom" title="${uiLabelMap.CommonParty} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
