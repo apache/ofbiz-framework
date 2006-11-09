@@ -345,7 +345,8 @@ under the License.
     <ProductCategoryMember productCategoryId="100" productId="GZ-1001" sequenceNum="11" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1004" sequenceNum="14" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1005" sequenceNum="15" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-1006" sequenceNum="16" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="100" productId="GZ-1006" sequenceNum="16" fromDate="2001-05-13 12:00:00.0" 
+        comments="The Open Gizmo is compatibile with all other gimzos."/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-2002" sequenceNum="22" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-2644" sequenceNum="26" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-5005" sequenceNum="55" fromDate="2001-05-13 12:00:00.0"/>
@@ -362,7 +363,8 @@ under the License.
     <ProductCategoryMember productCategoryId="101" productId="GZ-NEWS-1MO" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-1004" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-1005" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="102" productId="GZ-1006" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="102" productId="GZ-1006" fromDate="2001-05-13 12:00:00.0"
+        comments="Despite its low price, the Open Gizmo is quite large and powerful."/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-7000" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-8544" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="102" productId="GZ-9290" fromDate="2001-05-13 12:00:00.0"/>
