@@ -20,6 +20,9 @@ under the License.
     <#if requestAttributes.targetRequestName?has_content>
         <#assign targetRequestName = requestAttributes.targetRequestName>
     </#if>
+    <#if requestAttributes.productCategoryMember?exists>
+        <#assign prodCatMem = requestAttributes.productCategoryMember>
+    </#if>    
     <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL")?if_exists>
     <#if !smallImageUrl?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
     <#-- end variable setup -->
@@ -62,9 +65,7 @@ under the License.
               <a href="javascript:document.the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}form.submit()" class="buttontext">${uiLabelMap.EcommerceAddtoCart}</a>
             </form>
 
-            <#if requestAttributes.productCategoryMember?exists>
-                <#assign prodCatMem = requestAttributes.productCategoryMember>
-                <#if prodCatMem?exists && prodCatMem.quantity?exists && 0.00 < prodCatMem.quantity?double>
+              <#if prodCatMem?exists && prodCatMem.quantity?exists && 0.00 < prodCatMem.quantity?double>
                 <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}defaultform" style="margin: 0;">
                   <input type="hidden" name="add_product_id" value="${prodCatMem.productId?if_exists}"/>
                   <input type="hidden" name="quantity" value="${prodCatMem.quantity?if_exists}"/>
@@ -77,7 +78,6 @@ under the License.
                   <a href="javascript:document.the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}defaultform.submit()" class="buttontext">${uiLabelMap.CommonAddDefault}(${prodCatMem.quantity?string.number}) ${uiLabelMap.EcommerceToCart}</a>
                 </form>
               </#if>
-            </#if>
           </#if>
         </div>
         <div class="productinfo">
@@ -85,6 +85,12 @@ under the License.
             <a href="<@ofbizUrl>${targetRequestName}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="linktext">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</a>
           </div>
           <div class="tabletext">${productContentWrapper.get("DESCRIPTION")?if_exists}<#if daysToShip?exists>&nbsp;-&nbsp;${uiLabelMap.ProductUsuallyShipsIn} <b>${daysToShip}</b> ${uiLabelMap.CommonDays}!</#if></div>
+          
+          <#-- Display category-specific product comments -->
+          <#if prodCatMem?exists && prodCatMem.comments?has_content> 
+          <div class="tabletext">${prodCatMem.comments}</div>
+          </#if>
+          
           <#-- example of showing a certain type of feature with the product -->
           <#if sizeProductFeatureAndAppls?has_content>
             <div class="tabletext">
