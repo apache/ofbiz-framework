@@ -1,5 +1,4 @@
 /*
- *
  * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -534,10 +533,10 @@ public class PriceServices {
                             if ("PRIP_QUANTITY".equals(productPriceCond.getString("inputParamEnumId"))) {
                                 foundQuantityInputParam = true;
                             } else {
-                                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator)) {
+                                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator, nowTimestamp)) {
                                     // if there is a virtualProductId, try that given that this one has failed
                                     if (virtualProductId != null) {
-                                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator)) {
+                                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator, nowTimestamp)) {
                                             allExceptQuantTrue = false;
                                         }
                                         // otherwise, okay, this one made it so carry on checking
@@ -679,6 +678,16 @@ public class PriceServices {
                 while (productCategoryIdCondsIter.hasNext()) {
                     GenericValue productCategoryIdCond = (GenericValue) productCategoryIdCondsIter.next();
                     productPriceRuleIds.add(productCategoryIdCond.getString("productPriceRuleId"));
+                }
+            }
+
+            // by productFeatureId
+            Collection productFeatureIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_FEAT_ID"));
+            if (productFeatureIdConds != null && productFeatureIdConds.size() > 0) {
+                Iterator productFeatureIdCondsIter = productFeatureIdConds.iterator();
+                while (productFeatureIdCondsIter.hasNext()) {
+                    GenericValue productFeatureIdCond = (GenericValue) productFeatureIdCondsIter.next();
+                    productPriceRuleIds.add(productFeatureIdCond.getString("productPriceRuleId"));
                 }
             }
 
@@ -873,10 +882,10 @@ public class PriceServices {
 
                 totalConds++;
 
-                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator)) {
+                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator, nowTimestamp)) {
                     // if there is a virtualProductId, try that given that this one has failed
                     if (virtualProductId != null) {
-                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator)) {
+                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator, nowTimestamp)) {
                             allTrue = false;
                             break;
                         }
@@ -1088,7 +1097,7 @@ public class PriceServices {
 
     public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String prodCatalogId,
             String productStoreGroupId, String webSiteId, String partyId, Double quantity, double listPrice,
-            String currencyUomId, GenericDelegator delegator) throws GenericEntityException {
+            String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         if (Debug.verboseOn()) Debug.logVerbose("Checking price condition: " + productPriceCond, module);
         int compare = 0;
 
@@ -1100,9 +1109,22 @@ public class PriceServices {
             List productCategoryMembers = delegator.findByAndCache("ProductCategoryMember",
                     UtilMisc.toMap("productId", productId, "productCategoryId", productCategoryId));
             // and from/thru date within range
-            productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
+            productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, nowTimestamp, null, null, true);
             // then 0 (equals), otherwise 1 (not equals)
             if (productCategoryMembers != null && productCategoryMembers.size() > 0) {
+                compare = 0;
+            } else {
+                compare = 1;
+            }
+        } else if ("PRIP_PROD_FEAT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
+            // if a ProductFeatureAppl exists for this productId and the specified productFeatureId
+            String productFeatureId = productPriceCond.getString("condValue");
+            List productFeatureAppls = delegator.findByAndCache("ProductFeatureAppl",
+                    UtilMisc.toMap("productId", productId, "productFeatureId", productFeatureId));
+            // and from/thru date within range
+            productFeatureAppls = EntityUtil.filterByDate(productFeatureAppls, nowTimestamp, null, null, true);
+            // then 0 (equals), otherwise 1 (not equals)
+            if (productFeatureAppls != null && productFeatureAppls.size() > 0) {
                 compare = 0;
             } else {
                 compare = 1;
@@ -1151,12 +1173,20 @@ public class PriceServices {
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
                     List partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
                     // and from/thru date within range
-                    partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, true);
+                    partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
                     // then 0 (equals), otherwise 1 (not equals)
                     if (partyRelationshipList != null && partyRelationshipList.size() > 0) {
                         compare = 0;
                     } else {
-                        compare = 1;
+                        // before setting 1 try one more query: look for a 2 hop relationship
+                        List partyRelationshipTwoHopList = delegator.findByAndCache("PartyRelationshipToFrom", UtilMisc.toMap("onePartyIdFrom", groupPartyId, "twoPartyIdTo", partyId, "onePartyRelationshipTypeId", "GROUP_ROLLUP", "twoPartyRelationshipTypeId", "GROUP_ROLLUP"));
+                        partyRelationshipTwoHopList = EntityUtil.filterByDate(partyRelationshipTwoHopList, nowTimestamp, "oneFromDate", "oneThruDate", true);
+                        partyRelationshipTwoHopList = EntityUtil.filterByDate(partyRelationshipTwoHopList, nowTimestamp, "twoFromDate", "twoThruDate", true);
+                        if (partyRelationshipTwoHopList != null && partyRelationshipTwoHopList.size() > 0) {
+                            compare = 0;
+                        } else {
+                            compare = 1;
+                        }
                     }
                 }
             }
@@ -1168,7 +1198,7 @@ public class PriceServices {
                 // find any PartyClassification
                 List partyClassificationList = delegator.findByAndCache("PartyClassification", UtilMisc.toMap("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId));
                 // and from/thru date within range
-                partyClassificationList = EntityUtil.filterByDate(partyClassificationList, true);
+                partyClassificationList = EntityUtil.filterByDate(partyClassificationList, nowTimestamp, null, null, true);
                 // then 0 (equals), otherwise 1 (not equals)
                 if (partyClassificationList != null && partyClassificationList.size() > 0) {
                     compare = 0;
