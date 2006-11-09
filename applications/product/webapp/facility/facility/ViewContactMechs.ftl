@@ -116,7 +116,7 @@ under the License.
             </#if>
             <#if security.hasEntityPermission("PARTYMGR", "_DELETE", session)>
             <td align="right" valign="top" width="1%">
-              <div><a href='<@ofbizUrl>deleteContactMech/ViewContactMechs?facilityId=${facilityId}&contactMechId=${contactMech.contactMechId}&facilityId=${facilityId}</@ofbizUrl>' class="buttontext">
+              <div><a href='<@ofbizUrl>deleteContactMech/ViewContactMechs?facilityId=${facilityId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>' class="buttontext">
               [${uiLabelMap.CommonExpire}]</a>&nbsp;&nbsp;</div>
             </td>
             </#if>
