@@ -102,18 +102,6 @@ under the License.
     <!-- ============================== -->
     <!-- Inventory Maintenance Services -->
     <!-- ============================== -->
-    <service name="getInventoryAlerts" engine="simple"
-            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getInventoryAlerts" auth="false">
-        <description>Get all Inventory Alerts in effect for a given catalog</description>
-        <attribute name="catalogId" type="String" mode="IN" optional="false"/>
-        <attribute name="alertResults" type="List" mode="OUT" optional="true"/>
-    </service>
-    <service name="emailInventoryAlerts" engine="simple"
-            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="emailInventoryAlerts" auth="false">
-        <description>Get all Inventory Alerts in effect for a given catalog</description>
-        <attribute name="catalogId" type="String" mode="IN" optional="false"/>
-    </service>
-
     <service name="updateOldInventoryToDetailAll" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailAll" auth="true">
         <description>Update Old Inventory To Detail</description>

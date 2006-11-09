@@ -473,42 +473,6 @@ under the License.
         <field-to-result field-name="quantityOnHandTotal"/>
     </simple-method>
 
-    <simple-method method-name="getInventoryAlerts" short-description="getInventoryAlerts" login-required="false">
-        <set from-field="parameters.catalogId" field="lookupFieldMap.catalogId"/>
-        <find-by-and entity-name="InventoryAlert" map-name="lookupFieldMap" list-name="inventoryAlerts" />
-        <iterate entry-name="inventoryAlert" list-name="inventoryAlerts">
-            <set from-field="inventoryAlert.productId" field="inventoryLookup.productId"/>
-            <call-service service-name="getProductInventoryAvailable" in-map-name="inventoryLookup">
-                <result-to-field result-name="availableToPromiseTotal" map-name="getInventoryResults" />
-            </call-service>
-            <if-compare-field field-name="availableToPromiseTotal" map-name="getInventoryResults" operator="less" to-map-name="inventoryAlert" to-field-name="inventoryLevel" type="Double" >
-                <set from-field="inventoryAlert.productId" field="alertResult.productId"/>
-                <set from-field="getInventoryResults.availableToPromiseTotal" field="alertResult.availableToPromiseTotal"/>
-                <field-to-list field-name="alertResult" list-name="alertResults" />
-            </if-compare-field>
-        </iterate>
-        <field-to-result result-name="alertResults" field-name="alertResults" />
-        <field-to-request field-name="alertResults" request-name="alertResults" />
-    </simple-method>
-
-    <simple-method method-name="emailInventoryAlerts" short-description="Email Inventory Alerts" login-required="false">
-        <set from-field="parameters.catalogId" field="urlParams.catalogId"/>
-        <set from-field="urlParams" field="emailParams.bodyUrlParameters"/>
-        <set value="mail.smtp.host" field="emailParams.sendType"/>
-
-        <property-to-field resource="inventoryalerts" property="mailhost" field-name="sendVia" map-name="emailParams"/>
-        <property-to-field resource="inventoryalerts" property="sendTo" field-name="sendTo" map-name="emailParams"/>
-        <property-to-field resource="inventoryalerts" property="sendFrom" field-name="sendFrom" map-name="emailParams"/>
-        <property-to-field resource="inventoryalerts" property="subject" field-name="subject" map-name="emailParams"/>
-        <property-to-field resource="inventoryalerts" property="bodyUrl" field-name="bodyUrl" map-name="emailParams"/>
-        <call-service service-name="getInventoryAlerts" in-map-name="parameters" >
-            <result-to-field result-name="alertResults" map-name="getInventoryResults" />
-        </call-service>
-        <if-not-empty map-name="getInventoryResults" field-name="alertResults">
-            <call-service service-name="sendMailFromUrl" in-map-name="emailParams"/>
-        </if-not-empty>
-    </simple-method>
-
     <simple-method method-name="balanceInventoryItems" short-description="Balances available-to-promise on inventory items">
         <make-value entity-name="InventoryItem" value-name="lookupPKMap"/>
         <set-pk-fields value-name="lookupPKMap" map-name="parameters"/>
