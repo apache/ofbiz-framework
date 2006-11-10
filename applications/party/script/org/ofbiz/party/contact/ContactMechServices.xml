@@ -48,8 +48,8 @@ under the License.
              <log level="info" message="Contact mech need updating"/> 
             <clone-value value-name="oldValue" new-value-name="newValue"/>
             <set-nonpk-fields map-name="parameters" value-name="newValue" set-if-null="false"/>
-            <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-                processor-name="contactMech" in-map-name="newValue" out-map-name="context"/>
+            <set field="context.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
+            <set field="context.infoString" from-field="parameters.infoString"/>
             <call-service service-name="createContactMech" in-map-name="context">
                 <default-message>Contact Mechanism successfully created.</default-message>
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
