@@ -789,6 +789,7 @@ under the License.
       <alias entity-alias="OH" name="orderStatusId" field="statusId" group-by="false"/>
       <alias entity-alias="OI" name="orderItemStatusId" field="statusId" group-by="false"/>
       <alias entity-alias="OI" name="productId" group-by="true"/>
+      <alias entity-alias="II" name="issuedDateTime" group-by="false"/>
       <alias entity-alias="OI" name="quantityOrdered" function="sum">
           <complex-alias operator="-">
               <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
