@@ -173,7 +173,8 @@ under the License.
 
     <service name="checkInventoryAvailability" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAvailability">
-        <description>Batch service for checking and sending backorder notifications</description>
+        <description>Batch service for checking and sending backorder notifications.  Will also set an autoCancelDate for sales orders to 30 days (hard coded)
+            beyond the OISGIR's promisedDatetime, which is in turn set by reserveProductInventory service using ProductFacility.daysToShip or 30 days by default.</description>
         <!-- this service has no parameters IN or OUT -->
     </service>
 
