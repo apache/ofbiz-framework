@@ -791,8 +791,7 @@ under the License.
                     <condition-list combine="and">
                         <condition-expr field-name="originFacilityId" operator="equals" env-name="parameters.facilityId"/>
                         <condition-expr field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
-                        <condition-expr field-name="carrierServiceStatusId" operator="not-equals" value="SHRSCS_CONFIRMED"/>
-                        <condition-expr field-name="carrierServiceStatusId" operator="not-equals" value="SHRSCS_ACCEPTED"/>
+                        <condition-expr field-name="carrierServiceStatusId" operator="equals" value="SHRSCS_NOT_STARTED"/>
                     </condition-list>
                     <order-by field-name="shipmentId DESC"/>
                 </entity-condition>
