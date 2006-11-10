@@ -315,7 +315,11 @@ under the License.
 
     <service name="autoCancelOrderItems" engine="java"
             location="org.ofbiz.order.order.OrderServices" invoke="cancelFlaggedSalesOrders">
-        <description>Batch service for doing auto-cancel on set items</description>
+            <description>Batch service which automatically canels sales order items.  Items will be canceled if (a) they are on 
+                orders in the CREATED state and it has been either 30 days or ProductStore.daysCancelNoPay since the order was created or 
+                (b) if the item is flagged with an autoCancelDate and does not have a dontCancelDate and dontCancelUserLogin associated with it,
+                and it is past the autoCancelDate.</description> 
+                
         <!-- this service has no parameters IN or OUT -->
     </service>
 
