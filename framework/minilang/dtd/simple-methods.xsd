@@ -1760,6 +1760,22 @@ under the License.
     <xs:attributeGroup name="attlist.number">
         <xs:attribute type="xs:string" name="value" use="required"/>
     </xs:attributeGroup>
+    <xs:element name="while-compare" substitutionGroup="ControlOperations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.while-compare"/>
+            <xs:attributeGroup ref="attlist.operatorRequired"/>
+            <xs:attributeGroup ref="attlist.typeDefaultString"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.while-compare">
+        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="value" use="required"/>
+        <xs:attribute type="xs:string" name="format"/>
+    </xs:attributeGroup>                
     <!--
         ======================================================
         ========== The Simple Map Processor Section ==========
