@@ -161,45 +161,44 @@ public class UtilAccounting {
 
 
     /**
-     * Recurses up class tree via parentClassId to see if input account class ID is in tree.
+     * Determines if a glAccountClass is of a child of a certain parent glAccountClass.
      */
-    private static boolean isAccountClassRecurse(GenericValue accountClass, String inputClassId) throws GenericEntityException {
+    public static boolean isAccountClassClass(GenericValue glAccountClass, String parentGlAccountClassId) throws GenericEntityException {
+        if (glAccountClass == null) return false;
 
-        // first check parentClassId against inputClassId
-        String parentClassId = accountClass.getString("parentClassId");
+        // check current class against input classId
+        if (parentGlAccountClassId.equals(glAccountClass.get("glAccountClassId"))) {
+            return true;
+        }
+
+        // check parentClassId against inputClassId
+        String parentClassId = glAccountClass.getString("parentClassId");
         if (parentClassId == null) {
             return false;
         }
-        if (parentClassId.equals(inputClassId)) {
+        if (parentClassId.equals(parentGlAccountClassId)) {
             return true;
         }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return isAccountClassRecurse(accountClass.getRelatedOne("ParentGlAccountClass"), inputClassId);
+        return isAccountClassClass(glAccountClass.getRelatedOneCache("ParentGlAccountClass"), parentGlAccountClassId);
     }
 
     /**
-     * Checks if an account is of a specified GlAccountClass.glAccountClassId.  Returns false if account is null.  It's better to use the
+     * Checks if a GL account is of a specified GlAccountClass.glAccountClassId.  Returns false if account is null.  It's better to use the
      * more specific calls like isDebitAccount().
      */
-    public static boolean isAccountClass(GenericValue account, String inputClassId) throws GenericEntityException {
-        if (account == null) {
+    public static boolean isAccountClass(GenericValue glAccount, String glAccountClassId) throws GenericEntityException {
+        if (glAccount == null) {
             return false;
         }
 
-        GenericValue accountClass = account.getRelatedOneCache("GlAccountClass");
-        if (accountClass == null) {
-            throw new GenericEntityException("Cannot find GlAccountClass for glAccountId " + account.getString("glAccountId"));
+        GenericValue glAccountClass = glAccount.getRelatedOneCache("GlAccountClass");
+        if (glAccountClass == null) {
+            throw new GenericEntityException("Cannot find GlAccountClass for glAccountId " + glAccount.getString("glAccountId"));
         }
 
-        String accountClassId = accountClass.getString("glAccountClassId");
-        if (inputClassId.equals(accountClassId)) {
-            return true;
-        }
-
-        // recurse up the tree
-        return isAccountClassRecurse(accountClass, inputClassId);
-
+        return isAccountClassClass(glAccountClass, glAccountClassId);
     }
 
 
