@@ -64,6 +64,9 @@ under the License.
 
     <service name="runShoppingListAutoReorder" engine="java" auth="true" use-transaction="false"
             location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="createListReorders">
+        <description>A service designed to be automatically run by job scheduler to create orders from auto-order shopping lists.
+            This is done by looking for all auto-order shopping lists which are active
+            comparing the lastOrderedDate and the defined recurrenceInfo with the time when the service is run.</description> 
     </service>
     <service name="createShoppingListRecurrence" engine="java" auth="true"
             location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="setShoppingListRecurrence">
