@@ -17,7 +17,7 @@ under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+        xsi:noNamespaceSchemaLocation="https://svn.apache.org/repos/asf/incubator/ofbiz/site/dtds/simple-methods.xsd">
     <simple-method method-name="createShipmentReceipt" short-description="Create a ShipmentReceipt">
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createShipmentReceipt you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
