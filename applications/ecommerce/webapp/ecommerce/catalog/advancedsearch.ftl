@@ -15,12 +15,13 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 <#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)>
-
+<#assign currentCatalogId = Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)>
 <div class="head1">${uiLabelMap.ProductAdvancedSearchinCategory}</div>
 <br/>
 <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
   <input type="hidden" name="VIEW_SIZE" value="10"/>
   <table border="0" wdith="100%">
+    <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}">
     <#if searchCategory?has_content>
         <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
         <tr>
@@ -70,7 +71,7 @@ under the License.
     </#list>
     <tr>
       <td align="right" valign="middle">
-        <div class="tabletext">${uiLabelMap.ProductSortOrder}:</div>
+        <div class="tabletext">${uiLabelMap.ProductSortedBy}:</div>
       </td>
       <td valign="middle">
         <div class="tabletext">
@@ -130,7 +131,7 @@ under the License.
           <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
           <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine}</a>
         </div>
-        <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator)>
+        <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
         <#list constraintStrings as constraintString>
           <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
         </#list>

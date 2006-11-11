@@ -15,12 +15,13 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 <#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)>
-
+<#assign currentCatalogId = Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)>
 <div class="head1">${uiLabelMap.ProductAdvancedSearchinCategory}</div>
 <br/>
 <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
   <input type="hidden" name="VIEW_SIZE" value="10">
   <table border="0" wdith="100%">
+    <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}">
     <#if searchCategory?has_content>
         <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}">
         <tr>
@@ -85,7 +86,7 @@ under the License.
     </tr>
     <tr>
       <td align="right" valign="middle">
-        <div class="tabletext">${uiLabelMap.ProductSortOrder}:</div>
+        <div class="tabletext">${uiLabelMap.CommonSortedBy}:</div>
       </td>
       <td valign="middle">
         <div class="tabletext">
@@ -100,8 +101,8 @@ under the License.
             <option value="SortProductPrice:DEFAULT_PRICE">${uiLabelMap.ProductDefaultPrice}</option>
             <option value="SortProductPrice:AVERAGE_COST">${uiLabelMap.ProductAverageCost}</option>
           </select>
-          ${uiLabelMap.EcommerceLowToHigh}<input type="radio" name="sortAscending" value="Y" checked>
-          ${uiLabelMap.EcommerceHighToLow}<input type="radio" name="sortAscending" value="N">
+          ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked>
+          ${uiLabelMap.ProductHighToLow}<input type="radio" name="sortAscending" value="N">
         </div>
       </td>
     </tr>
@@ -114,7 +115,7 @@ under the License.
             <#list searchConstraintStrings as searchConstraintString>
                 <div class="tabletext">&nbsp;-&nbsp;${searchConstraintString}</div>
             </#list>
-            <div class="tabletext">${uiLabelMap.ProductSortedBy}: ${searchSortOrderString}</div>
+            <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
             <div class="tabletext">
               ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked>
               ${uiLabelMap.ProductRefineSearch}<input type="radio" name="clearSearch" value="N">
@@ -147,7 +148,7 @@ under the License.
           <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
           <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine}</a>
         </div>
-        <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator)>
+        <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
         <#list constraintStrings as constraintString>
           <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
         </#list>

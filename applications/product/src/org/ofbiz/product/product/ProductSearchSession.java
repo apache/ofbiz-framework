@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,6 +44,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.catalog.CatalogWorker;
+import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.feature.ParametricSearch;
 import org.ofbiz.product.product.ProductSearch.CategoryConstraint;
 import org.ofbiz.product.product.ProductSearch.FeatureConstraint;
@@ -102,8 +104,8 @@ public class ProductSearchSession {
             }
             return this.resultSortOrder;
         }
-        public static ResultSortOrder getResultSortOrder(HttpSession session) {
-            ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
+        public static ResultSortOrder getResultSortOrder(HttpServletRequest request) {
+            ProductSearchOptions productSearchOptions = getProductSearchOptions(request.getSession());
             return productSearchOptions.getResultSortOrder();
         }
         public static void setResultSortOrder(ResultSortOrder resultSortOrder, HttpSession session) {
@@ -148,7 +150,7 @@ public class ProductSearchSession {
             this.viewSize = viewSize;
         }
 
-        public List searchGetConstraintStrings(boolean detailed, GenericDelegator delegator) {
+        public List searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
             List productSearchConstraintList = this.getConstraintList();
             List constraintStrings = new ArrayList();
             if (productSearchConstraintList == null) {
@@ -158,7 +160,7 @@ public class ProductSearchSession {
             while (productSearchConstraintIter.hasNext()) {
                 ProductSearchConstraint productSearchConstraint = (ProductSearchConstraint) productSearchConstraintIter.next();
                 if (productSearchConstraint == null) continue;
-                String constraintString = productSearchConstraint.prettyPrintConstraint(delegator, detailed);
+                String constraintString = productSearchConstraint.prettyPrintConstraint(delegator, detailed, locale);
                 if (UtilValidate.isNotEmpty(constraintString)) {
                     constraintStrings.add(constraintString);
                 } else {
@@ -357,21 +359,24 @@ public class ProductSearchSession {
     }
     
     public static List searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
+        Locale locale = UtilHttp.getLocale(session);
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
-        return productSearchOptions.searchGetConstraintStrings(detailed, delegator);
+        return productSearchOptions.searchGetConstraintStrings(detailed, delegator, locale);
     }
 
-    public static String searchGetSortOrderString(boolean detailed, HttpSession session) {
-        ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(session);
+    public static String searchGetSortOrderString(boolean detailed, HttpServletRequest request) {
+        Locale locale = UtilHttp.getLocale(request);
+        ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(request);
         if (resultSortOrder == null) return "";
-        return resultSortOrder.prettyPrintSortOrder(detailed);
+        return resultSortOrder.prettyPrintSortOrder(detailed, locale);
     }
 
     public static void searchSetSortOrder(ResultSortOrder resultSortOrder, HttpSession session) {
         ProductSearchOptions.setResultSortOrder(resultSortOrder, session);
     }
 
-    public static void searchAddFeatureIdConstraints(Collection featureIds, HttpSession session) {
+    public static void searchAddFeatureIdConstraints(Collection featureIds, HttpServletRequest request) {
+        HttpSession session = request.getSession();
         if (featureIds == null || featureIds.size() == 0) {
             return;
         }
@@ -444,6 +449,20 @@ public class ProductSearchSession {
             constraintsChanged = true;
         }
 
+
+        // if there is any category selected try to use catalog and add a constraint for it
+        if (UtilValidate.isEmpty((String) parameters.get("SEARCH_CATEGORY_ID"))  &&
+            UtilValidate.isEmpty((String) parameters.get("SEARCH_CATEGORY_ID2")) &&
+            UtilValidate.isEmpty((String) parameters.get("SEARCH_CATEGORY_ID3"))) {    
+            
+            String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
+            if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
+                ArrayList categories = CategoryWorker.getRelatedCategoriesRet(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId), true);
+                searchAddConstraint(new ProductSearch.CatalogConstraint(searchCatalogId, categories), session);
+                constraintsChanged = true;              
+            }
+        } 
+        
         // if keywords were specified, add a constraint for them
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING"))) {
             String keywordString = (String) parameters.get("SEARCH_STRING");
@@ -474,14 +493,14 @@ public class ProductSearchSession {
         List featureIdList = ParametricSearch.makeFeatureIdListFromPrefixed(parameters);
         if (featureIdList.size() > 0) {
             constraintsChanged = true;
-            searchAddFeatureIdConstraints(featureIdList, session);
+            searchAddFeatureIdConstraints(featureIdList, request);
         }
 
         // if features were selected add a constraint for each
         Map featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(parameters);
         if (featureIdByType.size() > 0) {
             constraintsChanged = true;
-            searchAddFeatureIdConstraints(featureIdByType.values(), session);
+            searchAddFeatureIdConstraints(featureIdByType.values(), request);
         }
 
         // add a supplier to the search
@@ -535,7 +554,7 @@ public class ProductSearchSession {
         }
     }
 
-    public static Map getProductSearchResult(HttpSession session, GenericDelegator delegator, String prodCatalogId) {
+    public static Map getProductSearchResult(HttpServletRequest request, GenericDelegator delegator, String prodCatalogId) {
 
         // ========== Create View Indexes
         int viewIndex = 0;
@@ -544,6 +563,7 @@ public class ProductSearchSession {
         int lowIndex = 0;
         int listSize = 0;
 
+        HttpSession session = request.getSession();
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         
         Integer viewIndexInteger = productSearchOptions.getViewIndex();
@@ -568,7 +588,7 @@ public class ProductSearchSession {
             checkSaveSearchOptionsHistory(session);
 
             productSearchConstraintList = ensureViewAllowConstraint(productSearchConstraintList, prodCatalogId, delegator);
-            ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(session);
+            ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(request);
 
             ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
             productSearchContext.addProductSearchConstraints(productSearchConstraintList);
@@ -590,7 +610,7 @@ public class ProductSearchSession {
 
         // ========== Setup other display info
         List searchConstraintStrings = searchGetConstraintStrings(false, session, delegator);
-        String searchSortOrderString = searchGetSortOrderString(false, session);
+        String searchSortOrderString = searchGetSortOrderString(false, request);
 
         // ========== populate the result Map
         Map result = new HashMap();

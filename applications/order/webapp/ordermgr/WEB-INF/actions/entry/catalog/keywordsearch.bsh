@@ -30,7 +30,7 @@ module = "keywordsearch.bsh";
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
 ProductSearchSession.processSearchParameters(parameters, request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
-Map result = ProductSearchSession.getProductSearchResult(session, delegator, prodCatalogId);
+Map result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId);
 
 context.put("productIds", result.get("productIds"));
 context.put("viewIndex", result.get("viewIndex"));

@@ -39,7 +39,7 @@ under the License.
                       <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonSearch}]</a>
                       <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonRefine}]</a>
                     </div>
-                    <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator)>
+                    <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
                     <#list constraintStrings as constraintString>
                       <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
                     </#list>
