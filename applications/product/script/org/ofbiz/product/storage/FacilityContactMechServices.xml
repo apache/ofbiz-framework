@@ -34,7 +34,6 @@ under the License.
             </call-service>
             <log level="info" message="ContactMech created"/>
             <else>
-
                 <set field="newValue.contactMechId" from-field="parameters.contactMechId" />
             </else>
         </if-empty>
@@ -131,7 +130,7 @@ under the License.
         <first-from-list entry-name="facilityContactMech" list-name="validFacilityContactMechs"/>
         <if-empty field-name="facilityContactMech">
             <add-error>
-                <fail-property resource="FacilityUiLabels" property="FacilityContactMechNotFoundCannotDelete"/>
+                <fail-property resource="PartyUiLabels" property="PartyContactMechNotFoundCannotDelete"/>
             </add-error>
             <return/>
         </if-empty>
@@ -241,6 +240,11 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
+        <if-validate-method field-name="parameters.emailAddress" method="isEmail">
+            <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
+        </if-validate-method>
+        <check-errors/>
+                
         <set-service-fields service-name="createFacilityContactMech" map-name="parameters" to-map-name="createFacilityContactMechMap"/>
         <set field="createFacilityContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="createFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
@@ -257,7 +261,7 @@ under the License.
         <check-errors/>
 
         <if-validate-method field-name="parameters.emailAddress" method="isEmail">
-            <else><add-error><fail-property resource="FacilityUiLabels" property="FacilityEmailAddressNotFormattedCorrectly"/></add-error></else>
+            <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
         </if-validate-method>
         <check-errors/>
 
