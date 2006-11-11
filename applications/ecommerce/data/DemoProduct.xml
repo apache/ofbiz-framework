@@ -97,23 +97,23 @@ under the License.
 
     <ProductCategory description="Demo Browse Root"
         longDescription="Demo Catalog Primary Browse Root Category" productCategoryId="CATALOG1" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Gizmos" longDescription="long description of Gizmos"
+    <ProductCategory longDescription="long description of Gizmos"
         primaryParentCategoryId="CATALOG1" productCategoryId="100" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Widgets" longDescription="long description of Widgets"
+    <ProductCategory longDescription="long description of Widgets"
         primaryParentCategoryId="CATALOG1" productCategoryId="200" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Small Gizmos" longDescription="long description of Small Gizmos"
+    <ProductCategory longDescription="long description of Small Gizmos"
         primaryParentCategoryId="100" productCategoryId="101" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Large Gizmos" longDescription="long description of Large Gizmos"
+    <ProductCategory longDescription="long description of Large Gizmos"
         primaryParentCategoryId="100" productCategoryId="102" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Small Widgets" longDescription="long description of Small Widgets"
+    <ProductCategory longDescription="long description of Small Widgets"
         primaryParentCategoryId="200" productCategoryId="201" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Large Widgets" longDescription="long description of Large Widgets"
+    <ProductCategory longDescription="long description of Large Widgets"
         primaryParentCategoryId="200" productCategoryId="202" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Mini Widgets" longDescription="long description of Mini Widgets"
+    <ProductCategory longDescription="long description of Mini Widgets"
         primaryParentCategoryId="201" productCategoryId="2011" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Other Mini Widgets" longDescription="long description of Other Mini Widgets"
+    <ProductCategory longDescription="long description of Other Mini Widgets"
         primaryParentCategoryId="201" productCategoryId="2012" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Micro Widgets" longDescription="long description of Micro Widgets"
+    <ProductCategory longDescription="long description of Micro Widgets"
         primaryParentCategoryId="2011" productCategoryId="20111" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory description="Featured Products" productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory description="Demo Default Search"
@@ -583,9 +583,9 @@ under the License.
     <ProductPriceAction productPriceRuleId="9001" productPriceActionSeqId="01" productPriceActionTypeId="PRICE_FLAT" amount="18.95"/>
 
     <!-- example gift card product info -->
-    <ProductCategory productCategoryId="GC-100" productCategoryTypeId="CATALOG_CATEGORY" description="Gift Cards"/>
-    <ProductCategory productCategoryId="GC-101" productCategoryTypeId="CATALOG_CATEGORY" description="Gift Card Purchase"/>
-    <ProductCategory productCategoryId="GC-102" productCategoryTypeId="CATALOG_CATEGORY" description="Gift Card Reload"/>
+    <ProductCategory productCategoryId="GC-100" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="GC-101" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="GC-102" productCategoryTypeId="CATALOG_CATEGORY"/>
 
     <Product productId="GC-002" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-102" internalName="Gift Card Reload" productName="Gift Card Reload" description="Add more money to your card!" requireAmount="Y" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
     <Product productId="GC-001" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-101" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="Y" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
