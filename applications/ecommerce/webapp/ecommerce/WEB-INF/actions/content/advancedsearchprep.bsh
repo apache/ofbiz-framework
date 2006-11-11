@@ -31,7 +31,7 @@ if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
 }
 
 searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator);
-searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, session);
+searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request);
 
 context.put("productFeaturesByTypeMap", productFeaturesByTypeMap);
 context.put("productFeatureTypeIdsOrdered", productFeatureTypeIdsOrdered);

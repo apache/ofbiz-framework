@@ -35,6 +35,25 @@ under the License.
         </tr>
     <#else>
         <tr>
+           <td align="right" valign="middle">
+             <div class="tabletext">${uiLabelMap.ProductCatalog}:</div>
+           </td>
+           <td valign="middle">
+             <div class="tabletext">
+                <select class="selectBox" name="SEARCH_CATALOG_ID">
+                  <option value="">- ${uiLabelMap.ProductAnyCatalog} -</option>
+                  <#list prodCatalogs as prodCatalog>
+                    <#assign displayDesc = prodCatalog.catalogName?default("${uiLabelMap.ProductNoDescription}")>
+                      <#if 18 < displayDesc?length>
+                        <#assign displayDesc = displayDesc[0..15] + "...">
+                      </#if>
+                      <option value="${prodCatalog.prodCatalogId}">${displayDesc} [${prodCatalog.prodCatalogId}]</option>
+                  </#list>
+                </select>
+             </div>
+           </td>
+        </tr>    
+        <tr>
           <td align="right" valign="middle">
             <div class="tabletext">${uiLabelMap.ProductCategory}:</div>
           </td>
@@ -118,7 +137,7 @@ under the License.
     </tr>
     <tr>
       <td align="right" valign="middle">
-        <div class="tabletext">${uiLabelMap.CommonSortOrder}:</div>
+        <div class="tabletext">${uiLabelMap.CommonSortedBy}:</div>
       </td>
       <td valign="middle">
         <div class="tabletext">
@@ -151,8 +170,8 @@ under the License.
             </#list>
             <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
             <div class="tabletext">
-              New Search<input type="radio" name="clearSearch" value="Y" checked/>
-              Refine Search<input type="radio" name="clearSearch" value="N"/>
+              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked/>
+              ${uiLabelMap.ProductRefineSearch}<input type="radio" name="clearSearch" value="N"/>
             </div>
         </td>
       </tr>

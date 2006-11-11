@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -499,9 +500,81 @@ public class ProductSearch {
 
         public abstract void addConstraint(ProductSearchContext productSearchContext);
         /** pretty print for log messages and even UI stuff */
-        public abstract String prettyPrintConstraint(GenericDelegator delegator, boolean detailed);
+        public abstract String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale);
     }
+    
 
+    public static class CatalogConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "Catalog";
+        protected String prodCatalogId;                
+        protected ArrayList productCategories;
+                        
+        public CatalogConstraint(String prodCatalogId, ArrayList productCategories) {
+            this.prodCatalogId = prodCatalogId;                   
+            this.productCategories = productCategories;          
+        }
+                 
+        public void addConstraint(ProductSearchContext productSearchContext) {           
+            ArrayList productCategoryIds = new ArrayList();
+            Iterator itCat = productCategories.iterator();
+            while (itCat.hasNext()) {
+                GenericValue category = (GenericValue)itCat.next();
+                productCategoryIds.add(category.getString("productCategoryId"));
+            }                       
+               
+            // make index based values and increment
+            String entityAlias = "PCM" + productSearchContext.index;
+            String prefix = "pcm" + productSearchContext.index;
+            productSearchContext.index++;
+            
+            productSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));            productSearchContext.entityConditionList.add(new EntityExpr(prefix + "ProductCategoryId", EntityOperator.IN, productCategoryIds));
+            productSearchContext.entityConditionList.add(new EntityExpr(new EntityExpr(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(prefix + "ThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+            productSearchContext.entityConditionList.add(new EntityExpr(prefix + "FromDate", EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
+          
+            // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.prodCatalogId)));
+        }
+                
+        /** pretty print for log messages and even UI stuff */
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            GenericValue prodCatalog = null;
+            try {
+                prodCatalog = delegator.findByPrimaryKeyCache("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error finding ProdCatalog information for constraint pretty print", module);
+            }
+            StringBuffer ppBuf = new StringBuffer();            
+            ppBuf.append(UtilProperties.getMessage(resource, "ProductCatalog", locale)+": ");
+            if (prodCatalog != null) {                
+                ppBuf.append(prodCatalog.getString("catalogName"));
+            }            
+            return ppBuf.toString();
+        }
+        
+        public boolean equals(Object obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof CatalogConstraint) {
+                CatalogConstraint that = (CatalogConstraint) psc;                
+                if (this.prodCatalogId == null) {
+                    if (that.prodCatalogId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.prodCatalogId.equals(that.prodCatalogId)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+          
     public static class CategoryConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Category";
         protected String productCategoryId;
@@ -542,15 +615,15 @@ public class ProductSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed) {
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             GenericValue productCategory = null;
             try {
                 productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", module);
             }
-            StringBuffer ppBuf = new StringBuffer();
-            ppBuf.append("Category: ");
+            StringBuffer ppBuf = new StringBuffer();            
+            ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)+": ");
             if (productCategory != null) {
                 ppBuf.append(productCategory.getString("description"));
             }
@@ -560,7 +633,7 @@ public class ProductSearch {
                 ppBuf.append("]");
             }
             if (includeSubCategories) {
-                ppBuf.append(" (and all sub-categories)");
+                ppBuf.append(" ("+UtilProperties.getMessage(resource, "ProductIncludeAllSubCategories", locale)+")");
             }
             return ppBuf.toString();
         }
@@ -615,7 +688,7 @@ public class ProductSearch {
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.productFeatureId)));
         }
 
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed) {
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeature = null;
             GenericValue productFeatureType = null;
             try {
@@ -624,7 +697,16 @@ public class ProductSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", module);
             }
-            return (productFeatureType == null ? "Feature: " : productFeatureType.getString("description") + ": ") + (productFeature == null ? "[" + this.productFeatureId + "]" : productFeature.getString("description"));
+            StringBuffer ppBuf = new StringBuffer();
+            if (productFeatureType == null) {                                
+                ppBuf.append(UtilProperties.getMessage(resource, "ProductFeature", locale)+": ");
+                ppBuf.append("[" + this.productFeatureId + "]");
+            } else {
+                // TODO getString to be localized like get("description", locale)
+                ppBuf.append(productFeatureType.getString("description") + ": ");
+                ppBuf.append(productFeature.getString("description"));
+            }
+            return (ppBuf.toString());
         }
 
         public boolean equals(Object obj) {
@@ -684,7 +766,7 @@ public class ProductSearch {
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", featureIdInfo.toString())));
         }
 
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed) {
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuffer infoOut = new StringBuffer();
             try {
                 Iterator featureIdIter = this.productFeatureIdSet.iterator();
@@ -693,7 +775,7 @@ public class ProductSearch {
                     GenericValue productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", featureId));
                     GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOneCache("ProductFeatureType");
                     if (productFeatureType == null) {
-                        infoOut.append("Feature: ");
+                        infoOut.append(UtilProperties.getMessage(resource, "ProductFeature", locale)+": ");
                     } else {
                         infoOut.append(productFeatureType.getString("description"));
                         infoOut.append(": ");
@@ -818,8 +900,12 @@ public class ProductSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed) {
-            return "Keyword(s): \"" + this.keywordsString + "\", where " + (isAnd ? "all words match" : "any word matches");
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            StringBuffer ppBuf = new StringBuffer();
+            ppBuf.append(UtilProperties.getMessage(resource, "ProductKeywords", locale) + ": \"");
+            ppBuf.append(this.keywordsString + "\", " + UtilProperties.getMessage(resource, "ProductKeywordWhere", locale) + " ");
+            ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "ProductKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "ProductKeywordAnyWordMatches", locale));            
+            return ppBuf.toString();
         }
 
         public boolean equals(Object obj) {
@@ -869,7 +955,7 @@ public class ProductSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed) {
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             // TODO: implement the pretty print for log messages and even UI stuff
             return null;
         }
@@ -918,7 +1004,7 @@ public class ProductSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed) {
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             // TODO: implement the pretty print for log messages and even UI stuff
             return null;
         }
@@ -975,8 +1061,8 @@ public class ProductSearch {
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.supplierPartyId)));
         }
 
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed) {
-            return "Supplier: " + PartyHelper.getPartyName(delegator, supplierPartyId, false);
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            return UtilProperties.getMessage(resource, "ProductSupplier", locale)+": " + PartyHelper.getPartyName(delegator, supplierPartyId, false);
         }
 
         public boolean equals(Object obj) {
@@ -1009,7 +1095,7 @@ public class ProductSearch {
 
         public abstract void setSortOrder(ProductSearchContext productSearchContext);
         public abstract String getOrderName();
-        public abstract String prettyPrintSortOrder(boolean detailed);
+        public abstract String prettyPrintSortOrder(boolean detailed, Locale locale);
         public abstract boolean isAscending();
     }
 
@@ -1029,8 +1115,8 @@ public class ProductSearch {
             return "KeywordRelevancy";
         }
 
-        public String prettyPrintSortOrder(boolean detailed) {
-            return "Keyword Relevancy";
+        public String prettyPrintSortOrder(boolean detailed, Locale locale) {
+            return UtilProperties.getMessage(resource, "ProductKeywordRelevency", locale);
         }
 
         public boolean isAscending() {
@@ -1072,15 +1158,15 @@ public class ProductSearch {
             return "ProductField:" + this.fieldName;
         }
 
-        public String prettyPrintSortOrder(boolean detailed) {
+        public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             if ("productName".equals(this.fieldName)) {
-                return "Product Name";
+                return UtilProperties.getMessage(resource, "ProductProductName", locale);
             } else if ("totalQuantityOrdered".equals(this.fieldName)) {
-                return "Popularity by Orders";
+                return UtilProperties.getMessage(resource, "ProductPopularityByOrders", locale);
             } else if ("totalTimesViewed".equals(this.fieldName)) {
-                return "Popularity by Views";
+                return UtilProperties.getMessage(resource, "ProductPopularityByViews", locale);
             } else if ("averageCustomerRating".equals(this.fieldName)) {
-                return "Customer Rating";
+                return UtilProperties.getMessage(resource, "ProductCustomerRating", locale);
             }
             return this.fieldName;
         }
@@ -1146,16 +1232,25 @@ public class ProductSearch {
             return "ProductPrice:" + productPriceTypeId;
         }
 
-        public String prettyPrintSortOrder(boolean detailed) {
+        public String prettyPrintSortOrder(boolean detailed, Locale locale) {
             String priceTypeName = null;
             if ("LIST_PRICE".equals(this.productPriceTypeId)) {
-                priceTypeName = "List Price";
+                priceTypeName = UtilProperties.getMessage(resource, "ProductListPrice", locale);
             } else if ("DEFAULT_PRICE".equals(this.productPriceTypeId)) {
-                priceTypeName = "Default Price";
+                priceTypeName = UtilProperties.getMessage(resource, "ProductDefaultPrice", locale);
             } else if ("AVERAGE_COST".equals(this.productPriceTypeId)) {
-                priceTypeName = "Average Cost";
+                priceTypeName = UtilProperties.getMessage(resource, "ProductAverageCost", locale);
             }
-            return (priceTypeName == null ? "Price" : priceTypeName) + " (" + (this.ascending ? "Low to High)" : "High to Low)");
+            if (priceTypeName == null) {
+                priceTypeName = UtilProperties.getMessage(resource, "ProductPrice", locale) + " (";
+                if (this.ascending) {                    
+                    priceTypeName += UtilProperties.getMessage(resource, "ProductLowToHigh", locale)+")";
+                } else {
+                    priceTypeName += UtilProperties.getMessage(resource, "ProductHighToLow", locale)+")";                    
+                }
+            }
+                          
+            return priceTypeName;            
         }
 
         public boolean isAscending() {

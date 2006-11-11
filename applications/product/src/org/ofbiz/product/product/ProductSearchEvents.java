@@ -387,7 +387,7 @@ public class ProductSearchEvents {
         List productSearchConstraintList = ProductSearchSession.ProductSearchOptions.getConstraintList(session);
         // if no constraints, don't do a search...
         if (productSearchConstraintList != null && productSearchConstraintList.size() > 0) {
-            ResultSortOrder resultSortOrder = ProductSearchSession.ProductSearchOptions.getResultSortOrder(session);
+            ResultSortOrder resultSortOrder = ProductSearchSession.ProductSearchOptions.getResultSortOrder(request);
             ProductSearchSession.checkSaveSearchOptionsHistory(session);
             ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
 
