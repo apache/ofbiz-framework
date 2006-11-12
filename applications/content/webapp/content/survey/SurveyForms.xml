@@ -33,7 +33,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListFindSurvey" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" 
-        target="" title="" type="list" paginate-target="FindSurvey" paginate="true">
+        target="" title="" list-name="listIt" type="list" paginate-target="FindSurvey" paginate="true">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>
