@@ -177,7 +177,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewGeneric"/>
     </request-map>
-
+    
     <request-map uri="UpdateGeneric">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
@@ -495,10 +495,10 @@ under the License.
     <view-map name="entityref_list" page="/entity/entityref_list.jsp"/>
     <view-map name="entityref_main" page="/entity/entityref_main.jsp"/>
 
-    <view-map name="entitymaint" type="region"/>
-    <view-map name="FindGeneric" type="region"/>
-    <view-map name="ViewGeneric" type="region"/>
-    <view-map name="ViewRelations" type="region"/>
+    <view-map name="entitymaint" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityMaint"/>
+    <view-map name="FindGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#FindGeneric"/>
+    <view-map name="ViewGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewGeneric"/>
+    <view-map name="ViewRelations" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewRelations"/>
     
     <!-- these are NOT regions because they generate text output that should never be decorated -->
     <view-map name="tablesMySql" page="/entity/tablesMySql.jsp"/>

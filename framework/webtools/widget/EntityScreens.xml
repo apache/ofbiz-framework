@@ -125,5 +125,97 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+    <screen name="EntityMaint">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="WebtoolsEntityDataMaintenance"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityMaint.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/entity/EntityMaint.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="FindGeneric">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="WebtoolsFindValues"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/FindGeneric.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/entity/FindGeneric.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="ViewGeneric">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="WebtoolsViewValue"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewGeneric.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/entity/ViewGeneric.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="ViewRelations">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="WebtoolsRelations"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewRelations.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/entity/ViewRelations.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
 </screens>
 

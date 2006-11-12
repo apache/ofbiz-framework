@@ -28,24 +28,6 @@ under the License.
     </define>
 
     <!-- ====== Start View Specific Regions ====== -->
-
-    <define id="entitymaint" region="MAIN_REGION">
-        <put section="title">Entity Data Maintenance</put>
-        <put section="content" content="/entity/entitymaint.jsp"/>
-    </define>
-    <define id="FindGeneric" region="MAIN_REGION">
-        <put section="title">Find Entity</put>
-        <put section="content" content="/entity/FindGeneric.jsp"/>
-    </define>
-    <define id="ViewGeneric" region="MAIN_REGION">
-        <put section="title">View/Edit Entity</put>
-        <put section="content" content="/entity/ViewGeneric.jsp"/>
-    </define>
-    <define id="ViewRelations" region="MAIN_REGION">
-        <put section="title">View Relations for an Entity</put>
-        <put section="content" content="/entity/ViewRelations.jsp"/>
-    </define>
-    
     <define id="EditEntity" region="MAIN_REGION">
         <put section="title">Edit Entity Definition</put>
         <put section="content" content="/entity/EditEntity.jsp"/>

@@ -1,0 +1,221 @@
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.security.Security;
+import org.ofbiz.entity.model.ModelReader;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityFieldMap;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.base.util.Debug;
+import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
+
+delegator = request.getAttribute("delegator");
+security = request.getAttribute("security");
+
+String entityName = request.getParameter("entityName");
+
+ModelReader reader = delegator.getModelReader();
+ModelEntity modelEntity = reader.getModelEntity(entityName);
+
+context.put("entityName", modelEntity.getEntityName());
+context.put("plainTableName", modelEntity.getPlainTableName());
+
+String hasViewPermission = (security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_VIEW", session)) == true ? "Y" : "N";
+String hasCreatePermission = (security.hasEntityPermission("ENTITY_DATA", "_CREATE", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_CREATE", session)) == true ? "Y" : "N";
+String hasUpdatePermission = (security.hasEntityPermission("ENTITY_DATA", "_UPDATE", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_UPDATE", session)) == true ? "Y" : "N";
+String hasDeletePermission = (security.hasEntityPermission("ENTITY_DATA", "_DELETE", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_DELETE", session)) == true ? "Y" : "N";
+
+context.put("hasViewPermission", hasViewPermission);
+context.put("hasCreatePermission", hasCreatePermission);
+context.put("hasUpdatePermission", hasUpdatePermission);
+context.put("hasDeletePermission", hasDeletePermission);
+
+String find = request.getParameter("find");
+if (find == null) {
+    find = "false";
+}
+
+String curFindString = "entityName=" + entityName + "&amp;find=" + find;
+ 
+GenericEntity findByEntity = delegator.makeValue(entityName, null);
+for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
+    ModelField field = modelEntity.getField(fnum);
+    String fval = request.getParameter(field.getName());
+    if (fval != null) {
+        if (fval.length() > 0) {
+            curFindString = curFindString + "&amp;" + field.getName() + "=" + fval;
+            findByEntity.setString(field.getName(), fval);
+          }
+    }
+}
+curFindString = UtilFormatOut.encodeQuery(curFindString);
+context.put("curFindString", curFindString);
+
+String viewIndexString = (String)request.getParameter("VIEW_INDEX");
+if (viewIndexString == null || viewIndexString.length() == 0) { 
+    viewIndexString = "0"; 
+}
+ 
+int viewIndex = 0;
+try { 
+    viewIndex = Integer.valueOf(viewIndexString).intValue(); 
+}
+catch (NumberFormatException nfe) { 
+    viewIndex = 0; 
+}
+context.put("viewIndex", viewIndex);
+context.put("viewIndexPrevious", viewIndex-1);
+context.put("viewIndexNext", viewIndex+1);
+
+String viewSizeString = (String)request.getParameter("VIEW_SIZE");
+if (viewSizeString == null || viewSizeString.length() == 0) { 
+    viewSizeString = "10"; 
+}
+  
+int viewSize = 10;
+try { 
+    viewSize = Integer.valueOf(viewSizeString).intValue(); 
+}
+catch (NumberFormatException nfe) { 
+    viewSize = 10; 
+}
+context.put("viewSize", viewSize);
+
+int lowIndex = viewIndex*viewSize+1;
+int highIndex = (viewIndex+1)*viewSize;
+context.put("lowIndex", lowIndex);
+context.put("highIndex", highIndex);
+
+int arraySize = 0;
+List resultPartialList = null;
+
+if ("true".equals(find)) {
+    EntityCondition condition = new EntityFieldMap(findByEntity, EntityOperator.AND);
+    arraySize = (int) delegator.findCountByCondition(findByEntity.getEntityName(), condition, null);
+    if (arraySize < highIndex) {
+        highIndex = arraySize;
+    }
+    
+    if ((highIndex - lowIndex + 1) > 0) {
+        boolean beganTransaction = false;
+        try {
+            beganTransaction = TransactionUtil.begin();
+
+            EntityFindOptions efo = new EntityFindOptions();
+            efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+            EntityListIterator resultEli = null;
+            resultEli = delegator.findListIteratorByCondition(findByEntity.getEntityName(), condition, null, null, null, efo);
+            resultPartialList = resultEli.getPartialList(lowIndex, highIndex - lowIndex + 1);
+            resultEli.close();
+        } 
+        catch (GenericEntityException e) {
+            Debug.logError(e, "Failure in operation, rolling back transaction", "FindGeneric.bsh");
+            try {
+                // only rollback the transaction if we started one...
+                TransactionUtil.rollback(beganTransaction, "Error looking up entity values in WebTools Entity Data Maintenance", e);
+            } 
+            catch (GenericEntityException e2) {
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "FindGeneric.bsh");
+            }
+            // after rolling back, rethrow the exception
+            throw e;
+        } 
+        finally {
+            // only commit the transaction if we started one... this will throw an exception if it fails
+            TransactionUtil.commit(beganTransaction);
+        }
+    }
+}
+context.put("arraySize", arraySize);
+context.put("resultPartialList", resultPartialList);
+
+List fieldList = new ArrayList();
+for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
+    ModelField field = modelEntity.getField(fnum);
+    ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());
+    
+    Map fieldMap = new HashMap();
+    fieldMap.put("name", field.getName());
+    fieldMap.put("isPk", (field.getIsPk() == true) ? "Y" : "N");
+    fieldMap.put("javaType", type.getJavaType());
+    fieldMap.put("sqlType", type.getSqlType());
+    fieldMap.put("param", (request.getParameter(field.getName()) != null ? request.getParameter(field.getName()) : ""));
+    
+    fieldList.add(fieldMap);
+}
+context.put("fieldList", fieldList);
+context.put("columnCount", (fieldList.size())+2);
+
+List records = new ArrayList();
+if (resultPartialList != null) {
+    Iterator resultPartialIter = resultPartialList.iterator();
+      while (resultPartialIter.hasNext()) {
+         Map record = new HashMap(); 
+             
+        GenericValue value = (GenericValue)resultPartialIter.next();
+        String findString = "entityName=" + entityName;
+        for (int pknum = 0; pknum < modelEntity.getPksSize(); pknum++) {
+            ModelField pkField = modelEntity.getPk(pknum);
+            ModelFieldType type = delegator.getEntityFieldType(modelEntity, pkField.getType());
+            findString += "&amp;" + pkField.getName() + "=" + value.get(pkField.getName());
+        }
+        record.put("findString", findString);
+        
+        List fields = new ArrayList();
+        for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
+            String fieldValue = "";
+            ModelField field = modelEntity.getField(fnum);
+            ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());
+            
+            if(type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
+                Timestamp dtVal = value.getTimestamp(field.getName());
+                fieldValue = (dtVal == null) ? "" : dtVal.toString();
+            } else if(type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
+                Date dateVal = value.getDate(field.getName());
+                fieldValue = (dateVal == null) ? "" : dateVal.toString();
+            } else if(type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
+                Time timeVal = value.getTime(field.getName());
+                fieldValue = (timeVal == null) ? "" : timeVal.toString();
+            } else if(type.getJavaType().indexOf("Integer") >= 0) {
+                fieldValue = UtilFormatOut.safeToString((Integer)value.get(field.getName()));
+            } else if(type.getJavaType().indexOf("Long") >= 0) {
+                fieldValue = UtilFormatOut.safeToString((Long)value.get(field.getName()));
+            } else if(type.getJavaType().indexOf("Double") >= 0) {
+                fieldValue = UtilFormatOut.safeToString((Double)value.get(field.getName()));
+            } else if(type.getJavaType().indexOf("Float") >= 0) {
+                fieldValue = UtilFormatOut.safeToString((Float)value.get(field.getName()));
+            } else if(type.getJavaType().indexOf("String") >= 0) {
+                fieldValue = UtilFormatOut.checkNull((String)value.get(field.getName()));
+            }
+            fields.add(fieldValue);
+       }
+       record.put("fields", fields);
+       records.add(record);
+    }
+}
+context.put("records", records);
