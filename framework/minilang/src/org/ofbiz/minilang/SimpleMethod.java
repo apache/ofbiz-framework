@@ -802,8 +802,6 @@ public class SimpleMethod {
                     methodOperations.add(new org.ofbiz.minilang.method.envops.Loop(curOperElem, simpleMethod));
                 } else if ("first-from-list".equals(nodeName)) {
                     methodOperations.add(new org.ofbiz.minilang.method.envops.FirstFromList(curOperElem, simpleMethod));
-                } else if ("while-compare".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.WhileCompare(curOperElem, simpleMethod));
 
                 } else if ("transaction-begin".equals(nodeName)) {
                     methodOperations.add(new org.ofbiz.minilang.method.entityops.TransactionBegin(curOperElem, simpleMethod));
@@ -880,6 +878,8 @@ public class SimpleMethod {
                     methodOperations.add(new org.ofbiz.minilang.method.conditional.Assert(curOperElem, simpleMethod));
                 } else if ("if".equals(nodeName)) {
                     methodOperations.add(new org.ofbiz.minilang.method.conditional.MasterIf(curOperElem, simpleMethod));
+                } else if ("while".equals(nodeName)) {
+                    methodOperations.add(new org.ofbiz.minilang.method.conditional.While(curOperElem, simpleMethod));
                 } else if ("if-validate-method".equals(nodeName)) {
                     methodOperations.add(new org.ofbiz.minilang.method.ifops.IfValidateMethod(curOperElem, simpleMethod));
                 } else if ("if-instance-of".equals(nodeName)) {
