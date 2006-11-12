@@ -631,8 +631,9 @@ public class OrderServices {
                 while (--dayCount >= 0)    {
                     GenericValue techDataCalendarExcDay = null;
                     // find an existing Day exception record
-                    Timestamp exceptionDateStartTime = new Timestamp((long)(estimatedStartDate.getTime() + (dayCount * 86400000)));
-                    try {     techDataCalendarExcDay = delegator.findByPrimaryKey("TechDataCalendarExcDay",
+                    Timestamp exceptionDateStartTime = UtilDateTime.getDayStart(new Timestamp(estimatedStartDate.getTime()),(int)dayCount);
+                    try {
+                        techDataCalendarExcDay = delegator.findByPrimaryKey("TechDataCalendarExcDay",
                             UtilMisc.toMap("calendarId", fixedAsset.get("calendarId"), "exceptionDateStartTime", exceptionDateStartTime));
                     }
                     catch (GenericEntityException e) {
