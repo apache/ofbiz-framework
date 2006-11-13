@@ -368,7 +368,11 @@ under the License.
             </if-empty>
             <!-- check if the status is not Paid... -->            
             <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_PAID">
-                <add-error><fail-message message="InvoiceID [${invoice.invoiceId}] has status 'Paid', cannot remove application."/></add-error>
+                <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}" />
+                <set field="invoiceStatusMap.statusId" value="INVOICE_READY"/>
+                <now-timestamp-to-env env-name="nowTimestamp"/>
+                <set field="invoiceStatusMap.statusDate" from-field="nowTimestamp" />
+                <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap" />
             </if-compare>
             <check-errors/>
             <field-to-result field-name="paymentApplication.invoiceId" result-name="invoiceId"/>
@@ -431,13 +435,11 @@ under the License.
 
         <entity-one entity-name="Invoice" value-name="invoice"/>
         <field-to-result field-name="invoice.statusId" result-name="oldStatusId"/>
-        
         <if-compare-field field-name="invoice.statusId" operator="not-equals" to-field-name="parameters.statusId">
             <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" env-name="invoice.statusId"/>
                 <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
             </entity-one>
-            
             <if-empty field-name="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>
                 <log level="error" message="Cannot change from ${invoice.statusId} to ${parameters.statusId}"/>
@@ -452,9 +454,21 @@ under the License.
                     </if-compare>
 
                     <!-- if it's OK to mark invoice paid, use parameter for paidDate -->
-                    <set from-field="parameters.paidDate" field="invoice.paidDate"/>
+                    <if-empty field-name="parameters.paidDate">
+                       <now-timestamp-to-env env-name="nowTimestamp"/>
+                       <set from-field="nowTimestamp" field="invoice.paidDate"/>                         
+                    <else>
+                       <set from-field="parameters.paidDate" field="invoice.paidDate"/>                        
+                    </else>    
+                    </if-empty>
                 </if-compare>
-
+                
+                <if-not-empty field-name="invoice.paidDate">
+                   <if-compare field-name="parameters.statusId" operator="equals" value="INVOICE_READY">
+                       <clear-field field-name="invoice.paidDate" />
+                   </if-compare>    
+                </if-not-empty>
+                
                 <set from-field="parameters.statusId" field="invoice.statusId"/>
                 <store-value value-name="invoice"/>
                 
