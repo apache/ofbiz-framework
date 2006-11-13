@@ -23,11 +23,11 @@ under the License.
         <table width="100%" cellpadding="1" cellspacing="0" border="0">
             <tr>
                 <td width="10%">
-                    <div class="tabletext"><b><nobr>${uiLabelMap.OrderRequest} ${uiLabelMap.OrderNbr}</nobr></b></div>
+                    <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderRequest} ${uiLabelMap.OrderNbr}</span></b></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="10%">
-                    <div class="tabletext"><b><nobr>${uiLabelMap.CommonType}</nobr></b></div>
+                    <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.CommonType}</span></b></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
@@ -76,9 +76,9 @@ under the License.
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext"><nobr>${custRequest.custRequestDate?if_exists}</nobr></div>
-                        <div class="tabletext"><nobr>${custRequest.createdDate?if_exists}</nobr></div>
-                        <div class="tabletext"><nobr>${custRequest.lastModifiedDate?if_exists}</nobr></div>
+                        <div class="tabletext"><span style="white-space: nowrap;">${custRequest.custRequestDate?if_exists}</span></div>
+                        <div class="tabletext"><span style="white-space: nowrap;">${custRequest.createdDate?if_exists}</span></div>
+                        <div class="tabletext"><span style="white-space: nowrap;">${custRequest.lastModifiedDate?if_exists}</span></div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td align="right">

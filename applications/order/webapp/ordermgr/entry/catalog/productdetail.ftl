@@ -398,7 +398,7 @@ ${virtualJavaScript?if_exists}
               <#assign hiddenStyle = "tabletexthidden">
             </#if>           
             <div id="add_amount" class="${hiddenStyle}">
-              <nobr><b>${uiLabelMap.CommonAmount}:</b></nobr>&nbsp;
+              <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
               <input type="text" class="inputBox" size="5" name="add_amount" value=""/>
             </div>
             <#if product.productTypeId?if_exists == "ASSET_USAGE">
@@ -413,7 +413,7 @@ ${virtualJavaScript?if_exists}
                 <input type="text" class="inputBox" size="5" name="quantity" value="1"<#if product.isVirtual?if_exists?upper_case == "Y"> disabled="disabled"</#if>/>
             </#if>
             <#-- This calls addItem() so that variants of virtual products cant be added before distinguishing features are selected, it should not be changed to additemSubmit() -->
-            <a href="javascript:addItem()" class="buttontext"><nobr>${uiLabelMap.EcommerceAddtoCart}</nobr></a>&nbsp;
+            <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>&nbsp;
           </#if>
           <#if requestParameters.category_id?exists>
             <input type="hidden" name="category_id" value="${requestParameters.category_id}"/>

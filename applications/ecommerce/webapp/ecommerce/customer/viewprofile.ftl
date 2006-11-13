@@ -386,7 +386,7 @@ under the License.
               <tr>
                 <td width="5%">&nbsp;</td>
                 <td width="1">
-                  <div class="tabletext"><nobr><#if shipMeth.partyId != "_NA_">${shipMeth.partyId?if_exists}&nbsp;</#if>${shipMeth.get("description",locale)?if_exists}</nobr></div>
+                  <div class="tabletext"><span style="white-space: nowrap;"><#if shipMeth.partyId != "_NA_">${shipMeth.partyId?if_exists}&nbsp;</#if>${shipMeth.get("description",locale)?if_exists}</span></div>
                 </td>
                 <td><input type="radio" name="defaultShipMeth" value="${shippingMethod}" <#if profiledefs.defaultShipMeth?default("") == shippingMethod>checked</#if>></td>
               </tr>

@@ -107,7 +107,7 @@ under the License.
           <td><div class="tabletext"><%=WfUtil.getOMGStatus(step.getString("currentStatusId"))%></div></td>
           <td><div class="tabletext"><%=UtilFormatOut.checkNull(step.getString("actualStartDate"), "N/A")%></div></td>
           <td><div class="tabletext"><%=UtilFormatOut.checkNull(step.getString("actualCompletionDate"),"N/A")%></div></td>
-          <td nobr>
+          <td nowrap>
             <% if (!assignmentIterator.hasNext()) { %><span class="tabletext">N/A</span><%}%>
             <% while (assignmentIterator.hasNext()) { GenericValue assignment = (GenericValue) assignmentIterator.next(); %>
             <a href="/partymgr/control/viewprofile?party_id=<%=assignment.getString("partyId")%>" target="partymgr" class="buttontext"><%=assignment.getString("partyId")%></a>

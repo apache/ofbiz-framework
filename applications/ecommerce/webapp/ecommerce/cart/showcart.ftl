@@ -122,7 +122,7 @@ function setAlternateGwp(field) {
                 </#if> 
                 ${uiLabelMap.CommonQuantity}: <input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}"/>
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceAddtoCart}"/>
-                <#-- <a href="javascript:document.quickaddform.submit()" class="buttontext"><nobr>[${uiLabelMap.EcommerceAddtoCart}]</nobr></a> -->
+                <#-- <a href="javascript:document.quickaddform.submit()" class="buttontext"><span style="white-space: nowrap;">[${uiLabelMap.EcommerceAddtoCart}]</span></a> -->
             </form>
         </div>
     </div>

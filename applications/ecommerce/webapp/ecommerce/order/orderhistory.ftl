@@ -32,7 +32,7 @@ under the License.
             </td>
             <td width="10">&nbsp;</td>
             <td width="15%">
-              <div class="tabletext"><b><nobr>${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</nobr></b></div>
+              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</span></b></div>
             </td>
             <td width="10">&nbsp;</td>
             <td width="15%">
@@ -50,7 +50,7 @@ under the License.
             <tr><td colspan="9"><hr class="sepbar"/></td></tr>
             <tr>
               <td>
-                <div class="tabletext"><nobr>${orderHeader.orderDate.toString()}</nobr></div>
+                <div class="tabletext"><span style="white-space: nowrap;">${orderHeader.orderDate.toString()}</span></div>
               </td>
               <td width="10">&nbsp;</td>
               <td>
@@ -85,7 +85,7 @@ under the License.
         <table width="100%" cellpadding="1" cellspacing="0" border="0">
           <tr>
             <td width="10%">
-              <div class="tabletext"><b><nobr>${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</nobr></b></div>
+              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</span></b></div>
             </td>
             <td width="10">&nbsp;</td>
             <td width="20%">
