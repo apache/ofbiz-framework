@@ -48,10 +48,10 @@ under the License.
               <#if question.surveyQuestionTypeId == "BOOLEAN">
                 <#assign selectedOption = (answer.booleanResponse)?default("Y")>
                 <div class="tabletext">
-                  <nobr>${uiLabelMap.CommonY}&nbsp;[${results._yes_total?default(0)?string("#")} / ${results._yes_percent?default(0)?string("#")}%]</nobr>
+                  <span style="white-space: nowrap;">${uiLabelMap.CommonY}&nbsp;[${results._yes_total?default(0)?string("#")} / ${results._yes_percent?default(0)?string("#")}%]</span>
                 </div>
                 <div class="tabletext">
-                  <nobr>${uiLabelMap.CommonN}&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]</nobr>
+                  <span style="white-space: nowrap;">${uiLabelMap.CommonN}&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]</span>
                 </div>
               <#elseif question.surveyQuestionTypeId == "OPTION">
                 <#assign options = question.getRelated("SurveyQuestionOption", sequenceSort)?if_exists>
@@ -59,10 +59,10 @@ under the License.
                   <#list options as option>
                     <#assign optionResults = results.get(option.surveyOptionSeqId)?if_exists>
                     <div class="tabletext">
-                      <nobr>
+                      <span style="white-space: nowrap;">
                         ${option.description?if_exists}
                         &nbsp;[${optionResults._total?default(0)?string("#")} / ${optionResults._percent?default(0?string("#"))}%]
-                      </nobr>
+                      </span>
                     </div>
                   </#list>
                 </#if>

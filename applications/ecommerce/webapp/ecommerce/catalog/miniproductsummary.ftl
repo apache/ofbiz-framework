@@ -30,9 +30,9 @@ under the License.
         <#-- check to see if salesDiscontinuationDate has passed -->
         <div class="tabletext" style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
     <#elseif miniProduct.isVirtual?default("N") == "Y">
-        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><nobr>${uiLabelMap.EcommerceChooseVariations}...</nobr></a>
+        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceChooseVariations}...</span></a>
     <#elseif miniProduct.requireAmount?default("N") == "Y">
-        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><nobr>${uiLabelMap.EcommerceChooseAmount}...</nobr></a>
+        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceChooseAmount}...</span></a>
     <#else>
         <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="${miniProdFormName}" style="margin: 0;">
             <input type="hidden" name="add_product_id" value="${miniProduct.productId}"/>
@@ -43,7 +43,7 @@ under the License.
             <#if requestParameters.VIEW_INDEX?has_content><input type="hidden" name="VIEW_INDEX" value="${requestParameters.VIEW_INDEX}"/></#if>
             <#if requestParameters.VIEW_SIZE?has_content><input type="hidden" name="VIEW_SIZE" value="${requestParameters.VIEW_SIZE}"/></#if>
             <input type="hidden" name="clearSearch" value="N"/>
-            <a href="javascript:document.${miniProdFormName}.submit()" class="buttontext"><nobr>${uiLabelMap.CommonAdd} ${miniProdQuantity} ${uiLabelMap.EcommerceToCart}</nobr></a>
+            <a href="javascript:document.${miniProdFormName}.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.CommonAdd} ${miniProdQuantity} ${uiLabelMap.EcommerceToCart}</span></a>
         </form>
     </#if>
     </div>

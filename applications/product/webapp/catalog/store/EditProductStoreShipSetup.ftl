@@ -525,10 +525,10 @@ function setAssocFields(select) {
               <td><span class="tabletext">${meth.excludeFeatureGroup?if_exists}</span></td>
               <td><input type="text" size="5" class="inputBox" name="sequenceNumber" value="${meth.sequenceNumber?if_exists}"></td>
               <td width='1' align="right">
-                <nobr>
+                <span style="white-space: nowrap;">
                   <a href="javascript:document.methUpdate${idx}.submit();" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>
                   <a href="<@ofbizUrl>storeRemoveShipMeth?viewProductStoreId=${productStoreId}&productStoreId=${meth.productStoreId}&newShipMethod=Y&shipmentMethodTypeId=${meth.shipmentMethodTypeId}&partyId=${meth.partyId}&roleTypeId=${meth.roleTypeId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonRemove}]</a>
-                </nobr>
+                </span>
               </td>
             </tr>
           </form>

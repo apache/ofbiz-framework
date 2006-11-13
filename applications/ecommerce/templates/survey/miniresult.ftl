@@ -47,12 +47,12 @@ under the License.
       <td align="left">
         <#if surveyQuestionAndAppl.surveyQuestionTypeId == "BOOLEAN">
           <#assign selectedOption = (answer.booleanResponse)?default("Y")>
-          <div class="tabletext"><nobr>
+          <div class="tabletext"><span style="white-space: nowrap;">
             <#if "Y" == selectedOption><b>==>&nbsp;<font color="red"></#if>${uiLabelMap.CommonY}<#if "Y" == selectedOption></font></b></#if>&nbsp;[${results._yes_total?default(0)?string("#")} / ${results._yes_percent?default(0)?string("#")}%]
-          </nobr></div>
-          <div class="tabletext"><nobr>
+          </span></div>
+          <div class="tabletext"><span style="white-space: nowrap;">
             <#if "N" == selectedOption><b>==>&nbsp;<font color="red"></#if>${uiLabelMap.CommonN}<#if "N" == selectedOption></font></b></#if>&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]
-          </nobr></div>
+          </span></div>
 
         <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
           <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", sequenceSort)?if_exists>
@@ -60,12 +60,12 @@ under the License.
           <#if options?has_content>
             <#list options as option>
               <#assign optionResults = results.get(option.surveyOptionSeqId)?if_exists>
-                <div class="tabletext"><nobr>
+                <div class="tabletext"><span style="white-space: nowrap;">
                   <#if option.surveyOptionSeqId == selectedOption><b>==>&nbsp;<font color="red"></#if>
                   ${option.description?if_exists}
                   <#if option.surveyOptionSeqId == selectedOption></font></b></#if>
                   &nbsp;[${optionResults._total?default(0)?string("#")} / ${optionResults._percent?default(0?string("#"))}%]
-                </nobr></div>
+                </span></div>
             </#list>
           </#if>
         <#else>

@@ -296,7 +296,7 @@ function refreshInfo() {
                   <td><div class="tabletext"><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></div></td>
                   <td align="right">
                     <!-- this is all on one line so that no break will be inserted -->
-                    <div class="tabletext"><nobr>
+                    <div class="tabletext"><span style="white-space: nowrap;">
                       <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a>&nbsp;
                       <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
                         <a href="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}" class="buttontext">${uiLabelMap.OrderOrders}</a>&nbsp;
@@ -304,7 +304,7 @@ function refreshInfo() {
                       <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>
                         <a href="/ordermgr/control/checkinits?partyId=${partyRow.partyId + externalKeyParam}" class="buttontext">${uiLabelMap.OrderNewOrder}</a>&nbsp;
                       </#if>
-                    </nobr></div>
+                    </span></div>
                   </td>
                 </tr>
                 <#-- toggle the row color -->

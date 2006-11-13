@@ -23,7 +23,7 @@ under the License.
         <table width="100%" cellpadding="1" cellspacing="0" border="0">
             <tr>
                 <td width="10%">
-                    <div class="tabletext"><b><nobr>${uiLabelMap.OrderQuote} ${uiLabelMap.OrderNbr}</nobr></b></div>
+                    <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderQuote} ${uiLabelMap.OrderNbr}</span></b></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">
@@ -67,9 +67,9 @@ under the License.
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div class="tabletext"><nobr>${quote.issueDate?if_exists}</nobr></div>
-                        <div class="tabletext"><nobr>${quote.validFromDate?if_exists}</nobr></div>
-                        <div class="tabletext"><nobr>${quote.validThruDate?if_exists}</nobr></div>
+                        <div class="tabletext"><span style="white-space: nowrap;">${quote.issueDate?if_exists}</span></div>
+                        <div class="tabletext"><span style="white-space: nowrap;">${quote.validFromDate?if_exists}</span></div>
+                        <div class="tabletext"><span style="white-space: nowrap;">${quote.validThruDate?if_exists}</span></div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td align="right">
