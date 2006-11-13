@@ -31,80 +31,80 @@ import org.ofbiz.pos.PosTransaction;
 
 public class SaveSale extends XPage {
 
-	/**
-	 * To save a sale. 2 modes : save and keep the current sale or save and clear the current sale.  
-	 */
-	public static final String module = SaveSale.class.getName();
-	protected static PosScreen m_pos = null;
-	protected XDialog m_dialog = null;	
-	protected XEdit m_saleName = null;
-	protected XButton m_cancel = null;	
-	protected XButton m_save = null;
-	protected XButton m_saveAndClear = null;
-	protected static PosTransaction m_trans = null;	
-	public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage("pos","DateTimeFormat",Locale.getDefault()));
+    /**
+     * To save a sale. 2 modes : save and keep the current sale or save and clear the current sale.  
+     */
+    public static final String module = SaveSale.class.getName();
+    protected static PosScreen m_pos = null;
+    protected XDialog m_dialog = null;
+    protected XEdit m_saleName = null;
+    protected XButton m_cancel = null;
+    protected XButton m_save = null;
+    protected XButton m_saveAndClear = null;
+    protected static PosTransaction m_trans = null;
+    public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage("pos","DateTimeFormat",Locale.getDefault()));
 
-	//TODO : make getter and setter for members (ie m_*) if needed (extern calls)
-	
-	public SaveSale(PosTransaction trans, PosScreen page) {
-		m_trans = trans;
-		m_pos = page;
-	}
+    //TODO : make getter and setter for members (ie m_*) if needed (extern calls)
+
+    public SaveSale(PosTransaction trans, PosScreen page) {
+        m_trans = trans;
+        m_pos = page;
+    }
 
     public void openDlg() {
-    	XDialog dlg = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/savesale");
-    	m_dialog = dlg;
-    	dlg.setModal(true);
-    	dlg.setCaption(UtilProperties.getMessage("pos", "SaveASale", Locale.getDefault()));
-    	m_saleName = (XEdit) dlg.findComponent("saleName");
-    	m_saleName.setText(m_pos.session.getUserId() + " " + sdf.format(new Date()));
+        XDialog dlg = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/savesale");
+        m_dialog = dlg;
+        dlg.setModal(true);
+        dlg.setCaption(UtilProperties.getMessage("pos", "SaveASale", Locale.getDefault()));
+        m_saleName = (XEdit) dlg.findComponent("saleName");
+        m_saleName.setText(m_pos.session.getUserId() + " " + sdf.format(new Date()));
 
-    	m_cancel = (XButton) dlg.findComponent("BtnCancel");
-    	m_save = (XButton) dlg.findComponent("BtnSave");    	    	
-    	m_saveAndClear = (XButton) dlg.findComponent("BtnSaveAndClear");
+        m_cancel = (XButton) dlg.findComponent("BtnCancel");
+        m_save = (XButton) dlg.findComponent("BtnSave");
+        m_saveAndClear = (XButton) dlg.findComponent("BtnSaveAndClear");
 
-    	addMouseHandler(m_cancel, "cancel");
-    	addMouseHandler(m_save, "save");
-    	addMouseHandler(m_saveAndClear, "saveAndClear");
-    	
-    	dlg.pack();
-    	dlg.showDialog(this);
+        addMouseHandler(m_cancel, "cancel");
+        addMouseHandler(m_save, "save");
+        addMouseHandler(m_saveAndClear, "saveAndClear");
+
+        dlg.pack();
+        dlg.showDialog(this);
     }
 
     public synchronized void cancel()
     {
-    	if (wasMouseClicked()) {
-    		this.m_dialog.closeDlg();
-    	}
+        if (wasMouseClicked()) {
+            this.m_dialog.closeDlg();
+        }
     }
 
     public synchronized void save() {
-    	if (wasMouseClicked()) {
-    		String sale = m_saleName.getText();
-    		if (null != sale) {
-    			saveSale(sale);
-    		}
-    	}
+        if (wasMouseClicked()) {
+            String sale = m_saleName.getText();
+            if (null != sale) {
+                saveSale(sale);
+            }
+        }
     }
 
     public synchronized void saveAndClear() {
-    	if (wasMouseClicked()) {
-    		String sale = m_saleName.getText();
-    		if (null != sale) {
-    			saveSale(sale);
-    			m_trans.voidSale();
-    			m_pos.refresh();
-    		}
-    	}
+        if (wasMouseClicked()) {
+            String sale = m_saleName.getText();
+            if (null != sale) {
+                saveSale(sale);
+                m_trans.voidSale();
+                m_pos.refresh();
+            }
+        }
     }
-      
+
     private void saveSale(String sale) {
         final ClassLoader cl = this.getClassLoader(m_pos);
-        Thread.currentThread().setContextClassLoader(cl);    	
-		m_trans.saveSale(sale, m_pos);
-    	this.m_dialog.closeDlg();    	
+        Thread.currentThread().setContextClassLoader(cl);
+        m_trans.saveSale(sale, m_pos);
+        this.m_dialog.closeDlg();
     }
-    
+
     private ClassLoader getClassLoader(PosScreen pos) {
         ClassLoader cl = pos.getClassLoader();
         if (cl == null) {
