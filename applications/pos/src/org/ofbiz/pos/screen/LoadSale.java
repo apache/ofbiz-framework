@@ -51,7 +51,7 @@ public class LoadSale extends XPage {
     protected DefaultListModel m_listModel = null; 
     protected static PosTransaction m_trans = null;
 
-    //TODO : make getter and setter for members (ie m_*) if needed (extern calls)
+    //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
     public LoadSale(Hashtable saleMap, PosTransaction trans, PosScreen page) {
         m_saleMap.putAll(saleMap);

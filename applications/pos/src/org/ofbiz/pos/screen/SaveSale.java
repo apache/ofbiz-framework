@@ -44,7 +44,7 @@ public class SaveSale extends XPage {
     protected static PosTransaction m_trans = null;
     public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage("pos","DateTimeFormat",Locale.getDefault()));
 
-    //TODO : make getter and setter for members (ie m_*) if needed (extern calls)
+    //TODO : make getter and setter for members (ie m_*) if needed (extern calls).  For that in Eclipse use Source/Generate Getters and setters
 
     public SaveSale(PosTransaction trans, PosScreen page) {
         m_trans = trans;
