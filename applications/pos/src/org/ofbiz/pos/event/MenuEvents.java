@@ -15,6 +15,7 @@
  */
 package org.ofbiz.pos.event;
 
+import java.util.Hashtable;
 import java.util.List;
 import java.util.ListIterator;
 import java.awt.AWTEvent;
@@ -28,6 +29,8 @@ import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.config.ButtonEventConfig;
 import org.ofbiz.pos.component.Input;
 import org.ofbiz.pos.component.Journal;
+import org.ofbiz.pos.screen.LoadSale;
+import org.ofbiz.pos.screen.SelectProduct;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -148,17 +151,20 @@ public class MenuEvents {
                     ListIterator it = items.listIterator();
                     if (it.hasNext()) {
                         GenericValue product = (GenericValue) it.next();
-                        productId = product.getString("productId");
-                    
+                        productId = product.getString("productId");                    
+                        Hashtable productsMap = new Hashtable();
+                        productsMap.put(product.getString("productId"), product.get("internalName"));
                         while (it.hasNext()) {
                             product = (GenericValue) it.next();
                             if (!productId.equals(product.getString("productId"))) {
-                                productId = null;
-                                Debug.logInfo("Multiple products found; need to select one from the list", module);
-                                break;
+                                productsMap.put(product.getString("productId"), product.get("internalName"));
                             }
                         }
-                    }
+                        if (productsMap.size() > 0) {
+                            SelectProduct SelectProduct = new SelectProduct(productsMap, trans, pos);
+                            productId = SelectProduct.openDlg();
+                        }
+                    }                    
                 }
             } catch (GeneralException e) {
                 Debug.logError(e, module);
@@ -182,7 +188,7 @@ public class MenuEvents {
 
         // clear the qty flag
         input.clearFunction("QTY");
-        
+
         // re-calc tax
         trans.calcTax();
 
