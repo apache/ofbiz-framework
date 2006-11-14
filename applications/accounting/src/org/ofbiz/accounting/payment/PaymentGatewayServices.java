@@ -657,13 +657,10 @@ public class PaymentGatewayServices {
 
         Map result = new HashMap();
 
-        // get the order header and payment preferences
-        GenericValue orderHeader = null;
+        // get the payment preferences
         List paymentPrefs = null;
 
         try {
-            // first get the order header
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             // get the valid payment prefs
             List othExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EFT_ACCOUNT"));
             othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CREDIT_CARD"));
@@ -687,11 +684,6 @@ public class PaymentGatewayServices {
             return result;
         }
 
-        // error if no order was found
-        if (orderHeader == null) {
-            return ServiceUtil.returnError("Could not find OrderHeader with orderId: " + orderId + "; not processing payments.");
-        }
-
         // return complete if no payment prefs were found
         if (paymentPrefs == null || paymentPrefs.size() == 0) {
             Debug.logWarning("No OrderPaymentPreference records available for release", module);
@@ -700,144 +692,215 @@ public class PaymentGatewayServices {
             return result;
         }
 
-        OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        String currency = orh.getCurrency();
-
         // iterate over the prefs and release each one
         List finished = new ArrayList();
         Iterator payments = paymentPrefs.iterator();
         while (payments.hasNext()) {
             GenericValue paymentPref = (GenericValue) payments.next();
-
-            // look up the payment configuration settings
-            String serviceName = null;
-            String paymentConfig = null;
-
-            // get the payment settings i.e. serviceName and config properties file name
-            GenericValue paymentSettings = getPaymentSettings(orh.getOrderHeader(), paymentPref, RELEASE_SERVICE_TYPE, false);
-            if (paymentSettings != null) {
-                paymentConfig = paymentSettings.getString("paymentPropertiesPath");
-                serviceName = paymentSettings.getString("paymentService");
-                if (serviceName == null) {
-                    Debug.logWarning("No payment release service for - " + paymentPref.getString("paymentMethodTypeId"), module);
-                    continue; // no release service available -- has been logged
-                }
-            } else {
-                Debug.logWarning("No payment release settings found for - " + paymentPref.getString("paymentMethodTypeId"), module);
-                continue; // no release service available -- has been logged
-            }
-
-            if (paymentConfig == null || paymentConfig.length() == 0) {
-                paymentConfig = "payment.properties";
-            }
-
-            GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(paymentPref);
-            Map releaseContext = new HashMap();
-            releaseContext.put("orderPaymentPreference", paymentPref);
-            releaseContext.put("releaseAmount", authTransaction.getDouble("amount"));
-            releaseContext.put("currency", currency);
-            releaseContext.put("paymentConfig", paymentConfig);
-            releaseContext.put("userLogin", userLogin);
-
-            // run the defined service
+            Map releaseContext = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId"));
             Map releaseResult = null;
             try {
-                releaseResult = dispatcher.runSync(serviceName, releaseContext, TX_TIME, true);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem releasing payment", module);
+                releaseResult = dispatcher.runSync("releaseOrderPaymentPreference", releaseContext);
+            } catch( GenericServiceException e ) {
+                String errMsg = "Problem calling releaseOrderPaymentPreference service for orderPaymentPreferenceId" + paymentPref.getString("orderPaymentPreferenceId");
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
             }
-
-            // get the release result code
-            if (releaseResult != null && !ServiceUtil.isError(releaseResult)) {
-                Boolean releaseResponse = (Boolean) releaseResult.get("releaseResult");
-
-                // create the PaymentGatewayResponse
-                String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-                GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse", null);
-                pgResponse.set("paymentGatewayResponseId", responseId);
-                pgResponse.set("paymentServiceTypeEnumId", RELEASE_SERVICE_TYPE);
-                pgResponse.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
-                pgResponse.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
-                pgResponse.set("paymentMethodId", paymentPref.get("paymentMethodId"));
-                pgResponse.set("transCodeEnumId", "PGT_RELEASE");
-
-                // set the release info
-                pgResponse.set("referenceNum", releaseResult.get("releaseRefNum"));
-                pgResponse.set("altReference", releaseResult.get("releaseAltRefNum"));
-                pgResponse.set("gatewayCode", releaseResult.get("releaseCode"));
-                pgResponse.set("gatewayFlag", releaseResult.get("releaseFlag"));
-                pgResponse.set("gatewayMessage", releaseResult.get("releaseMessage"));
-                pgResponse.set("transactionDate", UtilDateTime.nowTimestamp());
-
-                // store the gateway response
-                try {
-                    pgResponse.create();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problem storing PaymentGatewayResponse entity; authorization was released! : " + pgResponse, module);
-                }
-
-                // create the internal messages
-                List messages = (List) releaseResult.get("internalRespMsgs");
-                if (messages != null && messages.size() > 0) {
-                    Iterator i = messages.iterator();
-                    while (i.hasNext()) {
-                        GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
-                        String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                        String message = (String) i.next();
-                        respMsg.set("paymentGatewayRespMsgId", respMsgId);
-                        respMsg.set("paymentGatewayResponseId", responseId);
-                        respMsg.set("pgrMessage", message);
-                        try {
-                            delegator.create(respMsg);
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
-                            return ServiceUtil.returnError("Unable to create PaymentGatewayRespMsg record");
-                        }
-                    }
-                }
-
-                if (releaseResponse != null && releaseResponse.booleanValue()) {
-                    paymentPref.set("statusId", "PAYMENT_CANCELLED");
-                    try {
-                        paymentPref.store();
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "Problem storing updated payment preference; authorization was released!", module);
-                    }
-                    finished.add(paymentPref);
-
-                    // cancel any payment records
-                    List paymentList = null;
-                    try {
-                        paymentList = paymentPref.getRelated("Payment");
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to get Payment records from OrderPaymentPreference : " + paymentPref, module);
-                    }
-
-                    if (paymentList != null) {
-                        Iterator pi = paymentList.iterator();
-                        while (pi.hasNext()) {
-                            GenericValue pay = (GenericValue) pi.next();
-                            pay.set("statusId", "PMNT_CANCELLED");
-                            try {
-                                pay.store();
-                            } catch (GenericEntityException e) {
-                                Debug.logError(e, "Unable to store Payment : " + pay, module);
-                            }
-                        }
-                    }
-                } else {
-                    Debug.logError("Release failed for pref : " + paymentPref, module);
-                }
-            } else if (ServiceUtil.isError(releaseResult)) {
-                saveError(dispatcher, userLogin, paymentPref, releaseResult, "PRDS_PAY_RELEASE", "PGT_RELEASE");
+            if (ServiceUtil.isError(releaseResult)) {
+                Debug.logError(ServiceUtil.getErrorMessage(releaseResult), module);
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
+            } else if (! ServiceUtil.isFailure(releaseResult)) {
+                finished.add(paymentPref);                
             }
         }
-
         result = ServiceUtil.returnSuccess();
         if (finished.size() == paymentPrefs.size()) {
             result.put("processResult", "COMPLETE");
         } else {
             result.put("processResult", "FAILED");
+        }
+
+        return result;
+    }
+
+    /**
+     * 
+     * Releases authorization for a single OrderPaymentPreference through service calls to the defined processing service for the ProductStore/PaymentMethodType
+     * @return SUCCESS|FAILED|ERROR for complete processing of payment.
+     */
+    public static Map releaseOrderPaymentPreference(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
+
+        Map result = ServiceUtil.returnSuccess();
+
+        // Get the OrderPaymentPreference
+        GenericValue paymentPref = null;
+        try {
+            paymentPref = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
+        } catch( GenericEntityException e ) {
+            String errMsg = "Problem getting OrderPaymentPreference for orderPaymentPreferenceId " + orderPaymentPreferenceId; 
+            Debug.logWarning(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        // Error if no OrderPaymentPreference was found
+        if (paymentPref == null) {
+            String errMsg = "Could not find OrderPaymentPreference with orderPaymentPreferenceId: " + orderPaymentPreferenceId; 
+            Debug.logWarning(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        // Get the OrderHeader
+        GenericValue orderHeader = null;
+        try {
+            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", paymentPref.getString("orderId")));
+        } catch( GenericEntityException e ) {
+            String errMsg = "Problem getting OrderHeader for orderId " + paymentPref.getString("orderId"); 
+            Debug.logWarning(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        // Error if no OrderHeader was found
+        if (orderHeader == null) {
+            String errMsg = "Could not find OrderHeader with orderId: " + paymentPref.getString("orderId") + "; not processing payments."; 
+            Debug.logWarning(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        OrderReadHelper orh = new OrderReadHelper(orderHeader);
+        String currency = orh.getCurrency();
+
+        // look up the payment configuration settings
+        String serviceName = null;
+        String paymentConfig = null;
+
+        // get the payment settings i.e. serviceName and config properties file name
+        GenericValue paymentSettings = getPaymentSettings(orderHeader, paymentPref, RELEASE_SERVICE_TYPE, false);
+        if (paymentSettings != null) {
+            paymentConfig = paymentSettings.getString("paymentPropertiesPath");
+            serviceName = paymentSettings.getString("paymentService");
+            if (serviceName == null) {
+                String errMsg = "No payment release service for - " + paymentPref.getString("paymentMethodTypeId"); 
+                Debug.logWarning(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        } else {
+            String errMsg = "No payment release settings found for - " + paymentPref.getString("paymentMethodTypeId"); 
+            Debug.logWarning(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        if (paymentConfig == null || paymentConfig.length() == 0) {
+            paymentConfig = "payment.properties";
+        }
+
+        GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(paymentPref);
+        Map releaseContext = new HashMap();
+        releaseContext.put("orderPaymentPreference", paymentPref);
+        releaseContext.put("releaseAmount", authTransaction.getDouble("amount"));
+        releaseContext.put("currency", currency);
+        releaseContext.put("paymentConfig", paymentConfig);
+        releaseContext.put("userLogin", userLogin);
+
+        // run the defined service
+        Map releaseResult = null;
+        try {
+            releaseResult = dispatcher.runSync(serviceName, releaseContext, TX_TIME, true);
+        } catch (GenericServiceException e) {
+            String errMsg = "Problem releasing payment";
+            Debug.logError(e,errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        // get the release result code
+        if (releaseResult != null && !ServiceUtil.isError(releaseResult)) {
+            Boolean releaseResponse = (Boolean) releaseResult.get("releaseResult");
+
+            // create the PaymentGatewayResponse
+            String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+            GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse", null);
+            pgResponse.set("paymentGatewayResponseId", responseId);
+            pgResponse.set("paymentServiceTypeEnumId", RELEASE_SERVICE_TYPE);
+            pgResponse.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
+            pgResponse.set("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
+            pgResponse.set("paymentMethodId", paymentPref.get("paymentMethodId"));
+            pgResponse.set("transCodeEnumId", "PGT_RELEASE");
+
+            // set the release info
+            pgResponse.set("referenceNum", releaseResult.get("releaseRefNum"));
+            pgResponse.set("altReference", releaseResult.get("releaseAltRefNum"));
+            pgResponse.set("gatewayCode", releaseResult.get("releaseCode"));
+            pgResponse.set("gatewayFlag", releaseResult.get("releaseFlag"));
+            pgResponse.set("gatewayMessage", releaseResult.get("releaseMessage"));
+            pgResponse.set("transactionDate", UtilDateTime.nowTimestamp());
+
+            // store the gateway response
+            try {
+                pgResponse.create();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Problem storing PaymentGatewayResponse entity; authorization was released! : " + pgResponse, module);
+            }
+
+            // create the internal messages
+            List messages = (List) releaseResult.get("internalRespMsgs");
+            if (messages != null && messages.size() > 0) {
+                Iterator i = messages.iterator();
+                while (i.hasNext()) {
+                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                    String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
+                    String message = (String) i.next();
+                    respMsg.set("paymentGatewayRespMsgId", respMsgId);
+                    respMsg.set("paymentGatewayResponseId", responseId);
+                    respMsg.set("pgrMessage", message);
+                    try {
+                        delegator.create(respMsg);
+                    } catch (GenericEntityException e) {
+                        String errMsg = "Unable to create PaymentGatewayRespMsg record"; 
+                        Debug.logError(e, errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
+                }
+            }
+
+            if (releaseResponse != null && releaseResponse.booleanValue()) {
+                paymentPref.set("statusId", "PAYMENT_CANCELLED");
+                try {
+                    paymentPref.store();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Problem storing updated payment preference; authorization was released!", module);
+                }
+
+                // cancel any payment records
+                List paymentList = null;
+                try {
+                    paymentList = paymentPref.getRelated("Payment");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Unable to get Payment records from OrderPaymentPreference : " + paymentPref, module);
+                }
+
+                if (paymentList != null) {
+                    Iterator pi = paymentList.iterator();
+                    while (pi.hasNext()) {
+                        GenericValue pay = (GenericValue) pi.next();
+                        pay.set("statusId", "PMNT_CANCELLED");
+                        try {
+                            pay.store();
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, "Unable to store Payment : " + pay, module);
+                        }
+                    }
+                }
+            } else {
+                String errMsg = "Release failed for pref : " + paymentPref; 
+                Debug.logError(errMsg, module);
+                result = ServiceUtil.returnFailure(errMsg);
+            }
+        } else if (ServiceUtil.isError(releaseResult)) {
+            saveError(dispatcher, userLogin, paymentPref, releaseResult, "PRDS_PAY_RELEASE", "PGT_RELEASE");
+            result = ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
         }
 
         return result;

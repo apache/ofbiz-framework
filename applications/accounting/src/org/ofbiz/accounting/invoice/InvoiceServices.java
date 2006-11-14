@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.accounting.payment.BillingAccountWorker;
 import org.ofbiz.accounting.payment.PaymentWorker;
+import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -1269,7 +1270,7 @@ public class InvoiceServices {
                         // If part of the order was paid via credit card, try to charge it for the additional shipping
                         List orderPaymentPreferences = new ArrayList();
                         try {
-                            orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
+                            orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "CREDIT_CARD"));
                         } catch( GenericEntityException e ) {
                             String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingOrderPaymentPreferences", locale);
                             Debug.logError(e, errMsg, module);
@@ -1278,18 +1279,46 @@ public class InvoiceServices {
 
                         //  Use the first credit card we find, for the sake of simplicity
                         String paymentMethodId = null;
-                        Iterator oppit = orderPaymentPreferences.iterator();
-                        while (oppit.hasNext()) {
-                            GenericValue orderPaymentPreference = (GenericValue) oppit.next();
-                            if (orderPaymentPreference.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
-                                paymentMethodId = orderPaymentPreference.getString("paymentMethodId");
-                                break;
-                            }
+                        GenericValue cardOrderPaymentPref = EntityUtil.getFirst(orderPaymentPreferences);
+                        if (cardOrderPaymentPref != null) {
+                            paymentMethodId = cardOrderPaymentPref.getString("paymentMethodId");
                         }
                         
                         if (paymentMethodId != null ) {
+
+                            // Release all outstanding (not settled or cancelled) authorizations, while keeping a running
+                            //  total of their amounts so that the total plus the additional shipping charges can be authorized again
+                            //  all at once.
+                            BigDecimal totalNewAuthAmount = new BigDecimal(totalAdditionalShippingCharges.doubleValue()).setScale(decimals, rounding);
+                            Iterator oppit = orderPaymentPreferences.iterator();
+                            while (oppit.hasNext()) {
+                                GenericValue orderPaymentPreference = (GenericValue) oppit.next();
+                                if (! (orderPaymentPreference.getString("statusId").equals("PAYMENT_SETTLED") || orderPaymentPreference.getString("statusId").equals("PAYMENT_CANCELLED"))) {
+                                    GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
+                                    if (authTransaction != null && authTransaction.get("amount") != null) {
+
+                                        // Update the total authorized amount
+                                        totalNewAuthAmount = totalNewAuthAmount.add(authTransaction.getBigDecimal("amount").setScale(decimals, rounding));
+
+                                        // Release the authorization for the OrderPaymentPreference
+                                        Map prefReleaseResult = null;
+                                        try {
+                                            prefReleaseResult = dispatcher.runSync("releaseOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"), "userLogin", context.get("userLogin")));
+                                        } catch( GenericServiceException e ) {
+                                            String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingReleaseOrderPaymentPreferenceService", locale);
+                                            Debug.logError(e, errMsg, module);
+                                            return ServiceUtil.returnError(errMsg);
+                                        }
+                                        if (ServiceUtil.isError(prefReleaseResult) || ServiceUtil.isFailure(prefReleaseResult)) {
+                                            String errMsg = ServiceUtil.getErrorMessage(prefReleaseResult);
+                                            Debug.logError(errMsg, module);
+                                            return ServiceUtil.returnError(errMsg);
+                                        }
+                                    }
+                                }
+                            }
                             
-                            // Create a new OrderPaymentPreference for the order to handle the additional charge. Don't
+                            // Create a new OrderPaymentPreference for the order to handle the new (totalled) charge. Don't
                             //  set the maxAmount so that it doesn't interfere with other authorizations
                             Map serviceContext = UtilMisc.toMap("orderId", orderId, "paymentMethodId", paymentMethodId, "paymentMethodTypeId", "CREDIT_CARD", "userLogin", context.get("userLogin"));
                             String orderPaymentPreferenceId = null;
@@ -1307,7 +1336,7 @@ public class InvoiceServices {
                             try {
 
                                 // Use an overrideAmount because the maxAmount wasn't set on the OrderPaymentPreference
-                                authResult = dispatcher.runSync("authOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId, "overrideAmount", new Double(totalAdditionalShippingCharges.doubleValue()), "userLogin", context.get("userLogin")));
+                                authResult = dispatcher.runSync("authOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId, "overrideAmount", new Double(totalNewAuthAmount.doubleValue()), "userLogin", context.get("userLogin")));
                             } catch (GenericServiceException e) {
                                 String errMsg = UtilProperties.getMessage(resource, "AccountingTroubleCallingAuthOrderPaymentPreferenceService", locale);
                                 Debug.logError(e, errMsg, module);

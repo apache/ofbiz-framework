@@ -248,6 +248,12 @@ under the License.
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
     </service>
 
+    <service name="releaseOrderPaymentPreference" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="releaseOrderPaymentPreference" auth="true">
+        <description>Releases payment authorization for a single OrderPaymentPreference</description>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
+    </service>
+
     <service name="capturePaymentsByInvoice" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="capturePaymentsByInvoice" auth="true">
         <description>Captures (settles) pre-authorized order payments by invoice</description>
