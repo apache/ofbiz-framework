@@ -730,14 +730,20 @@ public class EmailServices {
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }
-            // if partyIdTo not found try to find the "to" address using the delivered-to header
-            String deliveredTo = message.getHeader("Delivered-To")[0];
-            // check if started with the domain name if yes remove including the dash.
-            String dn = deliveredTo.substring(deliveredTo.indexOf("@")+1, deliveredTo.length());
-            if (deliveredTo.startsWith(dn)) {
-                deliveredTo = deliveredTo.substring(dn.length()+1, deliveredTo.length());
+            
+            
+            String deliveredTo = null;
+            if (message.getHeader("Delivered-To") != null) {
+                deliveredTo = message.getHeader("Delivered-To")[0];
+                // check if started with the domain name if yes remove including the dash.
+                String dn = deliveredTo.substring(deliveredTo.indexOf("@")+1, deliveredTo.length());
+                if (deliveredTo.startsWith(dn)) {
+                    deliveredTo = deliveredTo.substring(dn.length()+1, deliveredTo.length());
+                }
             }
-            if (partyIdTo == null) {
+            
+            // if partyIdTo not found try to find the "to" address using the delivered-to header
+            if ((partyIdTo == null) && (deliveredTo != null)) {
                 result = dispatcher.runSync("findPartyFromEmailAddress", UtilMisc.toMap("address", deliveredTo, "userLogin", userLogin));          
                 partyIdTo = (String)result.get("partyId");
                 contactMechIdTo = (String)result.get("contactMechId");
@@ -816,6 +822,11 @@ public class EmailServices {
             if (partyIdTo != null) {
                 commEventMap.put("partyIdTo", partyIdTo);               
                 commEventMap.put("contactMechIdTo", contactMechIdTo);
+            } else {
+                commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
+                if (deliveredTo != null) {
+                    commNote += "Delivered-To: " + deliveredTo + "; ";
+                }
             }
             
             commNote += "Sent to: " + ((InternetAddress)addressesTo[0]).getAddress()  + "; ";
