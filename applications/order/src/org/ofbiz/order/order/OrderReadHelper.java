@@ -1187,7 +1187,7 @@ public class OrderReadHelper {
                     // get the virtual product and check its weight
                     GenericValue virtual = null;
                     try {
-                        List virtuals = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.getString("productId"), "productAssocTypeId", "PRODUCT_VARIENT"), UtilMisc.toList("-fromDate"));
+                        List virtuals = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.getString("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate"));
                         if (virtuals != null) {
                             virtuals = EntityUtil.filterByDate(virtuals);
                         }
