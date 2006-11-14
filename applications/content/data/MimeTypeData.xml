@@ -35,6 +35,7 @@ under the License.
     <MimeType mimeTypeId="application/zip" description="ZIP Data"/>
     <MimeType mimeTypeId="application/pdf" description="Adobe Portable Document Format (PDF)"/>
     <MimeType mimeTypeId="application/msword" description="Microsoft Word"/>
+    <MimeType mimeTypeId="application/x-zip-compressed" description="ZIP compressed file"/>
     <MimeType mimeTypeId="application/vnd.oasis.opendocument.text" description="OpenOffice OpenDocument Text"/>
     <MimeType mimeTypeId="application/vnd.ofbiz.survey" description="Survey"/>
     <MimeType mimeTypeId="application/vnd.ofbiz.survey.response" description="Survey Response"/>
