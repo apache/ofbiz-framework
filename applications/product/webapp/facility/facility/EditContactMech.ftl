@@ -23,7 +23,7 @@ under the License.
     <#-- When creating a new contact mech, first select the type, then actually create -->
     <#if !preContactMechTypeId?has_content>
     <p class="head1">${uiLabelMap.PartyCreateNewContact}</p>
-    <form method="get" action='<@ofbizUrl>EditContactMech</@ofbizUrl>' name="createcontactmechform">
+    <form method="post" action='<@ofbizUrl>EditContactMech</@ofbizUrl>' name="createcontactmechform">
       <input type='hidden' name='facilityId' value='${facilityId}'>
       <input type='hidden' name='DONE_PAGE' value='${donePage?if_exists}'>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
@@ -51,7 +51,7 @@ under the License.
         <div>(${uiLabelMap.PartyMsgContactHavePurpose}<b>"${contactMechPurposeType.get("description",locale)?if_exists}"</b>)</div>
       </#if>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
-        <form method="get" action='<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>' name="editcontactmechform">
+        <form method="post" action='<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>' name="editcontactmechform">
         <input type='hidden' name='DONE_PAGE' value='${donePage}'>
         <input type='hidden' name='contactMechTypeId' value='${mechMap.contactMechTypeId}'>
         <input type='hidden' name='facilityId' value='${facilityId}'>        
@@ -90,7 +90,7 @@ under the License.
               </#if>              
            
               <tr>
-                <form method='get' action='<@ofbizUrl>createFacilityContactMechPurpose?DONE_PAGE=${donePage}&useValues=true</@ofbizUrl>' name='newpurposeform'>
+                <form method="post" action='<@ofbizUrl>createFacilityContactMechPurpose?DONE_PAGE=${donePage}&useValues=true</@ofbizUrl>' name='newpurposeform'>
                 <input type="hidden" name='facilityId' value='${facilityId}'>
                 <input type="hidden" name='contactMechId' value='${contactMechId?if_exists}'>
                   <td bgcolor='white'>
