@@ -103,7 +103,7 @@ under the License.
                   <td>
                     <select name="returnTypeId_o_${rowCount}" class="selectBox">
                       <#list returnTypes as type>
-                      <option value="${type.returnTypeId}">${type.get("description",locale)?default(type.returnTypeId)}</option>
+                      <option value="${type.returnTypeId}" <#if type.returnTypeId=="RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
                       </#list>
                     </select>
                   </td>
@@ -159,7 +159,7 @@ under the License.
                   <td>
                     <select name="returnTypeId_o_${rowCount}" class="selectBox">
                       <#list returnTypes as type>
-                      <option value="${type.returnTypeId}">${type.get("description",locale)?default(type.returnTypeId)}</option>
+                      <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
                       </#list>
                     </select>
                   </td>
