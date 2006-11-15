@@ -123,7 +123,7 @@ under the License.
 
     <form name="invoiceItems" default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="invoiceItems"
-        target="" paginate-target="InvoiceItems" title="" type="list" separate-columns="true">
+        target="" paginate-target="invoiceOverview" title="" type="list" separate-columns="true">
         <row-actions>
             <set field="total" value="${bsh:
                 import java.text.NumberFormat;
