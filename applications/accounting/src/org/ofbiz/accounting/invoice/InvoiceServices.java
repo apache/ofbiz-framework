@@ -32,6 +32,7 @@ import javolution.util.FastMap;
 import org.ofbiz.accounting.payment.BillingAccountWorker;
 import org.ofbiz.accounting.payment.PaymentWorker;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
+import org.ofbiz.accounting.util.UtilAccounting;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -1710,9 +1711,25 @@ public class InvoiceServices {
             return ServiceUtil.returnSuccess();
         }
         
+        // Get the payment applications that can be used to pay the invoice
         List paymentAppl = null;
         try {
-            paymentAppl = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("invoiceId", invoiceId));
+            paymentAppl = delegator.findByAnd("PaymentAndApplication", UtilMisc.toMap("invoiceId", invoiceId));
+            if (paymentAppl != null) {
+
+                // For each payment application, select only those that are RECEIVED or SENT based on whether the payment is a RECEIPT or DISBURSEMENT respectively
+                for (Iterator iter = paymentAppl.iterator(); iter.hasNext(); ) {
+                    GenericValue payment = (GenericValue) iter.next();
+                    if ("PMNT_RECEIVED".equals(payment.get("statusId")) && UtilAccounting.isReceipt(payment)) {
+                        continue; // keep
+                    }
+                    if ("PMNT_SENT".equals(payment.get("statusId")) && UtilAccounting.isDisbursement(payment)) {
+                        continue; // keep
+                    }
+                    // all other cases, remove the payment applicaition
+                    iter.remove();
+                }
+            }
         } catch (GenericEntityException e) {
             String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingPaymentApplication",UtilMisc.toMap("invoiceId",invoiceId), locale);
             Debug.logError(e, errMsg, module);
@@ -1726,22 +1743,14 @@ public class InvoiceServices {
             while (pai.hasNext()) {
                 GenericValue payAppl = (GenericValue) pai.next();
                 payments.put(payAppl.getString("paymentId"), payAppl.getBigDecimal("amountApplied"));
-                
+
                 // paidDate will be the last date (chronologically) of all the Payments applied to this invoice
-                try {
-                    GenericValue Payment = payAppl.getRelatedOne("Payment");
-                    Timestamp paymentDate = Payment.getTimestamp("effectiveDate");
-                    if (paymentDate != null) {
-                        if ((paidDate == null) || (paidDate.before(paymentDate))) {
-                            paidDate = paymentDate;
-                        }
-                    }    
-                } catch (GenericEntityException ex) {
-                   String errMsg = UtilProperties.getMessage(resource, "AccountingCannotGetPaymentForApplication",UtilMisc.toMap("payAppl",payAppl,"msg",ex.getMessage()), locale);
-                   Debug.logError(ex, errMsg, module);
-                   return ServiceUtil.returnError(errMsg);
-                }
-                
+                Timestamp paymentDate = payAppl.getTimestamp("effectiveDate");
+                if (paymentDate != null) {
+                    if ((paidDate == null) || (paidDate.before(paymentDate))) {
+                        paidDate = paymentDate;
+                    }
+                }    
             }
         }
 
@@ -2838,6 +2847,7 @@ public class InvoiceServices {
             List paymentApplications = payment.getRelated("PaymentApplication");
             if (UtilValidate.isEmpty(paymentApplications)) return ServiceUtil.returnSuccess();
 
+            // TODO: this is inefficient -- instead use HashSet to construct a distinct Set of invoiceIds, then iterate over it and call checkInvoicePaymentAppls
             Iterator iter = paymentApplications.iterator();
             while (iter.hasNext()) {
                 GenericValue paymentApplication = (GenericValue) iter.next();

@@ -2326,6 +2326,9 @@ under the License.
       <relation type="one-nofk" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
+      <relation type="one-nofk" rel-entity-name="PaymentType">
+        <key-map field-name="paymentTypeId"/>
+      </relation>
       <relation type="one-nofk" rel-entity-name="PaymentMethodType">
         <key-map field-name="paymentMethodTypeId"/>
       </relation>
