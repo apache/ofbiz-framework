@@ -63,6 +63,10 @@ under the License.
     glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
     accountName="PETTY CASH" description="" postedBalance="0.0"/>  
 
+  <GlAccount parentGlAccountId="111000" glAccountId="112000" accountCode="112000" 
+    glAccountClassId="CASH_EQUIVALENT" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
+    accountName="UNDEPOSITED RECEIPTS" description="" postedBalance="0.0"/>
+
   <GlAccount parentGlAccountId="100000" glAccountId="120000" accountCode="120000" 
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="ACCOUNTS_RECEIVABLE" glResourceTypeId="MONEY"
     accountName="ACCOUNTS RECEIVABLE" description="" postedBalance="0.0"/>
