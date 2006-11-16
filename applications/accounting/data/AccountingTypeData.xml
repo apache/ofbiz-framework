@@ -155,6 +155,7 @@ under the License.
     <GlAccountType description="Accounts Payable" glAccountTypeId="ACCOUNTS_PAYABLE" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Balance" glAccountTypeId="BALANCE_ACCOUNT" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Bank Settlement" glAccountTypeId="BANK_STLMNT_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Undeposited Receipts" glAccountTypeId="UNDEPOSITED_RECEIPTS" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Merchant Account Settlement" glAccountTypeId="MRCH_STLMNT_ACCOUNT" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
     <GlAccountType description="Current Asset" glAccountTypeId="CURRENT_ASSET" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Fixed Asset" glAccountTypeId="FIXED_ASSET" hasTable="N" parentTypeId=""/>
