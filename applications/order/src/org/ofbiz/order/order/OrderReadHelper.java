@@ -1755,7 +1755,7 @@ public class OrderReadHelper {
     /** 
      * Get the returned total by return type (credit, refund, etc.).  Specify returnTypeId = null to get sum over all
      * return types.  Specify includeAll = true to sum up over all return statuses except cancelled.  Specify includeAll
-     * = false to sum up over RECEIVED And COMPLETED returns.
+     * = false to sum up over ACCEPTED,RECEIVED And COMPLETED returns.
      */
     public BigDecimal getOrderReturnedTotalByTypeBd(String returnTypeId, boolean includeAll) {
         List returnedItemsBase = getOrderReturnItems();
@@ -1766,6 +1766,7 @@ public class OrderReadHelper {
 
         // get only the RETURN_RECEIVED and RETURN_COMPLETED statusIds
         if (!includeAll) {
+            returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_ACCEPTED")));            
             returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_RECEIVED")));
             returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
         } else {
@@ -1773,7 +1774,6 @@ public class OrderReadHelper {
             returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase,
                     UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED"))));
         }
-
         BigDecimal returnedAmount = ZERO;
         Iterator i = returnedItems.iterator();
         String orderId = orderHeader.getString("orderId");
