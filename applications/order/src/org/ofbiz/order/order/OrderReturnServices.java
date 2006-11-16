@@ -102,7 +102,7 @@ public class OrderReturnServices {
             adj = new Double(0);
         }
 
-        double returnTotal = orh.getOrderReturnedTotal(true);
+        double returnTotal = orh.getOrderReturnedTotal(false);
         double orderTotal = orh.getOrderGrandTotal();
         double available = orderTotal - returnTotal - adj.doubleValue();
 
