@@ -23,7 +23,7 @@ under the License.
     <version>1.0</version>
 
     <!-- Product Category Maintenance Services -->
-    <service name="copyCategoryProductMembers" engine="simple"
+    <service name="copyCategoryProductMembers" engine="simple" transaction-timeout="600" 
             location="org/ofbiz/product/category/CategoryServices.xml" invoke="copyCategoryProductMembers" auth="true">
         <description>Copy Product Members from one Category to Another, optionally filtering by the given valid date (otherwise no date filtering done), and optionally recursing (if recurse=Y) down the from category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
