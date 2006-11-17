@@ -103,13 +103,9 @@ under the License.
         <action service="recreateOrderAdjustments" mode="sync"/>
         <action service="resetGrandTotal" mode="sync"/>
     </eca>
-    <!--
-        as a temp fix, it is now disabled since, due to the way processOrderPayments works,
-        the end result is that all the order's inventory reservations were lost
     <eca service="cancelOrderItem" event="return">
         <action service="processOrderPayments" mode="sync"/>
     </eca>
-    -->
 
     <!-- order confirmation/notification email ECAs -->
     <eca service="sendOrderConfirmation" event="commit">
