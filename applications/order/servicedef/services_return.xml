@@ -108,7 +108,12 @@ under the License.
                 all items are paid.</description>
         <attribute name="returnItemResponseId" type="String" mode="IN" optional="false"/>
     </service>
-    
+    <service name="cancelReturnItems" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="cancelReturnItems">
+        <description>Cancel ReturnItems and set their status to "RETURN_CANCELLED"</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
+	    
     <!-- services for return adjustments -->
     <service name="returnAdjustmentInterface" engine="interface" location="" invoke="">
         <description>Return Adjustment Interface</description>

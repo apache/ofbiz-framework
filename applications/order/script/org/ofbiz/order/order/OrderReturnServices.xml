@@ -733,4 +733,18 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
+	
+    <simple-method method-name="cancelReturnItems" short-description="Update a ReturnItems">
+        <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCancelReturnItems"/></check-permission>
+        <check-errors/>
+        <entity-condition entity-name="ReturnItem" list-name="returnItems" distinct="true">
+            <condition-expr field-name="returnId" operator="equals" env-name="parameters.returnId"/>
+        </entity-condition>
+        <iterate entry-name="returnItem" list-name="returnItems">
+            <set field="returnItemMap.returnId" from-field="parameters.returnId"/>
+            <set field="returnItemMap.returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
+            <set field="returnItemMap.statusId" value="RETURN_CANCELLED" />
+            <call-service service-name="updateReturnItem" in-map-name="returnItemMap"/>
+        </iterate>
+    </simple-method>
 </simple-methods>
