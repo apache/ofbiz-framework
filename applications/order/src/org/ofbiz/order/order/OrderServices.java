@@ -3056,7 +3056,12 @@ public class OrderServices {
         result.put("orderId", orderId);
         return result;
     }
-
+    
+    /*
+     *  Warning: this method will remove all the existing reservations of the order
+     *           before returning the ShoppingCart object; for this reason, the cart
+     *           must be stored back using the method saveUpdatedCartToOrder(...).
+     */
     private static ShoppingCart loadCartForUpdate(LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue userLogin, String orderId) throws GeneralException {
         // find ship group associations
         List shipGroupAssocs = null;
@@ -3325,14 +3330,20 @@ public class OrderServices {
         String productStoreId = orh.getProductStoreId();
 
         if (cart == null) {
+            // load the order into a shopping cart
+            Map loadCartResp = null;
             try {
-                cart = loadCartForUpdate(dispatcher, delegator, userLogin, orderId);
-            } catch (GeneralException e) {
+                loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+            } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
+            cart = (ShoppingCart) loadCartResp.get("shoppingCart");
+
             if (cart == null) {
                 return ServiceUtil.returnError("ERROR: Null shopping cart object returned!");
             }
+            
+            cart.setOrderId(orderId);
         }
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
         // process the payments
