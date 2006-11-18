@@ -130,7 +130,7 @@ public abstract class XuiContainer implements Container {
     class XuiScreen extends XApplet {
 
         public void setup(String startupFile) {
-            String xuiProps = System.getProperty("ofbiz.home") + "/applications/pos/config/" + startupFile;
+            String xuiProps = System.getProperty("ofbiz.home") + "/specialpurpose/pos/config/" + startupFile;
             String suffix = Locale.getDefault().getLanguage();
             if ("en" == suffix ) 
                 suffix = "";
