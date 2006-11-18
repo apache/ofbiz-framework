@@ -1052,6 +1052,13 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
                                 // if it is less that 0x20 at this point it is invalid because the only valid values < 0x20 are 0x9, 0xA, 0xD as caught above
                                 Debug.logInfo("Removing invalid character [" + curChar + "] numeric value [" + (int) curChar + "] for field " + name + " of entity with PK: " + this.getPrimaryKey().toString(), module);
                                 value.deleteCharAt(i);
+                            }else if(curChar > 0x7F) {                            	
+                            	// Replace each char which is out of the ASCII range with a XML entity
+                            	String replacement = "&#" + (int) curChar + ";";
+                            	if(Debug.verboseOn()) {
+                            	    Debug.logVerbose("Entity: "+ this.getEntityName() +", PK: " + this.getPrimaryKey().toString() +" -> char ["+ curChar +"] replaced with ["+ replacement +"]", module);
+                            	}
+                            	value.replace(i, i+1, replacement);
                             }
                         }
                     }
