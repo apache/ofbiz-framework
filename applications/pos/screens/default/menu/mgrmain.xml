@@ -16,7 +16,7 @@
 -->
 <XPage>
     <Components>
-        <!-- col 1 -->
+        <!-- line 1 -->
         <Button name="menuSku" x="0" y="0" w="100" h="60" style="posButton" content="SKU" alignment="Center"/>
         <Button name="menuMain" x="102" y="0" w="100" h="60" style="posButton" content="MAIN" alignment="Center"/>
         <Button name="menuMgr" x="204" y="0" w="100" h="60" style="posButton" content="MGR" alignment="Center"/>
@@ -24,23 +24,23 @@
         <Button name="" x="408" y="0" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="menuPay" x="510" y="0" w="100" h="60" style="posButton" content="PAY" alignment="Center"/>
 
-        <!-- col 2 -->
+        <!-- line 2 -->
         <Button name="mgrPriceChg" x="0" y="62" w="100" h="60" style="posButton" content="CHANGE_PRICE" alignment="Center"/>
-        <Button name="ngrReprintTx" x="102" y="62" w="100" h="60" style="posButton" content="REPRINT" alignment="Center"/>
+        <Button name="mgrReprintTx" x="102" y="62" w="100" h="60" style="posButton" content="REPRINT" alignment="Center"/>
         <Button name="" x="204" y="62" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="306" y="62" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="408" y="62" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="mgrOpenTerm" x="510" y="62" w="100" h="60" style="posButton" content="OPEN" alignment="Center"/>
 
-        <!-- col 3 -->
+        <!-- line 3 -->
         <Button name="" x="0" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="102" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
-        <Button name="" x="204" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
-        <Button name="" x="306" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="mgrPaidOut" x="204" y="124" w="100" h="60" style="posButton" content="PAID_OUT" alignment="Center"/>
+        <Button name="mgrPaidIn" x="306" y="124" w="100" h="60" style="posButton" content="PAID_IN" alignment="Center"/>
         <Button name="" x="408" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="mgrCloseTerm" x="510" y="124" w="100" h="60" style="posButton" content="CLOSE" alignment="Center"/>
 
-        <!-- col 4 -->
+        <!-- line 4 -->
         <Button name="" x="0" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="102" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="204" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
@@ -48,7 +48,7 @@
         <Button name="" x="408" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="mgrVoidSale" x="510" y="186" w="100" h="60" style="posButton" content="VOID_SALE" alignment="Center"/>
 
-        <!-- col 5 -->
+        <!-- line 5 -->
         <Button name="mgrCacheClear" x="0" y="248" w="100" h="60" style="posButton" content="CLEAR_CACHE" alignment="Center"/>
         <Button name="mgrResetXui" x="102" y="248" w="100" h="60" style="posButton" content="RESET_XUI" alignment="Center"/>
         <Button name="" x="204" y="248" w="100" h="60" style="posButton" content="" alignment="Center"/>
@@ -56,7 +56,7 @@
         <Button name="" x="408" y="248" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="510" y="248" w="100" h="60" style="posButton" content="" alignment="Center"/>
 
-        <!-- col 6 -->
+        <!-- line 6 -->
         <Button name="mgrPopDrwr" x="0" y="310" w="100" h="60" style="posButton" content="OPEN_DRAWER" alignment="Center"/>
         <Button name="mgrTotals" x="102" y="310" w="100" h="60" style="posButton" content="TOTALS" alignment="Center"/>
         <Button name="" x="204" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>

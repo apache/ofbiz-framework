@@ -1,12 +1,12 @@
 /*
  * Copyright 2001-2006 The Apache Software Foundation
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -106,13 +106,13 @@ public class ManagerEvents {
         if (!trans.isOpen()) {
             if (input.isFunctionSet("OPEN")) {
                 String amountStr = input.value();
-                if (UtilValidate.isNotEmpty(amountStr)) 
+                if (UtilValidate.isNotEmpty(amountStr))
                 {
                     try {
                         double amt = Double.parseDouble(amountStr);
                         amt = amt / 100;
                         amountStr = UtilFormatOut.formatPrice(amt);
-                    } catch (NumberFormatException e) 
+                    } catch (NumberFormatException e)
                     {
                         Debug.logError(e, module);
                     }
@@ -122,14 +122,14 @@ public class ManagerEvents {
                 state.set("openedDate", UtilDateTime.nowTimestamp());
                 state.set("openedByUserLoginId", pos.getSession().getUserId());
                 state.set("startingTxId", trans.getTransactionId());
-	            try
-	            {
-	                state.set("startingDrawerAmount", new Double(priceDecimalFormat.parse(amountStr).doubleValue()));
-	            }
-	            catch (ParseException pe)
-	            {
-	                Debug.logError(pe, module);
-	            }
+                try
+                {
+                    state.set("startingDrawerAmount", new Double(priceDecimalFormat.parse(amountStr).doubleValue()));
+                }
+                catch (ParseException pe)
+                {
+                    Debug.logError(pe, module);
+                }
                 try {
                     state.create();
                 } catch (GenericEntityException e) {
@@ -204,22 +204,17 @@ public class ManagerEvents {
                     GenericValue state = trans.getTerminalState();
                     state.set("closedDate", UtilDateTime.nowTimestamp());
                     state.set("closedByUserLoginId", pos.getSession().getUserId());
-                    /*state.set("actualEndingCash", new Double(closeInfo[0]));
-                    state.set("actualEndingCheck", new Double(closeInfo[1]));
-                    state.set("actualEndingCc", new Double(closeInfo[2]));
-                    state.set("actualEndingGc", new Double(closeInfo[3]));
-                    state.set("actualEndingOther", new Double(closeInfo[4]));*/
                     try
                     {
-	                    state.set("actualEndingCash", new Double(priceDecimalFormat.parse(closeInfo[0]).doubleValue()));
-	                    state.set("actualEndingCheck", new Double(priceDecimalFormat.parse(closeInfo[1]).doubleValue()));
-	                    state.set("actualEndingCc", new Double(priceDecimalFormat.parse(closeInfo[2]).doubleValue()));
-	                    state.set("actualEndingGc", new Double(priceDecimalFormat.parse(closeInfo[3]).doubleValue()));
-	                    state.set("actualEndingOther", new Double(priceDecimalFormat.parse(closeInfo[4]).doubleValue()));
+                        state.set("actualEndingCash", new Double(priceDecimalFormat.parse(closeInfo[0]).doubleValue()));
+                        state.set("actualEndingCheck", new Double(priceDecimalFormat.parse(closeInfo[1]).doubleValue()));
+                        state.set("actualEndingCc", new Double(priceDecimalFormat.parse(closeInfo[2]).doubleValue()));
+                        state.set("actualEndingGc", new Double(priceDecimalFormat.parse(closeInfo[3]).doubleValue()));
+                        state.set("actualEndingOther", new Double(priceDecimalFormat.parse(closeInfo[4]).doubleValue()));
                     }
                     catch (ParseException pe)
                     {
-	                    Debug.logError(pe, module);
+                        Debug.logError(pe, module);
                     }
                     state.set("endingTxId", trans.getTransactionId());
                     Debug.log("Updated State - " + state, module);
@@ -233,7 +228,7 @@ public class ManagerEvents {
 
                     // print the totals report
                     output.print(UtilProperties.getMessage("pos","WaitingFinalSales",Locale.getDefault()));
-                    pos.showDialog("dialog/error/terminalclosed");
+                    //pos.showDialog("dialog/error/terminalclosed"); JLR 14/11/06 : Pb with that don't know why, useless => commented out
                     printTotals(pos, state, true);
 
                     // lock the terminal for the moment
@@ -261,7 +256,7 @@ public class ManagerEvents {
                     pos.getInput().setLock(false);
                     pos.getButtons().setLock(false);
                     pos.refresh(true);
-                    
+
             }
         } else {
             trans.popDrawer();
@@ -269,7 +264,6 @@ public class ManagerEvents {
             input.setFunction("CLOSE");
             output.print(UtilProperties.getMessage("pos","ENTCAS",Locale.getDefault()));
         }
-
     }
 
     public static void voidOrder(PosScreen pos) {
@@ -316,7 +310,7 @@ public class ManagerEvents {
                     LocalDispatcher dispatcher = session.getDispatcher();
                     Map returnResp = null;
                     try {
-                        returnResp = dispatcher.runSync("quickReturnOrder", UtilMisc.toMap("orderId", orderId, 
+                        returnResp = dispatcher.runSync("quickReturnOrder", UtilMisc.toMap("orderId", orderId,
                                                         "returnHeaderTypeId", "CUSTOMER_RETURN", "userLogin", session.getUserLogin()));
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
@@ -403,6 +397,81 @@ public class ManagerEvents {
         printTotals(pos, null, false);
     }
 
+    public static void paidOut(PosScreen pos) {
+        paidOutAndIn(pos, "OUT");        
+    }
+
+    public static void paidIn(PosScreen pos) {
+        paidOutAndIn(pos, "IN");        
+    }
+                    
+    public static void paidOutAndIn(PosScreen pos, String type) {
+        if (!mgrLoggedIn) {
+            pos.showDialog("dialog/error/mgrnotloggedin");
+            return;
+        }
+        
+        PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
+        if (!trans.isOpen()) {
+            pos.showDialog("dialog/error/terminalclosed");
+            return;
+        }
+        Output output = pos.getOutput();
+        Input input = pos.getInput(); 
+        if (input.isFunctionSet("PAID_" + type)) {
+            String[] func = input.getFunction("PAID_" + type);
+            String lastValue = input.value();
+            if (UtilValidate.isNotEmpty(lastValue)) {
+                String[] paidInfo = new String[0];
+                switch (func[1].split("\\|").length) {
+                    case 1:
+                        try {
+                            double dbl = Double.parseDouble(lastValue);
+                            dbl = dbl / 100;
+                            lastValue = UtilFormatOut.formatPrice(dbl);
+                        } catch (NumberFormatException e) {
+                            Debug.logError(e, module);
+                        }
+                        func[1] = func[1] + "|";
+                        func[1] = func[1] + lastValue;
+                        input.setFunction("PAID_" + type, func[1]);
+                        output.print(UtilProperties.getMessage("pos","ENT_COMM_" + type, Locale.getDefault()));
+                        break;                        
+                    case 2:
+                        func[1] = func[1] + "|";
+                        func[1] = func[1] + lastValue;
+                        paidInfo = func[1].split("\\|");            
+                        GenericValue internTx = pos.getSession().getDelegator().makeValue("PosTerminalInternTx", null);
+                        internTx.set("posTerminalLogId", trans.getTerminalLogId());                        
+                        try
+                        {
+                            internTx.set("paidAmount", new Double(priceDecimalFormat.parse(paidInfo[1]).doubleValue()));
+                        }
+                        catch (ParseException pe)
+                        {
+                            Debug.logError(pe, module);
+                        }
+                        internTx.set("reasonComment", paidInfo[2]);
+                        try {
+                            internTx.create();
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            pos.showDialog("dialog/error/exception", e.getMessage());
+                        }                        
+                        //save the TX Log 
+                        trans.paidInOut(type);               
+                        NavagationEvents.showPosScreen(pos);                        
+                        break;
+                }
+            }
+        } else {
+            trans.popDrawer();
+            input.clear();
+            input.setFunction("PAID_" + type);
+            output.print(UtilProperties.getMessage("pos","ENT_" + type, Locale.getDefault()));
+        }
+    }    
+    
     private static void printTotals(PosScreen pos, GenericValue state, boolean runBalance) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {
@@ -469,12 +538,12 @@ public class ManagerEvents {
 
         Map reportMap = new HashMap();
         String reportTemplate = "totals.txt";
-        
-        // miscellaneous       
+
+        // miscellaneous
         reportMap.put("term", UtilFormatOut.padString(UtilProperties.getMessage("pos","term",Locale.getDefault()), 20, false, ' '));
         reportMap.put("draw", UtilFormatOut.padString(UtilProperties.getMessage("pos","draw",Locale.getDefault()), 20, false, ' '));
         reportMap.put("clerk", UtilFormatOut.padString(UtilProperties.getMessage("pos","clerk",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("total_report", UtilFormatOut.padString(UtilProperties.getMessage("pos","total_report",Locale.getDefault()), 20, false, ' '));         
+        reportMap.put("total_report", UtilFormatOut.padString(UtilProperties.getMessage("pos","total_report",Locale.getDefault()), 20, false, ' '));
 
         // titles
         reportMap.put("cashTitle", UtilFormatOut.padString(UtilProperties.getMessage("pos","CASH",Locale.getDefault()), 20, false, ' '));

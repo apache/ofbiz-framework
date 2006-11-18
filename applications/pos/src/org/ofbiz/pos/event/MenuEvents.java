@@ -1,12 +1,12 @@
 /*
  * Copyright 2001-2006 The Apache Software Foundation
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -86,6 +86,10 @@ public class MenuEvents {
                 ManagerEvents.openTerminal(pos);
             } else if ("CLOSE".equals(lastFunc[0])) {
                 ManagerEvents.closeTerminal(pos);
+            } else if ("PAID_IN".equals(lastFunc[0])) {
+                ManagerEvents.paidOutAndIn(pos, "IN");
+            } else if ("PAID_OUT".equals(lastFunc[0])) {
+                ManagerEvents.paidOutAndIn(pos, "OUT");
             } else if ("VOID".equals(lastFunc[0])) {
                 ManagerEvents.voidOrder(pos);
             } else if ("REFNUM".equals(lastFunc[0])) {
@@ -151,7 +155,7 @@ public class MenuEvents {
                     ListIterator it = items.listIterator();
                     if (it.hasNext()) {
                         GenericValue product = (GenericValue) it.next();
-                        productId = product.getString("productId");                    
+                        productId = product.getString("productId");
                         Hashtable productsMap = new Hashtable();
                         productsMap.put(product.getString("productId"), product.get("internalName"));
                         while (it.hasNext()) {
@@ -164,7 +168,7 @@ public class MenuEvents {
                             SelectProduct SelectProduct = new SelectProduct(productsMap, trans, pos);
                             productId = SelectProduct.openDlg();
                         }
-                    }                    
+                    }
                 }
             } catch (GeneralException e) {
                 Debug.logError(e, module);

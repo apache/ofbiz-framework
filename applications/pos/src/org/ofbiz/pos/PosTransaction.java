@@ -1,12 +1,12 @@
 /*
  * Copyright 2001-2006 The Apache Software Foundation
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -158,6 +158,10 @@ public class PosTransaction implements Serializable {
         return this.facilityId;
     }
 
+    public String getTerminalLogId() {
+        return txLog.getString("posTerminalLogId");
+    }
+
     public boolean isOpen() {
         if (!this.isOpen) {
             GenericValue terminalState = this.getTerminalState();
@@ -193,7 +197,7 @@ public class PosTransaction implements Serializable {
     public double getTaxTotal() {
         return cart.getTotalSalesTax();
     }
-    
+
     public double getGrandTotal() {
         return UtilFormatOut.formatPriceNumber(cart.getGrandTotal()).doubleValue();
     }
@@ -232,7 +236,7 @@ public class PosTransaction implements Serializable {
     }
 
     public Map getPaymentInfo(int index) {
-        ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(index);        
+        ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(index);
         GenericValue infValue = inf.getValueObject(session.getDelegator());
         GenericValue paymentPref = null;
         try {
@@ -343,7 +347,7 @@ public class PosTransaction implements Serializable {
             return 0;
         }
     }
-        
+
     public void addItem(String productId, double quantity) throws CartItemModifyException, ItemNotFoundException {
         trace("add item", productId + "/" + quantity);
         try {
@@ -399,7 +403,7 @@ public class PosTransaction implements Serializable {
             if (itemAdj != null) {
                 item.removeAdjustment(itemAdj.intValue());
             }
-           	int idx = item.addAdjustment(adjustment);    
+               int idx = item.addAdjustment(adjustment);
             skuDiscounts.put(productId, new Integer(idx));
         } else {
             trace("add sale adjustment");
@@ -458,7 +462,7 @@ public class PosTransaction implements Serializable {
         cart.clear();
         currentTx = null;
     }
-        
+
     public void closeTx() {
         trace("transaction closed");
         txLog.set("statusId", "POSTX_CLOSED");
@@ -473,6 +477,18 @@ public class PosTransaction implements Serializable {
         currentTx = null;
     }
 
+    public void paidInOut(String type) {
+        trace("paid " + type);
+        txLog.set("statusId", "POSTX_PAID_" + type);
+        txLog.set("logEndDateTime", UtilDateTime.nowTimestamp());
+        try {
+            txLog.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Unable to store TX log - not fatal", module);
+        }
+        currentTx = null;
+    }
+    
     public void calcTax() {
         try {
             ch.calcAndAddTax(this.getStoreOrgAddress());
@@ -600,7 +616,7 @@ public class PosTransaction implements Serializable {
         }
 
         // process the payment(s)
-        output.print(UtilProperties.getMessage("pos","Processing",defaultLocale));        
+        output.print(UtilProperties.getMessage("pos","Processing",defaultLocale));
         Map payRes = null;
         try {
             payRes = ch.processPayment(ProductStoreWorker.getProductStore(productStoreId, session.getDelegator()), session.getUserLogin(), true);
@@ -609,14 +625,14 @@ public class PosTransaction implements Serializable {
             throw e;
         }
 
-        if (payRes != null && ServiceUtil.isError(payRes)) {         
+        if (payRes != null && ServiceUtil.isError(payRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(payRes));
         }
 
         // get the change due
         double change = (grandTotal - paymentAmt);
 
-        // notify the change due     
+        // notify the change due
         output.print(UtilProperties.getMessage("pos","CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
 
         // threaded drawer/receipt printing
@@ -720,7 +736,7 @@ public class PosTransaction implements Serializable {
 
             XModel taxLine = Journal.appendNode(model, "tr", "", "");
             Journal.appendNode(taxLine, "td", "sku", "");
-            
+
             Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage("pos","Sales_Tax",defaultLocale));
             Journal.appendNode(taxLine, "td", "qty", "-");
             Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
@@ -872,44 +888,44 @@ public class PosTransaction implements Serializable {
         }
         return currentTx;
     }
-    
+
     public void loadSale(PosScreen pos) {
         List shoppingLists = createShoppingLists();
         if (!shoppingLists.isEmpty()) {
-        	Hashtable salesMap = createSalesMap(shoppingLists);
-	        if (!salesMap.isEmpty()) {
-		        LoadSale loadSale = new LoadSale(salesMap, this, pos);
-		        loadSale.openDlg();
-	        }
-	        else {
-		        pos.showDialog("dialog/error/nosales");
-	        }	        
+            Hashtable salesMap = createSalesMap(shoppingLists);
+            if (!salesMap.isEmpty()) {
+                LoadSale loadSale = new LoadSale(salesMap, this, pos);
+                loadSale.openDlg();
+            }
+            else {
+                pos.showDialog("dialog/error/nosales");
+            }
         } else {
-	        pos.showDialog("dialog/error/nosales");
-        }        
+            pos.showDialog("dialog/error/nosales");
+        }
     }
-    
+
     public List createShoppingLists() {
-	    List shoppingLists = null;
-	    GenericDelegator delegator = this.session.getDelegator();
-	    try {
-	    	shoppingLists = delegator.findAll("ShoppingList");
-	    } catch (GenericEntityException e) {
-	        Debug.logError(e, module);
-	        ServiceUtil.returnError("Error running initLowLevelCode: " + e.getMessage());            
-	    }
-	
-	    if (shoppingLists == null) {
-	    	Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
-	    }
-	    return shoppingLists;
-    }    
+        List shoppingLists = null;
+        GenericDelegator delegator = this.session.getDelegator();
+        try {
+            shoppingLists = delegator.findAll("ShoppingList");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            ServiceUtil.returnError("Error running initLowLevelCode: " + e.getMessage());
+        }
+
+        if (shoppingLists == null) {
+            Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
+        }
+        return shoppingLists;
+    }
 
     public Hashtable createSalesMap(List shoppingLists) {
         Hashtable salesMap = new Hashtable();
-        Iterator i = shoppingLists.iterator();        
+        Iterator i = shoppingLists.iterator();
         while (i.hasNext()){
-            GenericValue shoppingList = (GenericValue) i.next();            
+            GenericValue shoppingList = (GenericValue) i.next();
             List items = null;
             try {
                 items = shoppingList.getRelated("ShoppingListItem", UtilMisc.toList("shoppingListItemSeqId"));
@@ -924,27 +940,27 @@ public class PosTransaction implements Serializable {
         }
         return salesMap;
     }
-    
-    public boolean addListToCart(String  shoppingListId, PosScreen pos, boolean append) {        
-    	GenericDelegator delegator = session.getDelegator();
+
+    public boolean addListToCart(String  shoppingListId, PosScreen pos, boolean append) {
+        GenericDelegator delegator = session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         String includeChild = null; // Perhaps will be used later ...
             String prodCatalogId =  null;
 
             try {
-            	ShoppingListEvents.addListToCart(delegator, dispatcher, cart, prodCatalogId, shoppingListId, (includeChild != null), true, append);
+                ShoppingListEvents.addListToCart(delegator, dispatcher, cart, prodCatalogId, shoppingListId, (includeChild != null), true, append);
             } catch (IllegalArgumentException e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/exception", e.getMessage());
                 return false;
-            }            
+            }
             return true;
-    }    
-    
+    }
+
     public boolean clearList(String shoppingListId, PosScreen pos) {
-    	GenericDelegator delegator = session.getDelegator();
-    	try {
-    	ShoppingListEvents.clearListInfo(delegator, shoppingListId);
+        GenericDelegator delegator = session.getDelegator();
+        try {
+        ShoppingListEvents.clearListInfo(delegator, shoppingListId);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             pos.showDialog("dialog/error/exception", e.getMessage());
@@ -952,23 +968,23 @@ public class PosTransaction implements Serializable {
         }
         return true;
     }
-        
+
 
     public void saveSale(PosScreen pos) {
         SaveSale SaveSale = new SaveSale(this, pos);
-        SaveSale.openDlg();          	    	
+        SaveSale.openDlg();
     }
     public void saveSale(String  shoppingListName, PosScreen pos) {
-    	if (cart.size() == 0 ) {
+        if (cart.size() == 0 ) {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
-            return;    		
-    	}
-    	GenericDelegator delegator = this.session.getDelegator();
-    	LocalDispatcher dispatcher = session.getDispatcher();
+            return;
+        }
+        GenericDelegator delegator = this.session.getDelegator();
+        LocalDispatcher dispatcher = session.getDispatcher();
         GenericValue userLogin = session.getUserLogin();
         Locale locale = defaultLocale;
         String shoppingListId = null;
-                
+
         if (!UtilValidate.isEmpty(shoppingListName)) {
             // create a new shopping list with partyId = user connected (POS clerk, etc.) and not buyer (_NA_ in POS)
             Map serviceCtx = UtilMisc.toMap("userLogin", session.getUserLogin(), "partyId", session.getUserPartyId(),
@@ -987,33 +1003,33 @@ public class PosTransaction implements Serializable {
 
             // check for errors
             if (ServiceUtil.isError(newListResult)) {
-            	String error = ServiceUtil.getErrorMessage(newListResult);
+                String error = ServiceUtil.getErrorMessage(newListResult);
                 Debug.logError(error, module);
                 pos.showDialog("dialog/error/exception", error);
                 return;
             }
-            
+
             // get the new list id
             if (newListResult != null) {
-            	shoppingListId = (String) newListResult.get("shoppingListId");
+                shoppingListId = (String) newListResult.get("shoppingListId");
             } else {
                 Debug.logError("Problem while creating new ShoppingList", module);
                 pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
-                return;            	
+                return;
             }
         }
-        
-        String selectedCartItems[] = new String[cart.size()]; 
+
+        String selectedCartItems[] = new String[cart.size()];
         for(int i = 0; i < cart.size(); i++) {
-        	Integer integer = new Integer(i);
-        	selectedCartItems[i] = integer.toString();
+            Integer integer = new Integer(i);
+            selectedCartItems[i] = integer.toString();
         }
 
         try {
-        	ShoppingListEvents.addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, selectedCartItems, true, true);
+            ShoppingListEvents.addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, selectedCartItems, true, true);
         } catch (IllegalArgumentException e) {
             Debug.logError(e, "Problem while creating new ShoppingList", module);
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
         }
-    }                   
+    }
 }

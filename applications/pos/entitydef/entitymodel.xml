@@ -93,4 +93,15 @@
           <key-map field-name="posTerminalId"/>
       </relation>
     </entity>
+    <entity entity-name="PosTerminalInternTx"
+            package-name="org.ofbiz.pos.terminal"
+            title="Pos Terminal Internal Transaction">
+      <field name="posTerminalLogId" type="id-ne"></field>
+      <field name="paidAmount" type="currency-amount"></field>        
+      <field name="reasonComment" type="comment"/>
+      <prim-key field="posTerminalLogId"/>
+      <relation type="one" fk-name="POS_LOG_POS" rel-entity-name="PosTerminalLog">
+          <key-map field-name="posTerminalLogId"/>
+      </relation>
+    </entity>
 </entitymodel>
