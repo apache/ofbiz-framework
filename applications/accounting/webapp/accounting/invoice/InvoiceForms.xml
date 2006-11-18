@@ -237,7 +237,7 @@ under the License.
     </form>
     
    <form name="EditInvoiceItems" type="list"  list-name="invoiceItems" default-entity-name="InvoiceItem"
-        target="updateInvoiceItem" title="Edit Invoice Items" default-title-style="tableheadtext"
+        target="updateInvoiceItem" title="Edit Invoice Items" default-title-style="tableheadtext" paginate-target="listInvoiceItems"
         default-widget-style="inputBox" default-tooltip-style="tabletext">
        <row-actions>
            <set field="total" value="${bsh:
