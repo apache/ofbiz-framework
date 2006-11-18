@@ -26,5 +26,6 @@
     <entity-group group="org.ofbiz" entity="PosTerminal" />
     <entity-group group="org.ofbiz" entity="PosTerminalLog" />
     <entity-group group="org.ofbiz" entity="PosTerminalState" />
+    <entity-group group="org.ofbiz" entity="PosTerminalInternTx" />
 
 </entitygroup>

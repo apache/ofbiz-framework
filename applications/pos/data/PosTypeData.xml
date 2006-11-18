@@ -21,5 +21,7 @@
     <StatusItem description="Sold" sequenceId="10" statusCode="SOLD" statusId="POSTX_SOLD" statusTypeId="POSTX_STATUS"/>
     <StatusItem description="Returned" sequenceId="15" statusCode="RETURNED" statusId="POSTX_RETURNED" statusTypeId="POSTX_STATUS"/>
     <StatusItem description="Voided" sequenceId="20" statusCode="VOIDED" statusId="POSTX_VOIDED" statusTypeId="POSTX_STATUS"/>
+    <StatusItem description="PaidIn" sequenceId="30" statusCode="PAID_IN" statusId="POSTX_PAID_IN" statusTypeId="POSTX_STATUS"/>
+    <StatusItem description="PaidOut" sequenceId="40" statusCode="PAID_OUT" statusId="POSTX_PAID_OUT" statusTypeId="POSTX_STATUS"/>
     <StatusItem description="Closed" sequenceId="50" statusCode="CLOSED" statusId="POSTX_CLOSED" statusTypeId="POSTX_STATUS"/>
 </entity-engine-xml>

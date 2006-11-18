@@ -16,7 +16,7 @@
 -->
 <XPage>
     <Components>
-        <!-- col 1 -->
+        <!-- line 1 -->
         <Button name="menuSku" x="0" y="0" w="100" h="60" style="posButton" content="SKU" alignment="Center"/>
         <Button name="menuMain" x="102" y="0" w="100" h="60" style="posButton" content="MAIN" alignment="Center"/>
         <Button name="menuMgr" x="204" y="0" w="100" h="60" style="posButton" content="MGR" alignment="Center"/>
@@ -24,7 +24,7 @@
         <Button name="" x="408" y="0" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="menuPay" x="510" y="0" w="100" h="60" style="posButton" content="PAY" alignment="Center"/>
 
-        <!-- col 2 -->
+        <!-- line 2 -->
         <Button name="SKU.GZ-1001" x="0" y="62" w="100" h="60" style="skuButtonGizmo" content="GIZMO 1" alignment="Center"/>
         <Button name="SKU.GZ-5005" x="102" y="62" w="100" h="60" style="skuButtonGizmoPurple" content="GZ PURPLE" alignment="Center"/>
         <Button name="SKU.GZ-2644" x="204" y="62" w="100" h="60" style="skuButtonGizmo" content="GZ-2644" alignment="Center"/>
@@ -32,7 +32,7 @@
         <Button name="SKU.GZ-7000" x="408" y="62" w="100" h="60" style="skuButtonGizmo" content="GZ-7000" alignment="Center"/>
         <Button name="SKU.WG-5569" x="510" y="62" w="100" h="60" style="skuButtonWidget" content="WIDGET 1" alignment="Center"/>
 
-        <!-- col 3 -->
+        <!-- line 3 -->
         <Button name="SKU.GC-001-C10" x="0" y="124" w="100" h="60" style="skuButtonGiftCard" content="GIFT CARD 1" alignment="Center"/>
         <Button name="SKU.GC-001-C100" x="102" y="124" w="100" h="60" style="skuButtonGiftCard" content="GC-C100" alignment="Center"/>
         <Button name="SKU.GC-001-C25" x="204" y="124" w="100" h="60" style="skuButtonGiftCard" content="GC-C25" alignment="Center"/>
@@ -40,7 +40,7 @@
         <Button name="SKU.GC-001-CO" x="408" y="124" w="100" h="60" style="skuButtonGiftCard" content="GC-CO" alignment="Center"/>
         <Button name="SKU.GZ-1000" x="510" y="124" w="100" h="60" style="skuButtonGizmo" content="GZ-1000" alignment="Center"/>
 
-        <!-- col 4 -->
+        <!-- line 4 -->
         <Button name="SKU.GC-001-H10" x="0" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-H10" alignment="Center"/>
         <Button name="SKU.GC-001-H100" x="102" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-H100" alignment="Center"/>
         <Button name="SKU.GC-001-H25" x="204" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-H125" alignment="Center"/>
@@ -48,7 +48,7 @@
         <Button name="SKU.GC-001-HO" x="408" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-HO" alignment="Center"/>
         <Button name="SKU.GZ-DIG" x="510" y="186" w="100" h="60" style="skuButtonGizmo" content="GZ-DIG" alignment="Center"/>
 
-        <!-- col 5 -->
+        <!-- line 5 -->
         <Button name="SKU.GZ-1004" x="0" y="248" w="100" h="60" style="skuButtonGizmo" content="GZ-1004" alignment="Center"/>
         <Button name="SKU.GZ-1005" x="102" y="248" w="100" h="60" style="skuButtonGizmo" content="GZ-1005" alignment="Center"/>
         <Button name="SKU.GZ-8544" x="204" y="248" w="100" h="60" style="skuButtonGizmo" content="GZ-8544" alignment="Center"/>
@@ -56,12 +56,14 @@
         <Button name="SKU.WG-1111" x="408" y="248" w="100" h="60" style="skuButtonWidget" content="WG-1111" alignment="Center"/>
         <Button name="" x="510" y="248" w="100" h="60" style="posButton" content="" alignment="Center"/>
 
-        <!-- col 6 -->
-        <Button name="testAlert" x="0" y="310" w="100" h="60" style="posButton" content="TEST ALERT" alignment="Center"/>
+        <!-- line 6 -->
+        <!--Button name="testAlert" x="0" y="310" w="100" h="60" style="posButton" content="TEST ALERT" alignment="Center"/-->
+        <Button name="" x="0" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="102" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="204" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="306" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="408" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
-        <Button name="testMsr" x="510" y="310" w="100" h="60" style="posButton" content="TEST MSR" alignment="Center"/>
+        <Button name="" x="510" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <!--Button name="testMsr" x="510" y="310" w="100" h="60" style="posButton" content="TEST MSR" alignment="Center"/-->
     </Components>    
 </XPage>
