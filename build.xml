@@ -16,7 +16,6 @@ under the License.
 -->
 
 <project name="OFBiz Main Build" default="build" basedir=".">
-
     <property name="site.dir" value="../site"/>
     <property name="memory.max.param" value="-Xmx384M"/>
     
@@ -77,13 +76,18 @@ under the License.
 
     <target name="clean">
         <subant target="clean">
-            <filelist dir="." files="framework/build.xml"/>
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
+        <subant target="clean" failonerror="false"> <!-- use failonerror=false in case the specialpurpose directory is not there -->
+            <filelist dir="." files="specialpurpose/build.xml"/>
+        </subant>
         <subant target="clean" failonerror="false"> <!-- use failonerror=false in case the applications directory is not there -->
             <filelist dir="." files="applications/build.xml"/>
+        </subant>
+        <subant target="clean">
+            <filelist dir="." files="framework/build.xml"/>
         </subant>
         <delete file="ofbiz.jar"/>
         <echo message="[clean] ========== Done Cleaning =========="/>
@@ -101,6 +105,9 @@ under the License.
         </subant>
         <subant inheritall="false" failonerror="false">
             <filelist dir="." files="applications/build.xml"/>
+        </subant>
+        <subant inheritall="false" failonerror="false">
+            <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
         <subant inheritall="false">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
@@ -123,6 +130,9 @@ under the License.
         </subant>
         <subant target="docs" failonerror="false">
             <filelist dir="." files="applications/build.xml"/>
+        </subant>
+        <subant target="docs" failonerror="false">
+            <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
         <subant target="docs">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
@@ -159,6 +169,7 @@ under the License.
         <mkdir dir="${site.dir}/api"/>
         <mkdir dir="${site.dir}/api/framework"/>
         <mkdir dir="${site.dir}/api/applications"/>
+        <mkdir dir="${site.dir}/api/specialpurpose"/>
         <copy todir="${site.dir}/api/framework">
             <fileset dir="${basedir}/framework" includes="**/build/javadocs/**"/>
         </copy>
@@ -228,3 +239,4 @@ under the License.
         </java>
     </target>
 </project>
+
