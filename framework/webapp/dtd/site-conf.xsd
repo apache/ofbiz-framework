@@ -21,15 +21,15 @@ under the License.
                 <xs:element minOccurs="0" ref="include"/>
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element minOccurs="0" ref="owner"/>
-                <xs:element ref="errorpage"/>
-                <xs:element maxOccurs="unbounded" ref="handler"/>
+                <xs:element minOccurs="0" ref="errorpage"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="handler"/>
                 <xs:element minOccurs="0" ref="firstvisit"/>
                 <xs:element minOccurs="0" ref="preprocessor"/>
                 <xs:element minOccurs="0" ref="postprocessor"/>
                 <xs:element minOccurs="0" ref="after-login"/>
                 <xs:element minOccurs="0" ref="before-logout"/>
-                <xs:element maxOccurs="unbounded" ref="request-map"/>
-                <xs:element maxOccurs="unbounded" ref="view-map"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="request-map"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="view-map"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
