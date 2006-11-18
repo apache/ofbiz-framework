@@ -15,13 +15,9 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<project name="OFBiz Applications Build" default="build" basedir=".">
+<project name="OFBiz Special Purpose Applications Build" default="build" basedir=".">
     <filelist id="application-builds" dir="."
-        files="content/build.xml,party/build.xml,
-               workeffort/build.xml,product/build.xml,marketing/build.xml,
-               order/build.xml,manufacturing/build.xml,
-               accounting/build.xml,ecommerce/build.xml,
-               securityext/build.xml"/>
+        files="pos/build.xml"/>
 
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->

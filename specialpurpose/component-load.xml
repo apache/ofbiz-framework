@@ -17,8 +17,5 @@ under the License.
 
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/component-loader.xsd">
-    <load-components parent-directory="${ofbiz.home}/framework"/> 
-    <load-components parent-directory="${ofbiz.home}/applications"/>
-    <load-components parent-directory="${ofbiz.home}/specialpurpose"/>
-    <load-components parent-directory="${ofbiz.home}/hot-deploy"/>
+    <load-component component-location="${ofbiz.home}/specialpurpose/pos"/>
 </component-loader>
