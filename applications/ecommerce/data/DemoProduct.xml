@@ -88,6 +88,7 @@ under the License.
     <ProductStoreKeywordOvrd productStoreId="9000" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
 
     <WebSite webSiteId="WebStore" siteName="eCommerce Web Site" productStoreId="9000"/>
+    <WebSite webSiteId="WebStoreClone" siteName="Cloned eCommerce Web Site" productStoreId="9000"/>
     <WebSite webSiteId="OrderEntry" siteName="Order Entry Web Site" productStoreId="9000"/>
 
     <ProdCatalog prodCatalogId="DemoCatalog" catalogName="Demo Catalog" useQuickAdd="Y"/>
