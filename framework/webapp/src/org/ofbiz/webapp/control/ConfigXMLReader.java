@@ -168,11 +168,9 @@ public class ConfigXMLReader {
         while (includeElementIter.hasNext()) {
             Element includeElement = (Element) includeElementIter.next();
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
-
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
                     Map subMap = loadRequestMap(null, FlexibleLocation.resolveLocation(includeLocation));
-
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
                     Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
@@ -304,11 +302,9 @@ public class ConfigXMLReader {
         while (includeElementIter.hasNext()) {
             Element includeElement = (Element) includeElementIter.next();
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
-
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
                     Map subMap = loadViewMap(null, FlexibleLocation.resolveLocation(includeLocation));
-
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
                     Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
@@ -574,15 +570,34 @@ public class ConfigXMLReader {
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
                     Map subMap = loadHandlerMap(null, FlexibleLocation.resolveLocation(includeLocation));
-                    map.putAll(subMap);
+
+                    Map newViewHandlerMap = (Map) subMap.get("view");
+                    Map viewHandlerMap = (Map) map.get("view");
+                    if (viewHandlerMap == null) {
+                        map.put("view", newViewHandlerMap);
+                    } else {
+                        if (newViewHandlerMap != null) {
+                            viewHandlerMap.putAll(newViewHandlerMap);
+                        }
+                    }
+
+                    Map newEventHandlerMap = (Map) subMap.get("event");
+                    Map eventHandlerMap = (Map) map.get("event");
+                    if (eventHandlerMap == null) {
+                        map.put("event", newEventHandlerMap);
+                    } else {
+                        if (newEventHandlerMap != null) {
+                            eventHandlerMap.putAll(newEventHandlerMap);
+                        }
+                    }
                 } catch (MalformedURLException mue) {
                     Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                 }
             }
         }
 
-        Map rMap = FastMap.newInstance();
-        Map vMap = FastMap.newInstance();
+        Map eventMap = FastMap.newInstance();
+        Map viewMap = FastMap.newInstance();
 
         List handlerElementList = UtilXml.childElementList(root, HANDLER);
         Iterator handlerElementIter = handlerElementList.iterator();
@@ -592,13 +607,28 @@ public class ConfigXMLReader {
             String hClass = checkEmpty(handlerElement.getAttribute(HANDLER_CLASS));
             String hType = checkEmpty(handlerElement.getAttribute(HANDLER_TYPE));
             if (hType.equals("view")) {
-                vMap.put(hName, hClass);
+                viewMap.put(hName, hClass);
             } else {
-                rMap.put(hName, hClass);
+                eventMap.put(hName, hClass);
             }
         }
-        map.put("view", vMap);
-        map.put("event", rMap);
+
+        Map viewHandlerMap = (Map) map.get("view");
+        if (viewHandlerMap == null) {
+            map.put("view", viewMap);
+        } else {
+            if (viewMap != null) {
+                viewHandlerMap.putAll(viewMap);
+            }
+        }
+        Map eventHandlerMap = (Map) map.get("event");
+        if (eventHandlerMap == null) {
+            map.put("event", eventMap);
+        } else {
+            if (eventMap != null) {
+                eventHandlerMap.putAll(eventMap);
+            }
+        }
 
         /* Debugging */
         if (Debug.verboseOn()) {
@@ -632,7 +662,7 @@ public class ConfigXMLReader {
         }
 
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
-        if (Debug.infoOn()) Debug.logInfo("HandlerMap Created: (" + map.size() + ") records in " + totalSeconds + "s", module);
+        if (Debug.infoOn()) Debug.logInfo("HandlerMap Created: (" + ((Map) map.get("view")).size() + ") view handlers and (" + ((Map) map.get("event")).size() + ") request/event handlers in " + totalSeconds + "s", module);
         return map;
     }
 
