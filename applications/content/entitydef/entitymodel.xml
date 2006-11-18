@@ -1371,6 +1371,7 @@ under the License.
       <field name="weightFactor" type="floating-point"/>
       <field name="duration" type="numeric"/>
       <field name="durationUomId" type="id"/>
+      <field name="sequenceNum" type="numeric"/>
       <prim-key field="surveyResponseId"/>
       <prim-key field="surveyQuestionId"/>
       <prim-key field="surveyMultiRespColId"/>
