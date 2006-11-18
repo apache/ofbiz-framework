@@ -175,7 +175,7 @@ public class ConfigXMLReader {
 
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
-                    mue.printStackTrace();
+                    Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                 }
             }
         }
@@ -311,7 +311,7 @@ public class ConfigXMLReader {
 
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
-                    mue.printStackTrace();
+                    Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                 }
             }
         }
@@ -390,119 +390,136 @@ public class ConfigXMLReader {
         if (root == null) {
             root = loadDocument(xml);
         }
+        
+        if (root == null) {
+            return map;
+        }
 
-        if (root != null) {
-            // default error page
-            String errorpage = UtilXml.childElementValue(root, DEFAULT_ERROR_PAGE);
-            if (UtilValidate.isNotEmpty(errorpage)) map.put(DEFAULT_ERROR_PAGE, errorpage);
-
-            // site owner
-            String owner = UtilXml.childElementValue(root, SITE_OWNER);
-            if (UtilValidate.isNotEmpty(owner)) map.put(SITE_OWNER, owner);
-
-            // security class
-            String securityClass = UtilXml.childElementValue(root, SECURITY_CLASS);
-            if (UtilValidate.isNotEmpty(securityClass)) map.put(SECURITY_CLASS, securityClass);
-
-            // first visit event
-            Element firstvisitElement = UtilXml.firstChildElement(root, FIRSTVISIT);
-            if (firstvisitElement != null) {
-                List eventList = FastList.newInstance();
-                List eventElementList = UtilXml.childElementList(firstvisitElement, EVENT);
-                Iterator eventElementIter = eventElementList.iterator();
-                while (eventElementIter.hasNext()) {
-                    Element eventElement = (Element) eventElementIter.next();
-                    FastMap eventMap = FastMap.newInstance();
-                    eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
-                    eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
-                    eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
-                
-                    // Check for a global-transaction attribute - default to true
-                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
-                    eventList.add(eventMap);
+        List includeElementList = UtilXml.childElementList(root, INCLUDE);
+        Iterator includeElementIter = includeElementList.iterator();
+        while (includeElementIter.hasNext()) {
+            Element includeElement = (Element) includeElementIter.next();
+            String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
+            if ((includeLocation != null) && (includeLocation.length() > 0)) {
+                try {
+                    Map subMap = loadConfigMap(null, FlexibleLocation.resolveLocation(includeLocation));
+                    map.putAll(subMap);
+                } catch (MalformedURLException mue) {
+                    Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                 }
-                map.put(FIRSTVISIT, eventList);
             }
+        }
 
-            // preprocessor events
-            Element preprocessorElement = UtilXml.firstChildElement(root, PREPROCESSOR);
-            if (preprocessorElement != null) {
-                List eventList = FastList.newInstance();
-                List eventElementList = UtilXml.childElementList(preprocessorElement, EVENT);
-                Iterator eventElementIter = eventElementList.iterator();
-                while (eventElementIter.hasNext()) {
-                    Element eventElement = (Element) eventElementIter.next();
-                    FastMap eventMap = FastMap.newInstance();
-                    eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
-                    eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
-                    eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
-                
-                    // Check for a global-transaction attribute - default to true
-                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
-                    eventList.add(eventMap);
-                }
-                map.put(PREPROCESSOR, eventList);
-            }
+        // default error page
+        String errorpage = UtilXml.childElementValue(root, DEFAULT_ERROR_PAGE);
+        if (UtilValidate.isNotEmpty(errorpage)) map.put(DEFAULT_ERROR_PAGE, errorpage);
 
-            // postprocessor events
-            Element postprocessorElement = UtilXml.firstChildElement(root, POSTPROCESSOR);
-            if (postprocessorElement != null) {
-                List eventList = FastList.newInstance();
-                List eventElementList = UtilXml.childElementList(postprocessorElement, EVENT);
-                Iterator eventElementIter = eventElementList.iterator();
-                while (eventElementIter.hasNext()) {
-                    Element eventElement = (Element) eventElementIter.next();
-                    FastMap eventMap = FastMap.newInstance();
-                    eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
-                    eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
-                    eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
-                
-                    // Check for a global-transaction attribute - default to true
-                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
-                    eventList.add(eventMap);
-                }
-                map.put(POSTPROCESSOR, eventList);
-            }
+        // site owner
+        String owner = UtilXml.childElementValue(root, SITE_OWNER);
+        if (UtilValidate.isNotEmpty(owner)) map.put(SITE_OWNER, owner);
 
-            // after-login events
-            Element afterLoginElement = UtilXml.firstChildElement(root, "after-login");
-            if (afterLoginElement != null) {
-                List eventList = FastList.newInstance();
-                List eventElementList = UtilXml.childElementList(afterLoginElement, EVENT);
-                Iterator eventElementIter = eventElementList.iterator();
-                while (eventElementIter.hasNext()) {
-                    Element eventElement = (Element) eventElementIter.next();
-                    FastMap eventMap = FastMap.newInstance();
-                    eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
-                    eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
-                    eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
-                
-                    // Check for a global-transaction attribute - default to true
-                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
-                    eventList.add(eventMap);
-                }
-                map.put("after-login", eventList);
-            }
+        // security class
+        String securityClass = UtilXml.childElementValue(root, SECURITY_CLASS);
+        if (UtilValidate.isNotEmpty(securityClass)) map.put(SECURITY_CLASS, securityClass);
 
-            // before-logout events
-            Element beforeLogoutElement = UtilXml.firstChildElement(root, "before-logout");
-            if (beforeLogoutElement != null) {
-                List eventList = FastList.newInstance();
-                List eventElementList = UtilXml.childElementList(beforeLogoutElement, EVENT);
-                Iterator eventElementIter = eventElementList.iterator();
-                while (eventElementIter.hasNext()) {
-                    Element eventElement = (Element) eventElementIter.next();
-                    FastMap eventMap = FastMap.newInstance();
-                    eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
-                    eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
-                    eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
-                
-                    // Check for a global-transaction attribute - default to true
-                    eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
-                    eventList.add(eventMap);
-                }
-                map.put("before-logout", eventList);
+        // first visit event
+        Element firstvisitElement = UtilXml.firstChildElement(root, FIRSTVISIT);
+        if (firstvisitElement != null) {
+            List eventList = FastList.newInstance();
+            List eventElementList = UtilXml.childElementList(firstvisitElement, EVENT);
+            Iterator eventElementIter = eventElementList.iterator();
+            while (eventElementIter.hasNext()) {
+                Element eventElement = (Element) eventElementIter.next();
+                FastMap eventMap = FastMap.newInstance();
+                eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
+                eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
+                eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+            
+                // Check for a global-transaction attribute - default to true
+                eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
+                eventList.add(eventMap);
             }
+            map.put(FIRSTVISIT, eventList);
+        }
+
+        // preprocessor events
+        Element preprocessorElement = UtilXml.firstChildElement(root, PREPROCESSOR);
+        if (preprocessorElement != null) {
+            List eventList = FastList.newInstance();
+            List eventElementList = UtilXml.childElementList(preprocessorElement, EVENT);
+            Iterator eventElementIter = eventElementList.iterator();
+            while (eventElementIter.hasNext()) {
+                Element eventElement = (Element) eventElementIter.next();
+                FastMap eventMap = FastMap.newInstance();
+                eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
+                eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
+                eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+            
+                // Check for a global-transaction attribute - default to true
+                eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
+                eventList.add(eventMap);
+            }
+            map.put(PREPROCESSOR, eventList);
+        }
+
+        // postprocessor events
+        Element postprocessorElement = UtilXml.firstChildElement(root, POSTPROCESSOR);
+        if (postprocessorElement != null) {
+            List eventList = FastList.newInstance();
+            List eventElementList = UtilXml.childElementList(postprocessorElement, EVENT);
+            Iterator eventElementIter = eventElementList.iterator();
+            while (eventElementIter.hasNext()) {
+                Element eventElement = (Element) eventElementIter.next();
+                FastMap eventMap = FastMap.newInstance();
+                eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
+                eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
+                eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+            
+                // Check for a global-transaction attribute - default to true
+                eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
+                eventList.add(eventMap);
+            }
+            map.put(POSTPROCESSOR, eventList);
+        }
+
+        // after-login events
+        Element afterLoginElement = UtilXml.firstChildElement(root, "after-login");
+        if (afterLoginElement != null) {
+            List eventList = FastList.newInstance();
+            List eventElementList = UtilXml.childElementList(afterLoginElement, EVENT);
+            Iterator eventElementIter = eventElementList.iterator();
+            while (eventElementIter.hasNext()) {
+                Element eventElement = (Element) eventElementIter.next();
+                FastMap eventMap = FastMap.newInstance();
+                eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
+                eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
+                eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+            
+                // Check for a global-transaction attribute - default to true
+                eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
+                eventList.add(eventMap);
+            }
+            map.put("after-login", eventList);
+        }
+
+        // before-logout events
+        Element beforeLogoutElement = UtilXml.firstChildElement(root, "before-logout");
+        if (beforeLogoutElement != null) {
+            List eventList = FastList.newInstance();
+            List eventElementList = UtilXml.childElementList(beforeLogoutElement, EVENT);
+            Iterator eventElementIter = eventElementList.iterator();
+            while (eventElementIter.hasNext()) {
+                Element eventElement = (Element) eventElementIter.next();
+                FastMap eventMap = FastMap.newInstance();
+                eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
+                eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
+                eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
+            
+                // Check for a global-transaction attribute - default to true
+                eventMap.put(EVENT_GLOBAL_TRANSACTION, eventElement.hasAttribute(EVENT_GLOBAL_TRANSACTION) ? eventElement.getAttribute(EVENT_GLOBAL_TRANSACTION) : "true");
+                eventList.add(eventMap);
+            }
+            map.put("before-logout", eventList);
         }
 
         /* Debugging */
@@ -545,27 +562,43 @@ public class ConfigXMLReader {
         if (root == null) {
             root = loadDocument(xml);
         }
+        if (root == null) {
+            return map;
+        }
 
-        if (root != null) {
-            Map rMap = FastMap.newInstance();
-            Map vMap = FastMap.newInstance();
-
-            List handlerElementList = UtilXml.childElementList(root, HANDLER);
-            Iterator handlerElementIter = handlerElementList.iterator();
-            while (handlerElementIter.hasNext()) {
-                Element handlerElement = (Element) handlerElementIter.next();
-                String hName = checkEmpty(handlerElement.getAttribute(HANDLER_NAME));
-                String hClass = checkEmpty(handlerElement.getAttribute(HANDLER_CLASS));
-                String hType = checkEmpty(handlerElement.getAttribute(HANDLER_TYPE));
-                if (hType.equals("view")) {
-                    vMap.put(hName, hClass);
-                } else {
-                    rMap.put(hName, hClass);
+        List includeElementList = UtilXml.childElementList(root, INCLUDE);
+        Iterator includeElementIter = includeElementList.iterator();
+        while (includeElementIter.hasNext()) {
+            Element includeElement = (Element) includeElementIter.next();
+            String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
+            if ((includeLocation != null) && (includeLocation.length() > 0)) {
+                try {
+                    Map subMap = loadHandlerMap(null, FlexibleLocation.resolveLocation(includeLocation));
+                    map.putAll(subMap);
+                } catch (MalformedURLException mue) {
+                    Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                 }
             }
-            map.put("view", vMap);
-            map.put("event", rMap);
         }
+
+        Map rMap = FastMap.newInstance();
+        Map vMap = FastMap.newInstance();
+
+        List handlerElementList = UtilXml.childElementList(root, HANDLER);
+        Iterator handlerElementIter = handlerElementList.iterator();
+        while (handlerElementIter.hasNext()) {
+            Element handlerElement = (Element) handlerElementIter.next();
+            String hName = checkEmpty(handlerElement.getAttribute(HANDLER_NAME));
+            String hClass = checkEmpty(handlerElement.getAttribute(HANDLER_CLASS));
+            String hType = checkEmpty(handlerElement.getAttribute(HANDLER_TYPE));
+            if (hType.equals("view")) {
+                vMap.put(hName, hClass);
+            } else {
+                rMap.put(hName, hClass);
+            }
+        }
+        map.put("view", vMap);
+        map.put("event", rMap);
 
         /* Debugging */
         if (Debug.verboseOn()) {

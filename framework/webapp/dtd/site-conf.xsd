@@ -33,6 +33,23 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="include">
+        <xs:annotation>
+            <xs:documentation>
+                This includes all elements of the controller.xml file references.
+                
+                Note that if you define any of the event blocks in this file (the including file) they 
+                will override (replace) the one in the included file, effectively emptying it. The event 
+                blocks are: firstvisit, preprocessor, postprocessor, after-login, and before-logout.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.include"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.include">
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
     <xs:element name="description" type="xs:string"/>
     <xs:element name="owner" type="xs:string"/>
     <xs:element name="errorpage" type="xs:string"/>
@@ -88,14 +105,6 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="include">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.include"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.include">
-        <xs:attribute type="xs:string" name="location" use="required"/>
-    </xs:attributeGroup>
     <xs:element name="request-map">
         <xs:complexType>
             <xs:sequence>
