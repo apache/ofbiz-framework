@@ -346,6 +346,12 @@ public class HtmlFormRenderer implements FormStringRenderer {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
+        
+        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        }
+        String localizedInputTitle = "" , localizedIconTitle = "";
 
         // whether the date field is short form, yyyy-mm-dd
         boolean shortDateInput = ("date".equals(dateTimeField.getType()) || "time-dropdown".equals(dateTimeField.getInputMethod()) ? true : false);
@@ -372,31 +378,38 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
         buffer.append('"');
 
-        String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
-        if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            if ("date".equals(dateTimeField.getType()) && value.length()>=10) {
-                value = value.substring(0, 10);
-            } else if ("time".equals(dateTimeField.getType()) && value.length()>=16) {
-                value = value.substring(0, 16);
-            }
-
-            buffer.append(value);
-            buffer.append('"');
-        }
-
         // the default values for a timestamp
         int size = 25;
         int maxlength = 30;
 
         if (shortDateInput) {
-            size = 10;
-            maxlength = 10;
+            size = maxlength = 10;
+            if (uiLabelMap != null) {
+                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDate");
+            }
         } else if ("time".equals(dateTimeField.getType())) {
-            size = 16;
-            maxlength = 16;
+            size = maxlength = 8;
+            if (uiLabelMap != null) {
+                localizedInputTitle = (String) uiLabelMap.get("CommonFormatTime");
+            }
+        } else {
+            if (uiLabelMap != null) {
+                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
+            }
         }
-
+        buffer.append(" title=\"");
+        buffer.append(localizedInputTitle);
+        buffer.append('"');
+        
+        String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
+        if (UtilValidate.isNotEmpty(value)) {
+            if(value.length() > maxlength)
+                value = value.substring(0, maxlength-1);
+            buffer.append(" value=\"");
+            buffer.append(value);
+            buffer.append('"');
+        }
+        
         buffer.append(" size=\"");
         buffer.append(size);
         buffer.append('"');
@@ -413,6 +426,11 @@ public class HtmlFormRenderer implements FormStringRenderer {
         }
 
         buffer.append("/>");
+
+        // search for a localized label for the icon
+        if (uiLabelMap != null) {
+            localizedIconTitle = (String) uiLabelMap.get("CommonViewCalendar");
+        }
 
         // add calendar pop-up button and seed data IF this is not a "time" type date-time
         if (!"time".equals(dateTimeField.getType())) {
@@ -431,11 +449,16 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append(",'");
             buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString)));
             buffer.append("');\">");
+           
             buffer.append("<img src=\"");
             this.appendContentUrl(buffer, "/images/cal.gif");
-            buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Calendar\"/></a>");
+            buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
+            buffer.append(localizedIconTitle);
+            buffer.append("\" title=\"");
+            buffer.append(localizedIconTitle);
+            buffer.append("\"/></a>");
         }
-
+        
         // if we have an input method of time-dropdown, then render two dropdowns
         if ("time-dropdown".equals(dateTimeField.getInputMethod())) {       		
             String classString = (className != null ? " class=\"" + className + "\" " : "");
@@ -456,7 +479,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
             buffer.append("&nbsp;<select name=\"").append(UtilHttp.makeCompositeParam(paramName, "hour")).append("\"");
             buffer.append(classString).append(">");
 
-            // keep the two cases separate because it's hard to unerstand a combined loop
+            // keep the two cases separate because it's hard to understand a combined loop
             if (isTwelveHour) {
                 for (int i = 1; i <= 12; i++) {
                     buffer.append("<option value=\"").append(i).append("\"");
@@ -1626,6 +1649,12 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String opUpThruDay = UtilProperties.getMessage("conditional", "up_thru_day", locale);
         String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
 
+        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        }
+        String localizedInputTitle = "", localizedIconTitle = "";
+
         buffer.append("<input type=\"text\"");
 
         String className = modelFormField.getWidgetStyle();
@@ -1644,16 +1673,37 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append(modelFormField.getParameterName(context));
         buffer.append("_fld0_value\"");
 
+        // the default values for a timestamp
+        int size = 25;
+        int maxlength = 30;
+
+        if ("date".equals(dateFindField.getType())) {
+            size = maxlength = 10;
+            if (uiLabelMap != null) {
+                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDate");
+            }
+        } else if ("time".equals(dateFindField.getType())) {
+            size = maxlength = 8;
+            if (uiLabelMap != null) {
+                localizedInputTitle = (String) uiLabelMap.get("CommonFormatTime");
+            }
+        } else {
+            if (uiLabelMap != null) {
+                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
+            }
+        }
+        buffer.append(" title=\"");
+        buffer.append(localizedInputTitle);
+        buffer.append('"');
+
         String value = modelFormField.getEntry(context, dateFindField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
+            if(value.length() > maxlength)
+                value = value.substring(0, maxlength-1);
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
         }
-
-        // the default values for a timestamp
-        int size = 25;
-        int maxlength = 30;
 
         buffer.append(" size=\"");
         buffer.append(size);
@@ -1665,17 +1715,33 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("/>");
 
-        // add calendar pop-up button and seed data 
-        buffer.append("<a href=\"javascript:call_cal(document.");
-        buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-        buffer.append('.');
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld0_value,'");
-        buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
-        buffer.append("');\">");
-        buffer.append("<img src=\"");
-        this.appendContentUrl(buffer, "/images/cal.gif");
-        buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Calendar\"/></a>");
+        // search for a localized label for the icon
+        if (uiLabelMap != null) {
+            localizedIconTitle = (String) uiLabelMap.get("CommonViewCalendar");
+        } 
+
+        // add calendar pop-up button and seed data IF this is not a "time" type date-find
+        if (!"time".equals(dateFindField.getType())) {
+            if ("date".equals(dateFindField.getType())) {
+                buffer.append("<a href=\"javascript:call_cal_notime(document.");
+            } else {
+                buffer.append("<a href=\"javascript:call_cal(document.");            
+            }
+            buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            buffer.append('.');
+            buffer.append(modelFormField.getParameterName(context));
+            buffer.append("_fld0_value,'");
+            buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
+            buffer.append("');\">");
+
+            buffer.append("<img src=\"");
+            this.appendContentUrl(buffer, "/images/cal.gif");
+            buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
+            buffer.append(localizedIconTitle);
+            buffer.append("\" title=\"");
+            buffer.append(localizedIconTitle);
+            buffer.append("\"/></a>");
+        }
 
         buffer.append(" <span");
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -1715,8 +1781,14 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append(modelFormField.getParameterName(context));
         buffer.append("_fld1_value\"");
 
+        buffer.append(" title=\"");
+        buffer.append(localizedInputTitle);
+        buffer.append('"');
+
         value = modelFormField.getEntry(context);
         if (UtilValidate.isNotEmpty(value)) {
+            if(value.length() > maxlength)
+                value = value.substring(0, maxlength-1);
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
@@ -1732,17 +1804,28 @@ public class HtmlFormRenderer implements FormStringRenderer {
 
         buffer.append("/>");
 
-        // add calendar pop-up button and seed data 
-        buffer.append("<a href=\"javascript:call_cal(document.");
-        buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-        buffer.append('.');
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld1_value,'");
-        buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
-        buffer.append("');\">");
-        buffer.append("<img src=\"");
-        this.appendContentUrl(buffer, "/images/cal.gif");
-        buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Calendar\"/></a>");
+        // add calendar pop-up button and seed data IF this is not a "time" type date-find
+        if (!"time".equals(dateFindField.getType())) {
+            if ("date".equals(dateFindField.getType())) {
+                buffer.append("<a href=\"javascript:call_cal_notime(document.");
+            } else {
+                buffer.append("<a href=\"javascript:call_cal(document.");            
+            }
+            buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            buffer.append('.');
+            buffer.append(modelFormField.getParameterName(context));
+            buffer.append("_fld1_value,'");
+            buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
+            buffer.append("');\">");
+
+            buffer.append("<img src=\"");
+            this.appendContentUrl(buffer, "/images/cal.gif");
+            buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
+            buffer.append(localizedIconTitle);
+            buffer.append("\" title=\"");
+            buffer.append(localizedIconTitle);
+            buffer.append("\"/></a>");
+        }
 
         buffer.append(" <span");
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
