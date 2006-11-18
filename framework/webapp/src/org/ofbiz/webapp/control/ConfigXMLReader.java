@@ -26,6 +26,7 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -88,8 +89,7 @@ public class ConfigXMLReader {
 
     /** URI Config Variables */
     public static final String INCLUDE = "include";
-    public static final String INCLUDE_FILE = "file";
-    public static final String INCLUDE_URL = "url";
+    public static final String INCLUDE_LOCATION = "location";
 
     public static final String REQUEST_MAPPING = "request-map";
     public static final String REQUEST_URI = "uri";
@@ -167,25 +167,12 @@ public class ConfigXMLReader {
         Iterator includeElementIter = includeElementList.iterator();
         while (includeElementIter.hasNext()) {
             Element includeElement = (Element) includeElementIter.next();
-            String includeFile = includeElement.getAttribute(INCLUDE_FILE);
+            String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
 
-            if ((includeFile != null) && (includeFile.length() > 0)) {
-                File oldFile = new File(xml.getFile());
-                File newFile = new java.io.File("" + oldFile.getParent() + java.io.File.separator + includeFile);
-
+            if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
-                    Map subMap = loadRequestMap(null, newFile.toURL());
+                    Map subMap = loadRequestMap(null, FlexibleLocation.resolveLocation(includeLocation));
 
-                    map.putAll(subMap);
-                } catch (MalformedURLException mue) {
-                    mue.printStackTrace();
-                }
-            }
-
-            String includeURL = includeElement.getAttribute(INCLUDE_URL);
-            if ((includeURL != null) && (includeURL.length() > 0)) {
-                try {
-                    Map subMap = loadRequestMap(null, new URL(includeURL));
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
@@ -316,25 +303,12 @@ public class ConfigXMLReader {
         Iterator includeElementIter = includeElementList.iterator();
         while (includeElementIter.hasNext()) {
             Element includeElement = (Element) includeElementIter.next();
-            String includeFile = includeElement.getAttribute(INCLUDE_FILE);
+            String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
 
-            if ((includeFile != null) && (includeFile.length() > 0)) {
-                File oldFile = new File(xml.getFile());
-                File newFile = new java.io.File("" + oldFile.getParent() + java.io.File.separator + includeFile);
-
+            if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
-                    Map subMap = loadRequestMap(null, newFile.toURL());
+                    Map subMap = loadViewMap(null, FlexibleLocation.resolveLocation(includeLocation));
 
-                    map.putAll(subMap);
-                } catch (MalformedURLException mue) {
-                    mue.printStackTrace();
-                }
-            }
-
-            String includeURL = includeElement.getAttribute(INCLUDE_URL);
-            if ((includeURL != null) && (includeURL.length() > 0)) {
-                try {
-                    Map subMap = loadRequestMap(null, new URL(includeURL));
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
                     mue.printStackTrace();
@@ -634,37 +608,5 @@ public class ConfigXMLReader {
             return string;
         else
             return "";
-    }
-
-    public static void main(String args[]) throws Exception {
-        /** Debugging */
-        if (args[0] == null) {
-            System.out.println("Please give a path to the config file you wish to test.");
-            return;
-        }
-        System.out.println("----------------------------------");
-        System.out.println("Request Mappings:");
-        System.out.println("----------------------------------");
-        Map debugMap = getRequestMap(new URL(args[0]));
-        Set debugSet = debugMap.keySet();
-        Iterator i = debugSet.iterator();
-        while (i.hasNext()) {
-            Object o = i.next();
-            String request = (String) o;
-            FastMap thisURI = (FastMap) debugMap.get(o);
-
-            System.out.println(request);
-            Iterator list = ((java.util.Set) thisURI.keySet()).iterator();
-            while (list.hasNext()) {
-                Object lo = list.next();
-                String name = (String) lo;
-                String value = (String) thisURI.get(lo);
-                System.out.println("\t" + name + " -> " + value);
-            }
-        }
-        System.out.println("----------------------------------");
-        System.out.println("End Request Mappings.");
-        System.out.println("----------------------------------");
-        /** End Debugging */
     }
 }

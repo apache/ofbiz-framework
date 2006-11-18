@@ -18,6 +18,7 @@ under the License.
     <xs:element name="site-conf">
         <xs:complexType>
             <xs:sequence>
+                <xs:element minOccurs="0" ref="include"/>
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element minOccurs="0" ref="owner"/>
                 <xs:element ref="errorpage"/>
@@ -87,6 +88,14 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="include">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.include"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.include">
+        <xs:attribute type="xs:string" name="location" use="required"/>
+    </xs:attributeGroup>
     <xs:element name="request-map">
         <xs:complexType>
             <xs:sequence>
