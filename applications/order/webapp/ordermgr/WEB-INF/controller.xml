@@ -1430,7 +1430,7 @@
     <view-map name="viewimage" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ViewImage"/>
     <view-map name="ListOrderTerms" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ListOrderTerms"/>
 
-    <view-map name="survey" type="screen" page="component://order/widget/ordermgr/setOrderCurrencyAgreementShipDatesCartScreens.xml#survey"/>
+    <view-map name="survey" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#survey"/>
     <view-map name="showcart" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#ShowCart"/>
     <view-map name="checkinits" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#CheckInits"/>
     <view-map name="orderagreements" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#OrderAgreements"/>
