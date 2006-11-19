@@ -1551,7 +1551,7 @@ public class PaymentGatewayServices {
             String paymentMethodId = orderPaymentPreference.getString("paymentMethodId");
             GenericValue paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
             GenericValue creditCard = null;
-            if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+            if (paymentMethod != null && "CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                 creditCard = paymentMethod.getRelatedOne("CreditCard");
             }
 
