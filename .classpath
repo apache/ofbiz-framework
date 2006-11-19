@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="framework/testtools/src"/>
+	<classpathentry kind="src" path="specialpurpose/pos/src"/>
 	<classpathentry kind="src" path="framework/base/src/base"/>
 	<classpathentry kind="src" path="framework/base/src/start"/>
 	<classpathentry kind="src" path="framework/geronimo/src"/>
@@ -12,7 +13,6 @@
 	<classpathentry kind="src" path="applications/marketing/src"/>
 	<classpathentry excluding="org/ofbiz/order/thirdparty/taxware/**" kind="src" path="applications/order/src"/>
 	<classpathentry kind="src" path="applications/party/src"/>
-	<classpathentry kind="src" path="applications/pos/src"/>
 	<classpathentry excluding="ShipmentScaleApplet.java" kind="src" path="applications/product/src"/>
 	<classpathentry excluding="org/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java" kind="src" path="applications/securityext/src"/>
 	<classpathentry kind="src" path="applications/workeffort/src"/>
@@ -49,9 +49,6 @@
 	<classpathentry kind="lib" path="framework/jetty/lib/jasper-runtime.jar"/>
 	<classpathentry kind="lib" path="framework/jetty/lib/jasper-compiler.jar"/>
 	<classpathentry kind="lib" path="framework/guiapp/lib/XuiCoreSwing_v2_0_5_jdk1_4.jar"/>
-	<classpathentry kind="lib" path="applications/pos/lib/looks-2.0.2.jar"/>
-	<classpathentry kind="lib" path="applications/pos/lib/jpos18-controls.jar"/>
-	<classpathentry kind="lib" path="applications/pos/lib/jcl.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/poi.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/lucene.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-util.jar"/>
@@ -120,5 +117,8 @@
 	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/resolver-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.3.0.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
