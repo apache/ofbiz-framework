@@ -49,7 +49,7 @@ if (UtilValidate.isNotEmpty(productStoreId)) {
         partyId = shoppingCart.getOrderPartyId();
         
         // get applicable agreements for order entry
-        if (shoppingCart.getOrderType().equals("PURCHASE_ORDER")) {
+        if ("PURCHASE_ORDER".equals(shoppingCart.getOrderType())) {
             // the agreement for a PO is from customer to payToParty (ie, us)
             agreements = delegator.findByAndCache("Agreement", UtilMisc.toMap("partyIdTo", partyId, "partyIdFrom", payToPartyId));
         } else {
