@@ -368,7 +368,7 @@ ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/freemarker.jar
 ofbiz/trunk/framework/base/lib/junitperf.jar
 ofbiz/trunk/framework/entity/lib/jdbc/hsqldb.jar
-ofbiz/trunk/applications/pos/lib/looks-2.0.2.jar
+ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
 ofbiz/trunk/framework/webapp/lib/MinML2.jar
 ofbiz/trunk/framework/base/lib/javolution.jar
 =========================================================================
@@ -902,8 +902,8 @@ EXHIBIT A -Mozilla Public License.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the 
 Common Public License:
-ofbiz/trunk/applications/pos/lib/jcl.jar
-ofbiz/trunk/applications/pos/lib/jpos18-controls.jar
+ofbiz/trunk/specialpurpose/pos/lib/jcl.jar
+ofbiz/trunk/specialpurpose/pos/lib/jpos18-controls.jar
 ofbiz/trunk/framework/service/lib/wsdl4j.jar
 ofbiz/trunk/framework/base/lib/junit.jar
 =========================================================================
