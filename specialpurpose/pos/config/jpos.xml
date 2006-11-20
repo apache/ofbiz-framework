@@ -173,7 +173,7 @@ under the License.
     </JposEntry>
 	
     <!-- Epson TM-T88III POSPrinter (requires epsonJposService180.jar, epsonJposServiceCommon.jar 
-        in /ofbiz/applications/pos/lib (classpath references not needed)
+        in component://pos/lib (classpath references not needed)
 		 and JavaComm installed (javax.comm package). See http://www.javapos.com/devint.html about this point...
 		 pos-containers.xml must contains a reference to the logicalName : <property name="Receipt" value="TM-T88III"/>
 		 -->
