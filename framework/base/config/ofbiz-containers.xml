@@ -55,6 +55,7 @@ under the License.
         <property name="run-as-user" value="system"/>
         <property name="poll-delay" value="300000"/>
         <property name="delete-mail" value="false"/>
+        <property name="maxSize" value="100000"/>
         <property name="default-listener" value="store-listener">
             <property name="mail.store.protocol" value="imap"/>
             <property name="mail.host" value="[host]"/>
