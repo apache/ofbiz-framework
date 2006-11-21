@@ -612,17 +612,15 @@ public class EmailServices {
                     emailAddress = (InternetAddress)addr;
                     
                     if (!UtilValidate.isEmpty(emailAddress)) {
-                        map = new HashMap();
-                        map.put("address", emailAddress.getAddress());
-                        map.put("userLogin", userLogin);
-                        result = dispatcher.runSync("findPartyFromEmailAddress", map);
-                        
-                        tempResults.add(result);
+                        result = dispatcher.runSync("findPartyFromEmailAddress", 
+                        		UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
+                        if (result.get("partyId") != null) {
+                        	tempResults.add(result);
+                        }
                     }
                 }    
             }
         }
-        
         return tempResults;
     }   
     
@@ -707,7 +705,7 @@ public class EmailServices {
             String spamHeaderName = UtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N");
             String configHeaderValue = UtilProperties.getPropertyValue("general.properties", "mail.spam.value");
             //          only execute when config file has been set && header variable found
-            if (!spamHeaderName.equals("N") && message.getHeader(spamHeaderName) != null) { 
+            if (!spamHeaderName.equals("N") && message.getHeader(spamHeaderName) != null && message.getHeader(spamHeaderName).length > 0) { 
                 String msgHeaderValue = message.getHeader(spamHeaderName)[0];
                 if(msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);

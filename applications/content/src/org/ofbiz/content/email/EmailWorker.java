@@ -52,7 +52,9 @@ public class EmailWorker {
 		commEventMap.put("mimeTypeId", "text/html");
 		commEventMap.put("userLogin", userLogin);
 		String subject = message.getSubject();
-    	Map result = null;
+		if (subject != null && subject.length() > 80) { 
+			subject = subject.substring(0,80); // make sure not too big for database field. (20 characters for filename)
+		}
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	
 		Multipart multipart = (Multipart)message.getContent();
@@ -71,7 +73,11 @@ public class EmailWorker {
 					 && (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
 				     && (i != bodyContentIndex)) )
 		    {
-				commEventMap.put("contentName", subject + "-" + i + " " + part.getFileName());
+				String attFileName = part.getFileName();
+				if (attFileName != null && attFileName.length() > 17) {
+					attFileName = attFileName.substring(0,17);
+				}
+				commEventMap.put("contentName", subject + "-" + i + " " + attFileName);
         		commEventMap.put("drMimeTypeId", thisContentType);
         		if (thisContentType.startsWith("text")) {
         			String content = (String)part.getContent();
@@ -93,7 +99,7 @@ public class EmailWorker {
     				commEventMap.put("drDataResourceTypeId", "IMAGE_OBJECT");
             		commEventMap.put("_imageData_contentType", thisContentType);
         		}
-        		result = dispatcher.runSync("createCommContentDataResource", commEventMap);
+        		dispatcher.runSync("createCommContentDataResource", commEventMap);
     			attachmentCount++;
 		    }
 		}
