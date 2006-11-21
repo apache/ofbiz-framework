@@ -473,14 +473,30 @@ under the License.
                 <call-service service-name="cancelOrderItem" in-map-name="cancelOrderItemInMap"/>
             </if-compare>
         </iterate>
-        <!-- all existing auto order adjustments are removed -->
+
         <get-related value-name="order" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
+
+        <!-- Accumulate the total existing promotional adjustment -->
+        <set field="existingOrderAdjustmentTotal" value="0" type="BigDecimal"/>        
         <iterate list-name="orderAdjustments" entry-name="orderAdjustment">
-            <!-- make sure this is not a manual adjustments -->
-            <if-not-empty field-name="orderAdjustment.productPromoId">
-                <remove-value value-name="orderAdjustment"/>
-            </if-not-empty>
+            <if>
+                <condition>
+                    <and>
+                        <not><if-empty field-name="orderAdjustment.productPromoId"/></not>
+                    </and>
+                </condition>
+                <then>
+                    <calculate field-name="existingOrderAdjustmentTotal" decimal-scale="3">
+                        <calcop operator="add">
+                            <calcop operator="get" field-name="orderAdjustment.amount"/>
+                            <calcop operator="get" field-name="existingOrderAdjustmentTotal"/>
+                        </calcop>
+                    </calculate>
+                </then>
+            </if>
         </iterate>
+
+        <!-- Recalculate the promotions for the order -->
         <set-service-fields service-name="loadCartFromOrder" to-map-name="loadCartFromOrderInMap" map-name="parameters"/>
         <!--<set value="false" field="loadCartFromOrderInMap.applyOrderAdjustments"/>-->
         <call-service service-name="loadCartFromOrder" in-map-name="loadCartFromOrderInMap">
@@ -518,11 +534,38 @@ under the License.
             </if-empty>
         </iterate>
         <call-object-method obj-field-name="cart" method-name="makeAllAdjustments" ret-field-name="adjustments"/>
+
+        <!-- Accumulate the new promotion total from the recalculated promotion adjustments -->
+        <set field="newOrderAdjustmentTotal" value="0" type="BigDecimal"/>        
         <iterate list-name="adjustments" entry-name="adjustment">
-            <set from-field="parameters.orderId" field="adjustment.orderId"/>
-            <sequenced-id-to-env sequence-name="OrderAdjustment" env-name="adjustment.orderAdjustmentId"/>
-            <create-value value-name="adjustment"/>
+            <calculate field-name="newOrderAdjustmentTotal" decimal-scale="3">
+                <calcop operator="add">
+                    <calcop operator="get" field-name="adjustment.amount"/>
+                    <calcop operator="get" field-name="newOrderAdjustmentTotal"/>
+                </calcop>
+            </calculate>
         </iterate>
+        
+        <!-- Determine the difference between existing and new promotion adjustment totals, if any -->
+        <calculate field-name="orderAdjustmentTotalDifference" decimal-scale="3" type="BigDecimal">
+            <calcop operator="subtract" field-name="newOrderAdjustmentTotal">
+                <calcop operator="get" field-name="existingOrderAdjustmentTotal"/>
+            </calcop>
+        </calculate>
+        
+        <!-- If the total has changed, create an OrderAdjustment to reflect the fact -->
+        <if-compare field-name="orderAdjustmentTotalDifference" value="0" operator="not-equals" type="BigDecimal">
+            <set field="createOrderAdjContext.orderAdjustmentTypeId" value="PROMOTION_ADJUSTMENT"/>
+            <set field="createOrderAdjContext.orderId" from-field="parameters.orderId"/>
+            <set field="createOrderAdjContext.orderItemSeqId" value="_NA_"/>
+            <set field="createOrderAdjContext.shipGroupSeqId" value="_NA_"/>
+            <set field="createOrderAdjContext.orderId" from-field="parameters.orderId"/>
+            <set field="createOrderAdjContext.description" value="Adjustment due to order change"/>
+            <set field="createOrderAdjContext.amount" from-field="orderAdjustmentTotalDifference" type="Double"/>
+            <call-service service-name="createOrderAdjustment" in-map-name="createOrderAdjContext" include-user-login="true"/>
+            <check-errors/>        
+        </if-compare>
+
     </simple-method>
     
     <!--UpdateOrderContactMech-->
