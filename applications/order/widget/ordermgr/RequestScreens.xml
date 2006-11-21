@@ -89,6 +89,7 @@ under the License.
                 <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
                 <get-related-one value-name="custRequest" relation-name="Uom" to-value-name="currency"/>
                 <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
+                <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
                 <set field="orderBy[]" value="sequenceNum"/>
                 <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="requestRoles"/>
                 <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="requestItems" order-by-list-name="orderBy"/>
@@ -419,6 +420,7 @@ under the License.
                 </container>
                 <container style="righthalf">
                     <include-screen name="requestDate"/>
+                    <include-screen name="requestContactMech"/>
                     <include-screen name="requestRoles"/>
                 </container>
             </widgets>
@@ -438,6 +440,15 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="requestContactMech">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

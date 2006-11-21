@@ -1499,6 +1499,11 @@ under the License.
       <field name="maximumAmountUomId" type="id"></field>
       <field name="productStoreId" type="id"></field>
       <field name="salesChannelEnumId" type="id"></field>
+      <field name="fulfillContactMechId" type="id">
+          <description>
+              Field to support a location of a cust request--ie, product literature sent to an address, service call at a localtion, etc. 
+          </description>
+      </field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
@@ -1527,6 +1532,9 @@ under the License.
       </relation>
       <relation type="many" rel-entity-name="CustRequestTypeAttr">
         <key-map field-name="custRequestTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CUST_REQ_FULCM" title="Fulfill" rel-entity-name="ContactMech">
+          <key-map field-name="fulfillContactMechId" rel-field-name="contactMechId"/>
       </relation>
     </entity>
     <entity entity-name="CustRequestAttribute"
