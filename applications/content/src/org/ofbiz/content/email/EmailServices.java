@@ -868,6 +868,7 @@ public class EmailServices {
     		
     		Map results = ServiceUtil.returnSuccess();
             results.put("communicationEventId", communicationEventId);
+            results.put("statusId", commEventMap.get("statusId"));
     		return results;
         } catch (MessagingException e) {
             Debug.logError(e, module);
