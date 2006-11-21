@@ -27,6 +27,8 @@ under the License.
     <container name="jpos.device-container" class="org.ofbiz.pos.container.JposDeviceContainer">       
         <property name="CashDrawer.1" value="NullCashDrawer"/>
         <property name="Receipt" value="NullReceipt"/>
+        <!--property name="Receipt" value="TM-T88III"/-->
+        <!--property name="Receipt" value="StarTSP600"/-->        
         <property name="Keyboard" value="GenericKeyboard"/>
         <property name="Scanner" value="GenericScanner"/>
         <property name="Msr" value="TestMsr"/>
