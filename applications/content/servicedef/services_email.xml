@@ -115,12 +115,15 @@ under the License.
             location="org.ofbiz.content.email.EmailServices" invoke="storeIncomingEmail" auth="true">
         <description>
             Process incoming email. Try to determine partyIdFrom from the first SendFrom email address. datetimeStarted and datetimeEnded are the
-            sent and received dates respectively, partyIdTo is from the first SendTo email address. If the parties are not found,
+            sent and received dates respectively, partyIdTo is from the first SendTo email address or the delivered-to address. If the parties are not found,
             the email addresses are stored in CommunicationEvent.note
-            If however it is detected as spam (external) or when the 'from' email address is missing, the service will not return a communicationEventId  
+            If however it is detected as spam (external) or when the 'from' email address is missing, the service will not return a communicationEventId.
+            If the party cannot be found the status of the communicationEvent will be set to: COM_UNKNOWN_PARTY. 
+            If the parties are found the status is set to COM_ENTERED  
         </description>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="storeForwardedEmail" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="storeForwardedEmail" auth="true">
