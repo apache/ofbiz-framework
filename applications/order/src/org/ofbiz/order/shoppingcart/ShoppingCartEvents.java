@@ -609,7 +609,7 @@ public class ShoppingCartEvents {
         // if this was an anonymous checkout process, go ahead and clear the session and such now that the order is placed; we don't want this to mess up additional orders and such
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        if ("anonymous".equals(userLogin.get("userLoginId"))) {
+        if (userLogin != null && "anonymous".equals(userLogin.get("userLoginId"))) {
             // here we want to do a full logout, but not using the normal logout stuff because it saves things in the UserLogin record that we don't want changed for the anonymous user
             session.invalidate();
             session = request.getSession(true);

@@ -1,5 +1,4 @@
 /*
- *
  * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -18,13 +17,14 @@
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
+import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.entity.condition.*;
 
 delegator = request.getAttribute("delegator");
 userLogin = session.getAttribute("userLogin");
 
 // Get the Cart and Prepare Size
-shoppingCart = session.getAttribute("shoppingCart");
+shoppingCart = ShoppingCartEvents.getCartObject(request);
 if (shoppingCart != null) {
     context.put("shoppingCartSize", shoppingCart.size());
 } else {
