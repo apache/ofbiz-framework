@@ -167,6 +167,11 @@ public class Receipt extends GenericDevice implements DialogCallback {
     }
 
     private void printReceipt(PosTransaction trans, String[] template, int type, Map payInfo) {
+        try {
+            ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
+        } catch (Exception e) {
+        }
+
         if (template != null) {
             for (int i = 0; i < template.length; i++) {
                 if (template[i] != null) {
@@ -187,6 +192,10 @@ public class Receipt extends GenericDevice implements DialogCallback {
             this.println();
             this.println();
             this.println(PAPER_CUT);
+        }
+        try {
+            ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_NORMAL);
+        } catch (Exception e) {
         }
     }
 
