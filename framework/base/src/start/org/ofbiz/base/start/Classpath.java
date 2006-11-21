@@ -82,15 +82,29 @@ public class Classpath {
         return added;
     }
 
+    
+    private void appendPath(StringBuffer cp, String path) {
+        if(path.indexOf(' ') >= 0) {
+            cp.append('\"');
+            cp.append(path);
+            cp.append('"');
+        }
+        else {
+            cp.append(path);
+        }
+     }
+    
+    
     public String toString() {
         StringBuffer cp = new StringBuffer(1024);
         int cnt = _elements.size();
         if (cnt >= 1) {
             cp.append(((File) (_elements.get(0))).getPath());
+            appendPath(cp, ((File) (_elements.get(0))).getPath());
         }
         for (int i = 1; i < cnt; i++) {
             cp.append(File.pathSeparatorChar);
-            cp.append(((File) (_elements.get(i))).getPath());
+            appendPath(cp, ((File) (_elements.get(0))).getPath());
         }
         return cp.toString();
     }
