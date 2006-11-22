@@ -3855,7 +3855,7 @@ under the License.
       <field name="orderQtyIncrements" type="floating-point"></field>
       <field name="unitsIncluded" type="floating-point"></field>
       <field name="quantityUomId" type="id"></field>
-      <field name="lastPrice" type="currency-amount"></field>
+      <field name="lastPrice" type="currency-precise"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="supplierProductName" type="name"></field>
       <field name="supplierProductId" type="id"></field>
