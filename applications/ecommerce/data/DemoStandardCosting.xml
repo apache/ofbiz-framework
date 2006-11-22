@@ -34,6 +34,7 @@ under the License.
     <Product productId="PROD_COST" productTypeId="FINISHED_GOOD" internalName="Demo Product for Costing" description="Demo Product for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="0"/>
     <Product productId="MAT_A_COST" productTypeId="RAW_MATERIAL" internalName="Demo Material A for Costing" description="Demo Material A for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="1"/>
     <Product productId="MAT_B_COST" productTypeId="RAW_MATERIAL" internalName="Demo Material B for Costing" description="Demo Material B for Standard Costing" isVirtual="N" isVariant="N" billOfMaterialLevel="1"/>
+    <ProductPrice productId="PROD_COST" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="455.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <!-- Cost information for the raw materials only (the ones for the finished good will be automatically computed by the costing algorithm): -->
     <CostComponent costComponentId="6000" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_A_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="9"/>
     <CostComponent costComponentId="6001" costComponentTypeId="EST_STD_MAT_COST" productId="MAT_B_COST" fromDate="2005-12-31 00:01:00.0" costUomId="USD" cost="7"/>
