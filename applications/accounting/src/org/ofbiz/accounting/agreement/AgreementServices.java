@@ -100,8 +100,9 @@ public class AgreementServices {
             quantity = quantity.abs();
             String productId = (String) context.get("productId");
             String invoiceItemTypeId = (String) context.get("invoiceItemTypeId");
+            
             // Collect agreementItems applicable to this orderItem/returnItem
-            // Use the view entity to reduce database access and cache to improve performance
+            // TODO: partyIds should be part of this query!
             List agreementItems = delegator.findByAndCache("AgreementItemAndProductAppl", UtilMisc.toMap(
                     "productId", productId,
                     "agreementItemTypeId", "AGREEMENT_COMMISSION"));
@@ -117,6 +118,8 @@ public class AgreementServices {
                             "agreementItemTypeId", "AGREEMENT_COMMISSION"));
                 }
             }
+            // this is not very efficient if there were many
+            agreementItems = EntityUtil.filterByDate(agreementItems);
             
             Iterator it = agreementItems.iterator();
             while (it.hasNext()) {

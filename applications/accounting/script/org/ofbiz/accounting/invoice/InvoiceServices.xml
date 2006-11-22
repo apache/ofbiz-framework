@@ -366,7 +366,7 @@ under the License.
                 <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
                 <check-errors/>
             </if-empty>
-            <!-- check if the status is not Paid... -->            
+            <!-- if the invoice is already PAID, then set it back to READY and clear out the paidDate --> 
             <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_PAID">
                 <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}" />
                 <set field="invoiceStatusMap.statusId" value="INVOICE_READY"/>

@@ -1315,23 +1315,6 @@ under the License.
     </view-entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.order.tax -->
-  <!-- ========================================================= -->
-
-    <view-entity entity-name="TaxAuthorityGlAccountBalance"
-            package-name="org.ofbiz.order.tax"
-            title="For viewing balances of tax authority GL accounts">
-      <member-entity entity-alias="TAGA" entity-name="TaxAuthorityGlAccount"/>
-      <member-entity entity-alias="GLAO" entity-name="GlAccountOrganization"/>
-      <alias-all entity-alias="TAGA"/>
-      <alias-all entity-alias="GLAO"/>
-      <view-link entity-alias="TAGA" rel-entity-alias="GLAO">
-        <key-map field-name="glAccountId"/>
-        <key-map field-name="organizationPartyId"/>
-      </view-link>
-    </view-entity>
-
-  <!-- ========================================================= -->
   <!-- org.ofbiz.order.opportunity -->
   <!-- ========================================================= -->
 

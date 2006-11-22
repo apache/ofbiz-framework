@@ -2852,6 +2852,23 @@ under the License.
             <key-map field-name="glAccountId"/>
         </relation>
     </entity>
+    <view-entity entity-name="TaxAuthorityGlAccountBalance"
+            package-name="org.ofbiz.accounting.tax"
+            title="For viewing balances of tax authority GL accounts">
+      <member-entity entity-alias="TAGA" entity-name="TaxAuthorityGlAccount"/>
+      <member-entity entity-alias="GLAO" entity-name="GlAccountOrganization"/>
+      <member-entity entity-alias="PAP" entity-name="PartyAcctgPreference"/>
+      <alias-all entity-alias="TAGA"/>
+      <alias-all entity-alias="GLAO"/>
+      <alias entity-alias="PAP" name="baseCurrencyUomId"/> 
+      <view-link entity-alias="TAGA" rel-entity-alias="GLAO">
+        <key-map field-name="glAccountId"/>
+        <key-map field-name="organizationPartyId"/>
+      </view-link>
+      <view-link entity-alias="TAGA" rel-entity-alias="PAP">
+        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="TaxAuthorityRateProduct" package-name="org.ofbiz.accounting.tax" title="Tax Authority Rate Entity">
         <field name="taxAuthorityRateSeqId" type="id-ne"></field>
         <field name="taxAuthGeoId" type="id-ne"></field>
