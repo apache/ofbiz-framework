@@ -230,6 +230,22 @@ under the License.
               </#if>
               <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${partyContactMech.fromDate.toString()})</div>
               <#if partyContactMech.thruDate?has_content><div class="tabletext"><b>${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${partyContactMech.thruDate.toString()}</b></div></#if>
+              <#-- create cust request -->
+              <#if custRequestTypes?exists>
+              <div>
+                <form name="createCustRequestForm" action="<@ofbizUrl>createCustRequest</@ofbizUrl>" method="POST">
+                  <input type="hidden" name="partyId" value="${party.partyId}"/>
+                  <input type="hidden" name="fromPartyId" value="${party.partyId}"/>
+                  <input type="hidden" name="fulfillContactMechId" value="${contactMech.contactMechId}"/>
+                  <select name="custRequestTypeId" class="inputBox">
+                    <#list custRequestTypes as type>
+                    <option value="${type.custRequestTypeId}">${type.get("description", locale)}</option>
+                    </#list>
+                  </select>
+                  <input type="submit" class="smallSubmit" value="${uiLabelMap.PartyCreateNewCustRequest}"/>
+                </form>
+              </div>
+              </#if>
             </td>
             <td align="center" valign="top" nowrap width="1%"><div class="tabletext"><b>(${partyContactMech.allowSolicitation?if_exists})</b></div></td>
             <td width="5">&nbsp;</td>

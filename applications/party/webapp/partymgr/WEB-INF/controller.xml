@@ -506,6 +506,14 @@ under the License.
         <response name="error" type="view" value="AddPartyNote"/>
     </request-map>
 
+    <request-map uri="createCustRequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustRequest"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="error" type="request-redirect" value="viewprofile"/>
+    </request-map>
+
+
     <!-- ContactList request mappings -->
     <request-map uri="ListPartyContactLists"><security https="true" auth="true"/><response name="success" type="view" value="ListPartyContactLists"/></request-map>
     <request-map uri="createContactListParty">
