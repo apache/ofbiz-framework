@@ -102,7 +102,8 @@ public class SupplierProductServices {
             supplierProducts = EntityUtil.filterByDate(supplierProducts, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
             
             //sort resulting list of SupplierProduct entities by price in ASCENDING order
-            supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("lastPrice ASC"));
+            // AceComm change: get the price of the first minOrderQty which is less than quantity, which may be the highest 
+            supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("minimumOrderQuantity DESC"));
             
             results = ServiceUtil.returnSuccess();
             results.put("supplierProducts", supplierProducts);

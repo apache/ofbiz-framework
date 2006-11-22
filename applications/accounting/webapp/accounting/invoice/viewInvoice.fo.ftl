@@ -225,7 +225,7 @@ under the License.
                                 <fo:block text-align="right"> <#if invoiceItem.quantity?exists>${invoiceItem.quantity?string.number}</#if> </fo:block>               
                             </fo:table-cell>
                             <fo:table-cell text-align="right">
-                                <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=invoiceItem.amount isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>               
+                                <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=invoiceItem.amount?if_exists isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>               
                             </fo:table-cell>
                             <fo:table-cell text-align="right">
                                 <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=(invoiceItem.quantity?double * invoiceItem.amount?double) isoCode=invoice.currencyUomId?if_exists/><#else><@ofbizCurrency amount=(invoiceItem.amount?double) isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>               
