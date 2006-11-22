@@ -96,6 +96,8 @@ context.put("paymentMethodValueMaps", paymentMethodValueMaps);
  
 context.put("nowStr", UtilDateTime.nowTimestamp().toString());
 
+context.put("custRequestTypes", delegator.findAllCache("CustRequestType"));
+
 
 // call the getOrderedSummaryInformation service to get the sub-total of valid orders in last X months
 monthsToInclude = new Integer(12);
