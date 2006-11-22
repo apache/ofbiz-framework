@@ -591,7 +591,8 @@ under the License.
     </service>
     <service name="deleteCommunicationEvent" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">
-        <description>Delete a Communication Event</description>
+        <description>Delete a Communication Event, optionally delete the attached content and dataresource
+                    and when this is the only communication event connected to a workeffort delete the workeffort too.</description>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
         <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
     </service>
