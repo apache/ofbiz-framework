@@ -688,6 +688,7 @@ under the License.
             </if-compare>
         </iterate>
         <set field="orderAvailableCtx.orderId" from-field="orderHeader.orderId"/>
+        <set field="orderAvailableCtx.countNewReturnItems" value="true" type="Boolean"/> <!-- very important: if this is not set, getOrderAvailableReturnedTotal would not count the return items we just created -->
         <call-service service-name="getOrderAvailableReturnedTotal" in-map-name="orderAvailableCtx">
             <result-to-field result-name="availableReturnTotal" field-name="availableReturnTotal"/>
             <result-to-field result-name="returnTotal" field-name="returnTotal"/>
