@@ -20,7 +20,7 @@ under the License.
     <DataResource dataResourceId="GZ2644DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
     <DataResource dataResourceId="GZ2644DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="GZ2644DESCFR" textData="Gizmo rond avec lumieres"/>
+    <ElectronicText dataResourceId="GZ2644DESCFR" textData="Gizmo rond lumineux"/>
     <ElectronicText dataResourceId="GZ2644DESCIT" textData="Gizmo rotondo con luci"/>
     <ElectronicText dataResourceId="GZ2644DESCEN" textData="Round Gizmo with lights"/>
 

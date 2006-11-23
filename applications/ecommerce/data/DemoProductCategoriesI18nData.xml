@@ -20,7 +20,7 @@ under the License.
     <DataResource dataResourceId="DR100DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
     <DataResource dataResourceId="DR100DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="DR100DESCFR" textData="Gizmos francais"/>
+    <ElectronicText dataResourceId="DR100DESCFR" textData="Gizmos français"/>
     <ElectronicText dataResourceId="DR100DESCIT" textData="Gizmos italiano"/>
     <ElectronicText dataResourceId="DR100DESCEN" textData="Gizmos (english)"/>
 
@@ -74,7 +74,7 @@ under the License.
     <DataResource dataResourceId="DR200DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
     <DataResource dataResourceId="DR200DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="DR200DESCFR" textData="Widgets francais"/>
+    <ElectronicText dataResourceId="DR200DESCFR" textData="Widgets français"/>
     <ElectronicText dataResourceId="DR200DESCIT" textData="Widgets italiano"/>
     <ElectronicText dataResourceId="DR200DESCEN" textData="Widgets (english)"/>
 
@@ -146,7 +146,7 @@ under the License.
     <DataResource dataResourceId="DR20111DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
     <DataResource dataResourceId="DR20111DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="DR20111DESCFR" textData="Micro Widgets francais"/>
+    <ElectronicText dataResourceId="DR20111DESCFR" textData="Micro Widgets français"/>
     <ElectronicText dataResourceId="DR20111DESCIT" textData="Micro Widgets italiano"/>
     <ElectronicText dataResourceId="DR20111DESCEN" textData="Micro Widgets (english)"/>    
 
