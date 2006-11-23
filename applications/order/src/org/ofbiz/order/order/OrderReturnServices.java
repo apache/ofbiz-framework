@@ -102,7 +102,11 @@ public class OrderReturnServices {
             adj = new Double(0);
         }
 
-        double returnTotal = orh.getOrderReturnedTotal(false);
+        Boolean countNewReturnItems = (Boolean) context.get("countNewReturnItems");
+        if (countNewReturnItems == null) {
+            countNewReturnItems = Boolean.FALSE;
+        }
+        double returnTotal = orh.getOrderReturnedTotal(countNewReturnItems.booleanValue());
         double orderTotal = orh.getOrderGrandTotal();
         double available = orderTotal - returnTotal - adj.doubleValue();
 
@@ -816,7 +820,7 @@ public class OrderReturnServices {
             }                                    
 
             groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId);
-
+            
             // process each one by order
             Set itemSet = itemsByOrder.entrySet();
             Iterator itemByOrderIt = itemSet.iterator();
@@ -1455,7 +1459,7 @@ public class OrderReturnServices {
                 }
             }
         }
-
+        
         // We may also have some order-level adjustments, so we need to go through each order again and add those as well
         if ((totalByOrder != null) && (totalByOrder.keySet() != null)) {
             Iterator orderIterator = totalByOrder.keySet().iterator();
