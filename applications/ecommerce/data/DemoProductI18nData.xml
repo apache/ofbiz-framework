@@ -21,7 +21,7 @@ under the License.
     <DataResource dataResourceId="GZ2644DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
     <ElectronicText dataResourceId="GZ2644DESCFR" textData="Gizmo rond avec lumieres"/>
-    <ElectronicText dataResourceId="GZ2644DESCIT" textData="Gizmo rotondo con luces"/>
+    <ElectronicText dataResourceId="GZ2644DESCIT" textData="Gizmo rotondo con luci"/>
     <ElectronicText dataResourceId="GZ2644DESCEN" textData="Round Gizmo with lights"/>
 
     <Content contentId="GZ2644DESCFR" contentTypeId="DOCUMENT" dataResourceId="GZ2644DESCFR" description="DESCRIPTION FR Round Gizmo" localeString="fr" />
@@ -42,9 +42,9 @@ under the License.
     <ElectronicText dataResourceId="GZ2644NAMEIT" textData="Gizmo Rotondo"/>
     <ElectronicText dataResourceId="GZ2644NAMEEN" textData="Round Gizmo"/>
 
-    <Content contentId="GZ2644NAMEFR" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEFR" NAMEription="NAMERIPTION FR Round Gizmo" localeString="fr" />
-    <Content contentId="GZ2644NAMEIT" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEIT" NAMEription="NAMERIPTION IT Round Gizmo" localeString="it" />
-    <Content contentId="GZ2644NAMEEN" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEEN" NAMEription="NAMERIPTION EN Round Gizmo" localeString="en"/>
+    <Content contentId="GZ2644NAMEFR" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEFR" description="DESCRIPTION FR Round Gizmo" localeString="fr" />
+    <Content contentId="GZ2644NAMEIT" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEIT" description="DESCRIPTION IT Round Gizmo" localeString="it" />
+    <Content contentId="GZ2644NAMEEN" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEEN" description="DESCRIPTION EN Round Gizmo" localeString="en"/>
 
     <ProductContent productId="GZ-2644" contentId="GZ2644NAMEEN" productContentTypeId="PRODUCT_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
