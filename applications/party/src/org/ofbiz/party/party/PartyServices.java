@@ -990,11 +990,11 @@ public class PartyServices {
         }
 
         // set the page parameters
-        int viewIndex = 1;
+        int viewIndex = 0;
         try {
             viewIndex = Integer.parseInt((String) context.get("VIEW_INDEX"));
         } catch (Exception e) {
-            viewIndex = 1;
+            viewIndex = 0;
         }
         result.put("viewIndex", new Integer(viewIndex));
 
@@ -1285,8 +1285,8 @@ public class PartyServices {
                     EntityListIterator pli = delegator.findListIteratorByCondition(dynamicView, mainCond, null, fieldsToSelect, orderBy, findOpts);
 
                     // get the indexes for the partial list
-                    lowIndex = (((viewIndex - 1) * viewSize) + 1);
-                    highIndex = viewIndex * viewSize;
+                    lowIndex = viewIndex * viewSize + 1;
+                    highIndex = (viewIndex + 1) * viewSize;
 
                     // get the partial list for this page
                     partyList = pli.getPartialList(lowIndex, viewSize);
@@ -1297,7 +1297,7 @@ public class PartyServices {
                     if (highIndex > partyListSize) {
                         highIndex = partyListSize;
                     }
-
+                    
                     // close the list iterator
                     pli.close();
                 } catch (GenericEntityException e) {
