@@ -678,40 +678,39 @@ public class UtilValidate {
         return ((ContiguousUSStateCodes.indexOf(s) != -1) && (s.indexOf(USStateCodeDelimiter) == -1));
     }
 
+    public static boolean isEmail(String s) {
+        return isEmail(s, false);
+    }
+
     /** Email address must be of form a@b.c -- in other words:
      *  - there must be at least one character before the @
      *  - there must be at least one character before and after the .
-     *  - the characters @ and . are both required
+     *  - the character @ is required, and . requirement is controlled
+     *  - by requireDot
      */
-    public static boolean isEmail(String s) {
+    public static boolean isEmail(String s, boolean requireDot) {
+
+        // todo: use regular expression validation
+        
         if (isEmpty(s)) return defaultEmptyOK;
 
         // is s whitespace?
         if (isWhitespace(s)) return false;
 
-        // there must be >= 1 character before @, so we
-        // start looking at character position 1
-        // (i.e. second character)
-        int i = 1;
-        int sLength = s.length();
+        int atSymbolIndex = s.indexOf('@');
 
-        // look for @
-        while ((i < sLength) && (s.charAt(i) != '@')) i++;
+        // there must be >= 1 character before @
+        // indexOf returns -1 if char not found, so 0 or -1 are bad
+        if (atSymbolIndex <= 0 ) return false;
 
-        // there must be at least one character after the .
-        if ((i >= sLength - 1) || (s.charAt(i) != '@'))
-            return false;
-        else
-            return true;
+        if (requireDot) {
+            int dotIndex = s.lastIndexOf('.');
+            if (dotIndex == -1) return false; // no dot
+            if (dotIndex < atSymbolIndex + 2) return false; // nothing between @ and .
+            if (dotIndex == s.length() - 1 ) return false; // . is last character
+        }
 
-        // DEJ 2001-10-13 Don't look for '.', some valid emails do not have a dot in the domain name
-        // else i += 2;
-
-        // look for .
-        // while((i < sLength) && (s.charAt(i) != '.')) i++;
-        // there must be at least one character after the .
-        // if((i >= sLength - 1) || (s.charAt(i) != '.')) return false;
-        // else return true;
+        return true;
     }
 
     /** isUrl returns true if the string contains ://
