@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
 
 <fo:block text-align="left">
     <#if logoImageUrl?has_content><fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/></#if>

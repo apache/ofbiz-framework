@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#--
@@ -94,7 +95,7 @@ under the License.
                                 <fo:block>${orderPurchaseProductSummary.productId?if_exists}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${orderPurchaseProductSummary.internalName?xml?if_exists}</fo:block>
+                                <fo:block>${orderPurchaseProductSummary.internalName?if_exists}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${orderPurchaseProductSummary.quantity?if_exists}</fo:block>

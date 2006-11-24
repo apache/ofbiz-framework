@@ -21,6 +21,7 @@ be included in OFBIZ due to licensing incompatibility, but you can download it y
 and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time 
 is ${ofbiz.home}/framework/webapp/lib/ -->
 
+<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
     <fo:layout-master-set>
         <#-- these margins are arbitrary, please redefine as you see fit -->

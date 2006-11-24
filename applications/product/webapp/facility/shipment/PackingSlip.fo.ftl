@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#--
@@ -125,7 +126,7 @@ under the License.
                             <fo:table-row>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
                                     <#if product?has_content>
-                                        <fo:block>${product.internalName?default("Internal Name Not Set!")?xml} [${product.productId}]</fo:block>
+                                        <fo:block>${product.internalName?default("Internal Name Not Set!")} [${product.productId}]</fo:block>
                                     <#else/>
                                         <fo:block>&nbsp;</fo:block>
                                     </#if>
@@ -177,4 +178,5 @@ under the License.
     </#if>
 
 </fo:root>
+</#escape>
 

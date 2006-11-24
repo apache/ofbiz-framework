@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
 <#macro displayReturnAdjustment returnAdjustment>
     <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader")>
     <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType")?if_exists>
@@ -111,4 +112,5 @@ under the License.
             </fo:table-row>
           </fo:table-body>
         </fo:table>
+</#escape>
 

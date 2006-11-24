@@ -19,6 +19,7 @@ Generates PDF of multiple checks in two styles: one check per page, multiple che
 Note that this must be customized to fit specific check layouts. The layout here is copied
 by hand from a real template using a ruler.
 -->
+<#escape x as x?xml>
 
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 

@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
         <fo:block>
             <fo:table font-size="9pt">
                 <fo:table-column column-width="40pt"/>
@@ -55,7 +56,7 @@ under the License.
                                 <fo:block>${quoteItem.quoteItemSeqId}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${(product.internalName)?xml?if_exists} [${quoteItem.productId?if_exists}]</fo:block>
+                                <fo:block>${(product.internalName)?if_exists} [${quoteItem.productId?if_exists}]</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block text-align="right">${quoteItem.quantity?if_exists}</fo:block>
