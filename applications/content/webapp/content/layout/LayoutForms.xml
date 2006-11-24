@@ -242,20 +242,6 @@ under the License.
         </field>
     </form>
 
-    <form name="lookupListLayout" 
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        default-entity-name="ContentAssocDataResourceViewFrom"
-        list-name="entityList" target="" paginate-target="FindLayout" title="" type="list">
-        <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target-type="plain" target="javascript:execRemoteCall('cloneLayout', '${drDataResourceId}', '${contentId}', 'TEMPLATE_MASTER', '')"/>
-        </field>
-        <field name="contentName"><display/></field>
-        <field name="description"><display/></field>
-        <field name="drObjectInfo" title="Template File"><display/></field>
-    </form>
-
-
     <form 
         name="listLookupDataResourceContent" 
         default-entity-name="DataResourceContentView"
