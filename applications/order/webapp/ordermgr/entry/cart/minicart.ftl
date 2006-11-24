@@ -28,7 +28,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#if (shoppingCartSize > 0)>
-          <#if !hidetoplinks?exists>
+          <#if hidetoplinks?default("N") != "Y">
             <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCheckout}</a></div>
           </#if>
           <table width="100%" cellpadding="0" cellspacing="2">
@@ -59,7 +59,7 @@ under the License.
               </td>
             </tr>
           </table>
-          <#if !hidebottomlinks?exists>
+          <#if hidebottomlinks?default("N") != "Y">
             <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCheckout}</a></div>
             <div style="margin-top: 4px;"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceCheckoutQuick}</a></div>
           </#if>
