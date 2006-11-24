@@ -208,14 +208,12 @@ function refreshInfo() {
               <td width="50%">
                  <div class="boxhead" align="right">
                   <#if (partyListSize > 0)>
-                    <#if (viewIndex > 1)>
+                    <#if (viewIndex > 0)>
                       <a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a>
                     <#else>
                       <span class="submenutextdisabled">${uiLabelMap.CommonPrevious}</span>
                     </#if>
-                    <#if (partyListSize > 0)>
-                      <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</span>
-                    </#if>
+                    <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</span>
                     <#if (partyListSize > highIndex)>
                       <a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
                     <#else>
