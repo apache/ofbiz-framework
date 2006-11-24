@@ -34,6 +34,7 @@ under the License.
   <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="ContactList" />
+    <entity-group group="org.ofbiz" entity="ContactListCommStatus" />
     <entity-group group="org.ofbiz" entity="ContactListParty" />
     <entity-group group="org.ofbiz" entity="ContactListPartyAndStatus" />
     <entity-group group="org.ofbiz" entity="ContactListPartyStatus" />

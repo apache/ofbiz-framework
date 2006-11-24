@@ -174,6 +174,29 @@ under the License.
         <key-map field-name="ownerPartyId" rel-field-name="partyId"/>
       </relation>
     </entity>
+    <entity entity-name="ContactListCommStatus"
+            package-name="org.ofbiz.marketing.contact"
+            title="Contact List Entity">
+      <field name="contactListId" type="id-ne"></field>
+      <field name="communicationEventId" type="id-ne"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
+      <prim-key field="contactListId"/>
+      <prim-key field="communicationEventId"/>
+      <prim-key field="contactMechId"/>
+      <relation type="one" fk-name="CNCT_LST_CST_CL" rel-entity-name="ContactList">
+        <key-map field-name="contactListId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_CST_CE" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_CST_CM" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="CNCT_LST_CST_ST" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
+      </relation>
+    </entity>
     <entity entity-name="ContactListParty"
             package-name="org.ofbiz.marketing.contact"
             title="Contact List Party Entity">
