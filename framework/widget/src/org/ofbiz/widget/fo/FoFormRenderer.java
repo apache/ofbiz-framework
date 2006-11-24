@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
@@ -86,7 +87,7 @@ public class FoFormRenderer implements FormStringRenderer {
             buffer.append(getFoStyle(widgetStyle));
         }
         buffer.append(">");
-        buffer.append(text);
+        buffer.append(UtilFormatOut.encodeXmlValue(text));
         buffer.append("</fo:block>");
     }
 
