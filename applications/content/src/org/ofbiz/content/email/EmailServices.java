@@ -642,6 +642,53 @@ public class EmailServices {
         
         return allResults;
     }
+
+    public static String contentIndex = "";
+    private static Map addMessageBody( Map commEventMap, Multipart multipart) 
+	throws MessagingException, IOException {
+    	try {
+    		int multipartCount = multipart.getCount();
+    		for (int i=0; i < multipartCount  && i < 10; i++) { 
+    			Part part = multipart.getBodyPart(i);
+    			String thisContentTypeRaw = part.getContentType();
+    			String content = null;
+    			int idx2 = thisContentTypeRaw.indexOf(";");
+    			if (idx2 == -1) idx2 = thisContentTypeRaw.length();
+    			String thisContentType = thisContentTypeRaw.substring(0, idx2);
+    			if (thisContentType == null || thisContentType.equals("")) thisContentType = "text/html";
+    			String disposition = part.getDisposition();
+
+    			if (thisContentType.startsWith("multipart") || thisContentType.startsWith("Multipart")) {
+					contentIndex = contentIndex.concat("." + i);
+    				return addMessageBody(commEventMap, (Multipart) part.getContent());
+    			}
+    			// See this case where the disposition of the inline text is null
+    			else if ((disposition == null) && (i == 0) && thisContentType.startsWith("text")) {
+    				content = (String)part.getContent();
+    				if (UtilValidate.isNotEmpty(content)) {
+    					contentIndex = contentIndex.concat("." + i);
+    					commEventMap.put("content", content);
+    					commEventMap.put("contentMimeTypeId", thisContentType);
+    					return commEventMap;
+    				}
+    			} else if ((disposition != null)
+    					&& (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
+    					&& thisContentType.startsWith("text")) {
+					contentIndex = contentIndex.concat("." + i);
+    				commEventMap.put("content", part.getContent());
+    				commEventMap.put("contentMimeTypeId", thisContentType);
+    				return commEventMap;
+    			}
+    		}
+    		return commEventMap;
+    	} catch (MessagingException e) {
+    		Debug.logError(e, module);
+    		return ServiceUtil.returnError(e.getMessage());
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+    }
     
     /**
      * This service is the main one for processing incoming emails.
@@ -665,7 +712,9 @@ public class EmailServices {
      * CommunicationEvent.content field) are cycled thru and attached to the CommunicationEvent entity using the 
      * createCommContentDataResource service. This happens in the EmailWorker.addAttachmentsToCommEvent method.
      * 
-     * -Al Byers
+     * However multiparts can contain multiparts. A recursive function has been added.
+     * 
+     * -Al Byers - Hans Bakker
      * @param dctx
      * @param context
      * @return
@@ -681,7 +730,6 @@ public class EmailServices {
         String partyIdTo = null;
         String partyIdFrom = null;
         String contentType = null;
-        String content = null;
 		String communicationEventId = null;
         String contactMechIdFrom = null;
         String contactMechIdTo = null;
@@ -770,42 +818,13 @@ public class EmailServices {
 	        commEventMap.put("datetimeEnded", UtilDateTime.toTimestamp(message.getReceivedDate()));
 
             // get the content(type) part
-    		int contentIndex = -1;
-			Multipart multipart = null;
     		if (contentType.startsWith("text")) {
-    			content = (String)message.getContent();
+    			commEventMap.put("content", message.getContent());
         		commEventMap.put("contentMimeTypeId", contentType);
     		} else if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
-    			multipart = (Multipart) message.getContent();
-    			int multipartCount = multipart.getCount();
-    			for (int i=0; i < multipartCount; i++) {
-    				Part part = multipart.getBodyPart(i);
-    				String thisContentTypeRaw = part.getContentType();
-    	            int idx2 = thisContentTypeRaw.indexOf(";");
-                    if (idx2 == -1) idx2 = thisContentTypeRaw.length();
-    	            String thisContentType = thisContentTypeRaw.substring(0, idx2);
-                    if (thisContentType == null || thisContentType.equals("")) thisContentType = "text/html";
-                    String disposition = part.getDisposition();
-    				
-    				// See this case where the disposition of the inline text is null
-    				if ((disposition == null) && (i == 0) && thisContentType.startsWith("text")) {
-    					content = (String)part.getContent();
-    					if (UtilValidate.isNotEmpty(content)) {
-    						contentIndex = i;
-    						commEventMap.put("contentMimeTypeId", thisContentType);
-    						break;
-    					}
-   			    	} else if ((disposition != null)
-   						 && (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
-   					     && thisContentType.startsWith("text")) {
-   			    		content = (String)part.getContent();
-   			    		contentIndex = i;
-   			    		commEventMap.put("contentMimeTypeId", thisContentType);
-   			    		break;
-   			    	}
-    			}    			
-    		}
-    		commEventMap.put("content", content);
+    			contentIndex = "";
+    			commEventMap = addMessageBody(commEventMap, (Multipart) message.getContent());
+    		}    			
     		
             // store from/to parties, but when not found make a note of the email to/from address in the workEffort Note Section.
             String commNote = "";
@@ -844,10 +863,9 @@ public class EmailServices {
     		result = dispatcher.runSync("createCommunicationEvent", commEventMap);
     		communicationEventId = (String)result.get("communicationEventId");
             
-    		// 'system' Id has no partyId but needed for prefix generation of the creation of related contentId and dataresourceId.
             // store attachements
     		if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
-    			int attachmentCount = EmailWorker.addAttachmentsToCommEvent(message, communicationEventId, contentIndex, dispatcher, userLogin);
+    			int attachmentCount = EmailWorker.addAttachmentsToCommEvent(message, communicationEventId, dispatcher, userLogin);
     			if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
     		}
             
