@@ -838,6 +838,43 @@ public class ShipmentServices {
         return ServiceUtil.returnSuccess("Intentional error at end to keep from committing.");
     }
 
+    public static Map duplicateShipmentRouteSegment(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String shipmentId = (String) context.get("shipmentId");
+        String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
+    
+        Map results = ServiceUtil.returnSuccess();
+
+        try {
+            GenericValue shipmentRouteSeg = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
+            if (shipmentRouteSeg == null) {
+                return ServiceUtil.returnError("Shipment Route Segment not found for shipment [" + shipmentId + "] route segment [" + shipmentRouteSegmentId + "]");
+            }
+
+            Map params = UtilMisc.toMap("shipmentId", shipmentId, "carrierPartyId", shipmentRouteSeg.getString("carrierPartyId"), "shipmentMethodTypeId", shipmentRouteSeg.getString("shipmentMethodTypeId"),
+                    "originFacilityId", shipmentRouteSeg.getString("originFacilityId"), "originContactMechId", shipmentRouteSeg.getString("originContactMechId"),
+                    "originTelecomNumberId", shipmentRouteSeg.getString("originTelecomNumberId"));
+            params.put("destFacilityId", shipmentRouteSeg.getString("destFacilityId"));
+            params.put("destContactMechId", shipmentRouteSeg.getString("destContactMechId"));
+            params.put("destTelecomNumberId", shipmentRouteSeg.getString("destTelecomNumberId"));
+            params.put("userLogin", userLogin);
+
+            Map tmpResult = dispatcher.runSync("createShipmentRouteSegment", params);
+            if (ServiceUtil.isError(tmpResult)) {
+                return tmpResult;
+            } else {
+                results.put("newShipmentRouteSegmentId", tmpResult.get("shipmentRouteSegmentId"));
+                return results;
+            }
+        } catch (GenericEntityException ex) {
+            return ServiceUtil.returnError(ex.getMessage());
+        } catch (GenericServiceException ex) {
+            return ServiceUtil.returnError(ex.getMessage());
+        }
+    } 
     /**
      * Service to call a ShipmentRouteSegment.carrierPartyId's confirm shipment method asynchronously
      */

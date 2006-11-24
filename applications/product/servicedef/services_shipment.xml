@@ -290,6 +290,13 @@ under the License.
         <description>Delete ShipmentRouteSegment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="duplicateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
+            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="duplicateShipmentRouteSegment" auth="true">
+        <description>Duplicates a shipment route segment and creates the new route segment in the NOT_STARTED status</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="newShipmentRouteSegmentId" type="String" mode="OUT" optional="false"/>
+    </service> 
     <service name="quickScheduleShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
             location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="quickScheduleShipmentRouteSegment" auth="true">
         <description>Schedules a shipment route segment with the carrier and service level in the ShipmentRouteSegment entity.
