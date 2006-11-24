@@ -201,7 +201,8 @@ under the License.
             <br/>
             <input type="text" size="8" name="actualCost" value="${shipmentRouteSegment.actualCost?if_exists}" class="inputBox"/>
         </td>
-        <td><a href="javascript:document.updateShipmentRouteSegmentForm${shipmentRouteSegmentData_index}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
+        <td><a href="javascript:document.updateShipmentRouteSegmentForm${shipmentRouteSegmentData_index}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a>
+        <br/><div class="tabletext"><a href="<@ofbizUrl>duplicateShipmentRouteSegment?shipmentId=${shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDuplicate}</a></div></td>
         <td><div class="tabletext"><a href="<@ofbizUrl>deleteShipmentRouteSegment?shipmentId=${shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></div></td>
     </tr>
     </form>

@@ -852,6 +852,12 @@ under the License.
         <response name="success" type="view" value="EditShipmentRouteSegments"/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
+    <request-map uri="duplicateShipmentRouteSegment">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="duplicateShipmentRouteSegment"/>
+        <response name="success" type="view" value="EditShipmentRouteSegments"/>
+        <response name="error" type="view" value="EditShipmentRouteSegments"/>
+    </request-map>
     <request-map uri="createRouteSegmentShipmentPackage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createShipmentPackageRouteSeg"/>
