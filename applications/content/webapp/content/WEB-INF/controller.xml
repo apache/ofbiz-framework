@@ -1668,7 +1668,7 @@ under the License.
     <view-map name="LookupSurvey" page="component://content/widget/SurveyScreens.xml#LookupSurvey" type="screen"/>
     <view-map name="LookupSurveyResponse" page="component://content/widget/SurveyScreens.xml#LookupSurveyResponse" type="screen"/>
     <view-map name="LookupListLayout" page="component://content/widget/LookupScreens.xml#LookupListLayout" type="screen"/>
-    <view-map name="LookupSubContent" page="/layout/LookupSubContent.ftl" type="jpublish"/>
+    <view-map name="LookupSubContent" page="component://content/widget/LookupScreens.xml#LookupSubContent" type="screen"/>
     <!-- lookup other components -->
     <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
     <view-map name="LookupPartyAndUserLoginAndPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyAndUserLoginAndPerson" type="screen"/>
