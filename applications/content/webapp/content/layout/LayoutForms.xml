@@ -52,47 +52,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="lookupDataResourceContent" 
-        default-title-style="tableheadtext"
-        default-entity-name="DataResourceContentView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        target="LookupSubContent"
-        title="" type="single">
-        <field name="dataResourceId" title="DataResource Id">
-            <text-find/>
-        </field>
-        <field name="coContentId" title="Content Id">
-            <text-find/>
-        </field>
-        <field name="coContentName" title="Name">
-            <text-find/>
-        </field>
-        <field name="coDescription">
-            <text-find/>
-        </field>
-        <field name="createdByUserLogin">
-             <lookup target-form-name="LookupPerson" />
-        </field>
-        <field name="createdDate">
-            <date-find/>
-        </field>
-        <field name="lastModifiedByUserLogin">
-             <lookup target-form-name="LookupParty" />
-        </field>
-        <field name="lastModifiedDate">
-            <date-find/>
-        </field>
-        <field name="submitButton" title="Find" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-        <field name="contentIdTo">
-            <hidden value="${contentIdTo}"/>
-        </field>
-        <field name="mapKey">
-            <hidden value="${mapKey}"/>
-        </field>
-    </form>
 
     <!-- LayoutEdit forms -->
     <form name="EditLayout" 
@@ -242,31 +201,6 @@ under the License.
         </field>
     </form>
 
-    <form 
-        name="listLookupDataResourceContent" 
-        default-entity-name="DataResourceContentView"
-        default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="tabletext"
-        list-name="mruList" 
-        target="" title="" type="list">
-        <field name="replace" title="Replace" widget-style="buttontext" >
-            <hyperlink also-hidden="false" target-type="plain" description="Replace[${dataResourceId}/${coContentId}]" 
-               target="javascript:execRemoteCall('replaceSubContent','${dataResourceId}','${coContentId}', '${contentIdTo}', '${mapKey}')"
-            />
-        </field>
-        <field name="pasteContent" title="Paste" widget-style="buttontext" >
-                
-            <hyperlink also-hidden="false" target-type="plain" description="Paste[${dataResourceId}/${coContentId}]" 
-               target="javascript:execRemoteCall('pasteContent','${dataResourceId}','${coContentId}')"
-            />
-        </field>
-        <field name="dataResourceName" title="Name" widget-style="buttontext">
-                <display/>
-        </field>
-        <field name="dataCategoryId" title="Category" widget-style="buttontext">
-                <display/>
-        </field>
-    </form>
     <form name="LayoutSubContentMaster" 
         default-title-style="tableheadtext"
         default-entity-name="SubContentDataResourceView"

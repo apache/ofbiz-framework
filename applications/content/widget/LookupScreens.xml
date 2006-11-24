@@ -41,4 +41,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="LookupSubContent">
+        <section>
+            <condition>
+                <or>
+                    <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                </or>
+            </condition>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="Lookup List Layout"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="lookupDataResourceContent" location="component://content/webapp/content/lookup/LookupForms.xml"/>
+                        <include-form name="listLookupDataResourceContent" location="component://content/webapp/content/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
