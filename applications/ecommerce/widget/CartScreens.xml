@@ -29,6 +29,10 @@ under the License.
     </screen>
     <screen name="minicart">
         <section>
+          <actions>
+              <set field="hidetoplinks" value="N"/>
+              <set field="hidebottomlinks" value="N"/>
+          </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/minicart.ftl"/></html></platform-specific>
             </widgets>
