@@ -860,6 +860,8 @@ public class ShipmentServices {
             params.put("destFacilityId", shipmentRouteSeg.getString("destFacilityId"));
             params.put("destContactMechId", shipmentRouteSeg.getString("destContactMechId"));
             params.put("destTelecomNumberId", shipmentRouteSeg.getString("destTelecomNumberId"));
+            params.put("billingWeight", shipmentRouteSeg.get("billingWeight"));
+            params.put("billingWeightUomId", shipmentRouteSeg.get("billingWeightUomId"));
             params.put("userLogin", userLogin);
 
             Map tmpResult = dispatcher.runSync("createShipmentRouteSegment", params);
