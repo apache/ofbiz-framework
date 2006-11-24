@@ -14,8 +14,10 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
 <fo:block space-after="40pt"/>
 <fo:block font-size="8pt">
   Here is a good place to put boilerplate terms and conditions for a return.
 </fo:block>
+</#escape>
 

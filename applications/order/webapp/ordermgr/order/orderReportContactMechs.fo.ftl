@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
        <fo:table border-spacing="3pt">
            <fo:table-column column-width="3.75in"/>
           <fo:table-column column-width="3.75in"/>
@@ -27,10 +28,10 @@ under the License.
                <fo:table-cell>
                  <fo:block white-space-collapse="false">
 <fo:block font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:block><#assign postalAddress = supplierGeneralContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName}</#if><#if postalAddress.attnName?has_content>
-${postalAddress.attnName}</#if>
-${postalAddress.address1}<#if postalAddress.address2?has_content>
-${postalAddress.address2}</#if>
-${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
+${postalAddress.attnName?if_exists}</#if>
+${postalAddress.address1?if_exists}<#if postalAddress.address2?has_content>
+${postalAddress.address2?if_exists}</#if>
+${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
 ${postalAddress.countryGeoId?if_exists}
 </fo:block>
                </fo:table-cell>
@@ -52,11 +53,11 @@ ${postalAddress.countryGeoId?if_exists}
                <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
                <fo:table-cell>
                  <fo:block white-space-collapse="false">
-<fo:block font-weight="bold">${contactMechPurpose.get("description",locale)}: </fo:block><#assign postalAddress = orderContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName}</#if><#if postalAddress.attnName?has_content>
-${postalAddress.attnName}</#if>
-${postalAddress.address1}<#if postalAddress.address2?has_content>
-${postalAddress.address2}</#if>
-${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
+<fo:block font-weight="bold">${contactMechPurpose.get("description",locale)}: </fo:block><#assign postalAddress = orderContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName?if_exists}</#if><#if postalAddress.attnName?has_content>
+${postalAddress.attnName?if_exists}</#if>
+${postalAddress.address1?if_exists}<#if postalAddress.address2?has_content>
+${postalAddress.address2?if_exists}</#if>
+${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
 </fo:block>
                 </fo:table-cell>
                 </#if>

@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
 <fo:block space-after="40pt"/>
 <#if orderHeader.getString("orderTypeId") == "SALES_ORDER">
   <fo:block font-size="14pt" font-weight="bold" text-align="center">THANK YOU FOR YOUR PATRONAGE!</fo:block>

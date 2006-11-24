@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
 
 <fo:list-block provisional-distance-between-starts="35mm" font-size="10pt">
     <fo:list-item>

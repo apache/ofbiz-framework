@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#--
@@ -35,7 +36,7 @@ under the License.
         <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <fo:block font-size="14pt">${uiLabelMap.OrderReportSalesByStore}</fo:block>
-            <#if !showProductStore><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.ProductProductStore}: ${parameters.productStoreId} - ${productReportList.get(0).storeName?xml?if_exists}</fo:block></#if>
+            <#if !showProductStore><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.ProductProductStore}: ${parameters.productStoreId} - ${productReportList.get(0).storeName?if_exists}</fo:block></#if>
             <#if !showToParty><fo:block font-size="10pt">${uiLabelMap.PartyParty}: ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, toPartyId, false)}</fo:block></#if>
             <fo:block font-size="10pt">${uiLabelMap.FormFieldTitle_orderStatusId}: 
                 <#if parameters.orderStatusId?has_content>${parameters.orderStatusId}<#else>${uiLabelMap.CommonAny}</#if>
@@ -70,7 +71,7 @@ under the License.
                                 </fo:table-cell>
                             </#if>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.internalName?default("")?xml} (${productReport.productId?if_exists})</fo:block>
+                                <fo:block>${productReport.internalName?default("")} (${productReport.productId?if_exists})</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${productReport.quantity?if_exists}</fo:block>

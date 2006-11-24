@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
           <fo:table><fo:table-column column-width="0.3in"/><fo:table-body><fo:table-row><fo:table-cell>
             <fo:table font-size="10pt">
             <fo:table-column column-width="1in"/>
@@ -53,4 +54,5 @@ under the License.
 
           </fo:table-body></fo:table>
         </fo:table-cell></fo:table-row></fo:table-body></fo:table>
+</#escape>
 

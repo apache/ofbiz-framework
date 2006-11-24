@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#--
