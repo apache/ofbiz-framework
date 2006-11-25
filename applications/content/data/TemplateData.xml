@@ -21,8 +21,7 @@ under the License.
     <DataResource dataResourceId="AGEP_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGEP Logo" objectInfo="agep_logo.png" createdDate="2004-02-04 21:00:17.683" createdByUserLogin="admin" lastModifiedDate="2004-02-04 21:00:17.683" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-05 05:45:18.09" lastUpdatedTxStamp="2004-02-05 05:21:43.748" createdStamp="2004-02-04 21:00:17.683" createdTxStamp="2004-02-04 21:00:17.683"/>
     <DataResource dataResourceId="AGINC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGINC Logo" objectInfo="aginc_logo.png" createdDate="2004-02-04 20:58:37.938" createdByUserLogin="admin" lastModifiedDate="2004-02-04 20:58:37.938" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-04 20:58:46.743" lastUpdatedTxStamp="2004-02-04 20:57:34.305" createdStamp="2004-02-04 20:58:37.938" createdTxStamp="2004-02-04 20:58:37.938"/>
     <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ArticleWrap.ftl" createdDate="2003-12-31 11:40:15.818" createdByUserLogin="admin" lastModifiedDate="2003-12-31 11:40:15.818" lastModifiedByUserLogin="admin" lastUpdatedStamp="2003-12-31 11:40:15.819" lastUpdatedTxStamp="2003-12-31 11:40:15.819" createdStamp="2003-12-31 11:40:15.819" createdTxStamp="2003-12-31 11:40:15.819"/>
-    <DataResource dataResourceId="LEFTBAR" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" dataResourceName="Left Bar" objectInfo="/leftbar.ftl" lastModifiedDate="2004-03-10 17:11:01.58" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-10 17:11:01.582" lastUpdatedTxStamp="2004-03-10 17:11:01.582"/>
-    <DataResource dataResourceId="RIGHTBAR" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Right Bar" objectInfo="RIGHT BAR"/>
+    <DataResource dataResourceId="LEFTBAR" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Left Bar" objectInfo="LEFT BAR"/>
     <DataResource dataResourceId="RP_MEDAL" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="Project Reliance Medallion Logo" objectInfo="pr_medal.png" createdDate="2004-02-13 13:37:54.199" createdByUserLogin="admin" lastModifiedDate="2004-02-13 13:37:54.199" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-02-13 13:39:33.035" lastUpdatedTxStamp="2004-02-13 13:37:54.73" createdStamp="2004-02-13 13:37:54.2" createdTxStamp="2004-02-13 13:37:54.2"/>
     <DataResource dataResourceId="STDWRAP001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html" lastModifiedDate="2004-01-16 15:28:58.289" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-16 15:28:58.306" lastUpdatedTxStamp="2004-01-16 15:28:58.306"/>
     <DataResource dataResourceId="TMPLT_IMG_CENTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-01-21 16:12:56.675" lastUpdatedTxStamp="2004-01-21 16:12:56.568" createdStamp="2004-01-16 01:24:06.482" createdTxStamp="2004-01-16 01:24:06.482"/>
@@ -143,23 +142,6 @@ under the License.
        alert("REQUERY" + document.sectionform.sectionId.value);
    }
 </script>
-            ]]></textData>
-    </ElectronicText>
-    <ElectronicText dataResourceId="RIGHTBAR" lastUpdatedStamp="2004-02-18 23:34:03.642" lastUpdatedTxStamp="2004-02-18 23:34:03.642">
-        <textData><![CDATA[       <table width='127' border='0' cellspacing='0' cellpadding='0' class='headerboxtop'>
-        <#list allPublishPoints?keys as publishPtKey>
-              <#if publishPtKey != pubPt>
-                  <tr>
-                  <td align=left width='1%'>
-                    <#assign publishPtValue=allPublishPoints[publishPtKey]?if_exists/>
-                    <a href="<@ofbizUrl>/MenuRedirect?pubPt=${publishPtKey?if_exists}</@ofbizUrl>">
-                      <img border="0" src='<@ofbizContentUrl>${allPublishPoints[publishPtKey?if_exists]?if_exists.medallionLogo?if_exists}</@ofbizContentUrl>' width="127"  height="93" />
-                    </a>
-                  </td>
-                  </tr>
-              </#if>
-          </#list>
-         </table>
             ]]></textData>
     </ElectronicText>
     <ElectronicText dataResourceId="STDWRAP001" lastUpdatedStamp="2004-01-16 15:28:58.335" lastUpdatedTxStamp="2004-01-16 15:28:58.306">
