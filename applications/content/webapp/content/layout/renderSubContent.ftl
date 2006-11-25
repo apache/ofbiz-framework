@@ -13,4 +13,11 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-${pages.get(page.path)}
+
+<hr/>
+<#if parameters.contentId?exists>
+    <#assign id=parameters.contentId/>
+    <@editRenderSubContent contentId="TEMPLATE_MASTER" mapKey="" editTemplate="true" subContentId=id?if_exists>
+        <@renderSubContent throwExceptionOnError="false"/>
+    </@editRenderSubContent>
+</#if>

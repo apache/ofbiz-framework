@@ -1594,7 +1594,7 @@ under the License.
 
     <view-map name="ListLayout" page="component://content/widget/layout/LayoutScreens.xml#ListLayout" type="screen"/>
     <view-map name="FindLayout" page="component://content/widget/layout/LayoutScreens.xml#FindLayout" type="screen"/>
-    <view-map name="EditLayout" page="/layout/EditLayout.ftl" type="jpublish"/>
+    <view-map name="EditLayout" page="component://content/widget/layout/LayoutScreens.xml#EditLayout" type="screen"/>
     <view-map name="AddLayout" page="/layout/AddLayout.ftl" type="jpublish"/>
     <view-map name="EditLayoutSubContent" page="/layout/EditLayoutSubContent.ftl" type="jpublish"/>
     <view-map name="EditLayoutText" page="/layout/EditLayoutText.ftl" type="jpublish"/>
