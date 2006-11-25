@@ -33,28 +33,47 @@ under the License.
         <menu-item name="FindLayout" title="${uiLabelMap.CommonFind}" >
             <link target="FindLayout" target-window="_top" style="tabButton" />
         </menu-item>
-        <menu-item name="EditLayout" title="${uiLabelMap.CommonEdit}" >
-            <link target="EditLayout" target-window="_top" style="tabButton" />
+        <menu-item name="EditLayout" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <not><if-empty field-name="parameters.contentId"/></not>
+            </condition>
+            <link target="EditLayout?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
         </menu-item>
-        <!--
         <menu-item name="EditLayoutContent" title="${uiLabelMap.ContentSubContent}" >
-            <link target="EditLayoutContent" target-window="_top" style="tabButton" />
+            <condition>
+                <not><if-empty field-name="parameters.contentId"/></not>
+            </condition>
+            <link target="EditLayoutContent?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutText" title="${uiLabelMap.ContentText}" >
-            <link target="EditLayoutText" target-window="_top" style="tabButton" />
+            <condition>
+                <not><if-empty field-name="parameters.contentId"/></not>
+            </condition>
+            <link target="EditLayoutText?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutHtml" title="${uiLabelMap.ContentHtml}" >
-            <link target="EditLayoutHtml" target-window="_top" style="tabButton" />
+            <condition>
+                <not><if-empty field-name="parameters.contentId"/></not>
+            </condition>
+            <link target="EditLayoutHtml?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutImage" title="${uiLabelMap.ContentImage}" >
-            <link target="EditLayoutImage" target-window="_top" style="tabButton" />
+            <condition>
+                <not><if-empty field-name="parameters.contentId"/></not>
+            </condition>
+            <link target="EditLayoutImage?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutUrl" title="${uiLabelMap.ContentUrl}" >
-            <link target="EditLayoutUrl" target-window="_top" style="tabButton" />
+            <condition>
+                <not><if-empty field-name="parameters.contentId"/></not>
+            </condition>
+            <link target="EditLayoutUrl?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutFile" title="${uiLabelMap.ContentFile}" >
-            <link target="EditLayoutFile" target-window="_top" style="tabButton" />
+            <condition>
+                <not><if-empty field-name="parameters.contentId"/></not>
+            </condition>
+            <link target="EditLayoutFile?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
         </menu-item>
-        -->
     </menu>
 </menus>

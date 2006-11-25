@@ -73,6 +73,7 @@ public class RenderSubContentTransform implements TemplateTransformModel {
         final String subDataResourceTypeId = getArg(args, "subDataResourceTypeId", ctx);
         final String contentId = getArg(args, "contentId", ctx);
         final String mimeTypeId = getArg(args, "mimeTypeId", ctx);
+        final String throwExceptionOnError = getArg(args, "throwExceptionOnError", ctx);
         final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
@@ -106,7 +107,9 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                 try {
                     renderSubContent();
                 } catch (IOException e) {
-                    throw new IOException(e.getMessage());
+                    if (!"false".equals(throwExceptionOnError)) {
+                        throw new IOException(e.getMessage());
+                    }
                 }
             }
 
