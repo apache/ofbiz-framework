@@ -35,40 +35,10 @@ import javax.servlet.http.*;
 dispatcher    = (LocalDispatcher)request.getAttribute("dispatcher");
 delegator = (GenericDelegator) request.getAttribute("delegator");
 
-formDefFile = page.getProperty("formDefFile");
-addFormName = page.getProperty("addFormName");
-editFormName = page.getProperty("editFormName");
-listFormName = page.getProperty("listFormName");
-mruFormName = page.getProperty("mruFormName");
-entityName = page.getProperty("entityName");
-paramMap = UtilHttp.getParameterMap(request);
-contentIdTo = (String)paramMap.get("contentIdTo");
-//Debug.logInfo("in editsubcontentprep, contentIdTo:" + contentIdTo, "");
-//String defaultMapName = page.getProperty("defaultMapName");
-//if( defaultMapName == null) defaultMapName = "currentValue";
-defaultMapName	= "currentValue";
-GenericValue currentValue = (GenericValue)request.getAttribute("currentValue");
-//Debug.logInfo("in editsubcontentprep, currentValue:" + currentValue, "");
-mode = (String)request.getParameter("mode");
-if (mode == null || mode.length() == 0) {
-    mode = (String)request.getAttribute("mode");
-}
-//Debug.logInfo("in editsubcontentprep, mode:" + mode, "");
 Locale locale = UtilHttp.getLocale(request);
-if (currentValue == null || (mode != null && mode.equalsIgnoreCase("add"))) {
-    view = delegator.makeValue("SubContentDataResourceView", null);
-    view.put("localeString", locale.toString());
-    singleWrapper = new HtmlFormWrapper(formDefFile, addFormName, request, response);
-    currentMap = new HashMap(view);
-    currentMap.put("textData", "");
-    singleWrapper.putInContext("currentValue", currentMap);
-} else {
-    singleWrapper = new HtmlFormWrapper(formDefFile, editFormName, request, response);
+if (currentValue != null) {
     dataResourceId = (String)currentValue.get("drDataResourceId");
     dataResourceTypeId =  (String)currentValue.get("drDataResourceTypeId");
-    //Debug.logInfo("in editsubcontentprep, dataResourceId:" + dataResourceId, "");
-    //Debug.logInfo("in editsubcontentprep, dataResourceTypeId:" + dataResourceTypeId, "");
-    currentMap = new HashMap(currentValue);
     if (UtilValidate.isNotEmpty(dataResourceTypeId)) {
         mimeTypeId =  (String)currentValue.get("drMimeTypeId");
         rootDir = request.getSession().getServletContext().getRealPath("/");
@@ -84,16 +54,10 @@ if (currentValue == null || (mode != null && mode.equalsIgnoreCase("add"))) {
         currentValue.set("drDataTemplateTypeId", "NONE");
         DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, currentValue, locale, mimeTypeId);
         textData = out.toString();
-        //Debug.logInfo("in editsubcontentprep, textData:" + textData, "");
-        //Debug.logInfo("in editsubcontentprep, contentIdTo:" + contentIdTo, "");
-        currentMap.put("textData", textData);
+        context.put("textData", textData);
     }
-    singleWrapper.putInContext("currentValue", currentMap);
 }
 
-singleWrapper.putInContext("contentIdTo", contentIdTo);
-mapKey = (String)paramMap.get("mapKey");
-Debug.logInfo("in editsubcontentprep, mapKey:" + mapKey, "");
-singleWrapper.putInContext("mapKey", mapKey);
-context.put("singleWrapper", singleWrapper);
+//context.put("contentIdTo", contentIdTo);
+//mapKey = (String)paramMap.get("mapKey");
 

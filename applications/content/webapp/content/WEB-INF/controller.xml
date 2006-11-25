@@ -28,7 +28,6 @@ under the License.
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
 
-    <handler name="jpublish" type="view" class="org.ofbiz.webapp.view.JPublishViewHandler"/>        
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
@@ -1595,12 +1594,12 @@ under the License.
     <view-map name="ListLayout" page="component://content/widget/layout/LayoutScreens.xml#ListLayout" type="screen"/>
     <view-map name="FindLayout" page="component://content/widget/layout/LayoutScreens.xml#FindLayout" type="screen"/>
     <view-map name="EditLayout" page="component://content/widget/layout/LayoutScreens.xml#EditLayout" type="screen"/>
-    <view-map name="AddLayout" page="/layout/AddLayout.ftl" type="jpublish"/>
-    <view-map name="EditLayoutSubContent" page="/layout/EditLayoutSubContent.ftl" type="jpublish"/>
-    <view-map name="EditLayoutText" page="/layout/EditLayoutText.ftl" type="jpublish"/>
-    <view-map name="EditLayoutHtml" page="/layout/EditLayoutHtml.ftl" type="jpublish"/>
-    <view-map name="EditLayoutImage" page="/layout/EditLayoutImage.ftl" type="jpublish"/>
-    <view-map name="EditLayoutUrl" page="/layout/EditLayoutUrl.ftl" type="jpublish"/>
+    <view-map name="AddLayout" page="component://content/widget/layout/LayoutScreens.xml#AddLayout" type="screen"/>
+    <view-map name="EditLayoutSubContent" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutSubContent" type="screen"/>
+    <view-map name="EditLayoutText" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutText" type="screen"/>
+    <view-map name="EditLayoutHtml" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutHtml" type="screen"/>
+    <view-map name="EditLayoutImage" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutImage" type="screen"/>
+    <view-map name="EditLayoutUrl" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutUrl" type="screen"/>
 
     <view-map name="FindContent"  page="component://content/widget/content/ContentScreens.xml#FindContent" type="screen"/>
 
