@@ -36,44 +36,44 @@ under the License.
         <menu-item name="EditLayout" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <not><if-empty field-name="parameters.contentId"/></not>
+                <not><if-empty field-name="parameters.drDataResourceId"/></not>
             </condition>
-            <link target="EditLayout?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
+            <link target="EditLayout?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
         </menu-item>
-        <menu-item name="EditLayoutContent" title="${uiLabelMap.ContentSubContent}" >
+        <menu-item name="EditLayoutSubContent" title="${uiLabelMap.ContentSubContent}" >
             <condition>
                 <not><if-empty field-name="parameters.contentId"/></not>
+                <not><if-empty field-name="parameters.drDataResourceId"/></not>
             </condition>
-            <link target="EditLayoutContent?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
+            <link target="EditLayoutSubContent?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutText" title="${uiLabelMap.ContentText}" >
             <condition>
                 <not><if-empty field-name="parameters.contentId"/></not>
+                <not><if-empty field-name="parameters.drDataResourceId"/></not>
             </condition>
-            <link target="EditLayoutText?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
+            <link target="EditLayoutText?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutHtml" title="${uiLabelMap.ContentHtml}" >
             <condition>
                 <not><if-empty field-name="parameters.contentId"/></not>
+                <not><if-empty field-name="parameters.drDataResourceId"/></not>
             </condition>
-            <link target="EditLayoutHtml?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
+            <link target="EditLayoutHtml?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutImage" title="${uiLabelMap.ContentImage}" >
             <condition>
                 <not><if-empty field-name="parameters.contentId"/></not>
+                <not><if-empty field-name="parameters.drDataResourceId"/></not>
             </condition>
-            <link target="EditLayoutImage?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
+            <link target="EditLayoutImage?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="EditLayoutUrl" title="${uiLabelMap.ContentUrl}" >
             <condition>
                 <not><if-empty field-name="parameters.contentId"/></not>
+                <not><if-empty field-name="parameters.drDataResourceId"/></not>
             </condition>
-            <link target="EditLayoutUrl?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
-        </menu-item>
-        <menu-item name="EditLayoutFile" title="${uiLabelMap.ContentFile}" >
-            <condition>
-                <not><if-empty field-name="parameters.contentId"/></not>
-            </condition>
-            <link target="EditLayoutFile?contentId=${parameters.contentId}" target-window="_top" style="tabButton" />
+            <link target="EditLayoutUrl?contentId=${parameters.contentId}&amp;drDataResourceId=${parameters.drDataResourceId}" target-window="_top" style="tabButton" />
         </menu-item>
     </menu>
 </menus>

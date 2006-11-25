@@ -248,6 +248,7 @@ under the License.
         extends="LayoutSubContentMaster"
         target="updateLayoutHtml"
         title="" type="single">
+        <alt-target use-when="currentValue==null" target="createLayoutHtml"/>
         <field name="drDataResourceTypeId" >
             <display description="ELECTRONIC_TEXT"/>
         </field>
@@ -270,33 +271,6 @@ under the License.
             <display/>
         </field>
         <field name="submitButton" title="Update" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-    </form>
-    <form name="AddLayoutHtml" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="createLayoutHtml"
-        title="" type="single">
-        <field name="drDataResourceTypeIdDisplay"  title="DataResource Type">
-            <display description="ELECTRONIC_TEXT"/>
-        </field>
-        <field name="drDataResourceTypeId"  >
-            <hidden value="ELECTRONIC_TEXT"/>
-        </field>
-        <field name="drMimeTypeIdDisplay" title="Mime Type" >
-            <display description="text/plain"/>
-        </field>
-        <field name="drMimeTypeId" >
-            <hidden value="text/html"/>
-        </field>
-        <field name="textData" title="Text (Use '&lt;&gt;' to enter plain text)"  id-name="textData"> 
-		<textarea rows="24" cols="80" />
-        </field>
-        <field name="submitButton" title="Create" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
@@ -309,6 +283,7 @@ under the License.
         extends="LayoutSubContentMaster"
         target="updateLayoutText"
         title="" type="single">
+        <alt-target use-when="currentValue==null" target="createLayoutText"/>
         <field name="drDataResourceTypeId" >
             <display description="ELECTRONIC_TEXT"/>
         </field>
@@ -331,33 +306,6 @@ under the License.
             <display/>
         </field>
         <field name="submitButton" title="Update" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-    </form>
-    <form name="AddLayoutText" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="createLayoutText"
-        title="" type="single">
-        <field name="drDataResourceTypeIdDisplay"  title="DataResource Type">
-            <display description="ELECTRONIC_TEXT"/>
-        </field>
-        <field name="drDataResourceTypeId"  >
-            <hidden value="ELECTRONIC_TEXT"/>
-        </field>
-        <field name="drMimeTypeIdDisplay" title="Mime Type" >
-            <display description="text/plain"/>
-        </field>
-        <field name="drMimeTypeId" >
-            <hidden value="text/html"/>
-        </field>
-        <field name="textData" title="Text" > 
-		<textarea rows="24" cols="80" />
-        </field>
-        <field name="submitButton" title="Create" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
@@ -444,6 +392,7 @@ under the License.
         extends="LayoutSubContentMaster"
         target="updateLayoutUrl"
         title="" type="single">
+        <alt-target use-when="currentValue==null" target="createLayoutUrl"/>
         <field name="drDataResourceTypeId" >
             <display description="URL_RESOURCE"/>
         </field>
@@ -469,27 +418,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="AddLayoutUrl" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="createLayoutUrl"
-        title="" type="single">
-        <field name="drDataResourceTypeId" >
-            <display description="URL_RESOURCE"/>
-        </field>
-        <field name="drMimeTypeId" >
-            <display description="text/plain"/>
-        </field>
-        <field name="drObjectInfo" title="Url">
-            <text />
-        </field>
-        <field name="submitButton" title="Create" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-    </form>
     <form name="ListRelatedLayouts" 
         default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="display"
@@ -511,6 +439,7 @@ under the License.
         extends="LayoutSubContentMaster"
         target="updateLayoutSubContent"
         title="" type="single">
+        <alt-target use-when="currentValue==null" target="createLayoutSubContent"/>
         <field name="contentIdToDisplay" >
            <ignored/>
         </field>
@@ -522,10 +451,10 @@ under the License.
             <display/>
         </field>
         <field name="contentIdTo" >
-            <text default-value="${contentIdTo}"/>
+            <text default-value="${parameters.contentIdTo}"/>
         </field>
         <field name="mapKey" >
-            <text default-value="${mapKey}"/>
+            <text default-value="${parameters.mapKey}"/>
         </field>
         <field name="drDataResourceTypeId" >
             <drop-down no-current-selected-key="ELECTRONIC_TEXT">
@@ -551,7 +480,7 @@ under the License.
             <text />
         </field>
         <field name="textData" id-name="textData"> 
-		<textarea rows="24" cols="80" />
+		<textarea rows="24" cols="80" default-value="${context.textData}"/>
         </field>
         <field name="createdByUserLogin" position="1">
             <display/>
@@ -569,59 +498,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="AddLayoutSubContent" 
-        default-title-style="tableheadtext"
-        default-entity-name="SubContentDataResourceView"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-map-name="currentValue"
-        extends="LayoutSubContentMaster"
-        target="createLayoutSubContent"
-        title="" type="single">
-        <field name="contentIdToDisplay" >
-           <ignored/>
-        </field>
-        <field name="mapKeyDisplay" >
-           <ignored/>
-        </field>
-
-        <field name="contentId" position="1" >
-            <text/>
-        </field>
-        <field name="contentIdTo" >
-            <text default-value="TEMPLATE_MASTER"/>
-        </field>
-        <field name="mapKey" >
-            <text default-value="${mapKey}"/>
-        </field>
-        <field name="drDataResourceTypeId" >
-            <drop-down no-current-selected-key="ELECTRONIC_TEXT">
-                <option key="LOCAL_FILE" description="Absolute File"/>
-                <option key="OFBIZ_FILE" description="File Rel. to OFBIZ_HOME"/>
-                <option key="CONTEXT_FILE" description="File Rel. to webapp root"/>
-                <option key="ELECTRONIC_TEXT" description="DataBase Text"/>
-            </drop-down>
-        </field>
-        <field name="drDataTemplateTypeId" >
-            <drop-down no-current-selected-key="NONE">
-                <entity-options description="${description}"
-                    entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
-            </drop-down>
-        </field>
-        <field name="drMimeTypeId" >
-            <drop-down no-current-selected-key="text/html">
-                <option key="text/html" description="Html Text" />
-                <option key="text/plain" description="Plain Text" />
-            </drop-down>
-        </field>
-        <field name="drObjectInfo" title="${UiLabelMap.ContentFilePath}">
-            <text />
-        </field>
-        <field name="textData" id-name="textData"> 
-		<textarea rows="24" cols="80" />
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
+<!--
         <field name="paste" title="" widget-style="buttontext"
             use-when="!&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
             <hyperlink target-type="plain" 
@@ -634,6 +511,5 @@ under the License.
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'LookupListLayout')"
               description="${uiLabelMap.ContentPaste}"/>
         </field>
-    </form>
-
+-->
 </forms>
