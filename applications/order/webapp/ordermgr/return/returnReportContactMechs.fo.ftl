@@ -67,3 +67,4 @@ ${postalAddressTo.city}<#if (postalAddressTo.stateProvinceGeoId)?has_content>, $
           </fo:table>
 
           <fo:block space-after="10pt"/>
+</#escape>

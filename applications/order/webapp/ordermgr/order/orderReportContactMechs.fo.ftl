@@ -121,3 +121,4 @@ ${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content
        </fo:table>
 
 <fo:block space-after="10pt"/>
+</#escape>

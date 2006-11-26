@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#--
@@ -18,6 +17,8 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+
+<#escape x as x?xml>
 
     <fo:layout-master-set>
         <fo:simple-page-master master-name="main" page-height="4in" page-width="8in"
@@ -52,3 +53,4 @@ under the License.
         </fo:flow>
     </fo:page-sequence>
 </fo:root>
+</#escape>
