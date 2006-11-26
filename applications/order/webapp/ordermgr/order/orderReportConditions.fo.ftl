@@ -26,3 +26,4 @@ under the License.
     <#-- Here is a good place to put boilerplate terms and conditions for a purchase order. -->
   </fo:block>
 </#if>
+</#escape>

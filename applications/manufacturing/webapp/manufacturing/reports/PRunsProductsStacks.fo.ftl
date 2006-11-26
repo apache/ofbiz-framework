@@ -31,7 +31,6 @@ under the License.
   <#list stackInfos as stackInfo>
     <fo:page-sequence master-reference="first" language="en" hyphenate="true">
 
-<!--  nota: codice documento    -->
 
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
@@ -63,7 +62,7 @@ Doc.C
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
-<!--  nota: righe o celle di testata - 1° riga intestazione  -->
+<!--  nota: righe o celle di testata - 1ï¿½ riga intestazione  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
@@ -95,7 +94,7 @@ Doc.C
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle di testata - 1° riga valore  -->
+<!--  nota: righe o celle di testata - 1ï¿½ riga valore  -->
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
               <fo:table-column column-width="2.00cm"/>
@@ -127,7 +126,7 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 2° riga intestazioni  -->
+<!--  nota: righe o celle di testata - 2ï¿½ riga intestazioni  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
@@ -159,7 +158,7 @@ Doc.C
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle di testata - 2° riga valori  -->
+<!--  nota: righe o celle di testata - 2ï¿½ riga valori  -->
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
               <fo:table-column column-width="2.00cm"/>
@@ -199,7 +198,7 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 3° riga intestazioni  -->
+<!--  nota: righe o celle di testata - 3ï¿½ riga intestazioni  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="2.50cm"/>
@@ -243,7 +242,6 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 3° riga valori  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="2.50cm"/>
@@ -293,7 +291,7 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 4° riga valori (numero etichette)  -->
+<!--  nota: righe o celle di testata - 4ï¿½ riga valori (numero etichette)  -->
 
             <fo:table text-align="left" table-layout="fixed">
               <fo:table-column column-width="5.00cm"/>
@@ -314,7 +312,7 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 5° riga labels (riga del codice)  -->
+<!--  nota: righe o celle di testata - 5ï¿½ riga labels (riga del codice)  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="3.00cm"/>
@@ -346,7 +344,7 @@ Doc.C
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle di testata - 5° riga value (riga del codice)  -->
+<!--  nota: righe o celle di testata - 5ï¿½ riga value (riga del codice)  -->
             <fo:table text-align="left" table-layout="fixed">
               <fo:table-column column-width="3.00cm"/>
               <fo:table-column column-width="8.00cm"/>

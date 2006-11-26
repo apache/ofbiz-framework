@@ -172,3 +172,4 @@ under the License.
         </fo:block>
     </#if>
 </fo:root>
+</#escape>

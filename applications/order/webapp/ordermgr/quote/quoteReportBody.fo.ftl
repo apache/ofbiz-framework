@@ -150,3 +150,4 @@ under the License.
                 </fo:table>
             </fo:block>
         </fo:block>
+</#escape>

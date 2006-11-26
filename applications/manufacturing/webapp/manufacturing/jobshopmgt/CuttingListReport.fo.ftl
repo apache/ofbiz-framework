@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-
 <#--
 
 Copyright 2001-2006 The Apache Software Foundation
@@ -19,6 +17,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
+<#escape x as x?xml>
 <#-- do not display columns associated with values specified in the request, ie constraint values -->
 <#--<#assign showProductStore = !parameters.productStoreId?has_content>-->
 <fo:layout-master-set>
@@ -117,3 +116,4 @@ under the License.
 </#if>
 
 </fo:root>
+</#escape>

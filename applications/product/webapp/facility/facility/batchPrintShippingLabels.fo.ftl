@@ -46,3 +46,4 @@ is ${ofbiz.home}/framework/webapp/lib/ -->
       </fo:flow>
   </fo:page-sequence>
 </fo:root>
+</#escape>

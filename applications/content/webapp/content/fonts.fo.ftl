@@ -1316,3 +1316,4 @@ Euro ( dec 8364, hex 20AC): &#x20AC;
 </fo:flow>
 </fo:page-sequence>
 </fo:root>
+</#escape>

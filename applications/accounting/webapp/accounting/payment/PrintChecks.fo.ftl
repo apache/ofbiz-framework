@@ -245,3 +245,4 @@ by hand from a real template using a ruler.
     </fo:flow>
   </fo:page-sequence>
 </fo:root>
+</#escape>

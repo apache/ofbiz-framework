@@ -216,3 +216,4 @@ under the License.
         </fo:page-sequence>
 </#if>
 </fo:root>
+</#escape>

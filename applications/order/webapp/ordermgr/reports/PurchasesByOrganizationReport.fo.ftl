@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#--
@@ -17,6 +16,8 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+
+<#escape x as x?xml>
 
 <#-- do not display columns associated with values specified in the request, ie constraint values -->
 <#assign showToParty = !parameters.toPartyId?has_content>
@@ -98,3 +99,5 @@ under the License.
 </#if>
 
 </fo:root>
+
+</#escape>

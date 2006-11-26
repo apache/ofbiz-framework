@@ -14,6 +14,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#escape x as x?xml>
     <#if orderHeader?has_content>
         <fo:table border-spacing="3pt">
 
@@ -41,11 +42,11 @@ under the License.
                         <fo:table-cell>
                             <fo:block>
                                <#if productId?exists>
-                                ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?xml?if_exists}
+                                ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
                               <#elseif orderItemType?exists>
-                                ${orderItemType.get("description",locale)} - ${orderItem.itemDescription?xml?if_exists}
+                                ${orderItemType.get("description",locale)} - ${orderItem.itemDescription?if_exists}
                               <#else>
-                                ${orderItem.itemDescription?xml?if_exists}
+                                ${orderItem.itemDescription?if_exists}
                               </#if>
                                </fo:block>
                           </fo:table-cell>
@@ -143,3 +144,4 @@ under the License.
             </fo:table-body>
     </fo:table>    
     </#if>
+</#escape>
