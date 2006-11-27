@@ -44,7 +44,7 @@ under the License.
              in the left side cell we put the logo
              in the right side cell we put the title, username and date
         -->
-        <fo:static-content flow-name="xsl-region-before" font-size="8pt">
+        <fo:static-content flow-name="xsl-region-before" font-size="${headerFontSize?default("8pt")}">
             <fo:table>
                 <fo:table-column column-number="1" column-width="proportional-column-width(50)"/>
                 <fo:table-column column-number="2" column-width="proportional-column-width(50)"/>
@@ -86,12 +86,12 @@ under the License.
         </fo:static-content>
          
         <#-- Footer -->
-        <fo:static-content flow-name="xsl-region-after" font-size="8pt">
+        <fo:static-content flow-name="xsl-region-after" font-size="${footerFontSize?default("8pt")}">
             <fo:block text-align="center" border-top="thin solid black" padding="3pt">${uiLabelMap.CommonPage} <fo:page-number/> ${uiLabelMap.CommonOf} <fo:page-number-citation ref-id="theEnd"/></fo:block>
         </fo:static-content>
        
         <#-- Body -->
-        <fo:flow flow-name="xsl-region-body">
+        <fo:flow flow-name="xsl-region-body" font-size="${bodyFontSize?default("8pt")}">
 ${sections.render("body")}
             <fo:block id="theEnd"/>
         </fo:flow>
