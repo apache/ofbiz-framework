@@ -124,6 +124,7 @@ under the License.
                 <decorator-screen name="CommonSubscriptionDecorator">
                     <decorator-section name="body">
                         <include-form name="EditSubscriptionAttributes" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <include-form name="AddSubscriptionAttribute" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
