@@ -323,6 +323,12 @@ under the License.
         <field name="subscriptionId"><hidden/></field>
         <field name="updateButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="AddSubscriptionAttribute" type="single" target="UpdateSubscriptionAttribute"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="updateSubscriptionAttribute"/>
+        <field name="subscriptionId"><hidden/></field>
+        <field name="addButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
     
     <!-- Subscription Communication Event  -->
     <form name="listSubscriptionCommEvent" type="list"  list-name="subscriptionCommEvent"  target="ListSubscriptionCommEvent"
