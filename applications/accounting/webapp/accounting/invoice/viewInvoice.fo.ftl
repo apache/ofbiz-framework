@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <#--
 Copyright 2001-2006 The Apache Software Foundation
 
@@ -13,7 +14,6 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-<?xml version="1.0" encoding="UTF-8" ?>
 <#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
     <#-- master layout specifies the overall layout of the pages and its different sections. -->

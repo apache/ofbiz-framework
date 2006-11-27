@@ -35,34 +35,17 @@ under the License.
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                 
-Doc.C
           
             </fo:block>
         </fo:static-content>
-<!--
-        <fo:static-content flow-name="xsl-region-after">
-            <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                ${uiLabelMap.CommonPage} <fo:page-number/>
-            </fo:block>
-        </fo:static-content>
--->
+
         <fo:flow flow-name="xsl-region-body">
 
-<!--  nota: titolo    -->
-<!--        <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always"> -->
-
-<!--
-            <fo:block line-height="20pt" font-weight="bold" font-size="18pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                ${uiLabelMap.ManufacturingProductionRun}
-            </fo:block> 
--->
-<!-- inizio riquadro -->
 <fo:table table-layout="fixed">
              <fo:table-column column-width="18.00cm"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
-<!--  nota: righe o celle di testata - 1� riga intestazione  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
@@ -94,7 +77,7 @@ Doc.C
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle di testata - 1� riga valore  -->
+
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
               <fo:table-column column-width="2.00cm"/>
@@ -126,7 +109,6 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 2� riga intestazioni  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
@@ -158,7 +140,7 @@ Doc.C
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle di testata - 2� riga valori  -->
+
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="4.00cm"/>
               <fo:table-column column-width="2.00cm"/>
@@ -198,7 +180,6 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 3� riga intestazioni  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="2.50cm"/>
@@ -291,7 +272,6 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 4� riga valori (numero etichette)  -->
 
             <fo:table text-align="left" table-layout="fixed">
               <fo:table-column column-width="5.00cm"/>
@@ -312,7 +292,6 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!--  nota: righe o celle di testata - 5� riga labels (riga del codice)  -->
 
             <fo:table text-align="center" table-layout="fixed">
               <fo:table-column column-width="3.00cm"/>
@@ -344,7 +323,7 @@ Doc.C
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-<!--  nota: righe o celle di testata - 5� riga value (riga del codice)  -->
+
             <fo:table text-align="left" table-layout="fixed">
               <fo:table-column column-width="3.00cm"/>
               <fo:table-column column-width="8.00cm"/>
@@ -376,7 +355,6 @@ Doc.C
                 </fo:table-body>
             </fo:table>
 
-<!-- fine riquadro -->
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
