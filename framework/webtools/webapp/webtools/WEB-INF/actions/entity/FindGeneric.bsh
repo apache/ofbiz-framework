@@ -109,7 +109,6 @@ context.put("viewSize", viewSize);
 int lowIndex = viewIndex*viewSize+1;
 int highIndex = (viewIndex+1)*viewSize;
 context.put("lowIndex", lowIndex);
-context.put("highIndex", highIndex);
 
 int arraySize = 0;
 List resultPartialList = null;
@@ -151,6 +150,7 @@ if ("true".equals(find)) {
         }
     }
 }
+context.put("highIndex", highIndex);
 context.put("arraySize", arraySize);
 context.put("resultPartialList", resultPartialList);
 
