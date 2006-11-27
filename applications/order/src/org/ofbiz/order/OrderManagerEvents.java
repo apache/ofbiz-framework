@@ -174,7 +174,6 @@ public class OrderManagerEvents {
         }
 
         Iterator pmti = paymentMethodTypes.iterator();
-        double paymentTally = 0.00;
         while (pmti.hasNext()) {
             GenericValue paymentMethodType = (GenericValue) pmti.next();
             String paymentMethodTypeId = paymentMethodType.getString("paymentMethodTypeId");
@@ -189,7 +188,6 @@ public class OrderManagerEvents {
                     return "error";
                 }
                 if (paymentTypeAmount > 0.00) {
-                    paymentTally += paymentTypeAmount;
 
                     // create the OrderPaymentPreference
                     // TODO: this should be done with a service
@@ -236,6 +234,7 @@ public class OrderManagerEvents {
         // get the current payment prefs
         GenericValue offlineValue = null;
         List currentPrefs = null;
+        double paymentTally = 0.00;
         try {
             List oppFields = UtilMisc.toList(new EntityExpr("orderId", EntityOperator.EQUALS, orderId),
                     new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
