@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-
 <#--
 Copyright 2001-2006 The Apache Software Foundation
 
@@ -18,6 +16,7 @@ under the License.
 -->
 
 <#escape x as x?xml>
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#-- do not display columns associated with values specified in the request, ie constraint values -->
 <#assign showProductStore = !parameters.productStoreId?has_content>
