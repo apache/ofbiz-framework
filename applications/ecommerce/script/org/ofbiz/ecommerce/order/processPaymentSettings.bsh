@@ -1,0 +1,80 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.order.shoppingcart.CheckOutHelper;
+import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
+
+cart = ShoppingCartEvents.getCartObject(request);
+LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+
+paymentMethodTypeId = request.getParameter("paymentMethodTypeId");
+Map callResult = ServiceUtil.returnSuccess();
+List errorMessages = new ArrayList();
+Map errorMaps = new HashMap();
+
+if(paymentMethodTypeId != null){
+    paymentMethodId = (String) request.getAttribute("paymentMethodId");
+    if ("EXT_OFFLINE".equals(paymentMethodTypeId)) {
+        paymentMethodId = "EXT_OFFLINE";            
+    }
+    singleUsePayment = request.getParameter("singleUsePayment");
+    appendPayment = request.getParameter("appendPayment");
+    boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
+    boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
+    callResult = checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, isSingleUsePayment, doAppendPayment);
+    ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
+}
+
+if (errorMessages.size() == 0 && errorMaps.size() == 0) {
+    Map selPaymentMethods = null;   
+    Map paramMap = UtilHttp.getParameterMap(request);
+    addGiftCard = request.getParameter("addGiftCard");
+    if("Y".equalsIgnoreCase(addGiftCard)){
+        selPaymentMethods = UtilMisc.toMap(paymentMethodTypeId, null);
+        callResult = checkOutHelper.checkGiftCard(paramMap, selPaymentMethods);
+        ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
+        if (errorMessages.size() == 0 && errorMaps.size() == 0) {
+           String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
+            Double giftCardAmount = (Double) callResult.get("amount");
+            Map gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
+            ServiceUtil.addErrors(errorMessages, errorMaps, gcCallRes);
+        }
+    }
+}
+
+//See whether we need to return an error or not
+callResult = ServiceUtil.returnSuccess();
+if (errorMessages.size() > 0 || errorMaps.size() > 0) {
+    request.setAttribute(ModelService.ERROR_MESSAGE_LIST, errorMessages);
+    request.setAttribute(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+    return "error";
+}
+return "success";

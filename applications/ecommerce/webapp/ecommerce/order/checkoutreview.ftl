@@ -42,7 +42,7 @@ under the License.
   <table border="0" cellpadding="1" width="100%">
    <tr>
       <td colspan="4" align="left">
-        <a href="<@ofbizUrl>${requestParameters.BACK_PAGE?default("setBilling")}</@ofbizUrl>" class="buttontextbig">${uiLabelMap.CommonBackToOptions}</a>
+        &nbsp;
       </td>
       <td align="right">
         <form type="POST" action="<@ofbizUrl>processorder</@ofbizUrl>" name="processForm">

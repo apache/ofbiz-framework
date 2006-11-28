@@ -290,101 +290,107 @@ under the License.
         <response name="success" type="view" value="showPromotionDetails"/>
     </request-map>
 
-    <!-- anonymous checkout requests -->
+    <!-- Start Anonymous checkout requests -->
     <request-map uri="setCustomer">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="custsetting"/>
     </request-map>
-    <request-map uri="setBasicInfo">
+    <request-map uri="processCustomerSettings">
         <security https="true" auth="false"/>
-        <event type="simple" path="org/ofbiz/order/customer/CustomerEvents.xml" invoke="createCustomer"/>
-        <response name="success" type="request" value="finalizeOrder"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processCustomerSettings"/>
+        <response name="success" type="request" value="setShipping"/>
         <response name="error" type="view" value="custsetting"/>
     </request-map>
+
     <request-map uri="setShipping">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="shipsetting"/>
     </request-map>
-    <request-map uri="enterShippingAddress">
+    <request-map uri="processShipSettings">
         <security https="true" auth="false"/>
-        <event type="service" invoke="createPartyPostalAddress"/>
-        <response name="success" type="request" value="finalizeOrder"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipSettings"/>
+        <response name="success" type="request" value="setShipOptions"/>
         <response name="error" type="view" value="shipsetting"/>
     </request-map>
-    <request-map uri="changeShippingAddress">
-        <security https="true" auth="false"/>
-        <event type="service" invoke="updatePartyPostalAddress"/>
-        <response name="success" type="request" value="finalizeOrder"/>
-        <response name="error" type="view" value="shipsetting"/>
-    </request-map>
+
     <request-map uri="setShipOptions">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="optionsetting"/>
     </request-map>
-    <request-map uri="setBilling">
+	
+    <request-map uri="processShipOptions">
         <security https="true" auth="false"/>
-        <response name="success" type="view" value="billsetting"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipOptions"/>
+        <response name="success" type="request" value="setPaymentOption"/>
+        <response name="error" type="view" value="optionsetting"/>
     </request-map>
+
+    <request-map uri="setPaymentOption">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="paymentoptions"/>
+    </request-map>
+	
+	<request-map uri="setPaymentInformation">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="paymentinformation"/>
+    </request-map>
+	
     <request-map uri="enterCreditCardAndBillingAddress">
         <security https="true" auth="false"/>
         <event type="service" path="" invoke="createCreditCardAndAddress"/>
-        <response name="success" type="request" value="finalizeOrder"/>
-        <response name="error" type="view" value="billsetting"/>
+        <response name="success" type="request" value="processPaymentSettings"/>
+        <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="enterCreditCard">
         <security https="true" auth="false"/>
         <event type="service" path="" invoke="createCreditCard"/>
-        <response name="success" type="request" value="finalizeOrder"/>
-        <response name="error" type="view" value="billsetting"/>
+        <response name="success" type="request" value="processPaymentSettings"/>
+        <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="changeCreditCardAndBillingAddress">
         <security https="true" auth="false"/>
         <event type="service" path="" invoke="updateCreditCardAndAddress"/>
-        <response name="success" type="request" value="finalizeOrder"/>
-        <response name="error" type="view" value="billsetting"/>
+        <response name="success" type="request" value="processPaymentSettings"/>
+        <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="enterEftAccountAndBillingAddress">
         <security https="true" auth="false"/>
         <event type="service" path="" invoke="createEftAccountAndAddress"/>
-        <response name="success" type="request" value="finalizeOrder"/>
-        <response name="error" type="view" value="billsetting"/>
+        <response name="success" type="request" value="processPaymentSettings"/>
+        <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="enterEftAccount">
         <security https="true" auth="false"/>
         <event type="service" path="" invoke="createEftAccount"/>
-        <response name="success" type="request" value="finalizeOrder"/>
-        <response name="error" type="view" value="billsetting"/>
+        <response name="success" type="request" value="processPaymentSettings"/>
+        <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="changeEftAccountAndBillingAddress">
         <security https="true" auth="false"/>
         <event type="service" path="" invoke="updateEftAccountAndAddress"/>
-        <response name="success" type="request" value="finalizeOrder"/>
-        <response name="error" type="view" value="billsetting"/>
+        <response name="success" type="request" value="processPaymentSettings"/>
+        <response name="error" type="view" value="paymentinformation"/>
     </request-map>
-    <request-map uri="finalizeOrder">
+
+    <request-map uri="processPaymentSettings">
+       <security https="true" auth="false"/>
+       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
+       <response name="success" type="request" value="reviewOrder"/>
+       <response name="error" type="view" value="paymentinformation"/>
+   </request-map>
+
+    <request-map uri="reviewOrder">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="finalizeOrderEntry"/>
-        <response name="customer" type="view" value="custsetting"/>
-        <response name="shipping" type="view" value="shipsetting"/>
-        <response name="options" type="view" value="optionsetting"/>
-        <response name="payment" type="view" value="billsetting"/>
-        <response name="addparty" type="request" value="calcShipping"/> <!-- this actually wants to go to a page to set another party, but for ecommerce we'll skip it and go to the beginning of the chain for review and checkout -->
-        <response name="paysplit" type="view" value="checkoutpayment"/>
-        <response name="sales" type="request" value="calcShipping"/>
-        <response name="error" type="request" value="finalizeOrderError"/>
+        <response name="success" type="view" value="orderreview"/>
     </request-map>
-    <request-map uri="finalizeOrderError">
-        <security direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="finalizeOrderEntryError"/>
-        <response name="customer" type="view" value="custsetting"/>
-        <response name="shipping" type="view" value="shipsetting"/>
-        <response name="options" type="view" value="optionsetting"/>
-        <response name="payment" type="view" value="billsetting"/>
-        <response name="paysplit" type="view" value="checkoutpayment"/>
-        <response name="sales" type="request" value="calcShipping"/>
-        <response name="error" type="view" value="showcart"/>
+
+    <request-map uri="createOrder">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createOrder"/>
+        <response name="error" type="view" value="checkoutreview"/>
+        <response name="success" type="view" value="checkoutreview"/>
     </request-map>
-    <!-- end of anonymous checkout requests -->
+    <!-- End Anonymous checkout requests -->
 
     <request-map uri="checkoutpayment">
         <security https="true" auth="true"/>
@@ -1190,6 +1196,32 @@ under the License.
         <response name="success" type="request" value="finalizeOrder"/>
         <response name="error" type="view" value="ViewQuote"/>
     </request-map>
+    
+    <!-- NOTE: the finalizeOrder, finalizeOrderError requests are now only used from the loadCartFromQuote request -->
+    <request-map uri="finalizeOrder">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="finalizeOrderEntry"/>
+        <response name="customer" type="view" value="custsetting"/>
+        <response name="shipping" type="view" value="shipsetting"/>
+        <response name="options" type="view" value="optionsetting"/>
+        <response name="payment" type="view" value="billsetting"/>
+        <response name="addparty" type="request" value="calcShipping"/> <!-- this actually wants to go to a page to set another party, but for ecommerce we'll skip it and go to the beginning of the chain for review and checkout -->
+        <response name="paysplit" type="view" value="checkoutpayment"/>
+        <response name="sales" type="request" value="calcShipping"/>
+        <response name="error" type="request" value="finalizeOrderError"/>
+    </request-map>
+    <request-map uri="finalizeOrderError">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="finalizeOrderEntryError"/>
+        <response name="customer" type="view" value="custsetting"/>
+        <response name="shipping" type="view" value="shipsetting"/>
+        <response name="options" type="view" value="optionsetting"/>
+        <response name="payment" type="view" value="billsetting"/>
+        <response name="paysplit" type="view" value="checkoutpayment"/>
+        <response name="sales" type="request" value="calcShipping"/>
+        <response name="error" type="view" value="showcart"/>
+    </request-map>
+    
     <request-map uri="ListRequests">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListRequests"/>
@@ -1253,8 +1285,9 @@ under the License.
     <!-- Order Views -->
     <view-map name="custsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#custsettings"/>
     <view-map name="shipsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#shipsettings"/>
-    <view-map name="billsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#billsettings"/>
     <view-map name="optionsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#optionsettings"/>
+    <view-map name="paymentoptions" type="screen" page="component://ecommerce/widget/OrderScreens.xml#paymentoptions"/>
+	<view-map name="paymentinformation" type="screen" page="component://ecommerce/widget/OrderScreens.xml#paymentinformation"/>
 
     <view-map name="quickcheckout" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutoptions"/>
     <view-map name="checkoutshippingaddress" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutshippingaddress"/>
@@ -1263,6 +1296,8 @@ under the License.
     <view-map name="splitship" type="screen" page="component://ecommerce/widget/OrderScreens.xml#splitship"/>
 
     <view-map name="checkoutreview" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutreview"/>
+    <view-map name="orderreview" type="screen" page="component://ecommerce/widget/OrderScreens.xml#orderreview"/>    
+    <view-map name="billsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#billsettings"/>
     <view-map name="ordercomplete" type="screen" page="component://ecommerce/widget/OrderScreens.xml#ordercomplete"/>
 
     <view-map name="orderhistory" type="screen" page="component://ecommerce/widget/OrderScreens.xml#orderhistory"/>

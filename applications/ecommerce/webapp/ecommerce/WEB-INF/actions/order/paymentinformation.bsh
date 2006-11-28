@@ -1,0 +1,117 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.accounting.payment.*;
+import org.ofbiz.order.shoppingcart.*;
+import org.ofbiz.party.contact.*;
+
+cart = ShoppingCartEvents.getCartObject(request);
+context.put("cart", cart);
+
+partyId = cart.getPartyId();
+currencyUomId = cart.getCurrency();
+
+if (partyId == null) {
+    userLogin = session.getAttribute("userLogin");
+    partyId = userLogin.getString("partyId");
+}
+context.put("partyId", partyId);
+
+if (partyId != null && !partyId.equals("_NA_")) {
+    party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+    person = party.getRelatedOne("Person");
+    context.put("party", party);
+    context.put("person", person);
+}
+
+// nuke the event messages
+request.removeAttribute("_EVENT_MESSAGE_");
+
+if (parameters.get("useShipAddr") != null && cart.getShippingContactMechId() != null) {
+    shippingContactMech = cart.getShippingContactMechId();
+    postalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMech));
+    context.put("useEntityFields", "Y");
+    context.put("postalAddress", postalAddress);
+
+    if (postalAddress != null && partyId != null) {
+        partyContactMechs = delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", postalAddress.get("contactMechId")), UtilMisc.toList("-fromDate"));
+        partyContactMechs = EntityUtil.filterByDate(partyContactMechs);
+        partyContactMech = EntityUtil.getFirst(partyContactMechs);
+        context.put("partyContactMech", partyContactMech);
+    }
+} else {
+    context.put("postalAddress", UtilHttp.getParameterMap(request));
+}
+
+if (cart != null) {
+    if (cart.getPaymentMethodIds() != null && cart.getPaymentMethodIds().size() > 0) {
+        paymentMethods = cart.getPaymentMethods();
+        paymentMethodIter = paymentMethods.iterator();
+        while (paymentMethodIter.hasNext()) {
+            paymentMethod = (GenericValue)paymentMethodIter.next();
+            account = null;
+            if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
+                account = paymentMethod.getRelatedOne("CreditCard");
+                context.put("creditCard", account);
+                context.put("paymentMethodTypeId", "CREDIT_CARD");
+            } else if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("EFT_ACCOUNT")) {
+                account = paymentMethod.getRelatedOne("EftAccount");
+                context.put("eftAccount", account);
+                context.put("paymentMethodTypeId", "EFT_ACCOUNT");
+            } else if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("GIFT_CARD")) {
+                account = paymentMethod.getRelatedOne("GiftCard");
+                context.put("giftCard", account);
+                context.put("paymentMethodTypeId", "GIFT_CARD");
+                context.put("addGiftCard","Y");
+            } else {
+                context.put("paymentMethodTypeId", "EXT_OFFLINE");
+            }
+            if (account != null && parameters.get("useShipAddr") == null) {
+                address = account.getRelatedOne("PostalAddress");
+                context.put("postalAddress", address);
+            }
+        }        
+    } 
+}
+
+if(parameters.get("useShipAddr") == null){
+    if (cart != null && postalAddress !=null){
+    postalAddress = context.get("postalAddress");
+    shippingContactMechId = cart.getShippingContactMechId();
+    contactMechId = postalAddress.get("contactMechId");
+       if(shippingContactMechId.equals(contactMechId)){
+           context.put("useShipAddr","Y");
+       } 
+    }
+}else{
+    context.put("useShipAddr",parameters.get("useShipAddr"));    
+}
+
+// Added here to satisfy genericaddress.ftl 
+if(context.get("postalAddress") != null){
+    postalAddress = context.get("postalAddress");
+    parameters.put("address1",postalAddress.get("address1"));
+    parameters.put("address2",postalAddress.get("address2"));
+    parameters.put("city",postalAddress.get("city"));
+    parameters.put("stateProvinceGeoId",postalAddress.get("stateProvinceGeoId"));
+    parameters.put("postalCode",postalAddress.get("postalCode"));
+    parameters.put("countryGeoId",postalAddress.get("countryGeoId"));
+    parameters.put("contactMechId",postalAddress.get("contactMechId"));
+}

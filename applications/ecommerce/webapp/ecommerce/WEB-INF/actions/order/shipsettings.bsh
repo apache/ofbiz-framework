@@ -1,5 +1,4 @@
 /*
- *
  * Copyright 2001-2006 The Apache Software Foundation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -22,14 +21,9 @@ import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.catalog.*;
 
-delegator = request.getAttribute("delegator");
 cart = session.getAttribute("shoppingCart");
 partyId = cart.getPartyId();
-
 context.put("cart", cart);
-
-Debug.log("party ID : " + partyId);
-Debug.log("ul: " + session.getAttribute("userLogin"));
 
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");
@@ -42,19 +36,39 @@ if (partyId != null && !partyId.equals("_NA_")) {
 }
 
 if (cart != null && cart.getShippingContactMechId() != null) {
-    shippingContactMech = cart.getShippingContactMechId();
-    postalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMech));
-    context.put("useEntityFields", "Y");
-    context.put("postalFields", postalAddress);
+    shippingContactMechId = cart.getShippingContactMechId();
+    shippingPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+ 	   UtilMisc.toMap("partyId", partyId, "contactMechId", shippingContactMechId)), true));
+    parameters.put("shippingContactMechId", shippingPartyContactDetail.get("contactMechId"));
 
-    if (postalAddress != null && partyId != null) {
-        partyContactMechs = delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", postalAddress.get("contactMechId")), UtilMisc.toList("-fromDate"));
-        partyContactMechs = EntityUtil.filterByDate(partyContactMechs);
-        partyContactMech = EntityUtil.getFirst(partyContactMechs);
-        context.put("partyContactMech", partyContactMech);
+    fullAddressBuf = new StringBuffer();
+    fullAddressBuf.append(shippingPartyContactDetail.get("address1"));
+    if (shippingPartyContactDetail.get("address2") != null) {
+        fullAddressBuf.append(", ");
+        fullAddressBuf.append(shippingPartyContactDetail.get("address2"));
     }
+    fullAddressBuf.append(", ");
+    fullAddressBuf.append(shippingPartyContactDetail.get("city"));
+    fullAddressBuf.append(", ");
+    fullAddressBuf.append(shippingPartyContactDetail.get("postalCode"));
+    parameters.put("fullAddress", fullAddressBuf.toString());
+
+    // NOTE: these parameters are a special case because they might be filled in by the address lookup service, so if they are there we won't fill in over them...
+    if (parameters.get("postalCode") == null) { 
+        parameters.put("attnName", shippingPartyContactDetail.get("attnName"));
+        parameters.put("address1", shippingPartyContactDetail.get("address1"));
+        parameters.put("address2", shippingPartyContactDetail.get("address2"));
+        parameters.put("city", shippingPartyContactDetail.get("city"));
+        parameters.put("postalCode", shippingPartyContactDetail.get("postalCode"));
+        parameters.put("stateProvinceGeoId", shippingPartyContactDetail.get("stateProvinceGeoId"));
+        parameters.put("countyGeoId", shippingPartyContactDetail.get("countyGeoId"));
+        parameters.put("allowSolicitation", shippingPartyContactDetail.get("allowSolicitation"));
+    }
+
+    parameters.put("yearsAtAddress", shippingPartyContactDetail.get("yearsWithContactMech"));
+    parameters.put("monthsAtAddress", shippingPartyContactDetail.get("monthsWithContactMech"));
 } else {
     context.put("postalFields", UtilHttp.getParameterMap(request));
 }
-
+        
 

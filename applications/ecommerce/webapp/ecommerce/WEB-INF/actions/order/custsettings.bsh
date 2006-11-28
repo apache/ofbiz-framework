@@ -1,0 +1,99 @@
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.util.EntityUtil;
+
+partyId = null;
+
+userLogin = context.get("userLogin");
+if (userLogin != null) {
+    partyId = userLogin.get("partyId");
+} 
+
+if (partyId == null && parameters.get("partyId") != null) {
+    partyId = parameters.get("partyId");
+}
+
+if (partyId != null) {
+    parameters.put("partyId", partyId);
+
+    // NOTE: if there was an error, then don't look up and fill in all of this data, just use the values from the previous request (which will be in the parameters Map automagically)
+    if (request.getAttribute("_ERROR_MESSAGE_") == null && request.getAttribute("_ERROR_MESSAGE_LIST_") == null) {
+        person = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
+        if (person != null) {
+            // should never be null for the anonymous checkout, but just in case
+            parameters.put("personalTitle", person.get("personalTitle"));
+            parameters.put("firstName", person.get("firstName"));
+            parameters.put("middleName", person.get("middleName"));
+            parameters.put("lastName", person.get("lastName"));
+            parameters.put("suffix", person.get("suffix"));
+            
+            //Parameters not in use, Do we really need these here or should be removed.
+            parameters.put("residenceStatusEnumId", person.get("residenceStatusEnumId"));
+            parameters.put("maritalStatus", person.get("maritalStatus"));
+            parameters.put("employmentStatusEnumId", person.get("employmentStatusEnumId"));
+            parameters.put("occupation", person.get("occupation"));
+            parameters.put("yearsWithEmployer", person.get("yearsWithEmployer"));
+            parameters.put("monthsWithEmployer", person.get("monthsWithEmployer"));
+            parameters.put("existingCustomer", person.get("existingCustomer"));
+            
+            // birthDate -> birthDateDay, birthDateMonth, birthDateYear
+            birthDate = person.get("birthDate");
+            if (birthDate != null) {
+                // will be in the format "yyyy-mm-dd", like "2006-10-21"
+                birthDateString = birthDate.toString();
+                parameters.put("birthDateDay", birthDateString.substring(8));
+                parameters.put("birthDateMonth", birthDateString.substring(5, 7));
+                parameters.put("birthDateYear", birthDateString.substring(0, 4));
+                // and finally, the whole thing, just in case we want it that way
+                parameters.put("birthDate", birthDateString);
+            }
+        }
+    
+        // get the Email Address
+        emailPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_EMAIL")), true));
+        if (emailPartyContactDetail != null) {
+            parameters.put("emailContactMechId", emailPartyContactDetail.get("contactMechId"));
+            parameters.put("emailAddress", emailPartyContactDetail.get("infoString"));
+            parameters.put("emailSol", emailPartyContactDetail.get("allowSolicitation"));
+        }
+        
+        // get the Phone Numbers
+        homePhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PHONE_HOME")), true));
+        if (homePhonePartyContactDetail != null) {
+            parameters.put("homePhoneContactMechId", homePhonePartyContactDetail.get("contactMechId"));
+            parameters.put("homeCountryCode", homePhonePartyContactDetail.get("countryCode"));
+            parameters.put("homeAreaCode", homePhonePartyContactDetail.get("areaCode"));
+            parameters.put("homeContactNumber", homePhonePartyContactDetail.get("contactNumber"));
+            parameters.put("homeExt", homePhonePartyContactDetail.get("extension"));
+            parameters.put("homeSol", homePhonePartyContactDetail.get("allowSolicitation"));
+        }
+        
+        workPhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PHONE_WORK")), true));
+        if (workPhonePartyContactDetail != null) {
+            parameters.put("workPhoneContactMechId", workPhonePartyContactDetail.get("contactMechId"));
+            parameters.put("workCountryCode", workPhonePartyContactDetail.get("countryCode"));
+            parameters.put("workAreaCode", workPhonePartyContactDetail.get("areaCode"));
+            parameters.put("workContactNumber", workPhonePartyContactDetail.get("contactNumber"));
+            parameters.put("workExt", workPhonePartyContactDetail.get("extension"));
+            parameters.put("workSol", workPhonePartyContactDetail.get("allowSolicitation"));
+        }
+    }
+}

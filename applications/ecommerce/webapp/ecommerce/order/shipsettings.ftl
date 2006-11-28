@@ -1,5 +1,4 @@
 <#--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -17,24 +16,12 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxlink">
-            <div class="tabletext">
-              ${screens.render(anonymoustrailScreen)}
-            </div>
-        </div>
         <div class='boxhead'>&nbsp;${uiLabelMap.OrderShippingInformation}</div>
     </div>
     <div class="screenlet-body">
-        <#if useEntityFields?default("N") == "Y">
-          <form method="post" action="<@ofbizUrl>changeShippingAddress</@ofbizUrl>" name="shipsetupform">
-            <input type="hidden" name="contactMechId" value="${(postalFields.contactMechId)?if_exists}"/>
-        <#else>
-          <form method="post" action="<@ofbizUrl>enterShippingAddress</@ofbizUrl>" name="shipsetupform">
-            <input type="hidden" name="contactMechTypeId" value="POSTAL_ADDRESS"/>
-            <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-        </#if>
+      <form method="post" action="<@ofbizUrl>processShipSettings</@ofbizUrl>" name="shipsetupform">
+        <input type="hidden" name="contactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
         <input type="hidden" name="partyId" value="${cart.getPartyId()?default("_NA_")}"/>
-        <input type="hidden" name="finalizeMode" value="ship"/>
 
         <table width="100%" border="0" cellpadding="1" cellspacing="0">
           <tr>
@@ -42,7 +29,7 @@ under the License.
             <td width="5">&nbsp;</td>
             <td width="74%">&nbsp;</td>
           </tr>
-          ${screens.render("component://ecommerce/widget/OrderScreens.xml#genericaddress")}
+            ${screens.render("component://ecommerce/widget/OrderScreens.xml#genericaddress")}
           <tr>
             <td colspan="3" align="center"><input type="submit" class="smallsubmit" value="${uiLabelMap.CommonContinue}"/></td>
           </tr>

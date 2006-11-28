@@ -1,5 +1,4 @@
 <#--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -16,7 +15,7 @@ under the License.
 -->
 
 <#-- generic address information -->
-<#assign toName = (postalFields.toName)?if_exists>
+<#assign toName = (parameters.toName)?if_exists>
 <#if !toName?has_content && person?exists && person?has_content>
   <#assign toName = "">
   <#if person.personalTitle?has_content><#assign toName = person.personalTitle + " "></#if>
@@ -37,28 +36,28 @@ under the License.
   <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAttentionName}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value="${(postalFields.attnName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+    <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value="${(parameters.attnName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
   </td>
 </tr>
 <tr>
   <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine1}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value="${(postalFields.address1)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+    <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value="${(parameters.address1)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
   *</td>
 </tr>
 <tr>
   <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value="${(postalFields.address2)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+    <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value="${(parameters.address2)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
   </td>
 </tr>
 <tr>
   <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCity}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="30" name="city" value="${(postalFields.city)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+    <input type="text" class="inputBox" size="30" maxlength="30" name="city" value="${(parameters.city)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
   *</td>
 </tr>
 <tr>
@@ -66,21 +65,22 @@ under the License.
   <td width="5">&nbsp;</td>
   <td width="74%">
     <select name="stateProvinceGeoId" class="selectBox" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-      <#if (postalFields.stateProvinceGeoId)?exists>
-        <option>${postalFields.stateProvinceGeoId}</option>
-        <option value="${postalFields.stateProvinceGeoId}">---</option>
+      <#if (parameters.stateProvinceGeoId)?exists>
+        <#assign findGeoMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.stateProvinceGeoId)>
+        <#assign stateGeo = delegator.findByPrimaryKeyCache("Geo", findGeoMap)>        <option>${parameters.stateProvinceGeoId}</option>
+        <option value="${parameters.stateProvinceGeoId}">---</option>
       <#else>
         <option value="">${uiLabelMap.PartyNoState}</option>
       </#if>
       ${screens.render("component://common/widget/CommonScreens.xml#states")}
     </select>
-  </td>
+  *</td>
 </tr>
 <tr>
   <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyZipCode}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value="${(postalFields.postalCode)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+    <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value="${(parameters.postalCode)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
   *</td>
 </tr>
 <tr>
@@ -88,9 +88,9 @@ under the License.
   <td width="5">&nbsp;</td>
   <td width="74%">
     <select name="countryGeoId" class="selectBox" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-      <#if (postalFields.countryGeoId)?exists>
-        <option>${postalFields.countryGeoId}</option>
-        <option value="${postalFields.countryGeoId}">---</option>
+      <#if (parameters.countryGeoId)?exists>
+        <option>${parameters.countryGeoId}</option>
+        <option value="${parameters.countryGeoId}">---</option>
       </#if>
       ${screens.render("component://common/widget/CommonScreens.xml#countries")}
     </select>
@@ -101,9 +101,9 @@ under the License.
   <td width="5">&nbsp;</td>
   <td width="74%">
     <select name="allowSolicitation" class='selectBox' <#if requestParameters.useShipAddr?exists>disabled</#if>>
-      <#if (partyContactMech.allowSolicitation)?exists>
-        <option>${partyContactMech.allowSolicitation}</option>
-        <option value="${partyContactMech.allowSolicitation}">---</option>
+      <#if (parameters.allowSolicitation)?exists>
+        <option>${parameters.allowSolicitation}</option>
+        <option value="${parameters.allowSolicitation}">---</option>
       </#if>
       <option>${uiLabelMap.CommonY}</option><option>${uiLabelMap.CommonN}</option>
     </select>
