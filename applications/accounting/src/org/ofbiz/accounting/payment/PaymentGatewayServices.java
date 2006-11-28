@@ -2317,6 +2317,12 @@ public class PaymentGatewayServices {
         return capTrans;
     }
 
+    /**
+     * Gets the chronologically latest PaymentGatewayResponse from an OrderPaymentPreference which is either a PRDS_PAY_AUTH
+     * or PRDS_PAY_REAUTH.  Used for capturing.  
+     * @param orderPaymentPreference
+     * @return
+     */
     public static GenericValue getAuthTransaction(GenericValue orderPaymentPreference) {
         GenericValue authTrans = null;
         try {
