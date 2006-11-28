@@ -1720,7 +1720,7 @@ public class ModelFormField {
                 retVal = modelFormField.getEntry(context);
             }
             if (retVal == null || retVal.length() == 0) {
-                retVal = "&#160;";
+                retVal = "";
             } else if ("currency".equals(type)) { 
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) locale = Locale.getDefault();
@@ -1834,7 +1834,7 @@ public class ModelFormField {
                 retVal = fieldValue;
             }
             if (retVal == null || retVal.length() == 0) {
-                retVal = "&#160;";
+                retVal = "";
             }
             return retVal;
         }
