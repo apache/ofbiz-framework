@@ -50,6 +50,8 @@ under the License.
     <entity-group group="org.ofbiz" entity="WorkEffortAttribute" />
     <entity-group group="org.ofbiz" entity="WorkEffortBilling" />
     <entity-group group="org.ofbiz" entity="WorkEffortContactMech" />    
+    <entity-group group="org.ofbiz" entity="WorkEffortContent" />    
+    <entity-group group="org.ofbiz" entity="WorkEffortContentType" />    
     <entity-group group="org.ofbiz" entity="WorkEffortDeliverableProd" />
     <entity-group group="org.ofbiz" entity="WorkEffortFixedAssetAssign" />
     <entity-group group="org.ofbiz" entity="WorkEffortFixedAssetStd" />
@@ -80,6 +82,4 @@ under the License.
     <entity-group group="org.ofbiz" entity="WorkEffortCustRequestItemView" />
     <entity-group group="org.ofbiz" entity="WorkEffortCustRequestView" />
     <entity-group group="org.ofbiz" entity="WorkEffortRequirementView" />
-    
 </entitygroup>
-
