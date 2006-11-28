@@ -632,6 +632,22 @@ public class ShoppingCartServices {
         // initial required cart info
         String productStoreId = shoppingList.getString("productStoreId");
         String currency = shoppingList.getString("currencyUom");
+        // If no currency has been set in the ShoppingList, use the ProductStore default currency
+        if (currency == null) {
+            try {
+                GenericValue productStore = shoppingList.getRelatedOne("ProductStore");
+                if (productStore != null) {
+                    currency = productStore.getString("defaultCurrencyUomId");
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+        // If we still have no currency, use the default from general.properties.  Failing that, use USD
+        if (currency == null) {
+                currency = UtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD");
+        }
 
         // create the cart
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currency);
