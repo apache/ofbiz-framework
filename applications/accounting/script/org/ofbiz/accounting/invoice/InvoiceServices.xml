@@ -424,7 +424,7 @@ under the License.
     <simple-method method-name="removeInvoiceRole" short-description="Remove existing Invoice Role">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
         <entity-one entity-name="InvoiceRole" value-name="lookedUpValue"/>
-        <remove-value value-name="lookupPKMap"/>
+        <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="setInvoiceStatus" short-description="Set The Invoice Status">
