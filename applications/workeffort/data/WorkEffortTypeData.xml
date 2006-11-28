@@ -176,6 +176,11 @@ under the License.
     <!-- For Routing definition, (workEffort Template) -->
     <WorkEffortAssocType description="Routing and Routing Task Association" hasTable="N" parentTypeId="" workEffortAssocTypeId="ROUTING_COMPONENT"/>
     
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_SPEC" description="Project Specification" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="PROPOSAL_MEDIA" description="Proposal Media" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="SUPPORTING_MEDIA" description="Supporting Media" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="CREATED_MEDIA" description="Created Media" parentTypeId=""/>
+    
     <WorkflowParticipantType description="A set of resource" hasTable="N" parentTypeId="" participantTypeId="RESOURCE_SET" typeCode="RESOURCE_SET"/>
     <WorkflowParticipantType description="A specific resource agent" hasTable="N" parentTypeId="" participantTypeId="RESOURCE" typeCode="RESOURCE"/>
     <WorkflowParticipantType description="Specifies a role that may map to a group of humans" hasTable="N" parentTypeId="" participantTypeId="ROLE" typeCode="ROLE"/>

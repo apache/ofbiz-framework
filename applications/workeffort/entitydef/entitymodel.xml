@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -469,6 +468,35 @@ under the License.
       <relation type="one-nofk" rel-entity-name="TelecomNumber">
         <key-map field-name="contactMechId"/>
       </relation>
+    </entity>
+    <entity entity-name="WorkEffortContent" package-name="org.ofbiz.workeffort.workeffort" title="WorkEffort Content Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="workEffortContentTypeId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="workEffortId"/>
+        <prim-key field="contentId"/>
+        <prim-key field="workEffortContentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="WKEFF_CNT_WKEFF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one" fk-name="WKEFF_CNT_CNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="WKEFF_CNT_WCTP" rel-entity-name="WorkEffortContentType">
+            <key-map field-name="workEffortContentTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="WorkEffortContentType" package-name="org.ofbiz.workeffort.workeffort" title="WorkEffort Content Type Entity">
+        <field name="workEffortContentTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="workEffortContentTypeId"/>
+        <relation type="one" fk-name="WEFFCTP_TP_PAR" title="Parent" rel-entity-name="WorkEffortContentType">
+            <key-map field-name="parentTypeId" rel-field-name="workEffortContentTypeId"/>
+        </relation>
     </entity>
     <entity entity-name="WorkEffortDeliverableProd"
             package-name="org.ofbiz.workeffort.workeffort"
