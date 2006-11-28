@@ -23,12 +23,10 @@ under the License.
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
  
-        <field name="description"><text size="60"/></field>
- 
-        <field use-when="billingAccount!=null" name="billingAccountId" title="${uiLabelMap.PartyParty}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
-        <field use-when="billingAccount==null&amp;&amp;billingAccountId==null" name="billingAccountId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName"/></field>
-        <field use-when="billingAccount==null&amp;&amp;billingAccountId!=null" name="billingAccountId" title="${uiLabelMap.PartyParty}" tooltip="${uiLabelMap.CommonCannotBeFound}:[${billingAccountId}]"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="description"><text size="60"/></field> 
         
+        <field use-when="billingAccount!=null" name="billingAccountId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+                
         <field name="accountCurrencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="USD">
                 <entity-options entity-name="Uom" description="[${abbreviation}] ${description}" key-field-name="uomId">
