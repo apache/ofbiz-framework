@@ -58,14 +58,14 @@ under the License.
         <#if paymentMethodId?has_content><input type='hidden' name='paymentMethodId' value='${paymentMethodId}'></#if>
     <#else>
       <p class="head1">${uiLabelMap.PartyEditContactInfo}</p>
-      &nbsp;<a href='<@ofbizUrl>authview/${donePage}</@ofbizUrl>' class='buttontext'>[${uiLabelMap.CommonGoBack}]</a>
-      &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">[${uiLabelMap.CommonSave}]</a>
+      &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
+      &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
         <tr>
           <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.PartyContactPurposes}</div></td>
           <td width="5">&nbsp;</td>
           <td width="74%">
-            <table border='0' cellspacing='1' bgcolor='black'>
+            <table border="0" cellspacing="1" bgcolor="black">
               <#list partyContactMechPurposes?if_exists as partyContactMechPurpose>
                 <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                 <tr>
@@ -218,9 +218,10 @@ under the License.
   </table>
 
     &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
-    &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">${uiLabelMap.CommonSave}]</a>
+    &nbsp;<a href="javascript:document.editcontactmechform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
   <#else>
     &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
   </#if>
 </#if>
+
 

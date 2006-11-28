@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -30,7 +29,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="genericaddress">
+    
+	<screen name="genericaddress">
         <section>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/genericaddress.ftl"/></html></platform-specific>
@@ -45,7 +45,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="orderitems">
+    
+	<screen name="orderitems">
         <section>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/orderitems.ftl"/></html></platform-specific>
@@ -55,6 +56,149 @@ under the License.
 
     <!-- =========== Top-Level and Stand-Alone Screens =========== -->
 
+    <screen name="anonymousCheckoutLinks">
+        <section>
+            <actions>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/anonymousCheckoutLinks.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/anonymousCheckoutLinks.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="anonymousCheckoutDecorator">
+        <section>
+            <actions>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/anonymousCheckoutLinks.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>  
+                                <include-screen name="anonymousCheckoutLinks"/>
+                                <decorator-section-include name="body"/>                                
+                            </widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="custsettings">
+        <section>
+            <actions>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+                
+                <set field="titleProperty" value="PageTitleShippingInformation"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/custsettings.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="anonymousCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/custsettings.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="shipsettings">
+        <section>
+            <actions>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+
+                <set field="titleProperty" value="PageTitleShippingInformation"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/shipsettings.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="anonymousCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/shipsettings.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="optionsettings">
+        <section>
+            <actions>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+                
+                <set field="titleProperty" value="PageTitleShippingOptions"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/optionsettings.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="anonymousCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/optionsettings.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="paymentoptions">
+        <section>
+            <actions>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+
+                <set field="titleProperty" value="PageTitleBillingInformation"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/paymentoptions.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/storepaymentoptions.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="anonymousCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/paymentoptions.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+	
+	<screen name="paymentinformation">
+        <section>
+            <actions>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+
+                <set field="titleProperty" value="PageTitleBillingInformation"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/paymentinformation.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/storepaymentoptions.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="anonymousCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/paymentinformation.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+		
+    <screen name="orderreview">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCheckoutReview"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="anonymousCheckoutDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/checkoutreview.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+	
     <screen name="billsettings">
         <section>
             <actions>
@@ -74,65 +218,8 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>
-    <screen name="shipsettings">
-        <section>
-            <actions>
-                <set field="rightbarScreenName" value="rightbar"/>
-                <set field="MainColumnStyle" value="rightonly"/>
-
-                <set field="titleProperty" value="PageTitleShippingInformation"/>
-                <set field="anonymoustrailScreen" value="component://ecommerce/widget/OrderScreens.xml#anonymoustrail"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/shipsettings.bsh"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/shipsettings.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="custsettings">
-        <section>
-            <actions>
-                <set field="rightbarScreenName" value="rightbar"/>
-                <set field="MainColumnStyle" value="rightonly"/>
-
-                <set field="titleProperty" value="PageTitleShippingInformation"/>
-                <set field="anonymoustrailScreen" value="component://ecommerce/widget/OrderScreens.xml#anonymoustrail"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/shipsettings.bsh"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/custsettings.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="optionsettings">
-        <section>
-            <actions>
-                <set field="rightbarScreenName" value="rightbar"/>
-                <set field="MainColumnStyle" value="rightonly"/>
-
-                <set field="titleProperty" value="PageTitleShippingOptions"/>
-                <set field="anonymoustrailScreen" value="component://ecommerce/widget/OrderScreens.xml#anonymoustrail"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/optionsettings.bsh"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/optionsettings.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
+    </screen>	
+    
     <screen name="checkoutoptions">
         <section>
             <actions>
@@ -151,7 +238,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="checkoutshippingaddress">
+
+	<screen name="checkoutshippingaddress">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -169,7 +257,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="checkoutshippingoptions">
+    
+	<screen name="checkoutshippingoptions">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -187,7 +276,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="checkoutpayment">
+    
+	<screen name="checkoutpayment">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -206,7 +296,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="splitship">
+    
+	<screen name="splitship">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSplitItemsForShipping"/>
@@ -237,7 +328,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ordercomplete">
+    
+	<screen name="ordercomplete">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleOrderSummary"/>
@@ -271,7 +363,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="orderstatus">
+    
+	<screen name="orderstatus">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -290,7 +383,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="requestreturn">
+    
+	<screen name="requestreturn">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -308,4 +402,5 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
 </screens>

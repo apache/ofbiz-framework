@@ -17,30 +17,25 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxlink">
-            <div class="tabletext">
-              ${screens.render(anonymoustrailScreen)}
-            </div>
-        </div>
         <div class='boxhead'>&nbsp;${uiLabelMap.OrderShippingInformation}</div>
     </div>
     <div class="screenlet-body">
-        <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="optsetupform">
+        <form method="post" action="<@ofbizUrl>processShipOptions</@ofbizUrl>" name="optsetupform">
           <input type="hidden" name="finalizeMode" value="options"/>
           <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
             <#list carrierShipmentMethodList as carrierShipmentMethod>
             <tr>
               <td width='1%' valign="top" >
                 <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
-                <input type='radio' name='shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>>
+                <input type='radio' name='shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>/>
               </td>
               <td valign="top">
                 <div class='tabletext'>
-                          <#if shoppingCart.getShippingContactMechId()?exists>
-                            <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
-                          </#if>
-                          <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
-                          <#if shippingEst?has_content> - <#if (shippingEst > -1)?exists><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
+                    <#if shoppingCart.getShippingContactMechId()?exists>
+                        <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
+                    </#if>
+                    <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
+                    <#if shippingEst?has_content> - <#if (shippingEst > -1)?exists><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
                 </div>
               </td>
             </tr>
@@ -63,7 +58,7 @@ under the License.
             </tr>
             <tr>
               <td valign="top">
-                 <input type='radio' <#if shoppingCart.getMaySplit()?default("N") == "N">checked</#if> name='may_split' value='false'>
+                 <input type='radio' <#if shoppingCart.getMaySplit()?default("N") == "N">checked</#if> name='may_split' value='false'/>
               </td>
               <td valign="top">
                 <div class="tabletext">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</div>
@@ -71,7 +66,7 @@ under the License.
             </tr>
             <tr>
               <td valign="top">
-                 <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked</#if> type='radio' name='may_split' value='true'>
+                 <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked</#if> type='radio' name='may_split' value='true'/>
               </td>
               <td valign="top">
                 <div class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</div>
