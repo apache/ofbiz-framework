@@ -29,7 +29,7 @@ under the License.
                 <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen location="component://party/widget/partymgr/CommonScreens.xml" name="main-decorator">
+                <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -110,7 +110,7 @@ under the License.
                 <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen location="component://party/widget/partymgr/CommonScreens.xml" name="main-decorator">
+                <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -153,7 +153,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/listCommunications.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen location="component://party/widget/partymgr/CommonScreens.xml" name="main-decorator">
+                <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -183,97 +183,6 @@ under the License.
         </section>
     </screen>
     
-    <screen name="CommonCommunicationEventDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="comm"/>
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-                
-                <set field="okayToUpdate" value="true" type="Boolean" global="true"/>
-            </actions>
-            <widgets>
-                <section>
-                    <condition>
-                        <and>
-                            <not><if-empty field-name="communicationEvent.statusId"/></not>
-                            <or>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
-                            </or>
-                        </and>
-                    </condition>
-                    <actions>
-                        <set field="okayToUpdate" value="false" type="Boolean" global="true"/>
-                    </actions>
-                    <widgets/>
-                </section>
-                <decorator-screen name="main-decorator" location="component://party/widget/partymgr/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="partyId"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
-                                        <container>
-                                           <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
-                                              text="${uiLabelMap.AccountingBillingAccount}" style="buttontext"/>
-                                           <section>
-                                              <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
-                                              <widgets>
-                                                 <link target="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}" url-mode="inter-app" 
-                                                    text="${uiLabelMap.OrderOrders}" style="buttontext"/>
-                                              </widgets>
-                                           </section>
-                                           <section>
-                                              <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
-                                              <widgets>
-                                                 <link target="/ordermgr/control/checkinits?partyId=${partyId}" url-mode="inter-app" 
-                                                    text="${uiLabelMap.OrderNewOrder}" style="buttontext"/>
-                                              </widgets>
-                                           </section>
-                                           <section>
-                                              <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
-                                              <widgets>
-                                                 <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}" url-mode="inter-app" 
-                                                    text="${uiLabelMap.AccountingPaymentsSent}" style="buttontext"/>
-                                                 <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}" url-mode="inter-app" 
-                                                    text="${uiLabelMap.AccountingPaymentsReceived}" style="buttontext"/>
-                                              </widgets>
-                                           </section>
-                                        </container>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="communicationEvent"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommEventTabBar"/>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <widgets>
-                                        <decorator-section-include name="body"/>
-                                    </widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="ViewCommunicationEvent">
         <section>
             <actions>
@@ -310,7 +219,7 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -356,7 +265,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/findCommEventContactMechs.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -417,7 +326,7 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -457,7 +366,7 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -493,7 +402,7 @@ under the License.
                 <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1" text="${uiLabelMap.PartyCommWorkEfforts}"/></container>
                         <section>
@@ -523,7 +432,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1" text="${uiLabelMap.PartyCommWorkEfforts}"/></container>
                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="AddCommEventWorkEffort"/>
@@ -565,7 +474,7 @@ under the License.
                 <set field="communicationEventId" value="${parameters.communicationEventId}"/>
             </actions>
             <widgets>
-                <decorator-screen  name="CommonCommunicationEventDecorator">
+                <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -607,7 +516,7 @@ under the License.
                 <set field="communicationEventId" value="${parameters.communicationEventId}"/>
             </actions>
             <widgets>
-                <decorator-screen  name="CommonCommunicationEventDecorator">
+                <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -646,7 +555,7 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <decorator-screen  name="CommonCommunicationEventDecorator">
+                <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
