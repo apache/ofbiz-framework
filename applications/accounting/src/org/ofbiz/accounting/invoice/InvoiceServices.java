@@ -774,7 +774,8 @@ public class InvoiceServices {
         String invoiceIdIn = (String) context.get("invoiceId");
         String invoiceItemSeqIdIn = (String) context.get("invoiceItemSeqId");
         BigDecimal amountTotal = InvoiceWorker.getInvoiceTotalBd(delegator, invoiceIdIn);
-        if (amountTotal.equals(ZERO)) {
+        // never use equals for BigDecimal - use either signum or compareTo 
+        if (amountTotal.signum() == 0) {
             Debug.logWarning("Invoice [" + invoiceIdIn + "] has an amount total of [" + amountTotal + "], so no commission invoice will be created", module);
             return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionZeroInvoiceAmount",locale));
         }
