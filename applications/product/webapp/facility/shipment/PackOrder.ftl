@@ -103,7 +103,7 @@ under the License.
                 <#if postalAddress.address2?has_content>
                   ${postalAddress.address2}<br>
                 </#if>
-                ${postalAddress.city}, ${postalAddress.stateProvinceGeoId?if_exists} ${postalAddress.postalCode}<br>
+                ${postalAddress.city?if_exists}, ${postalAddress.stateProvinceGeoId?if_exists} ${postalAddress.postalCode?if_exists}<br>
                 ${postalAddress.countryGeoId}
               </div>
             </td>
