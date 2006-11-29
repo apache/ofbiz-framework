@@ -17,7 +17,7 @@ under the License.
 <#escape x as x?xml>
 
 <fo:block text-align="left">
-    <#if logoImageUrl?has_content><fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/></#if>
+    <#if logoImageUrl?has_content><fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px" content-height="scale-to-fit"/></#if>
 </fo:block>
 
 <fo:block font-size="8pt">
@@ -32,7 +32,8 @@ under the License.
         <fo:block>${uiLabelMap.CommonNoPostalAddress}</fo:block>
         <fo:block>${uiLabelMap.CommonFor}: ${companyName}</fo:block>
     </#if>
-  
+ 
+    <#if sendingPartyTaxId?exists || phone?exists || email?exists || website?exists || eftAccount?exists> 
     <fo:list-block provisional-distance-between-starts="1in">
         <#if sendingPartyTaxId?exists>
         <fo:list-item>
@@ -101,5 +102,6 @@ under the License.
         </fo:list-item>
         </#if>
     </fo:list-block>
+    </#if>
 </fo:block>
 </#escape>

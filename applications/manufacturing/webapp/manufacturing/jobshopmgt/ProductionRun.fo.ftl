@@ -20,8 +20,8 @@ under the License.
         <fo:simple-page-master master-name="main" 
              margin-top="1.0cm" margin-bottom="1in" margin-left="0.5cm" margin-right="0.5cm">
           <fo:region-body margin-top="1.0cm" margin-bottom="1.0cm"/>  <#-- main body -->
-            <fo:region-after extent="1.0cm"/>  <#-- a footer -->
             <fo:region-before extent="1.0cm"/>  <#-- a header -->
+            <fo:region-after extent="1.0cm"/>  <#-- a footer -->
         </fo:simple-page-master>
     </fo:layout-master-set>
 
