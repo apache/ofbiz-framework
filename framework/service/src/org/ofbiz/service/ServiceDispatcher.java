@@ -409,15 +409,19 @@ public class ServiceDispatcher {
                     try {
                         TransactionUtil.rollback(beganTrans, errMsg, null);
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, "Could not rollback transaction", module);
+                        Debug.logError(e, "Could not rollback transaction: " + e.toString(), module);
                     }
                 } else {
                     // commit the transaction
                     try {
                         TransactionUtil.commit(beganTrans);
                     } catch (GenericTransactionException e) {
-                        Debug.logError(e, "Could not commit transaction", module);
-                        throw new GenericServiceException("Commit transaction failed");
+                        String errMsg = "Could not commit transaction for service [" + modelService.name + "] call";
+                        Debug.logError(e, errMsg, module);
+                        if (e.getMessage() != null) {
+                            errMsg = errMsg + ": " + e.getMessage();
+                        }
+                        throw new GenericServiceException(errMsg);
                     }
                 }
             }

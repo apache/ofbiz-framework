@@ -186,18 +186,29 @@ public class TransactionUtil implements Status {
                     Debug.logInfo("[TransactionUtil.commit] Not committing transaction, status is STATUS_NO_TRANSACTION", module);
                 }
             } catch (RollbackException e) {
-                if (Debug.infoOn()) Thread.dumpStack();
-                //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("Roll back error, could not commit transaction, was rolled back instead", e);
+                RollbackOnlyCause rollbackOnlyCause = getSetRollbackOnlyCause();
+
+                if (rollbackOnlyCause != null) {
+                    // the transaction is now definitely over, so clear stuff as normal now that we have the info from it that we want
+                    clearTransactionStamps();
+                    clearTransactionBeginStack();
+                    clearSetRollbackOnlyCause();
+                    
+                    Debug.logError(e, "Rollback Only was set when trying to commit transaction here; throwing rollbackOnly cause exception", module);
+                    throw new GenericTransactionException("Roll back error, could not commit transaction, was rolled back instead because of: " + rollbackOnlyCause.getCauseMessage(), rollbackOnlyCause.getCauseThrowable());
+                } else {
+                    Throwable t = e.getCause() == null ? e : e.getCause();
+                    throw new GenericTransactionException("Roll back error (with no rollbackOnly cause found), could not commit transaction, was rolled back instead: " + t.toString(), t);
+                }
             } catch (HeuristicMixedException e) {
-                //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("Could not commit transaction, HeuristicMixed exception", e);
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("Could not commit transaction, HeuristicMixed exception: " + t.toString(), t);
             } catch (HeuristicRollbackException e) {
-                //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("Could not commit transaction, HeuristicRollback exception", e);
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("Could not commit transaction, HeuristicRollback exception: " + t.toString(), t);
             } catch (SystemException e) {
-                //This is Java 1.4 only, but useful for certain debuggins: Throwable t = e.getCause() == null ? e : e.getCause();
-                throw new GenericTransactionException("System error, could not commit transaction", e);
+                Throwable t = e.getCause() == null ? e : e.getCause();
+                throw new GenericTransactionException("System error, could not commit transaction: " + t.toString(), t);
             }
         } else {
             Debug.logInfo("[TransactionUtil.commit] UserTransaction is null, not commiting", module);
@@ -268,7 +279,7 @@ public class TransactionUtil implements Status {
 
                 if (status != STATUS_NO_TRANSACTION) {
                     if (status != STATUS_MARKED_ROLLBACK) {
-                        if (Debug.warningOn()) Debug.logWarning(new Exception(), "[TransactionUtil.setRollbackOnly] Calling transaction setRollbackOnly; this stack trace shows where this is happening:", module);
+                        if (Debug.warningOn()) Debug.logWarning(new Exception(causeMessage), "[TransactionUtil.setRollbackOnly] Calling transaction setRollbackOnly; this stack trace shows where this is happening:", module);
                         ut.setRollbackOnly();
                         setSetRollbackOnlyCause(causeMessage, causeThrowable);
                     } else {
@@ -620,8 +631,8 @@ public class TransactionUtil implements Status {
     }
     public static RollbackOnlyCause getSetRollbackOnlyCause() {
         if (setRollbackOnlyCause.get() == null) {
-            Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning("WARNING: In getSetRollbackOnlyCause no stack placeholder was in place, here is the current location: ", module);
+            Exception e = new Exception("Current Stack Trace");
+            Debug.logWarning(e, "WARNING: In getSetRollbackOnlyCause no stack placeholder was in place, here is the current location: ", module);
         }
         return (RollbackOnlyCause) setRollbackOnlyCause.get();
     }
