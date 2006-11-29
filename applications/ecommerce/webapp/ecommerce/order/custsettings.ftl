@@ -19,7 +19,7 @@ under the License.
         <div class="boxhead">&nbsp;${uiLabelMap.PartyBasicInformation}</div>
     </div>
     <div class="screenlet-body">
-        <form name="custsetupform" method="post" action="<@ofbizUrl>processCustomerSettings</@ofbizUrl>">
+        <form name="${parameters.formNameValue}" method="post" action="<@ofbizUrl>processCustomerSettings</@ofbizUrl>">
            <input type="hidden" name="partyId" value="${parameters.partyId?if_exists}"/>
            <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>

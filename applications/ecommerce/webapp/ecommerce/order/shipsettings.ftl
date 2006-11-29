@@ -19,7 +19,7 @@ under the License.
         <div class='boxhead'>&nbsp;${uiLabelMap.OrderShippingInformation}</div>
     </div>
     <div class="screenlet-body">
-      <form method="post" action="<@ofbizUrl>processShipSettings</@ofbizUrl>" name="shipsetupform">
+      <form method="post" action="<@ofbizUrl>processShipSettings</@ofbizUrl>" name="${parameters.formNameValue}">
         <input type="hidden" name="contactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
         <input type="hidden" name="partyId" value="${cart.getPartyId()?default("_NA_")}"/>
 

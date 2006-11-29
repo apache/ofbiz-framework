@@ -35,6 +35,7 @@ if (partyId != null) {
     if (request.getAttribute("_ERROR_MESSAGE_") == null && request.getAttribute("_ERROR_MESSAGE_LIST_") == null) {
         person = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
         if (person != null) {
+            context.put("callSubmitForm",true);
             // should never be null for the anonymous checkout, but just in case
             parameters.put("personalTitle", person.get("personalTitle"));
             parameters.put("firstName", person.get("firstName"));

@@ -22,7 +22,7 @@ under the License.
     <div class="screenlet-body">
         
           <#-- initial screen show a list of options -->
-          <form method="post" action="<@ofbizUrl>setPaymentInformation</@ofbizUrl>" name="billsetupform">
+          <form method="post" action="<@ofbizUrl>setPaymentInformation</@ofbizUrl>" name="${parameters.formNameValue}">
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
               <tr>

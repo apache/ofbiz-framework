@@ -23,6 +23,7 @@ paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
 paymentMethodTypeIdIter = paymentMethodTypeIds.iterator();
 while (paymentMethodTypeIdIter.hasNext()) {
     String paymentMethodTypeId = (String) paymentMethodTypeIdIter.next();
+    context.put("callSubmitForm",true);
     if ("GIFT_CARD".equals(paymentMethodTypeId)) {
         context.put("addGiftCard","Y");
     } else {

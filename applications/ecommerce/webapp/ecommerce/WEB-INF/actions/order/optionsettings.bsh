@@ -53,6 +53,7 @@ context.put("emailList",  ContactHelper.getContactMechByType(party, "EMAIL_ADDRE
 
 if (shoppingCart != null && shoppingCart.getShipmentMethodTypeId() != null && shoppingCart.getCarrierPartyId() != null) {
     context.put("chosenShippingMethod", shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId());
+    context.put("callSubmitForm",true);
 }
 
 context.put("productStoreId", productStore.get("productStoreId"));

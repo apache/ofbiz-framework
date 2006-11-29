@@ -66,8 +66,7 @@ under the License.
   <td width="74%">
     <select name="stateProvinceGeoId" class="selectBox" <#if requestParameters.useShipAddr?exists>disabled</#if>>
       <#if (parameters.stateProvinceGeoId)?exists>
-        <#assign findGeoMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.stateProvinceGeoId)>
-        <#assign stateGeo = delegator.findByPrimaryKeyCache("Geo", findGeoMap)>        <option>${parameters.stateProvinceGeoId}</option>
+        <option>${parameters.stateProvinceGeoId}</option>
         <option value="${parameters.stateProvinceGeoId}">---</option>
       <#else>
         <option value="">${uiLabelMap.PartyNoState}</option>

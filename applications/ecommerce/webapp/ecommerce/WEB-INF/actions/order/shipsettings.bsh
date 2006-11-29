@@ -40,7 +40,8 @@ if (cart != null && cart.getShippingContactMechId() != null) {
     shippingPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
  	   UtilMisc.toMap("partyId", partyId, "contactMechId", shippingContactMechId)), true));
     parameters.put("shippingContactMechId", shippingPartyContactDetail.get("contactMechId"));
-
+    context.put("callSubmitForm",true);
+    
     fullAddressBuf = new StringBuffer();
     fullAddressBuf.append(shippingPartyContactDetail.get("address1"));
     if (shippingPartyContactDetail.get("address2") != null) {
@@ -61,7 +62,7 @@ if (cart != null && cart.getShippingContactMechId() != null) {
         parameters.put("city", shippingPartyContactDetail.get("city"));
         parameters.put("postalCode", shippingPartyContactDetail.get("postalCode"));
         parameters.put("stateProvinceGeoId", shippingPartyContactDetail.get("stateProvinceGeoId"));
-        parameters.put("countyGeoId", shippingPartyContactDetail.get("countyGeoId"));
+        parameters.put("countryGeoId", shippingPartyContactDetail.get("countryGeoId"));
         parameters.put("allowSolicitation", shippingPartyContactDetail.get("allowSolicitation"));
     }
 

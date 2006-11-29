@@ -18,10 +18,10 @@ import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
 shoppingCart = ShoppingCartEvents.getCartObject(request);
 
-orderPartyId = shoppingCart.getOrderPartyId();
-if (orderPartyId !=null && !orderPartyId.equals("")) {
+userLogin = context.get("userLogin");
+if (userLogin != null) {
     context.put("enableShippingAddress",true);
-}
+} 
 
 shippingContactMechId = shoppingCart.getShippingContactMechId();
 if (shippingContactMechId !=null && !shippingContactMechId.equals("")) {

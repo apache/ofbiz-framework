@@ -91,6 +91,7 @@ under the License.
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
+                <set field="parameters.formNameValue" value="custsetupform" global="true"/>
                 
                 <set field="titleProperty" value="PageTitleShippingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/custsettings.bsh"/>
@@ -110,6 +111,7 @@ under the License.
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
+                <set field="parameters.formNameValue" value="shipsetupform" global="true"/>
 
                 <set field="titleProperty" value="PageTitleShippingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/shipsettings.bsh"/>
@@ -129,6 +131,7 @@ under the License.
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
+                <set field="parameters.formNameValue" value="optsetupform" global="true"/>
                 
                 <set field="titleProperty" value="PageTitleShippingOptions"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/optionsettings.bsh"/>
@@ -148,6 +151,7 @@ under the License.
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
+                <set field="parameters.formNameValue" value="paymentoptions" global="true"/>
 
                 <set field="titleProperty" value="PageTitleBillingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/paymentoptions.bsh"/>
@@ -168,6 +172,7 @@ under the License.
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
+                <set field="parameters.formNameValue" value="billsetupform"/>
 
                 <set field="titleProperty" value="PageTitleBillingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/paymentinformation.bsh"/>
@@ -187,6 +192,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCheckoutReview"/>
+                <set field="parameters.formNameValue" value="orderreview" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
             </actions>
             <widgets>

@@ -14,31 +14,35 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-
+<script language="javascript" type="text/javascript">
+function submitForm(form) {
+   form.submit();
+}
+</script>
 <div>
-    <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">Personal Info</a>
+    <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Personal Info</a>
     <#if (enableShippingAddress)?exists>
-        <a href="<@ofbizUrl>setShipping</@ofbizUrl>" class="buttontext">Shipping Address</a>
+        <a href="<@ofbizUrl>setShipping</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Shipping Address</a>
     <#else>
         <span class="buttontextdisabled">Shipping Address</span>
     </#if>
     <#if (enableShipmentMethod)?exists>
-        <a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" class="buttontext">Shipping Options</a>
+        <a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Shipping Options</a>
     <#else>
         <span class="buttontextdisabled">Shipping Options</span>
     </#if>
     <#if (enablePaymentOptions)?exists>
-        <a href="<@ofbizUrl>setPaymentOption</@ofbizUrl>" class="buttontext">Payment Options</a>
+        <a href="<@ofbizUrl>setPaymentOption</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Payment Options</a>
     <#else>
         <span class="buttontextdisabled">Payment Options</span>
     </#if>
     <#if (enablePaymentInformation)?exists>
-        <a href="<@ofbizUrl>setPaymentInformation?paymentMethodTypeId=${requestParameters.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">Payment Information</a>
+        <a href="<@ofbizUrl>setPaymentInformation?paymentMethodTypeId=${requestParameters.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Payment Information</a>
     <#else>
         <span class="buttontextdisabled">Payment Information</span>
     </#if>
     <#if (enableReviewOrder)?exists>
-        <a href="<@ofbizUrl>reviewOrder</@ofbizUrl>" class="buttontext">Review Order</a>
+        <a href="<@ofbizUrl>reviewOrder</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Review Order</a>
     <#else>
         <span class="buttontextdisabled">Review Order</span>
     </#if>
