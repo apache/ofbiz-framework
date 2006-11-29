@@ -259,25 +259,25 @@ under the License.
                 </fo:table-body>
             </fo:table>
             </fo:block>
-            <fo:block space-after.optimum="10pt" font-size="10pt">
-            <fo:table>
-                <fo:table-column column-width="450pt"/>
-                <fo:table-body>
-                    <#if picklistBinInfo.primaryOrderItemShipGroup.giftMessage?has_content>
-                        <fo:table-row font-weight="bold">
-                            <fo:table-cell>
-                                <fo:block>${uiLabelMap.OrderGiftMessage}</fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-                        <fo:table-row >
-                            <fo:table-cell>
-                                <fo:block>${picklistBinInfo.primaryOrderItemShipGroup.giftMessage}</fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-                    </#if>
-                </fo:table-body>
-            </fo:table>
-            </fo:block>
+            <#if picklistBinInfo.primaryOrderItemShipGroup.giftMessage?has_content>
+	            <fo:block space-after.optimum="10pt" font-size="10pt">
+	            <fo:table>
+	                <fo:table-column column-width="450pt"/>
+	                <fo:table-body>
+	                    <fo:table-row font-weight="bold">
+	                        <fo:table-cell>
+	                            <fo:block>${uiLabelMap.OrderGiftMessage}</fo:block>
+	                        </fo:table-cell>
+	                    </fo:table-row>
+	                    <fo:table-row >
+	                        <fo:table-cell>
+	                            <fo:block>${picklistBinInfo.primaryOrderItemShipGroup.giftMessage}</fo:block>
+	                        </fo:table-cell>
+	                    </fo:table-row>
+	                </fo:table-body>
+	            </fo:table>
+	            </fo:block>
+            </#if>
         </fo:flow>
         </fo:page-sequence>
     </#list>

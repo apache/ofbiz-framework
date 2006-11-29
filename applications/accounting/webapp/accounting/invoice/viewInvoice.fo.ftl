@@ -22,8 +22,8 @@ under the License.
             margin-top="1in" margin-bottom="1in"
             margin-left="20mm" margin-right="20mm">
             <fo:region-body margin-top="3in" margin-bottom="1in"/>  <#-- main body -->
-            <fo:region-after extent="1in"/>  <#-- a footer -->
             <fo:region-before extent="4in"/>  <#-- a header -->
+            <fo:region-after extent="1in"/>  <#-- a footer -->
         </fo:simple-page-master>
     </fo:layout-master-set>
 
@@ -32,8 +32,10 @@ under the License.
        <#-- the region-before and -after must be declared as fo:static-content and before the fo:flow.  only 1 fo:flow per
             fo:page-sequence -->
        <fo:static-content flow-name="xsl-region-before">
-           ${screens.render("component://order/widget/ordermgr/OrderPrintForms.xml#CompanyLogo")}
-       <fo:block white-space-collapse="false"> 
+            <fo:block space-after=".10in">
+              ${screens.render("component://order/widget/ordermgr/OrderPrintForms.xml#CompanyLogo")}
+            </fo:block>
+       <fo:block white-space-collapse="false" > 
        </fo:block> 
 
         <fo:table>
@@ -61,7 +63,8 @@ under the License.
                 <fo:block>Tax ID: ${billingPartyTaxId}</fo:block>
             </#if>            
                 </fo:table-cell>
-                <fo:table-cell>
+                <fo:table-cell><fo:block>
+                
                   <fo:table>
                     <fo:table-column column-width="1in"/>
                     <fo:table-column column-width="1.5in"/>
@@ -96,7 +99,7 @@ under the License.
                     </fo:table-row-->
                   </fo:table-body>
                 </fo:table>
-              </fo:table-cell>
+              </fo:block></fo:table-cell>
             </fo:table-row>
           </fo:table-body>
         </fo:table>
@@ -170,6 +173,7 @@ under the License.
                 </fo:table-cell>
               </fo:table-row>
             </fo:table-header>
+      
             
             <fo:table-body font-size="10pt">
                 <#assign currentShipmentId = "">
@@ -201,6 +205,9 @@ under the License.
                              group of invoice items created for the same shipment
                         -->
                         <fo:table-row height="14px">
+                            <fo:table-cell number-columns-spanned="6">
+                                    <fo:block><#-- blank line --></fo:block>
+                               </fo:table-cell>
                         </fo:table-row>
                         <fo:table-row height="14px">
                            <fo:table-cell number-columns-spanned="6">
@@ -210,8 +217,11 @@ under the License.
                         <#assign currentShipmentId = newShipmentId>
                     </#if>
                         <fo:table-row height="7px">
+                            <fo:table-cell number-columns-spanned="6">
+                                <fo:block><#-- blank line --></fo:block>
+                            </fo:table-cell>
                         </fo:table-row>
-                        <fo:table-row height="14px">
+                        <fo:table-row height="14px" space-start=".15in">
                             <fo:table-cell>
                                 <fo:block> ${invoiceItem.invoiceItemSeqId} </fo:block>               
                             </fo:table-cell>    
@@ -232,16 +242,17 @@ under the License.
                             </fo:table-cell>
                         </fo:table-row>
                 </#list>
-                
+
                 <#-- blank line -->
                 <fo:table-row height="7px">
+                    <fo:table-cell number-columns-spanned="4"><fo:block><#-- blank line --></fo:block></fo:table-cell>
                 </fo:table-row>
-                
+
                 <#-- the grand total -->
-                <fo:table-row height="14px">
+                <fo:table-row>
                    <fo:table-cell number-columns-spanned="4">
                    </fo:table-cell>
-                   <fo:table-cell background-color="#EEEEEE">
+                   <fo:table-cell>
                       <fo:block font-weight="bold">${uiLabelMap.AccountingTotalCapital}</fo:block>
                    </fo:table-cell>
                    <fo:table-cell text-align="right">
@@ -250,7 +261,7 @@ under the License.
                 </fo:table-row>
             </fo:table-body>        
          </fo:table>
-         
+
          <!-- a block with the invoice message-->
          <#if invoice.invoiceMessage?has_content><fo:block>${invoice.invoiceMessage}</fo:block></#if>
          <fo:block></fo:block>
