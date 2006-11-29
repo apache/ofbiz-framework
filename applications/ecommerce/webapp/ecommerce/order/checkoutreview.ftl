@@ -22,9 +22,9 @@ under the License.
         if (clicked == 0) {
             clicked++;
             //window.location.replace("<@ofbizUrl>processorder</@ofbizUrl>");
-            document.processForm.processButton.value="${uiLabelMap.OrderSubmittingOrder}";
-            document.processForm.processButton.disabled=true;
-            document.processForm.submit();
+            document.${parameters.formNameValue}.processButton.value="${uiLabelMap.OrderSubmittingOrder}";
+            document.${parameters.formNameValue}.processButton.disabled=true;
+            document.${parameters.formNameValue}.submit();
         } else {
             alert("You order is being processed, this may take a moment.");
         }
@@ -45,7 +45,7 @@ under the License.
         &nbsp;
       </td>
       <td align="right">
-        <form type="POST" action="<@ofbizUrl>processorder</@ofbizUrl>" name="processForm">
+        <form type="POST" action="<@ofbizUrl>processorder</@ofbizUrl>" name="${parameters.formNameValue}">
           <#if (requestParameters.checkoutpage)?has_content>
             <input type="hidden" name="checkoutpage" value="${requestParameters.checkoutpage}">
           </#if>

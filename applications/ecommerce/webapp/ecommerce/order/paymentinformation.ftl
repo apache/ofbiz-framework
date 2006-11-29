@@ -39,28 +39,28 @@ function shipBillAddr() {
           <#-- after initial screen; show detailed screens for selected type -->
           <#if paymentMethodTypeId?if_exists == "CREDIT_CARD">
             <#if creditCard?has_content && postalAddress?has_content && !requestParameters.useShipAddr?exists>
-              <form method="post" action="<@ofbizUrl>changeCreditCardAndBillingAddress</@ofbizUrl>" name="billsetupform">
+              <form method="post" action="<@ofbizUrl>changeCreditCardAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
                 <input type="hidden" name="paymentMethodId" value="${creditCard.paymentMethodId?if_exists}"/>
                 <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}"/>
             <#elseif requestParameters.useShipAddr?exists>
-              <form method="post" action="<@ofbizUrl>enterCreditCard</@ofbizUrl>" name="billsetupform">
+              <form method="post" action="<@ofbizUrl>enterCreditCard</@ofbizUrl>" name="${parameters.formNameValue}">
             <#else>
-              <form method="post" action="<@ofbizUrl>enterCreditCardAndBillingAddress</@ofbizUrl>" name="billsetupform">
+              <form method="post" action="<@ofbizUrl>enterCreditCardAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
             </#if>
           </#if>
           <#if paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
             <#if eftAccount?has_content && postalAddress?has_content>
-              <form method="post" action="<@ofbizUrl>changeEftAccountAndBillingAddress</@ofbizUrl>" name="billsetupform">
+              <form method="post" action="<@ofbizUrl>changeEftAccountAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
                 <input type="hidden" name="paymentMethodId" value="${eftAccount.paymentMethodId?if_exists}"/>
                 <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}"/>
             <#elseif requestParameters.useShipAddr?exists>
-              <form method="post" action="<@ofbizUrl>enterEftAccount</@ofbizUrl>" name="billsetupform">
+              <form method="post" action="<@ofbizUrl>enterEftAccount</@ofbizUrl>" name="${parameters.formNameValue}">
             <#else>
-              <form method="post" action="<@ofbizUrl>enterEftAccountAndBillingAddress</@ofbizUrl>" name="billsetupform">
+              <form method="post" action="<@ofbizUrl>enterEftAccountAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
             </#if>
           </#if>
           <#if paymentMethodTypeId?if_exists == "GIFT_CARD"> <#--Don't know much how this is handled -->
-            <form method="post" action="<@ofbizUrl>enterGiftCard</@ofbizUrl>" name="billsetupform">
+            <form method="post" action="<@ofbizUrl>enterGiftCard</@ofbizUrl>" name="${parameters.formNameValue}">
           </#if>
 
           <#if requestParameters.singleUsePayment?default("N") == "Y">

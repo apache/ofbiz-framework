@@ -430,73 +430,6 @@ under the License.
     <!-- =========================================== -->
     <!-- ======== Anonymous Checkout Events ======== -->
     <!-- =========================================== -->
-    <simple-method method-name="processCustomerSettingsOld" short-description="Process Customer Settings; to be called as a Request Event" login-required="false">
-        <if-empty field-name="parameters.partyId">
-            <call-simple-method method-name="createCustomer"/>
-            <else>
-                <call-simple-method method-name="updateCustomer"/>
-            </else>
-        </if-empty>
-        
-        <!-- see if we should continue now... -->
-        <check-errors/>
-        
-        <log level="info" message="Setting up party ${tempMap.partyId} and shipping address ${addressPurposeContext.contactMechId} in cart"/>
-        
-        <!--  this is code from CheckOutEvents->finalizeOrderEntry -->
-        <call-bsh><![CDATA[
-        	import org.ofbiz.order.shoppingcart.ShoppingCart;
-        	import org.ofbiz.service.LocalDispatcher;
-        	import org.ofbiz.entity.GenericValue;
-        	import org.ofbiz.base.util.UtilMisc;
-        	import org.ofbiz.base.util.Debug;
-        	
-        	ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
-	        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-	
-	        // if null then we must be an anonymous shopper
-	        if (userLogin == null) {
-	            // remove auto-login fields
-	            session.removeAttribute("autoUserLogin");
-	            session.removeAttribute("autoName");
-	            // clear out the login fields from the cart
-	            try {
-	            	if (cart!=null) cart.setAutoUserLogin(null, dispatcher);
-	            } catch (CartItemModifyException e) {
-	                Debug.logError(e, module);
-	            }
-	        }
-                    
-            // set party id in cart        
-            String partyId = (String) request.getAttribute("partyId");
-            if (partyId != null) {
-                // no userLogin means we are an anonymous shopper; fake the UL for service calls
-                if (userLogin == null) {
-                    try {
-                        userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "anonymous"));
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
-                    }
-                    if (userLogin != null) {
-                        userLogin.set("partyId", partyId);
-                    }
-                    session.setAttribute("userLogin", userLogin);
-                    try {          
-                    	if (cart != null) {          	
-                            cart.setOrderPartyId(partyId);
-                            cart.setUserLogin(userLogin, dispatcher);
-                        }
-                    } catch (CartItemModifyException e) {
-                        Debug.logError(e, module);
-                    }
-                }
-            }
-        ]]></call-bsh>
-        
-        <check-errors/>
-        
-        <log level="info" message="If anonymous, user-login has been activated"/>
-    </simple-method>     
         
     <simple-method method-name="processCustomerSettings" short-description="Process Customer Settings; to be called as a Request Event" login-required="false">
         <if-empty field-name="parameters.partyId">
@@ -512,7 +445,6 @@ under the License.
         <session-to-field field-name="userLogin" session-name="userLogin"/>
         <log level="info" message="userLogin in Env ${userLogin} in parameters.userLogin ${parameters.userLogin}"/>
         <if-empty field-name="userLogin">
-            <log level="info" message="removeAttributeremoveAttributeremoveAttribute"/>
             <call-object-method obj-field-name="session" method-name="removeAttribute">
                 <string value="autoUserLogin"/>
             </call-object-method>
@@ -850,56 +782,6 @@ under the License.
         </if-not-empty>
     </simple-method>
 	
-	<simple-method method-name="processShipOptionsOld" short-description="Process Ship Options; to be called as a Request Event" login-required="false">
-        
-        <call-bsh><![CDATA[
-            import org.ofbiz.order.shoppingcart.ShoppingCart;
-            import org.ofbiz.service.LocalDispatcher;
-            import org.ofbiz.entity.GenericDelegator;
-            import org.ofbiz.entity.GenericValue;
-            import org.ofbiz.base.util.UtilMisc;
-            import org.ofbiz.base.util.Debug;
-            import org.ofbiz.base.util.UtilValidate;
-            import org.ofbiz.order.shoppingcart.CheckOutHelper;
-            import org.ofbiz.service.ServiceUtil;
- 		
-            ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
-            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-            CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
-		
-            // set contact mech for shipping address in cart
-            if (cart != null) {
-                Map callResult = ServiceUtil.returnSuccess();
-                List errorMessages = new ArrayList();
-                Map errorMaps = new HashMap();
-		
-                for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
-                    shippingMethod = request.getParameter(shipGroupIndex + "_shipping_method");
-                    if (UtilValidate.isEmpty(shippingMethod)){
-                        shippingMethod = request.getParameter("shipping_method");
-                    }
-                    shippingInstructions = request.getParameter(shipGroupIndex + "_shipping_instructions");
-                    if (UtilValidate.isEmpty(shippingInstructions)){
-                        shippingInstructions = request.getParameter("shipping_instructions");
-                    }
-                    maySplit = request.getParameter(shipGroupIndex + "_may_split");
-                    if (UtilValidate.isEmpty(maySplit)){
-                        maySplit = request.getParameter("may_split");
-                    }
-                    giftMessage = request.getParameter(shipGroupIndex + "_gift_message");
-                    isGift = request.getParameter(shipGroupIndex + "_is_gift");
-                    internalCode = request.getParameter("internalCode"); // FIXME
-                    shipBeforeDate = request.getParameter(shipGroupIndex + "_shipBeforeDate");
-                    shipAfterDate = request.getParameter(shipGroupIndex + "_shipAfterDate");
-                    callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
-                    ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
-                }
-            }
-			
-        ]]></call-bsh>  
-        
-    </simple-method>
     <simple-method method-name="processShipOptions" short-description="Process Ship Options; to be called as a Request Event" login-required="false">
        <call-bsh><![CDATA[
            shipmentMethod = parameters.get("shipping_method");

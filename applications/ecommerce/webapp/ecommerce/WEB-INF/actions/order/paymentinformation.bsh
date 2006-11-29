@@ -114,4 +114,7 @@ if(context.get("postalAddress") != null){
     parameters.put("postalCode",postalAddress.get("postalCode"));
     parameters.put("countryGeoId",postalAddress.get("countryGeoId"));
     parameters.put("contactMechId",postalAddress.get("contactMechId"));
+    if(context.get("creditCard") != null){
+       context.put("callSubmitForm",true);
+    }    
 }
