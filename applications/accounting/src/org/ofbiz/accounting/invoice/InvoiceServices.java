@@ -2196,7 +2196,7 @@ public class InvoiceServices {
             
             // Get the available balance, which is how much can be used, rather than the regular balance, which is how much has already been charged
             try {
-                billingAccountApplyAvailable = billingAccount.getBigDecimal("accountLimit").add(
+                billingAccountApplyAvailable = BillingAccountWorker.getAccountLimit(billingAccount).add(
                         BillingAccountWorker.getBillingAccountAvailableBalance(billingAccount)).setScale(decimals,rounding);
             } catch (GenericEntityException e) {
                 errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceNotFound",UtilMisc.toMap("billingAccountId",billingAccountId), locale));

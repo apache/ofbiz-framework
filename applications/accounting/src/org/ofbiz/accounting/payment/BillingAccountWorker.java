@@ -92,10 +92,7 @@ public class BillingAccountWorker {
                     double accountBalance = (BillingAccountWorker.getBillingAccountBalance(billingAccountVO)).doubleValue();
                 
                     Map billingAccount = new HashMap(billingAccountVO);
-                    double accountLimit = 0.0;
-                    if (billingAccountVO.getDouble("accountLimit") != null) {
-                        accountLimit = billingAccountVO.getDouble("accountLimit").doubleValue();
-                    }
+                    double accountLimit = getAccountLimit(billingAccountVO).doubleValue();
                 
                     billingAccount.put("accountBalance", new Double(accountBalance)); 
                     double accountAvailable = accountLimit - accountBalance;
@@ -107,6 +104,20 @@ public class BillingAccountWorker {
             billingAccountList.addAll(sortedAccounts.values());
         }
         return billingAccountList;
+    }
+    
+    /**
+     * Returns the accountLimit of the BillingAccount or BigDecimal ZERO if it is null
+     * @param billingAccount
+     * @throws GenericEntityException
+     */
+    public static BigDecimal getAccountLimit(GenericValue billingAccount) throws GenericEntityException {
+        if (billingAccount.getBigDecimal("accountLimit") != null) {
+            return billingAccount.getBigDecimal("accountLimit");
+        } else {
+            Debug.logWarning("Billing Account [" + billingAccount.getString("billingAccountId") + "] does not have an account limit defined, assuming zero.", module);
+            return ZERO;
+        }
     }
     
     /**
