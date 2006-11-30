@@ -2072,16 +2072,16 @@ public class InvoiceServices {
         }
 
         // avoid null pointer exceptions.
-        if (amountApplied == null) amountApplied = new BigDecimal("0"); 
+        if (amountApplied == null) amountApplied = ZERO; 
         // makes no sense to have an item numer without an invoice number
         if (invoiceId == null) invoiceItemSeqId = null; 
 
         // retrieve all information and perform checking on the retrieved info.....
 
         // Payment.....
-        BigDecimal paymentApplyAvailable = new BigDecimal("0"); 
+        BigDecimal paymentApplyAvailable = ZERO; 
         // amount available on the payment reduced by the already applied amounts
-        BigDecimal amountAppliedMax = new BigDecimal("0"); 
+        BigDecimal amountAppliedMax = ZERO; 
         // the maximum that can be applied taking payment,invoice,invoiceitem,billing account in concideration
         // if maxApplied is missing, this value can be used
         GenericValue payment = null;
@@ -2131,7 +2131,7 @@ public class InvoiceServices {
         }
 
         // the "TO" Payment.....
-        BigDecimal toPaymentApplyAvailable = new BigDecimal("0"); 
+        BigDecimal toPaymentApplyAvailable = ZERO; 
         GenericValue toPayment = null;
         if (toPaymentId != null && !toPaymentId.equals("")) {
             try {
@@ -2183,7 +2183,7 @@ public class InvoiceServices {
 
         // billing account
         GenericValue billingAccount = null;
-        BigDecimal billingAccountApplyAvailable = new BigDecimal("0");
+        BigDecimal billingAccountApplyAvailable = ZERO;
         if (billingAccountId != null && !billingAccountId.equals("")) {
             try {
                 billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
@@ -2196,8 +2196,7 @@ public class InvoiceServices {
             
             // Get the available balance, which is how much can be used, rather than the regular balance, which is how much has already been charged
             try {
-                billingAccountApplyAvailable = BillingAccountWorker.getAccountLimit(billingAccount).add(
-                        BillingAccountWorker.getBillingAccountAvailableBalance(billingAccount)).setScale(decimals,rounding);
+                billingAccountApplyAvailable = BillingAccountWorker.availableToCapture(billingAccount);
             } catch (GenericEntityException e) {
                 errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceNotFound",UtilMisc.toMap("billingAccountId",billingAccountId), locale));
                 ServiceUtil.returnError(e.getMessage());
@@ -2236,9 +2235,9 @@ public class InvoiceServices {
         }
 
         // get the invoice (item) information
-        BigDecimal invoiceApplyAvailable = new BigDecimal("0");
+        BigDecimal invoiceApplyAvailable = ZERO;
         // amount available on the invoice reduced by the already applied amounts
-        BigDecimal invoiceItemApplyAvailable = new BigDecimal("0");
+        BigDecimal invoiceItemApplyAvailable = ZERO;
         // amount available on the invoiceItem reduced by the already applied amounts
         GenericValue invoice = null;
         GenericValue invoiceItem = null;
@@ -2617,9 +2616,9 @@ public class InvoiceServices {
                         } catch (GenericEntityException e) {
                             ServiceUtil.returnError(e.getMessage());
                         }
-                        BigDecimal tobeApplied = new BigDecimal("0"); 
+                        BigDecimal tobeApplied = ZERO; 
                         // item total amount - already applied (if any)
-                        BigDecimal alreadyApplied = new BigDecimal("0");
+                        BigDecimal alreadyApplied = ZERO;
                         if (paymentApplications != null && paymentApplications.size() > 0) { 
                             // application(s) found, add them all together
                             Iterator p = paymentApplications.iterator();
@@ -2643,7 +2642,7 @@ public class InvoiceServices {
                             paymentApplyAvailable = paymentApplyAvailable.subtract(tobeApplied);
                         } else {
                             tobeApplied = paymentApplyAvailable;
-                            paymentApplyAvailable = new BigDecimal("0");
+                            paymentApplyAvailable = ZERO;
                         }
 
                         // create application payment record but check currency
