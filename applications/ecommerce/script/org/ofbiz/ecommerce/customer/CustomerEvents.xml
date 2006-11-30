@@ -742,7 +742,8 @@ under the License.
                 <string-to-list string="State is missing, and is required for an address in the Canada." message-field-name="CUSTOMER_STATE" list-name="error_list"/>
             </if-empty>
         </if-compare>
-        
+        <check-errors/>
+
         <!-- shipping address -->
         <if-not-empty field-name="parameters.shippingContactMechId">
             <set field="addressContext.partyId" from-field="partyId"/>
