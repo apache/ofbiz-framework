@@ -2057,13 +2057,15 @@ public class InvoiceServices {
         }
 
         // on a new paymentApplication check if only billing or invoice or tax
-        // id is provided not 2,3...
+        // id is provided not 2,3... BUT a combination of billingAccountId and invoiceId is permitted - that's how you use a
+        // Billing Account to pay for an Invoice
         if (paymentApplicationId == null) {
             int count = 0;
             if (invoiceId != null) count++;
             if (toPaymentId != null) count++;
             if (billingAccountId != null) count++;
             if (taxAuthGeoId != null) count++;
+            if ((billingAccountId != null) && (invoiceId != null)) count--;
             if (count != 1) {
                 errorMessageList.add(UtilProperties.getMessage(resource, "AccountingSpecifyInvoiceToPaymentBillingAccountTaxGeoId", locale));
             }
@@ -2189,28 +2191,35 @@ public class InvoiceServices {
                 ServiceUtil.returnError(e.getMessage());
             }
             if (billingAccount == null) {
-                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountNotFound",UtilMisc.toMap("bilingAccountId",billingAccountId), locale));
+                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountNotFound",UtilMisc.toMap("billingAccountId",billingAccountId), locale));
             }
+            
+            // Get the available balance, which is how much can be used, rather than the regular balance, which is how much has already been charged
             try {
                 billingAccountApplyAvailable = billingAccount.getBigDecimal("accountLimit").add(
-                        BillingAccountWorker.getBillingAccountBalance(billingAccount)).setScale(decimals,rounding);
+                        BillingAccountWorker.getBillingAccountAvailableBalance(billingAccount)).setScale(decimals,rounding);
             } catch (GenericEntityException e) {
-                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceNotFound",UtilMisc.toMap("bilingAccountId",billingAccountId), locale));
+                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceNotFound",UtilMisc.toMap("billingAccountId",billingAccountId), locale));
                 ServiceUtil.returnError(e.getMessage());
             }
 
             if (paymentApplicationId == null) { 
-                // only check when a new record is created, existing record check is done in the paymentAllication section
-                if (billingAccountApplyAvailable.signum() <= 0) {
-                    errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceProblem",UtilMisc.toMap("bilingAccountId",billingAccountId,"isoCode",billingAccount.getString("accountCurrencyUomId")), locale));
-                } else {
-                    // check here for too much application if a new record is
-                    // added (paymentApplicationId == null)
-                    if (amountApplied.compareTo(billingAccountApplyAvailable) == 1) {
-                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountLessRequested",
-                                UtilMisc.toMap("billingAccountId",billingAccountId, 
+                // when creating a new PaymentApplication, check if there is sufficient balance in the billing account, but only if the invoiceId is not null
+                // If you create a PaymentApplication with both billingAccountId and invoiceId, then you're applying a billing account towards an invoice
+                // If you create a PaymentApplication just with billingAccountId and no invoiceId, then you're adding value to billing account, so it should not matter
+                // what the previous available balance is
+                if (invoiceId != null) {
+                    if (billingAccountApplyAvailable.signum() <= 0)  {
+                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountBalanceProblem",UtilMisc.toMap("billingAccountId",billingAccountId,"isoCode",billingAccount.getString("accountCurrencyUomId")), locale));
+                    } else {
+                        // check here for too much application if a new record is
+                        // added (paymentApplicationId == null)
+                        if (amountApplied.compareTo(billingAccountApplyAvailable) == 1) {
+                            errorMessageList.add(UtilProperties.getMessage(resource, "AccountingBillingAccountLessRequested",
+                                        UtilMisc.toMap("billingAccountId",billingAccountId, 
                                             "billingAccountApplyAvailable",billingAccountApplyAvailable,
                                             "amountApplied",amountApplied,"isoCode",billingAccount.getString("accountCurrencyUomId")),locale));
+                        }
                     }
                 }
             }
