@@ -491,9 +491,9 @@ under the License.
     <view-map name="login" type="screen" page="component://webtools/widget/CommonScreens.xml#login"/>
     <view-map name="ping" type="ftl" page="/ping.ftl"/>
 
-    <view-map name="entityref" page="/entity/entityref.jsp"/>
-    <view-map name="entityref_list" page="/entity/entityref_list.jsp"/>
-    <view-map name="entityref_main" page="/entity/entityref_main.jsp"/>
+    <view-map name="entityref" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRef"/>
+    <view-map name="entityref_list" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefList"/>
+    <view-map name="entityref_main" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefMain"/>
 
     <view-map name="entitymaint" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityMaint"/>
     <view-map name="FindGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#FindGeneric"/>
@@ -510,7 +510,7 @@ under the License.
     <view-map name="ModelInduceFromDb" page="/entity/ModelInduceFromDb.jsp"/>
 
     <view-map name="EditEntity" type="region"/>
-    <view-map name="checkdb" type="region"/>    
+    <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>   
     <view-map name="xmldsdump" type="region"/>
     <view-map name="xmldsrawdump" page="/entity/xmldsrawdump.jsp"/>
 
