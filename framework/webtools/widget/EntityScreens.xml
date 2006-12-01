@@ -217,5 +217,107 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+    <screen name="EntityRef">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>           
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRef.bsh"/>                            
+            </actions>
+            <widgets> 
+                <section>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://webtools/webapp/webtools/entity/EntityRef.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>                               
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="EntityRefMain">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>           
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefMain.bsh"/>                            
+            </actions>
+            <widgets> 
+                <section>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://webtools/webapp/webtools/entity/EntityRefMain.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>                               
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="EntityRefList">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="WebtoolsEntityReference"/>           
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefList.bsh"/>                            
+            </actions>
+            <widgets> 
+                <section>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://webtools/webapp/webtools/entity/EntityRefList.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>                               
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="CheckDb">
+        <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="WebtoolsCheckUpdateDatabase"/>           
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.bsh"/>                            
+            </actions>
+            <widgets>  
+                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/entity/CheckDb.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
 </screens>
 
