@@ -1,0 +1,158 @@
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.security.Security; 
+import org.ofbiz.entity.model.ModelReader;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.entity.model.ModelRelation;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.base.util.UtilValidate;
+
+delegator = request.getAttribute("delegator");
+security = request.getAttribute("security");
+
+String controlPath = (String)request.getAttribute("_CONTROL_PATH_");
+
+if (security.hasPermission("ENTITY_MAINT", session)) {
+    boolean forstatic = "true".equals(request.getParameter("forstatic"));
+    context.put("forstatic", forstatic);
+    
+    String search = null;
+  
+    ModelReader reader = delegator.getModelReader();
+    Map packages = new HashMap();
+    TreeSet packageNames = new TreeSet();
+    TreeSet tableNames = new TreeSet();
+
+    //put the entityNames TreeSets in a HashMap by packageName
+    Collection ec = reader.getEntityNames();
+    TreeSet entityNames = new TreeSet(ec);
+    Iterator ecIter = ec.iterator();
+    while (ecIter.hasNext()) {
+        String eName = (String)ecIter.next();
+        ModelEntity ent = reader.getModelEntity(eName);
+
+        //make sure the table name is in the list of all table names, if not null
+        if (UtilValidate.isNotEmpty(ent.getPlainTableName())) {
+            tableNames.add(ent.getPlainTableName());
+        }
+
+        TreeSet entities = (TreeSet)packages.get(ent.getPackageName());
+        if (entities == null) {
+              entities = new TreeSet();
+            packages.put(ent.getPackageName(), entities);
+            packageNames.add(ent.getPackageName());
+        }
+        entities.add(eName);
+    }
+    
+    int numberOfEntities = ec.size();
+    context.put("numberOfEntities", numberOfEntities);
+    
+    int numberShowed = 0;
+    search = (String) request.getParameter("search");
+    
+    List packagesList = new ArrayList();
+    Iterator piter = packageNames.iterator();
+    while (piter.hasNext()) {
+        Map packageMap = new HashMap();
+        
+        String pName = (String) piter.next();
+        TreeSet entities = (TreeSet) packages.get(pName);
+        
+        List entitiesList = new ArrayList();
+        Iterator i = entities.iterator();
+        while (i.hasNext()) {
+            Map entityMap = new HashMap();
+            
+            String entityName = (String)i.next();
+            String helperName = delegator.getEntityHelperName(entityName);
+            String groupName = delegator.getEntityGroupName(entityName);
+            if (search == null || entityName.toLowerCase().indexOf(search.toLowerCase()) != -1) {
+                ModelEntity entity = reader.getModelEntity(entityName);
+                
+                List javaNameList = new ArrayList();
+                TreeSet ufields = new TreeSet();
+                for (int y = 0; y < entity.getFieldsSize(); y++) {
+                    Map javaNameMap = new HashMap();
+                    
+                    ModelField field = entity.getField(y);    
+                    ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
+                    String javaName = null;
+                    javaName = field.getIsPk() ? "<span style=\"color: red;\">" + field.getName() + "</span>" : field.getName();
+                    javaNameMap.put("name", javaName);
+                    javaNameMap.put("colName", field.getColName());
+                    javaNameMap.put("type", field.getType());
+                    javaNameMap.put("javaType", (field.getType() != null) ? type.getJavaType() : null);
+                    javaNameMap.put("sqlType", (field.getType() != null) ? type.getSqlType() : null);
+                    
+                    javaNameList.add(javaNameMap);            
+                }
+                
+                List relationsList = new ArrayList();
+                  TreeSet relations = new TreeSet();
+                for (int r = 0; r < entity.getRelationsSize(); r++) {
+                    Map relationMap = new HashMap();
+                    
+                    ModelRelation relation = entity.getRelation(r);            
+                    
+                    List keysList = new ArrayList();
+                    for (int km = 0; km < relation.getKeyMapsSize(); km++) { 
+                        Map keysMap = new HashMap();
+                        
+                        ModelKeyMap keyMap = relation.getKeyMap(km);
+                         if (keyMap.getFieldName().equals(keyMap.getRelFieldName())) {
+                             fieldName = keyMap.getFieldName();
+                             relFieldName = "aa";
+                          } else {
+                              fieldName = keyMap.getFieldName();
+                              relFieldName = keyMap.getRelFieldName();
+                          }
+                          keysMap.put("row", km+1);
+                          keysMap.put("fieldName", fieldName);
+                          keysMap.put("relFieldName", relFieldName);
+                          
+                          keysList.add(keysMap);
+                    }
+                    relationMap.put("title", relation.getTitle());
+                    relationMap.put("relEntity", relation.getRelEntityName());
+                    relationMap.put("fkName", relation.getFkName());
+                    relationMap.put("type", relation.getType());
+                    relationMap.put("length", relation.getType().length());
+                    relationMap.put("keysList", keysList);
+                    
+                    relationsList.add(relationMap);
+                }
+                
+                entityMap.put("entityName", entityName);
+                entityMap.put("helperName", helperName);
+                entityMap.put("groupName", groupName);
+                entityMap.put("plainTableName", entity.getPlainTableName());
+                entityMap.put("title", entity.getTitle());
+                entityMap.put("description", entity.getDescription());
+                entityMap.put("javaNameList", javaNameList);
+                entityMap.put("relationsList", relationsList);
+                entitiesList.add(entityMap);
+            }
+        }
+        packageMap.put("packageName", pName);
+        packageMap.put("entitiesList", entitiesList);
+        packagesList.add(packageMap);
+    }
+    context.put("packagesList", packagesList); 
+}
