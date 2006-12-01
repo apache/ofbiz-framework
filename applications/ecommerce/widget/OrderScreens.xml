@@ -323,6 +323,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCheckoutReview"/>
+                <set field="parameters.formNameValue" value="orderreview" global="true"/>                
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
             </actions>
             <widgets>
