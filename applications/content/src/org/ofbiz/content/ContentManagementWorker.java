@@ -444,7 +444,7 @@ public class ContentManagementWorker {
             Iterator it2 = permittedPublishPointList.iterator();
             while (it2.hasNext()) {
                 String [] publishPointArray = (String [])it2.next();
-                String publishPointId = (String)publishPointArray[0];
+                String publishPointId = publishPointArray[0];
                 //fieldName = "_" + Integer.toString(counter) + "_" + publishPointId;
                 String fieldName = publishPointId;
                 List contentAssocList = content.getRelatedByAnd("ToContentAssoc", UtilMisc.toMap("contentId", publishPointId));
@@ -568,8 +568,8 @@ public class ContentManagementWorker {
             //String contentId = (String)webSitePublishPoint.get("contentId");
             //String description = (String)webSitePublishPoint.get("description");
             String [] arr = (String [])it.next();
-            String contentId = (String)arr[0];
-            String description = (String)arr[1];
+            String contentId = arr[0];
+            String description = arr[1];
             List subPointList = new ArrayList();
             Object nullObj = null;
             Object [] subArr = {contentId, subPointList, description, nullObj};
