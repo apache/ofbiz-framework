@@ -103,6 +103,7 @@ under the License.
         <form method="post" action='<@ofbizUrl>${requestName}</@ofbizUrl>' name="editcontactmechform">
         <input type="hidden" name="DONE_PAGE" value='${donePage}'>
         <input type="hidden" name="contactMechId" value='${contactMechId}'>
+        <input type="hidden" name="contactMechTypeId" value='${contactMechTypeId}'>
     </#if>
 
   <#if contactMechTypeId = "POSTAL_ADDRESS">
@@ -223,5 +224,6 @@ under the License.
     &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
   </#if>
 </#if>
+
 
 
