@@ -67,7 +67,7 @@ under the License.
         <set field="titleProperty" value="PageTitleLogView"/>
         <!-- TODO: the following command is not really working (and the default value is always used);
                    my guess is that the base/config/debug.properties file is not found in the classpath -->
-        <property-to-field resource="debug" property="debug.log4j.appender.file.File" field="logFileName" default="framework/logs/ofbiz.log" no-locale="true"/>
+        <property-to-field resource="debug" property="log4j.appender.css.File" field="logFileName" default="framework/logs/ofbiz.html" no-locale="true"/>
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogView.bsh"/>
       </actions>
       <widgets>
@@ -84,9 +84,9 @@ under the License.
                 <label style="tableheadtext">${uiLabelMap.WebtoolsLogFileName}:</label>
                 <label style="tabletext">${logFileName}</label>
             </container>
-            <container>
-                <label style="tabletext">${logFileContent}</label>
-            </container>
+            <platform-specific>
+                <html><html-template location="component://webtools/webapp/webtools/log/logContent.ftl"/></html>
+            </platform-specific>
           </decorator-section>
         </decorator-screen>
       </widgets>
