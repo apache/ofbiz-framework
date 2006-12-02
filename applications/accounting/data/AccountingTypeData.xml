@@ -239,6 +239,7 @@ under the License.
     <InvoiceItemType description="Invoice Surcharge" hasTable="N" invoiceItemTypeId="INV_SURCHARGE_ADJ" parentTypeId="INVOICE_ADJ"/>
     <InvoiceItemType description="Invoice Additional Feature" hasTable="N" invoiceItemTypeId="INV_ADD_FEATURE" parentTypeId="INVOICE_ADJ"/>
     <InvoiceItemType description="Invoice Warranty" hasTable="N" invoiceItemTypeId="INV_WARRANTY_ADJ" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Interest Charge" hasTable="N" invoiceItemTypeId="INV_INTRST_CHRG" parentTypeId="INVOICE_ADJ"/>
 
     <InvoiceItemType description="Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ITM_ADJ" parentTypeId=""/>
     <InvoiceItemType description="Invoice Item Promotion" hasTable="N" invoiceItemTypeId="ITM_PROMOTION_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
