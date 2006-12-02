@@ -27,7 +27,7 @@ under the License.
         </call-map-processor>
         <check-errors/>
         <call-service service-name="deleteParty" in-map-name="context">
-            <default-message>Party successfully deleted.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyPartySuccessfullyDeleted"/>
         </call-service>
     </simple-method>
 
@@ -37,7 +37,7 @@ under the License.
                 processor-name="person" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createPerson" in-map-name="context">
-            <default-message>Person successfully created.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyPersonSuccessfullyCreated"/>
             <result-to-request result-name="partyId"/>
         </call-service>
     </simple-method>
@@ -47,7 +47,7 @@ under the License.
                 processor-name="person" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="updatePerson" in-map-name="context">
-            <default-message>Person successfully updated.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyPersonSuccessfullyUpdated"/>
         </call-service>
     </simple-method>
 
@@ -57,7 +57,7 @@ under the License.
                 processor-name="partyGroup" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createPartyGroup" in-map-name="context">
-            <default-message>Party Group successfully created.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyPartyGroupSuccessfullyCreated"/>
             <result-to-request result-name="partyId"/>
         </call-service>
     </simple-method>
@@ -67,7 +67,7 @@ under the License.
                 processor-name="partyGroup" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="updatePartyGroup" in-map-name="context">
-            <default-message>Party Group successfully updated.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyPartyGroupSuccessfullyUpdated"/>
         </call-service>
     </simple-method>
 </simple-methods>

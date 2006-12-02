@@ -166,7 +166,7 @@ under the License.
         <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="createPartyContactMechMap"/>
         
         <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
-            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
+            <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
         </call-service>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
         <field-to-result field-name="contactMechId" map-name="newPartyContactMech"/>
@@ -195,7 +195,7 @@ under the License.
         <set field="updatePartyContactMechMap.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <log level="info" message="Copied id to updatePartyContactMechMap: ${updatePartyContactMechMap.newContactMechId}"/>
         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechMap">
-            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
+            <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
         </call-service>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
         <field-to-result field-name="contactMechId" map-name="newPartyContactMech"/>                      
@@ -224,7 +224,7 @@ under the License.
         <log level="info" message="Copied id to createPartyContactMechMap: ${createPartyContactMechMap.contactMechId}"/>
 
         <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
-            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
         </call-service>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
         <field-to-result field-name="contactMechId" map-name="newPartyContactMech"/>
@@ -254,7 +254,7 @@ under the License.
         <log level="info" message="Copied id to updatePartyContactMechMap: ${updatePartyContactMechMap.newContactMechId}"/>
 
         <call-service in-map-name="updatePartyContactMechMap" service-name="updatePartyContactMech">
-            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
         </call-service>
         <log level="info" message="Setting result id: ${newPartyContactMech.contactMechId}"/>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
@@ -280,7 +280,7 @@ under the License.
         <set field="createPartyContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="createPartyContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap">
-            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
+            <default-message resource="PartyUiLabels" property="PartyEmailAddressSuccessfullyCreated"/>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>
@@ -305,7 +305,7 @@ under the License.
         <set field="updatePartyContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="updatePartyContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechMap">
-            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>            
+            <default-message resource="PartyUiLabels" property="PartyEmailAddressSuccessfullyUpdated"/>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>
