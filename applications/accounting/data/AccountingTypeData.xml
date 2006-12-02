@@ -192,6 +192,9 @@ under the License.
     <GlAccountType description="Purchase Price Variance" glAccountTypeId="PURCHASE_PRICE_VAR" hasTable="N" parentTypeId="EXPENSE"/>
     <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
     
+    <GlAccountType description="Other Income" glAccountTypeId="OTHER_INCOME" hasTable="N" parentTypeId="INCOME"/>
+    <GlAccountType description="Interest Income" glAccountTypeId="INTEREST_INCOME" hasTable="N" parentTypeId="OTHER_INCOME"/>
+    
     <GlAccountType description="Interest Income Receivables" glAccountTypeId="INTRSTINC_RECEIVABLE" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
     <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
 

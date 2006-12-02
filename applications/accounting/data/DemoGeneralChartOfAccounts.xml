@@ -1396,7 +1396,7 @@ but they are grouped here for convenience purposes -->
     glAccountClassId="CASH_INCOME" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="MEMBERSHIP FEES COLLECTED" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="800000" glAccountId="810000" accountCode="810000" 
-    glAccountClassId="CASH_INCOME" glAccountTypeId="" glResourceTypeId="MONEY"  
+    glAccountClassId="CASH_INCOME" glAccountTypeId="INTEREST_INCOME" glResourceTypeId="MONEY"  
     accountName="INTEREST INCOME ON FINANCE CHARGES OR CUSTOMER ACCOUNTS" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="800000" glAccountId="811000" accountCode="811000" 
     glAccountClassId="CASH_INCOME" glAccountTypeId="" glResourceTypeId="MONEY"  
