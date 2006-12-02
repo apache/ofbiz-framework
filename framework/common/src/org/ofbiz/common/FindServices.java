@@ -37,7 +37,6 @@ import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityFieldValue;

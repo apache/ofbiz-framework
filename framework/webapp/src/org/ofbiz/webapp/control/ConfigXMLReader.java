@@ -15,7 +15,6 @@
  */
 package org.ofbiz.webapp.control;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
