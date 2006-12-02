@@ -400,8 +400,8 @@ public class AIMPaymentServices {
     }
 
     private static void buildInvoiceInfo(Map params, Properties props, Map AIMRequest) {
-        String description = (String) UtilFormatOut.checkNull(props.getProperty("transDescription"));
-        String orderId = (String) UtilFormatOut.checkNull((String)params.get("orderId"));
+        String description = UtilFormatOut.checkNull(props.getProperty("transDescription"));
+        String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
         AIMRequest.put("x_Invoice_Num","Order " + orderId);
         AIMRequest.put("x_Description", description);
         return;
@@ -411,8 +411,8 @@ public class AIMPaymentServices {
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((Double)params.get("processAmount")).toString();
-        String number = (String) UtilFormatOut.checkNull(cc.getString("cardNumber"));
-        String expDate = (String) UtilFormatOut.checkNull(cc.getString("expireDate"));
+        String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
+        String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
 
         AIMRequest.put("x_Amount",amount);
         AIMRequest.put("x_Currency_Code",currency);
@@ -428,8 +428,8 @@ public class AIMPaymentServices {
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((Double)params.get("captureAmount")).toString();
-        String number = (String) UtilFormatOut.checkNull(cc.getString("cardNumber"));
-        String expDate = (String) UtilFormatOut.checkNull(cc.getString("expireDate"));
+        String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
+        String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
 
         AIMRequest.put("x_Amount",amount);
         AIMRequest.put("x_Currency_Code",currency);
@@ -446,8 +446,8 @@ public class AIMPaymentServices {
         GenericValue cc = (GenericValue)params.get("creditCard");
         String currency = (String) params.get("currency");
         String amount = ((Double)params.get("refundAmount")).toString();
-        String number = (String) UtilFormatOut.checkNull(cc.getString("cardNumber"));
-        String expDate = (String) UtilFormatOut.checkNull(cc.getString("expireDate"));
+        String number = UtilFormatOut.checkNull(cc.getString("cardNumber"));
+        String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
 
         AIMRequest.put("x_Amount",amount);
         AIMRequest.put("x_Currency_Code",currency);
@@ -482,7 +482,7 @@ public class AIMPaymentServices {
             results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
             results.put("avsCode", ar.getResponseField(AuthorizeResponse.AVS_RESULT_CODE));
-            results.put("processAmount", new Double((String)ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("processAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", new Double("0.00"));
@@ -503,7 +503,7 @@ public class AIMPaymentServices {
         if(captureResult.booleanValue()) { //passed
             results.put("captureCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
-            results.put("captureAmount", new Double((String)ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("captureAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("captureAmount", new Double("0.00"));
 
@@ -522,7 +522,7 @@ public class AIMPaymentServices {
         if(captureResult.booleanValue()) { //passed
             results.put("refundCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("refundRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
-            results.put("refundAmount", new Double((String)ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("refundAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("refundAmount", new Double("0.00"));
 

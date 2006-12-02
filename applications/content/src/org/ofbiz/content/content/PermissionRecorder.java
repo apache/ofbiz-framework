@@ -224,7 +224,7 @@ public class PermissionRecorder {
         String str = null;
         String s = null;
         for (int i=0; i < fieldTitles.length; i++) {
-            String opField = (String)fieldTitles[i];
+            String opField = fieldTitles[i];
             sb.append("<td class=\"headr\">");
             sb.append(opField);
             sb.append("</td>");
@@ -270,7 +270,7 @@ public class PermissionRecorder {
         String str = null;
         String s = null;
         for (int i=0; i < opFields.length; i++) {
-            String opField = (String)opFields[i];
+            String opField = opFields[i];
             sb.append("<td class=\"target\">");
             s = (String)currentContentResultMap.get(opField);
             if (s != null)
@@ -293,7 +293,7 @@ public class PermissionRecorder {
 
         boolean isPass = true;
         for (int i=0; i < opFields.length; i++) {
-            String opField = (String)opFields[i];
+            String opField = opFields[i];
             Boolean bool = (Boolean)rMap.get(opField + "Cond");
             String cls = (bool.booleanValue()) ? "pass" : "fail";
             if (!bool.booleanValue())

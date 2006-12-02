@@ -147,7 +147,7 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
         if (isPK) {
             return entity.getModelEntity().convertToViewValues(targetEntityName, (GenericPK) entity);
         } else {
-            return entity.getModelEntity().convertToViewValues(targetEntityName, (GenericEntity) entity);
+            return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
         }
     }
 

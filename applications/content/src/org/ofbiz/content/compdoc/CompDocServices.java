@@ -191,7 +191,7 @@ public class CompDocServices {
                 GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", thisDataResourceId));
                 String inputMimeType = null;
                 if(dataResource != null) {
-                    inputMimeType = (String)dataResource.getString("mimeTypeId");
+                    inputMimeType = dataResource.getString("mimeTypeId");
                 }
                 byte [] inputByteArray = null;
                 PdfReader reader = null;
@@ -340,7 +340,7 @@ public class CompDocServices {
             }
             String inputMimeType = null;
             if(dataResource != null) {
-                inputMimeType = (String)dataResource.getString("mimeTypeId");
+                inputMimeType = dataResource.getString("mimeTypeId");
             }
             byte [] inputByteArray = null;
             if (inputMimeType != null && inputMimeType.equals("application/pdf")) {

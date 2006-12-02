@@ -104,7 +104,7 @@ public class ContentManagementEvents {
             Iterator itPubPt = permittedPublishPointList.iterator();
             while (itPubPt.hasNext()) {
                 String [] pubArr = (String [])itPubPt.next();
-                String pubContentId = (String)pubArr[0];
+                String pubContentId = pubArr[0];
                 String pubValue = (String)map.get(pubContentId);
                 String paramName = Integer.toString(counter)  + "_" + pubContentId;
                 String paramValue = (String)paramMap.get(paramName);

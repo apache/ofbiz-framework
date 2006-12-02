@@ -97,7 +97,7 @@ public class CommonEvents {
         }        
         
         if (visit.getString("sessionId").equals(sessionId)) {                                                                             
-            String currentPage = (String) request.getParameter("currentPage");
+            String currentPage = request.getParameter("currentPage");
             if (appletSessions.containsKey(sessionId)) {              
                 Map sessionMap = (Map) appletSessions.get(sessionId);
                 String followers = (String) sessionMap.get("followers");

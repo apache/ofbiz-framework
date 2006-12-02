@@ -235,7 +235,7 @@ public class ModelEntityChecker {
                         //make sure all keyMap 'relFieldName's match fields of
                         // the relatedEntity
                         for (int rkm = 0; rkm < relation.getKeyMapsSize(); rkm++) {
-                            ModelKeyMap keyMap = (ModelKeyMap) relation.getKeyMap(rkm);
+                            ModelKeyMap keyMap = relation.getKeyMap(rkm);
 
                             ModelField field = entity.getField(keyMap.getFieldName());
                             ModelField rfield = null;

@@ -240,7 +240,7 @@ public class OrderReturnServices {
             if (productStoreEmail != null && emailAddress != null) {
                 String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                 if (UtilValidate.isEmpty(bodyScreenLocation)) {
-                    bodyScreenLocation = (String) ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
+                    bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
                 }
                 sendMap.put("bodyScreenUri", bodyScreenLocation);
 

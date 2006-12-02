@@ -568,7 +568,7 @@ public class InventoryServices {
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         Timestamp shipDate = (Timestamp) backOrderedItems.get(orderItemSeqId);
                         Timestamp cancelDate = (Timestamp) cancelItems.get(orderItemSeqId);
-                        Timestamp currentCancelDate = (Timestamp) orderItem.getTimestamp("autoCancelDate");
+                        Timestamp currentCancelDate = orderItem.getTimestamp("autoCancelDate");
                         
                         Debug.logError("OI: " + orderId + " SEQID: "+ orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, module);
                         if (backOrderedItems.containsKey(orderItemSeqId)) {

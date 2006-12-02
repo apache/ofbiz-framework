@@ -620,7 +620,7 @@ public class ShoppingCartHelper {
                         // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                         quantString += " 00:00:00.000000000";
                         if (item != null) {
-                            Timestamp reservStart = Timestamp.valueOf((String) quantString);
+                            Timestamp reservStart = Timestamp.valueOf(quantString);
                             item.setReservStart(reservStart);
                         }
                     } else if (parameterName.startsWith("reservLength")) {

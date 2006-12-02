@@ -196,7 +196,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 Iterator modelParmInIter = modelParmInList.iterator();
                 while (modelParmInIter.hasNext()) {
                     ModelParam modelParam = (ModelParam) modelParmInIter.next();
-                    String paramName = (String) modelParam.name;
+                    String paramName = modelParam.name;
                     
                     // Debug.logInfo("In ServiceMultiEventHandler processing input parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + serviceName + "]", module);
 

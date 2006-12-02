@@ -222,7 +222,7 @@ public class ShoppingCartEvents {
                     reservStartStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
             if (reservStartStr.length() >0) {
                 try {
-                    reservStart = java.sql.Timestamp.valueOf((String) reservStartStr);
+                    reservStart = java.sql.Timestamp.valueOf(reservStartStr);
                 } catch (Exception e) {
                     Debug.logWarning(e,"Problems parsing Reservation start string: "
                                 + reservStartStr, module);
@@ -239,7 +239,7 @@ public class ShoppingCartEvents {
                         reservEndStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                 if (reservEndStr.length() > 0) {
                     try {
-                        reservEnd = java.sql.Timestamp.valueOf((String) reservEndStr);
+                        reservEnd = java.sql.Timestamp.valueOf(reservEndStr);
                     } catch (Exception e) {
                         Debug.logWarning(e,"Problems parsing Reservation end string: " + reservEndStr, module);
                         reservEnd = null;
@@ -909,7 +909,7 @@ public class ShoppingCartEvents {
      */
     public static String setOrderName(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
-        String orderName = (String) request.getParameter("orderName");
+        String orderName = request.getParameter("orderName");
         cart.setOrderName(orderName);
         return "success";
     }
@@ -1400,11 +1400,11 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
 
-        String agreementId = (String) request.getParameter("agreementId");
-        String currencyUomId = (String) request.getParameter("currencyUomId");
-        String shipBeforeDateStr = (String) request.getParameter("shipBeforeDate");
-        String shipAfterDateStr = (String) request.getParameter("shipAfterDate");
-        String orderName = (String) request.getParameter("orderName");
+        String agreementId = request.getParameter("agreementId");
+        String currencyUomId = request.getParameter("currencyUomId");
+        String shipBeforeDateStr = request.getParameter("shipBeforeDate");
+        String shipAfterDateStr = request.getParameter("shipAfterDate");
+        String orderName = request.getParameter("orderName");
         Map result = null;
 
         // set the agreement if specified otherwise set the currency

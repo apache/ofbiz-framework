@@ -114,7 +114,7 @@ public class InvoiceServices {
                 context.put("billItems", orderItems);
             }
             // get the system userid and store in context otherwise the invoice add service does not work
-            GenericValue userLogin = (GenericValue) delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
             if (userLogin != null) {
                 context.put("userLogin", userLogin);
             }

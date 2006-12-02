@@ -498,8 +498,8 @@ public class ShoppingListServices {
             Iterator iter = orderItems.iterator();
             while (iter.hasNext()) {
                 GenericValue orderItem = (GenericValue) iter.next();
-                String shoppingListId = (String) orderItem.getString("shoppingListId");
-                String shoppingListItemSeqId = (String) orderItem.getString("shoppingListItemSeqId");
+                String shoppingListId = orderItem.getString("shoppingListId");
+                String shoppingListItemSeqId = orderItem.getString("shoppingListItemSeqId");
                 if ((shoppingListId != null) && (shoppingListId.length() > 0)) {
                     GenericValue shoppingListItem=delegator.findByPrimaryKey("ShoppingListItem", UtilMisc.toMap("shoppingListId",
                                 shoppingListId, "shoppingListItemSeqId", shoppingListItemSeqId));

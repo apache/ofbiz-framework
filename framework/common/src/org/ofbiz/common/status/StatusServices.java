@@ -38,7 +38,7 @@ public class StatusServices {
     public static final String module = StatusServices.class.getName();
     
     public static Map getStatusItems(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = (GenericDelegator) ctx.getDelegator();
+        GenericDelegator delegator = ctx.getDelegator();
         List statusTypes = (List) context.get("statusTypeIds");
         if (statusTypes == null || statusTypes.size() == 0) {
             return ServiceUtil.returnError("Parameter statusTypeIds can not be null and must contain at least one element");
@@ -61,7 +61,7 @@ public class StatusServices {
     }
 
     public static Map getStatusValidChangeToDetails(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = (GenericDelegator) ctx.getDelegator();
+        GenericDelegator delegator = ctx.getDelegator();
         List statusValidChangeToDetails = null;
         String statusId = (String) context.get("statusId");
         try {

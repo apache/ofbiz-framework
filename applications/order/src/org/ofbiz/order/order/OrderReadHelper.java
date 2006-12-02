@@ -181,7 +181,7 @@ public class OrderReadHelper {
             if (adjustments == null)
                 adjustments = new ArrayList();
         }
-        return (List) adjustments;
+        return adjustments;
     }
 
     public List getPaymentPreferences() {
@@ -299,7 +299,7 @@ public class OrderReadHelper {
                 Debug.logError(e, module);
             }
         }
-        return (List) orderStatuses;
+        return orderStatuses;
     }
 
     public List getOrderTerms() {
