@@ -15,8 +15,23 @@
  */
 package org.ofbiz.example;
 
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.view.ApacheFopFactory;
+import org.ofbiz.widget.html.HtmlScreenRenderer;
+import org.ofbiz.widget.screen.ScreenRenderer;
+import org.xml.sax.SAXException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
@@ -33,23 +48,15 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.Sides;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.avalon.framework.logger.Log4JLogger;
-import org.apache.avalon.framework.logger.Logger;
-import org.apache.fop.apps.Driver;
-import org.apache.fop.image.FopImageFactory;
-import org.apache.fop.messaging.MessageHandler;
-import org.apache.fop.tools.DocumentInputSource;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
 
 public class ExamplePrintServices {
     public static final String module = ExamplePrintServices.class.getName();
@@ -90,40 +97,48 @@ public class ExamplePrintServices {
 
         String reportXmlDocument = reportWriter.toString();
 
-        // configure logging for the FOP
-        Logger logger = new Log4JLogger(Debug.getLogger(module));
-        MessageHandler.setScreenLogger(logger);        
-                          
-        // load the FOP driver
-        Driver driver = new Driver();
-        driver.setRenderer(Driver.RENDER_PDF);
-        driver.setLogger(logger);
-                                        
-        // read the XSL-FO XML Document
-        Document xslfo = null;
-        try {
-            xslfo = UtilXml.readXmlDocument(reportXmlDocument);
-        } catch (Throwable t) {
-            String errMsg = "Problems reading the parsed content to XML Document: " + t.toString();
-            Debug.logError(t, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
-        }
-        
-        // create the output stream for the PDF
+        // create the in/output stream for the generation
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        driver.setOutputStream(out);     
-                
-        // set the input source (XSL-FO) and generate the PDF        
-        InputSource is = new DocumentInputSource(xslfo);               
-        driver.setInputSource(is);        
+        
+        
+        FopFactory fopFactory;
         try {
-            driver.run();
-            FopImageFactory.resetCache();
-        } catch (Throwable t) {
-            String errMsg = "Unable to generate PDF from XSL-FO: " + t.toString();
-            Debug.logError(t, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            fopFactory = ApacheFopFactory.instance();
+            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
+            TransformerFactory transFactory = TransformerFactory.newInstance();
+            Transformer transformer = transFactory.newTransformer();
+
+            // set the input source (XSL-FO) and generate the PDF
+            Reader reader = new StringReader(reportXmlDocument);
+            Source src = new StreamSource(reader);
+            
+            // load the FOP driver
+
+            // Get handler that is used in the generation process
+            Result res = new SAXResult(fop.getDefaultHandler());
+            
+            // read the XSL-FO XML into the W3 Document
+            
+            // Start XSLT transformation and FOP processing
+            transformer.transform(src, res);
+            // and generate the PDF
+            // We don't want to cache the images that get loaded by the FOP engine
+            fopFactory.getImageFactory().clearCaches();
+            
+        } catch (FOPException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TransformerConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TransformerFactoryConfigurationError e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+       
         
         /*
         // set the content type and length                    

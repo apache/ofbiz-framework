@@ -13,7 +13,7 @@ http://docs.ofbiz.org/display/OFBADMIN/Libraries+Included+in+OFBiz
 The following libraries are licensed under the Apache License Version 2.0:
 ofbiz/trunk/framework/base/lib/ant-launcher.jar
 ofbiz/trunk/framework/base/lib/ant.jar
-ofbiz/trunk/framework/base/lib/avalon-framework-4.1.5.jar
+ofbiz/trunk/framework/base/lib/avalon-framework-4.2.0.jar
 ofbiz/trunk/framework/base/lib/avalon-util-exception-1.0.0.jar
 ofbiz/trunk/framework/base/lib/jakarta-regexp.jar
 ofbiz/trunk/framework/base/lib/log4j.jar
@@ -32,6 +32,7 @@ ofbiz/trunk/framework/base/lib/commons/commons-digester-1.7.jar
 ofbiz/trunk/framework/base/lib/commons/commons-discovery.jar
 ofbiz/trunk/framework/base/lib/commons/commons-el.jar
 ofbiz/trunk/framework/base/lib/commons/commons-fileupload.jar
+ofbiz/trunk/framework/base/lib/commons/commons-io-1.1.jar
 ofbiz/trunk/framework/base/lib/commons/commons-lang-2.1.jar
 ofbiz/trunk/framework/base/lib/commons/commons-logging.jar
 ofbiz/trunk/framework/base/lib/commons/commons-modeler.jar
@@ -85,11 +86,12 @@ ofbiz/trunk/framework/jetty/lib/org.mortbay.jetty.jar
 ofbiz/trunk/framework/jetty/lib/org.mortbay.jmx.jar
 ofbiz/trunk/framework/service/lib/axis-ant.jar
 ofbiz/trunk/framework/service/lib/axis.jar
-ofbiz/trunk/framework/webapp/lib/barcode4j-fop-ext-0.20.5-complete.jar
-ofbiz/trunk/framework/webapp/lib/batik.jar
-ofbiz/trunk/framework/webapp/lib/fop.jar
+ofbiz/trunk/framework/webapp/lib/barcode4j-fop-ext-0.92.jar
+ofbiz/trunk/framework/webapp/lib/batik-all-1.6.jar
+ofbiz/trunk/framework/webapp/lib/fop-0.92.jar
 ofbiz/trunk/framework/webapp/lib/velocity-1.3.jar
 ofbiz/trunk/framework/webapp/lib/velocity-dep-1.3.jar
+ofbiz/trunk/framework/webapp/lib/xmlgraphics-commons-1.0.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-transaction-1.0.jar
 ofbiz/trunk/framework/geronimo/lib/jencks-1.1.3.jar
 ofbiz/trunk/applications/content/lib/lucene.jar
