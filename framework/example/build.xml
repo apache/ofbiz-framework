@@ -45,6 +45,7 @@ under the License.
             <fileset dir="../../framework/minilang/build/lib" includes="*.jar"/>
             <fileset dir="../../framework/widget/build/lib" includes="*.jar"/>
             <fileset dir="../../framework/webapp/lib" includes="*.jar"/>
+            <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
         </path>
     </target>
 

@@ -1187,19 +1187,6 @@ under the License.
         <attribute name="mapIn" type="java.util.Map" mode="IN" optional="false"/>
         <attribute mode="OUT" name="outputString" optional="true" type="String"/>
     </service>
-    <service name="foToPdf" auth="true" engine="java" transaction-timeout="72000" 
-        location="org.ofbiz.content.content.ContentServices" invoke="foToPdf">
-        <attribute name="foFileIn" mode="IN" type="String" optional="false"/>
-        <attribute name="pdfFileOut" mode="IN" type="String" optional="true"/>
-        <attribute name="inputDataResourceTypeId" mode="IN" type="String" optional="true"/>
-        <attribute name="outputDataResourceTypeId" mode="IN" type="String" optional="true"/>
-        <attribute name="outputContentId" mode="INOUT" type="String" optional="true"/>
-        <attribute name="foContentId" mode="INOUT" type="String" optional="true"/>
-        <attribute name="templateDataResourceId" mode="IN" type="String" optional="true"/>
-        <attribute name="fmContext" type="java.util.Map" mode="IN" optional="true"/>
-        <attribute name="fmPrefixMap" type="java.util.Map" mode="IN" optional="true" string-map-prefix="CTX_"/>
-        <attribute name="pdfByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="OUT" optional="true"/>
-    </service>
 
     <!-- Content Revision services -->
     <service name="createContentRevision" engine="simple"

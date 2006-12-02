@@ -15,21 +15,20 @@
  */
 package org.ofbiz.webapp.view;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Writer;
+import java.io.*;
 
-import org.apache.avalon.framework.logger.Logger;
-import org.apache.avalon.framework.logger.Log4JLogger;
-import org.apache.fop.messaging.MessageHandler;
-import org.apache.fop.apps.Driver;
-import org.apache.fop.tools.DocumentInputSource;
-import org.apache.fop.image.FopImageFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.MimeConstants;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.FOPException;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.GeneralException;
+
+import javax.xml.transform.*;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.Result;
 
 /**
  * FopRenderer
@@ -38,50 +37,51 @@ public class FopRenderer {
 
     public static final String module = FopRenderer.class.getName();
 
+    /**
+     * Renders a PDF document from a FO script that is passed in and returns the content as a ByteArrayOutputStream
+     * @param writer    a Writer stream that supplies the FO text to be rendered
+     * @return  ByteArrayOutputStream containing the binary representation of a PDF document
+     * @throws GeneralException
+     */
     public static ByteArrayOutputStream render(Writer writer) throws GeneralException {
-        // configure logging for the FOP
-        Logger logger = new Log4JLogger(Debug.getLogger(module));
-        MessageHandler.setScreenLogger(logger);
 
-        // load the FOP driver
-        Driver driver = new Driver();
-        driver.setRenderer(Driver.RENDER_PDF);
-        driver.setLogger(logger);
+        FopFactory fopFactory = ApacheFopFactory.instance();
 
-        /*
-        try {
-            String buf = writer.toString();
-            java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/xslfo.out"));
-            fw.write(buf.toString());
-            fw.close();
-        } catch (IOException e) {
-            throw new GeneralException("Unable write to browser OutputStream", e);
-        }
-        */
-
-        // read the XSL-FO XML Document
-        Document xslfo = null;
-        try {
-            xslfo = UtilXml.readXmlDocument(writer.toString());
-        } catch (Throwable t) {
-            throw new GeneralException("Problems reading the parsed content to XML Document", t);
-        }
-
-        // create the output stream for the PDF
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        driver.setOutputStream(out);
 
-        // set the input source (XSL-FO) and generate the PDF
-        InputSource is = new DocumentInputSource(xslfo);
-        driver.setInputSource(is);
+        TransformerFactory transFactory = TransformerFactory.newInstance();
+
         try {
-            driver.run();
-            FopImageFactory.resetCache();
-        } catch (Throwable t) {
-            throw new GeneralException("Unable to generate PDF from XSL-FO", t);
+            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
+            Transformer transformer = transFactory.newTransformer();
+
+            // set the input source (XSL-FO) and generate the PDF
+            Reader reader = new StringReader(writer.toString());
+            Source src = new StreamSource(reader);
+
+            // Get handler that is used in the generation process
+            Result res = new SAXResult(fop.getDefaultHandler());
+
+            try {
+                // Transform the FOP XML source into a PDF, hopefully...
+                transformer.transform(src, res);
+
+                // We don't want to cache the images that get loaded by the FOP engine
+                fopFactory.getImageFactory().clearCaches();
+
+                return out;
+
+            } catch (TransformerException e) {
+                Debug.logError("FOP transform failed:" + e, module );
+                throw new GeneralException("Unable to transform FO to PDF", e);
+            }
+
+        } catch (TransformerConfigurationException e) {
+            Debug.logError("FOP TransformerConfiguration Exception " + e, module);
+            throw new GeneralException("Transformer Configuration Error", e);
+        } catch (FOPException e) {
+            Debug.logError("FOP Exception " + e, module);
+            throw new GeneralException("FOP Error", e);
         }
-
-        return out;
     }
-
 }

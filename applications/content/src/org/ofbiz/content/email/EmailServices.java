@@ -15,59 +15,18 @@
  */
 package org.ofbiz.content.email;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Properties;
-import java.sql.Timestamp;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.Message;
-import javax.mail.Address;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import java.util.Date;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.apache.avalon.framework.logger.Log4JLogger;
-import org.apache.avalon.framework.logger.Logger;
-import org.apache.fop.apps.Driver;
 import org.apache.fop.apps.FOPException;
-import org.apache.fop.image.FopImageFactory;
-import org.apache.fop.messaging.MessageHandler;
-import org.apache.fop.tools.DocumentInputSource;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
@@ -77,10 +36,57 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.mail.MimeMessageWrapper;
+import org.ofbiz.webapp.view.ApacheFopFactory;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 /**
  * Email Services
@@ -359,39 +365,27 @@ public class EmailServices {
                     Debug.logError(e, "Couldn't save xsl-fo xml debug file: " + e.toString(), module);
                 }
                 */
-                
-                // configure logging for the FOP
-                Logger logger = new Log4JLogger(Debug.getLogger(module));
-                MessageHandler.setScreenLogger(logger);        
-                
-                // load the FOP driver
-                Driver driver = new Driver();
-                driver.setRenderer(Driver.RENDER_PDF);
-                driver.setLogger(logger);
-                
-                // read the XSL-FO XML into the W3 Document
-                Document xslfo = UtilXml.readXmlDocument(writer.toString());
 
                 // create the in/output stream for the generation
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                driver.setOutputStream(baos);     
-                driver.setInputSource(new DocumentInputSource(xslfo));        
                 
+                FopFactory fopFactory = ApacheFopFactory.instance();
+                Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, baos);
+                TransformerFactory transFactory = TransformerFactory.newInstance();
+                Transformer transformer = transFactory.newTransformer();
+
+                Reader reader = new StringReader(writer.toString());
+                Source src = new StreamSource(reader);
+                Result res = new SAXResult(fop.getDefaultHandler());
+                
+                // Start XSLT transformation and FOP processing
+                transformer.transform(src, res);
                 // and generate the PDF
-                driver.run();
-                FopImageFactory.resetCache();
                 baos.flush();
                 baos.close();
 
-                /*
-                try {    // save generated pdf file for debugging
-                    FileOutputStream fos = new FileOutputStream(new java.io.File("/tmp/file2.pdf"));
-                    baos.writeTo(fos);
-                    fos.close();
-                } catch (IOException e) {
-                    Debug.logError(e, "Couldn't save xsl-fo pdf debug file: " + e.toString(), module);
-                }
-                */
+                // We don't want to cache the images that get loaded by the FOP engine
+                fopFactory.getImageFactory().clearCaches();
 
                 // store in the list of maps for sendmail....
                 List bodyParts = FastList.newInstance();
@@ -414,6 +408,12 @@ public class EmailServices {
             } catch (FOPException fe) {
                 String errMsg = "Error rendering PDF attachment for email: " + fe.toString();
                 Debug.logError(fe, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            } catch (TransformerConfigurationException tce) {
+                String errMsg = "FOP TransformerConfiguration Exception: " + tce.toString();
+                return ServiceUtil.returnError(errMsg);
+            } catch (TransformerException te) {
+                String errMsg = "FOP transform failed: " + te.toString();
                 return ServiceUtil.returnError(errMsg);
             } catch (SAXException se) {
                 String errMsg = "Error rendering PDF attachment for email: " + se.toString();
