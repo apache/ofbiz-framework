@@ -533,7 +533,7 @@ public class MrpServices {
                 oldProductId = "";
                 while (iteratorListInventoryEventForMRP.hasNext()) {
                     inventoryEventForMRP = (GenericValue) iteratorListInventoryEventForMRP.next();
-                    productId = (String) inventoryEventForMRP.getString("productId");
+                    productId = inventoryEventForMRP.getString("productId");
                     eventQuantity = inventoryEventForMRP.getDouble("eventQuantity").doubleValue();
 
                     if (!productId.equals(oldProductId)) {
@@ -541,7 +541,7 @@ public class MrpServices {
                         // It's a new product, so it's necessary to  read the MrpQoh
                         try {
                             product = inventoryEventForMRP.getRelatedOneCache("Product");
-                            productFacility = (GenericValue)EntityUtil.getFirst(product.getRelatedByAndCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId)));
+                            productFacility = EntityUtil.getFirst(product.getRelatedByAndCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId)));
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem, can not find the product for a event, for more detail look at the log");
                         }

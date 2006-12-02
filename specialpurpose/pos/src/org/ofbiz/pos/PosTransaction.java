@@ -753,7 +753,7 @@ public class PosTransaction implements Serializable {
         if (cart != null) {
             int paymentInfoSize = cart.selectedPayments();
             for (int i = 0; i < paymentInfoSize; i++) {
-                ShoppingCart.CartPaymentInfo inf = (ShoppingCart.CartPaymentInfo) cart.getPaymentInfo(i);
+                ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(i);
                 GenericValue paymentInfoObj = inf.getValueObject(session.getDelegator());
 
                 GenericValue paymentMethodType = null;

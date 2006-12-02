@@ -258,7 +258,7 @@ public class PartyWorker {
                 while (a.hasNext()) {
                     GenericValue partyAndAddr = (GenericValue) a.next();
                     String partyId = partyAndAddr.getString("partyId");
-                    String cmId = (String) partyAndAddr.getString("contactMechId");
+                    String cmId = partyAndAddr.getString("contactMechId");
                     if (UtilValidate.isNotEmpty(partyId)) {
                         GenericValue p = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
                         if (p != null) {

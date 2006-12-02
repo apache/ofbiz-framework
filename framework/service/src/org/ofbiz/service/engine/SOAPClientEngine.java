@@ -159,7 +159,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
     private Map getResponseParams(Message respMessage) {
         Map mRet = new Hashtable();
         try {
-            SOAPEnvelope resEnv = (SOAPEnvelope) respMessage.getSOAPEnvelope();
+            SOAPEnvelope resEnv = respMessage.getSOAPEnvelope();
             List bodies = resEnv.getBodyElements();
             Iterator i = bodies.iterator();
             while (i.hasNext()) {

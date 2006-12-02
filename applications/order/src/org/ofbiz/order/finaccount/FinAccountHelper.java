@@ -109,7 +109,7 @@ public class FinAccountHelper {
          while (!foundUniqueNewCode) {
             newAccountCode = new StringBuffer(codeLength);
             for (int i = 0; i < codeLength; i++) {
-                newAccountCode.append(char_pool[(int) r.nextInt(char_pool.length)]);
+                newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
             }
 
      	    List existingAccountsWithCode = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", newAccountCode.toString()));

@@ -496,7 +496,7 @@ public class ServerHitBin {
 
     /** return the hits per minute using the entire length of the bin as returned by getBinLengthMinutes() */
     public double getHitsPerMinute() {
-        return ((double) this.numberHits) / ((double) this.getBinLengthMinutes());
+        return ((double) this.numberHits) / this.getBinLengthMinutes();
     }
 
     synchronized void addHit(long startTime, long runningTime) {

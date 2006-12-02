@@ -49,7 +49,7 @@ public abstract class EntityConditionBase implements Serializable {
     protected ModelField getField(ModelEntity modelEntity, String fieldName) {
         ModelField modelField = null;
         if (modelEntity != null) {
-            modelField = (ModelField) modelEntity.getField(fieldName);
+            modelField = modelEntity.getField(fieldName);
         }
         return modelField;
     }
@@ -64,7 +64,7 @@ public abstract class EntityConditionBase implements Serializable {
         if (modelField != null) {
             colName = modelField.getColName();
         } else {
-            colName = (String) fieldName;
+            colName = fieldName;
         }
         return colName;
     }

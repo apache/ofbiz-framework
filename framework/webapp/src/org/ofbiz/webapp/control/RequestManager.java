@@ -55,7 +55,7 @@ public class RequestManager implements Serializable {
 
     /** Gets the entire handler mapping */
     public Map getHandlerMap() {
-        return (Map) ConfigXMLReader.getHandlerMap(configFileUrl);
+        return ConfigXMLReader.getHandlerMap(configFileUrl);
     }
 
     /** Gets the class name of the named handler */

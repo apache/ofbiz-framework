@@ -490,7 +490,7 @@ public class FindServices {
 
         EntityConditionList exprList = null;
         if (tmpList.size() > 0) {
-            exprList = new EntityConditionList(tmpList, (EntityJoinOperator) EntityOperator.AND);
+            exprList = new EntityConditionList(tmpList, EntityOperator.AND);
         }
         
         List orderByList = null;

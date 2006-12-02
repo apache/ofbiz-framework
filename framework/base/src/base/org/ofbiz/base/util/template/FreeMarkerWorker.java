@@ -431,7 +431,7 @@ public class FreeMarkerWorker {
     public static void saveContextValues(Map context, String [] saveKeyNames, Map saveMap ) {
         //Map saveMap = new HashMap();
         for (int i=0; i<saveKeyNames.length; i++) {
-            String key = (String)saveKeyNames[i];
+            String key = saveKeyNames[i];
             Object o = context.get(key);
             if (o instanceof Map)
                 o = new HashMap((Map)o);
@@ -445,7 +445,7 @@ public class FreeMarkerWorker {
     public static Map saveValues(Map context, String [] saveKeyNames) {
         Map saveMap = new HashMap();
         for (int i=0; i<saveKeyNames.length; i++) {
-            String key = (String)saveKeyNames[i];
+            String key = saveKeyNames[i];
             Object o = context.get(key);
             if (o instanceof Map)
                 o = new HashMap((Map)o);
@@ -481,7 +481,7 @@ public class FreeMarkerWorker {
 
     public static void removeValues(Map context, String [] removeKeyNames ) {
         for (int i=0; i<removeKeyNames.length; i++) {
-            String key = (String)removeKeyNames[i];
+            String key = removeKeyNames[i];
             context.remove(key);
         }
         return;

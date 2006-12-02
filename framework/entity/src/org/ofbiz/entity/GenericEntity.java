@@ -652,7 +652,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         }
         
         // In case of view entity try to retrieve the field heading from the real entity linked to the view
-        ModelEntity modelEntityToUse = (ModelEntity) this.getModelEntity();
+        ModelEntity modelEntityToUse = this.getModelEntity();
         if (modelEntityToUse instanceof ModelViewEntity) {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntityToUse;
             Iterator it = modelViewEntity.getAliasesIterator();

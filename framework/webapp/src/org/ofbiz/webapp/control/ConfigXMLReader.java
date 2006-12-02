@@ -260,7 +260,7 @@ public class ConfigXMLReader {
 
                 StringBuffer verboseMessageBuffer = new StringBuffer();
 
-                Iterator debugIter = ((Set) thisURI.keySet()).iterator();
+                Iterator debugIter = thisURI.keySet().iterator();
                 while (debugIter.hasNext()) {
                     Object lo = debugIter.next();
                     String name = (String) lo;
@@ -354,7 +354,7 @@ public class ConfigXMLReader {
     
                 StringBuffer verboseMessageBuffer = new StringBuffer();
     
-                Iterator debugIter = ((Set) thisURI.keySet()).iterator();
+                Iterator debugIter = thisURI.keySet().iterator();
                 while (debugIter.hasNext()) {
                     Object lo = debugIter.next();
                     String name = (String) lo;
