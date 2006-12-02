@@ -1155,9 +1155,9 @@ The following libraries distributed with Apache OFBiz are licensed under the
 W3C License:
 ofbiz/trunk/framework/base/lib/Tidy.jar
 =========================================================================
-W3C� SOFTWARE NOTICE AND LICENSE
+W3C¨ SOFTWARE NOTICE AND LICENSE
 
- Copyright � 1994-2001 World Wide Web Consortium, (Massachusetts Institute of
+ Copyright © 1994-2001 World Wide Web Consortium, (Massachusetts Institute of
  Technology, Institut National de Recherche en Informatique et en Automatique,
  Keio University). All Rights Reserved. http://www.w3.org/Consortium/Legal/
 
@@ -1179,7 +1179,7 @@ W3C� SOFTWARE NOTICE AND LICENSE
    2. Any pre-existing intellectual property disclaimers, notices, or terms and
    conditions. If none exist, a short notice of the following form (hypertext is
    preferred, text is permitted) should be used within the body of any
-   redistributed or derivative code: "Copyright � [$date-of-software] World Wide
+   redistributed or derivative code: "Copyright © [$date-of-software] World Wide
    Web Consortium, (Massachusetts Institute of Technology, Institut National de
    Recherche en Informatique et en Automatique, Keio University). All Rights
    Reserved. http://www.w3.org/Consortium/Legal/"
@@ -1744,7 +1744,7 @@ JPython version 1.1.x
      publicly, prepare derivative works, distribute, and otherwise use the
      Software alone or in any derivative version, provided, however, that
      CNRI's License Agreement and CNRI's notice of copyright, i.e.,
-     "Copyright �1996-1999 Corporation for National Research Initiatives;
+     "Copyright ©1996-1999 Corporation for National Research Initiatives;
      All Rights Reserved" are both retained in the Software, alone or in any
      derivative version prepared by Licensee.
 
