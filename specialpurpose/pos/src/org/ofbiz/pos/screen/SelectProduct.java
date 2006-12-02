@@ -28,7 +28,6 @@ import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
 import net.xoetrope.xui.XPage;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;
 

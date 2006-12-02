@@ -30,7 +30,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.entity.util.ByteWrapper;
 
 public class EmailWorker {

@@ -29,11 +29,9 @@ import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.config.ButtonEventConfig;
 import org.ofbiz.pos.component.Input;
 import org.ofbiz.pos.component.Journal;
-import org.ofbiz.pos.screen.LoadSale;
 import org.ofbiz.pos.screen.SelectProduct;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
 
 public class MenuEvents {
 
