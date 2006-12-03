@@ -41,6 +41,23 @@ under the License.
         </if-compare>                       
         <check-errors/>
 
+        <set field="successMessageProperty" value="PartyContactMechanismSuccessfullyUpdated"/>                        
+        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="EMAIL_ADDRESS">
+            <set field="successMessageProperty" value="PartyEmailAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="WEB_ADDRESS">
+            <set field="successMessageProperty" value="PartyWebAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="IP_ADDRESS">
+            <set field="successMessageProperty" value="PartyIpAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="ELECTRONIC_ADDRESS">
+            <set field="successMessageProperty" value="PartyElectronicAddressSuccessfullyUpdated"/>
+        </if-compare>
+        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="DOMAIN_NAME">
+            <set field="successMessageProperty" value="PartyDomainNameSuccessfullyUpdated"/>
+        </if-compare>
+
         <make-value entity-name="ContactMech" value-name="ContactMechMap"/>
         <set-pk-fields value-name="ContactMechMap" map-name="parameters"/>
         <find-by-primary-key entity-name="ContactMech" map-name="ContactMechMap" value-name="oldValue" /> 
@@ -51,7 +68,7 @@ under the License.
             <set field="context.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <set field="context.infoString" from-field="parameters.infoString"/>
             <call-service service-name="createContactMech" in-map-name="context">
-                <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
+                <default-message resource="PartyUiLabels" property="${successMessageProperty}"/>
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
             </call-service>                                        
             <field-to-result map-name="newValue" field-name="contactMechId"/>
