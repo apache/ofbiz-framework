@@ -113,7 +113,7 @@ public class SelectProduct extends XPage {
                 Object o = i.next();
                 Map.Entry entry = (Map.Entry)o;
                 String val = entry.getValue().toString();
-                if (val == product) {
+                if (val.equals(product)) {
                     m_productIdSelected = entry.getKey().toString();
                 }
             }

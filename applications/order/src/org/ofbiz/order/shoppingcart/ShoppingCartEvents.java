@@ -953,7 +953,7 @@ public class ShoppingCartEvents {
         if (termDays != null) {
             lTermDays = new Long(termDays);
         }
-        if ((termIndex != null) && (termIndex != "-1") && (UtilValidate.isInteger(termIndex))) {
+        if ((termIndex != null) && (!"-1".equals(termIndex)) && (UtilValidate.isInteger(termIndex))) {
             cartHelper.removeOrderTerm(Integer.parseInt(termIndex));
         }
 
