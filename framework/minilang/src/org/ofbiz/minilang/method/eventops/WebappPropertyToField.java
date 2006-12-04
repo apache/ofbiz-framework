@@ -74,15 +74,9 @@ public class WebappPropertyToField extends MethodOperation {
             }
         }
 
-        // if fieldVal is null, or is a String and has zero length, use defaultVal
-        if (fieldVal == null) {
+        // if fieldVal is null, or has zero length, use defaultVal
+        if ((fieldVal == null) || (fieldVal.length() == 0)){
             fieldVal = defaultVal;
-        } else if (fieldVal instanceof String) {
-            String strVal = (String) fieldVal;
-
-            if (strVal.length() == 0) {
-                fieldVal = defaultVal;
-            }
         }
 
         if (!mapAcsr.isEmpty()) {
