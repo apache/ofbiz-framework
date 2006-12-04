@@ -74,7 +74,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ListPartyCommEvents?partyId=${partyId}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -452,7 +452,7 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1" text="${uiLabelMap.PartyCommWorkEfforts}"/></container>
                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditCommWorkEffort"/>
