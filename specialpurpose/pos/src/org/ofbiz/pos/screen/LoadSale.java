@@ -196,7 +196,7 @@ public class LoadSale extends XPage {
                 Object o = i.next();
                 Map.Entry entry = (Map.Entry)o;
                 String val = entry.getValue().toString();
-                if (val == sale) {
+                if (val.equals(sale)) {
                     saleSelected = entry.getKey().toString();
                 }
             }
