@@ -274,7 +274,7 @@ public class UtilCache implements Serializable {
         }
 
         int maxMemSize = this.maxInMemory;
-        if (maxMemSize == 0) maxMemSize = (int) maxSize;
+        if (maxMemSize == 0) maxMemSize = maxSize;
         this.cacheLineTable = new CacheLineTable(this.fileStore, this.name, this.useFileSystemStore, maxMemSize);
     }
 
@@ -493,7 +493,7 @@ public class UtilCache implements Serializable {
      * @param maxSize The maximum number of elements in the cache
      */
     public void setMaxSize(int maxSize) {
-        cacheLineTable.setLru((int) maxSize);
+        cacheLineTable.setLru(maxSize);
         this.maxSize = maxSize;
     }
 

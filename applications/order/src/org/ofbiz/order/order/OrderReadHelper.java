@@ -1690,7 +1690,7 @@ public class OrderReadHelper {
            for (Iterator groupiter = group.iterator(); groupiter.hasNext(); ) {
                GenericValue returnItem = (GenericValue) groupiter.next();
                if (returnItem.getDouble("returnQuantity") != null) {
-                   returned += ((Double) returnItem.getDouble("returnQuantity")).doubleValue();
+                   returned += (returnItem.getDouble("returnQuantity")).doubleValue();
                }
            }
 
