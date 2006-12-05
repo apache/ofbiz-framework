@@ -493,14 +493,6 @@ under the License.
         <override name="facilityId" optional="false"/>
     </service>
 
-    <service name="prepareInventoryReceipt" engine="simple"
-            location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="prepareInventoryReceipt" auth="true">
-        <description>Prepare Receipt Form for Inventory Item</description>
-        <attribute name="quantityAccepted" type="Double" mode="IN" optional="false"/>
-        <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantityOnHandDiff" type="Double" mode="OUT" optional="true"/>
-        <attribute name="availableToPromiseDiff" type="Double" mode="OUT" optional="true"/>
-    </service>
     <service name="quickReceiveReturn" engine="simple"
             location="org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="quickReceiveReturn" auth="true">
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
