@@ -26,21 +26,25 @@ under the License.
              <#if supplierGeneralContactMechValueMap?exists>
                <#assign contactMech = supplierGeneralContactMechValueMap.contactMech>
                <fo:table-cell>
-                 <fo:block white-space-collapse="false">
-<fo:block font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:block><#assign postalAddress = supplierGeneralContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName}</#if><#if postalAddress.attnName?has_content>
-${postalAddress.attnName?if_exists}</#if>
-${postalAddress.address1?if_exists}<#if postalAddress.address2?has_content>
-${postalAddress.address2?if_exists}</#if>
-${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
-${postalAddress.countryGeoId?if_exists}
-</fo:block>
+                 <fo:block>
+                     ${uiLabelMap.OrderPurchasedFrom}:
+                 </fo:block>
+                 <#assign postalAddress = supplierGeneralContactMechValueMap.postalAddress>
+                 <#if postalAddress?has_content>
+                   <#if postalAddress.toName?has_content><fo:block>${postalAddress.toName}</fo:block></#if>
+                   <#if postalAddress.attnName?has_content><fo:block>${postalAddress.attnName?if_exists}</#if>
+                   <fo:block>${postalAddress.address1?if_exists}</fo:block>
+                   <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
+                   <fo:block>${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if></fo:block>
+                   <fo:block>${postalAddress.countryGeoId?if_exists}</fo:block>
+                 </#if>
                </fo:table-cell>
              <#else>
                <#-- here we just display the name of the vendor, since there is no address -->
                <fo:table-cell>
                  <#assign vendorParty = orderReadHelper.getBillFromParty()>
-                 <fo:block white-space-collapse="false">
-<fo:block font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:block>${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(vendorParty)}
+                 <fo:block>
+                   <fo:inline font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:inline> ${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(vendorParty)}
                  </fo:block>
                </fo:table-cell> 
              </#if>
@@ -51,18 +55,19 @@ ${postalAddress.countryGeoId?if_exists}
                <#assign contactMech = orderContactMechValueMap.contactMech>
                <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
                <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
+               <#assign postalAddress = orderContactMechValueMap.postalAddress>
                <fo:table-cell>
-                 <fo:block white-space-collapse="false">
-<fo:block font-weight="bold">${contactMechPurpose.get("description",locale)}: </fo:block><#assign postalAddress = orderContactMechValueMap.postalAddress><#if postalAddress?has_content><#if postalAddress.toName?has_content>${postalAddress.toName?if_exists}</#if><#if postalAddress.attnName?has_content>
-${postalAddress.attnName?if_exists}</#if>
-${postalAddress.address1?if_exists}<#if postalAddress.address2?has_content>
-${postalAddress.address2?if_exists}</#if>
-${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if></#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if>
-</fo:block>
-                </fo:table-cell>
-                </#if>
+                 <fo:block font-weight="bold">${contactMechPurpose.get("description",locale)}:</fo:block>
+                 <#if postalAddress?has_content>
+                   <#if postalAddress.toName?has_content><fo:block>${postalAddress.toName?if_exists}</fo:block></#if>
+                   <#if postalAddress.attnName?has_content><fo:block>${postalAddress.attnName?if_exists}</fo:block></#if>
+                   <fo:block>${postalAddress.address1?if_exists}</fo:block>
+                   <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
+                   <fo:block>${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if><#if postalAddress.postalCode?has_content>${postalAddress.postalCode}</#if></fo:block>
+                 </#if>
+               </fo:table-cell>
+               </#if>
              </#list>
-             
             </fo:table-row>
          </fo:table-body>
        </fo:table>
@@ -77,7 +82,7 @@ ${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content
           <fo:table-body>
            <#if orderPaymentPreferences?has_content>
             <fo:table-row>
-                <fo:table-cell><fo:block>${uiLabelMap.AccountingPaymentInformation}</fo:block></fo:table-cell>
+                <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.AccountingPaymentInformation}:</fo:block></fo:table-cell>
                 <fo:table-cell><fo:block>
                       <#list orderPaymentPreferences as orderPaymentPreference>
                          <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType")?if_exists>
@@ -96,7 +101,7 @@ ${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content
         <#-- shipping method.  currently not shown for PO's because we are not recording a shipping method for PO's in order entry -->
            <#if orderHeader.getString("orderTypeId") == "SALES_ORDER">
             <fo:table-row>
-               <fo:table-cell><fo:block>${uiLabelMap.OrderShipmentInformation}:</fo:block></fo:table-cell>
+               <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderShipmentInformation}:</fo:block></fo:table-cell>
                   <fo:table-cell>
                  <#if shipGroups?has_content>
                    <#list shipGroups as shipGroup>
@@ -112,7 +117,7 @@ ${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content
        <#-- order terms information -->
              <#if orderTerms?has_content>
              <fo:table-row>
-               <fo:table-cell><fo:block>${uiLabelMap.OrderOrderTerms}: </fo:block></fo:table-cell>
+               <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderOrderTerms}: </fo:block></fo:table-cell>
                <fo:table-cell white-space-collapse="false"><fo:block><#list orderTerms as orderTerm>${orderTerm.getRelatedOne("TermType").get("description",locale)} ${orderTerm.termValue?default("")} ${orderTerm.termDays?default("")}
 </#list></fo:block></fo:table-cell>
              </fo:table-row>
