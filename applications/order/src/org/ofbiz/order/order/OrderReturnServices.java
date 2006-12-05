@@ -1316,6 +1316,8 @@ public class OrderReturnServices {
                 // make the order items
                 double itemTotal = 0.00;
                 List orderItems = new ArrayList();
+                List orderItemShipGroupInfo = new ArrayList();
+                List orderItemShipGroupIds = new ArrayList(); // this is used to store the ship group ids of the groups already added to the orderItemShipGroupInfo list
                 if (items != null) {
                     Iterator ri = items.iterator();
                     int itemCount = 1;
@@ -1348,10 +1350,34 @@ public class OrderReturnServices {
                                 newItem.set("correspondingPoId", orderItem.get("correspondingPoId"));
                                 newItem.set("statusId", "ITEM_CREATED");
                                 orderItems.add(newItem);
+                                // Set the order item ship group information
+                                // TODO: only the first ship group associated to the item 
+                                //       of the original order is considered and cloned,
+                                //       and the returned units are assigned to it.
+                                //       Is there a better way to handle this?
+                                try {
+                                    GenericValue orderItemShipGroupAssoc = EntityUtil.getFirst(orderItem.getRelated("OrderItemShipGroupAssoc"));
+                                    if (orderItemShipGroupAssoc != null) {
+                                        if (!orderItemShipGroupIds.contains(orderItemShipGroupAssoc.getString("shipGroupSeqId"))) {
+                                            GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
+                                            GenericValue newOrderItemShipGroup = (GenericValue)orderItemShipGroup.clone();
+                                            newOrderItemShipGroup.set("orderId", null);
+                                            orderItemShipGroupInfo.add(newOrderItemShipGroup);
+                                            orderItemShipGroupIds.add(orderItemShipGroupAssoc.getString("shipGroupSeqId"));
+                                        }
+                                        GenericValue newOrderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", newItem.getString("orderItemSeqId"), "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"), "quantity", quantity));
+                                        orderItemShipGroupInfo.add(newOrderItemShipGroupAssoc);
+                                    }
+                                } catch(GenericEntityException gee) {
+                                    Debug.logError(gee, module);
+                                }
                             }
                         }
                     }
                     orderMap.put("orderItems", orderItems);
+                    if (orderItemShipGroupInfo.size() > 0) {
+                        orderMap.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
+                    }
                 } else {
                     Debug.logError("No return items found??", module);
                     continue;
