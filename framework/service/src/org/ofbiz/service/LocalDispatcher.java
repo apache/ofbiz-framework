@@ -179,6 +179,24 @@ public interface LocalDispatcher {
      */
     public void schedule(String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException;
 
+    /**
+     * Schedule a service to run asynchronously at a specific start time.
+     * @param jobName Name of the job
+     * @param poolName Name of the service pool to send to.
+     * @param serviceName Name of the service to invoke.
+     * @param context The name/value pairs composing the context.
+     * @param startTime The time to run this service.
+     * @param frequency The frequency of the recurrence (RecurrenceRule.DAILY, etc).
+     * @param interval The interval of the frequency recurrence.
+     * @param count The number of times to repeat.
+     * @param endTime The time in milliseconds the service should expire
+     * @param maxRetry The number of times we should retry on failure
+     * @throws ServiceAuthException
+     * @throws ServiceValidationException
+     * @throws GenericServiceException
+     */
+    public void schedule(String jobName, String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException;
+
 
     /**
      * Schedule a service to run asynchronously at a specific start time.

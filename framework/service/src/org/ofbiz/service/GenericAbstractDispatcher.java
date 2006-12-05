@@ -45,8 +45,15 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int)
      */
     public void schedule(String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
+        schedule(null, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
+    }
+    
+    /**
+     * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int)
+     */
+    public void schedule(String jobName, String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
         try {
-            getJobManager().schedule(poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
+            getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
                 
             if (Debug.verboseOn()) {
                 Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
