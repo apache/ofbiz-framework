@@ -1,0 +1,111 @@
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.util.EntityUtil;
+
+import javolution.util.FastMap;
+
+delegator = request.getAttribute("delegator");
+
+productId = request.getParameter("productId");
+if ( productId == null ) {
+    productId = session.getAttribute("productId");
+}
+
+if ( productId != null ) {
+    product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+    context.put("product", product);
+
+    facilityId = request.getParameter("facilityId");
+    contextInput = UtilMisc.toMap("productId",productId, "facilityId", facilityId);
+    resultOutput = dispatcher.runSync("getInventoryAvailableByFacility",contextInput);
+    quantitySummary = new HashMap();
+    quantitySummary.put("facilityId", facilityId);
+    quantitySummary.put("atp_qoh", ((Double)resultOutput.get("availableToPromiseTotal")).intValue() + " / " + 
+            ((Double)resultOutput.get("quantityOnHandTotal")).intValue());
+    context.put("quantitySummary", quantitySummary);
+
+    // For now this just generates a visual list of locations set against the product for this facility.
+    // todo: Will need to be able to edit and change these values at some point in the future.
+    productFacilityLocList = delegator.findByAnd("ProductFacilityLocation", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+    productFacilityLocListIter = productFacilityLocList.iterator();
+    facStr = null;
+
+    while (productFacilityLocListIter.hasNext()) {
+        facilityLoc = productFacilityLocListIter.next();
+        if ( UtilValidate.isEmpty(facStr) ) {
+            facStr = facilityLoc.get("locationSeqId");
+        } else {
+            facStr = facStr + ", " + facilityLoc.get("locationSeqId");
+        }
+    }
+    context.put("productFacilityLocations", facStr);
+
+
+    // Now we build a list of locations for inventory items against the facility.
+    // todo: change this to a select from inv_items where productId and facilityId matches distinct (locationSeqId).
+    invItemList = delegator.findByAnd("InventoryItem",
+            UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+
+    Map locations = new HashMap();
+
+    boolean  negativeQOH = false;
+    invItemListIter = invItemList.iterator();
+    while (invItemListIter.hasNext()) {
+        invItem = invItemListIter.next();
+        int qoh = ((Double)invItem.get("quantityOnHandTotal")).intValue();
+        if ( qoh < 0 )
+        	negativeQOH = true;
+        locationFound = (String)invItem.get("locationSeqId");
+        if ( locationFound == null ) {
+            locationFound = "nullField";
+        }
+        if ( locations.get(locationFound) == null ) {
+            locations.put(locationFound, locationFound);
+        }
+    }
+
+    // Go through and build the list of atp/qoh against each location
+    productFacilityLocations = new ArrayList();
+    locationsIter = locations.keySet().iterator();
+    while (locationsIter.hasNext()) {
+        location = locationsIter.next();
+        contextInput = UtilMisc.toMap("productId",productId, "facilityId", facilityId, "locationSeqId", location);
+        resultOutput = dispatcher.runSync("getInventoryAvailableByLocation",contextInput);
+        quantitySummary = new HashMap();
+        quantitySummary.put("productId", productId);
+        quantitySummary.put("facilityId", facilityId);
+        if ( "nullField".equals( location ) == true ) {
+            quantitySummary.put("locationSeqId", "");
+        } else {
+            quantitySummary.put("locationSeqId", location);
+        }
+        quantitySummary.put("atp_qoh", ((Double)resultOutput.get("availableToPromiseTotal")).intValue() + " / " + 
+                ((Double)resultOutput.get("quantityOnHandTotal")).intValue());
+        productFacilityLocations.add(quantitySummary);
+    }
+
+    context.put("productQtyByLocations", productFacilityLocations);
+    if ( negativeQOH == true ) {
+	    context.put("negativeQOH", "true");
+	}
+
+
+}
+
+
