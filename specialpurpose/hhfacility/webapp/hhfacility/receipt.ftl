@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<#--
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -15,8 +14,11 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/component-loader.xsd">
-    <load-component component-location="${ofbiz.home}/specialpurpose/pos"/>
-    <load-component component-location="${ofbiz.home}/specialpurpose/hhfacility"/>
-</component-loader>
+<#assign facility = parameters.facility>
+
+<span class="tabletext">
+    <ol>
+        <li><a accesskey="1" href="<@ofbizUrl>/poreceipt?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">PO Receipt</a></li>
+        <li><a accesskey="2" href="<@ofbizUrl>/productreceipt?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Product Receipt</a></li>
+    </ol>
+</span>
