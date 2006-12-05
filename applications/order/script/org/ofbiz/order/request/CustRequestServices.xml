@@ -55,12 +55,14 @@ under the License.
              then we associate it to the request as the request taker.
              This is not done if they are the same e.g. a logged in customer that is creating a request for its
              own sake. -->
-        <if-compare-field field-name="parameters.fromPartyId" operator="not-equals" to-field-name="userLogin.partyId">
-            <set from-field="newEntity.custRequestId" field="takerMap.custRequestId"/>
-            <set from-field="userLogin.partyId" field="takerMap.partyId"/>
-            <set value="REQ_TAKER" field="takerMap.roleTypeId"/>
-            <call-service service-name="createCustRequestRole" in-map-name="takerMap"/>
-        </if-compare-field>
+        <if-not-empty field-name="userLogin.partyId">  <!-- just in case the service is called by the "system" userLogin -->
+            <if-compare-field field-name="parameters.fromPartyId" operator="not-equals" to-field-name="userLogin.partyId">
+                <set from-field="newEntity.custRequestId" field="takerMap.custRequestId"/>
+                <set from-field="userLogin.partyId" field="takerMap.partyId"/>
+                <set value="REQ_TAKER" field="takerMap.roleTypeId"/>
+                <call-service service-name="createCustRequestRole" in-map-name="takerMap"/>
+            </if-compare-field>
+        </if-not-empty>
         
         <!-- save the created status in the history -->
         <set-service-fields to-map-name="statusMap" service-name="createCustRequestStatus" map-name="newEntity"/>
