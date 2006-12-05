@@ -17,11 +17,11 @@
 <XPage>
     <Components>
         <Panel name="oper_panel" x="0" y="0" w="412" h="55" border="0" style="panel">
-            <Edit name="oper_txid" x="2" y="2" w="80" h="50" style="opinfo" border="0" alignment="Left"/>
-            <Edit name="oper_drwr" x="84" y="2" w="53" h="50" style="opinfo" border="0" alignment="Left"/>
-            <Edit name="oper_empl" x="141" y="2" w="76" h="50" style="opinfo" border="0" alignment="Left"/>
-            <Edit name="oper_date" x="219" y="2" w="96" h="50" style="opinfo" border="0" alignment="Center"/>
-            <Edit name="oper_total" x="317" y="2" w="95" h="50" style="optotal" border="0" alignment="Right"/>
+            <Edit name="oper_txid" x="2" y="2" w="70" h="50" style="opinfo" border="0" alignment="Left"/>
+            <Edit name="oper_drwr" x="74" y="2" w="53" h="50" style="opinfo" border="0" alignment="Left"/>
+            <Edit name="oper_empl" x="131" y="2" w="76" h="50" style="opinfo" border="0" alignment="Left"/>
+            <Edit name="oper_date" x="209" y="2" w="96" h="50" style="opinfo" border="0" alignment="Center"/>
+            <Edit name="oper_total" x="307" y="2" w="105" h="50" style="optotal" border="0" alignment="Right"/>
         </Panel>
         <ScrollPane name="journal_panel" x="0" y="55" w="412" h="637">
             <Table name="jtable" x="2" y="2" w="410" h="625" style="journal"/>
