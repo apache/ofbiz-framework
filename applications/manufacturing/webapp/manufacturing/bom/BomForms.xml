@@ -26,7 +26,7 @@ under the License.
             <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="bomType" title="${uiLabelMap.ManufacturingBomType}" widget-style="selectBox">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="MANUF_COMPONENT">
                 <entity-options entity-name="ProductAssocType" key-field-name="productAssocTypeId" description="${description}">
                     <entity-constraint name="parentTypeId" value="PRODUCT_COMPONENT"/>
                 </entity-options>
