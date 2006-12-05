@@ -77,15 +77,11 @@ under the License.
             <set field="loops" from-field="parameters.quantityAccepted"/>
             <set field="parameters.quantityAccepted" value="1" type="Double"/>
         </if-compare>
+        <set from-field="parameters.quantityAccepted" field="parameters.quantityOnHandDiff"/>
+        <set from-field="parameters.quantityAccepted" field="parameters.availableToPromiseDiff"/>
+  
         <loop count="${loops}" field="currentLoop">
             <log level="info" message="Looping and creating inventory info - ${currentLoop}"/>
-            <clear-field field-name="serviceInMap"/>
-            <set-service-fields service-name="prepareInventoryReceipt" map-name="parameters" to-map-name="serviceInMap"/>
-            <call-service service-name="prepareInventoryReceipt" in-map-name="serviceInMap">
-                <result-to-field result-name="quantityOnHandDiff" field-name="parameters.quantityOnHandDiff"/>
-                <result-to-field result-name="availableToPromiseDiff" field-name="parameters.availableToPromiseDiff"/>
-            </call-service>
-            <check-errors/>
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
@@ -110,16 +106,6 @@ under the License.
         </loop>
     </simple-method>
 
-    <simple-method method-name="prepareInventoryReceipt" short-description="Prepare Inventory Receipt">
-        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run prepareInventoryReceipt you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
-        
-        <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field-name="inventoryItemTypeId" map-name="parameters">
-            <field-to-result field-name="quantityAccepted" map-name="parameters" result-name="quantityOnHandDiff"/>
-            <field-to-result field-name="quantityAccepted" map-name="parameters" result-name="availableToPromiseDiff"/>
-        </if-compare>
-    </simple-method>
-    
     <simple-method method-name="quickReceiveReturn" short-description="Quick Receive Entire Return">
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run quickReceiveReturn you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
