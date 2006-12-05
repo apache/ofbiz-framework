@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastMap;
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
@@ -1369,7 +1370,29 @@ public class OrderReturnServices {
                 try {
                     orderMap.put("orderTerms", orderHeader.getRelated("OrderTerm"));
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, "Cannot create replacement order because order terms for original order is not available", module);
+                    Debug.logError(e, "Cannot create replacement order because order terms for original order are not available", module);
+                }
+                // we'll assume the new order has the same order roles of the original one
+                try {
+                    List orderRoles = orderHeader.getRelated("OrderRole");
+                    Map orderRolesMap = FastMap.newInstance();
+                    if (orderRoles != null) {
+                        Iterator orderRolesIt = orderRoles.iterator();
+                        while (orderRolesIt.hasNext()) {
+                            GenericValue orderRole = (GenericValue) orderRolesIt.next();
+                            List parties = (List) orderRolesMap.get(orderRole.getString("roleTypeId"));
+                            if (parties == null) {
+                                parties = FastList.newInstance();
+                                orderRolesMap.put(orderRole.getString("roleTypeId"), parties);
+                            }
+                            parties.add(orderRole.getString("partyId"));
+                        }
+                    }
+                    if (orderRolesMap.size() > 0) {
+                        orderMap.put("orderAdditionalPartyRoleMap", orderRolesMap);
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Cannot create replacement order because order roles for original order are not available", module);
                 }
 
                 // create the order
