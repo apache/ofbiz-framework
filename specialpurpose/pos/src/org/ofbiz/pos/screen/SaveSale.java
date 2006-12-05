@@ -20,8 +20,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import net.xoetrope.swing.XButton;
-import net.xoetrope.swing.XDialog;
+//import org.ofbiz.pos.screen.XFocusDialog;
 import net.xoetrope.swing.XEdit;
+import net.xoetrope.swing.XDialog;
 import net.xoetrope.xui.XPage;
 
 import org.ofbiz.base.util.Debug;
@@ -52,23 +53,22 @@ public class SaveSale extends XPage {
     }
 
     public void openDlg() {
-        XDialog dlg = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/savesale");
-        m_dialog = dlg;
-        dlg.setModal(true);
-        dlg.setCaption(UtilProperties.getMessage("pos", "SaveASale", Locale.getDefault()));
-        m_saleName = (XEdit) dlg.findComponent("saleName");
+        m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/savesale");
+        m_saleName = (XEdit) m_dialog.findComponent("saleName");        
+        //m_dialog.setM_focused(m_saleName); 
         m_saleName.setText(m_pos.session.getUserId() + " " + sdf.format(new Date()));
+        m_dialog.setCaption(UtilProperties.getMessage("pos", "SaveASale", Locale.getDefault()));
 
-        m_cancel = (XButton) dlg.findComponent("BtnCancel");
-        m_save = (XButton) dlg.findComponent("BtnSave");
-        m_saveAndClear = (XButton) dlg.findComponent("BtnSaveAndClear");
+        m_cancel = (XButton) m_dialog.findComponent("BtnCancel");
+        m_save = (XButton) m_dialog.findComponent("BtnSave");
+        m_saveAndClear = (XButton) m_dialog.findComponent("BtnSaveAndClear");
 
         addMouseHandler(m_cancel, "cancel");
         addMouseHandler(m_save, "save");
         addMouseHandler(m_saveAndClear, "saveAndClear");
 
-        dlg.pack();
-        dlg.showDialog(this);
+        m_dialog.pack();
+        m_dialog.showDialog(this);
     }
 
     public synchronized void cancel()

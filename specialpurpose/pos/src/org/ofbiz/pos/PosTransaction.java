@@ -54,6 +54,7 @@ import org.ofbiz.pos.device.DeviceLoader;
 import org.ofbiz.pos.screen.LoadSale;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.screen.SaveSale;
+import org.ofbiz.pos.screen.PaidInOut;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
