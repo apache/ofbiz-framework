@@ -60,18 +60,16 @@ public class LoadSale extends XPage {
     }
 
     public void openDlg() {
-        XDialog dlg = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/loadsale");
-        m_dialog = dlg;
-        dlg.setCaption(UtilProperties.getMessage("pos", "LoadASale", Locale.getDefault()));
-        //dlg.setModal(true);
-        m_salesList = (XList) dlg.findComponent("salesList");
-        addMouseHandler(m_salesList, "SaleDoubleClick");
+        m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/loadsale");
+        m_dialog.setCaption(UtilProperties.getMessage("pos", "LoadASale", Locale.getDefault()));
+        m_salesList = (XList) m_dialog.findComponent("salesList");
+        addMouseHandler(m_salesList, "saleDoubleClick");
 
-        m_cancel = (XButton) dlg.findComponent("BtnCancel");
-        m_add = (XButton) dlg.findComponent("BtnAdd");
-        m_replace = (XButton) dlg.findComponent("BtnReplace");
-        m_delete = (XButton) dlg.findComponent("BtnDelete");
-        m_replaceAndDelete = (XButton) dlg.findComponent("BtnReplaceAndDelete");
+        m_cancel = (XButton) m_dialog.findComponent("BtnCancel");
+        m_add = (XButton) m_dialog.findComponent("BtnAdd");
+        m_replace = (XButton) m_dialog.findComponent("BtnReplace");
+        m_delete = (XButton) m_dialog.findComponent("BtnDelete");
+        m_replaceAndDelete = (XButton) m_dialog.findComponent("BtnReplaceAndDelete");
         addMouseHandler(m_cancel, "cancel");
         addMouseHandler(m_add, "addSale");
         addMouseHandler(m_replace, "replaceSale");
@@ -91,11 +89,12 @@ public class LoadSale extends XPage {
         m_salesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         m_salesList.setToolTipText(UtilProperties.getMessage("pos", "LoadSaleListDblClickTip", Locale.getDefault()));
 
-        dlg.pack();
-        dlg.showDialog(this);
+        m_dialog.pack();
+        m_salesList.requestFocusInWindow();
+        m_dialog.showDialog(this);
     }
 
-    public synchronized void SaleDoubleClick() {
+    public synchronized void saleDoubleClick() {
         if (wasMouseDoubleClicked()) {
             String sale = selectedSale();
             if (null != sale) {

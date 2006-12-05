@@ -34,6 +34,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.device.DeviceLoader;
 import org.ofbiz.pos.device.impl.Receipt;
 import org.ofbiz.pos.screen.PosScreen;
+import org.ofbiz.pos.screen.PaidInOut;
+import org.ofbiz.pos.screen.SaveSale;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.adaptor.SyncCallbackAdaptor;
 import org.ofbiz.pos.component.Input;
@@ -416,61 +418,42 @@ public class ManagerEvents {
             pos.showDialog("dialog/error/terminalclosed");
             return;
         }
-        Output output = pos.getOutput();
-        Input input = pos.getInput(); 
-        if (input.isFunctionSet("PAID_" + type)) {
-            String[] func = input.getFunction("PAID_" + type);
-            String lastValue = input.value();
-            if (UtilValidate.isNotEmpty(lastValue)) {
-                String[] paidInfo = new String[0];
-                switch (func[1].split("\\|").length) {
-                    case 1:
-                        try {
-                            double dbl = Double.parseDouble(lastValue);
-                            dbl = dbl / 100;
-                            lastValue = UtilFormatOut.formatPrice(dbl);
-                        } catch (NumberFormatException e) {
-                            Debug.logError(e, module);
-                        }
-                        func[1] = func[1] + "|";
-                        func[1] = func[1] + lastValue;
-                        input.setFunction("PAID_" + type, func[1]);
-                        output.print(UtilProperties.getMessage("pos","ENT_COMM_" + type, Locale.getDefault()));
-                        break;                        
-                    case 2:
-                        func[1] = func[1] + "|";
-                        func[1] = func[1] + lastValue;
-                        paidInfo = func[1].split("\\|");            
-                        GenericValue internTx = pos.getSession().getDelegator().makeValue("PosTerminalInternTx", null);
-                        internTx.set("posTerminalLogId", trans.getTerminalLogId());                        
-                        try
-                        {
-                            internTx.set("paidAmount", new Double(priceDecimalFormat.parse(paidInfo[1]).doubleValue()));
-                        }
-                        catch (ParseException pe)
-                        {
-                            Debug.logError(pe, module);
-                        }
-                        internTx.set("reasonComment", paidInfo[2]);
-                        try {
-                            internTx.create();
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
-                            pos.showDialog("dialog/error/exception", e.getMessage());
-                        }                        
-                        //save the TX Log 
-                        trans.paidInOut(type);               
-                        NavagationEvents.showPosScreen(pos);                        
-                        break;
-                }
+        
+        PaidInOut PaidInOut = new PaidInOut(trans, pos, type);
+        Map mapInOut = PaidInOut.openDlg();
+        if (null != mapInOut.get("amount")) {
+            String amount = (String) mapInOut.get("amount");
+            try {
+                double dbl = Double.parseDouble(amount);
+            } catch (NumberFormatException e) {
+                Debug.logError(e, module);
+                return;
             }
-        } else {
-            trans.popDrawer();
-            input.clear();
-            input.setFunction("PAID_" + type);
-            output.print(UtilProperties.getMessage("pos","ENT_" + type, Locale.getDefault()));
-        }
-    }    
+
+            GenericValue internTx = pos.getSession().getDelegator().makeValue("PosTerminalInternTx", null);
+            internTx.set("posTerminalLogId", trans.getTerminalLogId());                        
+            try
+            {
+                internTx.set("paidAmount", new Double(priceDecimalFormat.parse(amount).doubleValue() / 100));
+            }
+            catch (ParseException pe)
+            {
+                Debug.logError(pe, module);
+                return;
+            }
+            internTx.set("reasonComment", mapInOut.get("reason"));
+            try {
+                internTx.create();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return;
+            }                        
+            //save the TX Log 
+            trans.paidInOut(type);               
+            NavagationEvents.showPosScreen(pos);                                    
+        }    
+    }
     
     private static void printTotals(PosScreen pos, GenericValue state, boolean runBalance) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());

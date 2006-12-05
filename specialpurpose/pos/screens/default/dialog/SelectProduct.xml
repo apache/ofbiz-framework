@@ -17,7 +17,7 @@
 -->
 <XPage class="net.xoetrope.swing.XDialog">
     <Components>
-        <Panel name="salesPanel" x="0" y="0" w="680" h="420" style="menu">
+        <Panel name="SelectProduct" x="0" y="0" w="680" h="420" style="menu">
             <ScrollPane name="scroolList" x="20" y="20" w="400" h="372">
                 <List name="productsList" x="0" y="0" w="400" h="400" style="editAndList"/>
             </ScrollPane>
