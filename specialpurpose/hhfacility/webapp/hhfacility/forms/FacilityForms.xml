@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    
+    <form name="ListFacilities" type="list" list-name="facilities" paginate-target="main"
+             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="Facility">
+                <order-by field-name="description"/>
+            </entity-condition>
+        </actions>
+        
+        <field name="facilityId" title="ID" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${facilityId}" target="menu?facilityId=${facilityId}"/>
+        </field>
+        <field name="facilityName" title="Name"><display/></field>
+        <field name="description" title="Description"><display/></field>
+    </form>
+
+    <!-- this form posts to "polinereceipt" (see controller.xml) -->
+    <form name="POEnter" type="single" target="polinereceipt"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><hidden/></field>
+        <field name="OrderId" required-field="true" title="PO Number"><text size="10"/></field>
+        <field name="submitButton" title="Next" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- this form posts to "productqtyreceipt" (see controller.xml) -->
+    <form name="ProductEnter" type="single" target="productqtyreceipt"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId"  required-field="true" title="Product ID" ><text size="10" default-value=""/></field>
+        <field name="submitButton" title="Next" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- this form posts to "receiveproductqty" (see controller.xml) -->
+    <form name="ProductQtyEnter" type="single" target="receiveproductqty"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId"><hidden/></field>
+        <field name="productId" title="Product" entry-name="product.productId" ><display/></field>
+        <field name="productName" title=" " entry-name="product.productName" ><display/></field>
+        <field name="productLocation"  title="Location" event="onkeypress" action="return enter(event,document.forms[0].productQty)"><text size="10"/></field>
+        <field name="productQty" required-field="true" title="Qty" ><text default-value="1" size="5"/></field>
+        <field name="submitButton" title="Receive" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- this form posts to "findstocktake" (see controller.xml) -->
+    <form name="FindProductStock" type="single" target="findstocktake"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><hidden/></field>
+        <field name="idValue"  required-field="true" title="ID Value" ><text size="10" default-value=""/></field>
+        <field name="submitButton" title="Next" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ProductStocktake" type="single" target="updateproductstocktake"
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId" title="Product"><display/></field>
+        <field name="productName" title="Name" entry-name="product.productName"><display/></field>
+        <field name="atp_qoh" title="ATP/QOH" entry-name="quantitySummary.atp_qoh"><display/></field>
+        <field name="locationSeqId" title="Location" entry-name="locationSeqId"><display/></field>
+        <!--<field name="submitButton" title="Submit" widget-style="standardSubmit"><submit button-type="button"/></field>-->
+    </form>
+    <form name="UpdateProductStocktake" type="list"
+            target="updateproductstocktake" title="" list-name="productQtyByLocations"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <!--    <auto-fields-service service-name="updateproductstocktake"/>  -->
+        <field name="productId"><hidden/></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="atp_qoh" title="ATP/QOH" entry-name="atp_qoh"><display/></field>
+        <field name="locationSeqId"><hidden/></field>
+        <field name="locationSeqIdNew" title="Location" entry-name="locationSeqId"><text size="10" default-value=""/></field>
+        <field name="quantity" title="Quantity" required-field="true" entry-name="totalQuantityOnHand"><text size="6" default-value=""/></field>
+        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeProductFromCategory?productId=${productId}&amp;productCategoryId=${productCategoryId}&amp;fromDate=${fromDate}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+
+    <form name="MainMenu" type="single" target="menu">
+        <field name="facilityId"><hidden/></field>
+        <field name="m1" title="Facility : ${facilityId}" position="1"><display/></field>
+        <field name="receipt" title="1. Goods Receipt">
+            <submit button-type="text-link"/>
+        </field>
+        <field name="picking" title="2. Picking" position="1">
+            <submit button-type="text-link"/>
+        </field>
+    </form>
+
+</forms>

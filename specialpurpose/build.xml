@@ -17,7 +17,7 @@ under the License.
 
 <project name="OFBiz Special Purpose Applications Build" default="build" basedir=".">
     <filelist id="application-builds" dir="."
-        files="pos/build.xml"/>
+        files="pos/build.xml, hhfacility/build.xml"/>
 
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->
