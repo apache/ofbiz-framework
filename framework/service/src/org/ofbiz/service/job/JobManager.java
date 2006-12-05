@@ -309,11 +309,12 @@ public class JobManager {
      *@param endTime The time in milliseconds the service should expire
      */
     public void schedule(String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime) throws JobManagerException {
-        schedule(null, serviceName, context, startTime, frequency, interval, count, endTime, -1);
+        schedule(null, null, serviceName, context, startTime, frequency, interval, count, endTime, -1);
     }
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
+     *@param jobName The name of the job
      *@param poolName The name of the pool to run the service from
      *@param serviceName The name of the service to invoke
      *@param context The context for the service
@@ -324,7 +325,7 @@ public class JobManager {
      *@param endTime The time in milliseconds the service should expire
      *@param maxRetry The max number of retries on failure (-1 for no max)
      */
-    public void schedule(String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
+    public void schedule(String jobName, String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
         if (delegator == null) {
             Debug.logWarning("No delegator referenced; cannot schedule job.", module);
             return;
@@ -347,7 +348,7 @@ public class JobManager {
         }
 
         // schedule the job
-        schedule(poolName, serviceName, dataId, startTime, frequency, interval, count, endTime, maxRetry);
+        schedule(jobName, poolName, serviceName, dataId, startTime, frequency, interval, count, endTime, maxRetry);
     }
 
     /**
@@ -358,11 +359,12 @@ public class JobManager {
      *@param startTime The time in milliseconds the service should run
      */
     public void schedule(String poolName, String serviceName, String dataId, long startTime) throws JobManagerException {
-        schedule(poolName, serviceName, dataId, startTime, -1, 0, 1, 0, -1);
+        schedule(null, poolName, serviceName, dataId, startTime, -1, 0, 1, 0, -1);
     }
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
+     *@param jobName The name of the job
      *@param poolName The name of the pool to run the service from
      *@param serviceName The name of the service to invoke
      *@param dataId The persisted context (RuntimeData.runtimeDataId)
@@ -373,7 +375,7 @@ public class JobManager {
      *@param endTime The time in milliseconds the service should expire
      *@param maxRetry The max number of retries on failure (-1 for no max)
      */
-    public void schedule(String poolName, String serviceName, String dataId, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
+    public void schedule(String jobName, String poolName, String serviceName, String dataId, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
         if (delegator == null) {
             Debug.logWarning("No delegator referenced; cannot schedule job.", module);
             return;
@@ -391,7 +393,9 @@ public class JobManager {
         }
 
         // set the persisted fields
-        String jobName = new String(new Long((new Date().getTime())).toString());
+        if (UtilValidate.isEmpty(jobName)) {
+            jobName = new String(new Long((new Date().getTime())).toString());
+        }
         String jobId = delegator.getNextSeqId("JobSandbox").toString();
         Map jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
                 "serviceName", serviceName, "recurrenceInfoId", infoId, "runtimeDataId", dataId);

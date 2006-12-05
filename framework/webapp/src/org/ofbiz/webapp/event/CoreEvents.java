@@ -199,6 +199,7 @@ public class CoreEvents {
         
         Map params = UtilHttp.getParameterMap(request);
         // get the schedule parameters
+        String jobName = (String) params.remove("JOB_NAME");
         String serviceName = (String) params.remove("SERVICE_NAME");
         String poolName = (String) params.remove("POOL_NAME");
         String serviceTime = (String) params.remove("SERVICE_TIME");
@@ -396,7 +397,7 @@ public class CoreEvents {
                       
         // schedule service
         try {
-            dispatcher.schedule(poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
+            dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_dispatcher_exception", locale);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + e.getMessage());
