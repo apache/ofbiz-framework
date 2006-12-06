@@ -1162,6 +1162,7 @@ under the License.
       <alias entity-alias="ATR" name="glFiscalTypeId"/>
       <alias entity-alias="ATR" name="acctgTransTypeId"/>
       <alias entity-alias="ATR" name="transactionDate"/>
+      <alias entity-alias="ATR" name="transDescription" field="description"/>
       <alias entity-alias="ATR" name="invoiceId"/>
       <alias entity-alias="ATR" name="paymentId"/>
       <alias entity-alias="ATR" name="shipmentId"/>
@@ -1199,6 +1200,12 @@ under the License.
       </relation>
       <relation type="one" fk-name="ATAE_ATTYPE" rel-entity-name="AcctgTransType">
         <key-map field-name="acctgTransTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ATAE_INVOICE" rel-entity-name="Invoice">
+        <key-map field-name="invoiceId"/>
+      </relation>
+      <relation type="one" fk-name="ATAE_PAYMENT" rel-entity-name="Payment">
+        <key-map field-name="paymentId"/>
       </relation>
     </view-entity>
     <view-entity entity-name="AcctgTransEntryProdSums"
