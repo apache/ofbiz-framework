@@ -68,7 +68,6 @@ public class ShoppingListEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        Locale locale = UtilHttp.getLocale(request);
 
         String shoppingListId = request.getParameter("shoppingListId");
         String selectedCartItems[] = request.getParameterValues("selectedItem");
@@ -167,7 +166,6 @@ public class ShoppingListEvents {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
-        Locale locale = UtilHttp.getLocale(request);
 
         String shoppingListId = request.getParameter("shoppingListId");
         String includeChild = request.getParameter("includeChild");

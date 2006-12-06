@@ -50,7 +50,6 @@ public class AddError extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        boolean hasPermission = false;
 
         List messages = (List) errorListAcsr.get(methodContext);
         if (messages == null) {

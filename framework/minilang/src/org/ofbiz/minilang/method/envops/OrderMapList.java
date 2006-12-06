@@ -52,7 +52,6 @@ public class OrderMapList extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        Object fieldVal = null;
 
         List orderList = (List) listAcsr.get(methodContext);
 

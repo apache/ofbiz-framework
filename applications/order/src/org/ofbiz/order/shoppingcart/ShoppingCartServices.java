@@ -57,7 +57,6 @@ public class ShoppingCartServices {
         Integer itemIndex = (Integer) context.get("itemIndex");
         Double quantity = (Double) context.get("quantity");
         Boolean clearEmptyGroups = (Boolean) context.get("clearEmptyGroups");
-        Locale locale = (Locale) context.get("locale");
 
         if (clearEmptyGroups == null) {
             clearEmptyGroups = new Boolean(true);
@@ -131,7 +130,6 @@ public class ShoppingCartServices {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         String orderAdditionalEmails = (String) context.get("orderAdditionalEmails");
         String correspondingPoId = (String) context.get("correspondingPoId");
-        Locale locale = (Locale) context.get("locale");
 
         cart.setOrderAdditionalEmails(orderAdditionalEmails);
         if (UtilValidate.isNotEmpty(correspondingPoId)) {

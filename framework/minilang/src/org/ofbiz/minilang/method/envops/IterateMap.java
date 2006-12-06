@@ -50,7 +50,7 @@ public class IterateMap extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        Object fieldVal = null;
+
 
         if (mapAcsr.isEmpty()) {
             Debug.logWarning("No map-name specified in iterate tag, doing nothing: " + rawString(), module);

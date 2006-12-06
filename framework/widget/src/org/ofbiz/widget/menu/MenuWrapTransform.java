@@ -164,7 +164,6 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
             public void renderMenu() throws IOException {
            
-                ModelMenu modelMenu = null;
                 String menuDefFile = (String)templateCtx.get("menuDefFile");
                 String menuName = (String)templateCtx.get("menuName");
                 String menuWrapperClassName = (String)templateCtx.get("menuWrapperClassName");

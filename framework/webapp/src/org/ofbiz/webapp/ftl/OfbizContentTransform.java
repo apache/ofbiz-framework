@@ -19,9 +19,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 
@@ -50,10 +48,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     try {                              
                         Environment env = Environment.getCurrentEnvironment();
                         BeanModel req = (BeanModel)env.getVariable("request");
-                        BeanModel res = (BeanModel) env.getVariable("response");
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                        HttpServletResponse response = (HttpServletResponse) res.getWrappedObject();
-                        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                         
                         // make the link
                         StringBuffer newURL = new StringBuffer();

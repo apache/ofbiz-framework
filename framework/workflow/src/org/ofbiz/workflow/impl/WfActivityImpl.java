@@ -552,7 +552,6 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
             GenericValue value = (GenericValue) i.next();
             String party = value.getString("partyId");
             String role = value.getString("roleTypeId");
-            String status = value.getString("statusId");
             java.sql.Timestamp from = value.getTimestamp("fromDate");            
             WfAssignment a = WfFactory.getWfAssignment(getDelegator(), runtimeKey(), party, role, from);                                   
 

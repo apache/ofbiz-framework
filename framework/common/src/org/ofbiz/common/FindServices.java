@@ -587,8 +587,6 @@ public class FindServices {
                                                         // If it is an "op" field, it will be "equals", "greaterThan", etc.
             int iPos = -1;
             int iPos2 = -1;
-            HashMap subMap = null;
-            HashMap subMap2 = null;
             String fieldMode = null;
 
             fieldNameRaw = (String) ifIter.next();

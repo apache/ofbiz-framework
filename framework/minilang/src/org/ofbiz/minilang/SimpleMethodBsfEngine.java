@@ -44,8 +44,6 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
         
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        
         // declare the bsf manager for callbacks, etc.
         context.put("bsf", mgr);
         

@@ -114,14 +114,12 @@ public class EntityPermissionChecker {
         String entityName = entityNameExdr.expandString(context);
         HttpServletRequest request = (HttpServletRequest)context.get("request");
         GenericValue userLogin = null;
-        String userLoginId = null; 
         String partyId = null; 
         GenericDelegator delegator = null;
         if (request != null) {
             HttpSession session = request.getSession();
             userLogin = (GenericValue)session.getAttribute("userLogin");
             if (userLogin != null) {
-                userLoginId = userLogin.getString("userLoginId");
                 partyId = userLogin.getString("partyId");
             }
            delegator = (GenericDelegator)request.getAttribute("delegator");
@@ -178,8 +176,6 @@ public class EntityPermissionChecker {
                                   Security security, String entityAction,
                                   String privilegeEnumId, String quickCheckContentId) {
 
-        String contentId = null;
-        if (content != null) contentId = content.getString("contentId");
         List entityIds = new ArrayList();
         if (content != null) entityIds.add(content);
         if (UtilValidate.isNotEmpty(quickCheckContentId)) {
@@ -506,8 +502,6 @@ public class EntityPermissionChecker {
         if (Debug.verboseOn()) Debug.logVerbose(permissionConditionGetter.dumpAsText(), module);
         boolean passed = false;
     
-        String lcEntityName = entityName.toLowerCase();
-        String userLoginId = null;
         boolean checkAncestors = false;
         boolean hasRoleOperation =  checkHasRoleOperations(partyId, permissionConditionGetter, delegator);
         if( hasRoleOperation ) {
@@ -602,7 +596,6 @@ public class EntityPermissionChecker {
             while (iter.hasNext()) {
                 GenericValue entity = getNextEntity(delegator, entityName, pkFieldName, iter.next(), entities);
                 if (entity == null) continue;
-                String entityId = entity.getString(pkFieldName);
                 checkAncestors = true;
                 passed = hasMatch(entity, permissionConditionGetter, relatedRoleGetter, auxiliaryValueGetter, partyId, checkAncestors);
                  
@@ -662,7 +655,6 @@ public class EntityPermissionChecker {
         }
     
         if (hasNeed) {
-            GenericValue uLogin = null;
             try {
                 if (UtilValidate.isNotEmpty(partyId)) {
                     List partyRoleList = delegator.findByAndCache("PartyRole", UtilMisc.toMap("partyId", partyId));
@@ -730,7 +722,6 @@ public class EntityPermissionChecker {
     
     public static boolean hasMatch(GenericValue entity, PermissionConditionGetter permissionConditionGetter, RelatedRoleGetter relatedRoleGetter, AuxiliaryValueGetter auxiliaryValueGetter, String partyId, boolean checkAncestors) throws GenericEntityException {
     
-        String entityName = entity.getEntityName();
         ModelEntity modelEntity = entity.getModelEntity();
         GenericDelegator delegator = entity.getDelegator();
         String pkFieldName = modelEntity.getFirstPkFieldName();

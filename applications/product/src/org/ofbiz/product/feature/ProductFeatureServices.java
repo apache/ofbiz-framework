@@ -123,7 +123,6 @@ public class ProductFeatureServices {
      */
     public static Map getAllExistingVariants(DispatchContext dctx, Map context) {
         Map results = new HashMap();
-        Map featuresByType = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
 
         String productId = (String) context.get("productId");
@@ -185,7 +184,6 @@ public class ProductFeatureServices {
      */
     public static Map getVariantCombinations(DispatchContext dctx, Map context) {
         Map results = new HashMap();
-        Map featuresByType = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         

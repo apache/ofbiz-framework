@@ -191,7 +191,6 @@ public class JPublishWrapper {
 
     public void render(String path, HttpServletRequest request, HttpServletResponse response, Writer writer, OutputStream outputStream, boolean allowRedirect) throws GeneralException {
         HttpSession session = request.getSession();
-        ActionManager actionManager = siteContext.getActionManager();
         //String path = servletContext.getRealPath(pagePath);
         //Debug.logError("Path:" + path, module);
 
