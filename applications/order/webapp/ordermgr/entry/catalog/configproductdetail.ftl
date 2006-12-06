@@ -322,7 +322,7 @@ ${virtualJavaScript?if_exists}
           </#if>
         </#if>
       </form>
-	<div class="tabletext">
+    <div class="tabletext">
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
         <hr class="sepbar"/>
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
@@ -345,7 +345,7 @@ ${virtualJavaScript?if_exists}
         ${uiLabelMap.EcommerceYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
         ${uiLabelMap.EcommerceToAddSelectedItemsToShoppingList}.&nbsp;
       </#if>
-	  </div>
+      </div>
       <#-- Prefill first select box (virtual products only) -->
       <#if variantTree?exists && 0 < variantTree.size()>
         <script language="JavaScript" type="text/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
@@ -599,7 +599,7 @@ ${virtualJavaScript?if_exists}
   </#if>
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
-    <tr><td colspan="2"><div class="head2">${beforeName?if_exists}<#if showName == "Y">${productValue.productName}</#if>${afterName?if_exists}</div></td></tr>
+    <tr><td colspan="2"><div class="head2">${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</div></td></tr>
     <tr><td><hr class="sepbar"/></td></tr>
     <#list assocProducts as productAssoc>
       <tr><td>
