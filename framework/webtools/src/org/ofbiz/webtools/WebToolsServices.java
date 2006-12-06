@@ -70,7 +70,6 @@ public class WebToolsServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
 
         List messages = new ArrayList();
 
@@ -190,7 +189,6 @@ public class WebToolsServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
 
         List messages = new ArrayList();
 
@@ -293,7 +291,6 @@ public class WebToolsServices {
 
     public static Map parseEntityXmlFile(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         URL url = (URL)context.get("url");
         String xmltext = (String)context.get("xmltext");
@@ -331,8 +328,6 @@ public class WebToolsServices {
     public static Map entityExportAll(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
 
         String outpath = (String)context.get("outpath"); // mandatory
         Integer txTimeout = (Integer)context.get("txTimeout");

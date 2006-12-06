@@ -332,11 +332,9 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         if (editRequest != null && editRequest.toUpperCase().indexOf("IMAGE") > 0) {
             editMode += " Image";
         }
-        Map params = (Map)context.get("parameters");
         //String editRequestWithParams = editRequest + "?contentId=${currentValue.contentId}&drDataResourceId=${currentValue.drDataResourceId}&directEditRequest=${directEditRequest}&indirectEditRequest=${indirectEditRequest}&caContentIdTo=${currentValue.caContentIdTo}&caFromDate=${currentValue.caFromDate}&caContentAssocTypeId=${currentValue.caContentAssocTypeId}";
             
         if (UtilValidate.isNotEmpty(editRequest) && "true".equals(enableEditValue)) {
-            String contentId = content.getContentId(context);
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             if (request != null && response != null) {
@@ -455,7 +453,6 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
         String enableEditValue = (String)context.get(enableEditName);
         String expandedContentId = content.getContentId(context);
         String expandedMapKey = content.getMapKey(context);
-        Map params = (Map)context.get("parameters");
         if (editRequest != null && editRequest.toUpperCase().indexOf("IMAGE") > 0) {
             editMode += " Image";
         }

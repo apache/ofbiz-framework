@@ -53,7 +53,6 @@ public class StartActivityJob extends AbstractJob {
      * @see org.ofbiz.service.job.Job#exec()
      */
     public void exec() {        
-        String activityIds = null;
         try {
             Debug.logVerbose("Executing job now : " + activity, module);                                      
             activity.activate();

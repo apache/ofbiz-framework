@@ -51,7 +51,6 @@ public class Iterate extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        Object fieldVal = null;
 
         if (listAcsr.isEmpty()) {
             Debug.logWarning("No list-name specified in iterate tag, doing nothing: " + rawString(), module);

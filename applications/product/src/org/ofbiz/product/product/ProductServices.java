@@ -753,7 +753,6 @@ public class ProductServices {
      */
     public static Map quickCreateVirtualWithVariants(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         
         // get the various IN attributes

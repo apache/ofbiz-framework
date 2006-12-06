@@ -117,8 +117,6 @@ public class FoFormRenderer implements FormStringRenderer {
 
     public void renderDateTimeField(StringBuffer buffer, Map context, DateTimeField dateTimeField) {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
-        String paramName = modelFormField.getParameterName(context);
-        String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
         this.appendWhitespace(buffer);
     }

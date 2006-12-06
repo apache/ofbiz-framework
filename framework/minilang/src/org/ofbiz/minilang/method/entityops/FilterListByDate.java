@@ -53,12 +53,7 @@ public class FilterListByDate extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        String fromFieldName = methodContext.expandString(this.fromFieldName);
-        String thruFieldName = methodContext.expandString(this.thruFieldName);
-        String allSameStr = methodContext.expandString(this.allSameStr);
-        
-        boolean allSame = !"false".equals(allSameStr);
-        
+
         if (!validDateAcsr.isEmpty()) {
             toListAcsr.put(methodContext, EntityUtil.filterByDate((List) listAcsr.get(methodContext), (java.sql.Timestamp) validDateAcsr.get(methodContext), fromFieldName, thruFieldName, true));
         } else {

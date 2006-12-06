@@ -305,7 +305,6 @@ public class WorkEffortServices {
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");    
-        Map resultMap = new HashMap();
         
         Timestamp startDay = (Timestamp) context.get("start");
         Integer numPeriodsInteger = (Integer) context.get("numPeriods");
@@ -423,7 +422,6 @@ public class WorkEffortServices {
     public static Map getProductManufacturingSummaryByFacility(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         String facilityId = (String) context.get("facilityId"); // optional
         

@@ -284,7 +284,6 @@ public abstract class ModelMenuAction {
         public void runAction(Map context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
-            boolean global = "true".equals(globalStr);
 
             Locale locale = (Locale) context.get("locale");
             String resource = this.resourceExdr.expandString(context, locale);

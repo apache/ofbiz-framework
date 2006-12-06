@@ -130,7 +130,6 @@ public class CheckId extends MethodOperation {
     }
 
     public void addMessage(List messages, MethodContext methodContext, String defaultMessage, String errorDetails) {
-        ClassLoader loader = methodContext.getLoader();
         
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);

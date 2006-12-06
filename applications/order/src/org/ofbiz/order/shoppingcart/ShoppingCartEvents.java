@@ -985,7 +985,6 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-        Locale locale = UtilHttp.getLocale(request);
 
         String shoppingListId = request.getParameter("shoppingListId");
 
@@ -1013,7 +1012,6 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-        Locale locale = UtilHttp.getLocale(request);
 
         String quoteId = request.getParameter("quoteId");
 

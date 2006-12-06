@@ -39,7 +39,6 @@ public class ListToList extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        Object fieldVal = null;
 
         List fromList = (List) listAcsr.get(methodContext);
         List toList = (List) toListAcsr.get(methodContext);

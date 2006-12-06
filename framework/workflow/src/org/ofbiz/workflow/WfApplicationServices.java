@@ -175,7 +175,6 @@ public class WfApplicationServices {
     private static String insertAppSandbox(GenericDelegator delegator, String workEffortId, String partyId, 
             String roleTypeId, Timestamp fromDate, Map context) throws GenericServiceException {
         String dataId = null;
-        String infoId = null;
         String applicationId = new String(new Long((new Date().getTime())).toString());
         
         try {
@@ -313,7 +312,6 @@ public class WfApplicationServices {
 
         try {
             final Collection assigments = delegator.findByAnd("WorkEffortPartyAssignment", expresions, orderBy);
-            GenericValue assigment;
             if (assigments.isEmpty()) {
                 Debug.logError("No accepted activities found for the workEffortId=" + workEffortId, module);
                 throw new GenericServiceException("Can not find WorkEffortPartyAssignment for the Workflow service. WorkEffortId=" + workEffortId);                    

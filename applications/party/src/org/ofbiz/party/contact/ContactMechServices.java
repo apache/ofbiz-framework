@@ -262,7 +262,6 @@ public class ContactMechServices {
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Timestamp now = UtilDateTime.nowTimestamp();
 
         String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_PCM_DELETE");
         String errMsg = null;
@@ -937,7 +936,6 @@ public class ContactMechServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
 
         String partyIdFrom = (String) context.get("partyIdFrom");
         String partyIdTo = (String) context.get("partyIdTo");

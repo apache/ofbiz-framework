@@ -1072,7 +1072,6 @@ public class GenericDelegator implements DelegatorInterface {
                 GenericValue value = (GenericValue) viter.next();
                 String entityName = value.getEntityName();
                 GenericPK primaryKey = value.getPrimaryKey();
-                Map ecaEventMap = this.getEcaEntityEventMap(entityName);
                 GenericHelper helper = getEntityHelper(entityName);
 
                 // exists?

@@ -322,8 +322,6 @@ public class IterateSectionWidget extends ModelScreenWidget {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
 
-        String str = (String) context.get("queryString");
-        String queryString = UtilHttp.stripViewParamsFromQueryString(str);
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
 

@@ -318,7 +318,6 @@ public class Record implements Serializable {
         } else if (fieldType.equals("FixedPointDouble")) {
             // this custom type will parse a fixed point number according to the number
             // of decimal places in the formatting string then place it in a Double
-            NumberFormat nf = NumberFormat.getNumberInstance();
             double decimalPlaces = Double.parseDouble(field.format);
             double multiplier = Math.pow(10.0, decimalPlaces);
             double dnum = multiplier * ((Double) value).doubleValue();
