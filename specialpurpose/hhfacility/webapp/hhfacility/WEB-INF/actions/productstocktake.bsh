@@ -23,11 +23,11 @@ import javolution.util.FastMap;
 delegator = request.getAttribute("delegator");
 
 productId = request.getParameter("productId");
-if ( productId == null ) {
+if (productId == null) {
     productId = session.getAttribute("productId");
 }
 
-if ( productId != null ) {
+if (productId != null) {
     product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
     context.put("product", product);
 
@@ -48,7 +48,7 @@ if ( productId != null ) {
 
     while (productFacilityLocListIter.hasNext()) {
         facilityLoc = productFacilityLocListIter.next();
-        if ( UtilValidate.isEmpty(facStr) ) {
+        if (UtilValidate.isEmpty(facStr)) {
             facStr = facilityLoc.get("locationSeqId");
         } else {
             facStr = facStr + ", " + facilityLoc.get("locationSeqId");
@@ -69,13 +69,14 @@ if ( productId != null ) {
     while (invItemListIter.hasNext()) {
         invItem = invItemListIter.next();
         int qoh = ((Double)invItem.get("quantityOnHandTotal")).intValue();
-        if ( qoh < 0 )
-        	negativeQOH = true;
+        if (qoh < 0) {
+            negativeQOH = true;
+        }
         locationFound = (String)invItem.get("locationSeqId");
         if ( locationFound == null ) {
             locationFound = "nullField";
         }
-        if ( locations.get(locationFound) == null ) {
+        if (locations.get(locationFound) == null) {
             locations.put(locationFound, locationFound);
         }
     }
@@ -90,7 +91,7 @@ if ( productId != null ) {
         quantitySummary = new HashMap();
         quantitySummary.put("productId", productId);
         quantitySummary.put("facilityId", facilityId);
-        if ( "nullField".equals( location ) == true ) {
+        if ("nullField".equals( location ) == true) {
             quantitySummary.put("locationSeqId", "");
         } else {
             quantitySummary.put("locationSeqId", location);
@@ -102,10 +103,6 @@ if ( productId != null ) {
 
     context.put("productQtyByLocations", productFacilityLocations);
     if ( negativeQOH == true ) {
-	    context.put("negativeQOH", "true");
-	}
-
-
+        context.put("negativeQOH", "true");
+    }
 }
-
-
