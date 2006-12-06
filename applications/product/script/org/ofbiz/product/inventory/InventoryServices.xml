@@ -404,7 +404,15 @@ under the License.
         <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
         <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
         <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
-        
+
+        <!-- FIXME: this is an hack to get all the items with a null location:
+                    if the parameters.locationSeqId string is equal to "nullField" then
+                    set the lookupFieldMap.locationSeqId to null 
+        -->
+        <if-compare field-name="parameters.locationSeqId" operator="equals" value="nullField">
+            <set from-field="nullField" field="lookupFieldMap.locationSeqId"/>
+        </if-compare>
+
         <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
         <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems"/> <!-- use-cache="true" -->
         
