@@ -65,13 +65,18 @@ under the License.
             <input type="text" name="productId" value="${inventoryItemData.productId?if_exists}" size="20" maxlength="20" class="inputBox">
             <#if (inventoryItem.productId)?has_content>
                 <a href="/catalog/control/EditProduct?productId=${inventoryItem.productId}&externalLoginKey=${externalLoginKey?if_exists}" class="buttontext">[${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ProductProduct}&nbsp;${inventoryItem.productId}]</a>
+            <#else>
+                <a href="javascript:call_fieldlookup2(document.inventoryItemForm.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             </#if>
         </td>
       </tr>
       <tr>
         <td align="right"><div class="tabletext">${uiLabelMap.PartyPartyId}</div></td>
         <td>&nbsp;</td>
-        <td><input type="text" name="partyId" value="${inventoryItemData.partyId?if_exists}" size="20" maxlength="20" class="inputBox"></td>
+        <td>
+            <input type="text" name="partyId" value="${inventoryItemData.partyId?if_exists}" size="20" maxlength="20" class="inputBox">
+            <a href="javascript:call_fieldlookup2(document.inventoryItemForm.partyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>            
+        </td>
       </tr>
       <#if "SERIALIZED_INV_ITEM" == (inventoryItem.inventoryItemTypeId)?if_exists>
           <tr>
