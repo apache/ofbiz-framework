@@ -64,7 +64,7 @@ if (productId != null) {
 
     Map locations = new HashMap();
 
-    boolean  negativeQOH = false;
+    boolean negativeQOH = false;
     invItemListIter = invItemList.iterator();
     while (invItemListIter.hasNext()) {
         invItem = invItemListIter.next();
@@ -73,7 +73,7 @@ if (productId != null) {
             negativeQOH = true;
         }
         locationFound = (String)invItem.get("locationSeqId");
-        if ( locationFound == null ) {
+        if (locationFound == null) {
             locationFound = "nullField";
         }
         if (locations.get(locationFound) == null) {
@@ -102,7 +102,7 @@ if (productId != null) {
     }
 
     context.put("productQtyByLocations", productFacilityLocations);
-    if ( negativeQOH == true ) {
+    if (negativeQOH) {
         context.put("negativeQOH", "true");
     }
 }
