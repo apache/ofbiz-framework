@@ -171,6 +171,7 @@ if (product != null) {
         priceContext.put("productStoreId", productStoreId);
         priceContext.put("checkIncludeVat", "Y");
         priceContext.put("agreementId", cart.getAgreementId());
+        priceContext.put("partyId", cart.getPartyId());  // IMPORTANT: must put this in, or price will be calculated for the CSR instead of the customer
         priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
         context.put("priceMap", priceMap);
     } else {

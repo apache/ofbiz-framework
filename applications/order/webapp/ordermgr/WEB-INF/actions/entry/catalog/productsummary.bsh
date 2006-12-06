@@ -86,6 +86,7 @@ if (product != null) {
         priceContext.put("prodCatalogId", catalogId);
         priceContext.put("productStoreId", productStoreId);
         priceContext.put("agreementId", cart.getAgreementId());
+        priceContext.put("partyId", cart.getPartyId());  // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer 
         priceContext.put("checkIncludeVat", "Y");
         priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
 
