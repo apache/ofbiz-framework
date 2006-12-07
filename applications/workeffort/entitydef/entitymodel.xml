@@ -693,7 +693,7 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="workEffortPurposeTypeId"/>
     </entity>
-    <entity entity-name="WorkEffortReview" package-name="org.ofbiz.product.product" title="WorkEffort Review Entity">
+    <entity entity-name="WorkEffortReview" package-name="org.ofbiz.workeffort.workeffort" title="WorkEffort Review Entity">
         <field name="workEffortId" type="id-ne"></field>
         <field name="userLoginId" type="id-vlong-ne"></field>
         <field name="reviewDate" type="date-time"></field>
