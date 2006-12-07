@@ -493,7 +493,7 @@ public class InvoiceServices {
                             continue;
                         }
         
-                        BigDecimal amount = new BigDecimal(0);
+                        BigDecimal amount = ZERO;
                         if (adj.get("amount") != null) { 
                             // pro-rate the amount
                             // set decimals = 100 means we don't round this intermediate value, which is very important
