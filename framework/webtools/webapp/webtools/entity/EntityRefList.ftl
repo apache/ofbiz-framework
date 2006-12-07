@@ -60,11 +60,16 @@ under the License.
             <hr/>
             <#list entitiesList as entity>
                 <#if forstatic>
-                    <#assign encodeURL = response.encodeURL(controlPath + "entityref_main#" + entity)>
-                    <a href="${encodeURL}" target="entityFrame" class='listtext'>${entity}</a>
+                    <#assign encodeURL = response.encodeURL(controlPath + "entityref_main#" + entity.entityName)>
+                    <a href="${encodeURL}" target="entityFrame" class='listtext'>${entity.entityName}</a>
                 <#else>
-                    <#assign encodeURL = response.encodeURL(controlPath + "/view/entityref_main#" + entity + url)>
-                    <a href="${encodeURL}" target="entityFrame" class='listtext'>${entity}</a>
+                    <#if entity.url?has_content>
+                        <#assign encodeURL = response.encodeURL(controlPath + "/view/entityref_main#" + entity.entityName)>
+                    <#else/>
+                        <#-- I don't know about this entity.url stuff, but before cleaning things up here that is where the undefined url variable was -->
+                        <#assign encodeURL = response.encodeURL(controlPath + "/view/entityref_main#" + entity.entityName + entity.url)>
+                    </#if>
+                    <a href="${encodeURL}" target="entityFrame" class='listtext'>${entity.entityName}</a>
                 </#if>
                 <br/>
             </#list>
