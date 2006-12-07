@@ -14,12 +14,15 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
+<#assign stringYear = thisDate?string("yyyy")>
+<#assign thisYear = stringYear?number>
+
 <option></option>
-<option value="2005">2005</option>
-<option value="2006">2006</option>
-<option value="2007">2007</option>
-<option value="2008">2008</option>
-<option value="2009">2009</option>
-<option value="2010">2010</option>
-<option value="2011">2011</option>
-<option value="2012">2012</option>
+<option value="${thisYear}">${thisYear}</option>
+<option value="${thisYear + 1}">${thisYear + 1}</option>
+<option value="${thisYear + 2}">${thisYear + 2}</option>
+<option value="${thisYear + 3}">${thisYear + 3}</option>
+<option value="${thisYear + 4}">${thisYear + 4}</option>
+<option value="${thisYear + 5}">${thisYear + 5}</option>
+<option value="${thisYear + 6}">${thisYear + 6}</option>
+<option value="${thisYear + 7}">${thisYear + 7}</option>

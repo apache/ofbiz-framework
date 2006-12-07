@@ -51,6 +51,9 @@ under the License.
     </screen>
     <screen name="ccyears">
         <section>
+            <actions>
+                <set field="thisDate" from-field="nowTimestamp"/>
+            </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/ccyears.ftl"/></html></platform-specific>
             </widgets>
