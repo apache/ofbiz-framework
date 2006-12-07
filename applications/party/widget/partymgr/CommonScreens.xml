@@ -69,23 +69,25 @@ under the License.
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
                                                 <widgets>
-                                                    <link target="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}" url-mode="inter-app" 
+                                                    <link target="/ordermgr/control/findorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}" url-mode="inter-app" 
                                                         text="${uiLabelMap.OrderOrders}" style="buttontext"/>
+                                                    <link target="/ordermgr/control/FindRequest?lookupFlag=Y&amp;fromPartyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
+                                                        text="${uiLabelMap.PartyPartyRequests}" style="buttontext"/>
                                                 </widgets>
                                             </section>
                                             <section>
                                                 <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
                                                 <widgets>
-                                                    <link target="/ordermgr/control/checkinits?partyId=${partyId}" url-mode="inter-app" 
+                                                    <link target="/ordermgr/control/checkinits?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
                                                         text="${uiLabelMap.OrderNewOrder}" style="buttontext"/>
                                                 </widgets>
                                             </section>
                                             <section>
                                                 <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
                                                 <widgets>
-                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}" url-mode="inter-app" 
+                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
                                                         text="${uiLabelMap.AccountingPaymentsSent}" style="buttontext"/>
-                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}" url-mode="inter-app" 
+                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
                                                         text="${uiLabelMap.AccountingPaymentsReceived}" style="buttontext"/>
                                                 </widgets>
                                             </section>
