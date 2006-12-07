@@ -282,7 +282,6 @@ public abstract class ModelMenuAction {
         }
         
         public void runAction(Map context) {
-            String globalStr = this.globalExdr.expandString(context);
             // default to false
 
             Locale locale = (Locale) context.get("locale");

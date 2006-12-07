@@ -298,7 +298,6 @@ public class OrderReturnServices {
 
     // get the returnable quantiy for an order item
     public static Map getReturnableQuantity(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
         GenericValue orderItem = (GenericValue) context.get("orderItem");
         GenericValue product = null;
         Locale locale = (Locale) context.get("locale");
@@ -729,7 +728,6 @@ public class OrderReturnServices {
      */
     private static Map createBillingAccountFromReturn(GenericValue returnHeader, List returnItems, DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 

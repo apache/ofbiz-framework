@@ -184,7 +184,6 @@ public class ProductFeatureServices {
      */
     public static Map getVariantCombinations(DispatchContext dctx, Map context) {
         Map results = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         
         String productId = (String) context.get("productId");
@@ -243,7 +242,6 @@ public class ProductFeatureServices {
                           Map combination = (Map) comboIt.next();
                           for (Iterator cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
                               GenericEntity currentFeature = (GenericEntity) cFi.next();
-                                                        String defaultVariantProductId = null;
                               if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
                                   Map newCombination = new HashMap();
                                   // .clone() is important, or you'll keep adding to the same List for all the variants
@@ -300,7 +298,6 @@ public class ProductFeatureServices {
      */
     public static Map getCategoryVariantProducts(DispatchContext dctx, Map context) {
         Map results = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         List productFeatures = (List) context.get("productFeatures");

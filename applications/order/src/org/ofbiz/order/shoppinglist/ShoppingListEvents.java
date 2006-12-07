@@ -396,7 +396,6 @@ public class ShoppingListEvents {
      * Saves the shopping cart to the specialized (auto-save) shopping list
      */
     public static String saveCartToAutoSaveList(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         

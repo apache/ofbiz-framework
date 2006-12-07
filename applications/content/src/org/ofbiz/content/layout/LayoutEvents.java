@@ -173,7 +173,6 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         try {
             GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
-            LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
             Map uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
             Map context = (Map)uploadResults.get("formInput");
@@ -231,7 +230,6 @@ public class LayoutEvents {
 
     public static String replaceSubContent(HttpServletRequest request, HttpServletResponse response) {
 
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);

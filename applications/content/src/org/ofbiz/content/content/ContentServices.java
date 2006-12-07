@@ -1024,7 +1024,6 @@ public class ContentServices {
     public static Map publishContent(DispatchContext dctx, Map context) throws GenericServiceException{
         
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
         GenericValue content = (GenericValue)context.get("content");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         Security security = dctx.getSecurity();

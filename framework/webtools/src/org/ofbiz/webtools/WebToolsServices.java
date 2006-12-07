@@ -68,7 +68,6 @@ public class WebToolsServices {
 
     public static Map entityImport(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         List messages = new ArrayList();
@@ -187,7 +186,6 @@ public class WebToolsServices {
 
     public static Map entityImportDir(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         List messages = new ArrayList();
@@ -326,7 +324,6 @@ public class WebToolsServices {
     }
 
     public static Map entityExportAll(DispatchContext dctx, Map context) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 
         String outpath = (String)context.get("outpath"); // mandatory

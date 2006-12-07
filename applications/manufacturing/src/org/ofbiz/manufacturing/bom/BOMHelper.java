@@ -134,10 +134,8 @@ public class BOMHelper {
     }
 
     public static String createProductionRunsForShipment(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) {
-        String errMsg = "";
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
 
         String shipmentId = request.getParameter("shipmentId");

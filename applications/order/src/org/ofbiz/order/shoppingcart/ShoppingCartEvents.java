@@ -460,8 +460,6 @@ public class ShoppingCartEvents {
     }
 
     public static String quickInitPurchaseOrder(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         
         ShoppingCart cart = new WebShoppingCart(request);
@@ -1106,7 +1104,6 @@ public class ShoppingCartEvents {
         HttpSession session = request.getSession();
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-        String finalizeMode = (String)session.getAttribute("finalizeMode");
         Locale locale = UtilHttp.getLocale(request);
 
         String productStoreId = request.getParameter("productStoreId");

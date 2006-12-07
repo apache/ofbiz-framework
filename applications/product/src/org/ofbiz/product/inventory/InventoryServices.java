@@ -624,7 +624,6 @@ public class InventoryServices {
      * be the minimum of all the associated products' inventory divided by their ProductAssoc.quantity 
      * */
     public static Map getProductInventoryAvailableFromAssocProducts(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List productAssocList = (List) context.get("assocProducts");
         String facilityId = (String)context.get("facilityId");

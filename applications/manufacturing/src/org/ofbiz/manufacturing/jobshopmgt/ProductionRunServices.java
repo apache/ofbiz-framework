@@ -82,7 +82,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
@@ -154,9 +153,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
@@ -427,7 +423,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
@@ -480,7 +475,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
@@ -622,7 +616,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
@@ -795,9 +788,6 @@ public class ProductionRunServices {
     public static Map getWorkEffortCosts(DispatchContext ctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
-        LocalDispatcher dispatcher = ctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String workEffortId = (String)context.get("workEffortId");
         try {
             GenericValue workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
@@ -867,7 +857,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
@@ -942,7 +931,6 @@ public class ProductionRunServices {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1012,8 +1000,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1088,8 +1074,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1227,8 +1211,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1261,7 +1243,6 @@ public class ProductionRunServices {
         if (lastTask == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotExists", locale));
         }
-        String productType = productionRun.getProductProduced().getString("productTypeId");
         if ("WIP".equals("productTypeId")) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductIsWIP", locale));
         }
@@ -1430,9 +1411,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
         String productionRunTaskId = (String)context.get("workEffortId");
@@ -1534,9 +1512,6 @@ public class ProductionRunServices {
     public static Map productionRunTaskReturnMaterial(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
         String productionRunTaskId = (String)context.get("workEffortId");
@@ -1603,8 +1578,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1726,8 +1699,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1753,8 +1724,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1817,8 +1786,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1920,8 +1887,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -2006,7 +1971,6 @@ public class ProductionRunServices {
     public static Map createProductionRunsForOrder(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
@@ -2107,7 +2071,6 @@ public class ProductionRunServices {
         Map result = ServiceUtil.returnSuccess();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
@@ -2152,7 +2115,6 @@ public class ProductionRunServices {
         Map result = ServiceUtil.returnSuccess();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
@@ -2193,9 +2155,7 @@ public class ProductionRunServices {
      */
     public static Map quickChangeProductionRunStatus(DispatchContext ctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
@@ -2294,8 +2254,6 @@ public class ProductionRunServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Timestamp now = UtilDateTime.nowTimestamp();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String inventoryItemId = (String)context.get("inventoryItemId");
         /*
@@ -2338,8 +2296,6 @@ public class ProductionRunServices {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
-        List msgResult = new LinkedList();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
         String inventoryItemId = (String)context.get("inventoryItemId");

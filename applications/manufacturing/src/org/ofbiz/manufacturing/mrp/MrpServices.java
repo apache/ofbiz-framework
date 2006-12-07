@@ -74,11 +74,7 @@ public class MrpServices {
     
     public static Map initInventoryEventPlanned(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
-        LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
         Timestamp now = UtilDateTime.nowTimestamp();
-        Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         //Erases the old table for the moment and initializes it with the new orders,
         //Does not modify the old one now.
@@ -354,9 +350,6 @@ public class MrpServices {
         Debug.logInfo("listProductForMrp called", module);
         // read parameters from context
         GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Long billOfMaterialLevel = (Long) context.get("billOfMaterialLevel");
         
         // Find all products in MrpInventoryEventPlanned, ordered by bom and eventDate
@@ -472,8 +465,6 @@ public class MrpServices {
         //Context
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Security security = ctx.getSecurity();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
         

@@ -60,9 +60,7 @@ public class BOMServices {
     public static Map getMaxDepth(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
@@ -121,7 +119,6 @@ public class BOMServices {
      */    
     public static Map updateLowLevelCode(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productIdTo");
@@ -209,7 +206,6 @@ public class BOMServices {
      */    
     public static Map initLowLevelCode(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
@@ -253,7 +249,6 @@ public class BOMServices {
      */    
     public static Map searchDuplicatedAncestor(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
@@ -288,7 +283,6 @@ public class BOMServices {
     public static Map getBOMTree(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
@@ -340,10 +334,8 @@ public class BOMServices {
     public static Map getManufacturingComponents(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
 
         String productId = (String) context.get("productId");
@@ -428,7 +420,6 @@ public class BOMServices {
 
     public static Map getNotAssembledComponents(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
@@ -482,7 +473,6 @@ public class BOMServices {
     //
     public static Map createShipmentPackages(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -760,10 +750,8 @@ public class BOMServices {
     public static Map getProductsInPackages(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         
         String productId = (String) context.get("productId");

@@ -936,7 +936,6 @@ public class DataResourceWorker {
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
-            int c;
         } else if (dataResourceTypeId.equals("OFBIZ_FILE") || dataResourceTypeId.equals("OFBIZ_FILE_BIN")) {
             String prefix = System.getProperty("ofbiz.home");
             String sep = "";

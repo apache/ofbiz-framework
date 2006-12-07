@@ -423,7 +423,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         String parentContentId = (String) parentContent.get("contentId");
         //if (Debug.infoOn()) Debug.logInfo("traverse, contentAssocTypeId:" + contentAssocTypeId,null);
         Map whenMap = (Map) ctx.get("whenMap");
-        Map context = new HashMap();
         List kids = new ArrayList();
         currentNode.put("kids", kids);
         String direction = (String) ctx.get("direction");

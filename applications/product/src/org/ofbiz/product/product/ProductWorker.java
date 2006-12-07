@@ -202,7 +202,6 @@ public class ProductWorker {
     }
 
     public static void getAssociatedProducts(PageContext pageContext, String productAttributeName, String assocPrefix) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue product = (GenericValue) pageContext.getAttribute(productAttributeName);
 
         if (product == null)

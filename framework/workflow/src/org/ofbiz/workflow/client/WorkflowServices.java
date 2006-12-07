@@ -101,7 +101,6 @@ public class WorkflowServices {
     /** Suspend activity */  
     public static Map suspendActivity(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");       
 
@@ -127,7 +126,6 @@ public class WorkflowServices {
     /** Resume activity */
     public static Map resumeActivity(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
 
@@ -153,7 +151,6 @@ public class WorkflowServices {
     /** Change the state of an activity */
     public static Map changeActivityState(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
         String newState = (String) context.get("newState");
@@ -180,8 +177,6 @@ public class WorkflowServices {
     /** Check the state of an activity */
     public static Map checkActivityState(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
 
         try {
@@ -199,8 +194,6 @@ public class WorkflowServices {
     /** Get the current activity context */
     public static Map getActivityContext(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
 
         try {
@@ -218,7 +211,6 @@ public class WorkflowServices {
     /** Appends data to the activity context */
     public static Map appendActivityContext(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
         Map appendContext = (Map) context.get("currentContext");
@@ -250,7 +242,6 @@ public class WorkflowServices {
     /** Assign activity to a new or additional party */
     public static Map assignActivity(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
         String partyId = (String) context.get("partyId");
@@ -384,7 +375,6 @@ public class WorkflowServices {
     /** Complete an assignment */
     public static Map completeAssignment(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
         String partyId = (String) context.get("partyId");
@@ -414,7 +404,6 @@ public class WorkflowServices {
 
     public static Map limitInvoker(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         String workEffortId = (String) context.get("workEffortId");
         String limitService = (String) context.get("serviceName");

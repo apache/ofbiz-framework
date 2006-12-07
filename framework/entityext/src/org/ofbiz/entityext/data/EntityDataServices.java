@@ -51,7 +51,6 @@ public class EntityDataServices {
 
     public static Map importDelimitedFromDirectory(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
 
         // check permission
