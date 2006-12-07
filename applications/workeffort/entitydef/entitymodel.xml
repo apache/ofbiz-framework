@@ -552,33 +552,31 @@ under the License.
         <key-map field-name="fixedAssetTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortGoodStandard"
-            package-name="org.ofbiz.workeffort.workeffort"
-            title="Work Effort Good Standard Entity">
-      <field name="workEffortId" type="id-ne"></field>
-      <field name="workEffortGoodStdTypeId" type="id-ne"></field>
-      <field name="productId" type="id-ne"></field>
-      <field name="statusId" type="id-ne"></field>
-      <field name="estimatedQuantity" type="floating-point"></field>
-      <field name="estimatedCost" type="currency-amount"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <prim-key field="workEffortId"/>
-      <prim-key field="workEffortGoodStdTypeId"/>
-      <prim-key field="productId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="WKEFF_GDSTD_WEFF" rel-entity-name="WorkEffort">
-        <key-map field-name="workEffortId"/>
-      </relation>
-      <relation type="one" fk-name="WKEFF_GDSTD_TYPE" rel-entity-name="WorkEffortGoodStandardType">
-        <key-map field-name="workEffortGoodStdTypeId"/>
-      </relation>
-      <relation type="one" fk-name="WKEFF_GDSTD_PROD" rel-entity-name="Product">
-        <key-map field-name="productId"/>
-      </relation>
-      <relation type="one" fk-name="WKEFF_GDSTD_STTS" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
+    <entity entity-name="WorkEffortGoodStandard" package-name="org.ofbiz.workeffort.workeffort" title="Work Effort Good Standard Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="productId" type="id-ne"></field>
+        <field name="workEffortGoodStdTypeId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="statusId" type="id-ne"></field>
+        <field name="estimatedQuantity" type="floating-point"></field>
+        <field name="estimatedCost" type="currency-amount"></field>
+        <prim-key field="workEffortId"/>
+        <prim-key field="productId"/>
+        <prim-key field="workEffortGoodStdTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="WKEFF_GDSTD_WEFF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one" fk-name="WKEFF_GDSTD_TYPE" rel-entity-name="WorkEffortGoodStandardType">
+            <key-map field-name="workEffortGoodStdTypeId"/>
+        </relation>
+        <relation type="one" fk-name="WKEFF_GDSTD_PROD" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="WKEFF_GDSTD_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
     </entity>
     <entity entity-name="WorkEffortGoodStandardType"
             package-name="org.ofbiz.workeffort.workeffort"
@@ -694,6 +692,27 @@ under the License.
       <field name="workEffortPurposeTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortPurposeTypeId"/>
+    </entity>
+    <entity entity-name="WorkEffortReview" package-name="org.ofbiz.product.product" title="WorkEffort Review Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="userLoginId" type="id-vlong-ne"></field>
+        <field name="reviewDate" type="date-time"></field>
+        <field name="statusId" type="id"></field>
+        <field name="postedAnonymous" type="indicator"></field>
+        <field name="rating" type="floating-point"></field>
+        <field name="reviewText" type="very-long"></field>
+        <prim-key field="workEffortId"/>
+        <prim-key field="userLoginId"/>
+        <prim-key field="reviewDate"/>
+        <relation type="one" fk-name="WEFF_REVIEW_WEFF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one" fk-name="WEFF_REVIEW_UL" rel-entity-name="UserLogin">
+            <key-map field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="WEFF_REVIEW_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
     </entity>
     <entity entity-name="WorkEffortSkillStandard"
             package-name="org.ofbiz.workeffort.workeffort"
