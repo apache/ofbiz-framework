@@ -65,6 +65,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="WorkEffortPartyAssignByRole" />
     <entity-group group="org.ofbiz" entity="WorkEffortPartyAssignment" />
     <entity-group group="org.ofbiz" entity="WorkEffortPurposeType" />
+    <entity-group group="org.ofbiz" entity="WorkEffortReview" />
     <entity-group group="org.ofbiz" entity="WorkEffortSkillStandard" />
     <entity-group group="org.ofbiz" entity="WorkEffortStatus" />
     <entity-group group="org.ofbiz" entity="WorkEffortTransBox" />
