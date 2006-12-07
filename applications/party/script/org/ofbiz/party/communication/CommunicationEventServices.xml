@@ -110,7 +110,8 @@ under the License.
                 </if-compare>  
             </iterate>
         </if-not-empty>
-        <!-- delete the event itself -->
+        <!-- delete the roles when exist and the event itself -->
+        <remove-related value-name="event" relation-name="CommunicationEventRole"/>
         <remove-value value-name="event"/>
     </simple-method>
     <simple-method method-name="deleteCommunicationEventWorkEffort" short-description="delete commEvent and workEffort">
@@ -129,6 +130,7 @@ under the License.
                 <get-related value-name="workEffort" relation-name="CommunicationEventWorkEff" list-name="otherComs"/>
                 <if-empty field-name="otherComs">
                     <log level="info" message="remove workeffort ${workEffort.workEffortId} and related parties and status"/>
+                    <remove-related value-name="workEffort" relation-name="WorkEffortPartyAssignment"/>
                     <remove-related value-name="workEffort" relation-name="WorkEffortPartyAssignment"/>
                     <remove-related value-name="workEffort" relation-name="WorkEffortStatus"/>
                     <remove-value value-name="workEffort"/>
