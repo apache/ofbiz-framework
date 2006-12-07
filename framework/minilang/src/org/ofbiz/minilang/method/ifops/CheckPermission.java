@@ -132,7 +132,6 @@ public class CheckPermission extends MethodOperation {
     }
 
     public void addMessage(List messages, MethodContext methodContext) {
-        ClassLoader loader = methodContext.getLoader();
         
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);        

@@ -943,7 +943,6 @@ public class InvoiceServices {
     }
     
     public static Map readyInvoices(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");

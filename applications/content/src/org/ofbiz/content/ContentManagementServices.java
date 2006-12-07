@@ -1347,7 +1347,6 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map initContentChildCounts(DispatchContext dctx, Map context) throws GenericServiceException{
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
         
             GenericValue content = (GenericValue)context.get("content");
             if (content == null) {
@@ -1685,7 +1684,6 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
    */
   public static Map persistContentWithRevision(DispatchContext dctx, Map context) {
       Map result = null;
-      boolean dataResourceExists = false;
       GenericDelegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
       GenericValue dataResource = null;

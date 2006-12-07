@@ -934,7 +934,6 @@ public class ContactMechServices {
     public static Map copyPartyContactMechs(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String partyIdFrom = (String) context.get("partyIdFrom");

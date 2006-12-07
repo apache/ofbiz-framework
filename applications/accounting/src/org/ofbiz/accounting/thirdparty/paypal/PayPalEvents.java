@@ -61,9 +61,7 @@ public class PayPalEvents {
     
     /** Initiate PayPal Request */
     public static String callPayPal(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin"); 
                 
         // get the orderId
@@ -164,7 +162,6 @@ public class PayPalEvents {
     
     /** PayPal Call-Back Event */
     public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");   
         
@@ -338,8 +335,6 @@ public class PayPalEvents {
         
     /** Event called when customer cancels a paypal order */
     public static String cancelPayPalOrder(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin"); 
         

@@ -49,8 +49,6 @@ public class RoutingServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         // The mandatory IN parameters
         String taskId = (String) context.get("taskId");

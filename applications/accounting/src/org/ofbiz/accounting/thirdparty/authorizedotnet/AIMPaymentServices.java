@@ -469,7 +469,6 @@ public class AIMPaymentServices {
 
 
     private static void processAuthTransResult(Map reply, Map results) {
-        String version = getVersion();
         AuthorizeResponse ar = (AuthorizeResponse)reply.get("authorizeResponse");
         Boolean authResult = (Boolean)reply.get("authResult");
         results.put("authResult", new Boolean(authResult.booleanValue()));

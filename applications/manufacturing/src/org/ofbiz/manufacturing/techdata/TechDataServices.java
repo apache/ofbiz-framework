@@ -56,7 +56,6 @@ public class TechDataServices {
      */
     public static Map lookupRoutingTask(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Map result = new HashMap();
         
         String workEffortName = (String) context.get("workEffortName");

@@ -47,7 +47,6 @@ public class LayoutWorker {
     public static Map uploadImageAndParameters(HttpServletRequest request, String uploadField) {
 
         //Debug.logVerbose("in uploadAndStoreImage", "");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
         
         HashMap results = new HashMap();

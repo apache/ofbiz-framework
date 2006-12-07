@@ -130,7 +130,6 @@ public class WorkEffortWorker {
     }
 
     public static void getActivityContext(PageContext pageContext, String workEffortId, String attribute) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) pageContext.getRequest().getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
         Map svcCtx = UtilMisc.toMap("workEffortId", workEffortId, "userLogin", userLogin);

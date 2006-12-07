@@ -50,7 +50,6 @@ public class VariantEvents {
     public static String quickAddChosenVariant(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        Security security = (Security) request.getAttribute("security");
 
         String productId = request.getParameter("productId");
         String variantProductId = request.getParameter("variantProductId");

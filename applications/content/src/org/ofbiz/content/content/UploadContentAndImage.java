@@ -337,8 +337,6 @@ public class UploadContentAndImage {
 
        
         try {
-            LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 

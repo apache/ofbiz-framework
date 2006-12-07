@@ -3604,7 +3604,6 @@ public class OrderServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         // TODO (use the "system" user)
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
 
         String orderId = (String) context.get("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);

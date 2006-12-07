@@ -55,8 +55,6 @@ public class DataServices {
      * A top-level service for creating a DataResource and ElectronicText together.
      */
     public static Map createDataResourceAndText(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = new HashMap();
 
             Map thisResult = createDataResourceMethod(dctx, context);
@@ -89,7 +87,6 @@ public class DataServices {
     public static Map createDataResourceMethod(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             String userLoginId = (String) userLogin.get("userLoginId");
             String createdByUserLogin = userLoginId;
@@ -148,7 +145,6 @@ public class DataServices {
     public static Map createElectronicTextMethod(DispatchContext dctx, Map context) {
         HashMap result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
             String dataResourceId = (String) context.get("dataResourceId");
             String textData = (String) context.get("textData");
             if (textData != null && textData.length() > 0) {
@@ -178,8 +174,6 @@ public class DataServices {
     }
 
     public static Map createFileMethod(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
             //GenericValue dataResource = (GenericValue) context.get("dataResource");
             String dataResourceTypeId = (String) context.get("dataResourceTypeId");
             String objectInfo = (String) context.get("objectInfo");
@@ -253,8 +247,6 @@ public class DataServices {
      * A top-level service for updating a DataResource and ElectronicText together.
      */
     public static Map updateDataResourceAndText(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
   		Map thisResult = updateDataResourceMethod(dctx, context);
   		if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
       		return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
@@ -284,7 +276,6 @@ public class DataServices {
 
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue dataResource = null;
         //Locale locale = (Locale) context.get("locale");
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -334,7 +325,6 @@ public class DataServices {
     public static Map updateElectronicTextMethod(DispatchContext dctx, Map context) {
         HashMap result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue electronicText = null;
         //Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
@@ -383,8 +373,6 @@ public class DataServices {
 
     public static Map updateFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
         HashMap result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         //GenericValue fileText = null;
         //Locale locale = (Locale) context.get("locale");
             //String dataResourceId = (String) dataResource.get("dataResourceId");
@@ -503,8 +491,6 @@ public class DataServices {
     public static Map updateImageMethod(DispatchContext dctx, Map context) {
         HashMap result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue image = null;
         //Locale locale = (Locale) context.get("locale");
             String dataResourceId = (String) context.get("dataResourceId");
             ByteWrapper byteWrapper = (ByteWrapper)context.get("imageData");
@@ -539,7 +525,6 @@ public class DataServices {
     public static Map createImageMethod(DispatchContext dctx, Map context) {
         HashMap result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
             String dataResourceId = (String) context.get("dataResourceId");
             ByteWrapper byteWrapper = (ByteWrapper)context.get("imageData");
             if (byteWrapper != null) {
@@ -573,15 +558,12 @@ public class DataServices {
 
     public static Map createBinaryFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
         HashMap result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
             GenericValue dataResource = (GenericValue) context.get("dataResource");
             //String dataResourceId = (String) dataResource.get("dataResourceId");
             String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
             String objectInfo = (String) dataResource.get("objectInfo");
             byte [] imageData = (byte []) context.get("imageData");
             String rootDir = (String)context.get("rootDir");
-            String prefix = "";
             File file = null;
             if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
             if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, objectInfo:" + objectInfo, module);
@@ -628,15 +610,12 @@ public class DataServices {
 
     public static Map updateBinaryFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
         HashMap result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
             GenericValue dataResource = (GenericValue) context.get("dataResource");
             //String dataResourceId = (String) dataResource.get("dataResourceId");
             String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
             String objectInfo = (String) dataResource.get("objectInfo");
             byte [] imageData = (byte []) context.get("imageData");
             String rootDir = (String)context.get("rootDir");
-            String prefix = "";
             File file = null;
             if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
             if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, objectInfo:" + objectInfo, module);
