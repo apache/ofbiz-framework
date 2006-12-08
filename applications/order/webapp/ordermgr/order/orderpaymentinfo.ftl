@@ -275,7 +275,7 @@ under the License.
             <td width="5">&nbsp;</td>
             <td align="left" valign="top" width="80%">
               <div class="tabletext">
-                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
+                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
               </div>
             </td>
           </tr>
