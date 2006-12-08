@@ -27,7 +27,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/group/FindFacilityGroup.ftl"/></html>
@@ -45,7 +45,7 @@ under the License.
                 <entity-one entity-name="FacilityGroup" value-name="facilityGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
