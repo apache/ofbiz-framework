@@ -170,7 +170,7 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="error" type="jsp" page="/error/error.jsp"/>
-    <view-map name="main" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#main"/>
+    <view-map name="main" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#facilities"/>
     <view-map name="login" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#login"/>
 
     <view-map name="receipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#receipt"/>

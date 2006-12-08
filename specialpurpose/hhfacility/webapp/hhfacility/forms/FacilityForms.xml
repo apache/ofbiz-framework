@@ -20,12 +20,6 @@ under the License.
     
     <form name="ListFacilities" type="list" list-name="facilities" paginate-target="main"
              default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
-        <actions>
-            <entity-condition entity-name="Facility">
-                <order-by field-name="description"/>
-            </entity-condition>
-        </actions>
-        
         <field name="facilityId" title="ID" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${facilityId}" target="menu?facilityId=${facilityId}"/>
         </field>
