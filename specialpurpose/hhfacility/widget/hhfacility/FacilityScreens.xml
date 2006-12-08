@@ -69,29 +69,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="main">
-        <section>
-            <widgets>
-                <decorator-screen name="CommonDecorator">
-                    <decorator-section name="body">
-                        <section>
-                            <condition><if-empty field-name="userLogin"/></condition>
-                            <widgets>
-                                <container><label style="tabletext" text="Please login"/></container>
-                            </widgets>
-                        </section>
-                        <section>
-                            <widgets>
-                                <container><label style="head1">Facilities</label></container>                   
-                                <include-form name="ListFacilities" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="menu">
         <section>
             <widgets>
@@ -273,13 +250,14 @@ under the License.
         <section>
             <actions>
                 <entity-condition entity-name="Facility" list-name="facilities">
+                    <condition-expr field-name="facilityTypeId" value="WAREHOUSE"/>
                     <order-by field-name="facilityId"/>
                 </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/facilities.ftl"/></html></platform-specific>
+                        <include-form name="ListFacilities" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
