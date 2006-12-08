@@ -26,7 +26,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/FindShipment.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/FindShipment.ftl"/></html>
@@ -44,7 +44,7 @@ under the License.
                 <entity-one entity-name="Shipment" value-name="shipment"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -233,7 +233,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/QuickShipOrder.ftl"/></html>
@@ -252,7 +252,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackOrder.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/PackOrder.ftl"/></html>

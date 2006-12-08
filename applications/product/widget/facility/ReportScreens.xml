@@ -46,7 +46,7 @@ under the License.
                 <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://product/widget/facility/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
