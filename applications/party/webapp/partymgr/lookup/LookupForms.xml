@@ -90,7 +90,8 @@ under the License.
     
     <form name="lookupPartyAndUserLoginAndPerson" default-title-style="tableheadtext"
         default-tooltip-style="tabletext" default-widget-style="inputBox"
-        target="LookupPerson" title="" type="single">
+        target="LookupPartyAndUserLoginAndPerson" paginate-target="LookupPartyAndUserLoginAndPerson"
+        title="" type="single">
         <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="find" />-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><text-find/></field>
@@ -112,8 +113,8 @@ under the License.
             </service>
         </actions>
         <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="display"/>-->
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display description="${partyId}"/>
         </field>
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
