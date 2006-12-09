@@ -98,7 +98,6 @@ public class EntityPermissionChecker {
         }
         permissionConditionGetter.setOperationList(targetOperationList);
 
-        return;
     }
 
     public boolean runPermissionCheck(Map context) {
@@ -1301,7 +1300,6 @@ public class EntityPermissionChecker {
             if (isOwner(entity, partyId)) {
                 this.roleIdList.add("OWNER");   
             }
-           return;
         }
         
         public void initWithAncestors(GenericDelegator delegator, GenericValue entity, String partyId) throws GenericEntityException {
@@ -1312,7 +1310,6 @@ public class EntityPermissionChecker {
                List lst = getUserRolesFromList(delegator, ownedContentIdList, partyId, this.roleEntityIdName, this.partyFieldName, this.roleTypeFieldName, this.roleEntityName);
                this.roleIdList.addAll(lst);
            }
-           return;
         }
         
         public boolean isOwner( GenericValue entity, String targetPartyId) {
@@ -1389,7 +1386,7 @@ public class EntityPermissionChecker {
                 getEntityOwners(delegator, ownerContent, contentOwnerList, entityName, ownerIdFieldName );
             }
         }
-        return;
+
     }
 
     public static int getPrivilegeEnumSeq(GenericDelegator delegator, String privilegeEnumId) throws GenericEntityException {

@@ -287,7 +287,6 @@ public abstract class ModelScreenWidget implements Serializable {
             // read sub-widgets
             List subElementList = UtilXml.childElementList(containerElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
-            return;
         }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
@@ -826,7 +825,6 @@ public abstract class ModelScreenWidget implements Serializable {
             this.height = subContentElement.getAttribute("height");
             if (UtilValidate.isEmpty(this.height)) this.width="400px";
             this.border = subContentElement.getAttribute("border");
-            return;
         }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) {

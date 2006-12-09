@@ -123,7 +123,6 @@ public class HtmlFormRenderer implements FormStringRenderer {
                buffer.append("*");
             }
         }
-        return;
     }
     
     /* (non-Javadoc)

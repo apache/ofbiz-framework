@@ -169,7 +169,6 @@ public class SearchWorker {
 	    	deleteDataResourceDocument(dataResourceId, reader);
 	    }
 
-            return;
 	}
 	
 
@@ -179,7 +178,6 @@ public class SearchWorker {
 	    int qtyDeleted = reader.delete(term);
 	    if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
 
-            return;
 	}
 
 	public static void indexContent(GenericDelegator delegator, Map context, GenericValue content, String path) throws Exception {
@@ -196,7 +194,6 @@ public class SearchWorker {
 		indexContent(delegator, context, content, writer);
        	        writer.optimize();
     	        writer.close();
-		return;
 	}
 	
 	public static void indexContent(GenericDelegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
@@ -216,7 +213,6 @@ public class SearchWorker {
             }
             */
         
-            return;
 	}
 	
 	public static void indexDataResource(GenericDelegator delegator, Map context, String id) throws Exception {

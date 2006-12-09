@@ -177,7 +177,6 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 }
                 String menuStr = menuWrapper.renderMenuString();
                 out.write(menuStr);
-                return;
             }
                 
         };

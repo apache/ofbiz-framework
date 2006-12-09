@@ -157,6 +157,7 @@ public class RequestManager implements Serializable {
         Map uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
+            String EVENT_GLOBAL_TRANSACTION = "global-transaction";
             return new Boolean((String) uri.get(ConfigXMLReader.EVENT_GLOBAL_TRANSACTION)).booleanValue();
         } else {
             if (Debug.verboseOn()) {

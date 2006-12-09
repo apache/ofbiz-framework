@@ -141,7 +141,6 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
             currentMenuItem = (ModelMenuItem)menuItemIter.next();
             renderMenuItem(buffer, context, currentMenuItem);
         }
-        return;
     }
 
     public void renderMenuItem(StringBuffer buffer, Map context, ModelMenuItem menuItem) {
@@ -176,7 +175,6 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         }
         
         this.appendWhitespace(buffer);
-        return;
     }
 
     public boolean isDisableIfEmpty(ModelMenuItem menuItem, Map context) {

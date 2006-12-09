@@ -205,7 +205,6 @@ public class ModelMenuItem {
         else
             hideIfSelected = null;
 
-        return;
     }
 
     public void setDisabled(boolean val) {
@@ -242,7 +241,6 @@ public class ModelMenuItem {
         if (overrideMenuItem.position != null)
             this.position = overrideMenuItem.position;
 */
-        return;
     }
 
     public void renderMenuItemString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
@@ -564,8 +562,6 @@ public class ModelMenuItem {
             + "\n     selectedStyle=" + this.selectedStyle
             + "\n\n");
      
-            
-        return;
     }
 
     public Link getLink() {

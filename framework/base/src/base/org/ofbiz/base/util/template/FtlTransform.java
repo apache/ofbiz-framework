@@ -94,7 +94,6 @@ public final class FtlTransform {
            }
         }
         template.process(templateContext, writer);
-        return; 
     }
     
     private static Template getTemplate( String inputUrl) throws IOException {

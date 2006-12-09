@@ -57,8 +57,6 @@ public class WidgetWorker {
             buffer.append(localRequestName);
         }
 
-    
-        return;
     }
 
     public static void appendOfbizUrl(StringBuffer buffer, String location, HttpServletRequest request, HttpServletResponse response) {
