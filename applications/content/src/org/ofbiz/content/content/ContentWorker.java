@@ -433,7 +433,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List assocTypeList = StringUtil.split(contentAssocTypeId, " ");
         List contentTypeList = StringUtil.split(contentTypeId, " ");
         String contentAssocPredicateId = null;
-        Boolean nullThruDatesOnly = new Boolean(true);
+        Boolean nullThruDatesOnly = Boolean.TRUE;
         Map results = null;
         try {
             results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, parentContentId, mapKey, direction, null, null, assocTypeList, contentTypeList, nullThruDatesOnly, contentAssocPredicateId);
@@ -1010,7 +1010,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         Map results = new HashMap();
         //GenericValue content = null;
         if (subContentDataResourceView == null) {
-            subContentDataResourceView = getSubContentCache(delegator, contentId, mapKey, subContentId, userLogin, null, fromDate, new Boolean(false), null);
+            subContentDataResourceView = getSubContentCache(delegator, contentId, mapKey, subContentId, userLogin, null, fromDate, Boolean.FALSE, null);
         }
 
         results.put("view", subContentDataResourceView);
@@ -1034,7 +1034,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     public static String renderSubContentAsTextCache(GenericDelegator delegator, String contentId,  String mapKey,  GenericValue subContentDataResourceView, 
             Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException {
-        Boolean nullThruDatesOnly = new Boolean(false);
+        Boolean nullThruDatesOnly = Boolean.FALSE;
         Writer outWriter = new StringWriter();
         Map map = renderSubContentAsTextCache(delegator, contentId, outWriter, mapKey, subContentDataResourceView, templateRoot, locale, mimeTypeId, userLogin, fromDate, nullThruDatesOnly);
         return outWriter.toString();
@@ -1042,7 +1042,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     public static Map renderSubContentAsTextCache(GenericDelegator delegator, String contentId, Writer out, String mapKey,  GenericValue subContentDataResourceView, 
             Map templateRoot, Locale locale, String mimeTypeId, GenericValue userLogin, Timestamp fromDate) throws GeneralException, IOException {
-        Boolean nullThruDatesOnly = new Boolean(false);
+        Boolean nullThruDatesOnly = Boolean.FALSE;
         return renderSubContentAsTextCache(delegator, contentId, out, mapKey, subContentDataResourceView, 
             templateRoot, locale, mimeTypeId, userLogin, fromDate, nullThruDatesOnly);
     }
@@ -1358,7 +1358,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         trailNode.put("isFollow", new Boolean(isFollow));
         boolean isReturnAfter = checkReturnWhen(context, (String)whenMap.get("returnAfterPickWhen"));
         trailNode.put("isReturnAfter", new Boolean(isReturnAfter));
-        trailNode.put("checked", new Boolean(true));
+        trailNode.put("checked", Boolean.TRUE);
 
     }
 
@@ -1489,10 +1489,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         String contentId = (String)thisContent.get("contentId");
         thisNode.put("contentId", contentId);
         thisNode.put("contentTypeId", thisContent.get("contentTypeId"));
-        thisNode.put("isReturnBeforePick", new Boolean(false));
-        thisNode.put("isReturnAfterPick", new Boolean(false));
-        thisNode.put("isPick", new Boolean(true));
-        thisNode.put("isFollow", new Boolean(true));
+        thisNode.put("isReturnBeforePick", Boolean.FALSE);
+        thisNode.put("isReturnAfterPick", Boolean.FALSE);
+        thisNode.put("isPick", Boolean.TRUE);
+        thisNode.put("isFollow", Boolean.TRUE);
         try {
             thisNode.put("contentAssocTypeId", thisContent.get("caContentAssocTypeId"));
             thisNode.put("mapKey", thisContent.get("caMapKey"));

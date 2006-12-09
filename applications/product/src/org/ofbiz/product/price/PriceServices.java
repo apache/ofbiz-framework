@@ -503,7 +503,7 @@ public class PriceServices {
             result.put("promoPrice", promoPriceValue != null ? promoPriceValue.getDouble("price") : null);
             result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getDouble("price") : null);
             result.put("validPriceFound", new Boolean(validPriceFound));
-            result.put("isSale", new Boolean(false));
+            result.put("isSale", Boolean.FALSE);
             result.put("orderItemPriceInfos", FastList.newInstance());
 
             Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 

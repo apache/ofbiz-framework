@@ -170,7 +170,7 @@ public class ControlServlet extends HttpServlet {
         if (Debug.timingOn()) timer.timerString("[" + rname + "] Setup done, doing Event(s) and View(s)", module);
 
         // some containers call filters on EVERY request, even forwarded ones, so let it know that it came from the control servlet
-        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, new Boolean(true));
+        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
 
         String errorPage = null;
         try {
@@ -198,7 +198,7 @@ public class ControlServlet extends HttpServlet {
 
             // use this request parameter to avoid infinite looping on errors in the error page...
             if (request.getAttribute("_ERROR_OCCURRED_") == null && rd != null) {
-                request.setAttribute("_ERROR_OCCURRED_", new Boolean(true));
+                request.setAttribute("_ERROR_OCCURRED_", Boolean.TRUE);
                 Debug.logError("Including errorPage: " + errorPage, module);
                 rd.include(request, response);
 

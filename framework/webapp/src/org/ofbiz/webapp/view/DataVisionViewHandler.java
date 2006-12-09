@@ -57,7 +57,7 @@ public class DataVisionViewHandler implements ViewHandler {
         }
 
         // tell the ContextFilter we are forwarding
-        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, new Boolean(true));
+        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 

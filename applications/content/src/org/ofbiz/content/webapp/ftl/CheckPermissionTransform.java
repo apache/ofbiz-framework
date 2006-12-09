@@ -104,7 +104,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 GenericValue currentContent = null;
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
-                Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? new Boolean(true) :new Boolean(false);
+                Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE : Boolean.FALSE;
                 GenericValue val = null;
                 try {
                     val = ContentWorker.getCurrentContent(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);

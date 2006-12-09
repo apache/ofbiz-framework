@@ -125,7 +125,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         List globalNodeTrail = (List) templateRoot.get("globalNodeTrail");
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         String orderBy = (String) templateRoot.get("orderBy");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? new Boolean(true) : new Boolean(false);
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE : Boolean.FALSE;
         String contentId = (String) templateRoot.get("subContentId");
 
         templateRoot.put("contentId", null);
@@ -137,7 +137,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         //if (Debug.infoOn()) Debug.logInfo("in LimitedSubContentCache(0), assocTypes ." + assocTypes, module);
         String contentAssocPredicateId = (String) templateRoot.get("contentAssocPredicateId");
         try {
-            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "From", fromDate, null, assocTypes, null, new Boolean(true), contentAssocPredicateId, orderBy);
+            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "From", fromDate, null, assocTypes, null, Boolean.TRUE, contentAssocPredicateId, orderBy);
         } catch (MiniLangException e2) {
             throw new RuntimeException(e2.getMessage());
         } catch (GenericEntityException e) {

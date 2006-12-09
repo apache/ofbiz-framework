@@ -525,7 +525,7 @@ public class GiftCertificateServices {
             Map result = ServiceUtil.returnSuccess();
             result.put("releaseRefNum", authTransaction.getString("referenceNum"));
             result.put("releaseAmount", authTransaction.getDouble("amount"));
-            result.put("releaseResult", new Boolean(true));
+            result.put("releaseResult", Boolean.TRUE);
 
             // if there's an error, don't release
             if (ServiceUtil.isError(serviceResults)) {

@@ -204,9 +204,9 @@ public class ModelMenu {
             String val = menuElement.getAttribute("default-hide-if-selected");
                 //Debug.logInfo("in ModelMenu, hideIfSelected, val:" + val, module);
             if (val != null && val.equalsIgnoreCase("true"))
-                defaultHideIfSelected = new Boolean(true);
+                defaultHideIfSelected = Boolean.TRUE;
             else 
-                defaultHideIfSelected = new Boolean(false);
+                defaultHideIfSelected = Boolean.FALSE;
         }
         if (this.defaultDisabledTitleStyle == null || menuElement.hasAttribute("default-disabled-title-style"))
             this.defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");

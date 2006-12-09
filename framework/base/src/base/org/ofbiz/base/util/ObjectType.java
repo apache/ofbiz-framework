@@ -466,9 +466,9 @@ public class ObjectType {
                 str = StringUtil.removeSpaces(str);
                 Boolean value = null;
                 if (str.equalsIgnoreCase("TRUE")) {
-                    value = new Boolean(true);
+                    value = Boolean.TRUE;
                 } else {
-                    value = new Boolean(false);
+                    value = Boolean.FALSE;
                 }
                 return value;
             } else if ("Locale".equals(type) || "java.util.Locale".equals(type)) {

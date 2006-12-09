@@ -506,7 +506,7 @@ public class LoginWorker {
         session.removeAttribute("autoName");
         // logout the user if logged in.
         if (session.getAttribute("userLogin") != null) {
-            request.setAttribute("_AUTO_LOGIN_LOGOUT_", new Boolean(true));
+            request.setAttribute("_AUTO_LOGIN_LOGOUT_", Boolean.TRUE);
             return logout(request, response);
         }
         return "success";

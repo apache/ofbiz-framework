@@ -66,8 +66,8 @@ public class WorkEffortWorker {
         GenericValue currentStatus = null;
 
         if (workEffort == null) {
-            tryEntity = new Boolean(false);
-            canView = new Boolean(true);
+            tryEntity = Boolean.FALSE;
+            canView = Boolean.TRUE;
 
             String statusId = pageContext.getRequest().getParameter("currentStatusId");
 
@@ -88,12 +88,12 @@ public class WorkEffortWorker {
                     Debug.logWarning(e, module);
                 }
             }
-            canView = (workEffortPartyAssignments != null && workEffortPartyAssignments.size() > 0) ? new Boolean(true) : new Boolean(false);
+            canView = (workEffortPartyAssignments != null && workEffortPartyAssignments.size() > 0) ? Boolean.TRUE : Boolean.FALSE;
             if (!canView.booleanValue() && security.hasEntityPermission("WORKEFFORTMGR", "_VIEW", pageContext.getSession())) {
-                canView = new Boolean(true);
+                canView = Boolean.TRUE;
             }
 
-            tryEntity = new Boolean(true);
+            tryEntity = Boolean.TRUE;
 
             if (workEffort.get("currentStatusId") != null) {
                 try {
@@ -106,7 +106,7 @@ public class WorkEffortWorker {
 
         // if there was an error message, don't get values from entity
         if (pageContext.getRequest().getAttribute("_ERROR_MESSAGE_") != null) {
-            tryEntity = new Boolean(false);
+            tryEntity = Boolean.FALSE;
         }
 
         if (workEffortId != null)
