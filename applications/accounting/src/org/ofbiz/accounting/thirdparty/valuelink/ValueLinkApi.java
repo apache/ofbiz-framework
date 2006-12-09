@@ -731,7 +731,7 @@ public class ValueLinkApi {
         // transaction number
         String termTxNo = (String) context.get("TermTxnNo");
         if (termTxNo == null) {
-            termTxNo = delegator.getNextSeqId("ValueLinkKey").toString();
+            termTxNo = delegator.getNextSeqId("ValueLinkKey");
         }
         request.put("TermTxnNo", termTxNo);
 
