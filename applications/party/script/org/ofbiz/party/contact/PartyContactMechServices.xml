@@ -161,9 +161,9 @@ under the License.
         </call-service>
 
         <check-errors/>
-
-        <set field="createPartyContactMechMap.contactMechId" from-field="newPartyContactMech.contactMechId"/>
         <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="createPartyContactMechMap"/>
+        <set field="createPartyContactMechMap.contactMechId" from-field="newPartyContactMech.contactMechId"/>
+        <set field="createPartyContactMechMap.contactMechTypeId" value="POSTAL_ADDRESS"/>
         
         <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
@@ -221,6 +221,7 @@ under the License.
 
         <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="createPartyContactMechMap"/>
         <set field="createPartyContactMechMap.contactMechId" from-field="newPartyContactMech.contactMechId"/>
+        <set field="createPartyContactMechMap.contactMechTypeId" value="TELECOM_NUMBER"/>
         <log level="info" message="Copied id to createPartyContactMechMap: ${createPartyContactMechMap.contactMechId}"/>
 
         <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
