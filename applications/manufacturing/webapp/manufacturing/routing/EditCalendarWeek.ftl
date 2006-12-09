@@ -15,15 +15,13 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-    <div class="tabContainer">
-        <a href="<@ofbizUrl>ListCalendarWeek</@ofbizUrl>" class="tabButton">${uiLabelMap.CommonBackToList}</a>
-        <a href="<@ofbizUrl>EditCalendarWeek</@ofbizUrl>" class="tabButton">${uiLabelMap.ManufacturingNewCalendarWeek}</a>
-    </div>
-
         <#if calendarWeek?has_content>
-              <div class="head1">${uiLabelMap.ManufacturingUpdateCalendarWeek} </div>
+            <div class="head1">${uiLabelMap.ManufacturingUpdateCalendarWeek} </div>
+            <div>
+                <a href="<@ofbizUrl>EditCalendarWeek</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendarWeek}</a>
+            </div>
             <br/>
-              <form name="calendarWeekform" method="post" action="<@ofbizUrl>UpdateCalendarWeek</@ofbizUrl>">
+            <form name="calendarWeekform" method="post" action="<@ofbizUrl>UpdateCalendarWeek</@ofbizUrl>">
             <table width="90%" border="0" cellpadding="2" cellspacing="0">
               <tr>
                   <td width="26%" align="right" valign="top" ><div class="tabletext">${uiLabelMap.ManufacturingCalendarWeekId}</div></td>
@@ -31,7 +29,10 @@ under the License.
                 <input type="hidden" name="calendarWeekId" value="${calendarWeek.calendarWeekId}">
                   <td width="74%" valign="top" colspan="5"><div class="tabletext"><b>${calendarWeek.calendarWeekId?if_exists}</b> (${uiLabelMap.CommonNotModifRecreat})</td>
         <#else>
-              <div class="head1">${uiLabelMap.ManufacturingCreateCalendarWeek} </div>
+            <div class="head1">${uiLabelMap.ManufacturingCreateCalendarWeek} </div>
+            <div>
+                <a href="<@ofbizUrl>EditCalendarWeek</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendarWeek}</a>
+            </div>
             <br/>
               <form name="calendarWeekform" method="post" action="<@ofbizUrl>CreateCalendarWeek</@ofbizUrl>">
             <table width="90%" border="0" cellpadding="2" cellspacing="0">
