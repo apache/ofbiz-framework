@@ -20,9 +20,6 @@ under the License.
 
     <screen name="CMSContentFind">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="title" value="CMS Content Find Page"/>
                 <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
@@ -46,9 +43,6 @@ under the License.
 
     <screen name="CMSContentEdit">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <set field="title" value="CMS Content Edit Page"/>
@@ -83,9 +77,6 @@ under the License.
     
     <screen name="CMSContentAdd">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <set field="title" value="CMS Content Edit Page"/>
@@ -103,9 +94,6 @@ under the License.
     
     <screen name="EditAddContent">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="title" value="CMS Content Edit Page"/>
                 <set field="entityOperation" value="_UPDATE"/>
@@ -145,9 +133,6 @@ under the License.
     
     <screen name="EditAddSubContent">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="title" value="CMS Content Edit Page"/>
                 <set field="entityOperation" value="_UPDATE"/>
@@ -180,9 +165,6 @@ under the License.
     
     <screen name="AdminSearch">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <script location="component://content/widget/cms/advancedsearchprep.bsh"/>
@@ -209,9 +191,6 @@ under the License.
     
     <screen name="AdminIndex">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <set field="title" value="CMS Search Page"/>
@@ -231,9 +210,6 @@ under the License.
     
     <screen name="CMSSites">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <set field="title" value="CMS Search Page"/>
@@ -261,9 +237,6 @@ under the License.
 
     <screen name="addSubSite">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <set field="title" value="Add SubSite"/>
@@ -284,9 +257,6 @@ under the License.
     </screen>
     <screen name="TestPermission">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="ADMIN"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
                 <set field="title" value="Test Permission"/>
