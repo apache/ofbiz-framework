@@ -127,7 +127,7 @@ public class RequestHandler implements Serializable {
                 String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString());
                 if (newUrl.toUpperCase().startsWith("HTTPS")) {
                     // if we are supposed to be secure, redirect secure.
-                    callRedirect(newUrl.toString(), response, request);
+                    callRedirect(newUrl, response, request);
                 }
             }
 

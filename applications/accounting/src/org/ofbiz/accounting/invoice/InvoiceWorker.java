@@ -218,7 +218,7 @@ public class InvoiceWorker {
             if (invoice.getString("invoiceTypeId").equals("SALES_INVOICE"))
                 destinationPartyId = invoice.getString("partyId");
             if (invoice.getString("invoiceTypeId").equals("PURCHASE_INVOICE"))
-                destinationPartyId = new String("partyFrom");
+                destinationPartyId = "partyFrom";
             try {
                 locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", 
                         UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", contactMechPurposeTypeId)));

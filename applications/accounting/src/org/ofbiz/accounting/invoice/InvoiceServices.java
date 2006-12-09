@@ -2007,7 +2007,7 @@ public class InvoiceServices {
             context.put("useHighestAmount","Y");
         }
 
-        String defaultInvoiceProcessing = UtilProperties.getPropertyValue("AccountingConfig","invoiceProcessing").toString();
+        String defaultInvoiceProcessing = UtilProperties.getPropertyValue("AccountingConfig","invoiceProcessing");
         
         boolean debug = true; // show processing messages in the log..or not....
 
@@ -2038,7 +2038,7 @@ public class InvoiceServices {
                 " amountApplied: " + amountApplied + 
                 " TaxAuthGeoId: " + taxAuthGeoId, module);
 
-        if (changeProcessing == null) changeProcessing = new String("N");    // not provided, so no change
+        if (changeProcessing == null) changeProcessing = "N";    // not provided, so no change
         
         boolean invoiceProcessing = true;
         if (defaultInvoiceProcessing.equals("YY")) invoiceProcessing = true;
@@ -2497,27 +2497,27 @@ public class InvoiceServices {
         // show the maximumus what can be added in the payment application file.
         String toMessage = null;  // prepare for success message
         if (debug) {
-            String extra = new String("");
+            String extra = "";
             if (invoiceItemSeqId != null) {
-                extra = new String(" Invoice item(" + invoiceItemSeqId + ") amount not yet applied: " + newInvoiceItemApplyAvailable);
+                extra = " Invoice item(" + invoiceItemSeqId + ") amount not yet applied: " + newInvoiceItemApplyAvailable;
             }
             Debug.logInfo("checking finished, start processing with the following data... ", module);
             if (invoiceId != null) {
                 Debug.logInfo(" Invoice(" + invoiceId + ") amount not yet applied: " + newInvoiceApplyAvailable + extra + " Payment(" + paymentId + ") amount not yet applied: " + newPaymentApplyAvailable +  " Requested amount to apply:" + amountApplied, module);
-                toMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationToInvoice",UtilMisc.toMap("invoiceId",invoiceId),locale));
-                if(extra.length() > 0) toMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationToInvoiceItem",UtilMisc.toMap("invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
+                toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToInvoice",UtilMisc.toMap("invoiceId",invoiceId),locale);
+                if(extra.length() > 0) toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToInvoiceItem",UtilMisc.toMap("invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale);
             }
             if (toPaymentId != null) {
                 Debug.logInfo(" toPayment(" + toPaymentId + ") amount not yet applied: " + newToPaymentApplyAvailable + " Payment(" + paymentId + ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, module);
-                toMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationToPayment",UtilMisc.toMap("paymentId",toPaymentId),locale));
+                toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToPayment",UtilMisc.toMap("paymentId",toPaymentId),locale);
             }
             if (billingAccountId != null) {
                 Debug.logInfo(" billingAccount(" + billingAccountId + ") amount not yet applied: " + newBillingAccountApplyAvailable + " Payment(" + paymentId + ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, module);
-                toMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationToBillingAccount",UtilMisc.toMap("billingAccountId",billingAccountId),locale));
+                toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToBillingAccount",UtilMisc.toMap("billingAccountId",billingAccountId),locale);
             }
             if (taxAuthGeoId != null) {
                 Debug.logInfo(" taxAuthGeoId(" + taxAuthGeoId + ")  Payment(" + paymentId + ") amount not yet applied: " + newPaymentApplyAvailable + " Requested amount to apply:" + amountApplied, module);
-                toMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationToTax",UtilMisc.toMap("taxAuthGeoId",taxAuthGeoId),locale));
+                toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToTax",UtilMisc.toMap("taxAuthGeoId",taxAuthGeoId),locale);
             }
         }
         // if the amount to apply was not provided or was zero fill it with the maximum possible and provide information to the user
@@ -2525,11 +2525,11 @@ public class InvoiceServices {
             amountApplied = newPaymentApplyAvailable;
             if (invoiceId != null && newInvoiceApplyAvailable.compareTo(amountApplied) < 0) {
                 amountApplied = newInvoiceApplyAvailable;
-                toMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationToInvoice",UtilMisc.toMap("invoiceId",invoiceId),locale));
+                toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToInvoice",UtilMisc.toMap("invoiceId",invoiceId),locale);
             }
             if (toPaymentId != null && newToPaymentApplyAvailable.compareTo(amountApplied) == 1) {
                 amountApplied = newToPaymentApplyAvailable;
-                toMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationToPayment",UtilMisc.toMap("paymentId",toPaymentId),locale));
+                toMessage = UtilProperties.getMessage(resource, "AccountingApplicationToPayment",UtilMisc.toMap("paymentId",toPaymentId),locale);
             }
         }
         
@@ -2537,7 +2537,7 @@ public class InvoiceServices {
             errorMessageList.add(UtilProperties.getMessage(resource, "AccountingNoAmount",locale));
         }
         else {
-            successMessage = new String(UtilProperties.getMessage(resource, "AccountingApplicationSuccess",UtilMisc.toMap("amountApplied",amountApplied,"paymentId",paymentId,"isoCode", payment.getString("currencyUomId"),"toMessage",toMessage),locale));
+            successMessage = UtilProperties.getMessage(resource, "AccountingApplicationSuccess",UtilMisc.toMap("amountApplied",amountApplied,"paymentId",paymentId,"isoCode", payment.getString("currencyUomId"),"toMessage",toMessage),locale);
         }
         
         // report error messages if any

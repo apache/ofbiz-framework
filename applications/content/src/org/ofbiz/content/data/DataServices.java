@@ -102,7 +102,7 @@ public class DataServices {
             // If textData exists, then create DataResource and return dataResourceId
             String dataResourceId = (String) context.get("dataResourceId");
             if (UtilValidate.isEmpty(dataResourceId))
-                dataResourceId = delegator.getNextSeqId("DataResource").toString();
+                dataResourceId = delegator.getNextSeqId("DataResource");
             if (Debug.infoOn()) Debug.logInfo("in createDataResourceMethod, dataResourceId:" + dataResourceId, module);
             GenericValue dataResource = delegator.makeValue("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
             dataResource.setNonPKFields(context);

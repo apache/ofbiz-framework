@@ -295,7 +295,7 @@ public class CommonServices {
 
         for (int i = 0; i < count; i++ ) {
             GenericValue v = delegator.makeValue("Visit", null);
-            String seqId = delegator.getNextSeqId("Visit").toString();
+            String seqId = delegator.getNextSeqId("Visit");
 
             v.set("visitId", seqId);
             v.set("userCreated", "N");

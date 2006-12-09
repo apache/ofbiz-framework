@@ -175,10 +175,10 @@ public class WfApplicationServices {
     private static String insertAppSandbox(GenericDelegator delegator, String workEffortId, String partyId, 
             String roleTypeId, Timestamp fromDate, Map context) throws GenericServiceException {
         String dataId = null;
-        String applicationId = new String(new Long((new Date().getTime())).toString());
+        String applicationId = new Long((new Date().getTime())).toString();
         
         try {
-            dataId = delegator.getNextSeqId("RuntimeData").toString();
+            dataId = delegator.getNextSeqId("RuntimeData");
             GenericValue runtimeData = delegator.makeValue("RuntimeData", UtilMisc.toMap("runtimeDataId", dataId));
             runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
             delegator.create(runtimeData);

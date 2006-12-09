@@ -822,7 +822,7 @@ public class ProductEvents {
                 productFeatureId = existingProductFeature.getString("productFeatureId");
             } else {
                 // doesn't exist, so create it
-                productFeatureId = delegator.getNextSeqId("ProductFeature").toString();
+                productFeatureId = delegator.getNextSeqId("ProductFeature");
                 GenericValue prodFeature = delegator.makeValue("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId, "productFeatureTypeId", productFeatureTypeId));
                 if (uomId != null) {
                     prodFeature.set("uomId", uomId);
@@ -989,7 +989,7 @@ public class ProductEvents {
                 productFeatureId = existingProductFeature.getString("productFeatureId");
             } else {
                 // doesn't exist, so create it
-                productFeatureId = delegator.getNextSeqId("ProductFeature").toString();
+                productFeatureId = delegator.getNextSeqId("ProductFeature");
                 GenericValue newProductFeature = delegator.makeValue("ProductFeature",
                         UtilMisc.toMap("productFeatureId", productFeatureId,
                                 "productFeatureTypeId", productFeatureTypeId,

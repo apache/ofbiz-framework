@@ -435,7 +435,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             String isAvailable = checkAvailability(product.getString("productId"), quantity, reservStart, reservLength, cart);
             if(isAvailable.compareTo("OK") != 0) {
                 Map messageMap = UtilMisc.toMap("productId", product.getString("productId"), 
-                                                "availableMessage", isAvailable.toString());
+                                                "availableMessage", isAvailable);
                 String excMsg = UtilProperties.getMessage(resource, "item.product_not_available",
                                               messageMap, cart.getLocale() );                
                 Debug.logInfo(excMsg, module);

@@ -431,7 +431,7 @@ public class PayPalEvents {
         GenericDelegator delegator = paymentPreference.getDelegator();
 
         // create the PaymentGatewayResponse
-        String responseId = delegator.getNextSeqId("PaymentGatewayResponse").toString();
+        String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
         GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
         response.set("paymentGatewayResponseId", responseId);
         response.set("paymentServiceTypeEnumId", "PRDS_PAY_EXTERNAL");

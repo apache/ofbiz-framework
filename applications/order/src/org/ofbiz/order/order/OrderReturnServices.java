@@ -523,7 +523,7 @@ public class OrderReturnServices {
                 toStore.add(returnHeader);
 
                 // create the status change history and set it to be stored
-                String returnStatusId = delegator.getNextSeqId("ReturnStatus").toString();
+                String returnStatusId = delegator.getNextSeqId("ReturnStatus");
                 GenericValue returnStatus = delegator.makeValue("ReturnStatus", UtilMisc.toMap("returnStatusId", returnStatusId));
                 returnStatus.set("statusId", "RETURN_COMPLETED");
                 returnStatus.set("returnId", returnId);
@@ -617,7 +617,7 @@ public class OrderReturnServices {
             // create a Payment record for this credit; will look just like a normal payment
             // However, since this payment is not a DISBURSEMENT or RECEIPT but really a matter of internal record
             // it is of type "Other (Non-posting)"
-            String paymentId = delegator.getNextSeqId("Payment").toString();
+            String paymentId = delegator.getNextSeqId("Payment");
             GenericValue payment = delegator.makeValue("Payment", UtilMisc.toMap("paymentId", paymentId));
             payment.set("paymentTypeId", "CUSTOMER_REFUND");
             payment.set("paymentMethodTypeId", "EXT_BILLACT");
@@ -665,7 +665,7 @@ public class OrderReturnServices {
                 toBeStored.add(item);
 
                 // create the status change history and set it to be stored
-                String returnStatusId = delegator.getNextSeqId("ReturnStatus").toString();
+                String returnStatusId = delegator.getNextSeqId("ReturnStatus");
                 GenericValue returnStatus = delegator.makeValue("ReturnStatus", UtilMisc.toMap("returnStatusId", returnStatusId));
                 returnStatus.set("statusId", item.get("statusId"));
                 returnStatus.set("returnId", item.get("returnId"));
@@ -683,7 +683,7 @@ public class OrderReturnServices {
             }
 
             // create the PaymentApplication for the billing account
-            String paId = delegator.getNextSeqId("PaymentApplication").toString();
+            String paId = delegator.getNextSeqId("PaymentApplication");
             GenericValue pa = delegator.makeValue("PaymentApplication", UtilMisc.toMap("paymentApplicationId", paId));
             pa.set("paymentId", paymentId);
             pa.set("billingAccountId", billingAccountId);

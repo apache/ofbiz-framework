@@ -293,7 +293,7 @@ public class RecurrenceInfo {
         try {
             RecurrenceRule r = RecurrenceRule.makeRule(delegator, frequency, interval, count, endTime);
             String ruleId = r.primaryKey();
-            String infoId = delegator.getNextSeqId("RecurrenceInfo").toString();
+            String infoId = delegator.getNextSeqId("RecurrenceInfo");
             GenericValue value = delegator.makeValue("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", infoId));
 
             value.set("recurrenceRuleId", ruleId);

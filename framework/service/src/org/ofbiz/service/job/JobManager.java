@@ -220,7 +220,7 @@ public class JobManager {
                         // only re-schedule if there is no new recurrences since last run
                         Debug.log("Scheduling Job : " + job, module);
 
-                        String newJobId = job.getDelegator().getNextSeqId("JobSandbox").toString();
+                        String newJobId = job.getDelegator().getNextSeqId("JobSandbox");
                         String pJobId = job.getString("parentJobId");
                         if (pJobId == null) {
                             pJobId = job.getString("jobId");
@@ -334,7 +334,7 @@ public class JobManager {
         // persist the context
         String dataId = null;
         try {
-            dataId = delegator.getNextSeqId("RuntimeData").toString();
+            dataId = delegator.getNextSeqId("RuntimeData");
             GenericValue runtimeData = delegator.makeValue("RuntimeData", UtilMisc.toMap("runtimeDataId", dataId));
 
             runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
@@ -394,9 +394,9 @@ public class JobManager {
 
         // set the persisted fields
         if (UtilValidate.isEmpty(jobName)) {
-            jobName = new String(new Long((new Date().getTime())).toString());
+            jobName = new Long((new Date().getTime())).toString();
         }
-        String jobId = delegator.getNextSeqId("JobSandbox").toString();
+        String jobId = delegator.getNextSeqId("JobSandbox");
         Map jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
                 "serviceName", serviceName, "recurrenceInfoId", infoId, "runtimeDataId", dataId);
 

@@ -83,11 +83,11 @@ public class ContactMechServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId.toString(), "contactMechTypeId", contactMechTypeId));
+        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId, "contactMechTypeId", contactMechTypeId));
         toBeStored.add(tempContactMech);
 
         if (!partyId.equals("_NA_")) {
-            toBeStored.add(delegator.makeValue("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId.toString(),
+            toBeStored.add(delegator.makeValue("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId,
                     "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation", context.get("allowSolicitation"), "extension", context.get("extension"))));
         }
 
@@ -110,7 +110,7 @@ public class ContactMechServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        result.put("contactMechId", newCmId.toString());
+        result.put("contactMechId", newCmId);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
@@ -207,8 +207,8 @@ public class ContactMechServices {
         if (isModified) {
             if (relatedEntityToSet != null) toBeStored.add(relatedEntityToSet);
 
-            newContactMech.set("contactMechId", newCmId.toString());
-            newPartyContactMech.set("contactMechId", newCmId.toString());
+            newContactMech.set("contactMechId", newCmId);
+            newPartyContactMech.set("contactMechId", newCmId);
             newPartyContactMech.set("fromDate", now);
             newPartyContactMech.set("thruDate", null);
 
@@ -218,7 +218,7 @@ public class ContactMechServices {
                 while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                     GenericValue tempVal = GenericValue.create((GenericValue) partyContactMechPurposes.next());
 
-                    tempVal.set("contactMechId", newCmId.toString());
+                    tempVal.set("contactMechId", newCmId);
                     toBeStored.add(tempVal);
                 }
             } catch (GenericEntityException e) {
@@ -245,7 +245,7 @@ public class ContactMechServices {
             return result;
         }
 
-        result.put("newContactMechId", newCmId.toString());
+        result.put("newContactMechId", newCmId);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
@@ -339,20 +339,20 @@ public class ContactMechServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId.toString(), "contactMechTypeId", contactMechTypeId));
+        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId, "contactMechTypeId", contactMechTypeId));
         toBeStored.add(tempContactMech);
 
         // don't create a PartyContactMech if there is no party; we define no party as sending _NA_ as partyId
         if (!partyId.equals("_NA_")) {
             toBeStored.add(delegator.makeValue("PartyContactMech",
-                    UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId.toString(),
+                    UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId,
                         "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation",
                         context.get("allowSolicitation"), "extension", context.get("extension"))));
         }
 
         GenericValue newAddr = delegator.makeValue("PostalAddress", null);
 
-        newAddr.set("contactMechId", newCmId.toString());
+        newAddr.set("contactMechId", newCmId);
         newAddr.set("toName", context.get("toName"));
         newAddr.set("attnName", context.get("attnName"));
         newAddr.set("address1", context.get("address1"));
@@ -375,7 +375,7 @@ public class ContactMechServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        result.put("contactMechId", newCmId.toString());
+        result.put("contactMechId", newCmId);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
@@ -476,7 +476,7 @@ public class ContactMechServices {
             if (addr == null || !relatedEntityToSet.equals(addr)) {
                 isModified = true;
             }
-            relatedEntityToSet.set("contactMechId", newCmId.toString());
+            relatedEntityToSet.set("contactMechId", newCmId);
         } else {
             Map messageMap = UtilMisc.toMap("contactMechTypeId", contactMech.getString("contactMechTypeId"));
             errMsg = UtilProperties.getMessage(resource,"contactmechservices.could_not_update_contact_as_POSTAL_ADDRESS_specified", messageMap, locale);
@@ -498,9 +498,9 @@ public class ContactMechServices {
         if (isModified) {
             if (relatedEntityToSet != null) toBeStored.add(relatedEntityToSet);
 
-            newContactMech.set("contactMechId", newCmId.toString());
+            newContactMech.set("contactMechId", newCmId);
             if (newPartyContactMech != null) {
-                newPartyContactMech.set("contactMechId", newCmId.toString());
+                newPartyContactMech.set("contactMechId", newCmId);
                 newPartyContactMech.set("fromDate", now);
                 newPartyContactMech.set("thruDate", null);
 
@@ -510,7 +510,7 @@ public class ContactMechServices {
                     while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                         GenericValue tempVal = GenericValue.create((GenericValue) partyContactMechPurposes.next());
 
-                        tempVal.set("contactMechId", newCmId.toString());
+                        tempVal.set("contactMechId", newCmId);
                         toBeStored.add(tempVal);
                     }
                 } catch (GenericEntityException e) {
@@ -539,7 +539,7 @@ public class ContactMechServices {
             return result;
         }
 
-        result.put("newContactMechId", newCmId.toString());
+        result.put("newContactMechId", newCmId);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
@@ -579,13 +579,13 @@ public class ContactMechServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId.toString(), "contactMechTypeId", contactMechTypeId));
+        GenericValue tempContactMech = delegator.makeValue("ContactMech", UtilMisc.toMap("contactMechId", newCmId, "contactMechTypeId", contactMechTypeId));
         toBeStored.add(tempContactMech);
 
-        toBeStored.add(delegator.makeValue("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId.toString(),
+        toBeStored.add(delegator.makeValue("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", newCmId,
                     "fromDate", now, "roleTypeId", context.get("roleTypeId"), "allowSolicitation", context.get("allowSolicitation"), "extension", context.get("extension"))));
 
-        toBeStored.add(delegator.makeValue("TelecomNumber", UtilMisc.toMap("contactMechId", newCmId.toString(),
+        toBeStored.add(delegator.makeValue("TelecomNumber", UtilMisc.toMap("contactMechId", newCmId,
                     "countryCode", context.get("countryCode"), "areaCode", context.get("areaCode"), "contactNumber", context.get("contactNumber"))));
 
         try {
@@ -597,7 +597,7 @@ public class ContactMechServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        result.put("contactMechId", newCmId.toString());
+        result.put("contactMechId", newCmId);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
@@ -680,7 +680,7 @@ public class ContactMechServices {
             if (telNum == null || !relatedEntityToSet.equals(telNum)) {
                 isModified = true;
             }
-            relatedEntityToSet.set("contactMechId", newCmId.toString());
+            relatedEntityToSet.set("contactMechId", newCmId);
             newPartyContactMech.set("extension", context.get("extension"));
         } else {
             Map messageMap = UtilMisc.toMap("contactMechTypeId", contactMech.getString("contactMechTypeId"));
@@ -700,8 +700,8 @@ public class ContactMechServices {
         if (isModified) {
             if (relatedEntityToSet != null) toBeStored.add(relatedEntityToSet);
 
-            newContactMech.set("contactMechId", newCmId.toString());
-            newPartyContactMech.set("contactMechId", newCmId.toString());
+            newContactMech.set("contactMechId", newCmId);
+            newPartyContactMech.set("contactMechId", newCmId);
             newPartyContactMech.set("fromDate", now);
             newPartyContactMech.set("thruDate", null);
 
@@ -711,7 +711,7 @@ public class ContactMechServices {
                 while (partyContactMechPurposes != null && partyContactMechPurposes.hasNext()) {
                     GenericValue tempVal = GenericValue.create((GenericValue) partyContactMechPurposes.next());
 
-                    tempVal.set("contactMechId", newCmId.toString());
+                    tempVal.set("contactMechId", newCmId);
                     toBeStored.add(tempVal);
                 }
             } catch (GenericEntityException e) {
@@ -738,7 +738,7 @@ public class ContactMechServices {
             return result;
         }
 
-        result.put("newContactMechId", newCmId.toString());
+        result.put("newContactMechId", newCmId);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }

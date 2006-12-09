@@ -650,7 +650,7 @@ public class RecurrenceRule {
         String freqStr = freq[frequency];
 
         try {
-            String ruleId = delegator.getNextSeqId("RecurrenceRule").toString();
+            String ruleId = delegator.getNextSeqId("RecurrenceRule");
             GenericValue value = delegator.makeValue("RecurrenceRule", UtilMisc.toMap("recurrenceRuleId", ruleId));
 
             value.set("frequency", freqStr);
