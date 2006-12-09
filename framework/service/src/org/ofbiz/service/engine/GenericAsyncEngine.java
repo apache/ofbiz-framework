@@ -95,8 +95,8 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 toBeStored.add(runtimeData);
 
                 // Create the job info
-                String jobId = dispatcher.getDelegator().getNextSeqId("JobSandbox").toString();
-                String jobName = new String(new Long((new Date().getTime())).toString());
+                String jobId = dispatcher.getDelegator().getNextSeqId("JobSandbox");
+                String jobName = new Long((new Date().getTime())).toString();
 
 
                 Map jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", UtilDateTime.nowTimestamp());

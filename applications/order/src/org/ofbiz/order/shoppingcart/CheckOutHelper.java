@@ -654,7 +654,7 @@ public class CheckOutHelper {
         Iterator eli = emailList.iterator();
         while (eli.hasNext()) {
             String email = (String) eli.next();
-            String contactMechId = this.delegator.getNextSeqId("ContactMech").toString();
+            String contactMechId = this.delegator.getNextSeqId("ContactMech");
             GenericValue contactMech = this.delegator.makeValue("ContactMech",
                     UtilMisc.toMap("contactMechId", contactMechId, "contactMechTypeId", "EMAIL_ADDRESS", "infoString", email));
 

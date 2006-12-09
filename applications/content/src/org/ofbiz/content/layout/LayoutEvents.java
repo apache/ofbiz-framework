@@ -341,7 +341,7 @@ public class LayoutEvents {
             newContent = delegator.makeValue("Content", content);
             Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
             String oldName = (String)content.get("contentName");
-            newId = delegator.getNextSeqId("Content").toString();
+            newId = delegator.getNextSeqId("Content");
             newContent.set("contentId", newId);
             String dataResourceId = (String)content.get("dataResourceId");
             GenericValue dataResource = delegator.findByPrimaryKey("DataResource", 
@@ -351,7 +351,7 @@ public class LayoutEvents {
                 Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
                 String dataResourceName = "Copy:" + (String)dataResource.get("dataResourceName");
                 newDataResource.set("dataResourceName", dataResourceName);
-                newDataResourceId = delegator.getNextSeqId("DataResource").toString();
+                newDataResourceId = delegator.getNextSeqId("DataResource");
                 newDataResource.set("dataResourceId", newDataResourceId);
                 newDataResource.set("createdDate", UtilDateTime.nowTimestamp());
                 newDataResource.set("lastModifiedDate", UtilDateTime.nowTimestamp());

@@ -107,7 +107,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         GenericValue valueObject = getDefinitionObject();
         GenericValue dataObject = null;
 
-        workEffortId = getDelegator().getNextSeqId("WorkEffort").toString();
+        workEffortId = getDelegator().getNextSeqId("WorkEffort");
         Map dataMap = new HashMap();
         String weType = activityId != null ? "ACTIVITY" : "WORK_FLOW";
 
@@ -558,7 +558,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
 
         try {
             if (dataObject.get("runtimeDataId") == null) {
-                String seqId = getDelegator().getNextSeqId("RuntimeData").toString();
+                String seqId = getDelegator().getNextSeqId("RuntimeData");
 
                 runtimeData = getDelegator().makeValue("RuntimeData",
                             UtilMisc.toMap("runtimeDataId", seqId));

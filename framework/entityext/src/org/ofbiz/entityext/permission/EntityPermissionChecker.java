@@ -88,7 +88,7 @@ public class EntityPermissionChecker {
         } else {
             relatedRoleGetter = new StdRelatedRoleGetter(relatedRoleElement);   
         }
-        String targetOperationString = new String(element.getAttribute("target-operation"));
+        String targetOperationString = element.getAttribute("target-operation");
         if (UtilValidate.isNotEmpty(targetOperationString)) {
             List operationsFromString = StringUtil.split(targetOperationString, "|");
             if (targetOperationList == null) {

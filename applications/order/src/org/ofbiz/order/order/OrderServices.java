@@ -198,7 +198,7 @@ public class OrderServices {
                 // only normalize items with a product associated (ignore non-product items)
                 if (normalizedItemQuantities.get(currentProductId) == null) {
                     normalizedItemQuantities.put(currentProductId, new Double(orderItem.getDouble("quantity").doubleValue()));
-                    normalizedItemNames.put(currentProductId, new String(orderItem.getString("itemDescription")));
+                    normalizedItemNames.put(currentProductId, orderItem.getString("itemDescription"));
                 } else {
                     Double currentQuantity = (Double) normalizedItemQuantities.get(currentProductId);
                     normalizedItemQuantities.put(currentProductId, new Double(currentQuantity.doubleValue() + orderItem.getDouble("quantity").doubleValue()));
@@ -599,7 +599,7 @@ public class OrderServices {
                 if(techDataCalendar == null ) {
                     techDataCalendar = delegator.makeValue("TechDataCalendar", null);
                     Debug.logInfo("create techdata calendar because it does not exist",module);
-                    String calendarId = delegator.getNextSeqId("techDataCalendar").toString();
+                    String calendarId = delegator.getNextSeqId("techDataCalendar");
                     techDataCalendar.set("calendarId", calendarId);
                     toBeStored.add(techDataCalendar);
                     Debug.logInfo("update fixed Asset",module);
@@ -609,7 +609,7 @@ public class OrderServices {
                 // then create the workEffort and the workOrderItemFulfillment to connect to the order and orderItem
                 workOrderItemFulfillment.set("orderItemSeqId", workEffort.get("workEffortId").toString()); // orderItemSeqNo is stored here so save first
                 // workeffort
-                String workEffortId = delegator.getNextSeqId("WorkEffort").toString(); // find next available workEffortId
+                String workEffortId = delegator.getNextSeqId("WorkEffort"); // find next available workEffortId
                 workEffort.set("workEffortId", workEffortId);
                 workEffort.set("workEffortTypeId", "ASSET_USAGE");
                 toBeStored.add(workEffort);  // store workeffort before workOrderItemFulfillment because of workEffortId key constraint
@@ -916,7 +916,7 @@ public class OrderServices {
                 valueObj.set("orderId", orderId);
                 if ("OrderPaymentPreference".equals(valueObj.getEntityName())) {
                     if (valueObj.get("orderPaymentPreferenceId") == null) {
-                        valueObj.set("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference").toString());
+                        valueObj.set("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
                         valueObj.set("createdDate", UtilDateTime.nowTimestamp());
                         valueObj.set("createdByUserLogin", userLogin.getString("userLoginId"));
                     }
@@ -1470,7 +1470,7 @@ public class OrderServices {
                 if ((shippingTotal != null) && (shippingTotal.doubleValue() != currentShipping)) {
                     // place the difference as a new shipping adjustment
                     Double adjustmentAmount = new Double(shippingTotal.doubleValue() - currentShipping);
-                    String adjSeqId = delegator.getNextSeqId("OrderAdjustment").toString();
+                    String adjSeqId = delegator.getNextSeqId("OrderAdjustment");
                     GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentId", adjSeqId));
                     orderAdjustment.set("orderAdjustmentTypeId", "SHIPPING_CHARGES");
                     orderAdjustment.set("amount", adjustmentAmount);
@@ -1789,7 +1789,7 @@ public class OrderServices {
                 }
                 // now create a status change
                 Map changeFields = new HashMap();
-                changeFields.put("orderStatusId", delegator.getNextSeqId("OrderStatus").toString());
+                changeFields.put("orderStatusId", delegator.getNextSeqId("OrderStatus"));
                 changeFields.put("statusId", statusId);
                 changeFields.put("orderId", orderId);
                 changeFields.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
