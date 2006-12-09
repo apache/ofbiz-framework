@@ -18,9 +18,6 @@ under the License.
  xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
     <screen name="FindDataResource">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="headerItem" value="DataResource"/>
                 <set field="titleProperty" value="PageTitleFindDataResource"/>
@@ -42,9 +39,6 @@ under the License.
     </screen>
     <screen name="LookupDataResource">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupDataResource}"/>                
@@ -64,9 +58,6 @@ under the License.
 
     <screen name="EditDataResource">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResource"/>
                 <set field="headerItem" value="DataResource"/>
@@ -86,9 +77,6 @@ under the License.
     <!--
     <screen name="BrowseDataResource">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="headerItem" value="DataResource"/>
                 <set field="currentMenuItemName" to-scope="user" value="browsedataresource"/>
@@ -104,9 +92,6 @@ under the License.
     -->
     <screen name="UploadImage">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleUploadImageDataResource"/>			
                 <set field="headerItem" value="DataResource"/>
@@ -126,9 +111,6 @@ under the License.
     </screen>
     <!--screen name="AddDataResource">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="headerItem" value="DataResource"/>
                 <set field="currentMenuItemName" to-scope="user" value="adddataresource"/>
@@ -144,9 +126,6 @@ under the License.
     </screen-->
     <screen name="AddDataResourceText">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleAddDataResourceText"/>	
                 <set field="headerItem" value="DataResource"/>
@@ -163,9 +142,6 @@ under the License.
     </screen>
     <screen name="AddDataResourceUrl">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleAddDataResourceUrl"/>	
                 <set field="headerItem" value="DataResource"/>
@@ -183,9 +159,6 @@ under the License.
     </screen>
     <screen name="AddDataResourceUpload">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleAddDataResourceUpload"/>	
                 <set field="headerItem" value="DataResource"/>
@@ -202,9 +175,6 @@ under the License.
     </screen>
     <screen name="EditDataResourceText">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceText"/>	
                 <set field="headerItem" value="DataResource"/>
@@ -221,9 +191,6 @@ under the License.
     </screen>
     <screen name="EditDataResourceUrl">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceUrl"/>	
                 <set field="headerItem" value="DataResource"/>
@@ -240,9 +207,6 @@ under the License.
     </screen>
     <screen name="EditDataResourceUpload">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceUpload"/>	
                 <set field="headerItem" value="DataResource"/>
@@ -259,9 +223,6 @@ under the License.
     </screen>
     <screen name="EditElectronicText">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditElectronicText"/>	
                 <set field="headerItem" value="DataResource"/>
@@ -281,9 +242,6 @@ under the License.
     </screen>
     <screen name="EditDataResourceAttribute">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceAttribute"/>
                 <set field="headerItem" value="DataResource"/>
@@ -305,9 +263,6 @@ under the License.
     </screen>
     <screen name="EditDataResourceRole">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceRole"/>
                 <set field="headerItem" value="DataResource"/>
@@ -329,9 +284,6 @@ under the License.
     </screen>
     <screen name="EditDataResourceProductFeatures">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceProductFeatures"/>
                 <set field="headerItem" value="DataResource"/>
@@ -353,9 +305,6 @@ under the License.
     </screen>
     <screen name="EditHtmlText">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditHtmlText"/>
                 <set field="headerItem" value="DataResource"/>

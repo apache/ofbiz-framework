@@ -19,9 +19,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
     <screen name="FindLayout">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="VIEW"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleFindLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -44,9 +41,6 @@ under the License.
     </screen>
     <screen name="ListLayout">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="VIEW"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleListLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -71,9 +65,6 @@ under the License.
     </screen>
     <screen name="EditLayout">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -98,9 +89,6 @@ under the License.
     </screen>
     <screen name="EditLayoutSubContent">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -120,9 +108,6 @@ under the License.
     </screen>
     <screen name="EditLayoutText">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -144,9 +129,6 @@ under the License.
     </screen>
     <screen name="EditLayoutHtml">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -168,9 +150,6 @@ under the License.
     </screen>
     <screen name="EditLayoutUrl">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -192,9 +171,6 @@ under the License.
     </screen>
     <screen name="EditLayoutImage">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
@@ -216,9 +192,6 @@ under the License.
     </screen>
     <screen name="AddLayout">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>

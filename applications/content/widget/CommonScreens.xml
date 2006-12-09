@@ -50,8 +50,18 @@ under the License.
             <widgets>
                 <decorator-screen name="mainContentDecorator">
                     <decorator-section name="body">
-                        <include-menu name="cms" location="component://content/webapp/content/cms/CMSMenus.xml" />
-                        <decorator-section-include name="body"/>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="cms" location="component://content/webapp/content/cms/CMSMenus.xml" />
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -66,22 +76,32 @@ under the License.
             <widgets>
                 <decorator-screen name="mainContentDecorator">
                     <decorator-section name="body">
-                        <include-menu name="content" location="component://content/widget/content/ContentMenus.xml"/>
-                        <container>
-                            <include-menu name="contentSub" location="component://content/widget/content/ContentMenus.xml"/>
-                        </container>
                         <section>
                             <condition>
-                                <not><if-empty field-name="currentValue.contentId"/></not>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.contentName},${currentValue.description} [${currentValue.contentId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                <include-menu name="content" location="component://content/widget/content/ContentMenus.xml"/>
+                                <container>
+                                    <include-menu name="contentSub" location="component://content/widget/content/ContentMenus.xml"/>
+                                </container>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="currentValue.contentId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.contentName},${currentValue.description} [${currentValue.contentId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="head1" text="${uiLabelMap.PageTitleAddContent}"/>
+                                    </fail-widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head1" text="${uiLabelMap.PageTitleAddContent}"/>
+                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
-                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -141,17 +161,27 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="head1" text="${uiLabelMap.${titleProperty}}"/>
+                                    </fail-widgets>
+                                </section>
+                                <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head1" text="${uiLabelMap.${titleProperty}}"/>
+                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
-                        <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
-                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -183,8 +213,18 @@ under the License.
             <widgets>
                 <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="contentsetup" location="component://content/webapp/content/contentsetup/ContentSetupMenus.xml"/>
-                        <decorator-section-include name="body"/>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="contentsetup" location="component://content/webapp/content/contentsetup/ContentSetupMenus.xml"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -199,8 +239,18 @@ under the License.
             <widgets>
                 <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="dataresourcesetup" location="component://content/webapp/content/datasetup/DataResourceSetupMenus.xml"/>
-                        <decorator-section-include name="body"/>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="dataresourcesetup" location="component://content/webapp/content/datasetup/DataResourceSetupMenus.xml"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -215,8 +265,18 @@ under the License.
             <widgets>
                 <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="layout" location="component://content/webapp/content/layout/LayoutMenus.xml"/>
-                        <decorator-section-include name="body"/>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="layout" location="component://content/webapp/content/layout/LayoutMenus.xml"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

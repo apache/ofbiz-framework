@@ -19,9 +19,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
     <screen name="EditDataResourceType">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceType"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
@@ -39,9 +36,6 @@ under the License.
     </screen>
     <screen name="EditCharacterSet">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCharacterSet"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
@@ -59,9 +53,6 @@ under the License.
     </screen>
     <screen name="EditDataResourceTypeAttr">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataResourceTypeAttr"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
@@ -79,9 +70,6 @@ under the License.
     </screen>
     <screen name="EditFileExtension">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFileExtension"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
@@ -99,9 +87,6 @@ under the License.
     </screen>
     <screen name="EditMetaDataPredicate">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditMetaDataPredicate"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
@@ -119,9 +104,6 @@ under the License.
     </screen>
     <screen name="EditMimeType">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditMimeType"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
@@ -139,9 +121,6 @@ under the License.
     </screen>
     <screen name="EditDataCategory">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditMimeType"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>

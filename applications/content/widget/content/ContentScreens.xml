@@ -21,7 +21,7 @@ under the License.
     <screen name="FindContent">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <set field="headerItem" value="Content"/>
@@ -42,13 +42,17 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
+            <fail-widgets>
+                <decorator-screen name="mainContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                    </decorator-section>
+                </decorator-screen>
+            </fail-widgets>
         </section>
     </screen>
     <screen name="EditContent">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditContent"/>
                 <set field="tabButtonItem" value="content"/>
@@ -66,9 +70,6 @@ under the License.
     </screen>
     <!--screen name="AddContent">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
-            </condition>
             <actions>
                 <set field="headerItem" value="Content"/>
                 <set field="title" value="CMS Content Edit Page"/>
@@ -88,9 +89,6 @@ under the License.
     </screen-->
     <screen name="EditContentAssoc">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <set field="titleProperty" value="PageTitleEditContentAssoc"/>
                 <set field="currentContentMenuItemName" value="contentassoc" to-scope="user"/>                
@@ -145,9 +143,6 @@ under the License.
     
     <screen name="EditContentRole">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>                
                 <set field="titleProperty" value="PageTitleEditContentRole"/>
@@ -173,9 +168,6 @@ under the License.
     
     <screen name="EditContentPurpose">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>                
                 <set field="titleProperty" value="PageTitleEditContentPurpose"/>
@@ -199,36 +191,30 @@ under the License.
     
     <screen name="EditContentAttribute">
         <section>
-        <condition>
-            <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-        </condition>
-        <actions>
-            <script location="component://content/widget/getMenuContext.bsh"/>            
-            <set field="titleProperty" value="PageTitleEditContentAttribute"/>
-            <set field="tabButtonItem" value="attribute"/>
-            <set field="contentId" from-field="parameters.contentId"  />
-            <entity-one entity-name="Content" value-name="currentValue">
-                <field-map field-name="contentId" env-name="parameters.contentId"/>
-            </entity-one>
-        </actions>
-        <widgets>
-            <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
-                <decorator-section name="body">
-                    <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
-                    <label style="head1" text="${uiLabelMap.PageTitleAddAttribute}"></label>
-                    <include-form name="AddContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
-                </decorator-section>
-            </decorator-screen>
-        </widgets>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>            
+                <set field="titleProperty" value="PageTitleEditContentAttribute"/>
+                <set field="tabButtonItem" value="attribute"/>
+                <set field="contentId" from-field="parameters.contentId"  />
+                <entity-one entity-name="Content" value-name="currentValue">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleAddAttribute}"></label>
+                        <include-form name="AddContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
         </section>
     </screen>
     
     
     <screen name="EditContentMetaData">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>                
                 <set field="titleProperty" value="PageTitleEditContentMetadata"/>
@@ -252,9 +238,6 @@ under the License.
     
     <screen name="LookupContent">
         <section>
-            <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
-            </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupContent}"/>
