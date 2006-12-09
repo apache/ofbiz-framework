@@ -270,7 +270,7 @@ public class ShoppingCartServices {
                     amount = new Double(0);
                 }
                 double quantityDbl = 0;
-                BigDecimal quantity = OrderReadHelper.getOrderItemQuantityBd(item);
+                BigDecimal quantity = item.getBigDecimal("quantity");
                 if (quantity != null) {
                     quantityDbl = quantity.doubleValue();
                 }

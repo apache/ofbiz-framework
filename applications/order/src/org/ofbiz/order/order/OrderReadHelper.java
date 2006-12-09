@@ -2259,16 +2259,9 @@ public class OrderReadHelper {
     }
 
     public static BigDecimal getOrderItemQuantityBd(GenericValue orderItem) {
-        String cancelQtyField = "cancelQuantity";
-        String quantityField = "quantity";
 
-        if ("OrderItemAndShipGroupAssoc".equals(orderItem.getEntityName())) {
-            cancelQtyField = "cancelQuantity";
-            quantityField = "quantity";
-        }
-
-        BigDecimal cancelQty = orderItem.getBigDecimal(cancelQtyField);
-        BigDecimal orderQty = orderItem.getBigDecimal(quantityField);
+        BigDecimal cancelQty = orderItem.getBigDecimal("cancelQuantity");
+        BigDecimal orderQty = orderItem.getBigDecimal("quantity");
 
         if (cancelQty == null) cancelQty = ZERO;
         if (orderQty == null) orderQty = ZERO;
