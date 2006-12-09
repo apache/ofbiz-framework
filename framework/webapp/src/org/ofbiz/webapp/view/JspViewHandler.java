@@ -54,7 +54,7 @@ public class JspViewHandler implements ViewHandler {
         //Debug.log("Physical Path  : " + context.getRealPath(page));
 
         // tell the ContextFilter we are forwarding
-        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, new Boolean(true));
+        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
         RequestDispatcher rd = request.getRequestDispatcher(page);
         
         if (rd == null) {

@@ -224,9 +224,9 @@ public class AIMPaymentServices {
             String resp = ar.getResponseCode();
 
             if (resp.equals(AuthorizeResponse.APPROVED)) {
-                result.put("authResult", new Boolean(true));
+                result.put("authResult", Boolean.TRUE);
             } else {
-                result.put("authResult", new Boolean(false));
+                result.put("authResult", Boolean.FALSE);
                 Debug.logInfo("responseCode:   " + ar.getResponseField(AuthorizeResponse.RESPONSE_CODE),module);
                 Debug.logInfo("responseReason: " + ar.getResponseField(AuthorizeResponse.RESPONSE_REASON_CODE),module);
                 Debug.logInfo("reasonText:     " + ar.getResponseField(AuthorizeResponse.RESPONSE_REASON_TEXT),module);

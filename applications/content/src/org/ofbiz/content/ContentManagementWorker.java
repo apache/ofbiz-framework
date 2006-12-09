@@ -639,7 +639,7 @@ public class ContentManagementWorker {
             List contentTypes = null;
             String fromDate = null;
             String thruDate = null;
-            Map results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, new Boolean(true), null);
+            Map results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null);
             List valueList = (List)results.get("entityList");
             if (valueList.size() > 0) {
                 GenericValue value = (GenericValue)valueList.get(0);

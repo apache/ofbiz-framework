@@ -712,8 +712,8 @@ public class ContentServices {
         context.put("contentPurposeList", contentPurposeList);
 
         GenericValue pk = delegator.makeValue("ContentAssoc",null);
-        pk.setAllFields(context, false, null, new Boolean(true));
-        pk.setAllFields(context, false, "ca", new Boolean(true));
+        pk.setAllFields(context, false, null, Boolean.TRUE);
+        pk.setAllFields(context, false, "ca", Boolean.TRUE);
         //String contentIdFrom = (String) context.get("contentId");
         //String contentIdTo = (String) context.get("contentIdTo");
         //String contentId = (String) context.get("contentId");

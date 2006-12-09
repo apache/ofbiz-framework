@@ -58,7 +58,7 @@ public class ValueLinkServices {
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
         vl.reload();
 
-        Boolean kekOnly = context.get("kekOnly") != null ? (Boolean) context.get("kekOnly") : new Boolean(false);
+        Boolean kekOnly = context.get("kekOnly") != null ? (Boolean) context.get("kekOnly") : Boolean.FALSE;
         String kekTest = (String) context.get("kekTest");
         Debug.log("KEK Only : " + kekOnly.booleanValue(), module);
 
@@ -244,10 +244,10 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
                 result.put("pin", vl.decryptPin((String) response.get("pin")));
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
                 result.put("pin", response.get("PIN"));
             }
             result.put("responseCode", responseCode);
@@ -301,9 +301,9 @@ public class ValueLinkServices {
             Map result = ServiceUtil.returnSuccess("Activation of physical card complete.");
             if (responseCode.equals("00")) {
 
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
             }
             result.put("responseCode", responseCode);
             result.put("authCode", response.get("authcode"));
@@ -358,9 +358,9 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map result = ServiceUtil.returnSuccess("PIN disabled.");
             if (responseCode.equals("00")) {
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
             }
             result.put("responseCode", responseCode);
             result.put("balance", vl.getAmount((String) response.get("currbal")));
@@ -422,9 +422,9 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
             }
             result.put("responseCode", responseCode);
             result.put("authCode", response.get("authcode"));
@@ -489,9 +489,9 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
             }
             result.put("responseCode", responseCode);
             result.put("authCode", response.get("authcode"));
@@ -547,9 +547,9 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
             }
             result.put("responseCode", responseCode);
             result.put("balance", vl.getAmount((String) response.get("currbal")));
@@ -601,9 +601,9 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
             }
             result.put("responseCode", responseCode);
             result.put("balance", vl.getAmount((String) response.get("currbal")));
@@ -666,9 +666,9 @@ public class ValueLinkServices {
             String responseCode = (String) response.get("responsecode");
             Map result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
-                result.put("processResult", new Boolean(true));
+                result.put("processResult", Boolean.TRUE);
             } else {
-                result.put("processResult", new Boolean(false));
+                result.put("processResult", Boolean.FALSE);
             }
             result.put("responseCode", responseCode);
             result.put("authCode", response.get("authcode"));
@@ -826,7 +826,7 @@ public class ValueLinkServices {
                     if (ServiceUtil.isError(voidResult)) {
                         return voidResult;
                     }
-                    processResult = new Boolean(false);
+                    processResult = Boolean.FALSE;
                     amount = new Double(redeemed);
                     result.put("authMessage", "Gift card did not contain enough funds");
                 }

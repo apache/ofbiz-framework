@@ -197,8 +197,8 @@ public class WorkEffortServices {
         GenericValue currentStatus = null;
         
         if (workEffort == null) {
-            tryEntity = new Boolean(false);
-            canView = new Boolean(true);
+            tryEntity = Boolean.FALSE;
+            canView = Boolean.TRUE;
         
             String statusId = (String) context.get("currentStatusId");
         
@@ -220,10 +220,10 @@ public class WorkEffortServices {
             }
             canView = (workEffortPartyAssignments != null && workEffortPartyAssignments.size() > 0) ? Boolean.TRUE : Boolean.FALSE;
             if (!canView.booleanValue() && security.hasEntityPermission("WORKEFFORTMGR", "_VIEW", userLogin)) {
-                canView = new Boolean(true);
+                canView = Boolean.TRUE;
             }
         
-            tryEntity = new Boolean(true);
+            tryEntity = Boolean.TRUE;
         
             if (workEffort.get("currentStatusId") != null) {
                 try {
@@ -385,7 +385,7 @@ public class WorkEffortServices {
                         int periodSpan = (int) Math.ceil((double) length / period);                                                
                         calEntry.put("periodSpan", new Integer(periodSpan));
 
-                        if(i == 0) calEntry.put("startOfPeriod",new Boolean(true)); //If this is the first priod any valid entry is starting here
+                        if(i == 0) calEntry.put("startOfPeriod", Boolean.TRUE); //If this is the first priod any valid entry is starting here
                         else {
                             boolean startOfPeriod = ((estimatedStartDate.getTime() - curPeriodStart.getTime()) >= 0);                            
                             calEntry.put("startOfPeriod", new Boolean(startOfPeriod));

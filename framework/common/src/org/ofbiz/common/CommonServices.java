@@ -97,7 +97,7 @@ public class CommonServices {
 
     public static Map testWorkflowCondition(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        result.put("evaluationResult", new Boolean(true));
+        result.put("evaluationResult", Boolean.TRUE);
         return result;
     }
 

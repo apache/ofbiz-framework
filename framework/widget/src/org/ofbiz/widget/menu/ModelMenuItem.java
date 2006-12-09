@@ -199,9 +199,9 @@ public class ModelMenuItem {
     public void setHideIfSelected(String val) {
         if (UtilValidate.isNotEmpty(val))
             if (val.equalsIgnoreCase("true"))
-                hideIfSelected = new Boolean(true);
+                hideIfSelected = Boolean.TRUE;
             else
-                hideIfSelected = new Boolean(false);
+                hideIfSelected = Boolean.FALSE;
         else
             hideIfSelected = null;
 

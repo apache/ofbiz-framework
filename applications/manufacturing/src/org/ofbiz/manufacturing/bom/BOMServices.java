@@ -124,11 +124,11 @@ public class BOMServices {
         String productId = (String) context.get("productIdTo");
         Boolean alsoComponents = (Boolean) context.get("alsoComponents");
         if (alsoComponents == null) {
-            alsoComponents = new Boolean(true);
+            alsoComponents = Boolean.TRUE;
         }
         Boolean alsoVariants = (Boolean) context.get("alsoVariants");
         if (alsoVariants == null) {
-            alsoVariants = new Boolean(true);
+            alsoVariants = Boolean.TRUE;
         }
 
         Integer llc = null;
@@ -362,7 +362,7 @@ public class BOMServices {
             fromDate = new Date();
         }
         if (excludeWIPs == null) {
-            excludeWIPs = new Boolean(true);
+            excludeWIPs = Boolean.TRUE;
         }
         
         //

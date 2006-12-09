@@ -107,7 +107,7 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
                 // Not on the trail
                 if( node.showPeers(depth)) {
-                	context.put("processChildren", new Boolean(false));
+                	context.put("processChildren", Boolean.FALSE);
                 	//expandCollapseLink.setText("&nbsp;+&nbsp;");
                 	currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                 	context.put("currentNodeTrailPiped", currentNodeTrailPiped);
@@ -123,7 +123,7 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
                 	expandCollapseLink.setTarget(target);
                 }
             } else {
-                context.put("processChildren", new Boolean(true));
+                context.put("processChildren", Boolean.TRUE);
                 //expandCollapseLink.setText("&nbsp;-&nbsp;");
                 String lastContentId = (String)currentNodeTrail.remove(currentNodeTrail.size() - 1);
                 currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
@@ -149,7 +149,7 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
             renderLink( writer, context, expandCollapseLink);
         } else if (!hasChildren){
                 writer.write(" ");
-                context.put("processChildren", new Boolean(false));
+                context.put("processChildren", Boolean.FALSE);
                 //currentNodeTrail.add(contentId);
         }
     }

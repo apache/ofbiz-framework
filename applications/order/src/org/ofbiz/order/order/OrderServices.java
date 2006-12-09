@@ -1136,7 +1136,7 @@ public class OrderServices {
         Boolean forceAll = (Boolean) context.get("forceAll");
         Locale locale = (Locale) context.get("locale");
         if (forceAll == null) {
-            forceAll = new Boolean(false);
+            forceAll = Boolean.FALSE;
         }
 
         EntityCondition cond = null;

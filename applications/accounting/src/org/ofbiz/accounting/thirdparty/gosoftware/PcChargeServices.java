@@ -82,17 +82,17 @@ public class PcChargeServices {
             String resultCode = out.get(PcChargeApi.RESULT);
             boolean passed = false;
             if ("CAPTURED".equals(resultCode)) {
-                result.put("authResult", new Boolean(true));
-                result.put("captureResult", new Boolean(true));
+                result.put("authResult", Boolean.TRUE);
+                result.put("captureResult", Boolean.TRUE);
                 passed = true;
             } else if ("APPROVED".equals(resultCode)) {
                 result.put("authCode", out.get(PcChargeApi.AUTH_CODE));
-                result.put("authResult", new Boolean(true));
+                result.put("authResult", Boolean.TRUE);
                 passed = true;
             } else if ("PROCESSED".equals(resultCode)) {
-                result.put("authResult", new Boolean(true));
+                result.put("authResult", Boolean.TRUE);
             } else {
-                result.put("authResult", new Boolean(false));
+                result.put("authResult", Boolean.FALSE);
             }
 
             result.put("authRefNum", out.get(PcChargeApi.TROUTD) != null ? out.get(PcChargeApi.TROUTD) : "");
@@ -163,9 +163,9 @@ public class PcChargeServices {
             Map result = ServiceUtil.returnSuccess();
             String resultCode = out.get(PcChargeApi.RESULT);
             if ("CAPTURED".equals(resultCode)) {
-                result.put("captureResult", new Boolean(true));
+                result.put("captureResult", Boolean.TRUE);
             } else {
-                result.put("captureResult", new Boolean(false));
+                result.put("captureResult", Boolean.FALSE);
             }
             result.put("captureAmount", context.get("captureAmount"));
             result.put("captureRefNum", out.get(PcChargeApi.TROUTD) != null ? out.get(PcChargeApi.TROUTD) : "");
@@ -224,9 +224,9 @@ public class PcChargeServices {
             Map result = ServiceUtil.returnSuccess();
             String resultCode = out.get(PcChargeApi.RESULT);
             if ("VOIDED".equals(resultCode)) {
-                result.put("releaseResult", new Boolean(true));
+                result.put("releaseResult", Boolean.TRUE);
             } else {
-                result.put("releaseResult", new Boolean(false));
+                result.put("releaseResult", Boolean.FALSE);
             }
             result.put("releaseAmount", context.get("releaseAmount"));
             result.put("releaseRefNum", out.get(PcChargeApi.TROUTD) != null ? out.get(PcChargeApi.TROUTD) : "");
@@ -280,9 +280,9 @@ public class PcChargeServices {
             Map result = ServiceUtil.returnSuccess();
             String resultCode = out.get(PcChargeApi.RESULT);
             if ("CAPTURED".equals(resultCode)) {
-                result.put("refundResult", new Boolean(true));
+                result.put("refundResult", Boolean.TRUE);
             } else {
-                result.put("refundResult", new Boolean(false));
+                result.put("refundResult", Boolean.FALSE);
             }
             result.put("refundAmount", context.get("releaseAmount"));
             result.put("refundRefNum", out.get(PcChargeApi.TROUTD) != null ? out.get(PcChargeApi.TROUTD) : "");

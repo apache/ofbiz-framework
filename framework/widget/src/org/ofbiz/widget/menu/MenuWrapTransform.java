@@ -86,7 +86,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         List trail = (List)templateCtx.get("globalNodeTrail");
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? new Boolean(true) :new Boolean(false);
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         GenericValue val = null;
         try {
             if (WidgetContentWorker.contentWorker != null) {

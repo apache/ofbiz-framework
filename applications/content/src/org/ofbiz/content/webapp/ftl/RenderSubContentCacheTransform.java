@@ -72,7 +72,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), globalNodeTrail ." + trail , module);
         String contentAssocPredicateId = (String)templateRoot.get( "contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateRoot.get( "nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? new Boolean(true) :new Boolean(false);
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         String thisSubContentId =  (String)templateRoot.get("subContentId");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), thisSubContentId ." + thisSubContentId , module);
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisSubContentId) ? true : false;

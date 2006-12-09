@@ -88,7 +88,7 @@ public class ContentManagementServices {
         GenericValue view = null;
 
         try {
-            view = ContentWorker.getSubContentCache( delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, new Boolean(false), null);
+            view = ContentWorker.getSubContentCache( delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, Boolean.FALSE, null);
             content = ContentWorker.getContentFromView(view);
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());

@@ -394,7 +394,7 @@ public class ModelTree {
                 //this.subNodeValues = new ArrayList();
                 //context.put("subNodeValues", new ArrayList());
                 //if (Debug.infoOn()) Debug .logInfo(" renderNodeString, " + modelTree.getdefaultPkName() + " :" + context.get(modelTree.getdefaultPkName()), module);
-                context.put("processChildren", new Boolean(true));
+                context.put("processChildren", Boolean.TRUE);
                 // this action will usually obtain the "current" entity
                 ModelTreeAction.runSubActions(this.actions, context);
                 String pkName = getPkName();

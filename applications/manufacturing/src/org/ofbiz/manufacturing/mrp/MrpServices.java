@@ -494,7 +494,7 @@ public class MrpServices {
         GenericValue inventoryEventForMRP = null;
         
         // Initialisation of the InventoryEventPlanned table, This table will contain the products we want to buy or build.
-        parameters = UtilMisc.toMap("reInitialize",new Boolean(true),"userLogin", userLogin);
+        parameters = UtilMisc.toMap("reInitialize",Boolean.TRUE,"userLogin", userLogin);
         try {
             result = dispatcher.runSync("initInventoryEventPlanned", parameters);
         } catch (GenericServiceException e) {

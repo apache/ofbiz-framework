@@ -331,7 +331,7 @@ public class EntityDataServices {
 
         String groupName = (String) context.get("groupName");
         Boolean fixSizes = (Boolean) context.get("fixColSizes");
-        if (fixSizes == null) fixSizes = new Boolean(false);
+        if (fixSizes == null) fixSizes = Boolean.FALSE;
         List messages = new ArrayList();
 
         String helperName = delegator.getGroupHelperName(groupName);

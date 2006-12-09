@@ -2232,8 +2232,8 @@ public class ShoppingCart implements Serializable {
             this.setCarrierPartyId(0, "_NA_");
             this.setShippingInstructions(0, "");
             this.setGiftMessage(0, "");
-            this.setMaySplit(0, new Boolean(true));
-            this.setIsGift(0, new Boolean(false));
+            this.setMaySplit(0, Boolean.TRUE);
+            this.setIsGift(0, Boolean.FALSE);
             //this.setInternalCode(internalCode);
         }
     }

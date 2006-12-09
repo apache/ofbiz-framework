@@ -59,7 +59,7 @@ public class ShoppingCartServices {
         Boolean clearEmptyGroups = (Boolean) context.get("clearEmptyGroups");
 
         if (clearEmptyGroups == null) {
-            clearEmptyGroups = new Boolean(true);
+            clearEmptyGroups = Boolean.TRUE;
         }
 
         Debug.log("From Group - " + fromGroupIndex + " To Group - " + toGroupIndex + "Item - " + itemIndex + "(" + quantity + ")", module);

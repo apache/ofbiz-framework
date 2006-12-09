@@ -624,7 +624,7 @@ public class ProductionRunServices {
         String statusId = (String) context.get("statusId");
         Boolean issueAllComponents = (Boolean) context.get("issueAllComponents");
         if (issueAllComponents == null) {
-            issueAllComponents = new Boolean(false);
+            issueAllComponents = Boolean.FALSE;
         }
         
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
@@ -1225,14 +1225,14 @@ public class ProductionRunServices {
         
         // The default is non-serialized inventory item
         if (createSerializedInventory == null) {
-            createSerializedInventory = new Boolean(false);
+            createSerializedInventory = Boolean.FALSE;
         }
         // The default is to create a lot if the lotId is given, but the lot doesn't exist
         if (createLotIfNeeded == null) {
-            createLotIfNeeded = new Boolean(true);
+            createLotIfNeeded = Boolean.TRUE;
         }
         if (autoCreateLot == null) {
-            autoCreateLot = new Boolean(false);
+            autoCreateLot = Boolean.FALSE;
         }
        
         List inventoryItemIds = new ArrayList();
@@ -1271,7 +1271,7 @@ public class ProductionRunServices {
         
         if (lotId == null && autoCreateLot.booleanValue()) {
             lotId = delegator.getNextSeqId("Lot");
-            createLotIfNeeded = new Boolean(true);
+            createLotIfNeeded = Boolean.TRUE;
         }
         if (lotId != null) {
             try {
@@ -1425,7 +1425,7 @@ public class ProductionRunServices {
         
         // The default is non-serialized inventory item
         if (createSerializedInventory == null) {
-            createSerializedInventory = new Boolean(false);
+            createSerializedInventory = Boolean.FALSE;
         }
         
         if (facilityId == null) {
@@ -1555,7 +1555,7 @@ public class ProductionRunServices {
         Boolean createSerializedInventory = (Boolean)context.get("createSerializedInventory");
         // The default is non-serialized inventory item
         if (createSerializedInventory == null) {
-            createSerializedInventory = new Boolean(false);
+            createSerializedInventory = Boolean.FALSE;
         }
         // TODO: if the task is not running, then return an error message.
 
@@ -2086,7 +2086,7 @@ public class ProductionRunServices {
             while (!"PRUN_COMPLETED".equals(currentStatusId)) {
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("workEffortId", taskId);
-                serviceContext.put("issueAllComponents", new Boolean(true));
+                serviceContext.put("issueAllComponents", Boolean.TRUE);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("changeProductionRunTaskStatus", serviceContext);
                 currentStatusId = (String)resultService.get("newStatusId");
