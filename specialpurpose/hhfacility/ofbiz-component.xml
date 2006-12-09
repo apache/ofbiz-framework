@@ -25,6 +25,11 @@ under the License.
 
     <service-resource type="model" loader="main" location="servicedef/services_hhfacility.xml"/>
 
-    <webapp name="hhfacility" title="Handheld Facility" server="default-server" location="webapp/hhfacility"
-        base-permission="OFBTOOLS,FACILITY" mount-point="/hhfacility"/>
+    <webapp name="hhfacility"
+        title="Handheld Facility"
+        server="default-server"
+        location="webapp/hhfacility"
+        base-permission="OFBTOOLS,FACILITY"
+        mount-point="/hhfacility"
+        app-bar-display="false"/>
 </ofbiz-component>
