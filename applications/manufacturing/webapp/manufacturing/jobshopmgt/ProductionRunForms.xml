@@ -439,12 +439,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonEdit}" also-hidden="false"
                 target="EditProductionRun?actionForm=UpdateFixedAsset&amp;workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
         </field>
-        <field name="editLink" title="" widget-style="smallSubmit" 
-                use-when="&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink description="${uiLabelMap.CommonEdit}" also-hidden="false"
-                target="ProductionRunDeclaration?actionForm=UpdateFixedAsset&amp;workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
-        </field>
-        <field name="deleteLink" title="" widget-style="smallSubmit">
+        <field name="deleteLink" title="" widget-style="smallSubmit"
+                    use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
             <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false"
                 target="removeProductionRunFixedAsset?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
         </field>

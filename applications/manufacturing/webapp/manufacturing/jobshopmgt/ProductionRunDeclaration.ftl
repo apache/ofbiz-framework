@@ -264,10 +264,6 @@ under the License.
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
             <tr>
                 <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}</div></td>
-                <td align="right"><div class="tabletext">
-                    <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${productionRunId}&amp;actionForm=AddFixedAsset</@ofbizUrl>" class="submenutextright">
-                                    ${uiLabelMap.ManufacturingAddProductionRunFixedAssetAssign}</a>
-                </td>
             </tr>
         </table>
         ${ListProductionRunFixedAssetsWrapper.renderFormString(context)}
