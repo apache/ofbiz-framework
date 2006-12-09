@@ -77,7 +77,7 @@ under the License.
                 <property name="min-threads" value="5"/>
                 <property name="max-threads" value="100"/>
                 <property name="max-idle-time" value="30000"/>
-                <property name="keystore" value="base/config/ofbizssl.jks"/>
+                <property name="keystore" value="framework/base/config/ofbizssl.jks"/>
                 <property name="password" value="changeit"/>
                 <property name="key-password" value="changeit"/>
                 <property name="identify-listener" value="true"/>
