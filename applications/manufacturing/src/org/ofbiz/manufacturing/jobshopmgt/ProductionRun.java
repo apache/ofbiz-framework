@@ -201,7 +201,6 @@ public class ProductionRun {
             componentQuantity = component.getDouble("estimatedQuantity").doubleValue();
             component.set("estimatedQuantity", new Double(componentQuantity / previousQuantity * newQuantity.doubleValue()));
         }
-        return;
     }
     /**
      * get the estimatedStartDate property.

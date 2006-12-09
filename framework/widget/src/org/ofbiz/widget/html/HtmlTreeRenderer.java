@@ -152,7 +152,6 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
                 context.put("processChildren", new Boolean(false));
                 //currentNodeTrail.add(contentId);
         }
-        return;
     }
 
     public void renderNodeEnd(Writer writer, Map context, ModelTree.ModelNode node) throws IOException {
@@ -160,7 +159,6 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
         if (UtilValidate.isNotEmpty(style)) {
         writer.write("</div>");
         }
-        return;
     }
 
     public void renderLabel(Writer writer, Map context, ModelTree.ModelNode.Label label) throws IOException {

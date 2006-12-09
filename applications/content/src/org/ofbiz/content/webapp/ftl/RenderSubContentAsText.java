@@ -176,7 +176,6 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 }
 
                 //if (Debug.infoOn()) Debug.logInfo("in Render(4), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
-                return;
             }
 
             public void openEditWrap(Writer out, String editStyle) throws IOException {

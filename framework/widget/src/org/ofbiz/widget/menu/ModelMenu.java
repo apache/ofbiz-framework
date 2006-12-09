@@ -739,7 +739,6 @@ public class ModelMenu {
             menuItem.dump(buffer);
         }
             
-        return;
     }
 
 }

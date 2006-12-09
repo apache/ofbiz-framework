@@ -333,7 +333,6 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     templateContext.put("parentContent", parentContent);
                     templateContext.put("nodeTrail", nodeTrail);
                 }
-                return;
             }
 
         };

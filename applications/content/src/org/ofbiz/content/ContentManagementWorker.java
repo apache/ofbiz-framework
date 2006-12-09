@@ -82,7 +82,6 @@ public class ContentManagementWorker {
         String entityName = pk.getEntityName();
 
         mruAddByEntityName( entityName, pk, lookupCaches);
-        return;
     }
 
    /**
@@ -104,7 +103,6 @@ public class ContentManagementWorker {
         
         lkupCache.add(pk.getPrimaryKey());
         if (Debug.infoOn()) Debug.logInfo("in mruAddByEntityName, entityName:" + entityName + " lifoSet.size()" + lkupCache.size(), module);
-        return;
     }
 
     public static Iterator mostRecentlyViewedIterator(String entityName, Map lookupCaches) {
@@ -229,7 +227,6 @@ public class ContentManagementWorker {
         getCurrentValueWithCachedPK( request, delegator, cachedPK, entityName);
         GenericPK currentPK = (GenericPK)request.getAttribute("currentPK");
         currentEntityMap.put(entityName, currentPK);
-        return;
     }
 
     public static void getCurrentValueWithCachedPK(HttpServletRequest request, GenericDelegator delegator, GenericPK cachedPK, String entityName) {
@@ -405,7 +402,6 @@ public class ContentManagementWorker {
            publishPointMap.put(pub, webSitePublishPoint);
            getAllPublishPointMap(delegator, pub, publishPointMap);
         }
-        return;
     }
 
     public static Map getPublishPointMap(GenericDelegator delegator, List publishPointList ) {
@@ -814,7 +810,6 @@ public class ContentManagementWorker {
             }
             
         
-        return ;
     }
     
 }

@@ -338,13 +338,11 @@ public class AIMPaymentServices {
             AIMRequest.put("x_Tran_Key",props.getProperty("trankey"));
         AIMRequest.put("x_Password",props.getProperty("password"));
         AIMRequest.put("x_Version", props.getProperty("ver"));
-        return;
     }
 
     private static void buildGatewayResponeConfig(Map params, Properties props, Map AIMRequest) {
         AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));
         AIMRequest.put("x_Delim_Char", props.getProperty("delimiter"));
-        return;
     }
 
     private static void buildCustomerBillingInfo(Map params, Properties props, Map AIMRequest) {
@@ -396,7 +394,6 @@ public class AIMPaymentServices {
 
         if (ea != null)
             AIMRequest.put("x_Email",UtilFormatOut.checkNull(ea.getString("infoString")));
-        return;
     }
 
     private static void buildInvoiceInfo(Map params, Properties props, Map AIMRequest) {
@@ -404,7 +401,6 @@ public class AIMPaymentServices {
         String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
         AIMRequest.put("x_Invoice_Num","Order " + orderId);
         AIMRequest.put("x_Description", description);
-        return;
     }
 
     private static void buildAuthTransaction(Map params, Properties props, Map AIMRequest) {

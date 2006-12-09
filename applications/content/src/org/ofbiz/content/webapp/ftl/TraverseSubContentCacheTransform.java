@@ -272,7 +272,6 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, populateCtx, trailCsv(2):" + trailCsv , module);
                 envWrap("nodeTrailCsv", trailCsv);
                 envWrap("globalNodeTrail", globalNodeTrail);
-                return;
             }
 
             public void envWrap(String varName, Object obj) {

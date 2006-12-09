@@ -274,7 +274,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         } catch (GenericEntityException e) {
             Debug.logError("Entity Error:" + e.getMessage(), null);
         }
-        return;
     }
 
     public static boolean traverseSubContent(Map ctx) {
@@ -465,7 +464,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     currentNode.put("count", count);
             }
         }
-        return;
     }
 
     public static boolean checkWhen(Map context, String whenStr) {
@@ -680,7 +678,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (parentTypeId != null) {
             getContentTypeAncestry(delegator, parentTypeId, contentTypes);
         }
-        return;
     }
 
     public static void getContentAncestry(GenericDelegator delegator, String contentId, String contentAssocTypeId, String direction, List contentAncestorList) throws GenericEntityException {
@@ -716,7 +713,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Debug.logError(e,module); 
             return;
         }
-        return;
     }
     
     public static void getContentAncestryAll(GenericDelegator delegator, String contentId, String passedContentTypeId, String direction, List contentAncestorList) {
@@ -755,7 +751,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Debug.logError(e,module); 
             return;
         }
-        return;
     }
 
     public static List getContentAncestryNodeTrail(GenericDelegator delegator, String contentId, String contentAssocTypeId, String direction) throws GenericEntityException {
@@ -808,7 +803,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Debug.logError(e,module); 
             return;
         }
-        return;
     }
 
     public static Map pullEntityValues(GenericDelegator delegator, String entityName, Map context) {
@@ -1366,7 +1360,6 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         trailNode.put("isReturnAfter", new Boolean(isReturnAfter));
         trailNode.put("checked", new Boolean(true));
 
-        return;
     }
 
     public static boolean booleanDataType(Object boolObj) {
@@ -1775,6 +1768,5 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     }
                 }
         */
-        return;
     }
 }

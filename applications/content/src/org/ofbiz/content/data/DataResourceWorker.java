@@ -146,7 +146,6 @@ public class DataResourceWorker {
         if (parentCategoryId != null) {
             getDataCategoryAncestry(delegator, parentCategoryId, categoryTypeIds);
         }
-        return;
     }
 
     /**
@@ -904,7 +903,6 @@ public class DataResourceWorker {
             }
             //out.flush();
         }
-        return;
     }
 
 

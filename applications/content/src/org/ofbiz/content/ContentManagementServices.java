@@ -1259,7 +1259,6 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 updatePageNodeChildren(kidContent, context);
             }
         //}
-        return;
     }
 
     public static void updateOutlineNodeChildren(GenericValue content, boolean forceOutline, Map context) throws GenericEntityException {
@@ -1304,7 +1303,6 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 updateOutlineNodeChildren(kidContent, forceOutline, context);
             }
         }
-        return;
     }
 
     public static Map findSubNodes(DispatchContext dctx, Map context) throws GenericServiceException{

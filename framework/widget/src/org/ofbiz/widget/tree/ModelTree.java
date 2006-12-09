@@ -603,7 +603,6 @@ public class ModelTree {
                      }
                  }
              }
-             return;
         }
 
         public String getName() {

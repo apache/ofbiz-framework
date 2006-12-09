@@ -404,7 +404,6 @@ public class FreeMarkerWorker {
         }
         templateList.add(path);
         ctx.put("templateList", templateList);
-        return;
     }
 
     public static Map createEnvironmentMap(Environment env) {
@@ -439,7 +438,6 @@ public class FreeMarkerWorker {
                 o = new ArrayList((List)o);
             saveMap.put(key, o);
         }
-        return ;
     }
 
     public static Map saveValues(Map context, String [] saveKeyNames) {
@@ -476,7 +474,6 @@ public class FreeMarkerWorker {
             }
             env.setVariable(key, autoWrap(o, env));
         }
-        return;
     }
 
     public static void removeValues(Map context, String [] removeKeyNames ) {
@@ -484,7 +481,6 @@ public class FreeMarkerWorker {
             String key = removeKeyNames[i];
             context.remove(key);
         }
-        return;
     }
 
     public static void overrideWithArgs(Map ctx, Map args) {
@@ -507,7 +503,6 @@ public class FreeMarkerWorker {
                 ctx.put(key, null);
             }
         }
-        return;
     }
 
     public static void convertContext(Map ctx) {
@@ -523,7 +518,6 @@ public class FreeMarkerWorker {
                 }
             }
         }
-        return;
     }
 
     public static void getSiteParameters(HttpServletRequest request, Map ctx) {
@@ -549,7 +543,6 @@ public class FreeMarkerWorker {
             https = (String) servletContext.getAttribute("https");
             ctx.put("https", https);
         }
-        return;
     }
 
     public static TemplateModel autoWrap(Object obj, Environment env) {

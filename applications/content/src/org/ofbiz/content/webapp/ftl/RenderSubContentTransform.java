@@ -144,7 +144,6 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                 templateContext.put("mimeTypeId", null);
                 templateContext.put("locale", locale);
 
-                return;
             }
         };
     }
