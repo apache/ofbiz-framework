@@ -29,6 +29,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.common.DataModelConstants;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -2512,6 +2513,7 @@ public class OrderServices {
             return ServiceUtil.returnSuccess();
         }
 
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Iterator i = ordersToCheck.iterator();
         while (i.hasNext()) {
             GenericValue orderHeader = (GenericValue) i.next();
@@ -2560,9 +2562,19 @@ public class OrderServices {
                 }
             } else {
                 // check for auto-cancel items
+                List itemsExprs = new ArrayList();
+
+                // create the query expressions
+                itemsExprs.add(new EntityExpr("orderId", EntityOperator.EQUALS, orderId));
+                itemsExprs.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_CREATED"),
+                        new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED")), EntityOperator.OR));
+                itemsExprs.add(new EntityExpr("dontCancelSetUserLogin", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
+                itemsExprs.add(new EntityExpr("dontCancelSetDate", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
+                itemsExprs.add(new EntityExpr("autoCancelDate", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD));
+
                 List orderItems = null;
                 try {
-                    orderItems = orderHeader.getRelated("OrderItem");
+                    orderItems = delegator.findByAnd("OrderItem", itemsExprs, null);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problem getting order item records", module);
                 }
@@ -2571,12 +2583,9 @@ public class OrderServices {
                     while (oii.hasNext()) {
                         GenericValue orderItem = (GenericValue) oii.next();
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
-                        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
                         Timestamp autoCancelDate = orderItem.getTimestamp("autoCancelDate");
-                        Timestamp dontCancelDate = orderItem.getTimestamp("dontCancelSetDate");
-                        String dontCancelUserLogin = orderItem.getString("dontCancelSetUserLogin");
 
-                        if (dontCancelUserLogin == null && dontCancelDate == null && autoCancelDate != null) {
+                        if (autoCancelDate != null) {
                             if (nowTimestamp.equals(autoCancelDate) || nowTimestamp.after(autoCancelDate)) {
                                 // cancel the order item
                                 Map svcCtx = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
