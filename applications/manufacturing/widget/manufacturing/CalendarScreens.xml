@@ -74,7 +74,7 @@ under the License.
             <actions>
                 <set field="title" value="Find a Calendar"/>
                 <set field="titleProperty" value="PageTitleFindCalendar"/>
-                <set field="tabButtonItem" value="calendar"/>
+                <set field="tabButtonItem" value="Calendar"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -98,7 +98,7 @@ under the License.
             <actions>
                 <set field="title" value="List Calendar Weeks"/>
                 <set field="titleProperty" value="PageTitleListCalendarWeek"/>
-                <set field="tabButtonItem" value="calendar"/>
+                <set field="tabButtonItem" value="CalendarWeek"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
 
@@ -120,7 +120,7 @@ under the License.
             <actions>
                 <set field="title" value="Edit a Calendar Week"/>
                 <set field="titleProperty" value="PageTitleEditCalendarWeek"/>
-                <set field="tabButtonItem" value="calendar"/>
+                <set field="tabButtonItem" value="CalendarWeek"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="calendar"/>
 

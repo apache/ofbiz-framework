@@ -15,10 +15,6 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="tabContainer">
-    <a href="<@ofbizUrl>FindCalendar</@ofbizUrl>" class="tabButton">${uiLabelMap.ManufacturingCalendar}</a>
-    <a href="<@ofbizUrl>ListCalendarWeek</@ofbizUrl>" class="tabButtonSelected">${uiLabelMap.ManufacturingCalendarWeek}</a>
-</div>
 <div class="head1">${uiLabelMap.ManufacturingListCalendarWeek}&nbsp; </div>
 <div>
     <a href="<@ofbizUrl>EditCalendarWeek</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendarWeek}</a>
