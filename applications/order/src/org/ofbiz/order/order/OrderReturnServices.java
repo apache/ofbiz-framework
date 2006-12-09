@@ -1333,7 +1333,7 @@ public class OrderReturnServices {
                             Double unitPrice = returnItem.getDouble("returnPrice");
                             if (quantity != null && unitPrice != null) {
                                 itemTotal = (quantity.doubleValue() * unitPrice.doubleValue());
-                                GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", new Integer(itemCount).toString()));
+                                GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", Integer.toString(itemCount)));
 
                                 newItem.set("orderItemTypeId", orderItem.get("orderItemTypeId"));
                                 newItem.set("productId", orderItem.get("productId"));

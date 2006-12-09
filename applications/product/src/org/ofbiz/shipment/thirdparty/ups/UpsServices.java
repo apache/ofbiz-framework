@@ -1554,7 +1554,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(packagingTypeElement, "Description", "Unknown PackagingType", requestDoc);
             UtilXml.addChildElementValue(packageElement, "Description", "Package Description", requestDoc);
             Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", requestDoc);
-            UtilXml.addChildElementValue(packageWeightElement, "Weight", new Double(packageWeight).toString(), requestDoc);
+            UtilXml.addChildElementValue(packageWeightElement, "Weight", Double.toString(packageWeight), requestDoc);
         }
     }
 

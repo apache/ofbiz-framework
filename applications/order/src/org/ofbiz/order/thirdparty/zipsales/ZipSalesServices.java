@@ -479,7 +479,7 @@ public class ZipSalesServices {
 
         // format the number
         Double taxAmount = new Double(formatCurrency(taxCalc));
-        adjustments.add(delegator.makeValue("OrderAdjustment", UtilMisc.toMap("amount", taxAmount, "orderAdjustmentTypeId", "SALES_TAX", "comments", new Double(taxRate).toString(), "description", "Sales Tax (" + stateCode + ")")));
+        adjustments.add(delegator.makeValue("OrderAdjustment", UtilMisc.toMap("amount", taxAmount, "orderAdjustmentTypeId", "SALES_TAX", "comments", Double.toString(taxRate), "description", "Sales Tax (" + stateCode + ")")));
 
         return adjustments;
     }

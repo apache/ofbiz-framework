@@ -410,7 +410,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("userId", trans.getUserId());
         expandMap.put("orderId", trans.getOrderId());
         expandMap.put("dateStamp", dateString);
-        expandMap.put("drawerNo", new Integer(trans.getDrawerNumber()).toString());
+        expandMap.put("drawerNo", Integer.toString(trans.getDrawerNumber()));
         expandMap.put("taxTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getTaxTotal()), priceLength[type], false, ' '));
         expandMap.put("grandTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getGrandTotal()), priceLength[type], false, ' '));
         expandMap.put("totalPayments", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getPaymentTotal()), priceLength[type], false, ' '));
