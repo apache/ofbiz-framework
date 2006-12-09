@@ -18,11 +18,7 @@ under the License.
 <#assign thisYear = stringYear?number>
 
 <option></option>
-<option value="${thisYear}">${thisYear}</option>
-<option value="${thisYear + 1}">${thisYear + 1}</option>
-<option value="${thisYear + 2}">${thisYear + 2}</option>
-<option value="${thisYear + 3}">${thisYear + 3}</option>
-<option value="${thisYear + 4}">${thisYear + 4}</option>
-<option value="${thisYear + 5}">${thisYear + 5}</option>
-<option value="${thisYear + 6}">${thisYear + 6}</option>
-<option value="${thisYear + 7}">${thisYear + 7}</option>
+<#list 0..10 as i>
+    <#assign expireYear = thisYear + i>
+    <option value="${expireYear}">${expireYear}</option>
+</#list>
