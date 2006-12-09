@@ -1008,7 +1008,7 @@ public class UtilValidate {
     }
 
     public static String appendCheckDigit(String stPassed) {
-        String checkDigit = new Integer(getLuhnCheckDigit(stPassed)).toString();
+        String checkDigit = Integer.toString(getLuhnCheckDigit(stPassed));
         return stPassed + checkDigit;
     }
 

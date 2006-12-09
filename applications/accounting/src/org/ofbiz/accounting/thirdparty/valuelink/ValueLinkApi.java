@@ -681,7 +681,7 @@ public class ValueLinkApi {
         String formattedString = null;
         if (newAmount != null) {
             double amountDouble = newAmount.doubleValue() * 100;
-            formattedString = new String(new Integer(new Double(amountDouble).intValue()).toString());
+            formattedString = Integer.toString(new Double(amountDouble).intValue());
         }
         return formattedString;
     }

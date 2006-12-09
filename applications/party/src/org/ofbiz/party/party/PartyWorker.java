@@ -108,7 +108,7 @@ public class PartyWorker {
 
         // get the check digit
         int check = UtilValidate.getLuhnCheckDigit(clubId);
-        clubId = clubId + new Integer(check).toString();
+        clubId = clubId + Integer.toString(check);
 
         return clubId;
     }

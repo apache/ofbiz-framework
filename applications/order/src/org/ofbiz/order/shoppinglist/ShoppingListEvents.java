@@ -573,7 +573,7 @@ public class ShoppingListEvents {
         int len = cart.size();
         String[] arr = new String[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = new Integer(i).toString();
+            arr[i] = Integer.toString(i);
         }
         return arr;
     }
