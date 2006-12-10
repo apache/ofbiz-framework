@@ -147,12 +147,6 @@ under the License.
       <relation type="many" rel-entity-name="OrderContactMech">
         <key-map field-name="orderId"/>
       </relation>
-      <relation type="many" title="Sales" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="salesOrderId"/>
-      </relation>
-      <relation type="many" title="Purchase" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="purchaseOrderId"/>
-      </relation>
       <relation type="many" rel-entity-name="OrderItemBilling">
         <key-map field-name="orderId"/>
       </relation>
@@ -263,12 +257,6 @@ under the License.
       </relation>
       <relation type="many" rel-entity-name="OrderContactMech">
         <key-map field-name="orderId"/>
-      </relation>
-      <relation type="many" title="Sales" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="salesOrderId"/>
-      </relation>
-      <relation type="many" title="Purchase" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="purchaseOrderId"/>
       </relation>
       <relation type="many" rel-entity-name="OrderItemBilling">
         <key-map field-name="orderId"/>
@@ -387,12 +375,6 @@ under the License.
       <relation type="many" rel-entity-name="OrderContactMech">
         <key-map field-name="orderId"/>
       </relation>
-      <relation type="many" title="Sales" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="salesOrderId"/>
-      </relation>
-      <relation type="many" title="Purchase" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="purchaseOrderId"/>
-      </relation>
       <relation type="many" rel-entity-name="OrderItemBilling">
         <key-map field-name="orderId"/>
       </relation>
@@ -503,12 +485,6 @@ under the License.
       </relation>
       <relation type="many" rel-entity-name="OrderContactMech">
         <key-map field-name="orderId"/>
-      </relation>
-      <relation type="many" title="Sales" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="salesOrderId"/>
-      </relation>
-      <relation type="many" title="Purchase" rel-entity-name="OrderItemAssociation">
-        <key-map field-name="orderId" rel-field-name="purchaseOrderId"/>
       </relation>
       <relation type="many" rel-entity-name="OrderItemBilling">
         <key-map field-name="orderId"/>

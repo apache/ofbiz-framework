@@ -157,7 +157,9 @@ if (purchaseOrderItems != null && purchaseOrderItems.size() > 0) {
         }
         receivedQuantities.put(thisItem.getString("orderItemSeqId"), new Double(totalReceived));
         //----------------------
-        salesOrderItemAssocs = thisItem.getRelated("PurchaseOrderItemAssociation");
+        salesOrderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("orderItemAssocTypeId", "PURCHASE_ORDER",
+                                                                                    "toOrderId", thisItem.getString("orderId"),
+                                                                                    "toOrderItemSeqId", thisItem.getString("orderItemSeqId")));
         if (salesOrderItemAssocs != null && salesOrderItemAssocs.size() > 0) {
             salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs);
             salesOrderItems.put(thisItem.getString("orderItemSeqId"), salesOrderItem);        
