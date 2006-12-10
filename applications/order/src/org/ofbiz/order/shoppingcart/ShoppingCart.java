@@ -3459,10 +3459,13 @@ public class ShoppingCart implements Serializable {
                         // TODO: multiple commitments for the same requirement are still not supported
                         GenericValue commitment = EntityUtil.getFirst(commitments);
                         if (commitment != null) {
-                            GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssociation", null);
-                            orderItemAssociation.set("salesOrderId", commitment.getString("orderId"));
-                            orderItemAssociation.set("soItemSeqId", commitment.getString("orderItemSeqId"));
-                            orderItemAssociation.set("poItemSeqId", item.getOrderItemSeqId());
+                            GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc", null);
+                            orderItemAssociation.set("orderId", commitment.getString("orderId"));
+                            orderItemAssociation.set("orderItemSeqId", commitment.getString("orderItemSeqId"));
+                            orderItemAssociation.set("shipGroupSeqId", "_NA_");
+                            orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
+                            orderItemAssociation.set("toShipGroupSeqId", "_NA_");
+                            orderItemAssociation.set("orderItemAssocTypeId", "PURCHASE_ORDER");
                             allOrderItemAssociations.add(orderItemAssociation);
                         }
                     } catch (GenericEntityException e) {
@@ -3470,10 +3473,13 @@ public class ShoppingCart implements Serializable {
                     }
                 }
                 if (item.getAssociatedOrderId() != null && item.getAssociatedOrderItemSeqId() != null) {
-                    GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssociation", null);
-                    orderItemAssociation.set("salesOrderId", item.getAssociatedOrderId());
-                    orderItemAssociation.set("soItemSeqId", item.getAssociatedOrderItemSeqId());
-                    orderItemAssociation.set("poItemSeqId", item.getOrderItemSeqId());
+                    GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc", null);
+                    orderItemAssociation.set("orderId", item.getAssociatedOrderId());
+                    orderItemAssociation.set("orderItemSeqId", item.getAssociatedOrderItemSeqId());
+                    orderItemAssociation.set("shipGroupSeqId", "_NA_");
+                    orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
+                    orderItemAssociation.set("toShipGroupSeqId", "_NA_");
+                    orderItemAssociation.set("orderItemAssocTypeId", "PURCHASE_ORDER");
                     allOrderItemAssociations.add(orderItemAssociation);
                 }
             }

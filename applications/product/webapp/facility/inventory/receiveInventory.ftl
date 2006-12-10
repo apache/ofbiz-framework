@@ -332,8 +332,8 @@ under the License.
             <input type="hidden" name="shipmentId_o_${rowCount}" value="${shipment.shipmentId}"/>
           </#if>
           <#if salesOrderItem?has_content>
-            <input type="hidden" name="priorityOrderId_o_${rowCount}" value="${salesOrderItem.salesOrderId}"/>
-            <input type="hidden" name="priorityOrderItemSeqId_o_${rowCount}" value="${salesOrderItem.soItemSeqId}"/>
+            <input type="hidden" name="priorityOrderId_o_${rowCount}" value="${salesOrderItem.orderId}"/>
+            <input type="hidden" name="priorityOrderItemSeqId_o_${rowCount}" value="${salesOrderItem.orderItemSeqId}"/>
           </#if>
 
           <tr>

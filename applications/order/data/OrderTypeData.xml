@@ -62,6 +62,11 @@ under the License.
     <OrderType description="Purchase" hasTable="N" orderTypeId="PURCHASE_ORDER" parentTypeId=""/>
     <OrderType description="Sales" hasTable="N" orderTypeId="SALES_ORDER" parentTypeId=""/>
 
+    <OrderItemAssocType description="Purchase Order" hasTable="N" orderItemAssocTypeId="PURCHASE_ORDER" parentTypeId=""/>
+    <OrderItemAssocType description="Drop Shipment" hasTable="N" orderItemAssocTypeId="DROP_SHIPMENT" parentTypeId=""/>
+    <OrderItemAssocType description="Return Replacement" hasTable="N" orderItemAssocTypeId="REPLACEMENT" parentTypeId=""/>
+    <OrderItemAssocType description="New Version" hasTable="N" orderItemAssocTypeId="NEW_VERSION" parentTypeId=""/>
+
     <EnumerationType description="Order Sales Channel" enumTypeId="ORDER_SALES_CHANNEL" hasTable="N" parentTypeId=""/>
     <Enumeration description="Web Channel" enumCode="WEB_CHANNEL" enumId="WEB_SALES_CHANNEL" sequenceId="01" enumTypeId="ORDER_SALES_CHANNEL"/>
     <Enumeration description="POS Channel" enumCode="POS_CHANNEL" enumId="POS_SALES_CHANNEL" sequenceId="02" enumTypeId="ORDER_SALES_CHANNEL"/>

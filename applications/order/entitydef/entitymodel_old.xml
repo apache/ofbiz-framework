@@ -37,6 +37,34 @@ under the License.
     <!-- org.ofbiz.order.order -->
     <!-- ========================================================= -->
 
+    <entity entity-name="OldOrderItemAssociation" table-name="ORDER_ITEM_ASSOCIATION"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="The OLD Order Item Association Entity (replaced by OrderItemAssoc)">
+      <field name="salesOrderId" type="id-ne"></field>
+      <field name="soItemSeqId" type="id-ne"></field>
+      <field name="purchaseOrderId" type="id-ne"></field>
+      <field name="poItemSeqId" type="id-ne"></field>
+      <prim-key field="salesOrderId"/>
+      <prim-key field="soItemSeqId"/>
+      <prim-key field="purchaseOrderId"/>
+      <prim-key field="poItemSeqId"/>
+      <relation type="one" fk-name="ORDER_ITASSC_SOHD" title="Sales" rel-entity-name="OrderHeader">
+        <key-map field-name="salesOrderId" rel-field-name="orderId"/>
+      </relation>
+      <relation type="one-nofk" title="Sales" rel-entity-name="OrderItem">
+        <key-map field-name="salesOrderId" rel-field-name="orderId"/>
+        <key-map field-name="soItemSeqId" rel-field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITASSC_POHD" title="Purchase" rel-entity-name="OrderHeader">
+        <key-map field-name="purchaseOrderId" rel-field-name="orderId"/>
+      </relation>
+      <relation type="one-nofk" title="Purchase" rel-entity-name="OrderItem">
+        <key-map field-name="purchaseOrderId" rel-field-name="orderId"/>
+        <key-map field-name="poItemSeqId" rel-field-name="orderItemSeqId"/>
+      </relation>
+    </entity>
+
     <entity entity-name="OldOrderItemInventoryRes" table-name="ORDER_ITEM_INVENTORY_RES"
             package-name="org.ofbiz.order.order"
             never-cache="true"

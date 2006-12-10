@@ -55,7 +55,9 @@ under the License.
     <entity-group group="org.ofbiz" entity="OrderItemAndProductContentInfo" />
     <entity-group group="org.ofbiz" entity="OrderItemAndShipGroupAssoc" />
     <entity-group group="org.ofbiz" entity="OrderItemAndShipGrpInvResAndItem" />
-    <entity-group group="org.ofbiz" entity="OrderItemAssociation" />
+    <entity-group group="org.ofbiz" entity="OldOrderItemAssociation" />
+    <entity-group group="org.ofbiz" entity="OrderItemAssoc" />
+    <entity-group group="org.ofbiz" entity="OrderItemAssocType" />
     <entity-group group="org.ofbiz" entity="OrderItemAttribute" />
     <entity-group group="org.ofbiz" entity="OrderItemBilling" />
     <entity-group group="org.ofbiz" entity="OrderItemContactMech" />

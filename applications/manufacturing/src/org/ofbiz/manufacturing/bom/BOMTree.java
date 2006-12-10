@@ -317,7 +317,7 @@ public class BOMTree {
     /** It visits the in-memory tree that represents a bill of materials
      * and it creates a manufacturing order for each of the nodes that needs
      * to be manufactured.
-     * @param orderId The (sales) order id for which the manufacturing orders are created. If specified (together with orderItemSeqId) a link between the two order lines is created in the OrderItemAssociation entity. If null, no link is created.
+     * @param orderId The (sales) order id for which the manufacturing orders are created. If specified (together with orderItemSeqId) a link between the two order lines is created. If null, no link is created.
      * @param orderItemSeqId
      * @param delegator The delegator used.
      * @throws GenericEntityException If a db problem occurs.

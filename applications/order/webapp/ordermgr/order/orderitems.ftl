@@ -218,26 +218,34 @@ under the License.
                   </#list>
               </#if>
               <#-- show linked order lines -->
-              <#if orderHeader?has_content && orderHeader.orderTypeId = "SALES_ORDER">
-                <#assign linkedOrderItems = orderItem.getRelated("SalesOrderItemAssociation")?if_exists>
-              <#else>
-                <#assign linkedOrderItems = orderItem.getRelated("PurchaseOrderItemAssociation")?if_exists>
-              </#if>
-
-              <#if linkedOrderItems?has_content>
-                <#list linkedOrderItems as linkedOrderItem>
-                  <#if orderHeader?has_content && orderHeader.orderTypeId = "SALES_ORDER">
-                    <#assign linkedOrderId = linkedOrderItem.purchaseOrderId>
-                    <#assign linkedOrderItemSeqId = linkedOrderItem.poItemSeqId>
-                  <#else>
-                    <#assign linkedOrderId = linkedOrderItem.salesOrderId>
-                    <#assign linkedOrderItemSeqId = linkedOrderItem.soItemSeqId>
-                  </#if>
+              <#assign linkedOrderItemsTo = delegator.findByAnd("OrderItemAssoc", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", orderItem.getString("orderId"),
+                                                                                                                               "orderItemSeqId", orderItem.getString("orderItemSeqId")))>
+              <#assign linkedOrderItemsFrom = delegator.findByAnd("OrderItemAssoc", Static["org.ofbiz.base.util.UtilMisc"].toMap("toOrderId", orderItem.getString("orderId"),
+                                                                                                                                 "toOrderItemSeqId", orderItem.getString("orderItemSeqId")))>
+              <#if linkedOrderItemsTo?has_content>
+                <#list linkedOrderItemsTo as linkedOrderItem>
+                  <#assign linkedOrderId = linkedOrderItem.toOrderId>
+                  <#assign linkedOrderItemSeqId = linkedOrderItem.toOrderItemSeqId>
                   <tr>
                     <td>&nbsp;</td>
                     <td colspan="9">
                       <div class="tabletext">
-                        <b><i>${uiLabelMap.OrderLinkedToOrderItem}</i>:</b>
+                        <b><i>${uiLabelMap.OrderLinkedToOrderItem} (${linkedOrderItem.orderItemAssocTypeId})</i>:</b>
+                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;
+                      </div>
+                    </td>
+                  </tr>
+                </#list>
+              </#if>
+              <#if linkedOrderItemsFrom?has_content>
+                <#list linkedOrderItemsFrom as linkedOrderItem>
+                  <#assign linkedOrderId = linkedOrderItem.orderId>
+                  <#assign linkedOrderItemSeqId = linkedOrderItem.orderItemSeqId>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="9">
+                      <div class="tabletext">
+                        <b><i>${uiLabelMap.OrderLinkedFromOrderItem} (${linkedOrderItem.orderItemAssocTypeId})</i>:</b>
                         <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext" style="font-size: xx-small;">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;
                       </div>
                     </td>

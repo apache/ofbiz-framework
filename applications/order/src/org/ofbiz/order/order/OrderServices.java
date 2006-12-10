@@ -804,7 +804,7 @@ public class OrderServices {
             Iterator oia = orderItemAssociations.iterator();
             while (oia.hasNext()) {
                 GenericValue orderItemAssociation = (GenericValue) oia.next();
-                orderItemAssociation.set("purchaseOrderId", orderId);
+                orderItemAssociation.set("toOrderId", orderId);
                 toBeStored.add(orderItemAssociation);
             }
         }
