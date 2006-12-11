@@ -31,7 +31,9 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.content.content.ContentWrapper;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -41,7 +43,7 @@ import org.ofbiz.entity.util.EntityUtil;
 /**
  * Category Content Worker: gets category content to display
  */
-public class CategoryContentWrapper {
+public class CategoryContentWrapper implements ContentWrapper {
     
     public static final String module = CategoryContentWrapper.class.getName();
     
@@ -109,9 +111,12 @@ public class CategoryContentWrapper {
         if (UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = "text/html";
         }
+
+        if (delegator == null) {
+            throw new GeneralRuntimeException("Unable to find a delegator to use!");
+        }
         
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
-//        Debug.logInfo("candidateFieldName=" + candidateFieldName, module);
         ModelEntity categoryModel = delegator.getModelEntity("ProductCategory");
         if (categoryModel.isField(candidateFieldName)) {
             if (productCategory == null) {
