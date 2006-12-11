@@ -804,7 +804,11 @@ public class OrderServices {
             Iterator oia = orderItemAssociations.iterator();
             while (oia.hasNext()) {
                 GenericValue orderItemAssociation = (GenericValue) oia.next();
-                orderItemAssociation.set("toOrderId", orderId);
+                if (orderItemAssociation.get("toOrderId") == null) {
+                    orderItemAssociation.set("toOrderId", orderId);
+                } else if (orderItemAssociation.get("orderId") == null) {
+                    orderItemAssociation.set("orderId", orderId);
+                }
                 toBeStored.add(orderItemAssociation);
             }
         }
