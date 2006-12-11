@@ -32,6 +32,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.common.KeywordSearchUtil;
 import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -68,11 +69,11 @@ public class KeywordIndex {
         String productId = product.getString("productId");
 
         // get these in advance just once since they will be used many times for the multiple strings to index
-        String separators = KeywordSearch.getSeparators();
-        String stopWordBagOr = KeywordSearch.getStopWordBagOr();
-        String stopWordBagAnd = KeywordSearch.getStopWordBagAnd();
-        boolean removeStems = KeywordSearch.getRemoveStems();
-        Set stemSet = KeywordSearch.getStemSet();
+        String separators = KeywordSearchUtil.getSeparators();
+        String stopWordBagOr = KeywordSearchUtil.getStopWordBagOr();
+        String stopWordBagAnd = KeywordSearchUtil.getStopWordBagAnd();
+        boolean removeStems = KeywordSearchUtil.getRemoveStems();
+        Set stemSet = KeywordSearchUtil.getStemSet();
         
         Map keywords = new TreeMap();
         List strings = new ArrayList(50);
@@ -176,7 +177,7 @@ public class KeywordIndex {
         while (strIter.hasNext()) {
             String str = (String) strIter.next();
             // call process keywords method here
-            KeywordSearch.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
+            KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
         }
 
         List toBeStored = new LinkedList();

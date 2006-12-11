@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.common.KeywordSearchUtil;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -840,7 +841,7 @@ public class ProductSearch {
         }
 
         public Set makeFullKeywordSet(GenericDelegator delegator) {
-            Set keywordSet = KeywordSearch.makeKeywordSet(this.keywordsString, null, true);
+            Set keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
             Set fullKeywordSet = new TreeSet();
 
             // expand the keyword list according to the thesaurus and create a new set of keywords
@@ -848,7 +849,7 @@ public class ProductSearch {
             while (keywordIter.hasNext()) {
                 String keyword = (String) keywordIter.next();
                 Set expandedSet = new TreeSet();
-                boolean replaceEntered = KeywordSearch.expandKeywordForSearch(keyword, expandedSet, delegator);
+                boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, delegator);
                 fullKeywordSet.addAll(expandedSet);
                 if (!replaceEntered) {
                     fullKeywordSet.add(keyword);
@@ -867,18 +868,18 @@ public class ProductSearch {
                 //but then the sets should be and'ed to produce the overall expression; create the SQL for this
                 //needs some work as the current method only support a list of and'ed words and a list of or'ed words, not
                 //a list of or'ed sets to be and'ed together
-                Set keywordSet = KeywordSearch.makeKeywordSet(this.keywordsString, null, true);
+                Set keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
 
                 // expand the keyword list according to the thesaurus and create a new set of keywords
                 Iterator keywordIter = keywordSet.iterator();
                 while (keywordIter.hasNext()) {
                     String keyword = (String) keywordIter.next();
                     Set expandedSet = new TreeSet();
-                    boolean replaceEntered = KeywordSearch.expandKeywordForSearch(keyword, expandedSet, productSearchContext.getDelegator());
+                    boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, productSearchContext.getDelegator());
                     if (!replaceEntered) {
                         expandedSet.add(keyword);
                     }
-                    Set fixedSet = KeywordSearch.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
+                    Set fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
                     Set fixedKeywordSet = new HashSet();
                     fixedKeywordSet.addAll(fixedSet);
                     productSearchContext.keywordFixedOrSetAndList.add(fixedKeywordSet);
@@ -886,7 +887,7 @@ public class ProductSearch {
             } else {
                 // when isAnd is false, just add all of the new entries to the big list
                 Set keywordFirstPass = makeFullKeywordSet(productSearchContext.getDelegator()); // includes keyword expansion, etc
-                Set keywordSet = KeywordSearch.fixKeywordsForSearch(keywordFirstPass, anyPrefix, anySuffix, removeStems, isAnd);
+                Set keywordSet = KeywordSearchUtil.fixKeywordsForSearch(keywordFirstPass, anyPrefix, anySuffix, removeStems, isAnd);
                 productSearchContext.orKeywordFixedSet.addAll(keywordSet);
             }
 
