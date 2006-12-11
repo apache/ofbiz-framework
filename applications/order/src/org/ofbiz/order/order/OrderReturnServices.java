@@ -1317,6 +1317,7 @@ public class OrderReturnServices {
                 List orderItems = new ArrayList();
                 List orderItemShipGroupInfo = new ArrayList();
                 List orderItemShipGroupIds = new ArrayList(); // this is used to store the ship group ids of the groups already added to the orderItemShipGroupInfo list
+                List orderItemAssocs = new ArrayList();
                 if (items != null) {
                     Iterator ri = items.iterator();
                     int itemCount = 1;
@@ -1370,12 +1371,23 @@ public class OrderReturnServices {
                                 } catch(GenericEntityException gee) {
                                     Debug.logError(gee, module);
                                 }
+                                // Create an association between the replacement order item and the order item of the original order
+                                GenericValue newOrderItemAssoc = delegator.makeValue("OrderItemAssoc", UtilMisc.toMap("orderId", orderHeader.getString("orderId"),
+                                                                                                                      "orderItemSeqId", orderItem.getString("orderItemSeqId"),
+                                                                                                                      "shipGroupSeqId", "_NA_",
+                                                                                                                      "toOrderItemSeqId", newItem.getString("orderItemSeqId"),
+                                                                                                                      "toShipGroupSeqId", "_NA_",
+                                                                                                                      "orderItemAssocTypeId", "REPLACEMENT"));
+                                orderItemAssocs.add(newOrderItemAssoc);
                             }
                         }
                     }
                     orderMap.put("orderItems", orderItems);
                     if (orderItemShipGroupInfo.size() > 0) {
                         orderMap.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
+                    }
+                    if (orderItemAssocs.size() > 0) {
+                        orderMap.put("orderItemAssociations", orderItemAssocs);
                     }
                 } else {
                     Debug.logError("No return items found??", module);
