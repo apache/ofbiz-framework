@@ -50,6 +50,26 @@ NOTE: While these aren't included in the main SVN repository they are available 
   TO DEPLOY, PART 2: to get the component to load on startup, and get the webapp in place and such
     the shark component needs to be uncommented in the framework/component-load.xml file.
 
+-=- Web Presentation: ________________________________________________________________________________________________________________________________________________
+
+-JPublish/EdenLib (Apache):
+  NOTE: these were removed for library compatibility reasons, not for license reasons; working these back in may be tricky
+  http://sourceforge.net/projects/jpublish
+  http://edenlib.sourceforge.net/
+  framework/webapp/lib:
+    JPublish.jar
+    EdenLib.jar
+  TO BUILD comment out exclude: framework/webapp/build.xml:
+    org/ofbiz/webapp/view/GenericViewRenderer.java
+    org/ofbiz/webapp/view/JPublishViewHandler.java
+    org/ofbiz/webapp/view/JPublishWrapper.java
+    org/ofbiz/webapp/view/FopPdfViewHandler.java
+    org/ofbiz/webapp/ftl/FreeMarkerViewHandler.java
+    org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java
+    org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java
+  AND uncomment the jpublish type section portions of:
+    org/ofbiz/webapp/region/Section.java
+
 -=- Scripting: ________________________________________________________________________________________________________________________________________________
 
 -JavaScript/Rhino (NPL 1.1):

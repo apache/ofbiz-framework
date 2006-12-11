@@ -44,6 +44,7 @@ under the License.
             <fileset dir="../../framework/security/build/lib" includes="*.jar"/>
             <fileset dir="../../framework/service/lib" includes="*.jar"/>
             <fileset dir="../../framework/service/build/lib" includes="*.jar"/>
+            <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
             <fileset dir="../party/build/lib" includes="*.jar"/>
         </path>
     </target>

@@ -23,10 +23,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.view.JPublishWrapper;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 
@@ -115,6 +113,7 @@ public class Section extends Content {
                     RegionStack.pop(request);
                 } else if ("jpublish".equals(type)) {
                     // rather then using the view handler use the wrapper directly
+                    /* NOTE: In order to use the "jpublish" section type the JPublish libraries must be added as described in OPTIONAL_LIBRARIES and then uncomment this section
                     ServletContext sctx = (ServletContext) request.getAttribute("servletContext");
                     if (sctx != null) {
                         JPublishWrapper jp = this.getJPublishWrapper(sctx);
@@ -136,6 +135,7 @@ public class Section extends Content {
                     } else {
                         throw new IllegalStateException("No servletContext found in request");
                     }
+                     */
                 } else {
                     // default is the string that the ViewFactory expects for webapp resources
                     viewHandlerRender("default", request, response);
@@ -162,6 +162,7 @@ public class Section extends Content {
         }
     }
 
+    /* NOTE: In order to use the "jpublish" section type the JPublish libraries must be added as described in OPTIONAL_LIBRARIES and then uncomment this section
     protected JPublishWrapper getJPublishWrapper(ServletContext ctx) {
         JPublishWrapper wrapper = (JPublishWrapper) ctx.getAttribute("jpublishWrapper");
         if (wrapper == null) {
@@ -169,6 +170,7 @@ public class Section extends Content {
         }
         return wrapper;
     }
+     */
 
     public String toString() {
         return "Section: " + name + ", info=" + info + ", content=" + content + ", type=" + type;

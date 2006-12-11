@@ -308,8 +308,6 @@ ofbiz/trunk/framework/jetty/lib/jasper-compiler.jar
 ofbiz/trunk/framework/catalina/lib/jasper-runtime.jar
 ofbiz/trunk/framework/jetty/lib/jasper-runtime.jar
 ofbiz/trunk/framework/webapp/lib/DataVision.jar
-ofbiz/trunk/framework/webapp/lib/EdenLib.jar
-ofbiz/trunk/framework/webapp/lib/JPublish.jar
 =========================================================================
 Apache Software License
 
