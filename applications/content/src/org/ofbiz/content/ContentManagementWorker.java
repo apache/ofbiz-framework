@@ -188,6 +188,7 @@ public class ContentManagementWorker {
     }
 
     //public static String getFromSomewhere(String name, org.ofbiz.base.util.collections.OrderedMap paramMap, HttpServletRequest request, org.jpublish.JPublishContext context) {
+    /* This method should no longer be in use; the JPublish library was removed by default from OFBiz
     public static String getFromSomewhere(String name, Map paramMap, HttpServletRequest request, org.jpublish.JPublishContext context) {
 
         String ret = null;
@@ -206,7 +207,7 @@ public class ContentManagementWorker {
             }
         }
         return ret;
-    }
+    } */
 
     public static void getCurrentValue(HttpServletRequest request, GenericDelegator delegator) {
 
