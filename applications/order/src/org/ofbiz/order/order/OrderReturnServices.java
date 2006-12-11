@@ -34,6 +34,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
@@ -1333,7 +1334,7 @@ public class OrderReturnServices {
                             Double unitPrice = returnItem.getDouble("returnPrice");
                             if (quantity != null && unitPrice != null) {
                                 itemTotal = (quantity.doubleValue() * unitPrice.doubleValue());
-                                GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", Integer.toString(itemCount)));
+                                GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount, 5)));
 
                                 newItem.set("orderItemTypeId", orderItem.get("orderItemTypeId"));
                                 newItem.set("productId", orderItem.get("productId"));
