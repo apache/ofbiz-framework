@@ -109,8 +109,11 @@ public class ShoppingCartItem implements java.io.Serializable {
     private String requirementId = null;
     private String quoteId = null;
     private String quoteItemSeqId = null;
+    // The following three optional fields are used to collect information for the OrderItemAssoc entity 
     private String associatedOrderId = null; // the order Id, if any, to which the given item is associated (typically a sales order item can be associated to a purchase order item, for example in drop shipments)
     private String associatedOrderItemSeqId = null; // the order item Id, if any, to which the given item is associated
+    private String orderItemAssocTypeId = "PURCHASE_ORDER"; // the type of association between this item and an external item; by default, for backward compatibility, a PURCHASE association is used (i.e. the extarnal order is a sales order and this item is a purchase order item created to fulfill the sales order item
+
     private String statusId = null;
     private Map orderItemAttributes = null;
     private Map attributes = null;
@@ -569,6 +572,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.quoteItemSeqId = item.getQuoteItemSeqId();
         this.associatedOrderId = item.getAssociatedOrderId();
         this.associatedOrderItemSeqId = item.getAssociatedOrderItemSeqId();
+        this.orderItemAssocTypeId = item.getOrderItemAssocTypeId();
         this.isPromo = item.getIsPromo();
         this.promoQuantityUsed = item.promoQuantityUsed;
         this.locale = item.locale;
@@ -1395,7 +1399,19 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.quoteItemSeqId;
     }
 
-    /** Sets the asociatedOrderId. */
+    /** Sets the orderItemAssocTypeId. */
+    public void setOrderItemAssocTypeId(String orderItemAssocTypeId) {
+        if (orderItemAssocTypeId != null) {
+            this.orderItemAssocTypeId = orderItemAssocTypeId;
+        }
+    }
+
+    /** Returns the OrderItemAssocTypeId. */
+    public String getOrderItemAssocTypeId() {
+        return this.orderItemAssocTypeId;
+    }
+
+    /** Sets the associatedOrderId. */
     public void setAssociatedOrderId(String associatedOrderId) {
         this.associatedOrderId = associatedOrderId;
     }

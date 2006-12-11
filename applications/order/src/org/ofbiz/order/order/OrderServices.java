@@ -3655,6 +3655,7 @@ public class OrderServices {
                                 ShoppingCartItem sci = cart.findCartItem(itemIndex);
                                 sci.setAssociatedOrderId(orderId);
                                 sci.setAssociatedOrderItemSeqId(item.getString("orderItemSeqId"));
+                                sci.setOrderItemAssocTypeId("DROP_SHIPMENT");
                                 // TODO: we should consider also the ship group in the association between sales and purchase orders
                             } catch(Exception e) {
                                 ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + e.getMessage());
