@@ -1219,18 +1219,10 @@ under the License.
         <field name="workEffortId">
             <lookup target-form-name="LookupWorkEffort"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}*">
-            <drop-down>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortGeneral}] ${description}">
-                    <entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortTask}] ${description}">
-                    <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortEvent}] ${description}">
-                    <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="WEFG_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1252,24 +1244,18 @@ under the License.
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit" />
-        <field name="workEffortId" widget-style="buttontext">
-           <hyperlink target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" also-hidden="true" target-type="inter-app" description="${workEffortId}"/>
+        <field name="workEffortId" widget-style="tabletext">
+            <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}" also-hidden="true">
+                <sub-hyperlink target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext" target-type="inter-app"/>
+            </display-entity>
         </field>        
-        <field name="workEffortGoodStdTypeId" widget-style="tabletext"><display/></field>
+        <field name="workEffortGoodStdTypeId" widget-style="tabletext"><display-entity entity-name="WorkEffortGoodStandardType" description="${description}"/></field>
         <field name="productId" widget-style="tabletext"><hidden/></field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}*">
-            <drop-down>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortGeneral}] ${description}">
-                    <entity-constraint name="statusTypeId" value="CALENDAR_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortTask}] ${description}">
-                    <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortEvent}] ${description}">
-                    <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="WEFG_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

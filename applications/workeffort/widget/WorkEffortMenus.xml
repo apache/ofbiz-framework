@@ -83,7 +83,7 @@ under the License.
         <menu-item name="WorkEffortContents" title="${uiLabelMap.ContentContent}">
             <link target="EditWorkEffortContents?workEffortId=${workEffortId}"/>
         </menu-item>
-        <menu-item name="WorkEffortGoodStandards" title="${uiLabelMap.WorkEffortGoodStandard}">
+        <menu-item name="WorkEffortGoodStandards" title="${uiLabelMap.ProductProduct}">
             <link target="EditWorkEffortGoodStandards?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="WorkEffortReviews" title="${uiLabelMap.WorkEffortReviews}">
