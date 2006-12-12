@@ -883,4 +883,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="EditProductWorkEfforts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAddProductWorkEffort"/>
+                <set field="tabButtonItem" value="EditProductWorkEfforts"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListProductWorkEfforts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleAddProductWorkEffort}"></label>
+                        <include-form name="AddProductWorkEffort" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

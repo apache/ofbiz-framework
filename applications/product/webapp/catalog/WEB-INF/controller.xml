@@ -2178,6 +2178,35 @@ under the License.
         <response name="success" type="view" value="EditProductConfigItemContent"/>
         <response name="error" type="view" value="EditProductConfigItemContentContent"/>
     </request-map>
+    
+    <!-- ================ Product Work Effort Requests ================= -->
+    <request-map uri="EditProductWorkEfforts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductWorkEfforts"/>
+        <response name="error" type="view" value="EditProductWorkEfforts"/>
+    </request-map>
+
+    <request-map uri="createWorkEffortGoodStandard">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditProductWorkEfforts"/>
+        <response name="error" type="view" value="EditProductWorkEfforts"/>
+    </request-map>
+
+    <request-map uri="updateWorkEffortGoodStandard">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditProductWorkEfforts"/>
+        <response name="error" type="view" value="EditProductWorkEfforts"/>
+    </request-map>
+
+    <request-map uri="removeWorkEffortGoodStandard">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeWorkEffortGoodStandard"/>
+        <response name="success" type="view" value="EditProductWorkEfforts"/>
+        <response name="error" type="view" value="EditProductWorkEfforts"/>
+    </request-map>
+   
 
    <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
@@ -2194,7 +2223,7 @@ under the License.
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupProductStore"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductStore"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
-   
+    <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>      
 
     <!-- end of request mappings -->
 
@@ -2314,6 +2343,8 @@ under the License.
     <view-map name="EditProductConfigOptions" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigOptions"/>
     <view-map name="EditProductConfigItemContent" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigItemContent"/>
     <view-map name="EditProductConfigItemContentContent" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigItemContentContent"/>
+    
+    <view-map name="EditProductWorkEfforts" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductWorkEfforts"/>        
 
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
@@ -2330,6 +2361,7 @@ under the License.
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
     <view-map name="LookupProductStore" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductStore"/>
     <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
-
+    <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
+    
     <!-- end of view mappings -->
 </site-conf>
