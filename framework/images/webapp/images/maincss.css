@@ -1006,7 +1006,7 @@ border-top: #999 solid 1px;
 color:black; 
 background:#ffffff; 
 font-size:12pt; 
-font-weight:medium;
+font-weight:normal;
 font-family:verdana, arial, sans-serif;
 text-align:left;
 text-decoration:none;
@@ -1049,7 +1049,7 @@ border: 1px solid #999999;
 font-size: 10px;
 text-decoration: none;
 font-family: Verdana, Arial, Helvetica, sans-serif;
-color:grey;
+color:gray;
 }
 .WARN{
 font-size: 10px;
