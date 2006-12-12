@@ -551,6 +551,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortReviews"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="defaultUserLoginId" from-field="parameters.userLogin.userLoginId"/>
+                <set field="partyId" from-field="parameters.userLogin.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
