@@ -58,7 +58,7 @@ function makeExpDate() {
                 <td width="1%">
                   <input type="radio" name="checkOutPaymentId" value="EXT_OFFLINE" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if>/>
                 </td>
-                <td colpan="2" width="50%">
+                <td colspan="2" width="50%">
                   <span class="tabletext">${uiLabelMap.OrderOfflineCheckMoney}</span>
                 </td>
               </tr>
@@ -113,7 +113,7 @@ function makeExpDate() {
                           <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                         </span>                            
                       </td>
-                      <td align="right"><a href="/partymgr/control/editcreditcard?party_id=${orderParty.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
+                      <td align="right"><a href="/partymgr/control/editcreditcard?party_id=${orderParty.partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                     </tr>
                   <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
                     <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
