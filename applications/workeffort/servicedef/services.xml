@@ -408,4 +408,46 @@ under the License.
             and a work effort (e.g. a production run task)</description>
         <auto-attributes include="pk" mode="IN" optional="false" />
     </service>
+    <service name="createWorkEffortContent" engine="simple"
+        location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"
+        invoke="createWorkEffortContent"
+        default-entity-name="WorkEffortContent" auth="true">
+        <description>Create a Work Effort Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false" />
+        <auto-attributes include="nonpk" mode="IN" optional="true" />
+        <override name="fromDate" optional="true" />
+    </service>
+    <service name="updateWorkEffortContent" engine="simple"
+        location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"
+        invoke="updateWorkEffortContent"
+        default-entity-name="WorkEffortContent" auth="true">
+        <description>Update a Work Effort Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortContent" engine="simple"
+        location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"
+        invoke="deleteWorkEffortContent"
+        default-entity-name="WorkEffortContent" auth="true">
+        <description>Update a Work Effort Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createWorkEffortReview" default-entity-name="WorkEffortReview" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortReview" auth="true">
+        <description>Create a Work Effort Review</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWorkEffortReview" default-entity-name="WorkEffortReview" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortReview" auth="true">
+        <description>Update a Work Effort Review</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortReview" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortReview" auth="true">
+        <description>Remove a Work Effort Review</description>
+        <auto-attributes entity-name="WorkEffortReview" include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

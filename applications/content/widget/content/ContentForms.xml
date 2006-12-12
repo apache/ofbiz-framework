@@ -441,4 +441,42 @@ under the License.
         <field name="firstName" title="" widget-style="buttontext"> <display/> </field>
         <field name="lastName" title="" widget-style="buttontext"> <display/> </field>
     </form>
+
+    <!-- ContentWorkEffort forms -->
+    <form name="AddWorkEffortContent" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        target="createWorkEffortContent" title="" type="single">
+        <auto-fields-service service-name="createWorkEffortContent"/>
+        <field name="contentId"><hidden value="${parameters.contentId}"/></field>
+        <field name="workEffortId">
+            <lookup target-form-name="LookupWorkEffort"/>
+        </field>
+        <field name="workEffortContentTypeId">
+            <drop-down no-current-selected-key="">
+                <entity-options entity-name="WorkEffortContentType" description="${description}" key-field-name="workEffortContentTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents" 
+         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-and entity-name="WorkEffortContent" use-cache="true" list-name="workEffortContents">
+                <field-map env-name="contentId" field-name="contentId" />
+            </entity-and>
+        </actions>
+        <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit" />
+        <field name="workEffortId" widget-style="buttontext">
+           <hyperlink target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" also-hidden="true" target-type="inter-app" description="${workEffortId}"/>
+        </field>        
+        <field name="contentId" widget-style="tabletext"><hidden/></field>
+        <field name="workEffortContentTypeId" widget-style="tabletext"><display/></field>
+        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="deleteWorkEffortContent?workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}&amp;contentId=${contentId}"/>
+        </field>
+    </form>
 </forms>

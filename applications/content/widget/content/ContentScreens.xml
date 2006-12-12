@@ -235,6 +235,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="EditContentWorkEfforts">
+        <section>
+            <actions>
+                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <set field="titleProperty" value="PageTitleEditContentWorkEffort"/>
+                <set field="tabButtonItem" value="workEffort"/>
+                <set field="contentId" from-field="parameters.contentId"  />
+                <entity-one entity-name="Content" value-name="currentValue">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListWorkEffortContents" location="component://content/widget/content/ContentForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleAddWorkEffort}"></label>
+                        <include-form name="AddWorkEffortContent" location="component://content/widget/content/ContentForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     
     <screen name="LookupContent">
         <section>

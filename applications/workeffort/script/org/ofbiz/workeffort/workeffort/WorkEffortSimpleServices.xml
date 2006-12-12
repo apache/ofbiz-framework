@@ -888,4 +888,82 @@ under the License.
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
         <remove-value value-name="lookedUpValue" />
     </simple-method>
+
+    <!-- Create/Update/Delete Work Effort Content-->    
+    <simple-method method-name="createWorkEffortContent" short-description="Create Work Effort Content">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <make-value entity-name="WorkEffortContent" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateWorkEffortContent" short-description="Update Work Effort Content">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionERror"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortContent" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteWorkEffortContent" 
+            short-description="Remove a WorkEffort Content">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortContent" value-name="lookedUpValue" />
+        <remove-value value-name="lookedUpValue" />
+    </simple-method>
+
+    <!-- Create/Update/Delete Work Effort Review-->    
+    <simple-method method-name="createWorkEffortReview" short-description="Create Work Effort Review">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue"/>
+        <if-not-empty field-name="lookedUpValue">
+            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortReviewAlreadyExist"/></add-error>
+            <check-errors/>
+        <else>
+            <make-value entity-name="WorkEffortReview" value-name="newEntity"/>
+            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+            <if-empty field-name="reviewDate" map-name="newEntity">
+                <now-timestamp-to-env env-name="nowTimestamp"/>
+                <set field="newEntity.reviewDate" from-field="nowTimestamp"/>
+            </if-empty>
+            <create-value value-name="newEntity"/>
+        </else>
+        </if-not-empty>        
+    </simple-method>
+    <simple-method method-name="updateWorkEffortReview" short-description="Update Work Effort Review">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteWorkEffortReview" 
+            short-description="Remove a WorkEffort Review">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue" />
+        <remove-value value-name="lookedUpValue" />
+    </simple-method>
 </simple-methods>

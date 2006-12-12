@@ -97,6 +97,13 @@ under the License.
             </condition>
             <link target="EditContentMetaData?contentId=${contentId}"/>
         </menu-item>
+
+        <menu-item name="workEffort" title="${uiLabelMap.WorkEffortWorkEffort}" >
+            <condition>
+                <not><if-empty field-name="currentValue.contentId"/></not>
+            </condition>
+            <link target="EditContentWorkEfforts?contentId=${contentId}"/>
+        </menu-item>
         
     </menu>
     <menu name="contentSub" default-title-style="buttontext"
