@@ -1773,6 +1773,7 @@ under the License.
       <alias-all entity-alias="BR"/>
       <alias entity-alias="BA" name="billingAccountId"/>
       <alias entity-alias="BA" name="accountLimit"/>
+      <alias entity-alias="BA" name="accountCurrencyUomId"/>
       <alias entity-alias="BA" name="contactMechId"/>
       <alias entity-alias="BA" name="accountFromDate" field="fromDate"/>
       <alias entity-alias="BA" name="accountThruDate" field="thruDate"/>
@@ -2330,6 +2331,12 @@ under the License.
       <view-link entity-alias="PY" rel-entity-alias="PA">
         <key-map field-name="paymentId"/>
       </view-link>
+      <relation type="one-nofk" rel-entity-name="Payment">
+        <key-map field-name="paymentId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="PaymentApplication">
+        <key-map field-name="paymentId" />
+      </relation>
       <relation type="one-nofk" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
