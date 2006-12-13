@@ -252,8 +252,8 @@ under the License.
     <request-map uri="createWorkEffortQuote">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffortQuote"/>
-        <response name="success" type="view" value="EditWorkEffortQuote"/>
-        <response name="error" type="view" value="AddWorkEffortQuote"/>
+        <response name="success" type="view" value="ListWorkEffortQuotes"/>
+        <response name="error" type="view" value="ListWorkEffortQuotes"/>
     </request-map>
     <request-map uri="deleteWorkEffortQuote">
         <security https="true" auth="true"/>
