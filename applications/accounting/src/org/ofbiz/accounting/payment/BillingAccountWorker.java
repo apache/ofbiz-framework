@@ -209,7 +209,7 @@ public class BillingAccountWorker {
                 GenericValue invoice = paymentAppl.getRelatedOne("Invoice");
                 if (invoice != null) {
                     // make sure the invoice has not been canceled and it is not a "Customer return invoice"
-                    if (!"CUST_RTN_INVOICE".equals(invoice.getString("invoiceTypeId")) && !"INVOICE_CANCELED".equals(invoice.getString("statusId"))) {
+                    if (!"CUST_RTN_INVOICE".equals(invoice.getString("invoiceTypeId")) && !"INVOICE_CANCELLED".equals(invoice.getString("statusId"))) {
                         balance = balance.add(amountApplied);    
                     }
                 } else {
