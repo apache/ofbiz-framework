@@ -30,7 +30,6 @@ under the License.
             <widgets>
                 <decorator-screen name="mainAccountingDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="editInvoice" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingInvoice}" style="buttontext"/></container>
                         <container><link target="editInvoice" text="${uiLabelMap.AccountingCreateNewInvoice}" style="buttontext"/></container>                        
                         <container><label style="head1" text="${uiLabelMap.AccountingFindInvoices}"/></container>
                         <include-form name="FindInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
