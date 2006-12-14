@@ -838,6 +838,13 @@ but they are grouped here for convenience purposes -->
   <GlAccount parentGlAccountId="601000" glAccountId="601200" accountCode="601200" 
     glAccountClassId="SGA_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
     accountName="WAGES - OWNERS" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="601000" glAccountId="601300" accountCode="601300" 
+    glAccountClassId="SGA_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
+    accountName="SALES COMMISSIONS" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="601000" glAccountId="601400" accountCode="601400" 
+    glAccountClassId="SGA_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
+    accountName="SALES COMMISSION ADJUSTMENTS" description="" postedBalance="0.0"/>
+  
   
   <GlAccount parentGlAccountId="600000" glAccountId="602000" accountCode="602000" 
     glAccountClassId="SGA_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"  
