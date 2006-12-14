@@ -326,7 +326,8 @@ under the License.
     <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="CRT_MAN_ADJ" parentTypeId=""/>
     
     <!-- invoice item types for commission invoices -->
-    <InvoiceItemType description="Commission Item" hasTable="N" invoiceItemTypeId="COMM_INV_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Commission Invoice Line Item" hasTable="N" invoiceItemTypeId="COMM_INV_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Commission Invoice Adjustment" hasTable="N" invoiceItemTypeId="COMM_INV_ADJ" parentTypeId=""/>
     
     <InvoiceType description="Purchase Invoice" hasTable="N" invoiceTypeId="PURCHASE_INVOICE" parentTypeId=""/>
     <InvoiceType description="Sales Invoice" hasTable="N" invoiceTypeId="SALES_INVOICE" parentTypeId=""/>
@@ -388,7 +389,10 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MAN_ADJ" invoiceItemTypeId="CRT_MAN_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MKTG_PKG_ADJ" invoiceItemTypeId="CRT_MKTG_PKG_ADJ"/>
 
-
+    <!-- items for commission invoices -->
+    <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ITEM" invoiceItemTypeId="COMM_INV_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ITEM" invoiceItemTypeId="COMM_INV_ADJ"/>
+    
     <PaymentMethodType description="Credit Card" paymentMethodTypeId="CREDIT_CARD"/>
     <PaymentMethodType description="Gift Card" paymentMethodTypeId="GIFT_CARD"/>
     <PaymentMethodType description="Gift Certificate" paymentMethodTypeId="GIFT_CERTIFICATE"/>
@@ -409,6 +413,7 @@ under the License.
     <PaymentType description="Customer Refund" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="CUSTOMER_REFUND"/> <!-- a refund TO the customer -->
     <PaymentType description="Vendor Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="VENDOR_PAYMENT"/>
     <PaymentType description="Vendor Prepayment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="VENDOR_PREPAY"/>
+    <PaymentType description="Commission Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="COMMISSION_PAYMENT"/>
     <PaymentType description="Pay Check" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="PAY_CHECK"/>
     <PaymentType description="Tax Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="TAX_PAYMENT"/>
     <PaymentType description="Sales Tax Payment" hasTable="N" parentTypeId="TAX_PAYMENT" paymentTypeId="SALES_TAX_PAYMENT"/>
