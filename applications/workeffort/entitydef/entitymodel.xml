@@ -623,6 +623,19 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </relation>
     </entity>
+    <entity entity-name="WorkEffortKeyword" package-name="org.ofbiz.workeffort.workeffort" title="WorkEffort Keyword Entity" never-cache="true">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="keyword" type="short-varchar"></field>
+        <field name="relevancyWeight" type="numeric"></field>
+        <prim-key field="workEffortId"/>
+        <prim-key field="keyword"/>
+        <relation type="one" fk-name="WEFF_KWD_WEFF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <index name="WEFF_KWD_KWD">
+            <index-field name="keyword"/>
+        </index>
+    </entity>
     <entity entity-name="WorkEffortNote"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Note Entity">

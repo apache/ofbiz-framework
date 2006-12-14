@@ -59,6 +59,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="WorkEffortGoodStandardType" />
     <entity-group group="org.ofbiz" entity="WorkEffortInventoryAssign" />
     <entity-group group="org.ofbiz" entity="WorkEffortInventoryProduced" />
+    <entity-group group="org.ofbiz" entity="WorkEffortKeyword" />
     <entity-group group="org.ofbiz" entity="WorkEffortNote" />
     <entity-group group="org.ofbiz" entity="WorkEffortNoteAndData" />
     <entity-group group="org.ofbiz" entity="WorkEffortPartyAssignByGroup" />

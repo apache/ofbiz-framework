@@ -2114,10 +2114,7 @@ under the License.
             <key-map field-name="productId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="ProductKeyword"
-            package-name="org.ofbiz.product.product"
-            never-cache="true"
-            title="Product Keyword Entity">
+    <entity entity-name="ProductKeyword" package-name="org.ofbiz.product.product" title="Product Keyword Entity" never-cache="true">
       <field name="productId" type="id-ne"></field>
       <field name="keyword" type="short-varchar"></field>
       <field name="relevancyWeight" type="numeric"></field>
@@ -2126,6 +2123,9 @@ under the License.
       <relation type="one" fk-name="PROD_KWD_PROD" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
+      <index name="PROD_KWD_KWD">
+        <index-field name="keyword"/>
+      </index>
     </entity>
     <entity entity-name="OldProductKeywordResult" table-name="PRODUCT_KEYWORD_RESULT"
             package-name="org.ofbiz.product.product"
