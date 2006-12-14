@@ -327,7 +327,7 @@ under the License.
   <GlAccount parentGlAccountId="220000" glAccountId="221000" accountCode="221000" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="ACCRUED PAYROLL" description="" postedBalance="0.0"/>
-  <GlAccount parentGlAccountId="220000" glAccountId="222000" accountCode="222000" 
+  <GlAccount parentGlAccountId="220000" glAccountId="221100" accountCode="221100" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="COMMISSIONS_PAYABLE" glResourceTypeId="MONEY"  
     accountName="ACCRUED COMMISSIONS DUE" description="" postedBalance="0.0"/>
   
