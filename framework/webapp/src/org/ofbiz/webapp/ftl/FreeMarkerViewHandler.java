@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.jpublish.view.freemarker.JPublishTemplateLoader;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.webapp.view.ViewHandler;
@@ -56,10 +55,6 @@ public class FreeMarkerViewHandler implements ViewHandler {
         this.servletContext = context;
 
         config = new freemarker.template.Configuration();
-
-        JPublishTemplateLoader templateLoader = new JPublishTemplateLoader();
-        //templateLoader.setSiteContext(siteContext);
-        config.setTemplateLoader(templateLoader);
         config.setLocalizedLookup(false);
         
         //nice thought, but doesn't do auto reloading with this: config.setServletContextForTemplateLoading(context, "/");

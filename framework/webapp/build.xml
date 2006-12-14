@@ -92,7 +92,6 @@ under the License.
             <exclude name="org/ofbiz/webapp/view/JPublishViewHandler.java"/>
             <exclude name="org/ofbiz/webapp/view/JPublishWrapper.java"/>
             <exclude name="org/ofbiz/webapp/view/FopPdfViewHandler.java"/>
-    		<exclude name="org/ofbiz/webapp/ftl/FreeMarkerViewHandler.java"/>
     		<exclude name="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java"/>
             <exclude name="org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java"/>
         </javac>
