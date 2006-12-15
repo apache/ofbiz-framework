@@ -395,18 +395,14 @@ under the License.
     </form>
 
     <!-- ElectronicText forms -->
-    <form name="EditElectronicText" target="updateElectronicText" title="" type="single" default-map-name="currentValue"
+    <form name="EditElectronicText" target="updateElectronicText" title="" type="single" default-map-name="electronicText"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <!--auto-fields-service service-name="updateElectronicText"/-->
         <actions>
-            <entity-one entity-name="ElectronicText" value-name="eText">
-                <field-map field-name="dataResourceId" env-name="parameters.dataResourceId" ></field-map>
-            </entity-one>
+            <entity-one entity-name="ElectronicText" value-name="electronicText"/>
         </actions>
         <field name="dataResourceId" title="" widget-style="buttontext"><display also-hidden="true"/></field>
-        <field name="textData" widget-style="buttontext">
-            <textarea cols="120" rows="24" default-value="${eText.textData}" />
-        </field>
+        <field name="textData" widget-style="buttontext"><textarea cols="120" rows="24"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddElectronicText" target="addElectronicText" title="" type="single"
@@ -425,11 +421,14 @@ under the License.
         <field name="textData" id-name="textData"><textarea rows="24" cols="120"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditHtmlText" target="updateHtmlText" title="" type="single" default-map-name="currentValue"
+    <form name="EditHtmlText" target="updateHtmlText" title="" type="single" default-map-name="electronicText"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <actions>
+            <entity-one entity-name="ElectronicText" value-name="electronicText"/>
+        </actions>
         <auto-fields-entity entity-name="ElectronicText"/>
         <field name="dataResourceId" title="" widget-style="buttontext"><display/></field>
-        <field name="textData" id-name="textData"><textarea rows="20" cols="120" visual-editor-enable="true"/></field>
+        <field name="textData" id-name="textData"><textarea cols="120" rows="20" visual-editor-enable="true"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
