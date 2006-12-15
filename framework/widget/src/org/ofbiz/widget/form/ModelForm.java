@@ -100,8 +100,7 @@ public class ModelForm {
     protected boolean skipEnd = false;
     protected boolean hideHeader = false;
     protected boolean overridenListSize = false;
-    protected boolean listEnd = false;
-    
+
     protected List altTargets = new LinkedList();
     protected List autoFieldsServices = new LinkedList();
     protected List autoFieldsEntities = new LinkedList();
@@ -998,11 +997,7 @@ public class ModelForm {
             //Modification Nicolas
             previousModelFormField = modelFormField;
         }
-        
-        if (!displayHyperlinkFieldIter.hasNext()) {
-            listEnd = true;
-        }
-        
+
         List headerFormFields = new LinkedList();
         Iterator formFieldIter = this.fieldList.iterator();
         //boolean isFirstFormHeader = true;
@@ -1028,9 +1023,7 @@ public class ModelForm {
         }
 
         // render the "form" cell
-        if (!listEnd) {
-            formStringRenderer.renderFormatHeaderRowFormCellOpen(buffer, context, this);
-        }
+        formStringRenderer.renderFormatHeaderRowFormCellOpen(buffer, context, this);
 
         Iterator headerFormFieldIter = headerFormFields.iterator();
         while (headerFormFieldIter.hasNext()) {
@@ -1053,9 +1046,7 @@ public class ModelForm {
             }
         }
 
-        if (!listEnd) {
-            formStringRenderer.renderFormatHeaderRowFormCellClose(buffer, context, this);
-        }
+        formStringRenderer.renderFormatHeaderRowFormCellClose(buffer, context, this);
 
         // render the rest of the display/hyperlink fields
         while (displayHyperlinkFieldIter.hasNext()) {
@@ -1214,9 +1205,7 @@ public class ModelForm {
                 }
 
                 // render the "form" cell
-                if (!listEnd) {
-                    formStringRenderer.renderFormatItemRowFormCellOpen(buffer, localContext, this);
-                }
+                formStringRenderer.renderFormatItemRowFormCellOpen(buffer, localContext, this);
 
                 if (formPerItem) {
                     formStringRenderer.renderFormOpen(buffer, localContext, this);
@@ -1257,9 +1246,7 @@ public class ModelForm {
                     formStringRenderer.renderFormClose(buffer, localContext, this);
                 }
 
-                if (!listEnd) {
-                    formStringRenderer.renderFormatItemRowFormCellClose(buffer, localContext, this);
-                }
+                formStringRenderer.renderFormatItemRowFormCellClose(buffer, localContext, this);
 
                 // render the rest of the display/hyperlink fields
                 while (innerDisplayHyperlinkFieldIter.hasNext()) {
