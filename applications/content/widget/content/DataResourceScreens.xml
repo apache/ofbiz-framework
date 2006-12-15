@@ -227,9 +227,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditElectronicText"/>	
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editElectronicText"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
-                    <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
-                </entity-one>
+                <entity-one entity-name="DataResource" value-name="currentValue"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -309,9 +307,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditHtmlText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editHtmlText"/>
-                <entity-one entity-name="DataResource" value-name="currentValue">
-                    <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
-                </entity-one>
+                <entity-one entity-name="DataResource" value-name="currentValue"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
