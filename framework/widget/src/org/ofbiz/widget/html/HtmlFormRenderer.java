@@ -403,7 +403,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             if(value.length() > maxlength)
-                value = value.substring(0, maxlength-1);
+                value = value.substring(0, maxlength);
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
@@ -1698,7 +1698,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String value = modelFormField.getEntry(context, dateFindField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             if(value.length() > maxlength)
-                value = value.substring(0, maxlength-1);
+                value = value.substring(0, maxlength);
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
@@ -1787,7 +1787,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         value = modelFormField.getEntry(context);
         if (UtilValidate.isNotEmpty(value)) {
             if(value.length() > maxlength)
-                value = value.substring(0, maxlength-1);
+                value = value.substring(0, maxlength);
             buffer.append(" value=\"");
             buffer.append(value);
             buffer.append('"');
