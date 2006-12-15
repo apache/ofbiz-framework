@@ -727,6 +727,37 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
+    <entity entity-name="WorkEffortSearchConstraint" package-name="org.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result Constraint Entity">
+        <field name="workEffortSearchResultId" type="id-ne"></field>
+        <field name="constraintSeqId" type="id-ne"></field>
+        <field name="constraintName" type="long-varchar"></field>
+        <field name="infoString" type="long-varchar"></field>
+        <field name="includeSubCategories" type="indicator"></field>
+        <field name="isAnd" type="indicator"></field>
+        <field name="anyPrefix" type="indicator"></field>
+        <field name="anySuffix" type="indicator"></field>
+        <field name="removeStems" type="indicator"></field>
+        <field name="lowValue" type="short-varchar"></field>
+        <field name="highValue" type="short-varchar"></field>
+        <prim-key field="workEffortSearchResultId"/>
+        <prim-key field="constraintSeqId"/>
+        <relation type="one" fk-name="WEFF_SCHRSI_RES" rel-entity-name="WorkEffortSearchResult">
+            <key-map field-name="workEffortSearchResultId"/>
+        </relation>
+    </entity>
+    <entity entity-name="WorkEffortSearchResult" package-name="org.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result Entity">
+        <field name="workEffortSearchResultId" type="id-ne"></field>
+        <field name="visitId" type="id"></field>
+        <field name="orderByName" type="long-varchar"></field>
+        <field name="isAscending" type="indicator"></field>
+        <field name="numResults" type="numeric"></field>
+        <field name="secondsTotal" type="floating-point"></field>
+        <field name="searchDate" type="date-time"></field>
+        <prim-key field="workEffortSearchResultId"/>
+        <relation type="one" fk-name="WEFF_SCHRES_VST" rel-entity-name="Visit">
+            <key-map field-name="visitId"/>
+        </relation>
+    </entity>
     <entity entity-name="WorkEffortSkillStandard"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Skill Standard Entity">
