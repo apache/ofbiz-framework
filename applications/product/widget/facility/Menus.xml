@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2001-2006 The Apache Software Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../../framework/widget/dtd/widget-menu.xsd">
+    
+    <menu name="FacilityTabBar" default-menu-item-name="EditFacility"> 
+        <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
+            <link target="EditFacility?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="ViewContactMechs" title="${uiLabelMap.PartyContactMechs}">
+            <link target="ViewContactMechs?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="EditFacilityGroups" title="${uiLabelMap.ProductGroups}">
+            <link target="EditFacilityGroups?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="FindFacilityLocation" title="${uiLabelMap.ProductLocations}">
+            <link target="FindFacilityLocation?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="EditFacilityRoles" title="${uiLabelMap.PartyRoles}">
+            <link target="EditFacilityRoles?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="ViewFacilityInventoryByProduct" title="${uiLabelMap.ProductInventory}">
+            <link target="ViewFacilityInventoryByProduct?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductInventoryReceive}">
+            <link target="ReceiveInventory?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="FindFacilityTransfers" title="${uiLabelMap.ProductInventoryXfers}">
+            <link target="FindFacilityTransfers?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="ReceiveReturn" title="${uiLabelMap.ProductReceiveReturn}">
+            <link target="ReceiveReturn?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="PicklistOptions" title="${uiLabelMap.ProductPicking}">
+            <link target="PicklistOptions?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="PackOrder" title="${uiLabelMap.ProductPacking}">
+            <link target="PackOrder?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="Scheduling" title="${uiLabelMap.ProductScheduling}">
+            <link target="Scheduling?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="FindShipmentIn" title="${uiLabelMap.ProductIncomingShipments}">
+            <link target="FindShipment?destinationFacilityId=${facilityId}&amp;lookupFlag=Y"/>
+        </menu-item>
+        <menu-item name="FindShipmentOut" title="${uiLabelMap.ProductOutgoingShipments}">
+            <link target="FindShipment?originFacilityId=${facilityId}&amp;lookupFlag=Y"/>
+        </menu-item>
+    </menu>
+</menus>
