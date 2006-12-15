@@ -36,48 +36,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonFacilityDecorator">
-        <section>
-            <actions>
-                <set field="facilityId" from-field="parameters.facilityId"/>
-                <entity-one entity-name="Facility" value-name="facility"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="FACILITY" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <not><if-empty field-name="facility"/></not>
-                                            <not><if-empty field-name="displayWithNoFacility"/></not>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/facility/facility/FacilityTabBar.ftl"/></html>
-                                        </platform-specific>
-
-                                        <decorator-section-include name="body"/>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label style="head3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
-                                    </fail-widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 
     <screen name="EditFacility">
         <section>
@@ -94,7 +52,7 @@ under the License.
                         <not><if-empty field-name="facility"/></not>
                     </condition>
                     <widgets>
-                        <decorator-screen name="CommonFacilityDecorator">
+                        <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                             <decorator-section name="body">
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
@@ -125,7 +83,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacilityTransfers.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/FindFacilityTransfers.ftl"/></html>
@@ -145,7 +103,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacilityLocation.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/FindFacilityLocation.ftl"/></html>
@@ -165,7 +123,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityLocation.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/EditFacilityLocation.ftl"/></html>
@@ -197,7 +155,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ProductInventoryItemsFor}</label>
@@ -221,7 +179,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
                 <set field="headerItem" value="facility"/>
-                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
@@ -241,7 +199,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/countFacilityInventoryByProduct.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
 
                         <container>
@@ -385,7 +343,7 @@ under the License.
                 <set field="manufacturerPartyId" from-field="parameters.manufacturerPartyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
 
                         <container>
@@ -414,7 +372,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityGroups.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/EditFacilityGroups.ftl"/></html>
@@ -434,7 +392,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditFacilityRoles.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/EditFacilityRoles.ftl"/></html>
@@ -454,7 +412,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewContactMechs.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/ViewContactMechs.ftl"/></html>
@@ -474,7 +432,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditContactMech.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/EditContactMech.ftl"/></html>
@@ -495,7 +453,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/EditInventoryItem.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/inventory/EditInventoryItem.ftl"/></html>
@@ -524,7 +482,7 @@ under the License.
 
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} ${inventoryItemId}</label>
@@ -548,7 +506,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/TransferInventoryItem.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/inventory/TransferInventoryItem.ftl"/></html>
@@ -568,7 +526,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/receiveInventory.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/inventory/receiveInventory.ftl"/></html>
@@ -588,7 +546,7 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/returns/receiveReturn.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/returns/receiveReturn.ftl"/></html>
@@ -622,7 +580,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/PicklistOptions.ftl"/></html>
@@ -658,7 +616,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/PicklistManage.ftl"/></html>
@@ -687,7 +645,7 @@ under the License.
                 <set field="pflWarningMessageList" from-field="warningMessageList"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/PickMoveStock.ftl"/></html>
@@ -756,7 +714,7 @@ under the License.
     <screen name="CommonFacilityScheduleDecorator">
         <section>
             <widgets>
-                <decorator-screen name="CommonFacilityDecorator">
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
