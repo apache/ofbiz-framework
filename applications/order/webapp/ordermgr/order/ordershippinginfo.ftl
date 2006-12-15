@@ -40,14 +40,16 @@ under the License.
               <div class="tabletext">
               <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
                  <select name="contactMechId" class="selectBox">
-                   <option value="${shipGroup.contactMechId?if_exists}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
-                    <option value="${shipGroup.contactMechId?if_exists}"></option>
-                    <#list shippingContactMechList as shippingContactMech>
-                    <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress")?if_exists>
-                       <#if shippingContactMech.contactMechId?has_content>
-                       <option value="${shippingContactMech.contactMechId?if_exists}">${(shippingPostalAddress.address1)?default("")} - ${shippingPostalAddress.city?default("")}</option>
-                       </#if>
-                    </#list>
+                    <option SELECTED value="${shipGroup.contactMechId?if_exists}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
+                    <#if shippingContactMechList?has_content>
+                        <option DISABLED value=""></option>
+                        <#list shippingContactMechList as shippingContactMech>
+                        <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress")?if_exists>
+                           <#if shippingContactMech.contactMechId?has_content>
+                           <option value="${shippingContactMech.contactMechId?if_exists}">${(shippingPostalAddress.address1)?default("")} - ${shippingPostalAddress.city?default("")}</option>
+                           </#if>
+                        </#list>
+                    </#if>
                  </select>
               <#else>
                  ${(shipGroupAddress.address1)?default("")}
