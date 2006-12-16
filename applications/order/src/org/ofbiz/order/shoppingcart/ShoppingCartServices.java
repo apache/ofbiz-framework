@@ -343,6 +343,7 @@ public class ShoppingCartServices {
                     cart.setShipBeforeDate(g, sg.getTimestamp("shipByDate"));
                     cart.setShipmentMethodTypeId(g, sg.getString("shipmentMethodTypeId"));
                     cart.setCarrierPartyId(g, sg.getString("carrierPartyId"));
+                    cart.setSupplierPartyId(g, sg.getString("supplierPartyId"));
                     cart.setMaySplit(g, sg.getBoolean("maySplit"));
                     cart.setGiftMessage(g, sg.getString("giftMessage"));
                     cart.setShippingContactMechId(g, sg.getString("contactMechId"));
