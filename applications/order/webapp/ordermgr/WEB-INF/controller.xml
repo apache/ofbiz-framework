@@ -475,6 +475,12 @@
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="checkinits"/>
     </request-map>
+    <request-map uri="loadCartFromOrder">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromOrder"/>
+        <response name="success" type="request" value="finalizeOrder"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
     <request-map uri="addseperator">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addSeparator"/>

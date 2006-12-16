@@ -1038,6 +1038,34 @@ public class ShoppingCartEvents {
         return "success";
     }
 
+    /** Initialize order entry from an existing order **/
+    public static String loadCartFromOrder(HttpServletRequest request, HttpServletResponse response) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+
+        String quoteId = request.getParameter("orderId");
+
+        ShoppingCart cart = null;
+        try {
+            Map outMap = dispatcher.runSync("loadCartFromOrder",
+                                            UtilMisc.toMap("orderId", quoteId,
+                                                           "userLogin", userLogin));
+            cart = (ShoppingCart) outMap.get("shoppingCart");
+        } catch (GenericServiceException exc) {
+            request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
+            return "error";
+        }
+
+        cart.setAttribute("addpty", "Y");
+        session.setAttribute("shoppingCart", cart);
+        session.setAttribute("productStoreId", cart.getProductStoreId());
+        session.setAttribute("orderMode", cart.getOrderType());
+        session.setAttribute("orderPartyId", cart.getOrderPartyId());
+
+        return "success";
+    }
+
     public static String createQuoteFromCart(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
