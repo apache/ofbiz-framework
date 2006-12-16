@@ -41,6 +41,7 @@ under the License.
 
     <!-- load the POS GUI -->
     <container name="pos-container" class="org.ofbiz.pos.container.PosContainer">
+        <property name="startup-directory" value="/specialpurpose/pos/config/"/>
         <property name="startup-file" value="xpos.properties"/>
         <property name="dispatcher-name" value="POSDispatcher"/>
         <property name="delegator-name" value="default"/>

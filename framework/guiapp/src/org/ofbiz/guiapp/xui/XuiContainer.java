@@ -39,6 +39,7 @@ public abstract class XuiContainer implements Container {
 
     protected XuiScreen initialScreen = null;
 
+    protected String startupDir = null;
     protected String startupFile = null;
     protected String configFile = null;
 
@@ -93,10 +94,11 @@ public abstract class XuiContainer implements Container {
 
         // load the XUI and render the initial screen
         if (this.startupFile == null) {
-            this.startupFile = ContainerConfig.getPropertyValue(cc, "startup-file", "xui.properties");
+            this.startupDir = ContainerConfig.getPropertyValue(cc, "startup-directory", "/specialpurpose/pos/config/");
+            this.startupFile = ContainerConfig.getPropertyValue(cc, "startup-file", "xpos.properties");
         }
         this.initialScreen = new XuiScreen();
-        this.initialScreen.setup(this.startupFile);                
+        this.initialScreen.setup(this.startupDir, this.startupFile);                
 
         return true;
     }
@@ -129,8 +131,8 @@ public abstract class XuiContainer implements Container {
 
     class XuiScreen extends XApplet {
 
-        public void setup(String startupFile) {
-            String xuiProps = System.getProperty("ofbiz.home") + "/specialpurpose/pos/config/" + startupFile;
+        public void setup(String startupDir, String startupFile) {
+            String xuiProps = System.getProperty("ofbiz.home") + startupDir + startupFile;
             String suffix = Locale.getDefault().getLanguage();
             if ("en".equals(suffix)) {
                 suffix = "";
