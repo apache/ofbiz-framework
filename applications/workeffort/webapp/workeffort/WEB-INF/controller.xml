@@ -522,7 +522,37 @@ under the License.
         <response name="success" type="view" value="EditWorkEffortReviews"/>
         <response name="error" type="view" value="EditWorkEffortReviews"/>
     </request-map>
-            
+    
+    <!-- WorkEffort Keyword -->
+    <request-map uri="EditWorkEffortKeywords">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWorkEffortKeywords"/>
+    </request-map>       
+    <request-map uri="createWorkEffortKeyword">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortKeyword"/>
+        <response name="success" type="view" value="EditWorkEffortKeywords"/>
+        <response name="error" type="view" value="EditWorkEffortKeywords"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortKeyword">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortKeyword"/>
+        <response name="success" type="view" value="EditWorkEffortKeywords"/>
+        <response name="error" type="view" value="EditWorkEffortKeywords"/>
+    </request-map>
+    <request-map uri="createWorkEffortKeywords">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortKeywords"/>
+        <response name="success" type="view" value="EditWorkEffortKeywords"/>
+        <response name="error" type="view" value="EditWorkEffortKeywords"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortKeywords">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortKeywords"/>
+        <response name="success" type="view" value="EditWorkEffortKeywords"/>
+        <response name="error" type="view" value="EditWorkEffortKeywords"/>
+    </request-map>
+                
     
     <!-- Lookup request mappings -->
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
@@ -601,6 +631,8 @@ under the License.
     <view-map name="EditWorkEffortContents" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortContents"/>    
     <view-map name="EditWorkEffortGoodStandards" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortGoodStandards"/>    
     <view-map name="EditWorkEffortReviews" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortReviews"/>    
+    
+    <view-map name="EditWorkEffortKeywords" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortKeywords"/>
         
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupTimesheet" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupTimesheet"/>

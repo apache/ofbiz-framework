@@ -450,4 +450,33 @@ under the License.
         <description>Remove a Work Effort Review</description>
         <auto-attributes entity-name="WorkEffortReview" include="pk" mode="IN" optional="false"/>
     </service>
+    
+    <service name="indexWorkEffortKeywords" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="indexWorkEffortKeywords">
+        <description>Index the Keywords for a WorkEffort</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="workEffortInstance" type="GenericValue" mode="IN" optional="true"/>
+    </service>
+    <service name="createWorkEffortKeyword" default-entity-name="WorkEffortKeyword" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortKeyword" auth="true">
+        <description>Create a Work Effort Keyword</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortKeyword" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortKeyword" auth="true">
+        <description>Remove a Work Effort Keyword</description>
+        <auto-attributes entity-name="WorkEffortKeyword" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createWorkEffortKeywords" default-entity-name="WorkEffortKeyword" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortKeywords" auth="true">
+        <description>Create a Work Effort Keyword</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>    
+    <service name="deleteWorkEffortKeywords" engine="simple"
+                location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortKeywords" auth="true">
+        <description>Remove all Work Effort Keyword</description>
+        <auto-attributes entity-name="WorkEffort" include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

@@ -914,4 +914,29 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortReview?workEffortId=${workEffortId}&amp;userLoginId=${userLoginId}&amp;reviewDate=${reviewDate}"/>
         </field>
     </form>
+        <!-- WorkEffortKeyword forms -->
+    <form name="AddWorkEffortKeyword" default-title-style="tableheadtext"
+        default-tooltip-style="tabletext" default-widget-style="inputBox"
+        target="createWorkEffortKeyword" title="" type="single">
+        <auto-fields-service service-name="createWorkEffortKeyword"/>
+        <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
+        <field name="keyword" title="${uiLabelMap.WorkEffortKeyword}*"><text size="10"/></field>
+        <field name="relevancyWeight" title="${uiLabelMap.ProductWeight}"><text size="5"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListWorkEffortKeywords" type="list" target="" list-name="listWorkEffortKeywords" 
+         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <actions>
+            <entity-and entity-name="WorkEffortKeyword" use-cache="true" list-name="workEffortkeywords">
+                <field-map env-name="workEffortId" field-name="workEffortId" />
+            </entity-and>
+        </actions>
+        <field name="workEffortId" widget-style="buttontext"><hidden/></field>        
+        <field name="keyword"  title="${uiLabelMap.WorkEffortKeywords}"  widget-style="tabletext"><display/></field>
+        <field name="relevancyWeight" header-link="createWorkEffortKeywords?workEffortId=${workEffortId}" title="${uiLabelMap.ProductReInduceKeywords}" header-link-style="buttontext" ><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.ProductDeleteAllKeywords}" header-link="deleteWorkEffortKeywords?workEffortId=${workEffortId}" widget-style="buttontext" header-link-style="buttontext" >
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortKeyword?workEffortId=${workEffortId}&amp;keyword=${keyword}"/>
+        </field>
+    </form>
+
 </forms>

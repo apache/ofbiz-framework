@@ -89,5 +89,9 @@ under the License.
         <menu-item name="WorkEffortReviews" title="${uiLabelMap.WorkEffortReviews}">
             <link target="EditWorkEffortReviews?workEffortId=${workEffortId}"/>
         </menu-item>        
+        <menu-item name="WorkEffortKeywords" title="${uiLabelMap.WorkEffortKeywords}">
+            <link target="EditWorkEffortKeywords?workEffortId=${workEffortId}"/>
+        </menu-item>
     </menu>
+    
 </menus>

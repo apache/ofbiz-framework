@@ -663,4 +663,35 @@ under the License.
       </relation>
     </view-entity>    
 
+    <view-entity entity-name="WorkEffortContentAndInfo"
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="WorkEffortContent, Content and DataResource View Entity">
+      <member-entity entity-alias="WC" entity-name="WorkEffortContent"/>
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="WC" />
+      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <view-link entity-alias="WC" rel-entity-alias="CO">
+        <key-map field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CO" rel-entity-alias="DR">
+        <key-map field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="dataResourceId" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+      </relation>
+    </view-entity>    
 </entitymodel>

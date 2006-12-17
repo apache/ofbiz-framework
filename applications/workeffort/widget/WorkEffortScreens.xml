@@ -565,4 +565,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditWorkEffortKeywords">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortKeyword"/>
+                <set field="tabButtonItem" value="WorkEffortKeywords"/>
+                <set field="labelTitleProperty" value="PageTitleListWorkEffortKeyword"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortKeyword}</label></container>
+                        <include-form name="AddWorkEffortKeyword" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.WorkEffortKeywords}</label></container>
+                        <include-form name="ListWorkEffortKeywords" location="component://workeffort/widget/WorkEffortForms.xml"/>                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
