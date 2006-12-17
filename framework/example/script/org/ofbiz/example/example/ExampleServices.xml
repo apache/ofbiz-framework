@@ -42,16 +42,19 @@ under the License.
         <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
         <if-compare-field field-name="lookedUpValue.statusId" operator="not-equals" to-field-name="parameters.statusId">
-            <!-- if statusId change is not in the StatusValidChange list, complain... -->
-            <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
-                <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
-            </entity-one>
-            <if-empty field-name="statusValidChange">
-                <!-- no valid change record found? return an error... -->
-                <add-error><fail-property resource="ExampleUiLabels" property="ExampleErrorNoExampleStatusValidChange"/></add-error>
-                <check-errors/>
-            </if-empty>
+            <!-- if the Example record exists there should be a statusId, but just in case make it so it won't blow up -->
+            <if-not-empty field-name="lookedUpValue.statusId">
+                <!-- if statusId change is not in the StatusValidChange list, complain... -->
+                <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
+                    <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
+                    <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                </entity-one>
+                <if-empty field-name="statusValidChange">
+                    <!-- no valid change record found? return an error... -->
+                    <add-error><fail-property resource="ExampleUiLabels" property="ExampleErrorNoExampleStatusValidChange"/></add-error>
+                    <check-errors/>
+                </if-empty>
+            </if-not-empty>
             
             <!-- before we set the nonpk fields, if the statusId is different save a ExampleStatus history record -->
             <set-service-fields service-name="createExampleStatus" map-name="parameters" to-map-name="createExampleStatusMap"/>
