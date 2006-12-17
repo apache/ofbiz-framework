@@ -60,9 +60,7 @@ under the License.
 
 <span class="head1">${uiLabelMap.WebtoolsResults}</span>
 
-<br/>
-${resultMessage?if_exists}
-<br/>
+<div class="tabletext">${resultMessage?if_exists}</div>
 <#if columns?has_content>
     <table border="1" cellpadding="2" cellspacing="0">
         <tr>
