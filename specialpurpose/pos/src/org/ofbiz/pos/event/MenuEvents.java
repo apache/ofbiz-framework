@@ -162,7 +162,7 @@ public class MenuEvents {
                                 productsMap.put(product.getString("productId"), product.get("internalName"));
                             }
                         }
-                        if (productsMap.size() > 0 && ButtonEventConfig.getButtonName(event).equals("menuSku")) {
+                        if (productsMap.size() > 1 && ButtonEventConfig.getButtonName(event).equals("menuSku")) {
                             SelectProduct SelectProduct = new SelectProduct(productsMap, trans, pos);
                             productId = SelectProduct.openDlg();
                         }
