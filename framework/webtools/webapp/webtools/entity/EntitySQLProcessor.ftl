@@ -68,7 +68,7 @@ under the License.
             <td><div class="tabletext"><b>${column}</b></div></td>
         </#list>
         </tr>
-    <#if records?has_content>
+        <#if records?has_content>
         <#list records as record>
             <tr>
             <#list record as field>
@@ -76,6 +76,6 @@ under the License.
             </#list>
             </tr>
         </#list>
-    </#if>
+        </#if>
     </table>
 </#if>
