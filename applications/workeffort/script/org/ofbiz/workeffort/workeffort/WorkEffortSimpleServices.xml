@@ -75,20 +75,27 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <!-- if necessary create new status entry, and set lastStatusUpdate date -->
-        <if-not-empty field-name="parameters.currentStatusId">
-            <if-compare-field field-name="parameters.currentStatusId" operator="not-equals" to-field-name="lookedUpValue.currentStatusId">
-                
-                <!-- check if the status change is a valid change -->
-                <entity-and entity-name="StatusValidChange" list-name="validChange">
-                    <field-map field-name="statusId" env-name="lookedUpValue.currentStatusId"/>
-                    <field-map field-name="statusIdTo" env-name="parameters.currentStatusId"/>
-                </entity-and>
-                
-                <if-empty field-name="validChange">
-                    <add-error><fail-message message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/></add-error>
-                    <log level="error" message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/>
-                    <check-errors/>
-                </if-empty>
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.currentStatusId"/></not>
+                    <if-compare-field field-name="parameters.currentStatusId" operator="not-equals" to-field-name="lookedUpValue.currentStatusId"/>
+                </and>
+            </condition>
+            <then>
+                <if-not-empty field-name="lookedUpValue.currentStatusId">
+                    <!-- check if the status change is a valid change -->
+                    <entity-and entity-name="StatusValidChange" list-name="validChange">
+                        <field-map field-name="statusId" env-name="lookedUpValue.currentStatusId"/>
+                        <field-map field-name="statusIdTo" env-name="parameters.currentStatusId"/>
+                    </entity-and>
+                    
+                    <if-empty field-name="validChange">
+                        <add-error><fail-message message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/></add-error>
+                        <log level="error" message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/>
+                        <check-errors/>
+                    </if-empty>
+                </if-not-empty>
                 
                 <set from-field="nowTimestamp" field="lookedUpValue.lastStatusUpdate"/>
                 <make-value value-name="newWorkEffortStatus" entity-name="WorkEffortStatus"/>
@@ -97,8 +104,8 @@ under the License.
                 <set from-field="nowTimestamp" field="newWorkEffortStatus.statusDatetime"/>
                 <set from-field="userLogin.userLoginId" field="newWorkEffortStatus.setByUserLogin"/>
                 <create-value value-name="newWorkEffortStatus"/>
-            </if-compare-field>
-        </if-not-empty>
+            </then>
+        </if>
         <!-- after checking status change, set all parameters -->        
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
@@ -965,5 +972,82 @@ under the License.
         <check-errors />
         <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue" />
         <remove-value value-name="lookedUpValue" />
+    </simple-method>
+    
+    <simple-method method-name="indexWorkEffortKeywords" short-description="Index the Keywords for a WorkEffort" login-required="false">
+        <!-- this service is meant to be called from an entity ECA for entities that include a workEffortId 
+             if it is the WorkEffort entity itself triggering this action, then a worokEffort parameter
+             will be passed and we can save a few cycles looking that up -->
+        <set from-field="parameters.workEffort" field="workEffort"/>
+        <if-empty field-name="workEffort">
+            <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
+            <find-by-primary-key entity-name="WorkEffort" map-name="findWorkEffortMap" value-name="workEffort"/>
+        </if-empty>
+        <check-errors />
+        <!-- index keywords -->
+        <call-class-method class-name="org.ofbiz.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
+            <field field-name="workEffort" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+    </simple-method>
+    
+    <simple-method method-name="createWorkEffortKeyword" short-description="Create Work Effort Keyword">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortKeyword" value-name="lookedUpValue"/>
+        <if-not-empty field-name="lookedUpValue">
+            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortKeywordAlreadyExist"/></add-error>
+        <else>
+        <make-value value-name="newEntity" entity-name="WorkEffortKeyword"/>
+        <if-empty field-name="parameters.workEffortId">
+            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></add-error>
+        </if-empty>    
+        <if-empty field-name="parameters.keyword">
+            <add-error><fail-property resource="ProductUiLabels" property="productevents.keyword_missing"/></add-error>
+        </if-empty>
+        <check-errors/>
+        <set-pk-fields value-name="newEntity" map-name="parameters"></set-pk-fields> 
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+         </else>   
+       </if-not-empty>
+       <check-errors/>
+    </simple-method>
+   
+    <simple-method method-name="deleteWorkEffortKeyword" 
+            short-description="Remove a WorkEffort Keyword">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <entity-one entity-name="WorkEffortKeyword" value-name="lookedUpValue" />
+        <remove-value value-name="lookedUpValue" />
+    </simple-method>
+    
+    <simple-method method-name="createWorkEffortKeywords" short-description="Create all Work Effort Keyword">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
+        <find-by-primary-key entity-name="WorkEffort" map-name="findWorkEffortMap" value-name="workEffortInstance"/>
+        <call-class-method class-name="org.ofbiz.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
+            <field field-name="workEffortInstance" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+    </simple-method>
+    
+    <simple-method method-name="deleteWorkEffortKeywords" 
+            short-description="Remove all WorkEffort Keyword">
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
+        <find-by-primary-key entity-name="WorkEffort" map-name="findWorkEffortMap" value-name="workEffortInstance"/>
+        <if-not-empty field-name="workEffortId" map-name="workEffortInstance">            
+        <remove-related relation-name="WorkEffortKeyword" value-name="workEffortInstance"></remove-related>            
+        </if-not-empty>
+        <check-errors/>
     </simple-method>
 </simple-methods>
