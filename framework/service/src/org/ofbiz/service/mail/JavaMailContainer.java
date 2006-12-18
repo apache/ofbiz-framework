@@ -149,7 +149,7 @@ public class JavaMailContainer implements Container {
             while (i.hasNext()) {
                 Map.Entry e = (Map.Entry) i.next();
                 ContainerConfig.Container.Property p = (ContainerConfig.Container.Property) e.getValue();
-                props.setProperty(p.name.toLowerCase(), p.value.toLowerCase());
+                props.setProperty(p.name.toLowerCase(), p.value);
             }
         }
         return Session.getInstance(props);
@@ -180,7 +180,7 @@ public class JavaMailContainer implements Container {
             store.connect();
             store.close();
         } catch (MessagingException e) {
-            Debug.logError("Unable to connect to mail store : " + store.getURLName().toString(), module);
+            Debug.logError("Unable to connect to mail store : " + store.getURLName().toString() + " : " + e.getMessage(), module);
         }
 
         return store;
