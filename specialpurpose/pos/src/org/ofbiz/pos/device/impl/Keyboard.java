@@ -59,7 +59,7 @@ public class Keyboard extends GenericDevice {
                     }
 
                     // check for button mapping
-                    if (PosScreen.currentScreen.isLocked()) {
+                    if (PosScreen.currentScreen.isLocked() && 500 != keyCode) {
                         Debug.log("PosScreen is locked; not running POSKeyboard Event!", module);
                         return;
                     }
