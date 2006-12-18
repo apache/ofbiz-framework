@@ -243,7 +243,9 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
         this.journal.setLock(lock);
         this.operator.setLock(lock);
         this.isLocked = lock;
-        this.input.setFunction("LOGIN");
+        if (lock) {
+            this.input.setFunction("LOGIN");
+        }
         DeviceLoader.enable(!lock);
     }
 
