@@ -32,6 +32,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
 
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XTextArea;
@@ -58,6 +59,7 @@ public class PosDialog {
     protected XPage page = null;
     protected boolean modal = true;
     protected int padding = 0;
+    protected boolean posVisible = false;
 
     public static PosDialog getInstance(XPage page) {
         return getInstance(page, true, 0);
@@ -216,9 +218,10 @@ public class PosDialog {
 
         dialog.setFocusable(true);
         dialog.setEnabled(true);
-        dialog.setVisible(true);
         dialog.requestFocus();
         dialog.repaint();
+        dialog.pack();
+        posDialogSetVisible(true);
     }
 
     public void setText(String text) {
@@ -330,4 +333,15 @@ public class PosDialog {
         return new Point(maxX, maxY);
     }
 
+      public void posDialogSetVisible(boolean visible){
+      posVisible = visible;
+      SwingUtilities.invokeLater( 
+          new Runnable() {
+              public void run(){
+                  dialog.setVisible(posVisible);
+              }
+          }      
+      );
+    }
+    
 }
