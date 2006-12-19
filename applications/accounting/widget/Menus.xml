@@ -353,8 +353,8 @@ under the License.
         <menu-item name="ListFixedAssetCalendar" title="${uiLabelMap.AccountingFixedAssetCalendar}">
             <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
-        <menu-item name="ListFixedAssetStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
-            <link target="ListFixedAssetStdCosts?fixedAssetId=${fixedAssetId}"/>
+        <menu-item name="EditFixedAssetStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
+            <link target="EditFixedAssetStdCosts?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="EditFixedAssetIdents" title="${uiLabelMap.AccountingFixedAssetIdents}">
             <link target="EditFixedAssetIdents?fixedAssetId=${fixedAssetId}"/>

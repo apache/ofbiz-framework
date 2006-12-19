@@ -598,23 +598,25 @@ under the License.
     </request-map>
    <!-- ================ FixedAsset Standard Costs Requests ================= -->
     <request-map uri="FixedAssetChildren"><security https="true" auth="true"/><response name="success" type="view" value="FixedAssetChildren"/></request-map>
-    <request-map uri="ListFixedAssetStdCosts"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssetStdCosts"/></request-map>
-    <request-map uri="EditFixedAssetStdCost"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAssetStdCost"/></request-map>
     
+    <request-map uri="EditFixedAssetStdCosts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFixedAssetStdCosts"/>
+    </request-map>
     <request-map uri="createFixedAssetStdCost">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createFixedAssetStdCost"/>
-        <response name="success" type="view" value="ListFixedAssetStdCosts"/>
+        <response name="success" type="view" value="EditFixedAssetStdCosts"/>
     </request-map>
     <request-map uri="updateFixedAssetStdCost">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateFixedAssetStdCost"/>
-        <response name="success" type="view" value="ListFixedAssetStdCosts"/>
+        <response name="success" type="view" value="EditFixedAssetStdCosts"/>
     </request-map>
     <request-map uri="cancelFixedAssetStdCost">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="cancelFixedAssetStdCost"/>
-        <response name="success" type="view" value="ListFixedAssetStdCosts"/>
+        <response name="success" type="view" value="EditFixedAssetStdCosts"/>
     </request-map>
     <!-- =============== Agreement mapping =================-->
     <request-map uri="FindAgreement"><security https="true" auth="true"/><response name="success" type="view" value="FindAgreement"/></request-map>
@@ -1251,8 +1253,7 @@ under the License.
     <view-map name="updateFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#updateFixedAssetCalendar"/> 
     <view-map name="ListFixedAssetParties" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetParties"/> 
     <view-map name="ListFixedAssetsRollUp" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetRollUp"/> 
-    <view-map name="ListFixedAssetStdCosts" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetStdCosts"/>
-    <view-map name="EditFixedAssetStdCost" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetStdCost"/>
+    <view-map name="EditFixedAssetStdCosts" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetStdCosts"/>
     <view-map name="FixedAssetChildren" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetChildren"/>
     <!-- agreements -->
     <view-map name="FindAgreement" type="screen" page="component://accounting/widget/AgreementScreens.xml#FindAgreement"/>
