@@ -573,7 +573,6 @@ public class CheckOutEvents {
         String isGift = null;
         String internalCode = null;
         String methodType = null;
-        String checkOutPaymentId = null;
         String singleUsePayment = null;
         String appendPayment = null;
         String shipBeforeDate = null;
@@ -703,18 +702,12 @@ public class CheckOutEvents {
             }
         }
         // ###############################################################################
-        // get the payment
-        checkOutPaymentId = request.getParameter("checkOutPaymentId");
-        if (checkOutPaymentId == null) {
-            checkOutPaymentId = (String) request.getAttribute("paymentMethodId");
-        }
 
         // check for offline payment type
         // payment option; if offline we skip the payment screen
         methodType = request.getParameter("paymentMethodType");
         if ("offline".equals(methodType)) {
             Debug.log("Changing mode from->to: " + mode + "->payment", module);
-            checkOutPaymentId = "EXT_OFFLINE";            
             mode = "payment";
         }
         singleUsePayment = request.getParameter("singleUsePayment");
@@ -741,18 +734,15 @@ public class CheckOutEvents {
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                 return "error";
             }
-
-            Map selPaymentMethods = null;
-            if (checkOutPaymentId != null) {
-                callResult = checkOutHelper.finalizeOrderEntryPayment(checkOutPaymentId, null, isSingleUsePayment, doAppendPayment);
-                ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
-                selPaymentMethods = UtilMisc.toMap(checkOutPaymentId, null);
-            }
-            callResult = checkOutHelper.checkGiftCard(paramMap, selPaymentMethods);
+            // The selected payment methods are set
+            errorMessages.addAll(checkOutHelper.setCheckOutPaymentInternal(selectedPaymentMethods, null, billingAccountId, billingAccountAmt));
+            // Verify if a gift card has been selected during order entry
+            callResult = checkOutHelper.checkGiftCard(paramMap, selectedPaymentMethods);
             ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
             if (errorMessages.size() == 0 && errorMaps.size() == 0) {
                 String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
                 Double giftCardAmount = (Double) callResult.get("amount");
+                // WARNING: if gcPaymentMethodId is not empty, all the previously set payment methods will be removed
                 Map gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
                 ServiceUtil.addErrors(errorMessages, errorMaps, gcCallRes);
             }

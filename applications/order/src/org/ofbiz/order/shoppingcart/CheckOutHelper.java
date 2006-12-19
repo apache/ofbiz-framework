@@ -231,7 +231,7 @@ public class CheckOutHelper {
         return result;
     }
 
-    private List setCheckOutPaymentInternal(Map selectedPaymentMethods, List singleUsePayments, String billingAccountId, Double billingAccountAmt) {
+    public List setCheckOutPaymentInternal(Map selectedPaymentMethods, List singleUsePayments, String billingAccountId, Double billingAccountAmt) {
         List errorMessages = new ArrayList();
         String errMsg = null;
 
@@ -244,6 +244,16 @@ public class CheckOutHelper {
             // clear out the old payments
             cart.clearPayments();
 
+            if (billingAccountId != null && billingAccountAmt != null && !billingAccountId.equals("_NA_")) {
+                // set cart billing account data and generate a payment method containing the amount we will be charging
+                cart.setBillingAccount(billingAccountId, billingAccountAmt.doubleValue());
+                selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
+            } else if ("_NA_".equals(billingAccountId)) {
+                // if _NA_ was supplied, erase all billing account data
+                cart.setBillingAccount(null, 0.0);
+                cart.clearPayment("EXT_BILLACT");
+            }
+            // TODO: the following code needs some review (JAC20061213)
             // if checkoutPaymentId == EXT_BILLACT, then we have billing account only, so make sure we have enough credit
             if (selectedPaymentMethods.containsKey("EXT_BILLACT")) {
                 double accountCredit = this.availableAccountBalance(cart.getBillingAccountId());
@@ -253,16 +263,6 @@ public class CheckOutHelper {
                             (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
                 }
-            }
-
-            if (billingAccountId != null && billingAccountAmt != null && !billingAccountId.equals("_NA_")) {
-                // set cart billing account data and generate a payment method containing the amount we will be charging
-                cart.setBillingAccount(billingAccountId, billingAccountAmt.doubleValue());
-                selectedPaymentMethods.put("EXT_BILLACT", new Double(cart.getBillingAccountAmount()));
-            } else if ("_NA_".equals(billingAccountId)) {
-                // if _NA_ was supplied, erase all billing account data
-                cart.setBillingAccount(null, 0.0);
-                cart.clearPayment("EXT_BILLACT");
             }
 
             Set paymentMethods = selectedPaymentMethods.keySet();
