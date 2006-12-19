@@ -141,7 +141,8 @@ under the License.
                 <set field="tabButtonItem" value="EditFixedAssetStdCosts"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetStdCosts"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                
+
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset" auto-field-map="true"/>
             </actions>
             <widgets>
