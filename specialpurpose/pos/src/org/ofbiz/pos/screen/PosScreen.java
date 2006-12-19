@@ -207,7 +207,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
             if (updateOutput) {
                 if (input.isFunctionSet("PAID")) {
                     output.print(UtilProperties.getMessage("pos","ULOGIN",defaultLocale)
-                    		+ UtilFormatOut.formatPrice(trans.getTotalDue() * -1));
+                            + UtilFormatOut.formatPrice(trans.getTotalDue() * -1));
                 } else if (input.isFunctionSet("TOTAL")) {
                     if (trans.getTotalDue() > 0) {
                         output.print(UtilProperties.getMessage("pos","TOTALD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue()));
@@ -381,5 +381,12 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
             }
         }
         return this.scrLocation;
+    }
+    
+    public void setWaitCursor() {
+        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));        
+    }
+    public void setNormalCursor() {
+        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));        
     }
 }

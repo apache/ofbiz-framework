@@ -59,7 +59,7 @@ public class PosDialog {
     protected XPage page = null;
     protected boolean modal = true;
     protected int padding = 0;
-    protected boolean posVisible = false;
+    protected boolean posDialogVisible = false;
 
     public static PosDialog getInstance(XPage page) {
         return getInstance(page, true, 0);
@@ -334,11 +334,11 @@ public class PosDialog {
     }
 
       public void posDialogSetVisible(boolean visible){
-      posVisible = visible;
+      posDialogVisible = visible;
       SwingUtilities.invokeLater( 
           new Runnable() {
               public void run(){
-                  dialog.setVisible(posVisible);
+                  dialog.setVisible(posDialogVisible);
               }
           }      
       );
