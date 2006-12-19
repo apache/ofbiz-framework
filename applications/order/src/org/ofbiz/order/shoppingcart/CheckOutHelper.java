@@ -922,6 +922,9 @@ public class CheckOutHelper {
                         throw new GeneralException("Problem with order change; see above error");
                     }
 
+                    // clear out the rejected payment methods from the cart, so they don't get re-authorized
+                    cart.clearDeclinedPaymentMethodsFromOrder(delegator, orderId);
+
                     // null out the orderId for next pass.
                     cart.setOrderId(null);
                     if (messages == null || messages.size() == 0) {

@@ -1513,6 +1513,35 @@ public class ShoppingCart implements Serializable {
         paymentInfo.clear();
     }
 
+    /** remove all the paymentMethods based on the paymentMethodIds */
+    public void clearPaymentMethodsById(List paymentMethodIdsToRemove) {
+        if (UtilValidate.isEmpty(paymentMethodIdsToRemove)) return;
+        for (Iterator iter = paymentInfo.iterator(); iter.hasNext(); ) {
+            CartPaymentInfo info = (CartPaymentInfo) iter.next();
+            if (paymentMethodIdsToRemove.contains(info.paymentMethodId)) {
+                iter.remove();
+            }
+        }
+    }
+
+    /** remove declined payment methods for an order from cart.  The idea is to call this after an attempted order is rejected */
+    public void clearDeclinedPaymentMethodsFromOrder(GenericDelegator delegator, String orderId) {
+        try {
+            List declinedPaymentMethods = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_DECLINED"));
+            if (!UtilValidate.isEmpty(declinedPaymentMethods)) {
+                List paymentMethodIdsToRemove = new ArrayList();
+                for (Iterator iter = declinedPaymentMethods.iterator(); iter.hasNext(); ) {
+                    GenericValue opp = (GenericValue) iter.next(); 
+                    paymentMethodIdsToRemove.add(opp.getString("paymentMethodId"));
+                }
+                clearPaymentMethodsById(paymentMethodIdsToRemove);
+            }
+        } catch (GenericEntityException ex) {
+            Debug.logError("Unable to remove declined payment methods from cart due to " + ex.getMessage(), module);
+            return; 
+        }
+    }
+
     private void expireSingleUsePayments() {
         Timestamp now = UtilDateTime.nowTimestamp();
         Iterator i = paymentInfo.iterator();
