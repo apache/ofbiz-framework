@@ -281,6 +281,7 @@ public class PaymentEvents {
     }
 
     public static synchronized void processSale(PosScreen pos) {
+        pos.setWaitCursor();
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         PosScreen.currentScreen.getOutput().print(UtilProperties.getMessage("pos","Processing",Locale.getDefault()));
 
@@ -305,6 +306,7 @@ public class PaymentEvents {
                 pos.getButtons().setLock(false);
                 pos.showDialog("dialog/error/exception", e.getMessage());
             }
+            pos.setNormalCursor();
         }
     }
 

@@ -32,23 +32,28 @@ public class SecurityEvents {
     public static final String module = SecurityEvents.class.getName();
 
     public static void login(PosScreen pos) {
+        pos.setWaitCursor();
         String[] func = pos.getInput().getFunction("LOGIN");
         if (func == null) {
             pos.getInput().setFunction("LOGIN", "");
         }
         baseLogin(pos, false);
+        pos.setNormalCursor();
     }
 
     public static void logout(PosScreen pos) {
+        pos.setWaitCursor();
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         XuiSession session = pos.getSession();
         trans.closeTx();
         session.logout();
         pos.showPage("pospanel");
         PosScreen.currentScreen.setLock(true);
+        pos.setNormalCursor();
     }
 
     public static void mgrLogin(PosScreen pos) {
+        pos.setWaitCursor();
         XuiSession session = pos.getSession();
         if (session.hasRole(session.getUserLogin(), "MANAGER")) {
             ManagerEvents.mgrLoggedIn = true;
@@ -61,6 +66,7 @@ public class SecurityEvents {
             }
             baseLogin(pos, true);
         }
+        pos.setNormalCursor();
     }
 
     public static void lock(PosScreen pos) {
