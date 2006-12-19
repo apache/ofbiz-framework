@@ -134,45 +134,20 @@ under the License.
         </section>
     </screen>
 
-    <screen name="ListFixedAssetStdCosts">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleListFixedAssetStdCosts"/>
-                <set field="tabButtonItem" value="ListFixedAssetStdCosts"/>
-                <set field="labelTitleProperty" value="AccountingFixedAssetStdCosts"/>
-                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset" auto-field-map="true"/>
-                <entity-and entity-name="FixedAssetStdCost" list-name="fixedAssetStdCosts">
-                    <field-map env-name="fixedAsset.fixedAssetId" field-name="fixedAssetId"/>
-                </entity-and>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container><link target="EditFixedAssetStdCost?fixedAssetId=${fixedAsset.fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetStdCost}" style="buttontext"/></container>
-                        <include-form name="ListFixedAssetStdCosts" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="EditFixedAssetStdCost">
+    <screen name="EditFixedAssetStdCosts">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetStdCost"/>
-                <set field="tabButtonItem" value="ListFixedAssetStdCosts"/>
-                
+                <set field="tabButtonItem" value="EditFixedAssetStdCosts"/>
+                <set field="labelTitleProperty" value="PageTitleEditFixedAssetStdCosts"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <set field="fixedAssetStdCostTypeId" from-field="parameters.fixedAssetStdCostTypeId"/>
-                <set field="fromDate" from-field="parameters.fromDate"/>
                 
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset" auto-field-map="true"/>
-                <entity-one entity-name="FixedAssetStdCost" value-name="fixedAssetStdCost" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="EditFixedAssetStdCost?fixedAssetId=${fixedAsset.fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetStdCost}" style="buttontext"/></container>
+                        <include-form name="ListFixedAssetStdCosts" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                         <include-form name="EditFixedAssetStdCost" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

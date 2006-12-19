@@ -167,34 +167,20 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListFixedAssetStdCosts" default-title-style="tableheadtext"
-            default-tooltip-style="tabletext" default-widget-style="tabletext"
-            list-name="fixedAssetStdCosts" target="" paginate-target="ListFixedAssetStdCosts" title="" type="list">
-        <auto-fields-entity entity-name="FixedAssetStdCost" default-field-type="display"/>
-        <field name="fixedAssetId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
+    <form name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" type="list" target="updateFixedAssetStdCost" paginate-target="EditFixedAssetStdCosts" 
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"  title="" >
+        <actions>
+            <entity-condition entity-name="FixedAssetStdCost">
+                <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>            
+        <auto-fields-entity entity-name="FixedAssetStdCost"/>
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="fixedAssetStdCostTypeId" title="${uiLabelMap.AccountingFixedAssetStdCostTypeId}">
             <display-entity entity-name="FixedAssetStdCostType" />
         </field>
-        <field name="edit" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditFixedAssetStdCost?fixedAssetId=${fixedAssetId}&amp;fixedAssetStdCostTypeId=${fixedAssetStdCostTypeId}&amp;fromDate=${fromDate}"/>
-        </field>
-        <field name="cancel" title="" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="cancelFixedAssetStdCost?fixedAssetId=${fixedAssetId}&amp;fixedAssetStdCostTypeId=${fixedAssetStdCostTypeId}&amp;fromDate=${fromDate}"/>
-        </field>
-    </form>
-    <form name="EditFixedAssetStdCost" type="single"
-            target="updateFixedAssetStdCost" title="" default-map-name="fixedAssetStdCost"
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-        <alt-target use-when="fixedAssetStdCost==null" target="createFixedAssetStdCost"/>
-        <auto-fields-entity entity-name="FixedAssetStdCost" default-field-type="edit"/>
-        <field name="fixedAssetId"><hidden/></field>
-        <field name="fixedAssetStdCostTypeId" use-when="fixedAssetStdCost!=null" title="${uiLabelMap.AccountingFixedAssetStdCostTypeId}"><display-entity entity-name="FixedAssetStdCostType" /></field>
-        <field name="fixedAssetStdCostTypeId" use-when="fixedAssetStdCost==null" title="${uiLabelMap.AccountingFixedAssetStdCostTypeId}">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="FixedAssetStdCostType" key-field-name="fixedAssetStdCostTypeId"/>
-            </drop-down>
-        </field>
-        <field name="fromDate" use-when="fixedAssetStdCost!=null" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="amountUomId">
             <drop-down allow-empty="true">
                 <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
@@ -203,7 +189,31 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="cancel" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="cancelFixedAssetStdCost?fixedAssetId=${fixedAssetId}&amp;fixedAssetStdCostTypeId=${fixedAssetStdCostTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditFixedAssetStdCost" type="single"
+            target="createFixedAssetStdCost" title="" default-map-name="fixedAssetStdCost"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <auto-fields-service service-name="createFixedAssetStdCost" default-field-type="edit"/>
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="fixedAssetStdCostTypeId" title="${uiLabelMap.AccountingFixedAssetStdCostTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="FixedAssetStdCostType" key-field-name="fixedAssetStdCostTypeId"/>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"/>
+        <field name="amountUomId">
+            <drop-down allow-empty="true">
+                <entity-options description="${uomId} - ${description}" entity-name="Uom" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="uomId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <!-- list all assets in a tabular format -->

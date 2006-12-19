@@ -398,6 +398,14 @@ under the License.
         <check-errors/>
         <!-- TODO: we should cancel the existing costs of the same type -->
         <!-- create new entity and create all the fields -->
+
+        <!-- Check, should not exist already -->
+        <entity-one entity-name="FixedAssetStdCost" value-name="fixedAssetStdCost"/>
+        <if-not-empty field-name="fixedAssetStdCost">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetStdCostAlreadyExists"/></add-error>
+        </if-not-empty>
+        <check-errors/>
+
         <make-value value-name="newEntity" entity-name="FixedAssetStdCost"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
