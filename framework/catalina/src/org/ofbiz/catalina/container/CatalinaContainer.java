@@ -300,6 +300,16 @@ public class CatalinaContainer implements Container {
             }
             al.setDirectory(logFile.getAbsolutePath());
         }
+        
+        // configure the SslAcceleratorValve
+        String sslAcceleratorPortStr = ContainerConfig.getPropertyValue(engineConfig, "ssl-accelerator-port", null);
+        if (UtilValidate.isNotEmpty(sslAcceleratorPortStr)) {
+            Integer sslAcceleratorPort = Integer.valueOf(sslAcceleratorPortStr);
+            SslAcceleratorValve sslAcceleratorValve = new SslAcceleratorValve();
+            sslAcceleratorValve.setSslAcceleratorPort(sslAcceleratorPort);
+            engine.addValve(sslAcceleratorValve);
+        }
+        
 
         String alp2 = ContainerConfig.getPropertyValue(engineConfig, "access-log-pattern", null);
         if (al != null && !UtilValidate.isEmpty(alp2)) {
