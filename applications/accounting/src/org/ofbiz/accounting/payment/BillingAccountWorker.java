@@ -137,14 +137,7 @@ public class BillingAccountWorker {
         BigDecimal balance = getBillingAccountNetBalance(delegator, billingAccountId);
         
         // now the amounts of all the pending orders (not cancelled, rejected or completed)
-        List orderHeaders = null;
-        List exprs1 = new LinkedList();
-        exprs1.add(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId));
-        exprs1.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"));
-        exprs1.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"));
-        exprs1.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"));
-
-        orderHeaders = delegator.findByAnd("OrderHeader", exprs1);
+        List orderHeaders = getBillingAccountOpenOrders(delegator, billingAccountId); 
 
         if (orderHeaders != null) {
             Iterator ohi = orderHeaders.iterator();
@@ -166,6 +159,17 @@ public class BillingAccountWorker {
         }
         return balance;
     }
+    
+    /**
+     * Returns list of orders which are currently open against a billing account
+     */ 
+    public static List getBillingAccountOpenOrders(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+        return delegator.findByAnd("OrderHeader", UtilMisc.toList( 
+                    new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")));
+    } 
     
     public static BigDecimal getBillingAccountBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
         GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
