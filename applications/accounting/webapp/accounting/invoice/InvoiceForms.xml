@@ -141,7 +141,7 @@ under the License.
         <field name="amount" widget-area-style="tabletextright" use-when="uomId==null"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="total" widget-style="tabletext" use-when="uomId!=null"><display type="currency" currency="${uomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
         <field name="total" widget-style="tabletext" use-when="uomId==null"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
-        <field name="productId" widget-style="linktext"><hyperlink target="EditProduct?productId=${productId}" description="${productId}"/></field>
+        <field name="productId" widget-style="linktext"><hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/></field>
         <field name="overrideGlAccountId" widget-area-style="tabletextright"><hyperlink target="GlAccountNavigate?glAccountId=${overrideGlAccountId}" description="${overrideGlAccountId}"/></field>
         <field name="overrideGlAccountId"><hidden/></field>
         <field name="uomId"><hidden/></field>
