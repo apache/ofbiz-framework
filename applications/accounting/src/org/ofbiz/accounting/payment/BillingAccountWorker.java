@@ -185,10 +185,16 @@ public class BillingAccountWorker {
             BigDecimal availableBalance = accountLimit.subtract(getBillingAccountBalance(billingAccount)).setScale(decimals, rounding);
             return availableBalance;
         } else {
+            Debug.logWarning("Available balance requested for null billing account, returning zero", module);
             return ZERO;
         }
     }
     
+    public static BigDecimal getBillingAccountAvailableBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+        GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
+        return getBillingAccountAvailableBalance(billingAccount);
+    }
+
     /**
      * Calculates the net balance of a billing account, which is sum of all amounts applied to invoices minus sum of all amounts applied from payments.
      * When charging or capturing an invoice to a billing account, use this method
