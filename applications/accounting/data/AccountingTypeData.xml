@@ -201,6 +201,7 @@ under the License.
     <GlAccountType description="Receivable from Inventory Transferred Out" glAccountTypeId="INVENTORY_XFER_OUT" hasTable="N" parentTypeId="CURRENT_ASSET"/>
     <GlAccountType description="Payable from Inventory Transferred In" glAccountTypeId="INVENTORY_XFER_IN" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
 
+    <GlAccountType description="Commission Expense" glAccountTypeId="COMMISSION_EXPENSE" hasTable="N" parentTypeId="OPERATING_EXPENSE"/>
     <GlAccountType description="Commissions Payables" glAccountTypeId="COMMISSIONS_PAYABLE" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
     <GlAccountType description="Write Off" glAccountTypeId="WRITEOFF" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
     <GlAccountType description="Accounts Receivables Write Off" glAccountTypeId="ACCTRECV_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
