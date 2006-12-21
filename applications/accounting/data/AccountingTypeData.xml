@@ -392,9 +392,9 @@ under the License.
 
     <!-- items for commission invoices -->
     <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ITEM" invoiceItemTypeId="COMM_INV_ITEM"/>
-    <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ITEM" invoiceItemTypeId="COMM_INV_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ADJ" invoiceItemTypeId="COMM_INV_ADJ"/>
     
-    <InvoiceItemTypeMap invoiceTypeId="INTEREST_INVOICE" invoiceItemMapKey="INT_INV_ITEM" invoiceItemTypeId="INV_INTRST_CHRG"/>
+    <InvoiceItemTypeMap invoiceTypeId="INTEREST_INVOICE" invoiceItemMapKey="INT_INV_CHRG" invoiceItemTypeId="INV_INTRST_CHRG"/>
     
     <PaymentMethodType description="Credit Card" paymentMethodTypeId="CREDIT_CARD"/>
     <PaymentMethodType description="Gift Card" paymentMethodTypeId="GIFT_CARD"/>
