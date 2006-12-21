@@ -35,8 +35,14 @@ if (returnId != null) {
     if (returnHeader != null) {
         if (returnHeader.getString("statusId").equals("RETURN_ACCEPTED")) {
             returnItems = returnHeader.getRelated("ReturnItem");
-        } else {
-            request.setAttribute("_ERROR_MESSAGE_", "<li>This return is not yet accepted or already received.");
+        } else if (!returnHeader.getString("statusId").equals("RETURN_REQUESTED")) {
+            uiLabelMap = UtilProperties.getResourceBundleMap("ProductErrorUiLabels", locale);
+            ProductReturnNotYetAcceptedOrAlreadyReceived = uiLabelMap.get("ProductReturnNotYetAcceptedOrAlreadyReceived");
+            request.setAttribute("_ERROR_MESSAGE_", ProductReturnNotYetAcceptedOrAlreadyReceived + " (#" + returnId.toString() + ")" );
+        }  else {
+            uiLabelMap = UtilProperties.getResourceBundleMap("ProductErrorUiLabels", locale);
+            ProductReturnRequestedOK = uiLabelMap.get("ProductReturnRequestedOK");
+            request.setAttribute("_EVENT_MESSAGE_", ProductReturnRequestedOK + " (#" + returnId.toString() + ")" );
         }
     }
 }
