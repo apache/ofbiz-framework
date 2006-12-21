@@ -23,6 +23,7 @@ under the License.
      <table width="100%" border="0" cellpadding="1" cellspacing="0">
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
         <#list orderPaymentPreferences as orderPaymentPreference>
+          <#assign pmBillingAddress = {}>
           <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem")>
           <#if outputted?default("false") == "true">
             <tr><td colspan="7"><hr class="sepbar"></td></tr>
