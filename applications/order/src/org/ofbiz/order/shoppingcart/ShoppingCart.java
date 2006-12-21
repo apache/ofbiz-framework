@@ -3298,9 +3298,16 @@ public class ShoppingCart implements Serializable {
         while (i.hasNext()) {
             CartPaymentInfo inf = (CartPaymentInfo) i.next();
             allOpPrefs.addAll(inf.makeOrderPaymentInfos(this.getDelegator()));
-
         }
-
+        if (getBillingAccountId() != null) {
+            GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap());
+            opp.set("paymentMethodTypeId", "EXT_BILLACT");
+            opp.set("presentFlag", "N");
+            opp.set("overflowFlag", "N");
+            opp.set("maxAmount", new Double(getBillingAccountAmount()));
+            opp.set("statusId", "PAYMENT_NOT_RECEIVED");
+            allOpPrefs.add(opp);
+        }
         return allOpPrefs;
     }
 
