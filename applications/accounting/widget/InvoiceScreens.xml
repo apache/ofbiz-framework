@@ -235,6 +235,7 @@ under the License.
                     <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/getInvoiceItemTypes.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
