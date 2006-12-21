@@ -247,18 +247,18 @@ public class CheckOutHelper {
             if (billingAccountId != null && billingAccountAmt != null && !billingAccountId.equals("_NA_")) {
                 // set cart billing account data and generate a payment method containing the amount we will be charging
                 cart.setBillingAccount(billingAccountId, billingAccountAmt.doubleValue());
-                selectedPaymentMethods.put("EXT_BILLACT", billingAccountAmt);
             } else if ("_NA_".equals(billingAccountId)) {
                 // if _NA_ was supplied, erase all billing account data
                 cart.setBillingAccount(null, 0.0);
-                cart.clearPayment("EXT_BILLACT");
             }
             // TODO: the following code needs some review (JAC20061213)
             // if checkoutPaymentId == EXT_BILLACT, then we have billing account only, so make sure we have enough credit
-            if (selectedPaymentMethods.containsKey("EXT_BILLACT")) {
+            if (selectedPaymentMethods.containsKey("EXT_BILLACT") && selectedPaymentMethods.size() == 1) {
                 double accountCredit = this.availableAccountBalance(cart.getBillingAccountId());
                 // make sure we have enough to cover; if this is selected we don't have other payment methods
                 if (cart.getGrandTotal() > accountCredit) {
+                    // if _NA_ was supplied, erase all billing account data
+                    cart.setBillingAccount(null, 0.0);
                     errMsg = UtilProperties.getMessage(resource,"checkhelper.insufficient_credit_available_on_account",
                             (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
