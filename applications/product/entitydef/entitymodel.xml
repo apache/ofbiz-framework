@@ -3615,6 +3615,7 @@ under the License.
     </entity>
     <entity entity-name="Subscription" package-name="org.ofbiz.product.subscription" title="Subscription Entity">
         <field name="subscriptionId" type="id-ne"></field>
+        <field name="description" type="description"></field>
         <field name="subscriptionResourceId" type="id"></field>
         <field name="communicationEventId" type="id"></field><!-- now replaced by entity: SubscriptionCommEvent -->
         <field name="contactMechId" type="id"></field>
