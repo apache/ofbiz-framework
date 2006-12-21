@@ -248,32 +248,13 @@ under the License.
        <field name="invoiceId"><hidden/></field>
        <field name="invoiceItemSeqId" widget-style="buttontext"><hyperlink target="listInvoiceItems?invoiceId=${invoiceId}&amp;invoiceItemSeqId=${invoiceItemSeqId}" description="${invoiceItemSeqId}"/></field>
        <field name="quantity"><text size="3"/></field>
-       <field name="invoiceItemTypeId" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)">
+       <field name="invoiceItemTypeId">
            <drop-down allow-empty="false">
-               <entity-options description="${description}" entity-name="InvoiceItemType">
-                   <entity-constraint name="invoiceItemTypeId" operator="like" value="PINV_%"/>
-                   <entity-order-by field-name="description"/>
-               </entity-options>
+               <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${description}"/>
            </drop-down>
        </field>
        <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
        <field name="description"><text size="30"/></field>
-       <field name="invoiceItemTypeId" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)">
-           <drop-down allow-empty="false">
-               <entity-options description="${description}" entity-name="InvoiceItemType">
-                   <entity-constraint name="invoiceItemTypeId" operator="like" value="INV_%"/>
-                   <entity-order-by field-name="description"/>
-               </entity-options>
-           </drop-down>
-       </field>
-       <field name="invoiceItemTypeId" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;COMMISSION_INVOICE&quot;)">
-           <drop-down allow-empty="false">
-               <entity-options description="${description}" entity-name="InvoiceItemType">
-                   <entity-constraint name="invoiceItemTypeId" operator="like" value="COMM_INV_%"/>
-                   <entity-order-by field-name="description"/>
-               </entity-options>
-           </drop-down>
-       </field>
        <!--field name="overrideGlAccountId"><text size="10"/></field-->
        <field name="amount"><text size="7"/></field>
        <field name="total" widget-area-style="tabletextright" widget-style="tabletext" use-when="uomId!=null"><display type="currency" currency="${uomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
@@ -292,31 +273,12 @@ under the License.
         <alt-target use-when="invoiceItem==null" target="createInvoiceItem"/>
         <field name="invoiceId"><hidden/></field>
         <field position="1" name="invoiceItemSeqId"><text size="5"/></field>
-        <field position="1" name="invoiceItemTypeId" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)">
+        <field position="1" name="invoiceItemTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="InvoiceItemType">
-                    <entity-constraint name="invoiceItemTypeId" operator="like" value="PINV_%"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${description}"/>
             </drop-down>
         </field>
         <field position="1" name="description"><text size="80"/></field>
-        <field position="1" name="invoiceItemTypeId" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)">
-            <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="InvoiceItemType">
-                    <entity-constraint name="invoiceItemTypeId" operator="like" value="INV_%"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field position="1" name="invoiceItemTypeId" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;COMMISSION_INVOICE&quot;)">
-            <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="InvoiceItemType">
-                    <entity-constraint name="invoiceItemTypeId" operator="like" value="COMM_INV_%"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field position="1" name="overrideGlAccountId"><text/></field>
         <field position="2" name="inventoryItemId"><text/></field>
         <field position="1" name="productId">
