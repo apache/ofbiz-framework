@@ -26,7 +26,7 @@ under the License.
           <#assign pmBillingAddress = {}>
           <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem")>
           <#if outputted?default("false") == "true">
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
           </#if>
           <#assign outputted = "true">
           <#-- try the paymentMethod first; if paymentMethodId is specified it overrides paymentMethodTypeId -->
@@ -238,7 +238,7 @@ under the License.
             </#if>
           </#if>
           <#if pmBillingAddress?has_content>
-            <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="5"><hr class="sepbar"></td></tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="5"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;</div>
@@ -262,7 +262,7 @@ under the License.
         <#-- billing account -->
         <#if billingAccount?exists>
           <#if outputted?default("false") == "true">
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
           </#if>
           <tr>
             <td align="right" valign="top" width="15%">
@@ -276,11 +276,11 @@ under the License.
             <td width="5">&nbsp;</td>
             <td align="left" valign="top" width="80%">
               <div class="tabletext">
-                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
+                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
               </div>
             </td>
           </tr>
-          <tr><td colspan="7"><hr class="sepbar"></td></tr>
+          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPurchaseOrderNumber}</b></div>
@@ -294,7 +294,7 @@ under the License.
 
         <#-- invoices -->
         <#if invoices?has_content>
-          <tr><td colspan="7"><hr class="sepbar"></td></tr>
+          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderInvoices}</b></div>
@@ -314,9 +314,9 @@ under the License.
     </tr>
    </#if>
    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED")) && (paymentMethodValueMaps?has_content)>
-   <tr><td colspan="7"><hr class="sepbar"></td></tr>                      
+   <tr><td colspan="7"><hr class="sepbar"/></td></tr>                      
    <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">           
-   <input type="hidden" name="orderId" value="${orderId?if_exists}">
+   <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
    <tr>
       <td width="15%" align="right" nowrap><div class="tableheadtext">${uiLabelMap.AccountingPaymentMethod} </div></td>
       <td width="5">&nbsp;</td>
