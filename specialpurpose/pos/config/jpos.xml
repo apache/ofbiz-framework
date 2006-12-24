@@ -72,6 +72,21 @@ under the License.
         <prop name="CodeType:UPCE" type="String" value="C"/>
         <prop name="CodeType:EAN13" type="String" value="E"/>
         <prop name="CodeType:EAN8" type="String" value="D"/>
+        
+        <!--Zebex predefined barcode identifiers (not implemented, should no be needed else see readCodeMap>
+        <prop name="BarcodeTypePosition" type="String" value="Prefix"/>        
+        <prop name="CodeType:CODE39" type="String" value="M"/>
+        <prop name="CodeType:ITF2OF5" type="String" value="I"/>
+        <prop name="CodeType:CHINESEPOSTCODE" type="String" value="H"/>
+        <prop name="CodeType:UPCE" type="String" value="E"/>                                    
+        <prop name="CodeType:UPCA" type="String" value="A"/>
+        <prop name="CodeType:EAN13" type="String" value="F"/>
+        <prop name="CodeType:EAN8" type="String" value="FF"/>        
+        <prop name="CodeType:CODABAR" type="String" value="N"/>
+        <prop name="CodeType:CODE128" type="String" value="K"/>
+        <prop name="CodeType:CODE93" type="String" value="L"/>
+        <prop name="CodeType:MSI" type="String" value="P"/>
+        <prop name="CodeType:MATRIX25" type="String" value="G"/-->                
     </JposEntry>
 
     <!-- Generic Keyboard Wedge MSR Device (included w/ OFBiz) -->
@@ -171,12 +186,12 @@ under the License.
         <prop name="cashDrawer1" type="Boolean" value="true"/>
         <prop name="drawerClosedOnSignalLow" type="Boolean" value="false"/>
     </JposEntry>
-	
+
     <!-- Epson TM-T88III POSPrinter (requires epsonJposService180.jar, epsonJposServiceCommon.jar 
         in component://pos/lib (classpath references not needed)
-		 and JavaComm installed (javax.comm package). See http://www.javapos.com/devint.html about this point...
-		 pos-containers.xml must contains a reference to the logicalName : <property name="Receipt" value="TM-T88III"/>
-		 -->
+         and JavaComm installed (javax.comm package). See http://www.javapos.com/devint.html about this point...
+         pos-containers.xml must contains a reference to the logicalName : <property name="Receipt" value="TM-T88III"/>
+         -->
     <JposEntry logicalName="TM-T88III">
         <creation factoryClass="jp.co.epson.jpos180.util.EpsonJposServiceInstanceFactory" serviceClass="jp.co.epson.jpos180.ptr.T88III"/>
         <vendor name="SEIKO EPSON" url="http://www.epson.co.jp"/>
@@ -220,5 +235,5 @@ under the License.
         <prop name="ServiceVersion" type="String" value="1.80"/>
         <prop name="flowControl" type="String" value="None"/>
         <prop name="FlowControl" type="String" value="1"/>
-	</JposEntry>
+    </JposEntry>
 </JposEntries>
