@@ -111,6 +111,7 @@
     <event button-name="mgrResetXui" class-name="org.ofbiz.pos.event.ManagerEvents" method-name="resetXui" disable-lock="false"/>
     <event button-name="mgrPaidOut" class-name="org.ofbiz.pos.event.ManagerEvents" method-name="paidOut" disable-lock="false"/>
     <event button-name="mgrPaidIn" class-name="org.ofbiz.pos.event.ManagerEvents" method-name="paidIn" disable-lock="false"/>
+    <event button-name="mgrShutDown" class-name="org.ofbiz.pos.event.ManagerEvents" method-name="shutdown" disable-lock="false"/>
 
     <!-- test events -->
     <event button-name="testAlert" class-name="org.ofbiz.pos.event.TestEvents" method-name="testAlert" disable-lock="false"/>
