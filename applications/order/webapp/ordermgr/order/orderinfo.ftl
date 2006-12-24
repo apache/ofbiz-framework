@@ -43,7 +43,7 @@ under the License.
                 <div class="tabletext">${orderHeader.orderName}</div> 
               </td>  
             </tr>    
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             </#if>   
             <#-- order status history -->
             <tr>
@@ -54,7 +54,7 @@ under the License.
               <td align="left" valign="top" width="80%">
                 <div class="tabletext">${uiLabelMap.OrderCurrentStatus}: ${currentStatus.get("description",locale)}</div>
                 <#if orderHeaderStatuses?has_content>
-                  <hr class="sepbar">
+                  <hr class="sepbar"/>
                   <#list orderHeaderStatuses as orderHeaderStatus>
                     <#assign loopStatusItem = orderHeaderStatus.getRelatedOne("StatusItem")>
                     <div class="tabletext">
@@ -64,7 +64,7 @@ under the License.
                 </#if>
               </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDateOrdered}</b></div>
@@ -76,7 +76,7 @@ under the License.
                 </div>
               </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonCurrency}</b></div>
@@ -89,7 +89,7 @@ under the License.
               </td>
             </tr>
             <#if orderHeader.internalCode?has_content>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderInternalCode}</b></div>
@@ -102,7 +102,7 @@ under the License.
               </td>
             </tr>
             </#if>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderSalesChannel}</b></div>
@@ -119,7 +119,7 @@ under the License.
                 </div>
               </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderProductStore}</b></div>
@@ -135,7 +135,7 @@ under the License.
                 </div>
               </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderOriginFacility}</b></div>
@@ -151,7 +151,7 @@ under the License.
                 </div>
               </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderCreatedBy}</b></div>
@@ -169,7 +169,7 @@ under the License.
             </tr>
 
             <#if distributorId?exists>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDistributor}</b></div>
@@ -184,7 +184,7 @@ under the License.
             </tr>
             </#if>
             <#if affiliateId?exists>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderAffiliate}</b></div>
@@ -200,7 +200,7 @@ under the License.
             </#if>
 
             <#if orderContentWrapper.get("IMAGE_URL")?has_content>
-            <tr><td colspan="7"><hr class="sepbar"></td></tr>
+            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
               <td align="right" valign="top" width="15%">
                 <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderImage}</b></div>
