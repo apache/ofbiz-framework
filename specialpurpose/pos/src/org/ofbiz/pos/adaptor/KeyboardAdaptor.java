@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 
 import org.apache.commons.collections.map.LinkedMap;
 
@@ -114,7 +116,11 @@ public class KeyboardAdaptor {
 
     private class KeyboardListener extends Thread {
 
-        private static final long MAX_WAIT = 100;
+        public final Long MAX_WAIT_SCANNER = new Long(Long.parseLong(UtilProperties.getPropertyValue("jpos.properties", "MaxWaitScanner", "100")));
+        public final Long MAX_WAIT_KEYBOARD = new Long(Long.parseLong(UtilProperties.getPropertyValue("jpos.properties", "MaxWaitKeyboard", "10")));
+        // By default keyboard entry (login & password 1st)
+        public Long MAX_WAIT = MAX_WAIT_KEYBOARD;
+
         private List keyCodeData = new LinkedList();
         private List keyCharData = new LinkedList();
         private long lastKey = -1;
@@ -146,6 +152,9 @@ public class KeyboardAdaptor {
 
         protected synchronized void receiveChar(char keychar) {
             keyCharData.add(new Character(keychar));
+            if (keychar == '\2') {
+                MAX_WAIT = MAX_WAIT_SCANNER;
+            }
         }
 
         protected synchronized void sendData() {
@@ -177,6 +186,7 @@ public class KeyboardAdaptor {
                     keyCharData = new LinkedList();
                     keyCodeData = new LinkedList();
                     lastKey = -1;
+                    MAX_WAIT = MAX_WAIT_KEYBOARD;
                 }
             } else {
                 Debug.logWarning("No receivers configured for key input", module);
@@ -211,7 +221,7 @@ public class KeyboardAdaptor {
         public void run() {
             while (running) {
                 long now = System.currentTimeMillis();
-                if ((lastKey > -1) && (now - lastKey) >= MAX_WAIT) {
+                if ((lastKey > -1) && (now - lastKey) >= MAX_WAIT.intValue()) {
                     this.sendData();
                 }
 
@@ -219,7 +229,7 @@ public class KeyboardAdaptor {
                     break;
                 } else {
                     try {
-                        Thread.sleep(MAX_WAIT);
+                        Thread.sleep(MAX_WAIT.intValue());
                     } catch (InterruptedException e) {
                     }
                 }
