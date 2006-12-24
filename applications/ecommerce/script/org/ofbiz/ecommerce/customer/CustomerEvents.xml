@@ -804,9 +804,11 @@ under the License.
            </call-object-method>
 
            <set field="maySplit" from-field="parameters.may_split" type="Boolean"/>
-           <call-object-method obj-field-name="cart" method-name="setMaySplit">
-               <field field-name="maySplit" type="Boolean"/>
-           </call-object-method>
+           <if-not-empty field-name="maySplit">
+               <call-object-method obj-field-name="cart" method-name="setMaySplit">
+                   <field field-name="maySplit" type="Boolean"/>
+               </call-object-method>
+           </if-not-empty>
 
            <set field="shippingInstruction" from-field="parameters.shipping_instructions" type="String"/>
            <if-not-empty field-name="shippingInstruction">
@@ -818,9 +820,11 @@ under the License.
            <set field="correspondingPoId" from-field="parameters.corresponding_po_id"/>
 
            <set field="isGift" from-field="parameters.is_gift" type="Boolean"/>
-           <call-object-method obj-field-name="cart" method-name="setIsGift">
-               <field field-name="isGift" type="Boolean"/>
-           </call-object-method>
+           <if-not-empty field-name="isGift">
+               <call-object-method obj-field-name="cart" method-name="setIsGift">
+                   <field field-name="isGift" type="Boolean"/>
+               </call-object-method>
+           </if-not-empty>
 
            <set field="giftMessage" from-field="parameters.gift_message" type="String"/>
            <if-not-empty field-name="giftMessage">
