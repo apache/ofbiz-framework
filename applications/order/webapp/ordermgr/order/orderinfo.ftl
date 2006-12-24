@@ -19,7 +19,7 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
-                <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderApproveOrder}</a></div>
+                <div class="tabletext"><a href="<@ofbizUrl>changeOrderItemStatus?statusId=ITEM_APPROVED&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderApproveOrder}</a></div>
             </#if>
             <#if setOrderCompleteOption>
                   <div class="tabletext"><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCompleteOrder}</a></div>
