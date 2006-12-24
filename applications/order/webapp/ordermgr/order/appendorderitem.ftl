@@ -54,7 +54,6 @@ under the License.
                     <span class="tabletext">&nbsp;${uiLabelMap.OrderOverridePrice}</span>
                   </td>
                 <tr>
-                <tr>
                   <td align="right"><div class="tableheadtext">${uiLabelMap.OrderQuantity} :</div></td>
                   <td><input type="text" class="inputBox" size="6" name="quantity" value="${requestParameters.quantity?default("1")}"/></td>
                 </tr>
