@@ -536,10 +536,13 @@ public class PriceServices {
                                 if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator, nowTimestamp)) {
                                     // if there is a virtualProductId, try that given that this one has failed
                                     if (virtualProductId != null) {
+                                        /* DEJ20061223 I don't know why we were trying conditions with the virtualProductId as well; this breaks various things you might want to do with price rules, so unless a need comes up for this in the future, removing it for now...
                                         if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator, nowTimestamp)) {
                                             allExceptQuantTrue = false;
                                         }
                                         // otherwise, okay, this one made it so carry on checking
+                                         */
+                                        allExceptQuantTrue = false;
                                     } else {
                                         allExceptQuantTrue = false;
                                     }
@@ -885,11 +888,15 @@ public class PriceServices {
                 if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator, nowTimestamp)) {
                     // if there is a virtualProductId, try that given that this one has failed
                     if (virtualProductId != null) {
+                        /* DEJ20061223 I don't know why we were trying conditions with the virtualProductId as well; this breaks various things you might want to do with price rules, so unless a need comes up for this in the future, removing it for now...
                         if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator, nowTimestamp)) {
                             allTrue = false;
                             break;
                         }
                         // otherwise, okay, this one made it so carry on checking
+                         */
+                        allTrue = false;
+                        break;
                     } else {
                         allTrue = false;
                         break;
