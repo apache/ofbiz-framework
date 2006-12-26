@@ -51,7 +51,13 @@ under the License.
         <prop name="key.VK_F12+CTRL" type="String" value="221"/>
     </JposEntry>
 
-    <!-- Generic Keyboard Wedge Scanner Device (included w/ OFBiz) -->
+    <!-- Generic Keyboard Wedge Scanner Device (included w/ OFBiz) 
+         * Configure your scanner:
+         * 1) Send STX Preamble
+         * 2) Send barcode id as prefix
+         * 3) Termination char CR
+         * 4) Do NOT send ETX Postamble -->
+    
     <JposEntry logicalName="GenericScanner">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.ScannerKybService"/>
         <vendor name="The Open For Business Project" url="http://www.ofbiz.org"/>
