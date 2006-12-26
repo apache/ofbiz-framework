@@ -92,7 +92,7 @@ function insertImageName(type,nameValue) {
         <td width="20%" align="right" valign="top"><div class="tabletext"><b>${uiLabelMap.ProductProductName}</b></div></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <input type="text" class="inputBox" name="productName" value="${(product.productName)?if_exists}" size="30" maxlength="60">
+            <input type="text" class="inputBox" name="productName" value="${(product.productName?html)?if_exists}" size="30" maxlength="60">
         </td>
     </tr>        
     <tr>
