@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-
 Copyright 2001-2006 The Apache Software Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -74,7 +73,7 @@ under the License.
         <check-errors/>
 
         <if-empty field-name="parameters.orderItemSeqId">
-            <set value="_NA_" field="parameters.orderItemSeqId"/>
+            <set field="parameters.orderItemSeqId" value="_NA_"/>
         </if-empty>
         
         <make-value entity-name="OrderDeliverySchedule" value-name="orderDeliverySchedule"/>
@@ -82,8 +81,8 @@ under the License.
         <find-by-primary-key map-name="orderDeliverySchedule" value-name="orderDeliverySchedule"/>
         
         <!-- find email address for currently logged in user, set as sendFrom -->
-        <set from-field="userLogin.partyId" field="curUserPcmFindMap.partyId"/>
-        <set value="EMAIL_ADDRESS" field="curUserPcmFindMap.contactMechTypeId"/>
+        <set field="curUserPcmFindMap.partyId" from-field="userLogin.partyId"/>
+        <set field="curUserPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <find-by-and entity-name="PartyAndContactMech" map-name="curUserPcmFindMap" list-name="curUserPartyAndContactMechs"/>
         <first-from-list entry-name="curUserPartyAndContactMech" list-name="curUserPartyAndContactMechs"/>
         <string-append field-name="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
@@ -92,13 +91,13 @@ under the License.
         <set value="SHIPMENT_CLERK" field="shipmentClerkFindMap.roleTypeId"/>
         <find-by-and entity-name="PartyRole" map-name="shipmentClerkFindMap" list-name="shipmentClerkRoles"/>
         <iterate entry-name="shipmentClerkRole" list-name="shipmentClerkRoles">
-            <set from-field="shipmentClerkRole.partyId" field="sendToPartyIdMap.${shipmentClerkRole.partyId}"/>
+            <set field="sendToPartyIdMap.${shipmentClerkRole.partyId}" from-field="shipmentClerkRole.partyId"/>
         </iterate>
         
         <!-- go through all send to parties and get email addresses -->
         <iterate-map key-name="sendToPartyId" value-name="sendToPartyIdValue" map-name="sendToPartyIdMap">
-            <set from-field="sendToPartyId" field="sendToPartyPcmFindMap.partyId"/>
-            <set value="EMAIL_ADDRESS" field="sendToPartyPcmFindMap.contactMechTypeId"/>
+            <set field="sendToPartyPcmFindMap.partyId" from-field="sendToPartyId"/>
+            <set field="sendToPartyPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <find-by-and entity-name="PartyAndContactMech" map-name="sendToPartyPcmFindMap" list-name="sendToPartyPartyAndContactMechs"/>
             <iterate entry-name="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
                 <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
@@ -106,13 +105,13 @@ under the License.
         </iterate-map>
         
         <!-- set subject, contentType, templateName, templateData -->
-        <set value="Delivery Information Updated for Order #${orderDeliverySchedule.orderId}" field="subject.sendEmailMap"/>
+        <set field="sendEmailMap.subject" value="Delivery Information Updated for Order #${orderDeliverySchedule.orderId}"/>
         <if-compare field-name="orderDeliverySchedule.orderItemSeqId" operator="not-equals" value="_NA_">
             <string-append string=" Item #${orderDeliverySchedule.orderItemSeqId}" field-name="subject" map-name="sendEmailMap"/>
         </if-compare>
-        <set value="text/html" field="sendEmailMap.contentType"/>
-        <set value="default/OrderDeliveryUpdatedNotice.ftl" field="sendEmailMap.templateName"/>
-        <set from-field="orderDeliverySchedule" field="sendEmailMap.templateData.orderDeliverySchedule"/>
+        <set field="sendEmailMap.contentType" value="text/html"/>
+        <set field="sendEmailMap.templateName" value="default/OrderDeliveryUpdatedNotice.ftl"/>
+        <set field="sendEmailMap.templateData.orderDeliverySchedule" from-field="orderDeliverySchedule"/>
         
         <!-- call sendGenericNotificationEmail service, if enough information was found -->
         <log level="info" message="Sending generic notification email (if all info is in place): ${sendEmailMap}"/>
@@ -133,8 +132,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="checkSupplierRelatedOrderPermissionService" short-description="Check Supplier Related Permission Service">
-        <set from-field="parameters.checkAction" field="checkAction"/>
-        <set from-field="parameters.callingMethodName" field="callingMethodName"/>
+        <set field="checkAction" from-field="parameters.checkAction"/>
+        <set field="callingMethodName" from-field="parameters.callingMethodName"/>
         <call-simple-method method-name="checkSupplierRelatedPermission"/>
         <field-to-result field-name="hasSupplierRelatedPermission"/>
     </simple-method>
