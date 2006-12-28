@@ -1,0 +1,141 @@
+/*
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.order.shoppingcart.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.catalog.*;
+
+
+partyId = null;
+
+userLogin = context.get("userLogin");
+if (userLogin != null) {
+    partyId = userLogin.get("partyId");
+}
+
+if (partyId == null && parameters.get("partyId") != null) {
+    partyId = parameters.get("partyId");
+}
+
+if (partyId != null) {
+    parameters.put("partyId", partyId);
+
+    // NOTE: if there was an error, then don't look up and fill in all of this data, just use the values from the previous request (which will be in the parameters Map automagically)
+    if (request.getAttribute("_ERROR_MESSAGE_") == null && request.getAttribute("_ERROR_MESSAGE_LIST_") == null) {
+        person = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
+        if (person != null) {
+            context.put("callSubmitForm",true);
+            // should never be null for the anonymous checkout, but just in case
+            parameters.put("firstName", person.get("firstName"));
+            parameters.put("middleName", person.get("middleName"));
+            parameters.put("lastName", person.get("lastName"));
+        }
+    
+        // get the Email Address
+        emailPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_EMAIL")), true));
+        if (emailPartyContactDetail != null) {
+            parameters.put("emailContactMechId", emailPartyContactDetail.get("contactMechId"));
+            parameters.put("emailAddress", emailPartyContactDetail.get("infoString"));
+            parameters.put("emailSol", emailPartyContactDetail.get("allowSolicitation"));
+        }
+        
+        // get the Phone Numbers
+        homePhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PHONE_HOME")), true));
+        if (homePhonePartyContactDetail != null) {
+            parameters.put("homePhoneContactMechId", homePhonePartyContactDetail.get("contactMechId"));
+            parameters.put("homeCountryCode", homePhonePartyContactDetail.get("countryCode"));
+            parameters.put("homeAreaCode", homePhonePartyContactDetail.get("areaCode"));
+            parameters.put("homeContactNumber", homePhonePartyContactDetail.get("contactNumber"));
+            parameters.put("homeExt", homePhonePartyContactDetail.get("extension"));
+            parameters.put("homeSol", homePhonePartyContactDetail.get("allowSolicitation"));
+        }
+        
+        workPhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PHONE_WORK")), true));
+        if (workPhonePartyContactDetail != null) {
+            parameters.put("workPhoneContactMechId", workPhonePartyContactDetail.get("contactMechId"));
+            parameters.put("workCountryCode", workPhonePartyContactDetail.get("countryCode"));
+            parameters.put("workAreaCode", workPhonePartyContactDetail.get("areaCode"));
+            parameters.put("workContactNumber", workPhonePartyContactDetail.get("contactNumber"));
+            parameters.put("workExt", workPhonePartyContactDetail.get("extension"));
+            parameters.put("workSol", workPhonePartyContactDetail.get("allowSolicitation"));
+        }
+    }
+}
+
+cart = session.getAttribute("shoppingCart");
+cartPartyId = cart.getPartyId();
+context.put("cart", cart);
+
+// nuke the event messages
+request.removeAttribute("_EVENT_MESSAGE_");
+
+if (cartPartyId != null && !cartPartyId.equals("_NA_")) {
+    cartParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", cartPartyId));
+    if(cartParty != null){
+    cartPerson = cartParty.getRelatedOne("Person");
+    context.put("party", cartParty);
+    context.put("person", cartPerson);
+    } 
+}
+
+if (cart != null && cart.getShippingContactMechId() != null) {
+    shippingContactMechId = cart.getShippingContactMechId();
+    shippingPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+       UtilMisc.toMap("partyId", cartPartyId, "contactMechId", shippingContactMechId)), true));
+    parameters.put("shippingContactMechId", shippingPartyContactDetail.get("contactMechId"));
+    context.put("callSubmitForm",true);
+    parameters.put("toName_0", shippingPartyContactDetail.get("toName"));
+    parameters.put("attnName_0", shippingPartyContactDetail.get("attnName"));
+    parameters.put("address1_0", shippingPartyContactDetail.get("address1"));
+    parameters.put("address2_0", shippingPartyContactDetail.get("address2"));
+    parameters.put("city_0", shippingPartyContactDetail.get("city"));
+    parameters.put("postalCode_0", shippingPartyContactDetail.get("postalCode"));
+    parameters.put("stateProvinceGeoId_0", shippingPartyContactDetail.get("stateProvinceGeoId"));
+    parameters.put("countryGeoId_0", shippingPartyContactDetail.get("countryGeoId"));
+} else {
+    context.put("postalFields", UtilHttp.getParameterMap(request));
+}
+
+
+billingContactMechId = session.getAttribute("billingContactMechId");
+if(billingContactMechId != null){
+    billPostalAddress = delegator.findByPrimaryKey("PostalAddress",UtilMisc.toMap("contactMechId",billingContactMechId));
+    parameters.put("billingContactMechId", billPostalAddress.get("contactMechId"));
+    parameters.put("toName_1", billPostalAddress.get("toName"));
+    parameters.put("attnName_1", billPostalAddress.get("attnName"));
+    parameters.put("address1_1", billPostalAddress.get("address1"));
+    parameters.put("address2_1", billPostalAddress.get("address2"));
+    parameters.put("city_1", billPostalAddress.get("city"));
+    parameters.put("postalCode_1", billPostalAddress.get("postalCode"));
+    parameters.put("stateProvinceGeoId_1", billPostalAddress.get("stateProvinceGeoId"));
+    parameters.put("countryGeoId_1", billPostalAddress.get("countryGeoId"));
+}
+
+if(cart != null && cart.getShippingContactMechId() != null && shippingPartyContactDetail != null){
+    shippingContactMechId = shippingPartyContactDetail.get("contactMechId");
+    if(billingContactMechId != null && billingContactMechId.equals(shippingContactMechId)){
+        context.put("usePostalAddress_0ForContactMechPurpose_1","Y");
+    } 
+}
+parameters.put("contactMechPurposeTypeId_0", "SHIPPING_LOCATION");
+parameters.put("contactMechPurposeTypeId_1", "BILLING_LOCATION");
