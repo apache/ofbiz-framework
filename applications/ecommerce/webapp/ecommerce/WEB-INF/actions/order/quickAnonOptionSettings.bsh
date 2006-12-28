@@ -1,0 +1,60 @@
+/*
+ *
+ * Copyright 2001-2006 The Apache Software Foundation
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.order.shoppingcart.*;
+import org.ofbiz.order.shoppingcart.shipping.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.store.*;
+
+shoppingCart = session.getAttribute("shoppingCart");
+context.put("shoppingCart", shoppingCart);
+productStore = ProductStoreWorker.getProductStore(request);
+
+itemSizes = new LinkedList();
+featureIdSet = new HashSet();
+shipAddress = null;
+shipWeight = 0.00;
+shipTotal = 0.00;
+
+if (shoppingCart != null) {
+    shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0);
+    context.put("shippingEstWpr", shippingEstWpr);
+    context.put("carrierShipmentMethodList", shippingEstWpr.getShippingMethods());
+}
+
+// nuke the event messages
+request.removeAttribute("_EVENT_MESSAGE_");
+
+party = null;
+partyId = session.getAttribute("orderPartyId");
+if (partyId != null) {
+    party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+    context.put("party", party);
+}
+
+
+context.put("emailList",  ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false));
+
+if (shoppingCart != null && shoppingCart.getShipmentMethodTypeId() != null && shoppingCart.getCarrierPartyId() != null) {
+    context.put("chosenShippingMethod", shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId());
+    context.put("callSubmitForm",true);
+}
+
+context.put("productStoreId", productStore.get("productStoreId"));
+context.put("productStore", productStore);

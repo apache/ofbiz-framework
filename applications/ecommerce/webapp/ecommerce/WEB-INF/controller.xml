@@ -321,10 +321,24 @@ under the License.
     <request-map uri="processShipOptions">
         <security https="true" auth="false"/>
         <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipOptions"/>
-        <response name="success" type="request" value="setPaymentOption"/>
+        <response name="success" type="request" value="setShippingBeforePayment"/>
         <response name="error" type="view" value="optionsetting"/>
     </request-map>
 
+    <request-map uri="setShippingBeforePayment">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
+        <response name="success" type="request" value="setTaxBeforePayment"/>
+        <response name="error" type="view" value="optionsetting"/>
+    </request-map>
+    
+    <request-map uri="setTaxBeforePayment">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
+        <response name="success" type="request" value="setPaymentOption"/>
+        <response name="error" type="view" value="optionsetting"/>
+    </request-map>
+    
     <request-map uri="setPaymentOption">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="paymentoptions"/>
@@ -391,7 +405,128 @@ under the License.
         <response name="success" type="view" value="checkoutreview"/>
     </request-map>
     <!-- End Anonymous checkout requests -->
+    
+    <!--Anonymous Checkout 3 steps entry -->   
+    <request-map uri="quickAnonSetCustomer">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="quickAnonCustSetting"/>
+    </request-map>
+    
+    <request-map uri="quickAnonProcessCustomerSettings">
+        <security https="true" auth="false"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="processCustomerSettings"/>
+        <response name="success" type="request" value="quickAnonOrderReview"/>
+        <response name="error" type="view" value="quickAnonCustSetting"/>
+    </request-map>
+    
+    <request-map uri="quickAnonSetShipOptions">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="quickAnonOptionSetting"/>
+    </request-map>
+    
+    <request-map uri="quickAnonProcessShipOptions">
+        <security https="true" auth="false"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="processShipOptions"/>
+        <response name="success" type="view" value="quickAnonOptionSetting"/>
+        <response name="error" type="view" value="quickAnonOptionSetting"/>
+    </request-map>
 
+    <request-map uri="quickAnonProcessShipOptionsUpdateOrderItems">
+        <security https="true" auth="false"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="processShipOptions"/>
+        <response name="success" type="request" value="quickAnonUpdateShippingChargeOrderItems"/>
+        <response name="error" type="view" value="quickAnonOrderItems"/>
+    </request-map>
+    <request-map uri="quickAnonUpdateShippingChargeOrderItems">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
+        <response name="success" type="view" value="quickAnonOrderItems"/>
+        <response name="error" type="view" value="quickAnonOrderItems"/>
+    </request-map>
+    
+    <request-map uri="quickAnonSetShippingBeforePayment">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
+        <response name="success" type="request" value="quickAnonSetTaxBeforePayment"/>
+        <response name="error" type="view" value="quickAnonOptionSetting"/>
+    </request-map>
+    
+    <request-map uri="quickAnonSetTaxBeforePayment">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
+        <response name="success" type="view" value="quickAnonOrderReview"/>
+        <response name="error" type="view" value="quickAnonCustSetting"/>
+    </request-map>
+    
+    <request-map uri="quickAnonEnterCreditCard">
+        <security https="true" auth="false"/>
+        <event type="service" path="" invoke="createCreditCard"/>
+        <response name="success" type="request" value="quickAnonAddCreditCardToCart"/>
+        <response name="error" type="view" value="quickAnonCcInfo"/>
+    </request-map>
+    
+    <request-map uri="quickAnonAddCreditCardToCart">
+       <security https="true" auth="false"/>
+       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
+       <response name="success" type="view" value="quickAnonCcInfo"/>
+       <response name="error" type="view" value="quickAnonCcInfo"/>
+   </request-map>
+    
+   <request-map uri="quickAnonEnterEftAccount">
+        <security https="true" auth="false"/>
+        <event type="service" path="" invoke="createEftAccount"/>
+        <response name="success" type="request" value="quickAnonAddEftAccountToCart"/>
+        <response name="error" type="view" value="quickAnonEftInfo"/>
+   </request-map>
+    
+   <request-map uri="quickAnonAddEftAccountToCart">
+       <security https="true" auth="false"/>
+       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
+       <response name="success" type="view" value="quickAnonEftInfo"/>
+       <response name="error" type="view" value="quickAnonEftInfo"/>
+   </request-map>
+    
+   <request-map uri="quickAnonenterExtOffline">
+        <security https="true" auth="false"/>
+       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
+        <response name="success" type="view" value="quickAnonOrderReview"/>
+        <response name="error" type="view" value="quickAnonOrderReview"/>
+   </request-map>
+    
+   <request-map uri="quickAnonAddGiftCardToCart">
+       <security https="true" auth="false"/>
+       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
+       <response name="success" type="request" value="quickAnonGcInfo"/>
+       <response name="error" type="view" value="quickAnonGcInfo"/>
+   </request-map>
+    
+   <request-map uri="quickAnonOrderReview">
+        <security https="true" auth="false"/>
+        <response name="success" type="request" value="quickAnonSetTaxBeforePayment"/>
+   </request-map> 
+    
+    <request-map uri="quickAnonCcInfo">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="quickAnonCcInfo"/>
+    </request-map>
+    
+    <request-map uri="quickAnonEftInfo">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="quickAnonEftInfo"/>
+    </request-map> 
+    
+    <request-map uri="quickAnonGcInfo">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="quickAnonGcInfo"/>
+    </request-map>
+    
+    <request-map uri="quickAnonProcessOrder">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="quickAnonGcInfo"/>
+    </request-map>
+    
+    <!--End Anonymous Checkout 3 steps entry -->   
+    
     <request-map uri="checkoutpayment">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="checkoutpayment"/>
@@ -1324,6 +1459,15 @@ under the License.
     <view-map name="orderhistory" type="screen" page="component://ecommerce/widget/OrderScreens.xml#orderhistory"/>
     <view-map name="orderstatus" type="screen" page="component://ecommerce/widget/OrderScreens.xml#orderstatus"/>
     <view-map name="requestreturn" type="screen" page="component://ecommerce/widget/OrderScreens.xml#requestreturn"/>
+    
+    <!-- Anonymous Checkout 3 steps entry-->
+    <view-map name="quickAnonCustSetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonCustSettings"/>
+    <view-map name="quickAnonOptionSetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonOptionSettings"/>
+    <view-map name="quickAnonOrderReview" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonOrderReview"/>    
+    <view-map name="quickAnonOrderItems" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonOrderItems"/>    
+    <view-map name="quickAnonCcInfo" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonCcInfo"/>
+    <view-map name="quickAnonGcInfo" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonGcInfo"/>
+    <view-map name="quickAnonEftInfo" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonEftInfo"/>	
 
     <!-- Customer Info Views -->
     <view-map name="survey" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#survey"/>
