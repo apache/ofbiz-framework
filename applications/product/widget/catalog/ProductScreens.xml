@@ -902,5 +902,23 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
+    <screen name="ProductBarCode.fo">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="productName" from-field="parameters.productName"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://product/webapp/catalog/product/ProductBarCode.fo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+            
 </screens>

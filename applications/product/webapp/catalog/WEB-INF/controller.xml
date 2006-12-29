@@ -431,7 +431,12 @@ under the License.
         <event type="service" path="" invoke="copyToProductVariants"/>
         <response name="success" type="view" value="EditProduct"/>
         <response name="error" type="view" value="EditProduct"/>
+    </request-map>    
+    <request-map uri="ProductBarCode.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductBarCode.pdf"/>
     </request-map>
+    
 
     <!-- ================ Product Asset Usage (rental) Requests ================= -->
     <request-map uri="EditProductAssetUsage">
@@ -2257,6 +2262,7 @@ under the License.
     <view-map name="EditProductAssetUsage" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductAssetUsage"/>
     <view-map name="showFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#showFixedAssetProduct"/>
     <view-map name="newFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#newFixedAssetProduct"/>
+    <view-map name="ProductBarCode.pdf" type="screenfop" page="component://product/widget/catalog/ProductScreens.xml#ProductBarCode.fo"/>    
 
     <view-map name="EditProductContent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductContent"/>
     <view-map name="EditProductGoodIdentifications" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductGoodIdentifications"/>
