@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.sql.Timestamp;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
@@ -113,6 +114,37 @@ public class PartyWorker {
         return clubId;
     }
 
+    public static GenericValue findPartyLatestContactMech(String partyId, String contactMechTypeId, GenericDelegator delegator) {
+        try {
+            List cmList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId, "contactMechTypeId", contactMechTypeId), UtilMisc.toList("-fromDate"));
+            cmList = EntityUtil.filterByDate(cmList);
+            return EntityUtil.getFirst(cmList);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error while finding latest ContactMech for party with ID [" + partyId + "] TYPE [" + contactMechTypeId + "]: " + e.toString(), module);
+            return null;
+        }
+    }
+
+    public static GenericValue findPartyLatestPostalAddress(String partyId, GenericDelegator delegator) {
+        GenericValue pcm = findPartyLatestContactMech(partyId, "POSTAL_ADDRESS", delegator);
+        try {
+            return pcm.getRelatedOne("PostalAddress");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error while finding latest PostalAddress for party with ID [" + partyId + "]: " + e.toString(), module);
+            return null;
+        }
+    }
+
+    public static GenericValue findPartyLatestTelecomNumber(String partyId, GenericDelegator delegator) {
+        GenericValue pcm = findPartyLatestContactMech(partyId, "TELECOM_NUMBER", delegator);
+        try {
+            return pcm.getRelatedOne("TelecomNumber");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error while finding latest TelecomNumber for party with ID [" + partyId + "]: " + e.toString(), module);
+            return null;
+        }
+    }
+
     public static GenericValue findPartyLatestUserLogin(String partyId, GenericDelegator delegator) {
         try {
             List userLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-" + ModelEntity.STAMP_FIELD));
@@ -122,7 +154,23 @@ public class PartyWorker {
             return null;
         }
     }
-    
+
+    public static Timestamp findPartyLastLoginTime(String partyId, GenericDelegator delegator) {
+        try {
+            List loginHistory = delegator.findByAnd("UserLoginHistory", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+            GenericValue v = EntityUtil.getFirst(loginHistory);
+            if (v != null) {
+                return v.getTimestamp("fromDate");
+            } else {
+                return null;
+            }            
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error while finding latest login time for party with ID [" + partyId + "]: " + e.toString(), module);
+            return null;
+        }
+        
+    }
+
     public static Locale findPartyLastLocale(String partyId, GenericDelegator delegator) {
         // just get the most recent UserLogin for this party, if there is one...
         GenericValue userLogin = findPartyLatestUserLogin(partyId, delegator);
