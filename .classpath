@@ -36,8 +36,6 @@
 	<classpathentry kind="lib" path="framework/webapp/lib/velocity-dep-1.3.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/velocity-1.3.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/MinML2.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/JPublish.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/EdenLib.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/DataVision.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/barcode4j-fop-ext-0.92.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/batik-all-1.6.jar"/>
@@ -113,7 +111,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/scripting/oro.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/bsh.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/scripting/bsf.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/scripting/bsf-2.4.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xml-apis-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/resolver-2.8.1.jar"/>
