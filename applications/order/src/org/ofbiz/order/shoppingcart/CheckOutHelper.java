@@ -295,20 +295,20 @@ public class CheckOutHelper {
           String errMsg = null;
 
           if (this.cart != null && this.cart.size() > 0) {
-          	this.cart.setShipBeforeDate(shipBefore);
-          	this.cart.setShipAfterDate(shipAfter);
+              this.cart.setShipBeforeDate(shipBefore);
+              this.cart.setShipAfterDate(shipAfter);
           } else {
-          	errMsg = UtilProperties.getMessage(resource,"checkhelper.no_items_in_cart",
+              errMsg = UtilProperties.getMessage(resource,"checkhelper.no_items_in_cart",
                                                      (cart != null ? cart.getLocale() : Locale.getDefault()));
-          	errorMessages.add(errMsg);
+              errorMessages.add(errMsg);
           }
 
           if (errorMessages.size() == 1) {
-          	result = ServiceUtil.returnError(errorMessages.get(0).toString());
+              result = ServiceUtil.returnError(errorMessages.get(0).toString());
           } else if (errorMessages.size() > 0) {
-          	result = ServiceUtil.returnError(errorMessages);
+              result = ServiceUtil.returnError(errorMessages);
           } else {
-          	result = ServiceUtil.returnSuccess();
+              result = ServiceUtil.returnSuccess();
           }
           return result;
       }
@@ -632,7 +632,7 @@ public class CheckOutHelper {
         try {
             party = this.delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
-        	Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsGettingPartyRecord", cart.getLocale()), module);
+            Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsGettingPartyRecord", cart.getLocale()), module);
             party = null;
         }
 
@@ -670,7 +670,7 @@ public class CheckOutHelper {
                 this.delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 // not a fatal error; so just print a message
-            	Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), module);
+                Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsStoringOrderEmailContactInformation", cart.getLocale()), module);
             }
         }
 
@@ -962,7 +962,7 @@ public class CheckOutHelper {
                     }
                 } else {
                     // should never happen
-                	return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderPleaseContactCustomerService;PaymentReturnCodeUnknown.", (cart != null ? cart.getLocale() : Locale.getDefault())));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderPleaseContactCustomerService;PaymentReturnCodeUnknown.", (cart != null ? cart.getLocale() : Locale.getDefault())));
                 }
             } else {
                 // result returned null == service failed
@@ -1091,14 +1091,15 @@ public class CheckOutHelper {
     }
 
     public Map checkOrderBlacklist(GenericValue userLogin) {
-    	if (cart == null) {
+        if (cart == null) {
             return ServiceUtil.returnSuccess("success");
-    	}
+        }
         GenericValue shippingAddressObj = this.cart.getShippingAddress();
-    	if (shippingAddressObj == null) {
+        if (shippingAddressObj == null) {
             return ServiceUtil.returnSuccess("success");
-    	}
+        }
         String shippingAddress = UtilFormatOut.checkNull(shippingAddressObj.getString("address1")).toUpperCase();
+        shippingAddress = UtilFormatOut.makeSqlSafe(shippingAddress);
         List exprs = UtilMisc.toList(new EntityExpr(
                 new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("blacklistString")), EntityOperator.EQUALS, new EntityFunction.UPPER(shippingAddress)), EntityOperator.AND,
                 new EntityExpr("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
@@ -1128,6 +1129,7 @@ public class CheckOutHelper {
                 }
                 if (billingAddress != null) {
                     String address = UtilFormatOut.checkNull(billingAddress.getString("address1").toUpperCase());
+                    address = UtilFormatOut.makeSqlSafe(address);
                     exprs.add(new EntityExpr(
                             new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("blacklistString")), EntityOperator.EQUALS, new EntityFunction.UPPER(address)), EntityOperator.AND,
                             new EntityExpr("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
@@ -1147,7 +1149,7 @@ public class CheckOutHelper {
         }
 
         if (blacklistFound != null && blacklistFound.size() > 0) {
-        	return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderFailed", (cart != null ? cart.getLocale() : Locale.getDefault())));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderFailed", (cart != null ? cart.getLocale() : Locale.getDefault())));
         } else {
             return ServiceUtil.returnSuccess("success");
         }
