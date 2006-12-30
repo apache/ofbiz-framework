@@ -491,4 +491,7 @@ public class UtilFormatOut {
             return newString;
         }
     }
+    public static String makeSqlSafe(String unsafeString) {
+        return unsafeString.replaceAll("'","''");
+    }
 }
