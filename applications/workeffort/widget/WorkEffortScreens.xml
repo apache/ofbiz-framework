@@ -97,6 +97,7 @@ under the License.
                     <decorator-section name="body">
                         <container><label style="head1">${uiLabelMap.PageTitleFindWorkEffort}</label></container>
                         <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="linktext"/></container>
+                        <container><link  text="${uiLabelMap.ProductAdvancedSearch}" target="WorkEffortSearchOptions" style="linktext"/></container>
                         <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -580,6 +581,42 @@ under the License.
                         <include-form name="AddWorkEffortKeyword" location="component://workeffort/widget/WorkEffortForms.xml"/>
                         <container><label style="head1">${uiLabelMap.WorkEffortKeywords}</label></container>
                         <include-form name="ListWorkEffortKeywords" location="component://workeffort/widget/WorkEffortForms.xml"/>                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="WorkEffortSearchResults">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/find/WorkEffortSearchResults.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                         <platform-specific>
+                              <html><html-template location="component://workeffort/webapp/workeffort/find/WorkEffortSearchResults.ftl"/></html>
+                         </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="WorkEffortSearchOptions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/find/WorkEffortSearchOptions.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                         <platform-specific>
+                              <html><html-template location="component://workeffort/webapp/workeffort/find/WorkEffortSearchOptions.ftl"/></html>
+                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

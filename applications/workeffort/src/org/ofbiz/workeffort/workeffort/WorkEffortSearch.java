@@ -43,6 +43,8 @@ import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFieldValue;
+import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
@@ -53,7 +55,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.party.party.PartyHelper;
+
 
 
 /**
@@ -316,8 +318,7 @@ public class WorkEffortSearch {
 
             if (resultSortOrder != null) {
                 resultSortOrder.setSortOrder(this);
-            }
-
+            }            
             dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, new Boolean(workEffortIdGroupBy), null);
             EntityCondition whereCondition = new EntityConditionList(entityConditionList, EntityOperator.AND);
             EntityFindOptions efo = new EntityFindOptions();
@@ -505,7 +506,7 @@ public class WorkEffortSearch {
         public abstract String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale);
     }
     
-
+    
     public static class WorkEffortAssocConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "WorkEffortAssoc";
         protected String workEffortId;
@@ -577,6 +578,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.workEffortId + "," + this.workEffortAssocTypeId, "includeSubWorkEfforts", this.includeSubWorkEfforts ? "Y" : "N")));
         }
 
+        
         /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             GenericValue workEffort = null;
@@ -645,7 +647,56 @@ public class WorkEffortSearch {
             }
         }
     }
+    public static class WorkEffortReviewConstraint extends WorkEffortSearchConstraint {
+        public static final String constraintName = "WorkEffortReview";
+        protected String reviewTextString;
+        
+        public WorkEffortReviewConstraint(String reviewTextString) {
+            this.reviewTextString = reviewTextString;        
+        }        
+               
+        public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
+            String entityAlias = "WFR" + workEffortSearchContext.index;
+            String prefix = "wfr" + workEffortSearchContext.index;
+            workEffortSearchContext.index++;
 
+            workEffortSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "WorkEffortReview");
+            workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ReviewText", "reviewText", null, null, null, null);
+            workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
+            workEffortSearchContext.entityConditionList.add( new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue(prefix + "ReviewText")), EntityOperator.LIKE ,new EntityFunction.UPPER(("%"+ reviewTextString) + "%")));
+            Map valueMap = UtilMisc.toMap("constraintName", constraintName, "infoString", this.reviewTextString);
+            workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", valueMap));
+        }
+
+        
+        /** pretty print for log messages and even UI stuff */
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            StringBuffer ppBuf = new StringBuffer();
+            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortReviews", locale) + ": \"");
+            ppBuf.append(this.reviewTextString + "\", " + UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale) + " ");                        
+            return ppBuf.toString();
+        }
+
+        public boolean equals(Object obj) {
+            WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
+            if (psc instanceof WorkEffortReviewConstraint) {
+                WorkEffortReviewConstraint that = (WorkEffortReviewConstraint) psc;                
+                if (this.reviewTextString == null) {
+                    if (that.reviewTextString != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.reviewTextString.equals(that.reviewTextString)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
     public static class PartyAssignmentConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "PartyAssignment";
         protected String partyId;
