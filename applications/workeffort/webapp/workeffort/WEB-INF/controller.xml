@@ -552,7 +552,17 @@ under the License.
         <response name="success" type="view" value="EditWorkEffortKeywords"/>
         <response name="error" type="view" value="EditWorkEffortKeywords"/>
     </request-map>
-                
+
+    <!-- Work Efort Advanced Search --> 
+     <request-map uri="WorkEffortSearchOptions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WorkEffortSearchOptions"/>
+    </request-map>
+    <request-map uri="WorkEffortSearchResults">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WorkEffortSearchResults"/>
+    </request-map>    
+
     
     <!-- Lookup request mappings -->
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
@@ -633,7 +643,10 @@ under the License.
     <view-map name="EditWorkEffortReviews" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortReviews"/>    
     
     <view-map name="EditWorkEffortKeywords" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortKeywords"/>
-        
+    <view-map name="WorkEffortSearchOptions" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#WorkEffortSearchOptions"/>
+    <view-map name="WorkEffortSearchResults" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#WorkEffortSearchResults"/>
+
+            
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupTimesheet" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupTimesheet"/>
     
