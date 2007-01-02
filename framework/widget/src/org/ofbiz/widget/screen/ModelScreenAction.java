@@ -179,7 +179,7 @@ public abstract class ModelScreenAction implements Serializable {
             
             if (UtilValidate.isNotEmpty(this.type)) {
                 try {
-                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, locale);
+                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, null); 
                 } catch (GeneralException e) {
                     String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -441,12 +441,12 @@ public abstract class ModelScreenAction implements Serializable {
                     context.put("queryString", queryString);
                     context.put("queryStringMap", result.get("queryStringMap"));
                     if (UtilValidate.isNotEmpty(queryString)){
-                    	try {
-                    		String queryStringEncoded = queryString.replaceAll("&", "%26");
+                        try {
+                            String queryStringEncoded = queryString.replaceAll("&", "%26");
                             context.put("queryStringEncoded", queryStringEncoded);
-                    	} catch (PatternSyntaxException e) {
-                    		
-                    	}
+                        } catch (PatternSyntaxException e) {
+                            
+                        }
                     }
                 } else {
                     context.putAll(result);
