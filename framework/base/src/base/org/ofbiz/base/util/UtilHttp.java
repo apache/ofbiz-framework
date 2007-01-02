@@ -861,4 +861,10 @@ public class UtilHttp {
         // we don't support any other compositeTypes (yet)
         return null;
     }
+
+    /** Obtains the session ID from the request, or "unknown" if no session pressent. */
+    public static String getSessionId(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (session == null ? "unknown" : session.getId());
+    }
 }
