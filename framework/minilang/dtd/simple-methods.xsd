@@ -123,17 +123,17 @@ under the License.
     <xs:element name="simple-method">
         <xs:annotation>
             <xs:documentation>
-        A simple method can be called in either an event context from the Control
-        Servlet (or another event) or in a service context through the Service
-        Engine, or any other component that has access to a service dispatcher.
-        
-        The field-to-request and field-to-session elements will be IGNORED when
-        called in a service context. So, they are ONLY used when called in an event context.
-        
-        The field-to-result elements will be ignored in an event context, ie only used in a service.
-        
-        The parameter-map-name env entry will contain the HttpRequest parameters for
-        running in an event context and and the input context when running in a service.
+                A simple method can be called in either an event context from the Control
+                Servlet (or another event) or in a service context through the Service
+                Engine, or any other component that has access to a service dispatcher.
+                
+                The field-to-request and field-to-session elements will be IGNORED when
+                called in a service context. So, they are ONLY used when called in an event context.
+                
+                The field-to-result elements will be ignored in an event context, ie only used in a service.
+                
+                The parameter-map-name env entry will contain the HttpRequest parameters for
+                running in an event context and and the input context when running in a service.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -160,8 +160,8 @@ under the License.
         <xs:attribute name="login-required" default="true">
             <xs:annotation>
                 <xs:documentation>                
-                    Is a logged in user (UserLogin object, or login.username and login.password Strings) required to run this method? 
-                    "true" or "false" (default = "true")                         
+                    Is a logged in user (UserLogin object, or login.username and login.password Strings) required to run this method?  
+                    "true" or "false" (defauts to "true")                         
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -175,7 +175,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>                
                     Create a transaction if none exists for this thread? 
-                    "true" or "false" (default = "true")                          
+                    "true" or "false" (defauts to "true")                          
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -188,135 +188,135 @@ under the License.
         <xs:attribute type="xs:string" name="default-error-code" default="error">
             <xs:annotation>
                 <xs:documentation>                
-                    The default error return code. (default = "error")                          
+                    The default error return code. (defauts to "error")                          
                 </xs:documentation>
             </xs:annotation>                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="default-success-code" default="success">
             <xs:annotation>
                 <xs:documentation>                
-                    The default success return code.  (default = "success")                            
+                    The default success return code.  (defauts to "success")                            
                 </xs:documentation>
             </xs:annotation>                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="parameter-map-name" default="parameters">
             <xs:annotation>
                 <xs:documentation>                
-                    As event: copy of request parameters.
-                    As service: incoming context.      
-                    (default = "parameters")            
+                    As event: copy of request parameters. 
+                    As service: incoming context. 
+                    (defauts to "parameters")            
                 </xs:documentation>
             </xs:annotation>                                                
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-request-object-name" default="request">
             <xs:annotation>
                 <xs:documentation>                
-                    As event only (default = "request")                  
+                    As event only (defauts to "request")                  
                 </xs:documentation>
             </xs:annotation>                                                            
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-response-object-name" default="response">
             <xs:annotation>
                 <xs:documentation>                
-                    As event only (default = "response")                  
+                    As event only (defauts to "response")                  
                 </xs:documentation>
             </xs:annotation>                                                                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-response-code-name" default="_response_code_">
             <xs:annotation>
                 <xs:documentation>                
-                    As event only (default = "_response_code")                  
+                    As event only (defauts to "_response_code")                  
                 </xs:documentation>
             </xs:annotation>                                                                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-error-message-name" default="_error_message_">
             <xs:annotation>
                 <xs:documentation>                
-                    As event only (default = "_error_message_")                  
+                    As event only (defauts to "_error_message_")                  
                 </xs:documentation>
             </xs:annotation>                                                                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="event-event-message-name" default="_event_message_">
             <xs:annotation>
                 <xs:documentation>                
-                    As event only (default = "_event_message_")                  
+                    As event only (defauts to "_event_message_")                  
                 </xs:documentation>
             </xs:annotation>                                                                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-response-message-name" default="responseMessage">
             <xs:annotation>
                 <xs:documentation>
-                    As service only (default = "responseMessage")                                  
+                    As service only (defauts to "responseMessage")                                  
                 </xs:documentation>
             </xs:annotation>                                                                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-error-message-name" default="errorMessage">
             <xs:annotation>
                 <xs:documentation>                
-                    As service only (default = "errorMessage")                  
+                    As service only (defauts to "errorMessage")                  
                 </xs:documentation>
             </xs:annotation>                                                                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-error-message-list-name" default="errorMessageList">
             <xs:annotation>
                 <xs:documentation>                
-                    As service only (default = "errorMessageList")                  
+                    As service only (defauts to "errorMessageList")                  
                 </xs:documentation>
             </xs:annotation>                                                                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-error-message-map-name" default="errorMessageMap">
             <xs:annotation>
                 <xs:documentation>                
-                    As service only (default = "errorMessageMap")                  
+                    As service only (defauts to "errorMessageMap")                  
                 </xs:documentation>
             </xs:annotation>                                                                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-success-message-name" default="successMessage">
             <xs:annotation>
                 <xs:documentation>                
-                    As service only (default = "successMessage")                  
+                    As service only (defauts to "successMessage")                  
                 </xs:documentation>
             </xs:annotation>                                                                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-success-message-list-name" default="successMessageList">
             <xs:annotation>
                 <xs:documentation>                
-                    As service only (default = "successMessageList")
+                    As service only (defauts to "successMessageList")
                 </xs:documentation>
             </xs:annotation>                                                                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="locale-name" default="locale">
             <xs:annotation>
                 <xs:documentation>                
-                    Name of locale variable (default = "locale")                
+                    Name of locale variable (defauts to "locale")                
                 </xs:documentation>
             </xs:annotation>                                                                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="delegator-name" default="delegator">
             <xs:annotation>
                 <xs:documentation>                
-                    A GenericDelegator object to use in the method (default = "delegator")                 
+                    A GenericDelegator object to use in the method (defauts to "delegator")                 
                 </xs:documentation>
             </xs:annotation>                                                                                                            
         </xs:attribute>
         <xs:attribute type="xs:string" name="security-name" default="security">
             <xs:annotation>
                 <xs:documentation>                
-                    A Security object to use in the method  (default = "security")
+                    A Security object to use in the method (defauts to "security")
                 </xs:documentation>
             </xs:annotation>                                                                                                                                    
         </xs:attribute>
         <xs:attribute type="xs:string" name="dispatcher-name" default="dispatcher">
             <xs:annotation>
                 <xs:documentation>                
-                    A LocalDispatcher object to use in the method (default = "dispatcher")                                    
+                    A LocalDispatcher object to use in the method (defauts to "dispatcher")                                    
                 </xs:documentation>
             </xs:annotation>                                                                                                                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="user-login-name" default="userLogin">
             <xs:annotation>
                 <xs:documentation>                
-                    Name of locale variable (default = "userLogin")                  
+                    Name of user login variable (defauts to "userLogin")                  
                 </xs:documentation>
             </xs:annotation>                                                                                                                        
         </xs:attribute>
@@ -324,23 +324,72 @@ under the License.
     <xs:element name="call-map-processor" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-        If both an external and an inline map-processor are specified, the external
-        one will be called first, allowing the inline one to override its behavior
+                The call-map-processor tag invokes a simple map processor from an existing map, creating a new map or adding to an existing one 
+                if the named out-map already exists. Resulting messages are added to the named list, and a new list is created if a list with 
+                the given name does not yet exist. Note that all lists and maps exist in the same context and must have unique names. 
+                
+                An inline simple-map-processor can be used by putting a simple-map-processor tag under the call-map-processor tag. 
+                                                         
+                If both an external and an inline map-processor are specified, the external
+                one will be called first, allowing the inline one to override its behavior.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="simple-map-processor"/>
+                <xs:element minOccurs="0" ref="simple-map-processor">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Uses the same definition as the simple-map-processor in the context of a simple-map-processors XML file. 
+                            Allows for an inlined simple-map-processor. 
+                        </xs:documentation>
+                    </xs:annotation>                    
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.call-map-processor"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-map-processor">
-        <xs:attribute type="xs:string" name="xml-resource"/>
-        <xs:attribute type="xs:string" name="processor-name"/>
-        <xs:attribute type="xs:string" name="in-map-name" use="required"/>
-        <xs:attribute type="xs:string" name="out-map-name" use="required"/>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="xml-resource">
+            <xs:annotation>
+                <xs:documentation>
+                    The full path and filename on the classpath of the XML file which contains an external map processor to execute.  
+                    This is only required if an external map processor is desired.                
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="processor-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the external map processor to execute in the specified xml-resource. 
+                    This is only required if an external map processor is desired.                
+                </xs:documentation>
+            </xs:annotation>                        
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="in-map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment to use as the input map.                 
+                </xs:documentation>
+            </xs:annotation>                                    
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="out-map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment to use as the output map. 
+                    Will be created if it does not exist already. 
+                    If already exists will be added to in place.                 
+                </xs:documentation>
+            </xs:annotation>                                                
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a list in the method environment that the error messages will be added to. 
+                    Will be created if it does not exist. 
+                    Defaults to "error_list". 
+                </xs:documentation>
+            </xs:annotation>                                                            
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="set-service-fields" substitutionGroup="CallOperations">
         <xs:complexType>
@@ -355,8 +404,8 @@ under the License.
     <xs:element name="call-service" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-        The result-to-request and result-to-session elements will be IGNORED when
-        called in a service context. So, they are ONLY used when called in an event context.
+                The result-to-request and result-to-session elements will be IGNORED when
+                called in a service context. So, they are ONLY used when called in an event context.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -475,9 +524,9 @@ under the License.
     <xs:element name="result-to-result">
         <xs:annotation>
             <xs:documentation>
-        NOTE that these attributes are somewhat confusing: result-name is the name of the field in the result of this service call that the value comes FROM; 
-        service-result-name is the name of the field in the result of this simple-method called as a service where the value goes TO;
-        in other words FROM result-name and TO service-result-name
+                NOTE that these attributes are somewhat confusing: result-name is the name of the field in the result of this service call that the value comes FROM;  
+                service-result-name is the name of the field in the result of this simple-method called as a service where the value goes TO; 
+                in other words FROM result-name and TO service-result-name.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -491,9 +540,9 @@ under the License.
     <xs:element name="call-service-asynch" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-        Calls a service asynchronously and ignores the result, so no return messages
-        are used; that doesn't mean no errors will result, but they would just be
-        system errors like database failures, etc which all have system error messages.
+                Calls a service asynchronously and ignores the result, so no return messages
+                are used; that doesn't mean no errors will result, but they would just be
+                system errors like database failures, etc which all have system error messages.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -515,16 +564,16 @@ under the License.
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-        Runs an external bsh script from the classpath if resource is specified and
-        then runs the inlined bsh script if any is specified.
-        
-        The bsh context is the current simple-method environment including maps, lists
-        and special objects whose names are defined in the simple-method attributes.
-        
-        The current env cannot be modified, but if a Map is returned by the bsh block
-        the entries in the map will be put into the current env.
-        
-        Error messages go on the error list and are handled with the check-errors tag.
+                Runs an external bsh script from the classpath if resource is specified and
+                then runs the inlined bsh script if any is specified.
+                
+                The bsh context is the current simple-method environment including maps, lists
+                and special objects whose names are defined in the simple-method attributes.
+                
+                The current env cannot be modified, but if a Map is returned by the bsh block
+                the entries in the map will be put into the current env.
+                
+                Error messages go on the error list and are handled with the check-errors tag.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType mixed="true">
@@ -753,7 +802,11 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="string-append" substitutionGroup="EnvOperations">
-        <xs:annotation><xs:documentation>NOTE: the prefix and suffix will only be used IFF the current string and the string to be appended are both not empty</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                NOTE: the prefix and suffix will only be used IFF the current string and the string to be appended are both not empty
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.string-append"/>
         </xs:complexType>
@@ -1132,8 +1185,20 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.limit-range">
-        <xs:attribute name="start" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a non-negative integer.</xs:documentation></xs:annotation></xs:attribute>
-        <xs:attribute name="size" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a non-negative integer.</xs:documentation></xs:annotation></xs:attribute>
+        <xs:attribute name="start" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Should resolve into a non-negative integer.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="size" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Should resolve into a non-negative integer.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="limit-view">
         <xs:complexType>
@@ -1141,8 +1206,20 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.limit-view">
-        <xs:attribute name="view-index" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a non-negative integer.</xs:documentation></xs:annotation></xs:attribute>
-        <xs:attribute name="view-size" type="xs:string" use="required"><xs:annotation><xs:documentation>Should resolve into a positive integer.</xs:documentation></xs:annotation></xs:attribute>
+        <xs:attribute name="view-index" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Should resolve into a non-negative integer.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="view-size" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Should resolve into a positive integer.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="use-iterator">
         <xs:complexType/>
@@ -1506,7 +1583,7 @@ under the License.
     <xs:element name="assert" substitutionGroup="IfOtherOperations">
         <xs:annotation>
             <xs:documentation>
-                Each condition under the assert element will be checked and if it fails an error will be added to the given error list.
+                Each condition under the assert element will be checked and if it fails an error will be added to the given error list. 
                 Note that while the definitions for the if-* operations are used, the tags should be empty because of the differing semantics.
             </xs:documentation>
         </xs:annotation>
@@ -1532,7 +1609,11 @@ under the License.
     </xs:group>
     <xs:element name="IfCombineConditions" abstract="true"/>
     <xs:element name="if" substitutionGroup="IfOtherOperations">
-        <xs:annotation><xs:documentation>Note that while the definitions for the if-* operations are used, the tags should be empty because of the differing semantics.</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                Note that while the definitions for the if-* operations are used, the tags should be empty because of the differing semantics.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="condition"/>
@@ -1543,7 +1624,11 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:element name="while" substitutionGroup="IfOtherOperations">
-        <xs:annotation><xs:documentation>While loop operation, uses the same condition element as the if operation.</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                While loop operation, uses the same condition element as the if operation.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="condition"/>
@@ -1595,7 +1680,11 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:element name="if-validate-method" substitutionGroup="IfBasicOperations">
-        <xs:annotation><xs:documentation>if-validate-method calls a static Java method that takes a String and returns a boolean</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                If-validate-method calls a static Java method that takes a String and returns a boolean
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
@@ -1858,7 +1947,11 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="rounding-mode" default="HalfEven">
-            <xs:annotation><xs:documentation>Rounding mode for BigDecimal calculation, primarily for divide operation.</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    Rounding mode for BigDecimal calculation, primarily for divide operation.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="Ceiling"><xs:annotation><xs:documentation>Rounding mode to round towards positive infinity</xs:documentation></xs:annotation></xs:enumeration>
@@ -1925,9 +2018,9 @@ under the License.
     <xs:element name="simple-map-processor">
         <xs:annotation>
             <xs:documentation>
-            The Simple Map Processor Mini-Language performes two primary tasks: validation and conversion. 
-            It does this in a context of moving values from one Map to another. 
-            The input map will commonly contain Strings, but can contain other object types like Integer, Long, Float, Double, java.sql.Date, Time, and Timestamp.
+                The Simple Map Processor Mini-Language performes two primary tasks: validation and conversion.  
+                It does this in a context of moving values from one Map to another. 
+                The input map will commonly contain Strings, but can contain other object types like Integer, Long, Float, Double, java.sql.Date, Time, and Timestamp.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1945,7 +2038,7 @@ under the License.
     <xs:element name="make-in-string">
         <xs:annotation>
             <xs:documentation>
-                In addition to dealing with the fields already in the incoming Map you can build Strings and add them to the in-Map before the processing begins with the make-in-string tag. 
+                In addition to dealing with the fields already in the incoming Map you can build Strings and add them to the in-Map before the processing begins with the make-in-string tag.  
                 You can have zero or many make-in-string tags, and they must all come before the process tags. 
                 Inside each make-in-string is a list of snippets to concatenate together to make the final String. 
                 Each snippet can be another field in the in-Map (in-field element), a value from a properties file (property element), or a constant (constant element).
@@ -1985,18 +2078,18 @@ under the License.
     <xs:element name="process">
         <xs:annotation>
             <xs:documentation>
-                The process tag is used to contain the operations to be done on the specified field in the in-Map. 
+                The process tag is used to contain the operations to be done on the specified field in the in-Map.  
                 It has one required attribute, the field to operate on. 
-                The operations that it contains are: validate-method, compare, compare-field, regexp, not-empty, copy, and convert.
+                The operations that it contains are: validate-method, compare, compare-field, regexp, not-empty, copy, and convert. 
                 
                 All process operations tags except copy must contain one of two tags: fail-message or fail-property. 
-                If the operation fails a message is added to the message list that is either the specified fail-message, or the String from the properties file value that is specified in fail-property.
+                If the operation fails a message is added to the message list that is either the specified fail-message, or the String from the properties file value that is specified in fail-property. 
                 
                 Messages are collected in List as the Simple Map Processor runs. 
                 If the List is not empty when it completes then something failed in the map processor. 
-                This is done so that all failures will be reported immediately rather than having to fix one failure before another can be discovered.
+                This is done so that all failures will be reported immediately rather than having to fix one failure before another can be discovered. 
                 
-                All process operations automatically convert the field value and other values from their current type to the type specified for the operation, where applicable. 
+                All process operations automatically convert the field value and other values from their current type to the type specified for the operation, where applicable.  
                 The ObjectType.simpleTypeConvert method is used to do the conversion. 
                 It supports the following types: String, Double, Float, Long, Integer, Date, Time, and Timestamp. 
                 If the type is not specified String is the default.
@@ -2021,9 +2114,9 @@ under the License.
     <xs:element name="validate-method">
         <xs:annotation>
             <xs:documentation>
-                The validate-method tag is used to call any static method that accepts a String and returns a boolean. 
+                The validate-method tag is used to call any static method that accepts a String and returns a boolean.  
                 If the field coming in is not a String it will be converted to a String before calling the method. 
-                The two attributes for this tag are class and method which should contain the fully qualified class name and the method name, respectively. 
+                The two attributes for this tag are class and method which should contain the fully qualified class name and the method name, respectively.  
                 If the class name is not specified it will default to org.ofbiz.base.util.UtilValidate.
             </xs:documentation>
         </xs:annotation>
@@ -2042,9 +2135,9 @@ under the License.
     <xs:element name="compare">
         <xs:annotation>
             <xs:documentation>
-                The compare tag is used to compare the field value to the value specified in the value attribute. 
+                The compare tag is used to compare the field value to the value specified in the value attribute.  
                 An operator must be specified to indicate the comparison desired. 
-                Operators available include less, greater, less-equals, greater-equals, equals, not-equals, and contains.
+                Operators available include less, greater, less-equals, greater-equals, equals, not-equals, and contains. 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2084,7 +2177,7 @@ under the License.
     <xs:element name="regexp">
         <xs:annotation>
             <xs:documentation>
-                The regexp tag validate the current field against the regular expression specified in the expr attribute of the tag. 
+                The regexp tag validate the current field against the regular expression specified in the expr attribute of the tag.  
                 Standard Perl style regular expressions are used with the ORO library from Jakarta.
             </xs:documentation>
         </xs:annotation>
@@ -2102,8 +2195,8 @@ under the License.
     <xs:element name="not-empty">
         <xs:annotation>
             <xs:documentation>
-                The not-empty tag verifies that the current field is not empty. 
-                If the field is a String it must not be null and must have a length greater than zero, otherwise it must simply not be null. 
+                The not-empty tag verifies that the current field is not empty.  
+                If the field is a String it must not be null and must have a length greater than zero, otherwise it must simply not be null.  
                 The not-empty tag has no attributes.
             </xs:documentation>
         </xs:annotation>
@@ -2127,12 +2220,16 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.copy">
         <xs:attribute type="xs:string" name="to-field">
-            <xs:annotation><xs:documentation>If a different field name is desired in the out-Map it can be specified in the to-field attribute.</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    If a different field name is desired in the out-Map it can be specified in the to-field attribute.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
         <xs:attribute name="replace" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    The replace attribute can be used to specify if an existing field in the out-Map should be replaced or not. 
+                    The replace attribute can be used to specify if an existing field in the out-Map should be replaced or not.  
                     The replace attribute defaults to true. 
                 </xs:documentation>
             </xs:annotation>
@@ -2146,7 +2243,7 @@ under the License.
         <xs:attribute name="set-if-null" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    The set-if-null attribute specifies whether or not the value should be put in the out-Map if it is null. 
+                    The set-if-null attribute specifies whether or not the value should be put in the out-Map if it is null.  
                     The default for set-if-null is false.
                 </xs:documentation>
             </xs:annotation>
@@ -2161,7 +2258,7 @@ under the License.
     <xs:element name="convert">
         <xs:annotation>
             <xs:documentation>
-                The convert tag does the same thing as copy except that the type can be converted to the type specified in the type attribute. 
+                The convert tag does the same thing as copy except that the type can be converted to the type specified in the type attribute.  
                 The format attribute can be used to specify the format for date/time fields. 
                 These two tags are in addition to all of the the attributes in the copy tag.
             </xs:documentation>
@@ -2176,7 +2273,11 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.convert">
         <xs:attribute type="xs:string" name="to-field">
-            <xs:annotation><xs:documentation>If no to-field is specified, it is the same as the field on process.</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    If no to-field is specified, it is the same as the field on process.
+                </xs:documentation>
+            </xs:annotation>
         </xs:attribute>
         <xs:attribute name="type" use="required">
             <xs:simpleType>
