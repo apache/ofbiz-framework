@@ -24,7 +24,7 @@ For more details about running a build, or for information on
 getting, building, and running the source please see the 
 Apache OFBiz Setup Guide:
 
-http://incubator.apache.org/ofbiz/docs/setup.html
+http://docs.ofbiz.org/x/rwM
 
 Note that running with the default configuration uses an
 embedded Java database (Apache Derby), and embedded application
