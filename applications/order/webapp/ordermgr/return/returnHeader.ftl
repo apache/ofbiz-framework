@@ -214,7 +214,7 @@ under the License.
       <td width='6%'>&nbsp;</td>
       <td width='6%'>&nbsp;</td>   
       <td width='74%'>
-        <input type="submit" class="standardButton" value="${uiLabelMap.CommonUpdate}">      
+        <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
       </td>
     </tr>     
   <#else>
@@ -224,7 +224,7 @@ under the License.
     <td width='6%'>&nbsp;</td>
     <td width='6%'>&nbsp;</td>   
     <td width='74%'>
-      <input type="submit" class="standardButton" value="${uiLabelMap.CommonCreateNew}">      
+      <input type="submit" value="${uiLabelMap.CommonCreateNew}"/>
     </td>
   </tr>     
   </#if>
