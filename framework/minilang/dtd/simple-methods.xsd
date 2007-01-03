@@ -326,7 +326,7 @@ under the License.
             <xs:documentation>
                 The call-map-processor tag invokes a simple map processor from an existing map, creating a new map or adding to an existing one 
                 if the named out-map already exists. Resulting messages are added to the named list, and a new list is created if a list with 
-                the given name does not yet exist. Note that all lists and maps exist in the same context and must have unique names. 
+                the given name does not yet exist. Note that all lists and maps exist in the same context and must have unique names.  
                 
                 An inline simple-map-processor can be used by putting a simple-map-processor tag under the call-map-processor tag. 
                                                          
@@ -404,6 +404,9 @@ under the License.
     <xs:element name="call-service" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
+                The call-service tag invokes a service through the Service Engine. 
+                If the specified error code is returned from the service, the event is aborted and the transaction in the current thread is rolled back. Otherwise, the remaining operations are invoked. 
+                
                 The result-to-request and result-to-session elements will be IGNORED when
                 called in a service context. So, they are ONLY used when called in an event context.
             </xs:documentation>
@@ -438,6 +441,11 @@ under the License.
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
+            <xs:annotation>
+                <xs:documentation>
+                    Defaults to "true". 
+                </xs:documentation>
+            </xs:annotation>            
         </xs:attribute>
         <xs:attribute name="break-on-error" default="true">
             <xs:simpleType>
@@ -446,9 +454,26 @@ under the License.
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
+            <xs:annotation>
+                <xs:documentation>
+                    Defaults to "true".
+                </xs:documentation>
+            </xs:annotation>                        
         </xs:attribute>
-        <xs:attribute type="xs:string" name="error-code" default="error"/>
-        <xs:attribute type="xs:string" name="success-code" default="success"/>
+        <xs:attribute type="xs:string" name="error-code" default="error">
+            <xs:annotation>
+                <xs:documentation>
+                    Defaults to "error".
+                </xs:documentation>
+            </xs:annotation>                                    
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="success-code" default="success">
+            <xs:annotation>
+                <xs:documentation>
+                    Defaults to "success".
+                </xs:documentation>
+            </xs:annotation>                                    
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="error-prefix">
         <xs:complexType mixed="true">
@@ -524,7 +549,7 @@ under the License.
     <xs:element name="result-to-result">
         <xs:annotation>
             <xs:documentation>
-                NOTE that these attributes are somewhat confusing: result-name is the name of the field in the result of this service call that the value comes FROM;  
+                NOTE that these attributes are somewhat confusing: result-name is the name of the field in the result of this service call that the value comes FROM;   
                 service-result-name is the name of the field in the result of this simple-method called as a service where the value goes TO; 
                 in other words FROM result-name and TO service-result-name.
             </xs:documentation>
@@ -542,7 +567,7 @@ under the License.
             <xs:documentation>
                 Calls a service asynchronously and ignores the result, so no return messages
                 are used; that doesn't mean no errors will result, but they would just be
-                system errors like database failures, etc which all have system error messages.
+                system errors like database failures, etc. which all have system error messages.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -559,19 +584,24 @@ under the License.
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
+            <xs:annotation>
+                <xs:documentation>
+                    Defaults to "true".
+                </xs:documentation>
+            </xs:annotation>                                    
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Runs an external bsh script from the classpath if resource is specified and
-                then runs the inlined bsh script if any is specified.
+                Runs an external bsh script from the classpath if resource is specified and 
+                then runs the inlined bsh script if any is specified. 
                 
-                The bsh context is the current simple-method environment including maps, lists
-                and special objects whose names are defined in the simple-method attributes.
+                The bsh context is the current simple-method environment including maps, lists 
+                and special objects whose names are defined in the simple-method attributes. 
                 
-                The current env cannot be modified, but if a Map is returned by the bsh block
-                the entries in the map will be put into the current env.
+                The current env cannot be modified, but if a Map is returned by the bsh block 
+                the entries in the map will be put into the current env. 
                 
                 Error messages go on the error list and are handled with the check-errors tag.
             </xs:documentation>
@@ -582,16 +612,43 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.call-bsh">
         <xs:attribute type="xs:string" name="resource"/>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    Defaults to "error_list".
+                </xs:documentation>
+            </xs:annotation>                                                
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-simple-method" substitutionGroup="CallOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The call-simple-method tag calls another simple-method in the same context as the current one. 
+                In other words the called simple-method will have the same environment as the calling simple-method,  
+                including all environment fields, and either the event or service objects that the calling simple-method was called with.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.call-simple-method"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-simple-method">
-        <xs:attribute type="xs:string" name="xml-resource"/>
-        <xs:attribute type="xs:string" name="method-name" use="required"/>
+        <xs:attribute type="xs:string" name="xml-resource">
+            <xs:annotation>
+                <xs:documentation>
+                    The full path and filename on the classpath of the XML file which contains an external simple-method to execute. 
+                    This is only required if a simple-method in a different file is desired. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="method-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the simple-method to execute in the specified xml-resource,  
+                    or in the current XML file if no xml-resource is specified.  
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
     </xs:attributeGroup>
     <!-- Operations to call Java methods and create Java objects -->
     <xs:element name="call-object-method" substitutionGroup="CallOperations">
