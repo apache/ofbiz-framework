@@ -42,7 +42,8 @@ border: #999999 solid 1px;
 margin: 2px;
 }
 
-INPUT[type="submit"] {
+/* The "smallSubmit" class can be used to decorate links (A elements) and make them similar to form's buttons. */
+INPUT[type="submit"], .smallSubmit {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 8pt;
 font-weight: bold;
@@ -53,7 +54,7 @@ border: #999999 solid 1px;
 margin: 2px;
 }
 
-INPUT[type="submit"]:hover {
+INPUT[type="submit"]:hover, .smallSubmit:hover {
 color: red;
 text-decoration: underline;
 }
@@ -936,21 +937,6 @@ background: #FFFFFF;
 font-size: 8pt;
 }
 
-/* 
- * This style can be used to decorate links (A elements) to make them similar to form's buttons.
- * For this reason its style attributes should be the same as the ones of the SUBMIT selector.
- */
-.smallSubmit {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 8pt;
-font-weight: bold;
-text-decoration: none;
-color: #000099;
-background: white;
-border: #999999 solid 1px;
-margin: 2px;
-}
-
 .mediumSubmit,.largeSubmit,.loginButton {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 10pt;
@@ -962,7 +948,7 @@ border: #999999 solid 1px;
 margin: 2px;
 }
 
-.smallSubmit:hover,.mediumSubmit:hover,.largeSubmit:hover,.loginButton:hover {
+.mediumSubmit:hover,.largeSubmit:hover,.loginButton:hover {
 color: red;
 text-decoration: underline;
 }
