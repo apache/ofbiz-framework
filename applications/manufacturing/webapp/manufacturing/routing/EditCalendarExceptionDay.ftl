@@ -15,12 +15,10 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ManufacturingEditCalendarExceptionDayFor}&nbsp; 
-    <span class='head2'>
+<h1>${uiLabelMap.ManufacturingEditCalendarExceptionDayFor}&nbsp; 
         <#if (techDataCalendar.description)?has_content>"${(techDataCalendar.get("description",locale))}"</#if> 
         [${uiLabelMap.CommonId}:${techDataCalendar.calendarId?if_exists}]
-    </span>
-</div>
+</h1>
 <br/>
 <#if techDataCalendar?has_content>
 ${listCalendarExceptionDayWrapper.renderFormString(context)}

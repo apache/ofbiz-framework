@@ -16,7 +16,7 @@ under the License.
 -->
 
 <#if shipment?exists>
-  <div class="head1">${uiLabelMap.ManufacturingWorkWithShipmentPlans}: ${shipment.shipmentId}</div>
+  <h1>${uiLabelMap.ManufacturingWorkWithShipmentPlans}: ${shipment.shipmentId}</h1>
   ${listShipmentPlanForm.renderFormString(context)}
   <#if workInProgress>
     <br/>
@@ -39,7 +39,7 @@ under the License.
   <div><a href="<@ofbizUrl>PRunsInfoAndOrder.pdf?shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=&productCategoryIdPar=HARDWARE</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPRunsInfoAndOrder}</a></div>
   -->
 <#else>
-<div class="head1">${uiLabelMap.ManufacturingWorkWithShipmentPlans}</div>
+<h1>${uiLabelMap.ManufacturingWorkWithShipmentPlans}</h1>
 <#if listShipmentPlansForm?has_content>
   ${listShipmentPlansForm.renderFormString(context)}
 </#if>

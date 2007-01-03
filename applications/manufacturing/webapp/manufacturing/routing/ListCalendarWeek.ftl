@@ -15,7 +15,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="head1">${uiLabelMap.ManufacturingListCalendarWeek}&nbsp; </div>
+<h1>${uiLabelMap.ManufacturingListCalendarWeek}</h1>
 <div>
     <a href="<@ofbizUrl>EditCalendarWeek</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendarWeek}</a>
 </div>

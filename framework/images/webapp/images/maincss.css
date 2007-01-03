@@ -35,11 +35,36 @@ margin-top: 0;
 margin-bottom: 0;
 }
 
+H1 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 12pt;
+font-weight: bold;
+color: #000099;
+}
+
+H2 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 10pt;
+font-weight: bold;
+color: #000000;
+}
+
+H3 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+margin: 0px;
+font-size: 8pt;
+font-weight: bold;
+color: #000000;
+}
+
 .endcolumns {
 clear: both;
 height: 0px;
 visibility: hidden;
 }
+
 
 .head1 {
 font-family: Verdana, Arial, Helvetica, sans-serif;
