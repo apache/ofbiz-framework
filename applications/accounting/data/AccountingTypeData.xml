@@ -427,6 +427,7 @@ under the License.
     <PaymentType description="Receipt" hasTable="N" parentTypeId="" paymentTypeId="RECEIPT"/>
     <PaymentType description="Customer Payment" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="CUSTOMER_PAYMENT"/> <!-- a payment FROM the customer -->
     <PaymentType description="Customer Deposit" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="CUSTOMER_DEPOSIT"/>
+    <PaymentType description="Interest Receipt" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="INTEREST_DEPOSIT"/>
     <PaymentType description="Gift Certificate Deposit" hasTable="N"  parentTypeId="RECEIPT" paymentTypeId="GC_DEPOSIT"/>
 
     <!-- payment types for POS PAID IN/OUT -->
