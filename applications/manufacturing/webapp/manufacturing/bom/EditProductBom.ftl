@@ -42,7 +42,7 @@ function lookupBom() {
             <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingBomType}:</div></td>
             <td>&nbsp;</td>
             <td>
-            <select class="selectBox" name="productAssocTypeId" size="1">
+            <select name="productAssocTypeId" size="1">
             <#if productAssocTypeId?has_content>
                 <#assign curAssocType = delegator.findByPrimaryKey("ProductAssocType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId))>
                 <#if curAssocType?exists>
@@ -58,7 +58,7 @@ function lookupBom() {
             <td align="right"><div class='tableheadtext'>${uiLabelMap.ProductProductId}:</div></td>
             <td>&nbsp;</td>
             <td>
-            <input type="text" class="inputBox" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
+            <input type="text" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
             <a href="javascript:call_fieldlookup2(document.searchform.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             <span class='tabletext'><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
             </td>
@@ -70,7 +70,7 @@ function lookupBom() {
             <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingCopyToProductId}:</div></td>
             <td>&nbsp;</td>
             <td>
-            <input type="text" class="inputBox" name="copyToProductId" size="20" maxlength="40" value=""/>
+            <input type="text" name="copyToProductId" size="20" maxlength="40" value=""/>
             <a href="javascript:call_fieldlookup2(document.searchform.copyToProductId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             <span class='tabletext'><a href="javascript:document.searchform.UPDATE_MODE.value='COPY';document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingCopyBOMAssocs}</a></span>
             </td>
@@ -89,7 +89,7 @@ function lookupBom() {
             <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingBomType}:</div></td>
             <td>&nbsp;</td>
             <td>
-                <select class="selectBox" name="productAssocTypeId" size="1">
+                <select name="productAssocTypeId" size="1">
                 <#if productAssocTypeId?has_content>
                     <#assign curAssocType = delegator.findByPrimaryKey("ProductAssocType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId))>
                     <#if curAssocType?exists>
@@ -107,7 +107,7 @@ function lookupBom() {
             <td align="right"><div class='tableheadtext'>${uiLabelMap.ProductProductId}:</div></td>
             <td>&nbsp;</td>
             <td>
-                <input type="text" class="inputBox" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
+                <input type="text" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
                 <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             </td>
             </tr>
@@ -115,7 +115,7 @@ function lookupBom() {
             <td align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingProductIdTo}:</div></td>
             <td>&nbsp;</td>
             <td>
-                <input type="text" class="inputBox" name="productIdTo" size="20" maxlength="40" value="${productIdTo?if_exists}"/>
+                <input type="text" name="productIdTo" size="20" maxlength="40" value="${productIdTo?if_exists}"/>
                 <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productIdTo,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             </td>
             </tr>
@@ -123,7 +123,7 @@ function lookupBom() {
             <td align="right"><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
             <td>&nbsp;</td>
             <td>
-                <input type="text" class="inputBox" name="fromDate" size="25" maxlength="40" value=""/>
+                <input type="text" name="fromDate" size="25" maxlength="40" value=""/>
                 <a href="javascript:call_cal(document.editProductAssocForm.fromDate,'${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
                 (${uiLabelMap.ManufacturingWillBeSetToNow})
             </td>
@@ -161,43 +161,43 @@ function lookupBom() {
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.CommonThruDate}:</div></td>
         <td>&nbsp;</td>
         <td width="74%">
-            <input type="text" class="inputBox" name="thruDate" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("thruDate"))?if_exists}"</#if> size="30" maxlength="30"/> 
+            <input type="text" name="thruDate" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("thruDate"))?if_exists}"</#if> size="30" maxlength="30"/> 
             <a href="javascript:call_cal(document.editProductAssocForm.thruDate,<#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("thruDate"))?exists>'${request.getParameter("thruDate")}'<#else>'${nowTimestampString}'</#if>);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
         </td>
     </tr>
     <tr>
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.CommonSequenceNum}:</div></td>
         <td>&nbsp;</td>
-        <td width="74%"><input type="text" class="inputBox" name="sequenceNum" <#if useValues>value="${(productAssoc.sequenceNum)?if_exists}"<#else>value="${(request.getParameter("sequenceNum"))?if_exists}"</#if> size="5" maxlength="10"/></td>
+        <td width="74%"><input type="text" name="sequenceNum" <#if useValues>value="${(productAssoc.sequenceNum)?if_exists}"<#else>value="${(request.getParameter("sequenceNum"))?if_exists}"</#if> size="5" maxlength="10"/></td>
     </tr>
     <tr>
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingReason}:</div></td>
         <td>&nbsp;</td>
-        <td width="74%"><input type="text" class="inputBox" name="reason" <#if useValues>value="${(productAssoc.reason)?if_exists}"<#else>value="${(request.getParameter("reason"))?if_exists}"</#if> size="60" maxlength="255"/></td>
+        <td width="74%"><input type="text" name="reason" <#if useValues>value="${(productAssoc.reason)?if_exists}"<#else>value="${(request.getParameter("reason"))?if_exists}"</#if> size="60" maxlength="255"/></td>
     </tr>
     <tr>
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingInstruction}:</div></td>
         <td>&nbsp;</td>
-        <td width="74%"><input type="text" class="inputBox" name="instruction" <#if useValues>value="${(productAssoc.instruction)?if_exists}"<#else>value="${(request.getParameter("instruction"))?if_exists}"</#if> size="60" maxlength="255"/></td>
+        <td width="74%"><input type="text" name="instruction" <#if useValues>value="${(productAssoc.instruction)?if_exists}"<#else>value="${(request.getParameter("instruction"))?if_exists}"</#if> size="60" maxlength="255"/></td>
     </tr>
     
     <tr>
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingQuantity}:</div></td>
         <td>&nbsp;</td>
-        <td width="74%"><input type="text" class="inputBox" name="quantity" <#if useValues>value="${(productAssoc.quantity)?if_exists}"<#else>value="${(request.getParameter("quantity"))?if_exists}"</#if> size="10" maxlength="15"/></td>
+        <td width="74%"><input type="text" name="quantity" <#if useValues>value="${(productAssoc.quantity)?if_exists}"<#else>value="${(request.getParameter("quantity"))?if_exists}"</#if> size="10" maxlength="15"/></td>
     </tr>
 
     <tr>
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingScrapFactor}:</div></td>
         <td>&nbsp;</td>
-        <td width="74%"><input type="text" class="inputBox" name="scrapFactor" <#if useValues>value="${(productAssoc.scrapFactor)?if_exists}"<#else>value="${(request.getParameter("scrapFactor"))?if_exists}"</#if> size="10" maxlength="15"/></td>
+        <td width="74%"><input type="text" name="scrapFactor" <#if useValues>value="${(productAssoc.scrapFactor)?if_exists}"<#else>value="${(request.getParameter("scrapFactor"))?if_exists}"</#if> size="10" maxlength="15"/></td>
     </tr>
 
     <tr>
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingFormula}:</div></td>
         <td>&nbsp;</td>
         <td width="74%">
-            <select name="estimateCalcMethod" class="selectBox">
+            <select name="estimateCalcMethod">
             <option value="">&nbsp;</option>
             <#assign selectedFormula = "">
             <#if useValues>
@@ -216,14 +216,14 @@ function lookupBom() {
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingRoutingTask}:</div></td>
         <td>&nbsp;</td>
         <td width="74%">
-            <input type="text" class="inputBox" name="routingWorkEffortId" <#if useValues>value="${(productAssoc.routingWorkEffortId)?if_exists}"<#else>value="${(request.getParameter("routingWorkEffortId"))?if_exists}"</#if> size="10" maxlength="15"/>
+            <input type="text" name="routingWorkEffortId" <#if useValues>value="${(productAssoc.routingWorkEffortId)?if_exists}"<#else>value="${(request.getParameter("routingWorkEffortId"))?if_exists}"</#if> size="10" maxlength="15"/>
             <a href="javascript:call_fieldlookup(document.editProductAssocForm.routingWorkEffortId,'<@ofbizUrl>LookupRoutingTask</@ofbizUrl>','none',640,460);"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
         </td>
     </tr>
     
     <tr>
         <td colspan="2">&nbsp;</td>
-        <td align="left"><input type="submit" class="SmallSubmit" <#if !(productAssoc?exists)>value="${uiLabelMap.CommonAdd}"<#else>value="${uiLabelMap.CommonEdit}"</#if>/></td>
+        <td align="left"><input type="submit" <#if !(productAssoc?exists)>value="${uiLabelMap.CommonAdd}"<#else>value="${uiLabelMap.CommonEdit}"</#if>/></td>
     </tr>
     </table>
     </form>

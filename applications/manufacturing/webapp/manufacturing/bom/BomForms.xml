@@ -25,7 +25,7 @@ under the License.
         <field name="productId">
             <lookup target-form-name="LookupProduct"/>
         </field>
-        <field name="bomType" title="${uiLabelMap.ManufacturingBomType}" widget-style="selectBox">
+        <field name="bomType" title="${uiLabelMap.ManufacturingBomType}">
             <drop-down allow-empty="false" no-current-selected-key="MANUF_COMPONENT">
                 <entity-options entity-name="ProductAssocType" key-field-name="productAssocTypeId" description="${description}">
                     <entity-constraint name="parentTypeId" value="PRODUCT_COMPONENT"/>
@@ -56,7 +56,7 @@ under the License.
                 </entity-options>
              </drop-down>
         </field>
-        <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" widget-style="selectBox">
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
                     <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
@@ -64,7 +64,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
     </form>
@@ -120,7 +120,7 @@ under the License.
                 <option key="AND" description="${uiLabelMap.CommonAnd}"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}">
             <submit button-type="button"/>
         </field>
     </form>
