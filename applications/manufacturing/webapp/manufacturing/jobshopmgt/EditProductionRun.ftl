@@ -18,7 +18,7 @@ under the License.
 <#if productionRunId?has_content>
 <#-- Mandatory work efforts -->
 <#if mandatoryWorkEfforts?has_content>
-    <div class="tabletext">
+    <p>
     ${uiLabelMap.ManufacturingMandatoryProductionRuns}:
     <#list mandatoryWorkEfforts as mandatoryWorkEffortAssoc>
         <#assign mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort")>
@@ -32,11 +32,11 @@ under the License.
             </#if>
         </#if>
     </#list>
-    </div>
+    </p>
 </#if>
 <#-- Dependent work efforts -->
 <#if dependentWorkEfforts?has_content>
-    <div class="tabletext">
+    <p>
     ${uiLabelMap.ManufacturingDependentProductionRuns}: 
     <#list dependentWorkEfforts as dependentWorkEffortAssoc>
         <#assign dependentWorkEffort = dependentWorkEffortAssoc.getRelatedOne("ToWorkEffort")>
@@ -50,7 +50,7 @@ under the License.
             </#if>
         </#if>
     </#list>
-    </div>
+    </p>
 </#if>
 
 
@@ -172,7 +172,7 @@ under the License.
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
             <tr>
                 <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}</div></td>
-                <td align="right"><div class="tabletext">
+                <td align="right">
                     <a href="<@ofbizUrl>EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddRoutingTask</@ofbizUrl>" class="submenutextright">
                                     ${uiLabelMap.ManufacturingAddRoutingTask}</a>
                 </td>    
@@ -188,7 +188,7 @@ under the License.
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
             <tr>
                 <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunComponents}</div></td>
-                <td align="right"><div class="tabletext">
+                <td align="right">
                     <a href="<@ofbizUrl>EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddProductComponent</@ofbizUrl>" class="submenutextright">
                                     ${uiLabelMap.ManufacturingAddProductionRunProductComponent}</a>
                 </td>
@@ -204,7 +204,7 @@ under the License.
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
             <tr>
                 <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}</div></td>
-                <td align="right"><div class="tabletext">
+                <td align="right">
                     <a href="<@ofbizUrl>EditProductionRun?productionRunId=${productionRunId}&amp;actionForm=AddFixedAsset</@ofbizUrl>" class="submenutextright">
                                     ${uiLabelMap.ManufacturingAddProductionRunFixedAssetAssign}</a>
                 </td>
