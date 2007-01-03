@@ -23,12 +23,12 @@ under the License.
     </div>
     <div>
         <span class="tabletext">Hazmat:</span>
-        <select name="productFeatureIdOne" class="standardSelect">
+        <select name="productFeatureIdOne">
             <option value="">- ${uiLabelMap.CommonNone} -</option>
             <#list hazmatFeatures as hazmatFeature>
                 <option value="${hazmatFeature.productFeatureId}">${hazmatFeature.description}</option>
             </#list>
         </select>
-        <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductCreateVirtualProduct}"/>
+        <input type="submit" value="${uiLabelMap.ProductCreateVirtualProduct}"/>
     </div>
 </form>
