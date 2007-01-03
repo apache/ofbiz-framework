@@ -19,6 +19,9 @@
 
 /* ===== General Styles ===== */
 BODY {
+font-size: 10px;
+text-decoration: none;
+font-family: Verdana, Arial, Helvetica, sans-serif;
 background: #D4D0C8;
 margin-top: 0px;
 margin-right: 0px;
@@ -1070,30 +1073,33 @@ border: 1px solid #999999;
 }
 
 /* ==== Styles For The Html Log === */
-.DEBUG{
+.DEBUG {
 font-size: 10px;
 text-decoration: none;
 font-family: Verdana, Arial, Helvetica, sans-serif;
-color:gray;
+color: gray;
 }
-.WARN{
+
+.WARN {
 font-size: 10px;
 text-decoration: none;
 font-family: Verdana, Arial, Helvetica, sans-serif;
-font-weight:bold;
-color:blue;
+font-weight: bold;
+color: blue;
 }
+
 .INFO{
 font-size: 10px;
 text-decoration: none;
 font-family: Verdana, Arial, Helvetica, sans-serif;
 color:green;
 }
-.ERROR{
+
+.ERROR {
 font-size: 10px;
 text-decoration: none;
 font-family: Verdana, Arial, Helvetica, sans-serif;
-font-weight:bold;
-color:red;
+font-weight: bold;
+color: red;
 border: 2px solid red;
 }

@@ -33,7 +33,7 @@ function lookupInventory() {
         <tr>
           <td><div class='boxhead'></div></td>
           <td align='right'>
-            <div class="tabletext">
+            <p>
               <#if requestParameters.hideFields?default("N") == "Y">
                 <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=N${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonShowLookupFields}</a>
               <#else>
@@ -42,7 +42,7 @@ function lookupInventory() {
                 </#if>
                 <a href="javascript:lookupInventory();" class="submenutextright">${uiLabelMap.CommonLookup}</a>                
               </#if>
-            </div>
+            </p>
           </td>
         </tr>
       </table>

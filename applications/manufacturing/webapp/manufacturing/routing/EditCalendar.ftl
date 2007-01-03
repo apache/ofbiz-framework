@@ -28,24 +28,24 @@ under the License.
   <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <#if techDataCalendar?has_content>
     <tr>
-      <td width='26%' align='right' valign='top'><div class="tabletext">${uiLabelMap.ManufacturingCalendarId}</div></td>
+      <td width='26%' align='right' valign='top'>${uiLabelMap.ManufacturingCalendarId}</td>
       <td width="5">&nbsp;</td>
-      <td width="74%" valign="top"><div class="tabletext"><b>${techDataCalendar.calendarId?if_exists}</b> (${uiLabelMap.CommonNotModifRecreat})</td>
+      <td width="74%" valign="top"><b>${techDataCalendar.calendarId?if_exists}</b> (${uiLabelMap.CommonNotModifRecreat})</td>
     </tr>
     <#else>
     <tr>
-      <td width='26%' align='right' valign='top'><div class="tabletext">${uiLabelMap.ManufacturingCalendarId}</div></td>
+      <td width='26%' align='right' valign="top">${uiLabelMap.ManufacturingCalendarId}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="text" class="inputBox" size="12" name="calendarId" value="${calendarData.calendarId?if_exists}"></td>
     </tr>
     </#if>
     <tr>
-      <td width='26%' align='right' valign='top'><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
+      <td width='26%' align='right' valign='top'>${uiLabelMap.CommonDescription}</td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="text" class="inputBox" size="40" name="description" value="${calendarData.description?if_exists}"></td>
     </tr>
     <tr>
-      <td width='26%' align='right' valign='top'><div class="tabletext">${uiLabelMap.ManufacturingCalendarWeekId}</div></td>
+      <td width='26%' align='right' valign='top'>${uiLabelMap.ManufacturingCalendarWeekId}</td>
       <td width="5">&nbsp;</td>
       <td width="74%">
          <select class="selectBox" name="calendarWeekId">

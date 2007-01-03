@@ -29,9 +29,9 @@ under the License.
   <#if techDataCalendars?has_content>
     <#list techDataCalendars as techDataCalendar>
       <tr>
-        <td><div class="tabletext">${techDataCalendar.calendarId}</div></td>
-        <td><div class="tabletext">${techDataCalendar.get("description",locale)?if_exists}</div></td>
-        <td><div class="tabletext">${techDataCalendar.calendarWeekId?if_exists}</div></td>
+        <td>${techDataCalendar.calendarId}</td>
+        <td>${techDataCalendar.get("description",locale)?if_exists}</td>
+        <td>${techDataCalendar.calendarWeekId?if_exists}</td>
         <td align="right">
           <a href="<@ofbizUrl>EditCalendar?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
           <a href="<@ofbizUrl>RemoveCalendar?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>

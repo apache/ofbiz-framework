@@ -19,7 +19,7 @@ under the License.
 
 <#-- Mandatory work efforts -->
 <#if mandatoryWorkEfforts?has_content>
-    <div class="tabletext">
+    <p>
     ${uiLabelMap.ManufacturingMandatoryProductionRuns}:
     <#list mandatoryWorkEfforts as mandatoryWorkEffortAssoc>
         <#assign mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort")>
@@ -33,11 +33,11 @@ under the License.
             </#if>
         </#if>
     </#list>
-    </div>
+    </p>
 </#if>
 <#-- Dependent work efforts -->
 <#if dependentWorkEfforts?has_content>
-    <div class="tabletext">
+    <p>
     ${uiLabelMap.ManufacturingDependentProductionRuns}: 
     <#list dependentWorkEfforts as dependentWorkEffortAssoc>
         <#assign dependentWorkEffort = dependentWorkEffortAssoc.getRelatedOne("ToWorkEffort")>
@@ -51,7 +51,7 @@ under the License.
             </#if>
         </#if>
     </#list>
-    </div>
+    </p>
 </#if>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -250,8 +250,7 @@ under the License.
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
             <tr>
                 <td><div class="boxhead">${uiLabelMap.ManufacturingListOfProductionRunComponents}</div></td>
-                <td align="right"><div class="tabletext">
-                </td>
+                <td align="right"></td>
             </tr>
         </table>
         ${ListProductionRunComponentsWrapper.renderFormString(context)}

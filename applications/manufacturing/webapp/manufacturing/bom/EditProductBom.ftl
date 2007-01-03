@@ -59,7 +59,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
             <input type="text" class="inputBox" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
-            <a href="javascript:call_fieldlookup2(document.searchform.productId,'LookupProduct');"><img src="/content/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+            <a href="javascript:call_fieldlookup2(document.searchform.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             <span class='tabletext'><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
             </td>
         </tr>
@@ -71,7 +71,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
             <input type="text" class="inputBox" name="copyToProductId" size="20" maxlength="40" value=""/>
-            <a href="javascript:call_fieldlookup2(document.searchform.copyToProductId,'LookupProduct');"><img src="/content/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+            <a href="javascript:call_fieldlookup2(document.searchform.copyToProductId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             <span class='tabletext'><a href="javascript:document.searchform.UPDATE_MODE.value='COPY';document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingCopyBOMAssocs}</a></span>
             </td>
         </tr>
@@ -108,7 +108,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
                 <input type="text" class="inputBox" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
-                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productId,'LookupProduct');"><img src="/content/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             </td>
             </tr>
             <tr>
@@ -116,18 +116,16 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
                 <input type="text" class="inputBox" name="productIdTo" size="20" maxlength="40" value="${productIdTo?if_exists}"/>
-                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productIdTo,'LookupProduct');"><img src="/content/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productIdTo,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
             </td>
             </tr>
             <tr>
             <td align="right"><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
             <td>&nbsp;</td>
             <td>
-                <div class="tabletext">
-                    <input type="text" class="inputBox" name="fromDate" size="25" maxlength="40" value=""/>
-                    <a href="javascript:call_cal(document.editProductAssocForm.fromDate,'${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
-                    (${uiLabelMap.ManufacturingWillBeSetToNow})
-                </div>
+                <input type="text" class="inputBox" name="fromDate" size="25" maxlength="40" value=""/>
+                <a href="javascript:call_cal(document.editProductAssocForm.fromDate,'${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+                (${uiLabelMap.ManufacturingWillBeSetToNow})
             </td>
             </tr>
     <#else>
@@ -163,10 +161,8 @@ function lookupBom() {
         <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.CommonThruDate}:</div></td>
         <td>&nbsp;</td>
         <td width="74%">
-        <div class="tabletext">
             <input type="text" class="inputBox" name="thruDate" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("thruDate"))?if_exists}"</#if> size="30" maxlength="30"/> 
             <a href="javascript:call_cal(document.editProductAssocForm.thruDate,<#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("thruDate"))?exists>'${request.getParameter("thruDate")}'<#else>'${nowTimestampString}'</#if>);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
-        </div>
         </td>
     </tr>
     <tr>
@@ -175,7 +171,7 @@ function lookupBom() {
         <td width="74%"><input type="text" class="inputBox" name="sequenceNum" <#if useValues>value="${(productAssoc.sequenceNum)?if_exists}"<#else>value="${(request.getParameter("sequenceNum"))?if_exists}"</#if> size="5" maxlength="10"/></td>
     </tr>
     <tr>
-        <td width="26%" align="right"><div class="tabletext"><div class='tableheadtext'>${uiLabelMap.ManufacturingReason}:</div></div></td>
+        <td width="26%" align="right"><div class='tableheadtext'>${uiLabelMap.ManufacturingReason}:</div></td>
         <td>&nbsp;</td>
         <td width="74%"><input type="text" class="inputBox" name="reason" <#if useValues>value="${(productAssoc.reason)?if_exists}"<#else>value="${(request.getParameter("reason"))?if_exists}"</#if> size="60" maxlength="255"/></td>
     </tr>
@@ -239,17 +235,17 @@ function lookupBom() {
         
         <table border="1" cellpadding="2" cellspacing="0">
             <tr>
-            <td><div class="tabletext"><b>${uiLabelMap.ProductProductId}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.ProductProductName}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.CommonFromDate}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.CommonThruDate}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.CommonSequenceNum}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.CommonQuantity}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.ManufacturingScrapFactor}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.ManufacturingFormula}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.ManufacturingRoutingTask}</b></div></td>
-            <td><div class="tabletext"><b>&nbsp;</b></div></td>
-            <td><div class="tabletext"><b>&nbsp;</b></div></td>
+            <td><b>${uiLabelMap.ProductProductId}</b></td>
+            <td><b>${uiLabelMap.ProductProductName}</b></td>
+            <td><b>${uiLabelMap.CommonFromDate}</b></td>
+            <td><b>${uiLabelMap.CommonThruDate}</b></td>
+            <td><b>${uiLabelMap.CommonSequenceNum}</b></td>
+            <td><b>${uiLabelMap.CommonQuantity}</b></td>
+            <td><b>${uiLabelMap.ManufacturingScrapFactor}</b></td>
+            <td><b>${uiLabelMap.ManufacturingFormula}</b></td>
+            <td><b>${uiLabelMap.ManufacturingRoutingTask}</b></td>
+            <td><b>&nbsp;</b></td>
+            <td><b>&nbsp;</b></td>
             </tr>
             <#list assocFromProducts as assocFromProduct>
             <#assign listToProduct = assocFromProduct.getRelatedOneCache("AssocProduct")>
@@ -261,11 +257,11 @@ function lookupBom() {
                 ${(assocFromProduct.fromDate)?if_exists}&nbsp;</div></td>
                 <td><div class="tabletext" <#if (assocFromProduct.getTimestamp("thruDate"))?exists && nowDate.after(assocFromProduct.getTimestamp("thruDate"))> style="color: red;"</#if>>
                 ${(assocFromProduct.thruDate)?if_exists}&nbsp;</div></td>
-                <td><div class="tabletext">&nbsp;${(assocFromProduct.sequenceNum)?if_exists}</div></td>
-                <td><div class="tabletext">&nbsp;${(assocFromProduct.quantity)?if_exists}</div></td>
-                <td><div class="tabletext">&nbsp;${(assocFromProduct.scrapFactor)?if_exists}</div></td>
-                <td><div class="tabletext">&nbsp;${(assocFromProduct.estimateCalcMethod)?if_exists}</div></td>
-                <td><div class="tabletext">&nbsp;${(assocFromProduct.routingWorkEffortId)?if_exists}</div></td>
+                <td>&nbsp;${(assocFromProduct.sequenceNum)?if_exists}</td>
+                <td>&nbsp;${(assocFromProduct.quantity)?if_exists}</td>
+                <td>&nbsp;${(assocFromProduct.scrapFactor)?if_exists}</td>
+                <td>&nbsp;${(assocFromProduct.estimateCalcMethod)?if_exists}</td>
+                <td>&nbsp;${(assocFromProduct.routingWorkEffortId)?if_exists}</td>
                 <td>
                 <a href="<@ofbizUrl>UpdateProductBom?UPDATE_MODE=DELETE&productId=${productId}&productIdTo=${(assocFromProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocFromProduct.productAssocTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocFromProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
                 ${uiLabelMap.CommonDelete}</a>
@@ -282,12 +278,12 @@ function lookupBom() {
         <h2>${uiLabelMap.ManufacturingProductComponentOf}</h2>
         <table border="1" cellpadding="2" cellspacing="0">
             <tr>
-            <td><div class="tabletext"><b>${uiLabelMap.ProductProductId}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.ProductProductName}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.CommonFromDate}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.CommonThruDate}</b></div></td>
-            <td><div class="tabletext"><b>${uiLabelMap.CommonQuantity}</b></div></td>
-            <td><div class="tabletext"><b>&nbsp;</b></div></td>
+            <td><b>${uiLabelMap.ProductProductId}</b></td>
+            <td><b>${uiLabelMap.ProductProductName}</b></td>
+            <td><b>${uiLabelMap.CommonFromDate}</b></td>
+            <td><b>${uiLabelMap.CommonThruDate}</b></td>
+            <td><b>${uiLabelMap.CommonQuantity}</b></td>
+            <td><b>&nbsp;</b></td>
             </tr>
             <#list assocToProducts as assocToProduct>
             <#assign listToProduct = assocToProduct.getRelatedOneCache("MainProduct")>
@@ -296,9 +292,9 @@ function lookupBom() {
                 <td><a href="<@ofbizUrl>EditProductBom?productId=${(assocToProduct.productId)?if_exists}&productAssocTypeId=${(assocToProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(assocToProduct.productId)?if_exists}</a></td>
 <!--                <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProduct?productId=${(assocToProduct.productId)?if_exists}</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if></td> -->
                 <td><#if listToProduct?exists><a href="<@ofbizUrl>EditProductBom?productId=${(assocToProduct.productId)?if_exists}&productAssocTypeId=${(assocToProduct.productAssocTypeId)?if_exists}#components</@ofbizUrl>" class="buttontext">${(listToProduct.internalName)?if_exists}</a></#if></td>
-                <td><div class="tabletext">${(assocToProduct.getTimestamp("fromDate"))?if_exists}&nbsp;</div></td>
-                <td><div class="tabletext">${(assocToProduct.getTimestamp("thruDate"))?if_exists}&nbsp;</div></td>
-                <td><div class="tabletext">${(assocToProduct.quantity)?if_exists}&nbsp;</div></td>
+                <td>${(assocToProduct.getTimestamp("fromDate"))?if_exists}&nbsp;</td>
+                <td>${(assocToProduct.getTimestamp("thruDate"))?if_exists}&nbsp;</td>
+                <td>${(assocToProduct.quantity)?if_exists}&nbsp;</td>
                 <td>
                 <a href="<@ofbizUrl>UpdateProductBom?UPDATE_MODE=DELETE&productId=${(assocToProduct.productId)?if_exists}&productIdTo=${(assocToProduct.productIdTo)?if_exists}&productAssocTypeId=${(assocToProduct.productAssocTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocToProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
                 ${uiLabelMap.CommonDelete}</a>
@@ -308,5 +304,5 @@ function lookupBom() {
         </table>
 
         <br/>
-        <div class="tabletext">NOTE: <b style="color: red;">Red</b> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is <b style="color: red;">red</b>, association has not started yet; if Thru Date is <b style="color: red;">red</b>, association has expired (<u>and should probably be deleted</u>).</div>
+        NOTE: <b style="color: red;">Red</b> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is <b style="color: red;">red</b>, association has not started yet; if Thru Date is <b style="color: red;">red</b>, association has expired (<u>and should probably be deleted</u>).
     </#if>
