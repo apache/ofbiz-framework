@@ -21,7 +21,7 @@ under the License.
 <hr/>
 <div class="tableheadtext">${uiLabelMap.ManufacturingSelectedFeatures}</div>
 <#list selectedFeatures as selectedFeature>
-    <div class="tabletext">${selectedFeature.productFeatureTypeId} = ${selectedFeature.description?if_exists} [${selectedFeature.productFeatureId}]</div>
+    <p>${selectedFeature.productFeatureTypeId} = ${selectedFeature.description?if_exists} [${selectedFeature.productFeatureId}]</p>
 </#list>
 </#if>
 <hr/>
@@ -112,7 +112,7 @@ under the License.
           -->
         <#else>
           <tr>
-            <td colspan="6"><div class="head3">${uiLabelMap.CommonNoElementFound}.</div></td>
+            <td colspan="6"><h3>${uiLabelMap.CommonNoElementFound}.</h3></td>
           </tr>
         </#if>
       </table>

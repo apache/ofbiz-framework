@@ -25,7 +25,7 @@ function lookupBom() {
 // -->
 </script>
 
-    <div class="head1">${uiLabelMap.ManufacturingBillOfMaterials} <span class="head2"> <#if product?exists>${(product.internalName)?if_exists}</#if>[${uiLabelMap.CommonId}:${productId?if_exists}]</span></div>
+    <h1>${uiLabelMap.ManufacturingBillOfMaterials} <#if product?exists>${(product.internalName)?if_exists}</#if>[${uiLabelMap.CommonId}:${productId?if_exists}]</h1>
     <#if product?has_content>
         <a href="<@ofbizUrl>BomSimulation</@ofbizUrl>?productId=${productId}&bomType=${productAssocTypeId}" class="buttontext">${uiLabelMap.ManufacturingBillOfMaterials}</a>
         <!--<a href="<@ofbizUrl>EditRoutingProductLink?byProduct=${productId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ManufacturingProductRoutings}]</a></span>-->
@@ -235,7 +235,7 @@ function lookupBom() {
     <#if productId?exists && product?exists>
         <hr class="sepbar">
         <a name="components"></a>
-        <div class="head2">${uiLabelMap.ManufacturingProductComponents}</div>
+        <h2>${uiLabelMap.ManufacturingProductComponents}</h2>
         
         <table border="1" cellpadding="2" cellspacing="0">
             <tr>
@@ -279,7 +279,7 @@ function lookupBom() {
         </table>
         
         <hr class="sepbar">
-        <div class="head2">${uiLabelMap.ManufacturingProductComponentOf}</div>
+        <h2>${uiLabelMap.ManufacturingProductComponentOf}</h2>
         <table border="1" cellpadding="2" cellspacing="0">
             <tr>
             <td><div class="tabletext"><b>${uiLabelMap.ProductProductId}</b></div></td>

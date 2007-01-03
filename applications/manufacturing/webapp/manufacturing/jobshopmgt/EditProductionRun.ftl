@@ -214,5 +214,5 @@ under the License.
       </td></tr>
     </table>
 <#else>
-  <div class="head1">${uiLabelMap.ManufacturingNoProductionRunSelected}</div>
+  <h1>${uiLabelMap.ManufacturingNoProductionRunSelected}</h1>
 </#if>

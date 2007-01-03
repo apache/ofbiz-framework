@@ -16,11 +16,11 @@ under the License.
 -->
 
 <#if techDataCalendar?has_content>
-  <div class="head1">${uiLabelMap.ManufacturingUpdateCalendar} </div>
+  <h1>${uiLabelMap.ManufacturingUpdateCalendar} </h1>
   <form name="calendarform" method="post" action="<@ofbizUrl>UpdateCalendar</@ofbizUrl>">
     <input type="hidden" name="calendarId" value="${techDataCalendar.calendarId}">
 <#else>
-  <div class="head1">${uiLabelMap.ManufacturingCreateCalendar}</div>
+  <h1>${uiLabelMap.ManufacturingCreateCalendar}</h1>
   <form name="calendarform" method="post" action="<@ofbizUrl>CreateCalendar</@ofbizUrl>">
 </#if>
 

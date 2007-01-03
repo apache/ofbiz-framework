@@ -16,7 +16,7 @@ under the License.
 -->
 
         <#if calendarWeek?has_content>
-            <div class="head1">${uiLabelMap.ManufacturingUpdateCalendarWeek} </div>
+            <h1>${uiLabelMap.ManufacturingUpdateCalendarWeek}</h1>
             <div>
                 <a href="<@ofbizUrl>EditCalendarWeek</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendarWeek}</a>
             </div>
@@ -29,7 +29,7 @@ under the License.
                 <input type="hidden" name="calendarWeekId" value="${calendarWeek.calendarWeekId}">
                   <td width="74%" valign="top" colspan="5"><div class="tabletext"><b>${calendarWeek.calendarWeekId?if_exists}</b> (${uiLabelMap.CommonNotModifRecreat})</td>
         <#else>
-            <div class="head1">${uiLabelMap.ManufacturingCreateCalendarWeek} </div>
+            <h1>${uiLabelMap.ManufacturingCreateCalendarWeek}</h1>
             <div>
                 <a href="<@ofbizUrl>EditCalendarWeek</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendarWeek}</a>
             </div>
