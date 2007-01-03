@@ -33,6 +33,40 @@ FORM {
 margin: 0px;
 }
 
+INPUT {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFFF;
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+INPUT[type="submit"] {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+color: #000099;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+INPUT[type="submit"]:hover {
+color: red;
+text-decoration: underline;
+}
+
+SELECT {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+background: #FFFFFF;
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
 UL {
 margin-top: 0;
 margin-bottom: 0;
@@ -902,6 +936,10 @@ background: #FFFFFF;
 font-size: 8pt;
 }
 
+/* 
+ * This style can be used to decorate links (A elements) to make them similar to form's buttons.
+ * For this reason its style attributes should be the same as the ones of the SUBMIT selector.
+ */
 .smallSubmit {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 8pt;

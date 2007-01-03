@@ -27,7 +27,7 @@ under the License.
                 <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
     </form>

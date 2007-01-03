@@ -39,83 +39,82 @@ under the License.
               <tr>
                   <td width="26%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarWeekId}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="74%" colspan="5"><input type="text" class="inputBox" size="12" name="calendarWeekId" value="${calendarWeekData.calendarWeekId?if_exists}"></td>
+                  <td width="74%" colspan="5"><input type="text" size="12" name="calendarWeekId" value="${calendarWeekData.calendarWeekId?if_exists}"></td>
         </#if>
             </tr>
             <tr>
                   <td width="26%" align="right" valign="top">${uiLabelMap.CommonDescription}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="74%" colspan="5"><input type="text" class="inputBox" size="30" name="description" value="${calendarWeekData.description?if_exists}"></td>
+                  <td width="74%" colspan="5"><input type="text" size="30" name="description" value="${calendarWeekData.description?if_exists}"></td>
             </tr>
             <tr>
                   <td width="26%" align="right" valign="top"><b>${uiLabelMap.CommonMonday}</b>&nbsp;${uiLabelMap.ManufacturingStartTime}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="1%"><input type="text" class="inputBox" size="12" name="mondayStartTime" value="${calendarWeekData.mondayStartTime?if_exists}"></td>
+                  <td width="1%"><input type="text" size="12" name="mondayStartTime" value="${calendarWeekData.mondayStartTime?if_exists}"></td>
                   <td width="5">&nbsp;</td>
                   <td width="1%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarCapacity}</td>
                   <td width="1%">&nbsp;</td>
-                  <td width="40%"><input type="text" class="inputBox" size="8" name="mondayCapacity" value="${calendarWeekData.mondayCapacity?if_exists}"></td>
+                  <td width="40%"><input type="text" size="8" name="mondayCapacity" value="${calendarWeekData.mondayCapacity?if_exists}"></td>
             </tr>
              <tr>
                   <td width="26%" align="right" valign="top"><b>${uiLabelMap.CommonTuesday}</b>&nbsp;${uiLabelMap.ManufacturingStartTime}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="1%"><input type="text" class="inputBox" size="12" name="tuesdayStartTime" value="${calendarWeekData.tuesdayStartTime?if_exists}"></td>
+                  <td width="1%"><input type="text" size="12" name="tuesdayStartTime" value="${calendarWeekData.tuesdayStartTime?if_exists}"></td>
                   <td width="5">&nbsp;</td>
                   <td width="1%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarCapacity}</td>
                   <td width="1%">&nbsp;</td>
-                  <td width="40%"><input type="text" class="inputBox" size="8" name="tuesdayCapacity" value="${calendarWeekData.tuesdayCapacity?if_exists}"></td>
+                  <td width="40%"><input type="text" size="8" name="tuesdayCapacity" value="${calendarWeekData.tuesdayCapacity?if_exists}"></td>
             </tr>
              <tr>
                   <td width="26%" align="right" valign="top"><b>${uiLabelMap.CommonWednesday}</b>&nbsp;${uiLabelMap.ManufacturingStartTime}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="1%"><input type="text" class="inputBox" size="12" name="wednesdayStartTime" value="${calendarWeekData.wednesdayStartTime?if_exists}"></td>
+                  <td width="1%"><input type="text" size="12" name="wednesdayStartTime" value="${calendarWeekData.wednesdayStartTime?if_exists}"></td>
                   <td width="5">&nbsp;</td>
                   <td width="1%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarCapacity}</td>
                   <td width="1%">&nbsp;</td>
-                  <td width="40%"><input type="text" class="inputBox" size="8" name="wednesdayCapacity" value="${calendarWeekData.wednesdayCapacity?if_exists}"></td>
+                  <td width="40%"><input type="text" size="8" name="wednesdayCapacity" value="${calendarWeekData.wednesdayCapacity?if_exists}"></td>
             </tr>
              <tr>
                   <td width="26%" align="right" valign="top"><b>${uiLabelMap.CommonThursday}</b>&nbsp;${uiLabelMap.ManufacturingStartTime}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="1%"><input type="text" class="inputBox" size="12" name="thursdayStartTime" value="${calendarWeekData.thursdayStartTime?if_exists}"></td>
+                  <td width="1%"><input type="text" size="12" name="thursdayStartTime" value="${calendarWeekData.thursdayStartTime?if_exists}"></td>
                   <td width="5">&nbsp;</td>
                   <td width="1%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarCapacity}</td>
                   <td width="1%">&nbsp;</td>
-                  <td width="40%"><input type="text" class="inputBox" size="8" name="thursdayCapacity" value="${calendarWeekData.thursdayCapacity?if_exists}"></td>
+                  <td width="40%"><input type="text" size="8" name="thursdayCapacity" value="${calendarWeekData.thursdayCapacity?if_exists}"></td>
             </tr>
              <tr>
                   <td width="26%" align="right" valign="top"><b>${uiLabelMap.CommonFriday}</b>&nbsp;${uiLabelMap.ManufacturingStartTime}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="1%"><input type="text" class="inputBox" size="12" name="fridayStartTime" value="${calendarWeekData.fridayStartTime?if_exists}"></td>
+                  <td width="1%"><input type="text" size="12" name="fridayStartTime" value="${calendarWeekData.fridayStartTime?if_exists}"></td>
                   <td width="5">&nbsp;</td>
                   <td width="1%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarCapacity}</td>
                   <td width="1%">&nbsp;</td>
-                  <td width="40%"><input type="text" class="inputBox" size="8" name="fridayCapacity" value="${calendarWeekData.fridayCapacity?if_exists}"></td>
+                  <td width="40%"><input type="text" size="8" name="fridayCapacity" value="${calendarWeekData.fridayCapacity?if_exists}"></td>
             </tr>
              <tr>
                   <td width="26%" align="right" valign="top"><b>${uiLabelMap.CommonSaturday}</b>&nbsp;${uiLabelMap.ManufacturingStartTime}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="1%"><input type="text" class="inputBox" size="12" name="saturdayStartTime" value="${calendarWeekData.saturdayStartTime?if_exists}"></td>
+                  <td width="1%"><input type="text" size="12" name="saturdayStartTime" value="${calendarWeekData.saturdayStartTime?if_exists}"></td>
                   <td width="5">&nbsp;</td>
                   <td width="1%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarCapacity}</td>
                   <td width="1%">&nbsp;</td>
-                  <td width="40%"><input type="text" class="inputBox" size="8" name="saturdayCapacity" value="${calendarWeekData.saturdayCapacity?if_exists}"></td>
+                  <td width="40%"><input type="text" size="8" name="saturdayCapacity" value="${calendarWeekData.saturdayCapacity?if_exists}"></td>
             </tr>
              <tr>
                   <td width="26%" align="right" valign="top"><b>${uiLabelMap.CommonSunday}</b>&nbsp;${uiLabelMap.ManufacturingStartTime}</td>
                   <td width="5">&nbsp;</td>
-                  <td width="1%"><input type="text" class="inputBox" size="12" name="sundayStartTime" value="${calendarWeekData.sundayStartTime?if_exists}"></td>
+                  <td width="1%"><input type="text" size="12" name="sundayStartTime" value="${calendarWeekData.sundayStartTime?if_exists}"></td>
                   <td width="5">&nbsp;</td>
                   <td width="1%" align="right" valign="top">${uiLabelMap.ManufacturingCalendarCapacity}</td>
                   <td width="1%">&nbsp;</td>
-                  <td width="40%"><input type="text" class="inputBox" size="8" name="sundayCapacity" value="${calendarWeekData.sundayCapacity?if_exists}"></td>
+                  <td width="40%"><input type="text" size="8" name="sundayCapacity" value="${calendarWeekData.sundayCapacity?if_exists}"></td>
             </tr>
             <tr>
                   <td width="26%" align="right" valign="top">
                   <td width="5">&nbsp;</td>
-                  <td width="74%" colspan="5"><input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"></td>
-    </tr>
-            
+                  <td width="74%" colspan="5"><input type="submit" value="${uiLabelMap.CommonUpdate}"/></td>
+            </tr>
         </table>
     <br/>
 

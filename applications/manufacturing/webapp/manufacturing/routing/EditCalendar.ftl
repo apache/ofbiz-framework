@@ -36,19 +36,19 @@ under the License.
     <tr>
       <td width='26%' align='right' valign="top">${uiLabelMap.ManufacturingCalendarId}</div></td>
       <td width="5">&nbsp;</td>
-      <td width="74%"><input type="text" class="inputBox" size="12" name="calendarId" value="${calendarData.calendarId?if_exists}"></td>
+      <td width="74%"><input type="text" size="12" name="calendarId" value="${calendarData.calendarId?if_exists}"></td>
     </tr>
     </#if>
     <tr>
       <td width='26%' align='right' valign='top'>${uiLabelMap.CommonDescription}</td>
       <td width="5">&nbsp;</td>
-      <td width="74%"><input type="text" class="inputBox" size="40" name="description" value="${calendarData.description?if_exists}"></td>
+      <td width="74%"><input type="text" size="40" name="description" value="${calendarData.description?if_exists}"></td>
     </tr>
     <tr>
       <td width='26%' align='right' valign='top'>${uiLabelMap.ManufacturingCalendarWeekId}</td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-         <select class="selectBox" name="calendarWeekId">
+         <select name="calendarWeekId">
           <#list calendarWeeks as calendarWeek>
           <option value="${calendarWeek.calendarWeekId}" <#if calendarData?has_content && calendarData.calendarWeekId?default("") == calendarWeek.calendarWeekId>SELECTED</#if>>${(calendarWeek.get("description",locale))?if_exists}</option>
           </#list>
@@ -57,7 +57,7 @@ under the License.
     <tr>
       <td width="26%" align="right" valign="top">
       <td width="5">&nbsp;</td>
-      <td width="74%"><input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"></td>
+      <td width="74%"><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
     </tr>
   </table>
 </form>

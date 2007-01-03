@@ -55,20 +55,20 @@ function lookupInventory() {
                 <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.ManufacturingProductId}:</div></td>
                 <td width='5%'>&nbsp;</td>
                 <td>
-                    <input type='text' size='25' class='inputBox' name='productId' value='${requestParameters.productId?if_exists}'/>
+                    <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
                     <span class='tabletext'>
                       <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
                         <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
                       </a> 
                     </span>
-                    <input type='text' size='25' readonly class='inputBox' name='productId_description' value=''/>
+                    <input type='text' size='25' readonly name='productId_description' value=''/>
                  </td>
               </tr>
               <tr>
                 <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.ProductFacility}:</div></td>
                 <td width='5%'>&nbsp;</td>
                 <td>
-                  <select name="facilityId" class="selectBox">
+                  <select name="facilityId">
                     <#list facilities as facility>
                       <option value="${facility.facilityId}">${facility.facilityName} [${facility.facilityId}]</option>
                     </#list>
@@ -79,7 +79,7 @@ function lookupInventory() {
                 <td width='20%' align='right'><div class='tableheadtext'>${uiLabelMap.CommonFromDate}:</div></td>
                 <td width='5%'>&nbsp;</td>
                 <td>
-                  <input type='text' size='25' class='inputBox' name='eventDate' value='${requestParameters.eventDate?if_exists}'/>
+                  <input type='text' size='25' name='eventDate' value='${requestParameters.eventDate?if_exists}'/>
                     <a href="javascript:call_cal(document.lookupinventory.eventDate,'');">
                        <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
                      </a>
