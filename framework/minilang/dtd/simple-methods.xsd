@@ -652,49 +652,190 @@ under the License.
     </xs:attributeGroup>
     <!-- Operations to call Java methods and create Java objects -->
     <xs:element name="call-object-method" substitutionGroup="CallOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Calls a method on an existing object that exists in a field in the environment or in a map in the environment.
+                  
+                The string and field sub-elements are passed to the method as arguments in the order they are specified. 
+                If the sub-elements do not match the method arguments an error will be returned.
+                
+                The return value will be put in the named field if an value is returned and 
+                if a field and optionally a map name are specified.                
+            </xs:documentation>
+        </xs:annotation>            
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="string"/>
-                <xs:element ref="field"/>
+                <xs:element ref="string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to specify an inline String argument to the method call.
+                        </xs:documentation>
+                    </xs:annotation>            
+                </xs:element>
+                <xs:element ref="field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to specify a field to be passed as an argument to the method call. 
+                            The field can be in a map in the environment or if no map-name is specified 
+                            then the field will come directly from the environment.
+                        </xs:documentation>
+                    </xs:annotation>                                
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.call-object-method"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-object-method">
-        <xs:attribute type="xs:string" name="obj-field-name" use="required"/>
-        <xs:attribute type="xs:string" name="obj-map-name"/>
-        <xs:attribute type="xs:string" name="method-name" use="required"/>
-        <xs:attribute type="xs:string" name="ret-field-name"/>
-        <xs:attribute type="xs:string" name="ret-map-name"/>
+        <xs:attribute type="xs:string" name="obj-field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the field the object is in that has the method to be called.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="obj-map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map the field of the object is in that has the method to be called. 
+                    If this is not specified the environment will be used to find the field in.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="method-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method to call on the given object.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="ret-field-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the field to put the result in. If not specified any return value will be ignored.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="ret-map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map the field of the return value is in. 
+                    If not specified but the field name is then the environment will be used to find the field in.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-class-method" substitutionGroup="CallOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Calls a static method on a class.
+                
+                The string and field sub-elements are passed to the method as arguments in the order they are specified. 
+                If the sub-elements do not match the method arguments an error will be returned.
+                
+                The return value will be put in the named field if an value is returned and if a 
+                field and optionally a map name are specified.                                                
+            </xs:documentation>
+        </xs:annotation>            
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="string"/>
-                <xs:element ref="field"/>
+                <xs:element ref="string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to specify an inline String argument to the method call.
+                        </xs:documentation>
+                    </xs:annotation>                                
+                </xs:element>
+                <xs:element ref="field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to specify a field to be passed as an argument to the method call. 
+                            The field can be in a map in the environment or if no map-name is specified then 
+                            the field will come directly from the environment.
+                        </xs:documentation>
+                    </xs:annotation>                    
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.call-class-method"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-class-method">
-        <xs:attribute type="xs:string" name="class-name" use="required"/>
-        <xs:attribute type="xs:string" name="method-name" use="required"/>
-        <xs:attribute type="xs:string" name="ret-field-name"/>
-        <xs:attribute type="xs:string" name="ret-map-name"/>
+        <xs:attribute type="xs:string" name="class-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the class to call the static method on.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="method-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the static method to call on the given class.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="ret-field-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the field to put the result in. If not specified any return value will be ignored.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="ret-map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map the field of the return value is in. 
+                    If not specified but the field name is then the environment will be used to find the field in.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="create-object" substitutionGroup="CallOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Creates an object of the given class and if the field-name is specified saves it in that field. 
+                
+                The string and field sub-elements are passed to the constructor method as arguments in the order they are specified.  
+                If the sub-elements do not match the constructor method arguments an error will be returned.
+            </xs:documentation>
+        </xs:annotation>            
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element ref="string"/>
+                <xs:annotation>
+                    <xs:documentation>
+                        Used to specify an inline String argument to the constructor method. 
+                    </xs:documentation>
+                </xs:annotation>            
                 <xs:element ref="field"/>
+                <xs:annotation>
+                    <xs:documentation>
+                        Used to specify a field to be passed as an argument to the constructor method. 
+                        The field can be in a map in the environment or if no map-name is specified then 
+                        the field will come directly from the environment. 
+                    </xs:documentation>
+                </xs:annotation>            
             </xs:choice>
             <xs:attributeGroup ref="attlist.create-object"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.create-object">
-        <xs:attribute type="xs:string" name="class-name" use="required"/>
-        <xs:attribute type="xs:string" name="field-name"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="class-name" use="required">
+            <xs:documentation>
+                The name of the class to construct an object of. 
+            </xs:documentation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name">
+            <xs:documentation>
+                The name of a field to put the new object in.   
+                If not specified the object will be created but ignored after that. 
+            </xs:documentation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:documentation>
+                The name of the map the field will go in. 
+                If not specified the field will be put in the environment. 
+            </xs:documentation>            
+        </xs:attribute>
     </xs:attributeGroup>
     <!-- Operations to copy map fields in the current env to context specific containers -->
     <!-- Event specific operations -->
