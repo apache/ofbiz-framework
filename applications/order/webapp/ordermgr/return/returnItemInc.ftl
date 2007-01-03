@@ -154,7 +154,7 @@ under the License.
                     </div>
                   </td>                                     
                   <td>
-                    <input type="text" class="inputBox" size="8" name="amount_o_${rowCount}" value="${adj.amount?string("##0.00")}"/>
+                    <input type="text" class="inputBox" size="8" name="amount_o_${rowCount}" <#if adj.amount?has_content>value="${adj.amount?string("##0.00")}"</#if>/>
                   </td>
                   <td>
                     <select name="returnTypeId_o_${rowCount}" class="selectBox">
