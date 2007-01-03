@@ -16,11 +16,11 @@ under the License.
 -->
 <div class="head1">${uiLabelMap.ProductAlternateKeyWordThesaurus}</div>
 <form method="post" action="<@ofbizUrl>createKeywordThesaurus</@ofbizUrl>">
-        <div class="tabletext">
+    <div class="tabletext">
         ${uiLabelMap.ProductKeyword} :<input type="text" name="enteredKeyword" size="10" class="inputBox"/>
         ${uiLabelMap.ProductAlternate} :<input type="text" name="alternateKeyword" size="10" class="inputBox"/>
         ${uiLabelMap.ProductRelationship} :<select name="relationshipEnumId" class="selectBox"><#list relationshipEnums as relationshipEnum><option value="${relationshipEnum.enumId}">${relationshipEnum.get("description",locale)}</option></#list></select>
-        <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallButton">
+        <input type="submit" value="${uiLabelMap.CommonAdd}"/>
     </div>
 </form>
 
