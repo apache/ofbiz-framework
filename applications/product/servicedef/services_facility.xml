@@ -53,6 +53,7 @@ under the License.
             <exclude field-name="quantityOnHandTotal"/>
         </auto-attributes>
         <attribute name="oldOwnerPartyId" mode="OUT" optional="false" type="String"/>
+        <attribute name="oldStatusId" mode="OUT" optional="true" type="String"/>
     </service>
     <service name="checkProductInventoryDiscontinuation" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductInventoryDiscontinuation" auth="false">
