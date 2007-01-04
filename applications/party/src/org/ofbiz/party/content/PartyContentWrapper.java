@@ -63,10 +63,23 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     // interface implementation
-    public String get(String contentTypeId) {
-        return getPartyContentAsText(party, contentTypeId, locale, mimeTypeId, party.getDelegator());
+    public String get(String contentTypeId, boolean useCache) {
+        return getPartyContentAsText(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), useCache);
     }
 
+    public String get(String contentTypeId) {
+        return get(contentTypeId, true);
+    }
+
+    public String getId(String contentTypeId) {
+        GenericValue partyContent = getFirstPartyContentByType(null, party, contentTypeId, party.getDelegator());
+        if (partyContent != null) {
+            return partyContent.getString("contentId");
+        } else {
+            return null;
+        }
+    }
+    
     public List getList(String contentTypeId) {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator());
@@ -76,26 +89,30 @@ public class PartyContentWrapper implements ContentWrapper {
         }
     }
 
+    public String getContent(String contentId, boolean useCache) {
+        return getPartyContentAsText(party, contentId, null, locale, mimeTypeId, party.getDelegator(), useCache);
+    }
+
     public String getContent(String contentId) {
-        return getPartyContentAsText(party, contentId, null, locale, mimeTypeId, party.getDelegator());
+        return getContent(contentId, true);
     }
 
     // static methods
     public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request) {
-        return getPartyContentAsText(party, partyContentId, UtilHttp.getLocale(request), "text/html", party.getDelegator());
+        return getPartyContentAsText(party, partyContentId, UtilHttp.getLocale(request), "text/html", party.getDelegator(), true);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentId, Locale locale) {
-        return getPartyContentAsText(party, partyContentId, locale, null, null);
+        return getPartyContentAsText(party, partyContentId, locale, null, null, true);
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator) {
-        return getPartyContentAsText(party, null, partyContentTypeId, locale, mimeTypeId, delegator);
+            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
+        return getPartyContentAsText(party, null, partyContentTypeId, locale, mimeTypeId, delegator, useCache);
     }
 
     public static String getPartyContentAsText(GenericValue party, String contentId, String partyContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator) {
+            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
         if (party == null) {
             return null;
         }
@@ -111,7 +128,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
 
         try {
-            if (workEffortContentCache.get(cacheKey) != null) {
+            if (useCache && workEffortContentCache.get(cacheKey) != null) {
                 return (String) workEffortContentCache.get(cacheKey);
             }
 
@@ -195,9 +212,7 @@ public class PartyContentWrapper implements ContentWrapper {
         if (contentId != null) {
             partyContent = delegator.findByPrimaryKeyCache("PartyContent", UtilMisc.toMap("partyId", partyId, "contentId", contentId));
         } else {
-            List partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", partyId, "contentPurposeEnumId", partyContentTypeId), UtilMisc.toList("-fromDate"));
-            partyContentList = EntityUtil.filterByDate(partyContentList);
-            partyContent = EntityUtil.getFirst(partyContentList);
+            partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);            
         }
         if (partyContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
@@ -227,6 +242,34 @@ public class PartyContentWrapper implements ContentWrapper {
         }
 
         return contentList;
+    }
+
+    public static GenericValue getFirstPartyContentByType(String partyId, GenericValue party, String partyContentTypeId, GenericDelegator delegator) {
+        if (partyId == null && party != null) {
+            partyId = party.getString("partyId");
+        }
+
+        if (delegator == null && party != null) {
+            delegator = party.getDelegator();
+        }
+
+        if (delegator == null) {
+            throw new IllegalArgumentException("GenericDelegator missing");
+        }
+
+        List partyContentList = null;
+        try {
+            partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", partyId, "contentPurposeEnumId", partyContentTypeId), UtilMisc.toList("-fromDate"));
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+        }
+
+        if (partyContentList != null) {
+            partyContentList = EntityUtil.filterByDate(partyContentList);
+            return EntityUtil.getFirst(partyContentList);
+        } else {
+            return null;
+        }
     }
 
     public static PartyContentWrapper makePartyContentWrapper(GenericValue party, HttpServletRequest request) {
