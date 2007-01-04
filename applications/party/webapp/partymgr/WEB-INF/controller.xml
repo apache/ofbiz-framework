@@ -829,6 +829,24 @@ under the License.
         <security auth="false" https="false"/>
         <response name="success" type="view" value="ViewSimpleContent"/>
     </request-map>
+
+    <!-- Create and Upload Party Content -->
+    <request-map uri="EditPartyContents">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditPartyContents"/>
+    </request-map>    
+    
+    <request-map uri="createPartyContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="org/ofbiz/party/party/PartySimpleEvents.xml" invoke="createPartyContent"/>
+        <response name="success" type="view" value="EditPartyContents"/>
+    </request-map>
+    
+    <request-map uri="updatePartyContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="org/ofbiz/party/party/PartySimpleEvents.xml" invoke="updatePartyContent"/>
+        <response name="success" type="view" value="EditPartyContents"/>
+    </request-map>
     
     <!-- Lookup request mappings -->
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
@@ -841,6 +859,9 @@ under the License.
     <request-map uri="LookupSegmentGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupSegmentGroup"/></request-map>
     <request-map uri="LookupContactList"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactList"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
+    <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
+    <request-map uri="LookupDataResource"><security auth="true" https="true"/><response name="success" type="view" value="LookupDataResource"/></request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -921,6 +942,8 @@ under the License.
     <view-map name="LookupCustRequest" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupCustRequest"/>
 
     <view-map name="LookupContactList" type="screen" page="component://party/widget/partymgr/PartyContactListScreens.xml#ListLookupContactList"/>
+    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
+    <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
 
     <view-map name="LookupSegmentGroup" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSegmentGroup"/>
 	
@@ -928,5 +951,6 @@ under the License.
 
     <view-map name="AddressMatchMap" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddressMatchMap"/>
     <view-map name="FindAddressMatch" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#FindAddressMatch"/>
+    <view-map name="EditPartyContents" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyContents"/>
     <!-- end of view mappings -->
 </site-conf>

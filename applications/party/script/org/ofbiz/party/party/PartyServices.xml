@@ -326,7 +326,7 @@ under the License.
     
     <!-- create party content -->
     <simple-method method-name="createPartyContent" short-description="Creates Party Associated Content" login-required="false">
-        <!-- make sure we are logged in when passing a partyId -->
+           <!-- make sure we are logged in when passing a partyId -->
         <if-not-empty field-name="partyId" map-name="parameters">
             <if-empty field-name="userLogin" map-name="parameters">
                 <add-error><fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/></add-error>
@@ -345,73 +345,131 @@ under the License.
                 </if-compare-field>
             </if-not-empty>
         </if-empty>
-
-        <!-- find the sub directory file location -->
-        <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
-        <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
-
-        <!-- locate the file extension to use based on mime-type -->
-        <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
-        <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
-        <first-from-list entry-name="extension" list-name="extensions"/>
-
-        <!-- create the data resource object -->
-        <sequenced-id-to-env sequence-name="DataResource" env-name="dataResourceId"/>
-        <make-value value-name="dataResource" entity-name="DataResource"/>
-        <set from-field="dataResourceId" field="dataResource.dataResourceId"/>
-        <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
-        <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
-        <set from-field="parameters.dataCategoryId" field="dataResource.dataCategoryId"/>
-        <set from-field="parameters.statusId" field="dataResource.statusId"/>
-
-        <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
-        <if-not-empty field-name="extension">
-            <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
-        </if-not-empty>
-
-        <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
-        <create-value value-name="dataResource"/>
-
-        <!-- create content record -->
-        <sequenced-id-to-env sequence-name="Content" env-name="contentId"/>
-        <make-value value-name="content" entity-name="Content"/>
-        <set from-field="contentId" field="content.contentId"/>
-        <set from-field="parameters._uploadedFile_fileName" field="content.contentName"/>
-        <set from-field="parameters._uploadedFile_contentType" field="content.mimeTypeId"/>
-        <set from-field="dataResource.dataResourceId" field="content.dataResourceId"/>
-        <set from-field="parameters.contentTypeId" field="content.contentTypeId"/>
-        <set from-field="parameters.statusId" field="content.statusId"/>
-        <set value="${parameters.locale}" field="content.localeString"/>
-        <create-value value-name="content"/>
-
-        <!-- create the content role -->
-        <if-not-empty field-name="partyId" map-name="parameters">
+       <if-not-empty field-name="_uploadedFile_fileName" map-name="parameters">                    
+           <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
+           <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
+           <!-- locate the file extension to use based on mime-type -->
+           <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
+           <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
+           <first-from-list entry-name="extension" list-name="extensions"/>
+           <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="dataResource"/>
+           <!-- create the data resource object -->
+           <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+           <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+           <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
+           <if-not-empty field-name="extension">
+              <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
+           </if-not-empty>
+           <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
+           <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
+               <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
+               <result-to-field result-name="dataResource" field-name="dataResourceMap"/>
+           </call-service>           
+       </if-not-empty>
+        
+       <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createContentMap"/>
+       <if-not-empty field-name="_uploadedFile_fileName" map-name="parameters">
+            <set from-field="dataResourceId" field="createContentMap.dataResourceId"/>
+       </if-not-empty>
+       <call-service service-name="createContent" in-map-name="createContentMap" break-on-error="false">
+            <result-to-field result-name="contentId" field-name="contentId"/>
+       </call-service>        
+       <!-- create the content role -->
+       <if-not-empty field-name="partyId" map-name="parameters">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <make-value value-name="contentRole" entity-name="ContentRole"/>
-            <set from-field="content.contentId" field="contentRole.contentId"/>
+            <set-service-fields service-name="createContentRole" map-name="parameters" to-map-name="contentRole"/>
+            <set from-field="contentId" field="contentRole.contentId"/>
             <set from-field="parameters.partyId" field="contentRole.partyId"/>
             <set from-field="nowTimestamp" field="contentRole.fromDate"/>
             <set value="OWNER" field="contentRole.roleTypeId"/>
-
+            <call-service service-name="createContentRole" in-map-name="contentRole" break-on-error="false" />
             <!-- check party role -->
             <make-value value-name="partyRole" entity-name="PartyRole"/>
             <set-pk-fields value-name="partyRole" map-name="contentRole"/>
             <find-by-and entity-name="PartyRole" map-name="partyRole" list-name="pRoles"/>
             <if-empty field-name="pRoles">
-                <create-value value-name="partyRole"/>
+                <set-service-fields service-name="createPartyRole" map-name="contentRole" to-map-name="partyRole"/>
+                <call-service service-name="createPartyRole" in-map-name="partyRole" break-on-error="false" />    
             </if-empty>
-            <create-value value-name="contentRole"/>
+       </if-not-empty>       
+       <if-not-empty field-name="_uploadedFile_fileName" map-name="parameters">
+            <!-- store the file -->
+            <set-service-fields service-name="createAnonFile" map-name="dataResourceMap" to-map-name="fileCtx"/>
+            <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
+            <set from-field="dataResourceMap" field="fileCtx.dataResource"/>
+            <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
         </if-not-empty>
-        
-        <!-- store the file -->
-        <set-service-fields service-name="createAnonFile" map-name="dataResource" to-map-name="fileCtx"/>
-        <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
-        <set from-field="dataResource" field="fileCtx.dataResource"/>
-        <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
-
-        <field-to-result field-name="contentId" map-name="content"/>
+       <field-to-result field-name="contentId" />                
     </simple-method>
 
+        <!-- Update party content -->
+    <simple-method method-name="updatePartyContent" short-description="Creates Party Associated Content" login-required="false">
+           <!-- make sure we are logged in when passing a partyId -->
+        <if-not-empty field-name="partyId" map-name="parameters">
+            <if-empty field-name="userLogin" map-name="parameters">
+                <add-error><fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/></add-error>
+                <check-errors/>
+            </if-empty>
+        </if-not-empty>
+
+        <!-- check permission when creating content on behalf of another party -->
+        <if-empty field-name="partyId" map-name="parameters">
+            <if-not-empty field-name="userLogin" map-name="parameters">
+                <set from-field="userLogin.partyId" field="parameters.partyId"/>
+                <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
+                    <check-permission permission="PARTYMGR" action="_UPDATE">
+                        <fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/>
+                    </check-permission>
+                </if-compare-field>
+            </if-not-empty>
+        </if-empty>
+                
+        <if-not-empty field-name="_uploadedFile_fileName" map-name="parameters">                    
+           <set from-field="parameters.contentId" field="lookupParam.contentId"/>
+           <find-by-primary-key use-cache="true" entity-name="Content" value-name="content" map-name="lookupParam"/>
+           <if-not-empty field-name="dataResourceId" map-name="content">
+               <set-service-fields service-name="updateDataResource" map-name="parameters" to-map-name="dataResource"/>           
+               <set from-field="content.dataResourceId" field="dataResource.dataResourceId"/>
+               <call-service service-name="updateDataResource" in-map-name="dataResource" break-on-error="false" />
+               <set from-field="content.dataResourceId" field="lookup.dataResourceId"/>
+               <find-by-primary-key use-cache="true" entity-name="DataResource" value-name="dataResourceMap" map-name="lookup"/>
+            <else>
+               <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
+               <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
+               <!-- locate the file extension to use based on mime-type -->
+               <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
+               <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
+               <first-from-list entry-name="extension" list-name="extensions"/>
+               <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="dataResource"/>
+               <!-- create the data resource object -->
+               <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+               <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+               <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
+               <if-not-empty field-name="extension">
+                   <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
+               </if-not-empty>
+               <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
+               <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
+                   <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
+                   <result-to-field result-name="dataResource" field-name="dataResourceMap"/>
+               </call-service>              
+            </else>   
+           </if-not-empty>           
+       </if-not-empty>        
+       <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContentMap"/>
+       <if-not-empty field-name="dataResourceId">
+           <set from-field="dataResourceId" field="updateContentMap.dataResourceId" />
+       </if-not-empty>
+       <call-service service-name="updateContent" in-map-name="updateContentMap" break-on-error="false" />
+       <if-not-empty field-name="_uploadedFile_fileName" map-name="parameters">
+          <set-service-fields service-name="createAnonFile" map-name="dataResourceMap" to-map-name="fileCtx"/>
+          <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
+          <set from-field="dataResourceMap" field="fileCtx.dataResource"/>
+          <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
+      </if-not-empty> 
+      <field-to-result map-name="parameters" field-name="contentId" result-name="contentId" />  
+    </simple-method>       
+    
     <!-- get parties based on PartyRelationship -->
     <simple-method method-name="getPartiesByRelationship" 
             short-description="Gets all parties related to partyIdFrom using the PartyRelationship entity" login-required="false">

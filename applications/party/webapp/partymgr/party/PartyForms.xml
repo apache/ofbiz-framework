@@ -375,4 +375,100 @@ under the License.
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
+    <!-- Party Content Form -->
+    
+    <form name="AddPartyContent" target="updatePartyContent" title="" type="upload" default-map-name="content"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <actions>
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="content.statusId"/>
+            </entity-one>
+            <entity-one entity-name="DataResource" value-name="dataResource" auto-field-map="false">
+                <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+            </entity-one>
+        </actions>
+        <alt-target use-when="content==null" target="createPartyContent"/>
+        <auto-fields-entity entity-name="Content" />
+        <field name="partyId" map-name="parameters"><hidden/></field>
+        <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="content==null&amp;&amp;contentId==null" name="contentId"><ignored/></field>
+        <field use-when="content==null&amp;&amp;contentId!=null" name="contentId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${contentId}]" also-hidden="false"/></field>
+        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>        
+        <field name="dataResourceId">
+            <lookup target-form-name="LookupDataResource"/>
+        </field>
+        <field name="contentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="content==null" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="content!=null" widget-style="selectBox">
+                <drop-down allow-empty="false" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${content.statusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="mimeTypeId" >
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
+        <field name="dataCategoryId" use-when="dataResource==null">
+            <drop-down allow-empty="false">
+                <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
+            </drop-down>
+        </field>
+        <field name="dataCategoryId" use-when="dataResource!=null">
+            <drop-down allow-empty="false">
+                <entity-options description="${categoryName}" entity-name="DataCategory">
+                    <entity-constraint name="dataCategoryId" value="${dataResource.dataCategoryId}"/>
+                    <entity-order-by field-name="categoryName"/>
+                </entity-options>
+               <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
+            </drop-down>
+        </field>
+
+        <field name="createButton" use-when="content==null" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="updateButton" use-when="content!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPartyContents" target="" separate-columns="false"
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        title="" type="list">
+        <actions>
+            <entity-and entity-name="ContentAndRole">
+                <field-map field-name="partyId"/>
+            </entity-and>
+        </actions>
+        <field name="partyId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="contentName" widget-style="tabletext">
+            <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
+                <sub-hyperlink target="EditPartyContents?contentId=${contentId}&amp;amp;partyId=${partyId}" description="${contentId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="description"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"></display-entity></field>
+        <field name="localeString"><display-entity entity-name="CountryCode" key-field-name="countryCode" description="${countryName}${countryCode}"></display-entity></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType"></display-entity></field>
+        <field name="mimeTypeId"><display-entity entity-name="MimeType"></display-entity></field>
+        <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceName}" use-when="dataResourceId==null"><display/> </field>
+        <field name="dataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceName}" use-when="dataResourceId!=null">
+            <display-entity entity-name="DataResource" description="${dataResourceName}"/>
+        </field>
+        <field name="editLink" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditPartyContents?contentId=${contentId}&amp;partyId=${partyId}&amp;dataResourceId=${dataResourceId}"/>
+        </field>
+    </form>    
 </forms>
