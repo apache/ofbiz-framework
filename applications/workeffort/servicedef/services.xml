@@ -152,8 +152,11 @@ under the License.
     <service name="getWorkEffortEventsByPeriod" auth="true" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortEventsByPeriod">
         <description>Get WorkEffort Events by a period spcified by periodSeconds attribute. Return a Map with periodStart as the key and a Collection of events for that period as value
-        	If filterOutCanceledEvents is set to Boolean(true) then workEfforts with currentStatusId=EVENT_CANCELLED will not be returned.</description>
+          If filterOutCanceledEvents is set to Boolean(true) then workEfforts with currentStatusId=EVENT_CANCELLED will not be returned.
+          To limit the events to a particular partyId, specify the partyId.  To limit the events to a set of partyIds, specify a Collection of partyIds.
+        </description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIds" type="java.util.Collection" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="fixedAssetId" type="String" mode="IN" optional="true"/>
         <attribute name="start" type="java.sql.Timestamp" mode="IN" optional="false"/>
