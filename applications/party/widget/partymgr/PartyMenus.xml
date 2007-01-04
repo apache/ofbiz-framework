@@ -56,5 +56,8 @@ under the License.
         <menu-item name="ContactList" title="${uiLabelMap.PartyContactList}">
             <link target="ListPartyContactLists?partyId=${partyId}"/>
         </menu-item>
+        <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
+            <link target="EditPartyContents?partyId=${partyId}"/>
+        </menu-item>
     </menu>
 </menus>

@@ -687,4 +687,30 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+<!-- Party Content Screen --> 
+    <screen name="EditPartyContents">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListContent"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="PartyContents"/>
+                <set field="partyId" from-field="parameters.partyId" />               
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-one entity-name="Content" value-name="content"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><link target="EditPartyContents?partyId=${partyId}" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>                    
+                        <container><label style="head1" text="${uiLabelMap.PageTitleListContent}"/></container>                        
+                        <include-form name="ListPartyContents" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <label style="head1">${uiLabelMap.PageTitleAddPartyContent}</label>                        
+                        <include-form name="AddPartyContent" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
+        </section>
+    </screen>    
+        
 </screens>
