@@ -18,6 +18,10 @@ under the License.
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-eca.xsd">
+    <eca service="testScv" event="invoke">
+        <condition field-name="message" operator="equals" value="auto"/>
+        <set field-name="message" value="set message to auto message"/>
+    </eca>
     <eca service="testScv" event="commit">
         <condition field-name="message" operator="equals" value="12345"/>
         <action service="testBsh" mode="sync"/>
