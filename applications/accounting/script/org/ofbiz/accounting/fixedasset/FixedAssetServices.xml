@@ -33,15 +33,20 @@ under the License.
           <!-- create new entity and create all the fields -->
         <make-value value-name="newEntity" entity-name="FixedAsset"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set from-field="parameters.fixedAssetId" field="newEntity.fixedAssetId"/>
 
         <!-- create a non existing ID if not supplied -->
-        <if-empty field-name="newEntity.fixedAssetId">
+        <if-empty field-name="parameters.fixedAssetId">
             <sequenced-id-to-env sequence-name="FixedAsset" env-name="newEntity.fixedAssetId"/>
         <else>
-            <!-- check the provided ID --> 
-            <check-id field-name="newEntity.fixedAssetId"/>
+            <!-- check the Duplicate ID> -->
+            <set from-field="parameters.fixedAssetId" field="findFixedAssetMap.fixedAssetId"/>   
+            <find-by-primary-key entity-name="FixedAsset" map-name="findFixedAssetMap" value-name="fixedAsset"/>
+            <if-not-empty field-name="fixedAsset">
+                <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetIdAlreadyExists"/></add-error>
+                <log level="info" message="${AccountingUiLabels.AccountingFixedAssetIdAlreadyExists} "/>
+            </if-not-empty>
             <check-errors/>
+            <set from-field="parameters.fixedAssetId" field="newEntity.fixedAssetId"/>
         </else>
         </if-empty>
         <field-to-result field-name="newEntity.fixedAssetId" result-name="fixedAssetId"/>
