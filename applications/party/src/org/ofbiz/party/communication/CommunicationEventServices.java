@@ -208,8 +208,9 @@ public class CommunicationEventServices {
                     
                     sendMailParams.put("sendTo", emailAddress);
                     sendMailParams.put("partyId", partyId);
-                    
-                    if (! contactList.getString("contactListTypeId").equals("NEWSLETTER")) {
+                   
+                    // if it is a NEWSLETTER then we do not want the outgoing emails stored, so put a communicationEventId in the sendMail context to prevent storeEmailAsCommunicationEvent from running
+                    if ("NEWSLETTER".equals(contactList.getString("contactListTypeId"))) {
                         sendMailParams.put("communicationEventId", communicationEventId);
                     }
                     
