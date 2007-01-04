@@ -145,6 +145,15 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.implements">
         <xs:attribute type="xs:string" name="service" use="required"/>
+        <xs:attribute type="xs:string" name="optional" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="auto-attributes">
         <xs:complexType>
