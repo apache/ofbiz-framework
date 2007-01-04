@@ -15,10 +15,7 @@
  */
 package org.ofbiz.service.eca;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.transaction.xa.XAException;
 
 import org.ofbiz.base.util.UtilValidate;
@@ -56,6 +53,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         this.serviceMode = action.getAttribute("mode");
         this.runAsUser = action.getAttribute("runAsUser");
         this.resultMapName = action.getAttribute("result-map-name");
+        
         // default is true, so anything but false is true
         this.resultToContext = !"false".equals(action.getAttribute("result-to-context"));
         this.ignoreFailure = !"false".equals(action.getAttribute("ignore-failure"));

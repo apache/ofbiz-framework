@@ -48,8 +48,8 @@ under the License.
     <xs:attributeGroup name="attlist.service">
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="engine" use="required"/>
-        <xs:attribute type="xs:string" name="location" use="required"/>
-        <xs:attribute type="xs:string" name="invoke" use="required"/>
+        <xs:attribute type="xs:string" name="location"/>
+        <xs:attribute type="xs:string" name="invoke"/>
         <xs:attribute name="auth" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">

@@ -26,6 +26,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
+import javolution.util.FastMap;
 
 /**
  * ServiceEcaRule
@@ -40,6 +41,7 @@ public class ServiceEcaRule implements java.io.Serializable {
     protected boolean runOnError = false;
     protected List conditions = new LinkedList();
     protected List actions = new LinkedList();
+    protected List sets = new LinkedList();
     protected boolean enabled = true;
 
     protected ServiceEcaRule() {}
@@ -69,6 +71,13 @@ public class ServiceEcaRule implements java.io.Serializable {
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
+
+        List setList = UtilXml.childElementList(eca, "set");
+        Iterator si = setList.iterator();
+        while (si.hasNext()) {
+            Element setElement = (Element) si.next();
+            sets.add(new ServiceEcaSetField(setElement));
+        }
 
         List actList = UtilXml.childElementList(eca, "action");
         Iterator ai = actList.iterator();
@@ -106,6 +115,14 @@ public class ServiceEcaRule implements java.io.Serializable {
             }
         }
 
+        // prepare the internal field setters
+        Iterator i = sets.iterator();
+        while (i.hasNext()) {
+            ServiceEcaSetField sf = (ServiceEcaSetField) i.next();
+            sf.eval(context);
+        }        
+
+        // if all conditions are true, eval the actions
         if (allCondTrue) {
             Iterator a = actions.iterator();
             boolean allOkay = true;
