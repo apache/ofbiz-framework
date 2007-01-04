@@ -27,9 +27,11 @@ under the License.
         <action service="createSurveyQuestionAppl" mode="sync"/>
     </eca>
     
-     <eca service="sendMail" event="commit">
-    	<condition field-name="partyId" operator="is-not-empty"/>
-    	<action service="storeEmailAsCommunication" mode="sync"/>
+    <!-- emails should not be stored as new communication event if there is no partyId or if it is already a commevent being sent out -->
+    <eca service="sendMail" event="commit">
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <condition field-name="communicationEventId" operator="is-empty"/>
+        <action service="storeEmailAsCommunication" mode="sync"/>
     </eca>
-    
+
 </service-eca>
