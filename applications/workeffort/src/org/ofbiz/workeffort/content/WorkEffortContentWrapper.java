@@ -16,13 +16,11 @@
  */
 package org.ofbiz.workeffort.content;
 
-import java.util.Locale;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.io.Writer;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.sql.Timestamp;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.content.content.ContentWrapper;
@@ -39,6 +37,8 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
+import javolution.util.FastMap;
+import javolution.util.FastList;
 
 /**
  * WorkEffortContentWrapper; gets work effort content for display
@@ -67,36 +67,86 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     }
 
     // interface implementation
+    public String get(String workEffortContentId, boolean useCache) {
+        return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, mimeTypeId, workEffort.getDelegator(), useCache);
+    }
+
     public String get(String workEffortContentId) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, mimeTypeId, workEffort.getDelegator());
+        return get(workEffortContentId, true);
+    }
+
+    public String getId(String workEffortContentId) {
+        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, workEffortContentId, workEffort.getDelegator());
+        if (workEffortContent != null) {
+            return workEffortContent.getString("contentId");
+        } else {
+            return null;
+        }
+    }
+
+    public Timestamp getFromDate(String workEffortContentId) {
+        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, workEffortContentId, workEffort.getDelegator());
+        if (workEffortContent != null) {
+            return workEffortContent.getTimestamp("fromDate");
+        } else {
+            return null;
+        }
+    }
+
+    public List getList(String contentTypeId) {
+        try {
+            return getWorkEffortContentTextList(workEffort, contentTypeId, locale, mimeTypeId, workEffort.getDelegator());
+        } catch (Exception e) {
+            Debug.logError(e, module);
+            return null;
+        }
+    }
+
+    public String getContent(String contentId, boolean useCache) {
+        return getWorkEffortContentAsText(workEffort, contentId, null, locale, mimeTypeId, workEffort.getDelegator(), useCache);
+    }
+
+    public String getContent(String contentId) {
+        return getContent(contentId, true);
     }
 
     // static method helpers
-    public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentId, HttpServletRequest request) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentId, UtilHttp.getLocale(request), "text/html", workEffort.getDelegator());
+     public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, HttpServletRequest request) {
+        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, UtilHttp.getLocale(request), "text/html", workEffort.getDelegator(), true);
     }
 
-    public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentId, Locale locale) {
-        return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, null, null);
+    public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId, Locale locale) {
+        return getWorkEffortContentAsText(workEffort, workEffortContentTypeId, locale, null, null, true);
     }
 
     public static String getWorkEffortContentAsText(GenericValue workEffort, String workEffortContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator) {
+            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
+        return getWorkEffortContentAsText(workEffort, null, workEffortContentTypeId, locale, mimeTypeId, delegator, useCache);
+    }
+
+    public static String getWorkEffortContentAsText(GenericValue workEffort, String contentId, String workEffortContentTypeId,
+            Locale locale, String mimeTypeId, GenericDelegator delegator, boolean useCache) {
         if (workEffort == null) {
             return null;
         }
 
         String candidateFieldName = ModelUtil.dbNameToVarName(workEffortContentTypeId);
-        String cacheKey = workEffortContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
-                CACHE_KEY_SEPARATOR + workEffort.get("workEffortId");
+        String cacheKey;
+        if (contentId != null) {
+            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
+                    CACHE_KEY_SEPARATOR + workEffort.get("workEffortId");
+        } else {
+            cacheKey = workEffortContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId +
+                    CACHE_KEY_SEPARATOR + workEffort.get("workEffortId");
+        }
 
         try {
-            if (workEffortContentCache.get(cacheKey) != null) {
+            if (useCache && workEffortContentCache.get(cacheKey) != null) {
                 return (String) workEffortContentCache.get(cacheKey);
             }
 
             Writer outWriter = new StringWriter();
-            getWorkEffortContentAsText(null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, outWriter);
+            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, outWriter);
             String outString = outWriter.toString();
             if (outString.length() > 0) {
                 if (workEffortContentCache != null) {
@@ -118,7 +168,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }               
     }
 
-    public static void getWorkEffortContentAsText(String workEffortId, GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, Writer outWriter) throws GeneralException, IOException {
+    public static void getWorkEffortContentAsText(String contentId, String workEffortId, GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, Writer outWriter) throws GeneralException, IOException {   
         if (workEffortId == null && workEffort != null) {
             workEffortId = workEffort.getString("workEffortId");
         }
@@ -135,6 +185,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
 
+        // check for workeffort field
         String candidateFieldName = ModelUtil.dbNameToVarName(workEffortContentTypeId);
         ModelEntity workEffortModel = delegator.getModelEntity("WorkEffort");
         if (workEffortModel != null && workEffortModel.isField(candidateFieldName)) {
@@ -150,15 +201,68 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
         }
 
-        List workEffortContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));
-        workEffortContentList = EntityUtil.filterByDate(workEffortContentList);
-        GenericValue workEffortContent = EntityUtil.getFirst(workEffortContentList);
+        // otherwise check content record
+        GenericValue workEffortContent;
+        if (contentId != null) {
+            workEffortContent = delegator.findByPrimaryKeyCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "contentId", contentId));
+        } else {
+            workEffortContent = getFirstWorkEffortContentByType(workEffortId, workEffort, workEffortContentTypeId, delegator);
+        }
         if (workEffortContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map inContext = new HashMap();
+            Map inContext = FastMap.newInstance();
             inContext.put("workEffort", workEffort);
             inContext.put("workEffortContent", workEffortContent);
             ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, null, locale, mimeTypeId);
+        }
+    }
+
+    public static List getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator) throws GeneralException, IOException {
+        List partyContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));
+        partyContentList = EntityUtil.filterByDate(partyContentList);
+
+        List contentList = FastList.newInstance();
+        if (partyContentList != null) {
+            Iterator i = partyContentList.iterator();
+            while (i.hasNext()) {
+                GenericValue workEffortContent = (GenericValue) i.next();
+                StringWriter outWriter = new StringWriter();
+                Map inContext = FastMap.newInstance();
+                inContext.put("workEffort", workEffort);
+                inContext.put("workEffortContent", workEffortContent);
+                ContentWorker.renderContentAsText(delegator, workEffortContent.getString("contentId"), outWriter, inContext, null, locale, mimeTypeId);
+                contentList.add(outWriter.toString());
+            }
+        }
+
+        return contentList;
+    }
+
+    public static GenericValue getFirstWorkEffortContentByType(String workEffortId, GenericValue workEffort, String workEffortContentTypeId, GenericDelegator delegator) {
+        if (workEffortId == null && workEffort != null) {
+            workEffortId = workEffort.getString("workEffortId");
+        }
+
+        if (delegator == null && workEffort != null) {
+            delegator = workEffort.getDelegator();
+        }
+
+        if (delegator == null) {
+            throw new IllegalArgumentException("GenericDelegator missing");
+        }
+        
+        List workEffortContentList = null;
+        try {
+                workEffortContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+        }
+
+        if (workEffortContentList != null) {
+            workEffortContentList = EntityUtil.filterByDate(workEffortContentList);
+            return EntityUtil.getFirst(workEffortContentList);
+        } else {
+            return null;
         }
     }
 
