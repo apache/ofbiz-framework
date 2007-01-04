@@ -824,7 +824,10 @@ public class ModelService implements Serializable {
             if (implServices != null && implServices.size() > 0 && dctx != null) {
                 Iterator implIter = implServices.iterator();
                 while (implIter.hasNext()) {
-                    String serviceName = (String) implIter.next();
+                    ModelServiceIface iface = (ModelServiceIface) implIter.next();
+                    String serviceName = iface.getService();
+                    boolean optional = iface.isOptional();
+
                     ModelService model = dctx.getModelService(serviceName);
                     if (model != null) {
                         Iterator contextParamIter = model.contextParamList.iterator();
@@ -836,12 +839,17 @@ public class ModelService implements Serializable {
                             	// TODO: this is another case where having different optional/required settings for IN and OUT would be quite valuable...
                             	if (!"INOUT".equals(existingParam.mode) && !existingParam.mode.equals(newParam.mode)) {
                                     existingParam.mode = "INOUT";
-                            		existingParam.optional = true;
-                            	}
+                                    if (existingParam.optional || newParam.optional) {
+                                        existingParam.optional = true;
+                                    }
+                                }
                             } else {
-                                // instead of calling: addParamClone(param), do it here because we want to make the inputs optional and such because earlier services in a group may create the parameters for later
                                 ModelParam newParamClone = new ModelParam(newParam);
-                                newParamClone.optional = true;
+                                if (optional) {
+                                    // default option is to make this optional, however the service can override and
+                                    // force the clone to use the parents setting. 
+                                    newParamClone.optional = true;
+                                }
                                 this.addParam(newParamClone);
                             }
                         }
