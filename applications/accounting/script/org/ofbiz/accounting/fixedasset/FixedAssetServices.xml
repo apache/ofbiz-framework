@@ -39,8 +39,7 @@ under the License.
             <sequenced-id-to-env sequence-name="FixedAsset" env-name="newEntity.fixedAssetId"/>
         <else>
             <!-- check the Duplicate ID> -->
-            <set from-field="parameters.fixedAssetId" field="findFixedAssetMap.fixedAssetId"/>   
-            <find-by-primary-key entity-name="FixedAsset" map-name="findFixedAssetMap" value-name="fixedAsset"/>
+            <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
             <if-not-empty field-name="fixedAsset">
                 <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetIdAlreadyExists"/></add-error>
                 <log level="info" message="${AccountingUiLabels.AccountingFixedAssetIdAlreadyExists} "/>
