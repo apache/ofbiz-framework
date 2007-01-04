@@ -30,7 +30,10 @@ under the License.
                     <xs:element ref="condition-field"/>
                     <xs:element ref="condition-service"/>
                 </xs:choice>
-                <xs:element maxOccurs="unbounded" ref="action"/>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element ref="set"/>
+                    <xs:element ref="action"/>
+                </xs:choice>                
             </xs:sequence>
             <xs:attributeGroup ref="attlist.eca"/>
         </xs:complexType>
@@ -111,6 +114,32 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="format"/>
+    </xs:attributeGroup>
+    <xs:element name="set">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.set"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.set">
+        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="env-name"/>
+        <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute type="xs:string" name="format">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="append"/>                    
+                    <xs:enumeration value="to-upper"/>
+                    <xs:enumeration value="to-lower"/>
+                    <xs:enumeration value="hash-code"/>
+                    <xs:enumeration value="long"/>
+                    <xs:enumeration value="double"/>
+                    <xs:enumeration value="upper-first-char"/>
+                    <xs:enumeration value="lower-first-char"/>
+                    <xs:enumeration value="db-to-java"/>
+                    <xs:enumeration value="java-to-db"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="condition-field">
         <xs:complexType>
