@@ -62,11 +62,16 @@ public class GroupModel {
                 Element service = (Element) i.next();
                 services.add(new GroupServiceModel(service));
             }
-        } else {
-            List oldServiceTags = UtilXml.childElementList(group, "service");
-            if (oldServiceTags != null && oldServiceTags.size() > 0) {
-                Debug.logWarning("Service Group Definition : [" + group.getAttribute("name") + "] found with OLD 'service' attribute, change to use 'invoke'", module);
+        }
+
+        List oldServiceTags = UtilXml.childElementList(group, "service");
+        if (oldServiceTags != null && oldServiceTags.size() > 0) {
+            Iterator i = oldServiceTags.iterator();
+            while (i.hasNext()) {
+                Element service = (Element) i.next();
+                services.add(new GroupServiceModel(service));
             }
+            Debug.logWarning("Service Group Definition : [" + group.getAttribute("name") + "] found with OLD 'service' attribute, change to use 'invoke'", module);
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Created Service Group Model --> " + this, module);
