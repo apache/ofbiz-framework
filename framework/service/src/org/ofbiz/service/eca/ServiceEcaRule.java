@@ -115,15 +115,16 @@ public class ServiceEcaRule implements java.io.Serializable {
             }
         }
 
-        // prepare the internal field setters
-        Iterator i = sets.iterator();
-        while (i.hasNext()) {
-            ServiceEcaSetField sf = (ServiceEcaSetField) i.next();
-            sf.eval(context);
-        }        
-
-        // if all conditions are true, eval the actions
+        // if all conditions are true
         if (allCondTrue) {
+            // prepare the internal field setters
+            Iterator i = sets.iterator();
+            while (i.hasNext()) {
+                ServiceEcaSetField sf = (ServiceEcaSetField) i.next();
+                sf.eval(context);
+            }
+
+            // eval the actions
             Iterator a = actions.iterator();
             boolean allOkay = true;
             while (a.hasNext() && allOkay) {
