@@ -92,8 +92,14 @@ under the License.
 
     <FileExtension fileExtensionId="jpg" mimeTypeId="image/jpeg"/>
     <FileExtension fileExtensionId="jpeg" mimeTypeId="image/jpeg"/>
+    <FileExtension fileExtensionId="tif" mimeTypeId="image/tiff"/>
+    <FileExtension fileExtensionId="tiff" mimeTypeId="image/tiff"/>
+    <FileExtension fileExtensionId="gif" mimeTypeId="image/gif"/>
+    <FileExtension fileExtensionId="png" mimeTypeId="image/png"/>
     <FileExtension fileExtensionId="mpg" mimeTypeId="video/mpeg"/>
     <FileExtension fileExtensionId="mpeg" mimeTypeId="video/mpeg"/>
+    <FileExtension fileExtensionId="mov" mimeTypeId="video/quicktime"/>
+    <FileExtension fileExtensionId="qt" mimeTypeId="video/quicktime"/>
     <FileExtension fileExtensionId="ps" mimeTypeId="application/postscript"/>
     <FileExtension fileExtensionId="rtf" mimeTypeId="text/rtf"/>
     <FileExtension fileExtensionId="txt" mimeTypeId="text/plain"/>
