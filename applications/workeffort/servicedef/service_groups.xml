@@ -20,11 +20,11 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-group.xsd">
     
     <group name="updateWorkEffortAndAssoc" send-mode="all"  >
-        <service name="updateWorkEffort" mode="sync" />
-        <service name="updateWorkEffortAssoc" mode="sync"/>
+        <invoke name="updateWorkEffort" mode="sync" />
+        <invoke name="updateWorkEffortAssoc" mode="sync"/>
     </group>
     <group name="createWorkEffortRequestItemAndRequestItem" send-mode="all"  >
-        <service name="checkCustRequestItemExists" mode="sync"  result-to-context="true"/>
-        <service name="createWorkEffortRequestItem" mode="sync"/>
+        <invoke name="checkCustRequestItemExists" mode="sync"  result-to-context="true"/>
+        <invoke name="createWorkEffortRequestItem" mode="sync"/>
     </group>
 </service-group>

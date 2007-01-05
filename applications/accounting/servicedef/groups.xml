@@ -19,22 +19,22 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-group.xsd">
     
     <group name="createCreditCardAndAddress" send-mode="all">
-        <service name="createPostalAddress" mode="sync" result-to-context="true"/>
-        <service name="createCreditCard" mode="sync"/>
-        <service name="createPartyContactMech" mode="sync"/>
+        <invoke name="createPostalAddress" mode="sync" result-to-context="true"/>
+        <invoke name="createCreditCard" mode="sync"/>
+        <invoke name="createPartyContactMech" mode="sync"/>
     </group>
     <group name="updateCreditCardAndAddress" send-mode="all">
-        <service name="updatePostalAddress" mode="sync" result-to-context="true"/>
-        <service name="createPartyContactMech" mode="sync"/>
-        <service name="updateCreditCard" mode="sync"/>
+        <invoke name="updatePostalAddress" mode="sync" result-to-context="true"/>
+        <invoke name="createPartyContactMech" mode="sync"/>
+        <invoke name="updateCreditCard" mode="sync"/>
     </group>
     
     <group name="createEftAccountAndAddress" send-mode="all">
-        <service name="createPostalAddress" mode="sync" result-to-context="true"/>
-        <service name="createEftAccount" mode="sync"/>
+        <invoke name="createPostalAddress" mode="sync" result-to-context="true"/>
+        <invoke name="createEftAccount" mode="sync"/>
     </group>
     <group name="updateEftAccountAndAddress" send-mode="all">
-        <service name="updatePostalAddress" mode="sync" result-to-context="true"/>
-        <service name="updateEftAccount" mode="sync"/>
+        <invoke name="updatePostalAddress" mode="sync" result-to-context="true"/>
+        <invoke name="updateEftAccount" mode="sync"/>
     </group>
 </service-group>
