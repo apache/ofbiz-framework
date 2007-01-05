@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.service.group.GroupModel;
 
 import org.apache.commons.collections.map.LinkedMap;
 import org.w3c.dom.Document;
@@ -321,7 +322,17 @@ public class ModelServiceReader implements Serializable {
                        
         service.description = getCDATADef(serviceElement, "description");
         service.nameSpace = getCDATADef(serviceElement, "namespace");  
-              
+
+        // check or an internal group
+        List group = UtilXml.childElementList(serviceElement, "group");
+        if (group != null && group.size() > 0) {
+            Element groupElement = (Element) group.get(0);
+            groupElement.setAttribute("name", "_" + service.name + ".group");
+            service.internalGroup = new GroupModel(groupElement);
+            service.invoke = service.internalGroup.getGroupName();
+        }
+
+        // contruct the context
         service.contextInfo = FastMap.newInstance();
         this.createPermGroups(serviceElement, service);
         this.createImplDefs(serviceElement, service);

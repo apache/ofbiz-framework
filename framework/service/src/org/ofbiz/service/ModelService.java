@@ -129,6 +129,9 @@ public class ModelService implements Serializable {
     /** List of permission groups for service invocation */
     public List permissionGroups = FastList.newInstance();
 
+    /** Internal Service Group */
+    public GroupModel internalGroup = null;
+    
     /** Context Information, a Map of parameters used by the service, contains ModelParam objects */
     protected Map contextInfo = FastMap.newInstance();
 
@@ -808,13 +811,16 @@ public class ModelService implements Serializable {
         if (!inheritedParameters) {
             // services w/ engine 'group' auto-implement the grouped services
             if (this.engineName.equals("group") && implServices.size() == 0) {
-                GroupModel group = ServiceGroupReader.getGroupModel(this.location);
+                GroupModel group = internalGroup;
+                if (group == null) {
+                    group = ServiceGroupReader.getGroupModel(this.location);
+                }
                 if (group != null) {
                     List groupedServices = group.getServices();
                     Iterator i = groupedServices.iterator();
                     while (i.hasNext()) {
                         GroupServiceModel sm = (GroupServiceModel) i.next();
-                        implServices.add(new ModelServiceIface(sm.getName(), true));
+                        implServices.add(new ModelServiceIface(sm.getName(), sm.isOptional()));
                         if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
                     }
                 }

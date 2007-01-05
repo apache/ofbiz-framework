@@ -15,6 +15,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:include schemaLocation="http://www.ofbiz.org/dtds/service-group.xsd"/>
     <xs:element name="services">
         <xs:complexType>
             <xs:sequence>
@@ -38,8 +39,13 @@ under the License.
                 <xs:element minOccurs="0" ref="namespace"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="required-permissions"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-attributes"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="attribute"/>
+                <xs:choice maxOccurs="1" minOccurs="0">
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element ref="auto-attributes"/>
+                        <xs:element ref="attribute"/>                        
+                    </xs:choice>
+                    <xs:element ref="group"/>
+                </xs:choice>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="override"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.service"/>
@@ -145,7 +151,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.implements">
         <xs:attribute type="xs:string" name="service" use="required"/>
-        <xs:attribute type="xs:string" name="optional" default="true">
+        <xs:attribute name="optional" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
