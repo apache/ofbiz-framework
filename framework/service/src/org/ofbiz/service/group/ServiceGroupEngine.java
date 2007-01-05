@@ -39,9 +39,13 @@ public class ServiceGroupEngine extends GenericAsyncEngine {
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        GroupModel groupModel = ServiceGroupReader.getGroupModel(this.getLocation(modelService));
+        GroupModel groupModel = modelService.internalGroup;
+        if (groupModel == null) {
+            groupModel = ServiceGroupReader.getGroupModel(this.getLocation(modelService));
+        }
         if (groupModel == null)
             throw new GenericServiceException("GroupModel was null; not a valid ServiceGroup!");
+        
         return groupModel.run(dispatcher, localName, context);
     }
 

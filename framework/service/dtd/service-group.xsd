@@ -25,13 +25,13 @@ under the License.
     <xs:element name="group">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="service"/>
+                <xs:element maxOccurs="unbounded" ref="invoke"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.group"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.group">
-        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="name" use="optional"/>
         <xs:attribute name="send-mode" default="all">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -44,18 +44,26 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="service">
+    <xs:element name="invoke">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.service"/>
+            <xs:attributeGroup ref="attlist.invoke"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.service">
+    <xs:attributeGroup name="attlist.invoke">
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute name="mode" default="sync">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="sync"/>
                     <xs:enumeration value="async"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="parameters" default="preserve">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="optional"/>
+                    <xs:enumeration value="preserve"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -72,8 +80,8 @@ under the License.
 <!--
     <service-group>
     	<group name="testOne" send-mode="none">
-    		<service name="testScv" mode="async"/>
-    		<service name="testScv" mode="sync"/>
+    		<invoke name="testScv" mode="async"/>
+    		<invoke name="testScv" mode="sync"/>
     	</group>
     </service-group>
 -->

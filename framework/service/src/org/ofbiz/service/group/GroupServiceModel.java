@@ -35,6 +35,7 @@ public class GroupServiceModel {
 
     private String serviceName, serviceMode;
     private boolean resultToContext = false;
+    private boolean optionalParams = false;
     
     /**
      * Constructor using DOM element
@@ -43,8 +44,9 @@ public class GroupServiceModel {
     public GroupServiceModel(Element service) {
         this.serviceName = service.getAttribute("name");
         this.serviceMode = service.getAttribute("mode");
-        this.resultToContext = service.getAttribute("result-to-context").equalsIgnoreCase("true") ? true : false;
-    }  
+        this.resultToContext = service.getAttribute("result-to-context").equalsIgnoreCase("true");
+        this.optionalParams = service.getAttribute("parameters").equalsIgnoreCase("optional");        
+    }
     
     /**
      * Basic constructor
@@ -78,6 +80,14 @@ public class GroupServiceModel {
      */
     public boolean resultToContext() {
         return this.resultToContext;
+    }
+
+    /**
+     * Returns true of the parameters for this service are to be included as optional
+     * @return boolean
+     */
+    public boolean isOptional() {
+        return this.optionalParams;
     }
     
     /**

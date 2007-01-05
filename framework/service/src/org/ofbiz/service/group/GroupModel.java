@@ -38,6 +38,7 @@ public class GroupModel {
     
     private String groupName, sendMode;    
     private List services;
+    private boolean optional = false;
     private int lastServiceRan;
     
     /**
@@ -45,17 +46,30 @@ public class GroupModel {
      * @param group DOM element for the group
      */
     public GroupModel(Element group) {
-        this.lastServiceRan = -1;
-        this.services = new LinkedList();
-        List serviceList = UtilXml.childElementList(group, "service");  
-        Iterator i = serviceList.iterator();
-        while (i.hasNext()) {
-            Element service = (Element) i.next();
-            services.add(new GroupServiceModel(service));
-        }
+        this.sendMode = group.getAttribute("send-mode");
         this.groupName = group.getAttribute("name");
-        this.sendMode = group.getAttribute("send-mode");        
-        if (Debug.verboseOn()) Debug.logVerbose("Created Service Group Model --> " + this, module);       
+        this.services = new LinkedList();
+        this.lastServiceRan = -1;
+
+        if (groupName == null) {
+            throw new IllegalArgumentException("Group Definition found with no name attribute! : " + group);
+        }
+
+        List serviceList = UtilXml.childElementList(group, "invoke");
+        if (serviceList != null && serviceList.size() > 0) {
+            Iterator i = serviceList.iterator();
+            while (i.hasNext()) {
+                Element service = (Element) i.next();
+                services.add(new GroupServiceModel(service));
+            }
+        } else {
+            List oldServiceTags = UtilXml.childElementList(group, "service");
+            if (oldServiceTags != null && oldServiceTags.size() > 0) {
+                Debug.logWarning("Service Group Definition : [" + group.getAttribute("name") + "] found with OLD 'service' attribute, change to use 'invoke'", module);
+            }
+        }
+
+        if (Debug.verboseOn()) Debug.logVerbose("Created Service Group Model --> " + this, module);
     }
     
     /**
