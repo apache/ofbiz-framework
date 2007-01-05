@@ -618,7 +618,7 @@ under the License.
               <#assign status = content.getRelatedOneCache("StatusItem")>
               <#assign pcPurpose = pContent.getRelatedOne("Enumeration")>
               <tr>
-                <td><a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${content.contentId}</a>
+                <td><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&partyId=${pContent.partyId}</@ofbizUrl>" class="buttontext">${content.contentId}</a>
                 <td><div class="tabletext">${pcPurpose.description?if_exists}</div></td>
                 <td><div class="tabletext">${content.contentName?if_exists}</div></td>
                 <td><div class="tabletext">${(contentType.get("description",locale))?if_exists}</div></td>
@@ -646,9 +646,17 @@ under the License.
             <input type="hidden" name="partyId" value="${partyId}"/>
             <input type="file" name="uploadedFile" size="20" class="inputBox"/>
             <select name="contentPurposeEnumId" class="selectBox">
+                <option value="">Select Purpose</option>
                 <#list contentPurposes as contentPurpose>
                     <option value="${contentPurpose.enumId}">${contentPurpose.description?default(contentPurpose.enumId)}</option>                  
                 </#list>
+            </select>
+            <select name="roleTypeId" class="selectBox">
+                <option value="">Select Role</option>
+                <#list roles as role>
+                    <option value="${role.roleTypeId}">${role.description?default(role.roleTypeId)}</option>
+                </#list>
+            </select>
             <input type="submit" value="${uiLabelMap.CommonUpload}" class="smallSubmit"/>
           </form>
         </div>

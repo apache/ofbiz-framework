@@ -715,7 +715,7 @@ under the License.
     <service name="createPartyTextContent" engine="route" transaction-timeout="300" auth="true">
         <description>Creates a Text Document DataResource and Content Records</description>
         <implements service="createTextContent" optional="false"/>
-        <implements service="createPartyContent" optional="false"/>
+        <implements service="createPartyContent" optional="false"/>        
         <override name="contentId" optional="true"/>
     </service>
 
