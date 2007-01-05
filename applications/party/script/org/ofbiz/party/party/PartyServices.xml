@@ -325,6 +325,7 @@ under the License.
     </simple-method>
     
     <!-- create party content -->
+    <!-- TODO: this method will be deleted in favor of new content methods and the PartyContentServices.xml -->
     <simple-method method-name="createPartyContent" short-description="Creates Party Associated Content" login-required="false">
            <!-- make sure we are logged in when passing a partyId -->
         <if-not-empty field-name="partyId" map-name="parameters">
@@ -402,7 +403,8 @@ under the License.
        <field-to-result field-name="contentId" />                
     </simple-method>
 
-        <!-- Update party content -->
+    <!-- Update party content -->
+    <!-- TODO: this method will be deleted in favor of new content methods and the PartyContentServices.xml -->
     <simple-method method-name="updatePartyContent" short-description="Creates Party Associated Content" login-required="false">
            <!-- make sure we are logged in when passing a partyId -->
         <if-not-empty field-name="partyId" map-name="parameters">
