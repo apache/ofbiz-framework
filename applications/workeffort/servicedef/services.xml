@@ -447,6 +447,13 @@ under the License.
             <invoke name="createWorkEffortContent"/>
         </group>
     </service>
+    <service name="updateWorkEffortTextContent" engine="group" transaction-timeout="300" auth="true">
+        <description>Update a Text Document DataResource and Content Records</description>
+        <group>
+            <invoke name="updateTextContent" result-to-context="true"/>
+            <invoke name="updateWorkEffortContent"/>
+        </group>
+    </service>
 
     <service name="uploadWorkEffortContentFile" engine="group" transaction-timeout="300">
         <description>Upload and attach a file to a WorkEffort</description>

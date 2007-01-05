@@ -85,7 +85,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
      * @param contentTypeId Type of content to return
      * @return String containing the contentId
      */
-    public String getId(String contentTypeId) {
+    public String getContentId(String contentTypeId) {
         GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, contentTypeId, workEffort.getDelegator());
         if (workEffortContent != null) {
             return workEffortContent.getString("contentId");
@@ -99,7 +99,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
      * @param contentTypeId Type of content to return
      * @return String containing the name of the content record
      */
-    public String getName(String contentTypeId) {
+    public String getContentName(String contentTypeId) {
         GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, contentTypeId, workEffort.getDelegator());
         if (workEffortContent != null) {
             GenericValue content;
@@ -132,6 +132,33 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }
     }
 
+    public String getDataResourceId(String contentTypeId) {
+        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, contentTypeId, workEffort.getDelegator());
+        if (workEffortContent != null) {
+            GenericValue content;
+            try {
+                content = workEffortContent.getRelatedOne("Content");
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                return null;
+            }
+            if (content != null) {
+                GenericValue dataResource;
+                try {
+                    dataResource = content.getRelatedOne("DataResource");
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return null;
+                }
+                if (dataResource != null) {
+                    return dataResource.getString("dataResourceId");
+                }
+            }
+        }
+
+        return null;
+    }
+    
     public List getList(String contentTypeId) {
         try {
             return getWorkEffortContentTextList(workEffort, contentTypeId, locale, mimeTypeId, workEffort.getDelegator());
