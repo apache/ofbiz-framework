@@ -847,7 +847,20 @@ under the License.
         <event type="simple" path="org/ofbiz/party/party/PartySimpleEvents.xml" invoke="updatePartyContent"/>
         <response name="success" type="view" value="EditPartyContents"/>
     </request-map>
-    
+
+    <request-map uri="removePartyContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="removePartyContent"/>
+        <response name="success" type="view" value="EditPartyContents"/>
+    </request-map>
+
+    <request-map uri="uploadPartyContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="uploadPartyContentFile"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="viewprofile"/>
+    </request-map>
+
     <!-- Lookup request mappings -->
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>

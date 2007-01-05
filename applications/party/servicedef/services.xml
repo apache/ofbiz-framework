@@ -665,6 +665,8 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <!-- party content services -->
+    <!-- old services
     <service name="createPartyContent" engine="simple" default-entity-name="Content"
         location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyContent" auth="false">
         <description>Create Party Associated Content</description>
@@ -689,6 +691,41 @@ under the License.
         <attribute mode="IN" name="partyId" optional="true" type="String"/>        
         <attribute mode="IN" name="dataCategoryId" optional="true" type="String"/>
     </service>
+    -->
+    <service name="createPartyContent" engine="simple" default-entity-name="PartyContent"
+            location="org/ofbiz/party/content/PartyContentServices.xml" invoke="createPartyContent" auth="true">
+        <description>Create a PartyContent record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="false"/>        
+    </service>
+
+    <service name="updatePartyContent" engine="simple" default-entity-name="PartyContent"
+            location="org/ofbiz/party/content/PartyContentServices.xml" invoke="updatePartyContent" auth="true">
+        <description>Update a PartyContent record</description>
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="false"/>
+    </service>
+
+    <service name="removePartyContent" engine="simple" default-entity-name="PartyContent"
+            location="org/ofbiz/party/content/PartyContentServices.xml" invoke="removePartyContent" auth="true">
+        <description>Remove a PartyContent record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+
+    <service name="createPartyTextContent" engine="route" transaction-timeout="300" auth="true">
+        <description>Creates a Text Document DataResource and Content Records</description>
+        <implements service="createTextContent" optional="false"/>
+        <implements service="createPartyContent" optional="false"/>
+        <override name="contentId" optional="true"/>
+    </service>
+
+    <service name="uploadPartyContentFile" engine="route" transaction-timeout="300">
+        <description>Upload and attach a file to a party</description>
+        <implements service="createLocalFileContentFromStream" optional="false"/>
+        <implements service="createPartyContent" optional="true"/>
+        <override name="contentId" optional="true"/>
+    </service>
+
     <service name="getPartyEmail" engine="simple"
         location="org/ofbiz/party/party/PartyServices.xml" invoke="getPartyEmail" auth="false">
         <description>Get the main party Email address</description>

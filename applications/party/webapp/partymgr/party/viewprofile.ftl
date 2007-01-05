@@ -603,6 +603,58 @@ under the License.
 </div>
 </#if>
 
+<#-- Party Content -->
+<div class="screenlet">
+    <div class="screenlet-header">
+        <div class="boxhead">&nbsp;${uiLabelMap.PartyContent}</div>
+    </div>
+    <div class="screenlet-body">
+        <table width="100%" border="0" cellpadding="1">
+          <#if partyContent?has_content>
+            <#list partyContent as pContent>
+              <#assign content = pContent.getRelatedOne("Content")>
+              <#assign contentType = content.getRelatedOneCache("ContentType")>
+              <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
+              <#assign status = content.getRelatedOneCache("StatusItem")>
+              <#assign pcPurpose = pContent.getRelatedOne("Enumeration")>
+              <tr>
+                <td><a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${content.contentId}</a>
+                <td><div class="tabletext">${pcPurpose.description?if_exists}</div></td>
+                <td><div class="tabletext">${content.contentName?if_exists}</div></td>
+                <td><div class="tabletext">${(contentType.get("description",locale))?if_exists}</div></td>
+                <td><div class="tabletext">${(mimeType.description)?if_exists}</div></td>
+                <td><div class="tabletext">${(status.get("description",locale))?if_exists}</div></td>
+                <#-- <td><div class="tabletext">${contentRole.fromDate?if_exists}</div></td> -->
+                <td align="right">
+                  <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonView}</a>
+                  <a href="<@ofbizUrl>removePartyContent/viewprofile?contentId=${pContent.contentId}&partyId=${pContent.partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
+                </td>
+              </tr>
+            </#list>
+          <#else>
+            <div class="tabletext">${uiLabelMap.PartyNoContent}</div>
+          </#if>
+        </table>
+        <div>&nbsp;</div>
+        <hr class="sepbar"/>
+        <div align="left" class="head3"><b><u>${uiLabelMap.PartyAttachContent}</u></b>
+          <div>&nbsp;</div>
+          <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadPartyContent</@ofbizUrl>" style="margin: 0;">
+            <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
+            <input type="hidden" name="contentTypeId" value="DOCUMENT"/>
+            <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
+            <input type="hidden" name="partyId" value="${partyId}"/>
+            <input type="file" name="uploadedFile" size="20" class="inputBox"/>
+            <select name="contentPurposeEnumId" class="selectBox">
+                <#list contentPurposes as contentPurpose>
+                    <option value="${contentPurpose.enumId}">${contentPurpose.description?default(contentPurpose.enumId)}</option>                  
+                </#list>
+            <input type="submit" value="${uiLabelMap.CommonUpload}" class="smallSubmit"/>
+          </form>
+        </div>
+    </div>
+</div>
+
 <#-- Party Notes -->
 <div class="screenlet">
     <div class="screenlet-header">
