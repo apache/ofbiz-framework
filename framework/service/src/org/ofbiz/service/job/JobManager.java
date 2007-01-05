@@ -440,12 +440,17 @@ public class JobManager {
     }
 
     /** Close out the scheduler thread. */
-    public void finalize() {
+    public void shutdown() {
         if (jp != null) {
             jp.stop();
             jp = null;
             Debug.logInfo("JobManager: Stopped Scheduler Thread.", module);
         }
+    }
+
+    public void finalize() throws Throwable {
+        this.shutdown();
+        super.finalize();
     }
 
     /** gets the recurrence info object for a job. */

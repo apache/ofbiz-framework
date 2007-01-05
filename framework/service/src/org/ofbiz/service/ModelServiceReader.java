@@ -30,11 +30,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceHandler;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilTimer;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -377,6 +373,7 @@ public class ModelServiceReader implements Serializable {
     protected void createPermissions(Element baseElement, ModelPermGroup group, ModelService service) {
         List permElements = UtilXml.childElementList(baseElement, "check-permission");
         List rolePermElements = UtilXml.childElementList(baseElement, "check-role-member");
+        List serviceSecurity = UtilXml.childElementList(baseElement, "service-security");
 
         // create the simple permissions
         Iterator si = permElements.iterator();
@@ -401,6 +398,18 @@ public class ModelServiceReader implements Serializable {
             ModelPermission perm = new ModelPermission();
             perm.permissionType = ModelPermission.ROLE_MEMBER;
             perm.nameOrRole = element.getAttribute("role-type");
+            perm.serviceModel = service;
+            group.permissions.add(perm);
+        }
+
+        // create the custom permissions
+        Iterator ci = serviceSecurity.iterator();
+        while (ci.hasNext()) {
+            Element element = (Element) ci.next();
+            ModelPermission perm = new ModelPermission();
+            perm.permissionType = ModelPermission.CUSTOM;
+            perm.nameOrRole = element.getAttribute("name");
+            perm.clazz = element.getAttribute("class");
             perm.serviceModel = service;
             group.permissions.add(perm);
         }
@@ -525,6 +534,13 @@ public class ModelServiceReader implements Serializable {
             param.formLabel = attribute.hasAttribute("form-label")?attribute.getAttribute("form-label"):null;
             param.optional = "true".equalsIgnoreCase(attribute.getAttribute("optional")); // default to true
             param.formDisplay = !"false".equalsIgnoreCase(attribute.getAttribute("form-display")); // default to false
+
+            // default value
+            String defValue = attribute.getAttribute("default-value");
+            if (UtilValidate.isNotEmpty(defValue)) {
+                param.defaultValue = this.convertDefaultValue(service.name, param.name, param.type, defValue);
+                param.optional = true;
+            }
             
             // set the entity name to the default if not specified
             if (param.entityName.length() == 0) {
@@ -644,9 +660,16 @@ public class ModelServiceReader implements Serializable {
                     param.optional = "true".equalsIgnoreCase(attribute.getAttribute("optional")); // default to true
                     param.overrideOptional = true;
                 }
-                if (attribute.getAttribute("form-display") != null && attribute.getAttribute("form-display").length() > 0) {                
+                if (attribute.getAttribute("form-display") != null && attribute.getAttribute("form-display").length() > 0) {
                     param.formDisplay = !"false".equalsIgnoreCase(attribute.getAttribute("form-display")); // default to false
                     param.overrideFormDisplay = true;
+                }                
+
+                // default value
+                String defValue = attribute.getAttribute("default-value");
+                if (UtilValidate.isNotEmpty(defValue)) {
+                    param.defaultValue = this.convertDefaultValue(service.name, param.name, param.type, defValue);
+                    param.optional = true;
                 }
 
                 // override validators
@@ -709,5 +732,17 @@ public class ModelServiceReader implements Serializable {
         }
 
         return document;
+    }
+
+    protected Object convertDefaultValue(String serviceName, String name, String type, String value) {
+        Object converted;
+        try {
+            converted = ObjectType.simpleTypeConvert(value, type, null, null, false);
+        } catch (Exception e) {
+            Debug.logWarning("Service [" + serviceName + "] attribute [" + name + "] default value could not be converted to type [" + type + "]", module);
+            return value;
+        }
+
+        return converted;
     }
 }

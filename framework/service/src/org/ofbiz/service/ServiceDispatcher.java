@@ -135,13 +135,13 @@ public class ServiceDispatcher {
      * @return A reference to this global ServiceDispatcher
      */
     public static ServiceDispatcher getInstance(String name, DispatchContext context, GenericDelegator delegator) {
-        ServiceDispatcher sd = null;
+        ServiceDispatcher sd;
 
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
         sd = (ServiceDispatcher) dispatchers.get(dispatcherKey);
         if (sd == null) {
             synchronized (ServiceDispatcher.class) {
-                if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + delegator.getDelegatorName() + ").", module);
+                if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", module);
                 sd = (ServiceDispatcher) dispatchers.get(dispatcherKey);
                 if (sd == null) {
                     sd = new ServiceDispatcher(delegator);
@@ -262,6 +262,9 @@ public class ServiceDispatcher {
         DispatchContext ctx = (DispatchContext) localContext.get(localName);
         GenericEngine engine = this.getGenericEngine(modelService.engineName);
 
+        // setup default IN values
+        modelService.updateDefaultValues(context, ModelService.IN_PARAM);
+        
         Map ecaContext = null;
 
         // for isolated transactions
@@ -350,6 +353,9 @@ public class ServiceDispatcher {
 
                 // copy all results: don't worry parameters that aren't allowed won't be passed to the ECA services
                 ecaContext.putAll(result);
+
+                // setup default OUT values
+                modelService.updateDefaultValues(context, ModelService.OUT_PARAM);
 
                 // validate the result
                 if (modelService.validate && validateOut) {
@@ -692,7 +698,7 @@ public class ServiceDispatcher {
         // shutdown JMS listeners
         jlf.closeListeners();
         // shutdown the job scheduler
-        jm.finalize();
+        jm.shutdown();
     }
 
     // checks if parameters were passed for authentication
@@ -751,8 +757,7 @@ public class ServiceDispatcher {
 
         // evaluate permissions for the service or throw exception if fail.
         DispatchContext dctx = this.getLocalContext(localName);
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        if (!origService.evalPermissions(dctx.getSecurity(), userLogin)) {
+        if (!origService.evalPermissions(dctx, context)) {
             throw new ServiceAuthException("You do not have permission to invoke this service");
         }
 
@@ -774,9 +779,7 @@ public class ServiceDispatcher {
 
         // invoke the service and get the UserLogin value object
         Map result = engine.runSync(localName, model, context);
-        GenericValue value = (GenericValue) result.get("userLogin");
-
-        return value;
+        return (GenericValue) result.get("userLogin");
     }
 
     // checks the locale object in the context
@@ -830,7 +833,7 @@ public class ServiceDispatcher {
     private synchronized int runStartupServices() {
         if (jm == null) return 0;
 
-        Element root = null;
+        Element root;
         try {
             root = ServiceConfigUtil.getXmlRootElement();
         } catch (GenericConfigException e) {
@@ -852,7 +855,7 @@ public class ServiceDispatcher {
                     sendToPool = ServiceConfigUtil.getSendPool();
                 }
 
-                long runtimeDelay = 0;
+                long runtimeDelay;
                 try {
                     runtimeDelay = Long.parseLong(delayStr);
                 } catch (Exception e) {

@@ -21,6 +21,7 @@ import org.ofbiz.security.Security;
 import java.util.List;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -36,13 +37,13 @@ public class ModelPermGroup implements Serializable {
     public List permissions = new LinkedList();
     public String joinType;
 
-    public boolean evalPermissions(Security security, GenericValue userLogin) {
+    public boolean evalPermissions(DispatchContext dctx, Map context) {
         if (permissions != null && permissions.size() > 0)  {
             boolean foundOne = false;
             Iterator i = permissions.iterator();
             while (i.hasNext()) {
                 ModelPermission perm = (ModelPermission) i.next();
-                if (perm.evalPermission(security, userLogin)) {
+                if (perm.evalPermission(dctx, context)) {
                     foundOne = true;
                 } else {
                     if (joinType.equals(PERM_JOIN_AND)) {
