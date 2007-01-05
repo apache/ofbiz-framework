@@ -814,7 +814,7 @@ public class ModelService implements Serializable {
                     Iterator i = groupedServices.iterator();
                     while (i.hasNext()) {
                         GroupServiceModel sm = (GroupServiceModel) i.next();
-                        implServices.add(sm.getName());
+                        implServices.add(new ModelServiceIface(sm.getName(), true));
                         if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
                     }
                 }

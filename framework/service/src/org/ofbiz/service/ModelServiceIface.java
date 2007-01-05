@@ -44,4 +44,8 @@ public class ModelServiceIface {
     public void isOptional(boolean optional) {
         this.optional = optional;
     }
+
+    public String toString() {
+        return "[" + service + ":" + optional + "]";
+    }
 }
