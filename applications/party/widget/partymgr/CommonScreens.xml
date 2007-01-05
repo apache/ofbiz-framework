@@ -103,6 +103,7 @@ under the License.
                                                     </or>
                                                 </condition>
                                                 <widgets>
+                                                    <label text="&amp;nbsp;&lt;br/&gt;"/>
                                                     <label style="head1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName}"/>
                                                 </widgets>
                                                 <fail-widgets>

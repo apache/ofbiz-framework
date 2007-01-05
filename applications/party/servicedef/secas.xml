@@ -77,4 +77,14 @@ under the License.
     <eca service="sendCommEventAsEmail" event="commit">
         <action service="setCommEventComplete" mode="sync"/>
     </eca>
+
+    <!-- party content services -->
+    <eca service="createPartyTextContent" event="invoke">
+        <action service="createTextContent" mode="sync"/>
+        <action service="createPartyContent" mode="sync"/> 
+    </eca>
+    <eca service="uploadPartyContentFile" event="invoke">
+        <action service="createLocalFileContentFromStream" mode="sync"/>
+        <action service="createPartyContent" mode="sync"/> 
+    </eca>
 </service-eca>
