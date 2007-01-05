@@ -21,15 +21,15 @@ under the License.
 
     <!-- Entity Engine Service Groups (Distributed Cache Clearing) -->
     <group name="distributedClearAllEntityCaches" send-mode="all">
-        <service name="localhostClearAllEntityCaches" mode="async"/>
+        <invoke name="localhostClearAllEntityCaches" mode="async"/>
     </group>
     <group name="distributedClearCacheLineByValue" send-mode="all">
-        <service name="localhostClearCacheLineByValue" mode="async"/>
+        <invoke name="localhostClearCacheLineByValue" mode="async"/>
     </group>
     <group name="distributedClearCacheLineByDummyPK" send-mode="all">
-        <service name="localhostClearCacheLineByDummyPK" mode="async"/>
+        <invoke name="localhostClearCacheLineByDummyPK" mode="async"/>
     </group>
     <group name="distributedClearCacheLineByPrimaryKey" send-mode="all">
-        <service name="localhostClearCacheLineByPrimaryKey" mode="async"/>
+        <invoke name="localhostClearCacheLineByPrimaryKey" mode="async"/>
     </group>
 </service-group>
