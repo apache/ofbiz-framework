@@ -66,17 +66,27 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         this.mimeTypeId = "text/html";
     }
 
-    // interface implementation
+    // interface implementation(s)
     public String get(String workEffortContentId, boolean useCache) {
         return getWorkEffortContentAsText(workEffort, workEffortContentId, locale, mimeTypeId, workEffort.getDelegator(), useCache);
     }
 
-    public String get(String workEffortContentId) {
-        return get(workEffortContentId, true);
+    /**
+     * Get the most current content data by the defined type
+     * @param contentTypeId Type of content to return
+     * @return String containing the content data
+     */
+    public String get(String contentTypeId) {
+        return get(contentTypeId, true);
     }
 
-    public String getId(String workEffortContentId) {
-        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, workEffortContentId, workEffort.getDelegator());
+    /**
+     * Get the ID from the most current content data by the defined type
+     * @param contentTypeId Type of content to return
+     * @return String containing the contentId
+     */
+    public String getId(String contentTypeId) {
+        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, contentTypeId, workEffort.getDelegator());
         if (workEffortContent != null) {
             return workEffortContent.getString("contentId");
         } else {
@@ -84,8 +94,37 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }
     }
 
-    public Timestamp getFromDate(String workEffortContentId) {
-        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, workEffortContentId, workEffort.getDelegator());
+    /**
+     * Get the name of the most current content data by the defined type
+     * @param contentTypeId Type of content to return
+     * @return String containing the name of the content record
+     */
+    public String getName(String contentTypeId) {
+        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, contentTypeId, workEffort.getDelegator());
+        if (workEffortContent != null) {
+            GenericValue content;
+            try {
+                content = workEffortContent.getRelatedOne("Content");
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                return null;
+            }
+
+            if (content != null) {
+                return content.getString("contentName");
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the fromDate from teh most current content data by the defined type
+     * @param contentTypeId Type of content to return
+     * @return Timestamp of the fromDate field for this content type
+     */
+    public Timestamp getFromDate(String contentTypeId) {
+        GenericValue workEffortContent = getFirstWorkEffortContentByType(null, workEffort, contentTypeId, workEffort.getDelegator());
         if (workEffortContent != null) {
             return workEffortContent.getTimestamp("fromDate");
         } else {
@@ -100,6 +139,28 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             Debug.logError(e, module);
             return null;
         }
+    }
+
+    public String getTypeDescription(String contentTypeId) {
+        GenericDelegator delegator = null;
+        if (workEffort != null) {
+            delegator = workEffort.getDelegator();
+        }
+
+        if (delegator != null) {
+            GenericValue contentType = null;
+            try {
+                contentType = delegator.findByPrimaryKeyCache("WorkEffortContentType", UtilMisc.toMap("workEffortContentTypeId", contentTypeId));
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+            }
+
+            if (contentType != null) {
+                return contentType.getString("description");
+            }
+        }
+
+        return null;        
     }
 
     public String getContent(String contentId, boolean useCache) {
