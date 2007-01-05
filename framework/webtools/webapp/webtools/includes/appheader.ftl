@@ -26,19 +26,20 @@ under the License.
 <div class="apptitle">${uiLabelMap.FrameworkWebTools}</div>
 <div class="row">
   <div class="col"><a href="<@ofbizUrl>main</@ofbizUrl>" class="headerButtonLeft">${uiLabelMap.CommonMain}</a></div>
-  <#--
-  <div class="col"><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="headerButtonLeft">Cache</a></div>  
-  <div class="col"><a href="<@ofbizUrl>entitymaint</@ofbizUrl>" class="headerButtonLeft">Entity</a></div>  
-  <div class="col"><a href="<@ofbizUrl>availableServices</@ofbizUrl>" class="headerButtonLeft">Service</a></div>  
+  <#--    
+  <div class="col"><a href="<@ofbizUrl>entitymaint</@ofbizUrl>" class="headerButtonLeft">Entity</a></div>
   <div class="col"><a href="<@ofbizUrl>workflowMonitor</@ofbizUrl>" class="headerButtonLeft">Workflow</a></div>  
   <div class="col"><a href="<@ofbizUrl>viewdatafile</@ofbizUrl>" class="headerButtonLeft">Data</a></div>  
-  <div class="col"><a href="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>" class="headerButtonLeft">Misc</a></div>  
-  <div class="col"><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="headerButtonLeft">Statistics</a></div>  
+  <div class="col"><a href="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>" class="headerButtonLeft">Misc</a></div>
   -->
   <#if userLogin?has_content>
     <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="headerButtonRight">${uiLabelMap.CommonLogout}</a></div>
+    <div class="col-right"><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="headerButtonRight">Cache</a></div>
+    <div class="col-right"><a href="<@ofbizUrl>jobList</@ofbizUrl>" class="headerButtonRight">Jobs</a></div>
+    <div class="col-right"><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="headerButtonRight">Stats</a></div>
   <#else>
     <div class="col-right"><a href='<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>' class='headerButtonRight'>${uiLabelMap.CommonLogin}</a></div>
   </#if>
+
   <div class="col-fill">&nbsp;</div>
 </div>
