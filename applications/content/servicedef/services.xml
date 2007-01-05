@@ -80,9 +80,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute mode="OUT" name="resultData" optional="true" type="java.util.Map"/>
     </service>
-    
+
+    <!-- create content services -->
     <service name="createContent" default-entity-name="Content" engine="java"
-        location="org.ofbiz.content.content.ContentServices" invoke="createContent" transaction-timeout="72000" auth="true">
+        location="org.ofbiz.content.content.ContentServices" invoke="createContent" transaction-timeout="300" auth="true">
         <description>Create a Content</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
@@ -93,15 +94,40 @@ under the License.
         <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
         <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
+        <attribute mode="IN" name="partyId" optional="true" type="String"/>
+        <attribute mode="IN" name="roleTypeId" optional="true" type="String"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="contentId" optional="true" type="String"/>
         <override name="contentTypeId" optional="false"/>
     </service>
+
+    <service name="createTextContent" engine="route" transaction-timeout="300" auth="true">
+        <description>Creates a Text Document DataResource and Content Records</description>
+        <implements service="createDataResource" optional="false"/>
+        <implements service="createContent" optional="false"/>
+    </service>
+
+    <service name="createLocalFileContentFromStream" default-entity-name="Content" engine="simple" transaction-timeout="300"
+             location="org/ofbiz/content/content/ContentServices.xml" invoke="createUploadedLocalFileContent">
+        <description>Creates a local file, data resource and content records for an uploaded file</description>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="uploadedFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true"/>
+        <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
+        <attribute name="dataCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentId" type="String" mode="OUT" optional="false"/>
+        <override name="contentTypeId" optional="false"/>
+    </service>
+
     <service name="copyContentAndElectronicTextandAssoc" default-entity-name="Content" engine="simple"
         location="org/ofbiz/content/content/ContentServices.xml" invoke="copyContentAndElectronicTextandAssoc" transaction-timeout="72000" auth="true" >
         <description>Copy a Content, e;ectronic text and assocs</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
     </service>
+
+    <!-- update content services -->
     <service name="updateContent" default-entity-name="Content" engine="java"
         location="org.ofbiz.content.content.ContentServices" invoke="updateContent" auth="true">
         <description>Update a Content</description>
@@ -114,6 +140,13 @@ under the License.
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
+
+    <service name="updateTextContent" engine="route" transaction-timeout="300" auth="true">
+        <description>Updates a Text Document DataResource and Content Records</description>
+        <implements service="updateDataResource" optional="false"/>
+        <implements service="updateContent" optional="false"/>
+    </service>
+    
     <service name="removeContent" default-entity-name="Content" engine="simple"
         location="org/ofbiz/content/content/ContentServices.xml" invoke="deleteContent" auth="true">
         <description>Remove Content</description>
@@ -166,6 +199,19 @@ under the License.
         <attribute mode="OUT" name="contentList" optional="false" type="List"/>
     </service>
 
+    <service name="createLocalFileContentFromStream" default-entity-name="Content" engine="simple" transaction-timeout="300"
+             location="org/ofbiz/content/content/ContentServices.xml" invoke="createUploadedLocalFileContent">
+        <description>Creates a local file, data resource and content records for an uploaded file</description>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="uploadedFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true"/>
+        <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
+        <attribute name="dataCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentId" type="String" mode="OUT" optional="false"/>
+        <override name="contentTypeId" optional="false"/>        
+    </service>
 
     <!--Content Assoc services.-->
     <service name="checkAssocPermission"

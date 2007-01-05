@@ -34,4 +34,21 @@ under the License.
         <action service="storeEmailAsCommunication" mode="sync"/>
     </eca>
 
+    <!-- create content events -->
+    <eca service="createContent" event="commit">
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <condition field-name="roleTypeId" operator="is-not-empty"/>
+        <action service="createContentRole" mode="sync"/>
+    </eca>
+
+    <eca service="createTextContent" event="invoke">
+        <action service="createDataResource" mode="sync"/>
+        <action service="createContent" mode="sync"/>
+    </eca>
+
+    <eca service="updateTextContent" event="invoke">
+        <action service="updateDataResource" mode="sync"/>
+        <action service="updateContent" mode="sync"/>
+    </eca>
+
 </service-eca>
