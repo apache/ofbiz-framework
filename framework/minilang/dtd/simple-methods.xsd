@@ -436,29 +436,29 @@ under the License.
         <xs:attribute type="xs:string" name="in-map-name"/>
         <xs:attribute name="include-user-login" default="true">
             <xs:simpleType>
+                <xs:annotation>
+                    <xs:documentation>
+                        Defaults to "true". 
+                    </xs:documentation>
+                </xs:annotation>            
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
-            <xs:annotation>
-                <xs:documentation>
-                    Defaults to "true". 
-                </xs:documentation>
-            </xs:annotation>            
         </xs:attribute>
         <xs:attribute name="break-on-error" default="true">
             <xs:simpleType>
+                <xs:annotation>
+                    <xs:documentation>
+                        Defaults to "true".
+                    </xs:documentation>
+                </xs:annotation>                        
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
-            <xs:annotation>
-                <xs:documentation>
-                    Defaults to "true".
-                </xs:documentation>
-            </xs:annotation>                        
         </xs:attribute>
         <xs:attribute type="xs:string" name="error-code" default="error">
             <xs:annotation>
@@ -579,16 +579,16 @@ under the License.
         <xs:attribute type="xs:string" name="in-map-name"/>
         <xs:attribute name="include-user-login" default="true">
             <xs:simpleType>
+                <xs:annotation>
+                    <xs:documentation>
+                        Defaults to "true".
+                    </xs:documentation>
+                </xs:annotation>                                    
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
-            <xs:annotation>
-                <xs:documentation>
-                    Defaults to "true".
-                </xs:documentation>
-            </xs:annotation>                                    
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
@@ -800,41 +800,49 @@ under the License.
         </xs:annotation>            
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="string"/>
-                <xs:annotation>
-                    <xs:documentation>
-                        Used to specify an inline String argument to the constructor method. 
-                    </xs:documentation>
-                </xs:annotation>            
-                <xs:element ref="field"/>
-                <xs:annotation>
-                    <xs:documentation>
-                        Used to specify a field to be passed as an argument to the constructor method. 
-                        The field can be in a map in the environment or if no map-name is specified then 
-                        the field will come directly from the environment. 
-                    </xs:documentation>
-                </xs:annotation>            
+                <xs:element ref="field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to specify an inline String argument to the constructor method. 
+                        </xs:documentation>
+                    </xs:annotation>                                
+                </xs:element>
+                <xs:element ref="string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to specify a field to be passed as an argument to the constructor method. 
+                            The field can be in a map in the environment or if no map-name is specified then 
+                            the field will come directly from the environment. 
+                        </xs:documentation>
+                    </xs:annotation>            
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.create-object"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.create-object">
         <xs:attribute type="xs:string" name="class-name" use="required">
-            <xs:documentation>
-                The name of the class to construct an object of. 
-            </xs:documentation>            
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the class to construct an object of. 
+                </xs:documentation>
+            </xs:annotation>            
         </xs:attribute>
         <xs:attribute type="xs:string" name="field-name">
-            <xs:documentation>
-                The name of a field to put the new object in.   
-                If not specified the object will be created but ignored after that. 
-            </xs:documentation>            
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a field to put the new object in.   
+                    If not specified the object will be created but ignored after that. 
+                </xs:documentation>
+            </xs:annotation>            
         </xs:attribute>
         <xs:attribute type="xs:string" name="map-name">
-            <xs:documentation>
-                The name of the map the field will go in. 
-                If not specified the field will be put in the environment. 
-            </xs:documentation>            
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map the field will go in. 
+                    If not specified the field will be put in the environment. 
+                </xs:documentation>
+             </xs:annotation>            
         </xs:attribute>
     </xs:attributeGroup>
     <!-- Operations to copy map fields in the current env to context specific containers -->
