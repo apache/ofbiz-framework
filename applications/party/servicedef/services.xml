@@ -719,11 +719,12 @@ under the License.
         <override name="contentId" optional="true"/>
     </service>
 
-    <service name="uploadPartyContentFile" engine="route" transaction-timeout="300">
+    <service name="uploadPartyContentFile" engine="group" transaction-timeout="300">
         <description>Upload and attach a file to a party</description>
-        <implements service="createLocalFileContentFromStream" optional="false"/>
-        <implements service="createPartyContent" optional="true"/>
-        <override name="contentId" optional="true"/>
+        <group>
+            <invoke name="createContentFromUploadedFile" result-to-context="true"/>
+            <invoke name="createPartyContent"/>
+        </group>        
     </service>
 
     <service name="getPartyEmail" engine="simple"
