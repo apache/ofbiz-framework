@@ -124,7 +124,7 @@ under the License.
         <xs:attribute type="xs:string" name="field-name" use="required"/>
         <xs:attribute type="xs:string" name="env-name"/>
         <xs:attribute type="xs:string" name="value"/>
-        <xs:attribute type="xs:string" name="format">
+        <xs:attribute name="format">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="append"/>                    
