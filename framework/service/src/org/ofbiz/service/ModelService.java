@@ -171,23 +171,23 @@ public class ModelService implements Serializable {
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append(name).append("::");
-        buf.append(description + "::");
-        buf.append(engineName + "::");
-        buf.append(nameSpace + "::");
-        buf.append(location + "::");
-        buf.append(invoke + "::");
-        buf.append(defaultEntityName + "::");
-        buf.append(auth + "::");
-        buf.append(export + "::");
-        buf.append(validate + "::");
-        buf.append(useTransaction + "::");
-        buf.append(requireNewTransaction + "::");
-        buf.append(transactionTimeout + "::");
-        buf.append(implServices + "::");
-        buf.append(overrideParameters + "::");
-        buf.append(contextInfo + "::");
-        buf.append(contextParamList + "::");
-        buf.append(inheritedParameters + "::");
+        buf.append(description).append("::");
+        buf.append(engineName).append("::");
+        buf.append(nameSpace).append("::");
+        buf.append(location).append("::");
+        buf.append(invoke).append("::");
+        buf.append(defaultEntityName).append("::");
+        buf.append(auth).append("::");
+        buf.append(export).append("::");
+        buf.append(validate).append("::");
+        buf.append(useTransaction).append("::");
+        buf.append(requireNewTransaction).append("::");
+        buf.append(transactionTimeout).append("::");
+        buf.append(implServices).append("::");
+        buf.append(overrideParameters).append("::");
+        buf.append(contextInfo).append("::");
+        buf.append(contextParamList).append("::");
+        buf.append(inheritedParameters).append("::");
         return buf.toString();
     }
 
@@ -283,6 +283,22 @@ public class ModelService implements Serializable {
             nameList.add(p.name);
         }
         return nameList;
+    }
+
+    public void updateDefaultValues(Map context, String mode) {        
+        List params = this.getModelParamList();
+        if (params != null) {
+            Iterator i = params.iterator();
+            while (i.hasNext()) {
+                ModelParam param = (ModelParam) i.next();
+                if ("INOUT".equals(param.mode) || mode.equals(param.mode)) {
+                    if (param.defaultValue != null && context.get(param.name) == null) {
+                        context.put(param.name, param.defaultValue);
+                        Debug.log("Set default value for parameter: " + param.name, module);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -729,16 +745,16 @@ public class ModelService implements Serializable {
 
     /**
      * Evaluates permissions for a service.
-     * @param security The security object to use for permission checking
-     * @param userLogin The logged in user's value object
+     * @param dctx DispatchContext from the invoked service
+     * @param context Map containing userLogin infromation
      * @return true if all permissions evaluate true.
      */
-    public boolean evalPermissions(Security security, GenericValue userLogin) {
+    public boolean evalPermissions(DispatchContext dctx, Map context) {
         if (this.containsPermissions()) {
             Iterator i = this.permissionGroups.iterator();
             while (i.hasNext()) {
                 ModelPermGroup group = (ModelPermGroup) i.next();
-                if (!group.evalPermissions(security, userLogin)) {
+                if (!group.evalPermissions(dctx, context)) {
                     return false;
                 }
             }

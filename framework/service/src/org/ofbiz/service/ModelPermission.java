@@ -22,8 +22,11 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.service.security.ServiceSecurity;
 
 import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -36,24 +39,30 @@ public class ModelPermission implements Serializable {
     public static final int PERMISSION = 1;
     public static final int ENTITY_PERMISSION = 2;
     public static final int ROLE_MEMBER = 3;
+    public static final int CUSTOM = 4;
 
     public ModelService serviceModel = null;
     public int permissionType = 0;
     public String nameOrRole = null;
     public String action = null;
+    public String clazz = null;
 
-    public boolean evalPermission(Security security, GenericValue userLogin) {
+    public boolean evalPermission(DispatchContext dctx, Map context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Security security = dctx.getSecurity();
         if (userLogin == null) {
             Debug.logInfo("Secure service requested with no userLogin object", module);
             return false;
         }
         switch (permissionType) {
-            case 1:
+            case PERMISSION:
                 return evalSimplePermission(security, userLogin);
-            case 2:
+            case ENTITY_PERMISSION:
                 return evalEntityPermission(security, userLogin);
-            case 3:
+            case ROLE_MEMBER:
                 return evalRoleMember(userLogin);
+            case CUSTOM:
+                return evalCustomPermission(dctx, context);
             default:
                 Debug.logWarning("Invalid permission type [" + permissionType + "] for permission named : " + nameOrRole + " on service : " + serviceModel.name, module);
                 return false;
@@ -99,5 +108,22 @@ public class ModelPermission implements Serializable {
             }
         }
         return false;
+    }
+
+    private boolean evalCustomPermission(DispatchContext dctx, Map context) {
+        Object obj;
+        try {
+            obj = ObjectType.getInstance(clazz);
+        } catch (Exception e) {
+            Debug.logError(e, module);
+            return false;
+        }
+
+        if (obj != null && (obj instanceof ServiceSecurity)) {
+            ServiceSecurity sec = (ServiceSecurity) obj;
+            return sec.hasPermission(dctx, context);
+        } else {
+            return false;
+        }
     }
 }

@@ -59,6 +59,9 @@ public class ModelParam implements Serializable {
     /** Validation methods */
     public List validators;
 
+    /** Default value */
+    public Object defaultValue;
+
     /** Is this Parameter required or optional? Default to false, or required */
     public boolean optional = false;
     public boolean overrideOptional = false;
@@ -82,6 +85,7 @@ public class ModelParam implements Serializable {
         this.stringMapPrefix = param.stringMapPrefix;
         this.stringListSuffix = param.stringListSuffix;
         this.validators = param.validators;
+        this.defaultValue = param.defaultValue;
         this.optional = param.optional;
         this.overrideOptional = param.overrideOptional;
         this.formDisplay = param.formDisplay;
@@ -106,26 +110,25 @@ public class ModelParam implements Serializable {
     }
 
     public boolean equals(ModelParam model) {
-        if (model.name.equals(this.name))
-            return true;
-        return false;
+        return model.name.equals(this.name);
     }
     
     public String toString() {
         StringBuffer buf = new StringBuffer();
-        buf.append(name + "::");
-        buf.append(type + "::");
-        buf.append(mode + "::");
-        buf.append(formLabel + "::");
-        buf.append(entityName + "::");
-        buf.append(fieldName + "::");
-        buf.append(stringMapPrefix + "::");
-        buf.append(stringListSuffix + "::");
-        buf.append(validators.toString() + "::");
-        buf.append(optional + "::");
-        buf.append(overrideOptional + "::");
-        buf.append(formDisplay + "::");
-        buf.append(overrideFormDisplay + "::");
+        buf.append(name).append("::");
+        buf.append(type).append("::");
+        buf.append(mode).append("::");
+        buf.append(formLabel).append("::");
+        buf.append(entityName).append("::");
+        buf.append(fieldName).append("::");
+        buf.append(stringMapPrefix).append("::");
+        buf.append(stringListSuffix).append("::");
+        buf.append(validators.toString()).append("::");
+        buf.append(optional).append("::");
+        buf.append(overrideOptional).append("::");
+        buf.append(formDisplay).append("::");
+        buf.append(overrideFormDisplay).append("::");
+        buf.append(defaultValue).append("::");
         buf.append(internal);
         return buf.toString();
     }
