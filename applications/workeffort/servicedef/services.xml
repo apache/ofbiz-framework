@@ -439,6 +439,23 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
+    <!-- simple use content services -->
+    <service name="createWorkEffortTextContent" engine="group" transaction-timeout="300" auth="true">
+        <description>Creates a Text Document DataResource and Content Records</description>
+        <group>
+            <invoke name="createTextContent" result-to-context="true"/>
+            <invoke name="createWorkEffortContent"/>
+        </group>
+    </service>
+
+    <service name="uploadWorkEffortContentFile" engine="group" transaction-timeout="300">
+        <description>Upload and attach a file to a WorkEffort</description>
+        <group>
+            <invoke name="createContentFromUploadedFile" result-to-context="true"/>
+            <invoke name="createWorkEffortContent"/>
+        </group>
+    </service>
+
     <!-- work effort review services -->
     <service name="createWorkEffortReview" default-entity-name="WorkEffortReview" engine="simple"
                 location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortReview" auth="true">

@@ -109,10 +109,12 @@ under the License.
         <override name="contentTypeId" optional="false"/>
     </service>
 
-    <service name="createTextContent" engine="route" transaction-timeout="300" auth="true">
+    <service name="createTextContent" engine="group" transaction-timeout="300" auth="true">
         <description>Creates a Text Document DataResource and Content Records</description>
-        <implements service="createDataResource" optional="false"/>
-        <implements service="createContent" optional="false"/>
+        <group>
+            <invoke name="createDataResource" result-to-context="true"/>
+            <invoke name="createContent"/>
+        </group>        
     </service>
 
     <service name="createContentFromDataResource" engine="simple"
@@ -159,10 +161,12 @@ under the License.
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
 
-    <service name="updateTextContent" engine="route" transaction-timeout="300" auth="true">
+    <service name="updateTextContent" engine="group" transaction-timeout="300" auth="true">
         <description>Updates a Text Document DataResource and Content Records</description>
-        <implements service="updateDataResource" optional="false"/>
-        <implements service="updateContent" optional="false"/>
+        <group>
+            <invoke name="updateDataResource" result-to-context="true"/>
+            <invoke name="updateContent"/>
+        </group>        
     </service>
     
     <service name="removeContent" default-entity-name="Content" engine="simple"

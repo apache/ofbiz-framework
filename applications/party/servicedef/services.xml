@@ -712,11 +712,12 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <service name="createPartyTextContent" engine="route" transaction-timeout="300" auth="true">
+    <service name="createPartyTextContent" engine="group" transaction-timeout="300" auth="true">
         <description>Creates a Text Document DataResource and Content Records</description>
-        <implements service="createTextContent" optional="false"/>
-        <implements service="createPartyContent" optional="false"/>        
-        <override name="contentId" optional="true"/>
+        <group>
+            <invoke name="createTextContent" result-to-context="true"/>
+            <invoke name="createPartyContent"/>
+        </group>        
     </service>
 
     <service name="uploadPartyContentFile" engine="group" transaction-timeout="300">
