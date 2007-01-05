@@ -789,55 +789,78 @@ under the License.
         <create-value value-name="content"/>
     </simple-method>
 
-    <!-- This method will accept an uploaded file stream and create a generic Content/DataResource record -->
-    <simple-method method-name="createUploadedLocalFileContent" short-description="Creates a Local File Content from an uploaded stream">
-        <!-- check for the uploaded file name and information -->
-        <if-not-empty field-name="_uploadedFile_fileName" map-name="parameters">
-            <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
-            <log level="info" message="[createUploadedLocalFileContent] - Found Subdir : ${uploadPath}"/>
+    <!-- This method will create a skeleton content record from a data resource -->
+    <simple-method method-name="createContentFromDataResource" short-description="Create Content from DataResource Object">
+        <entity-one entity-name="DataResource" value-name="dataResource">
+            <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+        </entity-one>
+        <if-empty field-name="dataResource">
+            <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
+        </if-empty>
+        <check-errors/>
 
-            <!-- locate the file extension to use based on mime-type -->
-            <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
-            <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
-            <first-from-list entry-name="extension" list-name="extensions"/>
-            <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="dataResource"/>
+        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createContentMap"/>
 
-            <!-- obtain a data resource id (needed in advance for the raw file name -->
-            <sequenced-id-to-env sequence-name="DataResource" env-name="dataResourceId"/>
-            <set from-field="dataResourceId" field="dataResource.dataResourceId"/>
-            
-            <!-- create the data resource object -->
-            <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
-            <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
-            <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
-            <if-not-empty field-name="extension">
-                <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
-            </if-not-empty>
-            <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
-            <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
-                <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
-                <result-to-field result-name="dataResource" field-name="dataResourceMap"/>
-            </call-service>
+        <if-empty field-name="createContentMap.contentName">
+            <set field="createContentMap.contentName" from-field="dataResource.dataResourceName"/>
+        </if-empty>
 
-            <!-- create the content record -->
-            <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createContentMap"/>
-            <set from-field="parameters._uploadedFile_fileName" field="createContentMap.contentName"/>
-            <set from-field="parameters._uploadedFile_contentType" field="createContentMap.mimeTypeId"/>
-            <set from-field="dataResourceId" field="createContentMap.dataResourceId"/>
-            <call-service service-name="createContent" in-map-name="createContentMap" break-on-error="false">
-                <result-to-field result-name="contentId" field-name="contentId"/>
-            </call-service>
+        <if-empty field-name="createContentMap.contentTypeId">
+            <set field="createContentMap.contentTypeId" value="DOCUMENT"/> 
+        </if-empty>
 
-            <!-- store the file -->
-            <set-service-fields service-name="createAnonFile" map-name="dataResourceMap" to-map-name="fileCtx"/>
-            <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
-            <set from-field="dataResourceMap" field="fileCtx.dataResource"/>
-            <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
-            
-            <field-to-result field-name="contentId" />
-       </if-not-empty>
+        <if-empty field-name="createContentMap.statusId">
+            <set field="createContentMap.statusId" value="CTNT_INITIAL_DRAFT"/>
+        </if-empty>
+
+        <if-empty field-name="createContentMap.mimeTypeId">
+            <set from-field="dataResource.mimeTypeId" field="createContentMap.mimeTypeId"/>
+        </if-empty>
+
+        <call-service service-name="createContent" in-map-name="createContentMap" break-on-error="false">
+            <result-to-field result-name="contentId" field-name="contentId"/>
+        </call-service>
+
+        <field-to-result field-name="contentId" />
     </simple-method>
 
+    <!-- Attaches an uploaded file to an existing data resource object -->
+    <simple-method method-name="attachLocalFileToDataResource" short-description="Attach an uploaded file to a data resource as LOCAL_FILE">
+        <entity-one entity-name="DataResource" value-name="dataResource">
+            <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
+        </entity-one>
+        <if-empty field-name="dataResource">
+            <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
+        </if-empty>
+        <if-empty field-name="_uploadedFile_fileName" map-name="parameters">
+            <add-error><fail-message message="No uploaded content found in context"/></add-error>
+        </if-empty>
+        <check-errors/>
+
+        <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
+        <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
+
+        <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
+        <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
+        <first-from-list entry-name="extension" list-name="extensions"/>
+
+        <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+        <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+        <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
+        <if-not-empty field-name="extension">
+            <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
+        </if-not-empty>
+        <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
+
+        <set-service-fields service-name="createAnonFile" map-name="dataResource" to-map-name="fileCtx"/>
+        <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
+        <set from-field="dataResource" field="fileCtx.dataResource"/>
+        <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
+
+        <store-value value-name="dataResource"/>
+        <field-to-result field-name="dataResourceId" map-name="dataResource"/>
+    </simple-method>
+    
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
 		 by calling persistContentAndAssoc.
 		
