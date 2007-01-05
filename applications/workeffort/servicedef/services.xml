@@ -411,6 +411,8 @@ under the License.
             and a work effort (e.g. a production run task)</description>
         <auto-attributes include="pk" mode="IN" optional="false" />
     </service>
+
+    <!-- work effort content services -->
     <service name="createWorkEffortContent" engine="simple"
         location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"
         invoke="createWorkEffortContent"
@@ -436,6 +438,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+
+    <!-- work effort review services -->
     <service name="createWorkEffortReview" default-entity-name="WorkEffortReview" engine="simple"
                 location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortReview" auth="true">
         <description>Create a Work Effort Review</description>
