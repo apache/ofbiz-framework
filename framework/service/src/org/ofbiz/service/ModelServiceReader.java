@@ -402,7 +402,7 @@ public class ModelServiceReader implements Serializable {
         while (implIter.hasNext()) {
             Element implement = (Element) implIter.next();
             String serviceName = UtilXml.checkEmpty(implement.getAttribute("service"));
-            boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), false);
+            boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), true);
             if (serviceName.length() > 0)
                 service.implServices.add(new ModelServiceIface(serviceName, optional));
                 //service.implServices.add(serviceName);
