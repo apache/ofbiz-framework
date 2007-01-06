@@ -1751,6 +1751,13 @@ under the License.
         <xs:attribute type="xs:string" name="field" use="optional"/>
     </xs:attributeGroup>
     <xs:element name="check-errors" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The message lists from invoking are not checked until the check-errors tag is used. 
+                The named list is checked and if it contains any messages they are put in the servlet 
+                request object and the specified error code is returned to the control servlet.                                
+            </xs:documentation>
+        </xs:annotation>                    
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="error-prefix"/>
@@ -1762,28 +1769,74 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.check-errors">
-        <xs:attribute type="xs:string" name="error-code" default="error"/>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="error-code" default="error">
+             <xs:annotation>
+                <xs:documentation>
+                    Defaults to "error".
+                </xs:documentation>
+            </xs:annotation>                    
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the list to in the method environment to check for error messages. Defaults to "error_list".
+                </xs:documentation>
+            </xs:annotation>                    
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="add-error" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Adds an error message with to the given error list from either an inline message or a message from a properties file.
+            </xs:documentation>
+        </xs:annotation>                    
         <xs:complexType>
             <xs:choice>
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
+                <xs:element ref="fail-message">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to specify an inline message. Has one attribute called 'message'.
+                        </xs:documentation>
+                    </xs:annotation>                                        
+                </xs:element>
+                <xs:element ref="fail-property">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Used to get the message from a properties file. Has two attributes: resource and property.
+                        </xs:documentation>
+                    </xs:annotation>                                        
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.add-error"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.add-error">
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the list to in the method environment to check for error messages. Defaults to "error_list".
+                </xs:documentation>
+            </xs:annotation>                    
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="return" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Returns immediately from the simple-method with the given response code string.
+            </xs:documentation>
+        </xs:annotation>                    
         <xs:complexType>
             <xs:attributeGroup ref="attlist.return"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.return">
-        <xs:attribute type="xs:string" name="response-code" default="success"/>
+        <xs:attribute type="xs:string" name="response-code" default="success">
+            <xs:annotation>
+                <xs:documentation>
+                    The string to return as a response code. Defaults to "success".
+                </xs:documentation>
+            </xs:annotation>                                
+        </xs:attribute>
     </xs:attributeGroup>
 
     <xs:element name="assert" substitutionGroup="IfOtherOperations">
