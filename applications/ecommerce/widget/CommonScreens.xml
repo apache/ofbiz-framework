@@ -201,6 +201,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <sub-content content-id="WebStoreCONTENT" map-key="policies"/>
+                        <sub-content content-id="WebStoreCONTENT" map-key="policies2"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
