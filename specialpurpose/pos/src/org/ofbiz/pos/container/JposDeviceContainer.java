@@ -46,6 +46,9 @@ public class JposDeviceContainer implements Container {
         try {
             DeviceLoader.load(devices);
         } catch (GeneralException e) {
+            Debug.logInfo("******************************************************", module);
+            Debug.logInfo("Please verify that your receipt printer is connected !", module);
+            Debug.logInfo("******************************************************", module);
             throw new ContainerException(e);
         }
        
