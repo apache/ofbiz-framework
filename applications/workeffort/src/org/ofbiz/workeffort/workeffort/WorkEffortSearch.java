@@ -319,11 +319,11 @@ public class WorkEffortSearch {
 
             if (resultSortOrder != null) {
                 resultSortOrder.setSortOrder(this);
-            }            
+            }
             dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, new Boolean(workEffortIdGroupBy), null);
             EntityCondition whereCondition = new EntityConditionList(entityConditionList, EntityOperator.AND);
             
-            Debug.logInfo("WorkEffortSearch, whereCondition = " + whereCondition.toString(), module);
+            // Debug.logInfo("WorkEffortSearch, whereCondition = " + whereCondition.toString(), module);
             
             EntityFindOptions efo = new EntityFindOptions();
             efo.setDistinct(true);
