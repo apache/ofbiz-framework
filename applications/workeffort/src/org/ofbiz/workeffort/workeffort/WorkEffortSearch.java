@@ -322,6 +322,9 @@ public class WorkEffortSearch {
             }            
             dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, new Boolean(workEffortIdGroupBy), null);
             EntityCondition whereCondition = new EntityConditionList(entityConditionList, EntityOperator.AND);
+            
+            Debug.logInfo("WorkEffortSearch, whereCondition = " + whereCondition.toString(), module);
+            
             EntityFindOptions efo = new EntityFindOptions();
             efo.setDistinct(true);
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
@@ -546,7 +549,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "WorkEffortAssocTypeId", "workEffortAssocTypeId", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-            workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
+            workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
             
             List assocConditionFromTo = FastList.newInstance();
             assocConditionFromTo.add(new EntityExpr(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
@@ -567,7 +570,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "WorkEffortAssocTypeId", "workEffortAssocTypeId", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
-            workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
+            workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
             
             List assocConditionToFrom = FastList.newInstance();
             assocConditionToFrom.add(new EntityExpr(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
