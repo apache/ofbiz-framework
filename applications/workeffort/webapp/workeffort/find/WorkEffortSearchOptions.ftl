@@ -121,7 +121,7 @@ under the License.
     </tr>
     <tr>
       <td width='25%' align='right'>
-        <div class='tableheadtext'>${uiLabelMap.CommonDateFilter}</div>
+        <div class='tableheadtext'>Last Updated Date Filter</div>
       </td>
       <td>
         <table border='0' cellspacing='0' cellpadding='0'>
