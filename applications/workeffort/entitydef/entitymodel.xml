@@ -732,7 +732,7 @@ under the License.
         <field name="constraintSeqId" type="id-ne"></field>
         <field name="constraintName" type="long-varchar"></field>
         <field name="infoString" type="long-varchar"></field>
-        <field name="includeSubCategories" type="indicator"></field>
+        <field name="includeSubWorkEfforts" type="indicator"></field>
         <field name="isAnd" type="indicator"></field>
         <field name="anyPrefix" type="indicator"></field>
         <field name="anySuffix" type="indicator"></field>
