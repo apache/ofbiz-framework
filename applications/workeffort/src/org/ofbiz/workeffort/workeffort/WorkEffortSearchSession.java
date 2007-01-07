@@ -16,6 +16,7 @@
  */
 package org.ofbiz.workeffort.workeffort;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -187,6 +189,48 @@ public class WorkEffortSearchSession {
             searchAddConstraint(new WorkEffortSearch.WorkEffortReviewConstraint(reviewText), session);
             constraintsChanged = true;
         }
+//      add a Work Effort Assoc Type to the search
+        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_WORK_EFFORT_ID"))) {
+            String workEffortId=(String) parameters.get("SEARCH_WORK_EFFORT_ID");
+            String workEffortAssocTypeId=(String) parameters.get("workEffortAssocTypeId");
+            boolean includeAllSubWorkEfforts =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));                           
+            searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId,workEffortAssocTypeId,includeAllSubWorkEfforts), session);
+            constraintsChanged = true;
+        }        
+//      add a Work Effort Party Assignment to the search
+        if (UtilValidate.isNotEmpty((String) parameters.get("partyId"))) {
+            String partyId=(String) parameters.get("partyId");
+            String roleTypeId=(String) parameters.get("roleTypeId");
+            searchAddConstraint(new WorkEffortSearch.PartyAssignmentConstraint(partyId,roleTypeId), session);
+            constraintsChanged = true;
+        }
+        
+//      add a Product Set to the search
+        if (UtilValidate.isNotEmpty((String) parameters.get("productId_1"))) {
+            List productSet = new ArrayList();
+            productSet.add(parameters.get("productId_1"));
+            if (UtilValidate.isNotEmpty((String) parameters.get("productId_2"))) {
+                productSet.add(parameters.get("productId_2"));    
+            }            
+            searchAddConstraint(new WorkEffortSearch.ProductSetConstraint(productSet), session);
+            constraintsChanged = true;
+        }
+
+//      add a WorkEfort fromDate thruDate  to the search
+        if (UtilValidate.isNotEmpty((String) parameters.get("fromDate")) || UtilValidate.isNotEmpty((String) parameters.get("thruDate")) ) {
+            Timestamp fromDate =null;
+            if (UtilValidate.isNotEmpty((String) parameters.get("fromDate"))) {
+                fromDate=Timestamp.valueOf((String) parameters.get("fromDate"));
+            }                       
+            
+            Timestamp thruDate = null;
+            if (UtilValidate.isNotEmpty((String) parameters.get("thruDate"))) {
+                thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
+            }                        
+            searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
+            constraintsChanged = true;
+        }
+        
         // if keywords were specified, add a constraint for them
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING"))) {
             String keywordString = (String) parameters.get("SEARCH_STRING");

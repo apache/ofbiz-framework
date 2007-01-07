@@ -17,10 +17,10 @@ under the License.
 
 <div class="head1">${uiLabelMap.WorkEffortSearchWorkEfforts}, <span class="head2">${uiLabelMap.ProductSearchFor}:</span></div>
 <#list searchConstraintStrings as searchConstraintString>
-    <div class="tabletext">&nbsp;<a href="<@ofbizUrl>WorkEffortSearchResults?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">[X]</a>&nbsp;${searchConstraintString}</div>
+    <div class="tabletext">&nbsp;<a href="<@ofbizUrl>WorkEffortSearchResults?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
 </#list>
 <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
-<div class="tabletext"><a href="<@ofbizUrl>WorkEffortSearchOptions</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}]</a></div>
+<div class="tabletext"><a href="<@ofbizUrl>WorkEffortSearchOptions</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}</a></div>
 
 <#if !workEffortIds?has_content>
   <br/><div class="head2">&nbsp;${uiLabelMap.ProductNoResultsFound}.</div>
@@ -55,7 +55,7 @@ under the License.
       <#assign workEffort = delegator.findByPrimaryKey("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", workEffortId))>
       <tr>
         <td>
-          <a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffortId}</@ofbizUrl>" class="buttontext">[${workEffortId}] ${(workEffort.workEffortName)?if_exists}</a>
+          <a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffortId}</@ofbizUrl>" class="buttontext">${workEffortId} ${(workEffort.workEffortName)?if_exists}</a>
         </td>
       </tr>
     </#list>
