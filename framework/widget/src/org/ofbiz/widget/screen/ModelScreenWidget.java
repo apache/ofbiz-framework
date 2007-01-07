@@ -945,7 +945,10 @@ public abstract class ModelScreenWidget implements Serializable {
 
             // put the text attribute first, then the pcdata under the element, if both are there of course
             this.contentId = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("content-id")));
-            this.mapKey = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("map-key"), subContentElement.getAttribute("assoc-name")));
+            this.mapKey = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("map-key")));
+            if (this.mapKey.isEmpty()) {
+                this.mapKey = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("assoc-name")));
+            }
             this.editRequest = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("edit-request")));
             this.editContainerStyle = new FlexibleStringExpander(subContentElement.getAttribute("edit-container-style"));
             this.enableEditName = new FlexibleStringExpander(subContentElement.getAttribute("enable-edit-name"));
