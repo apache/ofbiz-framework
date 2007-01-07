@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
@@ -547,12 +548,13 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
             
-            workEffortSearchContext.entityConditionList.add(new EntityExpr(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
+            List assocConditionFromTo = FastList.newInstance();
+            assocConditionFromTo.add(new EntityExpr(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
-                workEffortSearchContext.entityConditionList.add(new EntityExpr(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
+                assocConditionFromTo.add(new EntityExpr(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
             }
-            workEffortSearchContext.entityConditionList.add(new EntityExpr(new EntityExpr(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
-            workEffortSearchContext.entityConditionList.add(new EntityExpr(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
+            assocConditionFromTo.add(new EntityExpr(new EntityExpr(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
+            assocConditionFromTo.add(new EntityExpr(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
 
             // do workEffortId = workEffortIdTo, workEffortIdFrom IN workEffortIdSet
             entityAlias = "WFA" + workEffortSearchContext.index;
@@ -567,13 +569,18 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
             
-            workEffortSearchContext.entityConditionList.add(new EntityExpr(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
+            List assocConditionToFrom = FastList.newInstance();
+            assocConditionToFrom.add(new EntityExpr(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
-                workEffortSearchContext.entityConditionList.add(new EntityExpr(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
+                assocConditionToFrom.add(new EntityExpr(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
             }
-            workEffortSearchContext.entityConditionList.add(new EntityExpr(new EntityExpr(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
-            workEffortSearchContext.entityConditionList.add(new EntityExpr(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
+            assocConditionToFrom.add(new EntityExpr(new EntityExpr(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
+            assocConditionToFrom.add(new EntityExpr(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
 
+            // now create and add the combined constraint
+            workEffortSearchContext.entityConditionList.add(new EntityExpr(new EntityConditionList(assocConditionFromTo, EntityOperator.AND), EntityOperator.OR, new EntityConditionList(assocConditionToFrom, EntityOperator.AND)));
+            
+            
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.workEffortId + "," + this.workEffortAssocTypeId, "includeSubWorkEfforts", this.includeSubWorkEfforts ? "Y" : "N")));
         }
