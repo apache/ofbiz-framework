@@ -58,6 +58,7 @@ under the License.
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIPPING" description="Shipping Destination Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIP_ORIG" description="Shipping Origin Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_BILLING" description="Billing (AP) Phone Number"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_DID" description="Direct Inward Dialing Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_PAYMENT" description="Payment (AR) Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_HOME" description="Main Home Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK" description="Main Work Phone Number"/>
@@ -94,6 +95,7 @@ under the License.
     <ContactMechTypePurpose contactMechPurposeTypeId="PREVIOUS_LOCATION" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="FAX_NUMBER" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="FAX_NUMBER_SEC" contactMechTypeId="TELECOM_NUMBER"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_DID" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_HOME" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_MOBILE" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_WORK" contactMechTypeId="TELECOM_NUMBER"/>
@@ -212,6 +214,9 @@ under the License.
     <PartyClassificationType description="Organization" hasTable="N" parentTypeId="" partyClassificationTypeId="ORGANIZATION_CLASSIF"/>
     <PartyClassificationType description="Person" hasTable="N" parentTypeId="" partyClassificationTypeId="PERSON_CLASSIFICATIO"/>
     <PartyClassificationType description="Size" hasTable="N" parentTypeId="" partyClassificationTypeId="SIZE_CLASSIFICATION"/>
+    <PartyClassificationType description="Trade" hasTable="N" parentTypeId="" partyClassificationTypeId="TRADE_CLASSIFICATION"/>
+    <PartyClassificationType description="Wholesale" hasTable="N" parentTypeId="TRADE_CLASSIFICATION" partyClassificationTypeId="TRADE_WHOLE_CLASSIFI"/>
+    <PartyClassificationType description="Retail" hasTable="N" parentTypeId="TRADE_CLASSIFICATION" partyClassificationTypeId="TRADE_RETAIL_CLASSIF"/>
 
     <PartyQualType description="Work experience" hasTable="N" parentTypeId="" partyQualTypeId="EXPERIENCE"/>
     <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
