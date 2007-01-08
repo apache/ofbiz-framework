@@ -97,6 +97,14 @@ font-weight: bold;
 color: #000000;
 }
 
+TH, .tableheadtext {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+color: black;
+}
+
 .endcolumns {
 clear: both;
 height: 0px;
@@ -363,14 +371,6 @@ border: solid #000099 1px;
 A.tabButtonSelected:hover {
 color: #FFFFFF;
 border: solid #000099 1px;
-}
-
-.tableheadtext {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
-font-weight: bold;
-text-decoration: none;
-color: black;
 }
 
 A.tableheadbutton {
