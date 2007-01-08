@@ -201,4 +201,43 @@ under the License.
             <submit/>
         </field>
     </form>
+
+    <form name="FindPhysicalInventory" type="single" 
+            target="FindFacilityPhysicalInventory" title="" 
+            default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="inputBox">
+            <text/>
+        </field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}" widget-style="inputBox">
+            <text/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
+    <form name="ListPhysicalInventory" type="multi" list-name="physicalInventory" target="createPhysicalVariances?facilityId=${parameters.facilityId}&amp;productId=${parameters.productId}&amp;internalName=${parameters.internalName}"
+        use-row-submit="true"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
+        <field name="inventoryItemId" widget-style="buttontext">
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem?inventoryItemId=${inventoryItemId}"/>
+        </field>
+        <field name="productId" widget-style="buttontext">
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
+        </field>
+        <field name="internalName"><display/></field>
+        <field name="availableToPromiseTotal"><display/></field>
+        <field name="quantityOnHandTotal"><display/></field>
+        <field name="varianceReasonId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="VarianceReason" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="availableToPromiseVar"><text/></field>
+        <field name="quantityOnHandVar"><text/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
 </forms>

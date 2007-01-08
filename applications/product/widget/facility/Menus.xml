@@ -40,6 +40,9 @@ under the License.
         <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductInventoryReceive}">
             <link target="ReceiveInventory?facilityId=${facilityId}"/>
         </menu-item>
+        <menu-item name="PhysicalInventory" title="${uiLabelMap.ProductPhysicalInventory}">
+            <link target="FindFacilityPhysicalInventory?facilityId=${facilityId}"/>
+        </menu-item>
         <menu-item name="FindFacilityTransfers" title="${uiLabelMap.ProductInventoryXfers}">
             <link target="FindFacilityTransfers?facilityId=${facilityId}"/>
         </menu-item>
