@@ -113,6 +113,7 @@ under the License.
         <description>Creates a Text Document DataResource and Content Records</description>
         <group>
             <invoke name="createDataResource" result-to-context="true"/>
+            <invoke name="createElectronicText" result-to-context="true"/>
             <invoke name="createContent"/>
         </group>        
     </service>
@@ -165,6 +166,7 @@ under the License.
         <description>Updates a Text Document DataResource and Content Records</description>
         <group>
             <invoke name="updateDataResource" result-to-context="true"/>
+            <invoke name="updateElectronicText" result-to-context="true"/>
             <invoke name="updateContent"/>
         </group>        
     </service>
