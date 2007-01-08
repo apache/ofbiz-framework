@@ -15,13 +15,7 @@
  */
 package org.ofbiz.base.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -134,6 +128,11 @@ public class UtilXml {
         writeXmlDocument(os, document.getDocumentElement());
     }
     public static void writeXmlDocument(OutputStream os, Element element) throws java.io.IOException {
+        OutputFormat format = new OutputFormat(element.getOwnerDocument());
+        writeXmlDocument(os, element, format);
+    }
+
+    public static void writeXmlDocument(OutputStream os, Element element, OutputFormat format) throws java.io.IOException {
         if (element == null) {
             Debug.logWarning("[UtilXml.writeXmlDocument] Element was null, doing nothing", module);
             return;
@@ -143,22 +142,11 @@ public class UtilXml {
             return;
         }
 
-        // if(document instanceof XmlDocument) {
-        // Crimson writer
-        // XmlDocument xdoc = (XmlDocument) document;
-        // xdoc.write(os);
-        // }
-        // else {
-        // Xerces writer
-        OutputFormat format = new OutputFormat(element.getOwnerDocument());
-        format.setIndent(2);
-        
         XMLSerializer serializer = new XMLSerializer(os, format);
         serializer.asDOMSerializer();
-        serializer.serialize(element);
-        // }
+        serializer.serialize(element);        
     }
-
+        
     public static Document readXmlDocument(String content)
             throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(content, true);
