@@ -25,6 +25,7 @@ under the License.
     <service name="testScv" engine="java" export="true" validate="false" require-new-transaction="true"
             location="org.ofbiz.common.CommonServices" invoke="testService">
         <description>Test service</description>
+        <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/> 
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
