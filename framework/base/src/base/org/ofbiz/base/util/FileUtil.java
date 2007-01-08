@@ -15,14 +15,7 @@
  */
 package org.ofbiz.base.util;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.BufferedReader;
+import java.io.*;
 
 /**
  * File Utilities
@@ -54,7 +47,7 @@ public class FileUtil {
             }
         }
     }
-
+        
     public static Writer getBufferedWriter(String path, String name) throws IOException {
         String fileName = getPatchedFileName(path, name);
         if (UtilValidate.isEmpty(fileName)) {
@@ -62,6 +55,15 @@ public class FileUtil {
         }
 
         return new BufferedWriter(new FileWriter(fileName));
+    }
+
+    public static OutputStream getBufferedOutputStream(String path, String name) throws IOException {
+        String fileName = getPatchedFileName(path, name);
+        if (UtilValidate.isEmpty(fileName)) {
+            throw new IOException("Cannot obtain buffered writer for an empty filename!");
+        }
+
+        return new BufferedOutputStream(new FileOutputStream(fileName));
     }
 
     public static String getPatchedFileName(String path, String fileName) throws IOException {
