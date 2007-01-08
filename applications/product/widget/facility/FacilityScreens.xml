@@ -496,6 +496,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="FindFacilityPhysicalInventory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindFacilityPhysicalInventory"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="FindFacilityPhysicalInventory"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/FindFacilityPhysicalInventory.bsh"/>
+
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                            <include-form name="FindPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            <include-form name="ListPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="TransferInventoryItem">
         <section>
             <actions>
