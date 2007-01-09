@@ -65,19 +65,17 @@ under the License.
 
 <#-- Single Product Receiving -->
 <#if requestParameters.initialSelected?exists && product?has_content>
-  <form method="post" action="<@ofbizUrl>receiveInventoryProduct</@ofbizUrl>" name="selectAllForm" style="margin: 0;">
+  <form method="post" action="<@ofbizUrl>receiveSingleInventoryProduct</@ofbizUrl>" name="selectAllForm" style="margin: 0;">
     <table border="0" cellpadding="2" cellspacing="0">
       <#-- general request fields -->
       <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}"/>
       <input type="hidden" name="purchaseOrderId" value="${requestParameters.purchaseOrderId?if_exists}"/>
       <#-- special service fields -->
-      <input type="hidden" name="productId_o_0" value="${requestParameters.productId?if_exists}"/>
-      <input type="hidden" name="facilityId_o_0" value="${requestParameters.facilityId?if_exists}"/>
-      <input type="hidden" name="_rowCount" value="1"/>
+      <input type="hidden" name="productId" value="${requestParameters.productId?if_exists}"/>
       <#if purchaseOrder?has_content>
       <#assign unitCost = firstOrderItem.unitPrice?default(standardCosts.get(firstOrderItem.productId)?default(0))/>
-      <input type="hidden" name="orderId_o_0" value="${purchaseOrder.orderId}"/>
-      <input type="hidden" name="orderItemSeqId_o_0" value="${firstOrderItem.orderItemSeqId}"/>
+      <input type="hidden" name="orderId" value="${purchaseOrder.orderId}"/>
+      <input type="hidden" name="orderItemSeqId" value="${firstOrderItem.orderItemSeqId}"/>
       <tr>
         <td width="14%">&nbsp;</td>
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductPurchaseOrder}</div></td>
@@ -121,7 +119,7 @@ under the License.
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductItemDescription}</div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
-          <input type="text" name="itemDescription_o_0" size="30" maxlength="60" class="inputBox"/>
+          <input type="text" name="itemDescription" size="30" maxlength="60" class="inputBox"/>
         </td>
       </tr>
       <tr>
@@ -129,7 +127,7 @@ under the License.
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductInventoryItemType} </div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
-          <select name="inventoryItemTypeId_o_0" size="1" class="selectBox">
+          <select name="inventoryItemTypeId" size="1" class="selectBox">
             <#list inventoryItemTypes as nextInventoryItemType>
               <option value="${nextInventoryItemType.inventoryItemTypeId}"
                 <#if (facility.defaultInventoryItemTypeId?has_content) && (nextInventoryItemType.inventoryItemTypeId == facility.defaultInventoryItemTypeId)>
@@ -148,7 +146,7 @@ under the License.
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductDateReceived}</div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
-          <input type="text" name="datetimeReceived_o_0" size="24" value="${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}" class="inputBox">
+          <input type="text" name="datetimeReceived" size="24" value="${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}" class="inputBox">
           <#-- <a href="#" onclick="setNow("datetimeReceived")" class="buttontext">[Now]</a> -->
         </td>
       </tr>
@@ -161,7 +159,7 @@ under the License.
         <td width="6%">&nbsp;</td>
         <td width="74%">
           <#if facilityLocations?has_content>
-            <select name="locationSeqId_o_0" class="selectBox">
+            <select name="locationSeqId" class="selectBox">
               <#list facilityLocations as productFacilityLocation>
                 <#assign facility = productFacilityLocation.getRelatedOneCache("Facility")/>
                 <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation")?if_exists/>
@@ -171,9 +169,9 @@ under the License.
               <option value="">${uiLabelMap.ProductNoLocation}</option>
             </select>
           <#else>
-            <input type="text" name="locationSeqId_o_0" size="20" maxlength="20" class="inputBox"/>
+            <input type="text" name="locationSeqId" size="20" maxlength="20" class="inputBox"/>
             <span class="tabletext">
-                <a href="javascript:call_fieldlookup2(document.selectAllForm.locationSeqId_o_0,'LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>');">
+                <a href="javascript:call_fieldlookup2(document.selectAllForm.locationSeqId,'LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>');">
                     <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                 </a>
             </span>
@@ -185,7 +183,7 @@ under the License.
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductRejectedReason}</div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
-          <select name="rejectionId_o_0" size="1" class="selectBox">
+          <select name="rejectionId" size="1" class="selectBox">
             <option></option>
             <#list rejectReasons as nextRejection>
               <option value="${nextRejection.rejectionId}">${nextRejection.get("description",locale)?default(nextRejection.rejectionId)}</option>
@@ -198,7 +196,7 @@ under the License.
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductQuantityRejected}</div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
-          <input type="text" name="quantityRejected_o_0" size="5" value="0" class="inputBox"/>
+          <input type="text" name="quantityRejected" size="5" value="0" class="inputBox"/>
         </td>
       </tr>
       <tr>
@@ -206,7 +204,7 @@ under the License.
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductQuantityAccepted}</div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
-          <input type="text" name="quantityAccepted_o_0" size="5" value="${defaultQuantity?default(1)?string.number}" class="inputBox"/>
+          <input type="text" name="quantityAccepted" size="5" value="${defaultQuantity?default(1)?string.number}" class="inputBox"/>
         </td>
       </tr>
       <tr>
@@ -216,7 +214,7 @@ under the License.
         <td width="74%">
           <#-- get the default unit cost -->
           <#if (!unitCost?exists || unitCost == 0.0)><#assign unitCost = standardCosts.get(product.productId)?default(0)/></#if>
-          <input type="text" name="unitCost_o_0" size="10" value="${unitCost}" class="inputBox"/>
+          <input type="text" name="unitCost" size="10" value="${unitCost}" class="inputBox"/>
         </td>
       </tr>
       <tr>
