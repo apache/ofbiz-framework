@@ -218,7 +218,15 @@ under the License.
             </drop-down>
         </field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}"><lookup size="10" target-form-name="LookupProductStore"/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}"><lookup target-form-name="LookupProductCategory"></lookup></field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="TaxAuthorityCategoryView" description="${description} [${productCategoryId}]">
+                    <entity-constraint name="taxAuthPartyId" env-name="taxAuthPartyId"/>
+                    <entity-constraint name="taxAuthGeoId" env-name="taxAuthGeoId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="titleTransferEnumId" title="${uiLabelMap.AccountingTitleTransfer}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
@@ -249,7 +257,15 @@ under the License.
             </drop-down>
         </field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}"><lookup size="10" target-form-name="LookupProductStore"/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}"><lookup target-form-name="LookupProductCategory"></lookup></field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategory}" tooltip="Use the Categories tab to add other category options">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="TaxAuthorityCategoryView" description="${description} [${productCategoryId}]">
+                    <entity-constraint name="taxAuthPartyId" env-name="taxAuthPartyId"/>
+                    <entity-constraint name="taxAuthGeoId" env-name="taxAuthGeoId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="titleTransferEnumId" title="${uiLabelMap.AccountingTitleTransfer}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
