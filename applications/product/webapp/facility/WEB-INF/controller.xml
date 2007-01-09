@@ -519,6 +519,12 @@ under the License.
         <response name="success" type="view" value="ReceiveInventory"/>
         <response name="error" type="view" value="ReceiveInventory"/>
     </request-map>
+    <request-map uri="receiveSingleInventoryProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="receiveInventoryProduct"/>
+        <response name="success" type="request" value="EditInventoryItem"/>
+        <response name="error" type="view" value="ReceiveInventory"/>
+    </request-map>
     <request-map uri="ReceiveReturn">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ReceiveReturn"/>
