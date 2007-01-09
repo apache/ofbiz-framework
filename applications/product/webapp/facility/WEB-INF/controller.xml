@@ -111,6 +111,10 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupVariantProduct"/>
     </request-map>
+    <request-map uri="LookupProductCategory">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupProductCategory"/>
+    </request-map>
     <request-map uri="LookupFacilityLocation">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupFacilityLocation"/>
@@ -1006,6 +1010,7 @@ under the License.
     <view-map name="LookupPurchaseOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupPurchaseOrderHeaderAndShipInfo"/>
     <view-map name="LookupProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct" type="screen"/>
     <view-map name="LookupVariantProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct" type="screen"/>
+    <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
 

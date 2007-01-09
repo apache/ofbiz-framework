@@ -69,14 +69,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="searchInProductCategoryId" title="${uiLabelMap.ProductCategory}" widget-style="selectBox">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${description} [${productCategoryId}]">
-                    <entity-constraint name="showInSelect"  value="N" operator="not-equals"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="searchInProductCategoryId" title="${uiLabelMap.ProductCategory}"><lookup target-form-name="LookupProductCategory"></lookup></field>
         <field name="productSupplierId" title="${uiLabelMap.ProductSupplier}" widget-style="selectBox">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">

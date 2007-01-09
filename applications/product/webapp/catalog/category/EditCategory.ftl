@@ -172,17 +172,8 @@ function insertImageName(type,nameValue) {
     <td width="26%" align="right"><div class="tabletext">${uiLabelMap.ProductPrimaryParentCategory}</div></td>
     <td>&nbsp;</td>
     <td width="74%">
-      <select name="primaryParentCategoryId" size="1" class="selectbox">
-        <#if productCategory?has_content>
-        <#if (productCategory.primaryParentCategoryId)?exists>
-          <option value="${productCategory.primaryParentCategoryId}">${(primaryParentCategory.description)?if_exists} [${productCategory. primaryParentCategoryId}]</option>
-        </#if>
-        </#if>
-        <option value="">&nbsp;</option>
-        <#list categoryList as curProductCategory>
-          <option value="${curProductCategory.productCategoryId}">${curProductCategory.description?if_exists} [${curProductCategory.productCategoryId}]</option>
-        </#list>
-      </select>
+      <input type="text" class="inputBox" name="primaryParentCategoryId" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
+      <a href="javascript:call_fieldlookup2(document.productCategoryForm.primaryParentCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
     </td>
   </tr>
   <tr>

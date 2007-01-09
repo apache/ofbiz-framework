@@ -110,18 +110,10 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <hr class="sepbar"/>
 
 <div class="tabletext">
-<form method="post" action="<@ofbizUrl>searchRemoveFromCategory</@ofbizUrl>"
+<form method="post" action="<@ofbizUrl>searchRemoveFromCategory</@ofbizUrl>" name="searchRemoveFromCategory">
   <b>${uiLabelMap.ProductRemoveResultsFrom} </b> ${uiLabelMap.ProductCategory}:
-    <select class="selectBox" name="SE_SEARCH_CATEGORY_ID">
-       <option value="">- ${uiLabelMap.ProductAnyCategory} -</option>
-       <#list productCategories as productCategory>
-           <#assign displayDesc = productCategory.description?default("No Description")>
-           <#if 28 < displayDesc?length>
-               <#assign displayDesc = displayDesc[0..25] + "...">
-           </#if>
-           <option value="${productCategory.productCategoryId}">${displayDesc} [${productCategory.productCategoryId}]</option>
-       </#list>
-    </select>
+  <input type="text" class="inputBox" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
+  <a href="javascript:call_fieldlookup2(document.searchRemoveFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
   <input type="hidden" name="clearSearch" value="N">
   <input type="submit" value="${uiLabelMap.CommonRemove}" class="smallSubmit"><br/>
 </form>
@@ -132,16 +124,8 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchExpireFromCategory</@ofbizUrl>" name="searchExpireFromCategory">
   <b>${uiLabelMap.ProductExpireResultsFrom} </b> ${uiLabelMap.ProductCategory}:
-    <select class="selectBox" name="SE_SEARCH_CATEGORY_ID">
-       <option value="">- ${uiLabelMap.ProductAnyCategory} -</option>
-       <#list productCategories as productCategory>
-           <#assign displayDesc = productCategory.description?default("No Description")>
-           <#if 28 < displayDesc?length>
-               <#assign displayDesc = displayDesc[0..25] + "...">
-           </#if>
-           <option value="${productCategory.productCategoryId}">${displayDesc} [${productCategory.productCategoryId}]</option>
-       </#list>
-    </select>
+  <input type="text" class="inputBox" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
+  <a href="javascript:call_fieldlookup2(document.searchExpireFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
   ${uiLabelMap.CommonThru}<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="hidden" name="clearSearch" value="N">
   <input type="submit" value="${uiLabelMap.CommonExpire}" class="smallSubmit"><br/>
@@ -153,15 +137,8 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <div class="tabletext">
 <form method="post" action="<@ofbizUrl>searchAddToCategory</@ofbizUrl>" name="searchAddToCategory">
   <b>${uiLabelMap.ProductAddResultsTo} </b> ${uiLabelMap.ProductCategory}:
-    <select class="selectBox" name="SE_SEARCH_CATEGORY_ID">
-       <#list productCategories as productCategory>
-           <#assign displayDesc = productCategory.description?default("No Description")>
-           <#if 28 < displayDesc?length>
-               <#assign displayDesc = displayDesc[0..25] + "...">
-           </#if>
-           <option value="${productCategory.productCategoryId}">${displayDesc} [${productCategory.productCategoryId}]</option>
-       </#list>
-    </select>
+  <input type="text" class="inputBox" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
+  <a href="javascript:call_fieldlookup2(document.searchAddToCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
   ${uiLabelMap.CommonFrom}<input type="text" size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="hidden" name="clearSearch" value="N">
   <input type="submit" value="${uiLabelMap.ProductAddToCategory}" class="smallSubmit"><br/>

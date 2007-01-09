@@ -132,12 +132,8 @@ under the License.
         <div class="head2">${uiLabelMap.ProductCopyProductCategoryMembersToAnotherCategory}:</div>
         <div class="tabletext">
             ${uiLabelMap.ProductTargetProductCategory}:
-            <select name="productCategoryIdTo" class="selectBox">
-            <option value=""></option>
-            <#list productCategories as productCategoryTo>
-                <option value="${(productCategoryTo.productCategoryId)?if_exists}">${(productCategoryTo.description)?if_exists}  [${(productCategoryTo.productCategoryId)?if_exists}]</option>
-            </#list>
-            </select>
+            <input type="text" class="inputBox" name="productCategoryIdTo" size="20" maxlength="20"/>
+            <a href="javascript:call_fieldlookup2(document.copyCategoryProductMembersForm.productCategoryIdTo,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
             <br/>
             ${uiLabelMap.ProductOptionalFilterWithDate}: <input type="text" size="20" name="validDate" class="inputBox">
             <a href="javascript:call_cal(document.copyCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>

@@ -140,13 +140,7 @@ under the License.
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="addProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}" widget-style="selectBox">
-            <drop-down>
-                <entity-options entity-name="ProductCategory" description="${description} [${productCategoryId}]">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
         <field name="prodCatalogCategoryTypeId" widget-style="selectBox">
             <drop-down>
                 <entity-options entity-name="ProdCatalogCategoryType" description="${description}">

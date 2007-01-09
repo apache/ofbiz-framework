@@ -81,12 +81,8 @@ under the License.
       <tr>
         <td><span class="tableheadtext">${uiLabelMap.ProductCategoryId}</span></td>
         <td>
-          <select class="selectBox" name="productCategoryId">
-            <option></option>
-            <#list productCategories as category>
-              <option value="${category.productCategoryId}">${category.description?default("[${uiLabelMap.ProductNoDescription}]")}</option>
-            </#list>
-          </select>
+          <input type="text" class="inputBox" name="productCategoryId" size="20" maxlength="20"/>
+          <a href="javascript:call_fieldlookup2(document.addSurvey.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
         </td>
       </tr>
       <tr>
