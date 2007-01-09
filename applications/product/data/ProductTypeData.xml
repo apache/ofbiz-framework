@@ -422,7 +422,6 @@ under the License.
     <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
     <StatusValidChange condition="" statusId="INV_PROMISED" statusIdTo="INV_BEING_TRANS_PRM" transitionName="Being Transfered (Promised)"/>
     <StatusValidChange condition="" statusId="INV_BEING_TRANS_PRM" statusIdTo="INV_PROMISED" transitionName="Transfer Complete (Promised)"/>
-    <StatusValidChange condition="" statusId="INV_DELIVERED" statusIdTo="INV_AVAILABLE" transitionName="Return Available"/>
     <StatusValidChange condition="" statusId="INV_DELIVERED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_AVAILABLE" transitionName="Make Return Available"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_DEFECTIVE" transitionName="Mark Return Defective"/>
