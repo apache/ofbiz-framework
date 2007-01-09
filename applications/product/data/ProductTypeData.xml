@@ -194,7 +194,11 @@ under the License.
     <ProductContentType description="Image - Medium" hasTable="N" parentTypeId="" productContentTypeId="MEDIUM_IMAGE_URL"/>
     <ProductContentType description="Image - Large" hasTable="N" parentTypeId="" productContentTypeId="LARGE_IMAGE_URL"/>
     <ProductContentType description="Image - Detail" hasTable="N" parentTypeId="" productContentTypeId="DETAIL_IMAGE_URL"/>
-
+    <ProductContentType description="Image Alt Text - Small" hasTable="N" parentTypeId="" productContentTypeId="SMALL_IMAGE_ALT"/>
+    <ProductContentType description="Image Alt Text - Medium" hasTable="N" parentTypeId="" productContentTypeId="MEDIUM_IMAGE_ALT"/>
+    <ProductContentType description="Image Alt Text - Large" hasTable="N" parentTypeId="" productContentTypeId="LARGE_IMAGE_ALT"/>
+    <ProductContentType description="Image Alt Text - Detail" hasTable="N" parentTypeId="" productContentTypeId="DETAIL_IMAGE_ALT"/>
+    
     <ProdConfItemContentType description="Image" hasTable="N" parentTypeId="" confItemContentTypeId="IMAGE_URL"/>
     <ProdConfItemContentType description="Description" hasTable="N" parentTypeId="" confItemContentTypeId="DESCRIPTION"/>
     <ProdConfItemContentType description="Description - Long" hasTable="N" parentTypeId="" confItemContentTypeId="LONG_DESCRIPTION"/>
