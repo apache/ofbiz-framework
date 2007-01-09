@@ -34,6 +34,16 @@ under the License.
         <now-timestamp-to-env env-name="newEntity.issuedDateTime"/>
 
         <create-value value-name="newEntity"/>
+
+        <!-- if the InventoryItem issued is serialized, then change its status to DELIVERED -->
+        <get-related-one value-name="newEntity" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+        <if-not-empty field-name="inventoryItem">
+            <if-compare field-name="inventoryItemTypeId" map-name="inventoryItem" operator="equals" value="SERIALIZED_INV_ITEM">
+                <set field="updateContext.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+                <set field="updateContext.statusId" value="INV_DELIVERED"/>
+                <call-service service-name="updateInventoryItem" in-map-name="updateContext"/>
+            </if-compare>
+        </if-not-empty>
     </simple-method>
     <simple-method method-name="updateItemIssuance" short-description="Update ItemIssuance">
         <check-permission permission="FACILITY" action="_UPDATE">
