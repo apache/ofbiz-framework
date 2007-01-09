@@ -72,13 +72,8 @@ under the License.
   <input type="hidden" name="productCategoryId" value="${productCategoryId}">
   <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
   <div class="tabletext">${uiLabelMap.CommonAddA} <b>${uiLabelMap.ProductParent}</b> ${uiLabelMap.ProductCategorySelectCategoryAndEnterFromDate}:</div>
-    <select name="parentProductCategoryId" class="selectBox">
-    <#list productCategoryCol as curCategory>
-        <#if productCategoryId != curCategory.productCategoryId>
-          <option value="${curCategory.productCategoryId}">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</option>
-        </#if>
-    </#list>
-    </select>
+    <input type="text" class="inputBox" name="parentProductCategoryId" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
+    <a href="javascript:call_fieldlookup2(document.addParentForm.parentProductCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
   <input type="text" size="25" name="fromDate" class="inputBox">
   <a href="javascript:call_cal(document.addParentForm.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="submit" value="${uiLabelMap.CommonAdd}">
@@ -145,13 +140,8 @@ under the License.
   <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
   <input type="hidden" name="parentProductCategoryId" value="${productCategoryId}">
   <div class="tabletext">${uiLabelMap.CommonAddA} <b>${uiLabelMap.ProductChild}</b> ${uiLabelMap.ProductCategorySelectCategoryAndEnterFromDate}:</div>
-    <select name="productCategoryId" class="selectBox">
-    <#list productCategoryCol as curCategory>
-        <#if productCategoryId != curCategory.productCategoryId>
-          <option value="${curCategory.productCategoryId}">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</option>
-        </#if>
-    </#list>
-    </select>
+    <input type="text" class="inputBox" name="productCategoryId" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
+    <a href="javascript:call_fieldlookup2(document.addChildForm.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
   <input type="text" size="25" name="fromDate" class="inputBox">
   <a href="javascript:call_cal(document.addChildForm.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="submit" value="${uiLabelMap.CommonAdd}">

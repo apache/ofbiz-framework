@@ -47,14 +47,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}" widget-style="selectBox">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ProductCategoryAndMember" key-field-name="productCategoryId" description="${description} [${productCategoryId}]">
-                    <entity-constraint name="productId" env-name="product.productId"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}"><lookup target-form-name="LookupProductCategory"></lookup></field>
 
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="60"/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
@@ -315,14 +308,7 @@ under the License.
             default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="safeAddProductToCategory"/>
         <field name="productId" title="${uiLabelMap.ProductProductId}" map-name="product"><hidden/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}" widget-style="selectBox">
-            <drop-down>
-                <entity-options entity-name="ProductCategory" description="${description} [${productCategoryId}]">
-                    <entity-constraint name="showInSelect" value="N" operator="not-equals"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" ></field>
         <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>

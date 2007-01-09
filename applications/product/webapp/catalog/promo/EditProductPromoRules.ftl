@@ -108,16 +108,13 @@ under the License.
                                 </div>
                             </#list>
                             <div class="tabletext">
-                                <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>">
+                                <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>" name="createProductPromoCategoryConditions">
                                     <input type="hidden" name="productPromoId" value="${productPromoId}">
                                     <input type="hidden" name="productPromoRuleId" value="${productPromoCond.productPromoRuleId}">
                                     <input type="hidden" name="productPromoActionSeqId" value="_NA_">
                                     <input type="hidden" name="productPromoCondSeqId" value="${productPromoCond.productPromoCondSeqId}">
-                                    <select name="productCategoryId" class="selectBox">
-                                        <#list productCategories as productCategory>
-                                            <option value="${productCategory.productCategoryId}">${productCategory.description?if_exists}</option>
-                                        </#list>
-                                    </select>
+                                    <input type="text" class="inputBox" name="productCategoryId" size="20" maxlength="20"/>
+                                    <a href="javascript:call_fieldlookup2(document.createProductPromoCategoryConditions.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                                     <select name="productPromoApplEnumId" class="selectBox">
                                         <#list productPromoApplEnums as productPromoApplEnum>
                                             <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
@@ -261,16 +258,13 @@ under the License.
                                 </div>
                             </#list>
                             <div class="tabletext">
-                                <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>">
+                                <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>" name="createProductPromoCategoryActions">
                                     <input type="hidden" name="productPromoId" value="${productPromoId}">
                                     <input type="hidden" name="productPromoRuleId" value="${productPromoAction.productPromoRuleId}">
                                     <input type="hidden" name="productPromoActionSeqId" value="${productPromoAction.productPromoActionSeqId}">
                                     <input type="hidden" name="productPromoCondSeqId" value="_NA_">
-                                    <select name="productCategoryId" class="selectBox">
-                                        <#list productCategories as productCategory>
-                                            <option value="${productCategory.productCategoryId}">${productCategory.description?if_exists}</option>
-                                        </#list>
-                                    </select>
+                                    <input type="text" class="inputBox" name="productCategoryId" size="20" maxlength="20"/>
+                                    <a href="javascript:call_fieldlookup2(document.createProductPromoCategoryActions.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                                     <select name="productPromoApplEnumId" class="selectBox">
                                         <#list productPromoApplEnums as productPromoApplEnum>
                                             <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
@@ -383,16 +377,13 @@ under the License.
             </div>
         </#list>
         <div class="tabletext">
-            <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>">
+            <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>" name="createProductPromoCategoryPromotions">
                 <input type="hidden" name="productPromoId" value="${productPromoId}">
                 <input type="hidden" name="productPromoRuleId" value="_NA_">
                 <input type="hidden" name="productPromoActionSeqId" value="_NA_">
                 <input type="hidden" name="productPromoCondSeqId" value="_NA_">
-                <select name="productCategoryId" class="selectBox">
-                    <#list productCategories as productCategory>
-                        <option value="${productCategory.productCategoryId}">${productCategory.description?if_exists}</option>
-                    </#list>
-                </select>
+                <input type="text" class="inputBox" name="productCategoryId" size="20" maxlength="20"/>
+                <a href="javascript:call_fieldlookup2(document.createProductPromoCategoryPromotions.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                 <select name="productPromoApplEnumId" class="selectBox">
                     <#list productPromoApplEnums as productPromoApplEnum>
                         <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>

@@ -59,16 +59,8 @@ under the License.
           </td>
           <td valign="middle">
             <div class="tabletext">
-                <select class="selectBox" name="SEARCH_CATEGORY_ID">
-                    <option value="">- ${uiLabelMap.ProductAnyCategory} -</option>
-                    <#list productCategories as productCategory>
-                        <#assign displayDesc = productCategory.description?default("${uiLabelMap.ProductNoDescription}")>
-                        <#if 18 < displayDesc?length>
-                            <#assign displayDesc = displayDesc[0..15] + "...">
-                        </#if>
-                        <option value="${productCategory.productCategoryId}">${displayDesc} [${productCategory.productCategoryId}]</option>
-                    </#list>
-                </select>
+              <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
+              <a href="javascript:call_fieldlookup2(document.advtokeywordsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
               ${uiLabelMap.ProductIncludeSubCategories}?
               ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked/>
               ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N"/>
