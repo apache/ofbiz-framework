@@ -321,12 +321,7 @@ under the License.
     <!-- UserLogin services -->
     <service name="userLogin" engine="java" location="org.ofbiz.common.login.LoginServices" invoke="userLogin">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
-        <attribute name="login.username" type="String" mode="IN"/>
-        <attribute name="login.password" type="String" mode="IN"/>
-        <attribute name="visitId" type="String" mode="IN" optional="true"/>
-        <attribute name="isServiceAuth" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
-        <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
+        <implements service="authenticationInterface"/>
     </service>
     <service name="createUserLogin" engine="java" auth="false" 
         location="org.ofbiz.common.login.LoginServices" invoke="createUserLogin">
