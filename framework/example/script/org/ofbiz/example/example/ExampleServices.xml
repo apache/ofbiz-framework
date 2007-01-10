@@ -19,10 +19,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
     <!-- Example methods -->
     <simple-method method-name="createExample" short-description="create a Example">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="Example" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="Example" env-name="newEntity.exampleId"/> <!-- get the next sequenced ID -->
         <field-to-result field-name="newEntity.exampleId" result-name="exampleId"/>
@@ -33,10 +29,6 @@ under the License.
         <call-service service-name="createExampleStatus" in-map-name="createExampleStatusMap"/>
     </simple-method>   
     <simple-method method-name="updateExample" short-description="update a Example">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="Example" value-name="lookedUpValue"/>
 
         <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
@@ -65,16 +57,10 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteExample" short-description="delete a Example">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="Example" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createExampleStatus" short-description="create a ExampleItem">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="ExampleStatus" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -84,10 +70,6 @@ under the License.
     
     <!-- ExampleItem methods -->
     <simple-method method-name="createExampleItem" short-description="create a ExampleItem">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="ExampleItem" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="exampleItemSeqId"/> <!-- this finds the next sub-sequence ID -->
@@ -96,19 +78,11 @@ under the License.
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateExampleItem" short-description="update a ExampleItem">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="deleteExampleItem" short-description="delete a ExampleItem">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/>
-
+    <simple-method method-name="deleteExampleItem" short-description="delete a ExampleItem">        
         <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
