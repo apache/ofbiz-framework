@@ -330,6 +330,7 @@ public class ModelServiceReader implements Serializable {
 
         // contruct the context
         service.contextInfo = FastMap.newInstance();
+        this.createPermission(serviceElement, service);
         this.createPermGroups(serviceElement, service);
         this.createImplDefs(serviceElement, service);
         this.createAutoAttrDefs(serviceElement, service);
@@ -357,6 +358,15 @@ public class ModelServiceReader implements Serializable {
         return value;
     }
 
+    protected void createPermission(Element baseElement, ModelService model) {
+        Element e = UtilXml.firstChildElement(baseElement, "permission-service");
+        if (e != null) {
+            model.permissionServiceName = e.getAttribute("service-name");
+            model.permissionMainAction = e.getAttribute("main-action");
+            model.auth = true; // auth is always required when permissions are set
+        }
+    }
+
     protected void createPermGroups(Element baseElement, ModelService model) {
         List permGroups = UtilXml.childElementList(baseElement, "required-permissions");
         Iterator permIter = permGroups.iterator();
@@ -365,15 +375,14 @@ public class ModelServiceReader implements Serializable {
             Element element = (Element) permIter.next();
             ModelPermGroup group = new ModelPermGroup();
             group.joinType = element.getAttribute("join-type");
-            createPermissions(element, group, model);
+            createGroupPermissions(element, group, model);
             model.permissionGroups.add(group);
         }
     }
 
-    protected void createPermissions(Element baseElement, ModelPermGroup group, ModelService service) {
+    protected void createGroupPermissions(Element baseElement, ModelPermGroup group, ModelService service) {
         List permElements = UtilXml.childElementList(baseElement, "check-permission");
-        List rolePermElements = UtilXml.childElementList(baseElement, "check-role-member");
-        List serviceSecurity = UtilXml.childElementList(baseElement, "service-security");
+        List rolePermElements = UtilXml.childElementList(baseElement, "check-role-member");        
 
         // create the simple permissions
         Iterator si = permElements.iterator();
@@ -398,18 +407,6 @@ public class ModelServiceReader implements Serializable {
             ModelPermission perm = new ModelPermission();
             perm.permissionType = ModelPermission.ROLE_MEMBER;
             perm.nameOrRole = element.getAttribute("role-type");
-            perm.serviceModel = service;
-            group.permissions.add(perm);
-        }
-
-        // create the custom permissions
-        Iterator ci = serviceSecurity.iterator();
-        while (ci.hasNext()) {
-            Element element = (Element) ci.next();
-            ModelPermission perm = new ModelPermission();
-            perm.permissionType = ModelPermission.CUSTOM;
-            perm.nameOrRole = element.getAttribute("name");
-            perm.clazz = element.getAttribute("class");
             perm.serviceModel = service;
             group.permissions.add(perm);
         }

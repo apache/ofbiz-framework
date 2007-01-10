@@ -757,8 +757,23 @@ public class ServiceDispatcher {
 
         // evaluate permissions for the service or throw exception if fail.
         DispatchContext dctx = this.getLocalContext(localName);
-        if (!origService.evalPermissions(dctx, context)) {
-            throw new ServiceAuthException("You do not have permission to invoke this service");
+        if (UtilValidate.isNotEmpty(origService.permissionServiceName)) {
+            Map permResp = origService.evalPermission(dctx, context);            
+            Boolean hasPermission = (Boolean) permResp.get("hasPermission");
+            if (hasPermission.booleanValue()) {
+                context.putAll(permResp);
+                context = origService.makeValid(context, ModelService.IN_PARAM);
+            } else {
+                String message = (String) permResp.get("failMessage");
+                if (UtilValidate.isEmpty(message)) {
+                    message = "You do not have permission to invoke this service";
+                }
+                throw new ServiceAuthException(message);
+            }
+        } else {
+            if (!origService.evalPermissions(dctx, context)) {
+                throw new ServiceAuthException("You do not have permission to invoke this service");
+            }
         }
 
         return context;
