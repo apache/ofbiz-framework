@@ -102,7 +102,7 @@ under the License.
     </service>
 
     <service name="getBOMTree" default-entity-name="ProductAssoc" engine="java"
-            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getBOMTree">
+            location="org.ofbiz.manufacturing.bom.BOMServices" invoke="getBOMTree" use-transaction="false">
         <description>Returns a BOMTree (an object that represents a configured bill of material tree in memory). Useful for tree traversal (breakdown, explosion, implosion).</description>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="type" optional="true" type="Integer"/>
