@@ -51,19 +51,36 @@ under the License.
     </service>
 
     <!-- Service Engine Interfaces -->
-    <service name="serviceEcaConditionInterface" engine="interface" location="" invoke="">
+    <service name="permissionInterface" engine="interface">
+        <description>Interface to describe base parameters for Permission Services</description>
+        <attribute name="mainAction" type="String" mode="IN" optional="true"/>
+        <attribute name="hasPermission" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="failMessage" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="authenticationInterface" engine="interface">
+        <description>Interface to describe authentication services</description>
+        <attribute name="login.username" type="String" mode="IN"/>
+        <attribute name="login.password" type="String" mode="IN"/>
+        <attribute name="visitId" type="String" mode="IN" optional="true"/>
+        <attribute name="isServiceAuth" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="serviceEcaConditionInterface" engine="interface">
         <description>Interface to describe services which are used as SECA conditions</description>
         <attribute name="serviceContext" type="Map" mode="IN"/>
         <attribute name="serviceName" type="String" mode="IN"/>
         <attribute name="conditionReply" type="Boolean" mode="OUT"/>
     </service>
-    <service name="serviceMcaConditionInterface" engine="interface" location="" invoke="">
+    <service name="serviceMcaConditionInterface" engine="interface">
         <description>Interface to describe services which are used as SMCA conditions</description>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
         <attribute name="conditionReply" type="Boolean" mode="OUT"/>
     </service>
 
-    <service name="mailProcessInterface" engine="interface" location="" invoke="">
+    <service name="mailProcessInterface" engine="interface">
         <description>Interface to describe services used to process incoming email</description>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
     </service>

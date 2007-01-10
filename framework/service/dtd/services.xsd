@@ -37,6 +37,7 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element minOccurs="0" ref="namespace"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="permission-service"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="required-permissions"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
                 <xs:choice maxOccurs="1" minOccurs="0">
@@ -108,12 +109,29 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="permission-service">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.permission-service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.permission-service">
+        <xs:attribute type="xs:string" name="service-name" use="required"/>
+        <xs:attribute name="main-action" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="CREATE"/>
+                    <xs:enumeration value="UPDATE"/>
+                    <xs:enumeration value="DELETE"/>
+                    <xs:enumeration value="VIEW"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
     <xs:element name="required-permissions">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-permission"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-role-member"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-security"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-role-member"/>                
             </xs:sequence>
             <xs:attributeGroup ref="attlist.required-permissions"/>
         </xs:complexType>

@@ -120,6 +120,12 @@ public class ModelService implements Serializable {
     /** Sets the max number of times this service will retry when failed (persisted async only) */
     public int maxRetry = -1;
 
+    /** Permission service name */
+    public String permissionServiceName;
+
+    /** Permission service main-action */
+    public String permissionMainAction;
+    
     /** Set of services this service implements */
     public Set implServices = new ListOrderedSet();
 
@@ -744,12 +750,66 @@ public class ModelService implements Serializable {
     }
 
     /**
+     * Evaluates permission-service for this service.
+     * @param dctx DispatchContext from the invoked service
+     * @param context Map containing userLogin and context infromation
+     * @return result of permission service invocation
+     */
+    public Map evalPermission(DispatchContext dctx, Map context) {
+        if (UtilValidate.isNotEmpty(this.permissionServiceName)) {
+            ModelService permission;
+            try {
+                permission = dctx.getModelService(this.permissionServiceName);
+            } catch (GenericServiceException e) {
+                Map result = ServiceUtil.returnSuccess();
+                result.put("hasPermission", Boolean.FALSE);
+                result.put("failMessage", e.getMessage());
+                return result;
+            }
+            if (permission != null) {
+                Map ctx = permission.makeValid(context, ModelService.IN_PARAM);
+                if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
+                    ctx.put("mainAction", this.permissionMainAction);
+                }
+                LocalDispatcher dispatcher = dctx.getDispatcher();
+                Map resp;
+                try {
+                    resp = dispatcher.runSync(permission.name,  ctx, 300, true);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    Map result = ServiceUtil.returnSuccess();
+                    result.put("hasPermission", Boolean.FALSE);
+                    result.put("failMessage", e.getMessage());
+                    return result;
+                }
+                if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
+                    Map result = ServiceUtil.returnSuccess();
+                    result.put("hasPermission", Boolean.FALSE);
+                    result.put("failMessage", ServiceUtil.getErrorMessage(resp));
+                    return result;
+                }
+                return resp;
+            } else {
+                Map result = ServiceUtil.returnSuccess();
+                result.put("hasPermission", Boolean.FALSE);
+                result.put("failMessage", "No ModelService found with the name [" + this.permissionServiceName + "]");
+                return result;
+            }
+        } else {
+            Map result = ServiceUtil.returnSuccess();
+            result.put("hasPermission", Boolean.TRUE);
+            return result;
+        }
+    }
+
+    /**
      * Evaluates permissions for a service.
      * @param dctx DispatchContext from the invoked service
      * @param context Map containing userLogin infromation
      * @return true if all permissions evaluate true.
      */
     public boolean evalPermissions(DispatchContext dctx, Map context) {
+        // old permission checking
         if (this.containsPermissions()) {
             Iterator i = this.permissionGroups.iterator();
             while (i.hasNext()) {
