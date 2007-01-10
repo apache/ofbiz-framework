@@ -219,15 +219,17 @@ under the License.
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
         </field>
         <field name="internalName"><display/></field>
-        <field name="availableToPromiseTotal"><display/></field>
-        <field name="quantityOnHandTotal"><display/></field>
+        <field name="availableToPromiseTotal" title="${uiLabelMap.ProductItemATP}"><display/></field>
+        <field name="quantityOnHandTotal" title="${uiLabelMap.ProductItemQOH}"><display/></field>
+        <field name="productATP" title="${uiLabelMap.ProductProductATP}"><display/></field>
+        <field name="productQOH" title="${uiLabelMap.ProductProductQOH}"><display/></field>
         <field name="varianceReasonId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="VarianceReason" description="${description}"/>
             </drop-down>
         </field>
-        <field name="availableToPromiseVar"><text/></field>
-        <field name="quantityOnHandVar"><text/></field>
+        <field name="availableToPromiseVar" title="${uiLabelMap.ProductProductATPVar}"><text size="6"/></field>
+        <field name="quantityOnHandVar" title="${uiLabelMap.ProductProductQOHVar}"><text size="6"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit/>

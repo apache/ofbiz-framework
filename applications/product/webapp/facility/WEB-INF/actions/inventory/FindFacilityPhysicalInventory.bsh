@@ -15,8 +15,15 @@
  * under the License.
  */
 
+import java.util.HashSet;
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.*;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.entity.condition.*;
+
+facilityId = parameters.get("facilityId");
 
 // fields to search by
 productId = parameters.get("productId");
@@ -24,7 +31,7 @@ internalName = parameters.get("internalName");
 
 // build conditions
 conditions = UtilMisc.toList(
-        new EntityExpr("facilityId", EntityOperator.EQUALS, parameters.get("facilityId")),
+        new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
         new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM")
         );
 if (productId != null && productId.trim().length() != 0) {
@@ -36,5 +43,34 @@ if (internalName != null && internalName.trim().length() != 0) {
 
 if (conditions.size() > 2) {
     physicalInventory = delegator.findByAnd("ProductInventoryItem", conditions, UtilMisc.toList("productId"));
-    context.put("physicalInventory", physicalInventory);
+
+    // also need the overal product QOH and ATP for each product
+    atpMap = FastMap.newInstance();
+    qohMap = FastMap.newInstance();
+    
+    // build a list of productIds
+    productIds = new HashSet();
+    for (iter = physicalInventory.iterator(); iter.hasNext(); ) {
+        productIds.add(iter.next().get("productId"));
+    }
+
+    // for each product, call the inventory counting service
+    for (iter = productIds.iterator(); iter.hasNext(); ) {
+        productId = iter.next();
+        result = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("facilityId", facilityId, "productId", productId));
+        if (!ServiceUtil.isError(result)) {
+            atpMap.put(productId, result.get("availableToPromiseTotal"));
+            qohMap.put(productId, result.get("quantityOnHandTotal"));
+        }
+    }
+
+    // associate the quantities to each row and store the combined data as our list
+    physicalInventoryCombined = FastList.newInstance();
+    for (iter = physicalInventory.iterator(); iter.hasNext(); ) {
+        row = iter.next().getAllFields();
+        row.put("productATP", atpMap.get(row.get("productId")));
+        row.put("productQOH", qohMap.get(row.get("productId")));
+        physicalInventoryCombined.add(row);
+    }
+    context.put("physicalInventory", physicalInventoryCombined);
 }
