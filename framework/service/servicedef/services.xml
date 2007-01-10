@@ -54,6 +54,9 @@ under the License.
     <service name="permissionInterface" engine="interface">
         <description>Interface to describe base parameters for Permission Services</description>
         <attribute name="mainAction" type="String" mode="IN" optional="true"/>
+        <attribute name="resourceDescription" type="String" mode="IN" optional="false">
+            <!-- Note that this will be filled in either with what the user specifies in the service definition, or will default to the service name. -->
+        </attribute>
         <attribute name="hasPermission" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="failMessage" type="String" mode="OUT" optional="true"/>
     </service>

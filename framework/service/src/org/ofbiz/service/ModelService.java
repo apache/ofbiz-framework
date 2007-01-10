@@ -126,6 +126,9 @@ public class ModelService implements Serializable {
     /** Permission service main-action */
     public String permissionMainAction;
     
+    /** Permission service resource-description */
+    public String permissionResourceDescription;
+    
     /** Set of services this service implements */
     public Set implServices = new ListOrderedSet();
 
@@ -757,8 +760,10 @@ public class ModelService implements Serializable {
      */
     public Map evalPermission(DispatchContext dctx, Map context) {
         if (UtilValidate.isNotEmpty(this.permissionServiceName)) {
+            ModelService thisService;
             ModelService permission;
             try {
+                thisService = dctx.getModelService(dctx.getName());
                 permission = dctx.getModelService(this.permissionServiceName);
             } catch (GenericServiceException e) {
                 Map result = ServiceUtil.returnSuccess();
@@ -770,6 +775,11 @@ public class ModelService implements Serializable {
                 Map ctx = permission.makeValid(context, ModelService.IN_PARAM);
                 if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
                     ctx.put("mainAction", this.permissionMainAction);
+                }
+                if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
+                    ctx.put("resourceDescription", this.permissionResourceDescription);
+                } else if (thisService != null) {
+                    ctx.put("resourceDescription", thisService.name);
                 }
                 LocalDispatcher dispatcher = dctx.getDispatcher();
                 Map resp;

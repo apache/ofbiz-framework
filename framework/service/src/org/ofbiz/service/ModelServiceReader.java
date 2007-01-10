@@ -363,6 +363,7 @@ public class ModelServiceReader implements Serializable {
         if (e != null) {
             model.permissionServiceName = e.getAttribute("service-name");
             model.permissionMainAction = e.getAttribute("main-action");
+            model.permissionResourceDescription = e.getAttribute("resource-description");
             model.auth = true; // auth is always required when permissions are set
         }
     }

@@ -116,6 +116,9 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.permission-service">
         <xs:attribute type="xs:string" name="service-name" use="required"/>
+        <xs:attribute type="xs:string" name="resource-description" use="optional">
+            <xs:annotation><xs:documentation>This will be used in error messages, et cetera. If not specified will default to a service name.</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute name="main-action" use="optional">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
