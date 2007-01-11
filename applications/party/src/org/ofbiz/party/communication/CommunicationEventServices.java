@@ -97,7 +97,12 @@ public class CommunicationEventServices {
                 Map tmpResult = dispatcher.runSync("sendMail", sendMailParams);
                 if (ServiceUtil.isError(tmpResult)) {
                     errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
-                } 
+                } else {
+                    Map completeResult = dispatcher.runSync("setCommEventComplete", UtilMisc.toMap("communicationEventId", communicationEventId, "userLogin", userLogin));                    
+                    if (ServiceUtil.isError(completeResult)) {
+                        errorMessages.add(ServiceUtil.getErrorMessage(completeResult));
+                    }
+                }
             } else {
 
                 // Call the sendEmailToContactList service if there's a contactListId present
