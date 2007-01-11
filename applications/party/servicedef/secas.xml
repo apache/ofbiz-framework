@@ -72,9 +72,8 @@ under the License.
         <action service="sendCommEventAsEmail" mode="sync"/>
     </eca>
 
-    <!-- when we're done sending a communication event as an email, mark it as complete.  This is helpful when 
-        a comm event email is sent to a contact list.  After all the emails have been sent, mark it as complete. -->
-    <eca service="sendCommEventAsEmail" event="commit">
+    <!-- After all the emails have been sent to a contact list, mark it as complete. -->
+    <eca service="sendEmailToContactList" event="commit">
         <action service="setCommEventComplete" mode="sync"/>
     </eca>
     
