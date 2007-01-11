@@ -116,6 +116,7 @@ under the License.
         <td><div class="tabletext"><b>${uiLabelMap.ProductAtpQohSerial}</b></div></td>
     </tr>
     <#list productInventoryItems as inventoryItem>
+       <#-- NOTE: Delivered for serialized inventory means shipped to customer so they should not be displayed here any more -->
        <#if showEmpty || (inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM" && inventoryItem.statusId?if_exists != "INV_DELIVERED")
                       || (inventoryItem.inventoryItemTypeId?if_exists == "NON_SERIAL_INV_ITEM" && ((inventoryItem.availableToPromiseTotal?exists && inventoryItem.availableToPromiseTotal != 0) || (inventoryItem.quantityOnHandTotal?exists && inventoryItem.quantityOnHandTotal != 0)))>
             <#assign curInventoryItemType = inventoryItem.getRelatedOne("InventoryItemType")>
