@@ -175,7 +175,7 @@ public class CommunicationEventServices {
                     new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
             
             // Send an email to each contact list member
-            
+            // TODO: Contact lists for emails really should be written as an EntityListIterator for very large lists! 
             List orderBy = UtilMisc.toList("-fromDate");
             Iterator sendToEmailsIt = sendToEmails.iterator();
             while (sendToEmailsIt.hasNext()) {
@@ -187,7 +187,7 @@ public class CommunicationEventServices {
                 try {
     
                     String emailAddress = contactListPartyAndContactMech.getString("infoString");
-                    if (emailAddress == null) continue;
+                    if (UtilValidate.isEmpty(emailAddress)) continue;
                     emailAddress = emailAddress.trim();
                     
                     if (! UtilValidate.isEmail(emailAddress, true)) {
