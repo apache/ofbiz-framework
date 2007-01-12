@@ -142,12 +142,12 @@ public class UspsServices {
         }
 
         List shippableItemInfo = (List) context.get("shippableItemInfo");
-        List packages = getPackageSplit(shippableItemInfo, maxWeight);
+        List packages = getPackageSplit(dctx, shippableItemInfo, maxWeight);
         // TODO: Up to 25 packages can be included per request - handle more than 25
         for (ListIterator li = packages.listIterator(); li.hasNext();) {
             Map packageMap = (Map) li.next();
 
-            double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, 0);
+            double packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, 0);
             if (packageWeight == 0) {
                 continue;
             }
@@ -160,10 +160,10 @@ public class UspsServices {
             UtilXml.addChildElementValue(packageElement, "ZipDestination", destinationZip, requestDocument);
 
             double weightPounds = Math.floor(packageWeight);
-            UtilXml.addChildElementValue(packageElement, "Pounds", String.valueOf(weightPounds), requestDocument);
-
-            double weightOunces = Math.ceil(packageWeight % weightPounds * 16);
-            UtilXml.addChildElementValue(packageElement, "Ounces", String.valueOf(weightOunces), requestDocument);
+            double weightOunces = Math.ceil(packageWeight * 16 % 16);
+            DecimalFormat df = new DecimalFormat("#");
+            UtilXml.addChildElementValue(packageElement, "Pounds", df.format(weightPounds), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "Ounces", df.format(weightOunces), requestDocument);
 
             // TODO: handle other container types, package sizes, and machinabile packages
             UtilXml.addChildElementValue(packageElement, "Container", "None", requestDocument);
@@ -201,8 +201,7 @@ public class UspsServices {
         return result;
     }
 
-    // lifted from UpsServices with no changes - 2004.09.06 JFE
-    private static List getPackageSplit(List shippableItemInfo, double maxWeight) {
+    private static List getPackageSplit(DispatchContext dctx, List shippableItemInfo, double maxWeight) {
         // create the package list w/ the first pacakge
         List packages = new LinkedList();
 
@@ -240,7 +239,7 @@ public class UspsServices {
                             for (int pi = 0; pi < packageSize; pi++) {
                                 if (!addedToPackage) {
                                     Map packageMap = (Map) packages.get(pi);
-                                    double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, weight);
+                                    double packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, weight);
                                     if (packageWeight <= maxWeight) {
                                         Double qtyD = (Double) packageMap.get(productId);
                                         double qty = qtyD == null ? 0 : qtyD.doubleValue();
@@ -262,8 +261,9 @@ public class UspsServices {
         return packages;
     }
 
-    // lifted from UpsServices with no changes - 2004.09.06 JFE
-    private static double calcPackageWeight(Map packageMap, List shippableItemInfo, double additionalWeight) {
+    private static double calcPackageWeight(DispatchContext dctx, Map packageMap, List shippableItemInfo, double additionalWeight) {
+
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         double totalWeight = 0.00;
         Iterator i = packageMap.keySet().iterator();
         while (i.hasNext()) {
@@ -271,8 +271,36 @@ public class UspsServices {
             Map productInfo = getProductItemInfo(shippableItemInfo, productId);
             double productWeight = ((Double) productInfo.get("weight")).doubleValue();
             double quantity = ((Double) packageMap.get(productId)).doubleValue();
+
+            // DLK - I'm not sure if this line is working. shipment_package seems to leave this value null so???
+            String weightUomId = (String) productInfo.get("weight_uom_id");
+
+            Debug.logInfo("Product Id : " + productId.toString() + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming WT_oz if null. Quantity : " + String.valueOf(quantity), module);
+
+            if (UtilValidate.isEmpty(weightUomId)) {
+                weightUomId = "WT_oz"; // assume weight is in pounds
+                //  Most shipping modules assume pounds while ProductEvents.java assumes WT_oz. - Line 720 for example.
+            }
+            if (!"WT_lb".equals(weightUomId)) {
+                // attempt a conversion to pounds
+                Map result = new HashMap();
+                try {
+                    result = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", new Double(productWeight)));
+                } catch (GenericServiceException ex) {
+                    Debug.logError(ex, module);
+                }
+                    
+                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
+                    productWeight *= ((Double) result.get("convertedValue")).doubleValue();
+                } else {
+                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",module);
+                }
+                    
+            }
+
             totalWeight += (productWeight * quantity);
         }
+        Debug.logInfo("Package Weight : " + String.valueOf(totalWeight) + " lbs.", module);
         return totalWeight + additionalWeight;
     }
 
@@ -868,7 +896,7 @@ public class UspsServices {
                 }
 
                 double weightPounds = Math.floor(weight);
-                double weightOunces = Math.ceil(weight % weightPounds * 16);
+                double weightOunces = Math.ceil(weight * 16 % 16);
 
                 DecimalFormat df = new DecimalFormat("#");
                 UtilXml.addChildElementValue(packageElement, "Pounds", df.format(weightPounds), requestDocument);
@@ -1292,7 +1320,7 @@ public class UspsServices {
 
         String responseString = null;
         try {
-            responseString = http.post();
+            responseString = http.get();
         } catch (HttpClientException e) {
             throw new UspsRequestException("Problem connecting with USPS server", e);
         }
