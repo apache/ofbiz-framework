@@ -763,9 +763,10 @@ public class ModelService implements Serializable {
             ModelService thisService;
             ModelService permission;
             try {
-                thisService = dctx.getModelService(dctx.getName());
+                thisService = dctx.getModelService(this.name);
                 permission = dctx.getModelService(this.permissionServiceName);
             } catch (GenericServiceException e) {
+                Debug.logError(e, "Failed to get ModelService: " + e.toString(), module);
                 Map result = ServiceUtil.returnSuccess();
                 result.put("hasPermission", Boolean.FALSE);
                 result.put("failMessage", e.getMessage());
