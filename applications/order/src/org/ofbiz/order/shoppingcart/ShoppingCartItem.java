@@ -79,6 +79,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private String delegatorName = null;
     private String prodCatalogId = null;
     private String productId = null;
+    private String parentProductId = null;
     private String externalId = null;
     /** ends up in orderItemTypeId */
     private String itemType = null;
@@ -177,7 +178,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Debug.logWarning(excMsg, module);
             throw new ItemNotFoundException(excMsg);
         }
-        ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup);
+        ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup, null);
 
         // check to see if product is virtual
         if ("Y".equals(product.getString("isVirtual"))) {
@@ -275,10 +276,11 @@ public class ShoppingCartItem implements java.io.Serializable {
     public static ShoppingCartItem makeItem(Integer cartLocation, String productId, Double selectedAmountDbl, double quantity, Double unitPriceDbl, 
             Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
-            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool) 
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId) 
             throws CartItemModifyException, ItemNotFoundException {
         GenericDelegator delegator = cart.getDelegator();
         GenericValue product = null;
+        GenericValue parentProduct = null;
         
         try {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
@@ -303,11 +305,21 @@ public class ShoppingCartItem implements java.io.Serializable {
             Debug.logWarning(excMsg, module);
             throw new ItemNotFoundException(excMsg);
         }
-    
+
+        if (parentProductId != null)
+        {
+            try 
+            {
+                parentProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", parentProductId));
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e.toString(), module);
+                parentProduct = null;
+            }
+        }
         return makeItem(cartLocation, product, selectedAmountDbl, quantity, unitPriceDbl, 
                 reservStart, reservLengthDbl, reservPersonsDbl, shipBeforeDate, shipAfterDate, 
                 additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, 
-                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool);
+                itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct);
     }
 
     /**
@@ -343,9 +355,9 @@ public class ShoppingCartItem implements java.io.Serializable {
             double quantity, Double unitPriceDbl, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
-            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool) throws CartItemModifyException {
+            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct) throws CartItemModifyException {
 
-        ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup);
+        ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup, parentProduct);
 
         double selectedAmount = selectedAmountDbl == null ? 0.0 : selectedAmountDbl.doubleValue();
         double unitPrice = unitPriceDbl == null ? 0.0 : unitPriceDbl.doubleValue();
@@ -599,7 +611,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Creates new ShoppingCartItem object. */
     protected ShoppingCartItem(GenericValue product, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup) {
-        this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup);
+        this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup, null);
          if (product != null) {
             String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale);
             // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
@@ -619,9 +631,12 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Creates new ShoppingCartItem object. */
-    protected ShoppingCartItem(GenericValue product, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup) {
+    protected ShoppingCartItem(GenericValue product, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroupi, GenericValue parentProduct) {
         this._product = product;
         this.productId = _product.getString("productId");
+        this._parentProduct = parentProduct;
+        if (parentProduct != null)
+            this.parentProductId = _parentProduct.getString("productId");
         if (UtilValidate.isEmpty(itemType)) {
             if (_product.getString("productTypeId").equals("ASSET_USAGE")) {
                 this.itemType = "RENTAL_ORDER_ITEM";  // will create additional workeffort/asset usage records

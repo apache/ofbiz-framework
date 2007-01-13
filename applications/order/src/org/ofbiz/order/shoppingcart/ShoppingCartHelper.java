@@ -87,9 +87,11 @@ public class ShoppingCartHelper {
             Double price, Double amount, double quantity, 
             java.sql.Timestamp reservStart, Double reservLength, Double reservPersons, 
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
-            ProductConfigWrapper configWrapper, String itemGroupNumber, Map context) {
+            ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
         Map result = null;
         Map attributes = null;
+        String pProductId = null;
+        pProductId = parentProductId;
         // price sanity check
         if (productId == null && price != null && price.doubleValue() < 0) {
             String errMsg = UtilProperties.getMessage(resource, "cart.price_not_positive_number", this.cart.getLocale());
@@ -163,14 +165,20 @@ public class ShoppingCartHelper {
             if (product == null || product.get("requireAmount") == null || "N".equals(product.getString("requireAmount"))) {
                 amount = null;
             }
+            Debug.logInfo("carthelper productid " + productId,module);
+            Debug.logInfo("parent productid " + pProductId,module);
+            //if (product != null && !"Y".equals(product.getString("isVariant")))
+            //    pProductId = null;
+            
         }
 
         // add or increase the item to the cart        
         try {
             int itemId = -1;
             if (productId != null) {
-                itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, reservPersons, shipBeforeDate, shipAfterDate,
-                        null, attributes, catalogId, configWrapper, itemType, itemGroupNumber, dispatcher);
+                itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, 
+                                                reservPersons, shipBeforeDate, shipAfterDate, null, attributes, 
+                                                catalogId, configWrapper, itemType, itemGroupNumber, dispatcher, pProductId);
             } else {
                 itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);
             }
@@ -235,7 +243,7 @@ public class ShoppingCartHelper {
                         Double amount = orderItem.getDouble("selectedAmount");
                         try {
                             this.cart.addOrIncreaseItem(orderItem.getString("productId"), amount, orderItem.getDouble("quantity").doubleValue(),
-                                    null, null, null, null, null, null, null, catalogId, null, orderItemTypeId, itemGroupNumber, dispatcher);
+                                    null, null, null, null, null, null, null, catalogId, null, orderItemTypeId, itemGroupNumber, dispatcher,null);
                             noItems = false;
                         } catch (CartItemModifyException e) {
                             errorMsgs.add(e.getMessage());
@@ -273,7 +281,7 @@ public class ShoppingCartHelper {
                             try {
                                 this.cart.addOrIncreaseItem(orderItem.getString("productId"), amount,
                                         orderItem.getDouble("quantity").doubleValue(), null, null, null, null, null, null, null, 
-                                        catalogId, null, orderItem.getString("orderItemTypeId"), itemGroupNumber, dispatcher);
+                                        catalogId, null, orderItem.getString("orderItemTypeId"), itemGroupNumber, dispatcher, null);
                                 noItems = false;
                             } catch (CartItemModifyException e) {
                                 errorMsgs.add(e.getMessage());
@@ -362,7 +370,7 @@ public class ShoppingCartHelper {
                 if (quantity > 0.0) {
                     try {
                         if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", module);
-                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, dispatcher);
+                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, dispatcher, null);
                     } catch (CartItemModifyException e) {
                         return ServiceUtil.returnError(e.getMessage());
                     } catch (ItemNotFoundException e) {
@@ -441,7 +449,7 @@ public class ShoppingCartHelper {
                         }
                         try {
                             if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", module);
-                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumber, dispatcher);
+                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumber, dispatcher, null);
                             ShoppingCartItem sci = (ShoppingCartItem)this.cart.items().get(index);
                             sci.setRequirementId(requirementId);
                         } catch (CartItemModifyException e) {
@@ -505,7 +513,7 @@ public class ShoppingCartHelper {
                 try {
                     this.cart.addOrIncreaseItem(productCategoryMember.getString("productId"), 
                             null, quantity.doubleValue(), null, null, null, null, null, null, null, 
-                            catalogId, null, null, itemGroupNumber, dispatcher);
+                            catalogId, null, null, itemGroupNumber, dispatcher, null);
                     totalQuantity += quantity.doubleValue();
                 } catch (CartItemModifyException e) {
                     errorMsgs.add(e.getMessage());

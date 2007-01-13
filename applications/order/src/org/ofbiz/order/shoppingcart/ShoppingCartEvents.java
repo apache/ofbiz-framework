@@ -109,6 +109,7 @@ public class ShoppingCartEvents {
         String controlDirective = null;
         Map result = null;
         String productId = null;
+        String parentProductId = null;
         String itemType = null;
         String itemDescription = null;
         String productCategoryId = null;
@@ -148,6 +149,14 @@ public class ShoppingCartEvents {
         } else if (paramMap.containsKey("add_product_id")) {
             productId = (String) paramMap.remove("add_product_id");
         }
+        if (paramMap.containsKey("PRODUCT_ID")) {
+            parentProductId = (String) paramMap.remove("PRODUCT_ID");
+        } else if (paramMap.containsKey("product_id")) {
+            parentProductId = (String) paramMap.remove("product_id");
+        }
+
+        Debug.logInfo("adding item product " + productId,module);
+        Debug.logInfo("adding item parent product " + parentProductId,module);
 
         if (paramMap.containsKey("ADD_CATEGORY_ID")) {
             productCategoryId = (String) paramMap.remove("ADD_CATEGORY_ID");
@@ -357,7 +366,7 @@ public class ShoppingCartEvents {
         List surveyResponses = null;
         if (productId != null) {
             String productStoreId = ProductStoreWorker.getProductStoreId(request);
-            List productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD");
+            List productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD", parentProductId);
             if (productSurvey != null && productSurvey.size() > 0) {
                 // TODO: implement multiple survey per product
                 GenericValue survey = EntityUtil.getFirst(productSurvey);
@@ -390,7 +399,7 @@ public class ShoppingCartEvents {
         // Translate the parameters and add to the cart
         result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
                 itemType, itemDescription, price, amount, quantity, reservStart, reservLength, reservPersons, 
-                shipBeforeDate, shipAfterDate, configWrapper, itemGroupNumber, paramMap);
+                shipBeforeDate, shipAfterDate, configWrapper, itemGroupNumber, paramMap, parentProductId);
         controlDirective = processResult(result, request);
 
         // Determine where to send the browser
@@ -1401,8 +1410,10 @@ public class ShoppingCartEvents {
                 if (quantity > 0) {
                     Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
-                    result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
-                                                  itemType, itemDescription, null, amount, quantity, null, null, null, null, null, null, itemGroupNumber, itemAttributes);
+                    result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, 
+                                                  productCategoryId, itemType, itemDescription, null, 
+                                                  amount, quantity, null, null, null, null, null, null, 
+                                                  itemGroupNumber, itemAttributes,null);
                     // no values for price and paramMap (a context for adding attributes)
                     controlDirective = processResult(result, request);
                     if (controlDirective.equals(ERROR)){    // if the add to cart failed, then get out of this loop right away

@@ -352,7 +352,7 @@ public class PosTransaction implements Serializable {
     public void addItem(String productId, double quantity) throws CartItemModifyException, ItemNotFoundException {
         trace("add item", productId + "/" + quantity);
         try {
-            cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, null, null, null, session.getDispatcher());
+            cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, null, null, null, session.getDispatcher(), null);
         } catch (ItemNotFoundException e) {
             trace("item not found", e);
             throw e;
