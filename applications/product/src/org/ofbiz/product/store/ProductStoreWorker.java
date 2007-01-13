@@ -418,7 +418,7 @@ public class ProductStoreWorker {
     }
 
     public static ProductStoreSurveyWrapper getRandomSurveyWrapper(GenericDelegator delegator, String productStoreId, String groupName, String partyId, Map passThruFields) {
-        List randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL");
+        List randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL", null);
         if (!UtilValidate.isEmpty(randomSurveys)) {
             Random rand = new Random();
             int index = rand.nextInt(randomSurveys.size());
@@ -430,10 +430,14 @@ public class ProductStoreWorker {
     }
 
     public static List getProductSurveys(GenericDelegator delegator, String productStoreId, String productId, String surveyApplTypeId) {
-        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId);
+        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId, null);
     }
 
-    public static List getSurveys(GenericDelegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId) {
+    public static List getProductSurveys(GenericDelegator delegator, String productStoreId, String productId, String surveyApplTypeId, String parentProductId) {
+        return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId,parentProductId);
+    }
+
+    public static List getSurveys(GenericDelegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
         List surveys = new LinkedList();
         List storeSurveys = null;
         try {
@@ -451,6 +455,7 @@ public class ProductStoreWorker {
             storeSurveys = EntityUtil.filterByAnd(storeSurveys, UtilMisc.toMap("groupName", groupName));
         }
 
+         Debug.log("getSurvey for product " + productId,module);
         // limit by product
         if (!UtilValidate.isEmpty(productId) && !UtilValidate.isEmpty(storeSurveys)) {
             Iterator ssi = storeSurveys.iterator();
@@ -463,7 +468,11 @@ public class ProductStoreWorker {
                 try {
                     product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                     if ((product != null) && ("Y".equals(product.get("isVariant")))) {
-                        virtualProductId = ProductWorker.getVariantVirtualId(product);
+                        if (parentProductId != null)
+                            virtualProductId = parentProductId;
+                        else
+                            virtualProductId = ProductWorker.getVariantVirtualId(product);
+                        Debug.log("getSurvey for virtual product " + virtualProductId,module);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problem finding product from productId " + productId, module);

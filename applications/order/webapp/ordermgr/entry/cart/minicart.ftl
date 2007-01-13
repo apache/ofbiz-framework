@@ -42,7 +42,11 @@ under the License.
                 <td valign="top"><div class="tabletext">${cartLine.getQuantity()?string.number}</div></td>
                 <td valign="top">
                   <#if cartLine.getProductId()?exists>
-                    <div><a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a></div>
+                      <#if cartLine.getParentProductId()?exists>
+                          <div><a href="<@ofbizUrl>product?product_id=${cartLine.getParentProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a></div>
+                      <#else>
+                          <div><a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="linktext">${cartLine.getName()}</a></div>
+                      </#if>
                   <#else>
                     <div class="tabletext"><b>${cartLine.getItemTypeDescription()?if_exists}</b></div>
                   </#if>

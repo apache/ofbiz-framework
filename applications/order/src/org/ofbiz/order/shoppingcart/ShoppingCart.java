@@ -442,7 +442,7 @@ public class ShoppingCart implements Serializable {
      */
     public int addOrIncreaseItem(String productId, Double selectedAmountDbl, double quantity, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map features, Map attributes, String prodCatalogId, 
-            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
+            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, LocalDispatcher dispatcher, String parentProductId) throws CartItemModifyException, ItemNotFoundException {
         if (isReadOnlyCart()) {
            throw new CartItemModifyException("Cart items cannot be changed");
         }
@@ -488,7 +488,8 @@ public class ShoppingCart implements Serializable {
         } else {
             return this.addItem(0, ShoppingCartItem.makeItem(new Integer(0), productId, selectedAmountDbl, quantity, null, 
                     reservStart, reservLengthDbl, reservPersonsDbl, shipBeforeDate, shipAfterDate, 
-                    features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, Boolean.TRUE, Boolean.TRUE));
+                    features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, 
+                    this, Boolean.TRUE, Boolean.TRUE, parentProductId));
         }
     }
 
@@ -517,7 +518,7 @@ public class ShoppingCart implements Serializable {
 
     /** Add an item to the shopping cart. */
     public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
-        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules));
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null));
     }
 
     /** Add an item to the shopping cart. */
