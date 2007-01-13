@@ -133,6 +133,7 @@ under the License.
                     <remove-related value-name="workEffort" relation-name="WorkEffortPartyAssignment"/>
                     <remove-related value-name="workEffort" relation-name="WorkEffortPartyAssignment"/>
                     <remove-related value-name="workEffort" relation-name="WorkEffortStatus"/>
+                    <remove-related value-name="workEffort" relation-name="WorkEffortKeyword"/>
                     <remove-value value-name="workEffort"/>
                 </if-empty>
             </iterate>
