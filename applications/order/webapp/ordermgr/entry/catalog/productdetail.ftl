@@ -26,10 +26,16 @@ ${virtualJavaScript?if_exists}
     function setAddProductId(name) {
         document.addform.add_product_id.value = name;
         if (document.addform.quantity == null) return;
-        if (name == 'NULL' || isVirtual(name) == true) {
+        if (name == '' || name == 'NULL' || isVirtual(name) == true) {
             document.addform.quantity.disabled = true;
+            var elem = document.getElementById('product_id_display');
+            var txt = document.createTextNode('');
+            elem.replaceChild(txt, elem.firstChild);
         } else {
             document.addform.quantity.disabled = false;
+            var elem = document.getElementById('product_id_display');
+            var txt = document.createTextNode(name);
+            elem.replaceChild(txt, elem.firstChild);
         }
     }
     function isVirtual(product) {
@@ -361,6 +367,9 @@ ${virtualJavaScript?if_exists}
             </#list>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
+            <div class="tabletext">
+                <b><span id="product_id_display"> </span></b>
+            </div>
           <#else>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
