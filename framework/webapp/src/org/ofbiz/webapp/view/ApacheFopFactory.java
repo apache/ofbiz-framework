@@ -16,6 +16,10 @@
 package org.ofbiz.webapp.view;
 
 import org.apache.fop.apps.FopFactory;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+
+import java.io.File;
 
 /**
  * Apache FOP Factory used to provide a singleton instance of the FopFactory.  Best pratices recommended
@@ -25,6 +29,8 @@ import org.apache.fop.apps.FopFactory;
 
 public class ApacheFopFactory {
 
+    public static final String module = ApacheFopFactory.class.getName();
+    
     private static final FopFactory fopFactory;
 
     static {
@@ -33,6 +39,19 @@ public class ApacheFopFactory {
 
         // Limit the validation for backwards compatibility
         fopFactory.setStrictValidation(false);
+        
+        try {
+            String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path","framework/widget/config");
+            File userConfigFile = new File(fopPath + "/fop.xconf");
+            fopFactory.setUserConfig(userConfigFile);
+            String ofbizHome = System.getProperty("ofbiz.home");
+            String fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url",
+                                    "file://" + ofbizHome + "/framework/widget/config/");
+            Debug.log("FOP-FontBaseURL: " + fopFontBaseUrl, module);
+            fopFactory.setFontBaseURL(fopFontBaseUrl);
+        } catch (Exception e) {
+            Debug.logWarning("Error reading FOP configuration", module);
+        }
     }
 
     public static FopFactory instance() {
