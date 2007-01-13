@@ -227,7 +227,7 @@ public class ProductFeatureServices {
                                List newFeatures = new LinkedList();
                                List newFeatureIds = new LinkedList();
                                if (currentFeature.getString("idCode") != null)
-                                newCombination.put("defaultVariantProductId", productId + currentFeature.getString("idCode"));
+                                newCombination.put("defaultVariantProductId", productId + "-" + currentFeature.getString("idCode"));
                             else
                                 newCombination.put("defaultVariantProductId", productId);
                             newFeatures.add(currentFeature);
