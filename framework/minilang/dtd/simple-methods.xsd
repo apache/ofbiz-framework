@@ -1503,13 +1503,32 @@ under the License.
     </xs:attributeGroup>
 
     <xs:element name="sequenced-id-to-env" substitutionGroup="EntityMiscOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The sequenced-id-to-env tag gets a sequenced ID from the Entity Engine (through the delegator) and puts it in the specified method environment field. 
+                The object will be a java.lang.Long, but can of course be converted to a String.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType>
             <xs:attributeGroup ref="attlist.sequenced-id-to-env"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.sequenced-id-to-env">
-        <xs:attribute type="xs:string" name="sequence-name" use="required"/>
-        <xs:attribute type="xs:string" name="env-name" use="required"/>
+        <xs:attribute type="xs:string" name="sequence-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the sequence to pass to the delegator. 
+                    The same name must always be used for sequenced IDs that will be used for a certain entity field otherwise non-unique keys may result.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="env-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field the sequenced ID will be put in.                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="get-long-only" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1553,30 +1572,122 @@ under the License.
     </xs:attributeGroup>
 
     <xs:element name="find-by-primary-key" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The find-by-primary-key tag uses the delegator to find an entity value by its primary key. 
+                The resulting GenericValue object will be placed in the method environment using the specified value-name.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.find-by-primary-key"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.find-by-primary-key">
-        <xs:attribute type="xs:string" name="entity-name"/>
-        <xs:attribute type="xs:string" name="map-name" use="required"/>
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
-        <xs:attribute type="xs:string" name="fields-to-select-list"/>
-        <xs:attribute type="xs:string" name="delegator-name"/>
+        <xs:attribute type="xs:string" name="entity-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the entity to find an instance of.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.
+                </xs:documentation>
+            </xs:annotation>
+            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="use-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not the delegator's cache should be searched before going to the database. 
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. 
+                    Must be "true" or "false", defaults to "false".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="fields-to-select-list">
+            <xs:annotation>
+                <xs:documentation>
+                    List containing name of fields to select, if empty defaults to all entity fields.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="delegator-name">
+            <xs:annotation>
+                <xs:documentation>
+                    By default this operation is done using the delegator that is part of the simple-method calling context. 
+                    This allows you to override the default delegator by naming an alternate delegator.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="find-by-and" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The find-by-and tag uses the delegator to find entity values by anding the fields passed in the map. 
+                The resulting GenericValue objects will be placed in the method environment using the specified list-name.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.find-by-and"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.find-by-and">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name" use="required"/>
-        <xs:attribute type="xs:string" name="order-by-list-name"/>
-        <xs:attribute type="xs:string" name="delegator-name"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
+        <xs:attribute type="xs:string" name="entity-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the entity to find instances of.                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="order-by-list-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a list in the method environment that contains a list of strings specifying fields to order the results by.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="delegator-name">
+            <xs:annotation>
+                <xs:documentation>
+                    By default this operation is done using the delegator that is part of the simple-method calling context. 
+                    This allows you to override the default delegator by naming an alternate delegator.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="use-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not the delegator's cache should be searched before going to the database. 
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. Must be "true" or "false", defaults to "false".
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
         <xs:attribute name="use-iterator" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not to use the EntityListIterator when doing the query. 
+                    This is much more efficient for large data sets because the results are read incrementaly instead of all at once. 
+                    Note that when using this the use-cache setting will be ignored. 
+                    Also note that an EntityListIterator must be closed when you are finished, but this is done automatically by the iterate operation. 
+                    Must be "true" or "false", defaults to "false".                </xs:documentation>
+            </xs:annotation>                        
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1584,9 +1695,20 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
+        <xs:attribute type="xs:string" name="list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the list of GenericValue objects.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="entity-one" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map"/>
@@ -1596,10 +1718,33 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-one">
-        <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute name="value-name" type="xs:string" use="required"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="value-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="use-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="auto-field-map" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1901,27 +2046,97 @@ under the License.
         <xs:attribute type="xs:string" name="order-by-list-name" use="required"/>
     </xs:attributeGroup>
     <xs:element name="filter-list-by-and" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The filter-list-by-and tag filters the given list by the fields in the specified map.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.filter-list-by-and"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.filter-list-by-and">
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-list-name"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the list of GenericValue objects.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-list-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field the filtered list will be put into. 
+                    Defaults to the value of the list-name attribute (ie goes to the same place it came from, replacing the old list).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields. 
+                    If no map is used this will just make a copy of the list.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="filter-list-by-date" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The filter-list-by-date tag filters the given list by the valid date using the from and thru dates in each value object.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.filter-list-by-date"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.filter-list-by-date">
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-list-name"/>
-        <xs:attribute type="xs:string" name="valid-date-name"/>
-        <xs:attribute type="xs:string" name="from-field-name" default="fromDate"/>
-        <xs:attribute type="xs:string" name="thru-field-name" default="thruDate"/>
+        <xs:attribute type="xs:string" name="list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the list of GenericValue objects.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-list-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field the filtered list will be put into. 
+                    Defaults to the value of the list-name attribute (ie goes to the same place it came from, replacing the old list).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="valid-date-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a field in the method environment date to filter by. 
+                    Defaults to now.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="from-field-name" default="fromDate">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the GenericValue field to use as the beginning effective date. 
+                    Defaults to fromDate.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="thru-field-name" default="thruDate">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the GenericValue field to use as the ending effective date. 
+                    Defaults to thruDate.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="all-same" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not all GenericValue objects in the list are of the same entity. 
+                    Defaults to true.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1931,32 +2146,92 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="make-value" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The make-value tag uses the delegator to construct an entity value. 
+                The resulting value will not necessarily exist in the database, but will simply be assembled using the entity-name and fields map. 
+                The resulting GenericValue object will be placed in the method environment using the specified value-name.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.make-value"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.make-value">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="entity-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the entity to construct an instance of.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="clone-value" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The clone-value tag make a copy of the value in the method environment field specified by value-name. 
+                The resulting GenericValue object will be placed in the method environment using the specified new-value-name.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.clone-value"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.clone-value">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="new-value-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="new-value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that will contain the new GenericValue object.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="create-value" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The create-value tag persists the specified GenericValue object by creating a new instance of the entity in the datasource. 
+                An error will result if an instance of the entity exists in the datasource with the same primary key.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.create-value"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.create-value">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1966,13 +2241,30 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="store-value" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The store-value tag persists the specified GenericValue object by updating the instance of the entity in the datasource. 
+                An error will result if an instance of the entity does not exist in the datasource with the same primary key.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.store-value"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.store-value">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1988,7 +2280,12 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.refresh-value">
         <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute name="do-cache-clear" default="true">
+        <xs:attribute name="do-cache-clear" default="true">            
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1998,13 +2295,30 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="remove-value" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The remove-value tag removes the specified GenericValue object by removing the instance of the entity in the datasource. 
+                An error will result if an instance of the entity does not exist in the datasource with the same primary key.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.remove-value"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-value">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2022,6 +2336,11 @@ under the License.
         <xs:attribute type="xs:string" name="value-name" use="required"/>
         <xs:attribute type="xs:string" name="relation-name" use="required"/>
         <xs:attribute name="do-cache-clear" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2039,6 +2358,11 @@ under the License.
         <xs:attribute type="xs:string" name="entity-name" use="required"/>
         <xs:attribute type="xs:string" name="map-name" use="required"/>
         <xs:attribute name="do-cache-clear" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2101,6 +2425,11 @@ under the License.
     <xs:attributeGroup name="attlist.store-list">
         <xs:attribute type="xs:string" name="list-name" use="required"/>
         <xs:attribute name="do-cache-clear" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2117,6 +2446,11 @@ under the License.
     <xs:attributeGroup name="attlist.remove-list">
         <xs:attribute type="xs:string" name="list-name" use="required"/>
         <xs:attribute name="do-cache-clear" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Clear the cache, defaults to true
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2586,12 +2920,22 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="now-date-to-env" substitutionGroup="OtherOperations">
-        <xs:complexType>
+        <xs:annotation>
+            <xs:documentation>
+                The now-date-to-env tag creates a java.sql.Date object with the current date in it and puts it in a field in the method environment.
+            </xs:documentation>
+        </xs:annotation><xs:complexType>
             <xs:attributeGroup ref="attlist.now-date-to-env"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.now-date-to-env">
-        <xs:attribute type="xs:string" name="env-name" use="required"/>
+        <xs:attribute type="xs:string" name="env-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field the date will be put in.    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="property-to-field" substitutionGroup="OtherOperations">
         <xs:complexType>
@@ -2615,12 +2959,24 @@ under the License.
         <xs:attribute type="xs:string" name="arg-list-name"/>
     </xs:attributeGroup>
     <xs:element name="set-current-user-login" substitutionGroup="OtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The set-current-user-login tag sets the UserLogin GenericValue object to be used for authentication for the rest of the method. 
+                This is mostly used for calling services, etc.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.set-current-user-login"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-current-user-login">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the UserLogin GenericValue object.
+                </xs:documentation>
+            </xs:annotation>                        
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="calculate" substitutionGroup="OtherOperations">
         <xs:complexType>
