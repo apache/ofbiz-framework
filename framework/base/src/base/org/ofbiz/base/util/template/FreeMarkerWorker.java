@@ -167,9 +167,11 @@ public class FreeMarkerWorker {
         
         // add the OFBiz transforms/methods
         addAllOfbizTransforms(context);
+        
+        // make sure there is no "null" string in there as FreeMarker will try to use it
+        context.remove("null");
 
-        // process the template with the given data and write
-        // the email body to the String buffer
+        // process the template with the given data
         template.process(context, outWriter);
     }
     
