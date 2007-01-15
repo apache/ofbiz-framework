@@ -88,6 +88,7 @@ under the License.
 
     <entity entity-name="SecurityGroup"
             package-name="org.ofbiz.security.securitygroup"
+            default-resource-name="SecurityEntityLabels"		
             title="Security Component - Security Group Entity">
       <field name="groupId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -110,6 +111,7 @@ under the License.
     </entity>
     <entity entity-name="SecurityPermission"
             package-name="org.ofbiz.security.securitygroup"
+            default-resource-name="SecurityEntityLabels"
             title="Security Component - Security Permission Entity">
       <field name="permissionId" type="id-long-ne"></field>
       <field name="description" type="description"></field>
