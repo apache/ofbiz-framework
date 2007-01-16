@@ -33,6 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
@@ -89,7 +91,7 @@ public class ProductSearchSession {
         public static void addConstraint(ProductSearchConstraint productSearchConstraint, HttpSession session) {
             ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
             if (productSearchOptions.constraintList == null) {
-                productSearchOptions.constraintList = new LinkedList();
+                productSearchOptions.constraintList = FastList.newInstance();
             }
             if (!productSearchOptions.constraintList.contains(productSearchConstraint)) {
                 productSearchOptions.constraintList.add(productSearchConstraint);
@@ -152,7 +154,7 @@ public class ProductSearchSession {
 
         public List searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
             List productSearchConstraintList = this.getConstraintList();
-            List constraintStrings = new ArrayList();
+            List constraintStrings = FastList.newInstance();
             if (productSearchConstraintList == null) {
                 return constraintStrings;
             }
@@ -331,27 +333,12 @@ public class ProductSearchSession {
             return new ArrayList();
         }
 
-        // make sure the view allow category is included
-        productSearchConstraintList = ensureViewAllowConstraint(productSearchConstraintList, prodCatalogId, delegator);
         ResultSortOrder resultSortOrder = productSearchOptions.getResultSortOrder();
 
         // if the search options have changed since the last search, put at the beginning of the options history list
         checkSaveSearchOptionsHistory(session);
         
         return ProductSearch.searchProducts(productSearchConstraintList, resultSortOrder, delegator, visitId);
-    }
-
-    public static List ensureViewAllowConstraint(List productSearchConstraintList, String prodCatalogId, GenericDelegator delegator) {
-        String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
-        if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
-            ProductSearchConstraint viewAllowConstraint = new CategoryConstraint(viewProductCategoryId, true);
-            if (!productSearchConstraintList.contains(viewAllowConstraint)) {
-                // don't add to same list, will modify the one in the session, create new list
-                productSearchConstraintList = new ArrayList(productSearchConstraintList);
-                productSearchConstraintList.add(viewAllowConstraint);
-            }
-        }
-        return productSearchConstraintList;
     }
 
     public static void searchClear(HttpSession session) {
@@ -403,6 +390,7 @@ public class ProductSearchSession {
     }
 
     public static void processSearchParameters(Map parameters, HttpServletRequest request) {
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun"); 
         if (Boolean.TRUE.equals(alreadyRun)) {
             return;
@@ -509,7 +497,22 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.SupplierConstraint(supplierPartyId), session);
             constraintsChanged = true;
         }
+        
+        // check the ProductStore to see if we should add the ExcludeVariantsConstraint
+        GenericValue productStore = ProductStoreWorker.getProductStore(request);
+        if (productStore != null && !"N".equals(productStore.getString("prodSearchExcludeVariants"))) {
+            searchAddConstraint(new ProductSearch.ExcludeVariantsConstraint(), session);
+            // not consider this a change for now, shouldn't change often: constraintsChanged = true;
+        }
 
+        String prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
+        String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
+        if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
+            ProductSearchConstraint viewAllowConstraint = new CategoryConstraint(viewProductCategoryId, true);
+            searchAddConstraint(viewAllowConstraint, session);
+            // not consider this a change for now, shouldn't change often: constraintsChanged = true;
+        }
+        
         // set the sort order
         String sortOrder = (String) parameters.get("sortOrder");
         String sortAscending = (String) parameters.get("sortAscending");
@@ -587,7 +590,6 @@ public class ProductSearchSession {
             // if the search options have changed since the last search, put at the beginning of the options history list
             checkSaveSearchOptionsHistory(session);
 
-            productSearchConstraintList = ensureViewAllowConstraint(productSearchConstraintList, prodCatalogId, delegator);
             ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(request);
 
             ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
