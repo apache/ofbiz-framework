@@ -29,8 +29,10 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 
 public class PickListServices {
 
@@ -81,5 +83,29 @@ public class PickListServices {
         Map result = ServiceUtil.returnSuccess();
         result.put("orderHeaderList", orderHeaderList);
         return result;
+    }
+
+    public static boolean isBinComplete(GenericDelegator delegator, String picklistBinId) throws GeneralException {
+        // lookup the items in the bin
+        List items;
+        try {
+            items = delegator.findByAnd("PicklistItem", UtilMisc.toMap("picklistBinId", picklistBinId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            throw e;
+        }
+
+        if (items != null) {
+            Iterator i = items.iterator();
+            GenericValue v = (GenericValue) i.next();
+            String itemStatus = v.getString("itemStatusId");
+            if (itemStatus != null) {
+                if (!"PICKITEM_COMPLETED".equals(itemStatus)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
