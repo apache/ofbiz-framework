@@ -1086,6 +1086,34 @@ public class ProductSearch {
         }
     }
 
+    public static class ExcludeVariantsConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "ExcludeVariants";
+
+        public ExcludeVariantsConstraint() {
+        }
+
+        public void addConstraint(ProductSearchContext productSearchContext) {
+            productSearchContext.dynamicViewEntity.addAlias("PROD", "prodIsVariant", "isVariant", null, null, null, null);
+            productSearchContext.entityConditionList.add(new EntityExpr("prodIsVariant", EntityOperator.NOT_EQUAL, "Y"));
+
+            // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
+            productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", "")));
+        }
+
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            return UtilProperties.getMessage(resource, "ProductExcludeVariants", locale);
+        }
+
+        public boolean equals(Object obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof ExcludeVariantsConstraint) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     // ======================================================================
     // Result Sort Classes
     // ======================================================================
