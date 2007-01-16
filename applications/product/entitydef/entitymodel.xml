@@ -1858,6 +1858,7 @@ under the License.
       <field name="includeInPromotions" type="indicator"></field>
       <field name="isVirtual" type="indicator"></field>
       <field name="isVariant" type="indicator"></field>
+      <field name="originGeoId" type="id"></field>
       <field name="requirementMethodEnumId" type="id"></field>
       <field name="billOfMaterialLevel" type="numeric"></field>
       <field name="reservMaxPersons" type="floating-point"><description>maximum number of persons who can rent this asset at the same time</description></field>
@@ -1906,6 +1907,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="PROD_RQMT_ENUM" title="RequirementMethod" rel-entity-name="Enumeration">
         <key-map field-name="requirementMethodEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PROD_ORG_GEO" title="Origin" rel-entity-name="Geo">
+          <key-map field-name="originGeoId" rel-field-name="geoId"/>
       </relation>
       <relation type="one" fk-name="PROD_CB_USERLOGIN" title="CreatedBy" rel-entity-name="UserLogin">
         <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>

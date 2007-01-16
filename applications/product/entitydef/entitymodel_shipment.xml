@@ -183,6 +183,7 @@ under the License.
       <field name="orderItemSeqId" type="id-ne"></field>
       <field name="shipGroupSeqId" type="id-ne"></field>
       <field name="inventoryItemId" type="id-ne"></field>
+      <field name="itemStatusId" type="id-ne"></field>
       <field name="quantity" type="floating-point"></field>
       <prim-key field="picklistBinId"/>
       <prim-key field="orderId"/>
@@ -202,6 +203,9 @@ under the License.
       </relation>
       <relation type="one-nofk" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="PICKLST_ITM_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="itemStatusId" rel-field-name="statusId"/>
       </relation>
       <relation type="one" fk-name="PCKLST_ITM_INV" rel-entity-name="InventoryItem">
         <key-map field-name="inventoryItemId"/>
@@ -223,6 +227,17 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </relation>
     </entity>
+    <view-entity entity-name="PicklistItemAndBin"
+                 package-name="org.ofbiz.shipment.picklist"
+                 title="Picklist Item and Bin View Entity">
+      <member-entity entity-alias="PB" entity-name="PicklistBin"/>
+      <member-entity entity-alias="PI" entity-name="PicklistItem"/>
+      <alias-all entity-alias="PB"/>
+      <alias-all entity-alias="PI"/>
+      <view-link entity-alias="PB" rel-entity-alias="PI">
+        <key-map field-name="picklistBinId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="PicklistRole"
             package-name="org.ofbiz.shipment.picklist"
             title="Picklist Role Entity">
@@ -499,6 +514,7 @@ under the License.
       <field name="statusId" type="id-ne"></field>
       <field name="primaryOrderId" type="id"></field>
       <field name="primaryShipGroupSeqId" type="id"></field>
+      <field name="picklistBinId" type="id"></field>
       <field name="estimatedReadyDate" type="date-time"></field>
       <field name="estimatedShipDate" type="date-time"></field>
       <field name="estimatedShipWorkEffId" type="id"></field>
@@ -563,6 +579,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHPMNT_PODR" title="Primary" rel-entity-name="OrderHeader">
         <key-map field-name="primaryOrderId" rel-field-name="orderId"/>
+      </relation>
+      <relation type="one" rel-entity-name="PicklistBin">
+          <key-map field-name="picklistBinId"/>
       </relation>
       <relation type="one-nofk" title="Primary" rel-entity-name="OrderItemShipGroup">
         <key-map field-name="primaryOrderId" rel-field-name="orderId"/>
@@ -1141,7 +1160,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ShipmentPackageRouteDetail"
-            package-name="org.ofbiz.shipment.picklist"
+            package-name="org.ofbiz.shipment.shipment"
             title="Shipment Package Route Detail View Entity">
       <description>View to list information about individual packages with route information, for getting the carrier labels for a package.</description>
       <member-entity entity-alias="SPRS" entity-name="ShipmentPackageRouteSeg"/>
