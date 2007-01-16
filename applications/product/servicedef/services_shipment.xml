@@ -89,22 +89,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>
-
-    <service name="prepareShipmentStaging" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="fillShipmentStagingTables" auth="true">
-        <description>Prepares the shipment ODBC staging tables</description>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="updateShipmentFromStaging" engine="java" transaction-timeout="7200"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="updateShipmentsFromStaging" auth="true">
-        <description>Reads the ODBC tables and updates the shipments which have call back records.</description>
-    </service>
-    <service name="clearShipmentStaging" engine="java"
-            location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="clearShipmentStagingInfo" auth="true">
-        <description>Clears the shipment ODBC staging tables</description>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
-    </service>
-
+    
     <service name="createShipment" default-entity-name="Shipment" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
         <description>Create Shipment</description>
@@ -379,6 +364,7 @@ under the License.
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
         <attribute name="packageSeq" type="Integer" mode="IN" optional="false"/>
+        <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
     </service>
     <service name="packBulkItems" engine="java"
@@ -387,7 +373,10 @@ under the License.
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="updateQuantity" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
+        <attribute name="nextPackageSeq" type="Integer" mode="INOUT" optional="true"/>
         <attribute name="prdInfo" type="Map" string-map-prefix="prd_" mode="IN" optional="true"/>
         <attribute name="qtyInfo" type="Map" string-map-prefix="qty_" mode="IN" optional="true"/>
         <attribute name="pkgInfo" type="Map" string-map-prefix="pkg_" mode="IN" optional="true"/>
@@ -406,6 +395,12 @@ under the License.
         <description>Clear the current packing session</description>
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
     </service>
+    <service name="clearLastPackage" engine="java"
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="clearLastPackage" auth="true">
+        <description>Clears the last package in the packing session</description>
+        <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="nextPackageSeq" type="Integer" mode="OUT" optional="false"/>
+    </service>
     <service name="clearPackLine" engine="java"
             location="org.ofbiz.shipment.packing.PackingServices" invoke="clearPackLine" auth="true">
         <description>Clear a single line from the current packing session</description>
@@ -422,6 +417,7 @@ under the License.
         <description>Complete the packging set the shipment to PACKED</description>
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
+        <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="forceComplete" type="Boolean" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>

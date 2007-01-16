@@ -117,6 +117,11 @@ under the License.
         <description>Delete PicklistBin</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="checkPicklistBinItemStatuses" default-entity-name="PicklistBin" engine="simple"
+            location="org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="checkPicklistBinItemStatuses" auth="true">
+        <description>Update Picklist based on Item Status</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 
     <!-- PicklistItem -->
     <service name="createPicklistItem" default-entity-name="PicklistItem" engine="simple"
@@ -129,12 +134,19 @@ under the License.
             location="org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="updatePicklistItem" auth="true">
         <description>Update PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="oldItemStatusId" type="String" mode="OUT" optional="true"/> 
     </service>
     <service name="deletePicklistItem" default-entity-name="PicklistItem" engine="simple"
             location="org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="deletePicklistItem" auth="true">
         <description>Delete PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="setPicklistItemToComplete" default-entity-name="PicklistItem" engine="simple"
+            location="org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="setPicklistItemToComplete" auth="true">
+        <description>Update PicklistItem's Status to COMPLETE</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
 
     <!-- PicklistRole -->
