@@ -13,6 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
+
 -->
 
 <div class="screenlet">
@@ -61,7 +62,7 @@ under the License.
                 <#assign orderReadyToPickInfoListSizeTotal = 0>
                 <#assign orderNeedsStockMoveInfoListSizeTotal = 0>
                 <#list pickMoveByShipmentMethodInfoList as pickMoveByShipmentMethodInfo>
-                    <#assign shipmentMethodType = pickMoveByShipmentMethodInfo.shipmentMethodType>
+                    <#assign shipmentMethodType = pickMoveByShipmentMethodInfo.shipmentMethodType?if_exists>
                     <#assign orderReadyToPickInfoList = pickMoveByShipmentMethodInfo.orderReadyToPickInfoList?if_exists>
                     <#assign orderNeedsStockMoveInfoList = pickMoveByShipmentMethodInfo.orderNeedsStockMoveInfoList?if_exists>
                     <#assign orderReadyToPickInfoListSize = (orderReadyToPickInfoList.size())?default(0)>
@@ -69,7 +70,7 @@ under the License.
                     <#assign orderReadyToPickInfoListSizeTotal = orderReadyToPickInfoListSizeTotal + orderReadyToPickInfoListSize>
                     <#assign orderNeedsStockMoveInfoListSizeTotal = orderNeedsStockMoveInfoListSizeTotal + orderNeedsStockMoveInfoListSize>
                     <tr>
-                        <td><div class="tabletext">${shipmentMethodType.description}</div></td>
+                        <td><a href="<@ofbizUrl>PicklistOptions?viewDetail=${shipmentMethodType.shipmentMethodTypeId?if_exists}&facilityId=${facilityId?if_exists}</@ofbizUrl>" class="linktext"><#if shipmentMethodType?exists && shipmentMethodType?has_content>${shipmentMethodType.description}<#else>${groupName?if_exists}</#if></a></td>
                         <td><div class="tabletext">${orderReadyToPickInfoListSize}</div></td>
                         <td><div class="tabletext">${orderNeedsStockMoveInfoListSize}</div></td>
                         <td>
@@ -77,7 +78,15 @@ under the License.
                                 <#if orderReadyToPickInfoList?has_content>
                                     <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
                                         <input type="hidden" name="facilityId" value="${facilityId}"/>
+                                        <#if shipmentMethodType?exists && shipmentMethodType?has_content>
                                         <input type="hidden" name="shipmentMethodTypeId" value="${shipmentMethodType.shipmentMethodTypeId}"/>
+                                        <#else>
+                                            <input type="hidden" name="orderIdList" value=""/>
+                                            <#assign orderIdsForPickList = orderReadyToPickInfoList?if_exists>
+                                            <#list orderIdsForPickList as orderIdForPickList>
+                                                <input type="hidden" name="orderIdList" value="${orderIdForPickList.orderHeader.orderId}"/>
+                                            </#list>
+                                        </#if>
                                         ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20" class="inputBox"/>
                                         <input type="submit" value="${uiLabelMap.ProductCreatePicklist}" class="smallSubmit"/>
                                     </form>
@@ -112,3 +121,57 @@ under the License.
         </table>
     </div>
 </div>
+<br/>
+
+<#assign viewDetail = requestParameters.viewDetail?if_exists>
+<#if viewDetail?has_content>
+    <#list pickMoveByShipmentMethodInfoList as pickMoveByShipmentMethodInfo>
+        <#assign shipmentMethodType = pickMoveByShipmentMethodInfo.shipmentMethodType?if_exists>
+        <#if shipmentMethodType?if_exists.shipmentMethodTypeId == viewDetail>
+            <#assign toPickList = pickMoveByShipmentMethodInfo.orderReadyToPickInfoList?if_exists>
+        </#if>                
+    </#list>
+</#if>
+
+<#if toPickList?has_content>
+<div class="screenlet">
+    <div class="screenlet-header">
+        <div class="boxhead">${shipmentMethodType.description?if_exists} Detail</div>
+    </div>
+    <div class="screenlet-body">
+        <table border="1" cellspacing="0" cellpadding="2">
+            <tr>
+                <#-- todo: internationalize -->
+                <td><div class="tableheadtext">Order ID</div></td>
+                <td><div class="tableheadtext">Order Date</div></td>
+                <td><div class="tableheadtext">Channel</div></td>
+                <td><div class="tableheadtext">Order Item ID</div></td>
+                <td><div class="tableheadtext">Description</div></td>
+                <td><div class="tableheadtext">Ship Grp ID</div></td>
+                <td><div class="tableheadtext">Quantity</div></td>
+            </tr>
+            <#list toPickList as toPick>
+                <#assign oiasgal = toPick.orderItemAndShipGroupAssocList>
+                <#assign header = toPick.orderHeader>
+                <#assign channel = header.getRelatedOne("SalesChannelEnumeration")?if_exists>
+
+                <#list oiasgal as oiasga>
+                    <#assign product = oiasga.getRelatedOne("Product")?if_exists>
+                    <tr>
+                        <td><a href="/ordermgr/control/orderview?orderId=${oiasga.orderId}${externalKeyParam}" class="linktext" target="_blank">${oiasga.orderId}</a></td>
+                        <td><div class="tabletext">${header.orderDate?string}</div></td>
+                        <td><div class="tabletext">${(channel.description)?if_exists}</div></td>
+                        <td><div class="tabletext">${oiasga.orderItemSeqId}</div></td>
+                        <td><a href="/catalog/control/EditProduct?productId=${oiasga.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(product.internalName)?if_exists}</a></td>
+                        <td><div class="tabletext">${oiasga.shipGroupSeqId}</div></td>
+                        <td><div class="tabletext">${oiasga.quantity}</div></td>
+                    </tr>
+                </#list>
+                <tr>
+                    <td colspan="7" bgcolor="#CCCCCC">&nbsp;</td>
+                </tr>
+            </#list>
+        </table>
+    </div>
+</div>
+</#if>
