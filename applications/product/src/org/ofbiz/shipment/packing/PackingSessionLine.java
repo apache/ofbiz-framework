@@ -1,30 +1,31 @@
 /*
+ * Copyright 2001-2007 The Apache Software Foundation
  *
- * Copyright 2001-2006 The Apache Software Foundation
- * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-
 package org.ofbiz.shipment.packing;
 
 import java.util.Map;
 
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.entity.GenericValue;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
-import javolution.util.FastMap;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 public class PackingSessionLine implements java.io.Serializable {
 
@@ -93,14 +94,31 @@ public class PackingSessionLine implements java.io.Serializable {
         return this.packageSeq;
     }
 
-    protected void issueItemToShipment(String shipmentId, GenericValue userLogin, LocalDispatcher dispatcher) throws GeneralException {
+    public boolean isSameItem(PackingSessionLine line) {
+        if (this.getInventoryItemId().equals(line.getInventoryItemId())) {
+            if (this.getOrderItemSeqId().equals(line.getOrderItemSeqId())) {
+                if (this.getOrderId().equals(line.getOrderId())) {
+                    if (this.getShipGroupSeqId().equals(line.getShipGroupSeqId())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, Double quantity, LocalDispatcher dispatcher) throws GeneralException {
+        if (quantity == null) {
+            quantity = new Double(this.getQuantity());
+        }
+
         Map issueMap = FastMap.newInstance();
         issueMap.put("shipmentId", shipmentId);
         issueMap.put("orderId", this.getOrderId());
         issueMap.put("orderItemSeqId", this.getOrderItemSeqId());
         issueMap.put("shipGroupSeqId", this.getShipGroupSeqId());
         issueMap.put("inventoryItemId", this.getInventoryItemId());
-        issueMap.put("quantity", new Double(this.getQuantity()));
+        issueMap.put("quantity", quantity);
         issueMap.put("userLogin", userLogin);
 
         Map issueResp = dispatcher.runSync("issueOrderItemShipGrpInvResToShipment", issueMap);
@@ -113,6 +131,39 @@ public class PackingSessionLine implements java.io.Serializable {
             throw new GeneralException("Issue item did not return a valid shipmentItemSeqId!");
         } else {
             this.setShipmentItemSeqId(shipmentItemSeqId);
+        }
+
+        if (picklistBinId != null) {
+            // find the pick list item
+            Debug.log("Looking up picklist item for bin ID #" + picklistBinId, module);
+            GenericDelegator delegator = dispatcher.getDelegator();
+            Map itemLookup = FastMap.newInstance();
+            itemLookup.put("picklistBinId", picklistBinId);
+            itemLookup.put("orderId", this.getOrderId());
+            itemLookup.put("orderItemSeqId", this.getOrderItemSeqId());
+            itemLookup.put("shipGroupSeqId", this.getShipGroupSeqId());
+            itemLookup.put("inventoryItemId", this.getInventoryItemId());
+            GenericValue plItem = delegator.findByPrimaryKey("PicklistItem", itemLookup);
+            if (plItem != null) {
+                Debug.log("Found picklist bin: " + plItem, module);
+                Double itemQty = plItem.getDouble("quantity");
+                if (itemQty.doubleValue() == quantity.doubleValue()) {
+                    // set to complete
+                    itemLookup.put("itemStatusId", "PICKITEM_COMPLETED");
+                } else {
+                    itemLookup.put("itemStatusId", "PICKITEM_CANCELLED");
+                }
+                itemLookup.put("userLogin", userLogin);
+
+                Map itemUpdateResp = dispatcher.runSync("updatePicklistItem", itemLookup);
+                if (ServiceUtil.isError(itemUpdateResp)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(issueResp));
+                }
+            } else {
+                Debug.log("No item was found for lookup: " + itemLookup, module);
+            }
+        } else {
+            Debug.logWarning("*** NO Picklist Bin ID set; cannot update picklist status!", module);
         }
     }
 
