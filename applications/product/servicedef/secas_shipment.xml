@@ -22,8 +22,7 @@ under the License.
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
-        <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
-        <action service="prepareShipmentStaging" mode="sync"/>
+        <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>        
         <action service="createInvoicesFromShipment" mode="sync"/>        
     </eca>
 
@@ -107,4 +106,16 @@ under the License.
         <condition field-name="shipmentPackageSeqId" operator="equals" value="New"/>
         <action service="createShipmentPackage" mode="sync"/>
     </eca>
+
+    <!-- picking ecas -->
+    <eca service="updatePicklistItem" event="commit">
+        <condition-field field-name="itemStatusId" operator="not-equals" to-field-name="oldItemStatusId"/>
+        <action service="checkPicklistBinItemStatuses" mode="sync"/>
+    </eca>
+
+    <!-- packing ecas -->
+    <eca service="packBulkItems" event="commit">
+        <condition field-name="nextPackageSeq" operator="equals" value="0"/>
+        <action service="setNextPackageSeq" mode="sync"/>
+    </eca>        
 </service-eca>
