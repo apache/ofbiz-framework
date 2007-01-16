@@ -125,11 +125,17 @@ under the License.
                         <set value="Y" field="pickThisOrder"/>
                         <set value="N" field="needsStockMove"/>
                         <set value="Y" field="allPickStarted"/>
+                        <set value="N" field="hasStockToPick"/>
                         <iterate entry-name="orderItemShipGrpInvRes" list-name="orderItemShipGrpInvResList">
+                            <get-related-one value-name="orderItemShipGrpInvRes" relation-name="OrderItem" to-value-name="orderItem"/>
+                            <if-compare field-name="orderItem.statusId" value="ITEM_APPROVED" operator="not-equals">
+                                <set value="N" field="pickThisOrder"/>
+                            </if-compare>
+
                             <if-compare field-name="pickThisOrder" operator="equals" value="Y">
                                 <get-related-one value-name="orderItemShipGrpInvRes" relation-name="InventoryItem" to-value-name="inventoryItem"/>
                                 <!-- Look for other picklists which might include this order item ship group inventory reservation.  If it is on another picklist, then
-                                    we should not include it again.  We screen out picklists which are either cancelled or already picked or packed, so that we can re-pick items if 
+                                    we should not include it again.  We screen out picklists which are either cancelled or already picked or packed, so that we can re-pick items if
                                     (1) the previous picklist was cancelled, or
                                     (2) the previous picklist was picked or packed, and there is still an OrderItemShipGrpInvRes, which means that some of the order item must not
                                     have shipped yet.  (OrderItemShipGrpInvRes is removed when an order item has been fully shipped.
@@ -140,9 +146,8 @@ under the License.
                                         <condition-expr field-name="shipGroupSeqId" env-name="orderItemShipGrpInvRes.shipGroupSeqId"/>
                                         <condition-expr field-name="orderItemSeqId" env-name="orderItemShipGrpInvRes.orderItemSeqId"/>
                                         <condition-expr field-name="inventoryItemId" env-name="orderItemShipGrpInvRes.inventoryItemId"/>
-                                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
-                                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
+                                        <condition-expr field-name="itemStatusId" operator="not-equals" value="PICKITEM_CANCELLED"/>
                                     </condition-list>
                                 </entity-condition>
                                 <log level="info" message="Pick list ITEMS - ${picklistItemList}"/>
@@ -169,6 +174,21 @@ under the License.
                                             <set value="N" field="pickThisOrder"/>
                                         </then>
                                         <else>
+                                            <log level="info" message="Found item to pick: ${orderItemShipGrpInvRes}"/>
+                                            <!-- see if there is stock to pick -->
+                                            <if>
+                                                <condition>
+                                                    <or>
+                                                        <if-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable"/>
+                                                        <if-compare field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="equals" value="0" type="Double"/>
+                                                    </or>
+                                                </condition>
+                                                <then>
+                                                    <log level="info" message="Item has stock; flagging order (${orderItemShipGrpInvRes.orderId}) as OK"/>
+                                                    <set value="Y" field="hasStockToPick"/>
+                                                </then>
+                                            </if>
+
                                             <!-- check InventoryItem->FacilityLocation (if exists), if it is of type FLT_BULK set needs stock move to true -->
                                             <get-related-one value-name="inventoryItem" relation-name="FacilityLocation" to-value-name="facilityLocation"/>
                                             <if-not-empty field-name="facilityLocation">
@@ -188,6 +208,11 @@ under the License.
                                 </if-empty>
                             </if-compare>
                         </iterate>
+
+                        <!-- another check to see if we should pick this order -->
+                        <if-compare field-name="hasStockToPick" operator="equals" value="N">
+                            <set value="N" field="pickThisOrder"/>
+                        </if-compare>
 
                         <if>
                             <condition>
@@ -476,15 +501,54 @@ under the License.
                 </call-service>
 
                 <calculate field-name="binLocationNumber" type="Long"><calcop field-name="binLocationNumber" operator="add"/><number value="1"/></calculate>
+                <set field="itemsInBin" type="Long" value="0"/>
 
                 <iterate entry-name="orderItemInfo" list-name="orderHeaderInfo.orderItemInfoList">
                     <iterate entry-name="orderItemShipGrpInvRes" list-name="orderItemInfo.orderItemShipGrpInvResList">
-                        <clear-field field-name="createPicklistItemMap"/>
-                        <set from-field="picklistBinId" field="createPicklistItemMap.picklistBinId"/>
-                        <set-service-fields service-name="createPicklistItem" map-name="orderItemShipGrpInvRes" to-map-name="createPicklistItemMap"/>
-                        <call-service service-name="createPicklistItem" in-map-name="createPicklistItemMap"/>
+                        <log level="info" message="Getting pick quantity : ${orderItemShipGrpInvRes.quantity} - ${orderItemShipGrpInvRes.quantityNotAvailable}"/>
+                        <set field="quantityToPick" from-field="orderItemShipGrpInvRes.quantity"/>
+                        <if>
+                            <condition>
+                                <and>
+                                    <not><if-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
+                                    <if-compare field-name="orderItemShipGrpInvRes.quantityNotAvailable" value="0" operator="greater"/>
+                                </and>
+                            </condition>
+                            <then>
+                                <set field="quantityToSubtract" from-field="orderItemShipGrpInvRes.quantityNotAvailable"/>
+                                <log level="info" message="Subtracting ${quantityToSubtract} from ${quantityToPick}"/>
+                                <calculate field-name="quantityToPick" type="Double">
+                                    <calcop field-name="quantityToPick" operator="subtract">
+                                        <calcop field-name="quantityToSubtract" operator="get"/>
+                                    </calcop>
+                                </calculate>
+                            </then>
+                        </if>
+
+                        <log level="info" message="Order #${orderItemShipGrpInvRes.orderId} / ${orderItemShipGrpInvRes.orderItemSeqId} - ${quantityToPick}"/>
+                        <if-compare field-name="quantityToPick" value="0" operator="greater" type="Double">
+                            <clear-field field-name="createPicklistItemMap"/>
+                            <set from-field="picklistBinId" field="createPicklistItemMap.picklistBinId"/>
+                            <set field="createPicklistItemMap.itemStatusId" value="PICKITEM_PENDING"/>
+                            <set-service-fields service-name="createPicklistItem" map-name="orderItemShipGrpInvRes" to-map-name="createPicklistItemMap"/>
+                            <set field="createPicklistItemMap.quantity" from-field="quantityToPick"/>
+                            <call-service service-name="createPicklistItem" in-map-name="createPicklistItemMap"/>
+                            <calculate field-name="itemsInBin">
+                                <calcop operator="add"/>
+                                <number value="1"/>
+                            </calculate>
+                        </if-compare>
+                        <clear-field field-name="quantityToPick"/>
                     </iterate>
                 </iterate>
+
+                <!-- if we put nothing into this bin, delete the bin -->
+                <if-compare field-name="itemsInBin" value="0" operator="equals">
+                    <entity-one entity-name="PicklistBin" value-name="binToRemove">
+                        <field-map field-name="picklistBinId" env-name="picklistBinId"/>
+                    </entity-one>
+                    <remove-value value-name="binToRemove"/>
+                </if-compare>
             </iterate>
         <else>
             <log level="info" message="Not Creating Picklist with ID, nothing to process."/>
@@ -635,8 +699,30 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+
+        <if-not-empty field-name="parameters.itemStatusId">
+            <if-compare-field field-name="parameters.itemStatusId" operator="not-equals" to-field-name="lookedUpValue.itemStatusId">
+                <!-- make sure a StatusValidChange record exists, if not return error -->
+                <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
+                    <field-map env-name="lookedUpValue.itemStatusId" field-name="statusId"/>
+                    <field-map env-name="parameters.itemStatusId" field-name="statusIdTo"/>
+                </entity-one>
+                <if-empty field-name="checkStatusValidChange">
+                    <set value="ERROR: Changing the status from ${lookedUpValue.itemStatusId} to ${parameters.itemStatusId} is not allowed." field="error_list[]"/>
+                </if-empty>
+            </if-compare-field>
+        </if-not-empty>
+
+        <!-- now finally check for errors -->
+        <check-errors/>
+
+        <!-- finally before setting nonpk fields, set the oldItemStatusId -->
+        <field-to-result field-name="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
+
+        <!-- now that all changes have been checked, set the nonpks -->
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
+        <!-- store the changes -->
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePicklistItem" short-description="Delete PicklistItem">
@@ -649,6 +735,15 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="setPicklistItemToComplete" short-description="Set the status of a pick list item to completed">
+        <check-permission permission="FACILITY" action="_UPDATE">
+            <fail-message message="Security Error: to run setPicklistItemToComplete you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+
+        <set-service-fields service-name="updatePicklistItem" map-name="parameters" to-map-name="serviceCtx"/>
+        <set field="serviceCtx.itemStatusId" value="PICKITEM_COMPLETED"/>
+        <call-service service-name="updatePicklistItem" in-map-name="serviceCtx" include-user-login="true"/>
     </simple-method>
 
     <!-- PicklistRole -->
@@ -704,7 +799,7 @@ under the License.
         <entity-condition entity-name="Picklist" list-name="picklistList">
             <condition-list combine="and">
                 <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
-                <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PACKED"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
             </condition-list>
             <order-by field-name="picklistDate"/>
@@ -967,10 +1062,11 @@ under the License.
         <set from-field="picklistRoleInfoList" field="picklistInfo.picklistRoleInfoList"/>
         <set from-field="picklistStatusHistoryInfoList" field="picklistInfo.picklistStatusHistoryInfoList"/>
         <set from-field="picklistBinInfoList" field="picklistInfo.picklistBinInfoList"/>
+        <string-to-list string="sequenceId" list-name="orderBy"/>
         <get-related-one value-name="picklist" relation-name="StatusItem" to-value-name="picklistInfo.statusItem" use-cache="true"/>
         <get-related-one value-name="picklist" relation-name="Facility" to-value-name="picklistInfo.facility" use-cache="true"/>
         <get-related-one value-name="picklist" relation-name="ShipmentMethodType" to-value-name="picklistInfo.shipmentMethodType" use-cache="true"/>
-        <get-related value-name="picklist" relation-name="StatusValidChangeToDetail" list-name="picklistInfo.statusValidChangeToDetailList"/>
+        <get-related value-name="picklist" relation-name="StatusValidChangeToDetail" order-by-list-name="orderBy" list-name="picklistInfo.statusValidChangeToDetailList"/>
     </simple-method>
 
 
@@ -1115,5 +1211,59 @@ under the License.
             <set from-field="inventoryItemInfo" field="inventoryItemInfoList[]"/>
             <clear-field field-name="inventoryItemInfo"/>
         </iterate>
+    </simple-method>
+
+    <!-- special method to check update the picklist status from the item status -->
+    <simple-method method-name="checkPicklistBinItemStatuses" short-description="Checks the item status and updates the pick list status">
+        <check-permission permission="FACILITY" action="_UPDATE">
+            <fail-message message="Security Error: to run checkPicklistItemStatus you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+
+        <!-- find the picklist bin -->
+        <make-value value-name="binLookup" entity-name="PicklistBin"/>
+        <set-pk-fields map-name="parameters" value-name="binLookup"/>
+        <find-by-primary-key map-name="binLookup" value-name="picklistBin"/>
+
+        <!-- find the pick list -->
+        <make-value value-name="plLookup" entity-name="Picklist"/>
+        <set-pk-fields map-name="picklistBin" value-name="plLookup"/>
+        <find-by-primary-key map-name="plLookup" value-name="picklist"/>
+
+        <!-- find all related picklist items -->
+        <entity-and entity-name="PicklistItemAndBin" list-name="picklistItem">
+            <field-map field-name="picklistId" env-name="picklist.picklistId"/>
+        </entity-and>
+
+        <set field="allCompleteOrCancelled" type="Boolean" value="true"/>
+        <set field="allCancelled" type="Boolean" value="true"/>
+
+        <!-- determine if all the items are completed and/or cancelled -->
+        <iterate entry-name="item" list-name="picklistItem">
+            <log level="info" message="checking status for item: ${item}"/>
+            <if-compare field-name="item.itemStatusId" value="PICKITEM_CANCELLED" operator="not-equals">
+                <log level="info" message="item is not cancelled; all cancelled set to false"/>
+                <set field="allCancelled" type="Boolean" value="false"/>
+
+                <if-compare field-name="item.itemStatusId" value="PICKITEM_COMPLETED" operator="not-equals">
+                    <log level="info" message="item is not completed; all completed set to false"/>
+                    <set field="allCompleteOrCancelled" type="Boolean" value="false"/>
+                </if-compare>
+            </if-compare>
+        </iterate>
+
+        <!-- update the picklist status -->
+        <if-compare field-name="allCancelled" value="true" type="Boolean" operator="equals">
+            <log level="info" message="Setting picklist #${picklist.picklistId} to cancelled"/>
+            <set field="picklist.statusId" value="PICKLIST_CANCELLED"/>
+            <store-value value-name="picklist"/>
+        <else>
+            <log level="info" message="Not all items were cancelled; now check if we can complete the picklist : ${allCompleteOrCancelled}"/>
+            <if-compare field-name="allCompleteOrCancelled" value="true" type="Boolean" operator="equals">
+                <log level="info" message="Setting picklist #${picklist.picklistId} to completed"/>
+                <set field="picklist.statusId" value="PICKLIST_PICKED"/>
+                <store-value value-name="picklist"/>
+            </if-compare>
+        </else>
+        </if-compare>
     </simple-method>
 </simple-methods>
