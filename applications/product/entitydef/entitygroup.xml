@@ -276,6 +276,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PicklistAndBinAndItem" />
     <entity-group group="org.ofbiz" entity="PicklistBin" />
     <entity-group group="org.ofbiz" entity="PicklistItem" />
+    <entity-group group="org.ofbiz" entity="PicklistItemAndBin" />
     <entity-group group="org.ofbiz" entity="PicklistRole" />
     <entity-group group="org.ofbiz" entity="PicklistStatusHistory" />
 
@@ -319,13 +320,5 @@ under the License.
     <entity-group group="org.ofbiz" entity="ShipmentType" />
     <entity-group group="org.ofbiz" entity="ShipmentTypeAttr" />
     <entity-group group="org.ofbiz" entity="ShippingDocument" />
-
-  <!-- ========================================================= -->
-  <!-- org.ofbiz.odbc.shipment -->
-  <!-- ========================================================= -->
-
-    <entity-group group="org.ofbiz.odbc" entity="OdbcPackageOut" />
-    <entity-group group="org.ofbiz.odbc" entity="OdbcShipmentOut" />
-    <entity-group group="org.ofbiz.odbc" entity="OdbcPackageIn" />
 </entitygroup>
 
