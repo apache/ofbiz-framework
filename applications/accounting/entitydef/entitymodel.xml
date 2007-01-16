@@ -2361,6 +2361,7 @@ under the License.
       <field name="invoiceId" type="id"></field>
       <field name="invoiceItemSeqId" type="id"></field>
       <field name="billingAccountId" type="id"></field>
+      <field name="overrideGlAccountId" type="id"><description>If filled in, payment is applied directly against this GL account</description></field> 
       <field name="toPaymentId" type="id"><!-- To be used when a payment is based on or comes from another payment, like a payment that is a return of a mistaken or over-payment --></field>
       <field name="taxAuthGeoId" type="id"/>
       <field name="amountApplied" type="currency-amount"></field>
@@ -2383,6 +2384,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="PAYMENT_APP_GEO" rel-entity-name="Geo">
         <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_APP_ORGLA" rel-entity-name="GlAccount">
+        <key-map field-name="overrideGlAccountId" rel-field-name="glAccountId"/>
       </relation>
     </entity>
     <entity entity-name="PaymentAttribute"
