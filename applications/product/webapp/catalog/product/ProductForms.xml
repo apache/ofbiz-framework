@@ -47,7 +47,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}"><lookup target-form-name="LookupProductCategory"></lookup></field>
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}" widget-style="selectBox">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductCategoryAndMember" key-field-name="productCategoryId" description="${description} [${productCategoryId}]">
+                    <entity-constraint name="productId" env-name="product.productId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
 
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="60"/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
