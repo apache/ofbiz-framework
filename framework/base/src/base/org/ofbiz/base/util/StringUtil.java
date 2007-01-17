@@ -18,11 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -109,7 +110,7 @@ public class StringUtil {
             st = new StringTokenizer(str);
 
         if (st != null && st.hasMoreTokens()) {
-            splitList = new ArrayList();
+            splitList = FastList.newInstance();
 
             while (st.hasMoreTokens())
                 splitList.add(st.nextToken());
@@ -124,7 +125,7 @@ public class StringUtil {
     public static List quoteStrList(List list) {
         List tmpList = list;
 
-        list = new ArrayList();
+        list = FastList.newInstance();
         Iterator i = tmpList.iterator();
 
         while (i.hasNext()) {
@@ -144,7 +145,7 @@ public class StringUtil {
      */
     public static Map strToMap(String str, boolean trim) {
         if (str == null) return null;
-        Map decodedMap = new HashMap();
+        Map decodedMap = FastMap.newInstance();
         List elements = split(str, "|");
         Iterator i = elements.iterator();
 
@@ -238,7 +239,7 @@ public class StringUtil {
         if (keys == null || values == null || keys.size() != values.size()) {
             throw new IllegalArgumentException("Keys and Values cannot be null and must be the same size");
         }
-        Map newMap = new HashMap();
+        Map newMap = FastMap.newInstance();
         for (int i = 0; i < keys.size(); i++) {
             newMap.put(keys.get(i), values.get(i));
         }
