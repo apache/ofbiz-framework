@@ -345,6 +345,7 @@ padding-top: 1px;
 padding-bottom: 1px;
 white-space: nowrap;
 border: solid #000099 1px;
+line-height: 20px;
 }
 
 A.tabButton:hover {
@@ -428,6 +429,7 @@ background: white;
 border: #999999 solid 1px;
 margin: 2px 2px 2px 2px;
 padding: 1px 4px 1px 4px;
+line-height: 18px;
 }
 
 A.buttontext {
