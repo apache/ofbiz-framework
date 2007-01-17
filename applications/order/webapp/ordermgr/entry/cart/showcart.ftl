@@ -14,7 +14,6 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-
 <script language="JavaScript" type="text/javascript">
 function toggle(e) {
     e.checked = !e.checked;    
@@ -194,12 +193,8 @@ function quicklookup(element) {
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="bulkworkaddform" style="margin: 0;">
                 <div class="tableheadtext">
                     ${uiLabelMap.CommonOrderItemType}:&nbsp;<select name="add_item_type" class="selectBox"><option value="BULK_ORDER_ITEM">${uiLabelMap.ProductBulkItem}</option><option value="WORK_ORDER_ITEM">${uiLabelMap.ProductWorkItem}</option></select>
-                    ${uiLabelMap.ProductProductCategory}:&nbsp;<select name="add_category_id" class="selectBox">
-                      <option></option>
-                      <#list productCategoryList as productCategory>
-                        <option value="${productCategory.productCategoryId}">${productCategory.description?default("No Description")} [${productCategory.productCategoryId}]</option>
-                      </#list>
-                    </select>
+                    <br>${uiLabelMap.ProductProductCategory}:&nbsp;<input type="text" class="inputBox" name="add_category_id" size="20" maxlength="20" value="${requestParameters.add_category_id?if_exists}"/>
+                    <a href="javascript:call_fieldlookup2(document.bulkworkaddform.add_category_id,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                 </div>
                 <div class="tableheadtext">
                     ${uiLabelMap.CommonDescription}:&nbsp;<input type="text" class="inputBox" size="25" name="add_item_description" value="${requestParameters.add_product_id?if_exists}"/>

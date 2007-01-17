@@ -49,10 +49,6 @@ context.put("allgiftWraps", allgiftWraps);
 
 context.put("contentPathPrefix", CatalogWorker.getContentPathPrefix(request));
 
-// get productCategory list
-productCategoryList = delegator.findAll("ProductCategory", UtilMisc.toList("description", "productCategoryId"));
-context.put("productCategoryList", productCategoryList);
-
 partyId = shoppingCart.getPartyId();
 if (partyId != null && partyId.equals("_NA_")) partyId = null;
 context.put("partyId", partyId);

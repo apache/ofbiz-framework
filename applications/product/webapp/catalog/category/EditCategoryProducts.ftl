@@ -19,7 +19,7 @@ under the License.
     <#else>
         <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&activeOnly=true</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductActiveOnly}</a>
     </#if>    
-    <#if productCategoryId?exists && productCategory?exists>
+    
         <#if (listSize > 0)>
             <table border="0" cellpadding="2">
                 <tr>
@@ -171,4 +171,4 @@ under the License.
             &nbsp;&nbsp;<input type="submit" value="${uiLabelMap.CommonRemoveExpired}">
         </div>
         </form>
-    </#if>
+    
