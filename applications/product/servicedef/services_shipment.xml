@@ -482,12 +482,12 @@ under the License.
         <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="OUT" optional="true"/>        
         <override name="quantityAccepted" optional="false"/>
         <override name="quantityRejected" optional="false"/>
         <override name="inventoryItemTypeId" optional="false"/>
         <override name="productId" optional="false"/>
         <override name="facilityId" optional="false"/>
-        <attribute name="inventoryItemId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="quickReceiveReturn" engine="simple"
