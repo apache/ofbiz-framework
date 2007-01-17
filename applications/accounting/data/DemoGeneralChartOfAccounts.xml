@@ -330,6 +330,12 @@ under the License.
   <GlAccount parentGlAccountId="220000" glAccountId="221100" accountCode="221100" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="COMMISSIONS_PAYABLE" glResourceTypeId="MONEY"  
     accountName="ACCRUED COMMISSIONS DUE" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="221000" glAccountId="221200" accountCode="221200" 
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
+    accountName="ACCRUED WAGES DUE" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="221000" glAccountId="221300" accountCode="221300" 
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
+    accountName="ACCRUED EMPLOYEE MEDICAL PREMIUMS" description="" postedBalance="0.0"/>
   
   <GlAccount parentGlAccountId="220000" glAccountId="222000" accountCode="222000" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
@@ -355,6 +361,9 @@ under the License.
   <GlAccount parentGlAccountId="222000" glAccountId="222700" accountCode="222700" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="GARNISHMENT WITHHOLDING" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="222000" glAccountId="222800" accountCode="222800" 
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
+    accountName="EMPLOYEE BENEFITS WITHHOLDING" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="222000" glAccountId="222900" accountCode="222900" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="MISCELLANEOUS WITHHOLDING" description="" postedBalance="0.0"/>
@@ -374,6 +383,9 @@ under the License.
   <GlAccount parentGlAccountId="223000" glAccountId="223400" accountCode="223400" 
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
     accountName="ACCRUED PAYROLL TAXES - STATE UNEMPLOYMENT TAX" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="224000" glAccountId="223500" accountCode="223500" 
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
+    accountName="401k - PENSION EMPLOYER CONTRIBUTION" description="" postedBalance="0.0"/>
 
     <GlAccount parentGlAccountId="220000" glAccountId="224000" accountCode="224000" 
         glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"  
