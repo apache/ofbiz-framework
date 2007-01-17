@@ -34,10 +34,6 @@ under the License.
     <screen name="keywordsearchbox">
         <section>
             <actions>
-                <entity-condition entity-name="ProductCategory" list-name="productCategories">
-                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
-                    <order-by field-name="description"/>
-                </entity-condition>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearchbox.bsh"/>
             </actions>
             <widgets>

@@ -75,10 +75,6 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-name="productCategory"/>
 
-                <entity-condition entity-name="ProductCategory" list-name="categoryList">
-                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
-                    <order-by field-name="description"/>
-                </entity-condition>
                 <entity-condition entity-name="ProductCategoryType" list-name="productCategoryTypes">
                     <order-by field-name="description"/>
                 </entity-condition>
@@ -171,8 +167,6 @@ under the License.
                 <set field="labelTitleProperty" value="ProductRollup"/>
                 <set field="productCategoryId" from-field="parameters.showProductCategoryId"/>
 
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
-
                 <entity-condition entity-name="ProductCategoryRollup" list-name="currentProductCategoryRollups">
                     <condition-expr field-name="productCategoryId" env-name="productCategoryId"/>
                     <order-by field-name="sequenceNum"/>
@@ -182,9 +176,6 @@ under the License.
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
 
-                <entity-condition entity-name="ProductCategory" list-name="productCategoryCol">
-                    <order-by field-name="description"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -206,12 +197,6 @@ under the License.
                 <set field="labelTitleProperty" value="ProductProducts"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
-                <entity-one entity-name="ProductCategory" value-name="productCategory"/>
-
-                <entity-condition entity-name="ProductCategory" list-name="productCategories">
-                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
-                    <order-by field-name="description"/>
-                </entity-condition>
 
                 <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategoryProducts.bsh"/>
             </actions>

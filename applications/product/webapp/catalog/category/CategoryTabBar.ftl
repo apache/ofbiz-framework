@@ -19,7 +19,6 @@ under the License.
 <#assign unselectedClassName = "tabButton">
 <#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
 
-<#if productCategory?has_content> 
     <div class="tabContainer">
         <a href="<@ofbizUrl>EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategory?default(unselectedClassName)}">${uiLabelMap.ProductCategory}</a>
         <a href="<@ofbizUrl>EditCategoryContent?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryContent?default(unselectedClassName)}">${uiLabelMap.ProductCategoryContent}</a>
@@ -30,4 +29,3 @@ under the License.
         <a href="<@ofbizUrl>EditCategoryParties?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a>
         <a href="<@ofbizUrl>EditCategoryAttributes?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryAttributes?default(unselectedClassName)}">${uiLabelMap.ProductAttributes}</a>
     </div>
-</#if> 

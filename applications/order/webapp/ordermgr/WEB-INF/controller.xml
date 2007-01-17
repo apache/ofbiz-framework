@@ -1414,9 +1414,17 @@
     <view-map name="orderitemreportjasper" type="jasperreportspdf" page="/reports/orderitemreport.xml" content-type="application/pdf" encoding="none"/>
     -->
 
+    <request-map uri="LookupProductCategory">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupProductCategory"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
+
+    <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
+
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderListView"/>
     <view-map name="login" type="screen" page="component://order/widget/ordermgr/CommonScreens.xml#login"/>
