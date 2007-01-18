@@ -444,7 +444,7 @@ public class ShoppingCart implements Serializable {
      */
     public int addOrIncreaseItem(String productId, Double selectedAmountDbl, double quantity, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map features, Map attributes, String prodCatalogId, 
-            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, LocalDispatcher dispatcher, String parentProductId) throws CartItemModifyException, ItemNotFoundException {
+            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
         if (isReadOnlyCart()) {
            throw new CartItemModifyException("Cart items cannot be changed");
         }

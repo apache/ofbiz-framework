@@ -119,7 +119,7 @@ public class ShoppingCartHelper {
             try {
                 java.sql.Timestamp.valueOf((String) context.get("itemDesiredDeliveryDate"));
             } catch (IllegalArgumentException e) {
-            	return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderInvalidDesiredDeliveryDateSyntaxError",this.cart.getLocale()));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderInvalidDesiredDeliveryDateSyntaxError",this.cart.getLocale()));
             }
         } else {
             context.remove("itemDesiredDeliveryDate");
@@ -180,7 +180,7 @@ public class ShoppingCartHelper {
             if (productId != null) {
                 itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, 
                                                 reservPersons, shipBeforeDate, shipAfterDate, null, attributes, 
-                                                catalogId, configWrapper, itemType, itemGroupNumber, dispatcher, pProductId);
+                                                catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
             } else {
                 itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);
             }
@@ -245,7 +245,7 @@ public class ShoppingCartHelper {
                         Double amount = orderItem.getDouble("selectedAmount");
                         try {
                             this.cart.addOrIncreaseItem(orderItem.getString("productId"), amount, orderItem.getDouble("quantity").doubleValue(),
-                                    null, null, null, null, null, null, null, catalogId, null, orderItemTypeId, itemGroupNumber, dispatcher,null);
+                                    null, null, null, null, null, null, null, catalogId, null, orderItemTypeId, itemGroupNumber, null, dispatcher);
                             noItems = false;
                         } catch (CartItemModifyException e) {
                             errorMsgs.add(e.getMessage());
@@ -283,7 +283,7 @@ public class ShoppingCartHelper {
                             try {
                                 this.cart.addOrIncreaseItem(orderItem.getString("productId"), amount,
                                         orderItem.getDouble("quantity").doubleValue(), null, null, null, null, null, null, null, 
-                                        catalogId, null, orderItem.getString("orderItemTypeId"), itemGroupNumber, dispatcher, null);
+                                        catalogId, null, orderItem.getString("orderItemTypeId"), itemGroupNumber, null, dispatcher);
                                 noItems = false;
                             } catch (CartItemModifyException e) {
                                 errorMsgs.add(e.getMessage());
@@ -372,7 +372,7 @@ public class ShoppingCartHelper {
                 if (quantity > 0.0) {
                     try {
                         if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", module);
-                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, dispatcher, null);
+                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, null, dispatcher);
                     } catch (CartItemModifyException e) {
                         return ServiceUtil.returnError(e.getMessage());
                     } catch (ItemNotFoundException e) {
@@ -451,7 +451,7 @@ public class ShoppingCartHelper {
                         }
                         try {
                             if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", module);
-                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumber, dispatcher, null);
+                            int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumber, null, dispatcher);
                             ShoppingCartItem sci = (ShoppingCartItem)this.cart.items().get(index);
                             sci.setRequirementId(requirementId);
                         } catch (CartItemModifyException e) {
@@ -478,7 +478,7 @@ public class ShoppingCartHelper {
         String errMsg = null;
 
         if (categoryId == null || categoryId.length() <= 0) {
-        	errMsg = UtilProperties.getMessage(resource,"cart.category_not_specified_to_add_from", this.cart.getLocale());
+            errMsg = UtilProperties.getMessage(resource,"cart.category_not_specified_to_add_from", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
 //          result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoCategorySpecifiedToAddFrom.",this.cart.getLocale()));
             return result;
@@ -515,7 +515,7 @@ public class ShoppingCartHelper {
                 try {
                     this.cart.addOrIncreaseItem(productCategoryMember.getString("productId"), 
                             null, quantity.doubleValue(), null, null, null, null, null, null, null, 
-                            catalogId, null, null, itemGroupNumber, dispatcher, null);
+                            catalogId, null, null, itemGroupNumber, null, dispatcher);
                     totalQuantity += quantity.doubleValue();
                 } catch (CartItemModifyException e) {
                     errorMsgs.add(e.getMessage());
@@ -870,12 +870,12 @@ public class ShoppingCartHelper {
         GenericValue agreement = null;
 
         if ((this.delegator == null) || (this.dispatcher == null) || (this.cart == null)) {
-        	result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderDispatcherOrDelegatorOrCartArgumentIsNull",this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderDispatcherOrDelegatorOrCartArgumentIsNull",this.cart.getLocale()));
             return result;
         }
 
         if ((agreementId == null) || (agreementId.length() <= 0)) {
-        	result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoAgreementSpecified",this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoAgreementSpecified",this.cart.getLocale()));
             return result;
         }
 
@@ -888,7 +888,7 @@ public class ShoppingCartHelper {
         }
 
         if (agreement == null) {
-        	result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreement",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreement",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()));
         } else {
             // set the agreement id in the cart
             cart.setAgreementId(agreementId);
@@ -901,7 +901,7 @@ public class ShoppingCartHelper {
                        try {
                             cart.setCurrency(dispatcher,currencyUomId);
                        } catch (CartItemModifyException ex) {
-                       	result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderSetCurrencyError",this.cart.getLocale()) + ex.getMessage());
+                           result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderSetCurrencyError",this.cart.getLocale()) + ex.getMessage());
                             return result;
                        }
                  }
@@ -941,7 +941,7 @@ public class ShoppingCartHelper {
             this.cart.setCurrency(this.dispatcher,currencyUomId);
             result = ServiceUtil.returnSuccess();
          } catch (CartItemModifyException ex) {
-         	result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"Set currency error",this.cart.getLocale()) + ex.getMessage());
+             result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"Set currency error",this.cart.getLocale()) + ex.getMessage());
              return result;
          }
         return result;
@@ -972,7 +972,7 @@ public class ShoppingCartHelper {
                 productSupplier=(GenericValue) productSuppliers.get(0);
             }
         } catch (GenericServiceException e) {
-        	Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", cart.getLocale()) + e.getMessage(), module);
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", cart.getLocale()) + e.getMessage(), module);
         }
         return productSupplier;
     }
