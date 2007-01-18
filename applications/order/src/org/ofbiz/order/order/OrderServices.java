@@ -3415,7 +3415,7 @@ public class OrderServices {
         Locale locale = (Locale) context.get("locale");
         ShoppingCart cart = new ShoppingCart(dctx.getDelegator(), "9000", "webStore", locale, "USD");
         try {
-            cart.addOrIncreaseItem("GZ-1005", null, 1, null, null, null, null, null, null, null, "DemoCatalog", null, null, null, dctx.getDispatcher(),null);
+            cart.addOrIncreaseItem("GZ-1005", null, 1, null, null, null, null, null, null, null, "DemoCatalog", null, null, null, null, dctx.getDispatcher());
             } catch (CartItemModifyException e) {
             Debug.logError(e, module);
         } catch (ItemNotFoundException e) {
@@ -3653,7 +3653,7 @@ public class OrderServices {
                                                                        item.getTimestamp("shipAfterDate"),
                                                                        null, null, null,
                                                                        null, null, null,
-                                                                       dispatcher, null);
+                                                                       null, dispatcher);
                                 ShoppingCartItem sci = cart.findCartItem(itemIndex);
                                 sci.setAssociatedOrderId(orderId);
                                 sci.setAssociatedOrderItemSeqId(item.getString("orderItemSeqId"));

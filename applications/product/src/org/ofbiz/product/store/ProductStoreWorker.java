@@ -470,10 +470,12 @@ public class ProductStoreWorker {
                 try {
                     product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                     if ((product != null) && ("Y".equals(product.get("isVariant")))) {
-                        if (parentProductId != null)
+                        if (parentProductId != null) {
                             virtualProductId = parentProductId;
-                        else
+                        }
+                        else {
                             virtualProductId = ProductWorker.getVariantVirtualId(product);
+                        }
                         Debug.log("getSurvey for virtual product " + virtualProductId,module);
                     }
                 } catch (GenericEntityException e) {
