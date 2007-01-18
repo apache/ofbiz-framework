@@ -366,21 +366,27 @@ public class UtilProperties implements java.io.Serializable {
         try {
             properties.setProperty(name, value);
             FileOutputStream propFile = new FileOutputStream(resource);
-            properties.store(propFile, "Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)\n"
-            +"#\n"
-            +"#    Copyright 2001-2006 The Apache Software Foundation\n"
-            +"#\n"
-            +"#    Licensed under the Apache License, Version 2.0 (the \"License\"); you may not\n"
-            +"#    use this file except in compliance with the License. You may obtain a copy of\n"
-            +"#    the License at\n"
-            +"#\n"
-            +"#    http://www.apache.org/licenses/LICENSE-2.0\n"
-            +"#\n"
-            +"#    Unless required by applicable law or agreed to in writing, software\n"
-            +"#    distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT\n"
-            +"#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the\n"
-            +"#    License for the specific language governing permissions and limitations\n"
-            +"#    under the License.");
+            properties.store(propFile,             
+            "##############################################################################\n"
+            +"# Licensed to the Apache Software Foundation (ASF) under one                   \n"
+            +"# or more contributor license agreements.  See the NOTICE file                 \n"
+            +"# distributed with this work for additional information                        \n"
+            +"# regarding copyright ownership.  The ASF licenses this file                   \n"
+            +"# to you under the Apache License, Version 2.0 (the                            \n"
+            +"# \"License\"); you may not use this file except in compliance                 \n"
+            +"# with the License.  You may obtain a copy of the License at                   \n"
+            +"#                                                                              \n"
+            +"# http://www.apache.org/licenses/LICENSE-2.0                                   \n"
+            +"#                                                                              \n"
+            +"# Unless required by applicable law or agreed to in writing,                   \n"
+            +"# software distributed under the License is distributed on an                  \n"
+            +"# \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY                     \n"
+            +"# KIND, either express or implied.  See the License for the                    \n"
+            +"# specific language governing permissions and limitations                      \n"
+            +"# under the License.                                                           \n"
+            +"###############################################################################\n"
+            +"#                                                                              \n"
+            +"#Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)");
             
             propFile.close();
         } catch (FileNotFoundException e) {
