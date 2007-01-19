@@ -2350,13 +2350,31 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="remove-by-and" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The remove-by-and tag uses the delegator to remove entity values from the datasource and is constrained by anding the fields passed in the map. 
+                Make sure the map contains something, or all values will be removed.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType>
             <xs:attributeGroup ref="attlist.remove-by-and"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-by-and">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name" use="required"/>
+        <xs:attribute type="xs:string" name="entity-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the entity to remove instances of.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
@@ -2372,26 +2390,77 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="clear-cache-line" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Uses the delegator to clear elements from the cache; 
+                intelligently looks at the map passed to see if it is a byPrimaryKey, and byAnd, or an all.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType>
             <xs:attributeGroup ref="attlist.clear-cache-line"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.clear-cache-line">
-        <xs:attribute type="xs:string" name="entity-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="entity-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the entity to clear cache lines of.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields. 
+                    If the fields in the map form the full primary key the entry will be removed from the byPrimaryKey cache. 
+                    If the map exists but the fields do not include a full primary key the entry will be removed from the byAnd cache. 
+                    If no map-name is specified the entry will be removed from the all cache.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="clear-entity-caches" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                This is a very simple tag that should be used sparingly because of the performance impact. 
+                It clears all lines from all Entity Engine caches. 
+                It has no attributes or sub-elements.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType/>
     </xs:element>
     <xs:element name="set-pk-fields" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Looks for each PK field in the named map and if it exists there it will copy it into the named value object.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType>
             <xs:attributeGroup ref="attlist.set-pk-fields"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-pk-fields">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="set-if-null" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not to set fields that are null or empty. 
+                    Defaults to true.
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2401,21 +2470,44 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="set-nonpk-fields" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Looks for each non-PK field in the named map and if it exists there it will copy it into the named value object.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.set-nonpk-fields"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-nonpk-fields">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the GenericValue object.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment that will be used for the entity fields.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="set-if-null" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not to set fields that are null or empty. 
+                    Defaults to true.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
-        </xs:attribute>
+        </xs:attribute>        
     </xs:attributeGroup>
     <xs:element name="store-list" substitutionGroup="EntityListOperations">
         <xs:complexType>
