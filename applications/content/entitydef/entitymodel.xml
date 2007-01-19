@@ -156,6 +156,12 @@ under the License.
         <view-link entity-alias="CNT" rel-entity-alias="CRLE">
             <key-map field-name="contentId"/>
         </view-link>
+        <relation type="one-nofk" rel-entity-name="DataResource">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContentType">
+            <key-map field-name="contentTypeId"/>
+        </relation>
     </view-entity>
     <entity entity-name="ContentApproval"
         package-name="org.ofbiz.content.content"
