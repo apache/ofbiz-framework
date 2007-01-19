@@ -126,6 +126,7 @@ under the License.
         <attribute name="viewSizeString" type="String" mode="IN" optional="true"/>
         <attribute name="useCacheForMembers" type="Boolean" mode="IN" optional="true"/>
         <attribute name="activeOnly" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="orderByFields" type="List" mode="IN" optional="true"/>
         <attribute name="productCategory" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="productCategoryMembers" type="java.util.Collection" mode="OUT" optional="true"/> <!-- this list will only contain the limited members if limitView=true -->
         <attribute name="viewIndex" type="Integer" mode="OUT" optional="false"/> <!-- this is a 1 based index, ie the first results are in index 1 -->

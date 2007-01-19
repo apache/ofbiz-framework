@@ -38,6 +38,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
@@ -146,6 +147,32 @@ public class CategoryServices {
         String productCategoryId = (String) context.get("productCategoryId");
         boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
         int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
+        
+        List orderByFields = (List) context.get("orderByFields");
+        if (orderByFields == null || orderByFields.size() == 0) {
+            orderByFields = FastList.newInstance();
+            orderByFields.add("sequenceNum");
+            orderByFields.add("productId");
+        }
+        
+        // allow orderByFields to contain fields from the Product entity, if there are such fields
+        String entityName = "ProductCategoryMember";
+        ModelEntity productModel = delegator.getModelEntity("Product");
+        ModelEntity productCategoryMemberModel = delegator.getModelEntity("ProductCategoryMember");
+        Iterator orderByFieldIter = orderByFields.iterator();
+        while (orderByFieldIter.hasNext()) {
+            String orderByField = (String) orderByFieldIter.next();
+            if (!productCategoryMemberModel.isField(orderByField)) {
+                if (productModel.isField(orderByField)) {
+                    entityName = "ProductCategoryAndMember";
+                    // that's what we wanted to find out, so we can quit now
+                    break;
+                } else {
+                    // ahh!! bad field name, don't worry, it will blow up in the query
+                }
+            }
+        }
+        
 
         String prodCatalogId = (String) context.get("prodCatalogId");
 
@@ -192,7 +219,7 @@ public class CategoryServices {
         if (productCategory != null) {
             try {
                 if (useCacheForMembers) {
-                    productCategoryMembers = productCategory.getRelatedCache("ProductCategoryMember", null, UtilMisc.toList("sequenceNum"));
+                    productCategoryMembers = productCategory.getRelatedCache(entityName, null, orderByFields);
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
@@ -218,7 +245,7 @@ public class CategoryServices {
                     // set distinct on so we only get one row per order
                     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
                     // using list iterator
-                    EntityListIterator pli = delegator.findListIteratorByCondition("ProductCategoryMember", mainCond, null, null, UtilMisc.toList("sequenceNum", "productId"), findOpts);
+                    EntityListIterator pli = delegator.findListIteratorByCondition(entityName, mainCond, null, null, orderByFields, findOpts);
                 
                     // get the partial list for this page
                     if (limitView) {

@@ -1,7 +1,4 @@
 /*
- *
- * Copyright 2001-2006 The Apache Software Foundation
- * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -16,7 +13,7 @@
  */
 
 /*
- * This script is also referenced by the ecommerce's screens and
+ * NOTE: This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
 
@@ -51,6 +48,7 @@ andMap = UtilMisc.toMap("productCategoryId", request.getAttribute("productCatego
         "defaultViewSize", defaultViewSize, "limitView", limitView);
 andMap.put("prodCatalogId", currentCatalogId);
 andMap.put("checkViewAllow", Boolean.TRUE);
+andMap.put("orderByFields", UtilMisc.toList("sequenceNum", "productId"));
 catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
 
 productCategory = catResult.get("productCategory");
