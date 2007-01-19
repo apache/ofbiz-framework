@@ -21,10 +21,10 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 
-orderHeaderList = context.remove("orderHeaderList");
+orderHeaderList = context.get("orderHeaderList");
 productStore = ProductStoreWorker.getProductStore(request);
-List filteredList = new ArrayList();
 
+List filterInventoryProblems = new ArrayList();
 
 if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
@@ -32,41 +32,47 @@ if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
         backorderQty = orderReadHelper.getOrderBackorderQuantityBd();
         if (backorderQty.compareTo(new BigDecimal("0")) == 1) {
-            filteredList.add(orderHeader);
+            filterInventoryProblems.add(orderHeader.get("orderId"));
         }
     }
 }
 
+List filterPOsOpenPastTheirETA = new ArrayList();
+List filterPOsWithRejectedItems = new ArrayList();
+List filterPartiallyReceivedPOs = new ArrayList();
+
 if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
-    	"Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
-    	"Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) &&
-    	UtilValidate.isNotEmpty(orderHeaderList)) {    
+        "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
+        "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) &&
+        UtilValidate.isNotEmpty(orderHeaderList)) {    
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
         orderHeader = (GenericValue) ohi.next();
         facilityId = orderHeader.getString("originFacilityId");
         if (facilityId == null) {
-		facilityId = productStore.getString("inventoryFacilityId");
+        facilityId = productStore.getString("inventoryFacilityId");
         }
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
         if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
             if (orderReadHelper.getRejectedOrderItems() &&
                     "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) {
-                filteredList.add(orderHeader);
+                filterPOsWithRejectedItems.add(orderHeader.get("orderId"));
                 continue;
             }
             if (orderReadHelper.getPastEtaOrderItems(orderHeader.get("orderId")) &&
                     "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA"))) {
-                filteredList.add(orderHeader);
+                filterPOsOpenPastTheirETA.add(orderHeader.get("orderId"));
                 continue;
             }
             if (orderReadHelper.getPartiallyReceivedItems() &&
                     "Y".equals(requestParameters.get("filterPartiallyReceivedPOs"))) {
-                filteredList.add(orderHeader);
+                filterPartiallyReceivedPOs.add(orderHeader.get("orderId"));
                 continue;
             }            
         }
     }
 }
+
+List filterAuthProblems = new ArrayList();
 
 if ("Y".equals(requestParameters.get("filterAuthProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
@@ -76,18 +82,13 @@ if ("Y".equals(requestParameters.get("filterAuthProblems")) && UtilValidate.isNo
         for (Iterator ppi = paymentPrefList.iterator(); ppi.hasNext();) {
             paymentPref = (GenericValue) ppi.next();
             if ("PAYMENT_NOT_AUTH".equals(paymentPref.getString("statusId"))) {
-                filteredList.add(orderHeader);
+                filterAuthProblems.add(orderHeader.get("orderId"));
             }
-        }
+        }        
     }
 }
-
-if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
-    	"Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
-    	"Y".equals(requestParameters.get("filterPOsWithRejectedItems")) ||
-    	"Y".equals(requestParameters.get("filterAuthProblems")) ||
-    	"Y".equals(requestParameters.get("filterInventoryProblems")))) {    	
-    orderHeaderList = filteredList;
-}
-
-context.put("orderHeaderList", orderHeaderList);
+context.put("filterInventoryProblems", filterInventoryProblems);
+context.put("filterPOsWithRejectedItems", filterPOsWithRejectedItems);
+context.put("filterPOsOpenPastTheirETA", filterPOsOpenPastTheirETA);
+context.put("filterPartiallyReceivedPOs", filterPartiallyReceivedPOs);
+context.put("filterAuthProblems", filterAuthProblems);

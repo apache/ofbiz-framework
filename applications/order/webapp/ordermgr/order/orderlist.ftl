@@ -16,21 +16,21 @@ under the License.
 -->
 
 <script type="text/javascript">
-	var checkBoxNameStart = "view";
-	var formName = "findorder";
+    var checkBoxNameStart = "view";
+    var formName = "findorder";
 
 
-	function setCheckboxes() {
-		// This would be clearer with camelCase variable names
-		var allCheckbox = document.forms[formName].elements[checkBoxNameStart + "all"];
-		for(i = 0;i < document.forms[formName].elements.length;i++) {
-			var elem = document.forms[formName].elements[i];
-			if (elem.name.indexOf(checkBoxNameStart) == 0 && elem.name.indexOf("_") < 0 && elem.type == "checkbox") {
-				elem.checked = allCheckbox.checked;
-			}
-		}
-	}
-	
+    function setCheckboxes() {
+        // This would be clearer with camelCase variable names
+        var allCheckbox = document.forms[formName].elements[checkBoxNameStart + "all"];
+        for(i = 0;i < document.forms[formName].elements.length;i++) {
+            var elem = document.forms[formName].elements[i];
+            if (elem.name.indexOf(checkBoxNameStart) == 0 && elem.name.indexOf("_") < 0 && elem.type == "checkbox") {
+                elem.checked = allCheckbox.checked;
+            }
+        }
+    }
+    
 </script>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
@@ -144,9 +144,18 @@ under the License.
                 <td width="10%">
                   <div class="tabletext"><b>${uiLabelMap.OrderTrackingCode}</b></div>
                 </td>
-                <td width="15%">
-                  <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
-                </td>
+                <#if filterInventoryProblems?has_content || filterAuthProblems?has_content || filterPOsOpenPastTheirETA?has_content || filterPOsWithRejectedItems?has_content || filterPartiallyReceivedPOs?has_content> 
+                    <td width="10%">
+                      <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
+                    </td>
+                    <td width="5%">
+                      <div class="tabletext"><b>${uiLabelMap.CommonFilter}</b></div>
+                    </td>
+                <#else>
+                    <td width="15%">
+                      <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
+                    </td>
+                </#if>
               </tr>
               <#list orderHeaderList as orderHeader>
                 <#assign status = orderHeader.getRelatedOneCache("StatusItem")>                               
@@ -161,7 +170,7 @@ under the License.
                 <#if billFromParty?has_content>
                   <#assign billFrom = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(billFromParty, true)?if_exists>
                 </#if>
-                <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="9"><hr class="sepbar"/></td></tr>
                 <tr>
                   <td>
                     <div class="tabletext">${orderHeader.orderDate.toString()}</div>
@@ -198,6 +207,23 @@ under the License.
                   </td>
                   <td class="tabletext">
                   ${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}
+                  </td>
+                  <td class="tabletext">
+                      <#if filterInventoryProblems.contains(orderHeader.orderId)>
+                        Inv&nbsp;                      
+                      </#if>
+                      <#if filterAuthProblems.contains(orderHeader.orderId)>
+                       Aut&nbsp;                      
+                      </#if>
+                      <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
+                        ETA&nbsp;                      
+                      </#if>
+                      <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
+                        Rej&nbsp;                      
+                      </#if>
+                      <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
+                        Part&nbsp;                      
+                      </#if>                      
                   </td>
                 </tr>
               </#list>
