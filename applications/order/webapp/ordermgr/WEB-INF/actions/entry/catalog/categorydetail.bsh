@@ -48,7 +48,11 @@ andMap = UtilMisc.toMap("productCategoryId", request.getAttribute("productCatego
         "defaultViewSize", defaultViewSize, "limitView", limitView);
 andMap.put("prodCatalogId", currentCatalogId);
 andMap.put("checkViewAllow", Boolean.TRUE);
-andMap.put("orderByFields", UtilMisc.toList("sequenceNum", "productId"));
+if (context.get("orderByFields") != null) {
+    andMap.put("orderByFields", context.get("orderByFields"));
+} else {
+    andMap.put("orderByFields", UtilMisc.toList("sequenceNum", "productId"));
+}
 catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
 
 productCategory = catResult.get("productCategory");
