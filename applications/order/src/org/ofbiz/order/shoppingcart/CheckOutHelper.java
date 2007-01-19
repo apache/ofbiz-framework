@@ -253,17 +253,39 @@ public class CheckOutHelper {
                 // if _NA_ was supplied, erase all billing account data
                 cart.setBillingAccount(null, 0.0);
             }
-            // TODO: the following code needs some review (JAC20061213)
+
             // if checkoutPaymentId == EXT_BILLACT, then we have billing account only, so make sure we have enough credit
             if (selectedPaymentMethods.containsKey("EXT_BILLACT") && selectedPaymentMethods.size() == 1) {
                 double accountCredit = this.availableAccountBalance(cart.getBillingAccountId());
-                // make sure we have enough to cover; if this is selected we don't have other payment methods
-                if (cart.getGrandTotal() > accountCredit) {
-                    // if _NA_ was supplied, erase all billing account data
-                    cart.setBillingAccount(null, 0.0);
+                double amountToUse = cart.getBillingAccountAmount();
+
+                // if an amount was entered, check that it doesn't exceed availalble amount
+                if (amountToUse > 0 && amountToUse > accountCredit) {
                     errMsg = UtilProperties.getMessage(resource,"checkhelper.insufficient_credit_available_on_account",
                             (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
+                } else {
+                    // otherwise use the available account credit (The user might enter 10.00 for an order worth 20.00 from an account with 30.00. This makes sure that the 30.00 is used)
+                    amountToUse = accountCredit;
+                }
+
+                // check that the amount to use is enough to fulfill the order
+                double grandTotal = cart.getGrandTotal();
+                if (grandTotal > amountToUse) {
+                    cart.setBillingAccount(null, 0.0); // erase existing billing account data
+                    errMsg = UtilProperties.getMessage(resource,"checkhelper.insufficient_credit_available_on_account",
+                            (cart != null ? cart.getLocale() : Locale.getDefault()));
+                    errorMessages.add(errMsg);
+                } else {
+                    // since this is the only selected payment method, let's make this amount the grand total for convenience
+                    amountToUse = grandTotal;
+                }
+
+                // associate the cart billing account amount and EXT_BILLACT selected payment method with whatever amount we have now
+                // XXX: Note that this step is critical for the billing account to be charged correctly
+                if (amountToUse > 0) {
+                    cart.setBillingAccount(billingAccountId, amountToUse);
+                    selectedPaymentMethods.put("EXT_BILLACT", new Double(amountToUse));
                 }
             }
 
