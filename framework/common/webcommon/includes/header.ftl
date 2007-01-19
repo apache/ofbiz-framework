@@ -38,7 +38,6 @@ under the License.
         </#list>
     <#else>
         <link rel="stylesheet" href="<@ofbizContentUrl>/images/maincss.css</@ofbizContentUrl>" type="text/css"/>
-        <link rel="stylesheet" href="<@ofbizContentUrl>/images/tabstyles.css</@ofbizContentUrl>" type="text/css"/>
     </#if>
     ${layoutSettings.extraHead?if_exists}
 </head>

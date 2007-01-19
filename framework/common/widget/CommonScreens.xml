@@ -90,10 +90,8 @@ under the License.
     <screen name="GlobalDecorator">
         <section>
             <actions>
-                <!-- The two default (global) stylesheets are added to the list
-                     of stylesheets to the first and second position -->
+                <!-- The default (global) stylesheet is added to the list of stylesheets to the first position -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <set field="layoutSettings.styleSheets[+1]" value="/images/tabstyles.css" global="true"/>
             </actions>
             <widgets>
                 <!-- render header -->
@@ -179,10 +177,8 @@ under the License.
     <screen name="SimpleDecorator">
         <section>
             <actions>
-                <!-- The two default (global) stylesheets are added to the list
-                     of stylesheets to the first and second position -->
+                <!-- The default (global) stylesheet -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <set field="layoutSettings.styleSheets[+1]" value="/images/tabstyles.css" global="true"/>
             </actions>
             <widgets>
                 <!-- render header -->
