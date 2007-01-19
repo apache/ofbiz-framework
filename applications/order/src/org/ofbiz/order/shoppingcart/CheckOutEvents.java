@@ -42,6 +42,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.marketing.tracking.TrackingCodeEvents;
+import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -225,6 +226,16 @@ public class CheckOutEvents {
         }
     }
 
+    /**
+     * Use for quickcheckout submit.  It calculates the tax before setting the payment options.  
+     * Shipment option should already be set by the quickcheckout form.
+     */
+    public static String setQuickCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
+        String result = calcTax(request, response);
+        if ("error".equals(result)) return "error";
+        return setCheckOutOptions(request, response);
+    }
+
     public static String setPartialCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
         String resp = setCheckOutOptions(request, response);
         request.setAttribute("_ERROR_MESSAGE_", null);
@@ -274,6 +285,7 @@ public class CheckOutEvents {
         return selectedPaymentMethods;
     }
 
+    // this servlet is used by quick checkout
     public static String setCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

@@ -568,7 +568,7 @@
         <response name="customer" type="view" value="custsetting"/>
         <response name="shipping" type="view" value="shipsetting"/>
         <response name="options" type="view" value="optionsetting"/>
-        <response name="payment" type="view" value="billsetting"/>
+        <response name="payment" type="request" value="calcShippingBeforePayment"/>
         <response name="term" type="view" value="orderTerm"/>
         <response name="shipGroups" type="view" value="SetItemShipGroups"/>
         <response name="sales" type="request" value="calcShipping"/>
@@ -581,15 +581,37 @@
         <response name="success" type="view" value="addrsetting"/>
     </request-map>
 
+    <!-- For checkout steps that use finalizeOrder: This request chain is for calculating shipping & tax before getting to the payments page, so that the visitor
+    	will know the full shipping & tax charges when trying to split payments between various payment methods -->
+    <request-map uri="calcShippingBeforePayment">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
+        <response name="success" type="request" value="calcTaxBeforePayment"/>
+        <response name="error" type="request" value="orderentry"/>
+    </request-map>
+    <request-map uri="calcTaxBeforePayment">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
+        <response name="success" type="request" value="validatePaymentMethodsBeforePayment"/>
+        <response name="error" type="request" value="orderentry"/>
+    </request-map>
+    <request-map uri="validatePaymentMethodsBeforePayment">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkPaymentMethods"/>
+        <response name="success" type="view" value="billsetting"/>
+        <response name="error" type="request" value="orderentry"/>
+    </request-map>
+
     <!-- 
         Quick Finalize Order reuses the ecommerce checkoutoptions widget and template. We need to
-        translate the controller requests here for use by ordermgr.
+        translate the controller requests here for use by ordermgr.  Note that the main entry point on submit is "checkout".
     -->
     <request-map uri="quickcheckout">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="quickcheckout"/>
     </request-map>
     <request-map uri="updateCheckoutOptions">
+        <description>When user selects a shipping method, this automatically reloads quick checkout page with shipping estimates filled in.</description>
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setPartialCheckOutOptions"/>
         <response name="success" type="view" value="checkoutshippingaddress"/>
@@ -597,9 +619,9 @@
     </request-map>
     <request-map uri="checkout">
         <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setCheckOutOptions"/>
-        <response name="success" type="request" value="calcShipping"/>
-        <response name="error" type="view" value="showcart"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setQuickCheckOutOptions"/>
+        <response name="success" type="view" value="confirm"/>
+        <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="createPostalAddressAndPurpose">
         <security https="true" auth="true"/>
