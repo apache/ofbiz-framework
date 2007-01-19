@@ -20,7 +20,6 @@ package org.ofbiz.product.category;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,14 +30,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
 
@@ -421,21 +424,27 @@ public class CategoryWorker {
         return newList;
     }
     
-    public static HashMap getCategoryContentWrappers(HashMap catContentWrappers, Iterator catIterator, HttpServletRequest request) throws GenericEntityException {        
+    public static void getCategoryContentWrappers(Map catContentWrappers, List categoryList, HttpServletRequest request) throws GenericEntityException {
+        if (catContentWrappers == null || categoryList == null) {
+            return;
+        }
+        Iterator catIterator = categoryList.iterator();
         while(catIterator.hasNext()) {
             GenericValue cat = (GenericValue) catIterator.next();
+            String productCategoryId = (String) cat.get("productCategoryId");
+            
+            if (catContentWrappers.containsKey(productCategoryId)) {
+                // if this ID is already in the Map, skip it (avoids inefficiency, infinite recursion, etc.)
+                continue;
+            }
+            
             CategoryContentWrapper catContentWrapper = new CategoryContentWrapper(cat, request);
-            String id = (String) cat.get("productCategoryId");
-            catContentWrappers.put(id, catContentWrapper);
+            catContentWrappers.put(productCategoryId, catContentWrapper);
             ArrayList subCat = new ArrayList();
-            subCat = getRelatedCategoriesRet(request, "subCatList", id, true);
+            subCat = getRelatedCategoriesRet(request, "subCatList", productCategoryId, true);
             if(subCat != null) {            	
-                Iterator subCatIterator = UtilMisc.toIterator(subCat);
-                if(subCatIterator != null) { 
-                    getCategoryContentWrappers(catContentWrappers, subCatIterator, request );
-                }
+                getCategoryContentWrappers(catContentWrappers, subCat, request );
             }    
         }
-        return catContentWrappers;
     }
 }
