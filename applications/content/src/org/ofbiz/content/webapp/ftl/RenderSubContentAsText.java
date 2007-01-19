@@ -33,6 +33,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
@@ -54,7 +56,6 @@ public class RenderSubContentAsText implements TemplateTransformModel {
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         //final Map templateCtx = new HashMap();
@@ -62,18 +63,18 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get( "contentId"), module);
+                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map savedValuesUp = new HashMap();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get( "contentId"), module);
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
-        List trail = (List)templateRoot.get( "globalNodeTrail");
+        if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+        //final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        //List trail = (List)templateRoot.get("globalNodeTrail");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), globalNodeTrail ." + trail , module);
-        String contentAssocPredicateId = (String)templateRoot.get( "contentAssocPredicateId");
-        String strNullThruDatesOnly = (String)templateRoot.get( "nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
+        //String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
+        //String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
+        //Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         final String thisContentId =  (String)templateRoot.get("contentId");
         final String thisMapKey =  (String)templateRoot.get("mapKey");
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
@@ -100,7 +101,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             subContentIdSub = (String) view.get("contentId");
         }
         // This order is taken so that the dataResourceType can be overridden in the transform arguments.
-        String subDataResourceTypeId = (String)templateRoot.get( "subDataResourceTypeId");
+        String subDataResourceTypeId = (String)templateRoot.get("subDataResourceTypeId");
         if (UtilValidate.isEmpty(subDataResourceTypeId)) {
             try {
                 subDataResourceTypeId = (String) view.get("drDataResourceTypeId");
@@ -112,11 +113,11 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             // being passed.
         }
         String mimeTypeId = FreeMarkerWorker.getMimeTypeId(delegator, view, templateRoot);
-        templateRoot.put( "drDataResourceId", dataResourceId);
-        templateRoot.put( "mimeTypeId", mimeTypeId);
-        templateRoot.put( "dataResourceId", dataResourceId);
-        templateRoot.put( "subContentId", subContentIdSub);
-        templateRoot.put( "subDataResourceTypeId", subDataResourceTypeId);
+        templateRoot.put("drDataResourceId", dataResourceId);
+        templateRoot.put("mimeTypeId", mimeTypeId);
+        templateRoot.put("dataResourceId", dataResourceId);
+        templateRoot.put("subContentId", subContentIdSub);
+        templateRoot.put("subDataResourceTypeId", subDataResourceTypeId);
         */
 
         final Map savedValues = new HashMap();
@@ -131,28 +132,27 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             }
 
             public void close() throws IOException {
-                List globalNodeTrail = (List)templateRoot.get( "globalNodeTrail");
+                List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
                 if (Debug.infoOn()) Debug.logInfo("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
-                try {
-                    renderSubContent();
+                renderSubContent();
                  //if (Debug.infoOn()) Debug.logInfo("in Render(2), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
-                } catch (IOException e) {
-                    throw new IOException(e.getMessage());
-                }
             }
 
             public void renderSubContent() throws IOException {
+                String mimeTypeId = (String) templateRoot.get("mimeTypeId");
+                Object localeObject = templateRoot.get("locale");
+                Locale locale = null;
+                if (localeObject == null) {
+                    locale = UtilHttp.getLocale(request);
+                } else {
+                    locale = UtilMisc.ensureLocale(localeObject);
+                }
 
                 //TemplateHashModel dataRoot = env.getDataModel();
                 Timestamp fromDate = UtilDateTime.nowTimestamp();
-                List passedGlobalNodeTrail = (List)templateRoot.get( "globalNodeTrail");
-                String editRequestName = (String)templateRoot.get( "editRequestName");
-                 if (Debug.infoOn()) Debug.logInfo("in Render(3), editRequestName ." + editRequestName , module);
-
-                String mimeTypeId = (String) templateRoot.get( "mimeTypeId");
-                Locale locale = (Locale) templateRoot.get( "locale");
-                if (locale == null)
-                    locale = Locale.getDefault();
+                // List passedGlobalNodeTrail = (List) templateRoot.get("globalNodeTrail");
+                String editRequestName = (String)templateRoot.get("editRequestName");
+                if (Debug.infoOn()) Debug.logInfo("in Render(3), editRequestName ." + editRequestName , module);
 
                 if (UtilValidate.isNotEmpty(editRequestName)) {
                     String editStyle = getEditStyle();
@@ -160,18 +160,20 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 }
 
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
-                    try {
-                        String txt = ContentWorker.renderSubContentAsTextCache(delegator, thisContentId, thisMapKey, null, templateRoot, locale, mimeTypeId, null, fromDate);
-                        if ("true".equals(xmlEscape))
-                            txt = UtilFormatOut.encodeXmlValue(txt);
-                        
-                        out.write(txt);
+                try {
+                    String txt = ContentWorker.renderSubContentAsTextCache(delegator, thisContentId, thisMapKey, null, templateRoot, locale, mimeTypeId, null, fromDate);
+                    if ("true".equals(xmlEscape)) {
+                        txt = UtilFormatOut.encodeXmlValue(txt);
+                    }
+                    
+                    out.write(txt);
 
                     if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
-                    } catch (GeneralException e) {
-                        Debug.logError(e, "Error rendering content", module);
-                        throw new IOException("Error rendering thisContentId:" + thisContentId + " msg:" + e.toString());
-                    }
+                } catch (GeneralException e) {
+                    String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    //throw new IOException("Error rendering thisContentId:" + thisContentId + " msg:" + e.toString());
+                }
                 FreeMarkerWorker.reloadValues(templateRoot, savedValues, env);
                 FreeMarkerWorker.reloadValues(templateRoot, savedValuesUp, env);
                 if (UtilValidate.isNotEmpty(editRequestName)) {
@@ -189,8 +191,8 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
            /* 
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(5):" + templateRoot.get( "contentId"), module);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId(5):" + templateRoot.get( "subContentId"), module);
+                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(5):" + templateRoot.get("contentId"), module);
+                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId(5):" + templateRoot.get("subContentId"), module);
                 StringBuffer sb = new StringBuffer();
                 String fullRequest = editRequestName;
                 String contentId = null;
@@ -261,7 +263,6 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             }
 
             public String getEditStyle() {
-
                 String editStyle = (String)templateRoot.get("editStyle");
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = UtilProperties.getPropertyValue("content", "defaultEditStyle");
@@ -272,7 +273,5 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 return editStyle; 
             }
         };
-        
     }
-
 }
