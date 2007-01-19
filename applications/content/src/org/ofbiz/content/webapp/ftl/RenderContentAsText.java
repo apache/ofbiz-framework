@@ -135,12 +135,8 @@ public class RenderContentAsText implements TemplateTransformModel {
             public void close() throws IOException {
                 List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
                 if (Debug.infoOn()) Debug.logInfo("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
-                try {
-                    renderSubContent();
-                 //if (Debug.infoOn()) Debug.logInfo("in Render(2), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
-                } catch (IOException e) {
-                    throw new IOException(e.getMessage());
-                }
+                renderSubContent();
+                //if (Debug.infoOn()) Debug.logInfo("in Render(2), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
             }
 
             public void renderSubContent() throws IOException {
@@ -172,7 +168,6 @@ public class RenderContentAsText implements TemplateTransformModel {
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId:" + templateRoot.get("contentId"), module);
                 */
 
-
                 if (UtilValidate.isNotEmpty(editRequestName)) {
                     String editStyle = getEditStyle();
                     openEditWrap(out, editStyle);
@@ -184,15 +179,17 @@ public class RenderContentAsText implements TemplateTransformModel {
                 //if (thisView != null) {
                     try {
                         String txt = ContentWorker.renderContentAsTextCache(delegator, thisContentId, templateRoot, null, locale, mimeTypeId);
-                        if ("true".equals(xmlEscape))
+                        if ("true".equals(xmlEscape)) {
                             txt = UtilFormatOut.encodeXmlValue(txt);
+                        }
                         
                         out.write(txt);
                         
-                    if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
+                        // if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
                     } catch (GeneralException e) {
-                        Debug.logError(e, "Error rendering content", module);
-                        throw new IOException("Error rendering thisContentId:" + thisContentId + " msg:" + e.toString());
+                        String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        // just log a message and don't return anything: throw new IOException();
                     }
                 //}
                 FreeMarkerWorker.reloadValues(templateRoot, savedValuesUp, env);
