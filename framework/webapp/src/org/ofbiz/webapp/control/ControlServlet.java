@@ -125,7 +125,11 @@ public class ControlServlet extends HttpServlet {
         }
 
         // Setup the CONTROL_PATH for JSP dispatching.
-        request.setAttribute("_CONTROL_PATH_", request.getContextPath() + request.getServletPath());
+        String contextPath = request.getContextPath();
+        if (contextPath == null || "/".equals(contextPath)) {
+            contextPath = "";
+        }
+        request.setAttribute("_CONTROL_PATH_", contextPath + request.getServletPath());
         if (Debug.verboseOn())
             Debug.logVerbose("Control Path: " + request.getAttribute("_CONTROL_PATH_"), module);
 
