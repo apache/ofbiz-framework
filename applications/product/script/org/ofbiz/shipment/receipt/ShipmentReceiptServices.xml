@@ -102,13 +102,15 @@ under the License.
             <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
             <check-errors/>
-            <!-- update serialized items to AVAILABLE, which then triggers other SECA chains -->
+            <!-- update serialized items to AVAILABLE (only if this is not a return), which then triggers other SECA chains -->
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
-                <clear-field field-name="serviceInMap"/>
-                <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
-                <set field="serviceInMap.statusId" value="INV_AVAILABLE"/>
-                <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
-                <check-errors/>
+                <if-compare value="INV_RETURNED" operator="not-equals" field-name="parameters.statusId">
+                    <clear-field field-name="serviceInMap"/>
+                    <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
+                    <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
+                    <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
+                    <check-errors/>
+                </if-compare>
             </if-compare>
             <set value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${parameters.inventoryItemId}" field="successMessageList[]"/>
         </loop>
