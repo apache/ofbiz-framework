@@ -1475,7 +1475,11 @@ under the License.
     <xs:element name="transaction-begin" substitutionGroup="EntityTxOperations">
         <xs:annotation>
             <xs:documentation>
+                The transaction-begin tag will begin a transaction if one is not already in place. 
+                If a transaction is begun the environment field named as the began-transaction-name will be set to true, otherwise it will be set to false.
                 
+                Note that unless the simple-method is flagged to not use a transaction all simple-methods will be inside a transaction. 
+                The same is true for service calls through the Service Engine.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1483,25 +1487,58 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.transaction-begin">
-        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction"/>
+        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains a Boolean specifying whether or not a transaction was begun in the current transaction demarcation. 
+                    Defaults to "beganTransaction".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="transaction-commit" substitutionGroup="EntityTxOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The transaction-commit tag will commit a transaction if a transaction was begun in the current demarcation context as represented by the environment field named as the began-transaction-name. 
+                If the Boolean in that field is false no commit will be done.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.transaction-commit"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.transaction-commit">
-        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction"/>
+        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains a Boolean specifying whether or not a transaction was begun in the current transaction demarcation. 
+                    Defaults to "beganTransaction".                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="transaction-rollback" substitutionGroup="EntityTxOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The transaction-rollback tag will rollback a transaction if a transaction was begun in the current demarcation context as represented by the environment field named as the began-transaction-name. 
+                If the Boolean in that field is false a set rollback only will operation will be done instead of rollback which will force the transaction to rollback regardless of which method or object is responsible for beginning and ending the transaction.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.transaction-rollback"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.transaction-rollback">
-        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction"/>
+        <xs:attribute type="xs:string" name="began-transaction-name" default="beganTransaction">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains a Boolean specifying whether or not a transaction was begun in the current transaction demarcation. 
+                    Defaults to "beganTransaction".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
-
+    
     <xs:element name="sequenced-id-to-env" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
@@ -2510,12 +2547,24 @@ under the License.
         </xs:attribute>        
     </xs:attributeGroup>
     <xs:element name="store-list" substitutionGroup="EntityListOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The store-list tag uses the delegator to store all entity values in the list. 
+                This is different than storing a single value in that values in the list will be inserted if it does not exist or updated if it does exist.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.store-list"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.store-list">
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
+        <xs:attribute type="xs:string" name="list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the list of GenericValue objects.                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
@@ -2531,12 +2580,24 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="remove-list" substitutionGroup="EntityListOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The remove-list tag uses the delegator to remove all entity values in the list. 
+                For each value in the list if it is a primary key just that entity instance will be removed, but if it is not a full primary key all entity instances will be removed from the datasource that match the constraint of the field map.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.remove-list"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-list">
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
+        <xs:attribute type="xs:string" name="list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the list of GenericValue objects.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
