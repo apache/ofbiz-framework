@@ -37,18 +37,17 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.marketing.tracking.TrackingCodeEvents;
-import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.stats.VisitHandler;
 
 /**
  * Events used for processing checkout and orders.
@@ -712,6 +711,8 @@ public class CheckOutEvents {
             ServiceUtil.getMessages(request, callResult, null);
             // determine whether it was a success or not
             if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
+                if (mode.equals("ship")) return "shipping";
+                if (mode.equals("options")) return "options";
                 return "error";
             }
         }
@@ -841,38 +842,64 @@ public class CheckOutEvents {
         List paymentMethodIds = cart.getPaymentMethodIds();
         List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
 
-        if (requireCustomer && (customerPartyId == null || customerPartyId.equals("_NA_"))) {
-            return "customer";
+        String[] processOrder = {"customer", "shipping", "shipGroups", "options", "term", "payment",
+                                 "addparty", "paysplit"};
+
+        if (cart.getOrderType().equals("PURCHASE_ORDER")) {
+            // Force checks for the following
+            requireCustomer = true; requireShipping = true; requireOptions = true;
+            requireAdditionalParty = true;
+            processOrder = new String[] {"customer", "term", "shipping", "shipGroups", "options", "payment",
+                                         "addparty", "paysplit"};
         }
 
-        if (requireShipping && !shippingAddressSet) {
-            return "shipping";
+        for (int i = 0; i < processOrder.length; i++) {
+            String currProcess = processOrder[i];
+            if (currProcess.equals("customer")) {
+                if (requireCustomer && (customerPartyId == null || customerPartyId.equals("_NA_"))) {
+                    return "customer";
+                }
+            }
+            else if (currProcess.equals("shipping")) {
+                if (requireShipping && !shippingAddressSet) {
+                    return "shipping";
+                }
+            }
+            else if (currProcess.equals("shipGroups")) {
+                if (requireShipGroups) {
+                    return "shipGroups";
+                }
+            }
+            else if (currProcess.equals("options")) {
+                if (requireOptions && !shippingOptionsSet) {
+                    return "options";
+                }
+            }
+            else if (currProcess.equals("term")) {
+                if (requireTerm && !cart.isOrderTermSet()) {
+                    return "term";
+                }
+            }
+            else if (currProcess.equals("payment")) {
+                if (requirePayment && (paymentMethodIds == null || paymentMethodIds.size() == 0) && (paymentMethodTypeIds == null || paymentMethodTypeIds.size() == 0)) {
+                    return "payment";
+                }
+            }
+            else if (currProcess.equals("addparty")) {
+                if (requireAdditionalParty && cart.getAttribute("addpty") == null) {
+                    return "addparty";
+                }
+            }
+            else if (currProcess.equals("paysplit")) {
+                if (isSingleUsePayment) {
+                    return "paysplit";
+                }
+            }
         }
 
-        if (requireShipGroups) {
-            return "shipGroups";
-        }
+        // Finally, if all checks go through, finalize the order.
 
-        if (requireOptions && !shippingOptionsSet) {
-            return "options";
-        }
-        
-        if (requireTerm && !cart.isOrderTermSet()) {
-            return "term";
-        }
-        if (requirePayment && (paymentMethodIds == null || paymentMethodIds.size() == 0) && (paymentMethodTypeIds == null || paymentMethodTypeIds.size() == 0)) {
-            return "payment";
-        }
-
-        if (requireAdditionalParty && cart.getAttribute("addpty") == null) {
-            return "addparty";
-        }
-
-        if (isSingleUsePayment) {
-            return "paysplit";
-        }
-
-        // this is used to go back to a previous page in checkout after processing all of the changes, just to make sure we get everything...
+       // this is used to go back to a previous page in checkout after processing all of the changes, just to make sure we get everything...
         String checkoutGoTo = request.getParameter("checkoutGoTo");
         if (UtilValidate.isNotEmpty(checkoutGoTo)) {
             return checkoutGoTo;
