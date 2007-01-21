@@ -39,7 +39,7 @@ public class StateEventAudit extends EventAudit implements StateEventAuditPersis
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
-                this.stateEventAudit = delegator.findByPrimaryKey("WfStateEventAudit", UtilMisc.toMap("eventAuditId", eventAuditId));
+                this.stateEventAudit = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfStateEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, eventAuditId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -51,28 +51,28 @@ public class StateEventAudit extends EventAudit implements StateEventAuditPersis
     public StateEventAudit(EntityAuditMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.stateEventAudit = delegator.makeValue("WfStateEventAudit", UtilMisc.toMap("eventAuditId", this.eventAuditId));
+        this.stateEventAudit = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfStateEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, this.eventAuditId));
     }
 
     public StateEventAudit(EntityAuditMgr mgr, GenericValue stateEventAudit) {
-        super(mgr, stateEventAudit.getDelegator(), stateEventAudit.getString("eventAuditId"));
+        super(mgr, stateEventAudit.getDelegator(), stateEventAudit.getString(org.ofbiz.shark.SharkConstants.eventAuditId));
         this.stateEventAudit = stateEventAudit;
     }
 
     public void setOldState(String os) {
-        stateEventAudit.set("oldState", os);
+        stateEventAudit.set(org.ofbiz.shark.SharkConstants.oldState, os);
     }
 
     public String getOldState() {
-        return stateEventAudit.getString("oldState");
+        return stateEventAudit.getString(org.ofbiz.shark.SharkConstants.oldState);
     }
 
     public void setNewState(String ns) {
-        stateEventAudit.set("newState", ns);
+        stateEventAudit.set(org.ofbiz.shark.SharkConstants.newState, ns);
     }
 
     public String getNewState() {
-        return stateEventAudit.getString("newState");
+        return stateEventAudit.getString(org.ofbiz.shark.SharkConstants.newState);
     }
 
     public void store() throws GenericEntityException {

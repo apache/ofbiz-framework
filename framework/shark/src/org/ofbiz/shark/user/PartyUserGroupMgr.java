@@ -26,13 +26,13 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 
 import org.enhydra.shark.api.internal.usergroup.UserGroupManager;
 import org.enhydra.shark.api.internal.working.CallbackUtilities;
 import org.enhydra.shark.api.RootException;
 import org.enhydra.shark.api.UserTransaction;
-
 public class PartyUserGroupMgr implements UserGroupManager {
 
     public static final String module = PartyUserGroupMgr.class.getName();
@@ -45,7 +45,8 @@ public class PartyUserGroupMgr implements UserGroupManager {
     }
 
     public List getAllGroupnames(UserTransaction trans) throws RootException {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : List getAllGroupnames(UserTransaction trans)",module);
+        return null;
     }
 
     public List getAllUsers(UserTransaction trans) throws RootException {
@@ -69,32 +70,32 @@ public class PartyUserGroupMgr implements UserGroupManager {
     }
 
     public List getAllUsers(UserTransaction trans, String groupName) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : List getAllUsers(UserTransaction trans, String groupName)",module);
         return this.getAllUsers(trans);
     }
 
     public List getAllUsers(UserTransaction trans, List groupNames) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : List getAllUsers(UserTransaction trans, List groupNames)",module);
         return null;  // TODO: Implement Me!
     }
 
     public List getAllImmediateUsers(UserTransaction trans, String groupName) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : List getAllImmediateUsers(UserTransaction trans, String groupName)",module);
         return this.getAllUsers(trans);
     }
 
     public List getAllSubgroups(UserTransaction trans, String groupName) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : List getAllSubgroups(UserTransaction trans, String groupName)",module);
         return null;
     }
 
     public List getAllSubgroups(UserTransaction trans, List groupNames) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : List getAllSubgroups(UserTransaction trans, List groupNames)",module);
         return null;
     }
 
     public List getAllImmediateSubgroups(UserTransaction trans, String groupName) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : List getAllImmediateSubgroups(UserTransaction trans, String groupName)",module);
         return null;
     }
 
@@ -107,10 +108,12 @@ public class PartyUserGroupMgr implements UserGroupManager {
     }
 
     public boolean doesGroupExist(UserTransaction trans, String groupName) throws RootException {
+        Debug.logInfo("Call : doesGroupExist(UserTransaction trans, String groupName)",module);
         return false;  // TODO: Implement Me!
     }
 
     public boolean doesGroupBelongToGroup(UserTransaction trans, String groupName, String subGroupName) throws RootException {
+        Debug.logInfo("Call : boolean doesGroupBelongToGroup(UserTransaction trans, String groupName, String subGroupName)",module);
         return false;  // TODO: Implement Me!
     }
 
@@ -155,6 +158,7 @@ public class PartyUserGroupMgr implements UserGroupManager {
     }
 
     public boolean doesUserBelongToGroup(UserTransaction trans, String groupName, String username) throws RootException {
+        Debug.logInfo("Call : doesUserBelongToGroup(UserTransaction trans, String groupName, String username)",module);
         return false;  // TODO: Implement Me!
     }
 

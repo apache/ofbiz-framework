@@ -28,6 +28,7 @@ import org.enhydra.shark.api.internal.eventaudit.AssignmentEventAuditPersistence
 
 /**
  * Persistance Object
+ * 
  */
 public class AssignmentEventAudit extends EventAudit implements AssignmentEventAuditPersistenceInterface {
 

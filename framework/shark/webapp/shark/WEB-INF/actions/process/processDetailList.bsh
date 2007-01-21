@@ -15,6 +15,7 @@
  */
 
 import java.util.*;
+import org.ofbiz.shark.container.SharkContainer;
 import org.ofbiz.base.util.*;
 import org.ofbiz.shark.container.*;
 import org.ofbiz.shark.requester.*;
@@ -22,6 +23,7 @@ import org.enhydra.shark.api.client.wfservice.*;
 import org.enhydra.shark.api.client.wfmodel.*;
 
 userLogin = session.getAttribute("userLogin");
+//userLogin = SharkContainer.getAdminUser();
 
 // get the admin tools
 admin = SharkContainer.getAdminInterface();
@@ -40,7 +42,13 @@ if (request.getParameter("start") != null) {
     try {
         procId = request.getParameter("start");
         proc = exMgr.getProcess(procId);
-        proc.start();
+        if(proc != null)
+        {
+            String s = proc.state();
+            if(s!=null)
+                if(!s.startsWith("open"))
+                    proc.start();
+        }
     } catch (Exception e) {
         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
     }
@@ -51,7 +59,13 @@ if (request.getParameter("suspend") != null) {
     try {
         procId = request.getParameter("suspend");
         proc = exMgr.getProcess(procId);
-        proc.suspend();
+        if(proc != null)
+        {
+            String s = proc.state();
+            if(s!=null)
+                if(s.startsWith("open"))
+                    proc.suspend();
+        }
     } catch (Exception e) {
         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
     }
@@ -62,7 +76,13 @@ if (request.getParameter("resume") != null) {
     try {
         procId = request.getParameter("resume");
         proc = exMgr.getProcess(procId);
-        proc.resume();
+        if(proc != null)
+        {
+            String s = proc.state();
+            if(s!=null)
+                if(!s.startsWith("close.open.not_running.suspended"))
+                    proc.resume();
+        }
     } catch (Exception e) {
         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
     }
@@ -73,7 +93,13 @@ if (request.getParameter("abort") != null) {
     try {
         procId = request.getParameter("abort");
         proc = exMgr.getProcess(procId);
-        proc.abort();
+        if(proc != null)
+        {
+            String s = proc.state();
+            if(s!=null)
+                   if(s.startsWith("open"))
+                    proc.abort();
+        }
     } catch (Exception e) {
         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
     }
@@ -84,7 +110,13 @@ if (request.getParameter("terminate") != null) {
     try {
         procId = request.getParameter("terminate");
         proc = exMgr.getProcess(procId);
-        proc.terminate();
+        
+        if(proc != null){
+            String s = proc.state();
+            if(s!=null)
+                   if(!s.startsWith("close"))
+                    proc.terminate();
+        }
     } catch (Exception e) {
         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
     }
@@ -103,6 +135,24 @@ if (mgrName != null) {
         count = mgr.how_many_process();
         procs = mgr.get_sequence_process(count);
         context.put("processes", procs);
+    }
+}
+if (request.getParameter("delete") != null) {
+    try 
+    {
+        procId = request.getParameter("delete");
+        if(procId != null)
+        {
+            proc = exMgr.getProcess(procId);
+            if(proc!=null){
+                String s = proc.state();
+                   if(s!=null)
+                       if(s.startsWith("close"))
+                        exMgr.deleteClosedProcess(procId);
+            }
+        }
+    } catch (Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
     }
 }
 

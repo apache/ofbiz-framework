@@ -19,42 +19,51 @@
 package org.ofbiz.shark.expression;
 
 import org.enhydra.shark.api.common.ResourceIteratorExpressionBuilder;
-
+import org.ofbiz.base.util.Debug;
 public class ResourceIteratorCondExprBldr extends BaseEntityCondExprBldr implements ResourceIteratorExpressionBuilder {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public ResourceIteratorExpressionBuilder and() {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder and()",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder or() {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder or()",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder not() {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder not() ",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder addUsernameEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder addUsernameEquals(String s)",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder addAssignemtCountEquals(long l) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder addAssignemtCountEquals(long l)",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder addAssignemtCountLessThan(long l) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder addAssignemtCountLessThan(long l)",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder addAssignemtCountGreaterThan(long l) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder addAssignemtCountGreaterThan(long l)",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder addExpression(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder addExpression(String s)",module); return null;
     }
 
     public ResourceIteratorExpressionBuilder addExpression(ResourceIteratorExpressionBuilder resourceIteratorExpressionBuilder) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder addExpression(ResourceIteratorExpressionBuilder resourceIteratorExpressionBuilder)",module); return null;
+    }
+
+    public ResourceIteratorExpressionBuilder setOrderByUsername(boolean arg0) {
+        Debug.logInfo("Call : ResourceIteratorExpressionBuilder setOrderByUsername(boolean arg0)",module); return null;
     }
 }

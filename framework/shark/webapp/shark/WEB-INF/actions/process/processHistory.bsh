@@ -17,11 +17,14 @@
 import java.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.shark.container.*;
+import org.ofbiz.shark.container.SharkContainer;
 import org.ofbiz.shark.requester.*;
 import org.enhydra.shark.api.client.wfservice.*;
 import org.enhydra.shark.api.client.wfmodel.*;
 
 userLogin = session.getAttribute("userLogin");
+//userLogin = SharkContainer.getAdminUser();
+
 
 // get the admin tools
 admin = SharkContainer.getAdminInterface();
@@ -37,6 +40,7 @@ exMgr.connect(userLogin.getString("userLoginId"), userLogin.getString("currentPa
 
 // process key
 procKey = request.getParameter("process");
+while(true){
 if (procKey != null) {
     context.put("processKey", procKey);
 
@@ -46,9 +50,12 @@ if (procKey != null) {
 
     // get the history
     count = proc.how_many_history();
+    if(count == 0)
+    {break;}
     procs = proc.get_sequence_history(count);
     context.put("historyList", procs);
+    break;
 }
-
+}
 // disconnect from the engine
 exMgr.disconnect();

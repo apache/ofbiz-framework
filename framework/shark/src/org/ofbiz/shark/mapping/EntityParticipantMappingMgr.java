@@ -39,6 +39,7 @@ import org.enhydra.shark.api.TransactionException;
 /**
  * Shark Participant Mappings Implementation
  */
+
 public class EntityParticipantMappingMgr implements ParticipantMappingManager {
 
     public static final String module = EntityParticipantMappingMgr.class.getName();
@@ -54,7 +55,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
         return true;
     }
 
-    public boolean deleteParticipantMapping(ParticipantMappingTransaction mappingTransaction, ParticipantMap participantMap) throws RootException {       
+    public boolean deleteParticipantMapping(ParticipantMappingTransaction mappingTransaction, ParticipantMap participantMap) throws RootException {
         ((EntityParticipantMap) participantMap).remove();
         return true;
     }
@@ -63,7 +64,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll("WfParticipantMap");
+            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfParticipantMap);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }
@@ -96,7 +97,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfParticipantMap", UtilMisc.toMap("packageId", packageId, "processDefId", processDefId, "participantId", participantId));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.participantId, participantId));
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }
@@ -117,7 +118,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfParticipantMap", UtilMisc.toMap("userName", userName));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, userName));
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

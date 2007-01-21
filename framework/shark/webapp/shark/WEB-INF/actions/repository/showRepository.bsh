@@ -77,7 +77,8 @@ if (request.getParameter("upload") != null) {
         if (lst.size() > 0) {
             fui = lst.iterator();
             while (fui.hasNext()) {
-                fi = fui.next();
+                DefaultFileItem fi = fui.next();
+                //String name = SharkContainer.getFileName(fi.getName());
                 repMgr.uploadPackage(fi.get(), fi.getName());
                 packageId = repMgr.getPackageId(fi.getName());
                 pkgMgr.openPackage(fi.getName());

@@ -19,11 +19,17 @@
 package org.ofbiz.shark.expression;
 
 import org.enhydra.shark.api.common.AssignmentIteratorExpressionBuilder;
+import org.ofbiz.base.util.Debug;
 
 public class AssignmentIteratorCondExprBldr extends BaseEntityCondExprBldr implements AssignmentIteratorExpressionBuilder {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public AssignmentIteratorCondExprBldr() {
-        this.addEntity("WFAS", "WfAssignment");
+        this.addEntity("WFAS", org.ofbiz.shark.SharkConstants.WfAssignment);
         this.addAllFields("WFAS");
     }
 
@@ -43,34 +49,84 @@ public class AssignmentIteratorCondExprBldr extends BaseEntityCondExprBldr imple
     }
 
     public AssignmentIteratorExpressionBuilder addUsernameEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addUsernameEquals(String s)",module); return null;
     }
 
     public AssignmentIteratorExpressionBuilder addProcessIdEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addProcessIdEquals(String s)",module); return null;
     }
 
     public AssignmentIteratorExpressionBuilder addIsAccepted() {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addIsAccepted()",module); return null;
     }
 
     public AssignmentIteratorExpressionBuilder addPackageIdEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addPackageIdEquals(String s)",module); return null;
     }
 
     public AssignmentIteratorExpressionBuilder addPackageVersionEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addPackageVersionEquals(String s)",module); return null;
     }
 
     public AssignmentIteratorExpressionBuilder addProcessDefEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addProcessDefEquals(String s)",module); return null;
     }
 
     public AssignmentIteratorExpressionBuilder addActivitySetDefEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addActivitySetDefEquals(String s)",module); return null;
     }
 
     public AssignmentIteratorExpressionBuilder addActivityDefEquals(String s) {
-        return null;  // TODO: Implement Me!
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addActivityDefEquals(String s)",module); return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder addProcessDefIdEquals(String arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addProcessDefIdEquals(String arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder addActivitySetDefIdEquals(String arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addActivitySetDefIdEquals(String arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder addActivityDefIdEquals(String arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addActivityDefIdEquals(String arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder addActivityIdEquals(String arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addActivityIdEquals(String arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder addExpression(String arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addExpression(String arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder addExpression(AssignmentIteratorExpressionBuilder arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder addExpression(AssignmentIteratorExpressionBuilder arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder setOrderByUsername(boolean arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder setOrderByUsername(boolean arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder setOrderByProcessId(boolean arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder setOrderByProcessId(boolean arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder setOrderByCreatedTime(boolean arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder setOrderByCreatedTime(boolean arg0)",module);
+        return null;
+    }
+
+    public AssignmentIteratorExpressionBuilder setOrderByAccepted(boolean arg0) {
+        Debug.logInfo("Call : AssignmentIteratorExpressionBuilder setOrderByAccepted(boolean arg0)",module);
+        return null;
     }
 }

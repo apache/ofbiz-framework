@@ -46,6 +46,7 @@ under the License.
             <fileset dir="../service/lib" includes="*.jar"/>
             <fileset dir="../service/build/lib" includes="*.jar"/>
             <fileset dir="../entityext/build/lib" includes="*.jar"/>
+            <fileset dir="../common/build/lib" includes="*.jar"/>
         </path>
     </target>
 

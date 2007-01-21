@@ -51,84 +51,85 @@ public class CreateProcessEventAudit extends EventAudit implements CreateProcess
     public CreateProcessEventAudit(EntityAuditMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.createProcessEventAudit = delegator.makeValue("WfCreateProcessEventAudit", UtilMisc.toMap("eventAuditId", this.eventAuditId));
+
+        this.createProcessEventAudit = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfCreateProcessEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, this.eventAuditId));
     }
 
     public CreateProcessEventAudit(EntityAuditMgr mgr, GenericValue createProcessEventAudit) {
-        super(mgr, createProcessEventAudit.getDelegator(), createProcessEventAudit.getString("eventAuditId"));
+        super(mgr, createProcessEventAudit.getDelegator(), createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.eventAuditId));
         this.createProcessEventAudit = createProcessEventAudit;
     }
 
     public void setPActivityId(String paId) {
-        createProcessEventAudit.set("pActivityId", paId);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pActivityId, paId);
     }
 
     public String getPActivityId() {
-        return createProcessEventAudit.getString("pActivityId");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pActivityId);
     }
 
     public void setPProcessId(String ppId) {
-        createProcessEventAudit.set("pProcessId", ppId);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pProcessId, ppId);
     }
 
     public String getPProcessId() {
-        return createProcessEventAudit.getString("pProcessId");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pProcessId);
     }
 
     public void setPProcessName(String ppn) {
-        createProcessEventAudit.set("pProcessName", ppn);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pProcessName, ppn);
     }
 
     public String getPProcessName() {
-        return createProcessEventAudit.getString("pProcessName");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pProcessName);
     }
 
     public void setPProcessDefinitionName(String ppdn) {
-        createProcessEventAudit.set("pProcessDefName", ppdn);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pProcessDefName, ppdn);
     }
 
     public String getPProcessDefinitionName() {
-        return createProcessEventAudit.getString("pProcessDefName");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pProcessDefName);
     }
 
     public void setPProcessDefinitionVersion(String ppdv) {
-        createProcessEventAudit.set("pProcessDefVer", ppdv);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pProcessDefVer, ppdv);
     }
 
     public String getPProcessDefinitionVersion() {
-        return createProcessEventAudit.getString("pProcessDefVer");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pProcessDefVer);
     }
 
     public void setPActivityDefinitionId(String padId) {
-        createProcessEventAudit.set("pActivityDefId", padId);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pActivityDefId, padId);
     }
 
     public String getPActivityDefinitionId() {
-        return createProcessEventAudit.getString("pActivityDefId");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pActivityDefId);
     }
 
-    public void setPActivitySetDefinitionId(String s) {
-        // TODO: Implement Me!
+    public void setPActivitySetDefinitionId(String padId) {
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pActivitySetDefId, padId);
     }
 
     public String getPActivitySetDefinitionId() {
-        return null;  // TODO: Implement Me!
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pActivitySetDefId);
     }
 
     public void setPProcessDefinitionId(String ppdId) {
-        createProcessEventAudit.set("pProcessDefId", ppdId);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pProcessDefId, ppdId);
     }
 
     public String getPProcessDefinitionId() {
-        return createProcessEventAudit.getString("pProcessDefId");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pProcessDefId);
     }
 
     public void setPPackageId(String ppkgId) {
-        createProcessEventAudit.set("pPackageId", ppkgId);
+        createProcessEventAudit.set(org.ofbiz.shark.SharkConstants.pPackageId, ppkgId);
     }
 
     public String getPPackageId() {
-        return createProcessEventAudit.getString("pPackageId");
+        return createProcessEventAudit.getString(org.ofbiz.shark.SharkConstants.pPackageId);
     }
 
     public void store() throws GenericEntityException {
@@ -154,4 +155,4 @@ public class CreateProcessEventAudit extends EventAudit implements CreateProcess
             delegator.removeValue(createProcessEventAudit);
         }
     }
-}
+} 

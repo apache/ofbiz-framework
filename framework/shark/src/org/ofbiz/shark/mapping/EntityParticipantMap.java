@@ -31,10 +31,11 @@ import org.enhydra.shark.api.RootException;
 /**
  * Shark Participant Map Implementation
  */
+
 public class EntityParticipantMap implements ParticipantMap {
 
     public static final String module = EntityParticipantMap.class.getName();
-    
+
     protected GenericDelegator delegator = null;
     protected GenericValue participant = null;
     protected boolean newValue = false;
@@ -42,7 +43,7 @@ public class EntityParticipantMap implements ParticipantMap {
     protected EntityParticipantMap(GenericDelegator delegator, String packageId, String processDefId, String participantId) throws RootException {
         this.delegator = delegator;
         try {
-            this.participant = delegator.findByPrimaryKey("WfParticipantMap", UtilMisc.toMap("packageId", packageId, "processDefId", processDefId, "participantId", participantId));
+            this.participant = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.participantId, participantId));
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }
@@ -57,7 +58,7 @@ public class EntityParticipantMap implements ParticipantMap {
         this.newValue = true;
         this.delegator = delegator;
 
-        this.participant = delegator.makeValue("WfParticipantMap", UtilMisc.toMap("participantMapId", delegator.getNextSeqId("WfParticipantMap")));
+        this.participant = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.participantMapId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfParticipantMap)));
     }
 
     public static EntityParticipantMap getInstance(GenericValue participant) {
@@ -84,43 +85,43 @@ public class EntityParticipantMap implements ParticipantMap {
     }
 
     public void setParticipantId(String participantId) {
-        participant.set("participantId", participantId);
+        participant.set(org.ofbiz.shark.SharkConstants.participantId, participantId);
     }
 
     public String getParticipantId() {
-        return participant.getString("participantId");
+        return participant.getString(org.ofbiz.shark.SharkConstants.participantId);
     }
 
     public void setPackageId(String packageId) {
-        participant.set("packageId", packageId);
+        participant.set(org.ofbiz.shark.SharkConstants.packageId, packageId);
     }
 
     public String getPackageId() {
-        return participant.getString("participantId");
+        return participant.getString(org.ofbiz.shark.SharkConstants.participantId);
     }
 
     public void setProcessDefinitionId(String processDefId) {
-        participant.set("processDefId", processDefId);
+        participant.set(org.ofbiz.shark.SharkConstants.processDefId, processDefId);
     }
 
     public String getProcessDefinitionId() {
-        return participant.getString("processDefId");
+        return participant.getString(org.ofbiz.shark.SharkConstants.processDefId);
     }
 
     public void setUsername(String userName) {
-        participant.set("userName", userName);
+        participant.set(org.ofbiz.shark.SharkConstants.userName, userName);
     }
 
     public String getUsername() {
-        return participant.getString("userName");
+        return participant.getString(org.ofbiz.shark.SharkConstants.userName);
     }
 
     public boolean getIsGroupUser() {
-        return (participant.getBoolean("isGroupUser") != null ? participant.getBoolean("isGroupUser").booleanValue() : false);
+        return (participant.getBoolean(org.ofbiz.shark.SharkConstants.isGroupUser) != null ? participant.getBoolean(org.ofbiz.shark.SharkConstants.isGroupUser).booleanValue() : false);
     }
 
     public void setIsGroupUser(boolean isGroupUser) {
-        participant.set("isGroupUser", new Boolean(isGroupUser));
+        participant.set(org.ofbiz.shark.SharkConstants.isGroupUser, new Boolean(isGroupUser));
     }
 
     public void store() throws RootException {

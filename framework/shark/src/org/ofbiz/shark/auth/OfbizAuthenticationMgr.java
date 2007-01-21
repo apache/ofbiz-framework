@@ -20,9 +20,13 @@ package org.ofbiz.shark.auth;
 
 import java.util.Map;
 
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityCrypto;
 import org.ofbiz.shark.container.SharkContainer;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceUtil;
@@ -45,27 +49,27 @@ public class OfbizAuthenticationMgr implements AuthenticationManager {
     }
 
     public boolean validateUser(UserTransaction userTransaction, String userName, String password) throws RootException {
-        String service = ServiceConfigUtil.getElementAttr("authorization", "service-name");
-        if (service == null) {
-            throw new RootException("No Authentication Service Defined");
-        }
-
-        LocalDispatcher dispatcher = SharkContainer.getDispatcher();
-        Map context = UtilMisc.toMap("login.username", userName, "login.password", password, "isServiceAuth", new Boolean(true));
-        Map serviceResult = null;
+        GenericDelegator delegator = SharkContainer.getDelegator();
+        String p = null;
+        GenericValue adminUser = null;
+        String pass_hash = LoginServices.getPasswordHash(password);
         try {
-            serviceResult = dispatcher.runSync(service, context);
-        } catch (GenericServiceException e) {
-            throw new RootException(e);
-        }
-
-        if (!ServiceUtil.isError(serviceResult)) {
-            GenericValue userLogin = (GenericValue) serviceResult.get("userLogin");
-            if (userLogin != null) {
+            adminUser = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userName));
+            String a = adminUser.getString("userLoginId");
+            p = adminUser.getString("currentPassword");
+        } catch (GenericEntityException e) {}
+        if (adminUser != null) {
+            if (password.equals(p)) {
                 return true;
+            } else if (LoginServices.getPasswordHash(password).equals(p)){
+                return true;
+            } else if (LoginServices.getPasswordHash(p).equals(password)){
+                return true;
+            } else {
+                return false;
             }
+                
         }
-
         return false;
     }
 }

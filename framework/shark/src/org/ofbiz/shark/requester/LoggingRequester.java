@@ -31,11 +31,23 @@ import org.enhydra.shark.api.client.wfmodel.WfEventAudit;
  */
 public class LoggingRequester extends AbstractRequester {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     public static final String module = LoggingRequester.class.getName();
 
+    static GenericValue gv = null;
+    
+    
+    public LoggingRequester(){
+        super(gv);
+    }
+    
     // new requester
     public LoggingRequester(GenericValue userLogin) {
         super(userLogin);
+        gv = userLogin;
     }
 
     // -------------------
@@ -50,3 +62,5 @@ public class LoggingRequester extends AbstractRequester {
         this.receive_event(event);
     }
 }
+
+

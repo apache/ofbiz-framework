@@ -32,6 +32,7 @@ import org.enhydra.shark.api.internal.instancepersistence.PersistenceException;
 /**
  * Persistance Object
  */
+
 public class ActivityVariable extends InstanceEntityObject implements ActivityVariablePersistenceInterface {
 
     public static final String module = ActivityVariable.class.getName();
@@ -44,7 +45,7 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
         this.delegator = delegator;
         if (this.delegator != null) {
             try {
-                this.activityVariable = delegator.findByPrimaryKey("WfActivityVariable", UtilMisc.toMap("activityVariableId", activityVariableId));
+                this.activityVariable = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfActivityVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityVariableId, activityVariableId));
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }
@@ -61,7 +62,7 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
     public ActivityVariable(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.activityVariable = delegator.makeValue("WfActivityVariable", UtilMisc.toMap("activityVariableId", delegator.getNextSeqId("WfActivityVariable")));
+        this.activityVariable = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfActivityVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityVariableId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfActivityVariable)));
         Debug.log("******* New activity variable created", module);
     }
 
@@ -89,42 +90,42 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
     }
 
     public void setActivityId(String aId) {
-        activityVariable.set("activityId", aId);
+        activityVariable.set(org.ofbiz.shark.SharkConstants.activityId, aId);
     }
 
     public String getActivityId() {
-        return activityVariable.getString("activityId");
+        return activityVariable.getString(org.ofbiz.shark.SharkConstants.activityId);
     }
 
     public void setDefinitionId(String defId) {
-        activityVariable.set("definitionId", defId);
+        activityVariable.set(org.ofbiz.shark.SharkConstants.definitionId, defId);
     }
 
     public String getDefinitionId() {
-        return activityVariable.getString("definitionId");
+        return activityVariable.getString(org.ofbiz.shark.SharkConstants.definitionId);
     }
 
     public void setValue(Object val) {
         if (val instanceof String) {
-            activityVariable.set("valueField", "strValue");
-            activityVariable.set("strValue", val);
+            activityVariable.set(org.ofbiz.shark.SharkConstants.valueField, org.ofbiz.shark.SharkConstants.strValue);
+            activityVariable.set(org.ofbiz.shark.SharkConstants.strValue, val);
         } else if (val instanceof Number) {
             if (val instanceof Double) {
-                activityVariable.set("valueField", "dblValue");
-                activityVariable.set("dblValue", val);
+                activityVariable.set(org.ofbiz.shark.SharkConstants.valueField, org.ofbiz.shark.SharkConstants.dblValue);
+                activityVariable.set(org.ofbiz.shark.SharkConstants.dblValue, val);
             } else {
-                activityVariable.set("valueField", "numValue");
-                activityVariable.set("numValue", val);
+                activityVariable.set(org.ofbiz.shark.SharkConstants.valueField, org.ofbiz.shark.SharkConstants.numValue);
+                activityVariable.set(org.ofbiz.shark.SharkConstants.numValue, val);
             }
         } else {
             byte[] value = UtilObject.getBytes(val);
-            activityVariable.setBytes("objValue", (value != null ? value : null));
+            activityVariable.setBytes(org.ofbiz.shark.SharkConstants.objValue, (value != null ? value : null));
         }
     }
 
     public Object getValue() {
-        String fieldName = activityVariable.getString("valueField");
-        if ("objValue".equals(fieldName)) {
+        String fieldName = activityVariable.getString(org.ofbiz.shark.SharkConstants.valueField);
+        if (org.ofbiz.shark.SharkConstants.objValue.equals(fieldName)) {
             byte[] value = activityVariable.getBytes(fieldName);
             return UtilObject.getObject(value);
         } else {
@@ -133,12 +134,12 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
     }
 
     public void setResultVariable(boolean modified) {
-        activityVariable.set("isModified", (modified ? "Y" : "N"));
+        activityVariable.set(org.ofbiz.shark.SharkConstants.isModified, (modified ? "Y" : "N"));
     }
 
     public boolean isResultVariable() {
-        return (activityVariable.get("isModified") != null ?
-                ("Y".equals(activityVariable.getString("isModified")) ? true : false) : false);
+        return (activityVariable.get(org.ofbiz.shark.SharkConstants.isModified) != null ?
+                ("Y".equals(activityVariable.getString(org.ofbiz.shark.SharkConstants.isModified)) ? true : false) : false);
     }
 
     public void store() throws GenericEntityException {

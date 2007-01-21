@@ -21,6 +21,11 @@ package org.ofbiz.shark.requester;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.enhydra.shark.api.SharkTransaction;
+import org.enhydra.shark.api.client.wfbase.BaseException;
+import org.enhydra.shark.api.client.wfmodel.InvalidPerformer;
+import org.enhydra.shark.api.client.wfmodel.WfEventAudit;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -29,14 +34,12 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.shark.container.SharkContainer;
 
-import org.enhydra.shark.api.SharkTransaction;
-import org.enhydra.shark.api.client.wfbase.BaseException;
-import org.enhydra.shark.api.client.wfmodel.InvalidPerformer;
-import org.enhydra.shark.api.client.wfmodel.SourceNotAvailable;
-import org.enhydra.shark.api.client.wfmodel.WfEventAudit;
-
 public class ServiceRequester extends AbstractRequester {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     public static final String module = ServiceRequester.class.getName();
     public static final int ASYNC = 0;
     public static final int SYNC = 1;
@@ -61,6 +64,7 @@ public class ServiceRequester extends AbstractRequester {
     // -------------------
 
     public void receive_event(WfEventAudit event) throws BaseException, InvalidPerformer {
+        Debug.logInfo("Call : ServiceRequester.receive_event(WfEventAudit event)", module);
         if (this.getEventType() == null || this.getEventType().equals(event.event_type())) {
             try {
                 this.run(event);
@@ -72,6 +76,7 @@ public class ServiceRequester extends AbstractRequester {
     }
 
     public void receive_event(SharkTransaction trans, WfEventAudit event) throws BaseException, InvalidPerformer {
+        Debug.logInfo("Call : ServiceRequester.receive_event (SharkTransaction trans, WfEventAudit event)", module);
         receive_event(event);
     }
 

@@ -52,7 +52,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         List groupNames = new ArrayList();
         List groups = null;
         try {
-            groups = delegator.findAll("SharkGroup");
+            groups = delegator.findAll(org.ofbiz.shark.SharkConstants.SharkGroup);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -61,7 +61,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
             Iterator i = groups.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
-                groupNames.add(v.getString("groupName"));
+                groupNames.add(v.getString(org.ofbiz.shark.SharkConstants.groupName));
             }
         }
         return groupNames;
@@ -72,7 +72,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         List userNames = new ArrayList();
         List users = null;
         try {
-            users = delegator.findAll("SharkUser");
+            users = delegator.findAll(org.ofbiz.shark.SharkConstants.SharkUser);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -81,7 +81,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
             Iterator i = users.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
-                userNames.add(v.getString("userName"));
+                userNames.add(v.getString(org.ofbiz.shark.SharkConstants.userName));
             }
         }
         return userNames;
@@ -92,7 +92,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         List userNames = new ArrayList();
         List members = null;
         try {
-            members = delegator.findByAnd("SharkGroupMember", UtilMisc.toMap("groupName", groupName));
+            members = delegator.findByAnd(org.ofbiz.shark.SharkConstants.SharkGroupMember, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -101,7 +101,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
             Iterator i = members.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
-                userNames.add(v.getString("userName"));
+                userNames.add(v.getString(org.ofbiz.shark.SharkConstants.userName));
             }
         }
         return userNames;
@@ -128,7 +128,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         List subGroups = new ArrayList();
         List rollups = null;
         try {
-            rollups = delegator.findByAnd("SharkGroupRollup", UtilMisc.toMap("groupName", groupName));
+            rollups = delegator.findByAnd(org.ofbiz.shark.SharkConstants.SharkGroupRollup, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -161,9 +161,9 @@ public class GenericUserGroupMgr implements UserGroupManager {
 
     public void createGroup(UserTransaction trans, String groupName, String description) throws RootException {
         GenericDelegator delegator = SharkContainer.getDelegator();
-        GenericValue group = delegator.makeValue("SharkGroup", null);
-        group.set("groupName", groupName);
-        group.set("description", description);
+        GenericValue group = delegator.makeValue(org.ofbiz.shark.SharkConstants.SharkGroup, null);
+        group.set(org.ofbiz.shark.SharkConstants.groupName, groupName);
+        group.set(org.ofbiz.shark.SharkConstants.description, description);
         try {
             delegator.create(group);
         } catch (GenericEntityException e) {
@@ -203,7 +203,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
     public void updateGroup(UserTransaction trans, String groupName, String description) throws RootException {
         GenericValue group = getGroup(groupName);
         if (group != null) {
-            group.set("description", description);
+            group.set(org.ofbiz.shark.SharkConstants.description, description);
             try {
                 group.store();
             } catch (GenericEntityException e) {
@@ -215,9 +215,9 @@ public class GenericUserGroupMgr implements UserGroupManager {
 
     public void addGroupToGroup(UserTransaction trans, String parentGroupName, String groupName) throws RootException {
         GenericDelegator delegator = SharkContainer.getDelegator();
-        GenericValue rollup = delegator.makeValue("SharkGroupRollup", null);
-        rollup.set("parentGroupName", parentGroupName);
-        rollup.set("groupName", groupName);
+        GenericValue rollup = delegator.makeValue(org.ofbiz.shark.SharkConstants.SharkGroupRollup, null);
+        rollup.set(org.ofbiz.shark.SharkConstants.parentGroupName, parentGroupName);
+        rollup.set(org.ofbiz.shark.SharkConstants.groupName, groupName);
         try {
             delegator.create(rollup);
         } catch (GenericEntityException e) {
@@ -239,11 +239,11 @@ public class GenericUserGroupMgr implements UserGroupManager {
     }
 
     public void removeGroupTree(UserTransaction trans, String s) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : removeGroupTree(UserTransaction trans, String s)", module);
     }
 
     public void removeUsersFromGroupTree(UserTransaction trans, String s) throws RootException {
-        // TODO: Implement Me!
+        Debug.logInfo("Call : void removeUsersFromGroupTree(UserTransaction trans, String s)", module);
     }
 
     public void moveGroup(UserTransaction trans, String currentParentGroup, String newParentGroup, String groupName) throws RootException {
@@ -254,16 +254,16 @@ public class GenericUserGroupMgr implements UserGroupManager {
     public String getGroupDescription(UserTransaction trans, String groupName) throws RootException {
         GenericValue group = getGroup(groupName);
         if (group != null) {
-            return group.getString("description");
+            return group.getString(org.ofbiz.shark.SharkConstants.description);
         }
         return null;
     }
 
     public void addUserToGroup(UserTransaction trans, String groupName, String username) throws RootException {
         GenericDelegator delegator = SharkContainer.getDelegator();
-        GenericValue member = delegator.makeValue("SharkGroupMember", null);
-        member.set("groupName", groupName);
-        member.set("userName", username);
+        GenericValue member = delegator.makeValue(org.ofbiz.shark.SharkConstants.SharkGroupMember, null);
+        member.set(org.ofbiz.shark.SharkConstants.groupName, groupName);
+        member.set(org.ofbiz.shark.SharkConstants.userName, username);
         try {
             delegator.create(member);
         } catch (GenericEntityException e) {
@@ -299,12 +299,12 @@ public class GenericUserGroupMgr implements UserGroupManager {
 
     public void createUser(UserTransaction trans, String groupName, String username, String password, String firstName, String lastName, String email) throws RootException {
         GenericDelegator delegator = SharkContainer.getDelegator();
-        GenericValue user = delegator.makeValue("SharkUser", null);
-        user.set("userName", username);
-        user.set("firstName", firstName);
-        user.set("lastName", lastName);
-        user.set("passwd", password);
-        user.set("emailAddress", email);
+        GenericValue user = delegator.makeValue(org.ofbiz.shark.SharkConstants.SharkUser, null);
+        user.set(org.ofbiz.shark.SharkConstants.userName, username);
+        user.set(org.ofbiz.shark.SharkConstants.firstName, firstName);
+        user.set(org.ofbiz.shark.SharkConstants.lastName, lastName);
+        user.set(org.ofbiz.shark.SharkConstants.passwd, password);
+        user.set(org.ofbiz.shark.SharkConstants.emailAddress, email);
         try {
             delegator.create(user);
         } catch (GenericEntityException e) {
@@ -319,9 +319,9 @@ public class GenericUserGroupMgr implements UserGroupManager {
     public void updateUser(UserTransaction trans, String username, String firstName, String lastName, String email) throws RootException {
         GenericValue user = getUser(username);
         if (user != null) {
-            user.set("firstName", firstName);
-            user.set("lastName", firstName);
-            user.set("emailAddress", email);
+            user.set(org.ofbiz.shark.SharkConstants.firstName, firstName);
+            user.set(org.ofbiz.shark.SharkConstants.lastName, firstName);
+            user.set(org.ofbiz.shark.SharkConstants.emailAddress, email);
             try {
                 user.store();
             } catch (GenericEntityException e) {
@@ -354,7 +354,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
     public void setPassword(UserTransaction trans, String username, String password) throws RootException {
         GenericValue user = getUser(username);
         if (user != null) {
-            user.set("passwd", password);
+            user.set(org.ofbiz.shark.SharkConstants.passwd, password);
             try {
                 user.store();
             } catch (GenericEntityException e) {
@@ -367,33 +367,33 @@ public class GenericUserGroupMgr implements UserGroupManager {
     public String getUserRealName(UserTransaction trans, String username) throws RootException {
         StringBuffer buf = new StringBuffer();
         GenericValue user = getUser(username);
-        if (!UtilValidate.isEmpty(user.getString("firstName"))) {
-            buf.append(user.getString("firstName"));
+        if (!UtilValidate.isEmpty(user.getString(org.ofbiz.shark.SharkConstants.firstName))) {
+            buf.append(user.getString(org.ofbiz.shark.SharkConstants.firstName));
 
         }
-        if (!UtilValidate.isEmpty(user.getString("lastName"))) {
+        if (!UtilValidate.isEmpty(user.getString(org.ofbiz.shark.SharkConstants.lastName))) {
             if (buf.length() > 0) {
                 buf.append(" ");
             }
-            buf.append(user.getString("lastName"));
+            buf.append(user.getString(org.ofbiz.shark.SharkConstants.lastName));
         }
         return buf.toString();
     }
 
     public String getUserFirstName(UserTransaction trans, String username) throws RootException {
         GenericValue user = getUser(username);
-        return user.getString("firstName");
+        return user.getString(org.ofbiz.shark.SharkConstants.firstName);
     }
 
     public String getUserLastName(UserTransaction trans, String username) throws RootException {
         GenericValue user = getUser(username);
-        return user.getString("lastName");
+        return user.getString(org.ofbiz.shark.SharkConstants.lastName);
     }
 
     public String getUserEMailAddress(UserTransaction trans, String username) throws RootException {
         GenericValue user = getUser(username);
         if (user != null) {
-            return user.getString("emailAddress");
+            return user.getString(org.ofbiz.shark.SharkConstants.emailAddress);
         }
         return null;
     }
@@ -402,7 +402,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         GenericValue value = null;
         try {
-            value = delegator.findByPrimaryKey("SharkUser", UtilMisc.toMap("userName", username));
+            value = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkUser, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, username));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -414,7 +414,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         GenericValue value = null;
         try {
-            value = delegator.findByPrimaryKey("SharkGroup", UtilMisc.toMap("groupName", groupName));
+            value = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkGroup, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -426,7 +426,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         GenericValue member = null;
         try {
-            member = delegator.findByPrimaryKey("SharkGroupMember", UtilMisc.toMap("groupName", groupName, "userName", username));
+            member = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkGroupMember, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.groupName, groupName, org.ofbiz.shark.SharkConstants.userName, username));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -438,7 +438,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         GenericValue rollup = null;
         try {
-            rollup = delegator.findByPrimaryKey("SharkGroupRollup", UtilMisc.toMap("parentGroupName", parentGroup, "groupName", group));
+            rollup = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkGroupRollup, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.parentGroupName, parentGroup, org.ofbiz.shark.SharkConstants.groupName, group));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -446,3 +446,4 @@ public class GenericUserGroupMgr implements UserGroupManager {
         return rollup;
     }
 }
+

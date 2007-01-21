@@ -56,6 +56,8 @@ under the License.
       </tr>
     </#list>
   </table>
+  <td>&nbsp;</td>
+    <a href="<@ofbizUrl>processes?deleteFinished</@ofbizUrl>" class="buttontext">Delete All Finished</a>
 <#else>
   <div class="tabletext">No loaded processes.</div>
 </#if>

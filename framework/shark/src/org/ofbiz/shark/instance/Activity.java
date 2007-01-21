@@ -43,7 +43,7 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
         this.delegator = delegator;
         if (this.delegator != null) {
             try {
-                this.activity = delegator.findByPrimaryKey("WfActivity", UtilMisc.toMap("activityId", activityId));
+                this.activity = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfActivity, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityId, activityId));
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }
@@ -60,7 +60,7 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
     public Activity(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.activity = delegator.makeValue("WfActivity", null);
+        this.activity = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfActivity, null);
     }
 
     public static Activity getInstance(EntityPersistentMgr mgr, GenericValue activity) {
@@ -87,124 +87,125 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
     }
 
     public void setId(String s) {
-        activity.set("activityId", s);
+        activity.set(org.ofbiz.shark.SharkConstants.activityId, s);
     }
 
     public String getId() {
-        return activity.getString("activityId");
+        return activity.getString(org.ofbiz.shark.SharkConstants.activityId);
     }
 
     public void setActivitySetDefinitionId(String asdId) {
-        activity.set("setDefinitionId", asdId);
+        activity.set(org.ofbiz.shark.SharkConstants.setDefinitionId, asdId);
     }
 
     public String getActivitySetDefinitionId() {
-        return activity.getString("setDefinitionId");
+        return activity.getString(org.ofbiz.shark.SharkConstants.setDefinitionId);
     }
 
     public void setActivityDefinitionId(String s) {
-        activity.set("definitionId", s);
+        activity.set(org.ofbiz.shark.SharkConstants.definitionId, s);
     }
 
     public String getActivityDefinitionId() {
-       return activity.getString("definitionId");
+       return activity.getString(org.ofbiz.shark.SharkConstants.definitionId);
     }
 
     public void setProcessId(String s) {
-        activity.set("processId", s);
+        activity.set(org.ofbiz.shark.SharkConstants.processId, s);
     }
 
     public String getProcessId() {
-        return activity.getString("processId");
+        return activity.getString(org.ofbiz.shark.SharkConstants.processId);
     }
 
     public void setSubflowProcessId(String s) {
-        activity.set("subFlowId", s);
+        activity.set(org.ofbiz.shark.SharkConstants.subFlowId, s);
     }
 
     public String getSubflowProcessId() {
-        return activity.getString("subFlowId");
+        return activity.getString(org.ofbiz.shark.SharkConstants.subFlowId);
     }
 
     public void setSubflowAsynchronous(boolean b) {
-        activity.set("isSubAsync", (b ? "Y" : "N"));
+        activity.set(org.ofbiz.shark.SharkConstants.isSubAsync, (b ? "Y" : "N"));
     }
 
     public boolean isSubflowAsynchronous() {
-        String isAsync = activity.getString("isSubAsync");
-        return isAsync != null && isAsync.equals("Y") ? true : false;        
+        String isAsync = activity.getString(org.ofbiz.shark.SharkConstants.isSubAsync);
+        return isAsync != null && isAsync.equals("Y") ? true : false;
     }
 
     public void setResourceUsername(String s) {
-        activity.set("resourceUser", s);
+        activity.set(org.ofbiz.shark.SharkConstants.resourceUser, s);
     }
 
     public String getResourceUsername() {
-        return activity.getString("resourceUser");
+        return activity.getString(org.ofbiz.shark.SharkConstants.resourceUser);
     }
 
     public void setState(String s) {
-        activity.set("currentState", s);
+        activity.set(org.ofbiz.shark.SharkConstants.currentState, s);
     }
 
     public String getState() {
-        return activity.getString("currentState");
+        return activity.getString(org.ofbiz.shark.SharkConstants.currentState);
     }
 
     public void setBlockActivityId(String s) {
-        activity.set("blockId", s);
+        activity.set(org.ofbiz.shark.SharkConstants.blockId, s);
     }
 
     public String getBlockActivityId() {
-        return activity.getString("blockId");
+        return activity.getString(org.ofbiz.shark.SharkConstants.blockId);
     }
 
     public String getName() {
-        return activity.getString("activityName");
+        return activity.getString(org.ofbiz.shark.SharkConstants.activityName);
     }
 
     public void setName(String s) {
-        activity.set("activityName", s);
+        activity.set(org.ofbiz.shark.SharkConstants.activityName, s);
     }
 
     public String getDescription() {
-        return activity.getString("description");
+        return activity.getString(org.ofbiz.shark.SharkConstants.description);
     }
 
     public void setDescription(String s) {
-        activity.set("description", s);
+        activity.set(org.ofbiz.shark.SharkConstants.description, s);
     }
 
-    public int getPriority() {
-        return activity.getLong("priority").intValue();
+    public short getPriority() {
+        return activity.getLong(org.ofbiz.shark.SharkConstants.priority).shortValue();
     }
 
     public void setPriority(int i) {
-        activity.set("priority", new Long(i));
+        activity.set(org.ofbiz.shark.SharkConstants.priority, new Long(i));
     }
 
     public long getLastStateTime() {
-        return activity.get("lastStateTime") != null ? activity.getTimestamp("lastStateTime").getTime() : 0;
+        return activity.get(org.ofbiz.shark.SharkConstants.lastStateTime) != null ? activity.getLong(org.ofbiz.shark.SharkConstants.lastStateTime).longValue() : 0;
     }
 
     public void setLastStateTime(long timestamp) {
-        activity.set("lastStateTime", UtilDateTime.getTimestamp(timestamp));
+        activity.set(org.ofbiz.shark.SharkConstants.lastStateTime, new Long(timestamp));
     }
 
     public long getAcceptedTime() {
-        return activity.get("acceptedTime") != null ? activity.getTimestamp("acceptedTime").getTime() : 0;
+        return activity.get(org.ofbiz.shark.SharkConstants.acceptedTime) != null ? activity.getLong(org.ofbiz.shark.SharkConstants.acceptedTime).longValue() : 0;
     }
 
-    public void setAcceptedTime(long timestamp) {
-        activity.set("acceptedTime", UtilDateTime.getTimestamp(timestamp));
+    public void setAcceptedTime(long timestamp) 
+    {
+        activity.set(org.ofbiz.shark.SharkConstants.acceptedTime, new Long(timestamp));
     }
 
     public long getActivatedTime() {
-        return activity.get("activatedTime") != null ? activity.getTimestamp("activatedTime").getTime() : 0;
+        return activity.get(org.ofbiz.shark.SharkConstants.activatedTime) != null ? activity.getLong(org.ofbiz.shark.SharkConstants.activatedTime).longValue() : 0;
     }
 
     public void setActivatedTime(long timestamp) {
-        activity.set("activatedTime", UtilDateTime.getTimestamp(timestamp));
+        activity.set(org.ofbiz.shark.SharkConstants.activatedTime, new Long(timestamp));
     }
 
     public void store() throws GenericEntityException {
@@ -227,5 +228,31 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
             delegator.removeValue(activity);
             Debug.log("**** REMOVED : " + this, module);
         }
+    }
+
+    public void setProcessMgrName(String arg0) 
+    {
+        activity.set(org.ofbiz.shark.SharkConstants.processMgrName, arg0);
+    }
+
+    public String getProcessMgrName() {
+        return (String)activity.get(org.ofbiz.shark.SharkConstants.processMgrName);
+    }
+
+    public void setPriority(short arg0) {
+        activity.set(org.ofbiz.shark.SharkConstants.priority, new Long(arg0));
+    }
+
+
+    public long getLimitTime() {
+        if (this.activity.get(org.ofbiz.shark.SharkConstants.timeLimit) != null) {
+            return this.activity.getLong(org.ofbiz.shark.SharkConstants.timeLimit).longValue();
+        } else {
+            return -1;
+        }
+    }
+
+    public void setLimitTime(long timeLimit) {
+        activity.set(org.ofbiz.shark.SharkConstants.timeLimit, new Long(timeLimit));
     }
 }
