@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
-Copyright 2001-2006 The Apache Software Foundation
-
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
 the License at
@@ -96,7 +93,7 @@ under the License.
     <ProductStoreCatalog productStoreId="9000" prodCatalogId="DemoCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
     <ProductStoreCatalog productStoreId="9000" prodCatalogId="TestCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="2"/>
 
-    <ProductCategory description="Demo Browse Root"
+    <ProductCategory categoryName="Demo Browse Root"
         longDescription="Demo Catalog Primary Browse Root Category" productCategoryId="CATALOG1" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory longDescription="long description of Gizmos"
         primaryParentCategoryId="CATALOG1" productCategoryId="100" productCategoryTypeId="CATALOG_CATEGORY"/>
@@ -116,20 +113,20 @@ under the License.
         primaryParentCategoryId="201" productCategoryId="2012" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory longDescription="long description of Micro Widgets"
         primaryParentCategoryId="2011" productCategoryId="20111" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Featured Products" productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory description="Demo Default Search"
+    <ProductCategory categoryName="Featured Products" productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory categoryName="Demo Default Search"
         longDescription="Catalog1 Search Products - only products in this category will show up in a search in catalog1"
         productCategoryId="CATALOG1_SEARCH" productCategoryTypeId="SEARCH_CATEGORY"/>
-    <ProductCategory description="Main Quick Add"
+    <ProductCategory categoryName="Main Quick Add"
         longDescription="For quick orders, you have found the right place!" productCategoryId="CATALOG1_QUICKADD1" productCategoryTypeId="QUICKADD_CATEGORY"/>
-    <ProductCategory description="Widget Quick Add"
+    <ProductCategory categoryName="Widget Quick Add"
         longDescription="Get all you widgets here!" productCategoryId="CATALOG1_QUICKADD2" productCategoryTypeId="QUICKADD_CATEGORY"/>
 
-    <ProductCategory description="Test Limited Admin Category"
+    <ProductCategory categoryName="Test Limited Admin Category"
         longDescription="Test Limited Admin Category" productCategoryId="TSTLTDADMIN" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategoryRole productCategoryId="TSTLTDADMIN" partyId="ltdadmin" roleTypeId="LTD_ADMIN" fromDate="2001-05-13 12:00:00.0"/>
 
-    <ProductCategory description="Test Cross Sell Category"
+    <ProductCategory categoryName="Test Cross Sell Category"
         longDescription="Test Cross Sell Category" productCategoryId="TSTCSL" productCategoryTypeId="CROSS_SELL_CATEGORY"/>
 
     <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1" fromDate="2001-05-13 12:00:00.0"
