@@ -70,6 +70,8 @@ under the License.
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_PHONE" description="Primary Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_QUICK" description="Quick Calls Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_EMAIL" description="Primary Email Address"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="BILLING_EMAIL" description="Billing (AP) Email"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_EMAIL" description="Payment (AR) Email"/>
     <ContactMechPurposeType contactMechPurposeTypeId="OTHER_EMAIL" description="Other Email Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="ORDER_EMAIL" description="Order Notification Email Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_WEB_URL" description="Primary Website URL"/>
