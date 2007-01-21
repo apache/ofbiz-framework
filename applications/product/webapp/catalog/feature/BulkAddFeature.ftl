@@ -27,7 +27,7 @@ under the License.
     <td><div class="tabletext"><b>${uiLabelMap.ProductFeatureType}</b></div></td>
     <td><div class="tabletext"><b>${uiLabelMap.ProductIdSeqNum}</b></div></td>
     <td><div class="tabletext"><b>${uiLabelMap.ProductIdCode}</b></div></td>
-    <td><div class="tabletext"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');"></div></td>
+    <td><div class="tabletext"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');"></div></td>
   </tr>
 <#list 0..featureNum-1 as feature>
   <tr valign="middle" class='viewOneTR1'>
@@ -40,7 +40,7 @@ under the License.
       <input name='productFeatureCategoryId_o_${feature_index}' type="hidden" value="${productFeatureCategoryId}">
       <td><input type="text" class='inputBox' size='5' name="defaultSequenceNum_o_${feature_index}""></td>
       <td><input type="text" class='inputBox' size='5' name="idCode_o_${feature_index}"></td>
-      <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');"></td>
+      <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" checked="checked" onclick="javascript:checkToggle(this, 'selectAllForm');"></td>
   </tr>
 
 </#list>
