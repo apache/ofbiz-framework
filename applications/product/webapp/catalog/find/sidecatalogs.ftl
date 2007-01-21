@@ -1,7 +1,4 @@
 <#--
-
-Copyright 2001-2006 The Apache Software Foundation
-
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
 the License at
@@ -14,8 +11,6 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 -->
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-
 <div class="screenlet">
     <div class="screenlet-header">
         <div class="simple-right-small">
@@ -39,7 +34,7 @@ under the License.
               <div style='margin-left: 10px;'>
                 <#list prodCatalogCategories as prodCatalogCategory>
                   <#assign productCategory = prodCatalogCategory.getRelatedOneCache("ProductCategory")>
-                  <div class='browsecategorytext'>-&nbsp;<a href='<@ofbizUrl>EditCategory?CATALOG_TOP_CATEGORY=${prodCatalogCategory.productCategoryId}&amp;productCategoryId=${prodCatalogCategory.productCategoryId}</@ofbizUrl>' class="browsecategorybutton">${(productCategory.description)?if_exists}</a></div>
+                  <div class='browsecategorytext'>-&nbsp;<a href='<@ofbizUrl>EditCategory?CATALOG_TOP_CATEGORY=${prodCatalogCategory.productCategoryId}&amp;productCategoryId=${prodCatalogCategory.productCategoryId}</@ofbizUrl>' class="browsecategorybutton">${(productCategory.categoryName)?default(productCategory.description)?default(productCategory.productCategoryId)}</a></div>
                 </#list>
               </div>
           <#else>
@@ -50,4 +45,3 @@ under the License.
     </div>
 </#if>
 </div>
-

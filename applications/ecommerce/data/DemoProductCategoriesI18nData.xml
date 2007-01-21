@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2001-2006 The Apache Software Foundation
-
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
 the License at
@@ -28,7 +26,7 @@ under the License.
     <Content contentId="C100DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR100DESCIT" description="DESCRIPTION IT Gizmos" localeString="it" />
     <Content contentId="C100DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR100DESCEN" description="DESCRIPTION EN Gizmos" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="100" contentId="C100DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="100" contentId="C100DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C100DESCEN" contentIdTo="C100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C100DESCEN" contentIdTo="C100DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -46,7 +44,7 @@ under the License.
     <Content contentId="C101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR101DESCIT" description="DESCRIPTION IT Piccolo Gizmos" localeString="it" />
     <Content contentId="C101DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR101DESCEN" description="DESCRIPTION EN Small Gizmos" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="101" contentId="C101DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="101" contentId="C101DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C101DESCEN" contentIdTo="C101DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C101DESCEN" contentIdTo="C101DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -64,7 +62,7 @@ under the License.
     <Content contentId="C102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR102DESCIT" description="DESCRIPTION IT Grande Gizmos" localeString="it" />
     <Content contentId="C102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR102DESCEN" description="DESCRIPTION IT Large Gizmos" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="102" contentId="C102DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="102" contentId="C102DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C102DESCEN" contentIdTo="C102DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C102DESCEN" contentIdTo="C102DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -82,7 +80,7 @@ under the License.
     <Content contentId="C200DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR200DESCIT" description="DESCRIPTION IT Gizmos" localeString="it" />
     <Content contentId="C200DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR200DESCEN" description="DESCRIPTION EN Gizmos" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="200" contentId="C200DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="200" contentId="C200DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C200DESCEN" contentIdTo="C200DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C200DESCEN" contentIdTo="C200DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -100,7 +98,7 @@ under the License.
     <Content contentId="C201DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR201DESCIT" description="DESCRIPTION IT Piccolo Widgets" localeString="it" />
     <Content contentId="C201DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR201DESCEN" description="DESCRIPTION EN Small Widgets" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="201" contentId="C201DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="201" contentId="C201DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C201DESCEN" contentIdTo="C201DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C201DESCEN" contentIdTo="C201DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -118,7 +116,7 @@ under the License.
     <Content contentId="C2012DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCIT" description="DESCRIPTION IT Altro Piccolo Widgets" localeString="it" />
     <Content contentId="C2012DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR2012DESCEN" description="DESCRIPTION EN Other Mini Widgets" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="2012" contentId="C2012DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="2012" contentId="C2012DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C2012DESCEN" contentIdTo="C2012DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C2012DESCEN" contentIdTo="C2012DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -136,7 +134,7 @@ under the License.
     <Content contentId="C2011DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR2011DESCIT" description="DESCRIPTION IT Mini Widgets" localeString="it" />
     <Content contentId="C2011DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR2011DESCEN" description="DESCRIPTION EN Mini Widgets" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="2011" contentId="C2011DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="2011" contentId="C2011DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C2011DESCEN" contentIdTo="C2011DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C2011DESCEN" contentIdTo="C2011DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -154,7 +152,7 @@ under the License.
     <Content contentId="C20111DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR20111DESCIT" description="DESCRIPTION IT Micro Widgets" localeString="it" />
     <Content contentId="C20111DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR20111DESCEN" description="DESCRIPTION EN Micro Widgets" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="20111" contentId="C20111DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="20111" contentId="C20111DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C20111DESCEN" contentIdTo="C20111DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C20111DESCEN" contentIdTo="C20111DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -172,7 +170,7 @@ under the License.
     <Content contentId="C202DESCIT" contentTypeId="DOCUMENT" dataResourceId="DR202DESCIT" description="DESCRIPTION IT Grande Widgets" localeString="it" />
     <Content contentId="C202DESCEN" contentTypeId="DOCUMENT" dataResourceId="DR202DESCEN" description="DESCRIPTION IT Large Widgets" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="202" contentId="C202DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="202" contentId="C202DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="C202DESCEN" contentIdTo="C202DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="C202DESCEN" contentIdTo="C202DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -190,7 +188,7 @@ under the License.
     <Content contentId="CGC-100DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-100DESCIT" description="DESCRIPTION IT Carte regalo" localeString="it" />
     <Content contentId="CGC-100DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-100DESCEN" description="DESCRIPTION EN Gift Cards" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="GC-100" contentId="CGC-100DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="GC-100" contentId="CGC-100DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="CGC-100DESCEN" contentIdTo="CGC-100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CGC-100DESCEN" contentIdTo="CGC-100DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -208,7 +206,7 @@ under the License.
     <Content contentId="CGC-101DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCIT" description="DESCRIPTION IT Acquisto di carta regalo" localeString="it" />
     <Content contentId="CGC-101DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-101DESCEN" description="DESCRIPTION IT Gift Cards Purchase" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="GC-101" contentId="CGC-101DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="GC-101" contentId="CGC-101DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="CGC-101DESCEN" contentIdTo="CGC-101DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CGC-101DESCEN" contentIdTo="CGC-101DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -226,7 +224,7 @@ under the License.
     <Content contentId="CGC-102DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCIT" description="DESCRIPTION IT Ricaricano di carte regalo" localeString="it" />
     <Content contentId="CGC-102DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-102DESCEN" description="DESCRIPTION EN Gift Cards Reload" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="GC-102" contentId="CGC-102DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="GC-102" contentId="CGC-102DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="CGC-102DESCEN" contentIdTo="CGC-102DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CGC-102DESCEN" contentIdTo="CGC-102DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
@@ -244,9 +242,8 @@ under the License.
     <Content contentId="CPC-100DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRPC-100DESCIT" description="DESCRIPTION IT Computer configurabili" localeString="it" />
     <Content contentId="CPC-100DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRPC-100DESCEN" description="DESCRIPTION EN Configurables PCs" localeString="en"/>
 
-    <ProductCategoryContent productCategoryId="PC-100" contentId="CPC-100DESCEN" prodCatContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
+    <ProductCategoryContent productCategoryId="PC-100" contentId="CPC-100DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2006-09-22 00:00:00.0"/>
 
     <ContentAssoc contentId="CPC-100DESCEN" contentIdTo="CPC-100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CPC-100DESCEN" contentIdTo="CPC-100DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
-
 </entity-engine-xml>
