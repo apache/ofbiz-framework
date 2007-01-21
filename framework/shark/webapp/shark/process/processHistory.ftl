@@ -32,7 +32,11 @@ under the License.
             <#assign eventType = history.event_type()>
             ${eventType}
             <#if eventType == "processStateChanged">
-              [${history.old_state()} -> ${history.new_state()}]
+                <#if (history.old_state())?has_content>
+                    [${history.old_state()} -> ${history.new_state()}]
+                <#else>
+                    [${"not_started"} -> ${history.new_state()}]
+                </#if>
             </#if>
           </div>
         </td>

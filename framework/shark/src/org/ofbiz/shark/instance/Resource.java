@@ -30,6 +30,7 @@ import org.enhydra.shark.api.internal.instancepersistence.*;
 /**
  * Persistance Object
  */
+
 public class Resource extends InstanceEntityObject implements ResourcePersistenceInterface {
 
     public static final String module = Resource.class.getName();
@@ -41,7 +42,7 @@ public class Resource extends InstanceEntityObject implements ResourcePersistenc
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.resource = delegator.findByPrimaryKey("WfResource", UtilMisc.toMap("userName", name));
+                this.resource = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfResource, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, name));
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }
@@ -58,7 +59,7 @@ public class Resource extends InstanceEntityObject implements ResourcePersistenc
     public Resource(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.resource = delegator.makeValue("WfResource", null);
+        this.resource = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfResource, null);
     }
 
     public static Resource getInstance(EntityPersistentMgr mgr, GenericValue resource) {
@@ -85,19 +86,19 @@ public class Resource extends InstanceEntityObject implements ResourcePersistenc
     }
 
     public void setUsername(String s) {
-        resource.set("userName", s);
+        resource.set(org.ofbiz.shark.SharkConstants.userName, s);
     }
 
     public String getUsername() {
-        return resource.getString("userName");
+        return resource.getString(org.ofbiz.shark.SharkConstants.userName);
     }
 
     public void setName(String s) {
-        resource.set("resourceName", s);
+        resource.set(org.ofbiz.shark.SharkConstants.resourceName, s);
     }
 
     public String getName() {
-        return resource.getString("resourceName");
+        return resource.getString(org.ofbiz.shark.SharkConstants.resourceName);
     }
 
     public void store() throws GenericEntityException {
@@ -122,3 +123,4 @@ public class Resource extends InstanceEntityObject implements ResourcePersistenc
         }
     }
 }
+

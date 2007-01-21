@@ -35,11 +35,11 @@ public class EntityApplicationMap implements ApplicationMap {
     protected GenericDelegator delegator = null;
     protected GenericValue application = null;
     protected boolean isNew = false;
-    
+
     protected EntityApplicationMap(GenericDelegator delegator, String packageId, String processDefId, String applicationDefId) throws RootException {
         this.delegator = delegator;
         try {
-            this.application = delegator.findByPrimaryKey("WfApplicationMap", UtilMisc.toMap("packageId", packageId, "processDefId", processDefId, "applicationDefId", applicationDefId));
+            this.application = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfApplicationMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.applicationDefId, applicationDefId));
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }
@@ -80,43 +80,43 @@ public class EntityApplicationMap implements ApplicationMap {
     }
 
     public void setApplicationDefinitionId(String applicationDefId) {
-        application.set("applicationDefId", applicationDefId);
+        application.set(org.ofbiz.shark.SharkConstants.applicationDefId, applicationDefId);
     }
 
     public String getApplicationDefinitionId() {
-        return application.getString("applicationDefId");
+        return application.getString(org.ofbiz.shark.SharkConstants.applicationDefId);
     }
 
     public void setPackageId(String packageId) {
-        application.set("packageId", packageId);
+        application.set(org.ofbiz.shark.SharkConstants.packageId, packageId);
     }
 
     public String getPackageId() {
-        return application.getString("applicationName");
+        return application.getString(org.ofbiz.shark.SharkConstants.applicationName);
     }
 
     public void setProcessDefinitionId(String processDefId) {
-        application.set("processDefId", processDefId);
+        application.set(org.ofbiz.shark.SharkConstants.processDefId, processDefId);
     }
 
     public String getProcessDefinitionId() {
-        return application.getString("processDefId");
+        return application.getString(org.ofbiz.shark.SharkConstants.processDefId);
     }
 
     public void setToolAgentClassName(String toolAgentName) {
-        application.set("toolAgentName", toolAgentName);
+        application.set(org.ofbiz.shark.SharkConstants.toolAgentName, toolAgentName);
     }
 
     public String getToolAgentClassName() {
-        return application.getString("toolAgentName");
+        return application.getString(org.ofbiz.shark.SharkConstants.toolAgentName);
     }
 
     public void setUsername(String userName) {
-        application.set("userName", userName);
+        application.set(org.ofbiz.shark.SharkConstants.userName, userName);
     }
 
     public String getUsername() {
-        return application.getString("userName");
+        return application.getString(org.ofbiz.shark.SharkConstants.userName);
     }
 
     public void setPassword(String password) {
@@ -128,19 +128,19 @@ public class EntityApplicationMap implements ApplicationMap {
     }
 
     public void setApplicationName(String name) {
-        application.set("applicationName", name);
+        application.set(org.ofbiz.shark.SharkConstants.applicationName, name);
     }
 
     public String getApplicationName() {
-        return application.getString("applicationName");
+        return application.getString(org.ofbiz.shark.SharkConstants.applicationName);
     }
 
     public void setApplicationMode(Integer mode) {
-        application.set("applicationMode", mode);
+        application.set(org.ofbiz.shark.SharkConstants.applicationMode, mode);
     }
 
     public Integer getApplicationMode() {
-        return application.getInteger("applicationMode");
+        return application.getInteger(org.ofbiz.shark.SharkConstants.applicationMode);
     }
 
     public boolean equalsByKeys(ApplicationMap applicationMap) {
@@ -162,7 +162,7 @@ public class EntityApplicationMap implements ApplicationMap {
             if (!(applicationMap.getToolAgentClassName().equals(this.getToolAgentClassName())))
                 return false;
 
-        return true;        
+        return true;
     }
 
     public void store() throws RootException {

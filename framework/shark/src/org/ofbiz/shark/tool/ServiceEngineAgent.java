@@ -34,11 +34,13 @@ import org.enhydra.shark.api.internal.toolagent.ApplicationNotDefined;
 import org.enhydra.shark.api.internal.toolagent.ApplicationNotStarted;
 import org.enhydra.shark.api.internal.toolagent.AppParameter;
 import org.enhydra.shark.api.SharkTransaction;
+import org.enhydra.shark.xpdl.XPDLConstants;
 import org.enhydra.shark.xpdl.elements.ExtendedAttributes;
 
 /**
  * Shark Service Engine Agent Tool API
  */
+
 public class ServiceEngineAgent extends AbstractToolAgent {
 
     public static final String module = ServiceEngineAgent.class.getName();
@@ -75,13 +77,13 @@ public class ServiceEngineAgent extends AbstractToolAgent {
             status = APP_STATUS_INVALID;
         } else {
             status = APP_STATUS_FINISHED;
-        }                        
+        }
     }
 
     private void getServiceContext(AppParameter[] params, Map context) {
         if (params != null && context != null) {
             for (int i = 1; i < params.length; i++) {
-                if (params[i].the_mode.equals(AppParameter.MODE_IN) || params[i].the_mode.equals(AppParameter.MODE_INOUT)) {
+                if (params[i].the_mode.equals(XPDLConstants.FORMAL_PARAMETER_MODE_IN) || params[i].the_mode.equals(XPDLConstants.FORMAL_PARAMETER_MODE_INOUT)) {
                     context.put(params[i].the_formal_name, params[i].the_value);
                 }
             }
@@ -91,7 +93,7 @@ public class ServiceEngineAgent extends AbstractToolAgent {
     private void getServiceResults(AppParameter[] params, Map result) {
         if (params != null && result != null) {
             for (int i = 1; i < params.length; i++) {
-                if (params[i].the_mode.equals(AppParameter.MODE_OUT) || params[i].the_mode.equals(AppParameter.MODE_INOUT)) {
+                if (params[i].the_mode.equals(XPDLConstants.FORMAL_PARAMETER_MODE_OUT) || params[i].the_mode.equals(XPDLConstants.FORMAL_PARAMETER_MODE_INOUT)) {
                     params[i].the_value = result.get(params[i].the_formal_name);
                 }
             }

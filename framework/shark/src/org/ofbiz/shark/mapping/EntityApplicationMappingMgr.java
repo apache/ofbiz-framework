@@ -38,6 +38,7 @@ import org.enhydra.shark.api.internal.working.CallbackUtilities;
 /**
  * Shark Application Mappings Implementation
  */
+
 public class EntityApplicationMappingMgr implements ApplicationMappingManager {
 
     public static final String module = EntityApplicationMappingMgr.class.getName();
@@ -65,7 +66,7 @@ public class EntityApplicationMappingMgr implements ApplicationMappingManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll("WfApplicationMap");
+            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfApplicationMap);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

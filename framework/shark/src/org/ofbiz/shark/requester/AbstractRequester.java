@@ -122,11 +122,11 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
 
         // these are static values available to the service
         wrdMap.put("eventType", event.event_type());
-        wrdMap.put("activityId", event.activity_key());
-        wrdMap.put("activityName", event.activity_name());
-        wrdMap.put("processId", event.process_key());
-        wrdMap.put("processName", event.process_name());
-        wrdMap.put("processMgrName", event.process_mgr_name());
+        wrdMap.put(org.ofbiz.shark.SharkConstants.activityId, event.activity_key());
+        wrdMap.put(org.ofbiz.shark.SharkConstants.activityName, event.activity_name());
+        wrdMap.put(org.ofbiz.shark.SharkConstants.processId, event.process_key());
+        wrdMap.put(org.ofbiz.shark.SharkConstants.processName, event.process_name());
+        wrdMap.put(org.ofbiz.shark.SharkConstants.processMgrName, event.process_mgr_name());
         wrdMap.put("processMgrVersion", event.process_mgr_version());
         wrdMap.put("eventTime", event.time_stamp().getTimestamp());
 
@@ -211,6 +211,11 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
 
     protected class WfProcessIteratorImpl extends WfProcessIteratorWrapper implements Serializable {
 
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
         public WfProcessIteratorImpl(SharkTransaction trans, List performers) throws BaseException {
             super(trans, null, performers);
         }
@@ -219,4 +224,4 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
             super(null, null, performers);
         }
     }
-}
+} 

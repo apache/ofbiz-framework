@@ -38,7 +38,6 @@ import org.enhydra.shark.api.internal.eventaudit.EventAuditException;
 import org.enhydra.shark.api.internal.eventaudit.EventAuditManagerInterface;
 import org.enhydra.shark.api.internal.eventaudit.StateEventAuditPersistenceInterface;
 import org.enhydra.shark.api.internal.working.CallbackUtilities;
-
 public class EntityAuditMgr implements EventAuditManagerInterface {
 
     public static final String module = EntityAuditMgr.class.getName();
@@ -172,7 +171,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
         List createProcessEvents = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfEventAudit", UtilMisc.toMap("auditType", "processCreated", "processId", processId));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.auditType, "processCreated", org.ofbiz.shark.SharkConstants.processId, processId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new EventAuditException(e);
@@ -182,7 +181,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 if (v != null) {
-                    createProcessEvents.add(new CreateProcessEventAudit(this, delegator, v.getString("eventAuditId")));
+                    createProcessEvents.add(new CreateProcessEventAudit(this, delegator, v.getString(org.ofbiz.shark.SharkConstants.eventAuditId)));
                 }
             }
         }
@@ -195,7 +194,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
         List stateEvents = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfEventAudit", UtilMisc.toMap("auditType", "processStateChanged", "processId", processId));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.auditType, "processStateChanged", org.ofbiz.shark.SharkConstants.processId, processId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new EventAuditException(e);
@@ -205,7 +204,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 if (v != null) {
-                    stateEvents.add(new StateEventAudit(this, delegator, v.getString("eventAuditId")));
+                    stateEvents.add(new StateEventAudit(this, delegator, v.getString(org.ofbiz.shark.SharkConstants.eventAuditId)));
                 }
             }
         }
@@ -218,7 +217,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
         List dataEvents = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfEventAudit", UtilMisc.toMap("auditType", "processContextChanged", "processId", processId));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.auditType, "processContextChanged", org.ofbiz.shark.SharkConstants.processId, processId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new EventAuditException(e);
@@ -228,7 +227,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 if (v != null) {
-                    dataEvents.add(new DataEventAudit(this, delegator, v.getString("eventAuditId")));
+                    dataEvents.add(new DataEventAudit(this, delegator, v.getString(org.ofbiz.shark.SharkConstants.eventAuditId)));
                 }
             }
         }
@@ -242,7 +241,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
         List assignmentEvents = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfEventAudit", UtilMisc.toMap("auditType", "activityAssignmentChanged", "processId", processId, "activityId", activityId));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.auditType, "activityAssignmentChanged", org.ofbiz.shark.SharkConstants.processId, processId, org.ofbiz.shark.SharkConstants.activityId, activityId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new EventAuditException(e);
@@ -252,7 +251,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 if (v != null) {
-                    assignmentEvents.add(new AssignmentEventAudit(this, delegator, v.getString("eventAuditId")));
+                    assignmentEvents.add(new AssignmentEventAudit(this, delegator, v.getString(org.ofbiz.shark.SharkConstants.eventAuditId)));
                 }
             }
         }
@@ -265,7 +264,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
         List stateEvents = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfEventAudit", UtilMisc.toMap("auditType", "activityStateChanged", "processId", processId, "activityId", activityId));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.auditType, "activityStateChanged", org.ofbiz.shark.SharkConstants.processId, processId, org.ofbiz.shark.SharkConstants.activityId, activityId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new EventAuditException(e);
@@ -275,7 +274,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 if (v != null) {
-                    stateEvents.add(new StateEventAudit(this, delegator, v.getString("eventAuditId")));
+                    stateEvents.add(new StateEventAudit(this, delegator, v.getString(org.ofbiz.shark.SharkConstants.eventAuditId)));
                 }
             }
         }
@@ -288,7 +287,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
         List dataEvents = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findByAnd("WfEventAudit", UtilMisc.toMap("auditType", "activityContextChanged", "processId", processId, "activityId", activityId));
+            lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.auditType, "activityContextChanged", org.ofbiz.shark.SharkConstants.processId, processId, org.ofbiz.shark.SharkConstants.activityId, activityId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new EventAuditException(e);
@@ -298,7 +297,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 if (v != null) {
-                    dataEvents.add(new DataEventAudit(this, delegator, v.getString("eventAuditId")));
+                    dataEvents.add(new DataEventAudit(this, delegator, v.getString(org.ofbiz.shark.SharkConstants.eventAuditId)));
                 }
             }
         }

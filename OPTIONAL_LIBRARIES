@@ -7,41 +7,47 @@ NOTE: While these aren't included in the main SVN repository they are available 
 -=- Workflow __________________________________________________________________________________________________________________________________________________
 
 -Shark (LGPL):
-  http://www.enhydra.org/workflow/shark/
+  http://www.enhydra.org/workflow/shark/ 
+  Current version : http://shark.objectweb.org/doc/1.1/release_notes/release_notes.html
   framework/shark/lib:
-    sharkassignment-historyrelated.jar
-    sharkassignment-standard.jar
-    sharkassignment-xpdlstraightparticipantmapping.jar
-    sharkauthentication-ldap.jar
-    sharkcaching-lru.jar
-    sharkclientapi.jar
-    sharkcommonapi.jar
-    sharkcorbaclientapi.jar
-    sharkcorbaserver.jar
-    sharkeventaudit-smtp.jar
-    sharkinternalapi.jar
-    sharkinteroperability-wfxml.jar
-    sharkkernel-standard.jar
-    sharklimitagent-standard.jar
-    sharklimitagent-timer.jar
-    sharklogging-standard.jar
-    sharkprocesslocking-memory.jar
-    sharkrepositorypersistence-filesystem.jar
-    sharkscripting-standard.jar
-    sharksecurity-standard.jar
-    sharktoolagent-standard.jar
-    sharkusergroup-ldap.jar
-    sharkutilities-common.jar
-    sharkutilities-map.jar
-    sharkutilities-misc.jar
-    sharkwebservice-asap.jar
-    sharkwebservice-asapapi.jar
-    sharkwebservice-asaputils.jar
-    sharkwebservice-wfxmlapi.jar
-    sharkwebservice-wfxmlutils.jar
-    sharkxpdl-standard.jar
-    wrd.jar
-  NOTE: these jars are based on a build from source done on 03 May 2005 (see old SVN rev 4944). 
+     js.jar
+     sharkassignment-historyrelated-1.2_1.jar
+     sharkassignment-standard-1.2_1.jar
+     sharkassignment-xpdlstraightparticipantmapping-1.2_1.jar
+     sharkauthentication-ldap-1.2_1.jar
+     sharkcaching-lru-1.2_1.jar
+     sharkclientapi-1.2_1.jar
+     sharkcommonapi-1.2_1.jar
+     sharkcorbaadmin-1.2_1.jar
+     sharkcorbaclientapi-1.2_1.jar
+     sharkcorbaserver-1.2_1.jar
+     sharkcorbawhandler-1.2_1.jar
+     sharkeventaudit-notifying-1.2_1.jar
+     sharkeventaudit-smtp-1.2_1.jar
+     sharkinternalapi-1.2_1.jar
+     sharkinteroperability-wfxml-1.2_1.jar
+     sharkkernel-standard-1.2_1.jar
+     sharklimitagent-standard-1.2_1.jar
+     sharklimitagent-timer-1.2_1.jar
+     sharklogging-standard-1.2_1.jar
+     sharkprocesslocking-memory-1.2_1.jar
+     sharkrepositorypersistence-filesystem-1.2_1.jar
+     sharkscripting-standard-1.2_1.jar
+     sharksecurity-standard-1.2_1.jar
+     sharktoolagent-standard-1.2_1.jar
+     sharkusergroup-ldap-1.2_1.jar
+     sharkutilities-common-1.2_1.jar
+     sharkutilities-map-1.2_1.jar
+     sharkutilities-misc-1.2_1.jar
+     sharkwebservice-asap-1.2_1.jar
+     sharkwebservice-asapapi-1.2_1.jar
+     sharkwebservice-asaputils-1.2_1.jar
+     sharkwebservice-wfxml-1.2_1.jar
+     sharkwebservice-wfxmlapi-1.2_1.jar
+     sharkwebservice-wfxmlutils-1.2_1.jar
+     sharkxpdl-standard-1.2_1.jar
+     wrd-1.2_1.jar  
+    NOTE: these jars based on a build from version 1.2_1 may be found attached in https://issues.apache.org/jira/browse/OFBIZ-552  
     For an updated version some changes to the integration code in the shark component may be necessary.
   TO BUILD: once the jars are in place you can build from the ofbiz/framework/shark directory, or
     you can add it to the build list in the ofbiz/build.xml file in the framework-builds file list.
@@ -49,6 +55,10 @@ NOTE: While these aren't included in the main SVN repository they are available 
     file or other containers file being used. The shark-container container should be un-commented.
   TO DEPLOY, PART 2: to get the component to load on startup, and get the webapp in place and such
     the shark component needs to be uncommented in the framework/component-load.xml file.
+  You may experiment online with Jawe XPDL editor : http://www.enhydra.org/workflow/jawe/index.html
+  There is an example XPDL file in https://issues.apache.org/jira/browse/OFBIZ-552
+  it came from http://www.wfmc.org/standards/docs/xpdl_sample/sample%20workflow%20process.xpdl
+  For the moment Shark engine in OFBiz refuses to load it (OK in Jawe) 
 
 -=- Web Presentation: ________________________________________________________________________________________________________________________________________________
 
@@ -95,10 +105,10 @@ NOTE: While these aren't included in the main SVN repository they are available 
 
 - JIMI (used by FOP ):
   http://java.sun.com/products/jimi
-	FOP may require a library called JIMI to print certain graphical formats such as GIFs.  Jimi is a Sun library which cannot
-	be included in OFBIZ due to licensing incompatibility, but you can download it yourself at: http://java.sun.com/products/jimi/
-	and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time 
-	is ${ofbiz.home}/framework/webapp/lib/
+    FOP may require a library called JIMI to print certain graphical formats such as GIFs.  Jimi is a Sun library which cannot
+    be included in OFBIZ due to licensing incompatibility, but you can download it yourself at: http://java.sun.com/products/jimi/
+    and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time 
+    is ${ofbiz.home}/framework/webapp/lib/
 
 -=- POS _______________________________________________________________________________________________________________________________________________________
 

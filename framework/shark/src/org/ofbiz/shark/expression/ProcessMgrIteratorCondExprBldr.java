@@ -19,13 +19,19 @@
 package org.ofbiz.shark.expression;
 
 import org.enhydra.shark.api.common.ProcessMgrIteratorExpressionBuilder;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
 public class ProcessMgrIteratorCondExprBldr extends BaseEntityCondExprBldr implements ProcessMgrIteratorExpressionBuilder {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     public ProcessMgrIteratorCondExprBldr() {
-        this.addEntity("WFPM", "WfProcessMgr");
+        this.addEntity("WFPM", org.ofbiz.shark.SharkConstants.WfProcessMgr);
         this.addAllFields("WFPM");
     }
 
@@ -45,27 +51,27 @@ public class ProcessMgrIteratorCondExprBldr extends BaseEntityCondExprBldr imple
     }
 
     public ProcessMgrIteratorExpressionBuilder addPackageIdEquals(String s) {
-        this.addCondition(new EntityExpr("packageId", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.packageId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addProcessDefIdEquals(String s) {
-        this.addCondition(new EntityExpr("definitionId", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.definitionId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addNameEquals(String s) {
-        this.addCondition(new EntityExpr("mgrName", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.mgrName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addVersionEquals(String s) {
-        this.addCondition(new EntityExpr("packageVer", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.packageVer, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addIsEnabled() {
-        this.addCondition(new EntityExpr("currentState", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(0)));
+        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.currentState, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(0)));
         return this;
     }
 
@@ -85,5 +91,50 @@ public class ProcessMgrIteratorCondExprBldr extends BaseEntityCondExprBldr imple
             this.addCondition(((BaseEntityCondExprBldr) builder).getCondition());
         }
         return this;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder addCreatedTimeEquals(long arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder addCreatedTimeEquals(long arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder addCreatedTimeBefore(long arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder addCreatedTimeBefore(long arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder addCreatedTimeAfter(long arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder addCreatedTimeAfter(long arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder setOrderByPackageId(boolean arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder setOrderByPackageId(boolean arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder setOrderByProcessDefId(boolean arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder setOrderByProcessDefId(boolean arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder setOrderByName(boolean arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder setOrderByName(boolean arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder setOrderByVersion(boolean arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder setOrderByVersion(boolean arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder setOrderByCreatedTime(boolean arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder setOrderByCreatedTime(boolean arg0)",module);
+        return null;
+    }
+
+    public ProcessMgrIteratorExpressionBuilder setOrderByEnabled(boolean arg0) {
+        Debug.logInfo("Call : ProcessMgrIteratorExpressionBuilder setOrderByEnabled(boolean arg0)",module);
+        return null;
     }
 }

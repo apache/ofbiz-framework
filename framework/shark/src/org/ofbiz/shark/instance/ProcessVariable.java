@@ -31,6 +31,7 @@ import org.ofbiz.shark.container.SharkContainer;
 /**
  * Persistance Object
  */
+
 public class ProcessVariable extends InstanceEntityObject implements ProcessVariablePersistenceInterface {
 
     public static final String module = ProcessVariable.class.getName();
@@ -42,7 +43,7 @@ public class ProcessVariable extends InstanceEntityObject implements ProcessVari
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.processVariable = delegator.findByPrimaryKey("WfProcessVariable", UtilMisc.toMap("processVariableId", processVariableId));
+                this.processVariable = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfProcessVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processVariableId, processVariableId));
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }
@@ -59,7 +60,7 @@ public class ProcessVariable extends InstanceEntityObject implements ProcessVari
     public ProcessVariable(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.processVariable = delegator.makeValue("WfProcessVariable", UtilMisc.toMap("processVariableId", delegator.getNextSeqId("WfProcessVariable")));
+        this.processVariable = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcessVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processVariableId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfProcessVariable)));
         Debug.log("******* New process variable created", module);
     }
 
@@ -87,42 +88,42 @@ public class ProcessVariable extends InstanceEntityObject implements ProcessVari
     }
 
     public void setProcessId(String pId) {
-        processVariable.set("processId", pId);
+        processVariable.set(org.ofbiz.shark.SharkConstants.processId, pId);
     }
 
     public String getProcessId() {
-        return processVariable.getString("processId");
+        return processVariable.getString(org.ofbiz.shark.SharkConstants.processId);
     }
 
     public void setDefinitionId(String defId) {
-        processVariable.set("definitionId", defId);
+        processVariable.set(org.ofbiz.shark.SharkConstants.definitionId, defId);
     }
 
     public String getDefinitionId() {
-        return processVariable.getString("definitionId");
+        return processVariable.getString(org.ofbiz.shark.SharkConstants.definitionId);
     }
 
     public void setValue(Object val) {
         if (val instanceof String) {
-            processVariable.set("valueField", "strValue");
-            processVariable.set("strValue", val);
+            processVariable.set(org.ofbiz.shark.SharkConstants.valueField, org.ofbiz.shark.SharkConstants.strValue);
+            processVariable.set(org.ofbiz.shark.SharkConstants.strValue, val);
         } else if (val instanceof Number) {
             if (val instanceof Double) {
-                processVariable.set("valueField", "dblValue");
-                processVariable.set("dblValue", val);
+                processVariable.set(org.ofbiz.shark.SharkConstants.valueField, org.ofbiz.shark.SharkConstants.dblValue);
+                processVariable.set(org.ofbiz.shark.SharkConstants.dblValue, val);
             } else {
-                processVariable.set("valueField", "numValue");
-                processVariable.set("numValue", val);
+                processVariable.set(org.ofbiz.shark.SharkConstants.valueField, org.ofbiz.shark.SharkConstants.numValue);
+                processVariable.set(org.ofbiz.shark.SharkConstants.numValue, val);
             }
         } else {
             byte[] value = UtilObject.getBytes(val);
-            processVariable.setBytes("objValue", (value != null ? value : null));
+            processVariable.setBytes(org.ofbiz.shark.SharkConstants.objValue, (value != null ? value : null));
         }
     }
 
     public Object getValue() {
-        String fieldName = processVariable.getString("valueField");
-        if ("objValue".equals(fieldName)) {
+        String fieldName = processVariable.getString(org.ofbiz.shark.SharkConstants.valueField);
+        if (org.ofbiz.shark.SharkConstants.objValue.equals(fieldName)) {
             byte[] value = processVariable.getBytes(fieldName);
             return UtilObject.getObject(value);
         } else {

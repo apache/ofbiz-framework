@@ -36,6 +36,7 @@ if (userLogin == null) {
 // connect to the engine
 exMgr.connect(userLogin.getString("userLoginId"), userLogin.getString("currentPassword"), null, null);
 
+
 // handle accept/complete
 if (request.getParameter("mode") != null) {
     String mode = request.getParameter("mode");
@@ -78,5 +79,3 @@ context.put("assignments", assignments);
 
 // disconnect from the engine
 exMgr.disconnect();
-
-

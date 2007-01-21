@@ -35,6 +35,7 @@ if (userLogin == null) {
 // connect to the engine
 exMgr.connect(userLogin.getString("userLoginId"), userLogin.getString("currentPassword"), null, null);
 
+
 // enabled state code
 context.put("enabledCode", process_mgr_stateType._enabled);
 
@@ -54,6 +55,14 @@ if (request.getParameter("create") != null) {
     }
 }
 
+if (request.getParameter("deleteFinished") != null) {
+    try {
+        exMgr.deleteClosedProcesses();
+    } catch (Exception e) {
+        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+    }
+}
+
 // disable the mgr
 if (request.getParameter("disable") != null) {
     mgrName = request.getParameter("disable");
@@ -64,6 +73,7 @@ if (request.getParameter("disable") != null) {
             mgr.set_process_mgr_state(disabledType);
         }
     } catch (Exception e) {
+    e.printStackTrace();
         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
     }
 }
@@ -85,11 +95,17 @@ if (request.getParameter("enable") != null) {
 // get the process managers
 pi = exMgr.get_iterator_processmgr();
 if (pi != null) {
+try{
     mgrList = new ArrayList();
     size = pi.how_many();
     mgrs = pi.get_next_n_sequence(size);
     Debug.log("Mgrs : " + mgrs.length);
     context.put("processMgrs", Arrays.asList(mgrs));
+//    throw new Exception();
+    }catch(Exception e)
+    {
+        e.printStackTrace();
+    }
 }
 
 

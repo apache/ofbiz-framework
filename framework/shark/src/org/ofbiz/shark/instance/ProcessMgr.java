@@ -33,7 +33,7 @@ import org.enhydra.shark.api.internal.instancepersistence.*;
 public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersistenceInterface {
 
     public static final String module = ProcessMgr.class.getName();
-    
+
     protected GenericValue processMgr = null;
     protected boolean newValue = false;
 
@@ -41,7 +41,7 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.processMgr = delegator.findByPrimaryKey("WfProcessMgr", UtilMisc.toMap("mgrName", name));
+                this.processMgr = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfProcessMgr, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.mgrName, name));
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }
@@ -58,7 +58,7 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
     public ProcessMgr(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.processMgr = delegator.makeValue("WfProcessMgr", UtilMisc.toMap("currentState", new Long(0)));
+        this.processMgr = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcessMgr, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.currentState, new Long(0)));
     }
 
     public static ProcessMgr getInstance(EntityPersistentMgr pmgr, GenericValue processMgr) {
@@ -85,53 +85,48 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
     }
 
     public void setName(String name) {
-        processMgr.set("mgrName", name);
+        processMgr.set(org.ofbiz.shark.SharkConstants.mgrName, name);
     }
 
     public String getName() {
-        return processMgr.getString("mgrName");
+        return processMgr.getString(org.ofbiz.shark.SharkConstants.mgrName);
     }
 
     public void setPackageId(String pkgId) {
-        processMgr.set("packageId", pkgId);
+        processMgr.set(org.ofbiz.shark.SharkConstants.packageId, pkgId);
     }
 
     public String getPackageId() {
-        return processMgr.getString("packageId");
+        return processMgr.getString(org.ofbiz.shark.SharkConstants.packageId);
     }
 
     public void setProcessDefinitionId(String pdId) {
-        processMgr.set("definitionId", pdId);
+        processMgr.set(org.ofbiz.shark.SharkConstants.definitionId, pdId);
     }
 
     public String getProcessDefinitionId() {
-        return processMgr.getString("definitionId");
+        return processMgr.getString(org.ofbiz.shark.SharkConstants.definitionId);
     }
 
     public void setState(int state) {
-        processMgr.set("currentState", new Long(state));
+        processMgr.set(org.ofbiz.shark.SharkConstants.currentState, new Long(state));
     }
 
     public int getState() {
-        return processMgr.getLong("currentState").intValue();
+        return processMgr.getLong(org.ofbiz.shark.SharkConstants.currentState).intValue();
     }
 
     public String getVersion() {
-        return processMgr.getString("packageVer");
+        return processMgr.getString(org.ofbiz.shark.SharkConstants.packageVer);
     }
 
     public void setVersion(String version) {
-        processMgr.set("packageVer", version);
+        processMgr.set(org.ofbiz.shark.SharkConstants.packageVer, version);
     }
-
-    public String getCreated() {
-        return processMgr.getString("created");
+    public long getCreated()
+    {
+        return processMgr.getLong(org.ofbiz.shark.SharkConstants.created).longValue();
     }
-
-    public void setCreated(String created) {
-        processMgr.set("created", created);
-    }
-
     public void store() throws GenericEntityException {
         if (newValue) {
             delegator.createOrStore(processMgr);
@@ -140,7 +135,6 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
             delegator.store(processMgr);
         }
     }
-
     public void reload() throws GenericEntityException {
         if (!newValue) {
             processMgr.refresh();
@@ -152,5 +146,10 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
             delegator.removeValue(processMgr);
             Debug.log("**** REMOVED : " + this, module);
         }
+    }
+
+    public void setCreated(long created)
+    {
+        processMgr.set(org.ofbiz.shark.SharkConstants.created, new Long(created));
     }
 }

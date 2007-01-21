@@ -30,6 +30,7 @@ import org.enhydra.shark.api.internal.instancepersistence.*;
 /**
  * Persistance Object
  */
+
 public class AndJoinEntry extends InstanceEntityObject implements AndJoinEntryInterface {
 
     public static final String module = AndJoinEntry.class.getName();
@@ -41,7 +42,7 @@ public class AndJoinEntry extends InstanceEntityObject implements AndJoinEntryIn
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.andJoin = delegator.findByPrimaryKey("WfAndJoin", UtilMisc.toMap("andJoinId", andJoinId));
+                this.andJoin = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfAndJoin, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.andJoinId, andJoinId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -58,7 +59,7 @@ public class AndJoinEntry extends InstanceEntityObject implements AndJoinEntryIn
     public AndJoinEntry(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.andJoin = delegator.makeValue("WfAndJoin", UtilMisc.toMap("andJoinId", delegator.getNextSeqId("WfAndJoin")));
+        this.andJoin = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfAndJoin, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.andJoinId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfAndJoin)));
     }
 
     public static AndJoinEntry getInstance(EntityPersistentMgr mgr, GenericValue andJoin) {
@@ -85,35 +86,35 @@ public class AndJoinEntry extends InstanceEntityObject implements AndJoinEntryIn
     }
 
     public void setProcessId(String procId) {
-        andJoin.set("processId", procId);
+        andJoin.set(org.ofbiz.shark.SharkConstants.processId, procId);
     }
 
     public String getProcessId() {
-        return andJoin.getString("processId");
+        return andJoin.getString(org.ofbiz.shark.SharkConstants.processId);
     }
 
     public void setActivitySetDefinitionId(String asdId) {
-        andJoin.set("activitySetDefId", asdId);
+        andJoin.set(org.ofbiz.shark.SharkConstants.activitySetDefId, asdId);
     }
 
     public String getActivitySetDefinitionId() {
-        return andJoin.getString("activitySetDefId");
+        return andJoin.getString(org.ofbiz.shark.SharkConstants.activitySetDefId);
     }
 
     public void setActivityDefinitionId(String adId) {
-        andJoin.set("activityDefId", adId);
+        andJoin.set(org.ofbiz.shark.SharkConstants.activityDefId, adId);
     }
 
     public String getActivityDefinitionId() {
-        return andJoin.getString("activityDefId");
+        return andJoin.getString(org.ofbiz.shark.SharkConstants.activityDefId);
     }
 
     public void setActivityId(String actId) {
-        andJoin.set("activityId", actId);
+        andJoin.set(org.ofbiz.shark.SharkConstants.activityId, actId);
     }
 
     public String getActivityId() {
-        return andJoin.getString("activityId");
+        return andJoin.getString(org.ofbiz.shark.SharkConstants.activityId);
     }
 
     public void store() throws GenericEntityException {

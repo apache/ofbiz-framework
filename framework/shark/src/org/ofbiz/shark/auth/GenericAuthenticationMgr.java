@@ -23,6 +23,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.shark.container.SharkContainer;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.common.login.LoginServices;
 
 import org.enhydra.shark.api.internal.authentication.AuthenticationManager;
 import org.enhydra.shark.api.internal.working.CallbackUtilities;
@@ -44,18 +45,24 @@ public class GenericAuthenticationMgr implements AuthenticationManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         GenericValue sharkUser = null;
         try {
-            sharkUser = delegator.findByPrimaryKey("SharkUser", UtilMisc.toMap("userName", userName));
+            sharkUser = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkUser, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, userName));
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }
-
+        
         if (sharkUser != null) {
-            String registeredPwd = sharkUser.getString("passwd");
+            String registeredPwd = sharkUser.getString(org.ofbiz.shark.SharkConstants.passwd);
             if (password.equals(registeredPwd)) {
                 return true;
+            } else if (LoginServices.getPasswordHash(password).equals(registeredPwd)){
+                return true;
+            } else if (LoginServices.getPasswordHash(registeredPwd).equals(password)){
+                return true;
+            } else {
+                return false;
             }
         }
-
+ 
         return false;
     }
 }

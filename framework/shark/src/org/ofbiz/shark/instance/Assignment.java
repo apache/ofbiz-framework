@@ -30,6 +30,7 @@ import org.enhydra.shark.api.internal.instancepersistence.*;
 /**
  * Persistance Object
  */
+
 public class Assignment extends InstanceEntityObject implements AssignmentPersistenceInterface {
 
     public static final String module = Assignment.class.getName();
@@ -41,7 +42,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.assignment = delegator.findByPrimaryKey("WfAssignment", UtilMisc.toMap("activityId", activityId, "userName", userName));
+                this.assignment = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfAssignment, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityId, activityId, org.ofbiz.shark.SharkConstants.userName, userName));
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }
@@ -58,7 +59,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
     public Assignment(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.assignment = delegator.makeValue("WfAssignment", null);
+        this.assignment = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfAssignment, null);
         Debug.log("******* New assignment created", module);
     }
 
@@ -86,7 +87,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
     }
 
     public void setActivityId(String actId) {
-        assignment.set("activityId", actId);
+        assignment.set(org.ofbiz.shark.SharkConstants.activityId, actId);
         Debug.log("Set activityId on assignment : " + actId, module);
         // set the processId - kludge
         /* should not be needed anymore
@@ -102,33 +103,33 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
     }
 
     public String getActivityId() {
-        return assignment.getString("activityId");
+        return assignment.getString(org.ofbiz.shark.SharkConstants.activityId);
     }
 
     public void setResourceUsername(String username) {
-        assignment.set("userName", username);
+        assignment.set(org.ofbiz.shark.SharkConstants.userName, username);
         Debug.log("Set userName on assignment : " + username, module);
     }
 
     public String getResourceUsername() {
-        return assignment.getString("userName");
+        return assignment.getString(org.ofbiz.shark.SharkConstants.userName);
     }
 
     public void setProcessId(String procId) {
-        assignment.set("processId", procId);
+        assignment.set(org.ofbiz.shark.SharkConstants.processId, procId);
         Debug.log("Set processId on assignment : " + procId, module);
     }
 
     public String getProcessId() {
-        return assignment.getString("processId");
+        return assignment.getString(org.ofbiz.shark.SharkConstants.processId);
     }
 
     public void setValid(boolean valid) {
-        assignment.set("isValid", valid ? "Y" : "N");
+        assignment.set(org.ofbiz.shark.SharkConstants.isValid, valid ? "Y" : "N");
     }
 
     public boolean isValid() {
-        return (assignment.get("isValid") == null ? false : "Y".equalsIgnoreCase(assignment.getString("isValid")));
+        return (assignment.get(org.ofbiz.shark.SharkConstants.isValid) == null ? false : "Y".equalsIgnoreCase(assignment.getString(org.ofbiz.shark.SharkConstants.isValid)));
     }
 
     public void store() throws GenericEntityException {
@@ -152,5 +153,24 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
             delegator.removeValue(assignment);
             Debug.log("**** REMOVED : " + this, module);
         }
+    }
+
+    public void setProcessMgrName(String s) 
+    {
+        assignment.set(org.ofbiz.shark.SharkConstants.mgrName, s);
+    }
+
+    public String getProcessMgrName() {
+        return assignment.getString(org.ofbiz.shark.SharkConstants.mgrName);
+    }
+
+    public void setAccepted(boolean valid) 
+    {
+        assignment.set(org.ofbiz.shark.SharkConstants.accepted, valid ? "Y" : "N");
+
+    }
+
+    public boolean isAccepted() {
+        return (assignment.get(org.ofbiz.shark.SharkConstants.accepted) == null ? false : "Y".equalsIgnoreCase(assignment.getString(org.ofbiz.shark.SharkConstants.accepted)));
     }
 }

@@ -52,8 +52,10 @@ under the License.
           <td>&nbsp;</td>
           <#if proc.state() == "open.not_running.not_started">
             <td align="center"><a href="<@ofbizUrl>processDetailList?manager=${manager?replace("#", "%23")?if_exists}&start=${proc.key()}</@ofbizUrl>" class="buttontext">Start</a></td>
+            <td align="center"><a href="<@ofbizUrl>processDetailList?manager=${manager?replace("#", "%23")?if_exists}&delete=${proc.key()}</@ofbizUrl>" class="buttontext">Delete</a></td>
           <#elseif proc.state() == "open.not_running.suspended">
             <td align="center"><a href="<@ofbizUrl>processDetailList?manager=${manager?replace("#", "%23")?if_exists}&resume=${proc.key()}</@ofbizUrl>" class="buttontext">Resume</a></td>
+            <td align="center"><a href="<@ofbizUrl>processDetailList?manager=${manager?replace("#", "%23")?if_exists}&delete=${proc.key()}</@ofbizUrl>" class="buttontext">Delete</a></td>
           <#else>
             <td>&nbsp;</td>
           </#if>

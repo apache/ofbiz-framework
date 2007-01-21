@@ -46,7 +46,7 @@ public class DataEventAudit extends EventAudit implements DataEventAuditPersiste
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
-                this.dataEventAudit = delegator.findByPrimaryKey("WfDataEventAudit", UtilMisc.toMap("eventAuditId", eventAuditId));
+                this.dataEventAudit = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfDataEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, eventAuditId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -58,21 +58,21 @@ public class DataEventAudit extends EventAudit implements DataEventAuditPersiste
     public DataEventAudit(EntityAuditMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.dataEventAudit = delegator.makeValue("WfDataEventAudit", UtilMisc.toMap("eventAuditId", this.eventAuditId));
+        this.dataEventAudit = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfDataEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, this.eventAuditId));
     }
 
     public DataEventAudit(EntityAuditMgr mgr, GenericValue dataEventAudit) {
-        super(mgr, dataEventAudit.getDelegator(), dataEventAudit.getString("eventAuditId"));
+        super(mgr, dataEventAudit.getDelegator(), dataEventAudit.getString(org.ofbiz.shark.SharkConstants.eventAuditId));
         this.dataEventAudit = dataEventAudit;
     }
-        
+
     public void setOldData(Map od) {
         byte[] value = serialize(od);
-        dataEventAudit.setBytes("oldData", (value != null ? value : null));
+        dataEventAudit.setBytes(org.ofbiz.shark.SharkConstants.oldData, (value != null ? value : null));
     }
 
     public Map getOldData() {
-        byte[] value = dataEventAudit.getBytes("oldData");
+        byte[] value = dataEventAudit.getBytes(org.ofbiz.shark.SharkConstants.oldData);
         if (value != null) {
             return deserialize(value);
         }
@@ -81,11 +81,11 @@ public class DataEventAudit extends EventAudit implements DataEventAuditPersiste
 
     public void setNewData(Map nd) {
         byte[] value = serialize(nd);
-        dataEventAudit.setBytes("newData", (value != null ? value : null));
+        dataEventAudit.setBytes(org.ofbiz.shark.SharkConstants.newData, (value != null ? value : null));
     }
 
     public Map getNewData() {
-        byte[] value = dataEventAudit.getBytes("newData");
+        byte[] value = dataEventAudit.getBytes(org.ofbiz.shark.SharkConstants.newData);
         if (value != null) {
             return deserialize(value);
         }
@@ -182,3 +182,4 @@ public class DataEventAudit extends EventAudit implements DataEventAuditPersiste
         return bytes;
     }
 }
+

@@ -18,20 +18,24 @@
  *******************************************************************************/
 package org.ofbiz.shark.instance;
 
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.base.util.UtilMisc;
+import org.enhydra.shark.api.internal.instancepersistence.PersistenceException;
+import org.enhydra.shark.api.internal.instancepersistence.ProcessMgrPersistenceInterface;
+import org.enhydra.shark.api.internal.instancepersistence.ProcessPersistenceInterface;
+
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
 
-import org.enhydra.shark.api.internal.instancepersistence.*;
+
 
 /**
  * Persistance Object
  */
+
 public class Process extends InstanceEntityObject implements ProcessPersistenceInterface {
 
     public static final String module = Process.class.getName();
@@ -43,8 +47,10 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
-                this.process = delegator.findByPrimaryKey("WfProcess", UtilMisc.toMap("processId", processId));
+                this.process = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.WfProcess, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, processId));
             } catch (GenericEntityException e) {
+                Debug.logError("Invalid delegator object passed", module);
+                e.printStackTrace();
                 throw new PersistenceException(e);
             }
         } else {
@@ -60,7 +66,7 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
     public Process(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.process = delegator.makeValue("WfProcess", null);
+        this.process = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcess, null);
     }
 
     public static Process getInstance(EntityPersistentMgr mgr, GenericValue process) {
@@ -79,7 +85,7 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
         }
         Debug.log("Returning null Process ID : " + processId, module);
         if (processId == null) Debug.log(new Exception(), module);
-        return null;
+            return null;
     }
 
     public boolean isLoaded() {
@@ -90,123 +96,128 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
     }
 
     public void setId(String s) {
-        process.set("processId", s);
+        process.set(org.ofbiz.shark.SharkConstants.processId, s);
     }
 
     public String getId() {
-        return process.getString("processId");
+        return process.getString(org.ofbiz.shark.SharkConstants.processId);
     }
 
     public void setProcessMgrName(String s) {
-        process.set("mgrName", s);
+        process.set(org.ofbiz.shark.SharkConstants.mgrName, s);
         try {
             ProcessMgrPersistenceInterface pm = mgr.restoreProcessMgr(s, null);
-            process.set("packageId", pm.getPackageId());
-            process.set("packageVer", pm.getVersion());
+            process.set(org.ofbiz.shark.SharkConstants.packageId, pm.getPackageId());
+            process.set(org.ofbiz.shark.SharkConstants.packageVer, pm.getVersion());
         } catch (PersistenceException e) {
             Debug.logError(e, "Unable to set package information", module);
         }
     }
 
     public String getProcessMgrName() {
-        return process.getString("mgrName");
+        return process.getString(org.ofbiz.shark.SharkConstants.mgrName);
     }
 
     public void setExternalRequester(Object o) {
         byte[] value = UtilObject.getBytes(o);
-        process.setBytes("externalReq", (value != null ? value : null));
+        process.setBytes(org.ofbiz.shark.SharkConstants.externalReq, (value != null ? value : null));
     }
 
     public Object getExternalRequester() {
-        byte[] value = process.getBytes("externalReq");
+        byte[] value = process.getBytes(org.ofbiz.shark.SharkConstants.externalReq);
         return UtilObject.getObject(value);
     }
 
     public void setActivityRequesterId(String s) {
-        process.set("activityReqId", s);
+        process.set(org.ofbiz.shark.SharkConstants.activityReqId, s);
     }
 
     public String getActivityRequesterId() {
-        return process.getString("activityReqId");
+        return process.getString(org.ofbiz.shark.SharkConstants.activityReqId);
     }
 
     public void setActivityRequestersProcessId(String s) {
-        process.set("activityReqProcessId", s);
+        process.set(org.ofbiz.shark.SharkConstants.activityReqProcessId, s);
     }
 
     public String getActivityRequestersProcessId() {
-        return process.getString("activityReqProcessId");
+        return process.getString(org.ofbiz.shark.SharkConstants.activityReqProcessId);
     }
 
     public void setResourceRequesterId(String s) {
-        process.set("resourceReqId", s);
+        process.set(org.ofbiz.shark.SharkConstants.resourceReqId, s);
     }
 
     public String getResourceRequesterId() {
-        return process.getString("resourceReqId");
+        return process.getString(org.ofbiz.shark.SharkConstants.resourceReqId);
     }
 
     public void setState(String s) {
-        process.set("currentState", s);
+        process.set(org.ofbiz.shark.SharkConstants.currentState, s);
     }
 
     public String getState() {
-        return process.getString("currentState");
+        return process.getString(org.ofbiz.shark.SharkConstants.currentState);
     }
 
     public String getName() {
-        return process.getString("processName");
+        return process.getString(org.ofbiz.shark.SharkConstants.processName);
     }
 
     public void setName(String s) {
-        process.set("processName", s);
+        process.set(org.ofbiz.shark.SharkConstants.processName, s);
     }
 
     public String getDescription() {
-        return process.getString("description");
+        return process.getString(org.ofbiz.shark.SharkConstants.description);
     }
 
     public void setDescription(String s) {
-        process.set("description", s);
+        process.set(org.ofbiz.shark.SharkConstants.description, s);
     }
 
-    public int getPriority() {
-        return process.getLong("priority").intValue();
+    public short getPriority() {
+        return process.getLong(org.ofbiz.shark.SharkConstants.priority).shortValue();
     }
 
     public void setPriority(int i) {
-        process.set("priority", new Long(i));
+        process.set(org.ofbiz.shark.SharkConstants.priority, new Long(i));
     }
 
     public long getLastStateTime() {
-        return process.get("lastStateTime") != null ? process.getTimestamp("lastStateTime").getTime() : 0;
+        return process.get(org.ofbiz.shark.SharkConstants.lastStateTime) != null ? process.getLong(org.ofbiz.shark.SharkConstants.lastStateTime).longValue() : 0;
     }
 
     public void setLastStateTime(long timestamp) {
-        process.set("lastStateTime", UtilDateTime.getTimestamp(timestamp));
+        process.set(org.ofbiz.shark.SharkConstants.lastStateTime, new Long(timestamp));
     }
 
     public long getCreatedTime() {
-        return process.get("createdTime") != null ? process.getTimestamp("createdTime").getTime() : 0;
+        return process.get(org.ofbiz.shark.SharkConstants.createdTime) != null ? process.getLong(org.ofbiz.shark.SharkConstants.createdTime).longValue() : 0;
     }
 
     public void setCreatedTime(long time) {
-        process.set("createdTime", UtilDateTime.getTimestamp(time));
+        process.set(org.ofbiz.shark.SharkConstants.createdTime, new Long(time));
     }
 
     public long getStartedTime() {
-        return process.get("startedTime") != null ? process.getTimestamp("startedTime").getTime() : 0;
+        return process.get(org.ofbiz.shark.SharkConstants.startedTime) != null ? process.getLong(org.ofbiz.shark.SharkConstants.startedTime).longValue() : 0;
     }
 
-    public void setStartedTime(long timestamp) {
-        process.set("startedTime", UtilDateTime.getTimestamp(timestamp));
+    public void setStartedTime(long timestamp) 
+    {
+        process.set(org.ofbiz.shark.SharkConstants.startedTime, new Long(timestamp));
     }
+
 
     public void store() throws GenericEntityException {
-        if (newValue) {
+        if (newValue) 
+        {
             delegator.createOrStore(process);
             newValue = false;
-        } else {
+        }
+        else 
+        {
             delegator.store(process);
         }
     }
@@ -222,8 +233,31 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
             delegator.removeValue(process);
             Debug.log("**** REMOVED : " + this, module);
         }
+        delegator.removeByAnd(org.ofbiz.shark.SharkConstants.WfRequester, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, this.getId()));
+    }
 
-        // remove all requesters
-        delegator.removeByAnd("WfRequester", UtilMisc.toMap("processId", this.getId()));
+    public void setExternalRequesterClassName(String arg0) {
+        process.set(org.ofbiz.shark.SharkConstants.ExternalRequesterClassName, arg0);
+    }
+
+    public String getExternalRequesterClassName() {
+        return (String)process.get(org.ofbiz.shark.SharkConstants.ExternalRequesterClassName);
+    }
+
+    public void setPriority(short arg0) {
+        process.set(org.ofbiz.shark.SharkConstants.priority, new Long(arg0));
+
+    }
+
+    public long getLimitTime() {
+        if (this.process.get(org.ofbiz.shark.SharkConstants.timeLimit) != null) {
+            return this.process.getLong(org.ofbiz.shark.SharkConstants.timeLimit).longValue();
+        } else {
+            return -1;
+        }
+    }
+
+    public void setLimitTime(long timeLimit) {
+        process.set(org.ofbiz.shark.SharkConstants.timeLimit, new Long(timeLimit));
     }
 }

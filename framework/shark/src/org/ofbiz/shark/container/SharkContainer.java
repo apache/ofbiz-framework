@@ -19,38 +19,46 @@
 package org.ofbiz.shark.container;
 
 import java.util.Properties;
-
-import org.ofbiz.base.container.Container;
-import org.ofbiz.base.container.ContainerException;
-import org.ofbiz.base.container.ContainerConfig;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.GeneralRuntimeException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
+import java.util.StringTokenizer;
 
 import org.enhydra.shark.Shark;
-import org.enhydra.shark.corba.SharkCORBAServer;
-import org.enhydra.shark.api.client.wfservice.AdminInterface;
-import org.enhydra.shark.api.client.wfservice.RepositoryMgr;
-import org.enhydra.shark.api.client.wfservice.SharkConnection;
-import org.enhydra.shark.api.client.wfservice.ExecutionAdministration;
-import org.enhydra.shark.api.client.wfservice.ConnectFailed;
-import org.enhydra.shark.api.client.wfservice.NotConnected;
-import org.enhydra.shark.api.client.wfbase.BaseException;
 import org.enhydra.shark.api.SharkTransaction;
 import org.enhydra.shark.api.TransactionException;
+import org.enhydra.shark.api.client.wfbase.BaseException;
+import org.enhydra.shark.api.client.wfservice.AdminInterface;
+import org.enhydra.shark.api.client.wfservice.ConnectFailed;
+import org.enhydra.shark.api.client.wfservice.ExecutionAdministration;
+import org.enhydra.shark.api.client.wfservice.NotConnected;
+import org.enhydra.shark.api.client.wfservice.RepositoryMgr;
+import org.enhydra.shark.api.client.wfservice.SharkConnection;
+import org.enhydra.shark.corba.poa.SharkCORBAServer;
+import org.ofbiz.base.container.Container;
+import org.ofbiz.base.container.ContainerConfig;
+import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralRuntimeException;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 
 /**
  * Shark Workflow Engine Container
  */
-public class SharkContainer implements Container, Runnable {
 
+
+/**
+ * Shark Workflow Engine Container
+ *
+ * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
+ * @since      3.1
+ */
+public class SharkContainer implements Container, Runnable 
+{
     public static final String module = SharkContainer.class.getName();
 
     private static GenericDelegator delegator = null;
@@ -62,7 +70,7 @@ public class SharkContainer implements Container, Runnable {
     protected String configFile = null;
     private SharkCORBAServer corbaServer = null;
     private Thread orbThread = null;
-
+    
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
@@ -123,7 +131,7 @@ public class SharkContainer implements Container, Runnable {
             Debug.logWarning("Invalid admin-user; UserLogin not found not starting Shark!", module);
             return false;
         }
-        
+
         SharkContainer.adminPass = adminPassProp.value;
 
         // set the Shark configuration
@@ -150,11 +158,11 @@ public class SharkContainer implements Container, Runnable {
                 }
             }
         }
-       
         // re-eval current assignments
         ExecutionAdministration exAdmin = SharkContainer.getAdminInterface().getExecutionAdministration();
         try {
-            exAdmin.connect(adminUser.getString("userLoginId"), SharkContainer.adminPass, null, null);
+            //exAdmin.connect(adminUser.getString("userLoginId"), SharkContainer.adminPass, null, null);
+            exAdmin.connect(adminUser.getString("userLoginId"), adminUser.getString("currentPassword"), null, null);
             // this won't work with encrypted passwords: exAdmin.connect(adminUser.getString("userLoginId"), adminUser.getString("currentPassword"), null, null);
             exAdmin.reevaluateAssignments();
             exAdmin.disconnect();
