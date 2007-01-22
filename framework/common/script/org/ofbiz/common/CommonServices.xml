@@ -18,6 +18,24 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <simple-method method-name="commonGenericPermission" short-description="Main permission logic">
+        <set field="mainAction" from-field="parameters.mainAction"/>
+        <if-empty field-name="mainAction">
+            <add-error><fail-message message="In the permission-service element for the commonGenericPermission service the main-action attribute was missing but is required"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <if-has-permission permission="COMMON" action="_${parameters.mainAction}">
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <field-to-result field-name="hasPermission"/>
+            <else>
+                <property-to-field resource="CommonUiLabels" property="CommonPermissionErrorMessage" field-name="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field-name="hasPermission"/>
+                <field-to-result field-name="failMessage"/>
+            </else>
+        </if-has-permission>
+    </simple-method>
+    
     <simple-method method-name="createKeywordThesaurus" short-description="Create a KeywordThesaurus">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createKeywordThesaurus you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
@@ -146,7 +164,5 @@ under the License.
             </call-service>
         </else>
         </if-empty>
-
     </simple-method>
-
 </simple-methods>
