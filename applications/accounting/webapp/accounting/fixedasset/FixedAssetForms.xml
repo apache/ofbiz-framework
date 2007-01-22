@@ -423,5 +423,39 @@ under the License.
         <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMaintMeterValue}"><text size="20" /></field> 
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+    <!-- List all fixed asset Maintenance Order  -->
+    <form name="ListFixedAssetMaintOrders" type="list"  list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
+         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <actions>
+            <entity-condition entity-name="FixedAssetMaintOrder" list-name="fixedAssetMaintOrders">
+                <condition-list combine="and">
+                    <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+                    <condition-expr field-name="maintHistSeqId" env-name="maintHistSeqId"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="FixedAssetMaintOrder"/>
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="maintHistSeqId"><hidden/></field>
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" also-hidden="false" description="${orderId}" target-type="inter-app"/>            
+        </field>
+        <field name="orderItemSeqId"><display/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteFixedAssetMaintOrder?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}&amp;orderId=${orderId}&amp;orderItemSeqId=${orderItemSeqId}"
+                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <!-- create and update a Order on a fixed asset -->
+    <form name="AddFixedAssetMaintOrder" type="single" 
+            target="createFixedAssetMaintOrder" title="" default-map-name="fixedAssetMaintOrder"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">        
+        <auto-fields-service service-name="createFixedAssetMaintOrder" map-name="fixedAssetMaintOrder"/>
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="maintHistSeqId"><hidden/></field>
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
+        <field name="orderItemSeqId"><text size="20" /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+        
 </forms>

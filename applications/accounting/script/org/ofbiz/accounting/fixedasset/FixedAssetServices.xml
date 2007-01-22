@@ -598,4 +598,45 @@ under the License.
         <entity-one entity-name="FixedAssetMaintMeter" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <!--  create/update/delete FixedAssetMaintOrder -->
+    <simple-method method-name="createFixedAssetMaintOrder" short-description="Create a FixedAsset Maintenance Order">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-property resource="AccountingUiLabels" property="AccountingCreateFixedAssetMaintOrderPermissionError"/>            
+        </check-permission>        
+        <check-errors/>
+           <!-- Check, should exist orderId and orderItemId -->
+        <entity-one entity-name="OrderHeader" value-name="lookedUpValue"/>
+        <if-empty field-name="lookedUpValue">
+            <set field="orderId" from-field="parameters.orderId"/>
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingOrderWithIdNotFound"/></add-error>
+        </if-empty>
+        <check-errors/>        
+        
+        <if-not-empty field-name="orderItemSeqId" map-name="parameters">
+           <!-- Check, should exist orderId and orderItemId -->
+           <entity-one entity-name="OrderItem" value-name="lookedUpValue"/>
+           <if-empty field-name="lookedUpValue">
+              <set field="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+              <add-error><fail-property resource="AccountingUiLabels" property="AccountingOrderItemWithIdNotFound"/></add-error>
+           </if-empty>
+        <check-errors/>
+        </if-not-empty>
+        
+        <make-value entity-name="FixedAssetMaintOrder" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>   
+    <simple-method method-name="deleteFixedAssetMaintOrder" short-description="Delete FixedAsset Maintenance Order">
+        <check-permission permission="ACCOUNTING" action="_DELETE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_DELETE"/>
+            <fail-property resource="AccountingUiLabels" property="AccountingDeleteFixedAssetMaintOrderPermissionError"/>            
+        </check-permission>        
+        <check-errors/>
+        <entity-one entity-name="FixedAssetMaintOrder" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    
 </simple-methods>

@@ -234,5 +234,16 @@ under the License.
         <description>Remove a FixedAsset Maintenance Meter</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+    <!-- FixedAsset Maintenance Order Create/Update/Delete-->
+    <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
+        <description>Create a FixedAsset Maintenance Order</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaintOrder" auth="true">
+        <description>Remove a FixedAsset Maintenance Order</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
