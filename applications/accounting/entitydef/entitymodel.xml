@@ -657,10 +657,10 @@ under the License.
         <relation type="one" fk-name="FXDASTMNT_ORD_FXAST" rel-entity-name="FixedAsset">
             <key-map field-name="fixedAssetId"/>
         </relation>
-        <relation type="one" fk-name="FXDASTMNT_ORD" title="Purchase" rel-entity-name="OrderHeader">
+        <relation type="one" fk-name="FXDASTMNT_ORD" rel-entity-name="OrderHeader">
             <key-map field-name="orderId"/>
         </relation>
-        <relation type="one-nofk" title="Purchase" rel-entity-name="OrderItem">
+        <relation type="one-nofk" rel-entity-name="OrderItem">
             <key-map field-name="orderId" />
             <key-map field-name="orderItemSeqId"/>
         </relation>
