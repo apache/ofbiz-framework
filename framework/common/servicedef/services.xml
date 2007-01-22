@@ -388,4 +388,10 @@ under the License.
         <attribute name="disabledDateTime" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="successiveFailedLogins" type="Long" mode="IN" optional="true"/>
     </service>
+
+    <!-- common permission services -->
+    <service name="genericBasePermissionCheck" engine="simple"
+             location="org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+        <implements service="permissionInterface"/>
+    </service>
 </services>
