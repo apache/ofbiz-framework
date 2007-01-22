@@ -1,0 +1,48 @@
+<!--
+  ~ Copyright 2001-2007 The Apache Software Foundation
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  ~ use this file except in compliance with the License. You may obtain a copy of
+  ~ the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  ~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="genericBasePermissionCheck" short-description="Basic Permission check">
+        <!-- This method should be put in common place so it can be called from anyware in ofbiz -->
+        <set field="mainAction" from-field="parameters.mainAction"/>
+        <if-empty field-name="mainAction">
+            <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
+        </if-empty>
+        <log level="verbose" message="Checking for ${primaryPermission}_${mainAction}"/>
+        <log level="verbose" message="Checking for ${altPermission}_${mainAction}"/>
+        <check-errors/>
+        <if>
+            <condition>
+                <or>
+                    <if-has-permission permission="${primaryPermission}" action="_${parameters.mainAction}"/>
+                    <if-has-permission permission="${altPermission}" action="_${parameters.mainAction}"/>
+                </or>
+            </condition>
+            <then>
+                <set field="hasPermission" type="Boolean" value="true"/>
+                <field-to-result field-name="hasPermission"/>
+            </then>
+            <else>
+                <property-to-field resource="CommonUiLabels" property="CommonGenericPermissionError" field-name="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field-name="hasPermission"/>
+                <field-to-result field-name="failMessage"/>
+            </else>
+        </if>
+    </simple-method>
+</simple-methods>
