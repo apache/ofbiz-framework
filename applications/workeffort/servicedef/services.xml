@@ -510,4 +510,21 @@ under the License.
         <description>Remove all Work Effort Keyword</description>
         <auto-attributes entity-name="WorkEffort" include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- Permission Services -->
+    <service name="workEffortManagerPermission" engine="simple"
+             location="org/ofbiz/workeffort/WorkEffortPermissionServices.xml" invoke="workEffortManagerPermission">
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="workEffortGenericPermission" engine="simple"
+             location="org/ofbiz/workeffort/permission/WorkEffortPermissionServices.xml" invoke="workEffortGenericPermission">
+        <implements service="permissionInterface"/>
+        <attribute name="workEffortId" mode="IN" type="String" optional="true"/>
+        <attribute name="workEffortParentId" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="timesheetUpdatePermission" engine="simple"
+             location="org/ofbiz/workeffort/permission/WorkEffortPermissionServices.xml" invoke="timesheetUpdatePermission">
+        <implements service="permissionInterface"/>
+        <attribute name="workEffortId" mode="IN" type="String" optional="true"></attribute>
+    </service>    
 </services>

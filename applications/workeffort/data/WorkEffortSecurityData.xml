@@ -21,13 +21,23 @@ under the License.
     <SecurityPermission description="View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_VIEW"/>
     <SecurityPermission description="Create operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityPermission description="Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_UPDATE"/>
-    <SecurityPermission description="Delete operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_DELETE"/>
+    <SecurityPermission description="Delete operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_DELETE"/>    
+    <SecurityPermission description="View work effort roles in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
+    <SecurityPermission description="Create work effort roles in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityPermission description="Update work effort roles in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
     <SecurityPermission description="ALL operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ADMIN"/>
+    
+    
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_DELETE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="WORKEFFORTMGR_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
+    
+    
 </entity-engine-xml>
