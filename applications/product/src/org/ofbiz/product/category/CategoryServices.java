@@ -219,7 +219,7 @@ public class CategoryServices {
         if (productCategory != null) {
             try {
                 if (useCacheForMembers) {
-                    productCategoryMembers = productCategory.getRelatedCache(entityName, null, orderByFields);
+                    productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", productCategoryId), orderByFields);
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
