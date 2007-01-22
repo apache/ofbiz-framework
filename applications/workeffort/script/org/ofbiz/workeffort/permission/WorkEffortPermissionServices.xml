@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2001-2007 The Apache Software Foundation
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  ~ use this file except in compliance with the License. You may obtain a copy of
+  ~ the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  ~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="workEffortManagerPermission" short-description="Check user has WorkEffort Manager permission">
+        <set field="primaryPermission" value="WORKEFFORTMGR"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+    </simple-method>
+
+    <simple-method method-name="workEffortGenericPermission" short-description="">
+        <set field="primaryPermission" value="WORKEFFORTMGR"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+
+        <if>
+            <condition>
+                <not>
+                    <if-compare field-name="hasPermission" value="true" operator="equals"/>
+                </not>
+            </condition>
+            <then>
+                <set field="primaryPermission" value="WORKEFFORTMGR_ROLE"/>
+                <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+
+                <if>
+                    <condition>
+                        <if-compare field-name="hasPermission" value="true" operator="equals"/>
+                    </condition>
+                    <then>
+                        <if>
+                            <condition>
+                                <and>
+                                    <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
+                                    <not>
+                                        <if-empty field-name="parameters.workEffortParentId"/>
+                                    </not>
+                                </and>
+                            </condition>
+                            <then>
+                                <!-- check ANY role permission on the parent -->
+                                <set field="workEffortId" from-field="parameters.workEffortPartentId"/>
+                                <call-simple-method method-name="workEffortPartyAnyRolePermission"/>                                
+                            </then>
+                            <else-if>
+                                <condition>
+                                    <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
+                                </condition>
+                                <then>
+                                    <!-- make sure we have role permission to update THIS workeffort -->
+                                    <set field="workEffortId" from-field="parameters.workEffortId"/>
+                                    <call-simple-method method-name="workEffortPartyOwnerRolePermission"/>
+
+                                    <!-- get the existing parent ID -->
+                                    <entity-one entity-name="WorkEffort" value-name="workEffort">
+                                        <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+                                    </entity-one>
+
+                                    <if>
+                                        <condition>
+                                            <and>
+                                                <if-compare field-name="hasPermission" value="true" operator="equals"/>
+                                                <not>
+                                                    <if-empty field-name="parameters.workEffortParentId"/>
+                                                </not>                                                                                                    
+                                                <if-compare-field field-name="parameters.workEffortParentId" operator="not-equals" to-field-name="workEffort.workEffortParentId"/>
+                                            </and>
+                                        </condition>
+
+                                        <then>
+                                            <!-- check the parent -->
+                                            <set field="workEffortId" from-field="parameters.workEffortParentId"/>
+                                            <call-simple-method method-name="workEffortPartyOwnerRolePermission"/>
+                                        </then>
+                                    </if>
+                                </then>
+                            </else-if>
+                        </if>
+                    </then>
+                </if>
+            </then>
+        </if>
+    </simple-method>
+    
+    <simple-method method-name="workEffortPartyOwnerRolePermission" short-description="Check if Party is in CAL_OWNER or CAL_DELEGATE role with WorkEffort">
+        <if-empty field-name="workEffortId">
+            <!-- This should be case of create WorkEffort --> 
+            <set field="workEffortId" from-field="parameters.workEffortParentId"/>    
+        </if-empty>
+        <while><condition><not><if-empty field-name="workEffortId"></if-empty></not></condition>
+            <then>
+                <!-- if the case is of new workEffort with Parent workEffort Id, 
+                    then lookup the parent workEffort and check if user  is in any OWNER role with WorkEffort -->
+                <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
+                <set from-field="userLogin.partyId" field="lookupRoleWorkEffortMap.partyId"/>
+                <set value="CAL_OWNER" field="lookupRoleWorkEffortMap.roleTypeId"/>
+                <log level="always" message="Running find-by-and: ${lookupRoleWorkEffortMap}"/>
+                
+                <find-by-and entity-name="WorkEffortPartyAssignment" map-name="lookupRoleWorkEffortMap" list-name="roleParties"/>
+                <filter-list-by-date list-name="roleParties" valid-date-name="nowTimestamp"/>
+                <log level="always" message="Found role parties: ${roleParties}"/>
+                
+                <if-empty field-name="roleParties">
+                    <log level="info" message="Party ${userLogin.partyId} is not in ${roleTypeId} role with workEffort: ${workEffortId}"/>
+                    <set value="CAL_DELEGATE" field="lookupRoleWorkEffortMap.roleTypeId"/>
+                    <find-by-and entity-name="WorkEffortPartyAssignment" map-name="lookupRoleWorkEffortMap" list-name="roleParties"/>
+                </if-empty>
+                <filter-list-by-date list-name="roleParties" valid-date-name="nowTimestamp"/>
+
+                <if-not-empty field-name="roleParties">
+                    <set field="hasPermission" type="Boolean" value="true"/>
+                    <field-to-result field-name="hasPermission"/>
+                    <log level="info" message="Party ${userLogin.partyId} is in ${lookupRoleWorkEffortMap.roleTypeId} role with workEffort: ${workEffortId}"/>
+                    <clear-field field-name="workEffortId"/>
+
+                    <else>
+                        <log level="info" message="Party ${userLogin.partyId} is not in ${roleTypeId} role with workEffort: ${workEffortId}"/>
+                        <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
+                        <set field="hasPermission" type="Boolean" value="false"/>
+                        <field-to-result field-name="hasPermission"/>
+                        <field-to-result field-name="failMessage"/>
+
+                        <!-- recurse through all parents -->
+                        <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
+                        <find-by-primary-key entity-name="WorkEffort" map-name="workEffortLookUpMap" value-name="workEffortParent"/>
+                        <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
+                        <if-empty field-name="workEffortParent.workEffortParentId">
+                            <clear-field field-name="workEffortId"/>
+                        </if-empty>
+                    </else>
+
+                </if-not-empty>
+            </then>
+        </while>
+    </simple-method>
+
+    <simple-method method-name="workEffortPartyAnyRolePermission" short-description="Check if Party is in ANY role with WorkEffort">
+        <if-empty field-name="workEffortId">
+            <!-- This should be case of create WorkEffort -->
+            <set field="workEffortId" from-field="parameters.workEffortParentId"/>
+        </if-empty>
+        <while><condition><not><if-empty field-name="workEffortId"></if-empty></not></condition>
+            <then>
+                <!-- if the case is of new workEffort with Parent workEffort Id,
+                    then lookup the parent workEffort and check if user  is in any role with WorkEffort -->
+                <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
+                <set from-field="userLogin.partyId" field="lookupRoleWorkEffortMap.partyId"/>
+                <find-by-and entity-name="WorkEffortPartyAssignment" map-name="lookupRoleWorkEffortMap" list-name="roleParties"/>
+                <filter-list-by-date list-name="roleParties" valid-date-name="nowTimestamp"/>
+
+                <if-not-empty field-name="roleParties">
+                    <set field="hasPermission" type="Boolean" value="true"/>
+                    <field-to-result field-name="hasPermission"/>
+                    <log level="info" message="Party ${userLogin.partyId} is associated with workEffort: ${workEffortId}"/>
+                    <clear-field field-name="workEffortId"/>
+
+                    <else>
+                        <log level="info" message="Party ${userLogin.partyId} is not associated with workEffort: ${workEffortId}"/>
+                        <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
+                        <set field="hasPermission" type="Boolean" value="false"/>
+                        <field-to-result field-name="hasPermission"/>
+                        <field-to-result field-name="failMessage"/>
+
+                        <!-- recurse through all parents -->
+                        <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
+                        <find-by-primary-key entity-name="WorkEffort" map-name="workEffortLookUpMap" value-name="workEffortParent"/>
+                        <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
+                        <if-empty field-name="workEffortParent.workEffortParentId">
+                            <clear-field field-name="workEffortId"/>
+                        </if-empty>
+                    </else>
+
+                </if-not-empty>
+            </then>
+        </while>
+    </simple-method>
+    
+    <simple-method method-name="timesheetUpdatePermission" short-description="Check Permission to Update Timesheet">
+        <set field="parameters.mainAction" value="UPDATE"/>
+        <call-simple-method method-name="workEffortGenericPermission"/>
+        <check-errors/>
+        <if-compare-field operator="not-equals" field-name="parameters.partyId" to-field-name="userLogin.partyId">
+            <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field-name="failMessage"/>
+            <set field="hasPermission" type="Boolean" value="false"/>
+            <field-to-result field-name="hasPermission"/>
+            <field-to-result field-name="failMessage"/>
+        </if-compare-field>
+        <if-not-empty field-name="workEffortId">
+            <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
+            <set from-field="userLogin.partyId" field="lookupRoleWorkEffortMap.partyId"/>
+            <find-by-and entity-name="WorkEffortPartyAssignByRole" map-name="lookupRoleWorkEffortMap" list-name="roleParties"/>                    
+            <filter-list-by-date list-name="roleParties" valid-date-name="nowTimestamp"/>
+            <if-empty field-name="roleParties">
+                <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field-name="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field-name="hasPermission"/>
+                <field-to-result field-name="failMessage"/>
+            </if-empty>
+        </if-not-empty>
+    </simple-method>
+
+</simple-methods>
