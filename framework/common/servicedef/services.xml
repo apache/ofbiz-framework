@@ -22,6 +22,12 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
+    <!-- Common Permission Service -->    
+    <service name="commonGenericPermission" engine="simple"
+        location="org/ofbiz/common/CommonServices.xml" invoke="commonGenericPermission">
+        <implements service="permissionInterface"/>
+    </service>
+
     <service name="echoService" engine="java" validate="false"
             location="org.ofbiz.common.CommonServices" invoke="echoService">
         <description>Echos back all passed parameters</description>
@@ -74,6 +80,26 @@ under the License.
         </required-permissions>
     </service>
 
+    <!-- Enumeration Services -->
+    <service name="createEnumeration" default-entity-name="Enumeration" engine="simple"
+        location="org/ofbiz/common/EnumerationServices.xml" invoke="createEnumeration" auth="true">
+        <description>Create a Enumeration</description>
+        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="enumTypeId" optional="false"/>
+        <override name="description" optional="false"/>
+    </service>
+    <service name="updateEnumeration" default-entity-name="Enumeration" engine="simple"
+        location="org/ofbiz/common/EnumerationServices.xml" invoke="updateEnumeration" auth="true">
+        <description>Update a Enumeration</description>
+        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="enumTypeId" optional="false"/>
+        <override name="description" optional="false"/>
+    </service>
+
     <!-- DataSource Services -->
     <service name="interfaceDataSource" engine="interface" location="" invoke="">
         <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
@@ -83,16 +109,19 @@ under the License.
     <service name="createDataSource" engine="simple"
             location="org/ofbiz/common/datasource/DataSourceServices.xml" invoke="createDataSource" auth="true">
         <description>Create a DataSource record</description>
+        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <implements service="interfaceDataSource"/>
     </service>
     <service name="updateDataSource" engine="simple"
             location="org/ofbiz/common/datasource/DataSourceServices.xml" invoke="updateDataSource" auth="true">
         <description>Update a DataSource record</description>
+        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceDataSource"/>
     </service>
     <service name="deleteDataSource" engine="simple"
             location="org/ofbiz/common/datasource/DataSourceServices.xml" invoke="deleteDataSource" auth="true">
         <description>Delete a DataSource record</description>
+        <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
     </service>
 
@@ -104,16 +133,19 @@ under the License.
     <service name="createDataSourceType" engine="simple"
             location="org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="createDataSourceType" auth="true">
         <description>Create a DataSourceType record</description>
+        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <implements service="interfaceDataSourceType"/>
     </service>
     <service name="updateDataSourceType" engine="simple"
             location="org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="updateDataSourceType" auth="true">
         <description>Update a DataSourceType record</description>
+        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceDataSourceType"/>
     </service>
     <service name="deleteDataSourceType" engine="simple"
             location="org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="deleteDataSourceType" auth="true">
         <description>Delete a DataSourceType record</description>
+        <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"/>
     </service>
 
