@@ -284,4 +284,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- Fixed Asset Maint Order --> 
+    <screen name="EditFixedAssetMaintOrders">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
+                <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
+                <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <set field="orderId" from-field="parameters.orderId"/>
+                <set field="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <entity-one entity-name="FixedAssetMaintOrder" value-name="fixedAssetMaintOrder"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListFixedAssetMaintOrders" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="AddFixedAssetMaintOrder" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

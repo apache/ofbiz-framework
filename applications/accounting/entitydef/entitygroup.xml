@@ -51,6 +51,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="FixedAssetIdentType" />
     <entity-group group="org.ofbiz" entity="FixedAssetMaint" />
     <entity-group group="org.ofbiz" entity="FixedAssetMaintMeter" />
+    <entity-group group="org.ofbiz" entity="FixedAssetMaintOrder" />    
     <entity-group group="org.ofbiz" entity="FixedAssetProduct" />
     <entity-group group="org.ofbiz" entity="FixedAssetProductType" />
     <entity-group group="org.ofbiz" entity="FixedAssetRegistration" />

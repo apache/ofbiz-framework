@@ -644,6 +644,27 @@ under the License.
         <key-map field-name="statusId"/>
       </relation>
     </entity>
+    
+    <entity entity-name="FixedAssetMaintOrder" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Maintance And Order Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="maintHistSeqId" type="id-ne"></field>
+        <field name="orderId" type="id"></field>
+        <field name="orderItemSeqId" type="id"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="maintHistSeqId"/>
+        <prim-key field="orderId"/>
+        <prim-key field="orderItemSeqId"/>
+        <relation type="one" fk-name="FXDASTMNT_ORD_FXAST" rel-entity-name="FixedAsset">
+            <key-map field-name="fixedAssetId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNT_ORD" title="Purchase" rel-entity-name="OrderHeader">
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one-nofk" title="Purchase" rel-entity-name="OrderItem">
+            <key-map field-name="orderId" />
+            <key-map field-name="orderItemSeqId"/>
+        </relation>
+    </entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.accounting.invoice -->
