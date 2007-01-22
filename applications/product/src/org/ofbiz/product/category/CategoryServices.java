@@ -164,7 +164,7 @@ public class CategoryServices {
             String orderByField = (String) orderByFieldIter.next();
             if (!productCategoryMemberModel.isField(orderByField)) {
                 if (productModel.isField(orderByField)) {
-                    entityName = "ProductCategoryAndMember";
+                    entityName = "ProductAndCategoryMember";
                     // that's what we wanted to find out, so we can quit now
                     break;
                 } else {

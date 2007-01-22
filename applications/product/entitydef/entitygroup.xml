@@ -33,6 +33,7 @@ under the License.
   <!-- org.ofbiz.product.category -->
   <!-- ========================================================= -->
 
+    <entity-group group="org.ofbiz" entity="ProductAndCategoryMember" />
     <entity-group group="org.ofbiz" entity="ProductCategory" />
     <entity-group group="org.ofbiz" entity="ProductCategoryAndMember" />
     <entity-group group="org.ofbiz" entity="ProductCategoryAttribute" />
