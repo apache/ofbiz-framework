@@ -392,14 +392,37 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="set-service-fields" substitutionGroup="CallOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.set-service-fields"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-service-fields">
-        <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-map-name" use="required"/>
+        <xs:attribute type="xs:string" name="service-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-service" substitutionGroup="CallOperations">
         <xs:annotation>
@@ -516,7 +539,13 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.results-to-map">
-        <xs:attribute type="xs:string" name="map-name" use="required"/>
+        <xs:attribute type="xs:string" name="map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="result-to-field">
         <xs:complexType>
@@ -524,27 +553,79 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.result-to-field">
-        <xs:attribute type="xs:string" name="result-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name"/>
+        <xs:attribute type="xs:string" name="result-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="result-to-request">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.result-to-request"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.result-to-request">
-        <xs:attribute type="xs:string" name="result-name" use="required"/>
-        <xs:attribute type="xs:string" name="request-name"/>
+        <xs:attribute type="xs:string" name="result-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="request-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="result-to-session">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.result-to-session"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.result-to-session">
-        <xs:attribute type="xs:string" name="result-name" use="required"/>
-        <xs:attribute type="xs:string" name="session-name"/>
+        <xs:attribute type="xs:string" name="result-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="session-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="result-to-result">
         <xs:annotation>
@@ -559,8 +640,20 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.result-to-result">
-        <xs:attribute type="xs:string" name="result-name" use="required"/>
-        <xs:attribute type="xs:string" name="service-result-name"/>
+        <xs:attribute type="xs:string" name="result-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="service-result-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-service-asynch" substitutionGroup="CallOperations">
         <xs:annotation>
@@ -1140,7 +1233,8 @@ under the License.
         <xs:attribute type="xs:string" name="to-map-name">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the map in the method environment the fields will go to. If empty the fields will be copied to the environment.
+                    The name of the map in the method environment the fields will go to. 
+                    If empty the fields will be copied to the environment.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1159,7 +1253,8 @@ under the License.
         <xs:attribute type="xs:string" name="map-name">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the map in the method environment. If not specified the field-name will be used to get the field from the method environment.
+                    The name of the map in the method environment. 
+                    If not specified the field-name will be used to get the field from the method environment.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -1327,12 +1422,48 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.string-append">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="string" use="required"/>
-        <xs:attribute type="xs:string" name="arg-list-name"/>
-        <xs:attribute type="xs:string" name="prefix"/>
-        <xs:attribute type="xs:string" name="suffix"/>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map in the method environment. 
+                    If not specified the field-name will be used to get the field from the method environment.
+                </xs:documentation>
+            </xs:annotation>        </xs:attribute>
+        <xs:attribute type="xs:string" name="string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="arg-list-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="prefix">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="suffix">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="string-to-list" substitutionGroup="EnvOperations">
         <xs:annotation>
@@ -2755,7 +2886,6 @@ under the License.
             </xs:annotation>                                
         </xs:attribute>
     </xs:attributeGroup>
-
     <xs:element name="assert" substitutionGroup="IfOtherOperations">
         <xs:annotation>
             <xs:documentation>
@@ -2787,15 +2917,54 @@ under the License.
     <xs:element name="if" substitutionGroup="IfOtherOperations">
         <xs:annotation>
             <xs:documentation>
+                The if operation offers a flexible way of specifying combinations of conditions, alternate conditions, 
+                and operations to run on true evaluation of the conditions or to run otherwise.
+                
+                The other if operations are meant for a specific, simple condition when used outside of the condition sub-element of this operation. 
+                The attributes of the other if operations are the same when used inside this operation. 
+                
                 Note that while the definitions for the if-* operations are used, the tags should be empty because of the differing semantics.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="condition"/>
-                <xs:element ref="then"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="else-if"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:element ref="condition">
+                    <xs:annotation>
+                        <xs:documentation>
+                            A simple element with no attributes that contains the condition that will be evaluated to determine which sub-operations to execute. 
+                            To combine the other if operations documented below the and, or, xor, and notelements can be used. 
+                            The and, or, and xor elements can contain as many general if operations and modifier/combination elements (ie and, or, xor, and not).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="then">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The then element is used to contain operations that will run if the condition evaluate to true. 
+                            A then tag must be included, but can be empty.                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="else-if">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else-if element can be used to specify alternate conditional execution blocks. 
+                            Each else-if element must contain two sub-elements: condition and then. 
+                            These operations are used the same as the condition and then elements describes above. 
+                            If the condition of the parent if element is evaluated to false, each condition of the else-if sub-elements will be evaluated, 
+                            and the operations under the then element corresponding first condition that evaluates to true will be run.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else element can be used to contain operations that will run if the condition evaluates to false, and if no else-ifsub-conditions evaluate to true. 
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if tag.                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -2807,22 +2976,59 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="condition"/>
-                <xs:element ref="then"/>
+                <xs:element ref="condition">
+                    <xs:annotation>
+                        <xs:documentation>
+                            A simple element with no attributes that contains the condition that will be evaluated to determine which sub-operations to execute. 
+                            To combine the other if operations documented below the and, or, xor, and notelements can be used. 
+                            The and, or, and xor elements can contain as many general if operations and modifier/combination elements (ie and, or, xor, and not).
+                        </xs:documentation>
+                    </xs:annotation>                    
+                </xs:element>
+                <xs:element ref="then">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The then element is used to contain operations that will run if the condition evaluate to true. 
+                            A then tag must be included, but can be empty.                            
+                        </xs:documentation>
+                    </xs:annotation>                    
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="condition">
+        <xs:annotation>
+            <xs:documentation>
+                A simple element with no attributes that contains the condition that will be evaluated to determine which sub-operations to execute. 
+                To combine the other if operations documented below the and, or, xor, and notelements can be used. 
+                The and, or, and xor elements can contain as many general if operations and modifier/combination elements (ie and, or, xor, and not).
+            </xs:documentation>
+        </xs:annotation>                    
         <xs:complexType>
             <xs:group ref="IfConditions"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="then">
+        <xs:annotation>
+            <xs:documentation>
+                The then element is used to contain operations that will run if the condition evaluate to true. 
+                A then tag must be included, but can be empty.                            
+            </xs:documentation>
+        </xs:annotation>                    
         <xs:complexType>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="else-if">
+        <xs:annotation>
+            <xs:documentation>
+                The else-if element can be used to specify alternate conditional execution blocks. 
+                Each else-if element must contain two sub-elements: condition and then. 
+                These operations are used the same as the condition and then elements describes above. 
+                If the condition of the parent if element is evaluated to false, each condition of the else-if sub-elements will be evaluated, 
+                and the operations under the then element corresponding first condition that evaluates to true will be run.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="condition"/>
@@ -2831,26 +3037,58 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:element name="else">
+        <xs:annotation>
+            <xs:documentation>
+                The else element can be used to contain operations that will run if the condition evaluates to false, and if no else-ifsub-conditions evaluate to true. 
+                It can contain any simple-method operation. 
+                The else tag must be placed as the last tag under the if tag.                            
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="or" substitutionGroup="IfCombineConditions">
+        <xs:annotation>
+            <xs:documentation>
+                To be true just one of the elements underneath needs to be true.
+                The process will return (with true value) as soon as a condition is verified not evaluating remaining conditions if any.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:group maxOccurs="unbounded" ref="IfConditions"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="xor" substitutionGroup="IfCombineConditions">
+        <xs:annotation>
+            <xs:documentation>
+                To be true only one of the elements underneath can be true.
+                The process will return (with false value) as soon as 2 conditions are verified not evaluating remaining conditions if any.
+                If no conditions evaluate to true the process will return false.  
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:group maxOccurs="unbounded" ref="IfConditions"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="and" substitutionGroup="IfCombineConditions">
+        <xs:annotation>
+            <xs:documentation>
+                To be true all of the elements underneath need to be true.
+                The process will return (with false value) as soon as a condition evaluates to false not evaluating remaining conditions if any.
+                If no conditions evaluate to false the process will return true.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:group maxOccurs="unbounded" ref="IfConditions"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="not" substitutionGroup="IfCombineConditions">
+        <xs:annotation>
+            <xs:documentation>
+                Can only have one condition underneath and simply reverse the boolean value of this condition.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:group ref="IfConditions"/>
         </xs:complexType>
@@ -2858,42 +3096,148 @@ under the License.
     <xs:element name="if-validate-method" substitutionGroup="IfBasicOperations">
         <xs:annotation>
             <xs:documentation>
-                If-validate-method calls a static Java method that takes a String and returns a boolean
+                The operations contained by the if-validate-method tag will only be executed if the validate method returns true.                
+                If-validate-method calls a static Java method that takes a String and returns a boolean.                                 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-validate-method"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-validate-method">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="method" use="required"/>
-        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be validated will come from. 
+                    If not specified the field-name will be treated as a method environment field name (an env-name).                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map field that will be validated.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="method" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method that will be called to validate the field. 
+                    It must be a static method that takes a single String parameter and return a boolean.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the class that contains the validation method. If not specified defaults to "org.ofbiz.base.util.UtilValidate".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="if-instance-of" substitutionGroup="IfBasicOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Checks if the field is an instance of the name class.                                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-instance-of"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-instance-of">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="class" use="required"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be validated will come from. 
+                    If not specified the field-name will be treated as a method environment field name (an env-name).                                        
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map field that will be validated as being an instance of the named class.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="class" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the class that named instance in field-name is supposed to belong. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="if-compare" substitutionGroup="IfBasicOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The operations contained by the if-compare tag will only be executed if the comparison returns true. 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-compare"/>
             <xs:attributeGroup ref="attlist.operatorRequired"/>
@@ -2901,16 +3245,64 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="value" use="required"/>
-        <xs:attribute type="xs:string" name="format"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be validated will come from. 
+                    If not specified the field-name will be treated as a method environment field name (an env-name).
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map field that will be compared.
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The value that the field will compared to. 
+                    Must be a String, but can be converted to other types.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="format">
+            <xs:annotation>
+                <xs:documentation>
+                    A format specifier to use when converting String objects to other data types, mainly Date, Time and Timestamp.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="if-compare-field" substitutionGroup="IfBasicOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The operations contained by the if-compare-field tag will only be executed if the comparison returns true. 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-compare-field"/>
             <xs:attributeGroup ref="attlist.operatorRequired"/>
@@ -2918,113 +3310,418 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare-field">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-map-name"/>
-        <xs:attribute type="xs:string" name="to-field-name"/>
-        <xs:attribute type="xs:string" name="format"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be validated will come from. 
+                    If not specified the field-name will be treated as a method environment field name (an env-name).                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map field that will be compared.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be compared will come from. 
+                    If left empty will default to the method environment. 
+                    It does not default to the map-name because that would make it impossible to compare a map field to an environment field.    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-field-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the to-map field that the main field will be compared to. 
+                    If left empty will default to the field-name.                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="format">
+            <xs:annotation>
+                <xs:documentation>
+                    A format specifier to use when converting String objects to other data types, mainly Date, Time and Timestamp.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="if-regexp" substitutionGroup="IfBasicOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The operations contained by the if-regexp tag will only be executed if the value complies with the regular expression. 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-regexp"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-regexp">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="expr" use="required"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be validated will come from. 
+                    If not specified the field-name will be treated as a method environment field name (an env-name).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map field that will be compared.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="expr" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    A regular expression that the map value must comply with.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="if-empty" substitutionGroup="IfBasicOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The operations contained by the if-empty tag will only be executed if the map field is empty. 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-empty"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-empty">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be validated will come from. 
+                    If not specified the field-name will be treated as a method environment field name (an env-name).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map field that will be compared.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="if-not-empty" substitutionGroup="IfOtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The operations contained by the if-not-empty tag will only be executed if the map field is not empty. 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-not-empty"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-not-empty">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the method environment field that contains the map that the field to be validated will come from. 
+                    If not specified the field-name will be treated as a method environment field name (an env-name).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map field that will be compared.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="if-has-permission" substitutionGroup="IfBasicOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The operations contained by the if-has-permission tag will only be executed if the user has the specified permission, and optionally the action. 
+                This tag can contain any of the simple-method operations, including the conditional/if operations.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-                <xs:element minOccurs="0" ref="else"/>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any simple-method operation can be nested under an if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+                <xs:element minOccurs="0" ref="else">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The else tag can be used to contain operations that will run if the condition fails, 
+                            or in other words if the operations under the if tag do not run. 
+                            
+                            It can contain any simple-method operation. 
+                            The else tag must be placed as the last tag under the if-* tag.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.if-has-permission"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-has-permission">
-        <xs:attribute type="xs:string" name="permission" use="required"/>
-        <xs:attribute type="xs:string" name="action"/>
+        <xs:attribute type="xs:string" name="permission" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the permission in the database. 
+                    The user must belong to a security group that has this permission.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="action">
+            <xs:annotation>
+                <xs:documentation>
+                    If an action is specified the user can have one of two permissions: the permission + "_ADMIN" or permission + action. 
+                    Examples of actions include "_CREATE", "_VIEW", etc.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="check-permission" substitutionGroup="IfOtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The check-permission tag checks to see if the current user has the specified permission. 
+                The the user does not have the specified permission or there is no user associated with the context 
+                then the failure message from fail-message or file-property will be added to the specified error list.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="accept-userlogin-party"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-permission"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="accept-userlogin-party">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-permission">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Allows you to specify alternate permissions, any of which will satisfy this check permission. 
+                            If the current userLogin does not have any of these permissions the error will be added to the list. 
+                            Has two attributes: permission and action that behave just as the corresponding attributes described above for the check-permission element.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:choice>
-                    <xs:element ref="fail-message"/>
-                    <xs:element ref="fail-property"/>
+                    <xs:element ref="fail-message">
+                        <xs:annotation>
+                            <xs:documentation>
+                                An inline failure message.                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="fail-property">
+                        <xs:annotation>
+                            <xs:documentation>
+                                A failure message from a properties file.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.check-permission"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.check-permission">
-        <xs:attribute type="xs:string" name="permission" use="required"/>
-        <xs:attribute type="xs:string" name="action"/>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="permission" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the permission in the database. 
+                    The user must belong to a security group that has this permission.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="action">
+            <xs:annotation>
+                <xs:documentation>
+                    If an action is specified the user can have one of two permissions: the permission + "_ADMIN" or permission + action. 
+                    Examples of actions include "_CREATE", "_VIEW", etc.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a list in the method environment that the error messages will be added to. 
+                    Will be created if does not exist. 
+                    Defaults to "error_list".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="accept-userlogin-party">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.accept-userlogin-party"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.accept-userlogin-party">
-        <xs:attribute type="xs:string" name="party-id-env-name" default="partyId"/>
+        <xs:attribute type="xs:string" name="party-id-env-name" default="partyId">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="alt-permission">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.alt-permission"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.alt-permission">
-        <xs:attribute type="xs:string" name="permission" use="required"/>
-        <xs:attribute type="xs:string" name="action"/>
+        <xs:attribute type="xs:string" name="permission" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the permission in the database. 
+                    The user must belong to a security group that has this permission.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="action">
+            <xs:annotation>
+                <xs:documentation>
+                    If an action is specified the user can have one of two permissions: the permission + "_ADMIN" or permission + action. 
+                    Examples of actions include "_CREATE", "_VIEW", etc.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="check-id" substitutionGroup="IfOtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                <![CDATA[The check-id tag checks to see if the ID value in the given field is a valid ID string. 
+                Valid IDs can be any sequence of characters or digits but must not containt the following characters: 
+                space [ ], doublequote ["], single quote ['], ampersand [&], question mark [?], less-than sign [<], greater-than sign [>].]]>                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0">
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
+                <xs:element ref="fail-message">
+                    <xs:annotation>
+                        <xs:documentation>
+                            An inline failure message.                                
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="fail-property">
+                    <xs:annotation>
+                        <xs:documentation>
+                            A failure message from a properties file.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.check-id"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.check-id">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the field that contains the ID value to check.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the Map that contains the field. 
+                    If not specified the environment will be used to find the field.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a list in the method environment that the error messages will be added to. 
+                    Will be created if does not exist. Defaults to "error_list".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <!-- the "Other" Operations -->
     <xs:element name="log" substitutionGroup="OtherOperations">
