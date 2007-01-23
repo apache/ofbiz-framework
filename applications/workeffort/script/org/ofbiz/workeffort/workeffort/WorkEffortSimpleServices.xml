@@ -1056,4 +1056,88 @@ under the License.
         </if-not-empty>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="duplicateWorkEffort" short-description="Duplicate a WorkEffort" login-required="false">
+        
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors />
+        <!-- look up the old workEffort and clone it -->
+        <entity-one entity-name="WorkEffort" value-name="oldWorkEffort">
+            <field-map field-name="workEffortId" env-name="parameters.oldWorkEffortId"/>
+        </entity-one>
+        <clone-value value-name="oldWorkEffort" new-value-name="newWorkEffort"/>
+        
+        <!-- set the workEffortId, and write it to the datasource -->
+        <set from-field="parameters.workEffortId" field="newWorkEffort.workEffortId"/>
+        <create-value value-name="newWorkEffort"/>
+        
+        <!-- set up entity filter for workEffortAssoc-->
+        <set field="workEffortAssocFindContext.workEffortIdFrom" from-field="parameters.oldWorkEffortId"/>
+        <set field="reverseWorkEffortFindContext.workEffortIdTo" from-field="parameters.oldProductId"/>
+        <if-not-empty field-name="duplicateWorkEffortAssocs" map-name="parameters">
+            <find-by-and entity-name="WorkEffortAssoc" map-name="workEffortAssocFindContext" list-name="foundValues"/>
+            <iterate entry-name="foundValue" list-name="foundValues">
+                <clone-value value-name="foundValue" new-value-name="newTempValue"/>
+                <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdFrom"/>
+                <create-value value-name="newTempValue"/>
+            </iterate>
+            <entity-and entity-name="WorkEffortAssoc" list-name="foundValues">
+                <field-map field-name="workEffortIdTo" env-name="parameters.oldWorkEffortId"/>
+            </entity-and>
+            <iterate entry-name="foundValue" list-name="foundValues">
+                <clone-value value-name="foundValue" new-value-name="newTempValue"/>
+                <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdTo"/>
+                <create-value value-name="newTempValue"/>                
+            </iterate>
+        </if-not-empty>
+        
+        
+        <!-- set up entity filter -->
+        <set field="workEffortFindContext.workEffortId" from-field="parameters.oldWorkEffortId"/>
+        <if-not-empty field-name="duplicateWorkEffortNotes" map-name="parameters">
+            <find-by-and entity-name="WorkEffortNote" map-name="workEffortFindContext" list-name="foundValues"/>
+            <iterate entry-name="foundValue" list-name="foundValues">
+                <clone-value value-name="foundValue" new-value-name="newTempValue"/>
+                <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
+                <create-value value-name="newTempValue"/>
+            </iterate>
+        </if-not-empty>
+        <if-not-empty field-name="duplicateWorkEffortContents" map-name="parameters">
+            <find-by-and entity-name="WorkEffortContent" map-name="workEffortFindContext" list-name="foundValues"/>
+            <iterate entry-name="foundValue" list-name="foundValues">
+                <clone-value value-name="foundValue" new-value-name="newTempValue"/>
+                <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
+                <create-value value-name="newTempValue"/>
+            </iterate>
+        </if-not-empty>
+        <if-not-empty field-name="duplicateWorkEffortAssignmentRates" map-name="parameters">
+            <find-by-and entity-name="WorkEffortAssignmentRate" map-name="workEffortFindContext" list-name="foundValues"/>
+            <iterate entry-name="foundValue" list-name="foundValues">
+                <clone-value value-name="foundValue" new-value-name="newTempValue"/>
+                <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
+                <create-value value-name="newTempValue"/>
+            </iterate>
+        </if-not-empty>
+
+        <if-not-empty field-name="removeWorkEffortAssocs" map-name="parameters">
+            <remove-by-and entity-name="WorkEffortAssoc" map-name="workEffortAssocFindContext"/>            
+            <!-- small difference here, also do the reverse assocs... -->
+            <remove-by-and entity-name="WorkEffortAssoc" map-name="reverseWorkEffortFindContext"/>
+        </if-not-empty>
+        <if-not-empty field-name="removeWorkEffortContents" map-name="parameters">
+            <remove-by-and entity-name="WorkEffortContent" map-name="workEffortFindContext"/>
+        </if-not-empty>
+        <if-not-empty field-name="removeWorkEffortNotes" map-name="parameters">
+            <remove-by-and entity-name="WorkEffortNote" map-name="workEffortFindContext"/>
+        </if-not-empty>
+        <if-not-empty field-name="removeWorkEffortAssignmentRates" map-name="parameters">
+            <remove-by-and entity-name="WorkEffortAssignmentRate" map-name="workEffortFindContext"/>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

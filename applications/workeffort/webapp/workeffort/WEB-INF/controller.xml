@@ -562,7 +562,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="WorkEffortSearchResults"/>
     </request-map>    
-
+    <request-map uri="DuplicateWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="duplicateWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEffort"/>
+        <response name="error" type="view" value="EditWorkEffort"/>
+    </request-map>
     
     <!-- Lookup request mappings -->
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
