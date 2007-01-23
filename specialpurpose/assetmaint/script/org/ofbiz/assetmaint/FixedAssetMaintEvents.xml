@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="createFixedAssetMaintUpdateWorkEffort" login-required="true"
+        short-description="Create FixedAssetMaint and Update Schedule information in WorkEffort">
+        <if-empty field-name="parameters.fixedAssetId">
+            <add-error><fail-property resource="AssetMaintUiLabels" property="AccountingFixedAssetIdRequiredError"/></add-error>
+        </if-empty>
+        <if-not-empty field-name="parameters.fixedAssetId">
+            <set from-field="parameters.fixedAssetId" field="fixedAssetExistsMap.fixedAssetId"/>
+            <find-by-primary-key entity-name="FixedAsset" map-name="fixedAssetExistsMap" value-name="existingFixedAssset"/>
+            <if-empty field-name="existingFixedAssset">
+                <add-error><fail-property resource="AssetMaintUiLabels" property="AccountingFixedAssetIdInvalidError"/></add-error>
+            </if-empty>
+        </if-not-empty>
+        <check-errors/>
+        <set-service-fields map-name="parameters" service-name="createFixedAssetMaint" to-map-name="createFixedAssetMaintCtx"/>
+        <call-service service-name="createFixedAssetMaint" in-map-name="createFixedAssetMaintCtx">
+            <result-to-field result-name="maintHistSeqId" map-name="findAssetMaintLookup" field-name="maintHistSeqId"/>
+        </call-service>
+        <set from-field="parameters.fixedAssetId" field="findAssetMaintLookup.fixedAssetId"/>
+        <find-by-primary-key entity-name="FixedAssetMaint" map-name="findAssetMaintLookup" value-name="findAssetMaint"/>
+        <set from-field="findAssetMaint.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
+        <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
+        <!-- Maintenance WorkEffort entity -->
+        <property-to-field field-name="workEffortNameText" resource="AssetMaintUiLabels" property="FixedAssetMaintWorkEffortName"/>
+        <set value="${workEffortNameText} #${updateWorkEffortCtx.fixedAssetId}" field="updateWorkEffortCtx.workEffortName"/>
+        <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
+    </simple-method>    
+    <simple-method method-name="updateFixedAssetMaintAndWorkEffort" login-required="true"
+        short-description="Update FixedAssetMaint and Schedule information in WorkEffort">
+        <check-errors/>
+        <set-service-fields map-name="parameters" service-name="updateFixedAssetMaint" to-map-name="updateFixedAssetMaintCtx"/>
+        <call-service service-name="updateFixedAssetMaint" in-map-name="updateFixedAssetMaintCtx"/>
+        <check-errors/>
+        <set from-field="parameters.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
+        <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
+        <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
+        <check-errors/>
+    </simple-method>    
+    
+    <simple-method method-name="createWorkEffortAndAssoc" login-required="true"
+        short-description="Create WorkEffort and Associate it with Parent (identified by workEffortFromId)">
+        <set from-field="parameters.workEffortIdTo" field="parameters.workEffortId"/>
+        <set-service-fields map-name="parameters" service-name="createWorkEffortAndAssoc" to-map-name="createWorkEffortAndAssocCtx"/>
+        <call-service service-name="createWorkEffortAndAssoc" in-map-name="createWorkEffortAndAssocCtx"/>
+        <check-errors/>
+    </simple-method>    
+</simple-methods>
+    
