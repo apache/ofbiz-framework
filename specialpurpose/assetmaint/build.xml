@@ -79,6 +79,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare,classpath">
+    	<!-- TODO: uncomment once there is actually a src directory
     	<javac debug="on" source="1.4" deprecation="on" destdir="${build.dir}/classes">
             <classpath>
                 <path refid="local.class.path"/>
@@ -86,9 +87,9 @@ under the License.
             <src path="${src.dir}"/>
         </javac>
         <copy todir="${build.dir}/classes">
-            <!-- don't put the DTDs in the jar file... -->
             <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
+        -->
     </target>
 
     <target name="jar" depends="classes">
