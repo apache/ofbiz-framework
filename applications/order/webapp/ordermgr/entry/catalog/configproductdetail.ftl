@@ -143,11 +143,11 @@ ${virtualJavaScript?if_exists}
     <tr>
       <td colspan="2" align="right">
         <#if previousProductId?exists>
-          <a href='<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${previousProductId?if_exists}</@ofbizUrl>' class="buttontext">[${uiLabelMap.CommonPrevious}]</a>&nbsp;|&nbsp;
+          <a href='<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${previousProductId?if_exists}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonPrevious}</a>&nbsp;|&nbsp;
         </#if>
-        <a href="<@ofbizUrl>category/~category_id=${categoryId?if_exists}</@ofbizUrl>" class="buttontext">${category.description?if_exists}</a>
+        <a href="<@ofbizUrl>category/~category_id=${categoryId?if_exists}</@ofbizUrl>" class="buttontext">${(category.categoryName)?default(category.description)?if_exists}</a>
         <#if nextProductId?exists>
-          &nbsp;|&nbsp;<a href='<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${nextProductId?if_exists}</@ofbizUrl>' class="buttontext">[${uiLabelMap.CommonNext}]</a>
+          &nbsp;|&nbsp;<a href='<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${nextProductId?if_exists}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonNext}</a>
         </#if>
       </td>
     </tr>
