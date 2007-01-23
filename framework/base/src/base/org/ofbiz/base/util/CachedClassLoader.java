@@ -67,7 +67,14 @@ public class CachedClassLoader extends URLClassLoader {
         globalClassNameClassMap.put("java.lang.Long", java.lang.Long.class);
         globalClassNameClassMap.put("Integer", java.lang.Integer.class);
         globalClassNameClassMap.put("java.lang.Integer", java.lang.Integer.class);
+        globalClassNameClassMap.put("Short", java.lang.Short.class);
+        globalClassNameClassMap.put("java.lang.Short", java.lang.Short.class);
 
+        globalClassNameClassMap.put("Byte", java.lang.Byte.class);
+        globalClassNameClassMap.put("java.lang.Byte", java.lang.Byte.class);
+        globalClassNameClassMap.put("Character", java.lang.Character.class);
+        globalClassNameClassMap.put("java.lang.Character", java.lang.Character.class);
+        
         globalClassNameClassMap.put("Timestamp", java.sql.Timestamp.class);
         globalClassNameClassMap.put("java.sql.Timestamp", java.sql.Timestamp.class);
         globalClassNameClassMap.put("Time", java.sql.Time.class);
@@ -89,6 +96,16 @@ public class CachedClassLoader extends URLClassLoader {
         globalClassNameClassMap.put("java.util.Map", java.util.Map.class);
         globalClassNameClassMap.put("HashMap", java.util.HashMap.class);
         globalClassNameClassMap.put("java.util.HashMap", java.util.HashMap.class);
+
+        // setup the primitive types
+        globalClassNameClassMap.put("boolean", Boolean.TYPE);
+        globalClassNameClassMap.put("short", Short.TYPE);
+        globalClassNameClassMap.put("int", Integer.TYPE);
+        globalClassNameClassMap.put("long", Long.TYPE);
+        globalClassNameClassMap.put("float", Float.TYPE);
+        globalClassNameClassMap.put("double", Double.TYPE);
+        globalClassNameClassMap.put("byte", Byte.TYPE);
+        globalClassNameClassMap.put("char", Character.TYPE);
 
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
