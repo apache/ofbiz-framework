@@ -114,7 +114,7 @@ under the License.
       <relation type="one" fk-name="CONTENT_PRIVENM" title="Privilege" rel-entity-name="Enumeration">
         <key-map field-name="privilegeEnumId" rel-field-name="enumId"/>
       </relation>
-      <relation type="one" fk-name="CONTENT_MMTP" rel-entity-name="MimeType">
+      <relation type="one-nofk" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
       </relation>
       <relation type="one" fk-name="CONTENT_CHST" rel-entity-name="CharacterSet">
@@ -757,7 +757,7 @@ under the License.
       <relation type="one" fk-name="DATA_REC_DTSRC" rel-entity-name="DataSource">
         <key-map field-name="dataSourceId"/>
       </relation>
-      <relation type="one" fk-name="DATA_REC_MMTP" rel-entity-name="MimeType">
+      <relation type="one-nofk" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
       </relation>
       <relation type="one" fk-name="DATA_REC_CHST" rel-entity-name="CharacterSet">
