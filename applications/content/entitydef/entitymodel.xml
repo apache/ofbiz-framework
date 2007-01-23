@@ -114,6 +114,9 @@ under the License.
       <relation type="one" fk-name="CONTENT_PRIVENM" title="Privilege" rel-entity-name="Enumeration">
         <key-map field-name="privilegeEnumId" rel-field-name="enumId"/>
       </relation>
+      <!-- the relationship to MimeType is one-nofk so that you can still do a lookup on MimeType but a new
+      and unexpected mime type would not cause a foreign key constraint violation, so MimeType can store the
+      most common mime types instead of an exhaustive list of all possible mime types --> 
       <relation type="one-nofk" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
       </relation>
@@ -757,6 +760,7 @@ under the License.
       <relation type="one" fk-name="DATA_REC_DTSRC" rel-entity-name="DataSource">
         <key-map field-name="dataSourceId"/>
       </relation>
+      <!-- see comment above for Content.mimeTypeId --> 
       <relation type="one-nofk" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
       </relation>
