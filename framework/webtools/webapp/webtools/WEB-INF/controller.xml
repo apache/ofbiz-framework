@@ -374,6 +374,12 @@ under the License.
         <response name="success" type="view" value="EntityPerformanceTest"/>
     </request-map>
 
+    <!-- Misc requests -->
+    <request-map uri="ViewComponents">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewComponents"/>
+    </request-map>
+
     <!-- EntitySQL requests -->
     <request-map uri="EntitySQLProcessor">
         <security https="true" auth="true"/>
@@ -547,5 +553,7 @@ under the License.
     <view-map name="EntityExportAll" page="component://webtools/widget/EntityScreens.xml#EntityExportAll" type="screen"/>
     <view-map name="EntityImportDir" page="component://webtools/widget/EntityScreens.xml#EntityImportDir" type="screen"/>
     <view-map name="EntityImport" page="component://webtools/widget/EntityScreens.xml#EntityImport" type="screen"/>
+
+    <view-map name="ViewComponents" page="component://webtools/widget/MiscScreens.xml#ViewComponents" type="screen"/>
     <!-- end of view mappings -->
 </site-conf>
