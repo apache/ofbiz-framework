@@ -94,7 +94,7 @@ public class EmailWorker {
     				if (attFileName != null && attFileName.length() > 17) {
     					attFileName = attFileName.substring(0,17);
     				}
-    				commEventMap.put("contentName", subject + "-" + attachmentCount + " " + attFileName);
+    				commEventMap.put("contentName", attFileName);
     				commEventMap.put("drMimeTypeId", thisContentType);
     				if (thisContentType.startsWith("text")) {
     					String content = (String)part.getContent();
