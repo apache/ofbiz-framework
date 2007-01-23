@@ -19,21 +19,34 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="setContentStatus" short-description="Set The Content Status">
-        <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-message message="Security Error: to change the Content Status you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/></check-permission>
-        <check-errors/>
-        
+    
         <entity-one entity-name="Content" value-name="content"/>
         <field-to-result field-name="content.statusId" result-name="oldStatusId"/>
+   
+        <!-- Test with content permission checking service -->
+        <set field="mapIn.targetOperationList[]" value="CONTENT_UPDATE"/>
+        <set field="mapIn.currentContent" from-field="content"/>
+        <set field="mapIn.userLogin" from-field="parameters.userLogin"/>
+   		<call-service service-name="checkContentPermission" in-map-name="mapIn">
+   			<result-to-field result-name="permissionStatus" field-name="permissionStatus"/>
+   		</call-service>
+       
+   		<if-compare operator="not-equals" field-name="permissionStatus" value="granted">
+	        <check-permission permission="CONTENTMGR" action="_CREATE">
+	            <fail-message message="Security Error: to change the Content Status you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+	        </check-permission>
+        	<check-errors/>
         
-        <if-compare-field field-name="content.statusId" operator="not-equals" to-field-name="parameters.statusId">
+    	</if-compare>
+         
+       <if-compare-field field-name="content.statusId" operator="not-equals" to-field-name="parameters.statusId">
             <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" env-name="content.statusId"/>
                 <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
             </entity-one>
             
             <if-empty field-name="statusChange">
-                <add-error><fail-message message="Status is not a valid change"/></add-error>
+                <add-error><fail-message message="Cannot change from ${content.statusId} to ${parameters.statusId}"/></add-error>
                 <log level="error" message="Cannot change from ${content.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
