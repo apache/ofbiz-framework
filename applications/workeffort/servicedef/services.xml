@@ -58,6 +58,21 @@ under the License.
         <description>Delete a WorkEffort Entity</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>        
     </service>
+
+    <service name="duplicateWorkEffort" engine="simple"
+        location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="duplicateWorkEffort" auth="true">
+        <description>Duplicate a Work Effort using a new workEffortId</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldWorkEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="duplicateWorkEffortAssocs" type="String" mode="IN" optional="true"/>
+        <attribute name="duplicateWorkEffortContents" type="String" mode="IN" optional="true"/>
+        <attribute name="duplicateWorkEffortNotes" type="String" mode="IN" optional="true"/>
+        <attribute name="duplicateWorkEffortAssignmentRates" type="String" mode="IN" optional="true"/>                        
+        <attribute name="removeWorkEffortAssocs" type="String" mode="IN" optional="true"/>
+        <attribute name="removeWorkEffortContents" type="String" mode="IN" optional="true"/>
+        <attribute name="removeWorkEffortNotes" type="String" mode="IN" optional="true"/>
+        <attribute name="removeWorkEffortAssignmentRates" type="String" mode="IN" optional="true"/>                        
+    </service>
     
     <!-- Communication Event WorkEffort -->
     <service name="makeCommunicationEventWorkEffort" default-entity-name="CommunicationEventWorkEff" engine="simple"

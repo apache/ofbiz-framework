@@ -78,6 +78,9 @@ under the License.
                                 <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
                             </fail-widgets>
                         </section>
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/workeffort/EditWorkEffortDupForm.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
