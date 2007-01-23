@@ -75,41 +75,43 @@ public class CategoryServices {
         return result;
     }
 
-    public static Map getNextPreviousCategoryMembers(DispatchContext dctx, Map context) {
+    public static Map getPreviousNextProducts(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
         String productId = (String) context.get("productId");
+        boolean activeOnly = (context.get("activeOnly") != null ? ((Boolean) context.get("activeOnly")).booleanValue() : true);
         Integer index = (Integer) context.get("index");
 
         if (index == null && productId == null) {
             return ServiceUtil.returnError("Both Index and ProductID cannot be null.");
         }
 
-        Map values = getCategoryMembers(dctx, context);
+        List orderByFields = (List) context.get("orderByFields");
+        if (orderByFields == null) orderByFields = FastList.newInstance();
+        String entityName = getCategoryFindEntityName(delegator, orderByFields);
 
-        if (values.containsKey(ModelService.ERROR_MESSAGE)) {
-            return values;
+        GenericValue productCategory;
+        List productCategoryMembers;
+        try {
+            productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId));
+            productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", categoryId), orderByFields);
+        } catch (GenericEntityException e) {
+            String errMsg = "Error finding previous/next product info: " + e.toString();
+            Debug.logInfo(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
-        if (!values.containsKey("categoryMembers") || values.get("categoryMembers") == null) {
-            return ServiceUtil.returnError("Problem reading category data.");
+        if (activeOnly) {
+            productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
         }
-
-        Collection memberCol = (Collection) values.get("categoryMembers");
-        if (memberCol == null || memberCol.size() == 0) {
-            // this is not going to be an error condition because we don't want it to be so critical, ie rolling back the transaction and such
-            return ServiceUtil.returnSuccess("Product not found in the current category.");
-        }
-
-        List memberList = new ArrayList(memberCol);
+        
 
         if (productId != null && index == null) {
-            Iterator i = memberList.iterator();
-
+            Iterator i = productCategoryMembers.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
-
-                if (v.getString("productId").equals(productId))
-                    index = new Integer(memberList.indexOf(v));
+                if (v.getString("productId").equals(productId)) {
+                    index = new Integer(productCategoryMembers.indexOf(v));
+                }
             }
         }
 
@@ -119,44 +121,40 @@ public class CategoryServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("category", values.get("category"));
+        result.put("category", productCategory);
 
         String previous = null;
         String next = null;
 
-        if (index.intValue() - 1 >= 0 && index.intValue() - 1 < memberList.size()) {
-            previous = ((GenericValue) memberList.get(index.intValue() - 1)).getString("productId");
+        if (index.intValue() - 1 >= 0 && index.intValue() - 1 < productCategoryMembers.size()) {
+            previous = ((GenericValue) productCategoryMembers.get(index.intValue() - 1)).getString("productId");
             result.put("previousProductId", previous);
         } else {
-            previous = ((GenericValue) memberList.get(memberList.size() - 1)).getString("productId");
+            previous = ((GenericValue) productCategoryMembers.get(productCategoryMembers.size() - 1)).getString("productId");
             result.put("previousProductId", previous);
         }
 
-        if (index.intValue() + 1 < memberList.size()) {
-            next = ((GenericValue) memberList.get(index.intValue() + 1)).getString("productId");
+        if (index.intValue() + 1 < productCategoryMembers.size()) {
+            next = ((GenericValue) productCategoryMembers.get(index.intValue() + 1)).getString("productId");
             result.put("nextProductId", next);
         } else {
-            next = ((GenericValue) memberList.get(0)).getString("productId");
+            next = ((GenericValue) productCategoryMembers.get(0)).getString("productId");
             result.put("nextProductId", next);
         }
         return result;
     }
-
-    public static Map getProductCategoryAndLimitedMembers(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
-        String productCategoryId = (String) context.get("productCategoryId");
-        boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
-        int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
-        
-        List orderByFields = (List) context.get("orderByFields");
-        if (orderByFields == null || orderByFields.size() == 0) {
-            orderByFields = FastList.newInstance();
+    
+    private static String getCategoryFindEntityName(GenericDelegator delegator, List orderByFields) {
+        // allow orderByFields to contain fields from the Product entity, if there are such fields
+        String entityName = "ProductCategoryMember";
+        if (orderByFields == null) {
+            return entityName;
+        }
+        if (orderByFields.size() == 0) {
             orderByFields.add("sequenceNum");
             orderByFields.add("productId");
         }
         
-        // allow orderByFields to contain fields from the Product entity, if there are such fields
-        String entityName = "ProductCategoryMember";
         ModelEntity productModel = delegator.getModelEntity("Product");
         ModelEntity productCategoryMemberModel = delegator.getModelEntity("ProductCategoryMember");
         Iterator orderByFieldIter = orderByFields.iterator();
@@ -172,8 +170,19 @@ public class CategoryServices {
                 }
             }
         }
-        
+        return entityName;
+    }
 
+    public static Map getProductCategoryAndLimitedMembers(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        String productCategoryId = (String) context.get("productCategoryId");
+        boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
+        int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
+        
+        List orderByFields = (List) context.get("orderByFields");
+        if (orderByFields == null) orderByFields = FastList.newInstance();
+        String entityName = getCategoryFindEntityName(delegator, orderByFields);
+        
         String prodCatalogId = (String) context.get("prodCatalogId");
 
         boolean useCacheForMembers = (context.get("useCacheForMembers") != null ? ((Boolean) context.get("useCacheForMembers")).booleanValue() : true);

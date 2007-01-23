@@ -106,10 +106,12 @@ under the License.
         <attribute name="categoryMembers" type="java.util.Collection" mode="OUT"/>
     </service>
     <service name="getPreviousNextProducts" engine="java"
-            location="org.ofbiz.product.category.CategoryServices" invoke="getNextPreviousCategoryMembers">
+        location="org.ofbiz.product.category.CategoryServices" invoke="getPreviousNextProducts">
         <description>Gets the previous and next product Ids.</description>
         <attribute name="categoryId" type="String" mode="IN"/>
         <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="activeOnly" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="orderByFields" type="List" mode="IN" optional="true"/>
         <attribute name="category" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="previousProductId" type="String" mode="OUT" optional="true"/>
         <attribute name="nextProductId" type="String" mode="OUT" optional="true"/>
