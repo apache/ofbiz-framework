@@ -53,4 +53,26 @@ under the License.
         <description>UPS Track Shipment</description>
         <auto-attributes entity-name="ShipmentRouteSegment" include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- UPS Rate Estimate -->
+    <service name="upsRateEstimateByPostalCode" engine="java"
+        location="org.ofbiz.shipment.thirdparty.ups.UpsServices" invoke="upsRateInquireByPostalCode" auth="false">
+        <description>UPS On-Line rate inquire tool.  Also supports rate shopping by setting upsRateInquireMode to 'Shop', and upsRateCodeMap
+            will return a Map of serviceCode -> rate</description>
+        <attribute name="serviceConfigProps" type="String" mode="IN" optional="true"/>
+        <attribute name="initialEstimateAmt" type="Double" mode="IN" optional="true"/>
+        <attribute name="shippingPostalCode" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="carrierRoleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="shippableItemInfo" type="List" mode="IN" optional="false"/>
+        <attribute name="shippableWeight" type="Double" mode="IN" optional="false"/>
+        <attribute name="shippableQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="shippableTotal" type="Double" mode="IN" optional="false"/>
+        <attribute name="shippingEstimateAmount" type="Double" mode="OUT" optional="false"/>
+        <attribute name="upsRateInquireMode" type="String" mode="IN" optional="true"/>
+        <attribute name="upsRateCodeMap" type="Map" mode="OUT" optional="false"/>
+        <attribute name="isResidentialAddress" type="String" mode="IN" optional="true"/>
+    </service>
 </services>
