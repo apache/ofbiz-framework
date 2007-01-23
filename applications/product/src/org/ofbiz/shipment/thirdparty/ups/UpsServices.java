@@ -1828,7 +1828,219 @@ public class UpsServices {
         if (Debug.verboseOn()) Debug.logVerbose("UPS Response : " + response, module);
         
         return response;
-    }    
+    }
+    
+    public static Map upsRateInquireByPostalCode(DispatchContext dctx, Map context) {
+
+        GenericDelegator delegator = dctx.getDelegator();
+        
+        // prepare the data
+        String serviceConfigProps = (String) context.get("serviceConfigProps");
+        String upsRateInquireMode = (String) context.get("upsRateInquireMode");
+        String productStoreId = (String) context.get("productStoreId");
+        String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
+        String carrierPartyId = (String) context.get("carrierPartyId");
+        String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
+       // String shippingContactMechId = (String) context.get("shippingContactMechId");
+        String shippingPostalCode = (String) context.get("shippingPostalCode");
+        List shippableItemInfo = (List) context.get("shippableItemInfo");
+        Double shippableTotal = (Double) context.get("shippableTotal");
+        Double shippableQuantity = (Double) context.get("shippableQuantity");
+        Double shippableWeight = (Double) context.get("shippableWeight");
+        String isResidentialAddress = (String)context.get("isResidentialAddress");
+        if (shippableTotal == null) {
+            shippableTotal = new Double(0.00);
+        }
+        if (shippableQuantity == null) {
+            shippableQuantity = new Double(0.00);
+        }
+        if (shippableWeight == null) {
+            shippableWeight = new Double(0.00);
+        }
+        if (serviceConfigProps == null) {
+            serviceConfigProps = "shipment.properties";
+        }
+        if (upsRateInquireMode == null || !"Shop".equals(upsRateInquireMode)) {
+            // can be either Rate || Shop
+            Debug.logWarning("No upsRateInquireMode set, defaulting to 'Rate'", module);
+            upsRateInquireMode = "Rate";
+        }
+        
+        // grab the pickup type; if none is defined we will assume daily pickup
+        String pickupType = UtilProperties.getPropertyValue(serviceConfigProps, "shipment.ups.shipper.pickup.type", "01");
+        
+        // locate the ship-from address based on the product store's default facility
+        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+        
+        GenericValue shipFromAddress = null;
+        if (productStore != null && productStore.get("inventoryFacilityId") != null) {
+            List shipLocs = null;
+            try {
+                shipLocs = delegator.findByAnd("FacilityContactMechPurpose", UtilMisc.toMap("facilityId",
+                        productStore.getString("inventoryFacilityId"), "contactMechPurposeTypeId",
+                        "SHIP_ORIG_LOCATION"), UtilMisc.toList("-fromDate"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (shipLocs != null) {
+                shipLocs = EntityUtil.filterByDate(shipLocs);
+                GenericValue purp =  EntityUtil.getFirst(shipLocs);
+                if (purp != null) {
+                    try {
+                        shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", purp.getString("contactMechId")));
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+                }
+            }
+        }
+        if (shipFromAddress == null) {
+            return ServiceUtil.returnError("Unable to determine ship-from address");
+        }
+
+        // obtain the ship-to address
+        /*GenericValue shipToAddress = null;
+        if (shippingContactMechId != null) {
+            try {
+                shipToAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        if (shipToAddress == null) {
+            return ServiceUtil.returnError("Unable to determine ship-to address");
+        }*/
+
+        // locate the service code
+        String serviceCode = null;
+        if (!"Shop".equals(upsRateInquireMode)) {
+            // locate the CarrierShipmentMethod record
+            GenericValue carrierShipmentMethod = null;
+            try {
+                carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId",
+                        shipmentMethodTypeId, "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (carrierShipmentMethod == null) {
+                return ServiceUtil.returnError("Unable to locate the shipping method requested");
+            }
+
+            // service code is 'carrierServiceCode'
+            serviceCode = carrierShipmentMethod.getString("carrierServiceCode");
+            
+        }
+        
+        // prepare the XML Document
+        Document rateRequestDoc = UtilXml.makeEmptyXmlDocument("RatingServiceSelectionRequest");
+        Element rateRequestElement = rateRequestDoc.getDocumentElement();
+        rateRequestElement.setAttribute("xml:lang", "en-US");
+        
+        // XML request header
+        Element requestElement = UtilXml.addChildElement(rateRequestElement, "Request", rateRequestDoc);
+        Element transactionReferenceElement = UtilXml.addChildElement(requestElement, "TransactionReference", rateRequestDoc);
+        UtilXml.addChildElementValue(transactionReferenceElement, "CustomerContext", "Rating and Service", rateRequestDoc);
+        UtilXml.addChildElementValue(transactionReferenceElement, "XpciVersion", "1.0001", rateRequestDoc);
+
+        // RequestAction is always Rate, but RequestOption can be Rate to get a single rate or Shop for all shipping methods
+        UtilXml.addChildElementValue(requestElement, "RequestAction", "Rate", rateRequestDoc);
+        UtilXml.addChildElementValue(requestElement, "RequestOption", upsRateInquireMode, rateRequestDoc);
+
+        // set the pickup type
+        Element pickupElement = UtilXml.addChildElement(rateRequestElement, "PickupType", rateRequestDoc);
+        UtilXml.addChildElementValue(pickupElement, "Code", pickupType, rateRequestDoc);
+
+        // shipment info
+        Element shipmentElement = UtilXml.addChildElement(rateRequestElement, "Shipment", rateRequestDoc);
+
+        // shipper info - (sub of shipment)
+        Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", rateRequestDoc);
+        Element shipperAddrElement = UtilXml.addChildElement(shipperElement, "Address", rateRequestDoc);
+        UtilXml.addChildElementValue(shipperAddrElement, "PostalCode", shipFromAddress.getString("postalCode"), rateRequestDoc);
+
+        // ship-to info - (sub of shipment)
+        Element shiptoElement = UtilXml.addChildElement(shipmentElement, "ShipTo", rateRequestDoc);
+        Element shiptoAddrElement = UtilXml.addChildElement(shiptoElement, "Address", rateRequestDoc);
+        UtilXml.addChildElementValue(shiptoAddrElement, "PostalCode", shippingPostalCode, rateRequestDoc);
+        if (isResidentialAddress != null && isResidentialAddress.equals("Y")) {
+            UtilXml.addChildElement(shiptoAddrElement, "ResidentialAddress", rateRequestDoc);
+        }
+        // requested service (code) - not used when in Shop mode
+        if (serviceCode != null) {
+            Element serviceElement = UtilXml.addChildElement(shipmentElement, "Service", rateRequestDoc);
+            UtilXml.addChildElementValue(serviceElement, "Code", serviceCode, rateRequestDoc);
+        }
+
+        // package info
+        String maxWeightStr = UtilProperties.getPropertyValue(serviceConfigProps, "shipment.ups.max.estimate.weight", "99");
+        double maxWeight = 99;
+        try {
+            maxWeight = Double.parseDouble(maxWeightStr);
+        } catch (NumberFormatException e) {
+            maxWeight = 99;
+        }
+        
+        splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight);
+
+        // service options
+        UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", rateRequestDoc);
+
+        String rateRequestString = null;
+        try {
+            rateRequestString = UtilXml.writeXmlDocument(rateRequestDoc);
+        } catch (IOException e) {
+            String ioeErrMsg = "Error writing the RatingServiceSelectionRequest XML Document to a String: " + e.toString();
+            Debug.logError(e, ioeErrMsg, module);
+            return ServiceUtil.returnError(ioeErrMsg);
+        }
+        
+        // create AccessRequest XML doc
+        Document accessRequestDocument = createAccessRequestDocument(serviceConfigProps);
+        String accessRequestString = null;
+        try {
+            accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
+        } catch (IOException e) {
+            String ioeErrMsg = "Error writing the AccessRequest XML Document to a String: " + e.toString();
+            Debug.logError(e, ioeErrMsg, module);
+            return ServiceUtil.returnError(ioeErrMsg);
+        }
+
+        // prepare the access/inquire request string
+        StringBuffer xmlString = new StringBuffer();
+        xmlString.append(accessRequestString);
+        xmlString.append(rateRequestString);
+
+        // send the request
+        String rateResponseString = null;
+        try {
+            rateResponseString = sendUpsRequest("Rate", xmlString.toString());
+        } catch (UpsConnectException e) {
+            String uceErrMsg = "Error sending UPS request for UPS Service Rate: " + e.toString();
+            Debug.logError(e, uceErrMsg, module);
+            return ServiceUtil.returnError(uceErrMsg);
+        }
+        Debug.logInfo(rateResponseString, module);       
+        Document rateResponseDocument = null;
+        try {
+            rateResponseDocument = UtilXml.readXmlDocument(rateResponseString, false);
+        } catch (SAXException e2) {
+            String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnError(excErrMsg);
+        } catch (ParserConfigurationException e2) {
+            String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnError(excErrMsg);
+        } catch (IOException e2) {
+            String excErrMsg = "Error parsing the RatingServiceSelectionResponse: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnError(excErrMsg);
+        }        
+        return handleUpsRateInquireResponse(rateResponseDocument);
+
+    
+    }
+    
 }
 
 class UpsConnectException extends GeneralException {
