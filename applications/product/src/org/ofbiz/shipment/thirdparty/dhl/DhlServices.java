@@ -240,7 +240,12 @@ public class DhlServices {
         inContext.put("dhlShipmentDetailCode", dhlShipmentDetailCode);
         inContext.put("weight", weight);
         inContext.put("state", shipToAddress.getString("stateProvinceGeoId"));
-        inContext.put("postalCode", shipToAddress.getString("postalCode"));
+        // DHL ShipIT API does not accept ZIP+4
+        if ((shipToAddress.getString("postalCode") != null) && (shipToAddress.getString("postalCode").length() > 5)) {
+            inContext.put("postalCode", shipToAddress.getString("postalCode").substring(0,5));
+        } else {
+            inContext.put("postalCode", shipToAddress.getString("postalCode"));
+        }
         try {
             Map tmpResult = ContentWorker.renderContentAsText(delegator, templateName, outWriter, inContext, null, locale, "text/plain");
         } catch (Exception e) {
@@ -709,7 +714,12 @@ public class DhlServices {
             inContext.put("streetLine2", destPostalAddress.getString("address2"));
             inContext.put("city", destPostalAddress.getString("city"));
             inContext.put("state", destPostalAddress.getString("stateProvinceGeoId"));
-            inContext.put("postalCode", destPostalAddress.getString("postalCode"));  
+	    // DHL ShipIT API does not accept ZIP+4
+	    if ((destPostalAddress.getString("postalCode") != null) && (destPostalAddress.getString("postalCode").length() > 5)) {
+		    inContext.put("postalCode", destPostalAddress.getString("postalCode").substring(0,5));
+	    } else {
+		    inContext.put("postalCode", destPostalAddress.getString("postalCode"));
+	    }
             inContext.put("phoneNbr", destPhoneNumber);
             inContext.put("labelImageType", labelImagePreference);
             inContext.put("shipperReference", shipment.getString("primaryOrderId") + "-" + shipment.getString("primaryShipGroupSeqId"));
@@ -737,7 +747,7 @@ public class DhlServices {
                 Debug.logError(e, uceErrMsg, module);
                 return ServiceUtil.returnError(uceErrMsg);
             }
-            // pass to handler method
+	    // pass to handler method
             return handleDhlShipmentConfirmResponse(responseString, shipmentRouteSegment, shipmentPackageRouteSegs);
             
         } catch (GenericEntityException e) {
