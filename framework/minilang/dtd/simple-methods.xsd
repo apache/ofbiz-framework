@@ -1124,7 +1124,7 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="webapp-property-to-field" substitutionGroup="EventOperations">
+    <xs:element name="webapp-property-to-field" substitutionGroup="EventOperations">        
         <xs:annotation>
             <xs:documentation>
                 The webapp-property-to-field tag copies a property value from a properties file in a ServletContext resource to a field.                
@@ -3725,16 +3725,41 @@ under the License.
     </xs:attributeGroup>
     <!-- the "Other" Operations -->
     <xs:element name="log" substitutionGroup="OtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The log tag logs a message used the OFBiz Debug class, which uses Log4J to log to the console, a file, or some other location. 
+                The message is a concatenation of the message attribute and then all of the field and string sub-element values in the order they are specified.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="field"/>
-                <xs:element ref="string"/>
+                <xs:element ref="field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Inserts the value of the field into the message where specified.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Inserts the value of the inline string into the message where specified.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.log"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.log">
         <xs:attribute name="level" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The logging/debug level to use. 
+                    Must be one of the following: verbose | timing | info | important | warning | error | fatal | always. 
+                    These are the standard OFBiz logging levels.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="verbose"/>
@@ -3748,7 +3773,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="message"/>
+        <xs:attribute type="xs:string" name="message">
+            <xs:annotation>
+                <xs:documentation>
+                    A shortcut for simple messages. 
+                    If used along with field and/or string sub-elements the inline string in the message will come first.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="now-timestamp-to-env" substitutionGroup="OtherOperations">
         <xs:annotation>
@@ -3788,17 +3820,59 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="property-to-field" substitutionGroup="OtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The property-to-field tag puts the inlined string value in the specified field.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.property-to-field"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.property-to-field">
-        <xs:attribute type="xs:string" name="resource" use="required"/>
-        <xs:attribute type="xs:string" name="property" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="default"/>
+        <xs:attribute type="xs:string" name="resource" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The resource location of the properties file.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="property" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The property whose value will be put in the field.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map in the method environment. 
+                    If not specified the field-name will be used to get the field from the method environment.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name (key) of the map field to use.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="default">
+            <xs:annotation>
+                <xs:documentation>
+                    The default value to use if the specified property is empty.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="no-locale" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If sets to true don't use the default locale variable.
+                    Defaults to false.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -3829,17 +3903,67 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="calculate" substitutionGroup="OtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The calculate tag performs the specified calculation and puts the result in an object in the field of the specified map (see the calculate element attribute descriptions above). 
+                The type of the object can be specified with thetype attribute, but defaults to Double.
+                
+                The calculate tag can contain calcop andnumber tags, and the calcop tag can also contain these two tags to enable nested calculations.
+                
+                Each calcop tag has three attributes: operator, map-name and field-name. Only the operator is required. 
+                The operator specifies the operation to perform on the given field and nested calcops and numbers. 
+                It must be one of the following: get | add | subtract | multiply | divide | negative.
+                
+                Regardless of the operator the action is very similar. 
+                It translates to a formula like the following: (V1 operator  V2 operator  V3). 
+                In other words a final result is calculated by applying the operator to the values in the order they are specified. 
+                If a field-name (and optionally map-name) is specifies on the calcop tag that field will be used as the first value, 
+                otherwise the first nested calcop or number will be the first value.
+                
+                The get operator is just an alias for add. It adds all of the values under it. 
+                Likewise the negative operator is almost an alias for subtract, with the exception that the first value is negated instead of left positive. 
+                For convenience the calculate tag itself acts like an add, in other words the calcops and numbers under it are all added together.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="calcop"/>
-                <xs:element ref="number"/>
+                <xs:element ref="calcop">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This tag is used to apply an operator in the calculation. 
+                            It can have calcop and number tags nested under it, making it also act like a parenthesis. 
+                            It has three attributes: operator, map-name, and field-name. These are described below.            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="number">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This is used to put a numeric constant (a number) into the calculation. 
+                            It has one attribute: value. This must be a properly formatted number or an error will result.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.calculate"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.calculate">
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map in the method environment. 
+                    If not specified the field-name will be used to get the field from the method environment.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name (key) of the map field to use.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="type" default="Double">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -3877,6 +4001,11 @@ under the License.
         <xs:attribute type="xs:string" name="decimal-format"/>
     </xs:attributeGroup>
     <xs:element name="calcop">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element ref="calcop"/>
@@ -3898,8 +4027,21 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="field-name"/>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the map in the method environment. 
+                    If not specified the field-name will be used to get the field from the method environment.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The name (key) of the map field to use.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="number">
         <xs:complexType>
