@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="FindFixedAssetMaints">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindFixedAssetMaints"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="boxoutside">
+                            <container style="screenlet-header">
+                                <label style="boxhead">${uiLabelMap.PageTitleFindFixedAssetMaints}</label>
+                            </container>
+                            <container style="boxbottom">
+                                <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                            </container>
+                        </container>
+                        <label>&lt;br/&gt;</label>
+                        <container><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
+                        <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditFixedAssetMaint">
+        <section>
+            <actions>
+                <set field="titleProperty" value="Edit WorkOrder"/>
+                <set field="tabButtonItem" value="EditFixedAssetMaint"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
+                <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
+                <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>
+                <get-related-one value-name="fixedAsset" relation-name="LocatedAtFacility" to-value-name="facility"/>
+                <entity-and entity-name="WorkEffortPartyAssignView" list-name="relatedPartyAssigns">
+                    <field-map field-name="workEffortId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
+                        <container><link target="printFixedAssetMaints.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/></container>
+                        <container style="boxoutside">
+                            <container style="screenlet-header">
+                                <label style="boxhead">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
+                            </container>
+                            <container style="boxbottom">
+                                <include-form name="EditFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditFixedAssetMaintMeters">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
+                <set field="tabButtonItem" value="EditFixedAssetMeter"/>
+                <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListFixedAssetMaintMeters" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="AddFixedAssetMaintMeter" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditWorkEfforts">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="EditWorkEfforts"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-empty field-name="workEffort"/>
+                            </condition>
+                            <widgets>
+                                <label style="head1">${uiLabelMap.PageTitleEditWorkEffort}</label>
+                                <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <container><label style="head1">${uiLabelMap.PageTitleChildWorkEfforts}</label></container>
+                                <include-form name="WorkEffortChildren" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <include-form name="AddWorkEffortChild" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditWorkEffortTimeEntries">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortTimeEntries"/>
+                <set field="tabButtonItem" value="EditWorkEffortTimeEntries"/>
+                <set field="labelTitleProperty" value="PageTitleListWorkEffortTimeEntries"/>
+                
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortTimeEntries}</label></container>
+                        <include-form name="ListWorkEffortTimeEntries" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortTimeEntry}</label></container>
+                        <include-form name="AddWorkEffortTimeEntry" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditWorkEffortNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortNotes"/>
+                <set field="tabButtonItem" value="EditWorkEffortNotes"/>
+                <set field="labelTitleProperty" value="PageTitleListWorkEffortNotes"/>
+
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortNotes}</label></container>
+                        <include-form name="ListWorkEffortNotes" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortNotes}</label></container>
+                        <include-form name="AddWorkEffortNote" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditItemIssuences">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListItemIssuence"/>
+                <set field="tabButtonItem" value="EditItemIssuences"/>
+                <set field="labelTitleProperty" value="PageTitleListItemIssuence"/>
+
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1">${uiLabelMap.PageTitleListItemIssuence}</label></container>
+                        <include-form name="ListItemIssuence" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                        <container><label style="head1">${uiLabelMap.PageTitleAddItemIssuence}</label></container>
+                        <include-form name="AddItemIssuence" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

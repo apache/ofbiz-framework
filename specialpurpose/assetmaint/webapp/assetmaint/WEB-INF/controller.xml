@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/site-conf.xsd">
+    <include location="component://assetmaint/webapp/assetmaint/WEB-INF/facility-controller.xml"/>    
+
+    <description>Asset Maintenance Component Site Configuration File</description>
+    <owner>Copyright 2001-2006 The Apache Software Foundation</owner>
+    <errorpage>/error/error.jsp</errorpage>
+
+    <!-- event handlers -->
+    <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
+    <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
+    <handler name="service" type="request" class="org.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
+    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+    <!-- view handlers -->
+    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
+    <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
+    <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopPdfViewHandler"/>
+    <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
+    <!--
+      These can be used to return the reports as views; make sure the classes are compiled and available
+        <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
+        <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
+        <handler name="jasperreportsxml" type="view" class="org.ofbiz.webapp.view.JasperReportsXmlViewHandler"/>
+    -->
+
+    <preprocessor>
+        <!-- Events to run on every request before security (chains exempt) -->
+        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+    </preprocessor>
+    <postprocessor>
+        <!-- Events to run on every request after all other processing (chains exempt) -->
+        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+    </postprocessor>
+
+    <!-- Security Mappings -->
+    <request-map uri="checkLogin" edit="false">
+        <description>Verify a user is logged in.</description>
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin" />
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="login">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="logout">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <response name="success" type="request" value="checkLogin"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <!-- End of Security Mappings -->
+
+    <!-- Request Mappings -->
+    <request-map uri="view">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+
+    <request-map uri="authview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <!-- FixedAssets requests -->
+    <request-map uri="findFixedAssets">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="FindFixedAssets" />
+        <response name="error" type="view" value="FindFixedAssets" />
+    </request-map>
+    <request-map uri="EditFixedAsset">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="EditFixedAsset" />
+        <response name="error" type="view" value="EditFixedAsset" />
+    </request-map>
+    <request-map uri="createFixedAsset">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="createFixedAsset" />
+        <response name="success" type="view" value="EditFixedAsset" />
+        <response name="error" type="view" value="EditFixedAsset" />
+    </request-map>
+    <request-map uri="updateFixedAsset">
+        <security https="true" auth="true" />
+        <event type="service" path="" invoke="updateFixedAsset" />
+        <response name="success" type="view" value="EditFixedAsset" />
+        <response name="error" type="view" value="EditFixedAsset" />
+    </request-map>
+    <request-map uri="FixedAssetChildren">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FixedAssetChildren"/>
+        <response name="error" type="view" value="FixedAssetChildren"/>
+    </request-map>
+   <!-- ================ Fixed Asset Calendar Requests ================= -->
+    <request-map uri="ListFixedAssetCalendar">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListFixedAssetCalendar"/>
+    </request-map>
+    <request-map uri="updateFixedAssetCalendar">
+        <security https="true" auth="true"/>
+        <event type="service" path="org.ofbiz.accounting.fixedasset.FixedAssetServices.xml" invoke="updateFixedAssetCalendar"/>
+        <response name="success" type="view" value="ListFixedAssetCalendar"/>
+        <response name="error" type="view" value="ListFixedAssetCalendar"/>
+    </request-map>
+
+    <request-map uri="EditFixedAssetStdCosts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFixedAssetStdCosts"/>
+    </request-map>
+    <request-map uri="createFixedAssetStdCost">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFixedAssetStdCost"/>
+        <response name="success" type="view" value="ListFixedAssetStdCosts"/>
+    </request-map>
+    <request-map uri="updateFixedAssetStdCost">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFixedAssetStdCost"/>
+        <response name="success" type="view" value="ListFixedAssetStdCosts"/>
+    </request-map>
+    <request-map uri="cancelFixedAssetStdCost">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="cancelFixedAssetStdCost"/>
+        <response name="success" type="view" value="ListFixedAssetStdCosts"/>
+    </request-map>
+    <!-- FixedAssetIdent -->
+    <request-map uri="EditFixedAssetIdents">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFixedAssetIdents"/>
+        <response name="error" type="view" value="EditFixedAssetIdents"/>
+    </request-map>
+    <request-map uri="createFixedAssetIdent">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFixedAssetIdent"/>
+        <response name="success" type="view" value="EditFixedAssetIdents"/>
+        <response name="error" type="view" value="EditFixedAssetIdents"/>
+    </request-map>
+    <request-map uri="updateFixedAssetIdent">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFixedAssetIdent"/>
+        <response name="success" type="view" value="EditFixedAssetIdents"/>
+        <response name="error" type="view" value="EditFixedAssetIdents"/>
+    </request-map>
+    <request-map uri="removeFixedAssetIdent">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeFixedAssetIdent"/>
+        <response name="success" type="view" value="EditFixedAssetIdents"/>
+        <response name="error" type="view" value="EditFixedAssetIdents"/>
+    </request-map>
+    
+    <!-- FixedAssetRegistration -->
+    <request-map uri="EditFixedAssetRegistrations">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFixedAssetRegistrations"/>
+        <response name="error" type="view" value="EditFixedAssetRegistrations"/>
+    </request-map>
+    <request-map uri="createFixedAssetRegistration">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFixedAssetRegistration"/>
+        <response name="success" type="view" value="EditFixedAssetRegistrations"/>
+        <response name="error" type="view" value="EditFixedAssetRegistrations"/>
+    </request-map>
+    <request-map uri="updateFixedAssetRegistration">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFixedAssetRegistration"/>
+        <response name="success" type="view" value="EditFixedAssetRegistrations"/>
+        <response name="error" type="view" value="EditFixedAssetRegistrations"/>
+    </request-map>
+    <request-map uri="deleteFixedAssetRegistration">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteFixedAssetRegistration"/>
+        <response name="success" type="view" value="EditFixedAssetRegistrations"/>
+        <response name="error" type="view" value="EditFixedAssetRegistrations"/>
+    </request-map>
+    <!-- FixedAssetMaintenance -->
+    <request-map uri="ListFixedAssetMaints">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListFixedAssetMaints"/>
+        <response name="error" type="view" value="ListFixedAssetMaints"/>
+    </request-map>
+    <request-map uri="EditFixedAssetMaint">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFixedAssetMaint"/>
+        <response name="error" type="view" value="EditFixedAssetMaint"/>
+    </request-map>
+    <request-map uri="createFixedAssetMaintUpdateWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="createFixedAssetMaintUpdateWorkEffort"/>
+        <response name="success" type="view" value="EditFixedAssetMaint"/>
+        <response name="error" type="view" value="EditFixedAssetMaint"/>
+    </request-map>
+    <request-map uri="updateFixedAssetMaintAndWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="updateFixedAssetMaintAndWorkEffort"/>
+        <response name="success" type="view" value="EditFixedAssetMaint"/>
+        <response name="error" type="view" value="EditFixedAssetMaint"/>
+    </request-map>
+    <request-map uri="deleteFixedAssetMaint">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteFixedAssetMaint"/>
+        <response name="success" type="view" value="EditFixedAssetMaint"/>
+        <response name="error" type="view" value="EditFixedAssetMaint"/>
+    </request-map>
+
+    <request-map uri="findFixedAssetMaints">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindFixedAssetMaints"/>
+        <response name="error" type="view" value="FindFixedAssetMaints"/>
+    </request-map>
+
+    <!-- FixedAssetMaintenance Meter -->
+    <request-map uri="EditFixedAssetMaintMeters">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+    </request-map>
+    <request-map uri="createFixedAssetMaintMeter">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFixedAssetMaintMeter"/>
+        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+    </request-map>
+    <request-map uri="updateFixedAssetMaintMeter">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFixedAssetMaintMeter"/>
+        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+    </request-map>
+    <request-map uri="deleteFixedAssetMaintMeter">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteFixedAssetMaintMeter"/>
+        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+    </request-map>
+
+    <!--  WorkEffort request mappings -->
+    <request-map uri="EditWorkEfforts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="updateWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="createWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="updateWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+
+    <!-- TimeEntries on a Maintenance request mappings -->
+    <request-map uri="EditWorkEffortTimeEntries">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
+    </request-map>
+    <request-map uri="createWorkEffortTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimeEntry"/>
+        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
+        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
+    </request-map>
+    <request-map uri="updateWorkEffortTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimeEntry"/>
+        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
+        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteTimeEntry"/>
+        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
+        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
+    </request-map>
+    
+    <!-- Notes on a Maintenance request mappings -->
+    <request-map uri="EditWorkEffortNotes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWorkEffortNotes"/>
+    </request-map>
+    
+    <request-map uri="createWorkEffortNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortNote"/>
+        <response name="success" type="view" value="EditWorkEffortNotes"/>
+        <response name="error" type="view" value="EditWorkEffortNotes"/>
+    </request-map>
+
+    <request-map uri="createWorkEffortAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="createWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="updateWorkEffortAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="EditItemIssuences">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditItemIssuences"/>
+        <response name="error" type="view" value="EditItemIssuences"/>
+    </request-map>
+    <request-map uri="issueInventoryItemToFixedAssetMaint">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="issueInventoryItemToFixedAssetMaint"/>
+        <response name="success" type="view" value="EditItemIssuences"/>
+        <response name="error" type="view" value="EditItemIssuences"/>
+    </request-map>
+
+
+   <!-- ================ Lookup Requests ================= -->
+    <request-map uri="LookupFixedAsset"><security auth="true" https="true"/><response name="success" type="view" value="LookupFixedAsset"/></request-map>
+    <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
+    <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
+    <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
+    <request-map uri="LookupOrderHeader"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeader"/></request-map>
+    <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupVehicleTypeProduct"/></request-map>
+    <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
+    <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
+    <request-map uri="LookupPartsProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartsProduct"/></request-map>
+
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="error" page="/error/error.jsp"/>
+
+    <view-map name="main" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets"/>
+    <view-map name="login" type="screen" page="component://assetmaint/widget/CommonScreens.xml#login"/> 
+
+    <!-- FixedAsset and Relationship management screens -->    
+    <view-map name="FindFixedAssets" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets" />
+    <view-map name="EditFixedAsset" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#EditFixedAsset" />
+    <view-map name="FixedAssetChildren" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FixedAssetChildren"/>
+    <view-map name="ListFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetCalendar"/> 
+    <view-map name="updateFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#updateFixedAssetCalendar"/> 
+    <view-map name="EditFixedAssetStdCosts" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#EditFixedAssetStdCosts"/>
+    <view-map name="EditFixedAssetIdents" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetIdents"/>
+    <view-map name="EditFixedAssetRegistrations" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetRegistrations"/>
+    <view-map name="ListFixedAssetMaints" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetMaints"/>
+
+    <!-- FixedAsset Maintenance screens -->
+    <view-map name="FindFixedAssetMaints" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#FindFixedAssetMaints" />
+    <view-map name="EditFixedAssetMaint" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
+    <view-map name="EditFixedAssetMaintMeters" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaintMeters"/>
+    <view-map name="EditWorkEfforts" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
+    <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortTimeEntries"/>
+    <view-map name="EditWorkEffortNotes" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortNotes"/>
+    <view-map name="EditItemIssuences" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditItemIssuences"/>
+
+
+    <!-- Lookup request mappings -->
+    <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
+    <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
+    <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
+    <view-map name="LookupPartyGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyGroup"/>
+    <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
+    <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>
+    <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
+    <view-map name="LookupPartsProduct" type="screen" page="component://assetmaint/widget/ProductScreens.xml#LookupPartsProduct"/>
+    
+    <!-- end of view mappings -->
+</site-conf>

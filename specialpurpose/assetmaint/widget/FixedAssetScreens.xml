@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+
+    <screen name="FindFixedAssets">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingFindFixedAsset" />
+                <set field="labelTitleProperty" value="AccountingFindFixedAsset" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="boxoutside">
+                           <container style="screenlet-header">
+                              <label style="boxhead">${uiLabelMap.AccountingFixedAssets}</label>
+                           </container>
+                           <container style="boxbottom">
+                              <include-form name="FindFixedAssets" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                           </container>
+                        </container>
+                        <label>&lt;br/&gt;</label>
+                        <container>
+                            <link target="editFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
+                        </container>
+                        <include-form name="ListFixedAssets" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!-- Create/Update Equipment -->
+    <screen name="EditFixedAsset">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingEditFixedAsset" />
+                <set field="labelTitleProperty" value="AccountingEditFixedAsset" />
+                <set field="tabButtonItem" value="EditFixedAsset" />
+
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId" />
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="editFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
+                        </container>
+                        <label>&lt;br/&gt;</label>
+                        <container style="boxoutside">
+                            <container style="screenlet-header">
+                                <label style="boxhead">${uiLabelMap.AccountingEditFixedAsset}</label>
+                            </container>
+                            <include-form name="EditFixedAsset" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                        </container>
+                        <!--platform-specific>
+                            <html><html-template location="component://assetmaint/webapp/assetmaint/includes/EquipmentsFocus.ftl"/></html>
+                        </platform-specific-->
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FixedAssetChildren">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingEditFixedAsset"/>
+                <set field="labelTitleProperty" value="AccountingFixedAssetChildren"/>
+                <set field="tabButtonItem" value="FixedAssetChildren"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="trail" from-field="parameters.trail" default-value="${parameters.fixedAssetId}"/>
+                <set field="fixedAssetId" from-field="parameters.trail"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-tree name="TreeFixedAsset" location="component://accounting/widget/AccountingTrees.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditFixedAssetStdCosts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFixedAssetStdCost"/>
+                <set field="labelTitleProperty" value="AccountingFixedAssetStdCosts"/>
+                <set field="tabButtonItem" value="EditFixedAssetStdCosts"/>
+                
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="fixedAssetStdCostTypeId" from-field="parameters.fixedAssetStdCostTypeId"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+                
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset" auto-field-map="true"/>
+                <entity-one entity-name="FixedAssetStdCost" value-name="fixedAssetStdCost" auto-field-map="true"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset" auto-field-map="true"/>
+                <entity-and entity-name="FixedAssetStdCost" list-name="fixedAssetStdCosts">
+                    <field-map env-name="fixedAsset.fixedAssetId" field-name="fixedAssetId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><link target="EditFixedAssetStdCost?fixedAssetId=${fixedAsset.fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetStdCost}" style="buttontext"/></container>
+                        <include-form name="ListFixedAssetStdCosts" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="EditFixedAssetStdCost" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

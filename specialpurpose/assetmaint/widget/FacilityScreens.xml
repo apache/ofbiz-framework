@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-screen.xsd">
+    <screen name="FindFacility">
+        <section>
+            <actions>
+                <set field="appbarItem" value="facility"/>
+                <entity-condition entity-name="Facility" list-name="facilities">
+                    <condition-expr field-name="facilityTypeId" value="WAREHOUSE"/>
+                    <order-by field-name="facilityId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListFacilities" location="component://assetmaint/widget/forms/FacilityForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonFacilityDecorator">
+        <section>
+            <actions>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <entity-one entity-name="Facility" value-name="facility"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <not><if-empty field-name="facility"/></not>
+                                            <not><if-empty field-name="displayWithNoFacility"/></not>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="FacilityTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                                        <decorator-section-include name="body"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="head3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewFacilityInventoryByProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <!-- This is the target of the search form-->
+                <set field="facilityInventoryByProductScreen" value="ViewFacilityInventoryByProduct"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="productTypeId" from-field="parameters.productTypeId"/>
+                <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
+                <set field="productSupplierId" from-field="parameters.productSupplierId"/>
+                <set field="offsetQOHQty" from-field="parameters.offsetQOHQty"/>
+                <set field="offsetATPQty" from-field="parameters.offsetATPQty"/>
+                <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
+                <set field="internalName" from-field="parameters.internalName"/>
+                <set field="productId" from-field="parameters.productId"/>
+   
+                <script location="component://product/webapp/facility/WEB-INF/actions/facility/countFacilityInventoryByProduct.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator">
+                    <decorator-section name="body">
+
+                        <container>
+                            <label style="head1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
+                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                        </container>
+                        <container>
+                            <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryItems}" style="buttontext"/>
+                            <!--<link target="ViewFacilityInventoryByProductSimple?facilityId=${facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>-->
+                            <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
+                        </container>
+
+                        <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
