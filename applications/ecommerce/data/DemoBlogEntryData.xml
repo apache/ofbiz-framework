@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
 <entity-engine-xml>
     <DataResource dataResourceId="BLG10000" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="BLOG_PUBLISHED" dataResourceName="Float left" mimeTypeId="text/html" objectInfo="component://ecommerce/widget/blog/BlogTemplates.xml#FloatLeft" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2007-01-23 16:46:38.468" lastModifiedByUserLogin="bigal" lastUpdatedStamp="2007-01-23 16:46:38.468" lastUpdatedTxStamp="2007-01-23 16:46:37.359" createdStamp="2007-01-23 16:46:22.421" createdTxStamp="2007-01-23 16:46:21.406"/>
     <DataResource dataResourceId="BLG10001" dataResourceTypeId="OFBIZ_FILE_BIN" dataTemplateTypeId="NONE" statusId="BLOG_DRAFT" mimeTypeId="image/jpeg" objectInfo="/applications/ecommerce/data/cutekid.jpg" isPublic="Y" createdDate="2007-01-23 16:46:22.843" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.843" lastModifiedByUserLogin="bigal" lastUpdatedStamp="2007-01-23 16:46:22.843" lastUpdatedTxStamp="2007-01-23 16:46:21.406" createdStamp="2007-01-23 16:46:22.843" createdTxStamp="2007-01-23 16:46:21.406"/>
@@ -23,39 +41,72 @@
     <Content contentId="BLG10009" contentTypeId="DOCUMENT" ownerContentId="BLG10007" dataResourceId="BLG10008" statusId="BLOG_PUBLISHED" contentName="RE:2008 Elections " description="I agree - lets go back to drafting candidates." childBranchCount="0" createdDate="2007-01-23 17:00:46.421" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 17:00:46.421" lastModifiedByUserLogin="blog_guest" lastUpdatedStamp="2007-01-23 17:00:47.953" lastUpdatedTxStamp="2007-01-23 17:00:47.046" createdStamp="2007-01-23 17:00:46.468" createdTxStamp="2007-01-23 17:00:46.234"/>
     <Content contentId="BLG10010" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10009" statusId="BLOG_PUBLISHED" contentName="Next Linus" description="David Jones - next Linux Torvalds" createdDate="2007-01-23 17:07:12.296" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.296" lastModifiedByUserLogin="madmax" lastUpdatedStamp="2007-01-23 17:07:12.421" lastUpdatedTxStamp="2007-01-23 17:07:12.234" createdStamp="2007-01-23 17:07:12.421" createdTxStamp="2007-01-23 17:07:12.234"/>
     <Content contentId="BLG10011" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10010" statusId="BLOG_PUBLISHED" createdDate="2007-01-23 17:07:12.687" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.687" lastModifiedByUserLogin="madmax" lastUpdatedStamp="2007-01-23 17:07:12.703" lastUpdatedTxStamp="2007-01-23 17:07:12.234" createdStamp="2007-01-23 17:07:12.703" createdTxStamp="2007-01-23 17:07:12.234"/>
-    <ElectronicText dataResourceId="BLG10000" lastUpdatedStamp="2007-01-23 16:46:38.515" lastUpdatedTxStamp="2007-01-23 16:46:37.359" createdStamp="2007-01-23 16:46:22.703" createdTxStamp="2007-01-23 16:46:21.406">
-        <textData><![CDATA[Hey, if I write this stuff for free, I sure as heck am going to put my kid's picture up there if I want to.
-<p/>
-This is an example of a complex blog entry that uses the screen widgets to combine text and images. 
-
-If you want to see what the editing environment look like, log in as "bigal/ofbiz".
-]]></textData>
-    </ElectronicText>
-    <ElectronicText dataResourceId="BLG10002" textData="Cutest kid in the whole world.  This section is the &quot;SUMMARY&quot; section. It is stored separately from the main content." lastUpdatedStamp="2007-01-23 16:46:38.672" lastUpdatedTxStamp="2007-01-23 16:46:37.359" createdStamp="2007-01-23 16:46:23.015" createdTxStamp="2007-01-23 16:46:21.406"/>
-    <ElectronicText dataResourceId="BLG10003" lastUpdatedStamp="2007-01-23 16:47:49.359" lastUpdatedTxStamp="2007-01-23 16:47:49.328" createdStamp="2007-01-23 16:47:49.359" createdTxStamp="2007-01-23 16:47:49.328">
-        <textData><![CDATA[This certainly is the cutest kid I have ever seen.
-
-- Maxwell's (Cutest Kid in the World) mother]]></textData>
-    </ElectronicText>
-    <ElectronicText dataResourceId="BLG10004" lastUpdatedStamp="2007-01-23 16:50:38.265" lastUpdatedTxStamp="2007-01-23 16:50:38.171" createdStamp="2007-01-23 16:50:38.265" createdTxStamp="2007-01-23 16:50:38.171">
-        <textData><![CDATA[So what am I - chopped liver? How come I can't upload my picture?
-
-- Joseph (Max's baby brother - age 7 months)]]></textData>
-    </ElectronicText>
-    <ElectronicText dataResourceId="BLG10005" lastUpdatedStamp="2007-01-23 16:52:11.437" lastUpdatedTxStamp="2007-01-23 16:52:11.406" createdStamp="2007-01-23 16:52:11.437" createdTxStamp="2007-01-23 16:52:11.406">
-        <textData><![CDATA[Sorry dear, but you look too much like your father. Hopefully, you get something from him that may lessen the handicap with which you have been saddled. :0(
-
-- Mom]]></textData>
-    </ElectronicText>
-    <ElectronicText dataResourceId="BLG10006" textData="Our leaders have long since stopped being leaders and become moral barometers instead, and believe me there is a storm a`comin. I can understand rich Americans voting for rich politicians because they share a common interest. What I can&apos;t understand is middle class Americans voting for rich politicians in the hopes that they can hold on to the little bit more money they have than the Democrats. What is even sadder is the less well-off who vote for some good-looking joe who has no more in common with them than the man-in-the-moon because it makes them feel like they are like him - reality TV." lastUpdatedStamp="2007-01-23 16:58:31.156" lastUpdatedTxStamp="2007-01-23 16:58:31.078" createdStamp="2007-01-23 16:58:31.156" createdTxStamp="2007-01-23 16:58:31.078"/>
-    <ElectronicText dataResourceId="BLG10007" textData="The 2008 Elections more like a reality show than anything meaningful." lastUpdatedStamp="2007-01-23 16:58:31.735" lastUpdatedTxStamp="2007-01-23 16:58:31.078" createdStamp="2007-01-23 16:58:31.735" createdTxStamp="2007-01-23 16:58:31.078"/>
-    <ElectronicText dataResourceId="BLG10008" textData="I think one requirement for attaining the office of President should be that you don&apos;t want it. That you are drafted by the will of the people and dragged kicking and screaming to the position should be the process." lastUpdatedStamp="2007-01-23 17:00:46.406" lastUpdatedTxStamp="2007-01-23 17:00:46.234" createdStamp="2007-01-23 17:00:46.406" createdTxStamp="2007-01-23 17:00:46.234"/>
-    <ElectronicText dataResourceId="BLG10009" lastUpdatedStamp="2007-01-23 17:07:12.281" lastUpdatedTxStamp="2007-01-23 17:07:12.234" createdStamp="2007-01-23 17:07:12.281" createdTxStamp="2007-01-23 17:07:12.234">
-        <textData><![CDATA[This is not any kind of hero worship; it is pragmatic marketing. You need a profile to attach to dynamic movements, if for no reason other than to pick fights with your competion - "our icon is more enigmatic than your icon". You need someone for publications to write articles about and "the next Linus Torvalds" is just the sort of catch phrase they would pick up on.
-<p/>
-David won't like it. He will probably delete this seed data from the DB, but it is not really about him. He gave up his right to privacy when he chose to pursue the glamorous life of an open source software developer. We could choose someone else, but no one else knows enough about OFBiz to do the interviews.]]></textData>
-    </ElectronicText>
-    <ElectronicText dataResourceId="BLG10010" textData="Considering how much more valuable ERP software is than operating system, lets crown David Jones OSS king of the hill and milk it for all it is worth." lastUpdatedStamp="2007-01-23 17:07:12.672" lastUpdatedTxStamp="2007-01-23 17:07:12.234" createdStamp="2007-01-23 17:07:12.672" createdTxStamp="2007-01-23 17:07:12.234"/>
+    <ElectronicText dataResourceId="BLG10000" lastUpdatedStamp="2007-01-23 16:46:38.515" lastUpdatedTxStamp="2007-01-23 16:46:37.359" createdStamp="2007-01-23 16:46:22.703" createdTxStamp="2007-01-23 16:46:21.406">
+
+        <textData><![CDATA[Hey, if I write this stuff for free, I sure as heck am going to put my kid's picture up there if I want to.
+
+<p/>
+
+This is an example of a complex blog entry that uses the screen widgets to combine text and images. 
+
+
+
+If you want to see what the editing environment look like, log in as "bigal/ofbiz".
+
+]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10002" textData="Cutest kid in the whole world.  This section is the &quot;SUMMARY&quot; section. It is stored separately from the main content." lastUpdatedStamp="2007-01-23 16:46:38.672" lastUpdatedTxStamp="2007-01-23 16:46:37.359" createdStamp="2007-01-23 16:46:23.015" createdTxStamp="2007-01-23 16:46:21.406"/>
+
+    <ElectronicText dataResourceId="BLG10003" lastUpdatedStamp="2007-01-23 16:47:49.359" lastUpdatedTxStamp="2007-01-23 16:47:49.328" createdStamp="2007-01-23 16:47:49.359" createdTxStamp="2007-01-23 16:47:49.328">
+
+        <textData><![CDATA[This certainly is the cutest kid I have ever seen.
+
+
+
+- Maxwell's (Cutest Kid in the World) mother]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10004" lastUpdatedStamp="2007-01-23 16:50:38.265" lastUpdatedTxStamp="2007-01-23 16:50:38.171" createdStamp="2007-01-23 16:50:38.265" createdTxStamp="2007-01-23 16:50:38.171">
+
+        <textData><![CDATA[So what am I - chopped liver? How come I can't upload my picture?
+
+
+
+- Joseph (Max's baby brother - age 7 months)]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10005" lastUpdatedStamp="2007-01-23 16:52:11.437" lastUpdatedTxStamp="2007-01-23 16:52:11.406" createdStamp="2007-01-23 16:52:11.437" createdTxStamp="2007-01-23 16:52:11.406">
+
+        <textData><![CDATA[Sorry dear, but you look too much like your father. Hopefully, you get something from him that may lessen the handicap with which you have been saddled. :0(
+
+
+
+- Mom]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10006" textData="Our leaders have long since stopped being leaders and become moral barometers instead, and believe me there is a storm a`comin. I can understand rich Americans voting for rich politicians because they share a common interest. What I can&apos;t understand is middle class Americans voting for rich politicians in the hopes that they can hold on to the little bit more money they have than the Democrats. What is even sadder is the less well-off who vote for some good-looking joe who has no more in common with them than the man-in-the-moon because it makes them feel like they are like him - reality TV." lastUpdatedStamp="2007-01-23 16:58:31.156" lastUpdatedTxStamp="2007-01-23 16:58:31.078" createdStamp="2007-01-23 16:58:31.156" createdTxStamp="2007-01-23 16:58:31.078"/>
+
+    <ElectronicText dataResourceId="BLG10007" textData="The 2008 Elections more like a reality show than anything meaningful." lastUpdatedStamp="2007-01-23 16:58:31.735" lastUpdatedTxStamp="2007-01-23 16:58:31.078" createdStamp="2007-01-23 16:58:31.735" createdTxStamp="2007-01-23 16:58:31.078"/>
+
+    <ElectronicText dataResourceId="BLG10008" textData="I think one requirement for attaining the office of President should be that you don&apos;t want it. That you are drafted by the will of the people and dragged kicking and screaming to the position should be the process." lastUpdatedStamp="2007-01-23 17:00:46.406" lastUpdatedTxStamp="2007-01-23 17:00:46.234" createdStamp="2007-01-23 17:00:46.406" createdTxStamp="2007-01-23 17:00:46.234"/>
+
+    <ElectronicText dataResourceId="BLG10009" lastUpdatedStamp="2007-01-23 17:07:12.281" lastUpdatedTxStamp="2007-01-23 17:07:12.234" createdStamp="2007-01-23 17:07:12.281" createdTxStamp="2007-01-23 17:07:12.234">
+
+        <textData><![CDATA[This is not any kind of hero worship; it is pragmatic marketing. You need a profile to attach to dynamic movements, if for no reason other than to pick fights with your competion - "our icon is more enigmatic than your icon". You need someone for publications to write articles about and "the next Linus Torvalds" is just the sort of catch phrase they would pick up on.
+
+<p/>
+
+David won't like it. He will probably delete this seed data from the DB, but it is not really about him. He gave up his right to privacy when he chose to pursue the glamorous life of an open source software developer. We could choose someone else, but no one else knows enough about OFBiz to do the interviews.]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10010" textData="Considering how much more valuable ERP software is than operating system, lets crown David Jones OSS king of the hill and milk it for all it is worth." lastUpdatedStamp="2007-01-23 17:07:12.672" lastUpdatedTxStamp="2007-01-23 17:07:12.234" createdStamp="2007-01-23 17:07:12.672" createdTxStamp="2007-01-23 17:07:12.234"/>
+
 
 :    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10001" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.218" mapKey="MAIN" createdDate="2007-01-23 16:46:38.593" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.593" lastModifiedByUserLogin="bigal" lastUpdatedStamp="2007-01-23 16:46:38.64" lastUpdatedTxStamp="2007-01-23 16:46:37.359" createdStamp="2007-01-23 16:46:38.64" createdTxStamp="2007-01-23 16:46:37.359"/>
     <ContentAssoc contentId="BLG10000" contentIdTo="BLG10001" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.796" mapKey="MAIN" createdDate="2007-01-23 16:46:22.796" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.796" lastModifiedByUserLogin="bigal" lastUpdatedStamp="2007-01-23 16:46:22.812" lastUpdatedTxStamp="2007-01-23 16:46:21.406" createdStamp="2007-01-23 16:46:22.812" createdTxStamp="2007-01-23 16:46:21.406"/>

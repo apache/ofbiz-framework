@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Copyright 2001-2006 The Apache Software Foundation
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License. You may obtain a copy of
-the License at
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-License for the specific language governing permissions and limitations
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
 under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -82,11 +85,11 @@ under the License.
         <field name="caContentId" entry-name="caContentId" map-name="rsp">
           <hidden/>
         </field>
-		<!--
+        <!--
         <field name="contentContentId" entry-name="caContentIdTo" map-name="rsp">
           <hidden/>
         </field>
-			-->
+            -->
         <field name="contentTypeId" entry-name="contentTypeId" map-name="rsp">
           <hidden/>
         </field>
@@ -170,58 +173,58 @@ under the License.
         default-title-style="treeHeader"
         skip-end="true"
         default-tooltip-style="tabletext" default-widget-style="inputBox">
-	    <field name="contentIdStart" map-name="view"><hidden/></field>
-	    <field name="caContentId" map-name="view"><hidden/></field>
-	    <field name="caContentIdTo" map-name="view"><hidden/></field>
-	    <field name="caContentAssocTypeId" map-name="view"><hidden/></field>
-	    <field name="caFromDate" map-name="view"><hidden/></field>
-	    <field name="caThruDate" map-name="view"><hidden/></field>
-	    <field name="caContentAssocPredicateId" map-name="view"><hidden/></field>
-	    <field name="caDataSourceId" map-name="view"><hidden/></field>
-	    <field name="caSequenceNum" map-name="view"><hidden/></field>
-	    <field name="caMapKey" map-name="view"><hidden/></field>
-	    <field name="caUpperCoordinate" map-name="view"><hidden/></field>
-	    <field name="caLeftCoordinate" map-name="view"><hidden/></field>
-	    <field name="caCreatedDate" map-name="view"><hidden/></field>
-	    <field name="caCreatedByUserLogin" map-name="view"><hidden/></field>
-	    <field name="caLastModifiedDate" map-name="view"><hidden/></field>
-	    <field name="caLastModifiedByUserLogin" map-name="view"><hidden/></field>
-	    <field name="contentTypeId" map-name="view"><hidden/></field>
-	    <field name="ownerContentId" map-name="view"><hidden/></field>
-	    <field name="instanceOfContentId" map-name="view"><hidden/></field>
-	    <field name="dataResourceId" map-name="view"><hidden/></field>
-	    <field name="templateDataResourceId" map-name="view"><hidden/></field>
-	    <field name="dataSourceId" map-name="view"><hidden/></field>
-	    <field name="privilegeEnumId" map-name="view"><hidden/></field>
-	    <field name="serviceName" map-name="view"><hidden/></field>
-	    <field name="localeString" map-name="view"><hidden/></field>
-	    <field name="mimeTypeId" map-name="view"><hidden/></field>
-	    <field name="characterSetId" map-name="view"><hidden/></field>
-	    <field name="childLeafCount" map-name="view"><hidden/></field>
-	    <field name="childBranchCount" map-name="view"><hidden/></field>
-	    <field name="createdDate" map-name="view"><hidden/></field>
-	    <field name="createdByUserLogin" map-name="view"><hidden/></field>
-	    <field name="lastModifiedDate" map-name="view"><hidden/></field>
-	    <field name="lastModifiedByUserLogin" map-name="view"><hidden/></field>
-	    <field name="drDataResourceId" map-name="view"><hidden/></field>
-	    <field name="drDataResourceTypeId" map-name="view"><hidden/></field>
-	    <field name="drDataTemplateTypeId" map-name="view"><hidden/></field>
-	    <field name="drDataCategoryId" map-name="view"><hidden/></field>
-	    <field name="drDataSourceId" map-name="view"><hidden/></field>
-	    <field name="drStatusId" map-name="view"><hidden/></field>
-	    <field name="drDataResourceName" map-name="view"><hidden/></field>
-	    <field name="drLocaleString" map-name="view"><hidden/></field>
-	    <field name="drMimeTypeId" map-name="view"><hidden/></field>
-	    <field name="drCharacterSetId" map-name="view"><hidden/></field>
-	    <field name="drObjectInfo" map-name="view"><hidden/></field>
-	    <field name="drRelatedDetailId" map-name="view"><hidden/></field>
-	    <field name="drIsPublic" map-name="view"><hidden/></field>
-	    <field name="drCreatedDate" map-name="view"><hidden/></field>
-	    <field name="drCreatedByUserLogin" map-name="view"><hidden/></field>
-	    <field name="drLastModifiedDate" map-name="view"><hidden/></field>
-	    <field name="drLastModifiedByUserLogin" map-name="view"><hidden/></field>
-	    <field name="deactivateExisting" map-name="view"><hidden/></field>
-	    <field name="contentPurposeString" map-name="view"><hidden/></field>          <field name="contentName" title="Short title" map-name="view" >
+        <field name="contentIdStart" map-name="view"><hidden/></field>
+        <field name="caContentId" map-name="view"><hidden/></field>
+        <field name="caContentIdTo" map-name="view"><hidden/></field>
+        <field name="caContentAssocTypeId" map-name="view"><hidden/></field>
+        <field name="caFromDate" map-name="view"><hidden/></field>
+        <field name="caThruDate" map-name="view"><hidden/></field>
+        <field name="caContentAssocPredicateId" map-name="view"><hidden/></field>
+        <field name="caDataSourceId" map-name="view"><hidden/></field>
+        <field name="caSequenceNum" map-name="view"><hidden/></field>
+        <field name="caMapKey" map-name="view"><hidden/></field>
+        <field name="caUpperCoordinate" map-name="view"><hidden/></field>
+        <field name="caLeftCoordinate" map-name="view"><hidden/></field>
+        <field name="caCreatedDate" map-name="view"><hidden/></field>
+        <field name="caCreatedByUserLogin" map-name="view"><hidden/></field>
+        <field name="caLastModifiedDate" map-name="view"><hidden/></field>
+        <field name="caLastModifiedByUserLogin" map-name="view"><hidden/></field>
+        <field name="contentTypeId" map-name="view"><hidden/></field>
+        <field name="ownerContentId" map-name="view"><hidden/></field>
+        <field name="instanceOfContentId" map-name="view"><hidden/></field>
+        <field name="dataResourceId" map-name="view"><hidden/></field>
+        <field name="templateDataResourceId" map-name="view"><hidden/></field>
+        <field name="dataSourceId" map-name="view"><hidden/></field>
+        <field name="privilegeEnumId" map-name="view"><hidden/></field>
+        <field name="serviceName" map-name="view"><hidden/></field>
+        <field name="localeString" map-name="view"><hidden/></field>
+        <field name="mimeTypeId" map-name="view"><hidden/></field>
+        <field name="characterSetId" map-name="view"><hidden/></field>
+        <field name="childLeafCount" map-name="view"><hidden/></field>
+        <field name="childBranchCount" map-name="view"><hidden/></field>
+        <field name="createdDate" map-name="view"><hidden/></field>
+        <field name="createdByUserLogin" map-name="view"><hidden/></field>
+        <field name="lastModifiedDate" map-name="view"><hidden/></field>
+        <field name="lastModifiedByUserLogin" map-name="view"><hidden/></field>
+        <field name="drDataResourceId" map-name="view"><hidden/></field>
+        <field name="drDataResourceTypeId" map-name="view"><hidden/></field>
+        <field name="drDataTemplateTypeId" map-name="view"><hidden/></field>
+        <field name="drDataCategoryId" map-name="view"><hidden/></field>
+        <field name="drDataSourceId" map-name="view"><hidden/></field>
+        <field name="drStatusId" map-name="view"><hidden/></field>
+        <field name="drDataResourceName" map-name="view"><hidden/></field>
+        <field name="drLocaleString" map-name="view"><hidden/></field>
+        <field name="drMimeTypeId" map-name="view"><hidden/></field>
+        <field name="drCharacterSetId" map-name="view"><hidden/></field>
+        <field name="drObjectInfo" map-name="view"><hidden/></field>
+        <field name="drRelatedDetailId" map-name="view"><hidden/></field>
+        <field name="drIsPublic" map-name="view"><hidden/></field>
+        <field name="drCreatedDate" map-name="view"><hidden/></field>
+        <field name="drCreatedByUserLogin" map-name="view"><hidden/></field>
+        <field name="drLastModifiedDate" map-name="view"><hidden/></field>
+        <field name="drLastModifiedByUserLogin" map-name="view"><hidden/></field>
+        <field name="deactivateExisting" map-name="view"><hidden/></field>
+        <field name="contentPurposeString" map-name="view"><hidden/></field>          <field name="contentName" title="Short title" map-name="view" >
           <text size="40"/>
         </field>
         <field name="description" title="Slightly longer title (250 chars max)" map-name="view" >
