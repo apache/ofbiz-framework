@@ -55,6 +55,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="CommunicationEventRole" />
     <entity-group group="org.ofbiz" entity="CommunicationEventType" />
     <entity-group group="org.ofbiz" entity="CommunicationEventAndRole" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventSum" />
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.contact -->

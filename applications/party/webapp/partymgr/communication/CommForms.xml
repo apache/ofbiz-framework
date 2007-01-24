@@ -261,6 +261,7 @@ under the License.
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
                 <field-map env-name="entityName" field-name="entityName"/>
+                <field-map value="datetimeStarted DESC" field-name="orderBy"/>
             </service>
         </actions>
         <field name="removeLink" title="" widget-style="buttontext">
