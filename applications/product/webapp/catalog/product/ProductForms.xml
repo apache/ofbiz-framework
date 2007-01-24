@@ -30,7 +30,7 @@ under the License.
 
         <field use-when="product==null" name="isCreate"><hidden value="true"/></field>
 
-        <field use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProduct}"><display/></field>
+        <field use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProduct}" widget-style="tabletext"><display/></field>
         <field use-when="product==null&amp;&amp;productId==null" name="productId" title="${uiLabelMap.ProductProductId}"><text size="20" maxlength="20"/></field>
         <field use-when="product==null&amp;&amp;productId!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotFindProductId} [${productId}]"><text size="20" maxlength="20"/></field>
 
