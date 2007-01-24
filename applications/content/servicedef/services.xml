@@ -863,18 +863,14 @@ under the License.
             <exclude field-name="contentAssocTypeId"/>
             <exclude field-name="sequenceNum"/>
         </auto-attributes>
-        <auto-attributes entity-name="ContentAssocDataResourceViewFrom" include="all" mode="IN" optional="true">
+        <auto-attributes entity-name="ContentAssocDataResourceViewTo" include="all" mode="IN" optional="true">
         </auto-attributes>
         <attribute mode="INOUT" entity-name="Content" name="contentId" optional="true" type="String"/>
         <attribute mode="INOUT" entity-name="DataResource" name="dataResourceId" optional="true" type="String"/>
-        <attribute mode="INOUT" entity-name="ContentAssoc" name="contentIdTo" optional="true" type="String"/>
-        <attribute mode="INOUT" entity-name="ContentAssoc" name="contentIdFrom" optional="true" type="String"/>
-        <attribute mode="INOUT" entity-name="ContentAssoc" name="contentAssocTypeId" optional="true" type="String"/>
-        <attribute mode="INOUT" entity-name="ContentAssoc" name="fromDate" optional="true" type="Timestamp"/>
-        <attribute mode="INOUT" entity-name="ContentAssoc" name="sequenceNum" optional="true" type="Long"/>
 
         <attribute mode="INOUT" entity-name="DataResource" name="drDataResourceId" optional="true" type="String"/>
         <attribute mode="INOUT" name="caContentIdTo" optional="true" type="String"/>
+        <attribute mode="INOUT" name="caContentId" optional="true" type="String"/>
         <attribute mode="INOUT" name="caContentAssocTypeId" optional="true" type="String"/>
         <attribute mode="INOUT" name="caFromDate" optional="true" type="Timestamp"/>
         <attribute mode="INOUT" name="caSequenceNum" optional="true" type="Long"/>
@@ -1487,5 +1483,25 @@ under the License.
         <attribute name="rootDir" type="String" mode="IN" optional="true"/>
         <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
         <attribute name="outByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="OUT" optional="false"/>
+    </service>
+    <!-- blog services -->
+    <service name="persistBlogAll" engine="java" location="org.ofbiz.content.blog.BlogServices" invoke="persistBlogAll"
+         auth="true"  transaction-timeout="72000">
+        <implements service="persistContentAndAssoc"/>
+        <attribute type="String" mode="IN" name="summaryData" optional="true"/>
+        <attribute type="String" mode="IN" name="mainData" optional="true"/>
+        <attribute type="String" mode="IN" name="drMimeTypeId_TEXT" optional="true"/>
+        <attribute type="String" mode="IN" name="drMimeTypeId_IMAGE" optional="true"/>
+        <attribute type="String" mode="IN" name="templateId" optional="true"/>
+        <attribute type="String" mode="INOUT" name="textContentId" optional="true"/>
+        <attribute type="String" mode="INOUT" name="imageContentId" optional="true"/>
+        <attribute type="String" mode="INOUT" name="textDataResourceId" optional="true"/>
+        <attribute type="String" mode="INOUT" name="imageDataResourceId" optional="true"/>
+    </service>
+    <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="org/ofbiz/content/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
+         auth="true"  transaction-timeout="72000">
+        <attribute type="String" mode="IN" name="contentId" optional="false"/>
+        <attribute mode="IN" name="userLogin" optional="false" type="GenericValue"/>
+        <attribute mode="OUT" name="blogList" optional="true" type="List"/>
     </service>
 </services>

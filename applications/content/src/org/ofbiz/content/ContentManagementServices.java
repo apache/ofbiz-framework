@@ -156,6 +156,8 @@ public class ContentManagementServices {
      * This service tries to handle DataResource and ContentAssoc fields with and
      * without "dr" and "ca" prefixes.
      * Assumes binary data is always in field, "imageData".
+     * 
+     * This service does not accept straight ContentAssoc parameters. They must be prefaced with "ca" + cap first letter
      */
     public static Map persistContentAndAssoc(DispatchContext dctx, Map context) throws GenericServiceException {
         GenericDelegator delegator = dctx.getDelegator();
@@ -170,7 +172,8 @@ public class ContentManagementServices {
         
         // If "deactivateExisting" is set, other Contents that are tied to the same
         // contentIdTo will be deactivated (thruDate set to now)
-        boolean deactivateExisting = UtilValidate.isNotEmpty((String) context.get("deactivateExisting")); 
+        String deactivateString = (String) context.get("deactivateExisting");
+        boolean deactivateExisting = "true".equalsIgnoreCase(deactivateString); 
 
         if (Debug.infoOn()) Debug.logInfo("in persist... mapKey(0):" + mapKey, null);
 
@@ -210,8 +213,6 @@ public class ContentManagementServices {
         if (Debug.infoOn()) Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, null);
 
         GenericValue contentAssoc = delegator.makeValue("ContentAssoc", null);
-        contentAssoc.setPKFields(context);
-        contentAssoc.setNonPKFields(context);
         contentAssoc.setAllFields(context, false, "ca", null);
         context.putAll(contentAssoc);
 
@@ -223,11 +224,11 @@ public class ContentManagementServices {
         Map results = ServiceUtil.returnSuccess();
         results.put("contentId", content.get("contentId"));
         results.put("dataResourceId", dataResource.get("dataResourceId"));
-        results.put("contentIdTo", contentAssoc.get("contentIdTo"));
-        results.put("fromDate", contentAssoc.get("fromDate"));
-        results.put("contentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
+        results.put("drDataResourceId", dataResource.get("dataResourceId"));
+        results.put("caContentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
         results.put("drDataResourceId", dataResource.get("dataResourceId"));
         results.put("caContentIdTo", contentAssoc.get("contentIdTo"));
+        results.put("caContentId", contentAssoc.get("contentId"));
         results.put("caFromDate", contentAssoc.get("fromDate"));
         results.put("caContentAssocTypeId", contentAssoc.get("contentAssocTypeId"));
         
@@ -324,15 +325,17 @@ public class ContentManagementServices {
             }
             results.put("contentId", contentId);
             context.put("contentId", contentId);
-            context.put("caContentId", contentId);
-            contentAssoc.put("contentId", contentId);
+            context.put("caContentIdTo", contentId);
+            contentAssoc.put("contentIdTo", contentId);
 
             // Add ContentPurposes if this is a create operation
             if (contentId != null && !contentExists) {
                 try {
                     if (contentPurposeList != null) {
-                        for (int i=0; i < contentPurposeList.size(); i++) {
-                            String contentPurposeTypeId = (String)contentPurposeList.get(i);
+                        HashSet contentPurposeSet = new HashSet(contentPurposeList);
+                        Iterator iter = contentPurposeSet.iterator();
+                        while (iter.hasNext()) {
+                            String contentPurposeTypeId = (String)iter.next();
                             GenericValue contentPurpose = delegator.makeValue("ContentPurpose",
                                    UtilMisc.toMap("contentId", contentId, 
                                                   "contentPurposeTypeId", contentPurposeTypeId) );
@@ -384,20 +387,21 @@ public class ContentManagementServices {
                     if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult) || UtilValidate.isNotEmpty(errMsg)) {
                         return ServiceUtil.returnError(errMsg);
                     }
-                    results.put("contentIdTo", thisResult.get("contentIdTo"));
-                    results.put("contentIdFrom", thisResult.get("contentIdFrom"));
-                    //results.put("contentId", thisResult.get("contentIdFrom"));
-                    results.put("contentAssocTypeId", thisResult.get("contentAssocTypeId"));
-                    results.put("fromDate", thisResult.get("fromDate"));
-                    results.put("sequenceNum", thisResult.get("sequenceNum"));
+//                    results.put("contentIdTo", thisResult.get("contentIdTo"));
+//                    results.put("contentIdFrom", thisResult.get("contentIdFrom"));
+//                    //results.put("contentId", thisResult.get("contentIdFrom"));
+//                    results.put("contentAssocTypeId", thisResult.get("contentAssocTypeId"));
+//                    results.put("fromDate", thisResult.get("fromDate"));
+//                    results.put("sequenceNum", thisResult.get("sequenceNum"));
                     
                     results.put("caContentIdTo", thisResult.get("contentIdTo"));
+                    results.put("caContentId", thisResult.get("contentIdFrom"));
                     results.put("caContentAssocTypeId", thisResult.get("contentAssocTypeId"));
                     results.put("caFromDate", thisResult.get("fromDate"));
                     results.put("caSequenceNum", thisResult.get("sequenceNum"));
                 } else {
                     if (deactivateExisting) {
-                    	contentAssoc.put("thruDate",UtilDateTime.nowTimestamp());
+                        contentAssoc.put("thruDate",UtilDateTime.nowTimestamp());
                     }
                     ModelService contentAssocModel = dispatcher.getDispatchContext().getModelService("updateContentAssoc");
                     Map ctx = contentAssocModel.makeValid(contentAssoc, "IN");
@@ -546,7 +550,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               result = persistDataResourceAndDataMethod(dctx, context);
           }
           else {
-        	return ServiceUtil.returnError("no access to upload image");  
+            return ServiceUtil.returnError("no access to upload image");  
           }
       } catch (GenericServiceException e) {
           return ServiceUtil.returnError(e.getMessage());
@@ -1695,7 +1699,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       }
       if (UtilValidate.isNotEmpty(oldDataResourceId)) {
           try {
-        	  dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", oldDataResourceId));
+              dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", oldDataResourceId));
           } catch(GenericEntityException e) {
               Debug.logError(e.getMessage(), module);
               return ServiceUtil.returnError(e.getMessage());
@@ -1703,26 +1707,26 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       }
       
       try {
-    	  ModelService persistContentAndAssocModel = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
-    	  Map ctx = persistContentAndAssocModel.makeValid(context, "IN");
-    	  if (dataResource != null) {
-    		  ctx.remove("dataResourceId");
-    		  ctx.remove("drDataResourceId");
-    	  }
+          ModelService persistContentAndAssocModel = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
+          Map ctx = persistContentAndAssocModel.makeValid(context, "IN");
+          if (dataResource != null) {
+              ctx.remove("dataResourceId");
+              ctx.remove("drDataResourceId");
+          }
           result = dispatcher.runSync("persistContentAndAssoc", ctx);
           String errorMsg = ServiceUtil.getErrorMessage(result);
           if (UtilValidate.isNotEmpty(errorMsg)) {
-        	  return ServiceUtil.returnError(errorMsg);
+              return ServiceUtil.returnError(errorMsg);
           }
           String contentId = (String)result.get("contentId");
           List parentList = new ArrayList();
           if (UtilValidate.isEmpty(masterRevisionContentId)) {
-        	  Map traversMap = new HashMap();
-        	  traversMap.put("contentId", contentId);
-        	  traversMap.put("direction", "To");
-        	  traversMap.put("contentAssocTypeId", "COMPDOC_PART");
-        	  Map traversResult = dispatcher.runSync("traverseContent", traversMap);
-        	  parentList = (List)traversResult.get("parentList");
+              Map traversMap = new HashMap();
+              traversMap.put("contentId", contentId);
+              traversMap.put("direction", "To");
+              traversMap.put("contentAssocTypeId", "COMPDOC_PART");
+              Map traversResult = dispatcher.runSync("traverseContent", traversMap);
+              parentList = (List)traversResult.get("parentList");
           } else {
               parentList.add(masterRevisionContentId);
           }
@@ -1739,7 +1743,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
               errorMsg = ServiceUtil.getErrorMessage(result);
               if (UtilValidate.isNotEmpty(errorMsg)) {
-            	  return ServiceUtil.returnError(errorMsg);
+                  return ServiceUtil.returnError(errorMsg);
               }
           }
           
