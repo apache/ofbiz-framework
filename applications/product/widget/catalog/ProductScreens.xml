@@ -648,7 +648,16 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductContent.ftl"/></html>
+                            <html>
+                                <html-template-decorator location="component://product/webapp/catalog/product/EditProductContent.ftl">
+                                    <html-template-decorator-section name="PrepareAddProductContentAssoc">
+                                        <include-form name="PrepareAddProductContentAssoc" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                    </html-template-decorator-section>
+                                    <html-template-decorator-section name="AddProductContentAssoc">
+                                        <include-form name="AddProductContentAssoc" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                    </html-template-decorator-section>
+                                </html-template-decorator>
+                            </html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -669,9 +678,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductContentContent.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="${contentFormName}" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

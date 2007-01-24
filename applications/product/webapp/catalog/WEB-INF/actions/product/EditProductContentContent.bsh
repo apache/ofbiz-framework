@@ -63,8 +63,6 @@ if(contentId != null) {
     if(description != null) content.put("description", description);
 }
 
-HtmlFormWrapper updateProductContentWrapper = null;
-
 //Email
 if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
     emailData = new HashMap();
@@ -90,8 +88,7 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
         }
     }
 
-    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentEmail", request, response);
-    updateProductContentWrapper.putInContext("emailData", emailData);
+    context.put("contentFormName", "EditProductContentEmail");
     context.put("emailData", emailData);
 } else if ("DIGITAL_DOWNLOAD".equals(productContentTypeId)) {
     downloadData = new HashMap();
@@ -105,10 +102,10 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
             }
         }
     }
-    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentDownload", request, response);
-    updateProductContentWrapper.putInContext("downloadData", downloadData);
+    context.put("contentFormName", "EditProductContentDownload");
+    context.put("downloadData", downloadData);
 } else if ("FULFILLMENT_EXTERNAL".equals(productContentTypeId)) {
-    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentExternal", request, response);
+    context.put("contentFormName", "EditProductContentExternal");
 } else {
     //Assume it is a generic simple text content
     textData = new HashMap();
@@ -120,15 +117,10 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
             textData.put("textDataResourceId", text.get("dataResourceId"));
         }
     }
-    updateProductContentWrapper = new HtmlFormWrapper("/product/ProductForms.xml", "EditProductContentSimpleText", request, response);
-    updateProductContentWrapper.putInContext("textData", textData);
-
+    context.put("contentFormName", "EditProductContentSimpleText");
+    context.put("textData", textData);
 }
 
-context.put("updateProductContentWrapper", updateProductContentWrapper);
-updateProductContentWrapper.putInContext("productContentData", productContentData);
-//updateProductContentWrapper.putInContext("content", content);
 context.put("productContentData", productContentData);
-updateProductContentWrapper.putInContext("content", content);
-updateProductContentWrapper.putInContext("contentId", contentId);
-//context.put("log", log);
+context.put("content", content);
+context.put("contentId", contentId);
