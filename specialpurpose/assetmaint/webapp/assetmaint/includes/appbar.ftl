@@ -1,15 +1,20 @@
 <#--
-Licensed under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License. You may obtain a copy of
-the License at
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-License for the specific language governing permissions and limitations
-under the License.
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 
 <#if (requestAttributes.externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
@@ -37,7 +42,7 @@ under the License.
                 <td nowrap="nowrap" class="${class.center}"><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>" class="${class.link}">${uiLabelMap.AccountingFixedAssets}</a></td>
                 <td class="${class.right}"><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>" title="${uiLabelMap.AccountingFixedAssets}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
               </tr>
-              <#if appbarItem?if_exists != "fixedAssets">			
+              <#if appbarItem?if_exists != "fixedAssets">            
               <tr><td colspan="3" class="blackarea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>
               <tr><td colspan="3" class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>               
               </#if>
@@ -51,7 +56,7 @@ under the License.
                 <td nowrap="nowrap" class="${class.center}"><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>" class="${class.link}">${uiLabelMap.AccountingFixedAssetMaints}</a></td>
                 <td class="${class.right}"><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>" title="${uiLabelMap.AccountingFixedAssetMaints}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
               </tr>
-              <#if appbarItem?if_exists != "fixedAssetMaints">			
+              <#if appbarItem?if_exists != "fixedAssetMaints">            
               <tr><td colspan="3" class="blackarea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>
               <tr><td colspan="3" class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>               
               </#if>
@@ -65,7 +70,7 @@ under the License.
                 <td nowrap="nowrap" class="${class.center}"><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>" class="${class.link}">${uiLabelMap.ProductWarehouse}</a></td>
                 <td class="${class.right}"><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>" title="${uiLabelMap.ProductWarehouse}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
               </tr>
-              <#if appbarItem?if_exists != "facility">			
+              <#if appbarItem?if_exists != "facility">            
               <tr><td colspan="3" class="blackarea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>
               <tr><td colspan="3" class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td></tr>               
               </#if>
@@ -78,7 +83,7 @@ under the License.
                 <td class="whitearea"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1"></td>               
               </tr>               
             </table>
-	      </td>           
+          </td>           
         </tr>
       </table>
     </td>
