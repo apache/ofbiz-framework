@@ -679,6 +679,15 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="communicationEventTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="CommunicationEventSum"
+        package-name="org.ofbiz.party.communication"
+        title="Sum of communication events over status">
+        <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+        <alias entity-alias="CE" name="communicationEventId" function="count"/>
+        <alias entity-alias="CE" name="statusId" group-by="false"/>
+        <alias entity-alias="CE" name="partyIdTo" group-by="true"/>
+    </view-entity>
+
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.contact -->
