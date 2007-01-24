@@ -18,16 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.content.blog;
 
-/*
- * Created on Jan 28, 2005
- *
- * This service persists a blog article.
- * It can persist text only, image only or a combination of content types.
- * If text or image only, that content is attached directly to the main
- * content as an ElectronicText or ImageDataResource entity.
- * If a combination is desired, the two content pieces (image and text) are associated
- * through a predefined screen widget template (ie. drDataTemplateTypeId="SCREEN_COMBINED").
- */
     
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +34,16 @@ import org.ofbiz.service.ServiceUtil;
 
 public class BlogServices {
 
+    /**
+     * This service persists a blog article.
+     * 
+     * It can persist text only, image only or a combination of content types.
+     * If text or image only, that content is attached directly to the main
+     * content as an ElectronicText or ImageDataResource entity.
+     * If a combination is desired, the two content pieces (image and text) are associated
+     * through a predefined screen widget template (ie. drDataTemplateTypeId="SCREEN_COMBINED").
+     */
+    
     public static Map persistBlogAll(DispatchContext dctx, Map context) throws GenericServiceException {
 
         Map result = new HashMap();
