@@ -863,7 +863,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     throw new GenericEntityException("contentId and subContentId are null.");
                 }
                 Map results = null;
-                results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, "From", fromDate, null, null, null, assocTypes, null);
+                results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, "To", fromDate, null, null, null, assocTypes, null);
                 List entityList = (List) results.get("entityList");
                 if (entityList == null || entityList.size() == 0) {
                     //throw new IOException("No subcontent found.");
