@@ -27,7 +27,6 @@ under the License.
                security/build.xml,service/build.xml,entityext/build.xml,
                datafile/build.xml,minilang/build.xml,
                common/build.xml,workflow/build.xml,
-                 shark/build.xml,
                webapp/build.xml,guiapp/build.xml,widget/build.xml,
                testtools/build.xml,
                appserver/build.xml,webtools/build.xml,example/build.xml"/>
