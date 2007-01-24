@@ -75,6 +75,7 @@ under the License.
                     <div class="tabletext">
                       <#if orderItem.productId?exists>
                         &nbsp;<a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="buttontext">${orderItem.productId}</a>
+                        <input type="hidden" name="productId_o_${rowCount}" value="${orderItem.productId}"/>
                       </#if>
                       ${orderItem.itemDescription}
                     </div>
