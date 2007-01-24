@@ -45,6 +45,11 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStoreGiftCertificateSettings.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductI18nData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductCategoriesI18nData.xml"/>    
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBlogPubPtData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBlogUsersData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBlogMiscData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBlogEntryData.xml"/>
+
     <webapp name="ecommerce"
         title="eCommerce"
         server="default-server"

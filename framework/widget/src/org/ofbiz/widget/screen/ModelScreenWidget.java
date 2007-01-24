@@ -853,9 +853,14 @@ public abstract class ModelScreenWidget implements Serializable {
                     
                     if (UtilValidate.isNotEmpty(expandedContentId)) {
                     	content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", expandedContentId));
+                    } else {
+                        String errMsg = "contentId is empty.";
+                        Debug.logError(errMsg, module);
+                        return;
                     }
                     if (content != null) {
                         expandedDataResourceId = content.getString("dataResourceId");
+                        this.dataResourceId = new FlexibleStringExpander(expandedDataResourceId);
                     } else {
                         String errMsg = "Could not find content with contentId [" + expandedContentId + "] ";
                         Debug.logError(errMsg, module);

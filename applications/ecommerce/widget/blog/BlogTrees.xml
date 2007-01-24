@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-tree.xsd">
+    <tree name="ResponseTree" root-node-name="node-root" 
+        default-render-style="simple" default-wrap-style="responseTreeWrapper">
+        <node name="node-root" entry-name="rsp">
+            <entity-one entity-name="Content"  use-cache="false" value-name="rsp">
+                <field-map field-name="contentId" env-name="rootEntityId"/>
+            </entity-one>
+            <include-screen name="blogTreeLine"
+                location="component://ecommerce/widget/blog/BlogScreens.xml" />
+            <sub-node node-name="node-body">
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" >
+                
+                    <order-by field-name="caFromDate DESC"/>
+                   <condition-list combine="and">
+                        <condition-expr field-name="caContentId" operator="equals" env-name="rootEntityId" />
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
+                        <condition-expr field-name="caThruDate" operator="equals" value=""/>
+                   </condition-list> 
+                </entity-condition>
+            </sub-node>
+        </node>
+        <node name="node-body" entry-name="rsp">
+            <include-screen name="responseTreeLine" 
+                location="component://ecommerce/widget/blog/BlogScreens.xml" />
+            <sub-node node-name="node-body">
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="true" >
+                    <order-by field-name="caFromDate DESC"/>
+                   <condition-list combine="and">
+                        <condition-expr field-name="caContentId" operator="equals" env-name="rsp.contentId" />
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
+                        <condition-expr field-name="caThruDate" operator="equals" value=""/>
+                   </condition-list> 
+                </entity-condition>
+            </sub-node>
+        </node>
+    </tree>
+</trees>

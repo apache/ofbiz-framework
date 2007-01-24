@@ -31,6 +31,7 @@ under the License.
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
+    <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <!-- Events run from here for the first hit in a visit -->
     <firstvisit>
@@ -1217,6 +1218,82 @@ under the License.
     </request-map>
     
 
+    <!-- used in blog -->
+    <request-map uri="MainBlog">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="MainBlog"/>
+    </request-map>
+
+    <request-map uri="ViewBlog">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="ViewBlog"/>
+    </request-map>
+
+    <request-map uri="ViewResponse">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="ViewResponse"/>
+    </request-map>
+
+    <request-map uri="LatestResponses">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="LatestResponses"/>
+    </request-map>
+
+    <request-map uri="EditBlog">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="EditBlog"/>
+    </request-map>
+
+    <request-map uri="EditBlogImage">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="EditBlogImage"/>
+    </request-map>
+
+    <request-map uri="EditBlogText">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="EditBlogText"/>
+    </request-map>
+
+    <request-map uri="RespondBlog">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="RespondBlog"/>
+    </request-map>
+
+    <request-map uri="persistBlogAll">
+        <security https="false" auth="true"/>
+        <event type="service" path="" invoke="persistBlogAll"/>
+        <response name="success" type="view" value="EditBlog"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+
+    <request-map uri="persistBlogSummary">
+        <security https="false" auth="true"/>
+        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <response name="success" type="view" value="EditBlog"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+
+    <request-map uri="persistBlogText">
+        <security https="false" auth="true"/>
+        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <response name="success" type="view" value="EditBlog"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+
+    <request-map uri="persistBlogImage">
+        <security https="false" auth="true"/>
+        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <response name="success" type="view" value="EditBlog"/>
+        <response name="error" type="view" value="EditBlog"/>
+    </request-map>
+
+    <request-map uri="persistBlogResponse">
+        <security https="false" auth="true"/>
+        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <response name="success" type="view" value="ViewResponse"/>
+        <response name="error" type="view" value="ViewResponse"/>
+    </request-map>
+
 
     <!-- old forum -->
     <request-map uri="defaultcontent">
@@ -1411,6 +1488,12 @@ under the License.
         <response name="error" type="request" value="editShoppingList"/>
     </request-map>
 
+    <!-- ================ SimpleContent Requests ================= -->
+
+    <request-map uri="ViewSimpleContent">
+        <security auth="false" https="false"/>
+        <response name="success" type="view" value="ViewSimpleContent"/>
+    </request-map>
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
@@ -1521,5 +1604,16 @@ under the License.
     <view-map name="ListRequests" type="screen" page="component://ecommerce/widget/RequestScreens.xml#ListRequests"/>
     <view-map name="ViewRequest" type="screen" page="component://ecommerce/widget/RequestScreens.xml#ViewRequest"/>
 
+    <!-- Blog Views -->
+    <view-map name="MainBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#MainBlog"/>
+    <view-map name="ViewBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#ViewBlog"/>
+    <view-map name="EditBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlog"/>
+    <view-map name="ViewResponse" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#ViewResponse"/>
+    <view-map name="RespondBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#RespondBlog"/>
+    <view-map name="EditBlogText" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogText"/>
+    <view-map name="EditBlogImage" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogImage"/>
+    <view-map name="LatestResponses" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#LatestResponses"/>
+
+    <view-map name="ViewSimpleContent" page="" type="simplecontent"/>
     <!-- End of View Mappings -->
 </site-conf>
