@@ -250,7 +250,7 @@ under the License.
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias-all entity-alias="DR" prefix="dr"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
-      <view-link entity-alias="CO" rel-entity-alias="CA" rel-optional="true">
+      <view-link entity-alias="CA" rel-entity-alias="CO" rel-optional="true">
         <key-map field-name="contentId" rel-field-name="contentId"/>
       </view-link>
       <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
@@ -342,7 +342,7 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="contentAssocTypeId"/>
     </entity>
-    <view-entity entity-name="ContentAssocViewFrom"
+   <view-entity entity-name="ContentAssocViewFrom"
                 package-name="org.ofbiz.content.content"
                 title="Main Assoc To">
       <member-entity entity-alias="CO" entity-name="Content"/>
@@ -350,7 +350,7 @@ under the License.
       <alias-all entity-alias="CO"/>
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
-      <view-link entity-alias="CO" rel-entity-alias="CA">
+      <view-link entity-alias="CA" rel-entity-alias="CO">
         <key-map field-name="contentId"/>
       </view-link>
     </view-entity>
@@ -362,8 +362,8 @@ under the License.
       <alias-all entity-alias="CO"/>
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentId"/>
-      <view-link entity-alias="CO" rel-entity-alias="CA">
-        <key-map field-name="contentId" rel-field-name="contentIdTo"/>
+      <view-link entity-alias="CA" rel-entity-alias="CO">
+        <key-map field-name="contentIdTo" rel-field-name="contentId"/>
       </view-link>
     </view-entity>
     <entity entity-name="ContentAttribute"
@@ -1498,8 +1498,8 @@ under the License.
       <alias-all entity-alias="CO"/>
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
-      <view-link entity-alias="CO" rel-entity-alias="CA" rel-optional="true">
-        <key-map field-name="contentId"/>
+      <view-link entity-alias="CA" rel-entity-alias="CO" rel-optional="true">
+        <key-map field-name="contentIdTo" rel-field-name="contentId" />
       </view-link>
     </view-entity>
 <!--     
