@@ -314,7 +314,9 @@ public class ServiceUtil {
         if (msgList != null && msgList.size() > 0) {
             Iterator iter = msgList.iterator();
             while (iter.hasNext()) {
-                String curMsg = iter.next().toString();
+                Object msg = iter.next();
+                if (msg == null) continue;
+                String curMsg = msg.toString();
                 if (msgPrefix != null) outMsg.append(msgPrefix);
                 outMsg.append(curMsg);
                 if (msgSuffix != null) outMsg.append(msgSuffix);
