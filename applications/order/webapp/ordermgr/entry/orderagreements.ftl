@@ -21,7 +21,15 @@ under the License.
 <form method="post" name="agreementForm" action="<@ofbizUrl>setOrderCurrencyAgreementShipDates</@ofbizUrl>">
 <div class="screenlet">
   <div class="screenlet-header">
-    <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderEntryCurrencyAgreementShipDates}</div>
+      <div class="boxtop">
+          <div class="boxhead-right" align="right">
+              <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonContinue}">
+          </div>
+          <div class="boxhead-left">
+              &nbsp;${uiLabelMap.OrderOrderEntryCurrencyAgreementShipDates}
+          </div>
+          <div class="boxhead-fill">&nbsp;</div>
+      </div>
   </div>
   <div class="screenlet-body">
     <table>
@@ -114,10 +122,6 @@ under the License.
           </a>
         </td>
       </tr>
-      
-      <tr><td colspan="4">&nbsp;</td></tr>
-      <tr><td colspan="3">&nbsp;</td><td align="left"><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonSelect}">
-
     </table>
   </div>
 </div>
