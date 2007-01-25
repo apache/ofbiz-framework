@@ -1843,6 +1843,7 @@ public class UpsServices {
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
        // String shippingContactMechId = (String) context.get("shippingContactMechId");
         String shippingPostalCode = (String) context.get("shippingPostalCode");
+        String shippingCountryCode = (String) context.get("shippingCountryCode");
         List shippableItemInfo = (List) context.get("shippableItemInfo");
         Double shippableTotal = (Double) context.get("shippableTotal");
         Double shippableQuantity = (Double) context.get("shippableQuantity");
@@ -1962,6 +1963,10 @@ public class UpsServices {
         Element shiptoElement = UtilXml.addChildElement(shipmentElement, "ShipTo", rateRequestDoc);
         Element shiptoAddrElement = UtilXml.addChildElement(shiptoElement, "Address", rateRequestDoc);
         UtilXml.addChildElementValue(shiptoAddrElement, "PostalCode", shippingPostalCode, rateRequestDoc);
+        if (shippingCountryCode != null && !shippingCountryCode.equals("")) {
+            UtilXml.addChildElementValue(shiptoAddrElement, "CountryCode", "CA", rateRequestDoc);
+        }
+        
         if (isResidentialAddress != null && isResidentialAddress.equals("Y")) {
             UtilXml.addChildElement(shiptoAddrElement, "ResidentialAddress", rateRequestDoc);
         }
@@ -2009,6 +2014,8 @@ public class UpsServices {
         StringBuffer xmlString = new StringBuffer();
         xmlString.append(accessRequestString);
         xmlString.append(rateRequestString);
+        
+        System.err.println(xmlString.toString());
 
         // send the request
         String rateResponseString = null;

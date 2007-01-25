@@ -76,5 +76,6 @@ under the License.
         <attribute name="upsRateInquireMode" type="String" mode="IN" optional="true"/>
         <attribute name="upsRateCodeMap" type="Map" mode="OUT" optional="false"/>
         <attribute name="isResidentialAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCountryCode" type="String" mode="IN" optional="true"/>
     </service>
 </services>
