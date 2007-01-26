@@ -99,16 +99,45 @@ under the License.
 
   <!-- ELEMENTS start here -->
     <xs:element name="field">
+        <xs:annotation>
+            <xs:documentation>
+                Typical field-name/map-name pair. With the "." Syntax, the map-name is typically no longer necessary because
+                you can do map-name.field-name in the field-name attribute, but those are still there for legacy purposes.                                                                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.field"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="type"/>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the field to put value in.    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the related map.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="type">
+            <xs:annotation>
+                <xs:documentation>
+                    Type of the value put in the field.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="string">
+        <xs:annotation>
+            <xs:documentation>
+                String of type java.lang.String
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.string"/>
         </xs:complexType>
@@ -117,9 +146,20 @@ under the License.
         <xs:attribute type="xs:string" name="value"/>
     </xs:attributeGroup>
     <xs:element name="simple-methods">
+        <xs:annotation>
+            <xs:documentation>
+                Opening tag of simple-method files.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="simple-method"/>
+                <xs:element maxOccurs="unbounded" ref="simple-method">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Opening tag of a simple-method definition.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -397,7 +437,8 @@ under the License.
     <xs:element name="set-service-fields" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Take all the incoming files for this service, or all the incoming service attributes, 
+                and look for fields with the same name in the incoming map and copy those onto the outgoing map. 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -408,21 +449,21 @@ under the License.
         <xs:attribute type="xs:string" name="service-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the service from which take all the incoming files, or all incoming attributes.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="map-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Incoming map to copy fields from.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="to-map-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Map to copy to fields to.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -431,7 +472,9 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 The call-service tag invokes a service through the Service Engine. 
-                If the specified error code is returned from the service, the event is aborted and the transaction in the current thread is rolled back. Otherwise, the remaining operations are invoked. 
+                If the specified error code is returned from the service, 
+                the event is aborted and the transaction in the current thread is rolled back. 
+                Otherwise, the remaining operations are invoked. 
                 
                 The result-to-request and result-to-session elements will be IGNORED when
                 called in a service context. So, they are ONLY used when called in an event context.
@@ -458,14 +501,33 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-service">
-        <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="in-map-name"/>
+        <xs:attribute type="xs:string" name="service-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the service to call.    
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="in-map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    Optional name of a map in the method environment to use as the input map.
+                    If you're not going to pass any parameters to the service than you can just
+                    leave off the in-map name, although typically in a service tag you will see 
+                    a service-name and the in-mapname passed in.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="include-user-login" default="true">
+            <xs:documentation>
+                Include-user-login by default will include the user login,
+                so if there is a user login for the current simple-method
+                it will pass that in to the service. If you don't want it to
+                pass that in you can just set this to false.                
+                Defaults to "true". 
+            </xs:documentation>
             <xs:simpleType>
                 <xs:annotation>
-                    <xs:documentation>
-                        Defaults to "true". 
-                    </xs:documentation>
                 </xs:annotation>            
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -474,12 +536,17 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="break-on-error" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If there's an error in the service by default
+                    it will stop the current simple-method and return an
+                    error message that came from the service it called. If
+                    you don't want it to when there's an error you can just
+                    set that to false.
+                    Defaults to "true".
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
-                <xs:annotation>
-                    <xs:documentation>
-                        Defaults to "true".
-                    </xs:documentation>
-                </xs:annotation>                        
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
@@ -502,41 +569,83 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="error-prefix">
+        <xs:annotation>
+            <xs:documentation>
+                Specify a resource and a property to prepend to the error message.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.propertyInfoOptional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="error-suffix">
+        <xs:annotation>
+            <xs:documentation>
+                Specify a resource and a property to append to the error message.
+            </xs:documentation>
+        </xs:annotation>        
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.propertyInfoOptional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="success-prefix">
+        <xs:annotation>
+            <xs:documentation>
+                Specify a resource and a property to prepend to the success message.
+            </xs:documentation>
+        </xs:annotation>                
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.propertyInfoOptional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="success-suffix">
+        <xs:annotation>
+            <xs:documentation>
+                Specify a resource and a property to append to the success message.
+            </xs:documentation>
+        </xs:annotation>                
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.propertyInfoOptional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="message-prefix">
+        <xs:annotation>
+            <xs:documentation>
+                Specify a resource and a property to prepend to any kind of message.
+            </xs:documentation>
+        </xs:annotation>                        
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.propertyInfoOptional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="message-suffix">
+        <xs:annotation>
+            <xs:documentation>
+                Specify a resource and a property to append to any kind of message.
+            </xs:documentation>
+        </xs:annotation>                        
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.propertyInfoOptional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="default-message">
+        <xs:annotation>
+            <xs:documentation>
+                Message that you can specify for the case where the service does not return a message.
+                You can just specify a default-message to use as if the service had returned that default-message.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.propertyInfoOptional"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="results-to-map">
+        <xs:annotation>
+            <xs:documentation>
+                results-to-map will take all of the results of the service, 
+                the outgoing maps from the service and put them in a map of the given map-name.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.results-to-map"/>
         </xs:complexType>
@@ -545,12 +654,21 @@ under the License.
         <xs:attribute type="xs:string" name="map-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of a map where results will be put in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="result-to-field">
+        <xs:annotation>
+            <xs:documentation>
+                Specify the name of the field in the result and then the name of the field in the context you want to put it in, 
+                and optionally the  name in the map. 
+
+                There's a field-map there. If you don't specify a field-name then the result-name will be used for the field-name, 
+                that's the name of the variable that will be created in the current context for the value of that result.                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.result-to-field"/>
         </xs:complexType>
@@ -559,21 +677,22 @@ under the License.
         <xs:attribute type="xs:string" name="result-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the result. May be used for the field-name. If you don't specify a field-name,
+                    that's the name of the variable that will be created in the current context for the value of that result.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="map-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Optionnal map name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="field-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Optionnal field name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -581,7 +700,10 @@ under the License.
     <xs:element name="result-to-request">
         <xs:annotation>
             <xs:documentation>
-                
+                result-to-request is event specific. 
+                It takes the result with the given name and puts it in a request attribute with the given name here.
+                Again the request-name is optional. 
+                If you leave it off then it will put it in an attribute with the name of the result-name.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -592,14 +714,15 @@ under the License.
         <xs:attribute type="xs:string" name="result-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the result. May be used for the request attribute name. If you don't specify a request-name ,
+                    that's the name of the request attribute that will be created for the value of that result.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="request-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Optionnal request name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -607,7 +730,8 @@ under the License.
     <xs:element name="result-to-session">
         <xs:annotation>
             <xs:documentation>
-                
+                Specify the name of the session attribute that you want it to put the value in.
+                If you don't specify one it will use the result-name.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -618,14 +742,15 @@ under the License.
         <xs:attribute type="xs:string" name="result-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the result. May be used for the session attribute name. If you don't specify a session-name ,
+                    that's the name of the session attribute that will be created for the value of that result.                                        
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="session-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Optionnal session name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -633,9 +758,14 @@ under the License.
     <xs:element name="result-to-result">
         <xs:annotation>
             <xs:documentation>
+                result-to-result is service specific (when the service is being called as a service). 
+                
+                It will take the result of the service you're calling with the call service operation and it will put it in with the result of the current service. 
+                So result-name is the name of the result in the service that was called using the call-service tag.
+                
                 NOTE that these attributes are somewhat confusing: result-name is the name of the field in the result of this service call that the value comes FROM;   
                 service-result-name is the name of the field in the result of this simple-method called as a service where the value goes TO; 
-                in other words FROM result-name and TO service-result-name.
+                in other words FROM result-name and TO service-result-name.                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -646,14 +776,14 @@ under the License.
         <xs:attribute type="xs:string" name="result-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the field in the result of this service call that the value comes FROM.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="service-result-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the field in the result of this simple-method called as a service where the value goes TO.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -671,15 +801,27 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-service-asynch">
-        <xs:attribute type="xs:string" name="service-name" use="required"/>
-        <xs:attribute type="xs:string" name="in-map-name"/>
+        <xs:attribute type="xs:string" name="service-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the service called asynchronously.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="in-map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of a map in the method environment to use as the input map.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="include-user-login" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    Defaults to "true".
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
-                <xs:annotation>
-                    <xs:documentation>
-                        Defaults to "true".
-                    </xs:documentation>
-                </xs:annotation>                                    
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
@@ -1279,7 +1421,7 @@ under the License.
     <xs:element name="list-to-list" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Copy a list to another list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1290,14 +1432,14 @@ under the License.
         <xs:attribute type="xs:string" name="list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the list to copy from
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="to-list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the list to copy to
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1305,12 +1447,14 @@ under the License.
     <xs:element name="order-map-list" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Sort a list : ordered by fields names given in order-by attribute.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="order-by"/>
+                <xs:element maxOccurs="unbounded" ref="order-by">
+                    Names of fields to order list by.
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.order-map-list"/>
         </xs:complexType>
@@ -1319,16 +1463,28 @@ under the License.
         <xs:attribute type="xs:string" name="list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the list ordered by fields names given in order-by attribute. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
-
     <xs:element name="set" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Move a value from one field to another field. 
+                You can also take a value, just a string constant or a string
+                that is made up of a mixture of constant and flexible
+                string expansion variables, the ${} things, that will be
+                put in the field.
+                You can also specify a default value in the case that the
+                value evaluates to an empty string or the from field is
+                null or empty. Then the default-value will be used.
+                Again you can use the flexible string expander here, the
+                ${} syntax and such. It can also do a type conversion,
+                so going from whatever type the source data is in,
+                which would be a string value or whatever the variable
+                type is for a from field, it can convert that to any of
+                these types before setting it in the target field.                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1339,35 +1495,35 @@ under the License.
         <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the field to copy value to.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="from-field">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the field to copy value from.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="value">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Simple value to copy in field.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="default-value">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Default value to copy in field if value evaluates to an empty string or the from field is null or empty. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="type">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Type to convert to.
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -1390,7 +1546,8 @@ under the License.
         <xs:attribute name="set-if-null" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    If the source variable is null it should set it on the new field, and the default for that is false. 
+                    If the source variable is null it will leave the target field as it was.
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -1403,7 +1560,11 @@ under the License.
         <xs:attribute name="set-if-empty" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    If the source value, either from a value or from a field, is empty, and
+                    empty-string an empty list or a null value. In this case
+                    it's set to true. If you don't want to set, if you want it to
+                    leave the target field alone when the source is empty,
+                    then you need to set this to false.
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -1417,7 +1578,10 @@ under the License.
     <xs:element name="string-append" substitutionGroup="EnvOperations">        
         <xs:annotation>
             <xs:documentation>
-                NOTE: the prefix and suffix will only be used IFF the current string and the string to be appended are both not empty
+                NOTE: the prefix and suffix will only be used IFF the current string and the string to be appended are both not empty.
+                
+                So if the field does not exist then it will create a new field with this string value. 
+                If it does exist then it will append this string value to the end.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1428,7 +1592,11 @@ under the License.
         <xs:attribute type="xs:string" name="field-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    The field that you want string-append to operate on. 
+                    This is the target field where the value will be put, and this is the string to append to
+                    that field. So if the field does not exist then it will create
+                    a new field with this string value. If it does exist then it
+                    will append this string value to the end.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -1442,28 +1610,39 @@ under the License.
         <xs:attribute type="xs:string" name="string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    The string to append to the field named in field-name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="arg-list-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    arg-list-name is used to insert values from a list into
+                    the string using the object in the standard Java library
+                    that does this sort of string expresison with a { } brackets
+                    and a number, no dollar sign.
+                    This pattern of the arg-list-name with the prefix and
+                    suffix is something form the early days which is still
+                    supported, but the best thing to do here is just use the
+                    flexible string expander which is far more flexible and
+                    powerful. So you can have the prefix variables to expand
+                    and everything all mixed into one string.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="prefix">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Used in conjunction with arg-list-name. 
+                    String that will be prepended to the string,
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="suffix">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Used in conjunction with arg-list-name.
+                    String that will be appended to the string,
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1471,7 +1650,12 @@ under the License.
     <xs:element name="string-to-list" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Take a string literally that can also have a flexible string expander and such in it, 
+                and it will add it to a list. 
+                Note that you can have an arg-listname for using the standard
+                Java style argument list where you have in the source
+                string numbers inside of { } brackets that represent the
+                number the index in the argument list to insert at that point.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1482,20 +1666,30 @@ under the License.
         <xs:attribute type="xs:string" name="string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    String to add to the list named in list-name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="list-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    List to add string to.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="arg-list-name">
             <xs:annotation>
                 <xs:documentation>
+                    arg-list-name is used to insert values from a list into
+                    the string using the object in the standard Java library
+                    that does this sort of string expresison with a { } brackets
+                    and a number, no dollar sign.
+                    This pattern of the arg-list-name with the prefix and
+                    suffix is something form the early days which is still
+                    supported, but the best thing to do here is just use the
+                    flexible string expander which is far more flexible and
+                    powerful. So you can have the prefix variables to expand
+                    and everything all mixed into one string.
                     
                 </xs:documentation>
             </xs:annotation>
