@@ -60,11 +60,11 @@ if (security.hasPermission("ENTITY_MAINT", session) || request.getParameter("ori
       }
     }
   } else {
-    String title = "Entity of an Open For Business Project Component";
-    String description = "None";
-    String copyright = "Copyright (c) 2002 The Open For Business Project - www.ofbiz.org";
-    String author = "None";
-    String version = "1.0";
+      String title = "Entity of an Apache Open For Business Project (Apache OFBiz) Component";
+      String description = "None";
+      String copyright = "Copyright 2001-2006 The Apache Software Foundation";
+      String author = "None";
+      String version = "1.0";
 %><?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE entitymodel PUBLIC "-//OFBiz//DTD Entity Model//EN" "http://www.ofbiz.org/dtds/entitymodel.dtd">
 <!--
