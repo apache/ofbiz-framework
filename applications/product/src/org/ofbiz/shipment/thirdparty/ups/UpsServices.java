@@ -1964,7 +1964,7 @@ public class UpsServices {
         Element shiptoAddrElement = UtilXml.addChildElement(shiptoElement, "Address", rateRequestDoc);
         UtilXml.addChildElementValue(shiptoAddrElement, "PostalCode", shippingPostalCode, rateRequestDoc);
         if (shippingCountryCode != null && !shippingCountryCode.equals("")) {
-            UtilXml.addChildElementValue(shiptoAddrElement, "CountryCode", "CA", rateRequestDoc);
+            UtilXml.addChildElementValue(shiptoAddrElement, "CountryCode", shippingCountryCode, rateRequestDoc);
         }
         
         if (isResidentialAddress != null && isResidentialAddress.equals("Y")) {
