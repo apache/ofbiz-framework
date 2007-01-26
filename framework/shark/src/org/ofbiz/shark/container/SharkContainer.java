@@ -50,13 +50,6 @@ import org.ofbiz.service.LocalDispatcher;
  * Shark Workflow Engine Container
  */
 
-
-/**
- * Shark Workflow Engine Container
- *
- * @author     <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
- * @since      3.1
- */
 public class SharkContainer implements Container, Runnable 
 {
     public static final String module = SharkContainer.class.getName();
