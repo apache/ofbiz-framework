@@ -312,4 +312,16 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.OrderInputQuickPurchaseOrder}" widget-style="smallSubmit"><submit/></field>
     </form>
+    <form name="ApprovedProductRequirementsByVendor" type="list" list-name="requirements"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="ApprovedProductRequirementsByVendor">
+        <field name="partyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${partyId})" also-hidden="true">
+            </display-entity>
+        </field>
+        <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="tabletextright"><display/></field>
+        <field name="prepare" title="${uiLabelMap.OrderPrepareOrder}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.OrderPrepareOrder}" target="ApprovedProductRequirements?partyId=${partyId}"/>
+        </field>
+    </form>
 </forms>
