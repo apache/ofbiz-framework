@@ -3463,12 +3463,19 @@ public class OrderServices {
                 return ServiceUtil.returnError("Failed to create Payment: Cannot get related OrderHeader from payment preference");
             }
 
-            // get the store for the order
+            // get the store for the order.  It will be used to set the currency
             GenericValue productStore = orderHeader.getRelatedOne("ProductStore");
             if (productStore == null) {
                 return ServiceUtil.returnError("Failed to create Payment: Cannot get the ProductStore for the order header");
             }
 
+            // get the partyId billed to 
+            OrderReadHelper orh = new OrderReadHelper(orderHeader);
+            GenericValue billToParty = orh.getBillToParty();
+            if (billToParty == null) {
+                return ServiceUtil.returnError("Failed to create Payment: cannot find the bill to customer party");
+            }
+                
             // set the payToPartyId
             String payToPartyId = productStore.getString("payToPartyId");
             if (payToPartyId == null) {
@@ -3483,6 +3490,8 @@ public class OrderServices {
             paymentParams.put("amount", orderPaymentPreference.getDouble("maxAmount"));
             paymentParams.put("statusId", "PMNT_RECEIVED");
             paymentParams.put("effectiveDate", UtilDateTime.nowTimestamp());
+            paymentParams.put("partyIdFrom", billToParty.getString("partyId"));
+            paymentParams.put("currencyUomId", productStore.getString("defaultCurrencyUomId"));
             paymentParams.put("partyIdTo", payToPartyId);
             if (paymentRefNum != null) {
                 paymentParams.put("paymentRefNum", paymentRefNum);
