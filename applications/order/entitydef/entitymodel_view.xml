@@ -1292,6 +1292,36 @@ under the License.
       <alias entity-alias="RQ" name="facilityId" group-by="true"/>
       <alias entity-alias="RQ" name="quantity" function="sum"/>
     </view-entity>
+    <!-- Note how we chain the next two view entities to simulate a subquery operation -->
+    <view-entity entity-name="RequirementPartyProductCountSubquery"
+            package-name="org.ofbiz.order.request"
+            title="A subquery of RequirementPartyProductCount.  Not intended for direct use.">
+      <member-entity entity-alias="RQ" entity-name="Requirement"/>
+      <member-entity entity-alias="RQR" entity-name="RequirementRole"/>
+      <alias entity-alias="RQ" name="requirementTypeId" group-by="true"/>
+      <alias entity-alias="RQ" name="statusId" group-by="true"/>
+      <alias entity-alias="RQ" name="productId" group-by="true"/>
+      <alias entity-alias="RQR" name="partyId" group-by="true"/>
+      <alias entity-alias="RQR" name="roleTypeId" group-by="true"/>
+      <alias entity-alias="RQR" name="fromDate" group-by="false"/>
+      <alias entity-alias="RQR" name="thruDate" group-by="false"/>
+      <view-link entity-alias="RQ" rel-entity-alias="RQR">
+        <key-map field-name="requirementId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="RequirementPartyProductCount"
+            package-name="org.ofbiz.order.request"
+            title="Reports number of distinct product requirements per party.">
+      <member-entity entity-alias="R" entity-name="RequirementPartyProductCountSubquery"/>
+      <alias entity-alias="R" name="requirementTypeId" group-by="true"/>
+      <alias entity-alias="R" name="statusId" group-by="true"/>
+      <alias entity-alias="R" name="productId" function="count"/>
+      <alias entity-alias="R" name="partyId" group-by="true"/>
+      <alias entity-alias="R" name="roleTypeId" group-by="true"/>
+      <alias entity-alias="R" name="fromDate" group-by="false"/>
+      <alias entity-alias="R" name="thruDate" group-by="false"/>
+    </view-entity>
+
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.order.opportunity -->

@@ -148,6 +148,8 @@ under the License.
     <entity-group group="org.ofbiz" entity="RequirementAttribute" />
     <entity-group group="org.ofbiz" entity="RequirementBudgetAllocation" />
     <entity-group group="org.ofbiz" entity="RequirementByProductFacility" />
+    <entity-group group="org.ofbiz" entity="RequirementPartyProductCountSubquery" />
+    <entity-group group="org.ofbiz" entity="RequirementPartyProductCount" />
     <entity-group group="org.ofbiz" entity="RequirementCustRequest" />
     <entity-group group="org.ofbiz" entity="RequirementCustRequestView" />
     <entity-group group="org.ofbiz" entity="RequirementRole" />

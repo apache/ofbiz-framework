@@ -23,5 +23,6 @@ under the License.
 <div class='tabContainer'>
     <a href="<@ofbizUrl>FindRequirements</@ofbizUrl>" class="${selectedClassMap.FindRequirements?default(unselectedClassName)}">${uiLabelMap.OrderRequirements}</a>
     <a href="<@ofbizUrl>ApproveRequirements</@ofbizUrl>" class="${selectedClassMap.ApproveRequirements?default(unselectedClassName)}">${uiLabelMap.OrderApproveRequirements}</a>
+    <a href="<@ofbizUrl>ApprovedProductRequirementsByVendor</@ofbizUrl>" class="${selectedClassMap.ApprovedProductRequirementsByVendor?default(unselectedClassName)}">${uiLabelMap.OrderApprovedProductRequirementsByVendor}</a>
     <a href="<@ofbizUrl>ApprovedProductRequirements</@ofbizUrl>" class="${selectedClassMap.ApprovedProductRequirements?default(unselectedClassName)}">${uiLabelMap.OrderApprovedProductRequirements}</a>
 </div>

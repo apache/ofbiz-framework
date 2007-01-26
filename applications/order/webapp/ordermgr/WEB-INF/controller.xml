@@ -1050,6 +1050,14 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ApprovedProductRequirementsReport"/>
     </request-map>
+    <request-map uri="ApprovedProductRequirementsByVendor">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ApprovedProductRequirementsByVendor"/>
+    </request-map>
+    <request-map uri="ApprovedProductRequirementsByVendorReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ApprovedProductRequirementsByVendorReport"/>
+    </request-map>
     <request-map uri="quickPurchaseOrderEntry">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickInitPurchaseOrder"/>
@@ -1526,6 +1534,8 @@ under the License.
     <view-map name="ApproveRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApproveRequirements" type="screen"/>
     <view-map name="ApprovedProductRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirements" type="screen"/>
     <view-map name="ApprovedProductRequirementsReport" type="screenfop" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="ApprovedProductRequirementsByVendor" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendor" type="screen"/>
+    <view-map name="ApprovedProductRequirementsByVendorReport" type="screenfop" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendorReport" content-type="application/pdf" encoding="none"/>
     <view-map name="RequirementsForSupplier" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#RequirementsForSupplier"/>
     <view-map name="FindQuoteForCart" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#FindQuoteForCart"/>
 
