@@ -39,6 +39,6 @@ under the License.
         title="WorkEffort"
         server="default-server"
         location="webapp/workeffort"
-        base-permission="OFBTOOLS"
+        base-permission="OFBTOOLS,WORKEFFORTMGR"
         mount-point="/workeffort"/>
 </ofbiz-component>
