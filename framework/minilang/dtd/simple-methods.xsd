@@ -1689,15 +1689,14 @@ under the License.
                     supported, but the best thing to do here is just use the
                     flexible string expander which is far more flexible and
                     powerful. So you can have the prefix variables to expand
-                    and everything all mixed into one string.
-                    
+                    and everything all mixed into one string.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="message-field-name">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    To insert a message above a field (used in conjunction with @fieldErrors FTL macro) 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1731,14 +1730,14 @@ under the License.
         <xs:attribute type="xs:string" name="format">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Format based on the type of the object (date,number, etc.).
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="numeric-padding">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Padding to use if a numeric object is used.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1865,8 +1864,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-    </xs:attributeGroup>
-    
+    </xs:attributeGroup>    
     <xs:element name="sequenced-id-to-env" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
@@ -1895,6 +1893,14 @@ under the License.
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="get-long-only" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Get a numerical long value and put it there, so it does not do that by default. 
+                    By default getlong-only is false. If you want it to just get a long number
+                    then you can set that to true. That's in there for supporting lower level functionality, 
+                    but that's not the typical pattern used in OFBiz as we do use strings for sequencing.                    
+                </xs:documentation>
+            </xs:annotation>            
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1902,31 +1908,104 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="stagger-max"/>
+        <xs:attribute type="xs:string" name="stagger-max">
+            <xs:annotation>
+                <xs:documentation>
+                    By default this is one. But if you want to have sequenced Ids that are staggered, instead
+                    of consecutive, then you can set this to something like twenty. And then it will do a random staggering for
+                    each sequenced id; instead of picking the next value all the time it will pick something between the next value
+                    and twenty away from the next value, if stagger-max is set to twenty. 
+                    So that can be used to make the sequenced Ids more difficult to guess.                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="make-next-seq-id" substitutionGroup="EntityMiscOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.make-next-seq-id"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.make-next-seq-id">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="seq-field-name" use="required"/>
-        <xs:attribute type="xs:string" name="numeric-padding" default="5"/>
-        <xs:attribute type="xs:string" name="increment-by" default="1"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="seq-field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="numeric-padding" default="5">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="increment-by" default="1">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
 
     <xs:element name="entity-data" substitutionGroup="EntityMiscOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.entity-data"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-data">
-        <xs:attribute type="xs:string" name="location" use="required"/>
-        <xs:attribute type="xs:string" name="delegator-name" use="optional"/>
-        <xs:attribute type="xs:integer" name="timeout" default="-1"/>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="location" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="delegator-name" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="timeout" default="-1">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="mode" default="load">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="load"/>
@@ -1935,7 +2014,6 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
-
     <xs:element name="find-by-primary-key" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
@@ -1967,8 +2045,7 @@ under the License.
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.
                 </xs:documentation>
-            </xs:annotation>
-            
+            </xs:annotation>            
         </xs:attribute>
         <xs:attribute type="xs:string" name="use-cache" default="false">
             <xs:annotation>
@@ -2076,8 +2153,20 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.entity-one"/>
         </xs:complexType>
@@ -2119,24 +2208,76 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="entity-and" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" ref="field-map"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range"/>
-                    <xs:element ref="limit-view"/>
-                    <xs:element ref="use-iterator"/>
+                    <xs:element ref="limit-range">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="limit-view">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="use-iterator">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.entity-and"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-and">
-        <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="use-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="filter-by-date" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2145,32 +2286,114 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="list-name" type="xs:string" use="required"/>
+        <xs:attribute name="list-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="entity-condition" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="condition-expr"/>
-                    <xs:element ref="condition-list"/>
-                    <xs:element ref="condition-object"/>
+                    <xs:element ref="condition-expr">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="condition-list">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="condition-object">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:choice>
-                <xs:element minOccurs="0" ref="having-condition-list"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
+                <xs:element minOccurs="0" ref="having-condition-list">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range"/>
-                    <xs:element ref="limit-view"/>
-                    <xs:element ref="use-iterator"/>
+                    <xs:element ref="limit-range">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="limit-view">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="use-iterator">
+                        <xs:annotation>
+                            <xs:documentation>
+                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.entity-condition"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-condition">
-        <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="use-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="filter-by-date" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2180,6 +2403,11 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="distinct" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2187,21 +2415,61 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="delegator-name" type="xs:string"/>
-        <xs:attribute name="list-name" type="xs:string" use="required"/>
+        <xs:attribute name="delegator-name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="list-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="condition-list">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr"/>
-                <xs:element ref="condition-list"/>
-                <xs:element ref="condition-object"/>
+                <xs:element ref="condition-expr">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="condition-list">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="condition-object">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.condition-list"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-list">
         <xs:attribute name="combine" default="and">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="and"/>
@@ -2211,17 +2479,45 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="having-condition-list">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr"/>
-                <xs:element ref="condition-list"/>
-                <xs:element ref="condition-object"/>
+                <xs:element ref="condition-expr">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="condition-list">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="condition-object">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.having-condition-list"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.having-condition-list">
         <xs:attribute name="combine" default="and">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="and"/>
@@ -2231,13 +2527,29 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="condition-expr">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.condition-expr"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-expr">
-        <xs:attribute name="field-name" type="xs:string" use="required"/>
+        <xs:attribute name="field-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="operator" default="equals">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="less"/>
@@ -2252,9 +2564,26 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="env-name" type="xs:string"/>
-        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="env-name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="value" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="ignore-if-null" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2263,6 +2592,11 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="ignore-if-empty" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2271,6 +2605,11 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="ignore-case" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2280,12 +2619,23 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="condition-object">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.condition-object"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-object">
-        <xs:attribute name="field-name" type="xs:string" use="required"/>
+        <xs:attribute name="field-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="select-field">
         <xs:complexType>
@@ -2293,15 +2643,32 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.select-field">
-        <xs:attribute name="field-name" type="xs:string" use="required"/>
+        <xs:attribute name="field-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="order-by">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.order-by"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.order-by">
-        <xs:attribute name="field-name" type="xs:string" use="required"/>
+        <xs:attribute name="field-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="limit-range">
         <xs:complexType>
@@ -2325,6 +2692,11 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="limit-view">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.limit-view"/>
         </xs:complexType>
@@ -2346,19 +2718,52 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="use-iterator">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType/>
     </xs:element>
     <xs:element name="field-map">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.field-map"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field-map">
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="env-name"/>
-        <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute type="xs:string" name="field-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="env-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="entity-count" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
@@ -2366,51 +2771,173 @@ under the License.
                     <xs:element ref="condition-list"/>
                     <xs:element ref="condition-object"/>
                 </xs:choice>
-                <xs:element minOccurs="0" ref="having-condition-list"/>
+                <xs:element minOccurs="0" ref="having-condition-list">
+                    <xs:annotation>
+                        <xs:documentation>
+                            
+                        </xs:documentation>
+                    </xs:annotation>        
+                </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.entity-count"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.entity-count">
-        <xs:attribute name="entity-name" type="xs:string" use="required"/>
-        <xs:attribute name="delegator-name" type="xs:string"/>
-        <xs:attribute name="count-name" type="xs:string" use="required"/>
+        <xs:attribute name="entity-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="delegator-name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="count-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="get-related-one" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.get-related-one"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related-one">
-        <xs:attribute name="value-name" type="xs:string" use="required"/>
-        <xs:attribute name="relation-name" type="xs:string" use="required"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
-        <xs:attribute type="xs:string" name="to-value-name" use="required"/>
+        <xs:attribute name="value-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="relation-name" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="use-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="get-related" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.get-related"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="relation-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name"/>
-        <xs:attribute type="xs:string" name="order-by-list-name"/>
-        <xs:attribute type="xs:string" name="use-cache" default="false"/>
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="relation-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="order-by-list-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="use-cache" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="order-value-list" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.order-value-list"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.order-value-list">
-        <xs:attribute type="xs:string" name="list-name" use="required"/>
-        <xs:attribute type="xs:string" name="to-list-name"/>
-        <xs:attribute type="xs:string" name="order-by-list-name" use="required"/>
+        <xs:attribute type="xs:string" name="list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="to-list-name">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="order-by-list-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="filter-list-by-and" substitutionGroup="EntityFindOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:annotation>
             <xs:documentation>
                 The filter-list-by-and tag filters the given list by the fields in the specified map.
@@ -2639,12 +3166,23 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="refresh-value" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.refresh-value"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.refresh-value">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">            
             <xs:annotation>
                 <xs:documentation>
@@ -2693,13 +3231,30 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="remove-related" substitutionGroup="EntityValueOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.remove-related"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-related">
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="relation-name" use="required"/>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="relation-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="do-cache-clear" default="true">
             <xs:annotation>
                 <xs:documentation>
@@ -2975,25 +3530,65 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="iterate-map" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
             <xs:attributeGroup ref="attlist.iterate-map"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.iterate-map">
-        <xs:attribute type="xs:string" name="key-name" use="required"/>
-        <xs:attribute type="xs:string" name="value-name" use="required"/>
-        <xs:attribute type="xs:string" name="map-name" use="required"/>
+        <xs:attribute type="xs:string" name="key-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="map-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="loop" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
             <xs:attributeGroup ref="attlist.loop"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.loop">
-        <xs:attribute type="xs:string" name="count" use="required"/>
-        <xs:attribute type="xs:string" name="field" use="optional"/>
+        <xs:attribute type="xs:string" name="count" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="field" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="check-errors" substitutionGroup="ControlOperations">
         <xs:annotation>
