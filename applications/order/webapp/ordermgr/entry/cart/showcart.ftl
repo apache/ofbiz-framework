@@ -113,7 +113,7 @@ function quicklookup(element) {
               <table border="0">
                 <tr>
                   <td align="right"><div class="tableheadtext">${uiLabelMap.ProductProductId} :</div></td>
-                  <td><input type="text" class="inputBox" size="25" name="add_product_id" value="${requestParameters.add_product_id?if_exists}"/>
+                  <td><input type="text" class="inputBox" size="25" name="add_product_id" value=""/>
                     <span class='tabletext'>
                       <a href="javascript:quicklookup(document.quickaddform.add_product_id)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
                       <a href="javascript:call_fieldlookup2(document.quickaddform.add_product_id,'LookupProduct');">
@@ -199,7 +199,7 @@ function quicklookup(element) {
                     <a href="javascript:call_fieldlookup2(document.bulkworkaddform.add_category_id,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                 </div>
                 <div class="tableheadtext">
-                    ${uiLabelMap.CommonDescription}:&nbsp;<input type="text" class="inputBox" size="25" name="add_item_description" value="${requestParameters.add_product_id?if_exists}"/>
+                    ${uiLabelMap.CommonDescription}:&nbsp;<input type="text" class="inputBox" size="25" name="add_item_description" value=""/>
                     ${uiLabelMap.OrderQuantity}:&nbsp;<input type="text" class="inputBox" size="3" name="quantity" value="${requestParameters.quantity?default("1")}"/>
                     ${uiLabelMap.OrderPrice}:&nbsp;<input type="text" class="inputBox" size="6" name="price" value="${requestParameters.price?if_exists}"/>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToOrder}"/>
