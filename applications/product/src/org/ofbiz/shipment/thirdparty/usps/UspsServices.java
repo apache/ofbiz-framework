@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
+
 package org.ofbiz.shipment.thirdparty.usps;
 
 import java.io.ByteArrayOutputStream;
@@ -158,8 +159,8 @@ public class UspsServices {
             packageElement.setAttribute("ID", String.valueOf(li.nextIndex() - 1)); // use zero-based index (see examples)
 
             UtilXml.addChildElementValue(packageElement, "Service", serviceCode, requestDocument);
-            UtilXml.addChildElementValue(packageElement, "ZipOrigination", originationZip, requestDocument);
-            UtilXml.addChildElementValue(packageElement, "ZipDestination", destinationZip, requestDocument);
+            UtilXml.addChildElementValue(packageElement, "ZipOrigination", originationZip.substring(0,5), requestDocument);
+            UtilXml.addChildElementValue(packageElement, "ZipDestination", destinationZip.substring(0,5), requestDocument);
 
             double weightPounds = Math.floor(packageWeight);
             double weightOunces = Math.ceil(packageWeight * 16 % 16);
@@ -293,7 +294,7 @@ public class UspsServices {
                 }
                     
                 if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
-                    productWeight *= ((Double) result.get("convertedValue")).doubleValue();
+                    productWeight = ((Double) result.get("convertedValue")).doubleValue();
                 } else {
                     Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",module);
                 }
@@ -1349,7 +1350,6 @@ public class UspsServices {
 
         return responseDocument;
     }
-
 }
 
 class UspsRequestException extends GeneralException {
