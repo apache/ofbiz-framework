@@ -149,10 +149,6 @@ under the License.
     <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="WG-5569" supplierProductName="EU Tiny Chrome Widget" supplierProductId="EU-WG-5569" lastPrice="12.0" availableFromDate="2005-01-01 00:00:00.000"/>
     <SupplierProduct partyId="EuroSupplier" minimumOrderQuantity="20" currencyUomId="EUR" productId="WG-9943" supplierProductName="EU Giant Widget" supplierProductId="EU-WG-9943" lastPrice="110.0" availableFromDate="2005-01-01 00:00:00.000"/>
 
-    <!-- these are sample raw materials -->
-    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_A_COST" lastPrice="9.0" supplierProductId="RAWMAT-A" availableFromDate="2005-01-01 00:00:00.000"/>
-    <SupplierProduct partyId="DemoSupplier" minimumOrderQuantity="0" currencyUomId="USD" productId="MAT_B_COST" lastPrice="7.0" supplierProductId="RAWMAT-B" availableFromDate="2005-01-01 00:00:00.000"/>
-
     <!-- supplier specific feature descriptions -->
     <SupplierProductFeature productFeatureId="8000" partyId="EuroSupplier" description="EURO-LGPL"/>
     <SupplierProductFeature productFeatureId="8001" partyId="EuroSupplier" description="EURO-GPL"/>
