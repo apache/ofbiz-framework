@@ -97,6 +97,10 @@ font-weight: bold;
 color: #000000;
 }
 
+textarea {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
 TH, .tableheadtext {
 font-size: 10px;
 font-weight: bold;
@@ -1203,6 +1207,7 @@ background-color: #CCCCCC;
 border: black solid 2px;
 overflow: auto;
 }
+
 
 
 
