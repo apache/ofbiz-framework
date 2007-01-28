@@ -22,8 +22,4 @@ under the License.
     <RecurrenceRule recurrenceRuleId="420" untilDateTime="" frequency="DAILY" intervalNumber="1" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="420" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="420" recurrenceCount="0"/>
     <JobSandbox jobId="8100" jobName="Purge Old Store Auto-Entered Promos" runTime="2000-01-01 00:00:00.000" serviceName="purgeOldStoreAutoPromos" poolId="pool" runAsUser="system" recurrenceInfoId="420"/>
-
-    <RecurrenceRule recurrenceRuleId="421" untilDateTime="" frequency="DAILY" intervalNumber="1" countNumber="-1"/>
-    <RecurrenceInfo recurrenceInfoId="421" startDateTime="2000-01-01 19:00:00.000" recurrenceRuleId="421" recurrenceCount="0"/>
-    <JobSandbox jobId="8101" jobName="Update Shipment From Staging" runTime="2000-01-01 00:00:00.000" serviceName="updateShipmentFromStaging" poolId="pool" runAsUser="system" recurrenceInfoId="421"/>
 </entity-engine-xml>
