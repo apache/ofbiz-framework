@@ -233,7 +233,7 @@ under the License.
                           ${shipMeth.description?if_exists}
                           <#if shippingEst?has_content>
                             &nbsp;-&nbsp;
-                            <#if (shippingEst > -1)?exists>
+                            <#if (shippingEst > -1)>
                               <@ofbizCurrency amount=shippingEst isoCode=listCart.getCurrency()/>
                             <#else>
                               ${uiLabelMap.OrderCalculatedOffline}
