@@ -519,13 +519,15 @@ under the License.
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="include-user-login" default="true">
-            <xs:documentation>
-                Include-user-login by default will include the user login,
-                so if there is a user login for the current simple-method
-                it will pass that in to the service. If you don't want it to
-                pass that in you can just set this to false.                
-                Defaults to "true". 
-            </xs:documentation>
+            <xs:annotation>
+                <xs:documentation>
+                    Include-user-login by default will include the user login
+                    so if there is a user login for the current simple-method
+                    it will pass that in to the service. If you don't want it to
+                    pass that in you can just set this to false.                
+                    Defaults to "true". 
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:annotation>
                 </xs:annotation>            
@@ -1453,7 +1455,11 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" ref="order-by">
-                    Names of fields to order list by.
+                    <xs:annotation>
+                        <xs:documentation>
+                            Names of fields to order list by.
+                        </xs:documentation>
+                    </xs:annotation>
                 </xs:element>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.order-map-list"/>
@@ -2933,11 +2939,6 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="filter-list-by-and" substitutionGroup="EntityFindOperations">
-        <xs:annotation>
-            <xs:documentation>
-                
-            </xs:documentation>
-        </xs:annotation>
         <xs:annotation>
             <xs:documentation>
                 The filter-list-by-and tag filters the given list by the fields in the specified map.
