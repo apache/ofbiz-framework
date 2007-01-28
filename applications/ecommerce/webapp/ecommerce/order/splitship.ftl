@@ -98,7 +98,7 @@ function submitForm(form, mode, value) {
                           ${carrierShipmentMethod.description?if_exists}
                           <#if shippingEst?has_content>
                             &nbsp;-&nbsp;
-                            <#if (shippingEst > -1)?exists>
+                            <#if (shippingEst > -1)>
                               <@ofbizCurrency amount=shippingEst isoCode=cart.getCurrency()/>
                             <#else>
                               ${uiLabelMap.OrderCalculatedOffline}
