@@ -64,52 +64,6 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
-    
-    <simple-method method-name="getRequirementsForSupplier" short-description="Get the requirements applicable to a given supplier">
-        <make-value value-name="newEntity" entity-name="Requirement"/>
-        <if-not-empty field-name="parameters.partyId">
-            <!-- all the product requirements that are assigned to the given supplier are shown -->
-            <entity-condition entity-name="RequirementAndRole" list-name="requirementsForSupplier">
-                <condition-list>
-                    <condition-object field-name="parameters.requirementConditions"/>
-                    <condition-expr field-name="statusId" value="REQ_APPROVED"/>
-                    <condition-expr field-name="roleTypeId" value="SUPPLIER"/>
-                    <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
-                    <condition-expr field-name="partyId" env-name="parameters.partyId"/>
-                </condition-list>
-            </entity-condition>
-        <else>
-            <if-not-empty field-name="parameters.unassignedRequirements">
-                <!-- only the product requirements that are not assigned to a supplier are shown -->
-                <entity-condition entity-name="RequirementAndRole" list-name="requirementsForSupplier">
-                    <condition-list>
-                        <condition-object field-name="parameters.requirementConditions"/>
-                        <condition-expr field-name="statusId" value="REQ_APPROVED"/>
-                        <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
-                        <condition-expr field-name="partyId" env-name="null"/>
-                    </condition-list>
-                </entity-condition>
-            <else>
-                <!-- all the product requirements that are assigned to suppliers are shown -->
-                <entity-condition entity-name="RequirementAndRole" list-name="requirementsForSupplier">
-                    <condition-list>
-                        <condition-object field-name="parameters.requirementConditions"/>
-                        <condition-expr field-name="statusId" value="REQ_APPROVED"/>
-                        <condition-expr field-name="requirementTypeId" value="PRODUCT_REQUIREMENT"/>
-                        <condition-expr field-name="roleTypeId" value="SUPPLIER"/>
-                    </condition-list>
-                    <order-by field-name="partyId"/>
-                </entity-condition>
-            </else>
-            </if-not-empty>
-        </else>
-        </if-not-empty>
-        <if-not-empty field-name="parameters.assignedRequirements">
-        <else>
-        </else>
-        </if-not-empty>
-        <field-to-result field-name="requirementsForSupplier" result-name="requirementsForSupplier"/>
-    </simple-method>
 
     <simple-method method-name="autoAssignRequirementToSupplier" short-description="If the requirement is a product requirement (purchasing) try to assign it to the primary supplier">
         <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
@@ -124,7 +78,6 @@ under the License.
                     </condition-list>
                     <order-by field-name="supplierPrefOrderId"/>
                 </entity-condition>
-                <filter-list-by-date list-name="supplierProducts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list-name="supplierProducts" entry-name="supplierProduct"/>
                 <if-not-empty field-name="supplierProduct.partyId">
                     <make-value value-name="requirementSupplier" entity-name="RequirementRole"/>
