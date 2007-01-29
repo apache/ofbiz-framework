@@ -657,7 +657,7 @@ under the License.
         <prim-key field="maintHistSeqId"/>
         <prim-key field="orderId"/>
         <prim-key field="orderItemSeqId"/>
-        <relation type="one" fk-name="FXDASTMNT_ORD_FXAST" rel-entity-name="FixedAsset">
+        <relation type="one" fk-name="FXDASTMNT_ORD_FXAS" rel-entity-name="FixedAsset">
             <key-map field-name="fixedAssetId"/>
         </relation>
         <relation type="one" fk-name="FXDASTMNT_ORD" rel-entity-name="OrderHeader">
