@@ -111,7 +111,7 @@ under the License.
 <#if miters?has_content>
     <ul>
         <#list miters as miter>
-            ${miter}
+            <li>${miter}</li>
         </#list>
     </ul>
 </#if>
