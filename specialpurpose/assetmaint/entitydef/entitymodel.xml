@@ -50,7 +50,9 @@
         <member-entity entity-alias="FAM" entity-name="FixedAssetMaint"/>
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <alias-all entity-alias="FAM"/>
-        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WE">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
         <view-link entity-alias="FAM" rel-entity-alias="WE">
             <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
         </view-link>
@@ -71,7 +73,9 @@
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
         <alias-all entity-alias="FAM"/>
-        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WE">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
         <alias entity-alias="WEPA" name="workEffortId"/>
         <alias entity-alias="WEPA" name="partyId"/>
         <alias entity-alias="WEPA" name="roleTypeId"/>
@@ -83,7 +87,7 @@
         <view-link entity-alias="WE" rel-entity-alias="WEPA">
             <key-map field-name="workEffortId"/>
         </view-link>
-        <relation type="one" rel-entity-name="FixedAssetMaint">
+        <relation type="one"  rel-entity-name="WorkEffort">
             <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
         </relation>
         <relation type="many" rel-entity-name="WorkEffortPartyAssignment"> 
@@ -97,7 +101,9 @@
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
         <member-entity entity-alias="TE" entity-name="TimeEntry"/>
         <alias-all entity-alias="FAM"/>
-        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WE">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
         <alias-all entity-alias="TE"/>
         <view-link entity-alias="FAM" rel-entity-alias="WE">
             <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
@@ -105,7 +111,7 @@
         <view-link entity-alias="WE" rel-entity-alias="TE">
             <key-map field-name="workEffortId"/>
         </view-link>
-        <relation type="one" rel-entity-name="FixedAssetMaint">
+        <relation type="one" rel-entity-name="WorkEffort">
             <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
         </relation>
         <relation type="many" rel-entity-name="TimeEntry"> 
@@ -119,7 +125,9 @@
         <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>
         <member-entity entity-alias="PT" entity-name="Product"/>
         <alias-all entity-alias="IMIE"/>
-        <alias-all entity-alias="IYIM"/>
+        <alias-all entity-alias="IYIM">
+            <exclude field="facilityId"/>
+        </alias-all>
         <alias entity-alias="PT" name="productId"/>
         <alias entity-alias="PT" name="productTypeId"/>
         <alias entity-alias="PT" name="primaryProductCategoryId"/>
@@ -131,7 +139,6 @@
         <alias entity-alias="PT" name="requireInventory"/>
         <alias entity-alias="PT" name="taxable"/>                                        
         <alias entity-alias="PT" name="chargeShipping"/>                                                
-        <alias entity-alias="PT" name="taxable"/>                                        
         <alias entity-alias="PT" name="isVirtual"/>                                        
         <alias entity-alias="PT" name="isVariant"/>                                        
         <alias entity-alias="PT" name="createdDate"/>                                        
@@ -156,7 +163,9 @@
         <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>
         <member-entity entity-alias="IMIE" entity-name="ItemIssuance"/>
         <alias-all entity-alias="IMIE"/>
-        <alias-all entity-alias="IYIM"/>
+        <alias-all entity-alias="IYIM">
+            <exclude field="facilityId"/>
+        </alias-all>
         <alias entity-alias="PT" name="productId"/>
         <alias entity-alias="PT" name="productTypeId"/>
         <alias entity-alias="PT" name="primaryProductCategoryId"/>
@@ -168,7 +177,6 @@
         <alias entity-alias="PT" name="requireInventory"/>
         <alias entity-alias="PT" name="taxable"/>                                        
         <alias entity-alias="PT" name="chargeShipping"/>                                                
-        <alias entity-alias="PT" name="taxable"/>                                        
         <alias entity-alias="PT" name="isVirtual"/>                                        
         <alias entity-alias="PT" name="isVariant"/>                                        
         <alias entity-alias="PT" name="createdDate"/>                                        
