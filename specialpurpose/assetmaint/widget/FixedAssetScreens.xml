@@ -40,7 +40,7 @@
                         </container>
                         <label>&lt;br/&gt;</label>
                         <container>
-                            <link target="editFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
+                            <link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
                         </container>
                         <include-form name="ListFixedAssets" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
                     </decorator-section>
@@ -64,7 +64,7 @@
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link target="editFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
+                            <link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
                         </container>
                         <label>&lt;br/&gt;</label>
                         <container style="boxoutside">
