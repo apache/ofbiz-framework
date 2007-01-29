@@ -53,6 +53,7 @@ import org.ofbiz.entity.model.ModelIndex;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * Utilities for Entity Database Maintenance
@@ -106,7 +107,9 @@ public class DatabaseUtil {
                 throw new GenericEntityException("No connection avaialble for URL [" + connectionUrl + "]");
             }
         }
-        connection.setAutoCommit(true);
+        if (!TransactionUtil.isTransactionInPlace()) {
+            connection.setAutoCommit(true);
+        }
         return connection;
     }
 
@@ -708,8 +711,8 @@ public class DatabaseUtil {
         if (connection == null) {
             try {
                 connection = getConnection();
-            } catch (SQLException sqle) {
-                String message = "Unable to esablish a connection with the database... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
                 return null;
@@ -731,8 +734,8 @@ public class DatabaseUtil {
         DatabaseMetaData dbData = null;
         try {
             dbData = connection.getMetaData();
-        } catch (SQLException sqle) {
-            String message = "Unable to get database meta data... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Unable to get database meta data... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) {
                 messages.add(message);
@@ -756,7 +759,7 @@ public class DatabaseUtil {
             try {
                 Debug.logInfo("Database Product Name is " + dbData.getDatabaseProductName(), module);
                 Debug.logInfo("Database Product Version is " + dbData.getDatabaseProductVersion(), module);
-            } catch (SQLException sqle) {
+            } catch (SQLException e) {
                 Debug.logWarning("Unable to get Database name & version information", module);
             }
         }
@@ -766,7 +769,7 @@ public class DatabaseUtil {
                 Debug.logInfo("Database Driver Name is " + dbData.getDriverName(), module);
                 Debug.logInfo("Database Driver Version is " + dbData.getDriverVersion(), module);
                 Debug.logInfo("Database Driver JDBC Version is " + dbData.getJDBCMajorVersion() + "." + dbData.getJDBCMinorVersion(), module);
-            } catch (SQLException sqle) {
+            } catch (SQLException e) {
                 Debug.logWarning("Unable to get Driver name & version information", module);
             } catch (AbstractMethodError ame) {
                 Debug.logWarning("Unable to get Driver JDBC Version", module);
@@ -822,8 +825,8 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            String message = "Unable to esablish a connection with the database... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
@@ -861,15 +864,15 @@ public class DatabaseUtil {
             if (tableSet == null) {
                 Debug.logWarning("getTables returned null set", module);
             }
-        } catch (SQLException sqle) {
-            String message = "Unable to get list of table information, let's try the create anyway... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Unable to get list of table information, let's try the create anyway... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
 
             try {
                 connection.close();
-            } catch (SQLException sqle2) {
-                String message2 = "Unable to close database connection, continuing anyway... Error was:" + sqle2.toString();
+            } catch (SQLException e2) {
+                String message2 = "Unable to close database connection, continuing anyway... Error was:" + e2.toString();
                 Debug.logError(message2, module);
                 if (messages != null) messages.add(message2);
             }
@@ -881,8 +884,8 @@ public class DatabaseUtil {
             boolean needsUpperCase = false;
             try {
                 needsUpperCase = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
-            } catch (SQLException sqle) {
-                String message = "Error getting identifier case information... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Error getting identifier case information... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
             }
@@ -911,30 +914,30 @@ public class DatabaseUtil {
                     // String remarks = tableSet.getString("REMARKS");
                     tableNames.add(tableName);
                     // if (Debug.infoOn()) Debug.logInfo("Found table named [" + tableName + "] of type [" + tableType + "] with remarks: " + remarks, module);
-                } catch (SQLException sqle) {
-                    String message = "Error getting table information... Error was:" + sqle.toString();
+                } catch (SQLException e) {
+                    String message = "Error getting table information... Error was:" + e.toString();
                     Debug.logError(message, module);
                     if (messages != null) messages.add(message);
                     continue;
                 }
             }
-        } catch (SQLException sqle) {
-            String message = "Error getting next table information... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Error getting next table information... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
         } finally {
             try {
                 tableSet.close();
-            } catch (SQLException sqle) {
-                String message = "Unable to close ResultSet for table list, continuing anyway... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Unable to close ResultSet for table list, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
             }
 
             try {
                 connection.close();
-            } catch (SQLException sqle) {
-                String message = "Unable to close database connection, continuing anyway... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Unable to close database connection, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
             }
@@ -952,14 +955,14 @@ public class DatabaseUtil {
         try {
             try {
                 connection = getConnection();
-            } catch (SQLException sqle) {
-                String message = "Unable to esablish a connection with the database... Error was:" + sqle.toString();
-                Debug.logError(message, module);
+            } catch (SQLException e) {
+                String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
+                Debug.logError(e, message, module);
                 if (messages != null) messages.add(message);
                 return null;
             } catch (GenericEntityException e) {
                 String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
-                Debug.logError(message, module);
+                Debug.logError(e, message, module);
                 if (messages != null) messages.add(message);
                 return null;
             }
@@ -967,15 +970,15 @@ public class DatabaseUtil {
             DatabaseMetaData dbData = null;
             try {
                 dbData = connection.getMetaData();
-            } catch (SQLException sqle) {
-                String message = "Unable to get database meta data... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Unable to get database meta data... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
 
                 try {
                     connection.close();
-                } catch (SQLException sqle2) {
-                    String message2 = "Unable to close database connection, continuing anyway... Error was:" + sqle2.toString();
+                } catch (SQLException e2) {
+                    String message2 = "Unable to close database connection, continuing anyway... Error was:" + e2.toString();
                     Debug.logError(message2, module);
                     if (messages != null) messages.add(message2);
                 }
@@ -998,8 +1001,8 @@ public class DatabaseUtil {
                 boolean needsUpperCase = false;
                 try {
                     needsUpperCase = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
-                } catch (SQLException sqle) {
-                    String message = "Error getting identifier case information... Error was:" + sqle.toString();
+                } catch (SQLException e) {
+                    String message = "Error getting identifier case information... Error was:" + e.toString();
                     Debug.logError(message, module);
                     if (messages != null) messages.add(message);
                 }
@@ -1009,8 +1012,8 @@ public class DatabaseUtil {
                 if (!rsCols.next()) {
                     try {
                         rsCols.close();
-                    } catch (SQLException sqle) {
-                        String message = "Unable to close ResultSet for column list, continuing anyway... Error was:" + sqle.toString();
+                    } catch (SQLException e) {
+                        String message = "Unable to close ResultSet for column list, continuing anyway... Error was:" + e.toString();
                         Debug.logError(message, module);
                         if (messages != null) messages.add(message);
                     }
@@ -1051,8 +1054,8 @@ public class DatabaseUtil {
                                 colInfo.put(ccInfo.tableName, tableColInfo);
                             }
                             tableColInfo.put(ccInfo.columnName, ccInfo);
-                        } catch (SQLException sqle) {
-                            String message = "Error getting column info for column. Error was:" + sqle.toString();
+                        } catch (SQLException e) {
+                            String message = "Error getting column info for column. Error was:" + e.toString();
                             Debug.logError(message, module);
                             if (messages != null) messages.add(message);
                             continue;
@@ -1062,8 +1065,8 @@ public class DatabaseUtil {
 
                 try {
                     rsCols.close();
-                } catch (SQLException sqle) {
-                    String message = "Unable to close ResultSet for column list, continuing anyway... Error was:" + sqle.toString();
+                } catch (SQLException e) {
+                    String message = "Unable to close ResultSet for column list, continuing anyway... Error was:" + e.toString();
                     Debug.logError(message, module);
                     if (messages != null) messages.add(message);
                 }
@@ -1074,8 +1077,8 @@ public class DatabaseUtil {
                     if (!rsPks.next()) {
                         try {
                             rsPks.close();
-                        } catch (SQLException sqle) {
-                            String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + sqle.toString();
+                        } catch (SQLException e) {
+                            String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + e.toString();
                             Debug.logError(message, module);
                             if (messages != null) messages.add(message);
                         }
@@ -1115,8 +1118,8 @@ public class DatabaseUtil {
                                 ccInfo.isPk = true;
                                 ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
                                 ccInfo.pkName = rsPks.getString("PK_NAME");
-                            } catch (SQLException sqle) {
-                                String message = "Error getting primary key info for column. Error was:" + sqle.toString();
+                            } catch (SQLException e) {
+                                String message = "Error getting primary key info for column. Error was:" + e.toString();
                                 Debug.logError(message, module);
                                 if (messages != null) messages.add(message);
                                 continue;
@@ -1126,14 +1129,14 @@ public class DatabaseUtil {
 
                     try {
                         rsPks.close();
-                    } catch (SQLException sqle) {
-                        String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + sqle.toString();
+                    } catch (SQLException e) {
+                        String message = "Unable to close ResultSet for primary key list, continuing anyway... Error was:" + e.toString();
                         Debug.logError(message, module);
                         if (messages != null) messages.add(message);
                     }
                 }
-            } catch (SQLException sqle) {
-                String message = "Error getting column meta data for Error was:" + sqle.toString() + ". Not checking columns.";
+            } catch (SQLException e) {
+                String message = "Error getting column meta data for Error was:" + e.toString() + ". Not checking columns.";
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
                 // we are returning an empty set in this case because databases like SapDB throw an exception when there are no tables in the database
@@ -1144,8 +1147,8 @@ public class DatabaseUtil {
             if (connection != null) {
                 try {
                     connection.close();
-                } catch (SQLException sqle) {
-                    String message = "Unable to close database connection, continuing anyway... Error was:" + sqle.toString();
+                } catch (SQLException e) {
+                    String message = "Unable to close database connection, continuing anyway... Error was:" + e.toString();
                     Debug.logError(message, module);
                     if (messages != null) messages.add(message);
                 }
@@ -1157,8 +1160,8 @@ public class DatabaseUtil {
         Connection connection = null;
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            String message = "Unable to esablish a connection with the database... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
@@ -1172,15 +1175,15 @@ public class DatabaseUtil {
         DatabaseMetaData dbData = null;
         try {
             dbData = connection.getMetaData();
-        } catch (SQLException sqle) {
-            String message = "Unable to get database meta data... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Unable to get database meta data... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
 
             try {
                 connection.close();
-            } catch (SQLException sqle2) {
-                String message2 = "Unable to close database connection, continuing anyway... Error was:" + sqle2.toString();
+            } catch (SQLException e2) {
+                String message2 = "Unable to close database connection, continuing anyway... Error was:" + e2.toString();
                 Debug.logError(message2, module);
                 if (messages != null) messages.add(message2);
             }
@@ -1191,13 +1194,13 @@ public class DatabaseUtil {
          try {
          if (Debug.infoOn()) Debug.logInfo("Database Product Name is " + dbData.getDatabaseProductName(), module);
          if (Debug.infoOn()) Debug.logInfo("Database Product Version is " + dbData.getDatabaseProductVersion(), module);
-         } catch (SQLException sqle) {
+         } catch (SQLException e) {
          Debug.logWarning("Unable to get Database name & version information", module);
          }
          try {
          if (Debug.infoOn()) Debug.logInfo("Database Driver Name is " + dbData.getDriverName(), module);
          if (Debug.infoOn()) Debug.logInfo("Database Driver Version is " + dbData.getDriverVersion(), module);
-         } catch (SQLException sqle) {
+         } catch (SQLException e) {
          Debug.logWarning("Unable to get Driver name & version information", module);
          }
          */
@@ -1220,8 +1223,8 @@ public class DatabaseUtil {
             boolean needsUpperCase = false;
             try {
                 needsUpperCase = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
-            } catch (SQLException sqle) {
-                String message = "Error getting identifier case information... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Error getting identifier case information... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
             }
@@ -1275,8 +1278,8 @@ public class DatabaseUtil {
                     }
                     if (!tableRefInfo.containsKey(rcInfo.fkName)) totalFkRefs++;
                     tableRefInfo.put(rcInfo.fkName, rcInfo);
-                } catch (SQLException sqle) {
-                    String message = "Error getting fk reference info for table. Error was:" + sqle.toString();
+                } catch (SQLException e) {
+                    String message = "Error getting fk reference info for table. Error was:" + e.toString();
                     Debug.logError(message, module);
                     if (messages != null) messages.add(message);
                     continue;
@@ -1286,24 +1289,24 @@ public class DatabaseUtil {
             // if (Debug.infoOn()) Debug.logInfo("There are " + totalFkRefs + " in the database", module);
             try {
                 rsCols.close();
-            } catch (SQLException sqle) {
-                String message = "Unable to close ResultSet for fk reference list, continuing anyway... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Unable to close ResultSet for fk reference list, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
             }
             // }
             if (Debug.infoOn()) Debug.logInfo("There are " + totalFkRefs + " foreign key refs in the database", module);
 
-        } catch (SQLException sqle) {
-            String message = "Error getting fk reference meta data Error was:" + sqle.toString() + ". Not checking fk refs.";
+        } catch (SQLException e) {
+            String message = "Error getting fk reference meta data Error was:" + e.toString() + ". Not checking fk refs.";
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             refInfo = null;
         } finally {
             try {
                 connection.close();
-            } catch (SQLException sqle) {
-                String message = "Unable to close database connection, continuing anyway... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Unable to close database connection, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
             }
@@ -1316,8 +1319,8 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            String message = "Unable to esablish a connection with the database... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Unable to esablish a connection with the database... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return null;
@@ -1331,15 +1334,15 @@ public class DatabaseUtil {
         DatabaseMetaData dbData = null;
         try {
             dbData = connection.getMetaData();
-        } catch (SQLException sqle) {
-            String message = "Unable to get database meta data... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Unable to get database meta data... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
 
             try {
                 connection.close();
-            } catch (SQLException sqle2) {
-                String message2 = "Unable to close database connection, continuing anyway... Error was:" + sqle2.toString();
+            } catch (SQLException e2) {
+                String message2 = "Unable to close database connection, continuing anyway... Error was:" + e2.toString();
                 Debug.logError(message2, module);
                 if (messages != null) messages.add(message2);
             }
@@ -1349,8 +1352,8 @@ public class DatabaseUtil {
         boolean needsUpperCase = false;
         try {
             needsUpperCase = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
-        } catch (SQLException sqle) {
-            String message = "Error getting identifier case information... Error was:" + sqle.toString();
+        } catch (SQLException e) {
+            String message = "Error getting identifier case information... Error was:" + e.toString();
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
         }
@@ -1410,8 +1413,8 @@ public class DatabaseUtil {
                         }
                         if (!tableIndexList.contains(indexName)) totalIndices++;
                         tableIndexList.add(indexName);
-                    } catch (SQLException sqle) {
-                        String message = "Error getting fk reference info for table. Error was:" + sqle.toString();
+                    } catch (SQLException e) {
+                        String message = "Error getting fk reference info for table. Error was:" + e.toString();
                         Debug.logError(message, module);
                         if (messages != null) messages.add(message);
                         continue;
@@ -1422,8 +1425,8 @@ public class DatabaseUtil {
                 if (rsCols != null) {
                     try {
                         rsCols.close();
-                    } catch (SQLException sqle) {
-                        String message = "Unable to close ResultSet for fk reference list, continuing anyway... Error was:" + sqle.toString();
+                    } catch (SQLException e) {
+                        String message = "Unable to close ResultSet for fk reference list, continuing anyway... Error was:" + e.toString();
                         Debug.logError(message, module);
                         if (messages != null) messages.add(message);
                     }
@@ -1431,16 +1434,16 @@ public class DatabaseUtil {
             }
             if (Debug.infoOn()) Debug.logInfo("There are " + totalIndices + " indices in the database", module);
 
-        } catch (SQLException sqle) {
-            String message = "Error getting fk reference meta data Error was:" + sqle.toString() + ". Not checking fk refs.";
+        } catch (SQLException e) {
+            String message = "Error getting fk reference meta data Error was:" + e.toString() + ". Not checking fk refs.";
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             indexInfo = null;
         } finally {
             try {
                 connection.close();
-            } catch (SQLException sqle) {
-                String message = "Unable to close database connection, continuing anyway... Error was:" + sqle.toString();
+            } catch (SQLException e) {
+                String message = "Unable to close database connection, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
             }
@@ -1465,10 +1468,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         StringBuffer sqlBuf = new StringBuffer("CREATE TABLE ");
@@ -1572,20 +1579,20 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(sqlBuf.toString());
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -1609,13 +1616,13 @@ public class DatabaseUtil {
         Statement stmt = null;
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            String errMsg = "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
             return;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
             return;
@@ -1631,22 +1638,22 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(sqlBuf.toString());
-        } catch (SQLException sqle) {
-            String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
         } finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
     }
@@ -1663,10 +1670,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         ModelFieldType type = modelFieldTypeReader.getModelFieldType(field.getType());
@@ -1701,7 +1712,7 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(sql);
-        } catch (SQLException sqle) {
+        } catch (SQLException e) {
             // if that failed try the alternate syntax real quick
             StringBuffer sql2Buf = new StringBuffer("ALTER TABLE ");
             sql2Buf.append(entity.getTableName(datasourceInfo));
@@ -1729,24 +1740,24 @@ public class DatabaseUtil {
             try {
                 stmt = connection.createStatement();
                 stmt.executeUpdate(sql2);
-            } catch (SQLException sqle2) {
+            } catch (SQLException e2) {
                 // if this also fails report original error, not this error...
-                return "SQL Exception while executing the following:\n" + sql + "\nError was: " + sqle.toString();
+                return "SQL Exception while executing the following:\n" + sql + "\nError was: " + e.toString();
             }
         } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -1764,10 +1775,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         ModelFieldType type = modelFieldTypeReader.getModelFieldType(field.getType());
@@ -1788,22 +1803,22 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(sql);
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + sql + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + sql + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -1833,13 +1848,19 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            if (messages != null)
-                messages.add("Unable to esablish a connection with the database... Error was: " + sqle.toString());
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            if (messages != null) {
+                messages.add(errMsg);
+            }
             return;
         } catch (GenericEntityException e) {
-            if (messages != null)
-                messages.add("Unable to esablish a connection with the database... Error was: " + e.toString());
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            if (messages != null) {
+                messages.add(errMsg);
+            }
             return;
         }
 
@@ -1857,8 +1878,8 @@ public class DatabaseUtil {
             stmt = connection.createStatement();
             int changed = stmt.executeUpdate(sql1);
             if (Debug.infoOn()) Debug.logInfo("[moveData] " + changed + " records updated", module);
-        } catch (SQLException sqle) {
-            String thisMsg = "SQL Exception while executing the following:\n" + sql1 + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            String thisMsg = "SQL Exception while executing the following:\n" + sql1 + "\nError was: " + e.toString();
             if (messages != null)
                 messages.add(thisMsg);
             Debug.logError(thisMsg, module);
@@ -1868,28 +1889,28 @@ public class DatabaseUtil {
                 if (stmt != null) {
                     stmt.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
 
         // fresh connection
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
+        } catch (SQLException e) {
             if (messages != null)
-                messages.add("Unable to esablish a connection with the database... Error was: " + sqle.toString());
+                messages.add("Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
             return;
         } catch (GenericEntityException e) {
             if (messages != null)
-                messages.add("Unable to esablish a connection with the database... Error was: " + e.toString());
+                messages.add("Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
             return;
         }
 
@@ -1904,8 +1925,8 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(sql2);
-        } catch (SQLException sqle) {
-            String thisMsg = "SQL Exception while executing the following:\n" + sql2 + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            String thisMsg = "SQL Exception while executing the following:\n" + sql2 + "\nError was: " + e.toString();
             if (messages != null)
                 messages.add(thisMsg);
             Debug.logError(thisMsg, module);
@@ -1915,15 +1936,15 @@ public class DatabaseUtil {
                 if (stmt != null) {
                     stmt.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
     }
@@ -2061,10 +2082,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         // now add constraint clause
@@ -2081,22 +2106,22 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(sqlBuf.toString());
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -2231,10 +2256,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
@@ -2253,21 +2282,21 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(sqlBuf.toString());
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null)
                     stmt.close();
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -2307,10 +2336,10 @@ public class DatabaseUtil {
 
             try {
                 connection = getConnection();
-            } catch (SQLException sqle) {
-                return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+            } catch (SQLException e) {
+                return "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             } catch (GenericEntityException e) {
-                return "Unable to esablish a connection with the database... Error was: " + e.toString();
+                return "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
             }
 
             // now add constraint clause
@@ -2332,22 +2361,22 @@ public class DatabaseUtil {
             try {
                 stmt = connection.createStatement();
                 stmt.executeUpdate(sqlBuf.toString());
-            } catch (SQLException sqle) {
-                return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + sqle.toString();
+            } catch (SQLException e) {
+                return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
             } finally {
                 try {
                     if (stmt != null) {
                         stmt.close();
                     }
-                } catch (SQLException sqle) {
-                    Debug.logError(sqle, module);
+                } catch (SQLException e) {
+                    Debug.logError(e, module);
                 }
                 try {
                     if (connection != null) {
                         connection.close();
                     }
-                } catch (SQLException sqle) {
-                    Debug.logError(sqle, module);
+                } catch (SQLException e) {
+                    Debug.logError(e, module);
                 }
             }
         } else {
@@ -2389,10 +2418,14 @@ public class DatabaseUtil {
             Statement stmt = null;
             try {
                 connection = getConnection();
-            } catch (SQLException sqle) {
-                return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+            } catch (SQLException e) {
+                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return errMsg;
             } catch (GenericEntityException e) {
-                return "Unable to esablish a connection with the database... Error was: " + e.toString();
+                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return errMsg;
             }
 
             // now add constraint clause
@@ -2415,21 +2448,23 @@ public class DatabaseUtil {
             try {
                 stmt = connection.createStatement();
                 stmt.executeUpdate(sqlBuf.toString());
-            } catch (SQLException sqle) {
-                return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + sqle.toString();
+            } catch (SQLException e) {
+                String errMsg = "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return errMsg;
             } finally {
                 try {
                     if (stmt != null)
                         stmt.close();
-                } catch (SQLException sqle) {
-                    Debug.logError(sqle, module);
+                } catch (SQLException e) {
+                    Debug.logError(e, module);
                 }
                 try {
                     if (connection != null) {
                         connection.close();
                     }
-                } catch (SQLException sqle) {
-                    Debug.logError(sqle, module);
+                } catch (SQLException e) {
+                    Debug.logError(e, module);
                 }
             }
         } else {
@@ -2487,10 +2522,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         String createIndexSql = makeIndexClause(entity, modelIndex);
@@ -2499,20 +2538,20 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(createIndexSql);
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -2592,10 +2631,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         // TODO: also remove the constraing if this was a unique index, in most databases dropping the index does not drop the constraint
@@ -2615,20 +2658,20 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(deleteIndexSql);
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null) stmt.close();
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -2686,10 +2729,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         String createIndexSql = makeFkIndexClause(entity, modelRelation, constraintNameClipLength);
@@ -2702,21 +2749,21 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(createIndexSql);
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + createIndexSql + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null)
                     stmt.close();
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -2803,10 +2850,14 @@ public class DatabaseUtil {
 
         try {
             connection = getConnection();
-        } catch (SQLException sqle) {
-            return "Unable to esablish a connection with the database... Error was: " + sqle.toString();
+        } catch (SQLException e) {
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         } catch (GenericEntityException e) {
-            return "Unable to esablish a connection with the database... Error was: " + e.toString();
+            String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return errMsg;
         }
 
         StringBuffer indexSqlBuf = new StringBuffer("DROP INDEX ");
@@ -2829,22 +2880,22 @@ public class DatabaseUtil {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(deleteIndexSql);
-        } catch (SQLException sqle) {
-            return "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + sqle.toString();
+        } catch (SQLException e) {
+            return "SQL Exception while executing the following:\n" + deleteIndexSql + "\nError was: " + e.toString();
         } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
             try {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
         return null;
@@ -2879,10 +2930,14 @@ public class DatabaseUtil {
 
             try {
                 connection = getConnection();
-            } catch (SQLException sqle) {
-                messages.add("Unable to esablish a connection with the database... Error was: " + sqle.toString());
+            } catch (SQLException e) {
+                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                messages.add(errMsg);
             } catch (GenericEntityException e) {
-                messages.add("Unable to esablish a connection with the database... Error was: " + e.toString());
+                String errMsg = "Unable to esablish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                messages.add(errMsg);
             }
             if (connection == null) {
                 return;
@@ -2908,16 +2963,16 @@ public class DatabaseUtil {
             try {
                 stmt = connection.createStatement();
                 stmt.executeUpdate(sqlTableBuf.toString());
-            } catch (SQLException sqle) {
-                String errMsg = "SQL Exception while executing the following:\n" + sqlTableBuf + "\nError was: " + sqle.toString();
+            } catch (SQLException e) {
+                String errMsg = "SQL Exception while executing the following:\n" + sqlTableBuf + "\nError was: " + e.toString();
                 messages.add(errMsg);
                 Debug.logError(errMsg, module);
             } finally {
                 try {
                     if (stmt != null)
                         stmt.close();
-                } catch (SQLException sqle) {
-                    Debug.logError(sqle, module);
+                } catch (SQLException e) {
+                    Debug.logError(e, module);
                 }
             }
 
@@ -2963,16 +3018,16 @@ public class DatabaseUtil {
                 try {
                     stmt = connection.createStatement();
                     stmt.executeUpdate(sqlBuf.toString());
-                } catch (SQLException sqle) {
-                    String errMsg = "SQL Exception while executing the following:\n" + sqlBuf + "\nError was: " + sqle.toString();
+                } catch (SQLException e) {
+                    String errMsg = "SQL Exception while executing the following:\n" + sqlBuf + "\nError was: " + e.toString();
                     messages.add(errMsg);
                     Debug.logError(errMsg, module);
                 } finally {
                     try {
                         if (stmt != null)
                             stmt.close();
-                    } catch (SQLException sqle) {
-                        Debug.logError(sqle, module);
+                    } catch (SQLException e) {
+                        Debug.logError(e, module);
                     }
                 }
             }
@@ -2981,8 +3036,8 @@ public class DatabaseUtil {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException sqle) {
-                Debug.logError(sqle, module);
+            } catch (SQLException e) {
+                Debug.logError(e, module);
             }
         }
     }
