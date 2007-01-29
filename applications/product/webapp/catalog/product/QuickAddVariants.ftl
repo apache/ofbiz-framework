@@ -51,7 +51,7 @@ function clickAll(e) {
     
     <br/>
     <#if (featureTypes.size() > 0)>
-        <div style="float: left">
+        <div class="col">
         <table border="1" cellpadding="2" cellspacing="0">
             <#assign rowCount = 0>
             <form method="post" action="<@ofbizUrl>QuickAddChosenVariants</@ofbizUrl>" name="selectAllForm">
@@ -114,11 +114,11 @@ function clickAll(e) {
         </table>
         </div>
     <#else>
-        <div class="tabletext" style="float: left"><b>${uiLabelMap.ProductNoSelectableFeaturesFound}</b></div>
+        <div class="tabletext" class="col"><b>${uiLabelMap.ProductNoSelectableFeaturesFound}</b></div>
     </#if>
     <div class="boxlink">
         <div class="tabletext"><b>${uiLabelMap.ProductVariantAdd}:</b></div>
-        <form action="<@ofbizUrl>addVariantsToVirtual</@ofbizUrl>" method="post" style="margin: 0;" name="addVariantsToVirtual">
+        <form action="<@ofbizUrl>addVariantsToVirtual</@ofbizUrl>" method="post" name="addVariantsToVirtual">
             <input type="hidden" name="productId" value="${productId}"/>
             <div><span class="tabletext">${uiLabelMap.ProductVariantProductIds}:</span></div>
             <div><textarea name="variantProductIdsBag" rows="6" cols="20"></textarea></div>
