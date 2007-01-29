@@ -19,6 +19,7 @@
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
+import org.ofbiz.entity.model.ModelEntity;
 
 delegator = request.getAttribute("delegator");
 security = request.getAttribute("security");
@@ -33,9 +34,10 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     boolean repair = "true".equals(request.getParameter("repair"));
     String option = request.getParameter("option");
     String groupName = request.getParameter("groupName");    
+    String entityName = request.getParameter("entityName");    
     
     Iterator miter = null;
-      if (groupName != null && groupName.length() > 0) {
+    if (groupName != null && groupName.length() > 0) {
         String helperName = delegator.getGroupHelperName(groupName);
 
         List messages = new LinkedList();
@@ -67,6 +69,9 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
                 ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
                 dbUtil.deletePrimaryKey(modelEntity, messages);
             }
+        } else if ("removepk".equals(option)) {
+            ModelEntity modelEntity = (ModelEntity) modelEntities.get(entityName);
+            dbUtil.deletePrimaryKey(modelEntity, messages);
         } else if ("createpks".equals(option)) {
             Iterator modelEntityNameIter = modelEntityNames.iterator();
             while (modelEntityNameIter.hasNext()) {
@@ -74,6 +79,9 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
                 ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
                 dbUtil.createPrimaryKey(modelEntity, messages);
             }
+        } else if ("createpk".equals(option)) {
+            ModelEntity modelEntity = (ModelEntity) modelEntities.get(entityName);
+            dbUtil.createPrimaryKey(modelEntity, messages);
         } else if ("createfkidxs".equals(option)) {
             Iterator modelEntityNameIter = modelEntityNames.iterator();
             while (modelEntityNameIter.hasNext()) {
@@ -129,4 +137,5 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     }
     context.put("encodeURLCheckDb", response.encodeURL(controlPath + "/view/checkdb"));
     context.put("groupName", (groupName != null) ? groupName : "org.ofbiz");
+    context.put("entityName", (entityName != null) ? entityName : "");
 }
