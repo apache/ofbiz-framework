@@ -718,7 +718,7 @@ under the License.
     <request-map uri="ListAgreementItemTerms"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementItemTerms"/></request-map>
     <request-map uri="removeAgreementItemTerm">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeAgreementTerm"/>
+        <event type="service" path="" invoke="deleteAgreementTerm"/>
         <response name="success" type="view" value="ListAgreementItemTerms"/>
         <response name="error" type="view" value="ListAgreementItemTerms"/>
     </request-map>
