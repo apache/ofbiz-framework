@@ -92,8 +92,8 @@ under the License.
         <attribute name="workReqFulfTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="getRequirementsForSupplier" engine="simple"
-            location="org/ofbiz/order/requirement/RequirementServices.xml" invoke="getRequirementsForSupplier">
+    <service name="getRequirementsForSupplier" engine="java"
+            location="org.ofbiz.order.requirement.RequirementServices" invoke="getRequirementsForSupplier">
         <description>Retrieves requirements information for suppliers</description>
         <attribute mode="IN" name="requirementConditions" type="org.ofbiz.entity.condition.EntityCondition" optional="true"/>
         <attribute mode="IN" name="partyId" type="String" optional="true"/>
