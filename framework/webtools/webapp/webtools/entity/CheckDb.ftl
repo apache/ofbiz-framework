@@ -54,6 +54,19 @@ under the License.
         ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
     </form>
+    <h3>${uiLabelMap.WebtoolsCreateRemovePrimaryKey}</h3>
+    <form method="post" action="${encodeURLCheckDb}">
+        <input type="hidden" name="option" value="createpk"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="20"/>
+        ${uiLabelMap.WebtoolsEntityName}: <input type="text" class="inputBox" name="entityName" value="${entityName}" size="20"/>
+        <input type="submit" value="${uiLabelMap.CommonCreate}"/>
+    </form>
+    <form method="post" action="${encodeURLCheckDb}">
+        <input type="hidden" name="option" value="removepk"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="20"/>
+        ${uiLabelMap.WebtoolsEntityName}: <input type="text" class="inputBox" name="entityName" value="${entityName}" size="20"/>
+        <input type="submit" value="${uiLabelMap.CommonRemove}"/>
+    </form>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllDeclaredIndices}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createidx"/>
