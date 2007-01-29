@@ -66,7 +66,7 @@
         <!--field name="fixedAssetTypeId" title="${uiLabelMap.AccountingFixedAssetTypeId}"><display-entity entity-name="FixedAssetType"/></field>
         <field name="parentFixedAssetId" title="${uiLabelMap.AccountingFixedAssetParent}">
             <display-entity entity-name="FixedAsset" key-field-name="fixedAssetId" description="${fixedAssetName}">
-                <sub-hyperlink target="editFixedAsset?fixedAssetId=${parentFixedAssetId}" description="${parentFixedAssetId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditFixedAsset?fixedAssetId=${parentFixedAssetId}" description="${parentFixedAssetId}" link-style="buttontext"/>
             </display-entity>
         </field-->
     </form>
@@ -150,7 +150,7 @@
         <alt-target use-when="fixedAssetMaint==null" target="createFixedAssetMaintUpdateWorkEffort"/>
         <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="dummy" use-when="fixedAssetMaint !=null" title="${uiLabelMap.AccountingFixedAssetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${fixedAssetMaint.fixedAssetId}" target="editFixedAsset?fixedAssetId=${fixedAssetMaint.fixedAssetId}"/>
+            <hyperlink also-hidden="false" description="${fixedAssetMaint.fixedAssetId}" target="EditFixedAsset?fixedAssetId=${fixedAssetMaint.fixedAssetId}"/>
         </field>
         <field use-when="fixedAssetMaint!=null" title="${uiLabelMap.AccountingFixedAssetMaintSeqId}" name="fixedAssetId"><hidden/></field>
         <field use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetMaintSeqId}" name="maintHistSeqId"><ignored/></field>
