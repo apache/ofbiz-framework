@@ -124,7 +124,11 @@ under the License.
         <field name="partyClassificationGroupId" title="${uiLabelMap.Description} [${uiLabelMap.PartyClassificationGroupId}]" widget-style="tabletext">
             <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId" description="${description}&amp;nbsp;[${partyClassificationGroupId}]"/>
         </field>
-        <field name="partyId" title="${uiLabelMap.PartyId}" widget-style="tabletext"><display/></field>
+        <field name="partyId" title="${uiLabelMap.Party}" widget-style="tabletext">
+           <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${lastName} ${groupName}">
+           		<sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
+           </display-entity>
+        </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="tabletext"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
