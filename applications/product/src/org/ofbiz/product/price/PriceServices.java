@@ -536,19 +536,8 @@ public class PriceServices {
                             if ("PRIP_QUANTITY".equals(productPriceCond.getString("inputParamEnumId"))) {
                                 foundQuantityInputParam = true;
                             } else {
-                                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator, nowTimestamp)) {
-                                    // if there is a virtualProductId, try that given that this one has failed
-                                    if (virtualProductId != null) {
-                                        /* DEJ20061223 I don't know why we were trying conditions with the virtualProductId as well; this breaks various things you might want to do with price rules, so unless a need comes up for this in the future, removing it for now...
-                                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator, nowTimestamp)) {
-                                            allExceptQuantTrue = false;
-                                        }
-                                        // otherwise, okay, this one made it so carry on checking
-                                         */
-                                        allExceptQuantTrue = false;
-                                    } else {
-                                        allExceptQuantTrue = false;
-                                    }
+                                if (!checkPriceCondition(productPriceCond, productId, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, new Double(quantity), listPriceDbl.doubleValue(), currencyUomId, delegator, nowTimestamp)) {
+                                    allExceptQuantTrue = false;
                                 }
                             }
                         }
@@ -888,22 +877,9 @@ public class PriceServices {
 
                 totalConds++;
 
-                if (!checkPriceCondition(productPriceCond, productId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator, nowTimestamp)) {
-                    // if there is a virtualProductId, try that given that this one has failed
-                    if (virtualProductId != null) {
-                        /* DEJ20061223 I don't know why we were trying conditions with the virtualProductId as well; this breaks various things you might want to do with price rules, so unless a need comes up for this in the future, removing it for now...
-                        if (!checkPriceCondition(productPriceCond, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator, nowTimestamp)) {
-                            allTrue = false;
-                            break;
-                        }
-                        // otherwise, okay, this one made it so carry on checking
-                         */
-                        allTrue = false;
-                        break;
-                    } else {
-                        allTrue = false;
-                        break;
-                    }
+                if (!checkPriceCondition(productPriceCond, productId, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, quantity, listPrice, currencyUomId, delegator, nowTimestamp)) {
+                    allTrue = false;
+                    break;
                 }
 
                 // add condsDescription string entry
@@ -1105,7 +1081,7 @@ public class PriceServices {
         return calcResults;
     }
 
-    public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String prodCatalogId,
+    public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String virtualProductId, String prodCatalogId,
             String productStoreGroupId, String webSiteId, String partyId, Double quantity, double listPrice,
             String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         if (Debug.verboseOn()) Debug.logVerbose("Checking price condition: " + productPriceCond, module);
@@ -1126,7 +1102,23 @@ public class PriceServices {
             } else {
                 compare = 1;
             }
+
+            // if there is a virtualProductId, try that given that this one has failed
+            // NOTE: this is important becuase of the common scenario where a virtual product is a member of a category but the variants will typically NOT be
+            // NOTE: we may want to parameterize this in the future, ie with an indicator on the ProductPriceCond entity
+            if (compare == 1 && UtilValidate.isNotEmpty(virtualProductId)) {
+                List virtualProductCategoryMembers = delegator.findByAndCache("ProductCategoryMember",
+                        UtilMisc.toMap("productId", virtualProductId, "productCategoryId", productCategoryId));
+                // and from/thru date within range
+                virtualProductCategoryMembers = EntityUtil.filterByDate(virtualProductCategoryMembers, nowTimestamp, null, null, true);
+                if (virtualProductCategoryMembers != null && virtualProductCategoryMembers.size() > 0) {
+                    // we found a member record? great, then this condition is satisfied
+                    compare = 0;
+                }
+            }
         } else if ("PRIP_PROD_FEAT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
+            // NOTE: DEJ20070130 don't retry this condition with the virtualProductId as well; this breaks various things you might want to do with price rules, like have different pricing for a variant products with a certain distinguishing feature
+            
             // if a ProductFeatureAppl exists for this productId and the specified productFeatureId
             String productFeatureId = productPriceCond.getString("condValue");
             List productFeatureAppls = delegator.findByAndCache("ProductFeatureAppl",
