@@ -127,6 +127,14 @@ under the License.
 
     <simple-method method-name="createRequirementAndCommitment" short-description="create a requirement and commitment for it">
         <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
+
+        <!-- Include the facilityId corresponding to this order by looking up the ProductStore -->
+        <entity-one entity-name="OrderHeader" value-name="orderHeader" auto-field-map="true"/>
+        <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore" use-cache="true"/>
+        <if-not-empty field-name="productStore.inventoryFacilityId">
+            <set from-field="productStore.inventoryFacilityId" field="inputMap.facilityId"/>
+        </if-not-empty>
+
         <call-service service-name="createRequirement" in-map-name="inputMap">
             <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
         </call-service>

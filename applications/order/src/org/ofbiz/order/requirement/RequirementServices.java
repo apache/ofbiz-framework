@@ -24,13 +24,14 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
@@ -45,6 +46,7 @@ public class RequirementServices {
 
     public static final Map getRequirementsForSupplier(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
         EntityCondition requirementConditions = (EntityCondition) context.get("requirementConditions");
@@ -71,26 +73,58 @@ public class RequirementServices {
             }
             List requirementAndRoles = delegator.findByAnd("RequirementAndRole", conditions, orderBy);
 
+            // maps to cache the associated suppliers and products data
+            Map suppliers = FastMap.newInstance();
+            Map gids = FastMap.newInstance();
+            Map inventories = FastMap.newInstance();
+
             // join in fields with extra data about the suppliers and products
             List requirements = FastList.newInstance();
             for (Iterator iter = requirementAndRoles.iterator(); iter.hasNext(); ) {
                 GenericValue requirement = (GenericValue) iter.next();
+                String productId = requirement.getString("productId");
+                partyId = requirement.getString("partyId");
+                String facilityId = requirement.getString("facilityId");
                 Map union = FastMap.newInstance();
 
                 // get an available supplier product
-                conditions = UtilMisc.toList(
-                        new EntityExpr("partyId", EntityOperator.EQUALS, requirement.get("partyId")), 
-                        new EntityExpr("productId", EntityOperator.EQUALS, requirement.get("productId")),
-                        EntityUtil.getFilterByDateExpr("availableFromDate", "availableThruDate")
-                        );
-                GenericValue supplierProduct = EntityUtil.getFirst( delegator.findByAnd("SupplierProduct", conditions) );
-                if (supplierProduct != null) {
-                    union.putAll(supplierProduct.getAllFields());
+                String supplierKey =  partyId + "^" + productId;
+                GenericValue supplierProduct = (GenericValue) suppliers.get(supplierKey);
+                if (supplierProduct == null) {
+                    conditions = UtilMisc.toList(
+                            new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
+                            new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                            EntityUtil.getFilterByDateExpr("availableFromDate", "availableThruDate")
+                            );
+                    supplierProduct = EntityUtil.getFirst( delegator.findByAnd("SupplierProduct", conditions) );
+                    suppliers.put(supplierKey, supplierProduct);
                 }
+                if (supplierProduct != null) union.putAll(supplierProduct.getAllFields());
 
                 // for good identification, get the UPCA type (UPC code)
-                GenericValue gid = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "UPCA", "productId", requirement.get("productId")));
+                GenericValue gid = (GenericValue) gids.get(productId);
+                if (gid == null) {
+                    gid = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "UPCA", "productId", requirement.get("productId")));
+                    gids.put(productId, gid);
+                }
                 if (gid != null) union.put("idValue", gid.get("idValue"));
+
+                // the ATP and QOH quantities
+                if (UtilValidate.isNotEmpty(facilityId)) {
+                    String inventoryKey = facilityId + "^" + productId;
+                    Map inventory = (Map) inventories.get(inventoryKey);
+                    if (inventory == null) {
+                        inventory = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
+                        if (ServiceUtil.isError(inventory)) {
+                            return inventory;
+                        }
+                        inventories.put(inventoryKey, inventory);
+                    }
+                    if (inventory != null) {
+                        union.put("qoh", inventory.get("quantityOnHandTotal"));
+                        union.put("atp", inventory.get("availableToPromiseTotal"));
+                    }
+                }
 
                 // add all the requirement fields last, to overwrite any conflicting fields
                 union.putAll(requirement.getAllFields());
@@ -100,6 +134,9 @@ public class RequirementServices {
             Map results = ServiceUtil.returnSuccess();
             results.put("requirementsForSupplier", requirements);
             return results;
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderServiceExceptionSeeLogs", locale));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderEntityExceptionSeeLogs", locale));
