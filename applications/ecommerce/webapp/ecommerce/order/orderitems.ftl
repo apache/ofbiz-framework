@@ -187,7 +187,9 @@ under the License.
                     <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
                       <#if orderItemAdjustment.primaryGeoId?has_content>
                         <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
-                        <b>${uiLabelMap.OrderJurisdiction}:</b> ${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
+                        <#if primaryGeo.geoName?has_content>
+                            <b>${uiLabelMap.OrderJurisdiction}:</b> ${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
+                        </#if>
                         <#if orderItemAdjustment.secondaryGeoId?has_content>
                           <#assign secondaryGeo = orderItemAdjustment.getRelatedOneCache("SecondaryGeo")/>
                           (<b>${uiLabelMap.CommonIn}:</b> ${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
