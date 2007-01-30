@@ -58,10 +58,13 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
         } else if ("removetables".equals(option)) {
             Iterator modelEntityNameIter = modelEntityNames.iterator();
             while (modelEntityNameIter.hasNext()) {
-                  String modelEntityName = (String) modelEntityNameIter.next();
-                  ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+                String modelEntityName = (String) modelEntityNameIter.next();
+                ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
                 dbUtil.deleteTable(modelEntity, messages);
             }
+        } else if ("removetable".equals(option)) {
+            ModelEntity modelEntity = (ModelEntity) modelEntities.get(entityName);
+            dbUtil.deleteTable(modelEntity, messages);
         } else if ("removepks".equals(option)) {
             Iterator modelEntityNameIter = modelEntityNames.iterator();
             while (modelEntityNameIter.hasNext()) {
