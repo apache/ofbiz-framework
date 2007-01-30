@@ -40,8 +40,14 @@ under the License.
     <form method="post" action="${encodeURLCheckDb}" name="TablesRemoveForm">
         <input type="hidden" name="option" value="removetables"/>
         ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="40"/>
-        <input type="submit" value="${uiLabelMap.CommonRemove}" name="TablesRemoveButton" disabled/>
+        <input type="submit" value="${uiLabelMap.CommonRemove}" name="TablesRemoveButton" disabled="disabled"/>
         <input type="button" value="${uiLabelMap.WebtoolsEnable}" onClick="enableTablesRemove();"/>
+    </form>
+    <form method="post" action="${encodeURLCheckDb}" name="TableRemoveForm">
+        <input type="hidden" name="option" value="removetable"/>
+        ${uiLabelMap.WebtoolsGroupName}: <input type="text" class="inputBox" name="groupName" value="${groupName}" size="20"/>
+        ${uiLabelMap.WebtoolsEntityName}: <input type="text" class="inputBox" name="entityName" value="${entityName}" size="20"/>
+        <input type="submit" value="${uiLabelMap.CommonRemove}" name="TablesRemoveButton"/>
     </form>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllPrimaryKeys}</h3>
     <form method="post" action="${encodeURLCheckDb}">
