@@ -281,7 +281,9 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="facilityId"><display/></field>
-        <field name="partyId" title="${uiLabelMap.ProductSupplier}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}">
+            <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
+        </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
         <field name="idValue" title="UPCA"><display/></field>
         <field name="minimumOrderQuantity" widget-area-style="tabletextright"><display/></field>
@@ -303,7 +305,9 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="partyId" title="${uiLabelMap.ProductSupplier}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}">
+            <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
+        </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
         <field name="idValue" title="UPCA"><display/></field>
         <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="tabletextright"><display/></field>
@@ -315,7 +319,11 @@ under the License.
         <field name="quantity"><text size="4"/></field>
         <field name="comments"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.OrderInputQuickPurchaseOrder}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="ApprovedProductRequirementsSubmit" type="single">
+        <field name="submitButton" title="" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.submit()"/>
+        </field>
     </form>
     <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
@@ -326,8 +334,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="ApprovedProductRequirementsByVendor">
         <field name="partyId">
-            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${partyId})" also-hidden="true">
-            </display-entity>
+            <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
         <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="tabletextright"><display/></field>
         <field name="prepare" title="${uiLabelMap.OrderPrepareOrder}" widget-style="buttontext">
