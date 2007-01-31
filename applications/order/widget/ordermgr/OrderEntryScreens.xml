@@ -54,7 +54,7 @@ under the License.
     <screen name="RequirementsForSupplier">
         <section>
             <actions>
-                <set field="title" value="Find Requirements For Supplier"/>
+                <set field="title" value="${uiLabelMap.OrderFindRequirementsForSupplier}"/>
                 <set field="entityName" value="Requirement"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
@@ -64,10 +64,10 @@ under the License.
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1" text="Requirements"/>
+                            <label style="head1" text="${uiLabelMap.OrderRequirements}"/>
                         </container>
                         <container>
-                            <label style="head2" text="Find Requirements"/>
+                            <label style="head2" text="${uiLabelMap.OrderFindRequirements}"/>
                         </container>
                         <include-form name="FindRequirements" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
                         <section>
@@ -76,7 +76,7 @@ under the License.
                             </condition>
                             <widgets>
                             <container>
-                                <label style="head2" text="Requirement List"/>
+                                <label style="head2" text="${uiLabelMap.OrderRequirementsList}"/>
                             </container>
                             <include-form name="RequirementsList" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
                             </widgets>
@@ -91,7 +91,7 @@ under the License.
     <screen name="FindQuoteForCart">
         <section>
             <actions>
-                <set field="title" value="Find Quotes"/>
+                <set field="title" value="${uiLabelMap.OrderFindQuotes}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
