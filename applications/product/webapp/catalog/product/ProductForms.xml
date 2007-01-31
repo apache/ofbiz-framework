@@ -948,6 +948,7 @@ under the License.
                 </entity-options> 
             </drop-down>
         </field>
+        <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="intervalUomId" widget-style="selectBox">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
@@ -982,6 +983,7 @@ under the License.
             </drop-down>
         </field>
         <field name="maintName"><text size="20" /></field> 
+        <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="intervalUomId" widget-style="selectBox">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
