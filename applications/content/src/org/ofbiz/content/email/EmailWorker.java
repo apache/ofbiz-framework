@@ -31,6 +31,7 @@ import javax.mail.Part;
 
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.entity.util.ByteWrapper;
@@ -90,11 +91,13 @@ public class EmailWorker {
     							&& (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
     							) )
     			{
-    				String attFileName = part.getFileName();
-    				if (attFileName != null && attFileName.length() > 16) {
-    					attFileName = attFileName.substring(0,16);
+    				String attFileName = part.getFileName(); 
+    				if (!UtilValidate.isEmpty(attFileName)) { 
+   						commEventMap.put("contentName", attFileName); 
+       					commEventMap.put("description", subject + "-" + attachmentCount);
+    				} else {
+    					commEventMap.put("contentName", subject + "-" + attachmentCount);
     				}
-    				commEventMap.put("contentName", subject + "-" + attachmentCount + " " + attFileName);
     				commEventMap.put("drMimeTypeId", thisContentType);
     				if (thisContentType.startsWith("text")) {
     					String content = (String)part.getContent();
