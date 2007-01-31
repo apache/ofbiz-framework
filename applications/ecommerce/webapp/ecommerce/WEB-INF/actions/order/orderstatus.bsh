@@ -51,7 +51,7 @@ if (orderId != null && orderId.length() > 0) {
     // check OrderRole to make sure the user can view this order.  This check must be done for any order which is not anonymously placed and
     // any anonymous order when the allowAnonymousView security flag (see above) is not set to Y, to prevent peeking
     if ((orderHeader != null) && (!("anonymous".equals(orderHeader.getString("createdBy"))) || ("anonymous".equals(orderHeader.getString("createdBy")) && !"Y".equals(allowAnonymousView)))) {
-        orderRole = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER")));
+        orderRole = EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", "PLACING_CUSTOMER")));
         
         if (userLogin == null || orderRole == null) {
             context.remove("orderHeader");
