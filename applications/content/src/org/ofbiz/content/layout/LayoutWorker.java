@@ -76,9 +76,9 @@ public class LayoutWorker {
         FileItem imageFi = null;
         for (int i=0; i < lst.size(); i++) {
             fi = (FileItem)lst.get(i);
-	    String fn = fi.getName();
-	    String fieldName = fi.getFieldName();
-	    String fieldStr = fi.getString();
+            String fn = fi.getName();
+            String fieldName = fi.getFieldName();
+            String fieldStr = fi.getString();
             if (fi.isFormField()) {
                 formInput.put(fieldName, fieldStr);
             //Debug.logVerbose("in uploadAndStoreImage, fieldName:" + fieldName + " fieldStr:" + fieldStr, "");

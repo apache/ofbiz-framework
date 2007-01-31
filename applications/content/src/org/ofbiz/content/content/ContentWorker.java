@@ -899,7 +899,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         GenericValue view = null;
         if (contentId == null) {
             Debug.logError("ContentId is null", module);
-        	return view;
+            return view;
         }
         Map results = null;
         List contentTypes = null;

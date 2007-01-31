@@ -133,11 +133,11 @@ public class ContentServices {
         String direction = (String)context.get("direction");
         if (UtilValidate.isEmpty(direction)) direction="To";
         Map traversMap = new HashMap();
-  	  	traversMap.put("contentId", contentId);
-  	  	traversMap.put("direction", direction);
-  	  	traversMap.put("contentAssocTypeId", contentAssocTypeId);
-  	  	try {
-  	  		Map thisResults = dispatcher.runSync("traverseContent", traversMap);
+            traversMap.put("contentId", contentId);
+            traversMap.put("direction", direction);
+            traversMap.put("contentAssocTypeId", contentAssocTypeId);
+            try {
+                Map thisResults = dispatcher.runSync("traverseContent", traversMap);
             String errorMsg = ServiceUtil.getErrorMessage(thisResults);
             if (UtilValidate.isNotEmpty(errorMsg) ) {
                 Debug.logError( "Problem in traverseContent. " + errorMsg, module);
@@ -145,9 +145,9 @@ public class ContentServices {
             }
             Map nodeMap = (Map)thisResults.get("nodeMap");
             walkParentTree(nodeMap, parentList);
-  	  	} catch (GenericServiceException e) {
+            } catch (GenericServiceException e) {
             return ServiceUtil.returnFailure(e.getMessage());
-  	  	}
+            }
         return results;
     }
     
