@@ -2211,6 +2211,7 @@ under the License.
         <field name="productMaintSeqId" type="id-ne"></field>
         <field name="productMaintTypeId" type="id"></field>
         <field name="maintName" type="name"></field>
+        <field name="maintTemplateWorkEffortId" type="id"><description>Template of Maintenance Plan. WorkEffort may have WorkEffortAssocs for tasks/breakdown detailes</description></field>
         <field name="intervalQuantity" type="floating-point"></field>
         <field name="intervalUomId" type="id"><description>UOM for intervalQuantity; if used intervalMeterTypeId is generally not used (ie one or the other)</description></field>
         <field name="intervalMeterTypeId" type="id"><description>Meter Type for intervalQuantity; if used intervalUomId is generally not used (ie one or the other)</description></field>
@@ -2222,6 +2223,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="PRODMNT_MNTTYP" rel-entity-name="ProductMaintType">
             <key-map field-name="productMaintTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PRODMNT_TPLHWE" title="MaintTemplate" rel-entity-name="WorkEffort">
+            <key-map field-name="maintTemplateWorkEffortId" rel-field-name="workEffortId"/>
         </relation>
         <relation type="one" fk-name="PRODMNT_INTUOM" title="Interval" rel-entity-name="Uom">
             <key-map field-name="intervalUomId" rel-field-name="uomId"/>
