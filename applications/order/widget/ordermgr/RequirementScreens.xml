@@ -161,7 +161,10 @@ under the License.
                                     <label style="head2" text="${uiLabelMap.RequirementList}"/>
                                 </container>
                                 <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                <container style="screenlet">
+                                    <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                </container>
+                                <include-form name="ApprovedProductRequirementsSubmit" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
