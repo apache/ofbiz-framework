@@ -36,6 +36,7 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Element;
 
@@ -52,6 +53,11 @@ public class CallService extends MethodOperation {
     String breakOnErrorStr;
     String errorCode;
     String successCode;
+    
+    /** Require a new transaction for this service */
+    public String requireNewTransactionStr;
+    /** Override the default transaction timeout, only works if we start the transaction */
+    public int transactionTimeout;
 
     FlexibleMessage errorPrefix;
     FlexibleMessage errorSuffix;
@@ -84,7 +90,20 @@ public class CallService extends MethodOperation {
         breakOnErrorStr = element.getAttribute("break-on-error");
         errorCode = element.getAttribute("error-code");
         if (errorCode == null || errorCode.length() == 0) errorCode = "error";
+        this.requireNewTransactionStr = element.getAttribute("require-new-transaction");
 
+        String timeoutStr = UtilXml.checkEmpty(element.getAttribute("transaction-timeout"), element.getAttribute("transaction-timout"));
+        int timeout = -1;
+        if (!UtilValidate.isEmpty(timeoutStr)) {
+            try {
+                timeout = Integer.parseInt(timeoutStr);
+            } catch (NumberFormatException e) {
+                Debug.logWarning(e, "Setting timeout to 0 (default)", module);
+                timeout = 0;
+            }
+        }
+        this.transactionTimeout = timeout;
+        
         successCode = element.getAttribute("success-code");
         if (successCode == null || successCode.length() == 0) successCode = "success";
 
@@ -159,6 +178,7 @@ public class CallService extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
         boolean breakOnError = !"false".equals(methodContext.expandString(breakOnErrorStr));
+        
 
         String serviceName = methodContext.expandString(this.serviceName);
         String errorCode = methodContext.expandString(this.errorCode);
@@ -205,7 +225,20 @@ public class CallService extends MethodOperation {
         }
         
         try {
-            result = methodContext.getDispatcher().runSync(serviceName, inMap);
+            if (UtilValidate.isEmpty(this.requireNewTransactionStr) && this.transactionTimeout < 0) {
+                result = methodContext.getDispatcher().runSync(this.serviceName, inMap);
+            } else {
+                ModelService modelService = methodContext.getDispatcher().getDispatchContext().getModelService(serviceName);
+                boolean requireNewTransaction = modelService.requireNewTransaction;
+                int timeout = modelService.transactionTimeout;
+                if (UtilValidate.isNotEmpty(this.requireNewTransactionStr)) {
+                    requireNewTransaction = "true".equalsIgnoreCase(this.requireNewTransactionStr) ? true : false;
+                }
+                if (this.transactionTimeout >= 0) {
+                    timeout = this.transactionTimeout;
+                }
+                result = methodContext.getDispatcher().runSync(this.serviceName, inMap, timeout, requireNewTransaction);
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the [" + serviceName + "] service with the map named [" + inMapAcsr + "] containing [" + inMap + "]: " + e.getMessage() + "]";
