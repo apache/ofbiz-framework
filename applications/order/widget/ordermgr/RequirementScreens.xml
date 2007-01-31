@@ -87,7 +87,7 @@ under the License.
     <screen name="FindRequirements">
         <section>
             <actions>
-                <set field="title" value="Find Requirements"/>
+                <set field="title" value="${uiLabelMap.OrderFindRequirements}"/>
                 <set field="titleProperty" value="PageTitleFindRequirements"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="FindRequirements"/>
@@ -107,7 +107,7 @@ under the License.
     <screen name="ApproveRequirements">
         <section>
             <actions>
-                <set field="title" value="Find Requirements"/>
+                <set field="title" value="${uiLabelMap.OrderFindRequirements}"/>
                 <set field="titleProperty" value="PageTitleFindRequirements"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApproveRequirements"/>
@@ -127,7 +127,7 @@ under the License.
     <screen name="ApprovedProductRequirements">
         <section>
             <actions>
-                <set field="title" value="Approved Product Requirements"/>
+                <set field="title" value="${uiLabelMap.OrderFindRequirements}"/>
                 <set field="titleProperty" value="PageTitleFindRequirements"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApprovedProductRequirements"/>
@@ -158,7 +158,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <label style="head2" text="Requirement List"/>
+                                    <label style="head2" text="${uiLabelMap.RequirementList}"/>
                                 </container>
                                 <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                                 <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
