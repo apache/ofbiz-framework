@@ -306,11 +306,12 @@ under the License.
         <field name="partyId" title="${uiLabelMap.ProductSupplier}"><display/></field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
         <field name="idValue" title="UPCA"><display/></field>
-        <field name="minimumOrderQuantity" widget-area-style="tabletextright"><display/></field>
+        <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="tabletextright"><display/></field>
         <field name="lastPrice" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="requiredByDate"><display/></field>
         <field name="atp" title="${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
         <field name="qoh" title="${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
+        <field name="qtySold" title="${uiLabelMap.OrderQuantitySold}" widget-area-style="tabletextright"><display/></field>
         <field name="quantity"><text size="4"/></field>
         <field name="comments"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
