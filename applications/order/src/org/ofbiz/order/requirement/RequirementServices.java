@@ -19,6 +19,7 @@
 package org.ofbiz.order.requirement;
 
 import java.util.*;
+import java.sql.Timestamp;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -77,10 +78,14 @@ public class RequirementServices {
             Map suppliers = FastMap.newInstance();
             Map gids = FastMap.newInstance();
             Map inventories = FastMap.newInstance();
+            Map productsSold = FastMap.newInstance();
 
             // to count quantity and distinct products in list
             double quantity = 0.0;
             Set products = new HashSet();
+
+            // time period to count products ordered from, six months ago and the 1st of that month
+            Timestamp timePeriodStart = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp(), 0, -6);
 
             // join in fields with extra data about the suppliers and products
             List requirements = FastList.newInstance();
@@ -128,6 +133,26 @@ public class RequirementServices {
                         union.put("qoh", inventory.get("quantityOnHandTotal"));
                         union.put("atp", inventory.get("availableToPromiseTotal"));
                     }
+                }
+
+                // how many of the products were sold (note this is for a fixed time period across all product stores)
+                Double sold = (Double) productsSold.get(productId);
+                if (sold == null) {
+                    EntityCondition prodConditions = new EntityConditionList( UtilMisc.toList(
+                                new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                                new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                                new EntityExpr("orderStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_REJECTED", "ORDER_CANCELLED")),
+                                new EntityExpr("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
+                                new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)
+                                ), EntityOperator.AND);
+                    GenericValue count = EntityUtil.getFirst( delegator.findByCondition("OrderItemQuantityReportGroupByProduct", prodConditions, UtilMisc.toList("quantityOrdered"), null) );
+                    if (count != null) {
+                        sold = count.getDouble("quantityOrdered");
+                        if (sold != null) productsSold.put(productId, sold);
+                    }
+                }
+                if (sold != null) {
+                    union.put("qtySold", sold);
                 }
 
                 // keep a running total of distinct products and quantity to order

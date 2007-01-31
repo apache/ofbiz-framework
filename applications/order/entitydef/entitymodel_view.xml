@@ -766,6 +766,7 @@ under the License.
       <member-entity entity-alias="II" entity-name="ItemIssuance"/>
       <alias entity-alias="OH" name="orderTypeId" group-by="true"/>
       <alias entity-alias="OH" name="orderStatusId" field="statusId" group-by="false"/>
+      <alias entity-alias="OH" name="orderDate" group-by="false"/>
       <alias entity-alias="OI" name="orderItemStatusId" field="statusId" group-by="false"/>
       <alias entity-alias="OI" name="productId" group-by="true"/>
       <alias entity-alias="II" name="issuedDateTime" group-by="false"/>
