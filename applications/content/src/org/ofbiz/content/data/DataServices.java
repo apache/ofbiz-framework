@@ -250,19 +250,19 @@ public class DataServices {
      * A top-level service for updating a DataResource and ElectronicText together.
      */
     public static Map updateDataResourceAndText(DispatchContext dctx, Map context) {
-  		Map thisResult = updateDataResourceMethod(dctx, context);
-  		if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
-      		return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
-  		}
+        Map thisResult = updateDataResourceMethod(dctx, context);
+        if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
+            return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
+        }
         String dataResourceTypeId = (String) context.get("dataResourceTypeId");
         if (dataResourceTypeId != null && dataResourceTypeId.equals("ELECTRONIC_TEXT")) {
-      		thisResult = updateElectronicText(dctx, context);
-      		if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
-          		return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
-      		}
-  		}
-    	return ServiceUtil.returnSuccess();
-	}
+            thisResult = updateElectronicText(dctx, context);
+            if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
+                return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
 
 
 
@@ -345,13 +345,13 @@ public class DataServices {
                 try {
                     electronicText = delegator.findByPrimaryKey("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId));
                     if (electronicText != null) {
-                    	electronicText.put("textData", textData);
-                    	electronicText.store();
+                        electronicText.put("textData", textData);
+                        electronicText.store();
                     } else {
-                    		electronicText = delegator.makeValue("ElectronicText", null);
-                    		electronicText.put("dataResourceId", dataResourceId);
-                    		electronicText.put("textData", textData);
-                    		electronicText.create();
+                            electronicText = delegator.makeValue("ElectronicText", null);
+                            electronicText.put("dataResourceId", dataResourceId);
+                            electronicText.put("textData", textData);
+                            electronicText.create();
                     }
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
@@ -504,10 +504,10 @@ public class DataServices {
                     if (Debug.infoOn()) Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
                     if (Debug.infoOn()) Debug.logInfo("imageBytes(U):" + imageBytes, module);
                     if (imageDataResource == null) {
-                    	return createImageMethod(dctx, context);
+                        return createImageMethod(dctx, context);
                     } else {
                         imageDataResource.setBytes("imageData", imageBytes);
-                    	imageDataResource.store();
+                        imageDataResource.store();
                     }
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.getMessage());
