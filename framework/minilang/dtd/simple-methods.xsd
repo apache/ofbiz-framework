@@ -864,9 +864,10 @@ under the License.
         <xs:attribute type="xs:string" name="error-list-name" default="error_list">
             <xs:annotation>
                 <xs:documentation>
+                    The name of the list in the method environment to check for error messages. 
                     Defaults to "error_list".
                 </xs:documentation>
-            </xs:annotation>                                                
+            </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="call-simple-method" substitutionGroup="CallOperations">
@@ -1318,15 +1319,14 @@ under the License.
         <xs:attribute type="xs:string" name="field-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to set the field in the method environment.
+                    The name (key) of the field to use. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="session-name">
             <xs:annotation>
                 <xs:documentation>
-                    The name (key) of the map field to use.
+                    The name of the session attribute to use. Defaults to the field-name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1463,13 +1463,7 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="order-by">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Names of fields to order list by.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element maxOccurs="unbounded" ref="order-by"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.order-map-list"/>
         </xs:complexType>
@@ -2011,7 +2005,8 @@ under the License.
         <xs:attribute type="xs:string" name="error-list-name" default="error_list">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    The name of the list in the method environment to check for error messages. 
+                    Defaults to "error_list".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2132,7 +2127,8 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Specifies whether or not the delegator's cache should be searched before going to the database. 
-                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. Must be "true" or "false", defaults to "false".
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. 
+                    Must be "true" or "false", defaults to "false".
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -2143,8 +2139,9 @@ under the License.
                     This is much more efficient for large data sets because the results are read incrementaly instead of all at once. 
                     Note that when using this the use-cache setting will be ignored. 
                     Also note that an EntityListIterator must be closed when you are finished, but this is done automatically by the iterate operation. 
-                    Must be "true" or "false", defaults to "false".                </xs:documentation>
-            </xs:annotation>                        
+                    Must be "true" or "false", defaults to "false".                
+                </xs:documentation>
+            </xs:annotation>                                    
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -2163,7 +2160,7 @@ under the License.
     <xs:element name="entity-one" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Does a find-by-primarykey, always returns a single generic value object if it's found, otherwise returns null.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2171,14 +2168,14 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map">
                     <xs:annotation>
                         <xs:documentation>
-                            
+                            Specify where to find primary key fields if you set auto-field-map to false.                            
                         </xs:documentation>
-                    </xs:annotation>
+                    </xs:annotation>                    
                 </xs:element>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
                     <xs:annotation>
                         <xs:documentation>
-                            
+                            Specify fields to select, otherwise all fields will be selected.                             
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -2190,28 +2187,31 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the entity to look for.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="value-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the variable to put entity in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="use-cache" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Specifies whether or not the delegator's cache should be searched before going to the database. 
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. 
+                    Must be "true" or "false", defaults to "false".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="auto-field-map" default="true">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Looks for all primary key field names in  the current context as well as in the parameters map or not.
+                    Defaults to true.
                 </xs:documentation>
             </xs:annotation>            
             <xs:simpleType>
@@ -2225,7 +2225,11 @@ under the License.
     <xs:element name="entity-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                
+                Does a find-by-and, returns a list if values are found, otherwise returns null.
+                Uses name/value pairs, that will be used for the query and will all be "anded" together.
+
+                The result-set-type by
+                default is scroll which is flexible so you can go forward
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2234,39 +2238,21 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
                     <xs:annotation>
                         <xs:documentation>
-                            
+                            Specify fields to select, otherwise all fields will be selected.                             
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by">
                     <xs:annotation>
                         <xs:documentation>
-                            
+                            Defines fields to order list by.                             
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
                 <xs:choice minOccurs="0">
-                    <xs:element ref="limit-range">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element ref="limit-view">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element ref="use-iterator">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
+                    <xs:element ref="limit-range"/>                    
+                    <xs:element ref="limit-view"/>
+                    <xs:element ref="use-iterator"/>
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.entity-and"/>
@@ -2276,21 +2262,25 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of entity to search in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="use-cache" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Specifies whether or not the delegator's cache should be searched before going to the database. 
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. 
+                    Must be "true" or "false", defaults to "false".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="filter-by-date" default="false">
             <xs:annotation>
-                <xs:documentation>
-                    
+                <xs:documentation>                    
+                    Look for from-date and through-date fields in the list of results coming back 
+                    and filters by the current date and time if set to true. 
+                    Defaults to false.                    
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2350,17 +2340,11 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
                     <xs:annotation>
                         <xs:documentation>
-                            
+                            Specify fields to select, otherwise all fields will be selected.                             
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by"/>
                 <xs:choice minOccurs="0">
                     <xs:element ref="limit-range">
                         <xs:annotation>
@@ -2369,20 +2353,8 @@ under the License.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element ref="limit-view">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element ref="use-iterator">
-                        <xs:annotation>
-                            <xs:documentation>
-                                
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
+                    <xs:element ref="limit-view"/>
+                    <xs:element ref="use-iterator"/>
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.entity-condition"/>
@@ -2399,14 +2371,18 @@ under the License.
         <xs:attribute type="xs:string" name="use-cache" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Specifies whether or not the delegator's cache should be searched before going to the database. 
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. 
+                    Must be "true" or "false", defaults to "false".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="filter-by-date" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Look for from date and through date fields in the list of results coming back 
+                    and filters by the current date and time if set to true. 
+                    Defaults to false.                    
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -2661,7 +2637,7 @@ under the License.
         <xs:attribute name="field-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of field to select.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2669,7 +2645,7 @@ under the License.
     <xs:element name="order-by">
         <xs:annotation>
             <xs:documentation>
-                
+                Defines fields to order list by.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2680,12 +2656,17 @@ under the License.
         <xs:attribute name="field-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of field to order list by.    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="limit-range">
+        <xs:annotation>
+            <xs:documentation>
+                Specify a start, value, and a number of results to include.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.limit-range"/>
         </xs:complexType>
@@ -2709,7 +2690,9 @@ under the License.
     <xs:element name="limit-view">
         <xs:annotation>
             <xs:documentation>
-                
+                Specify a view-index, and a view-size of elements to view.
+                Start at view-index - 1 times of view-size with origin 0.
+                Example : view-index=3 and view-size=10 gives elements 21 to 30. 
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -2720,13 +2703,15 @@ under the License.
         <xs:attribute name="view-index" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Should resolve into a non-negative integer.
+                    Index of elements to view, depends on view-size.                    
+                    Should resolve into a non-negative integer.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="view-size" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
+                    Number of elements to view.
                     Should resolve into a positive integer.
                 </xs:documentation>
             </xs:annotation>
@@ -2735,26 +2720,30 @@ under the License.
     <xs:element name="use-iterator">
         <xs:annotation>
             <xs:documentation>
-                
+                Specifies whether or not to use the EntityListIterator when doing the query. 
+                This is much more efficient for large data sets because the results are read incrementaly instead of all at once. 
+                Note that when using this the use-cache setting will be ignored. 
+                Also note that an EntityListIterator must be closed when you are finished, but this is done automatically by the iterate operation. 
+                Must be "true" or "false", defaults to "false".                
             </xs:documentation>
-        </xs:annotation>
+        </xs:annotation>                        
         <xs:complexType/>
     </xs:element>
     <xs:element name="field-map">
-        <xs:annotation>
-            <xs:documentation>
-                
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
+    <xs:complexType>
             <xs:attributeGroup ref="attlist.field-map"/>
         </xs:complexType>
     </xs:element>
+    <xs:annotation>
+        <xs:documentation>
+            A name/value pair.            
+        </xs:documentation>
+    </xs:annotation>
     <xs:attributeGroup name="attlist.field-map">
         <xs:attribute type="xs:string" name="field-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Name of the field.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2848,7 +2837,9 @@ under the License.
         <xs:attribute type="xs:string" name="use-cache" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Specifies whether or not the delegator's cache should be searched before going to the database. 
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. 
+                    Must be "true" or "false", defaults to "false".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2902,7 +2893,9 @@ under the License.
         <xs:attribute type="xs:string" name="use-cache" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Specifies whether or not the delegator's cache should be searched before going to the database. 
+                    This results in much faster retrieval times, but can return stale data that is not the most current in the database. 
+                    Must be "true" or "false", defaults to "false".
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -3629,7 +3622,8 @@ under the License.
         <xs:attribute type="xs:string" name="error-list-name" default="error_list">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the list to in the method environment to check for error messages. Defaults to "error_list".
+                    The name of the list in the method environment to check for error messages. 
+                    Defaults to "error_list".
                 </xs:documentation>
             </xs:annotation>                    
         </xs:attribute>
@@ -3664,7 +3658,8 @@ under the License.
         <xs:attribute type="xs:string" name="error-list-name" default="error_list">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the list to in the method environment to check for error messages. Defaults to "error_list".
+                    The name of the list in the method environment to check for error messages. 
+                    Defaults to "error_list".
                 </xs:documentation>
             </xs:annotation>                    
         </xs:attribute>
@@ -3701,8 +3696,21 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.assert">
-        <xs:attribute type="xs:string" name="title"/>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list"/>
+        <xs:attribute type="xs:string" name="title">
+            <xs:annotation>
+                <xs:documentation>
+                    
+                </xs:documentation>
+            </xs:annotation>            
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the list in the method environment to check for error messages. 
+                    Defaults to "error_list".
+                </xs:documentation>
+            </xs:annotation>                                
+        </xs:attribute>
     </xs:attributeGroup>
 
     <!--
@@ -4362,13 +4370,7 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="1" ref="accept-userlogin-party">
-                    <xs:annotation>
-                        <xs:documentation>
-                            
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" ref="accept-userlogin-party"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-permission">
                     <xs:annotation>
                         <xs:documentation>
@@ -4428,7 +4430,9 @@ under the License.
     <xs:element name="accept-userlogin-party">
         <xs:annotation>
             <xs:documentation>
-                
+                If that tag is present userlogin party is accepted, rather than requiring that the user have the permission. 
+        
+                Often used in cases where you want to allow a user to for example see their own order, or update their own contact information.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4439,7 +4443,7 @@ under the License.
         <xs:attribute type="xs:string" name="party-id-env-name" default="partyId">
             <xs:annotation>
                 <xs:documentation>
-                    
+                    Environment variable name used (defaults to partyId),
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4447,7 +4451,9 @@ under the License.
     <xs:element name="alt-permission">
         <xs:annotation>
             <xs:documentation>
-                
+                Allows to specify a number of alternate permissions.
+                This tag basically has the same attributes as the check-permission tag, permission and action.
+                If the user has any of the alt-permissions, they subsume standard permissions.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4714,17 +4720,7 @@ under the License.
                 
                 Each calcop tag has three attributes: operator, map-name and field-name. Only the operator is required. 
                 The operator specifies the operation to perform on the given field and nested calcops and numbers. 
-                It must be one of the following: get | add | subtract | multiply | divide | negative.
-                
-                Regardless of the operator the action is very similar. 
-                It translates to a formula like the following: (V1 operator  V2 operator  V3). 
-                In other words a final result is calculated by applying the operator to the values in the order they are specified. 
-                If a field-name (and optionally map-name) is specifies on the calcop tag that field will be used as the first value, 
-                otherwise the first nested calcop or number will be the first value.
-                
-                The get operator is just an alias for add. It adds all of the values under it. 
-                Likewise the negative operator is almost an alias for subtract, with the exception that the first value is negated instead of left positive. 
-                For convenience the calculate tag itself acts like an add, in other words the calcops and numbers under it are all added together.                
+                It must be one of the following: get | add | subtract | multiply | divide | negative.                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4739,12 +4735,6 @@ under the License.
                     </xs:annotation>
                 </xs:element>
                 <xs:element ref="number">
-                    <xs:annotation>
-                        <xs:documentation>
-                            This is used to put a numeric constant (a number) into the calculation. 
-                            It has one attribute: value. This must be a properly formatted number or an error will result.
-                        </xs:documentation>
-                    </xs:annotation>
                 </xs:element>
             </xs:choice>
             <xs:attributeGroup ref="attlist.calculate"/>
@@ -4805,7 +4795,8 @@ under the License.
     <xs:element name="calcop">
         <xs:annotation>
             <xs:documentation>
-                
+                The calcop tag has an operator: get, add, subtract, multiply, divide, and negative. 
+                So add, subtract, multiply, and divide are just the basic arithmetic operations.                
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -4820,12 +4811,24 @@ under the License.
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
-                    <xs:enumeration value="get"/>
+                    <xs:enumeration value="get">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Gets the positive value.        
+                            </xs:documentation>
+                        </xs:annotation>                        
+                    </xs:enumeration>
                     <xs:enumeration value="add"/>
                     <xs:enumeration value="subtract"/>
                     <xs:enumeration value="multiply"/>
                     <xs:enumeration value="divide"/>
-                    <xs:enumeration value="negative"/>
+                    <xs:enumeration value="negative">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Negates the value        
+                            </xs:documentation>
+                        </xs:annotation>                                                
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -4846,12 +4849,25 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="number">
+        <xs:annotation>
+            <xs:documentation>
+                This is used to put a numeric constant (a number) into the calculation. 
+                It has one attribute: value. This must be a properly formatted number or an error will result.
+                May use flexible string.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.number"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.number">
-        <xs:attribute type="xs:string" name="value" use="required"/>
+        <xs:attribute type="xs:string" name="value" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Literal or flexible string.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <!--
         ======================================================
