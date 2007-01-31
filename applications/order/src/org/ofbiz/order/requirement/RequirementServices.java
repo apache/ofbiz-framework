@@ -73,19 +73,23 @@ public class RequirementServices {
             }
             List requirementAndRoles = delegator.findByAnd("RequirementAndRole", conditions, orderBy);
 
-            // maps to cache the associated suppliers and products data
+            // maps to cache the associated suppliers and products data, so we don't do redundant DB and service requests
             Map suppliers = FastMap.newInstance();
             Map gids = FastMap.newInstance();
             Map inventories = FastMap.newInstance();
 
+            // to count quantity and distinct products in list
+            double quantity = 0.0;
+            Set products = new HashSet();
+
             // join in fields with extra data about the suppliers and products
             List requirements = FastList.newInstance();
             for (Iterator iter = requirementAndRoles.iterator(); iter.hasNext(); ) {
+                Map union = FastMap.newInstance();
                 GenericValue requirement = (GenericValue) iter.next();
                 String productId = requirement.getString("productId");
                 partyId = requirement.getString("partyId");
                 String facilityId = requirement.getString("facilityId");
-                Map union = FastMap.newInstance();
 
                 // get an available supplier product
                 String supplierKey =  partyId + "^" + productId;
@@ -126,6 +130,10 @@ public class RequirementServices {
                     }
                 }
 
+                // keep a running total of distinct products and quantity to order
+                quantity += requirement.getDouble("quantity").doubleValue();
+                products.add(productId);
+
                 // add all the requirement fields last, to overwrite any conflicting fields
                 union.putAll(requirement.getAllFields());
                 requirements.add(union);
@@ -133,6 +141,8 @@ public class RequirementServices {
 
             Map results = ServiceUtil.returnSuccess();
             results.put("requirementsForSupplier", requirements);
+            results.put("distinctProductCount", new Integer(products.size()));
+            results.put("quantityTotal", new Double(quantity));
             return results;
         } catch (GenericServiceException e) {
             Debug.logError(e, module);

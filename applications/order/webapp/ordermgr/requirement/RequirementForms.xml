@@ -292,17 +292,6 @@ under the License.
     </form>
     <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
         paginate-target="RequirementsForSupplier" default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
-        <actions>
-            <service service-name="prepareFind" result-map-name="resultConditions">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" value="Requirement"/>
-            </service>
-            <service service-name="getRequirementsForSupplier" result-map-name="result" result-map-list-name="requirementsForSupplier">
-                <!--<field-map field-name="orderByList" env-name="resultConditions.orderByList"/>-->
-                <field-map field-name="requirementConditions" env-name="resultConditions.entityConditionList"/>
-                <field-map field-name="partyId" env-name="parameters.partyId"/>
-            </service>
-        </actions>
         <field name="billToCustomerPartyId"><hidden value="${parameters.billToCustomerPartyId}"/></field>
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
         <field name="requirementId" widget-style="buttontext">
@@ -326,6 +315,11 @@ under the License.
         <field name="comments"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.OrderInputQuickPurchaseOrder}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field name="distinctProductCount"><display/></field>
+        <field name="quantityTotal"><display/></field>
     </form>
     <form name="ApprovedProductRequirementsByVendor" type="list" list-name="requirements"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"

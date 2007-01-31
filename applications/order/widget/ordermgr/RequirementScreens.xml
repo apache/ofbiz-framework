@@ -134,6 +134,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
                 <set field="_rowSubmit" value="Y"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/ApprovedProductRequirements.bsh"/>
         </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
@@ -160,6 +161,7 @@ under the License.
                                     <label style="head2" text="Requirement List"/>
                                 </container>
                                 <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
