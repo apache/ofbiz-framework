@@ -66,7 +66,7 @@ under the License.
                     <a href="/partymgr/control/findparty?${externalKeyParam?if_exists}" class="buttontext">${uiLabelMap.PartyFindParty}</a>
                   </td>
                 </tr>
-                <#if shoppingCart.getOrderType() == "SALES_ORDER">
+                <#if shoppingCart.getOrderType() == "SALES_ORDER" && shoppingCart.items()?has_content>
                   <tr>
                     <td>
                       <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyCreateNewCustomer}</a>
