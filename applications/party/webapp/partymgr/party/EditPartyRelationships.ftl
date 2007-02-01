@@ -68,7 +68,7 @@ under the License.
                         <input type="hidden" name="roleTypeIdTo" value="${partyRelationship.roleTypeIdTo}"/>
                         <input type="hidden" name="fromDate" value="${partyRelationship.fromDate}"/>
                         <span class="tabletext"><b>${uiLabelMap.CommonThru}: </b></span><input type="text" size="24" class="inputBox" name="thruDate" value="${partyRelationship.thruDate?if_exists}"/>
-                        <a href="javascript:call_cal(document.updatePartyRel${partyRelationship_index}.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+                        <a href="javascript:call_cal(document.updatePartyRel${partyRelationship_index}.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
                         <#-- ${partyRelationship.statusId}-->
                         <span class="tabletext"><b>${uiLabelMap.CommonComments}: </b></span><input type="text" size="50" class="inputBox" name="comments" value="${partyRelationship.comments?if_exists}"/>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;"/>
@@ -119,8 +119,8 @@ under the License.
                 <option value="${securityGroup.groupId}">${securityGroup.get("description",locale)}</option>
               </#list>
             </select><br/>
-            ${uiLabelMap.CommonFrom} <input type="text" size="24" name="fromDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipTo.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
-            ${uiLabelMap.CommonThru} <input type="text" size="24" name="thruDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipTo.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+            ${uiLabelMap.CommonFrom} <input type="text" size="24" name="fromDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipTo.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
+            ${uiLabelMap.CommonThru} <input type="text" size="24" name="thruDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipTo.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
           </div>
           <div><span class="tabletext">${uiLabelMap.CommonComments}:&nbsp;&nbsp;</span><input type="text" size="60" name="comments" class="inputBox"/></div>
           <div><a href="javascript:document.addPartyRelationshipTo.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a></div>
@@ -160,8 +160,8 @@ under the License.
                 <option value="${securityGroup.groupId}">${securityGroup.get("description",locale)}</option>
               </#list>
             </select><br/>
-            ${uiLabelMap.CommonFrom} <input type="text" size="24" name="fromDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipFrom.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
-            ${uiLabelMap.CommonThru} <input type="text" size="24" name="thruDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipFrom.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+            ${uiLabelMap.CommonFrom} <input type="text" size="24" name="fromDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipFrom.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
+            ${uiLabelMap.CommonThru} <input type="text" size="24" name="thruDate" class="inputBox"/><a href="javascript:call_cal(document.addPartyRelationshipFrom.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
           </div>
           <div><span class="tabletext">${uiLabelMap.CommonComments}:&nbsp;&nbsp;</span><input type="text" size="60" name="comments" class="inputBox"/></div>
           <div><a href="javascript:document.addPartyRelationshipFrom.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a></div>

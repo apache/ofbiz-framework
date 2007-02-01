@@ -43,7 +43,7 @@ under the License.
                     <input type="hidden" name="productPromoId" value="${productStorePromoAppl.productPromoId}">
                     <input type="hidden" name="fromDate" value="${productStorePromoAppl.fromDate}">
                     <input type="text" size="20" name="thruDate" value="${(productStorePromoAppl.thruDate.toString())?if_exists}" class="inputBox" <#if hasExpired>style="color: red;"</#if>>
-                    <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${nowTimestamp.toString()}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                    <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                     <input type="text" size="5" name="sequenceNum" value="${(productStorePromoAppl.sequenceNum)?if_exists}" class="inputBox">
                     <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
                 </form>
@@ -68,7 +68,7 @@ under the License.
         </#list>
         </select>
         <input type="text" size="20" name="fromDate" class="inputBox"/>
-        <a href="javascript:call_cal(document.addProductPromoToCatalog.fromDate, '${nowTimestamp.toString()}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+        <a href="javascript:call_cal(document.addProductPromoToCatalog.fromDate, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
         <input type="submit" value="${uiLabelMap.CommonAdd}"/>
         </form>
    </#if>

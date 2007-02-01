@@ -370,7 +370,7 @@ function doPublish() {
             <tr>
                 <td>
                     <a href="javascript:call_cal(document.publish.fromDate,'${nowTimestampString}');">
-                        <img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/>
+                        <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
                     </a>
                 </td>
                 <td>
@@ -388,7 +388,7 @@ function doPublish() {
                 <td>
                     <input type="text" size="25" name="thruDate" class="inputBox"/>
                     <a href="javascript:call_cal(document.unpublish.thruDate,'${nowTimestampString}');">
-                        <img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/>
+                        <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
                     </a>
                 </td>
                 <td><input type="submit" value="${uiLabelMap.RemoveFromSite}"/></td>

@@ -46,7 +46,7 @@ under the License.
             <input type="hidden" name="parentProductCategoryId${suffix}" value="${productCategoryRollup.parentProductCategoryId}">
             <input type="hidden" name="fromDate${suffix}" value="${productCategoryRollup.fromDate}">
             <input type="text" size="25" name="thruDate${suffix}" value="${productCategoryRollup.thruDate?if_exists}" class="inputBox" <#if hasExpired>style="color: red"</#if>>
-            <a href="javascript:call_cal(document.updateProductCategoryForm.thruDate${suffix}, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+            <a href="javascript:call_cal(document.updateProductCategoryForm.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
             <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}" class="inputBox">
       </td>
       <td>
@@ -77,7 +77,7 @@ under the License.
     <input type="text" class="inputBox" name="parentProductCategoryId" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
     <a href="javascript:call_fieldlookup2(document.addParentForm.parentProductCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
   <input type="text" size="25" name="fromDate" class="inputBox">
-  <a href="javascript:call_cal(document.addParentForm.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  <a href="javascript:call_cal(document.addParentForm.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="submit" value="${uiLabelMap.CommonAdd}">
 </form>
 <br/>
@@ -113,7 +113,7 @@ under the License.
             <input type="hidden" name="parentProductCategoryId${suffix}" value="${productCategoryRollup.parentProductCategoryId}">
             <input type="hidden" name="fromDate${suffix}" value="${productCategoryRollup.fromDate}">
             <input type="text" size="25" name="thruDate${suffix}" value="${productCategoryRollup.thruDate?if_exists}" class="inputBox" <#if hasExpired>style="color: red;"</#if>>
-            <a href="javascript:call_cal(document.updateProductCategoryToCategoryChild.thruDate${suffix}, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+            <a href="javascript:call_cal(document.updateProductCategoryToCategoryChild.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
             <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}" class="inputBox">
       </td>
       <td>
@@ -145,7 +145,7 @@ under the License.
     <input type="text" class="inputBox" name="productCategoryId" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
     <a href="javascript:call_fieldlookup2(document.addChildForm.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
   <input type="text" size="25" name="fromDate" class="inputBox">
-  <a href="javascript:call_cal(document.addChildForm.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  <a href="javascript:call_cal(document.addChildForm.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="submit" value="${uiLabelMap.CommonAdd}">
 </form>
 </#if>

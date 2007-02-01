@@ -64,7 +64,7 @@ under the License.
             ${uiLabelMap.ProductLocationSeqId}:&nbsp;<input type="text" size="10" name="locationSeqId" class="inputBox"/>
             <span class="tabletext">
               <a href="javascript:call_fieldlookup2(document.createProductFacilityLocationForm.locationSeqId,'LookupFacilityLocation');">
-                <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
               </a>
             </span>
             ${uiLabelMap.ProductMinimumStock}:&nbsp;<input type="text" size="10" name="minimumStock" class="inputBox"/>

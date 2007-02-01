@@ -43,7 +43,7 @@ under the License.
                 <input type="hidden" name="productFeatureGroupId" value="${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}">
                 <input type="hidden" name="fromDate" value="${(productFeatureCatGrpAppl.fromDate)?if_exists}">
                 <input type="text" size="25" name="thruDate" value="${(productFeatureCatGrpAppl.thruDate)?if_exists}" class="inputBox" <#if hasExpired>style="color: red;"</#if>>
-                <a href="javascript:call_cal(document.lineFormGrp${line}.thruDate, '${(productFeatureCatGrpAppl.thruDate)?default(nowTimestamp?string)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                <a href="javascript:call_cal(document.lineFormGrp${line}.thruDate, '${(productFeatureCatGrpAppl.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                 <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
             </FORM>
         </td>
@@ -64,7 +64,7 @@ under the License.
     </#list>
     </select>
     <input type="text" size="25" name="fromDate" class="inputBox">
-    <a href="javascript:call_cal(document.addNewGroupForm.fromDate, '${nowTimestamp?string}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+    <a href="javascript:call_cal(document.addNewGroupForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
     <input type="submit" value="${uiLabelMap.CommonAdd}">
     </form>
     <br/>
@@ -95,7 +95,7 @@ under the License.
                 <input type="hidden" name="productFeatureCategoryId" value="${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}">
                 <input type="hidden" name="fromDate" value="${(productFeatureCategoryAppl.fromDate)?if_exists}">
                 <input type="text" size="25" name="thruDate" value="${(productFeatureCategoryAppl.thruDate)?if_exists}" class="inputBox" <#if hasExpired>style="color: red;"</#if>>
-                <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productFeatureCategoryAppl.thruDate)?default(nowTimestamp?string)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productFeatureCategoryAppl.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                 <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
             </FORM>
         </td>
@@ -116,7 +116,7 @@ under the License.
     </#list>
     </select>
     <input type="text" size="25" name="fromDate" class="inputBox">
-    <a href="javascript:call_cal(document.addNewCategoryForm.fromDate, '${nowTimestamp?string}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+    <a href="javascript:call_cal(document.addNewCategoryForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
     <input type="submit" value="${uiLabelMap.CommonAdd}">
     </form>
 </#if>    

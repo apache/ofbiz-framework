@@ -137,14 +137,14 @@ function lookupShipments() {
                     <tr>                      
                       <td>                        
                         <input type="text" size="25" class="inputBox" name="minDate" value="${requestParameters.minDate?if_exists}">
-                        <a href="javascript:call_cal(document.lookupShipmentForm.minDate, '${fromDateStr}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                        <a href="javascript:call_cal(document.lookupShipmentForm.minDate, '${fromDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         <span class="tabletext">${uiLabelMap.CommonFrom}</span>
                       </td>
                     </tr>
                     <tr>                  
                       <td>                       
                         <input type="text" size="25" class="inputBox" name="maxDate" value="${requestParameters.maxDate?if_exists}">
-                        <a href="javascript:call_cal(document.lookupShipmentForm.maxDate, '${thruDateStr}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>                   
+                        <a href="javascript:call_cal(document.lookupShipmentForm.maxDate, '${thruDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>                   
                         <span class="tabletext">${uiLabelMap.CommonThru}</span>
                       </td>
                     </tr>
