@@ -569,8 +569,10 @@ under the License.
         <response name="addparty" type="view" value="setAdditionalParty"/>
         <response name="customer" type="view" value="custsetting"/>
         <response name="shipping" type="view" value="shipsetting"/>
+        <response name="shippingAddress" type="view" value="EditShipAddress"/>
         <response name="options" type="view" value="optionsetting"/>
         <response name="payment" type="request" value="calcShippingBeforePayment"/>
+        <response name="paymentError" type="request" value="calcShippingBeforePayment"/>
         <response name="term" type="view" value="orderTerm"/>
         <response name="shipGroups" type="view" value="SetItemShipGroups"/>
         <response name="sales" type="request" value="calcShipping"/>

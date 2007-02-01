@@ -35,6 +35,13 @@ context.put("paymentMethodType", request.getParameter("paymentMethodType"));
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");
 
+// If there's a paymentMethodId request attribute, the user has just created a new payment method,
+//  so put the new paymentMethodId in the context for the UI
+newPaymentMethodId=request.getAttribute("paymentMethodId");
+if(! UtilValidate.isEmpty(newPaymentMethodId)) {
+    context.put("checkOutPaymentId", newPaymentMethodId);
+}
+
 if (orderPartyId != null && !orderPartyId.equals("_NA_")) {
     orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", orderPartyId));
     orderPerson = orderParty.getRelatedOne("Person");
@@ -74,9 +81,6 @@ if (cart != null) {
                 paymentMethodType = "EFT";
                 account = paymentMethod.getRelatedOne("EftAccount");
                 context.put("eftAccount", account);
-                context.put("paymentMethodType", paymentMethodType);
-            } else {
-                paymentMethodType = "offline";
                 context.put("paymentMethodType", paymentMethodType);
             }
             if (account != null) {

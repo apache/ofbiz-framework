@@ -43,6 +43,7 @@ under the License.
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <form name="checkoutsetupform" method="post" action="<@ofbizUrl>createCustomer</@ofbizUrl>">
         <input type="hidden" name="finalizeMode" value="cust">
+        <input type="hidden" name="finalizeReqNewShipAddress" value="true">
         <tr>
           <td>
             <table width="100%" border="0" cellpadding="1" cellspacing="0">              
