@@ -47,7 +47,7 @@ under the License.
                   </div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <#if paymentMethodType.paymentMethodTypeId != "EXT_OFFLINE" && paymentMethodType.paymentMethodTypeId != "EXT_PAYPAL">
+                <#if paymentMethodType.paymentMethodTypeId != "EXT_OFFLINE" && paymentMethodType.paymentMethodTypeId != "EXT_PAYPAL" && paymentMethodType.paymentMethodTypeId != "EXT_COD">
                   <td align="left">
                     <div class="tabletext">
                       <#if orderPaymentPreference.maxAmount?has_content>
