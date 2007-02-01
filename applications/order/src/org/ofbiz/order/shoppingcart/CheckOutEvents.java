@@ -30,13 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.GeneralRuntimeException;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -741,6 +735,13 @@ public class CheckOutEvents {
                 return "error";
             }
 
+            // If the user has just created a new payment method, add it to the map with a null amount, so that
+            //  it becomes the sole payment method for the order.
+            String newPaymentMethodId = (String) request.getAttribute("paymentMethodId");
+            if(! UtilValidate.isEmpty(newPaymentMethodId)) {
+                selectedPaymentMethods.put(newPaymentMethodId, null);
+            }
+            
             String billingAccountId = request.getParameter("billingAccountId");
             String currencyFormat = UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "##0.00");
             DecimalFormat formatter = new DecimalFormat(currencyFormat);
@@ -775,7 +776,7 @@ public class CheckOutEvents {
             ServiceUtil.getMessages(request, callResult, null);
             // determine whether it was a success or not
             if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-                return "error";
+                return "paymentError";
             }
         }
         // determine where to direct the browser
@@ -794,6 +795,7 @@ public class CheckOutEvents {
         // determine where to direct the browser
         // these are the default values
         boolean requireCustomer = true;
+        boolean requireNewShippingAddress = false;
         boolean requireShipping = true;
         boolean requireOptions = true;
         boolean requireShipGroups = false;
@@ -804,6 +806,7 @@ public class CheckOutEvents {
         // these options are not available to anonymous shoppers (security)
         if (userLogin != null && !"anonymous".equals(userLogin.getString("userLoginId"))) {
             String requireCustomerStr = request.getParameter("finalizeReqCustInfo");
+            String requireNewShippingAddressStr = request.getParameter("finalizeReqNewShipAddress");
             String requireShippingStr = request.getParameter("finalizeReqShipInfo");
             String requireOptionsStr = request.getParameter("finalizeReqOptions");
             String requirePaymentStr = request.getParameter("finalizeReqPayInfo");
@@ -812,6 +815,7 @@ public class CheckOutEvents {
             String requireShipGroupsStr = request.getParameter("finalizeReqShipGroups");
             String singleUsePaymentStr = request.getParameter("singleUsePayment");
             requireCustomer = requireCustomerStr == null || requireCustomerStr.equalsIgnoreCase("true");
+            requireNewShippingAddress = requireNewShippingAddressStr != null && requireNewShippingAddressStr.equalsIgnoreCase("true");
             requireShipping = requireShippingStr == null || requireShippingStr.equalsIgnoreCase("true");
             requireOptions = requireOptionsStr == null || requireOptionsStr.equalsIgnoreCase("true");
             requireShipGroups = requireShipGroupsStr != null && requireShipGroupsStr.equalsIgnoreCase("true");
@@ -861,8 +865,12 @@ public class CheckOutEvents {
                 }
             }
             else if (currProcess.equals("shipping")) {
-                if (requireShipping && !shippingAddressSet) {
-                    return "shipping";
+                if (requireShipping) {
+                    if (requireNewShippingAddress) {
+                        return "shippingAddress";
+                    } else if (!shippingAddressSet) {
+                        return "shipping";
+                    }
                 }
             }
             else if (currProcess.equals("shipGroups")) {
