@@ -68,7 +68,7 @@ under the License.
             <#if (inventoryItem.productId)?has_content>
                 <a href="/catalog/control/EditProduct?productId=${inventoryItem.productId}&externalLoginKey=${externalLoginKey?if_exists}" class="buttontext">[${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ProductProduct}&nbsp;${inventoryItem.productId}]</a>
             <#else>
-                <a href="javascript:call_fieldlookup2(document.inventoryItemForm.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+                <a href="javascript:call_fieldlookup2(document.inventoryItemForm.productId,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
             </#if>
         </td>
       </tr>
@@ -158,7 +158,7 @@ under the License.
             <input type="text" size="20" maxsize="20" name="locationSeqId" value="${inventoryItem.locationSeqId?if_exists}" class="inputBox"/>
             <span class="tabletext">
                 <a href="javascript:call_fieldlookup2(document.inventoryItemForm.locationSeqId,'LookupFacilityLocation<#if (facilityId?exists)>?facilityId=${facilityId}</#if>');">
-                    <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                    <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                 </a>
             </span>
             &nbsp;<a href="<@ofbizUrl>FindFacilityLocation?facilityId=${facilityId?if_exists}&inventoryItemId=${inventoryItemId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductFindLocation}]</a>
@@ -166,7 +166,7 @@ under the License.
             <input type="text" size="20" maxsize="20" name="locationSeqId" value="${locationSeqId?if_exists}" class="inputBox">
             <span class="tabletext">
                 <a href="javascript:call_fieldlookup2(document.inventoryItemForm.locationSeqId,'LookupFacilityLocation<#if (facilityId?exists)>?facilityId=${facilityId}</#if>');">
-                    <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                    <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                 </a>
             </span>
           </#if>

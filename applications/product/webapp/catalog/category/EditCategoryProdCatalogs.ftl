@@ -48,7 +48,7 @@ under the License.
                 <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
                 <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)?if_exists}"/>
                 <input type="text" size="25" name="thruDate" value="${(prodCatalogCategory.thruDate)?if_exists}" class="inputBox" style="<#if (hasExpired) >color: red;</#if>"/>
-                <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(prodCatalogCategory.thruDate)?default(nowTimestamp?string)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+                <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(prodCatalogCategory.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
                 <input type="text" size="5" name="sequenceNum" value="${(prodCatalogCategory.sequenceNum)?if_exists}" class="inputBox"/>
                 <#-- the prodCatalogCategoryTypeId field is now part of the PK, so it can't be changed, must be re-created
                 <select name="prodCatalogCategoryTypeId" size="1" class="selectBox">
@@ -89,7 +89,7 @@ under the License.
             </#list>
         </select>
     <input type="text" size="25" name="fromDate" class="inputBox"/>
-    <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+    <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
     <input type="submit" value="${uiLabelMap.CommonAdd}"/>
     </form>
 </#if>

@@ -86,8 +86,8 @@ under the License.
             </#list>
           </select>
         </td>
-        <td><input type="text" size="25" name="fromDate_o_${rowCount}" class="inputBox"><a href="javascript:call_cal(document.selectAllForm.fromDate_o_${rowCount}, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a></td>
-        <td><input type="text" size="25" name="thruDate_o_${rowCount}" class="inputBox"><a href="javascript:call_cal(document.selectAllForm.thruDate_o_${rowCount}, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a></td>
+        <td><input type="text" size="25" name="fromDate_o_${rowCount}" class="inputBox"><a href="javascript:call_cal(document.selectAllForm.fromDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a></td>
+        <td><input type="text" size="25" name="thruDate_o_${rowCount}" class="inputBox"><a href="javascript:call_cal(document.selectAllForm.thruDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a></td>
         <td><input type="text" size="6" name="amount_o_${rowCount}" class="inputBox" value="${productFeature.defaultAmount?if_exists}"></td>
         <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" class="inputBox" value="${productFeature.defaultSequenceNum?if_exists}"></td>
         <td align="right">              

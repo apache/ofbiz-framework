@@ -128,7 +128,7 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
   <b>${uiLabelMap.ProductExpireResultsFrom} </b> ${uiLabelMap.ProductCategory}:
   <input type="text" class="inputBox" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
   <a href="javascript:call_fieldlookup2(document.searchExpireFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
-  ${uiLabelMap.CommonThru}<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  ${uiLabelMap.CommonThru}<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="hidden" name="clearSearch" value="N">
   <input type="submit" value="${uiLabelMap.CommonExpire}" class="smallSubmit"><br/>
 </form>
@@ -141,7 +141,7 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
   <b>${uiLabelMap.ProductAddResultsTo} </b> ${uiLabelMap.ProductCategory}:
   <input type="text" class="inputBox" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
   <a href="javascript:call_fieldlookup2(document.searchAddToCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
-  ${uiLabelMap.CommonFrom}<input type="text" size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  ${uiLabelMap.CommonFrom}<input type="text" size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="hidden" name="clearSearch" value="N">
   <input type="submit" value="${uiLabelMap.ProductAddToCategory}" class="smallSubmit"><br/>
 </form>
@@ -153,8 +153,8 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <form method="post" action="<@ofbizUrl>searchAddFeature</@ofbizUrl>" name="searchAddFeature">
   <b>${uiLabelMap.ProductAddFeatureToResults}:</b><br/>
   ${uiLabelMap.ProductFeatureId}<input type="text" size="10" name="productFeatureId" value="" class="inputBox">
-  ${uiLabelMap.CommonFrom}<input type="tex"t size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a> 
-  ${uiLabelMap.CommonThru}<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  ${uiLabelMap.CommonFrom}<input type="tex"t size="25" name="fromDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a> 
+  ${uiLabelMap.CommonThru}<input type="text" size="25" name="thruDate" class="inputBox"><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
   <br/>
   ${uiLabelMap.CommonAmount}<input type="text" size="5" name="amount" value="" class="inputBox">
   ${uiLabelMap.CommonSequence}<input type="text" size="5" name="sequenceNum" value="" class="inputBox">

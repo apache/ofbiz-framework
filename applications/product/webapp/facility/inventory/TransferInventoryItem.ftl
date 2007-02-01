@@ -181,7 +181,7 @@ under the License.
             <input type="text" size="20" name="locationSeqIdTo" value="${(inventoryTransfer.locationSeqIdTo)?if_exists}" maxlength="20" class="inputBox">
             <span class="tabletext">
                 <a href="javascript:call_fieldlookup2(document.transferform.locationSeqIdTo,'LookupFacilityLocation');">
-                    <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                    <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                 </a>
             </span>
             </td>
@@ -234,7 +234,7 @@ under the License.
             <input type="text" size="20" name="locationSeqIdTo" value="${(inventoryTransfer.locationSeqIdTo)?if_exists}" maxlength="20" class="inputBox">
             <span class="tabletext">
                 <a href="javascript:call_fieldlookup2(document.transferform.locationSeqIdTo,'LookupFacilityLocation?facilityId=${inventoryTransfer.facilityIdTo}');">
-                    <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                    <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                 </a>
             </span>
             </td>

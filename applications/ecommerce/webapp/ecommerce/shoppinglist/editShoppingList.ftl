@@ -191,13 +191,13 @@ under the License.
                 <td><div class="tableheadtext">${uiLabelMap.CommonStartDate}</div></td>
                 <td>
                   <input type="text" class="textBox" name="startDateTime" size="22" value="${(recurrenceInfo.startDateTime)?if_exists}">
-                  <a href="javascript:call_cal(document.reorderinfo.startDateTime, '${nowTimestamp.toString()}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                  <a href="javascript:call_cal(document.reorderinfo.startDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                 </td>
                 <td>&nbsp;</td>
                 <td><div class="tableheadtext">${uiLabelMap.CommonEndDate}</div></td>
                 <td>
                   <input type="text" class="textBox" name="endDateTime" size="22" value="${(recurrenceRule.untilDateTime)?if_exists}">
-                  <a href="javascript:call_cal(document.reorderinfo.endDateTime, '${nowTimestamp.toString()}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                  <a href="javascript:call_cal(document.reorderinfo.endDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                 </td>
                 <td>&nbsp;</td>
               </tr>

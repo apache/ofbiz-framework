@@ -50,7 +50,7 @@ function addRoutingTask() {
             </td>
             <td>
                 <input type="text" name="fromDate" size="25"/>
-                <a href="javascript:call_cal(document.addtaskassocform.fromDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Click here For Calendar"></a>
+                <a href="javascript:call_cal(document.addtaskassocform.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar"></a>
             </td>
             <td align="center" width="40%">&nbsp;</td>
         </tr>
@@ -66,7 +66,7 @@ function addRoutingTask() {
             </td>
             <td>
                 <input type="text" name="thruDate" size="25"/>
-                <a href="javascript:call_cal(document.addtaskassocform.thruDate, null);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Click here For Calendar"></a>
+                <a href="javascript:call_cal(document.addtaskassocform.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar"></a>
             </td>
             <td>&nbsp;</td>
         </tr>

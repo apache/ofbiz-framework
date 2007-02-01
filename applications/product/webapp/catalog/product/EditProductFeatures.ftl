@@ -155,9 +155,9 @@ under the License.
         </select>
         <br/>
         <span class="tabletext">${uiLabelMap.CommonFrom} : </span><input type="text" size="25" name="fromDate" class="inputBox">
-        <a href="javascript:call_cal(document.addFeatureById.fromDate, '${nowTimestamp?string}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+        <a href="javascript:call_cal(document.addFeatureById.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
         <span class="tabletext">${uiLabelMap.CommonThru} : </span><input type="text" size="25" name="thruDate" class="inputBox">
-        <a href="javascript:call_cal(document.addFeatureById.thruDate, '${nowTimestamp?string}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+        <a href="javascript:call_cal(document.addFeatureById.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
         <span class="tabletext">${uiLabelMap.CommonSequence} : </span><input type="text" size="5" name="sequenceNum" class="inputBox">
         <input type="submit" value="${uiLabelMap.CommonAdd}" style="font-size: x-small;">
         </form>

@@ -78,7 +78,7 @@ under the License.
                         <input type="hidden" name="productPromoId" value="${(productStorePromoAndAppl.productPromoId)?if_exists}">
                         <input type="hidden" name="fromDate" value="${(productStorePromoAndAppl.fromDate)?if_exists}">
                         <input type="text" size="25" name="thruDate" value="${(productStorePromoAndAppl.thruDate)?if_exists}" class="inputBox" style="<#if (hasExpired) >color: red;</#if>">
-                        <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productStorePromoAndAppl.thruDate)?default(nowTimestampString)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                        <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productStorePromoAndAppl.thruDate)?default(nowTimestampString)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         <input type="text" size="5" name="sequenceNum" value="${(productStorePromoAndAppl.sequenceNum)?if_exists}" class="inputBox">
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
                     </form>
@@ -125,7 +125,7 @@ under the License.
         </select> <span class="tabletext">${uiLabelMap.ProductNoteUserPromotionEntered}</span> 
         <br/>
         <input type="text" size="25" name="fromDate" class="inputBox"/>
-        <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+        <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
         <input type="submit" value="${uiLabelMap.CommonAdd}"/>
         </form>
     </#if>

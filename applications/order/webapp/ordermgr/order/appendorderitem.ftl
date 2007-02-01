@@ -44,7 +44,7 @@ under the License.
                   <td><input type="text" class="inputBox" size="25" name="productId" value="${requestParameters.productId?if_exists}"/>
                     <span class='tabletext'>
                       <a href="javascript:call_fieldlookup2(document.appendItemForm.productId,'LookupProduct');">
-                        <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                       </a>
                     </span>
                   </td>
@@ -72,7 +72,7 @@ under the License.
                   <td>
                     <div class="tabletext">
                       <input type="text" class="inputBox" size="25" maxlength="30" name="itemDesiredDeliveryDate"/>
-                      <a href="javascript:call_cal(document.quickaddform.itemDesiredDeliveryDate,'${toDayDate} 00:00:00.0');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
+                      <a href="javascript:call_cal(document.quickaddform.itemDesiredDeliveryDate,'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                     </div>
                   </td>
                 </tr>

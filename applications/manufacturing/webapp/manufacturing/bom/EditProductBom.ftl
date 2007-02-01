@@ -61,7 +61,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
             <input type="text" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
-            <a href="javascript:call_fieldlookup2(document.searchform.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+            <a href="javascript:call_fieldlookup2(document.searchform.productId,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
             <span class='tabletext'><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
             </td>
         </tr>
@@ -73,7 +73,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
             <input type="text" name="copyToProductId" size="20" maxlength="40" value=""/>
-            <a href="javascript:call_fieldlookup2(document.searchform.copyToProductId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+            <a href="javascript:call_fieldlookup2(document.searchform.copyToProductId,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
             <span class='tabletext'><a href="javascript:document.searchform.UPDATE_MODE.value='COPY';document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingCopyBOMAssocs}</a></span>
             </td>
         </tr>
@@ -110,7 +110,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
                 <input type="text" name="productId" size="20" maxlength="40" value="${productId?if_exists}"/>
-                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productId,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productId,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
             </td>
             </tr>
             <tr>
@@ -118,7 +118,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
                 <input type="text" name="productIdTo" size="20" maxlength="40" value="${productIdTo?if_exists}"/>
-                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productIdTo,'LookupProduct');"><img src="/images/fieldlookup.gif" width="16" height="16" border="0" alt="Lookup"/></a>
+                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.productIdTo,'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
             </td>
             </tr>
             <tr>
@@ -126,7 +126,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
                 <input type="text" name="fromDate" size="25" maxlength="40" value=""/>
-                <a href="javascript:call_cal(document.editProductAssocForm.fromDate,'${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+                <a href="javascript:call_cal(document.editProductAssocForm.fromDate,'${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
                 (${uiLabelMap.ManufacturingWillBeSetToNow})
             </td>
             </tr>
@@ -164,7 +164,7 @@ function lookupBom() {
         <td>&nbsp;</td>
         <td width="74%">
             <input type="text" name="thruDate" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("thruDate"))?if_exists}"</#if> size="30" maxlength="30"/> 
-            <a href="javascript:call_cal(document.editProductAssocForm.thruDate,<#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("thruDate"))?exists>'${request.getParameter("thruDate")}'<#else>'${nowTimestampString}'</#if>);"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"/></a>
+            <a href="javascript:call_cal(document.editProductAssocForm.thruDate,<#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("thruDate"))?exists>'${request.getParameter("thruDate")}'<#else>'${nowTimestampString}'</#if>);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
         </td>
     </tr>
     <tr>

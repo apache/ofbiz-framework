@@ -45,7 +45,7 @@ under the License.
             <input type="hidden" name="parentFacilityGroupId" value="${facilityGroupRollup.parentFacilityGroupId}">
             <input type="hidden" name="fromDate" value="${facilityGroupRollup.fromDate.toString()}">
             <input type="text" size="25" name="thruDate" value="${(facilityGroupRollup.thruDate.toString())?if_exists}" class="inputBox" <#if facilityGroupRollup.thruDate?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(facilityGroupRollup.thruDate)>style="color: red;"</#if>>
-            <a href="javascript:call_cal(document.lineParentForm${facilityGroupRollup_index}.thruDate, '${(facilityGroupRollup.thruDate.toString())?default(nowTimestampString)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+            <a href="javascript:call_cal(document.lineParentForm${facilityGroupRollup_index}.thruDate, '${(facilityGroupRollup.thruDate.toString())?default(nowTimestampString)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
             <input type="text" size="5" name="sequenceNum" value="${facilityGroupRollup.sequenceNum?if_exists}" class="inputBox">
             <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
         </FORM>
@@ -75,7 +75,7 @@ under the License.
     </#list>
     </select>
   <input type="text" class="inputBox" size="25" name="fromDate">
-  <a href="javascript:call_cal(document.addParentForm.fromDate, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  <a href="javascript:call_cal(document.addParentForm.fromDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="submit" value="${uiLabelMap.CommonAdd}">
 </form>
 <br/>
@@ -103,7 +103,7 @@ under the License.
             <input type="hidden" name="parentFacilityGroupId" value="${facilityGroupRollup.parentFacilityGroupId}">
             <input type="hidden" name="fromDate" value="${facilityGroupRollup.fromDate.toString()}">
             <input type="text" size="25" name="thruDate" value="${(facilityGroupRollup.thruDate.toString())?if_exists}" class="inputBox" <#if facilityGroupRollup.thruDate?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(facilityGroupRollup.thruDate)>style="color: red;"</#if>>
-            <a href="javascript:call_cal(document.lineChildForm${facilityGroupRollup_index}.thruDate, '${(facilityGroupRollup.thruDate.toString())?default(nowTimestampString)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+            <a href="javascript:call_cal(document.lineChildForm${facilityGroupRollup_index}.thruDate, '${(facilityGroupRollup.thruDate.toString())?default(nowTimestampString)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
             <input type="text" size="5" name="sequenceNum" value="${facilityGroupRollup.sequenceNum?if_exists}" class="inputBox">
             <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
         </FORM>
@@ -133,7 +133,7 @@ under the License.
     </#list>
     </select>
   <input type="text" class="inputBox" size="25" name="fromDate">
-  <a href="javascript:call_cal(document.addChildForm.fromDate, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+  <a href="javascript:call_cal(document.addChildForm.fromDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
   <input type="submit" value="${uiLabelMap.CommonAdd}">
 </form>
 </#if>

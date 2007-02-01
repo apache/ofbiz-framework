@@ -80,7 +80,7 @@ under the License.
                         <input type="hidden" name="facilityGroupId" value="${(facilityGroupMember.facilityGroupId)?if_exists}">
                         <input type="hidden" name="fromDate" value="${(facilityGroupMember.fromDate)?if_exists}">
                         <input type="text" size="25" name="thruDate" value="${(facilityGroupMember.thruDate)?if_exists}" class="inputBox" <#if hasExpired>style="color: red;</#if>">
-                        <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(facilityGroupMember.thruDate)?default(nowTimestampString)}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+                        <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(facilityGroupMember.thruDate)?default(nowTimestampString)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         <input type="text" size="5" name="sequenceNum" value="${(facilityGroupMember.sequenceNum)?if_exists}" class="inputBox">           
                         <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
                     </FORM>
@@ -129,7 +129,7 @@ under the License.
                 </#list>
             </select>
             ${uiLabelMap.CommonFromDate}: <input type="text" size="25" class="inputBox" name="fromDate">
-            <a href="javascript:call_cal(document.addFacilityGroupMemberForm.fromDate, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+            <a href="javascript:call_cal(document.addFacilityGroupMemberForm.fromDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
             <input type="submit" value="${uiLabelMap.CommonAdd}">
         </div>
         </form>

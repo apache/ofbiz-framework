@@ -117,7 +117,7 @@ function quicklookup(element) {
                     <span class='tabletext'>
                       <a href="javascript:quicklookup(document.quickaddform.add_product_id)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
                       <a href="javascript:call_fieldlookup2(document.quickaddform.add_product_id,'LookupProduct');">
-                        <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                       </a>
                     </span>
                   </td>
@@ -131,7 +131,7 @@ function quicklookup(element) {
                   <td>
                     <div class="tabletext">
                       <input type="text" class="inputBox" size="25" maxlength="30" name="itemDesiredDeliveryDate"<#if useAsDefaultDesiredDeliveryDate?exists> value="${defaultDesiredDeliveryDate}"</#if>/>
-                      <a href="javascript:call_cal(document.quickaddform.itemDesiredDeliveryDate,'${defaultDesiredDeliveryDate} 00:00:00.0');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
+                      <a href="javascript:call_cal(document.quickaddform.itemDesiredDeliveryDate,'${defaultDesiredDeliveryDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                       <input type="checkbox" class="inputBox" name="useAsDefaultDesiredDeliveryDate" value="true"<#if useAsDefaultDesiredDeliveryDate?exists> checked="checked"</#if>/>
                       ${uiLabelMap.OrderUseDefaultDesiredDeliveryDate}
                     </div>
@@ -142,7 +142,7 @@ function quicklookup(element) {
                   <td>
                     <div class="tabletext">
                       <input type="text" class="inputBox" size="20" maxlength="30" name="shipAfterDate" value="${shoppingCart.getDefaultShipAfterDate()?default("")}"/>
-                      <a href="javascript:call_cal(document.quickaddform.shipAfterDate,'${shoppingCart.getDefaultShipAfterDate()?default("")}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
+                      <a href="javascript:call_cal(document.quickaddform.shipAfterDate,'${shoppingCart.getDefaultShipAfterDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                     </div>
                   </td>
                 </tr>
@@ -151,7 +151,7 @@ function quicklookup(element) {
                   <td>
                     <div class="tabletext">
                       <input type="text" class="inputBox" size="20" maxlength="30" name="shipBeforeDate" value="${shoppingCart.getDefaultShipBeforeDate()?default("")}"/>
-                      <a href="javascript:call_cal(document.quickaddform.shipBeforeDate,'${shoppingCart.getDefaultShipBeforeDate()?default("")}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
+                      <a href="javascript:call_cal(document.quickaddform.shipBeforeDate,'${shoppingCart.getDefaultShipBeforeDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                     </div>
                   </td>
                 </tr>

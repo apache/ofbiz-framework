@@ -91,14 +91,14 @@ under the License.
         <td><span class="tableheadtext">${uiLabelMap.CommonFromDate}</span></td>
         <td>
           <input type="text" class="inputBox" size="25" name="fromDate">
-          <a href="javascript:call_cal(document.addSurvey.fromDate, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+          <a href="javascript:call_cal(document.addSurvey.fromDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
         </td>
       </tr>
       <tr>
         <td><span class="tableheadtext">${uiLabelMap.CommonThruDate}</span></td>
         <td>
           <input type="text" class="inputBox" size="25" name="thruDate">
-          <a href="javascript:call_cal(document.addSurvey.thruDate, '${nowTimestampString}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="Calendar"></a>
+          <a href="javascript:call_cal(document.addSurvey.thruDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
         </td>
       </tr>
       <tr>

@@ -179,7 +179,7 @@ under the License.
                   <div class="tabletext">${uiLabelMap.OrderShipAfterDate}
                     <input type="text" class="inputBox" size="20" maxlength="30" name="shipAfterDate_${cartLineIndex}" 
                       value="${cartLine.getShipAfterDate()?default("")}"/>
-                    <a href="javascript:call_cal(document.cartform.shipAfterDate_${cartLineIndex},'${shoppingCart.getShipAfterDate()?default("")}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
+                    <a href="javascript:call_cal(document.cartform.shipAfterDate_${cartLineIndex},'${shoppingCart.getShipAfterDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                   </div>
                 </td>
                 <td>&nbsp;</td>
@@ -187,7 +187,7 @@ under the License.
                   <div class="tabletext">${uiLabelMap.OrderShipBeforeDate}
                     <input type="text" class="inputBox" size="20" maxlength="30" name="shipBeforeDate_${cartLineIndex}" 
                       value="${cartLine.getShipBeforeDate()?default("")}"/>
-                    <a href="javascript:call_cal(document.cartform.shipBeforeDate_${cartLineIndex},'${shoppingCart.getShipBeforeDate()?default("")}');"><img src="/images/cal.gif" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
+                    <a href="javascript:call_cal(document.cartform.shipBeforeDate_${cartLineIndex},'${shoppingCart.getShipBeforeDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                   </div>
                 </td>
                </tr>
