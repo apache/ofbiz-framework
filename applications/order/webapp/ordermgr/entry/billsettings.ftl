@@ -525,12 +525,12 @@ function makeExpDate() {
                 <td width='50%'nowrap><div class="tabletext">${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
               </tr>
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
-              </#if>
               <tr>
                 <td width="1%" nowrap><input type="radio" name="paymentMethodTypeAndId" value="EXT_COD" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_COD">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)"/></td>
                 <td width="50%"nowrap><div class="tabletext">${uiLabelMap.OrderCOD}</div></td>
               </tr>
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+              </#if>
               <tr>
                 <td width='1%' nowrap><input type="radio" name="paymentMethodTypeAndId" value="CC" onchange="setCheckoutPaymentId(this.value)"/>
                 <td width='50%' nowrap><div class="tabletext">${uiLabelMap.AccountingVisaMastercardAmexDiscover}</div></td>
