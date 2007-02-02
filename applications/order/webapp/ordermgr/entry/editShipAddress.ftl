@@ -55,6 +55,8 @@ under the License.
                   <#if orderPerson.middleName?has_content><#assign toName = toName + orderPerson.middleName + " "></#if>
                   <#assign toName = toName + orderPerson.lastName>
                   <#if orderPerson.suffix?has_content><#assign toName = toName + " " + orderPerson.suffix></#if>
+                <#elseif parameters.toName?exists>
+                  <#assign toName = parameters.toName>
                 <#else>
                   <#assign toName = "">
                 </#if>
@@ -70,28 +72,28 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAttentionName}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value=""/>
+                      <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value="${parameters.attnName?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 1</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value=""/>
+                      <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value="${parameters.address1?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 2</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value=""/>
+                      <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value="${parameters.address2?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonCity}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="city" value=""/>
+                      <input type="text" class="inputBox" size="30" maxlength="30" name="city" value="${parameters.city?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
@@ -108,7 +110,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonZipPostalCode}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value=""/>
+                      <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value="${parameters.postalCode?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
@@ -124,8 +126,9 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAllowSolicitation}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <select name="allowSolicitation" class='selectBox'>                       
-                        <option></option><option>Y</option><option>N</option>
+                      <select name="allowSolicitation" class='selectBox'>
+                        <#assign selectedValue = parameters.allowSolicitation?default("")/>
+                        <option></option><option ${(selectedValue=="Y")?string("selected=\"selected\"","")}>Y</option><option ${(selectedValue=="N")?string("selected=\"selected\"","")}>N</option>
                       </select>
                     </td>
                   </tr>                                    
