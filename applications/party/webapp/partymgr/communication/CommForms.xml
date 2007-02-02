@@ -170,7 +170,7 @@ under the License.
         <field map-name="subjectMap" name="eventNote" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="contentMimeTypeId"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}" use-when="(communicationEvent.getString(&quot;contentMimeTypeId&quot;)!=null)&amp;&amp;(communicationEvent.getString(&quot;contentMimeTypeId&quot;).equals(&quot;text/html&quot;))">
+        <field name="content" title="${uiLabelMap.CommonContent}" use-when="(communicationEvent.getString(&quot;contentMimeTypeId&quot;)!=null)&amp;&amp;(communicationEvent.getString(&quot;contentMimeTypeId&quot;).indexOf(&quot;text/html&quot;)) != -1">
             <display also-hidden="false"/>  <!-- if not set, it is also hidden, which could cause it to re-dislay -->
         </field>
     </form>
