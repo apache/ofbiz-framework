@@ -134,6 +134,10 @@ under the License.
                 <log level="warning" message="Create Payment Application: Amount to apply [${paymentAppl.amountApplied}] is greater than the outstanding amount [${notApplied}] of the invoice [${invoice.invoiceId}]. Creating Payment Application for outstanding amount [${notApplied}] instead."/>
                 <set field="paymentAppl.amountApplied" from-field="notApplied"/>
             </if-compare-field>
+            
+            <!-- this is intentionally commented out because auto-filling billingAccountId from invoice to payment application will cause double-counting of
+            amount charged to billing accounts if there are multiple payment methods (ie, billing account + credit card)
+            see https://issues.apache.org/jira/browse/OFBIZ-682 -->
             <if-not-empty field-name="invoice.billingAccountId">
                 <set field="paymentAppl.billingAccountId" from-field="invoice.billingAccountId"/>
             </if-not-empty>
