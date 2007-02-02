@@ -35,7 +35,7 @@
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <#if appbarItem?if_exists != "fixedAssets"><#assign class = unselectedClass><#else><#assign class = selectedClass></#if>
-          <td height="20" class="${class.col}">
+          <td height="15" class="${class.col}">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">                
               <tr>
                 <td class="${class.left}"><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>"  title="${uiLabelMap.AccountingFixedAssets}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
@@ -49,7 +49,7 @@
             </table>
           </td>
           <#if appbarItem?if_exists != "fixedAssetMaints"><#assign class = unselectedClass><#else><#assign class = selectedClass></#if>
-          <td height="20" class="${class.col}">
+          <td height="15" class="${class.col}">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">                
               <tr>
                 <td class="${class.left}"><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>"  title="${uiLabelMap.AccountingFixedAssetMaints}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
@@ -63,7 +63,7 @@
             </table>
           </td>
           <#if appbarItem?if_exists != "facility"><#assign class = unselectedClass><#else><#assign class = selectedClass></#if>
-          <td height="20" class="${class.col}">
+          <td height="15" class="${class.col}">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">                
               <tr>
                 <td class="${class.left}"><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>"  title="${uiLabelMap.ProductWarehouse}" class="${class.link}"><img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" width="10" height="15" border="0"></a></td>
