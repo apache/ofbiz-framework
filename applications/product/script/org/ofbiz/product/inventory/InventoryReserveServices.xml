@@ -42,23 +42,26 @@ under the License.
         <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
 
         <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
+        <!-- FIFO=first in first out, so it should be order by ASCending receive or expire date
+             LIFO=last in first out, so it means order by DESCending receive or expire date
+             -->
         <if-compare value="INVRO_GUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-            <set value="-unitCost" field="orderByString"/>
+            <set value="unitCost DESC" field="orderByString"/>
         <else>
             <if-compare value="INVRO_LUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                <set value="+unitCost" field="orderByString"/>
+                <set value="unitCost ASC" field="orderByString"/>
             <else>
                 <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                    <set value="+expireDate" field="orderByString"/>
+                    <set value="expireDate ASC" field="orderByString"/>
                 <else>
                     <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                        <set value="-expireDate" field="orderByString"/>
+                        <set value="expireDate DESC" field="orderByString"/>
                     <else>
                         <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                            <set value="+datetimeReceived" field="orderByString"/>
+                            <set value="datetimeReceived DESC" field="orderByString"/>
                         <else>
                             <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
-                            <set value="-datetimeReceived" field="orderByString"/>
+                            <set value="datetimeReceived ASC" field="orderByString"/>
                             <set value="INVRO_FIFO_REC" field="parameters.reserveOrderEnumId"/>
                         </else>
                         </if-compare>
