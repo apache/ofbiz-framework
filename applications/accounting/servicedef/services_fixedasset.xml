@@ -206,6 +206,7 @@ under the License.
         <description>Create a FixedAsset Maintenance</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="maintTemplateWorkEffortId" mode="IN" type="String" optional="true"/>
         <override name="maintHistSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->        
     </service>
     <service name="updateFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"

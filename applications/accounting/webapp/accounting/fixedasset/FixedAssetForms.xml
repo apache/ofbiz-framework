@@ -357,6 +357,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="maintTemplateWorkEffortId" use-when="fixedAssetMaint==null"  title="${uiLabelMap.AccountingFixedAssetMaintenanceTemplate}" tooltip="${uiLabelMap.AccountingFixedAssetMaintMessage3}">
+            <lookup target-form-name="LookupWorkEffort"/>
+        </field>
         <field name="intervalQuantity" title="${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}"><text size="10"/></field>        
         <field name="intervalUomId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalUom}">
             <drop-down allow-empty="true">
