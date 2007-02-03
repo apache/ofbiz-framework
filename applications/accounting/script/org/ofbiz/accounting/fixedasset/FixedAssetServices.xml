@@ -529,17 +529,38 @@ under the License.
                 <field-map field-name="productMaintSeqId" env-name="parameters.productMaintSeqId"/>
             </entity-one>
             <set field="newEntity.productMaintTypeId" from-field="productMaint.productMaintTypeId"/>
+        </if-not-empty >
+        <if-not-empty field-name="productMaint.maintTemplateWorkEffortId">
+            <set field="maintTemplateWorkEffortId" from-field="productMaint.maintTemplateWorkEffortId"/>
+            <else>
+                <!-- User can still pick a Template workEffort -->
+                <set field="maintTemplateWorkEffortId" from-field="parameters.maintTemplateWorkEffortId"/>
+            </else>
         </if-not-empty>
-        <!-- Create the WorkEfforts, dates not specified -->
-        <!-- Maintenance WorkEffort entity -->
-        <set value="Maintenance of Fixed Asset #${newEntity.fixedAssetId} " field="maintWorkEffortMap.workEffortName"/>
-        <set value="TASK" field="maintWorkEffortMap.workEffortTypeId"/>
-        <set value="WEPT_MAINTENANCE" field="maintWorkEffortMap.workEffortPurposeTypeId"/>
-        <set value="CAL_TENTATIVE" field="maintWorkEffortMap.currentStatusId"/>
-        <set from-field="userLogin.partyId" field="maintWorkEffortMap.quickAssignPartyId"/>
-        <call-service service-name="createWorkEffort" in-map-name="maintWorkEffortMap">
-            <result-to-field result-name="workEffortId" field-name="newEntity.scheduleWorkEffortId"/>
-        </call-service>
+        <if-not-empty field-name="maintTemplateWorkEffortId">
+            
+            <set field="duplicateTemplateWorkEffortMap.oldWorkEffortId" from-field="maintTemplateWorkEffortId"/>
+            <sequenced-id-to-env sequence-name="WorkEffort" env-name="duplicateTemplateWorkEffortMap.workEffortId"/>
+            <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortAssocs" value="Y"/>
+            <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortNotes" value="Y"/>
+            <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortContents" value="Y"/>
+            <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortAssignmentRates" value="Y"/>
+            <call-service service-name="duplicateWorkEffort" in-map-name="duplicateTemplateWorkEffortMap"/>
+            <set field="newEntity.scheduleWorkEffortId" from-field="duplicateTemplateWorkEffortMap.workEffortId"/>
+            
+            <else>
+                <!-- Create the WorkEfforts, dates not specified -->
+                <!-- Maintenance WorkEffort entity -->
+                <set value="Maintenance of Fixed Asset #${newEntity.fixedAssetId} " field="maintWorkEffortMap.workEffortName"/>
+                <set value="TASK" field="maintWorkEffortMap.workEffortTypeId"/>
+                <set value="WEPT_MAINTENANCE" field="maintWorkEffortMap.workEffortPurposeTypeId"/>
+                <set value="CAL_TENTATIVE" field="maintWorkEffortMap.currentStatusId"/>
+                <set from-field="userLogin.partyId" field="maintWorkEffortMap.quickAssignPartyId"/>
+                <call-service service-name="createWorkEffort" in-map-name="maintWorkEffortMap">
+                    <result-to-field result-name="workEffortId" field-name="newEntity.scheduleWorkEffortId"/>
+                </call-service>
+            </else>
+        </if-not-empty>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateFixedAssetMaint" short-description="Update an existing FixedAsset Maintenance">
