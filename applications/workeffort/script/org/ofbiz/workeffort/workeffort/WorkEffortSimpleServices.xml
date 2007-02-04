@@ -1081,7 +1081,7 @@ under the License.
         
         <!-- set up entity filter for workEffortAssoc-->
         <set field="workEffortAssocFindContext.workEffortIdFrom" from-field="parameters.oldWorkEffortId"/>
-        <set field="reverseWorkEffortFindContext.workEffortIdTo" from-field="parameters.oldProductId"/>
+        <set field="reverseWorkEffortFindContext.workEffortIdTo" from-field="parameters.oldWorkEffortId"/>
         <if-not-empty field-name="duplicateWorkEffortAssocs" map-name="parameters">
             <find-by-and entity-name="WorkEffortAssoc" map-name="workEffortAssocFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
