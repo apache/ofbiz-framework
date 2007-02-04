@@ -35,24 +35,49 @@ under the License.
     
 </script>
 
+<#macro pagination>
+  <tr>
+    <td>
+      <table border="0" width="100%">
+        <tr>
+          <td>
+            <#if state.hasPrevious()>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">Previous</a>
+            </#if>
+          </td>
+          <td align="right">
+            <#if state.hasNext()>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">Next</a>
+            </#if>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</#macro>
+  
+
+<#-- order list -->
+
 <table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
   <tr>
     <td width="100%">
       <form method="post" name="findorder" action="<@ofbizUrl>orderlist</@ofbizUrl>">
+        <input type="hidden" name="changeStatusAndTypeState" value="Y">
         <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
           <tr>
             <td><div class="tableheadtext">${uiLabelMap.CommonStatus}:</div></td>
             <td>&nbsp;&nbsp;</td>
             <td nowrap>
                 <div class="tabletext">
-                    <input type="checkbox" name="viewall" value="Y" onclick="javascript:setCheckboxes()" <#if viewall?exists>checked="checked"</#if> />${uiLabelMap.CommonAll}
-                    <input type="checkbox" name="viewcreated" value="Y" <#if viewcreated?exists>checked="checked"</#if> />${uiLabelMap.CommonCreated}
-                    <input type="checkbox" name="viewprocessing" value="Y" <#if viewprocessing?exists>checked="checked"</#if> />${uiLabelMap.CommonProcessing}
-                    <input type="checkbox" name="viewapproved" value="Y" <#if viewapproved?exists>checked="checked"</#if> />${uiLabelMap.CommonApproved}
-                    <input type="checkbox" name="viewcompleted" value="Y" <#if viewcompleted?exists>checked="checked"</#if> />${uiLabelMap.CommonCompleted}
-                    <input type="checkbox" name="viewsent" value="Y" <#if viewsent?exists>checked="checked"</#if> />${uiLabelMap.CommonSent}
-                    <input type="checkbox" name="viewrejected" value="Y" <#if viewrejected?exists>checked="checked"</#if> />${uiLabelMap.CommonRejected}
-                    <input type="checkbox" name="viewcancelled" value="Y" <#if viewcancelled?exists>checked="checked"</#if> />${uiLabelMap.CommonCancelled}
+                    <input type="checkbox" name="viewall" value="Y" onclick="javascript:setCheckboxes()" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}
+                    <input type="checkbox" name="viewcreated" value="Y" <#if state.hasStatus('viewcreated')>checked="checked"</#if> />${uiLabelMap.CommonCreated}
+                    <input type="checkbox" name="viewprocessing" value="Y" <#if state.hasStatus('viewprocessing')>checked="checked"</#if> />${uiLabelMap.CommonProcessing}
+                    <input type="checkbox" name="viewapproved" value="Y" <#if state.hasStatus('viewapproved')>checked="checked"</#if> />${uiLabelMap.CommonApproved}
+                    <input type="checkbox" name="viewcompleted" value="Y" <#if state.hasStatus('viewcompleted')>checked="checked"</#if> />${uiLabelMap.CommonCompleted}
+                    <input type="checkbox" name="viewsent" value="Y" <#if state.hasStatus('viewsent')>checked="checked"</#if> />${uiLabelMap.CommonSent}
+                    <input type="checkbox" name="viewrejected" value="Y" <#if state.hasStatus('viewrejected')>checked="checked"</#if> />${uiLabelMap.CommonRejected}
+                    <input type="checkbox" name="viewcancelled" value="Y" <#if state.hasStatus('viewcancelled')>checked="checked"</#if> />${uiLabelMap.CommonCancelled}
                 </div>
             </td>            
             <td rowspan="2">&nbsp;&nbsp;</td>
@@ -65,9 +90,9 @@ under the License.
             <td>&nbsp;&nbsp;</td>
             <td nowrap>
                 <div class="tabletext">
-                    <input type="checkbox" name="view_SALES_ORDER" value="Y" <#if view_SALES_ORDER?exists>checked="checked"</#if>/>
+                    <input type="checkbox" name="view_SALES_ORDER" value="Y" <#if state.hasType('view_SALES_ORDER')>checked="checked"</#if>/>
                     ${descr_SALES_ORDER}
-                    <input type="checkbox" name="view_PURCHASE_ORDER" value="Y" <#if view_PURCHASE_ORDER?exists>checked="checked"</#if>/>
+                    <input type="checkbox" name="view_PURCHASE_ORDER" value="Y" <#if state.hasType('view_PURCHASE_ORDER')>checked="checked"</#if>/>
                     ${descr_PURCHASE_ORDER}
                 </div>
             </td>            
@@ -78,10 +103,10 @@ under the License.
             <td nowrap>
                 <div class="tabletext">
                     <input type="checkbox" name="filterInventoryProblems" value="Y"
-                        <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if>/>
+                        <#if state.hasFilter('filterInventoryProblems')>checked="checked"</#if>/>
                         ${uiLabelMap.OrderFilterInventoryProblems}
                     <input type="checkbox" name="filterAuthProblems" value="Y"
-                        <#if requestParameters.filterAuthProblems?default("N") == "Y">checked="checked"</#if>/>
+                        <#if state.hasFilter('filterAuthProblems')>checked="checked"</#if>/>
                         ${uiLabelMap.OrderFilterAuthProblems}
                 </div>
             </td>
@@ -92,13 +117,13 @@ under the License.
             <td nowrap>
                 <div class="tabletext">
                     <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
-                        <#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if>/>
+                        <#if state.hasFilter('filterPartiallyReceivedPOs')>checked="checked"</#if>/>
                         ${uiLabelMap.OrderFilterPartiallyReceivedPOs}
                     <input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
-                        <#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if>/>
+                        <#if state.hasFilter('filterPOsOpenPastTheirETA')>checked="checked"</#if>/>
                         ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}
                     <input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
-                        <#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if>/>
+                        <#if state.hasFilter('filterPOsWithRejectedItems')>checked="checked"</#if>/>
                         ${uiLabelMap.OrderFilterPOsWithRejectedItems}
                 </div>
             </td>
@@ -238,6 +263,9 @@ under the License.
       </table>
     </td>
   </tr>
+
+  <@pagination/>
+
 <#else>
 <tr><td><div class="tableheadtext">${uiLabelMap.OrderViewPermissionError}</div></td></tr>
 </#if>
