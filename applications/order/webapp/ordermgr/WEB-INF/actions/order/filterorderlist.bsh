@@ -22,13 +22,14 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.order.order.OrderListState;
 
 orderHeaderList = context.get("orderHeaderList");
 productStore = ProductStoreWorker.getProductStore(request);
 
 List filterInventoryProblems = new ArrayList();
 
-if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+if (state.hasFilter("view_InventoryProblems") && UtilValidate.isNotEmpty(orderHeaderList)) {
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
         orderHeader = (GenericValue) ohi.next();
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
@@ -43,9 +44,12 @@ List filterPOsOpenPastTheirETA = new ArrayList();
 List filterPOsWithRejectedItems = new ArrayList();
 List filterPartiallyReceivedPOs = new ArrayList();
 
-if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
-        "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
-        "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) &&
+state = OrderListState.getInstance(request);
+//print("### " + state.toString());
+
+if ((state.hasFilter("filterPartiallyReceivedPOs") ||
+        state.hasFilter("filterPOsOpenPastTheirETA") ||
+        state.hasFilter("filterPOsWithRejectedItems")) &&
         UtilValidate.isNotEmpty(orderHeaderList)) {    
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
         orderHeader = (GenericValue) ohi.next();
@@ -56,17 +60,17 @@ if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
         if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
             if (orderReadHelper.getRejectedOrderItems() &&
-                    "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) {
+                    state.hasFilter("filterPOsWithRejectedItems")) {
                 filterPOsWithRejectedItems.add(orderHeader.get("orderId"));
                 continue;
             }
             if (orderReadHelper.getPastEtaOrderItems(orderHeader.get("orderId")) &&
-                    "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA"))) {
+                    state.hasFilter("filterPOsOpenPastTheirETA")) {
                 filterPOsOpenPastTheirETA.add(orderHeader.get("orderId"));
                 continue;
             }
             if (orderReadHelper.getPartiallyReceivedItems() &&
-                    "Y".equals(requestParameters.get("filterPartiallyReceivedPOs"))) {
+                    state.hasFilter("filterPartiallyReceivedPOs")) {
                 filterPartiallyReceivedPOs.add(orderHeader.get("orderId"));
                 continue;
             }            
@@ -76,7 +80,7 @@ if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
 
 List filterAuthProblems = new ArrayList();
 
-if ("Y".equals(requestParameters.get("filterAuthProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+if (state.hasFilter("filterAuthProblems") && UtilValidate.isNotEmpty(orderHeaderList)) {
     for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
         orderHeader = (GenericValue) ohi.next();
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
