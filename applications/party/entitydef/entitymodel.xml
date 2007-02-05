@@ -552,6 +552,19 @@ under the License.
           <key-map field-name="contentMimeTypeId" rel-field-name="mimeTypeId"/>
       </relation>
     </entity>
+    
+  <view-entity entity-name="CommunicationEventAndSubscr"
+    package-name="org.ofbiz.party.communication"
+    title="Communication Event And Role View Entity">
+    <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
+    <member-entity entity-alias="SU" entity-name="Subscription"/>
+    <alias-all entity-alias="SC"/>
+    <alias-all entity-alias="SU"/>
+    <view-link entity-alias="SC" rel-entity-alias="SU">
+      <key-map field-name="subscriptionId"/>
+    </view-link>
+  </view-entity>
+  
     <view-entity entity-name="CommunicationEventAndRole"
                  package-name="org.ofbiz.party.communication"
                  title="Communication Event And Role View Entity">
