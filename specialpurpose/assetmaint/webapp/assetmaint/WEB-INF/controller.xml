@@ -95,6 +95,13 @@
         <response name="success" type="view" value="main"/>
     </request-map>
 
+    <request-map uri="setSessionLocale">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+
     <!-- FixedAssets requests -->
     <request-map uri="findFixedAssets">
         <security https="true" auth="true" />
