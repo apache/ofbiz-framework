@@ -55,6 +55,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="CommunicationEvent" />
     <entity-group group="org.ofbiz" entity="CommunicationEventPrpTyp" />
     <entity-group group="org.ofbiz" entity="CommunicationEventPurpose" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventAndSubscr" />
     <entity-group group="org.ofbiz" entity="CommunicationEventRole" />
     <entity-group group="org.ofbiz" entity="CommunicationEventType" />
     <entity-group group="org.ofbiz" entity="CommunicationEventAndRole" />
