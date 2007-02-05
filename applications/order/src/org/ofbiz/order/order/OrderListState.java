@@ -1,3 +1,21 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.ofbiz.order.order;
 
 import java.util.*;
@@ -18,9 +36,6 @@ import org.ofbiz.entity.util.*;
  * Also provides convenience methods for retrieving
  * the right set of data for a particular state.
  *
- * Configuration for this may be found in 
- * applications/order/config/OrderListState.properties
- *
  * TODO: this can be generalized to use a set of State
  * objects, including Pagination. Think about design
  * patterns in Fowler.
@@ -28,7 +43,6 @@ import org.ofbiz.entity.util.*;
 public class OrderListState {
 
     public static final String module = OrderListState.class.getName();
-    //Integer.parseInt(UtilProperties.getPropertyValue("OrderListState.properties", "view_size", "10"));
     public static final String SESSION_KEY = "__ORDER_LIST_STATUS__";
     public static final String VIEW_SIZE_PARAM = "viewSize";
     public static final String VIEW_INDEX_PARAM = "viewIndex";
@@ -77,7 +91,7 @@ public class OrderListState {
      * instead use getInstance().
      */
     protected OrderListState() {
-        viewSize = Integer.parseInt(UtilProperties.getPropertyValue("OrderListState.properties", "view_size", "10"));
+        viewSize = 10;
         viewIndex = 0;
         orderStatusState = FastMap.newInstance();
         orderTypeState = FastMap.newInstance();
