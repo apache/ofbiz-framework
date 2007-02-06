@@ -145,6 +145,15 @@ under the License.
       </tr>
       <tr>
         <td width="14%">&nbsp;</td>
+        <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductFacilityOwner}</div></td>
+        <td width="6%">&nbsp;</td>
+        <td width="74%">
+            <input type="text" name="ownerPartyId" value="" size="20" maxlength="20" class="inputBox">
+            <a href="javascript:call_fieldlookup2(document.selectAllForm.ownerPartyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>            
+        </td>
+      </tr>
+      <tr>
+        <td width="14%">&nbsp;</td>
         <td width="6%" align="right" nowrap><div class="tabletext">${uiLabelMap.ProductDateReceived}</div></td>
         <td width="6%">&nbsp;</td>
         <td width="74%">
