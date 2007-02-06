@@ -61,7 +61,12 @@ under the License.
             <#assign hasExpired = false>
             <#if productCategoryMember.thruDate?exists && nowTimestamp.after(productCategoryMember.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
             <tr valign="middle">
-                <td><a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>" class="buttontext"><#if product?exists>${(product.internalName)?if_exists}</#if> [${(productCategoryMember.productId)?if_exists}]</a></td>
+                <td>
+                    <#if (product.smallImageUrl)?exists>
+                       <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>"><img alt="Small Image" src="<@ofbizContentUrl>${product.smallImageUrl}</@ofbizContentUrl>" height="40" width="40" align="middle"></a>
+                    </#if>
+                   <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>" class="buttontext"><#if product?exists>${(product.internalName)?if_exists}</#if> [${(productCategoryMember.productId)?if_exists}]</a>
+                </td>
                 <td><div class="tabletext"<#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)?if_exists}</div></td>
                 <td align="center">
                     <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)?if_exists}">
