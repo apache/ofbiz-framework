@@ -80,6 +80,14 @@ under the License.
             <a href="javascript:call_fieldlookup2(document.inventoryItemForm.partyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>            
         </td>
       </tr>
+      <tr>
+        <td align="right"><div class="tabletext">${uiLabelMap.ProductFacilityOwner}</div></td>
+        <td>&nbsp;</td>
+        <td>
+            <input type="text" name="ownerPartyId" value="${inventoryItemData.ownerPartyId?if_exists}" size="20" maxlength="20" class="inputBox">
+            <a href="javascript:call_fieldlookup2(document.inventoryItemForm.ownerPartyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>            
+        </td>
+      </tr>
       <#if "SERIALIZED_INV_ITEM" == (inventoryItem.inventoryItemTypeId)?if_exists>
           <tr>
             <td align="right"><div class="tabletext">${uiLabelMap.ProductStatus}</div></td>
