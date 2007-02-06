@@ -34,8 +34,6 @@
 
     <EnumerationType description="Product Price Parent Enum Type" enumTypeId="PROD_PRICE" hasTable="N" parentTypeId=""/>
     <EnumerationType description="Product Price Input Parameter" enumTypeId="PROD_PRICE_IN_PARAM" hasTable="N" parentTypeId="PROD_PRICE"/>
-    <EnumerationType description="Product Price Condition" enumTypeId="PROD_PRICE_COND" hasTable="N" parentTypeId="PROD_PRICE"/>
-
     <Enumeration description="Product" enumCode="PRODUCT_ID" enumId="PRIP_PRODUCT_ID" sequenceId="01" enumTypeId="PROD_PRICE_IN_PARAM"/>
     <Enumeration description="Product Category" enumCode="PRODUCT_CATEGORY_ID" enumId="PRIP_PROD_CAT_ID" sequenceId="02" enumTypeId="PROD_PRICE_IN_PARAM"/>
     <Enumeration description="Product Catalog" enumCode="PROD_CATALOG_ID" enumId="PRIP_PROD_CLG_ID" sequenceId="03" enumTypeId="PROD_PRICE_IN_PARAM"/>
@@ -59,6 +57,7 @@
     <Enumeration description="&gt;=" enumCode="GTE" enumId="PRC_GTE" sequenceId="06" enumTypeId="PROD_PRICE_COND"/>
     ... new style below less technical -->
 
+    <EnumerationType description="Product Price Condition" enumTypeId="PROD_PRICE_COND" hasTable="N" parentTypeId="PROD_PRICE"/>
     <Enumeration description="Is" enumCode="EQ" enumId="PRC_EQ" sequenceId="01" enumTypeId="PROD_PRICE_COND"/>
     <Enumeration description="Is Not" enumCode="NEQ" enumId="PRC_NEQ" sequenceId="02" enumTypeId="PROD_PRICE_COND"/>
     <Enumeration description="Is Less Than" enumCode="LT" enumId="PRC_LT" sequenceId="03" enumTypeId="PROD_PRICE_COND"/>
@@ -110,6 +109,10 @@
     <Enumeration description="OFBiz URL" enumCode="OFBURL" enumId="KOTT_OFBURL" enumTypeId="KWOVRD_TRGT_TYPE" sequenceId="03"/>
     <Enumeration description="Absolute URL" enumCode="AURL" enumId="KOTT_AURL" enumTypeId="KWOVRD_TRGT_TYPE" sequenceId="04"/>
 
+    <EnumerationType description="Product Category Link Type" enumTypeId="PCAT_LINK_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Search Parameters" enumCode="SEARCH_PARAM" enumId="PCLT_SEARCH_PARAM" sequenceId="01" enumTypeId="PCAT_LINK_TYPE"/>
+    <Enumeration description="Absolute URL" enumCode="ABS_URL" enumId="PCLT_ABS_URL" sequenceId="02" enumTypeId="PCAT_LINK_TYPE"/>
+    
     <FacilityType description="Building" facilityTypeId="BUILDING" hasTable="N" parentTypeId=""/>
     <FacilityType description="Floor" facilityTypeId="FLOOR" hasTable="N" parentTypeId=""/>
     <FacilityType description="Office" facilityTypeId="OFFICE" hasTable="N" parentTypeId=""/>

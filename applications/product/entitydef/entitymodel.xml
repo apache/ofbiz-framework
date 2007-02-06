@@ -309,25 +309,50 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="prodCatContentTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="ProductCategoryLink"
+        package-name="org.ofbiz.product.category"
+        title="Product Category Link Entity">
+        <field name="productCategoryId" type="id-ne"></field>
+        <field name="linkSeqId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="comments" type="comment"><description>Internal comments, not for public display.</description></field>
+        <field name="sequenceNum" type="numeric"><description>This field is used to sort the links. The linkSeqId field is not used because it is part of the primary key and cannot be changed.</description></field>
+        <field name="titleText" type="description"></field>
+        <field name="detailText" type="very-long"></field>
+        <field name="imageUrl" type="description"></field>
+        <field name="linkTypeEnumId" type="id"></field>
+        <field name="linkInfo" type="long-varchar"></field>
+        <field name="detailSubScreen" type="long-varchar"><description>This is optional. If not specified a default should be used by the category detail template.</description></field>
+        <prim-key field="productCategoryId"/>
+        <prim-key field="linkSeqId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PROD_CLNK_CATEGORY" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_CLNK_LKTPENM" title="LinkType" rel-entity-name="Enumeration">
+            <key-map field-name="linkTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+    </entity>
     <entity entity-name="ProductCategoryMember"
-            package-name="org.ofbiz.product.category"
-            title="Product Category Member Entity">
-      <field name="productCategoryId" type="id-ne"></field>
-      <field name="productId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <field name="comments" type="comment"></field>
-      <field name="sequenceNum" type="numeric"></field>
-      <field name="quantity" type="floating-point"></field>
-      <prim-key field="productCategoryId"/>
-      <prim-key field="productId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="PROD_CMBR_PRODUCT" rel-entity-name="Product">
-        <key-map field-name="productId"/>
-      </relation>
-      <relation type="one" fk-name="PROD_CMBR_CATEGORY" rel-entity-name="ProductCategory">
-        <key-map field-name="productCategoryId"/>
-      </relation>
+        package-name="org.ofbiz.product.category"
+        title="Product Category Member Entity">
+        <field name="productCategoryId" type="id-ne"></field>
+        <field name="productId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="comments" type="comment"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <field name="quantity" type="floating-point"></field>
+        <prim-key field="productCategoryId"/>
+        <prim-key field="productId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PROD_CMBR_PRODUCT" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_CMBR_CATEGORY" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
     </entity>
     <view-entity entity-name="ProductCategoryMemberAndRole"
             package-name="org.ofbiz.product.category"
