@@ -52,6 +52,7 @@ under the License.
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="amountApplied" type="Double" mode="IN" optional="false"/>
         <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
