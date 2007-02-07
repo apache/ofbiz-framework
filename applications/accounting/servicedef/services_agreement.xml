@@ -165,4 +165,23 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <!-- AgreementGeographicalApplic  -->
+    <service name="createAgreementGeographicalApplic" default-entity-name="AgreementGeographicalApplic" engine="simple"
+                location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementGeographicalApplic" auth="true">
+        <description>Create an AgreementGeographicalApplic</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateAgreementGeographicalApplic" default-entity-name="AgreementGeographicalApplic" engine="simple"
+                location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="updateAgreementGeographicalApplic" auth="true">
+        <description>Update an AgreementGeographicalApplic</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeAgreementGeographicalApplic" default-entity-name="AgreementGeographicalApplic" engine="simple"
+                location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="removeAgreementGeographicalApplic" auth="true">
+        <description>Remove an AgreementGeographicalApplic</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 </services>

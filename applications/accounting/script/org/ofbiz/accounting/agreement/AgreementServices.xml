@@ -309,7 +309,48 @@ under the License.
         <remove-value value-name="agreementPartyApplic"/>
         <check-errors/>
     </simple-method>
-    
+
+    <!-- create a new AgreementGeographicalApplic -->
+    <simple-method method-name="createAgreementGeographicalApplic" short-description="Create an AgreementGeographicalApplic">
+        <check-permission permission="ACCOUNTING" action="_CREATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
+            <fail-message message="Security Error: to run createAgreementGeographicalApplic you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="AgreementGeographicalApplic"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing AgreementGeographicalApplic -->
+    <simple-method method-name="updateAgreementGeographicalApplic" short-description="Update an existing AgreementGeographicalApplic">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run updateAgreementGeographicalApplic you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="agreementGeographicalApplic"/>
+        <store-value value-name="agreementGeographicalApplic"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing AgreementGeographicalApplic -->
+    <simple-method method-name="removeAgreementGeographicalApplic" short-description="Remove an existing AgreementGeographicalApplic">
+        <check-permission permission="ACCOUNTING" action="_UPDATE">
+            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
+            <fail-message message="Security Error: to run removeAgreementGeographicalApplic you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="agreementGeographicalApplic"/>
+        <check-errors/>
+    </simple-method>
+
     <!-- copy an existing Agreement -->
     <simple-method method-name="copyAgreement" short-description="Copy an existing Agreement">
         <check-permission permission="ACCOUNTING" action="_CREATE">
