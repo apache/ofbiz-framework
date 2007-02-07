@@ -781,6 +781,22 @@ under the License.
         <response name="error" type="view" value="EditAgreementItemParty"/>
     </request-map>
 
+    <request-map uri="ListAgreementGeographicalApplic"><security https="true" auth="true"/><response name="success" type="view" value="ListAgreementGeographicalApplic"/></request-map>
+    <request-map uri="removeAgreementGeographicalApplic">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeAgreementGeographicalApplic"/>
+        <response name="success" type="view" value="ListAgreementGeographicalApplic"/>
+        <response name="error" type="view" value="ListAgreementGeographicalApplic"/>
+    </request-map>
+
+    <request-map uri="EditAgreementGeographicalApplic"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementGeographicalApplic"/></request-map>
+    <request-map uri="createAgreementGeographicalApplic">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createAgreementGeographicalApplic"/>
+        <response name="success" type="view" value="ListAgreementGeographicalApplic"/>
+        <response name="error" type="view" value="EditAgreementGeographicalApplic"/>
+    </request-map>
+
     <!-- TaxAuthority Requests -->
     <request-map uri="FindTaxAuthority"><security https="true" auth="true"/><response name="success" type="view" value="FindTaxAuthority"/></request-map>
     <request-map uri="EditTaxAuthority"><security https="true" auth="true"/><response name="success" type="view" value="EditTaxAuthority"/></request-map>
@@ -1292,6 +1308,8 @@ under the License.
     <view-map name="EditAgreementItemProduct" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemProduct"/>
     <view-map name="ListAgreementItemParties" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemParties"/>
     <view-map name="EditAgreementItemParty" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemParty"/>
+    <view-map name="ListAgreementGeographicalApplic" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementGeographicalApplic"/>
+    <view-map name="EditAgreementGeographicalApplic" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementGeographicalApplic"/>
     <!-- tax authority -->
     <view-map name="FindTaxAuthority" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#FindTaxAuthority"/>
     <view-map name="EditTaxAuthority" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#EditTaxAuthority"/>

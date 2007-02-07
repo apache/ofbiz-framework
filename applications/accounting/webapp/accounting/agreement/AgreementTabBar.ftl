@@ -33,6 +33,7 @@ under the License.
         <a href="<@ofbizUrl>ListAgreementItemTerms?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>" class="${selectedClassMap.ListAgreementItemTerms?default(unselectedClassName)}">${uiLabelMap.AccountingAgreementItemTerms}</a>
         <a href="<@ofbizUrl>ListAgreementItemProducts?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>" class="${selectedClassMap.ListAgreementItemProducts?default(unselectedClassName)}">${uiLabelMap.ProductProducts}</a>
         <a href="<@ofbizUrl>ListAgreementItemParties?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>" class="${selectedClassMap.ListAgreementItemParties?default(unselectedClassName)}">${uiLabelMap.Party}</a>
+        <a href="<@ofbizUrl>ListAgreementGeographicalApplic?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>" class="${selectedClassMap.ListAgreementGeographicalApplic?default(unselectedClassName)}">${uiLabelMap.CommonGeo}</a>
     </div>
 </#if>
 

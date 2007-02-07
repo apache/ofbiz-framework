@@ -379,4 +379,36 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="ListAgreementGeographicalApplic" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="agreementGeographicalApplics"
+            target="" paginate-target="ListAgreementGeographicalApplic" title="" type="list">
+        <auto-fields-entity entity-name="AgreementGeographicalApplic" default-field-type="display"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="geoId" title="${uiLabelMap.CommonDescription}">
+            <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
+        </field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="removeAgreementGeographicalApplic?geoId=${geoId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditAgreementGeographicalApplic" type="single"
+            target="updateAgreementGeographicalApplic" title="" default-map-name="agreementGeographicalApplic"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="agreementGeographicalApplic==null" target="createAgreementGeographicalApplic"/>
+        <auto-fields-entity entity-name="AgreementGeographicalApplic" default-field-type="edit"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="geoId" use-when="agreementGeographicalApplic==null">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Geo" description="${geoName} [${geoId}]">
+                    <entity-order-by field-name="geoName"/>
+                </entity-options> 
+            </drop-down>
+        </field>
+        <field name="geoId" use-when="agreementPartyApplic!=null"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
 </forms>

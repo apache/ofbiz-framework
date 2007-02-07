@@ -428,4 +428,59 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ListAgreementGeographicalApplic">
+        <section>
+            <actions>
+                <set field="title" value="List Agreement Geos"/>
+                <set field="titleProperty" value="PageTitleListAgreementGeographicalApplic"/>
+                <set field="headerItem" value="agreement"/>
+                <set field="tabButtonItem" value="ListAgreementGeographicalApplic"/>
+
+                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
+                <entity-and entity-name="AgreementGeographicalApplic" list-name="agreementGeographicalApplics">
+                    <field-map env-name="agreement.agreementId" field-name="agreementId"/>
+                    <field-map env-name="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="EditAgreementGeographicalApplic?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditAgreementGeographicalApplic">
+        <section>
+            <actions>
+                <set field="title" value="Edit Agreement Geo"/>
+                <set field="titleProperty" value="PageTitleEditAgreementGeographicalApplic"/>
+                <set field="headerItem" value="agreement"/>
+                <set field="tabButtonItem" value="ListAgreementGeographicalApplic"/>
+                
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
+                <set field="geoId" from-field="parameters.geoId"/>
+
+                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+                <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
+                <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <link target="EditAgreementGeographicalApplic?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                        </container>
+                        <include-form name="EditAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
