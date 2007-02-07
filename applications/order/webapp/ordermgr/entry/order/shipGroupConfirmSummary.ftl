@@ -83,7 +83,7 @@ standard order confirmation page and to be re-usable by other screens.
 
         <td rowspan="${numberOfItems}" valign="top" class="tabletext">
           <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", cartShipInfo.getSupplierPartyId()))?if_exists />
-          <#if supplier?has_content>${supplier.description?default(supplier.partyId)}</#if>
+          <#if supplier?has_content>${supplier.groupName?default(supplier.partyId)}</#if>
         </td>
 
         <#-- carrier column (also spans rows = number of items) -->
@@ -91,7 +91,7 @@ standard order confirmation page and to be re-usable by other screens.
         <td rowspan="${numberOfItems}" valign="top" class="tabletext">
           <#assign carrier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", cartShipInfo.getCarrierPartyId()))?if_exists />
           <#assign method =  delegator.findByPrimaryKey("ShipmentMethodType", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentMethodTypeId", cartShipInfo.getShipmentMethodTypeId()))?if_exists />
-          <#if carrier?has_content>${carrier.description?default(carrier.partyId)}</#if>
+          <#if carrier?has_content>${carrier.groupName?default(carrier.partyId)}</#if>
           <#if method?has_content>${method.description?default(method.shipmentMethodTypeId)}</#if>
         </td>
 
