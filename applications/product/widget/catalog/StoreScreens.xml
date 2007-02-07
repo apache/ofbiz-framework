@@ -349,4 +349,62 @@ under the License.
             </widgets>
        </section>
     </screen>
+
+    <!-- QuantityBreak screens -->
+    <screen name="ListQuantityBreaks">
+       <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListQuantityBreaks"/>
+                <set field="headerItem" value="ListQuantityBreaks"/>
+
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+
+                <entity-condition entity-name="QuantityBreak" list-name="quantityBreaks">
+                    <order-by field-name="quantityBreakId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.QuantityBreaks}</label>
+                        </container>
+                        <container>
+                            <link target="EditQuantityBreak" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListQuantityBreaks" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+       </section>
+    </screen>
+
+    <screen name="EditQuantityBreak">
+       <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditQuantityBreak"/>
+                <set field="headerItem" value="ListQuantityBreaks"/>
+
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+
+                <!--<set field="quantityBreakId" from-field="parameters.quantityBreakId"/>-->
+                <entity-one entity-name="QuantityBreak" value-name="quantityBreak" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.QuantityBreaks}</label>
+                        </container>
+                        <include-form name="EditQuantityBreak" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+       </section>
+    </screen>
+
 </screens>
