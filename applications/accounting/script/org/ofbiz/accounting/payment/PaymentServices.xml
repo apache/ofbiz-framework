@@ -113,8 +113,10 @@ under the License.
         <if-empty field-name="invoiceId" map-name="parameters">
             <if-empty field-name="billingAccountId" map-name="parameters">
                 <if-empty field-name="taxAuthGeoId" map-name="parameters">
-                  <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/></add-error>
-                  <check-errors/>
+                    <if-empty field-name="overrideGlAccountId" map-name="parameters">
+                      <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/></add-error>
+                      <check-errors/>
+                    </if-empty>
                 </if-empty>
             </if-empty>
         </if-empty>
