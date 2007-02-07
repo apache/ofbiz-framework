@@ -1886,6 +1886,34 @@ under the License.
         <response name="error" type="view" value="EditProductStoreShipSetup"/>
     </request-map>
 
+    <!-- ================ QuantityBreak Requests ================= -->
+    <request-map uri="ListQuantityBreaks">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListQuantityBreaks"/>
+    </request-map>
+    <request-map uri="EditQuantityBreak">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditQuantityBreak"/>
+    </request-map>
+    <request-map uri="createQuantityBreak">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createQuantityBreak"/>
+        <response name="success" type="view" value="ListQuantityBreaks"/>
+        <response name="error" type="view" value="EditQuantityBreak"/>
+    </request-map>
+    <request-map uri="updateQuantityBreak">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateQuantityBreak"/>
+        <response name="success" type="view" value="ListQuantityBreaks"/>
+        <response name="error" type="view" value="EditQuantityBreak"/>
+    </request-map>
+    <request-map uri="deleteQuantityBreak">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteQuantityBreak"/>
+        <response name="success" type="view" value="ListQuantityBreaks"/>
+        <response name="error" type="view" value="ListQuantityBreaks"/>
+    </request-map>
+
     <!-- ================ ProductStore Survey Requests ================= -->
     <request-map uri="EditProductStoreSurveys">
         <security https="true" auth="true"/>
@@ -2353,6 +2381,9 @@ under the License.
     <view-map name="EditProductConfigItemContentContent" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigItemContentContent"/>
     
     <view-map name="EditProductWorkEfforts" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductWorkEfforts"/>        
+
+    <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ListQuantityBreaks"/>
+    <view-map name="EditQuantityBreak" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditQuantityBreak"/>
 
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>

@@ -1596,6 +1596,45 @@ under the License.
         </calculate>
         <field-to-result field-name="remainingQuantity"/>
     </simple-method>
+
+    <!-- QuantityBreak services -->
+    <!-- create a new QuantityBreak -->
+    <simple-method method-name="createQuantityBreak" short-description="Create a QuoteAttribute">
+        <check-permission permission="FACILITY" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuantityBreak"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-name="quantityBreak" entity-name="QuantityBreak"/>
+        <set-nonpk-fields map-name="parameters" value-name="quantityBreak"/>
+        <sequenced-id-to-env sequence-name="QuantityBreak" env-name="quantityBreak.quantityBreakId"/>
+        <create-value value-name="quantityBreak"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing QuantityBreak -->
+    <simple-method method-name="updateQuantityBreak" short-description="Update an existing QuantityBreak">
+        <check-permission permission="FACILITY" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuantityBreak"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuantityBreak" value-name="quantityBreak" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map-name="parameters" value-name="quantityBreak"/>
+        <store-value value-name="quantityBreak"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- remove an existing QuantityBreak -->
+    <simple-method method-name="deleteQuantityBreak" short-description="Remove an existing QuantityBreak">
+        <check-permission permission="FACILITY" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuantityBreak"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="QuantityBreak" value-name="quantityBreak" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-name="quantityBreak"/>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
 
     <!-- FooBar services -->

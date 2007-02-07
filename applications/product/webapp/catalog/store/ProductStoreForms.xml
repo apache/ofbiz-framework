@@ -344,4 +344,31 @@
                 description="${uiLabelMap.CommonDelete}" also-hidden="false" target-type="inter-app"/>
         </field>
     </form>
+    <!-- QuantityBreak forms -->
+    <form name="ListQuantityBreaks" default-title-style="tableheadtext"
+            default-tooltip-style="tabletext" default-widget-style="tabletext" list-name="quantityBreaks"
+            target="" paginate-target="ListQuantityBreaks" title="" type="list">
+        <auto-fields-entity entity-name="QuantityBreak" default-field-type="display"/>
+        <field name="quantityBreakId" widget-style="buttontext">
+            <hyperlink target="EditQuantityBreak?quantityBreakId=${quantityBreakId}" description="${quantityBreakId}" also-hidden="false"/>
+        </field>
+        <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}"><display-entity also-hidden="false" entity-name="QuantityBreakType"/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteQuantityBreak?quantityBreakId=${quantityBreakId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditQuantityBreak" type="single" target="createQuantityBreak" title="" default-map-name="quantityBreak"
+            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="quantityBreak!=null" target="updateQuantityBreak"/>
+        <auto-fields-entity entity-name="QuantityBreak" default-field-type="edit"/>
+        <field name="quantityBreakId"><hidden/></field>
+        <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="QuantityBreakType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

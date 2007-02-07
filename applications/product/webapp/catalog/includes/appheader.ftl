@@ -38,6 +38,7 @@ under the License.
   <div class="col"><a href="<@ofbizUrl>pendingReviews</@ofbizUrl>" class="${selectedLeftClassMap.reviews?default(unselectedLeftClassName)}">${uiLabelMap.ProductReviews}</a></div>
   <div class="col"><a href="<@ofbizUrl>FindProductConfigItems</@ofbizUrl>" class="${selectedLeftClassMap.configs?default(unselectedLeftClassName)}">${uiLabelMap.ProductConfigItems}</a></div>
   <div class="col"><a href="<@ofbizUrl>FindSubscription</@ofbizUrl>" class="${selectedLeftClassMap.Subscription?default(unselectedLeftClassName)}">${uiLabelMap.ProductSubscriptions}</a></div>
+  <div class="col"><a href="<@ofbizUrl>ListQuantityBreaks</@ofbizUrl>" class="${selectedLeftClassMap.ListQuantityBreaks?default(unselectedLeftClassName)}">${uiLabelMap.ProductQuantityBreaks}</a></div>
 
   <#if userLogin?has_content>
     <div class="col-right"><a href="<@ofbizUrl>logout</@ofbizUrl>" class="${selectedRightClassMap.logout?default(unselectedRightClassName)}">${uiLabelMap.CommonLogout}</a></div>
