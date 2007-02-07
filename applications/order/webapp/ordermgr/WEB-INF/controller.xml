@@ -586,7 +586,7 @@ under the License.
     </request-map>
 
     <!-- For checkout steps that use finalizeOrder: This request chain is for calculating shipping & tax before getting to the payments page, so that the visitor
-    	will know the full shipping & tax charges when trying to split payments between various payment methods -->
+        will know the full shipping & tax charges when trying to split payments between various payment methods -->
     <request-map uri="calcShippingBeforePayment">
         <security direct-request="false"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
@@ -624,7 +624,7 @@ under the License.
     <request-map uri="checkout">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setQuickCheckOutOptions"/>
-        <response name="success" type="view" value="confirm"/>
+        <response name="success" type="request" value="calcShipping"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="createPostalAddressAndPurpose">
