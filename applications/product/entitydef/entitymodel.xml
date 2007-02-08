@@ -63,6 +63,8 @@ under the License.
       <field name="headerLogo" type="url"></field>
       <field name="contentPathPrefix" type="long-varchar"></field>
       <field name="templatePathPrefix" type="long-varchar"></field>
+      <field name="viewAllowPermReqd" type="indicator"></field>
+      <field name="purchaseAllowPermReqd" type="indicator"></field>
       <prim-key field="prodCatalogId"/>
     </entity>
     <entity entity-name="ProdCatalogCategory"

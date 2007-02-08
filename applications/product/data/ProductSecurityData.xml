@@ -29,6 +29,8 @@ under the License.
     <SecurityPermission description="Limited Update operations in the Catalog Manager." permissionId="CATALOG_ROLE_UPDATE"/>
     <SecurityPermission description="Limited Delete operations in the Catalog Manager." permissionId="CATALOG_ROLE_DELETE"/>
     <SecurityPermission description="Permission required, in addition to other applicable permissions, to maintain product price information including prices, promotions, and price rules." permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityPermission description="Allow create/update of 'View Allow' in the Catalog Manager." permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityPermission description="Allow create/update of 'Purchase Allow' in the Catalog Manager." permissionId="CATALOG_PURCHASE_ALLOW"/>
 
     <SecurityGroup description="Limited Catalog Admin group, has limited catalog permissions." groupId="CATALOGADMIN_LTD"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW"/>
@@ -36,13 +38,21 @@ under the License.
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_PURCHASE_ALLOW"/>
     
     <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
     
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_DELETE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_UPDATE"/>

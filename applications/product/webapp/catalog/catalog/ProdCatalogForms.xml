@@ -44,6 +44,13 @@ under the License.
         <field name="contentPathPrefix" title="${uiLabelMap.ProductContentPathPrefix}" tooltip="${uiLabelMap.ProductPrependedImageContentPaths}"><text size="60" maxlength="250"/></field>
         <field name="templatePathPrefix" title="${uiLabelMap.ProductTemplatePathPrefix}"  tooltip="${uiLabelMap.ProductPrependedTemplatePaths}"><text size="60" maxlength="250"/></field>
 
+        <field name="viewAllowPermReqd" title="${uiLabelMap.ProductCategoryViewAllowPermReqd}" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+        <field name="purchaseAllowPermReqd" title="${uiLabelMap.ProductCategoryPurchaseAllowPermReqd}" widget-style="selectBox">
+            <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddProdCatalogToParty" type="single" 
