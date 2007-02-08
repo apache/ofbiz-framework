@@ -106,6 +106,9 @@ under the License.
   <GlAccount parentGlAccountId="122000" glAccountId="122400" accountCode="122400" 
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="MRCH_STLMNT_ACCOUNT" glResourceTypeId="MONEY"
     accountName="ACCOUNTS RECEIVABLE - DEBIT / ATM CARDS" description="" postedBalance="0.0"/>
+  <GlAccount parentGlAccountId="122000" glAccountId="122500" accountCode="122500" 
+    glAccountClassId="CURRENT_ASSET" glAccountTypeId="MRCH_STLMNT_ACCOUNT" glResourceTypeId="MONEY"
+    accountName="ACCOUNTS RECEIVABLE - PAYPAL" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="122000" glAccountId="122900" accountCode="122900" 
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="MRCH_STLMNT_ACCOUNT" glResourceTypeId="MONEY"
     accountName="ACCOUNTS RECEIVABLE CREDIT CARDS - ALLOWANCE FOR BAD DEBT" description="" postedBalance="0.0"/>
