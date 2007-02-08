@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+  <description>Fedex Shipment Interface Services, based on Ship Manager Direct XML API</description>
+
+  <!-- FDXSubscriptionRequest/FDXSubscriptionReply -->
+  <service name="fedexSubscriptionRequest" engine="java" location="org.ofbiz.shipment.thirdparty.fedex.FedexServices" invoke="fedexSubscriptionRequest" auth="false">
+    <description>Sends a subscription request to FedEx to get the meter number, which is required for Fedex Ship Manager Direct as shipping credential.
+        You must supply a contact name and a partyId (usually your company's with a valid address and phone number per Fedex requirements.</description>
+    <attribute name="contactPartyName" type="String" mode="IN" optional="false"/>
+    <attribute name="companyPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="replaceMeterNumber" type="Boolean" mode="IN" optional="false"/>
+    <attribute name="meterNumber" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <!-- FDXShipRequest/FDXShipReply -->
+  <service name="fedexShipRequest" engine="java" location="org.ofbiz.shipment.thirdparty.fedex.FedexServices" invoke="fedexShipRequest" auth="false">
+    <description>Schedule a shipment route segment with FedEx.  You will get back a label image and tracking number which are stored for you in the same
+        ShipmentRouteSegment.</description>
+    <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    <attribute name="shipmentRouteSegmentId" type="String" mode="IN" optional="false"/>
+  </service>
+
+</services>

@@ -27,6 +27,7 @@ under the License.
             <div class="tableheadtext">${uiLabelMap.ProductOriginDestinationPhoneId}</div>
         </td>
         <td>
+            <div class="tableheadtext">${uiLabelMap.ProductShipmentFedexHomeDeliveryTypeDate}</div>
             <div class="tableheadtext">${uiLabelMap.ProductCarrierStatus}</div>
             <div class="tableheadtext">${uiLabelMap.ProductTrackingNumber}</div>
             <div class="tableheadtext">${uiLabelMap.ProductEstimatedStartArrive}</div>
@@ -147,7 +148,30 @@ under the License.
                     <a href="<@ofbizUrl>dhlShipmentConfirm?shipmentId=${shipmentRouteSegment.shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductConfirmShipmentDHL}</a>
                 </#if>
             </#if>
-
+            <#if "FEDEX" == shipmentRouteSegment.carrierPartyId?if_exists>
+                <#if !shipmentRouteSegment.carrierServiceStatusId?has_content || "SHRSCS_NOT_STARTED" == shipmentRouteSegment.carrierServiceStatusId?if_exists>
+                    <a href="<@ofbizUrl>fedexShipmentConfirm?shipmentId=${shipmentRouteSegment.shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductConfirmShipmentFedex}</a>
+                    <br/>
+                    <#if shipmentMethodType?exists && shipmentMethodType.shipmentMethodTypeId=="GROUND_HOME">
+                        <select name="homeDeliveryType" class="selectBox">
+                            <option value="">${uiLabelMap.ProductShipmentNone}</option>
+                            <option ${(shipmentRouteSegment.homeDeliveryType?default("")=="DATECERTAIN")?string("selected=\"selected\"","")} value="DATECERTAIN">${uiLabelMap.ProductShipmentFedexHomeDateCertain}</option>
+                            <option ${(shipmentRouteSegment.homeDeliveryType?default("")=="EVENING")?string("selected=\"selected\"","")} value="EVENING">${uiLabelMap.ProductShipmentFedexHomeEvening}</option>
+                            <option ${(shipmentRouteSegment.homeDeliveryType?default("")=="APPOINTMENT")?string("selected=\"selected\"","")} value="APPOINTMENT">${uiLabelMap.ProductShipmentFedexHomeAppointment}</option>
+                        </select>
+                        <input type="text" size="25" name="homeDeliveryDate" value="${(shipmentRouteSegment.homeDeliveryDate.toString())?if_exists}" class="inputBox"/><a href="javascript:call_cal(document.updateShipmentRouteSegmentForm${shipmentRouteSegmentData_index}.homeDeliveryDate, '${(shipmentRouteSegment.homeDeliveryDate.toString())?default(nowTimestampString)}');"><img src='<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>' width='16' height='16' border='0' alt='Calendar'></a>
+                    </#if>
+                <#else>
+                    <#-- Todo: implement closeout with Fedex -->
+                    <#-- Todo: implement shipment cancellation with Fedex -->
+                    <#-- Todo: implement shipment tracking with Fedex -->
+                    ${shipmentRouteSegment.homeDeliveryType?default(uiLabelMap.ProductShipmentNone)}
+                    <#if shipmentRouteSegment.homeDeliveryDate?exists>
+                        &nbsp;(${shipmentRouteSegment.homeDeliveryDate?string("yyyy-MM-dd")})
+                    </#if>
+                    <br/>
+                </#if>
+            </#if>
            <br/>
            <select name="carrierServiceStatusId" class="selectBox">
                 <#if carrierServiceStatusItem?has_content>
