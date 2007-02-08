@@ -780,7 +780,7 @@ public class ModelService implements Serializable {
                 if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
                     ctx.put("mainAction", this.permissionMainAction);
                 }
-                if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
+                if (UtilValidate.isNotEmpty(this.permissionResourceDescription)) {
                     ctx.put("resourceDescription", this.permissionResourceDescription);
                 } else if (thisService != null) {
                     ctx.put("resourceDescription", thisService.name);
