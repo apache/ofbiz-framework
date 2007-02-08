@@ -610,8 +610,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       String mimeTypeId = (String) newDrContext.get("mimeTypeId");
       if (byteWrapper != null && (mimeTypeId == null || (mimeTypeId.indexOf("image") >= 0) || (mimeTypeId.indexOf("application") >= 0))) {
           mimeTypeId = (String) context.get("_imageData_contentType");
-          String fileName = (String) context.get("_imageData_fileName");
-          newDrContext.put("objectInfo", fileName);
+          if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
+              String fileName = (String) context.get("_imageData_fileName");
+              newDrContext.put("objectInfo", fileName);
+          }
           newDrContext.put("mimeTypeId", mimeTypeId);
       }
       
@@ -697,7 +699,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           }
           if (hasData || "true".equalsIgnoreCase(forceElectronicText)) {
               fileContext.put("rootDir", context.get("rootDir"));
-              fileContext.put("dataResourcetype", dataResourceTypeId);
+              fileContext.put("dataResourceTypeId", dataResourceTypeId);
               fileContext.put("objectInfo", dataResource.get("objectInfo"));
               thisResult = dispatcher.runSync("updateFile", fileContext);
               errorMsg = ServiceUtil.getErrorMessage(thisResult);
