@@ -51,7 +51,7 @@ under the License.
                     <option value="${weightUomOption.uomId}">${weightUomOption.get("description",locale)} [${weightUomOption.abbreviation}]</option>
                 </#list>
             </select>
-            <span class="tabletext">${uiLabelMap.ShipmentBoxType}:</span>
+            <span class="tabletext">${uiLabelMap.ProductShipmentBoxType}:</span>
             <select name="shipmentBoxTypeId" class="selectBox">
                 <option value="">&nbsp;</option>
                 <#list boxTypes as boxType>

@@ -444,7 +444,7 @@ under the License.
             title="Carrier Shipment Method Entity">
       <field name="shipmentBoxTypeId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
-      <field name="packagingTypeCode" type="very-short"></field>
+      <field name="packagingTypeCode" type="id"></field>
       <field name="oversizeCode" type="very-short"></field>
       <prim-key field="shipmentBoxTypeId"/>
       <prim-key field="partyId"/>
@@ -1108,6 +1108,8 @@ under the License.
       <field name="trackingDigest" type="very-long"></field>
       <field name="updatedByUserLoginId" type="id-vlong"></field>
       <field name="lastUpdatedDate" type="date-time"></field>
+      <field name="homeDeliveryType" type="id"></field> 
+      <field name="homeDeliveryDate" type="date-time"></field> 
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentRouteSegmentId"/>
       <relation type="one" fk-name="SHPMT_RTSEG_SHPMT" rel-entity-name="Shipment">

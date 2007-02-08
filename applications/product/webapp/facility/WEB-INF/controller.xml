@@ -953,6 +953,14 @@ under the License.
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
 
+    <!-- Fedex carrier requests -->
+    <request-map uri="fedexShipmentConfirm">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="fedexShipRequest"/>
+        <response name="success" type="request-redirect" value="EditShipmentRouteSegments"/>
+        <response name="error" type="view" value="EditShipmentRouteSegments"/>
+    </request-map>
+
 
     <!-- ================ Shipment Items From Order Requests ================= -->
     <request-map uri="AddItemsFromOrder">
