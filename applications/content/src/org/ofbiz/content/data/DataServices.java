@@ -388,7 +388,7 @@ public class DataServices {
             String fileName = "";
             String sep = "";
             try {
-                if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.equals("LOCAL_FILE")) {
+                if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.startsWith("LOCAL_FILE")) {
                     fileName = prefix + sep + objectInfo;
                     file = new File(fileName);
                     if (file == null) {
@@ -397,13 +397,13 @@ public class DataServices {
                     if (!file.isAbsolute()) {
                         throw new GenericServiceException("File: " + fileName + " is not absolute.");
                     }
-                } else if (dataResourceTypeId.equals("OFBIZ_FILE")) {
+                } else if (dataResourceTypeId.startsWith("OFBIZ_FILE")) {
                     prefix = System.getProperty("ofbiz.home");
                     if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                         sep = "/";
                     }
                     file = new File(prefix + sep + objectInfo);
-                } else if (dataResourceTypeId.equals("CONTEXT_FILE")) {
+                } else if (dataResourceTypeId.startsWith("CONTEXT_FILE")) {
                     prefix = (String) context.get("rootDir");
                     if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                         sep = "/";

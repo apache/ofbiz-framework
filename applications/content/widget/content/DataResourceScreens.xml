@@ -107,6 +107,7 @@ under the License.
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ImageUpload" location="component://content/widget/content/DataResourceForms.xml"/>
+                        <content dataresource-id="${currentValue.dataResourceId}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
