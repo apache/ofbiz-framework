@@ -387,6 +387,7 @@ under the License.
     <service name="addProductToCategories" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="addProductToCategories" auth="true">
         <description>Add Product To Multiple Categories</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false">
             <exclude field-name="productCategoryId"/>
         </auto-attributes>
@@ -397,6 +398,7 @@ under the License.
     <service name="addProductToCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="addProductToCategory" auth="true">
         <description>Add Product To Category</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -404,12 +406,14 @@ under the License.
     <service name="updateProductToCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="updateProductToCategory" auth="true">
         <description>Add Product To Category</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeProductFromCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="org/ofbiz/product/category/CategoryServices.xml" invoke="removeProductFromCategory" auth="true">
         <description>Remove Product From Category</description>
+        <permission-service service-name="checkCategoryRelatedPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -991,4 +995,11 @@ under the License.
         <auto-attributes entity-name="CommunicationEventProduct" include="pk" mode="IN" optional="false"/>
     </service>
     
+    <!-- Permission Services -->    
+    <service name="checkCategoryRelatedPermissionService" engine="simple"
+             location="org/ofbiz/product/category/CategoryServices.xml" invoke="checkCategoryRelatedPermissionService">
+        <implements service="permissionInterface"/>
+         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
+         <attribute type="List" mode="IN" name="categories" optional="true"/>
+    </service>
 </services>

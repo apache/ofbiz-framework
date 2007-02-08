@@ -109,11 +109,12 @@ under the License.
     <simple-method method-name="addProductToCategory" short-description="Add Product to Category">
         <!-- note that the security semantics require the user to have the general admin permission,
             or the role limited permission and association with the category, not the product -->
+            <!-- 
         <set value="addProductToCategory" field="callingMethodName"/>
         <set value="CREATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
-
+        -->
         <make-value value-name="newEntity" entity-name="ProductCategoryMember"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -130,11 +131,13 @@ under the License.
             <iterate entry-name="category" list-name="parameters.categories">
                 <!-- note that the security semantics require the user to have the general admin permission,
                     or the role limited permission and association with the category, not the product -->
+                <!-- 
                 <set field="productCategoryIdToCheck" from-field="category"/>
                 <set field="callingMethodName" value="addProductToCategories"/>
                 <set field="checkAction" value="CREATE"/>
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
+                 -->
 
                 <make-value value-name="newEntity" entity-name="ProductCategoryMember"/>
                 <set field="newEntity.productCategoryId" from-field="category"/>
@@ -173,10 +176,12 @@ under the License.
     <simple-method method-name="updateProductToCategory" short-description="Update Product to Category Application">
         <!-- note that the security semantics require the user to have the general admin permission,
             or the role limited permission and association with the category, not the product -->
+        <!-- 
         <set value="updateProductToCategory" field="callingMethodName"/>
         <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
+         -->
 
         <make-value value-name="lookupPKMap" entity-name="ProductCategoryMember"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -187,10 +192,12 @@ under the License.
     <simple-method method-name="removeProductFromCategory" short-description="Remove Product From Category">
         <!-- note that the security semantics require the user to have the general admin permission,
             or the role limited permission and association with the category, not the product -->
+        <!-- 
         <set value="removeProductFromCategory" field="callingMethodName"/>
         <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
+         -->
 
         <!-- If the associated category was the primary category for the product, clear that field -->
         <entity-one entity-name="Product" value-name="product" auto-field-map="true"/>
@@ -591,8 +598,106 @@ under the License.
             <then>
                 <log level="verbose" message="Permission check failed, user does not have permission"/>
                 <add-error><fail-message message="Security Error: to run ${callingMethodName} you must have the CATALOG_${checkAction} or CATALOG_ADMIN permission or have the CATALOG_ROLE_${checkAction} permission and be associated with a category containing this category."/></add-error>
+                <set field="hasPermission" type="Boolean" value="false"/>
             </then>
         </if>
+    </simple-method>
+    
+    <!-- a service verion of checkCategoryRelatedPermission, only with purchase/viewAllowPermReqd taken into account -->
+    <simple-method method-name="checkCategoryRelatedPermissionService" short-description="Check Product Category Related Permission">
+        <set field="hasPermission" type="Boolean" value="true"/>
+        
+        <!--  Set up for a call to checkCategoryRelatedPermission below, but callingMethodName is needed sooner -->
+        <if-empty field-name="parameters.resourceDescription">
+            <set field="callingMethodName" value="this operation"/>
+            <else>
+                <set field="callingMethodName" value="parameters.resourceDescription"/>
+            </else>
+        </if-empty>
+        <if-empty field-name="parameters.mainAction">
+            <set field="checkAction" value="UPDATE"/>
+            <else>
+                <set field="checkAction" value="parameters.mainAction"/>
+            </else>
+        </if-empty>
+        
+        <!-- This service is set up to handle lists of categories or one category -->
+        <set field="productCategoryIdList" from-field="parameters.categories"/>
+        <if-empty field-name="productCategoryIdList" >
+            <set field="productCategoryIdList[]" from-field="parameters.productCategoryId"/>
+        </if-empty>
+
+        <!-- Foreach category iterate thru its possible ProdCatalogCategory records -->
+        <iterate entry-name="productCategoryId" list-name="productCategoryIdList">
+            <entity-and list-name="prodCatalogCategoryListRaw" entity-name="ProdCatalogCategory">
+                   <field-map field-name="productCategoryId"/>
+            </entity-and>
+            <filter-list-by-date list-name="prodCatalogCategoryListRaw" to-list-name="prodCatalogCategoryList"/>
+            <iterate entry-name="prodCatalogCategory" list-name="prodCatalogCategoryList">
+                   <!-- Only check for View/Purchase Allow instances -->
+                   <if>
+                       <condition>
+                           <or>
+                               <if-compare operator="equals" field-name="prodCatalogCategory.prodCatalogCategoryTypeId" value="PCCT_VIEW_ALLW"/>
+                               <if-compare operator="equals" field-name="prodCatalogCategory.prodCatalogCategoryTypeId" value="PCCT_PURCH_ALLW"/>
+                           </or>
+                       </condition>
+                       <then>
+	                        <set field="globalViewAllowPermReqd" value="N"/>
+	                        <set field="globalPurchaseAllowPermReqd" value="N"/>
+	            
+	                        <!-- Do not do a permission check unless the ProdCatalog requires it -->
+	                        <entity-one entity-name="ProdCatalog" value-name="prodCatalog">
+	                            <field-map field-name="prodCatalogId" env-name="prodCatalogCategory.prodCatalogId"/>
+	                        </entity-one>
+	                        <if-not-empty field-name="prodCatalog">
+	                            <if-compare operator="equals" field-name="prodCatalog.viewAllowPermReqd" value="Y">
+	                                <set field="globalViewAllowPermReqd" value="Y"/>
+	                            </if-compare>
+	                            <if-compare operator="equals" field-name="prodCatalog.purchaseAllowPermReqd" value="Y">
+	                                <set field="globalPurchaseAllowPermReqd" value="Y"/>
+	                            </if-compare>
+	                        </if-not-empty>
+	                        <if-compare operator="equals" field-name="globalViewAllowPermReqd" value="Y" >
+                                <if>
+                                    <condition>
+                                        <not>
+                                                <if-has-permission permission="CATALOG" action="_VIEW_ALLOW"/>
+                                        </not>
+                                    </condition>
+                                    <then>
+                                        <log level="verbose" message="Permission check failed, user does not have permission"/>
+                                        <set field="failMessage" value="Security Error: to run ${callingMethodName} you must have the CATALOG_VIEW_ALLOW permission."/>
+                                        <set field="hasPermission" type="Boolean" value="false"/>
+                                    </then>
+                                </if>
+	                        </if-compare>
+	                        <if-compare operator="equals" field-name="globalPurchaseAllowPermReqd" value="Y" >
+                                <if>
+                                    <condition>
+                                        <not>
+                                                <if-has-permission permission="CATALOG" action="_PURCHASE_ALLOW"/>
+                                        </not>
+                                    </condition>
+                                    <then>
+                                        <log level="verbose" message="Permission check failed, user does not have permission"/>
+                                        <set field="failMessage" value="Security Error: to run ${callingMethodName} you must have the CATALOG_PURCHASE_ALLOW permission."/>
+                                        <set field="hasPermission" type="Boolean" value="false"/>
+                                    </then>
+                                </if>
+	                        </if-compare>
+                      </then>
+                  </if>
+            </iterate>
+            <!-- Do the "standard" permission checkq -->
+            <if-compare operator="equals" field-name="hasPermission" value="true" type="Boolean">
+                <set field="productCategoryIdToCheck" from-field="productCategoryId"/>
+                <call-simple-method method-name="checkCategoryRelatedPermission"/>
+            </if-compare>
+        </iterate>
+        <field-to-result field-name="hasPermission"/>
+        <field-to-result field-name="failMessage"/>
+                
     </simple-method>
     
     <simple-method method-name="duplicateProductCategory" short-description="Duplicate a ProductCategory">
