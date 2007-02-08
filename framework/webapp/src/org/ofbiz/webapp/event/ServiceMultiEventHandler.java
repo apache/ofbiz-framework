@@ -311,25 +311,29 @@ public class ServiceMultiEventHandler implements EventHandler {
                     errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNested() + messageSuffixStr);
                 }
 
-                // check for an error message
-                String errorMessage = ServiceUtil.makeErrorMessage(result, messagePrefixStr, messageSuffixStr, "", "");
-                if (UtilValidate.isNotEmpty(errorMessage)) {
-                    errorMessages.add(errorMessage);
-                }
-
-                // get the success messages
-                if (!UtilValidate.isEmpty((String)result.get(ModelService.SUCCESS_MESSAGE))) {
-                    String newSuccessMessage = (String)result.get(ModelService.SUCCESS_MESSAGE);
-                    if (!successMessages.contains(newSuccessMessage)) {
-                        successMessages.add(newSuccessMessage);
+                if (result == null) {
+                    returnString = ModelService.RESPOND_SUCCESS;
+                } else {
+                    // check for an error message
+                    String errorMessage = ServiceUtil.makeErrorMessage(result, messagePrefixStr, messageSuffixStr, "", "");
+                    if (UtilValidate.isNotEmpty(errorMessage)) {
+                        errorMessages.add(errorMessage);
                     }
-                }
-                if (!UtilValidate.isEmpty((List)result.get(ModelService.SUCCESS_MESSAGE_LIST))) {
-                    List newSuccessMessages = (List)result.get(ModelService.SUCCESS_MESSAGE_LIST);
-                    for (int j = 0; j < newSuccessMessages.size(); j++) {
-                        String newSuccessMessage = (String)newSuccessMessages.get(j);
+    
+                    // get the success messages
+                    if (!UtilValidate.isEmpty((String)result.get(ModelService.SUCCESS_MESSAGE))) {
+                        String newSuccessMessage = (String)result.get(ModelService.SUCCESS_MESSAGE);
                         if (!successMessages.contains(newSuccessMessage)) {
                             successMessages.add(newSuccessMessage);
+                        }
+                    }
+                    if (!UtilValidate.isEmpty((List)result.get(ModelService.SUCCESS_MESSAGE_LIST))) {
+                        List newSuccessMessages = (List)result.get(ModelService.SUCCESS_MESSAGE_LIST);
+                        for (int j = 0; j < newSuccessMessages.size(); j++) {
+                            String newSuccessMessage = (String)newSuccessMessages.get(j);
+                            if (!successMessages.contains(newSuccessMessage)) {
+                                successMessages.add(newSuccessMessage);
+                            }
                         }
                     }
                 }
