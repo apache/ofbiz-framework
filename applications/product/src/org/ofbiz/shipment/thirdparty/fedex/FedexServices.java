@@ -229,7 +229,10 @@ public class FedexServices {
                 return ServiceUtil.returnError(errorMessage);
             }
             phoneNumber = phoneNumberValue.getString("areaCode") + phoneNumberValue.getString("contactNumber");
-            if (UtilValidate.isNotEmpty(phoneNumberValue.getString("countryCode"))) phoneNumber = phoneNumberValue.getString("countryCode") + phoneNumber;
+            // Fedex doesn't want the North American country code
+            if (UtilValidate.isNotEmpty(phoneNumberValue.getString("countryCode")) && !(countryCode.equals("CA") || countryCode.equals("US"))) {
+                phoneNumber = phoneNumberValue.getString("countryCode") + phoneNumber;
+            }
             phoneNumber = phoneNumber.replaceAll("[^+\\d]", "");
 
             // Get the first valid fax number
@@ -244,7 +247,10 @@ public class FedexServices {
             GenericValue faxNumberValue = EntityUtil.getFirst(faxNumbers);
             if(! UtilValidate.isEmpty(faxNumberValue)) {
                 faxNumber = faxNumberValue.getString("areaCode") + faxNumberValue.getString("contactNumber");
-                if (UtilValidate.isNotEmpty(faxNumberValue.getString("countryCode"))) faxNumber = faxNumberValue.getString("countryCode") + faxNumber;
+                // Fedex doesn't want the North American country code
+                if (UtilValidate.isNotEmpty(faxNumberValue.getString("countryCode")) && !(countryCode.equals("CA") || countryCode.equals("US"))) {
+                    faxNumber = faxNumberValue.getString("countryCode") + faxNumber;
+                }
                 faxNumber = faxNumber.replaceAll("[^+\\d]", "");
             }
 
