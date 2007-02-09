@@ -194,94 +194,99 @@ public class ProductFeatureServices {
             Map featuresResults = dispatcher.runSync("getProductFeaturesByType", UtilMisc.toMap("productId", productId));
             Map features = new HashMap();
             
-            if (featuresResults.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS))
-                features = (Map) featuresResults.get("productFeaturesByType"); 
-            else
+            if (featuresResults.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
+                features = (Map) featuresResults.get("productFeaturesByType");
+            } else {
                 return ServiceUtil.returnError((String) featuresResults.get(ModelService.ERROR_MESSAGE_LIST));
-
-            // need to keep 2 lists, oldCombinations and newCombinations, and keep swapping them after each looping.  Otherwise, you'll get a 
+            }
+            
+            // need to keep 2 lists, oldCombinations and newCombinations, and keep swapping them after each looping.  Otherwise, you'll get a
             // concurrent modification exception
             List oldCombinations = new LinkedList();
-
+            
             // loop through each feature type
             for (Iterator fi = features.keySet().iterator(); fi.hasNext(); ) {
                 String currentFeatureType = (String) fi.next();
                 List currentFeatures = (List) features.get(currentFeatureType);
-
+                
                 List newCombinations = new LinkedList();
                 List combinations;
-
+                
                 // start with either existing combinations or from scratch
-                if (oldCombinations.size() > 0) 
+                if (oldCombinations.size() > 0) {
                     combinations = oldCombinations;
-                else
+                } else {
                     combinations = new LinkedList();
-
+                }
+                
                 // in both cases, use each feature of current feature type's idCode and
                 // product feature and add it to the id code and product feature applications
                 // of the next variant.  just a matter of whether we're starting with an
                 // existing list of features and id code or from scratch.
                 if (combinations.size()==0) {
-                   for (Iterator cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
-                           GenericEntity currentFeature = (GenericEntity) cFi.next();
-                           if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
-                               Map newCombination = new HashMap();
-                               List newFeatures = new LinkedList();
-                               List newFeatureIds = new LinkedList();
-                               if (currentFeature.getString("idCode") != null)
+                    for (Iterator cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
+                        GenericEntity currentFeature = (GenericEntity) cFi.next();
+                        if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
+                            Map newCombination = new HashMap();
+                            List newFeatures = new LinkedList();
+                            List newFeatureIds = new LinkedList();
+                            if (currentFeature.getString("idCode") != null) {
                                 newCombination.put("defaultVariantProductId", productId + currentFeature.getString("idCode"));
-                            else
+                            } else {
                                 newCombination.put("defaultVariantProductId", productId);
+                            }
                             newFeatures.add(currentFeature);
                             newFeatureIds.add(currentFeature.getString("productFeatureId"));
                             newCombination.put("curProductFeatureAndAppls", newFeatures);
                             newCombination.put("curProductFeatureIds", newFeatureIds);
                             newCombinations.add(newCombination);
-                       }
-                   }
+                        }
+                    }
                 } else {
-                  for (Iterator comboIt = combinations.iterator(); comboIt.hasNext(); ) {
-                          Map combination = (Map) comboIt.next();
-                          for (Iterator cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
-                              GenericEntity currentFeature = (GenericEntity) cFi.next();
-                              if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
-                                  Map newCombination = new HashMap();
-                                  // .clone() is important, or you'll keep adding to the same List for all the variants
-                                  // have to cast twice: once from get() and once from clone()
-                                  List newFeatures = ((List) ((LinkedList) combination.get("curProductFeatureAndAppls")).clone());
-                                  List newFeatureIds = ((List) ((LinkedList) combination.get("curProductFeatureIds")).clone());
-                                  if (currentFeature.getString("idCode") != null)
-                                          newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + currentFeature.getString("idCode"));
-                                  else
-                                          newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId"));
-                                  newFeatures.add(currentFeature);
-                                  newFeatureIds.add(currentFeature.getString("productFeatureId"));
-                                  newCombination.put("curProductFeatureAndAppls", newFeatures);
-                                  newCombination.put("curProductFeatureIds", newFeatureIds);
-                                  newCombinations.add(newCombination);
-                              }
-                          }
-                      }
+                    for (Iterator comboIt = combinations.iterator(); comboIt.hasNext(); ) {
+                        Map combination = (Map) comboIt.next();
+                        for (Iterator cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
+                            GenericEntity currentFeature = (GenericEntity) cFi.next();
+                            if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
+                                Map newCombination = new HashMap();
+                                // .clone() is important, or you'll keep adding to the same List for all the variants
+                                // have to cast twice: once from get() and once from clone()
+                                List newFeatures = ((List) ((LinkedList) combination.get("curProductFeatureAndAppls")).clone());
+                                List newFeatureIds = ((List) ((LinkedList) combination.get("curProductFeatureIds")).clone());
+                                if (currentFeature.getString("idCode") != null) {
+                                    newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + currentFeature.getString("idCode"));
+                                } else {
+                                    newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId"));
+                                }
+                                newFeatures.add(currentFeature);
+                                newFeatureIds.add(currentFeature.getString("productFeatureId"));
+                                newCombination.put("curProductFeatureAndAppls", newFeatures);
+                                newCombination.put("curProductFeatureIds", newFeatureIds);
+                                newCombinations.add(newCombination);
+                            }
+                        }
+                    }
                 }
-                if (newCombinations.size() >= oldCombinations.size())
-                    oldCombinations = newCombinations;    // save the newly expanded list as oldCombinations
+                if (newCombinations.size() >= oldCombinations.size()) {
+                    oldCombinations = newCombinations; // save the newly expanded list as oldCombinations
+                }
             }
-
-                        int defaultCodeCounter = 1;
-                        HashMap defaultVariantProductIds = new HashMap(); // this map will contain the codes already used (as keys)
-                        defaultVariantProductIds.put(productId, null);
-                        
+            
+            int defaultCodeCounter = 1;
+            HashMap defaultVariantProductIds = new HashMap(); // this map will contain the codes already used (as keys)
+            defaultVariantProductIds.put(productId, null);
+            
             // now figure out which of these combinations already have productIds associated with them
             for (Iterator fCi = oldCombinations.iterator(); fCi.hasNext(); ) {
                 Map combination = (Map) fCi.next();
-                            // Verify if the default code is already used, if so add a numeric suffix
-                            if (defaultVariantProductIds.containsKey(combination.get("defaultVariantProductId"))) {
-                                combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + (defaultCodeCounter < 10? "0" + defaultCodeCounter: "" + defaultCodeCounter));
-                                defaultCodeCounter++;
-                            }
-                            defaultVariantProductIds.put(combination.get("defaultVariantProductId"), null);
-                results = dispatcher.runSync("getAllExistingVariants", UtilMisc.toMap("productId", productId, 
-                                            "productFeatureAppls", combination.get("curProductFeatureIds")));
+                // Verify if the default code is already used, if so add a numeric suffix
+                if (defaultVariantProductIds.containsKey(combination.get("defaultVariantProductId"))) {
+                    combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + (defaultCodeCounter < 10? "0" + defaultCodeCounter: "" + defaultCodeCounter));
+                    defaultCodeCounter++;
+                }
+                defaultVariantProductIds.put(combination.get("defaultVariantProductId"), null);
+                results = dispatcher.runSync("getAllExistingVariants", UtilMisc.toMap("productId", productId,
+                                             "productFeatureAppls", combination.get("curProductFeatureIds")));
                 combination.put("existingVariantProductIds", results.get("variantProductIds"));
             }
             results = ServiceUtil.returnSuccess();
