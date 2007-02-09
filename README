@@ -3,6 +3,13 @@ Welcome to Apache OFBiz!
 
 If you have a release build all you need to run OFBiz is a 1.4 or 1.5 series
 JDK (not just the JRE, the full J2SDK).
+
+However if you have downloaded ofbiz from SVN then you should 
+load the demo data (strongly advised) with the following command
+on the command line:
+
+ant run-install
+
 Once that is properly setup just run the executable jar file
 that comes with OFBiz, which is ofbiz.jar. To do this on the
 command line you would run:
