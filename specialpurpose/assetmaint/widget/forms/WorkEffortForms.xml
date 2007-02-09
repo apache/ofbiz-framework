@@ -173,7 +173,7 @@
                 <sub-hyperlink target="EditTimesheet?timesheetId=${timesheetId}" link-style="buttontext" description="TS:${timesheetId}"/>
             </lookup>
         </field>
-        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPerson" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
             <drop-down>
                 <entity-options entity-name="RateType" description="${description}">
@@ -187,7 +187,7 @@
         <field name="comments"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="deleteWorkEffortTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteWorkEffortTimeEntry?maintHistSeqId=${maintHistSeqId}&amp;fixedAssetId=${fixedAssetId}&amp;workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
     
