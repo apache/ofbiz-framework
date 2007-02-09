@@ -100,9 +100,13 @@ under the License.
                 <option value='${(productFeatureGroup.productFeatureGroupId)?if_exists}'>${(productFeatureGroup.description)?if_exists} [${(productFeatureGroup.productFeatureGroupId)?if_exists}]</option>
             </#list>
         </select>
-        <span class='tabletext'>${uiLabelMap.ProductFeatureApplicationType}: </span><select class='selectBox' name='productFeatureApplTypeId' size="1">
+        <span class='tabletext'>${uiLabelMap.ProductFeatureApplicationType}: </span>
+        <select class='selectBox' name='productFeatureApplTypeId' size="1">
             <#list productFeatureApplTypes as productFeatureApplType>
-            <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'>${(productFeatureApplType.get("description",locale))?if_exists} </option>
+               <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}' 
+               <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
+               <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId?if_exists =="STANDARD_FEATURE")>selected</#if>
+               >${(productFeatureApplType.get("description",locale))?if_exists} </option>           
             </#list>
         </select>
         <input type="submit" value='${uiLabelMap.CommonAdd}' style='font-size: x-small;'>
@@ -121,9 +125,13 @@ under the License.
         </select>
         <span class='tabletext'>${uiLabelMap.CommonIdCode}: </span><input type="text" size='10' name='idCode' value='' class='inputBox'>
         <br/>
-        <span class='tabletext'>${uiLabelMap.ProductFeatureApplicationType}: </span><select class='selectBox' name='productFeatureApplTypeId' size="1">
+        <span class='tabletext'>${uiLabelMap.ProductFeatureApplicationType}: </span>
+        <select class='selectBox' name='productFeatureApplTypeId' size="1">
             <#list productFeatureApplTypes as productFeatureApplType>
-            <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'>${(productFeatureApplType.get("description",locale))?if_exists} </option>
+               <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}' 
+               <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
+               <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected</#if>
+               >${(productFeatureApplType.get("description",locale))?if_exists} </option>           
             </#list>
         </select>
         <br/>
@@ -148,9 +156,13 @@ under the License.
                 <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'>
             </a> 
         </span>
-        <span class="tabletext">${uiLabelMap.ProductFeatureApplicationType}: </span><select class="selectBox" name="productFeatureApplTypeId" size="1">
+        <span class="tabletext">${uiLabelMap.ProductFeatureApplicationType}: </span>
+        <select class="selectBox" name="productFeatureApplTypeId" size="1">
             <#list productFeatureApplTypes as productFeatureApplType>
-            <option value="${(productFeatureApplType.productFeatureApplTypeId)?if_exists}">${(productFeatureApplType.get("description",locale))?if_exists} </option>
+               <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}' 
+               <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
+               <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected</#if>
+               >${(productFeatureApplType.get("description",locale))?if_exists} </option>           
             </#list>
         </select>
         <br/>
