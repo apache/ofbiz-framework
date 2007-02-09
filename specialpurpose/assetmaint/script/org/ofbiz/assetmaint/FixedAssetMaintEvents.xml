@@ -37,7 +37,9 @@
         <set-service-fields map-name="parameters" service-name="createFixedAssetMaint" to-map-name="createFixedAssetMaintCtx"/>
         <call-service service-name="createFixedAssetMaint" in-map-name="createFixedAssetMaintCtx">
             <result-to-field result-name="maintHistSeqId" map-name="findAssetMaintLookup" field-name="maintHistSeqId"/>
+            <result-to-request result-name="maintHistSeqId"/>
         </call-service>
+
         <set from-field="parameters.fixedAssetId" field="findAssetMaintLookup.fixedAssetId"/>
         <find-by-primary-key entity-name="FixedAssetMaint" map-name="findAssetMaintLookup" value-name="findAssetMaint"/>
         <set from-field="findAssetMaint.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
