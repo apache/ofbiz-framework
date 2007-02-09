@@ -38,8 +38,6 @@ under the License.
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_VIEW_ALLOW"/>
-    <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_PURCHASE_ALLOW"/>
     
     <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
