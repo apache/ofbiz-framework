@@ -730,12 +730,6 @@ under the License.
         <response name="error" type="view" value="main"/>
     </request-map>
 
-    <request-map uri="approveOrder">
-        <security https="true" direct-request="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="autoApproveOrder"/>
-        <response name="success" type="view" value="ordercomplete"/>
-    </request-map>
-
     <request-map uri="catalog">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="catalog"/>
