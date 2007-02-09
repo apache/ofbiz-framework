@@ -213,7 +213,7 @@ public class CallService extends MethodOperation {
         if (includeUserLogin) {
             GenericValue userLogin = methodContext.getUserLogin();
 
-            if (userLogin != null) {
+            if (userLogin != null && inMap.get("userLogin") == null) {
                 inMap.put("userLogin", userLogin);
             }
         }
