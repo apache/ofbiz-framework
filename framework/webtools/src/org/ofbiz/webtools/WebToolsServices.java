@@ -241,7 +241,7 @@ public class WebToolsServices {
                     }
                     File curFile = (File)files.get(a);
                     try{
-                        URL url = curFile.toURL();
+                        URL url = curFile.toURI().toURL();
                         Map inputMap = UtilMisc.toMap("url", url,
                                                       "mostlyInserts", mostlyInserts, 
                                                       "createDummyFks", createDummyFks,

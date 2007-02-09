@@ -210,7 +210,7 @@ public class EntityDataLoadContainer implements Container {
                     for (int i = 0; i < fileArray.length; i++) {
                         if (fileArray[i].getName().toLowerCase().endsWith(".xml")) {
                             try {
-                                urlList.add(fileArray[i].toURL());
+                                urlList.add(fileArray[i].toURI().toURL());
                             } catch (MalformedURLException e) {
                                 Debug.logError(e, "Unable to load file (" + fileArray[i].getName() + "); not a valid URL.", module);
                             }

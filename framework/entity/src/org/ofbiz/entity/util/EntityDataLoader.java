@@ -158,7 +158,7 @@ public class EntityDataLoader {
                         if (dataFile.exists()) {
                             URL url = null;
                             try {
-                                url = dataFile.toURL();
+                                url = dataFile.toURI().toURL();
                                 urlList.add(url);
                             } catch (java.net.MalformedURLException e) {
                                 String xmlError = "Error loading XML file \"" + dataFile.getAbsolutePath() + "\"; Error was: " + e.getMessage();
