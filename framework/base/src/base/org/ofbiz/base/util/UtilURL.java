@@ -86,7 +86,7 @@ public class UtilURL {
         URL url = null;
 
         try {
-            if (file.exists()) url = file.toURL();
+            if (file.exists()) url = file.toURI().toURL();
         } catch (java.net.MalformedURLException e) {
             e.printStackTrace();
             url = null;

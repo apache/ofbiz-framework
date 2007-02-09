@@ -117,8 +117,12 @@ public class Classpath {
         URL[] urls = new URL[cnt];
         for (int i = 0; i < cnt; i++) {
             try {
-                urls[i] = ((File) (_elements.get(i))).toURL();
-            } catch (MalformedURLException e) {}
+                urls[i] = ((File) (_elements.get(i))).toURI().toURL();
+            } catch (MalformedURLException e) {
+                // note: this is printing right to the console because at this point we don't have the rest of the system up, not even the logging stuff
+                System.out.println("Error adding classpath entry: " + e.toString());
+                e.printStackTrace();
+            }
         }
         return urls;
     }

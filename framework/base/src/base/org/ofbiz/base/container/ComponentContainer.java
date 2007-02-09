@@ -151,7 +151,7 @@ public class ComponentContainer implements Container {
             if (componentLoadConfig != null && componentLoadConfig.exists()) {
                 URL configUrl = null;
                 try {
-                    configUrl = componentLoadConfig.toURL();
+                    configUrl = componentLoadConfig.toURI().toURL();
                     List componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
                     if (componentsToLoad != null) {
                         Iterator i = componentsToLoad.iterator();
