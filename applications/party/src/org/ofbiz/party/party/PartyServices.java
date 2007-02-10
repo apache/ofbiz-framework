@@ -1105,6 +1105,8 @@ public class PartyServices {
 
                     // add the expr
                     andExprs.add(new EntityExpr("groupName", true, EntityOperator.LIKE, "%"+groupName+"%", true));
+
+                    fieldsToSelect.add("groupName");
                 }
 
                 // ----
