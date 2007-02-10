@@ -103,15 +103,7 @@ if (inventoryItem != null && "NON_SERIAL_INV_ITEM".equals(inventoryItem.getStrin
         physicalInventoryAndVarianceData.put("partyGroup", physicalInventoryAndVariance.getRelatedOne("PartyGroup"));
     }
 
-    HtmlFormWrapper viewPhysicalInventoryAndVarianceWrapper = new HtmlFormWrapper("/inventory/InventoryForms.xml", "ViewPhysicalInventoryAndVariance", request, response);
-    viewPhysicalInventoryAndVarianceWrapper.putInContext("physicalInventoryAndVarianceDatas", physicalInventoryAndVarianceDatas);
-
-    HtmlFormWrapper createPhysicalInventoryAndVarianceWrapper = new HtmlFormWrapper("/inventory/InventoryForms.xml", "CreatePhysicalInventoryAndVariance", request, response);
-    createPhysicalInventoryAndVarianceWrapper.putInContext("inventoryItem", inventoryItem);
-
     context.put("physicalInventoryAndVarianceDatas", physicalInventoryAndVarianceDatas);
-    context.put("viewPhysicalInventoryAndVarianceWrapper", viewPhysicalInventoryAndVarianceWrapper);
-    context.put("createPhysicalInventoryAndVarianceWrapper", createPhysicalInventoryAndVarianceWrapper);
 }
 
 nowTimestampString = UtilDateTime.nowTimestamp().toString();
