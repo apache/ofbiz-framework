@@ -1,5 +1,5 @@
 
-DESCRIPTION: This file contains information about libraries that are supported by code in OFBiz but that are left out of SVN because of licesning issues. 
+DESCRIPTION: This file contains information about libraries that are supported by code in OFBiz but that are left out of SVN because of licensing issues. 
 What is below is a list of jar files and where to put them, and the file(s) to change to include them in the OFBiz build and/or run-time configuration.
 
 NOTE: While these aren't included in the main SVN repository they are available on the old Undersun SVN server in the specialized/libraries component directory.
