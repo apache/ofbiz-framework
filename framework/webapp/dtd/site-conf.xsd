@@ -21,7 +21,7 @@ under the License.
     <xs:element name="site-conf">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="include"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="include"/>
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element minOccurs="0" ref="owner"/>
                 <xs:element minOccurs="0" ref="errorpage"/>
