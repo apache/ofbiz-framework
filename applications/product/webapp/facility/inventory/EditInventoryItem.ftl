@@ -233,12 +233,3 @@ under the License.
   </tr>
 </table>
 </form>
-
-<#if "NON_SERIAL_INV_ITEM" == (inventoryItem.inventoryItemTypeId)?if_exists>
-    <hr class="sepbar"/>
-    <div class="head2">${uiLabelMap.ProductPhysicalInventoryVariances}</div>
-
-    ${createPhysicalInventoryAndVarianceWrapper.renderFormString(context)}
-    <br/>
-    ${viewPhysicalInventoryAndVarianceWrapper.renderFormString(context)}
-</#if>
