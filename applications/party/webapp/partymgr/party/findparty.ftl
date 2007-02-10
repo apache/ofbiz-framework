@@ -270,20 +270,17 @@ function refreshInfo() {
                   </td>
                   <td>
                     <div class="tabletext">
-                      <#if partyRow.containsKey("lastName")>
-                        <#if partyRow.lastName?has_content>
+                      <#if partyRow.lastName?has_content>
                           ${partyRow.lastName}<#if partyRow.firstName?has_content>, ${partyRow.firstName}</#if>
-                        <#else>
-                          (${uiLabelMap.PartyNoNameFound})
-                        </#if>
-                      <#elseif partyRow.containsKey("groupName")>
-                        <#if partyRow.groupName?has_content>
+                      <#elseif partyRow.groupName?has_content>
                           ${partyRow.groupName}
-                        <#else>
-                          (${uiLabelMap.PartyNoNameFound})
-                        </#if>
                       <#else>
-                        ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(partyRow, true)}
+                          <#assign partyName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(partyRow, true)>
+                          <#if partyName?has_content>
+                              ${partyName}
+                          <#else>
+                              (${uiLabelMap.PartyNoNameFound})
+                          </#if>
                       </#if>
                     </div>
                   </td>
