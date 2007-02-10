@@ -460,6 +460,18 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/inventory/EditInventoryItem.ftl"/></html>
                         </platform-specific>
+                        <section> 
+                            <condition>
+                                <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <label style="head2">${uiLabelMap.ProductPhysicalInventoryVariances}</label>
+                                </container>
+                                <include-form name="CreatePhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                                <include-form name="ViewPhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
