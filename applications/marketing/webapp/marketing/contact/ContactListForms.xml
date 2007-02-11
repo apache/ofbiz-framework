@@ -190,7 +190,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListContactListParties" type="list" 
-            title="" list-iterator-name="listIt" paginate-target="ListContactListParties"
+            title="" list-name="listIt" paginate-target="ListContactListParties"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
