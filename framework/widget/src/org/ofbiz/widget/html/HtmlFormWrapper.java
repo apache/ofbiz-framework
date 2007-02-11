@@ -29,6 +29,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
@@ -60,7 +62,14 @@ public class HtmlFormWrapper {
         this.request = request;
         this.response = response;
         
-        this.modelForm = FormFactory.getFormFromWebappContext(resourceName, formName, request);
+        try {
+            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+            this.modelForm = FormFactory.getFormFromLocation(resourceName, formName, delegator, dispatcher);
+        } catch(IllegalArgumentException iae) {
+            Debug.logWarning("Could not find form with name [" + formName + "] in class resource [" + resourceName + "], will try to load it using relative path syntax.", module);
+            this.modelForm = FormFactory.getFormFromWebappContext(resourceName, formName, request);
+        }
 
         this.renderer = new HtmlFormRenderer(request, response);
         
