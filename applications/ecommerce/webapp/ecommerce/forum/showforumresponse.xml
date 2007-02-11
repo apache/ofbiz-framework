@@ -21,7 +21,7 @@ under the License.
 <page>
     <template>main</template> 
     <property name="title">View Response</property>
-    <property name="formDefFile">/content/BlogContentForms.xml</property>    
+    <property name="formDefFile">component://ecommerce/webapp/ecommerce/content/BlogContentForms.xml</property>    
     <property name="singleFormName">ViewComboResponse</property>    
     <property name="addFormName">ViewComboResponse</property>    
     <property name="editFormName">ViewComboResponse</property>    

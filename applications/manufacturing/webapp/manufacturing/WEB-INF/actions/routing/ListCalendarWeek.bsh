@@ -32,7 +32,7 @@ if(security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
 }
 List allCalendarWeek = delegator.findAll("TechDataCalendarWeek");
 context.put("allCalendarWeek",allCalendarWeek);
-HtmlFormWrapper listCalendarWeekWrapper = new HtmlFormWrapper("/routing/CalendarForms.xml", "ListCalendarWeek", request, response);
+HtmlFormWrapper listCalendarWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "ListCalendarWeek", request, response);
 listCalendarWeekWrapper.putInContext("calendarWeeks", allCalendarWeek);
 context.put("listCalendarWeekWrapper",listCalendarWeekWrapper);
 

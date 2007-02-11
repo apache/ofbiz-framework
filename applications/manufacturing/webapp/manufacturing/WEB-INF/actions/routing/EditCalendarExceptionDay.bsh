@@ -44,10 +44,10 @@ if (calendarId != null) {
 if (techDataCalendar != null) {
     calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay");
 }
-HtmlFormWrapper listCalendarExceptionDayWrapper = new HtmlFormWrapper("/routing/CalendarForms.xml", "ListCalendarExceptionDay", request, response);
+HtmlFormWrapper listCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "ListCalendarExceptionDay", request, response);
 listCalendarExceptionDayWrapper.putInContext("calendarExceptionDays", calendarExceptionDays);
 
-HtmlFormWrapper addCalendarExceptionDayWrapper = new HtmlFormWrapper("/routing/CalendarForms.xml", "AddCalendarExceptionDay", request, response);
+HtmlFormWrapper addCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "AddCalendarExceptionDay", request, response);
 addCalendarExceptionDayWrapper.putInContext("techDataCalendar", techDataCalendar);
 
 context.put("techDataCalendar", techDataCalendar);
@@ -60,7 +60,7 @@ if (exceptionDateStartTime == null)
 if (exceptionDateStartTime != null) {
     calendarExceptionDay = delegator.findByPrimaryKey("TechDataCalendarExcDay", UtilMisc.toMap("calendarId", calendarId,"exceptionDateStartTime", exceptionDateStartTime));
     if (calendarExceptionDay != null) {
-        HtmlFormWrapper updateCalendarExceptionDayWrapper = new HtmlFormWrapper("/routing/CalendarForms.xml", "UpdateCalendarExceptionDay", request, response);
+        HtmlFormWrapper updateCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "UpdateCalendarExceptionDay", request, response);
         updateCalendarExceptionDayWrapper.putInContext("calendarExceptionDay", calendarExceptionDay);
         context.put("calendarExceptionDay", calendarExceptionDay);
         context.put("updateCalendarExceptionDayWrapper", updateCalendarExceptionDayWrapper);

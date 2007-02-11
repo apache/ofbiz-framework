@@ -69,7 +69,7 @@ if (contentId != null && content != null) {
         textData.put("textDataResourceId", text.get("dataResourceId"));
     }
 }
-updateProductContentWrapper = new HtmlFormWrapper("/config/ConfigForms.xml", "EditProductConfigItemContentSimpleText", request, response);
+updateProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "EditProductConfigItemContentSimpleText", request, response);
 updateProductContentWrapper.putInContext("textData", textData);
 
 context.put("updateProductContentWrapper", updateProductContentWrapper);
