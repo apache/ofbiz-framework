@@ -181,7 +181,7 @@ if (shipmentPlans != null) {
         rows.add(oneRow);
     }
 }
-HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "listShipmentPlan", request, response);
+HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "listShipmentPlan", request, response);
 listShipmentPlanForm.putInContext("shipmentPlan", rows);
 
 // **************************************
@@ -271,16 +271,16 @@ if (orderItems != null) {
     }
 }
 // Add form
-HtmlFormWrapper addToShipmentPlanForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "addToShipmentPlan", request, response);
+HtmlFormWrapper addToShipmentPlanForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "addToShipmentPlan", request, response);
 addToShipmentPlanForm.putInContext("shipmentPlan", addRows);
 
-HtmlFormWrapper findOrderItemsForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "findOrderItems", request, response);
+HtmlFormWrapper findOrderItemsForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "findOrderItems", request, response);
 findOrderItemsForm.putInContext("shipmentId", shipmentId);
 if (shipment != null && shipment.get("primaryOrderId") != null) {
     findOrderItemsForm.putInContext("orderId", shipment.getString("primaryOrderId"));
 }
 
-HtmlFormWrapper shipmentPlanToOrderItemsForm = new HtmlFormWrapper("/shipment/ShipmentForms.xml", "shipmentPlanToOrderItems", request, response);
+HtmlFormWrapper shipmentPlanToOrderItemsForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "shipmentPlanToOrderItems", request, response);
 shipmentPlanToOrderItemsForm.putInContext("shipmentId", shipmentId);
 
 

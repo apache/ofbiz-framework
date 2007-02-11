@@ -31,11 +31,11 @@ surveyQuestionAndApplList = delegator.findByAnd("SurveyQuestionAndAppl", UtilMis
 surveyPageList = delegator.findByAnd("SurveyPage", UtilMisc.toMap("surveyId", surveyId), UtilMisc.toList("sequenceNum"));
 surveyMultiRespList = delegator.findByAnd("SurveyMultiResp", UtilMisc.toMap("surveyId", surveyId), UtilMisc.toList("multiRespTitle"));
 
-HtmlFormWrapper createSurveyQuestionWrapper = new HtmlFormWrapper("/survey/SurveyForms.xml", "CreateSurveyQuestion", request, response);
+HtmlFormWrapper createSurveyQuestionWrapper = new HtmlFormWrapper("component://content/webapp/content/survey/SurveyForms.xml", "CreateSurveyQuestion", request, response);
 createSurveyQuestionWrapper.putInContext("surveyId", surveyId);
 createSurveyQuestionWrapper.putInContext("surveyQuestion", surveyQuestion);
 
-HtmlFormWrapper createSurveyQuestionCategoryWrapper = new HtmlFormWrapper("/survey/SurveyForms.xml", "CreateSurveyQuestionCategory", request, response);
+HtmlFormWrapper createSurveyQuestionCategoryWrapper = new HtmlFormWrapper("component://content/webapp/content/survey/SurveyForms.xml", "CreateSurveyQuestionCategory", request, response);
 createSurveyQuestionCategoryWrapper.putInContext("surveyId", surveyId);
 
 if (surveyQuestion != null && surveyQuestion.get("surveyQuestionTypeId") != null && "OPTION".equals(surveyQuestion.getString("surveyQuestionTypeId"))) {
@@ -43,7 +43,7 @@ if (surveyQuestion != null && surveyQuestion.get("surveyQuestionTypeId") != null
     questionOptions = delegator.findByAnd("SurveyQuestionOption", UtilMisc.toMap("surveyQuestionId", surveyQuestionId), UtilMisc.toList("sequenceNum"));
     context.put("questionOptions", questionOptions);
 
-    HtmlFormWrapper createSurveyOptionWrapper = new HtmlFormWrapper("/survey/SurveyForms.xml", "CreateSurveyQuestionOption", request, response);
+    HtmlFormWrapper createSurveyOptionWrapper = new HtmlFormWrapper("component://content/webapp/content/survey/SurveyForms.xml", "CreateSurveyQuestionOption", request, response);
 
     // survey question option
     optionSeqId = parameters.get("surveyOptionSeqId");

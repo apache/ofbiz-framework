@@ -52,10 +52,10 @@ while (calendarExceptionWeeksIter.hasNext()) {
     calendarExceptionWeeksDatas.add(UtilMisc.toMap("calendarExceptionWeek", calendarExceptionWeek, "calendarWeek", calendarWeek));
 }
 
-HtmlFormWrapper listCalendarExceptionWeekWrapper = new HtmlFormWrapper("/routing/CalendarForms.xml", "ListCalendarExceptionWeek", request, response);
+HtmlFormWrapper listCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "ListCalendarExceptionWeek", request, response);
 listCalendarExceptionWeekWrapper.putInContext("calendarExceptionWeeksDatas", calendarExceptionWeeksDatas);
 
-HtmlFormWrapper addCalendarExceptionWeekWrapper = new HtmlFormWrapper("/routing/CalendarForms.xml", "AddCalendarExceptionWeek", request, response);
+HtmlFormWrapper addCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "AddCalendarExceptionWeek", request, response);
 addCalendarExceptionWeekWrapper.putInContext("techDatacalendar", techDataCalendar);
 
 context.put("techDataCalendar", techDataCalendar);
@@ -68,7 +68,7 @@ if (exceptionDateStart == null)
 if (exceptionDateStart != null) {
     calendarExceptionWeek = delegator.findByPrimaryKey("TechDataCalendarExcWeek", UtilMisc.toMap("calendarId", calendarId,"exceptionDateStart", exceptionDateStart));
     if (calendarExceptionWeek != null) {
-        HtmlFormWrapper updateCalendarExceptionWeekWrapper = new HtmlFormWrapper("/routing/CalendarForms.xml", "UpdateCalendarExceptionWeek", request, response);
+        HtmlFormWrapper updateCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "UpdateCalendarExceptionWeek", request, response);
         updateCalendarExceptionWeekWrapper.putInContext("calendarExceptionWeek", calendarExceptionWeek);
         context.put("calendarExceptionWeek", calendarExceptionWeek);
         context.put("updateCalendarExceptionWeekWrapper", updateCalendarExceptionWeekWrapper);

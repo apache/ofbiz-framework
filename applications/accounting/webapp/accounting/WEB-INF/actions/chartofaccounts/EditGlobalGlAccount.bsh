@@ -33,7 +33,7 @@ if(security.hasEntityPermission("ACCOUNTING", "_VIEW", session)) {
 glAccountId = request.getParameter("glAccountId");
 glAccount = delegator.findByPrimaryKey("GlAccount", UtilMisc.toMap("glAccountId", glAccountId));
 
-HtmlFormWrapper editGlAccountWrapper = new HtmlFormWrapper("/chartofaccounts/GlAccountForms.xml", "EditGlAccount", request, response);
+HtmlFormWrapper editGlAccountWrapper = new HtmlFormWrapper("component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml", "EditGlAccount", request, response);
 editGlAccountWrapper.putInContext("glAccount", glAccount);
 editGlAccountWrapper.putInContext("glAccountId", glAccountId);
 editGlAccountWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));

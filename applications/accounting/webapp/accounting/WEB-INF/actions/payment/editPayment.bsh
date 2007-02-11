@@ -47,11 +47,11 @@ if (payment != null) {
     currentMethod = payment.getRelatedOne("PaymentMethodType");
     // get the payment's applications
     paymentApplications = payment.getRelated("PaymentApplication");
-    HtmlFormWrapper paymentApplicationsWrapper = new HtmlFormWrapper("/payment/PaymentForms.xml", "PaymentApplicationsList", request, response);
+    HtmlFormWrapper paymentApplicationsWrapper = new HtmlFormWrapper("component://accounting/webapp/accounting/payment/PaymentForms.xml", "PaymentApplicationsList", request, response);
     paymentApplicationsWrapper.putInContext("entityList", paymentApplications);
     paymentApplicationsWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));
     context.put("paymentApplicationsWrapper", paymentApplicationsWrapper);
-    HtmlFormWrapper editPaymentApplicationWrapper = new HtmlFormWrapper("/payment/PaymentForms.xml", "EditPaymentApplication", request, response);
+    HtmlFormWrapper editPaymentApplicationWrapper = new HtmlFormWrapper("component://accounting/webapp/accounting/payment/PaymentForms.xml", "EditPaymentApplication", request, response);
     editPaymentApplicationWrapper.putInContext("paymentApplication", null);
     editPaymentApplicationWrapper.putInContext("paymentId", paymentId);
     editPaymentApplicationWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));

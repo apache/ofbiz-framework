@@ -175,7 +175,7 @@ if (shipmentPlans != null) {
         rows.add(oneRow);
     }
     context.put("workInProgress", workInProgress);
-    HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "listShipmentPlan", request, response);
+    HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "listShipmentPlan", request, response);
     listShipmentPlanForm.putInContext("shipmentPlan", rows);
     context.put("listShipmentPlanForm", listShipmentPlanForm); // Form for ShipmentPlan list
 } else {
@@ -188,7 +188,7 @@ if (shipmentPlans != null) {
     }
     //List confirmedShipments = delegator.findByAndCache("Shipment", UtilMisc.toMap("shipmentTypeId", "SALES_SHIPMENT", "statusId", "SCHEDULED_CONFIRMED"));
 
-    HtmlFormWrapper listShipmentPlansForm = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "listShipmentPlans", request, response);
+    HtmlFormWrapper listShipmentPlansForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "listShipmentPlans", request, response);
     listShipmentPlansForm.putInContext("shipmentPlans", shipments);
     context.put("listShipmentPlansForm", listShipmentPlansForm);
 }

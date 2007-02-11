@@ -39,12 +39,12 @@ if (productFeatureId != null) {
     if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
         supplierProductFeatures = result.get("supplierProductFeatures");
 
-        HtmlFormWrapper editSupplierFeaturesForm = new HtmlFormWrapper("/feature/FeatureForms.xml", "EditSupplierProductFeatures", request, response);
+        HtmlFormWrapper editSupplierFeaturesForm = new HtmlFormWrapper("component://product/webapp/catalog/feature/FeatureForms.xml", "EditSupplierProductFeatures", request, response);
         editSupplierFeaturesForm.putInContext("supplierProductFeatures", supplierProductFeatures);
         context.put("editSupplierFeaturesForm", editSupplierFeaturesForm);
     }
 
-    HtmlFormWrapper createSupplierFeatureForm = new HtmlFormWrapper("/feature/FeatureForms.xml", "CreateSupplierProductFeature", request, response);
+    HtmlFormWrapper createSupplierFeatureForm = new HtmlFormWrapper("component://product/webapp/catalog/feature/FeatureForms.xml", "CreateSupplierProductFeature", request, response);
     // we are fooling the form with a dummy productFeature map, which consists only of a productFeatureId
     createSupplierFeatureForm.putInContext("productFeature", UtilMisc.toMap("productFeatureId", productFeatureId));
     context.put("createSupplierFeatureForm", createSupplierFeatureForm);

@@ -40,7 +40,7 @@ Iterator tasksIt = tasks.iterator();
 while (tasksIt.hasNext()) {
     GenericValue task = (GenericValue)tasksIt.next();
     List costs = EntityUtil.filterByDate(delegator.findByAnd("CostComponent", UtilMisc.toMap("workEffortId", task.getString("workEffortId"))));
-    HtmlFormWrapper taskCostsForm = new HtmlFormWrapper("/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskCosts", request, response);
+    HtmlFormWrapper taskCostsForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskCosts", request, response);
     taskCostsForm.putInContext("taskCosts", costs);
     taskCosts.add(UtilMisc.toMap("task", task, "costsForm", taskCostsForm));
 }
