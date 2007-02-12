@@ -100,9 +100,9 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
                     javaName = field.getIsPk() ? "<span style=\"color: red;\">" + field.getName() + "</span>" : field.getName();
                     javaNameMap.put("name", javaName);
                     javaNameMap.put("colName", field.getColName());
-                    javaNameMap.put("type", field.getType());
-                    javaNameMap.put("javaType", (field.getType() != null) ? type.getJavaType() : null);
-                    javaNameMap.put("sqlType", (field.getType() != null) ? type.getSqlType() : null);
+                    javaNameMap.put("type", (field.getType()) != null ? field.getType() : null); 
+                    javaNameMap.put("javaType", (field.getType() != null && type != null) ? type.getJavaType() : "Undefined");
+                    javaNameMap.put("sqlType", (type != null && type.getSqlType() != null) ? type.getSqlType() : "Undefined");
                     
                     javaNameList.add(javaNameMap);            
                 }
