@@ -861,6 +861,7 @@ under the License.
       <field name="roleTypeId" type="id"></field>
       <field name="allowSolicitation" type="indicator"></field>
       <field name="extension" type="long-varchar"></field>
+      <field name="verified" type="indicator"></field> 
       <field name="comments" type="comment"></field>
       <field name="yearsWithContactMech" type="numeric"></field>
       <field name="monthsWithContactMech" type="numeric"></field>
@@ -1582,6 +1583,36 @@ under the License.
       <relation type="one" fk-name="PARTY_ICSAVS_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
+    </entity>
+    <entity entity-name="PartyInvitation"
+            package-name="org.ofbiz.party.party"
+            title="Party Invitation Entity">
+        <field name="partyInvitationId" type="id-ne"></field>
+        <field name="partyIdFrom" type="id-ne"></field>
+        <field name="emailAddress" type="long-varchar"></field>
+        <field name="statusId" type="id"></field>
+        <field name="lastInviteDate" type="date-time"></field>
+        <prim-key field="partyInvitationId"/>
+        <relation type="one" rel-entity-name="Party">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        </relation>        
+        <relation type="one" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+    </entity>
+    <entity entity-name="PartyInvitationGroupAssoc"
+            package-name="org.ofbiz.party.party"
+            title="Party Invitation Group Assoc Entity">
+        <field name="partyInvitationId" type="id-ne"></field>
+        <field name="partyIdTo" type="id-ne"></field>
+        <prim-key field="partyInvitationId"/>
+        <prim-key field="partyGroupIdTo"/>
+        <relation type="one" title="To" rel-entity-name="PartyGroup">
+            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" title="To" rel-entity-name="Party">
+            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        </relation>
     </entity>
     <entity entity-name="PartyNameHistory"
         package-name="org.ofbiz.party.party"
