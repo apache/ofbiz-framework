@@ -22,14 +22,7 @@ import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.HttpClient;
-import org.ofbiz.base.util.HttpClientException;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
@@ -56,14 +49,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -831,6 +817,27 @@ public class EmailServices {
                 commEventMap = addMessageBody(commEventMap, (Multipart) message.getContent());
             }                
             
+            // Retrieve all the addresses from the email
+            Set emailAddressesFrom = new TreeSet();
+            Set emailAddressesTo = new TreeSet();
+            Set emailAddressesCC = new TreeSet();
+            for (int x = 0 ; x < addressesFrom.length ; x++) {
+                emailAddressesFrom.add(((InternetAddress) addressesFrom[x]).getAddress());
+            }
+            for (int x = 0 ; x < addressesTo.length ; x++) {
+                emailAddressesTo.add(((InternetAddress) addressesTo[x]).getAddress());
+            }
+            for (int x = 0 ; x < addressesCC.length ; x++) {
+                emailAddressesCC.add(((InternetAddress) addressesCC[x]).getAddress());
+            }
+            String fromString = StringUtil.join(UtilMisc.toList(emailAddressesFrom), ",");
+            String toString = StringUtil.join(UtilMisc.toList(emailAddressesTo), ",");
+            String ccString = StringUtil.join(UtilMisc.toList(emailAddressesCC), ",");
+            
+            if (UtilValidate.isNotEmpty(toString)) commEventMap.put("toString", toString);
+            if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("ccString", ccString);
+            if (UtilValidate.isNotEmpty(ccString)) commEventMap.put("fromString", fromString);
+
             // store from/to parties, but when not found make a note of the email to/from address in the workEffort Note Section.
             String commNote = "";
             if (partyIdFrom != null) {
@@ -865,6 +872,16 @@ public class EmailServices {
             }
             
             commEventMap.put("userLogin", userLogin);
+            
+            // Populate the CommunicationEvent.headerString field with the email headers
+            String headerString = "";
+            Enumeration headerLines = message.getAllHeaderLines();
+            while (headerLines.hasMoreElements()) {
+                headerString += System.getProperty("line.separator");
+                headerString += headerLines.nextElement();
+            }
+            commEventMap.put("headerString", headerString);
+
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
             
