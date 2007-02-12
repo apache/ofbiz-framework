@@ -21,8 +21,11 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="genericBasePermissionCheck" short-description="Basic Permission check">
-        <!-- This method should be put in common place so it can be called from anyware in ofbiz -->
-        <set field="mainAction" from-field="parameters.mainAction"/>
+        <!-- allow mainAction to be set from outside methods -->
+        <if-empty field-name="mainAction">
+            <set field="mainAction" from-field="parameters.mainAction"/>
+        </if-empty>
+
         <if-empty field-name="mainAction">
             <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
         </if-empty>
