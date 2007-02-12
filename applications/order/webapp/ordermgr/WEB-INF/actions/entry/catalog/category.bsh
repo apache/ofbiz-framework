@@ -29,10 +29,9 @@ import org.ofbiz.product.catalog.*;
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);
 delegator = request.getAttribute("delegator");
-requestParameters = UtilHttp.getParameterMap(request);
 productCategoryId = request.getAttribute("productCategoryId");
 if (productCategoryId == null) {
-    productCategoryId = requestParameters.get("category_id");
+    productCategoryId = parameters.get("category_id");
 }
 context.put("productCategoryId", productCategoryId);
 

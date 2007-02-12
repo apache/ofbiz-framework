@@ -30,9 +30,8 @@ import org.ofbiz.service.*;
 import org.ofbiz.product.catalog.*;
 
 dispatcher = request.getAttribute("dispatcher");
-requestParameters = UtilHttp.getParameterMap(request); 
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-categoryId = requestParameters.get("category_id");
+categoryId = parameters.get("category_id");
 if (categoryId == null || categoryId.length() <= 0) 
     categoryId = CatalogWorker.getCatalogQuickaddCategoryPrimary(request);
     

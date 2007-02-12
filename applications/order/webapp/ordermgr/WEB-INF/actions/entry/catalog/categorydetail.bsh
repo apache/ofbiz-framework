@@ -28,8 +28,8 @@ import org.ofbiz.service.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.CategoryContentWrapper;
 
-viewSize = requestParameters.get("VIEW_SIZE");
-viewIndex = requestParameters.get("VIEW_INDEX");
+viewSize = parameters.get("VIEW_SIZE");
+viewIndex = parameters.get("VIEW_INDEX");
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
 
 // set the default view size

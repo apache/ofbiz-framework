@@ -67,25 +67,24 @@ if (cmNewPurposeTypeId != null) {
 }
 
 tryEntity = context.get("tryEntity");
-requestParameters = UtilHttp.getParameterMap(request);
 
 contactMechData = context.get("contactMech");
-if (!tryEntity.booleanValue()) contactMechData = requestParameters;
+if (!tryEntity.booleanValue()) contactMechData = parameters;
 if (contactMechData == null) contactMechData = new HashMap();
 if (contactMechData != null) context.put("contactMechData", contactMechData);
 
 partyContactMechData = context.get("partyContactMech");
-if (!tryEntity.booleanValue()) partyContactMechData = requestParameters; 
+if (!tryEntity.booleanValue()) partyContactMechData = parameters; 
 if (partyContactMechData == null) partyContactMechData = new HashMap();
 if (partyContactMechData != null) context.put("partyContactMechData", partyContactMechData);
 
 postalAddressData = context.get("postalAddress");
-if (!tryEntity.booleanValue()) postalAddressData = requestParameters; 
+if (!tryEntity.booleanValue()) postalAddressData = parameters; 
 if (postalAddressData == null) postalAddressData = new HashMap();
 if (postalAddressData != null) context.put("postalAddressData", postalAddressData);
 
 telecomNumberData = context.get("telecomNumber");
-if (!tryEntity.booleanValue()) telecomNumberData = requestParameters; 
+if (!tryEntity.booleanValue()) telecomNumberData = parameters; 
 if (telecomNumberData == null) telecomNumberData = new HashMap();
 if (telecomNumberData != null) context.put("telecomNumberData", telecomNumberData);
 

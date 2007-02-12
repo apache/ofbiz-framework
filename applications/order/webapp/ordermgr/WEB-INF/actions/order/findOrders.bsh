@@ -387,7 +387,7 @@ if (lookupFlag != null) {
     productStore = ProductStoreWorker.getProductStore(request);
     List filterInventoryProblems = new ArrayList();
     
-    if ("Y".equals(requestParameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
+    if ("Y".equals(parameters.get("filterInventoryProblems")) && UtilValidate.isNotEmpty(orderHeaderList)) {
         paramList = paramList + "&amp;filterInventoryProblems=" + "Y";
         for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
             orderHeader = (GenericValue) ohi.next();
@@ -403,19 +403,19 @@ if (lookupFlag != null) {
     List filterPOsWithRejectedItems = new ArrayList();
     List filterPartiallyReceivedPOs = new ArrayList();
     
-    if ("Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) {
+    if ("Y".equals(parameters.get("filterPOsWithRejectedItems"))) {
                         paramList = paramList + "&amp;filterPOsWithRejectedItems=" + "Y";
     }    
-    if ("Y".equals(requestParameters.get("filterPOsOpenPastTheirETA"))) {
+    if ("Y".equals(parameters.get("filterPOsOpenPastTheirETA"))) {
                         paramList = paramList + "&amp;filterPOsOpenPastTheirETA=" + "Y";
     }    
-    if ("Y".equals(requestParameters.get("filterPartiallyReceivedPOs"))) {
+    if ("Y".equals(parameters.get("filterPartiallyReceivedPOs"))) {
                         paramList = paramList + "&amp;filterPartiallyReceivedPOs=" + "Y";
     }
         
-    if (("Y".equals(requestParameters.get("filterPartiallyReceivedPOs")) ||
-            "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA")) ||
-            "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) &&
+    if (("Y".equals(parameters.get("filterPartiallyReceivedPOs")) ||
+            "Y".equals(parameters.get("filterPOsOpenPastTheirETA")) ||
+            "Y".equals(parameters.get("filterPOsWithRejectedItems"))) &&
             UtilValidate.isNotEmpty(orderHeaderList)) {
         for (ohi = orderHeaderList.iterator(); ohi.hasNext();) {
             orderHeader = (GenericValue) ohi.next();
@@ -426,18 +426,18 @@ if (lookupFlag != null) {
             orderReadHelper = OrderReadHelper.getHelper(orderHeader);
             if ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {                
                 if (orderReadHelper.getRejectedOrderItems() &&
-                        "Y".equals(requestParameters.get("filterPOsWithRejectedItems"))) {                    
+                        "Y".equals(parameters.get("filterPOsWithRejectedItems"))) {                    
                     filterPOsWithRejectedItems.add(orderHeader.get("orderId"));
                     paramList = paramList + "&amp;filterPOsWithRejectedItems=" + "Y";
                     continue;
                 }
                 if (orderReadHelper.getPastEtaOrderItems(orderHeader.get("orderId")) &&
-                        "Y".equals(requestParameters.get("filterPOsOpenPastTheirETA"))) {
+                        "Y".equals(parameters.get("filterPOsOpenPastTheirETA"))) {
                     filterPOsOpenPastTheirETA.add(orderHeader.get("orderId"));
                     continue;
                 }
                 if (orderReadHelper.getPartiallyReceivedItems() &&
-                        "Y".equals(requestParameters.get("filterPartiallyReceivedPOs"))) {
+                        "Y".equals(parameters.get("filterPartiallyReceivedPOs"))) {
                     filterPartiallyReceivedPOs.add(orderHeader.get("orderId"));
                     paramList = paramList + "&amp;filterPartiallyReceivedPOs=" + "Y";
                     continue;
