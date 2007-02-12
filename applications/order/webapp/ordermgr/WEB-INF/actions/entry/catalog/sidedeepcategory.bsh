@@ -27,10 +27,8 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
 import javolution.util.FastMap;
 
-requestParameters = UtilHttp.getParameterMap(request);
-
 CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, CatalogWorker.getCurrentCatalogId(request)), true);
-curCategoryId = UtilFormatOut.checkNull(requestParameters.get("category_id"), requestParameters.get("CATEGORY_ID"));
+curCategoryId = UtilFormatOut.checkNull(parameters.get("category_id"), parameters.get("CATEGORY_ID"));
 request.setAttribute("curCategoryId", curCategoryId);
 CategoryWorker.setTrail(request, curCategoryId);
 
