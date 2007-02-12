@@ -36,13 +36,22 @@
             </condition>
             <then>
                 <if>
-                    <!-- create content -->
+                    <!-- view content -->
                     <condition>
-                        <if-compare field-name="parameters.mainAction" value="CREATE" operator="equals"/>
+                        <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
                     </condition>
                     <then>
-                        <call-simple-method method-name="createContentPermission"/>
+                        <call-simple-method method-name="viewContentPermission"/>
                     </then>
+                    <else-if>
+                        <!-- create content -->
+                        <condition>
+                            <if-compare field-name="parameters.mainAction" value="CREATE" operator="equals"/>
+                        </condition>
+                        <then>
+                            <call-simple-method method-name="createContentPermission"/>
+                        </then>
+                    </else-if>
                     <else-if>
                         <!-- update content -->
                         <condition>
@@ -58,7 +67,52 @@
         </if>
     </simple-method>
 
+    <simple-method method-name="viewContentPermission" short-description="Check user can view content">
+        <!-- if called directly check the main permission -->
+        <if-empty field-name="hasPermission">
+            <set field="primaryPermission" value="CONTENTMGR"/>
+            <set field="mainAction" value="VIEW"/>
+            <call-simple-method method-name="genericBasePermissionCheck"
+                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        </if-empty>
+
+        <!-- check content role permission -->
+        <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
+        <call-simple-method method-name="genericBasePermissionCheck"
+                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+
+        <!-- must have the security permission to continue -->
+        <if>
+            <condition>
+                <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
+            </condition>
+            <then>
+                <!-- if no operation is passed; we use the CONTENT_VIEW operation -->
+                <if-empty field-name="parameters.contentOperationId">
+                    <set field="parameters.contentOperationId" value="CONTENT_VIEW"/>
+                </if-empty>
+
+                <!-- grab the current requested content record -->
+                <entity-one entity-name="Content" value-name="content">
+                    <field-map field-name="contentId" env-name="parameters.contentId"/>
+                </entity-one>
+
+                <!-- check the operation security -->
+                <set field="contentOperationId" from-field="parameters.contentOperationId"/>
+                <set field="content" from-field="content"/>
+                <call-simple-method method-name="checkContentOperationSecurity"/>
+            </then>
+        </if>
+    </simple-method>
+
     <simple-method method-name="createContentPermission" short-description="Check user can create new content">
+        <!-- if called directly check the main permission -->
+        <if-empty field-name="hasPermission">
+            <set field="primaryPermission" value="CONTENTMGR"/>
+            <set field="mainAction" value="CREATE"/>
+            <call-simple-method method-name="genericBasePermissionCheck"
+                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        </if-empty>
 
         <!-- check role permission? -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
@@ -68,7 +122,7 @@
         <!-- must have the security permission to continue -->
         <if>
             <condition>
-                <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
             </condition>
             <then>
                 <!-- if an operation is passed, check the operation security -->
@@ -140,6 +194,13 @@
     </simple-method>
 
     <simple-method method-name="updateContentPermission" short-description="Check user can update existing content">
+        <!-- if called directly check the main permission -->
+        <if-empty field-name="hasPermission">
+            <set field="primaryPermission" value="CONTENTMGR"/>
+            <set field="mainAction" value="UPDATE"/>
+            <call-simple-method method-name="genericBasePermissionCheck"
+                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        </if-empty>
 
         <!-- check role permission -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
