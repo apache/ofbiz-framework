@@ -268,6 +268,12 @@ public class UspsServices {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         double totalWeight = 0.00;
+        String defaultWeightUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom");
+        if (UtilValidate.isEmpty(defaultWeightUomId)) {
+            Debug.logWarning("No shipment.default.weight.uom set in shipment.properties, setting it to WT_oz for USPS", module);
+            defaultWeightUomId = "WT_oz";
+        }
+        
         Iterator i = packageMap.keySet().iterator();
         while (i.hasNext()) {
             String productId = (String) i.next();
@@ -278,10 +284,10 @@ public class UspsServices {
             // DLK - I'm not sure if this line is working. shipment_package seems to leave this value null so???
             String weightUomId = (String) productInfo.get("weight_uom_id");
 
-            Debug.logInfo("Product Id : " + productId.toString() + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming WT_oz if null. Quantity : " + String.valueOf(quantity), module);
+            Debug.logInfo("Product Id : " + productId.toString() + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
 
             if (UtilValidate.isEmpty(weightUomId)) {
-                weightUomId = "WT_oz"; // assume weight is in pounds
+                weightUomId = defaultWeightUomId; 
                 //  Most shipping modules assume pounds while ProductEvents.java assumes WT_oz. - Line 720 for example.
             }
             if (!"WT_lb".equals(weightUomId)) {
