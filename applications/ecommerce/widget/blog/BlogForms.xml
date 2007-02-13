@@ -1,89 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
 
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
 
-http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
-
-    <form name="findBlogContent" default-title-style="tableheadtext"
-        default-tooltip-style="tabletext" default-widget-style="inputBox"
-        default-entity-name="ContentAssocDataResourceViewFrom"
-        target="CMSContentFind" title="" type="single">
-        <field name="caContentIdTo" title="Publish-to content" >
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-form.xsd">
+    <form name="findBlogContent" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single">
+        <field name="caContentIdTo" title="Publish-to content">
             <drop-down>
-               <option key="OFBIZBLOGROOT" description="Blogs"/> 
-               <option key="OFBIZFORUMROOT" description="Forums"/> 
+                <option key="OFBIZBLOGROOT" description="Blogs"/>
+                <option key="OFBIZFORUMROOT" description="Forums"/>
             </drop-down>
         </field>
-        <field name="caMapKey" title="Map Key" ><text-find/></field>
-        <field name="caContentAssocTypeId" title="Assoc Type Id" ><text-find/></field>
-        <field name="caFromDate" title="From Date" ><date-find/></field>
-        <field name="contentId" title="Content Id" ><text-find/></field>
-        <field name="dataResourceId" title="Data Resource Id" ><text-find/></field>
-        <field name="contentName" title="Name" ><text-find/></field>
-        <field name="submitButton" title="Find" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="caMapKey" title="Map Key">
+            <text-find/>
+        </field>
+        <field name="caContentAssocTypeId" title="Assoc Type Id">
+            <text-find/>
+        </field>
+        <field name="caFromDate" title="From Date">
+            <date-find/>
+        </field>
+        <field name="contentId" title="Content Id">
+            <text-find/>
+        </field>
+        <field name="dataResourceId" title="Data Resource Id">
+            <text-find/>
+        </field>
+        <field name="contentName" title="Name">
+            <text-find/>
+        </field>
+        <field name="submitButton" title="Find" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
         <field name="createBlog" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="New Blog"  target="EditBlogArticle"/>
+            <hyperlink also-hidden="false" description="New Blog" target="EditBlogArticle"/>
         </field>
         <field name="createForum" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="New Forum"  target="EditForumArticle"/>
+            <hyperlink also-hidden="false" description="New Forum" target="EditForumArticle"/>
         </field>
-
     </form>
 
     <form name="listFindBlogContent" type="list" target="" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" paginate-target="/CMSContentFind" view-size="20">
         <actions>
-            <service service-name="performFind" result-map-list-iterator-name="listIt">
+            <service service-name="performFind" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
                 <field-map field-name="entityName" env-name="entityName"/>
             </service>
         </actions>
-    
+
         <field name="editContent" title="">
-            <hyperlink also-hidden="false" description="Edit" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/> 
+            <hyperlink also-hidden="false" description="Edit" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/>
         </field>
-        <field name="contentId" title="Content Id" ><display/></field>
-        <field name="dataResourceId" title="Data Resource Id" ><display/></field>
-        <field name="contentName" title="Name" ><display/></field>
+        <field name="contentId" title="Content Id">
+            <display/>
+        </field>
+        <field name="dataResourceId" title="Data Resource Id">
+            <display/>
+        </field>
+        <field name="contentName" title="Name">
+            <display/>
+        </field>
     </form>
 
-    <form name="AddBlogResponse" target="persistBlogResponse" title="" type="single"
-        default-title-style="treeHeader"
-        default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <auto-fields-entity entity-name="ContentAssocDataResourceViewTo" default-field-type="hidden" map-name="rsp" />
+    <form name="AddBlogResponse" target="persistBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ContentAssocDataResourceViewTo" default-field-type="hidden" map-name="rsp"/>
         <field name="contentName" title="Short title" entry-name="contentName" map-name="rsp">
-          <text size="40"/>
+            <text size="40"/>
         </field>
-        <field name="description" title="Slightly longer title (250 chars max)" map-name="rsp">
-          <textarea cols="40" rows="6"/>
+        <field name="description" title="Description (250 chars max)" map-name="rsp">
+            <textarea cols="40" rows="6"/>
         </field>
         <field name="contentId" entry-name="contentId" map-name="rsp">
-          <hidden/>
+            <hidden/>
         </field>
         <field name="articleContentId" entry-name="articleContentId" map-name="rsp">
-          <hidden/>
+            <hidden/>
         </field>
         <field name="ownerContentId" entry-name="ownerContentId" map-name="rsp">
-          <hidden/>
+            <hidden/>
         </field>
         <field name="caContentId" entry-name="caContentId" map-name="rsp">
-          <hidden/>
+            <hidden/>
         </field>
         <!--
         <field name="contentContentId" entry-name="caContentIdTo" map-name="rsp">
@@ -91,31 +103,31 @@ under the License.
         </field>
             -->
         <field name="contentTypeId" entry-name="contentTypeId" map-name="rsp">
-          <hidden/>
+            <hidden/>
         </field>
         <field name="drDataResourceTypeId" entry-name="drDataResourceTypeId" map-name="rsp">
-          <hidden/>
+            <hidden/>
         </field>
         <field name="caContentAssocTypeId" entry-name="caContentAssocTypeId" map-name="rsp">
-          <hidden/>
+            <hidden/>
         </field>
-        <field name="textData" title="Response"  map-name="rsp">
+        <field name="textData" title="Response" map-name="rsp">
             <textarea cols="60" rows="12"/>
         </field>
-        <field name="statusId" >
-           <radio no-current-selected-key="BLOG_DRAFT">
-             <option key="BLOG_PUBLISHED" description="POST"/>
-             <option key="BLOG_DRAFT" description="PREVIEW"/>
-           </radio> 
+        <field name="statusId">
+            <radio no-current-selected-key="BLOG_DRAFT">
+                <option key="BLOG_PUBLISHED" description="POST"/>
+                <option key="BLOG_DRAFT" description="PREVIEW"/>
+            </radio>
         </field>
         <field name="submitButton" title="Submit" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-       <field name="deactivateExisting" >
-                <hidden value="false"/>
+        <field name="deactivateExisting">
+            <hidden value="false"/>
         </field>
-       <field name="contentPurposeString" >
-                <hidden value="RESPONSE"/>
+        <field name="contentPurposeString">
+            <hidden value="RESPONSE"/>
         </field>
         <sort-order>
             <sort-field name="contentName"/>
@@ -125,9 +137,40 @@ under the License.
             <sort-field name="submitButton"/>
         </sort-order>
     </form>
-    <form name="EditBlogResponse" target="persistBlogResponse" title="" type="single"
-        default-title-style="treeHeader"
-        default-tooltip-style="tabletext" default-widget-style="inputBox">
+
+    <form name="EditBlogResponse" target="persistBlogResponse" title="" type="single" default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="Content" default-field-type="hidden" map-name="content"/>
+        <auto-fields-entity entity-name="DataResource" default-field-type="hidden" map-name="dataResource"/>
+        <field name="contentName" title="Short title" entry-name="contentName" map-name="rsp">
+            <text size="40"/>
+        </field>
+        <field name="description" title="Slightly longer title (250 chars max)">
+            <textarea cols="40" rows="6"/>
+        </field>
+        <field name="contentId" entry-name="contentId" map-name="parameters">
+            <display/>
+        </field>
+        <field name="articleContentId" entry-name="articleContentId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="textData" title="Response" map-name="electronicText">
+            <textarea cols="60" rows="12"/>
+        </field>
+        <field name="statusId">
+            <radio no-current-selected-key="BLOG_DRAFT">
+                <option key="BLOG_PUBLISHED" description="POST"/>
+                <option key="BLOG_DRAFT" description="PREVIEW"/>
+            </radio>
+        </field>
+        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deactivateExisting">
+            <hidden value="true"/>
+        </field>
+        <field name="contentPurposeString">
+            <hidden value="RESPONSE"/>
+        </field>
         <sort-order>
             <sort-field name="contentId"/>
             <sort-field name="contentName"/>
@@ -136,104 +179,175 @@ under the License.
             <sort-field name="statusId"/>
             <sort-field name="submitButton"/>
         </sort-order>
-      <auto-fields-entity entity-name="Content" default-field-type="hidden"  map-name="content" />
-      <auto-fields-entity entity-name="DataResource" default-field-type="hidden"  map-name="dataResource" />
-        <field name="contentName" title="Short title" entry-name="contentName" map-name="rsp">
-          <text size="40"/>
-        </field>
-        <field name="description" title="Slightly longer title (250 chars max)">
-          <textarea cols="40" rows="6"/>
-        </field>
-        <field name="contentId" entry-name="contentId" map-name="parameters">
-          <display/>
-        </field>
-        <field name="articleContentId" entry-name="articleContentId" map-name="rsp">
-          <hidden/>
-        </field>
-        <field name="textData" title="Response" map-name="electronicText">
-            <textarea cols="60" rows="12"/>
-        </field>
-        <field name="statusId" >
-           <radio no-current-selected-key="BLOG_DRAFT">
-             <option key="BLOG_PUBLISHED" description="POST"/>
-             <option key="BLOG_DRAFT" description="PREVIEW"/>
-           </radio> 
-        </field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-       <field name="deactivateExisting" >
-                <hidden value="true"/>
-        </field>
-       <field name="contentPurposeString" >
-                <hidden value="RESPONSE"/>
-        </field>
     </form>
-    <form name="EditBlogAll" target="persistBlogAll" title="" type="upload"
-        default-title-style="treeHeader"
-        skip-end="true"
-        default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="contentIdStart" map-name="view"><hidden/></field>
-        <field name="caContentId" map-name="view"><hidden/></field>
-        <field name="caContentIdTo" map-name="view"><hidden/></field>
-        <field name="caContentAssocTypeId" map-name="view"><hidden/></field>
-        <field name="caFromDate" map-name="view"><hidden/></field>
-        <field name="caThruDate" map-name="view"><hidden/></field>
-        <field name="caContentAssocPredicateId" map-name="view"><hidden/></field>
-        <field name="caDataSourceId" map-name="view"><hidden/></field>
-        <field name="caSequenceNum" map-name="view"><hidden/></field>
-        <field name="caMapKey" map-name="view"><hidden/></field>
-        <field name="caUpperCoordinate" map-name="view"><hidden/></field>
-        <field name="caLeftCoordinate" map-name="view"><hidden/></field>
-        <field name="caCreatedDate" map-name="view"><hidden/></field>
-        <field name="caCreatedByUserLogin" map-name="view"><hidden/></field>
-        <field name="caLastModifiedDate" map-name="view"><hidden/></field>
-        <field name="caLastModifiedByUserLogin" map-name="view"><hidden/></field>
-        <field name="contentTypeId" map-name="view"><hidden/></field>
-        <field name="ownerContentId" map-name="view"><hidden/></field>
-        <field name="instanceOfContentId" map-name="view"><hidden/></field>
-        <field name="dataResourceId" map-name="view"><hidden/></field>
-        <field name="templateDataResourceId" map-name="view"><hidden/></field>
-        <field name="dataSourceId" map-name="view"><hidden/></field>
-        <field name="privilegeEnumId" map-name="view"><hidden/></field>
-        <field name="serviceName" map-name="view"><hidden/></field>
-        <field name="localeString" map-name="view"><hidden/></field>
-        <field name="mimeTypeId" map-name="view"><hidden/></field>
-        <field name="characterSetId" map-name="view"><hidden/></field>
-        <field name="childLeafCount" map-name="view"><hidden/></field>
-        <field name="childBranchCount" map-name="view"><hidden/></field>
-        <field name="createdDate" map-name="view"><hidden/></field>
-        <field name="createdByUserLogin" map-name="view"><hidden/></field>
-        <field name="lastModifiedDate" map-name="view"><hidden/></field>
-        <field name="lastModifiedByUserLogin" map-name="view"><hidden/></field>
-        <field name="drDataResourceId" map-name="view"><hidden/></field>
-        <field name="drDataResourceTypeId" map-name="view"><hidden/></field>
-        <field name="drDataTemplateTypeId" map-name="view"><hidden/></field>
-        <field name="drDataCategoryId" map-name="view"><hidden/></field>
-        <field name="drDataSourceId" map-name="view"><hidden/></field>
-        <field name="drStatusId" map-name="view"><hidden/></field>
-        <field name="drDataResourceName" map-name="view"><hidden/></field>
-        <field name="drLocaleString" map-name="view"><hidden/></field>
-        <field name="drMimeTypeId" map-name="view"><hidden/></field>
-        <field name="drCharacterSetId" map-name="view"><hidden/></field>
-        <field name="drObjectInfo" map-name="view"><hidden/></field>
-        <field name="drRelatedDetailId" map-name="view"><hidden/></field>
-        <field name="drIsPublic" map-name="view"><hidden/></field>
-        <field name="drCreatedDate" map-name="view"><hidden/></field>
-        <field name="drCreatedByUserLogin" map-name="view"><hidden/></field>
-        <field name="drLastModifiedDate" map-name="view"><hidden/></field>
-        <field name="drLastModifiedByUserLogin" map-name="view"><hidden/></field>
-        <field name="deactivateExisting" map-name="view"><hidden/></field>
-        <field name="contentPurposeString" map-name="view"><hidden/></field>          <field name="contentName" title="Short title" map-name="view" >
-          <text size="40"/>
+
+    <form name="EditBlogAll" target="persistBlogAll" title="" type="upload" default-title-style="treeHeader" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="contentIdStart" map-name="view">
+            <hidden/>
         </field>
-        <field name="description" title="Slightly longer title (250 chars max)" map-name="view" >
-          <textarea cols="40" rows="2"/>
+        <field name="caContentId" map-name="view">
+            <hidden/>
         </field>
-       <field name="contentId" title="Blog ID"  map-name="parameters" use-when="contentId!=null">
-          <display/>
+        <field name="caContentIdTo" map-name="view">
+            <hidden/>
         </field>
-        <field name="summaryData" title="Summary" entry-name="textData" map-name="summaryText" >
+        <field name="caContentAssocTypeId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caFromDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caThruDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caContentAssocPredicateId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caDataSourceId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caSequenceNum" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caMapKey" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caUpperCoordinate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caLeftCoordinate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caCreatedDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caCreatedByUserLogin" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caLastModifiedDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="caLastModifiedByUserLogin" map-name="view">
+            <hidden/>
+        </field>
+        <field name="contentTypeId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="ownerContentId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="instanceOfContentId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="dataResourceId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="templateDataResourceId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="dataSourceId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="privilegeEnumId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="serviceName" map-name="view">
+            <hidden/>
+        </field>
+        <field name="localeString" map-name="view">
+            <hidden/>
+        </field>
+        <field name="mimeTypeId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="characterSetId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="childLeafCount" map-name="view">
+            <hidden/>
+        </field>
+        <field name="childBranchCount" map-name="view">
+            <hidden/>
+        </field>
+        <field name="createdDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="createdByUserLogin" map-name="view">
+            <hidden/>
+        </field>
+        <field name="lastModifiedDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="lastModifiedByUserLogin" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drDataResourceId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drDataResourceTypeId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drDataTemplateTypeId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drDataCategoryId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drDataSourceId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drStatusId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drDataResourceName" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drLocaleString" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drMimeTypeId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drCharacterSetId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drObjectInfo" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drRelatedDetailId" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drIsPublic" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drCreatedDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drCreatedByUserLogin" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drLastModifiedDate" map-name="view">
+            <hidden/>
+        </field>
+        <field name="drLastModifiedByUserLogin" map-name="view">
+            <hidden/>
+        </field>
+        <field name="deactivateExisting" map-name="view">
+            <hidden/>
+        </field>
+        <field name="contentPurposeString" map-name="view">
+            <hidden/>
+        </field>
+        <field name="contentName" title="Short title" map-name="view">
+            <text size="40"/>
+        </field>
+        <field name="description" title="Slightly longer title (250 chars max)" map-name="view">
+            <textarea cols="40" rows="2"/>
+        </field>
+        <field name="contentId" title="Blog ID" map-name="parameters" use-when="contentId!=null">
+            <display/>
+        </field>
+        <field name="summaryData" title="Summary" entry-name="textData" map-name="summaryText">
             <textarea cols="60" rows="4"/>
         </field>
         <!--
@@ -241,17 +355,17 @@ under the License.
             <textarea cols="60" rows="12"/>
         </field>
             -->
-        <field name="statusId" >
-           <radio no-current-selected-key="BLOG_DRAFT">
-             <option key="BLOG_PUBLISHED" description="POST"/>
-             <option key="BLOG_DRAFT" description="PREVIEW"/>
-           </radio> 
+        <field name="statusId">
+            <radio no-current-selected-key="BLOG_DRAFT">
+                <option key="BLOG_PUBLISHED" description="POST"/>
+                <option key="BLOG_DRAFT" description="PREVIEW"/>
+            </radio>
         </field>
-       <field name="deactivateExisting" >
-                <hidden value="false"/>
+        <field name="deactivateExisting">
+            <hidden value="false"/>
         </field>
-       <field name="contentPurposeString" >
-                <hidden value="ARTICLE"/>
+        <field name="contentPurposeString">
+            <hidden value="ARTICLE"/>
         </field>
         <sort-order>
             <sort-field name="contentId"/>
@@ -263,19 +377,14 @@ under the License.
             <sort-field name="submitButton"/>
         </sort-order>
     </form>
-    
-    <form name="editFormSubmit" target="" title="" type="single"
-        default-title-style="treeHeader"
-        skip-start="true"
-        skip-end="true"
-        default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <field name="submitButton" title="Submit" widget-style="smallSubmit"><submit button-type="button"/></field>
+
+    <form name="editFormSubmit" target="" title="" type="single" default-title-style="treeHeader" skip-start="true" skip-end="true" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        <field name="submitButton" title="Submit" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
     </form>
-    
-    <form name="editFormEnd" target="" title="" type="single"
-        default-title-style="treeHeader"
-        skip-start="true"
-        default-tooltip-style="tabletext" default-widget-style="inputBox">
+
+    <form name="editFormEnd" target="" title="" type="single" default-title-style="treeHeader" skip-start="true" default-tooltip-style="tabletext" default-widget-style="inputBox">        
     </form>
-    
+
 </forms>

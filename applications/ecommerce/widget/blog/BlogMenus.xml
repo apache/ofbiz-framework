@@ -1,63 +1,37 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">
-  
-  <menu name="blogmenu" default-title-style="tabButton"
-        default-selected-style="tabButtonSelected"
-        default-menu-item-name="all"
-        orientation="horizontal"
-        menu-width="100%"
-        default-tooltip-style="tabletext" default-widget-style="tabButton"
-        menu-wrapper-style="blogmenuwrapper"
-        title="" type="simple">
-        <menu-item name="BLOGROOTJAZ" title="Andy's Blog" >
-            <link target="MainBlog?contentContentId=BLOGROOTJAZ&amp;currentMenuItemName=BLOGROOTJAZ" target-window="_top" style="tabButton" />
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/widget-menu.xsd">        
+    <menu name="view_edit" default-title-style="tabButton" default-selected-style="tabButtonSelected" default-menu-item-name="all" orientation="horizontal" menu-width="100%" default-tooltip-style="tabletext" default-widget-style="tabButton" menu-container-style="blogmenuwrapper" title="" type="simple">
+        <menu-item name="view" title="View">
+            <!--<link  text="View" target="ViewBlog?articleContentId=${blog.contentId}&amp;ownerContentId=${blog.ownerContentId}" style="tabButton" />-->
+            <link text="View" target="ViewBlog?articleContentId=${blog.contentId}&amp;caContentId=${blog.contentIdStart}&amp;caContentIdTo=${blog.caContentIdTo}&amp;contentId=${blog.contentId}&amp;caContentAssocTypeId=${blog.caContentAssocTypeId}&amp;caFromDate=${blog.caFromDate}&amp;drDataResourceId=${blog.dataResourceId}" style="buttontext" url-mode="inter-app"/>
         </menu-item>
-        <menu-item name="BLOGROOTJONES" title="David's Blog" >
-            <link target="MainBlog?contentContentId=BLOGROOTJONES&amp;currentMenuItemName=BLOGROOTJONES" target-window="_top" style="tabButton" />
-        </menu-item>
-        <menu-item name="all" title="All" >
-            <link target="MainBlog?contentContentId=BLOGROOTJAZ|BLOGROOTJONES&amp;currentMenuItemName=all" target-window="_top" style="tabButton" />
-        </menu-item>
-  </menu>
-  <menu name="view_edit" default-title-style="tabButton"
-        default-selected-style="tabButtonSelected"
-        default-menu-item-name="all"
-        orientation="horizontal"
-        menu-width="100%"
-        default-tooltip-style="tabletext" default-widget-style="tabButton"
-        menu-wrapper-style="blogmenuwrapper"
-        title="" type="simple">
-        <menu-item name="view" title="View" >
-                      <!--<link  text="View" target="ViewBlog?articleContentId=${blog.contentId}&amp;ownerContentId=${blog.ownerContentId}" style="tabButton" />-->
-                      <link  text="View" target="ViewBlog?articleContentId=${blog.contentId}&amp;caContentId=${blog.contentIdStart}&amp;caContentIdTo=${blog.caContentIdTo}&amp;contentId=${blog.contentId}&amp;caContentAssocTypeId=${blog.caContentAssocTypeId}&amp;caFromDate=${blog.caFromDate}&amp;drDataResourceId=${blog.dataResourceId}" style="tabButton" url-mode="inter-app"/>
-        </menu-item>
-        <menu-item name="edit" title="Edit" >
-          <condition>
-            <and>
-            <if-compare field-name="blog.statusId" operator="not-equals" value="BLOG_PUBLISHED"/>
-            <if-entity-permission entity-id="${blog.contentId}" entity-name="Content" target-operation="CONTENT_UPDATE"/>
-            </and>
-          </condition>
-                      <link  text="Edit" target="EditBlog?caContentId=${blog.contentIdStart}&amp;caContentIdTo=${blog.caContentIdTo}&amp;contentId=${blog.contentId}&amp;caContentAssocTypeId=${blog.caContentAssocTypeId}&amp;caFromDate=${blog.caFromDate}&amp;drDataResourceId=${blog.dataResourceId}" style="tabButton"  url-mode="inter-app"/>
-        </menu-item>
-  </menu>
+        <menu-item name="edit" title="Edit">
+            <condition>
+                <or>
+                    <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                    <if-entity-permission entity-id="${blog.contentId}" entity-name="Content" target-operation="CONTENT_UPDATE"/>
+                </or>
+            </condition>
+            <link text="Edit" target="EditBlog?caContentId=${blog.contentIdStart}&amp;caContentIdTo=${blog.caContentIdTo}&amp;contentId=${blog.contentId}&amp;caContentAssocTypeId=${blog.caContentAssocTypeId}&amp;caFromDate=${blog.caFromDate}&amp;drDataResourceId=${blog.dataResourceId}" style="buttontext" url-mode="inter-app"/>
+        </menu-item>                
+    </menu>
 </menus>
