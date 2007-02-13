@@ -447,7 +447,7 @@ public class ProductSearchSession {
             
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
             if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
-                ArrayList categories = CategoryWorker.getRelatedCategoriesRet(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId), true);
+                List categories = CategoryWorker.getRelatedCategoriesRet(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId), true);
                 searchAddConstraint(new ProductSearch.CatalogConstraint(searchCatalogId, categories), session);
                 constraintsChanged = true;              
             }

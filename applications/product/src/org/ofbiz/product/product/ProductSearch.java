@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -510,15 +512,15 @@ public class ProductSearch {
     public static class CatalogConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Catalog";
         protected String prodCatalogId;                
-        protected ArrayList productCategories;
+        protected List productCategories;
                         
-        public CatalogConstraint(String prodCatalogId, ArrayList productCategories) {
+        public CatalogConstraint(String prodCatalogId, List productCategories) {
             this.prodCatalogId = prodCatalogId;                   
             this.productCategories = productCategories;          
         }
                  
         public void addConstraint(ProductSearchContext productSearchContext) {           
-            ArrayList productCategoryIds = new ArrayList();
+            List productCategoryIds = FastList.newInstance();
             Iterator itCat = productCategories.iterator();
             while (itCat.hasNext()) {
                 GenericValue category = (GenericValue)itCat.next();
@@ -594,7 +596,8 @@ public class ProductSearch {
                 // find all sub-categories recursively, make a Set of productCategoryId
                 Set productCategoryIdSet = new HashSet();
                 ProductSearch.getAllSubCategoryIds(productCategoryId, productCategoryIdSet, productSearchContext.getDelegator(), productSearchContext.nowTimestamp);
-                productCategoryIdList = new ArrayList(productCategoryIdSet);
+                productCategoryIdList = FastList.newInstance();
+                productCategoryIdList.addAll(productCategoryIdSet);
             } else {
                 productCategoryIdList = UtilMisc.toList(productCategoryId);
             }
