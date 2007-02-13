@@ -73,7 +73,7 @@ under the License.
 	</service>
 	
     <service name="removeCommEventContentAssoc" engine="simple"
-                location="org.ofbiz.product.product.CommEventContentServices.xml" invoke="removeCommEventContent" auth="true">
+                location="org/ofbiz/content/content/ContentServices.xml" invoke="removeCommEventContentAssoc" auth="true">
         <description>Remove CommEventContentAssoc</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
