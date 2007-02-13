@@ -113,6 +113,8 @@ under the License.
     <entity-group group="org.ofbiz" entity="PartyDataSource" />
     <entity-group group="org.ofbiz" entity="PartyGroup" />
     <entity-group group="org.ofbiz" entity="PartyIcsAvsOverride" />
+    <entity-group group="org.ofbiz" entity="PartyInvitation" />
+    <entity-group group="org.ofbiz" entity="PartyInvitationGroupAssoc" />
     <entity-group group="org.ofbiz" entity="PartyNameHistory" />
     <entity-group group="org.ofbiz" entity="PartyNameView" />
     <entity-group group="org.ofbiz" entity="PartyNote" />
