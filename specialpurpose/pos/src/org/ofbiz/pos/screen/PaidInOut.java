@@ -84,7 +84,7 @@ public class PaidInOut extends XPage {
         ResourceBundle reasons = null;
         Enumeration reasonsKeys = null; 
         
-        if (m_type == "IN") {
+        if (m_type.equals("IN")) {
             m_dialog.setCaption(UtilProperties.getMessage("pos", "PaidInTitle", Locale.getDefault()));
             reasons = ResourceBundle.getBundle(m_pos.getScreenLocation() + "/dialog/PaidIn", Locale.getDefault());
             reasonsKeys = reasons.getKeys();
