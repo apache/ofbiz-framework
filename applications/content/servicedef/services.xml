@@ -877,6 +877,7 @@ under the License.
         <attribute mode="INOUT" name="caContentAssocTypeId" optional="true" type="String"/>
         <attribute mode="INOUT" name="caFromDate" optional="true" type="Timestamp"/>
         <attribute mode="INOUT" name="caSequenceNum" optional="true" type="Long"/>
+        <attribute mode="IN" name="ownerContentId" optional="true" type="String"/> 
         <attribute mode="IN" name="rootDir" optional="true" type="String"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
