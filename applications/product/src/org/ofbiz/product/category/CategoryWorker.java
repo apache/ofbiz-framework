@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.product.category;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -30,11 +29,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -137,22 +139,22 @@ public class CategoryWorker {
     }
 
     public static void getRelatedCategories(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
-        ArrayList categories = getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty);
+        List categories = getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty);
 
         if (categories.size() > 0)
             request.setAttribute(attributeName, categories);
     }
 
-    public static ArrayList getRelatedCategoriesRet(PageContext pageContext, String attributeName, String parentId, boolean limitView) {
+    public static List getRelatedCategoriesRet(PageContext pageContext, String attributeName, String parentId, boolean limitView) {
         return getRelatedCategoriesRet(pageContext.getRequest(), attributeName, parentId, limitView);
     }
 
-    public static ArrayList getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView) {
+    public static List getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView) {
         return getRelatedCategoriesRet(request, attributeName, parentId, limitView, false);
     }
 
-    public static ArrayList getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
-        ArrayList categories = new ArrayList();
+    public static List getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
+        List categories = FastList.newInstance();
 
         if (Debug.verboseOn()) Debug.logVerbose("[CatalogHelper.getRelatedCategories] ParentID: " + parentId, module);
 
@@ -244,12 +246,12 @@ public class CategoryWorker {
     }
 
     private static EntityCondition buildCountCondition(String fieldName, String fieldValue) {
-        List orCondList = new ArrayList();
+        List orCondList = FastList.newInstance();
         orCondList.add(new EntityExpr("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
         orCondList.add(new EntityExpr("thruDate", EntityOperator.EQUALS, null));
         EntityCondition orCond = new EntityConditionList(orCondList, EntityOperator.OR);
 
-        List andCondList = new ArrayList();
+        List andCondList = FastList.newInstance();
         andCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, UtilDateTime.nowTimestamp()));
         andCondList.add(new EntityExpr(fieldName, EntityOperator.EQUALS, fieldValue));
         andCondList.add(orCond);
@@ -276,8 +278,9 @@ public class CategoryWorker {
         // always get the last crumb list
         List crumb = getTrail(request);
 
-        if (crumb == null)
-            crumb = new ArrayList();
+        if (crumb == null) {
+            crumb = FastList.newInstance();
+        }
 
         // if no previous category was specified, check to see if currentCategory is in the list
         if (previousCategory == null || previousCategory.length() <= 0) {
@@ -296,10 +299,12 @@ public class CategoryWorker {
                 return;
             } else {
                 // current category is not in the list, and no previous category was specified, go back to the beginning
-                previousCategory = "TOP";
                 crumb.clear();
-                crumb.add(previousCategory);
-                if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.setTrail] Starting new list, added previousCategory: " + previousCategory, module);
+                crumb.add("TOP");
+                if (UtilValidate.isNotEmpty(previousCategory)) {
+                    crumb.add(previousCategory);
+                }
+                if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.setTrail] Starting new list, added TOP and previousCategory: " + previousCategory, module);
             }
         }
 
@@ -307,9 +312,11 @@ public class CategoryWorker {
             // previous category was NOT in the list, ERROR, start over
             if (Debug.infoOn()) Debug.logInfo("[CatalogHelper.setTrail] ERROR: previousCategory (" + previousCategory +
                     ") was not in the crumb list, position is lost, starting over with TOP", module);
-            previousCategory = "TOP";
             crumb.clear();
-            crumb.add(previousCategory);
+            crumb.add("TOP");
+            if (UtilValidate.isNotEmpty(previousCategory)) {
+                crumb.add(previousCategory);
+            }
         } else {
             // remove all categories after the previous category, preparing for adding the current category
             int index = crumb.indexOf(previousCategory);
@@ -336,7 +343,7 @@ public class CategoryWorker {
 
     public static List getTrail(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
-        ArrayList crumb = (ArrayList) session.getAttribute("_BREAD_CRUMB_TRAIL_");
+        List crumb = (List) session.getAttribute("_BREAD_CRUMB_TRAIL_");
         return crumb;
     }
 
@@ -412,7 +419,7 @@ public class CategoryWorker {
         if (productCategoryId == null) return new LinkedList();
         if (valueObjects == null) return null;
 
-        List newList = new ArrayList(valueObjects.size());
+        List newList = FastList.newInstance();
         Iterator valIter = valueObjects.iterator();
         while (valIter.hasNext()) {
             GenericValue curValue = (GenericValue) valIter.next();
@@ -440,7 +447,7 @@ public class CategoryWorker {
             
             CategoryContentWrapper catContentWrapper = new CategoryContentWrapper(cat, request);
             catContentWrappers.put(productCategoryId, catContentWrapper);
-            ArrayList subCat = new ArrayList();
+            List subCat = FastList.newInstance();
             subCat = getRelatedCategoriesRet(request, "subCatList", productCategoryId, true);
             if(subCat != null) {            	
                 getCategoryContentWrappers(catContentWrappers, subCat, request );
