@@ -1109,10 +1109,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
      * if pageMode == "outline" then if the contentTypeId of children is not "OUTLINE_NODE" or "PAGE_NODE" 
      * (it could be DOCUMENT or SUBPAGE_NODE) then it will get changed to PAGE_NODE.`
      * if pageMode == "page" then if the contentTypeId of children is not "PAGE_NODE" or "SUBPAGE_NODE" 
-     * (it could be DOCUMENT or OUTLINE_NODE) then it will get changed to SUBPAGE_NODE.`
-     * @param delegator
-     * @param contentId
-     * @param pageMode
+     * (it could be DOCUMENT or OUTLINE_NODE) then it will get changed to SUBPAGE_NODE.`     
      */
     public static Map updatePageType(DispatchContext dctx, Map context) throws GenericServiceException{
         
