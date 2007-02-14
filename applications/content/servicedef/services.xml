@@ -1488,6 +1488,7 @@ under the License.
         <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
         <attribute name="outByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="OUT" optional="false"/>
     </service>
+
     <!-- blog services -->
     <service name="persistBlogAll" engine="java" location="org.ofbiz.content.blog.BlogServices" invoke="persistBlogAll"
          auth="true"  transaction-timeout="72000">
@@ -1508,4 +1509,12 @@ under the License.
         <attribute mode="IN" name="userLogin" optional="false" type="GenericValue"/>
         <attribute mode="OUT" name="blogList" optional="true" type="List"/>
     </service>
+    <service name="generateBlogRssFeed" engine="java" auth="false"
+            location="org.ofbiz.content.blog.BlogRssServices" invoke="generateBlogRssFeed">
+        <description>Blog RSS Feed</description>
+        <implements service="rssFeedInterface"/>
+        <attribute name="caContentId" type="String" mode="IN" optional="false"/>
+        <attribute name="ownerContentId" type="String" mode="IN" optional="false"/> 
+    </service>
+
 </services>
