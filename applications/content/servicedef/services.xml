@@ -183,6 +183,8 @@ under the License.
         <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
+
+    <!-- old permission service; being replaced with genericContentPermission -->
     <service name="checkContentPermission"
         transaction-timeout="72000" 
         auth="false" engine="java" invoke="checkContentPermission"
@@ -211,6 +213,7 @@ under the License.
         <attribute mode="OUT" name="permissionStatus" optional="true" type="String"/>
         <attribute mode="OUT" name="permissionRecorder" optional="true" type="org.ofbiz.content.content.PermissionRecorder"/>
     </service>
+
     <service name="findRelatedContent" default-entity-name="Content" engine="java"
             location="org.ofbiz.content.content.ContentServices" invoke="findRelatedContent" auth="true">
         <description>Create a Content</description>
@@ -227,16 +230,13 @@ under the License.
     </service>
     
     <!--Content Assoc services.-->
-    <service name="checkAssocPermission"
-        transaction-timeout="72000" 
-        auth="true" engine="java" invoke="checkAssocPermission"
-        location="org.ofbiz.content.content.ContentPermissionServices" >
+    <service name="checkAssocPermission" engine="java" transaction-timeout="72000" auth="true"
+            location="org.ofbiz.content.content.ContentPermissionServices" invoke="checkAssocPermission">
         <description>Check for permission to perform operation on Content</description>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="IN" name="userLogin" optional="true"
-                                     type="org.ofbiz.core.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.core.entity.GenericValue"/>                                     
         <attribute mode="IN" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="IN" name="contentIdFrom" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
@@ -251,6 +251,7 @@ under the License.
         <attribute mode="OUT" name="permissionRecorderTo" optional="true" type="org.ofbiz.content.content.PermissionRecorder"/>
         <attribute mode="OUT" name="permissionRecorder" optional="true" type="org.ofbiz.content.content.PermissionRecorder"/>
     </service>
+
     <service name="assocContent"
         default-entity-name="ContentAssoc"
         auth="true" engine="simple" invoke="assocContent"
@@ -1517,4 +1518,17 @@ under the License.
         <attribute name="ownerContentId" type="String" mode="IN" optional="false"/> 
     </service>
 
+    <!-- content permissions -->
+    <service name="genericContentPermission" engine="simple" auth="true"
+            location="org/ofbiz/content/permission/ContentPermissionServices.xml" invoke="genericContentPermission">
+        <description>Generic Content Permission Service; Takes mainAction to determine the mode.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="ownerContentId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="contentIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="contentId" type="String" mode="IN" optional="true"/>        
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/> 
+        <attribute name="contentOperationId" type="String" mode="IN" optional="true"/>
+    </service>
 </services>
