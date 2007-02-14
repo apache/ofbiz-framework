@@ -396,4 +396,13 @@ under the License.
              location="org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
     </service>
+
+    <!-- generic RSS feed interface -->
+    <service name="rssFeedInterface" engine="interface">
+        <description>Interface for ROME RSS feed services; should return the WireFeed object (serializable)</description>
+        <attribute name="feedType" type="String" mode="IN" optional="false"/>
+        <attribute name="mainLink" type="String" mode="IN" optional="false"/>
+        <attribute name="entryLink" type="String" mode="IN" optional="false"/>        
+        <attribute name="wireFeed" type="com.sun.syndication.feed.WireFeed" mode="OUT" optional="false"/>
+    </service>
 </services>
