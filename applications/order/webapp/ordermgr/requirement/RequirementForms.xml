@@ -325,20 +325,30 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.submit()"/>
         </field>
     </form>
-    <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport"
+    <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="distinctProductCount"><display/></field>
         <field name="quantityTotal"><display/></field>
     </form>
-    <form name="ApprovedProductRequirementsByVendor" type="list" list-name="requirements"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+    <form name="ApprovedProductRequirementsByVendor" type="list" use-row-submit="true" list-name="requirements" target="ApprovedProductRequirements"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true"
         paginate-target="ApprovedProductRequirementsByVendor">
         <field name="partyId">
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
-        <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="tabletextright"><display/></field>
+        <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="tabletextright"><display also-hidden="false"/></field>
+        <field name="billToCustomerPartyId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName} ${groupName} (${partyId})" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                    <entity-order-by field-name="firstName"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="prepare" title="${uiLabelMap.OrderPrepareOrder}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.OrderPrepareOrder}" target="ApprovedProductRequirements?partyId=${partyId}"/>
+            <submit description="${uiLabelMap.OrderPrepareOrder}"/>
         </field>
     </form>
 </forms>
