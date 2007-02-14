@@ -22,16 +22,7 @@ import org.ofbiz.common.CommonWorkers;
 import org.ofbiz.webapp.control.*;
 
 context.put("autoUserLogin", session.getAttribute("autoUserLogin"));
-context.put("autoLogoutUrl", LoginWorker.makeLoginUrl(request, "autoLogout"));
-
-productId = session.getAttribute("productId");
-if(productId != null) {
-    context.put("productId",productId);
-}
-productCategoryId = session.getAttribute("productCategoryId");
-if(productCategoryId != null) {
-    context.put("productCategoryId",productCategoryId);
-}
+context.put("autoLogoutUrl", LoginWorker.makeLoginUrl(request, "autoLogout")); 
 
 previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
 if (previousParams != null && previousParams.length() > 0) {
