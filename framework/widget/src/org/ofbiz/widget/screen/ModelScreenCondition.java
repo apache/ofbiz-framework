@@ -26,16 +26,14 @@ import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.minilang.operation.BaseCompare;
 import org.ofbiz.security.Security;
+import org.ofbiz.service.*;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -100,6 +98,8 @@ public class ModelScreenCondition implements Serializable {
             return new Or(modelScreen, conditionElement);
         } else if ("not".equals(conditionElement.getNodeName())) {
             return new Not(modelScreen, conditionElement);
+        } else if ("if-service-permission".equals(conditionElement.getNodeName())) {
+            return new IfServicePermission(modelScreen, conditionElement);
         } else if ("if-has-permission".equals(conditionElement.getNodeName())) {
             return new IfHasPermission(modelScreen, conditionElement);
         } else if ("if-validate-method".equals(conditionElement.getNodeName())) {
@@ -201,7 +201,79 @@ public class ModelScreenCondition implements Serializable {
             return !this.subCondition.eval(context);
         }
     }
-    
+
+    public static class IfServicePermission extends ScreenCondition {
+        protected FlexibleStringExpander serviceExdr;
+        protected FlexibleStringExpander actionExdr;
+        protected FlexibleStringExpander resExdr;
+
+        public IfServicePermission(ModelScreen modelScreen, Element condElement) {
+            super(modelScreen, condElement);
+            this.serviceExdr = new FlexibleStringExpander(condElement.getAttribute("service-name"));
+            this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("main-action"));
+            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));
+            Debug.logInfo("IfServicePermission running: " + condElement.getAttribute("service-name"), module);
+        }
+
+        public boolean eval(Map context) {
+            // if no user is logged in, treat as if the user does not have permission
+            GenericValue userLogin = (GenericValue) context.get("userLogin");
+            if (userLogin != null) {
+                String serviceName = serviceExdr.expandString(context);
+                String mainAction = actionExdr.expandString(context);
+                String resource = resExdr.expandString(context);
+                if (resource == null) {
+                    resource = serviceName;
+                }
+                
+                if (serviceName == null) {
+                    Debug.logWarning("No permission service-name specified!", module);
+                    return false;
+                }
+
+                // get the service objects
+                LocalDispatcher dispatcher = this.modelScreen.getDispatcher(context);
+                DispatchContext dctx = dispatcher.getDispatchContext();
+
+                // get the service
+                ModelService permService;
+                try {
+                    permService = dctx.getModelService(serviceName);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return false;
+                }
+
+                if (permService != null) {
+                    // build the context
+                    Map svcCtx = permService.makeValid(context, ModelService.IN_PARAM);
+                    svcCtx.put("resourceDescription", resource);
+                    if (UtilValidate.isNotEmpty(mainAction)) {
+                        svcCtx.put("mainAction", mainAction);
+                    }
+
+                    // invoke the service
+                    Map resp;
+                    try {
+                        resp = dispatcher.runSync(permService.name,  svcCtx, 300, true);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return false;
+                    }
+                    if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
+                        Debug.logError(ServiceUtil.getErrorMessage(resp), module);
+                        return false;
+                    }
+                    Boolean hasPermission = (Boolean) resp.get("hasPermission");
+                    if (hasPermission != null) {
+                        return hasPermission.booleanValue();
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
     public static class IfHasPermission extends ScreenCondition {
         protected FlexibleStringExpander permissionExdr;
         protected FlexibleStringExpander actionExdr;
@@ -409,7 +481,7 @@ public class ModelScreenCondition implements Serializable {
         public boolean eval(Map context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
-            Pattern pattern = null;
+            Pattern pattern;
             try {
                 pattern = compiler.compile(expr);
             } catch (MalformedPatternException e) {
@@ -453,9 +525,7 @@ public class ModelScreenCondition implements Serializable {
         }
         
         public boolean eval(Map context) {
-        	
-        	boolean passed = permissionChecker.runPermissionCheck(context);
-            return passed;
+        	return permissionChecker.runPermissionCheck(context);
         }
     }
 }
